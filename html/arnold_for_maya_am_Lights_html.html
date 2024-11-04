@@ -1,0 +1,182 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_Lights_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_LIGHTS_MAIN">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 灯光 - Arnold for Maya">
+
+<title>灯光</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>灯光</h1></div>
+<div class="arnold-note">
+
+
+
+<table>
+<thead>
+<tr>
+<th>延伸阅读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>请参见<strong>《Arnold 用户手册》</strong>中的<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_lights_html" target="_blank">灯光</a></td>
+</tr>
+<tr>
+<td><strong>《Arnold for Maya 用户手册》</strong>介绍了如何在 Maya 用户界面中设置 Arnold 灯光。<strong>《Arnold 用户手册》</strong>提供了有关 Arnold 灯光的完整文档。</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<p><img src="../images/mtoa_lights1.png" alt=""></p>
+<p>使用 MtoA 渲染时，可以使用标准 Maya 灯光。如果选择灯光后检查 Maya 属性编辑器及常规灯光属性，还会看到一组新的 Arnold 灯光属性，可以从中访问 Arnold 使用的附加设置。</p>
+<blockquote>
+<p>信息：有关灯光采样和去除噪波的详细信息，请单击<a href="https://help-staging.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_rendering_ac_removing_noise_html" target="_blank">此处</a>。</p>
+</blockquote>
+<ul>
+<li>Arnold 不支持<strong>恒定灯光衰退</strong>。但是，Arnold 的<em>四边形</em> 和<em>圆盘</em> 区域光有一个<em>“扩散”(Spread)</em> 参数，如果设置为较低的值，您将获得类似于恒定衰减的内容。同样，Arnold 的<em>聚光灯*有一个 *lens_radius</em> 参数，如果设置为非零值并使用较低的角度，您将获得衰退变缓的显著效果，类似于好莱坞式探照灯。另一种解决方法是使用远距离灯光/带方向性的灯光。</li>
+<li>MtoA 不支持 Maya <em>环境</em>光和<em>体积</em>光。</li>
+<li><em>“体积采样数”(Volume Samples)</em> 不适用于 <em><a href="https://help-staging.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_volume_shaders_ac_atmosphere_volume_html" target="_blank">atmosphere_volume</a></em> 大气着色器。要提高 <em>atmosphere_volume</em> 着色器的质量，必须增加 <em>atmosphere_volume</em> 采样数。</li>
+<li>有关创建逐灯光 AOV 的信息，请单击<a href="https://help-staging.autodesk.com/view/ARNOL/CHS/?guid=arnold_for_maya_render_settings_aovs_html" target="_blank">此处</a>。</li>
+<li>实例化灯光时，请确保将<a href="https://help-staging.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_render_settings_ac_lights_settings_html" target="_blank">灯光链接(Light Linking)</a>设置为“无”(None)，否则不会渲染实例化灯光。</li>
+</ul>
+<p>Arnold 不支持<strong>恒定灯光衰退</strong>。但是，Arnold 的<em>四边形</em> 和<em>圆盘</em> 区域光有一个<em>“扩散”(Spread)</em> 参数，如果设置为较低的值，您将获得类似于恒定衰减的内容。同样，Arnold 中的 <em>spot_light</em> 有一个 <em>lens_radius</em> 参数，如果设置为非零值并使用较低的角度，您将获得衰退变缓的显著效果，类似于好莱坞式探照灯。另一种解决方法是使用远距离灯光/带方向性的灯光。</p>
+<p><img src="../images/mtoa_lights2.png" alt=""></p>
+<p><sub><strong>Arnold 中提供的内置灯光</strong></sub></p>
+<h2 id="">区域光</h2><p>可以通过两种方法在 MtoA 中使用 Arnold 区域光。您可以添加常规 <em>Maya 区域光</em>，在这种情况下，Arnold 将采用矩形/四边形光源，或者如果您需要不同的形状，可以将灯光节点类型更改为 <em>Ai 区域光</em>。请注意，Arnold 将在假设区域光是<em>四边形</em>的情况下进行渲染。如果您想要使用其他形状，则需要选择 <em>Ai 区域光</em>作为节点类型。<em>Ai 区域光</em>是一种自定义 Arnold 灯光，使用户能够根据不同的预设形状（例如<em>四边形</em>（默认形状）、<em>圆盘</em>和<em>圆柱体</em>）来创建逼真的照明效果。<em>Arnold 区域光</em>最重要的属性是<em>“灯光形状”(Light Shape)</em>。它指定区域光是默认的<em>四边形</em>（矩形）形状、<em>圆柱体</em>形状还是<em>圆盘</em>形状。这是您应该设置的第一个属性 - 选择与您连接灯光的几何体匹配的形状。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>如果您只使用常规 <em>Maya 区域光</em>，而不是 Arnold <em>Ai 区域光</em>，那么选择<em>四边形</em>形状时，您可以使用<em>“Arnold”</em>选项卡下 <em>Ai 区域光</em>的所有控制属性（除了<em>“灯光形状”(Light Shape)</em>属性）。</p>
+
+</div></div>
+
+<h3 id="">四边形</h3><p>模拟来自区域光源（由 4 个顶点指定的四边形）的灯光。它可用于对来自扩展光源（荧光灯条状灯光）或某些情况下来自窗户的灯光进行建模。</p>
+<h3 id="">圆柱体</h3><p>圆柱体灯光形状模拟来自圆柱形区域光源（管状）的灯光。增加圆柱体灯光大小将创建一个更大的区域光大小，因此将柔化垂直于圆柱体轴的阴影。圆柱体灯光的形状始终是圆形。无法通过缩放宽度来创建椭圆。</p>
+<h3 id="">圆盘</h3><p>圆盘灯光形状模拟来自圆形区域光源（平面圆盘）的灯光。  </p>
+<h2 id="">几何体灯光</h2><p>要创建几何体灯光，请选择网格，然后转到<strong><em>“Arnold -&gt; 灯光 -&gt; 几何体灯光”(Arnold -&gt; Light -&gt; Mesh light)</em></strong>。此操作将创建一个单独的节点以表示几何体灯光光源，该光源引用形状节点，并且属性与常规<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_am_Lights_html">灯光</a>相同。该光源应在灯光编辑器、灯光链接编辑器等 Maya 窗口中可见。</p>
+<p><strong>有关 <em>mesh_light</em> 的场景示例，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_tutorials_am_Learning_Scenes_html">此处</a>。</strong> </p>
+<p><img src="../images/mtoa_lights3.png" alt=""></p>
+<p>当前使用 <em>mesh_light</em> 的限制包括：</p>
+<ul>
+<li>mesh_light 会忽略多边形对象上的平滑处理。</li>
+<li>NURBS 曲面当前无法与 <em>mesh_light</em> 结合使用。</li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>目前仍然支持将网格参数“translator”更改为“mesh_light”，但将此种做法视为已弃用，并会在将来的版本中移除。 </p>
+
+</div></div>
+
+<div class="head-block"><h1>网格属性</h1></div><p><img src="../images/mtoa_lights5.png" alt=""></p>
+<h3 id="in-mesh">输入网格(In Mesh)</h3><p>显示用作 <em>mesh_light</em> 的形状名称。</p>
+<h3 id="show-original-mesh">显示原始网格(Show Original Mesh)</h3><p>显示并渲染选择用于表示 <em>mesh_light</em> 的原始网格形状。</p>
+<h3 id="light-visible">灯光可见(Light Visible)</h3><p>使光源对摄影机可见。</p>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/OGf3meQC5og?" frameborder="0" allowfullscreen=""></iframe>
+
+<h2 id="">光度学灯光</h2><p>光度学灯光使用的是从真实世界灯光测量得到的数据，通常直接来自灯泡和灯罩制造商。 </p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>要下载具有 IES 数据图的 Maya 文件示例，请单击<a href="">此处</a>（IES 文件的路径需要编辑）。 </p>
+
+</div></div>
+
+<h2 id="">带方向性的灯光</h2><p>这是来自远距离光源的平行光，根据方向向量而指定。通常用于模拟太阳光。</p>
+<blockquote>
+<p>信息：Maya 中<em>带方向性</em>的灯光在其他软件中通常称为“远距离”灯光。</p>
+</blockquote>
+<h2 id="">灯光引导口</h2><p>创建<em>灯光引导口</em>：</p>
+<ul>
+<li>在 Arnold 菜单中，单击<em>“灯光 &gt; 灯光引导口”(Lights &gt; Light Portal)</em></li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关演示灯光引导口的简单场景，请单击[此处]。</p>
+
+</div></div>
+
+<iframe width="640" height="480" src="https://www.youtube.com/embed/watch?v=6oyX_s_FTac?" frameborder="0" allowfullscreen=""></iframe>
+
+<h2 id="">点光源</h2><p>尽管由于历史原因而称为“点光源”，但该灯光既可以模拟从（理论上的）点光源发出的灯光，也可以模拟从球体发出的灯光（后者在大多数情况下更加真实，产生的阴影也不如前者清晰）。灯光会在所有方向上均匀地投射。</p>
+<h2 id="">聚光灯</h2><p>此项用于模拟聚光灯发出的灯光，这是一束从光源发射到其指向点的圆锥形灯光。</p>
+<h2 id="">天穹灯光</h2><p>此项用于模拟来自场景上方的球体或圆顶的灯光，表示天空。</p>
+<ul>
+<li>在 Maya (2017) 中使用颜色管理时，应将 HDR 贴图设置为<strong>“未经处理”(RAW)</strong>。</li>
+<li>当前，<em>skydome_light</em> 不会出现在灯光链接窗口。解决方法是使用 defaultLightSet 更改 Arnold 灯光的灯光链接选项（确保在灯光链接窗口中进行更改后刷新 IPR）。 </li>
+</ul>
+<h4 id="">视口</h4><p>请注意，仅当将 Maya 文件纹理与 <em>Ai 天穹</em>灯光结合使用时，Maya 视口中的“硬件纹理”(Hardware Texturing)才会起作用。例如，使用 <em>Ai 图像</em>会在视口中返回黑色。</p>
+<h4 id="sky-radius">天空半径(Sky Radius)</h4><p>Maya 视口中的天空大小。</p>
+<h4 id="">正面</h4><p><em>颜色</em>纹理贴图在视口中朝向的方向。可以设置为<em>“前”(Front)、“后”(Back)</em>或<em>“两者”(Both)</em>。</p>
+<div class="head-block"><h1>灯光过滤器</h1></div><p>Arnold“灯光过滤器”属于任意着色器，它们可以基于距离、位置或其他因素修改灯光输出。因此，使用此类过滤器可以轻松地为内置光源增添附加效果。有 4 种灯光过滤器：</p>
+<h2 id="">挡光板</h2><p><em>挡光板</em>是连接到灯光开口侧面的不透明可移动面板，用于对光束形状进行进一步的控制。</p>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/NTJ3nmVS2V0?" frameborder="0" allowfullscreen=""></iframe>
+
+
+<h2 id="gobo">Gobo</h2><p><em>gobo</em> 过滤器用于将光束分成更自然的不规则图案（例如树叶等）。</p>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/xYj_2TkSPfE&amp;t=3s?" frameborder="0" allowfullscreen=""></iframe>
+
+<h2 id="">挡光对象</h2><p><em>light_blocker</em> 过滤器将阻挡已连接灯光中以几何方式定义的任意区域。</p>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/2jO_-mSJnWA?" frameborder="0" allowfullscreen=""></iframe>
+
+<p><strong>有关示例着色器场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/light-blocker-checker.mb" target="_blank">此处</a>。</strong></p>
+<h2 id="">灯光衰退</h2><p><em>light_decay</em> 过滤器指定灯光开始和结束位置的衰减范围。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/arnold_for_maya_am_Arnold_for_Maya_User_Guide_html.html">Arnold for Maya 用户手册</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

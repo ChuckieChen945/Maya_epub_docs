@@ -1,0 +1,152 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-E0629023-2D2F-415E-9060-AF3B139F577A">
+<meta name="language" content="CHS">
+<title>编写运行时表达式</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>编写运行时表达式</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-1018"> 运行时表达式控制在播放动画时、动力学计算之前或之后的属性。每当执行运行时表达式时，Maya 都会更新在该表达式中被赋予值的任何属性。根据选择，可在动力学求值之前或之后对此进行更新。通常针对每帧更新一次。 </p>
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-1016">如果运行时表达式未设定某一属性，该属性会将创建表达式的值用于动画的后续帧。</p>
+<div class="section" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-1015"><h2 class="title sectiontitle">示例</h2>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-1014"> 假定您已创建一个粒子栅格，然后为其速度属性创建该运行时表达式：</p>
+
+<pre class="pre codeblock">
+particleShape1.velocity = &lt;&lt;0,1,0&gt;&gt;;
+</pre>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-1012">在播放动画时，表达式将粒子的栅格每秒上移 1 个栅格单位。</p>
+
+<div class="fig fignone" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-1011"><img class="image" width="220" height="202" src="../images/GUID-A6660554-AA2D-4A7A-BB9B-95C3B8B8DAD0.png"></div>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-1010"> 为了在本章和其他章节中更便于查看粒子插图，我们将其显示为已着色的小球体而不是点。</p>
+
+<p class="li listintro" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-100C">将粒子显示为球体</p>
+<ol class="ol" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-100D"><li class="li" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-100B">选择<span class="ph uicontrol" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__GUID-E88F2957-8E9C-4967-B1F1-962EE7A3A73F">“粒子形状”(particle shape)</span>节点。 </li>
+<li class="li" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-100A">在<span class="ph uicontrol" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__GUID-7C5486D2-9605-473E-82EE-61AC1BCAFB13">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__GUID-578C3883-73F0-47EF-9A73-D1AB915A5034">“渲染属性”(Render Attributes)</span>区域，选择<span class="ph uicontrol" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__GUID-BD0830C6-9D18-4284-8CFE-EAF67E1549AC">“球体”(Spheres)</span>作为<span class="ph uicontrol" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__GUID-E59C6463-E2D1-41BA-9411-D27CD742E6A9">“粒子渲染类型”(Particle Render Type)</span>。 </li>
+<li class="li" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-1009">单击<span class="ph uicontrol" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__GUID-0ABFBA83-505E-4305-BB27-A55722310EE1">“添加属性”(Add Attributes For)</span>旁边的<span class="ph uicontrol" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__GUID-EB8FA642-46E9-410A-87D0-2AC493B06C46">“当前渲染类型”(Current Render Type)</span>按钮。<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-1008">在该按钮下会显示一个<span class="ph uicontrol" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__GUID-3EEA6D69-2D3E-4EE6-B2EB-E92D6437B7B9">“半径”(Radius)</span>滑块。</p>
+</li>
+<li class="li" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-1007">调整<span class="ph uicontrol" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__GUID-48CA13FF-74DD-44DF-A67D-441ABD6CE406">“半径”(Radius)</span>以设定球体的大小。</li>
+<li class="li" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-1006"> 启用<span class="ph uicontrol" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__GUID-D80D3B8A-06A4-474F-AA3C-DA4A27042ADD">“着色 &gt; 对所有项目进行平滑着色处理”(Shading &gt; Smooth Shade All)</span>（在工作区的左上方）。</li>
+</ol>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-1004">使用默认的帧速率 24 帧/秒时，粒子每帧移动 1/24 个栅格单位。使用默认的过采样级别 1 时，运行时表达式每帧执行一次。Maya 为对象的每个粒子计算一次运行时表达式。 </p>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-1003"> 由于表达式将速度在每一帧设定为 &lt;&lt;0,1,0&gt;&gt;，因此表达式以冗余方式执行。因此，该表达式更适用于创建表达式。但是，在该示例中，这两种表达式类型的效果相同。</p>
+
+</div>
+<div class="section" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-1001"><h2 class="title sectiontitle">示例</h2>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-1000">假定您已创建一个粒子栅格，并且动画的开始帧编号为 0。为其速度属性创建该运行时表达式：</p>
+
+<pre class="pre codeblock">
+particleShape1.velocity = &lt;&lt;0,time,0&gt;&gt;;
+</pre>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FFF">在播放动画时，该表达式将随着时间值的增加来增大速度的 Y 分量。这使得栅格中的所有粒子都随着时间的增加以更快的速度上升。增大的速度与加速度相同。</p>
+
+<div class="fig fignone" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FFE"><img class="image" width="220" height="202" src="../images/GUID-CAF4F588-50A4-4844-8CFA-F0D233227EE2.png"></div>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FFD">由于您要在每一帧增大指定中的值，因此需要在运行时表达式而不是创建表达式中使用该语句。 </p>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FFC">在创建表达式中使用该语句则会将速度设定为常量值 &lt;&lt;0,0,0&gt;&gt;，原因是在为粒子栅格执行创建表达式时，时间等于 0。 </p>
+
+</div>
+<div class="section" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FFB"><h2 class="title sectiontitle">示例</h2>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FFA">上一示例为所有粒子的速度属性给出了相同的值。也可以为每个粒子给定不同的属性值。 </p>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FF9">假定您创建了一个包含 121 个粒子的栅格。 </p>
+
+<div class="fig fignone" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FF8"><img class="image" width="149" height="125" src="../images/GUID-D1B01525-13F8-4881-8D59-4886A3CE748A.png"></div>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FF7">假设您进一步为其加速度属性创建该运行时表达式：</p>
+
+<pre class="pre codeblock">
+particleShape1.acceleration = sphrand(2);
+</pre>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FF6"> 每次执行运行时表达式时，该表达式对于 121 个粒子中的每个粒子执行一次。</p>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FF4">sphrand (2) 函数提供了一个向量，其随机选择的分量位于以原点为中心且半径为 2 的假想球体中。每个粒子接收不同的向量值。有关 sphrand 函数的详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-02B3C1C5-FD3F-48E2-AD80-004B68E68AB8.htm">sphrand</a>。</p>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FF3"> 由于每个粒子在每一帧中会接收表示加速度的不同随机向量，因此在播放场景时，粒子会分别以不断变化的方向和速率加速。这会使加速度突然改变方向。</p>
+
+<div class="fig fignone" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FF1"><img class="image" width="489" height="178" src="../images/GUID-BF471AD1-4B33-4BC7-B1CF-71B2689EA148.png"></div>
+
+<div class="note attention" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FF0"><span class="attentiontitle">注意：</span>  若要为粒子给定恒定加速度，请在运行时表达式而不是创建表达式中为加速度属性指定常量值。<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FEE">Maya 模拟加速度的物理特性。它在每个帧之前将加速度初始化为 &lt;&lt;0,0,0&gt;&gt;，如果过采样级别大于 1，则在每个时间步之前将加速度初始化为 &lt;&lt;0,0,0&gt;&gt;。 </p>
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FED">如果过采样级别为 2，则每帧有 2 个时间步。如果过采样级别为 3，则每帧有 3 个时间步，依此类推。</p>
+</div>
+
+</div>
+<div class="section" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FEB"><h2 class="title sectiontitle">示例</h2>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FEA">假设您将动画的开始帧设定为 0，并使用<span class="ph uicontrol" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__GUID-D842EE8E-29B9-4D82-93AA-C60A9B07ABD9">“粒子工具”(Particle Tool)</span>在原点处放置单个粒子：</p>
+
+<div class="fig fignone" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FE9"><img class="image" width="163" height="142" src="../images/GUID-BD7F2AE4-D7F7-4A61-8D0F-91CF00C726C6.png"></div>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FE8">然后创建一个运行时表达式来控制其位置：</p>
+
+<pre class="pre codeblock">
+particleShape1.position = &lt;&lt;3,time,0&gt;&gt;;
+</pre>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FE7"> 在播放动画时，由运行时表达式来控制该属性。在播放的第一帧中，粒子会跳到 &lt;&lt;3, time, 0&gt;&gt;。在默认帧速率为 24 帧/秒时，位置为 &lt;&lt;3，0.0417, 0&gt;&gt;，因为此时的时间值是 0.0417。</p>
+
+<div class="fig fignone" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FE5"><img class="image" width="161" height="136" src="../images/GUID-B6C6D8E9-2E0E-43DD-BE0E-4586287D0F35.png"></div>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FE4">每个后续帧将以时间增量值设定的速率向上移动粒子。</p>
+
+<div class="fig fignone" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FE3"><img class="image" width="279" height="228" src="../images/GUID-C4BC73F6-5CDB-4869-9A77-E10026931DFD.png"></div>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FE2">如果停止并回放动画，粒子将移回原点，即使用<span class="ph uicontrol" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__GUID-DAED30A1-1C67-4C05-AB6C-CBE59EFA1F36">“粒子工具”(Particle Tool)</span>创建粒子时的原始位置。创建粒子时，Maya 会在内部保留的初始状态属性 position0 中存储其原始位置。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-375E6B07-A022-45FE-A757-D213B23A0227.htm">了解初始状态属性</a>。</p>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FE1">由于该属性没有用于控制其值的创建表达式，因此 Maya 将该属性设定为其初始状态 position0 值 &lt;&lt;0,0,0&gt;&gt;。 </p>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FE0">若要防止粒子在回放后跳回到原点，可以编写一个与运行时表达式相同的创建表达式：</p>
+
+<pre class="pre codeblock">
+particleShape1.position = &lt;&lt;3,time,0&gt;&gt;;
+</pre>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FDF"> 当回放动画时，粒子会移动到位置 &lt;&lt;3,time,0&gt;&gt;。由于在 0 帧处时间为 0，因此回放动画时粒子的开始位置为 &lt;&lt;3,0,0&gt;&gt;。在第二帧和后面的帧中，粒子将与时间增加值同步向上移动。</p>
+
+<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FDD">尽管该示例演示了如何使用创建表达式初始化位置属性，但您通过保存对象的当前属性值以用于初始状态可以获得几乎相同的结果：</p>
+
+<p class="li listintro" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FDB">要保存当前属性以用于初始状态，请执行下列操作：</p>
+<ol class="ol" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FDC"><li class="li" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FDA"> 选择<span class="ph uicontrol" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__GUID-44F84D3D-91DC-4541-B52E-72A82FD06128">“粒子形状”(particle shape)</span>节点。</li>
+<li class="li" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FD8">使动画前进到第 1 帧。<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FD7">此时粒子的位置是 &lt;&lt;3, 0.0417, 0&gt;&gt;。</p>
+</li>
+<li class="li" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FD6">从<span class="ph uicontrol" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__GUID-E4015380-BF69-49FC-A35D-24C8AB8BFED4">“动力学”(Dynamics)</span>菜单集中，选择<span class="ph uicontrol" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__GUID-D5E18C7F-C322-432A-A40B-46C7D8A7D5B0">“解算器 &gt; 初始状态 &gt; 为选定对象设置”(Solvers &gt; Initial State &gt; Set for Selected)</span>。<p class="p" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__WS73099CC142F48755-3D114B7511841AEFA9F-FD5">当回放动画时，Maya 会以对象的位置属性的初始状态设置来定位对象。由于您在位置等于 &lt;&lt;3, 0.0417, 0&gt;&gt; 时选择了<span class="ph uicontrol" id="GUID-E0629023-2D2F-415E-9060-AF3B139F577A__GUID-306D8B35-3F0F-4867-AE5F-8A2C6B3050DC">“为选定对象设置”(Set for Selected)</span>，因此该设置为 &lt;&lt;3, 0.0417, 0&gt;&gt;。</p>
+</li>
+</ol>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-F7BE65C4-CDA4-42DC-A0D8-72B9D984B3E1.htm">关于粒子表达式</a></div>
+</div>
+</div>
+
+</body>
+</html>

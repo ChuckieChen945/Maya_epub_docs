@@ -1,0 +1,92 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_build_a_graph_geo_query_sample_data_at_locations_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>对位置的几何特性进行采样</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>对位置的几何特性进行采样</h1></div><p>位置是表示几何对象上相对定位的特殊对象。位置是几何查询（例如 <code>get_closest_locations</code> 和 <code>get_raycast_locations</code>）的输出。可以使用位置对对象上存在的任何几何特性值进行采样，例如插值点定位、颜色等。</p>
+<p>与定位不同，位置“粘合”到几何体，因此，即使几何体发生变换和变形，它们也会保持相同的相对定位。但是，如果在对几何体进行变换或变形后计算位置，则位置通常会有所不同。</p>
+<p><img src="../images/geoquery-location-tetrahedron.png" alt="变形网格上的位置"></p>
+<ul>
+<li>在多边形网格几何体上，位置是指曲面上的相对定位，类似于质心坐标。</li>
+<li>在股上，位置是指沿两个特定点之间的线段的分数。</li>
+<li>在点对象（例如粒子）上，位置是指点索引。</li>
+</ul>
+<p>要对位置的几何特性值进行采样，请执行以下操作：</p>
+<ol>
+<li><p>将 <code>sample_property</code> 节点添加到图表中。</p>
+<ul>
+<li><em>注意</em>：如果使用了 <code>get_points_in_radius</code> 查询并具有位置的二维数组，请改用 <code>sample_property_2D</code>。</li>
+</ul>
+</li>
+<li><p>将位置连接到 <code>locations</code> 输入。例如，可以使用几何体查询（例如 <code>get_closest_locations</code> 或 <code>get_raycast_locations</code>）的输出，或者使用由存储在图表上游的位置组成的自定义几何特性的数据。</p>
+</li>
+<li><p>连接要从中获取特性值的几何体。它通常是最初用作几何体查询输入的同一对象，但不要求一定是同一对象：</p>
+<ul>
+<li>例如，可以连接原始对象的变换版本和变形版本。在模拟中，这允许您在目标几何体更改时跟踪特定位置，例如粒子的目标定位。</li>
+<li>但是，拓扑必须与原始对象相同。如果点数或边连接已更改，则这些位置将不再对应于已修改对象上的同一相对位置，实际上，这些位置甚至可能不再有效。</li>
+</ul>
+</li>
+<li><p>指定要采样的 <code>property</code>。它必须是输入几何体上现有几何特性的名称。</p>
+</li>
+<li><p>通过单击鼠标右键并选择类型，或连接所需类型的 <code>value</code> 节点，指定 <code>default</code> 的值。这有两种用途：</p>
+<ul>
+<li>它向 <code>sample_property</code> 节点发出信号以告知预期的值类型，并允许检查下游节点是否有类型错误。</li>
+<li>它允许您设置在无法对特性采样时使用的值。可以将此值用作“标记”，并在下游计算中对其进行测试。</li>
+</ul>
+</li>
+<li><p>选择 <code>method</code>：</p>
+<ul>
+<li><code>interpolated</code> 返回最近点的特性的平均值，按距离加权。</li>
+<li><code>from_closest</code> 返回最近点的特性的值。</li>
+</ul>
+</li>
+<li><p>在下游计算中使用 <code>sampled_data</code> 输出数组的值。 如果需要，可以在无法对位置进行采样时，使用相应的 <code>success</code> 数组来执行适当的操作。数组的每个元素为 true 或 false，具体取决于是否可以在相应位置读取特性。数组中的值可能为 false 的原因有多种：</p>
+<ul>
+<li>位置无效。当几何体查询在中止距离内找不到任何位置时，或者光线未命中目标几何体时，或者输入定位或方向包含 <code>NaN</code> 或 <code>Inf</code> 等值时，可能会发生这种情况。</li>
+<li>输入几何体上不存在该特性。</li>
+<li>该特性的类型与 <code>default</code> 端口指定的类型不同。</li>
+<li>该几何体的拓扑与用于生成位置的几何体的拓扑不同，无法在其上解释位置。</li>
+<li>对于位置类型来说，几何体的类型是错误的。例如，您无法在点或股对象上解释曲面位置。</li>
+</ul>
+</li>
+</ol>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_geo_query_html.html">查询几何对象上的数据</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

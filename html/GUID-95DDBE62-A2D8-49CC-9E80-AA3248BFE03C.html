@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="Bullet:限制;限制:Bullet">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C">
+<meta name="language" content="CHS">
+<title>Bullet 的已知限制</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>Bullet 的已知限制</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__GUID-07127B64-E7D7-43BD-A10E-21D44F697EBF"> 以下是本版本的 Bullet 插件的已知限制。 </p>
+<div class="section" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__SECTION_DA5C282DDFE444B4BF12D1634AD57346"><h2 class="title sectiontitle">一般功能</h2>
+
+<div class="p" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__GUID-C1D68DCC-7A7A-42D1-921F-23C6B62BE2C7">
+<ul class="ul" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__UL_EDF741F0922644FA98B2C45FA6E86703"><li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_95BCA5907EC746C7917AEB8FFAD9CB2D">Bullet 节点必须具有唯一名称，才能避免名称空间冲突。 </li>
+<li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_B756FA60F9404129B8056542F9A560AE">Bullet 的内部单位为公制（米），在使用英制度量时，它无法正确执行。如果需要英制系统，则将系统单位保持为厘米，然后更改物理设置以进行补偿，如将 Maya 重力设置从 9.8 更改为 980 kg，表示质量已从 1kg 更改为 1000kg。 </li>
+<li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_738A53ECAD80428FB8E72D578270A0D5">复制 Bullet 对象之后，您可能需要回放到 Maya 时间轴的开始帧，才能查看正确的结果。 </li>
+<li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_F9D5D017AA404969A84906347ABB30F4">Bullet 进行修改或删除的节点结构不理想。 </li>
+<li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_1D029B1DDE1540FB815017061D2B6470"> 柔体 OpenCL 解算器加速是实验性的，有一些不可忽视的限制。OpenCL 柔体加速只能用于布料，而不是体积对象。它仅支持刚体与胶囊碰撞形状进行交互。其他布料实体之间或刚体之间没有交互。布料和刚体之间的交互是单向的，也就是说，刚体可以影响柔体，但柔体不能影响刚体。 </li>
+<li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_586177B874A5466785E590E22CA442AA">Bullet 2.8.1 OpenCL 加速不支持柔体对柔体的碰撞。 </li>
+<li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_0CFA972419424583A790A4ABFFCCFE89">Bullet 2.8.1 OpenCL CPU 和 GPU 加速解算器仅支持胶囊作为碰撞对象形状类型。其他碰撞对象形状类型无法为这些解算器识别。 </li>
+<li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_993010240DE64C0593EDFDBAFF785ACF">Bullet 3.0 - 如果启用此版本的 Bullet，会遇到一些限制。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-4C35C699-55AF-4094-A510-B3CB57324F24.htm">Bullet V3.0</a>。 </li>
+</ul>
+
+</div>
+
+</div>
+<div class="section" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__SECTION_469D357CBE764733B55462CD6AA89A29"><h2 class="title sectiontitle">Bullet 解算器</h2>
+
+<ul class="ul" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__UL_FF7986C53C4E47C3B89EC0F00200B824"><li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_55866E3D49D84FD9975DEF5EE111309F"> Bullet Alembic 导出不支持几何图形已应用缩放的工作流。移除对象任何缩放和/或局部枢轴后，再将 Bullet 解算器附加到对象。  </li>
+<li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_E916840EAAE04B24800A39318CD2C932">如果 Maya 时间轴不回放到第 1 帧，Bullet 节点可能无法正确显示在视口中。出现这种情况是因为解算器需重新初始化，才能识别新对象。场景中的新对象在 Maya 时间轴的第 1 帧处进行了重新初始化。 </li>
+<li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_EAB3CBF9BCFB455A922F422E18DA3D0A">自 Bullet 解算器调试绘制输出的柔体和平面碰撞对象形状之间的碰撞可能显示异常。这是因为，对于表示柔体的轴对齐边界框对平面投影的三角形，Bullet 渲染为黄色线框。这种情况是预料之中的。从顶部透视视口查看此场景，这些碰撞可能更直观。 <p class="p" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__GUID-394E1178-75CB-4E7B-B623-31C71AA03D7A">Bullet 2.81 柔体 OpenCL 解算器加速的限制。OpenCL 柔体加速只能用于布料，而不是体积对象，且仅支持与使用胶囊碰撞形状类型刚体的交互。其他布料实体之间或其他刚体之间不能有交互作用。布料和刚体之间的交互是单向的，也就是说，刚体可以影响柔体，但柔体不能影响刚体。 </p>
+ </li>
+<li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_81C04C67A27346928F534D51AC127277"> Bullet 解算器<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-680AC32F-7D42-4D1F-85C0-C31558E47F0D.htm#GUID-680AC32F-7D42-4D1F-85C0-C31558E47F0D__GUID-83CAE982-BB79-4C3C-8763-C6044878491A">
+<span class="ph uicontrol" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__GUID-616B18DF-3ECE-41FE-9E79-414432368869">“风幅值”(Wind Magnitude)</span>
+</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-680AC32F-7D42-4D1F-85C0-C31558E47F0D.htm#GUID-680AC32F-7D42-4D1F-85C0-C31558E47F0D__GUID-CC341136-B33A-4F3C-908B-3765EB23A2E6">
+<span class="ph uicontrol" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__GUID-985B1CA9-96DF-48ED-839D-9B65DE442DB6">“风向”(Wind Direction)</span>
+</a>设置仅应用于柔体。 </li>
+</ul>
+
+
+</div>
+<div class="section" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__SECTION_658A13C94D474BD29C24B267BDAB9BEF"><h2 class="title sectiontitle">刚体、柔体和布偶 </h2>
+
+<ul class="ul" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__UL_83187E10F14D434AA51443AA04E6A579"><li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_D988D6BEDA1647E6B2C45B360FA18D57">由于 Alembic 缓存出现问题，如果渲染场景中的对象具有名称空间，则无法重新导入 Alembic 缓存。 </li>
+<li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_2D951D21606E41B1BD4E4C0DC1640ADE">带每个面着色器的输出网格在设置每粒子的 particleMass 属性时无法找到 bulletSoftBodyShape 节点。解决方法是，使用源网格来设置每粒子的 particleMass 属性。 </li>
+<li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_6509D4A36A004A64A6D1983C0392CDA2">布偶不会收拢，就像已正确连接了各部分。 </li>
+<li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_38C1039C860D4D569FC2BB1999AB137F"> 如果您冻结平移和旋转变换值，则主动刚体和刚体集不会进行精确模拟。 </li>
+<li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_3733FFEF2AB64F609557A9903DAB6145">如果静态刚体具有关联的动画刚体，Bullet 在内部将静态刚体等同于运动学刚体。这意味着，系统将禁用对静态刚体的解算器优化。为解决此问题，请转到 Maya 时间轴开始帧，然后重放模拟。 </li>
+<li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_09836C577FDD4E7D8A9B4C1143F343F0">将线性约束 X、Y 和 Z 属性设置为处于锁定状态，不能沿这一指定轴完全锁定此约束。如果约束实体碰撞，力会增加。 </li>
+<li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_FC1658C818DD4F84A1FF7917D549AA8A">刚体约束的“限制”属性可能无法正常工作；解算器加速影响柔体。 </li>
+<li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_A52DF46CDC884FD189D02D819DFBD84D">AbcBulletExport：导出时请指定精确的文件路径，因为 Maya 不会自动添加后缀文件扩展名 <em class="ph i" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__GUID-1CCBE187-82C8-4C2B-ABC7-D132898FB3C6">.abc</em>。 </li>
+<li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_FAF606634C53441E9F1B2B45D2521803">ABC 文件导入：确保您在导入 ABC 文件之前冻结对象变换。ABC 文件仅包含平移和旋转动画，没有缩放或旋转枢轴信息。 </li>
+<li class="li" id="GUID-95DDBE62-A2D8-49CC-9E80-AA3248BFE03C__LI_6283F9F05EC14320AA034791DF995EF8">加载保存的场景后，请在 Alembic 导出之前重置初始状态节点（使用 AbcBullet）。否则，导出的节点名称和关联的变换之间可能会发生不匹配。 </li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-CC0BDE04-468D-4383-9553-14157E23D171.htm" title="通过 Bullet 物理引擎，可以创建大规模的、高度逼真的动力学和运动学模拟。除了设置游戏引擎和实时模拟之外，还可以使用 Bullet 为胶片和可视化创建渲染动画内容。">Bullet 刚体和柔体动力学</a></div>
+</div>
+</div>
+
+</body>
+</html>

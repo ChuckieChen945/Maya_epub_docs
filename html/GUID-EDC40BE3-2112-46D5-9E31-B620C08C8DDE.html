@@ -1,0 +1,185 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="ENU">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Maya-USD">
+  <meta name="topicid" content="GUID-EDC40BE3-2112-46D5-9E31-B620C08C8DDE">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="contextid" content="UsdAddReferenceConfig">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>Add a reference in the Outliner</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>Add a reference in the Outliner</h1></div><p>References are one mechanism that can be used to create a USD set, which is a single complex asset compiled from individual USD assets. References let you load the same layer file multiple times into a single scene in different locations, reusing scene description. This lets you load scene description (ie. a model, asset) from an external location without copying it into the contents of the layer referencing it. In the following example, <code>shot_sets.usd</code> is referencing the file <code>book.usd</code>.</p>
+<p>Referencing is not instancing. Marking a prim as instanceable simply indicates that it can be instanced. USD decides if it is instanced or not as your scene is composed.</p>
+<p>References are not given a type. In USD, references are typically a type-less def, which contains no information. This is useful when you reference a prim from another file, because a type-less def can easily take on a prim's type without interference.</p>
+<p><img src="../images/comp_usd_Diagram__referencing.png" alt=""></p>
+<div class="note important:"><span class="importanttitle">Important:</span> If you create multiple USD stages from the same USD file, only one of those files will be brought into your Maya scene. This is due to the fact that if two Maya proxyShape nodes share the exact same stage, it will not be brought in twice.</div>
+<h2 id="add-a-usd-reference-to-a-prim-in-the-outliner">Add a USD reference to a prim in the Outliner</h2><ol>
+<li><p>Right-click the prim you want to add a reference to.</p>
+</li>
+<li><p>Select <strong>References &gt; Add...</strong>.</p>
+</li>
+<li><p>In the <strong>Add USD Reference/Payload to Prim</strong> dialog that appears, select your reference file using the file directory.</p>
+<ol>
+<li>Use the <strong>Composition Arc</strong> drop-down to choose the type of USD composition arc for your referenced USD file:</li>
+</ol>
+<ul>
+<li><p><strong>Payloads</strong> are a type of reference. They are recorded, but not traversed in the scene hierarchy. Select this arc if your goal is to manually construct a 'working set' that is a subset of an entire scene, in which only parts of the scene are required/loaded. Note that payloads are weaker than direct references in any given LayerStack.</p>
+<ul>
+<li>If you select <strong>Payload</strong>, a checkbox will appear for you to choose to <strong>Load Payload</strong> <img src="../images/icon_usd_checkbox_full.png" alt="">. If you choose to load or unload your payload determines whether or not your prim appears in the Viewport. To load or unload after this dialog, right-click the prim in the Outliner and choose <strong>Load</strong> or <strong>Unload</strong> as necessary.</li>
+</ul>
+<div class="note tip:"><span class="tiptitle">Tip:</span> Payloads (which can be loaded/unloaded as you please) persist in memory. For example, if you unload a payload and save your Maya scene file, when you reopen your Maya scene file, the state of your payload will persist.   </div>
+</li>
+<li><p><strong>Reference</strong> are general and can be used to compose smaller unites of scene description into larger aggregates, building up a namespace that includes the 'encapsulated' result of composing the scene description targeted by a reference. Select this arc if your goal is not to unload your reference.</p>
+</li>
+</ul>
+<ol start="2">
+<li>Use the <strong>List Edited As</strong> drop-down to choose how your USD reference is resolved in the LayerStack:</li>
+</ol>
+<ul>
+<li><p><strong>Prepend</strong> will add the value of the arc to the front of the resolved list. A prepended composition arc in a weaker layer of a LayerStack will still be stronger than any arcs of the same type that are appended from stronger layers.</p>
+</li>
+<li><p><strong>Append</strong> will add the value of the arc to the back of the resolved list of arcs. An appended composition arc in a stronger layer of a LayerStack will therefore be weaker than all of the arcs of the same type appended from weaker layers.</p>
+</li>
+</ul>
+<ol start="3">
+<li><p>For the <strong>Prim Path</strong> field, leave this field blank to use the default prim as your prim path (this is only viable if your file has a default prim). Specifying a prim path will make an explicit reference to a prim. If there is no default prim and no prim path is specified, no prim will be referenced.  </p>
+</li>
+<li><p>Use the <strong>Select</strong> button to open the <strong>Select a Prim to Reference</strong> dialog and specify which prim you want to set as your default prim/ reference in. Use the reset button <img src="../images/icon_usd_refresh_edits.png" alt=""> to refresh your prim path to what it was before you made any changes.</p>
+</li>
+</ol>
+<p><img src="../images/usd_maya_select_prim_to_referencev2.png" alt=""></p>
+</li>
+<li><p>The reference appears in the Viewport, but it does not appear in the Outliner. When the layer that contains the prim is printed to the script editor, the reference is added to the prim.</p>
+</li>
+<li><p>Select <strong>Clear All USD References/Payloads...</strong> to remove the references from the Viewport. Choose what to clear from the dialog that appears.<br><img src="../images/usd_dialog_clearallreferences_payloads_popup.png" alt="">  </p>
+</li>
+<li><p>You can save USD reference files as relative to the edit target layer directory. Enable <img src="../images/icon_usd_checkbox_full.png" alt=""> <strong>Make Path Relative to Edit Target Layer Directory</strong> when saving. To learn more about saving USD files relatively, see <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-9EF1E7A0-F187-4332-9232-62532A09D138">Make Path Relative</a>.</p>
+</li>
+<li><p>The prim you added the reference to receives an arc badge to indicate the newly attained composition arc. See <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-C010A7DF-0EE4-4A3F-B159-9FF6A0173CF2">USD Arc badges in the Outliner</a>.</p>
+</li>
+</ol>
+<h2 id="reload-clear-a-usd-reference-in-the-outliner">Reload/Clear a USD reference in the Outliner</h2><p>You can reload references, payloads and nested references for prims using the context menu. To reload a reference, right-click on the prim and select <strong>References &gt; Reload</strong>. You can also clear a reference by selecting <strong>References &gt; Clear</strong> from the same context menu.</p>
+<p><img src="../images/reference_in_outliner.jpg" alt=""> </p>
+<h2 id="add-a-maya-reference-to-a-prim-in-the-outliner">Add a Maya reference to a prim in the Outliner</h2><p>Add a Maya reference to a USD prim to enable working with original Maya data in your USD scene. Select a Maya scene file to add as a reference. Using the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-9FD37B6B-7559-4F9D-B393-3AAD9AB4F24B">Outliner contextual menu</a>, you can add a Maya reference prim, which holds a Maya reference file that you can create and build out the scope of. Once a Maya reference file is added, a Maya transform node will appear in the Outliner at your selected prim, containing your newly added Maya reference. Use the dialog to build out the scope of your Maya reference.</p>
+<ol>
+<li>Do one of the following:<ul>
+<li><strong>Select a prim in the Outliner &gt; right-click &gt; Choose Add Maya Reference to Prim</strong> (located under Edit as Maya Data and Duplicate as Maya Data options)</li>
+<li><strong>Select a stage/proxyShape node in the Outliner &gt; right-click &gt; Add New Prim &gt; Add Maya Reference to Prim</strong></li>
+</ul>
+</li>
+<li>The Add Maya Reference to USD Menu appears with the following <strong>Maya reference options</strong> once you select a Maya scene file:<ul>
+<li><strong>Make Path Relative to Edit Target Layer Directory:</strong> Enable this toggle to activate relative pathing to your current edit target layer’s directory. Once this option is enabled, verify that your target layer is not anonymous and save it to disk so your relative path selection can be enacted. See <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-9EF1E7A0-F187-4332-9232-62532A09D138">Make Path Relative</a>. <ul>
+<li><strong>Path Preview</strong>: This field previews the path of your chosen working directory for your USD file, if you have relative pathing enabled. Note: The path preview for the file can vary for each individual as the file is handed off.</li>
+</ul>
+</li>
+<li><strong>Maya Reference Prim Name:</strong> <code>MayaReference1</code> (or iterated if not the first reference). You can edit this prepopulated field name to your choosing. Ensure that the reference prim name is unique.</li>
+<li><img src="../images/icon_usd_checkbox_full.png" alt=""> <strong>Group:</strong> If enabled, your Maya reference will be grouped under a new prim, under your currently selected USD prim for the Maya reference.<ul>
+<li><strong>Prim Name:</strong> This is the prim name that your new Maya reference will be grouped under. Ensure that the group prim name is unique.</li>
+<li><strong>Prim Type:</strong> Choose from this dropdown to select the prim type for grouping under, between Xform (transform node) or Scope.</li>
+<li><strong>Prim Kind:</strong> Choose from this dropdown to select the kind classification for your prim. See <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-532E99C9-F638-49E3-9483-800FDB9B65D7">the kind hierarchy</a> to learn more about selection by kind. Choose from (empty), group (default), assembly, component or subcomponent.</li>
+</ul>
+</li>
+<li><img src="../images/icon_usd_checkbox_full.png" alt=""> <strong>Define in Variant:</strong> Select this checkbox to define the Maya Reference in a USD variant. This will enable your prim to have 2 variants you can switch between in the Outliner; the Maya reference and its USD cache. Tip: Enable this setting so you can switch between the Maya reference and its USD cache in the Outliner. In this option, choose the name for your variant set and variant as needed.</li>
+<li><img src="../images/icon_usd_checkbox_full.png" alt=""> <strong>Edit as Maya Data:</strong> Select this checkbox to enable editing the MayaReference prim as a Maya Reference. By default, this is enabled so your prim is pulled upon creation.</li>
+</ul>
+</li>
+<li>The following occurs:<ul>
+<li><img src="../images/icon_usd_mayareference.png" alt=""> There is a new Maya node at the top of the reference. Underneath this node is all its children, also with the typical maya reference badge icon. These data nodes are all Maya data so Outliner branch lines are colored to reflect Maya daya (grey).</li>
+<li>The Maya reference node when pulled to USD will be named as per your <code>MayaNamespace + RN</code>.</li>
+<li>The Maya Reference in the USD hierarchy is editable, but locked.</li>
+</ul>
+</li>
+</ol>
+<div class="note important:"><span class="importanttitle">Important:</span> if you are unable to view your Maya reference node in the Outliner, ensure that you have <strong>Reference Nodes</strong> enabled in the Display menu of the Outliner to view that Maya reference nodes.</div>
+<h3 id="editing-a-maya-reference-prim-when-pulled-edit-as-maya-data">Editing a Maya reference prim when pulled (Edit as Maya data)</h3><p>Once your reference prim is pulled for editing as Maya data, a Maya transform node will appear in the Outliner at your selected prim, containing your newly added Maya reference. This prim has a single attribute of only being transformable, all other attributes are locked.</p>
+<p>Once you are done editing, you will have only the following two options to proceed:</p>
+<ul>
+<li><strong>Cancel Editing as Maya Data:</strong> This will revert your Maya reference from being in Edit as Maya mode back into a Maya reference prim, a USD object. This workflow is the equivalent of unloading a Maya reference prim.</li>
+<li><strong>Cache to USD:</strong> This workflow enables you to work with Maya data in USD scenes and then export them to a USD cache and author it back into your current USD hierarchy.</li>
+</ul>
+<div class="note tip:"><span class="tiptitle">Tip:</span> Adding a Maya reference supports undo and redo.</div>
+<h3 id="cache-a-maya-reference-into-usd">Cache a Maya reference into USD</h3><p>After you finish animating a Maya reference in your USD hierarchy, you can cache this Maya reference to a file on disk (export) and even back into your existing USD hierarchy as USD data. This can happen through a 'Cache to USD' dialog where you have options for the file on disk, and how to author this file on disc back to your USD hierarchy. When you cache to USD, the cache file saved to disk also writes a default prim to the file. This results in a file on disk that you can reference/ payload in.</p>
+<ol>
+<li>When a Maya reference node is pulled, on the root node of the hierarchy in USD, select the <strong>Cache to USD...</strong> option.</li>
+<li>Select the location on disk for your output file for export.</li>
+<li>Use the Cache to USD dialog to build your scope:<ul>
+<li><em><strong>Cache Options</strong></em><ul>
+<li>Edit your preferences as per the regular <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-3A763D43-E626-4832-9824-57AAA9BC0A00">export options</a> in this section. Choose settings for <strong>Output</strong>, <strong>Geometry</strong>, <strong>Materials</strong>, <strong>Animation</strong> and <strong>Advanced</strong> settings.</li>
+</ul>
+</li>
+<li><em><strong>Author Cache File to USD</strong></em><ul>
+<li><p><strong>Make Path Relative to Edit Target Layer Directory:</strong> Enable this toggle to activate relative pathing to your current edit target layer’s directory. Once this option is enabled, verify that your target layer is not anonymous and save it to disk so your relative path selection can be enacted. See <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-9EF1E7A0-F187-4332-9232-62532A09D138">Make Path Relative</a>. </p>
+<ul>
+<li><strong>Path Preview</strong>: This field previews the path of your chosen working directory for your USD file, if you have relative pathing enabled. Note: The path preview for the file can vary for each individual as the file is handed off.</li>
+<li>Note: When importing or exporting your texture file paths in USD, ensure you use the <strong>Texture File Paths</strong> toggle in the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-65E19505-E27D-4477-BD7D-7C0F2BC0D328">import</a> or <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-3A763D43-E626-4832-9824-57AAA9BC0A00">export</a> dialog to ensure your paths are saved relatively.</li>
+</ul>
+</li>
+<li><p><strong>As USD Reference:</strong> Choose the type of USD Reference composition arc for your Maya Reference: </p>
+<p> Payloads are a type of reference. They are recorded, but not traversed in the scene hierarchy. Select this arc if your goal is to manually construct a “working set” that is a subset of an entire scene, in which only parts of the scene are required/loaded. Note: payloads are weaker than direct references in any given LayerStack.</p>
+<p> References are general and can be used to compose smaller units of scene description into larger aggregates, building up a namespace that includes the “encapsulated” result of composing the scene description targeted by a reference. Select this arc if your goal is not to unload your references.</p>
+</li>
+<li><p><strong>Define in:</strong> Select what to define your Maya reference in. In either option, you can build out the name of your USD reference.</p>
+<ul>
+<li><p><strong>Variant:</strong> <em>(if available)</em> If selected, your Maya reference will be defined in a variant. This will enable your prim to have 2 variants you can switch between in the Outliner; the Maya reference and its USD cache. </p>
+<p> If defined in a variant, the variant will be the parent of the Maya reference, edits will be authored to your target layer and the reference composition arc (payload or general reference) will be inside your variant. Note: The maya reference node and the new <code>usdEditAsMaya</code> set remains in the Outliner.</p>
+<div class="note important:"> <span class="importanttitle">Important:</span> When the cache is behind a variant, it is considered orphaned.</div>
+</li>
+<li><p><strong>New Child Prim:</strong>  If selected, your Maya reference will be defined in a new child prim. This will enable you to work with your Maya reference and its USD cache side-by-side.</p>
+<p> When defined in a new child prim, it will be a sibling to the root node of the Maya reference, all edits will be on the targeted layer and the reference composition arc (payload or general reference) will be on the child prim. Note: The maya reference node and the new <code>usdEditAsMaya</code> set remains in the Outliner.</p>
+<div class="note important:"> <span class="importanttitle">Important:</span> If there are multiple roots in the Maya Reference that is cached, only the first root will be specified as the defaultPrim in the exported file. This means the exported file will have all the roots but only the <em>default prim</em> will be displayed in the the prim consuming the payload/general reference.</div>
+</li>
+</ul>
+<div class="note important:"><span class="importanttitle">Important:</span> When you cache a pulled Maya reference to USD, the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-3A763D43-E626-4832-9824-57AAA9BC0A00">Export File dialog</a> appears with options for caching. These options you select will persist in Maya memory from the last time you cached and even your last Maya session. Ensure you check these setttings each time as your selections will be saved in Maya.</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="maya-reference-limitations">Maya reference limitations</h3>
+<div class="callout callout-important">
+<div class="callout-title"><i class="callout-icon fa fa-exclamation-triangle" aria-hidden="true"></i>Important:</div>
+<div class="callout-body">
+
+<p> When a USD object is in a pulled state, a mixed-data model will be active, where the pulled object will be Maya data, yet still inside of the proxyShape node or prim. When in this state, current limitations bar selection, hierarchy and other general expected behavious. For example, if you select the USD parent node of a pulled object, the Maya data nested inside will not be a part of that selection, which will not allow operations such as hiding objects etc.</p>
+
+</div></div>
+
+<hr>
+<p><span style="color: purple;"><strong>Related Concepts:</strong></span> For more information, see <a href="https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-References" target="_blank">references</a> in the Pixar USD Glossary.</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>Parent page:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/USD-in-the-Maya-Interface/GUID-97358ED4-179F-4568-9382-7409E3F8E70A.html">USD data in the Outliner</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

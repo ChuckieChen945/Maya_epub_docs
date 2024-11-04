@@ -1,0 +1,172 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_camera_am_Creating_a_Basic_Spherical_Camera_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_CREATING_A_BASIC_SPHERICAL_CAMERA">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 创建基本球形摄影机 - Arnold for Maya">
+
+<title>创建基本球形摄影机</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+      <script src="../scripts/lang-bash.js"></script>
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>创建基本球形摄影机</h1></div><p>首先，我们需要创建一个基本球形摄影机。我们需要按照以下三个步骤进行操作：</p>
+<ul>
+<li>从屏幕坐标获取球形坐标</li>
+<li>将它们转换为摄影机方向</li>
+<li>计算 x 和 y 导数</li>
+</ul>
+<p><strong>OculusCamera.cpp</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#include &lt;ai.h&gt;
+#include &lt;ai_cameras.h&gt;
+#include &lt;ai_nodes.h&gt;
+#include &lt;cstring&gt;
+#include &lt;ai_metadata.h&gt;
+AI_CAMERA_NODE_EXPORT_METHODS(OculusCameraMethods);
+
+node_parameters
+{
+}
+
+node_initialize
+{
+   AiCameraInitialize(node, NULL);
+}
+
+node_update
+{
+   AiCameraUpdate(node, false);
+}
+
+node_finish 
+{
+   AiCameraDestroy(node);
+}
+
+camera_create_ray
+{
+   // Calculate spherical angles
+   float theta = AI_PI      * input-&gt;sx;
+   float phi   = AI_PIOVER2 * input-&gt;sy;
+
+   const float sin_theta = sinf(theta);
+   const float cos_theta = cosf(theta);
+   const float sin_phi = sinf(phi);
+   const float cos_phi = cosf(phi);
+   // normalized direction
+   output-&gt;dir.x =  sin_theta * cos_phi;
+   output-&gt;dir.y =  sin_phi;
+   output-&gt;dir.z = -cos_theta * cos_phi;
+   // derivative with respect to x
+   output-&gt;dDdx.x = cos_theta;
+   output-&gt;dDdx.y = 0.f;
+   output-&gt;dDdx.z = sin_theta;
+   output-&gt;dDdx *= input-&gt;dsx * AI_PI * cos_phi;
+
+   // derivative with respect to y
+   output-&gt;dDdy.x = -sin_theta * sin_phi;
+   output-&gt;dDdy.y = cos_phi;
+   output-&gt;dDdy.z = cos\theta * sin_phi;
+   output-&gt;dDdy *= input-&gt;dsy * AI_PIOVER2;
+}
+
+node_loader
+{
+   if (i &gt; 0)
+      return false;
+   node-&gt;methods      = OculusCameraMethods;
+   node-&gt;output_type  = AI_TYPE\NONE;
+   node-&gt;name         = "oculusCamera";
+   node-&gt;node_type    = AI_NODE_CAMERA;
+   strcpy(node-&gt;version, AI_VERSION);
+   return true;
+} </code></pre>
+<p>我们还将创建节点加载器，并将 <code>node_type</code> 设置为 <code>AI_NODE_CAMERA</code></p>
+<p>要编译此摄影机，我们可以像编译着色器一样进行操作：</p>
+<p><strong>Windows：</strong></p>
+<p>我们将环境变量 <code>ARNOLD_PATH</code> 设置为 Arnold SDK 所在的文件夹。如果 Arnold 安装文件夹如下：</p>
+<p><code>C:\solidangle\releases\Arnold-X.X.X.X-platform</code></p>
+<p>您将使用以下命令将 <code>ARNOLD_PATH</code> 设置为该文件夹：</p>
+<p><code>set ARNOLD_PATH="C:\solidangle\releases\Arnold-X.X.X.X-platform"</code></p>
+<p>然后，我们将打开 Visual Studio 命令提示符，并执行以下命令：</p>
+<p><code>cl /LD /I %ARNOLD_PATH%\include /EHsc OculusCamera.cpp /link /LIBPATH:%ARNOLD_PATH%\lib ai.lib</code></p>
+<p><strong>OSX：</strong></p>
+<p>假设 Arnold 安装文件夹如下：</p>
+<pre class="pre codeblock"><code class="prettyprint"> /Users/userName/solidangle/Arnold-X.X.X.X-darwin </code></pre><p>打开终端，并使用以下命令将 <code>ARNOLD_PATH</code> 设置为该文件夹：</p>
+<pre class="pre codeblock"><code class="lang-bash prettyprint"> export ARNOLD_PATH=/Users/userName/solidangle/Arnold-X.X.X.X-darwin </code></pre>
+<p>然后，执行以下命令来编译摄影机着色器：</p>
+<pre class="pre codeblock"><code class="lang-bash prettyprint"> gcc -I$ARNOLD_PATH/include -L$ARNOLD_PATH/bin -lai -dynamiclib OculusCamera.cpp -o OculusCamera.dylib </code></pre>
+<p>现在，要检查 Arnold 是否可以识别摄影机，请执行以下命令：</p>
+<p><code>%ARNOLD_PATH%\bin\kick -l &lt;path_to_shader&gt; -info oculusCamera</code></p>
+<p>您应该会得到以下结果：</p>
+<pre class="pre codeblock"><code class="prettyprint">node:         oculusCamera
+type:         camera
+output:       (null)
+parameters:   19
+filename:     C:\solidangle\mtoadeploy\2014\shaders/oculusCamera.dll
+version:      4.2.1.1
+Type          Name                              Default
+------------  --------------------------------  --------------------------------
+POINT[]       position                          0, 0, 0
+POINT[]       look_at                           0, 0, -1
+VECTOR[]      up                                0, 1, 0
+MATRIX[]      matrix
+FLOAT         near_clip                         0.0001
+FLOAT         far_clip                          1e+030
+FLOAT         shutter_start                     0
+FLOAT         shutter_end                       0
+ENUM          shutter_type                      box
+POINT2[]      shutter_curve                     (empty)
+ENUM          rolling_shutter                   off
+FLOAT         rolling_shutter_duration          0
+NODE          filtermap                         (null)
+ENUM          handedness                        right
+FLOAT[]       time_samples                      (2 elements)
+POINT2        screen_window_min                 -1, -1
+POINT2        screen_window_max                 1, 1
+FLOAT         exposure                          0
+STRING        name </code></pre><p>现在，我们将拥有一个球形摄影机。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Technical/arnold_for_maya_technical_am_Creating_an_Oculus_Rift_Camera_Node_html.html">创建 Oculus Rift 摄影机节点</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

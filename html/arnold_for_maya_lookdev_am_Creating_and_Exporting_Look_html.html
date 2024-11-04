@@ -1,0 +1,124 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_lookdev_am_Creating_and_Exporting_Look_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_CREATING_AND_EXPORTING_LOOK">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 创建和导出外观 - Arnold for Maya">
+
+<title>创建和导出外观</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>创建和导出外观</h1></div><p>本教程介绍了如何创建第一个外观。</p>
+<h2 id="alembic-arnold-ass">Alembic 至 Arnold 程序/替代对象 (.ass)</h2><p>在开始之前，您需要将模型导出到 Alembic。然后，可以将该模型导入到 Arnold 程序/替代对象。</p>
+<ul>
+<li>将原始文件（在本例中为机器人）导出到 Alembic：<em>“Arnold -&gt; 替代对象 -&gt; 将当前选择导出到 Alembic...”(Arnold -&gt; StandIn -&gt; Export Selection to Alembic ...)</em></li>
+</ul>
+<p><img src="../images/am-Creating_and_Exporting_Look-image2019-12-17-16-11-23-1.png" alt=""></p>
+<ul>
+<li>将机器人 <em>Alembic</em> .abc 文件（父页面上的链接）导入到<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Stand_ins_html">替代对象</a>。请注意，<em>替代对象</em>的<em>“文件内容”(File Contents)</em>窗口中的层次相同。</li>
+</ul>
+<p><img src="../images/am-Creating_and_Exporting_Look-image2019-5-29-12-25-59-2.png" alt=""></p>
+<ul>
+<li>为场景提供照明并对其进行渲染。您应该会注意到，该对象没有指定材质并渲染为灰色。</li>
+</ul>
+<p><img src="../images/am-Creating_and_Exporting_Look-no-shaders-3.jpg" alt=""></p>
+<h2 id="">指定着色器</h2><ul>
+<li>现在，我们可以为不同的对象指定不同的着色器。</li>
+<li>在“文件内容”(File Contents)中，单击“颜色 1”(Color 1)，然后单击<em>“添加指定 &gt; 着色器”(Add Assignment &gt; shader)</em>。这会将<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_operators_ac_set_parameter_html" target="_blank">设置参数(Set Parameter)</a>运算符自动连接到程序<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Stand_ins_html">替代对象</a>。在“节点编辑器”(Node Editor)中，单击“显示图形”(Show Graph)，或双击运算符列表中的“设置参数”(Set Parameter)。您可以在“运算符”(Operators)列表中看到“指定”(assignment)运算符（“运算符”(Operators)列表显示适用于“文件内容”(File Contents)列表中所选内容的运算符）。</li>
+</ul>
+<p><img src="../images/am-Creating_and_Exporting_Look-image2019-5-29-12-26-36-4.png" alt=""></p>
+<p><sub><strong>在后台创建的<em>“设置参数”(Set Parameter)</em>运算符</strong></sub></p>
+<ul>
+<li>创建一个 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Surface_html">standard_surface</a> 着色器并选择<em>“镀铬”(Chrome)*预设。或者，将“金属度”(Metalness)增大到 1，将 *specular_roughness</em> 设置为 0。</li>
+<li>按住鼠标中键，将“镀铬”(Chrome)着色器从 Hypershade 拖动 <em>Color1</em> 组<em>（“文件内容”(File Contents)）</em>的<em>“着色器”(Shader)</em>窗口。</li>
+</ul>
+<p><img src="../images/am-Creating_and_Exporting_Look-image2019-5-29-12-32-40-5.png" alt=""></p>
+<p>您应该会看到选择中的 <em>Color1</em> 组以及“设置参数”(Set Parameter)的“指定”(Assignment)中的“镀铬”(Chrome)着色器。</p>
+<p><img src="../images/am-Creating_and_Exporting_Look-image2019-5-29-12-33-4-6.png" alt=""></p>
+<p>在<em>“文件内容”(File Contents)*的 *Color1</em> 组中，可以看到着色器指定。灰显的球体图标表示继承的指定（材质）。</p>
+<p><img src="../images/am-Creating_and_Exporting_Look-image2019-5-29-12-33-30-7.png" alt=""></p>
+<ul>
+<li>使用黑色塑料着色器，对 <em>Color2</em> 组重复上述步骤。</li>
+<li>渲染场景。材质指定应与此类似。</li>
+</ul>
+<p><img src="../images/am-Creating_and_Exporting_Look-image2019-5-29-12-33-57-8.png" alt=""></p>
+<h2 id="">将运算符图表导出到磁盘</h2><ul>
+<li>在“文件内容”(File Contents)中，选择“机器人”(Robot)（或 / ?），然后单击“显示图形”(Show Graph)。创建<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_operators_ac_operators_merge_html" target="_blank">合并(Merge)</a>运算符。我们将使用此节点作为目标节点以应用外观（其中外观是多个着色器指定的组合）。如下图所示，手动设置“合并”(Merge)运算符。</li>
+<li>在“节点编辑器”(Node Editor)中，将<em>“设置参数”(Set Parameter)*节点的 *OUT</em> 重新连接到<em>“合并”(Merge)</em>运算符的<em>“输入”(Inputs)</em>。</li>
+</ul>
+<p>或者，可以执行下列操作：</p>
+<ul>
+<li>单击“添加运算符 &gt; aiMerge”(Add Operator &gt; aiMerge)，然后单击“显示图形”(Show Graph)。在“节点编辑器”(Node Editor)中，将 aiSetParameter 节点与 aiStandin_Shape 节点断开连接并连接到 aiMerge 输入。</li>
+</ul>
+<p><img src="../images/am-Creating_and_Exporting_Look-image2019-5-29-12-34-23-9.png" alt=""></p>
+<ul>
+<li>将<em>“合并”(Merge)</em>运算符重命名为 <em>default_look</em>。</li>
+</ul>
+<p>现在，我们将运算符图表导出到磁盘，以便可以建立默认的观察点。</p>
+<ul>
+<li>选择<em>“合并”(Merge)</em>运算符（默认外观），然后转到<em>“Arnold &gt; 工具 &gt; <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_utils_am_Import_Export_Operator_Graph_html">导出运算符图表</a>”(Arnold &gt; Utilities &gt; Export Operator Graph)</em>。</li>
+<li>选择名称和版本 (default_look) 及其保存位置。确保<em>“导出指定的着色器”(Export Assigned Shaders)</em>处于启用状态。</li>
+</ul>
+<p><img src="../images/am-Creating_and_Exporting_Look-image2019-5-30-10-16-8-10.png" alt=""></p>
+<p><sub><strong><em>“导出指定的着色器”(Export Assigned Shaders)</em>已启用</strong></sub></p>
+<h2 id="">测试外观制作</h2><p>现在，我们先测试一下到目前为止完成的工作，及其是否可以正常工作。</p>
+<ul>
+<li>首先，创建一个新场景。</li>
+<li>创建程序/替代对象并加载 Alembic 机器人角色。</li>
+<li>创建一些灯光并渲染场景。您应该看到，还没有任何材质指定。</li>
+<li>接下来，我们将通过 Alembic 文件加载材质和绑定（以及任何其他几何体特性）。</li>
+<li>创建 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_operators_ac_include_graph_html" target="_blank">IncludeGraph</a> 运算符并将其连接到运算符 <em>0 输入</em>。也可以在用户界面中执行该操作。</li>
+<li>在“替代对象属性编辑器”(Stand-in Attribute Editor)中，单击<em>“添加运算符 &gt; aiIncludeGraph”(Add Operator &gt; aiIncludeGraph)</em>。</li>
+<li>您在“运算符”(Operator)列表中不会看到 IncludeGraph 运算符，因为它没有应用于特定对象。</li>
+<li>单击“显示图形”(Show Graph)：已为您连接 IncludeGraph 运算符，您只需加载运算符图表。</li>
+<li>在 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_operators_ac_include_graph_html" target="_blank">IncludeGraph</a> 运算符中，加载我们之前导出的默认 <em>lookdev_v01.ass</em> 运算符图表。</li>
+<li>现在渲染场景。您应该会看到正在使用我们导出的外观对机器人进行着色。</li>
+</ul>
+<p><img src="../images/am-Creating_and_Exporting_Look-image2019-5-29-12-35-28-11.png" alt=""></p>
+<p><sub><strong>在<em>“包含图表”(Include Graph)</em>运算符中加载 <em>Lookdev_v01.ass</em></strong></sub></p>
+<p>希望您可以看到，导出不同的外观制作文件以用于管理流程中的复杂场景是多么轻松。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Operator_Tutorials/arnold_for_maya_operators_am_Look_Dev_Using_Operators_html.html">使用运算符进行外观制作</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-6FB65F16-528E-40F5-89D6-508CF654C547">
+<meta name="language" content="CHS">
+<title>nCloth 概述和概念</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>nCloth 概述和概念</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS17956D7ADBC6E736-68E5733C117AE32B764-7FFF"><div class="fig fignone" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__WS1A9193826455F5FF6026605B1181C8F4F2E-1FB7"><img class="image" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__IMAGE_3D1D3755ACF74E808933A9B24BF81E3C" width="467" height="408" src="../images/GUID-155AB893-9D2F-4741-84E4-32F72B4E25D5.png"></div>
+<p class="p" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__WS1A9193826455F5FF6026605B1181C8F4F2E-1FB3">nCloth 是从建模的多边形网格生成的。可以对任意类型的多边形网格建模，使其成为 nCloth 对象，这非常适用于实现特定姿势和保持方向控制。 </p>
+<div class="section" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__WS1A9193826455F5FF6026605B1181C8F4F2E-1F8C"><h2 class="title sectiontitle">nCloth 动力学</h2>
+
+<p class="p" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__WS1A9193826455F5FF6026605B1181C8F4F2E-1F8B">nCloth 由通过许多链接连接的众多粒子的网络构成，它们一起创建动力学网格。在该网络中，还有用于进一步连接这些粒子的交叉链接。链接可保持粒子之间的距离，交叉链接可保持链接之间的角度，从而使 nCloth 保持稳定并防止斜切之类的布料行为。 </p>
+
+<div class="fig fignone" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__WS1A9193826455F5FF6026605B1181C8F4F2E-1F8A"><img class="image" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__IMAGE_58E4799229B049ED9C9B8119C74E4034" width="426" height="462" src="../images/GUID-AC9BBCE2-B9F5-4AC7-9153-0E953095F09B.png"></div>
+
+<p class="p" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__WS1A9193826455F5FF6026605B1181C8F4F2E-1F89">生成多边形网格 nCloth 时，交叉链接将自动添加到生成的 nCloth 对象。可以使用 nClothShape<span class="ph uicontrol" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-5A2AD29C-2FD9-4C2D-9AA4-6584A2122272">“属性编辑器”(Attribute Editor)</span>选项卡中的<span class="ph uicontrol" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-97DF26E9-17A7-4AF2-B31E-331E888B76F3">“添加交叉链接”(Add Cross Links)</span>属性打开和关闭这些交叉链接。交叉链接不是为三角化的多边形网格生成的，只是为四边形网格生成的。 </p>
+
+<p class="p" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__WS1A9193826455F5FF6026605B1181C8F4F2E-1F88">nCloth 的粒子网络中的组件直接对应于其对象组件。nCloth 中的每个顶点都有一个粒子，每条边都有一个链接，每个面都有两个交叉链接：一个位于四边形分割（细分）处，另一个的位置与四边形分割垂直。 </p>
+
+<div class="fig fignone" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__WS1A9193826455F5FF6026605B1181C8F4F2E-1F87"><img class="image" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__IMAGE_ACDD98154609440DBCA7EF86232A8B05" width="418" height="257" src="../images/GUID-B2B82FCF-F943-463E-AC43-C3804DDC9A3F.png"></div>
+
+<p class="p" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__WS1A9193826455F5FF6026605B1181C8F4F2E-1F86">某些 nCloth 特性会影响 nCloth 的对象和粒子网络组件。例如，nCloth<span class="ph uicontrol" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-027C7EF2-A009-4E0B-97F3-2EF9753FC724">“拉伸”(Stretch)</span>和<span class="ph uicontrol" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-7FE8F7C1-2C29-4982-9F08-76A6B6E0E576">“压缩阻力”(Compression Resistance)</span>会影响链接，<span class="ph uicontrol" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-02041BB8-9934-4E9E-A7E9-EDB371B64AFE">“斜切阻力”(Shear Resistance)</span>会影响交叉链接，<span class="ph uicontrol" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-2BD98CD1-B71E-40D1-A91A-B5367A0FE047">“弯曲阻力”(Bend Resistance)</span>会影响边。此外，<span class="ph uicontrol" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-794211DC-CD99-4C30-A89C-4A7C669F3DEA">“弯曲”(Bend)</span>和<span class="ph uicontrol" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-92552462-1AEE-4F2F-987F-2AF309AA2AD0">“恢复角度”(Restitution Angles)</span>在边之间进行测量。有关影响 nCloth 的组件的属性的详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-99C0FE0F-8A37-4EA5-99C2-E08A0EF437A5.htm">nClothShape</a>。 </p>
+
+<p class="p" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__WS1A9193826455F5FF6026605B1181C8F4F2E-1F85">可以查看 nCloth 的交叉链接，方法是从 nClothShape<span class="ph uicontrol" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-94E874E0-2177-4186-B87B-D15F9EA1FF47">“属性编辑器”(Attribute Editor)</span>选项卡中的<span class="ph uicontrol" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-01BF5495-7BD8-424D-A466-C9017EE5F9B1">“解算器显示”(Solver Display)</span>下拉列表选择<span class="ph uicontrol" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-84DC9857-3CAD-42B5-82C4-A5C81106B5B8">“拉伸链接”(Stretch Links)</span>或<span class="ph uicontrol" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-5E0E7603-1704-4BE7-9BA7-95F259EE71DB">“弯曲链接”(Bend Links)</span>。可以查看 nCloth 的细分，方法是在 outputCloth<span class="ph uicontrol" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-DEB35CFC-1C98-4D6F-9ABB-CB3C6A8D1837">“属性编辑器”(Attribute Editor)</span>选项卡的<span class="ph uicontrol" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-C8ACB566-6DFC-41CA-893A-3CD15A567C83">“网格组件显示”(Mesh Component Display)</span>区域中启用<span class="ph uicontrol" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-C17FA16C-32EC-426B-A3E0-1A12BC7D4EF2">“显示三角形”(Display Triangles)</span>。您还可以更改 nCloth 的细分的方向，方法是使用 outputCloth 选项卡的<span class="ph uicontrol" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-C10656DD-7502-4C99-9BA5-5681123B05F9">“网格控制”(Mesh Controls)</span>区域中的<span class="ph uicontrol" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-362F194E-0715-4403-BA7A-96E3FB6D577C">“四边形分割”(Quad Split)</span>下拉列表。 </p>
+
+<p class="p" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-89FD5DD7-AE28-4A4B-A654-62175473AE93">在某些情况下，您可能希望 nCloth 对象的行为与刚性对象类似。为此，可以启用<span class="ph uicontrol" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-29EFDE0F-181F-4EFC-AAF0-0396970C6C96">“使用多边形壳”(Use Polygon Shell)</span>属性并将<span class="ph uicontrol" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-1967441A-0D35-44ED-9BA7-8A56A960862E">“刚性”(Rigidity)</span>和<span class="ph uicontrol" id="GUID-6FB65F16-528E-40F5-89D6-508CF654C547__GUID-29A20D30-9397-47A6-A9BD-21CEE038BDD8">“变形阻力”(Deform Resistance)</span>应用于构成 nCloth 网格的各个壳。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-F476A1F4-9944-4C46-9CBD-DD4FB8BAA9E0.htm">创建刚性 nCloth 壳</a>。 </p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-6E24A812-D663-4024-9BD3-59C6D6801D9C.htm">nCloth 工作流</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194.htm">创建网格 nCloth</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-DE0648A4-0CA2-423B-A87B-1FD1A70CF5E9.htm">nCloth 特性</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-663F1653-4BEC-4F65-A46E-DF0E24231F32.htm">绘制 nCloth 特性和特性贴图</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-9AB21360-F979-48BD-8A13-A5C94CDA6750.htm">优化 nCloth 转化的几何体</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-7236D0AE-3A0D-4DC1-9454-AF97419BDD90.htm">nCloth 碰撞</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-D40BF500-3D47-44AF-86AC-390248AF38FA.htm">约束 nCloth</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-88E90601-9024-4178-90A9-4052A487E607.htm">nCloth 和外部动态力</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-C890A6D6-1E65-4A80-A4F6-73E1C1D02169.htm">nCloth 模拟和缓存</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-ED791F1C-8412-4785-829F-9925F2604E8A.htm" title="nCloth 是一个快速而稳定的动力学布料解决方法，它使用一系列链接的粒子来模拟各种动力学多边形曲面。例如，nCloth 足够灵活，可以模拟以下所有曲面：织物衣服、充气气球、破碎曲面以及可变形对象。">nCloth</a></div>
+</div>
+</div>
+
+</body>
+</html>

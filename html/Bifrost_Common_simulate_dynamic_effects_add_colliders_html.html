@@ -1,0 +1,86 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_simulate_dynamic_effects_add_colliders_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>添加碰撞对象</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>添加碰撞对象</h1></div><p>碰撞对象是模拟中阻止移动的对象。</p>
+<ol>
+<li><p>将 <code>collider</code> 节点添加到模拟图表顶层（如果还没有此节点）。</p>
+</li>
+<li><p>将 <code>collider</code> 节点的 <code>collider</code> 输出连接到模拟节点的 <code>colliders</code> 输入。</p>
+</li>
+<li><p>将一个或多个网格或体积对象连接到 <code>collider</code> 节点的 <code>geometry</code> 输入。</p>
+<ul>
+<li>对于体积对象，<code>collider</code> 节点上的 <code>method</code> 必须设置为 <code>Volume</code>。</li>
+</ul>
+</li>
+</ol>
+<p>可以将任意数量的几何体连接到 <code>collider</code> 节点。也可以将任意数量的 <code>collider</code> 节点连接到模拟节点，其中每个 collider 节点具有不同的设置。</p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>如果遇到 MPM 颗粒模拟碰撞（例如，碰撞对象中的沙子或雪碰撞，或偏移碰撞）的问题，请尝试将 <code>collider</code> 节点上的 <code>method</code> 设置为 <code>Volume</code>。这更加精确，但计算时间更长。  您也可以尝试在 <code>lag_colliders</code> 节点上启用 <code>mpm_solver_settings</code>。</p>
+
+</div></div>
+
+<h2 id="">选择碰撞方法</h2><p><code>collider</code> 节点上的 <code>method</code> 参数控制将碰撞对象几何体视为网格还是体积。</p>
+<ul>
+<li><p><code>Volume</code> 会将所有几何体视为体积。对于网格输入，系统会自动对其进行转化。要提高碰撞精确度，请减小 <code>detail_size</code>。</p>
+</li>
+<li><p><code>Mesh_for_Points</code> 会将网格视为网格。此方法可避免网格曲面与碰撞位置之间存在间隙。</p>
+</li>
+</ul>
+<p>请注意，对于体积对象，<code>method</code> 必须为 <code>Volume</code>。此外，体积对象还必须有一个等值面 (<code>voxel_signed_distance</code>)。</p>
+<h2 id="">查看碰撞区域</h2><p>可以将 <code>simulate_aero</code> 节点的 <code>collider_volumes</code> 输出或 <code>simulate_mpm</code> 节点的 <code>out_colliders</code> 输出连接到 <code>output</code> 节点，以显示影响这些模拟的确切碰撞区域。这有助于可视化碰撞对象设置更改或碰撞问题。</p>
+<h2 id="">控制粒子的碰撞行为</h2><p>粒子在撞击到碰撞对象时可能会反弹或粘住。这由以下多个因素共同控制：</p>
+<ul>
+<li><p>反弹度控制碰撞时反射的垂直于碰撞曲面的速度量。例如，这会影响粒子接触地面后反弹的高度。最终值是粒子上设置的 <code>bounciness</code> 和碰撞对象的组合。如果这两个值均为 1.0，则粒子完全反弹；如果这两个值均为 0.0，则粒子根本不反弹。</p>
+</li>
+<li><p><code>collider</code> 节点上设置的 <code>friction</code> 参数控制沿碰撞对象曲面的运动。如果此值为 1.0，则与地面接触的粒子不会滚动；如果此值为 0.0，则粒子将滚动但不减缓速度。</p>
+</li>
+<li><p><code>collider</code> 节点上的 <code>roughness</code> 参数可改变粒子反弹出去的角度。此项模拟撞击粗糙曲面的效果。</p>
+</li>
+</ul>
+<p>如果快速移动的粒子贯穿碰撞对象，请尝试增加 <code>particle_solver_settings</code> 节点上的 <code>substeps</code>。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/Bifrost_Common_simulate_dynamic_effects_html.html">模拟动力学效果</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

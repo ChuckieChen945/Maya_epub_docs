@@ -1,0 +1,229 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_4x_am_410_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_410">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 4.1.0 - Arnold for Maya">
+
+<title>4.1.0</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>4.1.0</h1></div><p>28 Oct 2020</p>
+<p>MtoA 4.1.0 introduces Arnold 6.1.0.0 and is a major feature release bringing a brand new post-processing framework (imagers), support for nested dielectrics, much improved progressive and adaptive sampling, on-demand texture loading on GPU, several IPR update issues, an improved Tx manager, a new Log Window in the Arnold RenderView, as well as several other improvements and bug fixes. It is fully binary compatible with 4.0.* versions.</p>
+<h2 id="installation">Installation</h2><ul>
+<li><a href="https://manage.autodesk.com/products/MAYA" target="_blank">Download</a> the Arnold for Maya plugin</li>
+<li>Follow these installation instructions .</li>
+</ul>
+<p><strong>Autodesk Network Licensing</strong> in Arnold 6 requires new license files with an updated <strong>2020 version</strong> . Please follow the instructions on <a href="https://help.autodesk.com/x/zocfBg">this page</a> to generate your license file. More info about Arnold 6 licensing can be found <a href="https://help.autodesk.com/display/A5AILIC/Arnold+6+Licensing">here</a> .</p>
+<h2 id="system-requirements">System Requirements</h2><ul>
+<li><p>Maya 2018, 2019 or 2020</p>
+</li>
+<li><p>Windows 7 or later, with the Visual Studio 2019 redistributable.</p>
+</li>
+<li><p>Linux with at least glibc 2.12 and libstdc++ 3.4.13 (gcc 4.4.7). This is equivalent to RHEL/CentOS 6.</p>
+</li>
+<li><p>OSX 10.11 to 10.15. Note that macOS 11 Big Sur is not certified.</p>
+</li>
+<li><p>CPUs need to support the SSE4.1 instruction set.</p>
+</li>
+<li><p>GPU rendering works on Windows and Linux only and requires an NVIDIA GPU of the Turing, Volta, Pascal, or Maxwell architecture. We recommend using the <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">455.38</a> or higher drivers on Linux and <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">457.09 (Quadro), 457.30 (GeForce)</a> , or higher on Windows. See Arnold GPU for more information.</p>
+</li>
+<li><p>Optix™ denoiser requires an NVidia GPU with <a href="https://developer.nvidia.com/cuda-gpus" target="_blank">CUDA™ Compute Capability 5.0</a> and above.</p>
+</li>
+</ul>
+<h2 id="enhancements-a-href-topicid-arnold_for_maya_arnold_am_imagers_html-imagers-a">Enhancements## <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Imagers_html">Imagers</a></h2><p>We're introducing a brand new framework to apply post-processing effects such as color correction, vignetting, or tone mapping. A new type of post-processing nodes called <em>imagers</em> operate on pixels before the output driver. Imagers can be chained. The initial set of imagers consists of:</p>
+<ul>
+<li><code>[imager_exposure](/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Imager+Exposure&amp;linkCreation=true&amp;fromPageId=154764297)</code></li>
+<li><code>[imager_color_correct](/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Imager+Color+Correct&amp;linkCreation=true&amp;fromPageId=154764297)</code></li>
+<li><code>[imager_lens_effects](/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Imager+Lens+Effects&amp;linkCreation=true&amp;fromPageId=154764297)</code></li>
+<li><code>[imager_white_balance](/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Imager+White+Balance&amp;linkCreation=true&amp;fromPageId=154764297)</code></li>
+<li><code>[imager_tonemap](/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Imager+Tonemap&amp;linkCreation=true&amp;fromPageId=154764297)</code></li>
+</ul>
+<p>Imagers work both in batch and interactive contexts. While imager parameters can change interactively during rendering, adding a new imager currently requires the render to be restarted, so it's a good idea to add the ones you will need to adjust at the beginning of an interactive session. We are looking at removing this limitation in a subsequent release. (core#8368, core#9716, core#9723, core#9724, core#9867, core#9868, core#9869, core#9938).</p>
+<p><sup><sub><strong style="text-align: center;">Color Correct</strong></sub></sup></p>
+<p><img src="../images/am-410-vignetting-200-450px-1.png" alt=""></p>
+<p><sup><sub><strong style="text-align: center;">Lens Effects ( <em>vignetting)</em></strong></sub></sup></p>
+<ul>
+<li><p><strong><strong><a href="https://help.autodesk.com/pages/viewpage.action?pageId=119768177">Nested dielectrics</a> :</strong></strong> Physically-correct reflection and refraction of rays in scenes with adjacent dielectrics, such as liquids in glass vessels, has been implemented by resolving overlapping, i.e. "nested", dielectrics via a priority system. This allows for more realistic renders of scenes such as glass containers with liquid contents and bubbles, correctly accounting for the change in the index of refraction as rays refract through the transparent media. The new <em>dielectric_priority</em> parameter on the <em>standard_surface</em> shader assigns a priority to the internal dielectric medium of the closed transparent object the shader is assigned to. These priorities specify that in an area of overlap of two transparent objects, only the <em>highest</em> priority dielectric medium exists (see the schematic glass of water below). The priority is simply a signed integer (default 0), which can be increased or decreased as needed to define the dielectric medium in the overlap areas. If priorities are made equal, then media are effectively blended in the overlap. The effect can be disabled globally with <code>options.dielectric_priorities</code> ( <em>Nested Dielectrics</em> in the <em>Advanced</em> tab of the render settings) in case you need to revert to the legacy mode, which does <em>not</em> correctly compute the refractions. (core#6023)  </p>
+<p><img src="../images/am-410-image2020-9-17-16-17-55-2.png" alt=""></p>
+<p><img src="../images/am-410-ND-1-3.png" alt=""> <img src="../images/am-410-ND-0-4.png" alt=""></p>
+<p><strong><sup><sub>Standard setup of a glass of water with an ice cube, using the priority system. <strong><span style="color: rgb(102,102,102);"><span style="color: rgb(0,0,0);">Rollover image to view the result with the global <strong><span style="color: rgb(102,102,102);"><span style="color: rgb(0,0,0);">dielectric_priority: disabled </span></span></strong></span><strong><span style="color: rgb(0,0,0);"><span style="color: rgb(29,28,29);">(not physically correct).</span></span></strong></span></strong></sub></sup></strong></p>
+<p><sup><sub><strong style="vertical-align: super;">Nested dielectrics examples</strong></sub></sup></p>
+</li>
+</ul>
+<ul>
+<li><p><strong>Improved progressive and adaptive sampling</strong> : Better sampling now results in much faster noise convergence, especially with adaptive sampling enabled. (core#9941)</p>
+<p><sup><sub><strong style="vertical-align: sub;"><span style="color: rgb(0,0,0);">Left: Arnold 6.0.4.1 - Right: Arnold 6.1.0.0 - Both images rendered using the same settings: <em>a </em></span><span style="color: rgb(0,0,0);"><em>daptive_threshold </em>= 0.015 (default)</span></strong></sub></sup></p>
+</li>
+<li><p><strong>Improved performance on Windows</strong> : Arnold now runs on average 7-8% faster overall on Windows. (core#5481, core#9876, core#9975)</p>
+</li>
+<li><p><strong>Improved IPR interactivity</strong> : IPR interactivity on both CPU and GPU, especially when moving the camera in a scene with many nodes (thousands to millions of meshes, ginstances, lights, shaders, etc.), is improved. For instance, a scene with 24,433 ginstances and simple shading went from 8 fps to 14 fps on the CPU and about 3 fps to 20 fps on the GPU. (core#8662, core#9918, core#10027, core#10029)</p>
+</li>
+<li><p><strong>Improved performance in Toon on Windows:</strong> The <em>contour_filter</em> used for toon rendering should now be faster and scale better especially on Windows, with up to 3x speedups on AMD Threadripper 2 and up to 4x speedups on AMD Threadripper 3 CPUs. (core#7844)</p>
+</li>
+<li><p><strong>Toon AOV prefix</strong> : The <em><code>toon</code></em> shader has a new optional <strong><em><code>aov_prefix</code></em></strong> that will be prepended to the toon AOVs' names. For instance, if <em><code>aov_prefix</code></em> is <code>"toon_"</code> , the toon diffuse AOV will be written out to <code>"toon_diffuse"</code> . This can be used when you need to access both the toon AOVs and the core's LPE AOVs. (core#9823)</p>
+</li>
+<li><p><strong>Improved soft creases in adaptive subdivision</strong> : Normals for soft creases follow the geometry closer for low iterations. (core#9971)</p>
+</li>
+</ul>
+<p><img src="../images/am-410-crease-relnotes-5.png" alt=""></p>
+<p><sup><sub><strong>All cube edges have sharpness 3 creases. The diagram shows the new (top) and old (bottom) normals for 1, 2, 3, and 4 iterations.</strong></sub></sup></p>
+<ul>
+<li><p><strong>AA seed now included in EXR metadata</strong> : The AA seed of a render is now also included in EXR metadata. (core#9895)</p>
+</li>
+<li><p><strong>Improved support for MaterialX</strong> : Material nodes are now supported, shader nodes and node graph outputs can be connected to material node inputs. Node definitions implemented as node graphs can contain both Arnold native shaders and MaterialX standard library shaders. This is useful to build reusable and portable material groups and definitions, for example by using standard_surface with MaterialX patterns. T he environment variable <code>ARNOLD_MATERIALX_NODE_DEFINITIONS</code> can now point to directories and load multiple node definitions ( [see here ) ( core#9204, core#9618, core#9926)</p>
+</li>
+<li><p><strong><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_utils_am_Convert_Shaders_to_Arnold_html">Added support for PhongE to the Arnold conversion script</a></strong> : the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_utils_am_Convert_Shaders_to_Arnold_html">Shader conversion script</a> will now convert PhongE shader networks as well (mtoa#4338)</p>
+</li>
+<li><p><strong>Exposed USD overrides attribute</strong> : The <code>aiStandIn</code> node now exposes the USD procedural attribute <code>overrides</code> , which allows the user to add inline USD syntax (mtoa#4348)</p>
+</li>
+</ul>
+<h2 id="gpu-enhancements">GPU Enhancements</h2><ul>
+<li><strong>Improved on-demand loading of textures</strong> : The GPU renderer can now partially load textures which results in important GPU memory savings when using tiled and mipmapped textures, such as from .tx textures. In a typical scene, the amount of memory needed for textures could be reduced to be up to 5x smaller. A recent driver is needed for this feature (core#9984).</li>
+</ul>
+<p><img src="../images/am-410-peakgpuram-6.jpg" alt=""></p>
+<ul>
+<li><strong>Initial support for light linking</strong> : Initial support has been added for light linking. Currently, there is a limitation that light linking is not supported on volumes. (core#9890)</li>
+<li><strong>Support light AOV groups</strong> : Adding light AOV groups in LPEs is now supported on the GPU. (core#9882)</li>
+<li><strong>Improved OSL JIT compilation performance</strong> : OSL JIT compilation performance has been improved, meaning faster time to first pixel and improved interactivity when using OSL shaders. The improvement averaged 6.3x faster during testing. (core#10004)</li>
+<li><strong>Improved support for min pixel width and thin-walled sampling</strong> : We have improved compatibility with the CPU renderer for min pixel width on the GPU and thin-walled sampling on zero roughness surfaces. (core#9291)</li>
+<li><strong>Partial GPU IPR output</strong> : Like on the CPU, when the FPS goes below a certain threshold (5fps by default), instead of not displaying anything, the GPU will at least display the pixels that have finished rendering. Since GPU currently renders pixels in a top to bottom ordering, this will result in the top part of the image being updated while the lower part becomes stale. (core#10027)</li>
+<li><strong>OptiX cache location change</strong> : The Optix cache directory used to be of the form: <code>arnold-&lt;ARNOLD_VERSION&gt;_driver-&lt;DRIVER_VERSION&gt;</code> . Now it is simply <code>arnold</code> . This means the same cache will be used across driver and Arnold versions. Upgrading to a new version will still likely cause a lengthy JIT/cache pre-population, but it will reduce disk usage as old versions will not stay around-consuming disk space. (core#9239).</li>
+</ul>
+<h2 id="usd-enhancements">USD Enhancements</h2><ul>
+<li><strong>Light Shaping</strong> : The procedural now supports the UsdLuxShapingAPI, allowing the use of spot and IES lights ( <a href="https://github.com/Autodesk/arnold-usd/issues/344" target="_blank">usd#344</a> ).</li>
+<li><strong>Schema for custom procedurals</strong> : The schemas now include ArnoldCustomProcedural for describing custom procedurals ( <a href="https://github.com/Autodesk/arnold-usd/issues/487" target="_blank">usd#487</a> ).</li>
+<li><strong>Schema updates</strong> : Schemas now support cameras, render settings, and new output types ( <a href="https://github.com/Autodesk/arnold-usd/issues/500" target="_blank">usd#500</a> ).</li>
+<li><strong>Parent Scope</strong> : There is a new flag to specify a custom root for all exported prims ( <a href="https://github.com/Autodesk/arnold-usd/issues/292" target="_blank">usd#292</a> ).</li>
+<li><strong>ST for Texture Coordinates</strong> : Texture coordinates are now written as primvars:st to match the USD convention ( <a href="https://github.com/Autodesk/arnold-usd/issues/542" target="_blank">usd#542</a> ).</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible Changes</h2><ul>
+<li><p><strong>Correct refractions with nested dielectrics</strong> : Refraction through adjacent transparent media now looks more physically correct thanks to <a href="https://help.autodesk.com/pages/viewpage.action?pageId=119768177">nested dielectrics</a> resulting in a look change. If you need to revert to the legacy unphysical behavior for compatibility reasons, you can disable nested dielectrics globally by setting <code>options.dielectric_priorities</code> to False.</p>
+</li>
+<li><p><strong>mix_shader add for transparency</strong> : Previously, the <code>add</code> mode of the <code>mix_shader</code> also added the transparency closures, which means that effects such as min pixel width would be double-counted, leading to objects disappearing. Now, we will add only non-transparency closures, while we pass through the max of the transparency closures. The old behavior can still be obtained by setting <code>add_transparency</code> to true (core#9952).</p>
+</li>
+<li><p><strong>Skipped node updates</strong> : In order to improve IPR interactivity, we skip the per-frame node update if we believe that node has not changed. If our internal heuristics for detecting node changes is wrong and <code>node_update</code> was supposed to be called, you can set the <code>force_update</code> metadata on your node:</p>
+<pre class="pre codeblock"><code class="prettyprint"> node_parameters
+{
+    AiMetaDataSetBool(nentry, nullptr, "force_update", true); // depends on camera node 
+    // ...
+} </code></pre><p>so that Arnold will always run node_update on every render pass. At the moment, this should only be needed for nodes that access <code>options.camera</code> in their <code>node_update</code> . If you do not have access to your shader's source code, you can globally disable this optimization by setting the <code>options.enable_fast_ipr</code> to false (core#8662).</p>
+</li>
+</ul>
+<h2 id="bug-fixes">Bug Fixes</h2><ul>
+<li><p>mtoa#4312   populate_GPUCache() in utils.py uses Python 2 long()</p>
+</li>
+<li><p>mtoa#4286 [XGen] error in python 3 loading xgen ui script</p>
+</li>
+<li><p>mtoa#4298 Add extension for PreviewSurface shader</p>
+</li>
+<li><p>mtoa#4302 Standin UI : export look should support usd</p>
+</li>
+<li><p>mtoa#4318 Export prefix not working with slashes</p>
+</li>
+<li><p>mtoa#4327 Include Arnold SDK and docs in the MtoA install</p>
+</li>
+<li><p>mtoa#4329 Handle viewport display of custom procedurals</p>
+</li>
+<li><p>mtoa#4332 [TX Manager] Colorspace set in Tx Manager is not used</p>
+</li>
+<li><p>mtoa#4334 .osl shader not importing to MtoA as .ass file (from MAXtoA)</p>
+</li>
+<li><p>mtoa#4340 MtoA: unix_installer.sh will need updating to include python3 call</p>
+</li>
+<li><p>mtoa#4342 ARV: IPR is not always enabled when running "Render with ARV"</p>
+</li>
+<li><p>mtoa#4343 ARV: Remove useless "Converting 0 textures to tx" in status bar</p>
+</li>
+<li><p>mtoa#4351 [TX Manager] incorrect colorspace shown in spreadsheet</p>
+</li>
+<li><p>mtoa#4357 instance nodes returned in the viewport API not shown properly</p>
+</li>
+<li><p>mtoa#4358 Python errors in the standin ui cache</p>
+</li>
+<li><p>mtoa#4360 ARV camera menu not showing the correct render camera</p>
+</li>
+<li><p>core#5518 Handle interruptions properly during procedural expansion</p>
+</li>
+<li><p>core#9949 mesh_light with constant black texture causes degenerate light tree case</p>
+</li>
+<li><p>core#9971 Subdivs: soft creases normals different in adaptive and regular</p>
+</li>
+<li><p>core#9978 Viewport API doesn't apply the correct matrix for nested procedurals</p>
+</li>
+<li><p>core#10031 Only shader node connections should use node output type</p>
+</li>
+<li><p>core#9361 [GPU] OptiX assert when updating textures</p>
+</li>
+<li><p>core#10024 [GPU] Incorrect texture selection or error when invalidating the texture cache with GPU sparse textures</p>
+</li>
+<li><p>core#10026 [GPU] Rare crash in OptiX denoiser</p>
+</li>
+<li><p>core#10040 [GPU] Always report minor version field of Nvidia driver as two digits</p>
+</li>
+<li><p>core#10048 [GPU] Wrong progress reporting using adaptive</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/513" target="_blank">usd#513</a> Viewport representation in points mode doesn't have the correct matrix</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/543" target="_blank">usd#543</a> Visibility is not checked on the current frame</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/556" target="_blank">usd#556</a> motion_start and motion_end is only set if the matrix of the prim is animated</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/565" target="_blank">usd #565</a> Animated transforms not translated properly if set on parent XForms</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/569" target="_blank">usd#569</a> Render delegate not picking up OSL shader parameters</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/570" target="_blank">usd #570</a> USD procedural is not picking up OSL shader parameters</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/574" target="_blank">usd#574</a> Incorrect display of curve widths in Solaris when changing curve basis</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/577" target="_blank">usd#577</a> Point light should have zero radius</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/580" target="_blank">usd#580</a> The Render Delegate's depth range is incorrect if USD is at least version 20.02</p>
+</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_4x_html.html">MtoA 4.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_polygons_am_Export_Settings_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_EXPORT_SETTINGS">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 导出设置 - Arnold for Maya">
+
+<title>导出设置</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>导出设置</h1></div><p><img src="../images/mtoa_export_settings1.png" alt=""></p>
+<p>以下设置通过几何体对象的属性编辑器提供。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>暂不支持导出 NURBS 曲面的设置。</p>
+
+</div></div>
+
+<h3 id="export-tangents">导出切线(Export Tangents)</h3><p>将每个顶点的切线信息导出为向量类型的 Arnold 用户数据。稍后可以在着色器中查询此用户数据以用于不同的计算。请参见以下示例：</p>
+<p><img src="../images/mtoa_export_settings2.png" alt=""></p>
+<p><sup><strong>启用“导出切线”(Export Tangents)</strong></sup></p>
+<ul>
+<li>将着色器指定给网格（在本例中是 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Ray_Switch_html">ray_switch</a><em>）并将 *</em>aiUserDataVector** 节点连接到 *<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Ray_Switch_html">ray_switch</a></em> 的<strong><em>“摄影机”(Camera)</em></strong>属性。</li>
+</ul>
+<p><img src="../images/mtoa_export_settings3.png" alt=""></p>
+<ul>
+<li>在 aiUserDataVector 节点的<strong>“向量属性名称”(Vector Attr Name)</strong>中键入“<strong><em>tangent</em></strong>”。如果不起作用，请尝试将场景导出为 .ass 文件并检查切线命名是否正确。</li>
+</ul>
+<p><img src="../images/mtoa_export_settings4.png" alt=""></p>
+<p>渲染时，您将看到使用颜色表示的球体切线：</p>
+<p><img src="../images/mtoa_export_settings5.png" alt=""></p>
+<h3 id="export-vertex-colors">导出顶点颜色(Export Vertex Colors)</h3><p>将每个顶点的颜色信息导出为 RGBA 类型向量的 Arnold 用户数据。稍后可以在着色器中查询此用户数据以用于不同的目的，如遮罩。请参见以下示例：</p>
+<ul>
+<li>使用 Maya 的“绘制顶点颜色工具”(Paint Vertex Color Tool)将顶点绘制为您选择的颜色。</li>
+</ul>
+<p><img src="../images/mtoa_export_settings6.png" alt=""></p>
+<ul>
+<li>选择要导出顶点颜色的网格，然后在网格的 Arnold 属性内启用<strong>“导出顶点颜色”(Export Vertex Colors)</strong>：</li>
+</ul>
+<p><img src="../images/mtoa_export_settings7.png" alt=""></p>
+<ul>
+<li><p>将着色器指定给网格（在本例中是 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Ray_Switch_html">ray_switch</a><em>）并将 *</em>aiUserDataColor** 节点连接到其颜色输出（使用 *<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Ray_Switch_html">ray_switch</a></em> 时为“摄影机”(Camera)属性）。</p>
+</li>
+<li><p>在 aiUserDataColor 节点的<em>“颜色属性名称”(Color Attr Name)</em>中键入要使用的颜色集的名称。本例中为“<strong>colorSet1</strong>”。请注意，名称区分大小写。</p>
+</li>
+</ul>
+<p><img src="../images/mtoa_export_settings8.png" alt=""></p>
+<p>渲染时，您将看到球体顶点颜色表示。</p>
+<p><img src="../images/mtoa_export_settings9.png" alt=""></p>
+<h3 id="export-reference-positions">导出引用位置(Export Reference Positions)</h3><p>此选项可在多边形网格的 Pref 用户数据参数中导出纹理引用对象的顶点位置。Pref 位置可与程序纹理结合使用，避免在网格扭曲时发生游移。</p>
+<p><img src="../images/mtoa_export_settings_export1.png" alt=""><img src="../images/mtoa_export_settings_export2.png" alt=""></p>
+<p><sub><strong>已禁用“导出引用位置”(Export Reference Positions)（左）。已启用“导出引用位置”(Export Reference Positions)（右）</strong></sub></p>
+<ul>
+<li>使用 Pref 坐标，可以始终引用对象上的同一点，即使对象发生变形也是如此。</li>
+</ul>
+<p>Maya 3D 纹理投影将始终使用引用位置（如果可用）。但是，可以通过一个选项在 3D 纹理节点的 Arnold 属性中将其禁用。例如，如果要将引用点用于使用 3D 分形纹理（使其粘滞）的置换和您不希望粘滞或由于置换而扭曲的投影颜色纹理贴图，则此选项可能非常有用。</p>
+<p><img src="../images/mtoa_export_settings11.png" alt=""></p>
+<p><sub><strong>启用“使用引用对象”(Use Reference Object)（默认）时的 Maya 3D 纹理投影。</strong></sub></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>NURBS 对象当前不支持 PREF 用户数据。如果存在纹理引用对象并选中<strong>“导出引用位置”(Export Reference Positions)</strong>，则 MtoA 将不会导出其 PREF。</p>
+
+</div></div>
+
+<h3 id="export-reference-normals">导出引用法线(Export Reference Normals)</h3><p>此选项可在多边形网格的 Nref 用户数据参数中导出纹理引用对象的法线。Nref 可在 Maya 投影着色器的三平面模式下使用。</p>
+<h3 id="export-reference-tangents">导出引用切线(Export Reference Tangents)</h3><p>此选项可在多边形网格的 Tref 和 BTref 用户数据参数中导出纹理引用对象的切线和双切线。这些切线和双切线可在自定义着色器中使用。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shapes/arnold_for_maya_shapes_polygons_html.html">多边形</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

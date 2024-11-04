@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-25566BBB-E01A-40A0-A345-0B07D239A57F">
+<meta name="language" content="CHS">
+<title>点爆炸</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-25566BBB-E01A-40A0-A345-0B07D239A57F">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>点爆炸</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-25566BBB-E01A-40A0-A345-0B07D239A57F__WS73099CC142F48755-3D114B7511841AEFA9F-14D6">由 Autodesk（以前称 Alias）圣巴巴拉开发中心的 Bret A. Hughes 提供。</p>
+<p class="p" id="GUID-25566BBB-E01A-40A0-A345-0B07D239A57F__WS73099CC142F48755-3D114B7511841AEFA9F-14D5"> 脚本 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-25566BBB-E01A-40A0-A345-0B07D239A57F.htm#GUID-25566BBB-E01A-40A0-A345-0B07D239A57F__WS17956D7ADBC6E736-40D2EEAA117AE328894-7FFE">dynFuncExplosion.mel</a> 可创建用于发射粒子的发射器。爆炸发射器具有额外的属性，可控制模拟爆炸的多个属性。这些属性包括开始帧、持续时间、强度、完整度和爆炸的威力。</p>
+<div class="section" id="GUID-25566BBB-E01A-40A0-A345-0B07D239A57F__WS17956D7ADBC6E736-40D2EEAA117AE328894-7FFE"><h2 class="title sectiontitle">dynFuncExplosion.mel</h2>
+
+<pre class="pre codeblock">
+// dynFuncExplosion.mel 
+// 
+// Autodesk Script File 
+// MODIFY THIS AT YOUR OWN RISK 
+// 
+// Creation Date: 21 September 1996; Modified 08 January 2000 
+// Author: bah 
+// 
+// Procedure Name: 
+// dynFuncExplosion 
+// 
+// Description: 
+// Creates a point explosion that can be modified. 
+// 
+// Input Arguments: 
+// None. 
+// 
+// Return Value: 
+// None. 
+// 
+// 
+// ========== dynFuncExplosion ========== 
+// 
+// SYNOPSIS 
+// Creates a point explosion that can be modified. 
+// 
+// 
+global proc dynFuncExplosion() 
+{ 
+ // First delete anything that might be left over 
+ // from a previous test. 
+ // 
+ file -f -new; 
+ currentTime -e 1; 
+ // Display information to the user about what to expect from this 
+ // subtest and give some time for the user to read this information. 
+ // 
+ print( "\nBOOM!\n" ); 
+ system( "sleep 1" ); 
+ // Create emitter to be the source of the particles eminating from 
+ // the explosion. Add an internal variable to the emitter to 
+ // control amplitude attributes of the emitter. Render the particles 
+ // as multi streaks. 
+ // 
+ emitter -type omni -r 100 -mnd 0 -mxd 0 -spd 1 -pos 0 0 0 -n Explosion; 
+ addAttr -sn "ii" -ln "InternalIntensity" -dv 5 -min 0 
+ -max 100 Explosion; 
+ particle -name ExplosionParticle; 
+ connectDynamic -em Explosion ExplosionParticle; 
+ setAttr ExplosionParticleShape.particleRenderType 1; // MultiStreak 
+ // Link some renderable attributes to the particles. 
+ // 
+ addAttr -ln colorAccum -dv true ExplosionParticleShape; 
+ addAttr -ln lineWidth -dv 1.0 ExplosionParticleShape; 
+ addAttr -ln multiCount -dv 10.0 ExplosionParticleShape; 
+ addAttr -ln multiRadius -dv 0 ExplosionParticleShape; 
+ addAttr -ln normalDir -dv 2.0 ExplosionParticleShape; 
+ addAttr -ln tailFade -dv 0 ExplosionParticleShape; 
+ addAttr -ln tailSize -dv 3 ExplosionParticleShape; 
+ addAttr -ln useLighting -dv false ExplosionParticleShape; 
+ // Create some user-modifiable attributes to modify the 
+ // explosion. 
+ // 
+ select -replace "Explosion"; 
+ addAttr -sn "st" -ln "Start" -dv 10 -min 0 -max 100 Explosion; 
+ addAttr -sn "du" -ln "Duration" -dv 20 -min 0 -max 200 Explosion; 
+ addAttr -sn "in" -ln "Intensity" -dv 10 -min 0 -max 100 Explosion; 
+ addAttr -sn "fu" -ln "Fullness" -dv 10 -min 1 -max 100 Explosion; 
+ addAttr -sn "po" -ln "Power" -dv 10 -min 0 -max 100 Explosion; 
+ // Create the time the explosion has been alive for 
+ // and the fraction of the full explosion for that time. 
+ // Make the explosion intensity a curve instead of 
+ // linear interpolation for the explosion fraction. 
+ // BEWARE of MAGIC NUMBERS!!!! 
+ // 
+ expression -ae true -s 
+ ("Explosion.rate = Explosion.Fullness * 40 *"+ 
+ "Explosion.InternalIntensity;"+ 
+ "ExplosionParticleShape.multiRadius = "+
+ "Explosion.Fullness * Explosion.Intensity * 0.005;"+
+ "Explosion.speed = Explosion.InternalIntensity"+
+ "* Explosion.Power / 10.0; "); 
+ expression -ae true -s 
+ ("if (frame &gt;= Explosion.Start"+
+ "&amp;&amp; frame &lt;= Explosion.Start + Explosion.Duration)"+ 
+ "{"+
+ "float $ExplosionLife = frame - Explosion.Start;"+
+ "float $ExplosionFraction = 1 - (abs($ExplosionLife - "+ 
+ "Explosion.Duration/2) / (Explosion.Duration/2));"+ 
+ "Explosion.InternalIntensity = Explosion.Intensity *"+
+ "pow($ExplosionFraction,"+
+ "121 / pow(Explosion.Power + 1, 2));"+
+ "}"+ 
+ "else"+ 
+ "{"+ 
+ "Explosion.InternalIntensity = 0;"+
+ "}; ") -o Explosion; 
+ // Set up the playback options. 
+ // 
+ float $frames = 70; 
+ playbackOptions -min 1 -max $frames -loop once; 
+ // Time how long it takes to play the scene and then determine the 
+ // playback frame rate. Make sure when getting the frame rate 
+ // that no values are divided by zero. 
+ // 
+ float $startTime = `timerX`; 
+ play -wait; 
+ float $elapsed = `timerX -st $startTime`; 
+ float $fps = ($elapsed == 0.0 ? 0.0 : $frames/$elapsed); 
+ // Print the frames per second (fps) of the subtest in the form X.X. 
+ // 
+ print("dynFuncExplosion: Done. ("); 
+ print((int)($fps * 10)/10.0 + " fps)\n"); 
+} // dynFuncExplosion // 
+</pre>
+
+<div class="note note" id="GUID-25566BBB-E01A-40A0-A345-0B07D239A57F__WS73099CC142F48755-3D114B7511841AEFA9F-14D3"><span class="notetitle">注：</span> 
+<p class="p" id="GUID-25566BBB-E01A-40A0-A345-0B07D239A57F__GUID-CD94004A-BD56-4CDE-846F-F7E2D35458BC">对于 <em class="ph i" id="GUID-25566BBB-E01A-40A0-A345-0B07D239A57F__GUID-412B5CB7-55EB-46D2-BB06-6995A86FE308">expression</em> 命令中“-s”后面的多行参数的每一行，都必须使用双引号括起，后面再跟一个“+”。该规则的唯一例外之处就是最后一行不能后跟“+”。这是因为“-s”表示字符串，必须通过“+”连接多行字符串，Maya 才能正确解释该命令。</p>
+
+</div>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-EE07691C-D04C-4C22-8FFD-2E99B3489AE5.htm">示例脚本</a></div>
+</div>
+</div>
+
+</body>
+</html>

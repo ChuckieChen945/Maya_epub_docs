@@ -1,0 +1,121 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shaders_userdata_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="USERDATA">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" Ai 用户数据着色器 - Arnold for Maya">
+
+<title>Ai 用户数据着色器</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>Ai 用户数据着色器</h1></div>
+<div class="arnold-note">
+
+
+
+<table>
+<thead>
+<tr>
+<th>延伸阅读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有关完整的着色器文档，请参见<strong>《Arnold 用户手册》</strong>中的<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shading_html" target="_blank">着色</a>。</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<p>您可以向 Maya 中的形状节点添加属性，而 MtoA 可以将这些附加属性导出为 Arnold 形状节点中的用户数据。如果场景已转换为 Arnold，则不会自动导出属性。这些属性必须先作为 Maya“属性”添加到几何体，并显示在几何体的“附加属性”(Extra Attributes)中。导出时，MtoA 会将其转换为 Arnold 几何体上的用户属性。例如，如果以 <strong><em>user_data_rgb</em></strong> 指定一个属性，但传递的输入实际上是一个整数，它仍可以正常工作，只是将整数转化为浮点，并将它传递给每个 R、G 和 B 值。</p>
+<p>还可以从体积形状读取用户数据字段，从而允许体积球面点云的每粒子用户数据之类的内容影响体积着色的结果。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关用户数据着色器的详细信息，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Arnold_Common_Settings_html">此处</a>。有关用户数据的教程，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shading_am_User_Data_Tutorials_html">此处</a>。</p>
+
+</div></div>
+
+<p>以下示例显示了如何使用“用户数据”节点：</p>
+<ul>
+<li><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_userdata_am_Ai_UserData_Color_html">AI 用户数据颜色</a></li>
+<li><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_userdata_am_Ai_User_Data_Float_html">Ai 用户数据浮点</a></li>
+</ul>
+<h2 id="">用户数据布尔</h2><p><img src="../images/mtoa_userdata1.png" alt=""></p>
+<h3 id="bool-attr-name">布尔属性名称(Bool Attr Name)</h3><p>...</p>
+<h3 id="default-value">默认值(Default Value)</h3><p>...</p>
+<h2 id="">用户数据颜色</h2><p><img src="../images/mtoa_userdata2.png" alt=""></p>
+<h3 id="color-attr-name">颜色属性名称(Color Attr Name)</h3><p>在曲面上的当前着色点处从形状用户数据读取 RGB 颜色。</p>
+<h3 id="default-value">默认值(Default Value)</h3><p>具有指定名称的用户数据不可用时使用的输出值。</p>
+<h2 id="">用户数据浮点</h2><p><img src="../images/mtoa_userdata3.png" alt=""></p>
+<h3 id="float-attr-name">浮点属性名称(Float Attr Name)</h3><p>在曲面上的当前着色点处从形状用户数据读取浮点值。</p>
+<h3 id="default-value">默认值(Default Value)</h3><p>具有指定名称的用户数据不可用时使用的输出值。</p>
+<h2 id="user-data-int">User Data Int!</h2><p><img src="../images/mtoa_userdata4.png" alt=""></p>
+<h3 id="int-attr-name">整数属性名称(Int Attr Name)</h3><p>在曲面上的当前着色点处从形状用户数据读取整数值。</p>
+<h3 id="default-value">默认值(Default Value)</h3><p>具有指定名称的用户数据不可用时使用的输出值。</p>
+<h3 id="pnt2">用户数据 Pnt2</h3><p><img src="../images/mtoa_userdata5.png" alt=""></p>
+<h2 id="pnt2-pnt-2attr-name">Pnt2 属性名称(Pnt 2Attr Name)</h2><p>...</p>
+<h3 id="default-value">默认值(Default Value)</h3><p>...</p>
+<h2 id="">用户数据字符串</h2><p><img src="../images/mtoa_userdata6.png" alt=""></p>
+<h3 id="string-attr-name">字符串属性名称(String Attr Name)</h3><p>从形状用户数据中读取字符串。</p>
+<h3 id="default-value">默认值(Default Value)</h3><p>具有指定名称的用户数据不可用时使用的输出值。</p>
+<h2 id="user-data-vector">用户数据向量(User Data Vector)</h2><p><img src="../images/mtoa_userdata7.png" alt=""></p>
+<h3 id="vector-attr-name">向量属性名称(Vector Attr Name)</h3><p>...</p>
+<h3 id="default-value">默认值...(Default Value...)</h3>
+  <div class="related-links">
+      <div class="relinfo relchildren">
+        <strong>此部分中的页面</strong>
+        <ul class="ullinks">
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shaders/userdata/arnold_for_maya_userdata_am_Ai_UserData_Color_html.html">Ai 用户数据颜色</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shaders/userdata/arnold_for_maya_userdata_am_Ai_User_Data_Float_html.html">Ai 用户数据浮点</a>
+          </li>
+        </ul>
+      </div>
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/arnold_for_maya_shaders_html.html">着色器</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

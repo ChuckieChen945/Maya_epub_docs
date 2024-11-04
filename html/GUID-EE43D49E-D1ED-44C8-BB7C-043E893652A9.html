@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9">
+<meta name="language" content="CHS">
+<title>创建和加载插件多像素过滤器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>创建和加载插件多像素过滤器</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529122E"><p class="p" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F645B">仅适用于 Maya 软件渲染器。
+	 </p>
+<p class="li listintro" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F645D">创建插件多像素过滤器</p>
+<ol class="ol" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS17956D7ADBC6E7366A2D893A117AE33D52A-7FCA"><li class="li" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F645E"><span class="ph uicontrol" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__GUID-2E1650DA-9F2B-4A81-9FC7-7EDE64374ACC">“插件过滤器权重”(Plug-in Filter Weight)</span>属性与插件过滤器节点连接到一起，且其值将用作过滤器权重。该过滤器不必进行归一化。
+		  <p class="p" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F645F">可以使用具有浮点类型的至少两个输入属性和一个输出属性来定义一个插件 DG 节点。输入属性要求短名称 X 和 Y。必须将输出属性连接到<span class="ph uicontrol" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__GUID-3ABF3215-4E1B-44BF-9DE0-8C4BFDC7B58F">renderQuality”</span>节点中的<span class="ph uicontrol" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__GUID-E82ABC5E-1B40-45DD-9C6F-B6616A0FC4CF">“插件过滤器权重”(Plug In Filter Weight)</span>属性。
+		  </p>
+ 
+		  <p class="p" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F6460">选择插件过滤器类型后，会使用不同的 X 和 Y 权重（范围在 [-1.. 1] 内）多次对插件节点进行求值。插件过滤器应该在归一化域 [-1..1,-1..1] 中定义。过滤器宽度更改仅影响归一化过滤器对像素覆盖的映射。
+		  </p>
+ 
+		</li>
+</ol>
+<p class="li listintro" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F6462">加载插件多像素过滤器</p>
+<ol class="ol" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F6461"><li class="li" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F6463">以下内容假定已创建了一个多像素过滤器插件。
+		</li>
+<li class="li" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F6464">
+		  <p class="p">将过滤器插件 .so (Linux) 或 .mll (Windows) 或 .lib (Mac OS X) 文件复制到：
+		  </p>
+
+		  
+		  <ul class="ul" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F6465"><li class="li" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F6466">Linux：<samp class="ph codeph" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__GUID-AE69BBAB-C3A0-43F1-9075-F347F99173D1">/maya/bin/plug-ins</samp> 
+			 </li>
+<li class="li" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F6467">Windows：<samp class="ph codeph" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__GUID-6BC9216C-5683-46F5-9422-CD44D0B84A26">驱动器:\Program Files\Autodesk\Maya&lt;版本&gt;\bin\plug-ins</samp> 
+			 </li>
+<li class="li" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F6468">Mac OS X：<samp class="ph codeph" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__GUID-EE4CB474-E467-4DEC-B385-DE262B3BFCA2">/Applications/Maya&lt;版本&gt;/Application Support/plug-ins</samp> 或<span class="ph uicontrol" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__GUID-2CF6FC2B-94FC-4622-B0A3-AF48EEC8D2D8">插件管理器</span>可以读取这些文件的目录 
+			 </li>
+</ul>
+ 
+		</li>
+<li class="li" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F6469">在 Maya 中，单击<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-2CF7D90B-EF10-40D1-9129-9D401CCAB952">“窗口 &gt; 设置/首选项 &gt; 插件管理器”(Window &gt; Settings/Preferences &gt; Plug-in Manager)</a>。
+		</li>
+<li class="li" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F646A">加载创建的插件。
+		</li>
+</ol>
+<div class="section" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F646B"><h2 class="title sectiontitle">连接插件多像素过滤器</h2> 
+		 
+		<p class="li listintro" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F646D">将插件多像素过滤器连接到<span class="ph uicontrol" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__GUID-EFDD40F1-1A27-4C61-806C-B928311E8FFB">“插件过滤器权重”(Plug-In Filter Weight)</span></p>
+<ol class="ol" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F646C"><li class="li" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F646E">在<span class="ph uicontrol" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__GUID-A59E579E-05EB-4B5F-95FE-FD2BC69FCAEB">“脚本编辑器”(Script Editor)</span>中，通过键入以下命令创建插件节点：
+			 <p class="p" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487557109353211EEADCAF73-6A5F"> 
+				<samp class="ph codeph" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__GUID-35D19E23-0432-49D8-A38B-9A78B4DC1C37">createNode &lt;yourPluginNodeType&gt; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F646F">会为插件创建一个节点。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F6470">通过在脚本编辑器键入以下命令选择插件节点：
+			 <p class="p" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487557109353211EEADCAF73-6A5E"> 
+				<samp class="ph codeph" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__GUID-4D8D4017-B8C9-4A1A-AAB0-C8CD5D84A5C8">选择 &lt;yourPluginNodeType&gt;</samp> 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F6471">在选中插件节点的情况下，打开<span class="ph uicontrol" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__GUID-2FB7E4A7-DC39-4027-9AAE-18A290CED0D2">“连接编辑器”(Connection Editor)</span>（<span class="ph uicontrol" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__GUID-210D6980-D758-4349-96C4-C39F5F8AD517">“窗口 &gt; 常规编辑器 &gt; 连接编辑器”(Windows &gt; General Editors &gt; Connection Editor</span>)）。
+		  </li>
+<li class="li" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F6472">将插件节点加载到<span class="ph uicontrol" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__GUID-6FEBA0A3-41BF-4F87-91D7-35C159E94DAA">“连接编辑器”(Connection Editor)</span>的左侧。
+		  </li>
+<li class="li" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F6473">重复步骤 1 和步骤 2，将 defaultRenderQuality 或用户创建的 renderQuality 节点加载到<span class="ph uicontrol" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__GUID-0CB5A152-5DAD-4099-B8E4-EE84D929E8FC">“连接编辑器”(Connection Editor)</span>的右侧。
+		  </li>
+<li class="li" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__WS73099CC142F487553B93539F117EA10CE8F6474">将插件节点的权重连接到 defaultRenderQuality<span class="ph uicontrol" id="GUID-EE43D49E-D1ED-44C8-BB7C-043E893652A9__GUID-8BC43FDB-FE9B-46DD-BCCC-5BF3C687D128">“插件过滤器权重”(Plug In Filter Weight)</span>属性。可以使用多像素过滤器插件了。
+		  </li>
+</ol>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-89948BB6-7409-446F-A2FD-A78128154BE2.htm">为渲染调整场景设置</a></div>
+</div>
+</div>
+
+</body>
+</html>

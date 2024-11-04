@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807">
+<meta name="language" content="CHS">
+<title>XPD 文件规格</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>XPD 文件规格</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__SPECIFICATION_OVERVIEW"><h2 class="title sectiontitle">概述</h2>
+
+<p class="p" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-19C89E31-CBA6-4C48-800F-B3913E42A165">XGen 使用 XPD 文件进行按基本体的数据烘焙。此格式专门用于数以千计（如果不是数百个）基本体需要存储值的情况。该格式会为空间节省带来压力，但可提高读取性能。尽管写入文件的速度很慢，但性能肯定调整为最佳的读取性能。 </p>
+
+</div>
+<div class="section" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__SPECIFICATION_DESIGN"><h2 class="title sectiontitle">设计</h2>
+
+<p class="p" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-3A471EF3-00D3-4C15-9B84-28C771E8C7DB">XPD 文件分成四个主要部分：标头、面、块和基本体。标头包含描述文件内容的数据。它的布局方式如下所示： </p>
+
+<dl class="dl"><dt class="dt dlterm" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-26B8CC6E-A6BB-4C1D-8FF5-370ECFC3595E">magic </dt>
+<dd class="dd" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-2068DD5F-5D55-4CD9-A823-34B9DD4B2227">4 个字节 - 写入常量 XPD3 来标识文件类型（和主要版本）。 </dd>
+<dt class="dt dlterm" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-514726C3-D725-490C-AA91-4EE0F6C2D7DF">fileVersion </dt>
+<dd class="dd" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-22752081-B3D3-4C61-9429-C161DDCC0855">无符号字符 - 标头数据的版本，用以允许向后兼容性（如果将附加数据添加到标头）。可以将其视为次要版本号 (3.x)。 </dd>
+<dt class="dt dlterm" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-3BCB3A29-A83B-4B7D-B91D-D4B553BEAC26">primType </dt>
+<dd class="dd" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-E25FC497-5E7D-48A6-AF5B-88832F35508B">枚举 - 文件中基本体的类型。有效值包括 Point、Spline、Card、Sphere、Archive 或 CustomPT。该枚举经过定义以便有足够的空间来添加新值（如有必要）。 </dd>
+<dt class="dt dlterm" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-D02C3FE3-D8BB-4734-8086-5D6F8C0018B5">primVersion </dt>
+<dd class="dd" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-57BEC6E5-4CC2-4316-8124-A2CC683B44CD">无符号字符 - 文件中每个基本体包含的数据的版本。此版本可供读取器使用，以便在较旧 XPD 文件中进行读取并正确展开数据。这样便可在以后进行修改时无需使所有 XPD 文件失效。 </dd>
+<dt class="dt dlterm" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-03F91BF9-ED2B-45E5-9092-0849AD818618">time </dt>
+<dd class="dd" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-280F539C-26BC-4748-B052-FB1DB9DF57A6">浮点型 - 写入数据时的帧编号或当前时间。 </dd>
+<dt class="dt dlterm" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-579B8B55-2B33-4D5E-BA5F-86EFF73CDD1B">numCVs </dt>
+<dd class="dd" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-DC27A6A1-4641-4DA3-B0C9-9B07AE8963EA">无符号整数 - 每个基本体的 CV 数。这意味着并强制所有基本体都具有相同数量的 CV。 </dd>
+<dt class="dt dlterm" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-2C292F7B-7B1D-4352-AF41-892A4A8BB1C4">coordSpace </dt>
+<dd class="dd" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-3F308146-3CA0-4B98-8635-2649930810C0">枚举 - 文件中各点的坐标空间。有效值包括 World、Object、Local、Micro 和 CustomCS。对象空间是 XGen 的默认空间。局部空间是指基本体的空间，表示曲面坐标帧空间。如果这些值相对于坐标帧放置在基本体的每个 CV 处，则使用微空间。该枚举经过定义，有足够的空间用来添加新值（如有必要）。 </dd>
+<dt class="dt dlterm" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-E7A034E6-F567-4C6D-BBA9-BB7DEA3E78DD">numBlocks </dt>
+<dd class="dd" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-215118D5-79C7-4A80-A545-CC6606FACEFA">无符号整数 - 每个面的命名数据块数。 </dd>
+<dt class="dt dlterm" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-8179FAC0-455C-4B4F-9706-EA2198AAE081">blockSize </dt>
+<dd class="dd" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-4399A2AA-F365-4093-9925-046C7284BA5E">无符号整数 - 所有块名的总字符数（包括每个块的字符串末尾字符）。 </dd>
+<dt class="dt dlterm" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-AF597182-E36D-4A09-AE70-7A66E66EF8AD">blockNames </dt>
+<dd class="dd" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-B4A7C2EA-AE73-4CBC-90E2-91756A1A3554">字符 * - 块的名称。名称排序还定义每个面中的数据排序。 </dd>
+<dt class="dt dlterm" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-0BE47725-17F7-451F-B402-91E1321ABB9F">primSize </dt>
+<dd class="dd" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-D3E47B73-036A-49B0-8D52-ED4D4D941A08">无符号整数 - 表示每个块中单个基本体大小的值形成的数组。这意味着并强制每个基本体都必须为恒定大小。 </dd>
+<dt class="dt dlterm" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-1774C568-5E7D-471A-9E65-9C9DB2C7B1E6">numKeys </dt>
+<dd class="dd" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-27037CC4-9EF9-4C19-B12A-132A104258DD">无符号整数 - 文件中存储的关键帧数。由于所有存储的数据的类型为浮点型，因此要保存的所有字符串数据（如 CV 属性名称）都必须使用此关键帧机制保存。系统将关键帧存储在标头中，然后将关键帧的索引保存在数据中。 </dd>
+<dt class="dt dlterm" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-CCD11C9B-6A51-4DA1-B052-87CC28391BA0">keySize </dt>
+<dd class="dd" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-AD12E987-B40F-492E-82F8-572DF4392B10">无符号整数 - 所有关键帧名的总字符数（包括每个关键帧的字符串末尾字符）。 </dd>
+<dt class="dt dlterm" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-C9A151FF-CF97-42D4-BDCA-A1E52415404E">keyNames </dt>
+<dd class="dd" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-AA8B3B9F-73A5-4698-93A7-EDB3CE8BCF4F">字符 * - 关键帧的名称。名称排序还为应在任何引用中使用的每个关键帧定义索引。 </dd>
+<dt class="dt dlterm" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-A450C4E9-04ED-401D-9692-D8977B096087">numFaces </dt>
+<dd class="dd" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-9027C4B3-61B9-47DF-9745-4B8B9F203E58">无符号整数 - 文件中包含的面数。并不是全部都有数据。 </dd>
+<dt class="dt dlterm" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-0E620D17-FD66-417D-A5E2-8C5F7346EC21">faceid </dt>
+<dd class="dd" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-D6EB4DD6-4C52-4D67-B3D7-17AF9D2AB549">整数 - 文件中每个面的 faceid 形成的数组。此数组的顺序也是文件中面的顺序。 </dd>
+<dt class="dt dlterm" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-EF89D59D-008A-427B-8B0C-4EBD8074144F">numPrims </dt>
+<dd class="dd" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-CB0768E5-E89F-40D1-9513-E4459D98E638">无符号整数 - 包含每个面中基本体数的数组。值通过索引与 faceid 数组匹配。 </dd>
+<dt class="dt dlterm" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-988F264D-E5BD-47F3-980C-C729F3CDC39E">blockPosition </dt>
+<dd class="dd" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-9044FAB8-ACCE-4897-94B3-6E39BBD640FE">无符号长整数 - 每个面中每个块的跳跃表。此表包含面中块起点的绝对偏移，可用于直接跳转到块及其第一个基本体。 </dd>
+</dl>
+
+</div>
+<div class="section" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__SPECIFICATION_DATA-LAYOUT"><h2 class="title sectiontitle">数据布局</h2>
+
+<p class="p" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-EB0DF3E5-CF47-45A2-A2A7-DEF279C735D6">紧随在标头之后的是基本体数据。数据按面顺序分布（正如标头所定义）。在每个面中，数据按块顺序分布（正如标头所定义）。每个块必须按正确的顺序显示在每个面中。基本体放置在块中。基本体本身只是一个浮点型向量。写入器提供该向量，它知道数据的顺序以及如何将其展开。读取器一次读取一个基本体，然后使用基本体版本了解如何展开数据。每个面或每个块没有标头。实际上，在文件标头后，文件是恒定的基本体数据流。 </p>
+
+<p class="p" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-CAE6F8E7-4072-4D13-AFAB-7342821564F8">读取文件时，您必须找到所需的面和块，然后按顺序读取基本体。读取所需的所有基本体后，可以查找下一个块并读取与前一个块匹配的基本体数据。块结构允许应用程序（如 Paint3d）从一个块（例如，Location）中导出 XGen 所需的数据，然后将所需的数据导出到其自己的块（例如，PointCloud）中。然后，XGen 可以只读取所需的数据，轻松地跳过其他数据。此外，两个应用程序都可以拥有各自的数据格式，不必彼此进行协商。 </p>
+
+</div>
+<div class="section" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__SPECIFICATION_ACCESSORIES"><h2 class="title sectiontitle">附件</h2>
+
+<p class="p" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-813CB4CA-ACC5-495D-9DB1-0ECF537A1557">有几个程序可用来帮助使用 XPD 文件。其中一个是 <samp class="ph codeph" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-6F822D4C-C054-438F-B12D-BA1940BFFA54">xpd2txt</samp>。该程序会将 XPD 文件中的二进制数据转化为易于读取的文本格式。它还可用于将数据转换为随后可由生产脚本进行解析和使用的格式（例如，将数据转换为 Inventor 格式，或将其读入到 Maya 中）。另一个程序是 <samp class="ph codeph" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-42C4792B-4C10-4698-B6E6-38E2552A92D9">xpdcmp</samp>，它可以比较两个 XPD 文件以验证它们是否相同。该程序会比较文件的内容，其中包含面数、块数、关键帧数、基本体数等，但是不比较实际的基本体值。因此，它可用于验证文件彼此是否“兼容”，但不能用来查看文件是否完全相同。 </p>
+
+</div>
+<div class="section" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__SPECIFICATION_EXAMPLES"><h2 class="title sectiontitle">示例</h2>
+
+<p class="p" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-BCE27CBB-92B6-4989-9B2A-A072CE35B76F">以 XGen 源代码的形式提供了五个示例，演示如何读取和写入保存“点”(Point)类型的基本体的 XPD 文件。这种文件也称为 XUV 文件。通常，此类型的文件在 Paint3d 中创建，用于驱动基本体位置（例如，使用 PointGenerator）或束位置（即，通过成束 FX 模块）。 </p>
+
+<p class="p" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-DFE16268-908C-400E-818A-7BE38F976224"> 可以在以下 Maya 安装目录找到这些示例：<samp class="ph codeph" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-D45278AF-DE38-4FD2-8FC8-C4168C7E11BD">C:\Program Files\Autodesk\Maya&lt;version&gt;\plug-ins\xgen\devkit\xpdSamples</samp>。 </p>
+
+<p class="p" id="GUID-43899CB9-CE0F-476E-9E94-591AE2F1F807__GUID-42AB910F-73B6-4639-987F-BA549309DC0F">另一种特殊类型的 XPD 文件是针对 Paint3d 消耗的曲线/导向文件。这是一种较轻的文件，包含每个基本体的 ID、U、V 和 CV，但不包含 Paint3d 不需要的其他任何 XGen 烘焙信息。这种较轻的格式允许 Paint3d 使用无需担心对 XGen 的烘焙格式进行更改即可加载的格式。通过检查块并查找一个称为“Paint3d”的块可以检测到此格式。 </p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-F911C29C-A97C-4A75-9B9D-5A005133759A.htm">XGen 技术文档</a></div>
+</div>
+</div>
+
+</body>
+</html>

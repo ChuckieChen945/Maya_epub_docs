@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Bifrost">
+<meta name="created" content="30/7/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="17/04/2023">
+<meta name="topicid" content="GUID-ED573C8E-282C-4751-98FB-C68E3B491863">
+<meta name="language" content="CHS">
+<title>使用通道场修改值</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-ED573C8E-282C-4751-98FB-C68E3B491863">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用通道场修改值</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p">使用通道场可修改 Bifrost 模拟中体素或粒子通道的值，例如液体密度、泡沫或 Aero。可以使用场景中闭合的多边形网格或者使用隐式形状将效果限制到特定体积。
+	 </p>
+<p class="p">请注意，通道的最终值可能并不总是完全对应于通道场的设置。例如，您可以使用通道场来钳制液体的漩涡通道，但是在模拟更新速度后，将计算新的漩涡值。钳制将防止漩涡值累积得太高，但是一些值可能仍然高于通道场设置的最大值。
+	 </p>
+<ol class="ol" id="GUID-ED573C8E-282C-4751-98FB-C68E3B491863__OL_CA5CADB3F54E4E23852D1317613EEAE7"><li class="li" id="GUID-ED573C8E-282C-4751-98FB-C68E3B491863__LI_6FF52956D9344624856C2AAFE11DD4BE"> 
+		  <p class="p">选择 Bifrost 主容器或 Bifrost 形状节点。
+		  </p>
+ 
+		  <div class="p">对于使用泡沫进行的液体模拟：
+		  <ul class="ul" id="GUID-ED573C8E-282C-4751-98FB-C68E3B491863__UL_C687A969F2604D51BFB148265C2F880C"><li class="li" id="GUID-ED573C8E-282C-4751-98FB-C68E3B491863__LI_14A17E91CFC24C6488CA799EAEC9ACE4">选择液体容器时会将场同时应用于液体和泡沫粒子。
+			 </li>
+<li class="li" id="GUID-ED573C8E-282C-4751-98FB-C68E3B491863__LI_8BE26920A25F4F1F90D3010D7AB6D6F8">选择液体形状时仅将场应用于液体粒子。
+			 </li>
+<li class="li" id="GUID-ED573C8E-282C-4751-98FB-C68E3B491863__LI_EC6CBA2A3CC44EC6B2CF82D0CF0BE329">选择泡沫形状时仅将场应用于泡沫粒子。
+			 </li>
+</ul>
+ 
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-ED573C8E-282C-4751-98FB-C68E3B491863__LI_6E8553E0B368468787EA796B0A2E055E">如果要使用一个或多个多边形网格定义效果体积，请将其也添加到当前选择中。选择顺序无关紧要。
+		</li>
+<li class="li" id="GUID-ED573C8E-282C-4751-98FB-C68E3B491863__LI_9C0A6F6203DD4EFC81374A27B2973525"> 
+		  <p class="p">选择<span class="ph menucascade"><span class="ph uicontrol">“Bifrost 流体</span> &gt; <span class="ph uicontrol">(添加)通道场”(Bifrost Fluids &gt; (Add) Channel Field)</span></span>。
+		  </p>
+ 
+		  <p class="p">将在世界原点处创建<span class="ph uicontrol">“bifrostChannelField”</span>对象并自动将其选中。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-ED573C8E-282C-4751-98FB-C68E3B491863__LI_CE433EAAB22549B4A5AA460B3BB43C7D"> 
+		  <div class="p">通过执行以下操作之一定义受禁用场影响的体积：
+		  <ul class="ul" id="GUID-ED573C8E-282C-4751-98FB-C68E3B491863__UL_AAAE46D0A6724ACF9E39143BF61B3757"><li class="li" id="GUID-ED573C8E-282C-4751-98FB-C68E3B491863__LI_B56632C171994AEB9C04F1B9E07D4C1B">若要影响体积内部的粒子，请在场容器的<span class="ph uicontrol">“边界控制”(Boundary Controls)</span>属性中选择<span class="ph uicontrol">“边界形状”(Boundary Shape)</span>，然后缩放、旋转和平移场。视口中场的线框表示指示了将受影响的体积。请注意，<span class="ph uicontrol">“InMesh”</span>仅当在步骤 2 中选择了一个或多个网格时适用。
+			 </li>
+<li class="li" id="GUID-ED573C8E-282C-4751-98FB-C68E3B491863__LI_533B193FD0704E8EA2139FBE369079B2">若要影响体积外部的粒子，请执行上文所述的相同操作，还要确保选中<span class="ph uicontrol">“反转”(Invert)</span>。
+			 </li>
+<li class="li" id="GUID-ED573C8E-282C-4751-98FB-C68E3B491863__LI_98ADCC8F7D7E4DD08506A143152AA5E5">若要影响任何位置的所有粒子，请取消选中<span class="ph uicontrol">“禁用场特性”(Kill Field Properties)</span>属性组中的<span class="ph uicontrol">“边界”(Boundary)</span>。
+			 </li>
+</ul>
+ 
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-ED573C8E-282C-4751-98FB-C68E3B491863__LI_072B384F22D447168F4365E97B51C06F">选择<span class="ph uicontrol">“模式”(Mode)</span>（<span class="ph uicontrol">“粒子”(Particles)</span>或<span class="ph uicontrol">“体素”(Voxels)</span>），并输入<span class="ph uicontrol">“通道名称”(Channel Name)</span>。有关通道列表以及其他设置的说明，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-7696EAE6-24E0-4593-8B45-F2077CE11EEC.htm">Bifrost 通道场属性</a>。
+		</li>
+<li class="li" id="GUID-ED573C8E-282C-4751-98FB-C68E3B491863__LI_01CEEAC38F6043018125C08489FD9A92"> 启用所需的操作（<span class="ph uicontrol">“覆盖”(Override)</span>、<span class="ph uicontrol">“增量”(Increment)</span>、<span class="ph uicontrol">“缩放”(Scale)</span>或<span class="ph uicontrol">“钳制”(Clamp)</span>），并为每个操作设置<span class="ph uicontrol">“最小值”(Min)</span>和<span class="ph uicontrol">“最大值”(Max)</span>。每个操作将使用这些限值之间的均匀随机分布来执行。
+		  <div class="note note" id="GUID-ED573C8E-282C-4751-98FB-C68E3B491863__GUID-D395CF32-E3FB-48C8-8EC9-BF95B561A85C"><span class="notetitle">注：</span> 对于设置了向量值的通道，这些操作将分别应用于每个 XYZ 分量。 
+		  </div>
+ 
+		</li>
+</ol>
+<p class="p">若要移除通道场，可以在<span class="ph uicontrol">“节点编辑器”(Node Editor)</span>中断开其连接，或者直接将其删除。
+	 </p>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-490292AC-38B2-4D13-9F41-9E959A767064.htm">使用 Bifrost 模拟流体</a></div>
+</div>
+</div>
+
+</body>
+</html>

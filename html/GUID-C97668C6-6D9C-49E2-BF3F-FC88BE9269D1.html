@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Animation">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1">
+<meta name="language" content="CHS">
+<title>使用动画层以增强运动捕捉数据</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用动画层以增强运动捕捉数据</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F4875515A699EE12A80087827-4AB7"><p class="p" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-7280">动画层尤其适用于处理运动捕捉数据。只能编辑动画中需要更改的特定点，且不能更改其他数据。
+	 </p>
+<p class="p" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-727F">动画层可以使用运动捕捉数据来协助解决很多常见问题，包括实体穿透、手脚振动和不稳定的地板接触。还可以使用动画层来确保对象碰到场景中的特定目标。
+	 </p>
+<p class="p" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-727E">以下步骤介绍了一个工作流示例，其中用到了动画层的运动捕捉数据，以在角色的腕部接触地面时稳住它。
+	 </p>
+<p class="li listintro" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-727B">使用动画层来校正或增强运动捕捉数据</p>
+<ol class="ol" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-727C"><li class="li" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-727A">将一个运动捕捉数据序列加载到场景中。
+		  <p class="p" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-7279">本示例中介绍的场景带有两足动物骨架的运动捕捉数据。
+		  </p>
+ 
+		  <p class="p" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-7278">在本示例动画中，腕部在第 27 帧时与地板接触，但手的位置出现颤抖，而且并不自然。我们希望手在第 27 帧接触地面，然后在第 27 帧至第 40 帧之间保持稳定。可以修改这些帧之间的动画以在手与地面接触后保持稳定。
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-7277"><img class="image" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__IMAGE_1B836211F5E049AC8289D4125744C6E1" width="423" height="179" src="../images/GUID-9953ADD5-4175-45F9-90F0-A56862CCD404.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-7276">执行以下操作，在肩部和腕部之间插入一个链解算器：
+		  <ul class="ul" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-7275"><li class="li" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-7274">从主菜单栏选择<span class="ph uicontrol" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__GUID-EE17DCA3-6FB3-4464-90DE-009B0DEE7ECC">“骨架 &gt; IK 控制柄工具”(Skeleton &gt; IK Handle Tool)</span> &gt; <img class="image" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__IMAGE_2D609277472E43FFA7F8D29AB208418A" width="19" height="17" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">。
+			 </li>
+<li class="li" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-7273">选择肩部作为起始关节，然后选择腕部作为末关节。（另请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-A68E47F5-8F28-48C1-9B0F-370AA57ADDA8">创建 IK 控制柄</a>。） 
+			 </li>
+<li class="li" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-7272">在<span class="ph uicontrol" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__GUID-99F2CCF6-2757-48EA-977A-160F59BC8416">“IK 控制柄设置”(IK Handle Settings)</span>中，选择<span class="ph uicontrol" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__GUID-CF7D01F7-5446-4D0D-9BC7-C0550EBFFADE">“单链解算器”(Single-Chain Solver)</span>作为<span class="ph uicontrol" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__GUID-6FFC8C33-88D9-4213-9E08-9AB95B5BD153">“当前解算器”(Current solver)</span>。
+			 </li>
+</ul>
+ 
+		  <div class="note note" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS1A9193826455F5FF5CF1D02511B1D000978-6E1E"><span class="notetitle">注：</span>  
+			 <p class="p" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__GUID-8EAACE5C-A0ED-41AD-8A21-38CA70F67D28">本示例采用单个链 IK 解算器，但也可以使用 HumanIK 装备上的效应器来达到相同的效果。
+			 </p>
+ 
+		  </div>
+ 
+		  <p class="p" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-7271">在接下来的步骤中，将使用 IK 控制柄作为效应器来操纵腕部位置。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-7270">选择创建好的 IK 控制柄，然后选择<span class="ph uicontrol" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__GUID-1BA82B96-0AA8-483E-8DF8-86444E9554C0">“动画层编辑器”(Animation Layer Editor)</span>菜单栏中的<span class="ph uicontrol" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__GUID-B84ACA1A-B843-4726-80B7-987EAE0E5DB8">“层 &gt; 从选定对象创建覆盖层”(Layers &gt; Create Override Layer From Selected)</span>。（另请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-0BAB87C9-2953-4A7D-816A-D6375771E0FC.htm">创建动画层</a>。） 
+		  <p class="p" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-726F">将在<span class="ph uicontrol" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__GUID-4EBF1475-DCD4-4F8B-B63D-AF5EE33281AF">“动画层编辑器”(Animation Layer Editor)</span>堆栈中为 IK 控制柄创建名为 AnimLayer1 的新覆盖层。
+		  </p>
+ 
+		  <p class="p" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-726E">默认情况下，所有控制柄的属性将被添加到层中，包括其<span class="ph uicontrol" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__GUID-28B172BE-9F9E-4DAF-B3A1-29C923EFD569">“IK 融合”(IK Blend)</span>值。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-E7E41BFB-30F9-45BF-AAB9-D4FD59338F78.htm">将属性添加到动画层和从动画层移除属性</a>。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-726D">双击新层并将其重命名为“Stabilize_Hand”，然后单击 <img class="image" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__IMAGE_ACD31F880C2749AAB3A760DBF2C83039" width="25" height="21" src="../images/GUID-19CE71CC-E524-485F-A573-C020FDA7455B.png"> 以禁用该层。
+		  <p class="p" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS1A9193826455F5FF5CF1D02511B1D000978-6E1D">禁用该层后即可查看原始动画，并识别希望修改的帧。尽管该层还不包含动画，但它处于“覆盖”(Override)模式，这会导致 IK 控制柄显示在一个无效的位置，除非禁用该层。
+		  </p>
+ 
+		  <p class="p" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS1A9193826455F5FF5CF1D02511B1D000978-6E1C">默认情况下，层在禁用后会被锁定，无法接收关键帧。可以通过在<span class="ph uicontrol" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__GUID-3AD2B85A-26A3-467D-8B4E-D0C769FB147B">“动画层编辑器”(Animation Layer Editor)</span>中禁用<span class="ph uicontrol" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__GUID-167FF5E4-61D3-4087-AC74-21C536F2D726">“选项 &gt; 锁定禁用层”(Options &gt; Lock Muted Layers)</span>来更改此选项。在接下来的步骤中，我们将解除锁定这个新层，以使它可以接收关键帧。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-726B">播放动画以确定要稳定手/腕部的地方。
+		  <div class="fig fignone" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-726A"><img class="image" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__IMAGE_4554FC001BF846EE97A6C2A5A6380F89" width="332" height="212" src="../images/GUID-EBD12A7C-78C3-4E49-ABCB-884CB41C6E37.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS1A9193826455F5FF5CF1D02511B1D000978-6E1B">单击 <img class="image" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__IMAGE_816BE0A73AF34763B714F97F44257171" width="25" height="21" src="../images/GUID-288B6923-3007-4DBA-BBAD-246D563A2002.png"> 解除锁定层，以便设定关键帧。
+		</li>
+<li class="li" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-7269">选择 IK 控制柄，在第 27 帧设定一个关键帧。
+		  <p class="p" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS1A9193826455F5FF5CF1D02511B1D000978-6E1A">这会在第 27 帧固定 IK 控制柄的位置。（另请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-89535329-63E3-4CCA-AD1D-7AB27B2B59B9.htm">在动画层上为对象设置关键帧</a>。） 
+		  </p>
+ 
+		  <p class="p" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-7268">在<span class="ph uicontrol" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__GUID-A1359465-DD36-42B1-9600-31DF56E7E756">“动画层编辑器”(Animation Layer Editor)</span>中，注意 Stabilize_Hand 层上的绿色“交通灯”反馈。这表示该层可用于设定关键帧。
+		  </p>
+ 
+		  <p class="p" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-7266">由于在第 3 步中为 IK 控制柄创建了层，因此在控制柄上设定的关键帧将被包含在该层上。由于该层处于“覆盖”(Override)模式，其动画将在取消禁用层并播放场景中的动画时覆盖运动捕捉数据。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-725C">单击 <img class="image" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__IMAGE_EE4ED40292A643ECBD9D6A46E47610FE" width="25" height="21" src="../images/GUID-9DF03F09-4C95-47AB-A3D2-9F5FD735ECEB.png"> 以取消禁用层并播放场景中的结果动画。
+		  <p class="p" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-7263">在接下来的步骤中，将为控制柄<span class="ph uicontrol" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__GUID-C77D704A-A20C-495E-BA7C-8D9E899DC147">“IK 融合”(IK blend)</span>值设置关键帧，以使其效果（修改原始动画）融合到多个帧中。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-7262">为控制柄<span class="ph uicontrol" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__GUID-8929B27C-8E1F-46B6-972A-A27A9DBF95F9">“IK 融合”(IK Blend)</span>值设置关键帧，如下所示：
+		  <ul class="ul" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-7261"><li class="li" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-7260">转至第 0 帧（在希望修改手/腕部动画之前），将<span class="ph uicontrol" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__GUID-F50E8365-6A3B-491C-B48D-1B5ED52692B1">“IK 融合”(IK blend)</span>值设置为 0，并设置一个关键帧。
+			 </li>
+<li class="li" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-725F">转至第 20 帧（希望修改后的动画在此处开始融合到原始数据），将<span class="ph uicontrol" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__GUID-E9F96959-CB7B-42EF-A664-3B2A456A86D0">“IK 融合”(IK Blend)</span>值设置为 0，并设置一个关键帧。
+			 </li>
+<li class="li" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-725E">转至第 27 帧（希望修改后的动画在此处完全覆盖原始动画），将<span class="ph uicontrol" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__GUID-4840716F-635B-470E-8FFE-7DD467672D1E">“IK 融合”(IK Blend)</span>值设置为 1，并设置一个关键帧。
+			 </li>
+</ul>
+ 
+		</li>
+<li class="li" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-725D">在<span class="ph uicontrol" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__GUID-B83416B0-7210-4DF1-BBF1-37BCCD3BC105">“曲线图编辑器”(Graph Editor)</span>中，调整刚才设置的<span class="ph uicontrol" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__GUID-CF2B781F-A60E-433E-896A-2A5224338066">“IK 融合”(IK Blend)</span>关键帧以使用线性切线。（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-B8DF6369-404C-4B10-95EA-81CCFE6DF988.htm">编辑切线</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-43A4FE2C-4863-4EA6-B6AE-6D2B6757F6C7.htm#GUID-43A4FE2C-4863-4EA6-B6AE-6D2B6757F6C7__GUID-809B2936-77CF-4A06-BC13-2211644D26BD">线性</a>。） 
+		  <p class="p" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-7265">在第 27 帧后，手将与地面接触并稳定下来。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-C97668C6-6D9C-49E2-BF3F-FC88BE9269D1__WS73099CC142F48755-4607E7CC11B1CFFF571-725B">（可选）如果对修改感到满意，可以使用运动捕捉数据合并或烘焙修改的动画。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-9656522D-ED3B-4FAA-AA95-5167A7AC3482.htm">合并动画层</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-72394768-6DD7-4676-857F-B0468509CFF6.htm">烘焙动画层</a>。
+		</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-0B7E62A8-ED42-4026-AE0D-CED5903E925B.htm">包含动画层的示例工作流</a></div>
+</div>
+</div>
+
+</body>
+</html>

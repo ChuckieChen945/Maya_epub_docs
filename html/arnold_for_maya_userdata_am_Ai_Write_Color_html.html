@@ -1,0 +1,116 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_userdata_am_Ai_Write_Color_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_AI_WRITE_COLOR">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" Ai 写入颜色 - Arnold for Maya">
+
+<title>Ai 写入颜色</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>Ai 写入颜色</h1></div><p>此简短教程介绍了如何使用 <em>Ai 写入颜色*着色器将另一个着色器（例如，</em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_utility_am_Utility_html">工具</a>*着色器）的输出添加为自定义 AOV。</p>
+<p><strong>有关对应的 Maya 场景，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/write-color_user-guide.ma" target="_blank">此处</a>。</strong></p>
+<ul>
+<li>将一个 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Surface_html">standard_surface</a></em> 着色器指定给球体。</li>
+<li>将输出 RGB 的着色器（例如另一个标准曲面着色器）连接到<em>写入颜色</em>的美景。</li>
+<li>将<em>写入颜色*着色器连接到 *standard_surface</em> 着色器的<em>“颜色”(Color)</em>属性。</li>
+<li>将<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_utility_am_Utility_html">工具</a>着色器连接到<em>写入颜色</em>着色器的输入。配置<em>工具</em>着色器以输出所需值（如 <em>object_id</em>）：</li>
+</ul>
+<p><img src="../images/am-Ai_Write_Color-image2017-4-20-9-4-1-1.png" alt=""></p>
+<p><sub><strong>最终着色器网络</strong></sub>  </p>
+<ul>
+<li>在<em>写入颜色</em>的<em>“名称”(Name)</em>属性中，选择（或创建）要与<em>工具</em>着色器的输出（例如 <em>object_id</em>）相关联的自定义 AOV。</li>
+</ul>
+<p><img src="../images/am-Ai_Write_Color-image2016-5-5-9-23-59-2.png" alt="">  </p>
+<ul>
+<li>打开<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_system_am_Render_Settings_html">“渲染设置”(Render Settings)</a>窗口，然后转到“AOV”(AOVs)选项卡。您应该会看到新创建的 AOV。</li>
+</ul>
+<p><img src="../images/am-Ai_Write_Color-image2018-2-28-10-40-40-3.png" alt=""></p>
+<ul>
+<li>渲染场景。您应该注意到，在 images 文件夹中，MtoA 已写出与 <em>object_id</em> AOV 相关联的美景渲染以及<em>工具</em>着色器：</li>
+</ul>
+<p><img src="../images/am-Ai_Write_Color-aov-tmp-folder-4.jpg" alt=""></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Ai_Write_Color-beauty-5.jpg" alt=""></td>
+<td><img src="../images/am-Ai_Write_Color-utility-6.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<h2 id="strong-1-strong"><strong>示例 1</strong></h2><p>假设您想要为汽车模型创建一些不同的蒙版。如果要将模型分割成不同的蒙版，则 <em>Ai 写入颜色</em>节点是一种很有用的方法。在此示例中，我们会将 <em>Ai 写入颜色</em>节点用于汽车涂料和挡风玻璃。</p>
+<p><img src="../images/am-Ai_Write_Color-pedro-car-beauty-7.jpg" alt=""></p>
+<p><sub><strong>汽车美景渲染</strong></sub>  </p>
+<ul>
+<li>通过上述球体所使用的方法，为汽车涂料和挡风玻璃创建 <em>Ai 写入颜色节点</em>。分别指定汽车涂料材质和挡风玻璃。</li>
+<li>选择每个 <em>Ai 写入颜色</em>着色器，然后选择<em>“名称”(Name)</em>旁边的下拉菜单。为每个 <em>Ai 写入颜色</em>节点指定新名称，如“Car Paint”和“Glass”：</li>
+</ul>
+<p><img src="../images/am-Ai_Write_Color-image2016-5-5-9-25-41-8.png" alt=""></p>
+<ul>
+<li>渲染场景。您应该会看到汽车美景已渲染，包括可用作单独蒙版的汽车涂料和挡风玻璃图像。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Ai_Write_Color-car-paint-matt-9.jpg" alt=""></td>
+<td><img src="../images/am-Ai_Write_Color-windscreen-glass-matte-10.jpg" alt=""></td>
+</tr>
+<tr>
+<td>汽车涂料工具渲染为单独的蒙版图像</td>
+<td>挡风玻璃工具渲染为单独的蒙版</td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Shading/arnold_for_maya_shading_am_User_Data_Tutorials_html.html">用户数据教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="task-adsk">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="">
+<meta name="indexterm" content="蒙皮后修正形状">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF">
+<meta name="language" content="CHS">
+<title>创建蒙皮后修正形状</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>创建蒙皮后修正形状</h1></div>
+</div>
+</div>
+
+<div class="body taskbody-adsk"><p class="shortdesc"> 
+</p>
+<p class="p"> 
+  </p>
+<p class="p">修正形状是为了修复基础对象上的变形问题而创建的融合变形。这通常是一种在角色蒙皮上使用的方法，以便修复在设置角色动画时发现的变形问题。您可以创建修正形状，以便在蒙皮变形器求值前后将其应用于蒙皮。每种方法的形状变形结果和工作流各不相同。 
+</p>
+<p class="p">在蒙皮变形器之后求值的蒙皮上创建修正形状时，考虑到了蒙皮在动画期间的变形方式。蒙皮后修正形状可以基于蒙皮的切线空间或关节的变换值（位置和旋转）。 
+</p>
+<ul class="ul" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__UL_885197E173CB4D6E88DA3FD95D750151"><li class="li" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__LI_9A4EF80E78004BC1B081891C4F9251A5"><span class="ph uicontrol">“切线空间”(Tangent Space)</span>目标形状使用相对于基础对象曲面的空间计算蒙皮变形。局部顶点帧用于计算切线空间，而不是对象的 UV。 
+  </li>
+<li class="li" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__LI_1D0205541B5D4BF2BC11C43F19E6745D"><span class="ph uicontrol">“变换空间”(Transform Space)</span>目标形状使用由选定骨架关节定义的变换空间计算蒙皮变形。 
+  </li>
+</ul>
+<p class="p"> 
+  <span class="ph uicontrol">“变换空间”(Transform Space)</span>目标形状的计算速度通常快于<span class="ph uicontrol">“切线空间”(Tangent Space)</span>，对形状所做的任何校正均在选定关节的封套区域内。 
+</p>
+<div class="section" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__SECTION_E45AA4C0EA21437BB3F8B1B334941081"><h2 class="title sectiontitle">切线空间修正形状</h2> 
+   
+  <p class="li listintro">创建基于切线的蒙皮后修正形状</p>
+<ol class="ol" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__OL_32ABE12A5AFC43CDA2591A7BC3C05323"><li class="li" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__LI_FBF6D8220A99449A8F21F0C1356907B0">转到角色的蒙皮错误变形的帧，或者将角色移动到要添加修正形状的姿势。 
+	 </li>
+<li class="li" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__LI_D53FD2C621304AAF83E9AC40036605AF">选择角色的蒙皮网格。 
+	 </li>
+<li class="li" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__LI_9E49D07332A84EDC9C96E6D7A44382F2">打开<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-3C92402C-B24E-4874-AC8D-EADF976A19DC.htm">形变编辑器(Shape Editor)</a>，然后选择<span class="ph menucascade"><span class="ph uicontrol">“创建</span> &gt; <span class="ph uicontrol">融合形变变形器”</span></span>(Create &gt; Blend Shape Deformer) &gt; <img class="image" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__IMAGE_7D7C2A185FDE4FCC8C38D63ADF85DE2A" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png">。 
+	 </li>
+<li class="li" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__LI_F9689BF2E8E044689C797718F5F5AE4C">在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-C954C197-6D56-4EB8-BEA0-70DD1BBBAD6B.htm">融合变形选项(Blend Shape Options)</a>中，单击<span class="ph uicontrol">“高级”(Advanced)</span>选项卡，然后从<span class="ph uicontrol">“变形顺序”(Deformation Order)</span>列表中选择<span class="ph uicontrol">“变形后”(Post-deformation)</span>。 
+	 </li>
+<li class="li" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__LI_C2318D190BEE404689A469973288EA79">单击<span class="ph uicontrol">“创建”(Create)</span>按钮，以便在蒙皮网格上创建融合形变变形器。 
+	 </li>
+<li class="li" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__LI_99D7228AA3BC4CA1B3656AE3271FFBEB">在<span class="ph uicontrol">“形变编辑器”(Shape Editor)</span>中，单击<span class="ph uicontrol">“添加目标”(Add Target)</span>按钮或选择<span class="ph menucascade"><span class="ph uicontrol">“创建</span> &gt; <span class="ph uicontrol">添加目标”</span></span>(Create &gt; Add Target) &gt; <img class="image" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__IMAGE_A1004D01502F40CAB991D5E2F6C1AA13" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png">。 
+	 </li>
+<li class="li" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__LI_F4DC475EB4574EF9A85EEF208830A117">在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-3F747E43-29D1-409D-8F40-C97311C894E6.htm">添加融合变形目标选项(Add Blend Shape Target Options)</a>中，从<span class="ph uicontrol">“类型”(Type)</span>列表中选择<span class="ph uicontrol">“切线空间”(Tangent Space)</span>，可为此融合形变变形器创建基于切线的目标形状。单击<span class="ph uicontrol">“应用并关闭”(Apply and Close)</span>。 
+		<p class="p">树中目标形状的名称旁边会显示一个绿色目标图标，指示该形状基于切线空间。 
+		</p>
+ 
+	 </li>
+<li class="li" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__LI_DE451DAF049542C1B3EE3D6C9F81D39F">目标形状的名称自动与蒙皮网格的名称相同，但您可以对其进行更改：双击名称或者在其上单击鼠标右键并选择<span class="ph uicontrol">“重命名”(Rename)</span>，然后输入新名称。 
+	 </li>
+<li class="li" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__LI_D47319B5FE904DE8B84EF3BA4EEDC743">请确保目标形状的权重值设置为 1，使修正形状的效果具有 100% 的影响，然后单击其<span class="ph uicontrol">“编辑”(Edit)</span>按钮（如果尚未变成红色）。可以开始编辑蒙皮网格。 
+	 </li>
+<li class="li" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__LI_EAECC4B033774366BF09FD48888E5831">使用雕刻工具使蒙皮变形以使其正确无误，或者选择所需的对象组件并使用变换工具使蒙皮变形。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-5785515C-0ED6-4FAF-88E2-3C66F21A476E.htm">编辑目标形状</a>。 
+	 </li>
+<li class="li" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__LI_E1B41E67DF464EB7B8271E013B058847">完成形状时，再次单击<span class="ph uicontrol">“编辑”(Edit)</span>按钮，以退出编辑模式。 
+	 </li>
+</ol>
+ 
+  <p class="p">拖动目标形状的权重滑块时，您可以看到修正形状变更对蒙皮网格的影响。 
+  </p>
+ 
+</div>
+<div class="section" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__SECTION_BAE2EC7B5CF94B2DAB3762124E183483"><h2 class="title sectiontitle">变换空间修正形状</h2> 
+   
+  <div class="p"> 
+  <p class="li listintro">创建基于变换的蒙皮后修正形状</p>
+<ol class="ol" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__OL_45F0A8213A4B4C5194CC8C5EE9A04C3C"><li class="li" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__LI_F9725D1A8897432EBE22290D92D27D74">按照上述切线空间过程的前六个步骤操作。 
+	 </li>
+<li class="li" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__LI_E682C0E66D6C476DABF952D8BF0F3807">在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-3F747E43-29D1-409D-8F40-C97311C894E6.htm">添加融合变形目标选项(Add Blend Shape Target Options)</a>中，从<span class="ph uicontrol">“类型”(Type)</span>列表中选择<span class="ph uicontrol">“变换空间”(Transform Space)</span>，可为此融合形变变形器创建基于变换的目标形状。 
+	 </li>
+<li class="li" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__LI_0F803E99EE484675AE38D0CDAC362628">在<span class="ph uicontrol">“变换名称”(Transform Name)</span>框中，输入要与修正目标形状关联的关节的名称，或者在视图或大纲视图中选择关节，然后单击<span class="ph uicontrol">“使用选定对象”(Use Selected)</span>按钮。单击<span class="ph uicontrol">“应用并关闭”(Apply and Close)</span>。 
+		<p class="p">树中目标形状的名称旁边会显示一个蓝色目标图标，指示该形状基于变换。 
+		</p>
+ 
+	 </li>
+<li class="li" id="GUID-B8755F24-7C24-4066-B6F8-2DE6954DC2BF__LI_BF2CC00A0C9F435A90E5B5688F26D1E8">按照编辑目标形状的剩余步骤操作，如上述切线空间过程中所述。 
+	 </li>
+</ol>
+ 
+  </div>
+ 
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-7235BE66-24B2-4765-B1B7-E588AC0481E4.htm">形状工作流</a></div>
+</div>
+</div>
+
+</body>
+</html>

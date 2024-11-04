@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801">
+<meta name="language" content="CHS">
+<title>通过平滑蒙皮为圆柱体蒙皮</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>通过平滑蒙皮为圆柱体蒙皮</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F4875515A699EE12A80087827-4A67"><p class="p" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4AD6"> 此示例类似于<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-8A7E6415-7988-4BB3-8C70-A2DDD43A2C12.htm#GUID-8A7E6415-7988-4BB3-8C70-A2DDD43A2C12__WS17956D7ADBC6E736-5D7D28FA117AE30DDFF-7F9B">通过刚性蒙皮为圆柱体蒙皮</a>，因此可将平滑蒙皮与刚性蒙皮进行比较。 
+	 </p>
+<div class="section" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS17956D7ADBC6E736-5D7D28FA117AE30DDFF-7FC1"> 
+		<p class="li listintro" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4AD3">创建圆柱体</p>
+<ol class="ol" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4AD4"><li class="li" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4AD2">使用下列选项创建 NURBS 圆柱体： 
+			 <ul class="ul" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F487557BFAA8DA122EC01152F4849"><li class="li" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F487557BFAA8DA122EC01152F484A"><span class="ph uicontrol" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__GUID-9606A811-18D9-45D4-A8C8-987FDBE6F471">高度(Height)</span>：8 
+				</li>
+<li class="li" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F487557BFAA8DA122EC01152F484B"><span class="ph uicontrol" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__GUID-5FE81ED1-CD8D-4808-9A2F-6445BF7310EF">分段数(Sections)</span>：16 
+				</li>
+<li class="li" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F487557BFAA8DA122EC01152F484C"><span class="ph uicontrol" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__GUID-C428C861-E56F-4F83-ADB1-B19A10FCC105">跨度数(Spans)</span>：32 
+				</li>
+</ul>
+ 
+			 <div class="fig fignone" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F487557BFAA8DA122EC01152F484D"><img class="image" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__IMAGE_A7F3C3E285374B32B5C58D3831033191" width="182" height="210" src="../images/GUID-EFA39375-47F0-4CE7-AC6B-63710DEA51A3.png"></div>
+ 
+		  </li>
+</ol>
+ 
+		<p class="li listintro" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4ACF">为圆柱体创建骨架</p>
+<ol class="ol" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4AD0"><li class="li" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4ACE">为圆柱体构建骨架。使骨架由一个包括七个关节的单关节链构成。 
+			 <div class="fig fignone" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F487557BFAA8DA122EC01152F484E"><img class="image" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__IMAGE_F39118048D6C419E84C2B4DA1C1D787C" width="184" height="212" src="../images/GUID-F1948DF0-F6B5-48B7-8413-53A5B00AF2CD.png"></div>
+ 
+			 <p class="p" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755556E0C5911DCC55A1EF-3404">该骨架由一个关节链组成（joint1 到 joint7）。Joint4 约从圆柱体的中心位置开始。 
+			 </p>
+ 
+		  </li>
+</ol>
+ 
+		<p class="li listintro" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4ACB">通过平滑蒙皮进行绑定</p>
+<ol class="ol" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4ACC"><li class="li" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4ACA">选择骨架根关节（默认名称：joint1）。 
+		  </li>
+<li class="li" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS1A9193826455F5FF-7F10494411F03A24F24-10B0"> 按住 Shift 键并选择圆柱体。 
+		  </li>
+<li class="li" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4AC9">选择“<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-35ECFBC1-A65B-46AF-9542-213BD304C632.htm">蒙皮</a> &gt; 绑定蒙皮”(Skin &gt; Bind Skin)。 
+		  </li>
+</ol>
+ 
+		<p class="li listintro" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4AC7">练习使用骨架</p>
+<ol class="ol" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4AC8"><li class="li" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4AC6">选择大约位于圆柱体中心的关节（例如，joint4），然后旋转大约 90 度。 
+			 <div class="fig fignone" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F487557BFAA8DA122EC01152F484F"><img class="image" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__IMAGE_3A2463B319E745DB9B8CC57D7A2AC275" width="182" height="204" src="../images/GUID-B85C071C-B927-4784-9096-924B31EC2FFC.png"></div>
+ 
+		  </li>
+</ol>
+ 
+		<p class="li listintro" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4AC3">绘制折痕效果</p>
+<ol class="ol" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4AC4"><li class="li" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4AC2">选择平滑着色处理显示模式（热键：按 5 键）。 
+		  </li>
+<li class="li" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4AC1">选择圆柱体。 
+		  </li>
+<li class="li" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4AC0">选择<span class="ph uicontrol" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__GUID-8A416936-C44E-4178-BE9C-6FD0560EB3A9">“蒙皮 &gt; 绘制蒙皮权重工具”(Skin &gt; Paint Skin Weights Tool)</span> &gt; <img class="image" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__IMAGE_5D5F05B1E9CB486D804723B1D63B6F6D" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png">。 
+			 <p class="p" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS1A9193826455F5FF6026605B1181C8F4F2E-4158">此时将显示<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-99189E9D-237F-471E-A02C-BE6593B4828B.htm">“绘制蒙皮权重工具”(Paint Skin Weights Tool)</a>。<span class="ph uicontrol" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__GUID-162BDE13-2286-4503-86D9-4E5C133F1992">“影响”(Influences)</span>列表将显示所有关节的名称。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4ABD">在<span class="ph uicontrol" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__GUID-902BAC3A-710C-478B-810A-81B4041EB812">“影响”(Influences)</span>列表中，单击 joint4。 
+			 <p class="p" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS1A9193826455F5FF-6AB24494123382A9C4B-5B47">将在网格上显示黑白色的可视反馈，以显示 joint4 对圆柱体网格的影响。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-B497228123AB7BE9F5-6D65"><img class="image" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__IMAGE_9DBE45A93E7C4429AC1C6C7B007B14FE" width="179" height="205" src="../images/GUID-9FEDD8EC-C5A6-4BAF-9287-AE432F4AFF93.png"></div>
+ 
+		  </li>
+<li class="li" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS1A9193826455F5FF-6AB24494123382A9C4B-5B45">在<span class="ph uicontrol" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__GUID-F89AB680-56FB-43E3-9ECB-69A21F4FBD49">“绘制蒙皮权重工具”(Paint Skin Weights Tool)</span>的底部，启用<span class="ph uicontrol" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__GUID-9E9712C2-5C6F-418D-9FEA-91279623E69D">“使用颜色渐变”(Use Color Ramp)</span>。 
+			 <div class="fig fignone" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS1A9193826455F5FF-6AB24494123382A9C4B-5B44"><img class="image" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__IMAGE_3ADEBF0C7FAA4978B8806242ED6FFDCF" width="181" height="206" src="../images/GUID-3D360D11-C54A-4984-9917-5C64430B521A.png"></div>
+ 
+			 <p class="p" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS1A9193826455F5FF-6AB24494123382A9C4B-5B43">现在，圆柱体网格利用颜色显示权重值反馈，更便于查看权值较小的网格区域。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755-7B21313411809411AE9-4AB8">使用<span class="ph uicontrol" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__GUID-16A415D5-E250-44C2-828A-0A0F841B16D8">“绘制蒙皮权重工具”(Paint Skin Weights Tool)</span>的笔刷，绘制关节如何影响折痕。 
+			 <div class="fig fignone" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS1A9193826455F5FF-6AB24494123382A9C4B-5B42"><img class="image" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__IMAGE_43B4CF85040A4CB18D1BD56271B86E15" width="181" height="206" src="../images/GUID-DF263822-BF1B-49AA-A549-2D61B12A72AD.png"></div>
+ 
+			 <p class="p" id="GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS73099CC142F48755556E0C5911DCC55A1EF-3401">附近关节影响的绘制让您能够编辑变形效果。 
+			 </p>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-53545A3B-D564-4CC7-AB3C-7008B327387D.htm">平滑蒙皮工作流示例</a></div>
+</div>
+</div>
+
+</body>
+</html>

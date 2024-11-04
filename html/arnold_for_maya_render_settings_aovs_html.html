@@ -1,0 +1,129 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_render_settings_aovs_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AOVS">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" AOV - Arnold for Maya">
+
+<title>AOV</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>AOV</h1></div>
+<div class="arnold-note">
+
+
+
+<table>
+<thead>
+<tr>
+<th>延伸阅读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>请参见<strong>《Arnold 用户手册》</strong>中的<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_render_settings_html" target="_blank">渲染设置</a></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<p>AOV（任意输出变量）提供了一种将任意着色网络组件渲染到不同图像的方法。例如，美工人员可能会发现，使用 AOV 可以很方便地将直接照明和间接照明贡献分开，随后在合成期间再将它们重新合并到一起。Arnold 提供了用于输出深度、位置和运动向量的内置 AOV。</p>
+<ul>
+<li>目前不支持将闭包用作 AOV。</li>
+<li>可使用<a href="https://help.autodesk.com/pages/viewpage.action?pageId=40111140#Common(Output)-MergeAOVs">合并 AOV</a> 实现多通道 EXR。</li>
+<li>MtoA 支持 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_aovs_am_Cryptomatte_html">Cryptomatte AOV</a> 着色器。</li>
+<li><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_output_aovs_ac_expression_aovs_html" target="_blank">灯光路径表达式</a>可用来将灯光输出到特定的 AOV。</li>
+<li>有关用于合成的 AOV 简介教程，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_aovs_am_AOVs_for_Image_Compositing_html">此处</a>。</li>
+</ul>
+<p>在<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_system_am_Render_Settings_html">渲染设置(Render Settings)</a>对话框的<a href="https://help.autodesk.com/display/AFMUGTMP/Arnold+Renderer">“Arnold 渲染器”(Arnold Renderer)选项卡</a>右侧，您应该可以看到“AOV”(AOVs)选项卡。左侧列表中显示每个组的可用 AOV。选择一个可用 AOV 时，它会移动至“激活的 AOV”(Active AOVs)列表，构成渲染时希望使用的 AOV 集。</p>
+<p><img src="../images/mtoa_aovs_1.png" alt=""></p>
+<div class="head-block"><h1>旧版(Legacy)</h1></div><h4 id="maya">Maya 渲染视图</h4><p>此选项可用来启用 AOV、禁用 AOV 或指定 AOV 仅在执行批渲染时使用。</p>
+<h4 id="aov-render-view-aov">渲染视图 AOV(Render View AOV)</h4><p>此选项可用来选择要在<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_rendering_am_Arnold_RenderView_Window_html">渲染视图</a>中预览的 AOV 通道。请记得在完成后切换回“beauty”。</p>
+<h3 id="aov">AOV 着色器</h3><p>可以定义将在常规曲面着色器之后求值的着色器列表。使用此选项，可以添加着色器以设置特定 AOV，而无需修改原始着色器树。适用于此用途的着色器应在节点本身添加名为 <code>aov_shader</code> 的布尔元数据，作为用户界面提示。如果设置了 <code>options.atmosphere</code> 或 <code>options.background</code>，也将对大气和背景上下文运行这些全局 AOV 着色器。</p>
+<p>只应将具有 AOV 写入功能的着色器添加到“AOV”(AOVs)选项卡中的“AOV 着色器”(AOV Shaders)下。</p>
+<h2 id="denoiser">降噪器(Denoiser)</h2><h3 id="aov-output-denoising-aovs">输出降噪 AOV(Output Denoising AOVs)</h3><p>自动输出可选的 AOV（diffuse_albedo、Z、N）。使用 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_denoising_ac_arnold_denoiser_html" target="_blank"><em>Arnold 降噪器</em></a>、多层 EXR 或 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_rendering_ac_cl_rendering_html" target="_blank">Kick</a> 时，应使用此项来实现降噪。</p>
+<p>当前限制是您必须在 EXR 中进行渲染且需启用“合并 AOV”(Merge AOVs)。</p>
+<p>当使用 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_denoising_ac_arnold_denoiser_html" target="_blank">Arnold 降噪器</a>进行批渲染时，也应启用此选项。</em></p>
+<h2 id="aov-aov-browser">AOV 浏览器(AOV Browser)</h2><p>“AOV 浏览器”(AOV Browser)可用于选择您希望在渲染时处于活动状态的 AOV：您还可以选择添加<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_aovs_am_The_Attribute_Editor_html">自定义 AOV</a>。</p>
+<p><img src="../images/mtoa_aovs_2.png" alt=""></p>
+<p><sub><strong>通过双击或选择并使用箭头按钮，可将 AOV 从“可用 AOV”(Avaiable AOVs)移至“激活的 AOV”(Active AOVs)。</strong></sub></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关合成 AOV 的教程，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_aovs_am_AOVs_for_Image_Compositing_html">此处</a>。</p>
+
+</div></div>
+
+<h2 id="aov">AOV</h2><p>在 AOV 浏览器下方，将列出您为输出选择的激活的 AOV 的更多详细信息：</p>
+<p><img src="../images/mtoa_aovs_3.png" alt=""></p>
+<p>每个 AOV 实际上由三个节点表示，即 AOV 节点本身以及关联的驱动程序节点和过滤器节点。此对话框在下拉菜单中显示所选 AOV 的类型、驱动程序和过滤器，左侧的复选框可用来控制哪些 AOV 处于活动状态。如果您单击最右侧的三角形，会显示一个关联菜单，该菜单除了提供移除 AOV 或将 AOV 置于活动/不活动状态的功能外，还可用来为每个 AOV 添加备用的输出驱动程序（以及选择驱动程序和过滤器）。  </p>
+<p>由于驱动程序和过滤器节点独立于 AOV 节点，您可通过为 AOV 节点添加附加驱动程序节点来为每个 AOV 添加多个输出，例如允许同一个 AOV 写出 EXR 和 JPG。此举进一步提升了 AOV 输出的灵活性，在某些情况下十分有用（例如，您可能希望以多种格式或使用不同的过滤器来输出美景通道，或者您可能希望让一个自定义输出驱动程序与普通渲染视图同时进行输出）。  </p>
+<p>请注意，“驱动程序”(driver)下拉菜单会将<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_system_am_Render_Settings_html">渲染设置(Render Settings)</a>的<a href="https://help.autodesk.com/pages/viewpage.action?pageId=154768410">公用(Common)</a>选项卡中当前所选文件输出类型的驱动程序显示在尖括号内，例如上面的屏幕截图中的 <exr>。因此，您可以为每个 AOV 选择特定驱动程序，如果您选择每个下拉菜单中的第一项，即显示在尖括号中的驱动程序，则表明您选择使用的是当前默认的输出驱动程序。因此，在上面的图示中，驱动程序显示为 <exr>，如果转到“公用”(Common)选项卡将文件输出改为 png，返回“AOV”选项卡时，您将看到所有驱动程序现在都显示为 <png>。如果不希望发生此类更改来反映当前的默认驱动程序，请选择不带尖括号的驱动程序名称。同样，如果将所选的过滤器设置为使用当前默认过滤器，则该过滤器也会带有尖括号。</png></exr></exr></p>
+<p>每个 AOV 都具有一个关联节点。您可以使用<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_aovs_am_The_Attribute_Editor_html">属性编辑器</a>来查看这些节点的详细信息。</p>
+<h2 id="aov">逐灯光 AOV</h2><p>每个<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_am_Lights_html">灯光</a>对象都有一个 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_aovs_am_The_Attribute_Editor_html">AOV 灯光组(AOV Light Group)</a>属性，该属性可用于将灯光贡献写出到具有对应名称的单独 AOV。要创建逐灯光 AOV，必须执行以下操作：</p>
+<ol>
+<li>在灯光的“AOV 灯光组”(AOV Light Group)中输入逐灯光 AOV 的名称。在本例中，我们的场景中有一个红色和一个蓝色灯光，所以灯光组的名称分别为“red”和“blue”。</li>
+</ol>
+<p><img src="../images/mtoa_aovs_4.png" alt=""></p>
+<p>  <sub><strong>灯光的 Arnold 属性中的 AOV 灯光组</strong></sub></p>
+<p>2.创建一个 AOV 并选择它，让它显示在<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_aovs_am_The_Attribute_Editor_html">属性编辑器</a>中（本例中我们使用了 <em>diffuse</em> AOV）。</p>
+<p>3.渲染场景。这时在“灯光组列表”(Light Groups List)中选择这些 AOV，应该可以在<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_rendering_am_Arnold_RenderView_Window_html">渲染视图</a>中看到它们。</p>
+<p><img src="../images/mtoa_aovs_5a.jpg" alt=""><img src="../images/mtoa_aovs_5b.jpg" alt=""></p>
+<p><strong>要下载演示灯光组 AOV（带有降噪）的场景文件，请单击此处。</strong></p>
+
+  <div class="related-links">
+      <div class="relinfo relchildren">
+        <strong>此部分中的页面</strong>
+        <ul class="ullinks">
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/render-settings/aovs/arnold_for_maya_aovs_am_The_Attribute_Editor_html.html">属性编辑器</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/render-settings/aovs/arnold_for_maya_aovs_am_Cryptomatte_html.html">Cryptomatte</a>
+          </li>
+        </ul>
+      </div>
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/arnold_for_maya_render_settings_html.html">Arnold 渲染设置</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

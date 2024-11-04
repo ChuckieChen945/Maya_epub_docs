@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="手动将自定义颜色变换应用于导入的图像时，应该将其转化为连接空间，然后转化为选定的工作空间。不同类型的图像需要不同的变换。">
+<meta name="indexterm" content="颜色管理:输入图像">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-41028E11-07A0-456D-A05C-F84C3DCD0823">
+<meta name="language" content="CHS">
+<title>管理输入图像的颜色</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-41028E11-07A0-456D-A05C-F84C3DCD0823">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>管理输入图像的颜色</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="shortdesc"> 手动将自定义颜色变换应用于导入的图像时，应该将其转化为连接空间，然后转化为选定的工作空间。不同类型的图像需要不同的变换。 
+  </p>
+<div class="p" id="GUID-41028E11-07A0-456D-A05C-F84C3DCD0823__GUID-938E9A12-D28D-4E35-8A0D-D386832CF388">通常，您需要对输入图像应用两个变换： 
+	 <ol class="ol" id="GUID-41028E11-07A0-456D-A05C-F84C3DCD0823__OL_A66C889DF4784FE3BA237377E17C4B01"><li class="li" id="GUID-41028E11-07A0-456D-A05C-F84C3DCD0823__LI_A1D207555D4848FA8783F2A22E0311E9">将图像从其源空间转化为连接空间。有多个变换可用： 
+		  <ul class="ul" id="GUID-41028E11-07A0-456D-A05C-F84C3DCD0823__UL_BF8BAA2EF283446C90D36F1EF5807299"><li class="li" id="GUID-41028E11-07A0-456D-A05C-F84C3DCD0823__LI_AA9AF8EC54ED4569B64CF02CF7A49030">使用 camera/ 目录中的变换，从各种数字电影摄影机中导入图像，并将其转化为 ACES 2065-1。 
+			 </li>
+<li class="li" id="GUID-41028E11-07A0-456D-A05C-F84C3DCD0823__LI_FBDF92EE60F94545A5141E78A799A497">使用 film/ 目录中的变换，导入采用 ADX 或其他 Cineon 类型对数编码的扫描胶片板，并将其转化为 ACES 2065-1。 
+			 </li>
+<li class="li" id="GUID-41028E11-07A0-456D-A05C-F84C3DCD0823__LI_3ACA27FDBBFE4160831C8F358EFC5D8D">使用 display/ 目录中的变换，导入采用 HD、SD 或 DCI 格式的视频图像，并将其转化为线性化输出相关 CIE XYZ。 
+			 </li>
+<li class="li" id="GUID-41028E11-07A0-456D-A05C-F84C3DCD0823__LI_31E561C44223407F81DA29144530325B">使用 interchange/ 目录中的变换，导入其他常用颜色空间，并将其转化为线性化输出相关 CIE XYZ。 
+			 </li>
+</ul>
+ 
+		</li>
+<li class="li" id="GUID-41028E11-07A0-456D-A05C-F84C3DCD0823__LI_A3897A35B20841408CAFE8B6F6E736BD">导入图像并转化为 ACES 2065-1 或 CIE XYZ 后，可以使用其他变换将其转化为您的工作空间。（但请记住，在场景线性和输出相关颜色空间之间转化时需要色调贴图变换。） 
+		</li>
+</ol>
+ 
+	 </div>
+<p class="p" id="GUID-41028E11-07A0-456D-A05C-F84C3DCD0823__GUID-6931C272-8BAF-4D01-9121-C60A93B7724C">例如，假设您要在使用 ProPhoto 主颜色时采用场景线性值。首先将输入转化为 ACES 2065-1，然后应用 primaries/ 目录中的 ACES_to_CIE-XYZ，后跟 CIE-XYZ_to_ProPhoto-RIMM。如果需要，您可以在按顺序应用所有三个变换后导出自定义 .ctf 文件。 
+	 </p>
+<p class="p" id="GUID-41028E11-07A0-456D-A05C-F84C3DCD0823__GUID-8F4BA36A-1215-424B-92C7-838D7F822C68">另一方面，如果希望导入原始数字电影摄影机片段并通过视频编码值对其进行处理，您可以使用 camera/ 目录中的相应变换来导入图像，然后应用 RRT+ODT/ 目录中的一种变换。 
+	 </p>
+<p class="p" id="GUID-41028E11-07A0-456D-A05C-F84C3DCD0823__GUID-707B58A1-3A37-4EF8-9C72-CD6DA8AB0DAD"> 如果需要将数字电影发行母版 (DCDM) 值转化为 HD 视频，在已将 DCDM 控制到 DCI 校准白点的情况下，您可以应用 display/DCDM/ 目录中的 DCI_to_CIE-XYZ，后跟 display/broadcast/ 目录中的 CIE-XYZ_to_HD-video。但是，如果该操作导致应为中性的颜色具有不相等的 RGB 值，您可能需要将第一个变换替换为与其他白点相关的变换，例如 DCI-D65_to_CIE-XYZ（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-2C925F6A-5A9C-4B2B-B732-90F4C3D2EB49.htm" title="白点确定图像的颜色平衡。手动指定颜色变换时，可能需要根据原始场景的照明以及查看输出的条件调整白点。此过程的叫法有很多种，例如：色度调整、白色平衡、灰色平衡或中性平衡。">白点转化</a>）。 
+	 </p>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-B2CD60E0-C100-45A4-9595-84D2DF98B268.htm" title="尽管 Autodesk 颜色管理提供了适当的工具可自动应用所需的变换以便在颜色空间之间进行转化，但在某些特殊情况下，您必须更好地控制要应用的特定变换。本部分介绍如何将位于 Autodesk 颜色变换集合中的组件用作构建块以集合特定任务的自定义转化。">手动配置自定义颜色变换链的准则</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Bifrost">
+<meta name="created" content="30/7/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="17/04/2023">
+<meta name="topicid" content="GUID-B8246232-C2FE-4C29-AC16-F1FC4326B1E0">
+<meta name="language" content="CHS">
+<title>控制空间自适应性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-B8246232-C2FE-4C29-AC16-F1FC4326B1E0">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>控制空间自适应性</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 对于空间自适应 Bifrost 液体模拟，将在曲面附近和需要细节的其他区域中使用高分辨率，并在其他位置使用较低的分辨率。与在所有位置均使用高分辨率相比，这样可以节省内存和计算时间。
+	 </p>
+<p class="p">空间自适应性在海洋等深水环境中特别有用。海浪需要达到特定深度方可正确移动，但是所有有趣的细节均发生在曲面附近，最终将会对曲面进行渲染。
+	 </p>
+<div class="p">空间自适应性由以下两个选项控制：
+	 <ul class="ul" id="GUID-B8246232-C2FE-4C29-AC16-F1FC4326B1E0__UL_CB1B993364DD4DF899CFA14B504F7D27"><li class="li" id="GUID-B8246232-C2FE-4C29-AC16-F1FC4326B1E0__LI_3B1CC63F3C8E49F494DB68C5DBFB1928">主模拟特性的<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-C17149C6-5A7D-46EC-860E-9F6F47C38217.htm"><span class="ph menucascade"><span class="ph uicontrol">自适应性</span> &gt; <span class="ph uicontrol">空间(Adaptivity &gt; Spatial)</span></span></a>属性组中的<span class="ph uicontrol">“启用”(Enable)</span>选项是启用和禁用空间自适应性的全局开关。
+		</li>
+<li class="li" id="GUID-B8246232-C2FE-4C29-AC16-F1FC4326B1E0__LI_EE6DE53462F04F1CBCD7B64E50FB2AFF">每个<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-E6E77E88-2487-4E67-AC81-AD2F9719C0B8.htm">碰撞对象特性</a>的<span class="ph menucascade"><span class="ph uicontrol">“碰撞</span> &gt; <span class="ph uicontrol">自适应性”(Collision &gt; Adaptivity)</span></span>属性组中的<span class="ph uicontrol">“优化邻近流体”(Refine Nearby Fluids)</span>选项控制是否以高分辨率模拟关联网格周围的液体。您可以根据情况和要求为碰撞对象禁用或启用该选项。
+		</li>
+</ul>
+ 
+	 </div>
+<dl class="dl"><dt class="dt dlterm">无自适应性 
+		  </dt>
+<dd class="dd"><img class="image" id="GUID-B8246232-C2FE-4C29-AC16-F1FC4326B1E0__IMAGE_D1E7840BCE40442FA9BF8775A46A3E39" src="../images/GUID-9657CF65-BFC3-402C-B587-961702CB0847.png"> 
+			 <p class="p">该示例显示了具有水池和球体这两个碰撞对象的液体池的横截面。在本例中，空间自适应性处于禁用状态，以便在所有位置使用高分辨率。曲面上的额外粒子是主模拟特性的<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-F7756120-0C0B-4FA6-8341-20F183A85758.htm"><span class="ph menucascade"><span class="ph uicontrol">发射</span> &gt; <span class="ph uicontrol">粒子分布(Emission &gt; Particle Distribution)</span></span></a>属性组中的<span class="ph uicontrol">“曲面粒子密度”(Surface Particle Density)</span>设置导致的。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm">内部自适应性 
+		  </dt>
+<dd class="dd"><img class="image" id="GUID-B8246232-C2FE-4C29-AC16-F1FC4326B1E0__IMAGE_A6D39784552345DBA4D585989FE0CA9F" src="../images/GUID-30A6FBE8-3B23-4248-BE13-E9BD17AD596C.png"> 
+			 <p class="p">空间自适应性处于启用状态，并为这两个碰撞对象启用了<span class="ph uicontrol">“优化邻近流体”(Refine Nearby Fluids)</span>。在碰撞对象附近和曲面上使用高分辨率，但是距离碰撞对象更远的内部区域使用低分辨率。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm">深层自适应性 
+		  </dt>
+<dd class="dd"><img class="image" id="GUID-B8246232-C2FE-4C29-AC16-F1FC4326B1E0__IMAGE_A0817C7393C54D28985091FA63652D05" src="../images/GUID-D76C3092-B434-4675-A435-5B05B1700914.png"> 
+			 <p class="p">分别为水池和球体禁用和启用<span class="ph uicontrol">“优化邻近流体”(Refine Nearby Fluids)</span>。仅在曲面附近和球体周围使用高分辨率。深层区域使用低分辨率，即使在池壁附近也是如此。
+			 </p>
+ 
+		  </dd>
+</dl>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-48510726-6052-4CD4-96D7-3B739AE707A7.htm">使用 Bifrost 液体</a></div>
+</div>
+</div>
+
+</body>
+</html>

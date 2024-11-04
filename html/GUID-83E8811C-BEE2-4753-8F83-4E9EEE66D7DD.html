@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-ManagingScenes">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD">
+<meta name="language" content="CHS">
+<title>文件引用和着色</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>文件引用和着色</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__WS1A9193826455F5FF-316FD70E123DECE8002-5A4F"><h2 class="title sectiontitle">避免使用默认着色器</h2> 
+		 
+		<p class="p" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__WS1A9193826455F5FF-316FD70E123DECE8002-5A4E">如果引用了一个文件，在该文件中改变了默认着色器 (standardSurface1)，那么这些更改会被父文件的默认着色器所取代。若要避免该情况，请在子文件中创建一个新着色器并指定该着色器，而不是使用默认着色器。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__WS73099CC142F48755-3D114B751181C40F14B145F"><h2 class="title sectiontitle">共享着色器网络</h2> 
+		 
+		<p class="p" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__WS73099CC142F48755-3D114B751181C40F14B1461">如果在启用共享着色网络的情况下，将文件引用到当前场景中，则会将被引用场景中的着色网络与当前场景中的着色网络（包括任何引用的着色网络）合并到一起。需要在整个场景中使用相同的着色网络（包括引用）时，这样可避免创建重复的着色网络。
+		</p>
+ 
+		<p class="p" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__WS73099CC142F48755-3D114B751181C40F14B1462">仅当着色网络相同时，才能共享着色网络。从着色组向上游移动时，仅当其中包含的所有节点都具有相同的名称和类型时，Maya 才会认为两个着色网络是相同的。
+		</p>
+ 
+		<p class="p" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__WS73099CC142F48755-3D114B751181C40F14B1463">着色网络中的每个节点的名称和类型必须相同，才能共享该着色网络，而不会考虑每个节点中的实际值。因此，对于子场景中具有一个值（例如，蓝色）的节点和父场景中具有不同的值（例如，红色）的节点，只要其名称和类型相匹配，就会认为它们是相同的。
+		</p>
+ 
+		<p class="p" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__WS73099CC142F48755-3D114B751181C40F14B1464">但是，某些着色网络无法进行共享。这些着色网格有：
+		</p>
+ 
+		<ul class="ul" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__WS73099CC142F48755-3D114B751181C40F14B1465"><li class="li" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__WS73099CC142F48755-3D114B751181C40F14B1466">包括 DAG 对象（例如包含 place3dTexture 节点的对象）的网络 
+		  </li>
+<li class="li" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__WS73099CC142F48755-3D114B751181C40F14B1467">将动画应用到节点的网络 
+		  </li>
+<li class="li" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__WS73099CC142F48755-3D114B751181C40F14B1468">将表达式应用到节点的网络 
+		  </li>
+</ul>
+ 
+		<p class="p" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__WS73099CC142F48755-3D114B751181C40F14B1469">如果其中任何项目显示在着色网络中，那么在启用共享着色网络的情况下引用文件时，将不会共享该网络。
+		</p>
+ 
+		<p class="p" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__WS73099CC142F48755-3D114B751181C40F14B146A">也不会共享存在于着色网络下游的任何项目。仅会共享着色网络上游的那些项目。
+		</p>
+ 
+		<div class="note note" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__WS73099CC142F48755-3D114B751181C40F14B146B"><span class="notetitle">注：</span>  
+		  <p class="p" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__GUID-AE3FDDA9-D2A0-4350-8392-A26D8CA19BF8">所有对共享的被引用节点的编辑都存储在一个公用的共享引用节点上。仅可通过使用<span class="ph uicontrol" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__GUID-DC51AE08-8E96-49B1-B852-F483EFD54251">“移除引用”(Remove Reference)</span>菜单项从<span class="ph uicontrol" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__GUID-111351A1-4265-4683-9F9F-B12167B7491D">“引用编辑器”(Reference Editor)</span>删除共享引用。会为已共享的所有引用保留共享引用节点，且仅当已移除最后一个共享引用时，才会移除共享引用节点。
+		  </p>
+ 
+		</div>
+ 
+		<p class="p" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__WS73099CC142F48755-3D114B751181C40F14B146C">除非在共享之前，在每个要共享的着色网络上创建了相同的属性，否则添加到后续共享的着色网络的动态属性可能会丢失。
+		</p>
+ 
+		<div class="section" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__WS73099CC142F48755-3D114B751181C40F14B146D"><h3 class="title sectiontitle">相关主题</h3> 
+		   
+		  <ul class="ul" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__WS73099CC142F48755-3D114B751181C40F14B146E"><li class="li" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__WS73099CC142F48755-3D114B751181C40F14B146F"> 
+				<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-6E6A219A-1EAE-418A-A92D-91B833BC40AE.htm">使用文件引用</a> 
+			 </li>
+<li class="li" id="GUID-83E8811C-BEE2-4753-8F83-4E9EEE66D7DD__WS73099CC142F48755-3D114B751181C40F14B1470"> 
+				<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-599CACDB-76C1-4FAC-AA94-0E77F0042C8D">关于着色网络</a> 
+			 </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-4C69BD15-DD28-4631-8EC2-2EEC59B7157A.htm">文件引用提示</a></div>
+</div>
+</div>
+
+</body>
+</html>

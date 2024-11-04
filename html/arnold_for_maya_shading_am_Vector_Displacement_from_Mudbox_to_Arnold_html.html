@@ -1,0 +1,160 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shading_am_Vector_Displacement_from_Mudbox_to_Arnold_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_VECTOR_DISPLACEMENT_FROM_MUDBOX_TO_ARNOLD">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 从 Mudbox 到 Arnold 的向量置换 - Arnold for Maya">
+
+<title>从 Mudbox 到 Arnold 的向量置换</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>从 Mudbox 到 Arnold 的向量置换</h1></div><p><img src="../images/am-Vector_Displacement_from_Mudbox_to_Arnold-vector-displacement-scale-1--1.gif" alt=""></p>
+<p>在本教程中，我们将介绍只使用一个球体和一个向量置换贴图来渲染头部模型的过程。向量置换贴图是向场景中添加细节的一种强大而又高效的方法，同时又不需要管理复杂的几何体。它们为处理来自三维雕刻应用程序和 Arnold 的模型提供了非常高效的工作流。与只使用一条线作为顶点法线的传统灰度置换贴图不同，向量置换贴图具有表示 XYZ 置换方向和大小的 RGB 值。这意味着它们并不遵循固定的曲面法线，而是可以向任意方向移动，包括相互重叠。</p>
+<p>但是，向量置换贴图的文件大小更大，因为它们必须存储比常规置换贴图更多的信息。另外还请记住，向量置换贴图与法线置换贴图一样，都不是放之四海皆准的理想方法。例如，使用向量置换贴图时，UV 接缝可能会出现问题。</p>
+<p>非常感谢才华横溢的 <strong><a href="http://www.zenopelgrims.com/" target="_blank">Zeno Pelgrims</a></strong> 为本教程提供资源和帮助。</p>
+<p><strong>要下载 sphere.obj、向量置换贴图和漫反射颜色贴图，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Vector-Displacement-Head.zip" target="_blank">此处</a>。</strong></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>导入 sphere.obj 文件时，请确保启用<em>“纹理坐标”(Texture Coords)</em>（默认为禁用）。否则，UV 将丢失，得到的置换将不正确。</p>
+
+</div></div>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Vector_Displacement_from_Mudbox_to_Arnold-sphere-2.jpg" alt=""></td>
+<td><img src="../images/am-Vector_Displacement_from_Mudbox_to_Arnold-mudbox-vdisp-03-3.jpg" alt=""></td>
+<td><img src="../images/am-Vector_Displacement_from_Mudbox_to_Arnold-head-4.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用向量置换的球体</td>
+<td>向量置换贴图</td>
+<td>使用向量置换的球体</td>
+</tr>
+</tbody></table>
+<h2 id="mudbox">Mudbox</h2><p>已从 Mudbox 使用以下设置提取了原始头部雕刻。</p>
+<p><img src="../images/am-Vector_Displacement_from_Mudbox_to_Arnold-mudbox-subdivisions-5.PNG" alt=""></p>
+<p><sub><strong>Mudbox 雕刻细节</strong></sub></p>
+<ul>
+<li>向量置换通过 Mudbox 中的以下菜单提取自原始头部模型：<strong><em>“UV 和贴图 &gt; 提取纹理贴图 &gt; 新建操作”(UVs &amp; Maps &gt; Extract Texture Maps &gt; New Operation)</em></strong></li>
+</ul>
+<p><img src="../images/am-Vector_Displacement_from_Mudbox_to_Arnold-image2015-7-1-11-16-34-6.png" alt=""></p>
+<ul>
+<li>Mudbox 提供了以下设置用来从模型中提取纹理。在本例中，我们选择了<strong><em>“向量置换贴图”(Vector Displacement Map)</em></strong>，并将<strong>“向量置换”(Vector Displacement)</strong>更改为<strong><em>“绝对切线”(Absolute Tangent)</em></strong>。确保贴图使用 <strong>32 位浮点</strong>深度进行保存，并具有足够高的分辨率。这将使我们在 Arnold 中获得精确置换的渲染。</li>
+</ul>
+<p><img src="../images/am-Vector_Displacement_from_Mudbox_to_Arnold-image2015-7-1-16-45-11-7.png" alt=""></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>请确保使用 32 位或 16 位浮点格式存储图像，而不是整数格式。整数格式将无法正常工作。这是因为整数格式不支持负像素值，而浮点置换贴图需要使用负像素值。</p>
+
+</div></div>
+
+<h2 id="maya">Maya</h2><ul>
+<li>打开模型 - <strong>sphere.obj</strong>。您应该会看到名为 <strong><em>obj_base</em></strong> 的原始细分立方体。</li>
+</ul>
+<p><img src="../images/am-Vector_Displacement_from_Mudbox_to_Arnold-image2015-7-2-13-24-48-8.png" alt=""></p>
+<p><sub><strong>obj_base</strong></sub></p>
+<h2 id="">向量置换着色器</h2><ul>
+<li>为球体模型指定一个 <strong>standard_surface</strong> 着色器。创建图像文件纹理并打开文件 <strong><em>Diffuse_colour.jpg</em></strong>。将它连接到 <strong>base_color</strong> 和 <strong>sss_color</strong> 属性。将 <strong>sss_weight</strong> 增加到 <strong><em>0.5</em></strong> 左右。</li>
+<li>创建一个<strong>置换</strong>着色器，并将其连接到<strong>标准</strong>着色器着色组的<strong><em>“置换材质”(Displacement mat)</em></strong>属性。</li>
+<li>创建一个<strong>图像文件</strong>纹理，然后打开<strong>向量置换贴图</strong> - <strong><em>mudbox_vdisp.tif</em></strong>。将其连接到<strong>置换</strong>着色器的<strong><em>“向量置换”(Vector Displacement)</em></strong>属性，如下图所示。将<strong>“比例”(Scale)</strong>增大为 <strong><em>1</em></strong>，并确保将<strong>“向量空间”(Vector Space)</strong>设置为<strong><em>“切线”(Tangent)</em></strong>。</li>
+</ul>
+<p><img src="../images/am-Vector_Displacement_from_Mudbox_to_Arnold-image2016-5-9-9-57-7-9.png" alt=""></p>
+<p><sub><strong>“向量空间”(Vector Space)设置为“切线”(Tangent)</strong></sub></p>
+<ul>
+<li>最终着色网络应类似下图。</li>
+</ul>
+<p><img src="../images/am-Vector_Displacement_from_Mudbox_to_Arnold-image2017-4-5-12-16-59-10.png" alt=""></p>
+<h2 id="">细分</h2><ul>
+<li>确保您的球体几何体有足够的<strong>细分</strong>，否则置换效果看起来将不正确。在本例中，细分<strong>“迭代次数”(Iterations)</strong>为 6，<strong>“类型”(Type)</strong>设置为<strong><em>“Catclark”</em></strong>就足够了。</li>
+</ul>
+<p><img src="../images/am-Vector_Displacement_from_Mudbox_to_Arnold-image2016-5-9-10-1-12-11.png" alt=""></p>
+<p>在下面的图像中，您可以看到 <em>subdivision_iterations</em> 为 4 和 6 时，在质量方面存在细微的差异。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/displace_iterations_2.jpg" alt=""></td>
+<td><img src="../images/displace_iterations_4.jpg" alt=""></td>
+<td><img src="../images/displace_iterations_6.jpg" alt=""></td>
+</tr>
+<tr>
+<td>2</td>
+<td>4</td>
+<td>6</td>
+</tr>
+</tbody></table>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>_工具_着色器可用于在渲染置换贴图时诊断问题。</p>
+
+</div></div>
+
+<p><img src="../images/am-Vector_Displacement_from_Mudbox_to_Arnold-image2016-4-29-16-7-41-12.png" alt=""></p>
+<p><sub><strong>工具着色器。“着色模式”(Shade Mode)设置为<em>“ndoteye”</em>，“叠加模式”(Overlay Mode)设置为<em>“多边形线”(Polywire)</em>。</strong></sub></p>
+<p>有关使用 MtoA 渲染 Mudbox 向量置换的教程到此结束。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Shading/arnold_for_maya_shading_am_Displacement_Tutorials_html.html">置换教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

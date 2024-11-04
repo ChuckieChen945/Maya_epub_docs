@@ -1,0 +1,244 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_camera_am_Creating_the_Stereoscopic_Panoramic_Camera_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_CREATING_THE_STEREOSCOPIC_PANORAMIC_CAMERA">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 创建立体全景摄影机 - Arnold for Maya">
+
+<title>创建立体全景摄影机</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+      <script src="../scripts/lang-lua.js"></script>
+      <script src="../scripts/lang-python.js"></script>
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>创建立体全景摄影机</h1></div><p>这是一个简化版摄影机，仅用于演示如何创建基本自定义摄影机。</p>
+<p>有关此摄影机的更新和编译版本，请单击<a href="https://github.com/pedrofe/vr_camera" target="_blank">此处</a>。</p>
+<p>对于 Oculus 摄影机，我们将需要两个属性：</p>
+<ul>
+<li>模式(Mode)：将指定我们是以“并列”(Side by Side)、“上/下”(Over/Under)、“仅左眼”(only the left eye)还是“仅右眼”(only the right eye)模式渲染眼睛图像。</li>
+<li>视角分离(Eye Separation)：两个摄影机之间的距离。</li>
+</ul>
+<p>摄影机的最终代码将如下所示：</p>
+<p><strong>OculusCamera.cpp</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#include &lt;ai.h&gt;
+#include &lt;ai_cameras.h&gt;
+#include &lt;ai_nodes.h&gt;
+#include &lt;cstring&gt;
+#include &lt;ai_metadata.h&gt;
+AI_CAMERA_NODE_EXPORT_METHODS(OculusCameraMethods);
+namespace
+{
+#define _mode           (params[0].INT  )
+#define _eyeSeparation  (params[1].FLT )
+enum mode
+{
+   M_SBS = 0,
+   M_OB,
+   M_LE,
+   M_RE
+};
+const char* mode_list[] =
+{
+    "Side by Side",
+    "Over Under",
+    "Left Eye",
+    "Right Eye",
+    NULL
+};
+enum eye
+{
+   E_RIGHT_EYE = 0,
+   E_LEFT_EYE
+};
+};
+node_parameters
+{
+   AiParameterEnum("mode", 0, mode_list);
+   AiParameterFlt("eyeSeparation", 0.65f);
+}
+node_initialize
+{
+   AiCameraInitialize(node, NULL);
+}
+node_update
+{
+   AiCameraUpdate(node, false);
+}
+node_finish 
+{
+   AiCameraDestroy(node);
+}
+camera_create_ray
+{
+   const AtParamValue* params = AiNodeGetParams(node);
+
+   int mode = _mode;
+   float eyeSeparation = _eyeSeparation;
+
+   int currentEye = E_RIGHT_EYE;
+   float sx = input-&gt;sx;
+   float sy = input-&gt;sy;
+
+   if(mode == M_SBS)
+   {
+      if(input-&gt;sx &lt; 0)
+      {
+         currentEye = E_LEFT_EYE;
+         sx = 2 * (input-&gt;sx + 0.5f);
+      }
+      else
+      {
+         currentEye = E_RIGHT_EYE;
+         sx = 2 * (input-&gt;sx - 0.5f);
+      }      
+   }
+   else if (mode == M_OB)
+   {
+      if(input-&gt;sy &lt; 0)
+      {
+         currentEye = E_LEFT_EYE;
+         sy = 2 * (input-&gt;sy + 0.5f);
+      }
+      else
+      {
+         currentEye = E_RIGHT_EYE;
+         sy = 2 * (input-&gt;sy - 0.5f);
+      }     
+   }
+   else if (mode == M_LE)
+   {
+      currentEye = E_LEFT_EYE;
+   }
+   else if (mode == M_RE)
+   {
+      currentEye = E_RIGHT_EYE;
+   }
+
+   // Calculate spherical angles
+   float theta = AI_PI      * sx;
+   float phi   = AI_PIOVER2 * sy;
+
+   const float sin_theta = sinf(theta);
+   const float cos_theta = cosf(theta);
+   const float sin_phi = sinf(phi);
+   const float cos_phi = cosf(phi);
+   // normalized direction
+   output-&gt;dir.x =  sin_theta * cos_phi;
+   output-&gt;dir.y =  sin_phi;
+   output-&gt;dir.z = -cos_theta * cos_phi;
+   // derivative with respect to x
+   output-&gt;dDdx.x = cos_theta;
+   output-&gt;dDdx.y = 0.f;
+   output-&gt;dDdx.z = sin_theta;
+   output-&gt;dDdx *= input-&gt;dsx * AI_PI * cos_phi;
+
+   // derivative with respect to y
+   output-&gt;dDdy.x = -sin_theta * sin_phi;
+   output-&gt;dDdy.y = cos_phi;
+   output-&gt;dDdy.z = cos_theta * sin_phi;
+   output-&gt;dDdy *= input-&gt;dsy * AI_PIOVER2;
+
+   if(currentEye == E_LEFT_EYE)
+   {
+      output-&gt;origin.x = -0.5*eyeSeparation*cos_theta*cos_phi;
+      output-&gt;origin.z = -0.5*eyeSeparation*sin_theta*cos_phi;
+   }
+   else
+   {
+      output-&gt;origin.x = 0.5*eyeSeparation*cos_theta*cos_phi;
+      output-&gt;origin.z = 0.5*eyeSeparation*sin_theta*cos_phi;
+   }
+}
+node_loader
+{
+   if (i &gt; 0)
+      return false;
+   node-&gt;methods      = OculusCameraMethods;
+   node-&gt;output_type  = AI_TYPE_NONE;
+   node-&gt;name         = "oculusCamera";
+   node-&gt;node_type    = AI_NODE_CAMERA;
+   strcpy(node-&gt;version, AI_VERSION);
+   return true;
+} </code></pre>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关如何创建的详细信息，请单击<a href="http://paulbourke.net/papers/vsmm2006/vsmm2006.pdf" target="_blank">此处</a>。</p>
+
+</div></div>
+
+<p>此外，我们还将需要更新元数据文件和 Maya 模板。</p>
+<p>我们将更新 oculusCamera.mtd 文件以提供有关两个新参数的信息：</p>
+<p><strong>oculusCamera.mtd</strong></p>
+<pre class="pre codeblock"><code class="lang-lua prettyprint"># oculusCamera                    0x00070007
+[node oculusCamera]
+    maya.name               STRING  "camera"
+    maya.id                 INT     0x00070007
+    maya.translator         STRING  "oculusCamera"
+
+    [attr mode]
+        maya.name           STRING  "aiMode"
+        default             INT     0
+
+    [attr eyeSeparation]
+        maya.name           STRING  "aiEyeSeparation"
+        softmin             FLOAT   0
+        softmax             FLOAT   1
+        default             FLOAT   0.65</code></pre>
+<p>Maya 模板也应包含新参数：</p>
+<p><strong>aiOculusCameraTemplate.py</strong></p>
+<pre class="pre codeblock"><code class="lang-python prettyprint">import mtoa.ui.ae.templates as templates
+class aiOculusCameraTemplate(templates.AttributeTemplate):
+    def setup(self):
+        self.addControl("aiMode")
+        self.addControl("aiEyeSeparation")
+
+templates.registerTranslatorUI(aiOculusCameraTemplate, "camera", "oculusCamera") </code></pre>
+<p>现在，您将可以在 Maya 中选择具有新参数的“oculusCamera”。</p>
+<p><img src="../images/am-Creating_the_Stereoscopic_Panoramic_Camera-oculusCameraAE-1.png" alt=""></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Technical/arnold_for_maya_technical_am_Creating_an_Oculus_Rift_Camera_Node_html.html">创建 Oculus Rift 摄影机节点</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

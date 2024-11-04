@@ -1,0 +1,150 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Geometry_Tags_Geometry_Tags_get_component_tag_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>get_component_tag</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>get_component_tag</code></h1></div><p>获取特定组件标记的组件标记数据。也可以使用标记表达式。</p>
+<p>表达式语言的语法与 Maya 中的标记表达式语言匹配。  </p>
+<h3 id="">示例</h3><table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>face_*</code></td>
+<td>返回以 <code>face_</code> 开头的所有标记的并集。</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>返回包含几何体的所有点的标记。</td>
+</tr>
+<tr>
+<td><code>v(face_top_tag)</code></td>
+<td>返回包含 <code>face_top_tag</code> 标记（已转化为点）的标记。</td>
+</tr>
+<tr>
+<td><code>f(*) - (face_top_tag + face_bottom)</code></td>
+<td>返回包含除 <code>face_top_tag</code> 和 <code>face_bottom_tag</code> 中的面以外的所有面的标记</td>
+</tr>
+<tr>
+<td><code>point_up_tag ^ point_right_tag</code></td>
+<td>返回包含 <code>point_up_tag</code> 和 <code>point_right_tag</code> 中同时存在的点的标记</td>
+</tr>
+</tbody></table>
+<h3 id="">运算符</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>+</code></td>
+<td>对两个标记执行集并集。</td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>对两个标记执行集差集。</td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>对两个标记执行集交集。</td>
+</tr>
+<tr>
+<td><code>!</code></td>
+<td>对两个标记执行集反集。</td>
+</tr>
+<tr>
+<td><code>()</code></td>
+<td>括号：控制运算的顺序。例如 <code>tag1 + (tag2 - tag3)</code></td>
+</tr>
+</tbody></table>
+<h3 id="">通配符</h3><table>
+<thead>
+<tr>
+<th>通配符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>*</code></td>
+<td>与任意数量的字符匹配</td>
+</tr>
+<tr>
+<td><code>ap*</code></td>
+<td>匹配以 <code>ap</code> 开头的任何标记，并将它们合并在一起。<code>apples</code> 和 <code>apricots</code> 符合 <code>ap*</code> 匹配条件，此时匹配结果将为 <code>apples + apricots</code></td>
+</tr>
+</tbody></table>
+<h3 id="">函数</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>f()</code></td>
+<td>将标记投射到面。</td>
+</tr>
+<tr>
+<td><code>v()</code></td>
+<td>将标记投射到点。</td>
+</tr>
+<tr>
+<td><code>fv()</code></td>
+<td>将标记投射到面顶点。</td>
+</tr>
+<tr>
+<td><code>s()</code></td>
+<td>将标记投射到股。</td>
+</tr>
+</tbody></table>
+<h3 id="">命名语法</h3><p>标记名称中允许使用大小写字母字符、数字 0 到 9、下划线 <code>_</code>、句点 <code>.</code> 和冒号 <code>:</code>。</p>
+<h2 id="">输入</h2><h3 id="geometry"><code>geometry</code></h3><p>要查询的几何体。</p>
+<h3 id="tag"><code>tag</code></h3><p>几何体中要获取其数据的标记的名称。这也可以是组合多个标记的标记表达式。</p>
+<h2 id="">输出</h2><h3 id="tag_data"><code>tag_data</code></h3><p>采用布尔值数组形式的标记数据。此数组的大小与 <code>target</code> 组件中的元素数相同。例如，如果 <code>target</code> 是 <code>point_component</code>，并且输入 <code>geometry</code> 具有 10 个点，则此数组将包含 10 个元素，每个点对应一个元素。如果此数组中的元素设置为 true，则相应的点将包含在此标记中。如果元素设置为 false，则相应的点不包含在此标记中。</p>
+<h3 id="tag_indices"><code>tag_indices</code></h3><p>标记中包含的采用索引数组形式的标记数据。每个索引引用一个 <code>target</code> 类型的元素。例如，如果 <code>target</code> 是 <code>point_component</code>，则此数组中的索引是点索引。</p>
+<h3 id="target"><code>target</code></h3><p>此标记以其作为目标的几何体组件，例如 <code>point_component</code>。</p>
+<h3 id="found_tag"><code>found_tag</code></h3><p>如果在几何体上找到标记，则设置为 true，否则设置为 false。如果输入为 <code>tag</code>，则在成功解析了表达式时，此输出设置为 true，否则设置为 false。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Geometry/Bifrost_Common_reference_Geometry_Tags_html.html">Tags</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

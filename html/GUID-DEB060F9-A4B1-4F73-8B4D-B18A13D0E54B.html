@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Modeling">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B">
+<meta name="language" content="CHS">
+<title>为多边形边和顶点生成折痕</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>为多边形边和顶点生成折痕</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-5A91A2BE-6E99-4FA4-BB4C-832F404D9A5D"> 对组件应用折痕可以修改多边形网格，这样就可以在不提高基础网格分辨率的情况下创建在硬度和平滑度之间过渡的图形。
+	 </p>
+<p class="p" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-F57A7A04-590C-426C-AED6-CEA2B38A30C7"> 折痕以折痕值进行度量，该值指明了对每个细分级别进行折痕处理的量。折痕值越高，折痕就越清晰。例如，折痕值为 2 意味着基础级别边和第一级别边已完全经过折痕处理，但是更精细级别的边完全没有经过折痕处理。
+	 </p>
+<p class="p" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-7DBEECCB-4B6F-4627-8C9E-C1C9670B9FEA"> Maya 提供了以下两种方法对多边形网格的边和顶点进行折痕处理：<span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-E0E85087-8C0D-470A-AAC8-8D8F3B4DEDED">“折痕工具”(Crease Tool)</span>（<span class="ph menucascade" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-FC2CFB20-259E-42D6-AD0A-19052B435495"><span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-641E0FEE-530D-4DB1-A7F8-4E28F816D2E8">“网格工具</span> &gt; <span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-B0B8E130-C3F8-413A-BEEC-5578CBDA5295">折痕工具”</span></span>(Mesh Tools &gt; Crease Tool)）和<span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-FBAFAB11-ACF9-4C26-B2D7-6507C9762566">“折痕集编辑器”(Crease Set Editor)</span>（<span class="ph menucascade" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-0CEDFCAA-1E93-4C15-A2C6-83D0FE730EA7"><span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-B1F82658-EC4E-4D44-BEC5-F8FE6C89317C">“窗口 </span> &gt; <span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-FBFEC178-D437-45D3-B121-412A3402357E">建模编辑器</span> &gt; <span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-C8EA6694-5EE6-478B-8CFE-A4BBEECFF4F4">折痕集”(Window &gt; Modeling Editors &gt; Crease Sets)</span></span>）。
+	 </p>
+<p class="p" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-0FE8F393-094F-44BE-B396-65A7CCB26F46"> <strong class="ph b" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-7682E72F-7CC8-4218-8E70-B2E2E9047C85">“折痕工具”(Crease Tool)</strong>直接在网格上修改折痕值。<strong class="ph b" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-6D3D517F-25EB-4917-9650-2DFA6CBE9C5F">“折痕集编辑器”(Crease Set Editor)</strong>可用来在一个窗口中处理场景中的所有折痕集，从而轻松地跨多个网格创建、选择和编辑折痕值和折痕集。
+	 </p>
+<div class="note important" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-984BBCA2-4212-41A3-BA65-A0AE78682A5D"><span class="importanttitle">重要：</span>  您必须选择一个要在整个工作流中使用的方法，因为在同一组件上不能交替使用多种方法。
+	 </div>
+<div class="section" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__SECTION_92B6519ABAAF492D9D8E14674866EF9D"><h2 class="title sectiontitle">折痕工具(Crease Tool)</h2> 
+		 
+		<p class="li listintro" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__WS73099CC142F48755-7B21313411809411AE9-7630">在多边形网格上对边或顶点进行折痕处理 </p>
+<ol class="ol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__WS73099CC142F48755-7B21313411809411AE9-7631"><li class="li" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__WS73099CC142F48755-7B21313411809411AE9-762F">选择<span class="ph menucascade" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-CDB0B7E2-0625-4334-BF99-A3F022234BC9"><span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-61AE10E2-238E-4261-82E2-4E5E2081FD50">“网格工具</span> &gt; <span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-43501909-3348-4F5D-BB6A-592A76D80540">折痕工具”</span></span>(Mesh Tools &gt; Crease Tool)。
+			 <p class="p" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__WS73099CC142F48755-7B21313411809411AE9-762E">处于边或顶点选择模式时，也可以在场景视图中按住 Shift 键并单击鼠标右键，然后从标记菜单中选择<span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-21A796B3-0EA0-4B3D-BEA2-71BD299564F0">“折痕工具”(Crease Tool)</span>。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__WS73099CC142F48755-7B21313411809411AE9-762D">在网格上选择要进行折痕处理的边或顶点。
+			 <div class="note note" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__WS73099CC142F48755-7B21313411809411AE9-762C"><span class="notetitle">注：</span>  
+				<p class="p" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-8A4E3064-89FE-46A9-8B9D-B5A80CBB5B48">在网格上每次可以选择要进行折痕处理的多条边或多个顶点。也可以选择多个多边形对象上的项目并同时对所有项目进行折痕处理。但是，可能会出现折痕弹出现象。
+				</p>
+ 
+			 </div>
+ 
+		  </li>
+<li class="li" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__WS73099CC142F48755-7B21313411809411AE9-762B"> 使用鼠标中键在场景视图中拖动以调整折痕值。
+			 <p class="p" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__WS73099CC142F48755-7B21313411809411AE9-762A">视口中出现平视显示器以指示当前<span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-04604CDF-F39D-44B4-8DD5-F5E8EE7B1958">“细分级别”(subdivision level)</span>可见的<span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-F353C3BB-A260-4117-8625-F12F64FD2BB9">“折痕模式”(Crease Mode)</span>、<span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-F19B9ECD-CC8A-48A4-A07C-F3DC74F33016">“当前折痕值”(current crease value)</span>和<span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-E324C78D-B6BC-4196-9E3C-54FBF445B0D3">“最大折痕值”(maximum crease value)</span>。
+			 </p>
+ 
+			 <p class="p" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__WS73099CC142F48755-7B21313411809411AE9-7629">应用折痕的边以原始网格上伴有较粗的线的形式出现。包围顶点的小圆圈指示应用折痕的顶点。
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__WS73099CC142F48755-7B21313411809411AE9-7628"><img class="image" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__IMAGE_0F6D2AF4E884402EAFD95BE3605FABFF" width="192" height="114" src="../images/GUID-298BD454-24EC-48EE-BF2F-5187F9DB9A75.png"></div>
+ 
+			 <div class="note note" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__WS73099CC142F48755-7B21313411809411AE9-7627"><span class="notetitle">注：</span>  最大折痕值与网格的细分级别数相同。
+			 </div>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__SECTION_89BC8276A8094214AC810FC749B38F9F"><h2 class="title sectiontitle">折痕集编辑器(Crease Set Editor)</h2> 
+		 
+		<p class="li listintro" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-6335627A-E79F-4D6D-AEF1-77C21400F483">使用<span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-CDABC0D5-E922-44CA-A480-1A4FAC12828C">“折痕集编辑器”(Crease Set Editor)</span>创建折痕集</p>
+<ol class="ol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__OL_5EC01F06E76B4978A4ACFC9F27A1AF62"><li class="li" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__LI_ACB0D67E63DA480CB00FFB3825C81B5C">选择要包含在折痕集中的组件（多边形边或顶点）。
+		  </li>
+<li class="li" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__LI_9DFF4E9B50374FECBC104125D2D87947">选择<span class="ph menucascade" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-569F07B2-C2A0-4001-8B0A-A2E9CB8B0B5E"><span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-E18F70D8-6594-4522-B1F1-8A13839634F5">“窗口</span> &gt; <span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-815ADA98-B6D4-4DCE-8B7A-8A62A373945E">建模编辑器</span> &gt; <span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-4BB2186F-DE15-41ED-ADC9-6291FA76E038">折痕集”(Windows &gt; Modeling Editors &gt; Crease Sets)</span></span>。
+			 <p class="p" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-7AB88D35-2108-429A-AF94-C2D72B08B5EF">此时将显示<span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-C4A04C41-E10E-4B3E-AA6A-3797D3C7988A">“折痕集编辑器”(Crease Set Editor)</span>。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__LI_D0E17CCD905B47048BB048F0A9B0FC78">执行下列操作之一：
+			 <ul class="ul" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__UL_B55D86C78A834772A950243E662F51D1"><li class="li" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__LI_541A0A0EF78F442D8EF759E8F51E942E">单击<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-AE276879-1E25-464F-A7A9-5D2DE02C7158.htm#GUID-AE276879-1E25-464F-A7A9-5D2DE02C7158__SECTION_6C37E974A8274186BB2C5ABCBAA8B825">“折痕集编辑器”(Crease Set Editor)操作按钮</a>中的<span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-106CCD90-26E7-4A67-814A-CE0F2DF2212B">“新建”(New)</span>。
+				</li>
+<li class="li" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__LI_A284074847AB4D12840E419F60BDCA02">在编辑器中的任意位置单击鼠标右键，然后从<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-CCF78CB9-3D9F-4F58-B1EB-77BB327EDC27.htm">右键单击菜单</a>中选择<span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-37195796-1C32-4D3E-BD73-556B94A94CB8">“创建集”(Create Set)</span>。
+				  <div class="p" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-5DB32E6F-C0A7-41DE-B8BA-1CE9967F0CC2">新的折痕集将出现在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-AE276879-1E25-464F-A7A9-5D2DE02C7158.htm#GUID-AE276879-1E25-464F-A7A9-5D2DE02C7158__SECTION_BAD60880A36D4FBAB849D2CECF7B5AA0">折痕集列表</a>中。
+					 <div class="note tip" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-850A4BF2-696C-4615-8506-FA9A35B5D61E"><span class="tiptitle">提示：</span> 要更改默认的名称，请选择<span class="ph menucascade" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-84B17A56-2845-4888-88A0-F1D5D68DF3A5"><span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-3AE2440B-8A93-4A09-93EB-55447426BDC3">“设置</span> &gt; <span class="ph uicontrol" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__GUID-46E787D3-C327-4590-8C40-02B2489E7DCD">默认折痕集名称”(Settings &gt; Default Crease Set Name)</span></span>，并输入新的名称，然后再创建折痕集。
+					 </div>
+ 
+				  </div>
+ 
+				</li>
+</ul>
+ 
+		  </li>
+<li class="li" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__LI_C5E6D7DF31FB4E28A01E730CE2AE093C">（可选）调整折痕硬度。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-DC643F2A-34F9-43CF-8897-126AF00F78D4.htm">调整折痕硬度</a>。
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__WS73099CC142F48755-7B21313411809411AE9-761C"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__WS73099CC142F48755-7B21313411809411AE9-761B"><li class="li" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__WS73099CC142F48755-7B21313411809411AE9-761A"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-42066772-8F58-413E-80EB-0DE536144533.htm">折痕工具选项(Crease Tool Options)</a> 
+		  </li>
+<li class="li" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__LI_3A933237124942358E0C5E944A984B3B"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-83308C84-E5EE-4B07-8B26-7C04F8134701.htm">折痕集编辑器(Crease Set Editor)</a> 
+		  </li>
+<li class="li" id="GUID-DEB060F9-A4B1-4F73-8B4D-B18A13D0E54B__WS73099CC142F48755-7B21313411809411AE9-7618"> 
+			 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-4B9A9A3A-83C5-445A-95D5-64104BC47406">大纲视图(Outliner)</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-470EF73D-C9E1-4290-AD57-4A20620FCE74.htm">修改多边形网格</a></div>
+</div>
+</div>
+
+</body>
+</html>

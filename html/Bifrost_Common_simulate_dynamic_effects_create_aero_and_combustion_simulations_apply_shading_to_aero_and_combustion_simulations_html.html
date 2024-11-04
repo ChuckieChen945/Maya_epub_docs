@@ -1,0 +1,69 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_simulate_dynamic_effects_create_aero_and_combustion_simulations_apply_shading_to_aero_and_combustion_simulations_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>对 Aero 和燃烧模拟应用着色</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>对 Aero 和燃烧模拟应用着色</h1></div><p>默认场景材质不适合渲染 Aero 和燃烧模拟。可以通过应用体积着色器解决此问题。</p>
+<ol>
+<li><p>在场景中，使用适用于支持的渲染器的体积着色器（例如，适用于 Arnold 的 aiStandardVolume 着色器）创建材质。</p>
+</li>
+<li><p>将材质应用于 Bifrost 输出对象（默认情况下名为“bifrostGraph”）。</p>
+</li>
+<li><p>在着色器的设置中，将用于密度的通道设置为 <code>voxel_fog_density</code>。</p>
+</li>
+<li><p>执行下列操作之一：</p>
+<ul>
+<li>对于没有黑体辐射的简单 Aero 模拟，关闭发射。</li>
+<li>对于燃烧，将用于黑体发射的通道设置为 <code>voxel_temperature</code>。将通道的倍增设置为 1.0 左右，然后根据需要调整发射强度。在 aiStandardVolume 着色器中，这些参数为<strong>“黑体开尔文”(Blackbody Kelvin)</strong>和<strong>“黑体强度”(Blackbody Intensity)</strong>。</li>
+</ul>
+</li>
+</ol>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>如果使用 Arnold 进行渲染，请尝试先对 aiStandardVolume 着色器使用 <code>default_bifrost_aero</code> 预设。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_create_aero_and_combustion_simulations_html.html">创建 Aero 和燃烧模拟</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shading_am_Cell_Noise_to_Displacement_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_CELL_NOISE_TO_DISPLACEMENT">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 单元噪波连接到置换 - Arnold for Maya">
+
+<title>单元噪波连接到置换</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>单元噪波连接到置换</h1></div><p> <img src="../images/am-Cell_Noise_to_Displacement-emily-cell-noise-1.gif" alt=""><img src="../images/am-Cell_Noise_to_Displacement-Untitled1-2.gif" alt=""></p>
+<p><sub><strong><em>cell_noise</em> 着色器的<em>振幅</em>已设置关键帧</strong></sub></p>
+<p><strong>Cell_noise</strong> 着色器用途广泛，可用于重现各种不同的着色效果。在本简短教程中，我们将介绍多种可行用途来生成一个“拼贴”风格的抽象图形效果。我们将 <em>cell_noise</em> 着色器连接到摄影机前方透明对象的“置换”(Displacement)属性，以扭曲其后方的主体（在本例中为头部）。我们将使用 <em>cell_noise</em> 着色器的各种属性来重现下面的一些示例图像（所有示例图像均可设置动画）。</p>
+<p><strong>要下载 Emily 数字模型，请单击<a href="https://vgl.ict.usc.edu/Data/DigitalEmily2/" target="_blank">此处</a>。</strong></p>
+<p><strong>要下载简单的场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/user-guide-file.ma" target="_blank">此处</a>。</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Cell_Noise_to_Displacement-15689949447424016250262071306571-3.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-alligator1-4.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-distortion-rings-5.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-emily-vertical-6.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-ior3-7.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Cell_Noise_to_Displacement-lacu-1-345-8.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-PLANE-diamond-ior1-1-9.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-worley1-no-additive-10.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-worley1-randomness-11.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-worley2octaves1-12.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<ul>
+<li>首先，创建一个平面（可随意使用其他形状），然后将其放置在摄影机与主体（在本例中为头部模型）之间。</li>
+</ul>
+<p><img src="../images/am-Cell_Noise_to_Displacement-image2019-9-10-12-57-36-13.png" alt=""></p>
+<ul>
+<li>创建 <em>skydome_light*。确保 *skydome_light</em> 的<em>“摄影机可见性”(Camera Visibility)</em>默认值为 1，以便可以产生一些折射，而非一片漆黑。</li>
+<li>为平面指定一个 <em>standard_surface</em> 着色器。我们希望使其看起来像玻璃，但没有任何镜面反射着色。更改以下属性：</li>
+</ul>
+<p><em>base_weight：0</em></p>
+<p><em>specular_weight：0</em></p>
+<p><em>transmission_weight：1</em></p>
+<ul>
+<li>创建 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_texture_node_ac_cell_noise_html" target="_blank">cell_noise</a></em> 着色器，并使用它来置换平面。总体效果取决于使用的置换量。从较小值开始，然后逐渐增加。</li>
+</ul>
+<h2 id="ior">镜面反射 IOR</h2><p>尝试更改 <em>standard_surface</em> 着色器的 <em>specular_IOR</em> 值以查看其效果（请记住，也可以使用小于 1 的值）。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Cell_Noise_to_Displacement-ior-0-5-14.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-ior-1-15.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-ior-1-5-16.jpg" alt=""></td>
+</tr>
+<tr>
+<td>0.5</td>
+<td>1</td>
+<td>1.5</td>
+</tr>
+</tbody></table>
+<div class="head-block"><h1>单元噪波</h1></div><h2 id="">图案</h2><p>下面是使用 <em>cell_noise</em> 着色器的各种噪波<em>图案</em>获得的渲染效果。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Cell_Noise_to_Displacement-1-noise1-17.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-2-worley1-18.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-3-alligator-19.jpg" alt=""></td>
+</tr>
+<tr>
+<td>Noise1（默认值）</td>
+<td>Worley1</td>
+<td>Alligator</td>
+</tr>
+</tbody></table>
+<h2 id="randomness">随机度(Randomness)</h2><p>更改<em>“随机度”(Randomness)</em>值可能会对结果产生巨大影响。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Cell_Noise_to_Displacement-randomness-0-20.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-randomness-0-5-21.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-randomness-1-22.jpg" alt=""></td>
+</tr>
+<tr>
+<td>0</td>
+<td>0.5</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<h2 id="">更多示例</h2><p>掌握了此效果后，可以尝试将其应用于不同的场景以查看能够实现的效果。此外，您也可以尝试添加其他着色器以改变 <em>cell_noise</em> 着色器的效果，如<em>工具</em>、<em>渐变</em>和 <em>color_correct</em>。下面是另外一些使用这些技术的示例。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Cell_Noise_to_Displacement-sean-23.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-cell-noise-eye-24.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-invert-worley3-25.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-e8f95ca0-6710-491e-ab5f-582c4ff504e4-rw-1920-26.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-room-worley1-500-27.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-4-28.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-3-29.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-2-30.jpg" alt=""></td>
+<td><img src="../images/am-Cell_Noise_to_Displacement-1-31.jpg" alt=""></td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Shading/arnold_for_maya_shading_am_Displacement_Tutorials_html.html">置换教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

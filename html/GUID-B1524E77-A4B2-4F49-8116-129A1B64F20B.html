@@ -1,0 +1,233 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-ManagingScenes">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B">
+<meta name="language" content="CHS">
+<title>从锁定引用排除属性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>从锁定引用排除属性</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__GUID-8B299F0F-7F5C-454D-BC6E-3F8B078C7694">Maya 提供了许多 MEL 程序。您可以使用这些程序从被引用文件上的<span class="ph uicontrol" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__GUID-536E6842-BEA1-4298-BCC6-DCC9F774DF50">“锁定”(Lock)</span>选项中排除属性。例如，可以排除指定节点类型的特定属性、单个属性或所有属性。如果需要更好地控制排除，您甚至可以仅排除特定节点上的单个属性，或者排除特定节点的所有属性。 
+	 </p>
+<p class="p">可以在 Maya 安装目录的 <samp class="ph codeph" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__GUID-288085D2-E80D-4A2C-904F-265113E93C45">scripts\others</samp> 文件夹中找到这些 MEL 程序。以下部分介绍如何使用这些程序。 
+	 </p>
+<p class="p">有关源 MEL 脚本和使用常用 MEL 程序的详细信息，请参见 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-E151A15C-BA1D-4E60-8DB6-9D92C6202170">MEL 和表达式</a>。 
+	 </p>
+<div class="section" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__WS73099CC142F48755-3D114B751181C40F14B138C"><h2 class="title sectiontitle">用于排除单个属性的 MEL 程序</h2> 
+		 
+		<p class="p" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__WS73099CC142F48755-3D114B751181C40F14B138D"> 该示例介绍了如何创建自己的 MEL 程序，以指定要从文件引用锁定操作中排除的属性。该示例中提供的 MEL 程序与 Maya 附带的程序相同。 
+		</p>
+ 
+		<ol class="ol" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__WS73099CC142F48755-3D114B751181C40F14B138F"><li class="li" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__WS73099CC142F48755-3D114B751181C40F14B1390">使用文本编辑器创建 MEL 文件，并命名 MEL 文件：<em class="ph i" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__GUID-7A345DC5-B26C-4B12-BC69-A9CD1F8A3DD0">getLockReferenceExcludedAttributes.mel</em>。 
+		  </li>
+<li class="li" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__WS73099CC142F48755-3D114B751181C40F14B1391">将以下文本添加到文件中，确保完全遵照了语法： 
+			 <pre class="pre codeblock">
+global proc string[] getLockReferenceExcludedAttributes()
+{
+// Return a string array containing a list of attributes
+// to be skipped during locking of a referenced file. The
+// listed attributes locked state will remain the same as
+// in the referenced file.
+string $lockReferenceExcludedAttributes[];
+$lockReferenceExcludedAttributes[0] = "visibility";
+return $lockReferenceExcludedAttributes;
+}
+</pre>
+ 
+			 <p class="p" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__GUID-21D68A50-13B9-4702-A385-53308CE66E41">根据需要，添加或移除任何 <samp class="ph codeph" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__GUID-7508E061-8E76-455F-9F5D-DF81C4D61F10">$lockReferenceExcludedAttributes[n]</samp> 行，以使用与上述示例相同的语法指定要排除的属性。确保数组索引 <samp class="ph codeph" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__GUID-BD994D27-8DA8-4772-99CF-2DDA309677ED">[n]</samp> 是连续的。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__WS73099CC142F48755-3D114B751181C40F14B1394">保存 MEL 文件并将其放置在 Maya 脚本路径中。 
+			 <p class="p" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__WS73099CC142F48755-3D114B751181C40F14B1395">如果使用与 Maya 分发的默认名称相同的名称命名该 MEL 文件，“锁定”选项将在下次启动 Maya 时，请使用该新自定义脚本来锁定文件引用。 
+			 </p>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__SECTION_DCC2697FE44048F191A60DDE94D162D4"><h2 class="title sectiontitle">用于排除特定节点上的单个属性的 MEL 程序</h2> 
+		 
+		<p class="p">若要从锁定操作中排除特定节点上的单个属性，必须创建 <samp class="ph codeph">wantContextualLockReferencedAttribute</samp> 和 <samp class="ph codeph">shouldLockReferencedAttribute</samp> 这两个 MEL 程序。 
+		</p>
+ 
+		<p class="p">将 <samp class="ph codeph">wantContextualLockReferencedAttribute</samp> 设置为返回 1，然后在 <samp class="ph codeph">shouldLockReferencedAttribute</samp> 中指定排除逻辑并将其设置为返回 0。 
+		</p>
+ 
+		<div class="note note" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__GUID-7452CE06-D295-41FF-8C65-40CCDE04A9D1"><span class="notetitle">注：</span>  
+		  <p class="p">这些排除将在上述 <samp class="ph codeph">getLockReferenceExcludedAttributes()</samp> 中指定的属性类型排除基础上起作用。换句话说，系统将先排除 <samp class="ph codeph">getLockReferenceExcludedAttributes()</samp> 中指定的属性，然后再排除 <samp class="ph codeph">shouldLockReferencedAttribute</samp> 中指定的属性。 
+		  </p>
+ 
+		  <p class="p">需要节点的完整路径，如果是 DAG 节点，则必须包含名称空间和完整 DAG 路径。 
+		  </p>
+ 
+		</div>
+ 
+		<ol class="ol" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__OL_87E466BB68924E27B4F815F65662CBC8"><li class="li" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__LI_6FF6A7B10FCA4FA79C6791E1ACD03F05">使用文本编辑器创建 MEL 文件，并命名 MEL 文件：<em class="ph i">getLockReferenceExcludedAttributes.mel</em>。 
+		  </li>
+<li class="li" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__LI_BD8BFD5E0C094DA5A943CD270478FC91">按照如下所示添加 MEL 程序 <samp class="ph codeph">wantContextualLockReferencedAttribute</samp>，并将其设置为返回 1。 
+		  </li>
+<li class="li" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__LI_CF681AA75D704C44BF6DFD7FD24102C3">按照如下所示添加 MEL 程序 <samp class="ph codeph">shouldLockReferencedAttribute</samp>，然后为要从锁定操作中排除的特定节点指定属性，并将该程序设置为返回 0。 
+			 <p class="p">示例如下。在本示例中，有 3 个场景：<samp class="ph codeph">A.ma</samp>、<samp class="ph codeph">B.ma</samp>、<samp class="ph codeph">C.ma</samp>，<samp class="ph codeph">C.ma</samp> 引用 <samp class="ph codeph">B.ma</samp> 且 <samp class="ph codeph">B.ma</samp> 引用 <samp class="ph codeph">A.ma</samp>。 
+			 </p>
+ 
+			 <pre class="pre codeblock">global proc int wantContextualLockReferencedAttribute()
+{
+    // By default, only attribute type lock operations are excluded.
+    // Return 1 if you want Maya to call the shouldLockReferencedAttribute procedure
+    return 1;
+}
+
+global proc int shouldLockReferencedAttribute(string $node, string $attr)
+{
+    // Exclude transform node |C:B:A:A 's  translateY and visibility attribute from being locked
+    // Return 0 to indicate that these attributes should be unlocked
+    if(($node == "|C:B:A:A") &amp;&amp; ($attr == "translateY" || $attr == "translate" || $attr == "visibility"))
+    {
+
+        return 0;
+    }
+
+    else
+    {
+        return 1;
+    }
+}</pre>
+ 
+		  </li>
+<li class="li" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__LI_8005B292BB5A40A199EFE20B5FCAF23E">保存 MEL 文件并将其放置在 Maya 脚本路径中。 
+			 <p class="p">如果使用与 Maya 附带的默认名称相同的名称命名该 MEL 文件，<span class="ph uicontrol">“锁定”(Lock)</span>选项将在下次启动 Maya 时，请使用该新自定义脚本来锁定文件引用。 
+			 </p>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__WS73099CC142F48755-3D114B751181C40F14B1397"><h2 class="title sectiontitle">用于按节点类型排除属性的 MEL 程序</h2> 
+		 
+		<p class="p" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__WS73099CC142F48755-3D114B751181C40F14B1398">该示例介绍如何创建自己的 MEL 程序，以按节点类型指定要排除的属性。该示例中提供的 MEL 程序与 Maya 附带的程序相同。 
+		</p>
+ 
+		<ol class="ol" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__WS73099CC142F48755-3D114B751181C40F14B1399"><li class="li" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__WS73099CC142F48755-3D114B751181C40F14B139A">使用您喜欢的文本编辑器创建 MEL 文件，并命名 MEL 文件：<em class="ph i" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__GUID-4F8B70F4-2476-49C2-AFF9-E3ED52799B47">getLockReferenceExcludedNodeTypes.mel</em>。 
+		  </li>
+<li class="li" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__WS73099CC142F48755-3D114B751181C40F14B139B">将以下文本添加到文件中，确保完全遵照了语法： 
+			 <pre class="pre codeblock">
+global proc string[] getLockReferenceExcludedNodeTypes()
+{
+// Return a string array containing a list of node types 
+// whose attributes should be skipped during locking of a referenced file.
+string $lockReferenceExcludedNodeTypes[];
+$lockReferenceExcludedNodeTypes[0] = "lightLinker";
+$lockReferenceExcludedNodeTypes[1] = "displayLayerManager";
+$lockReferenceExcludedNodeTypes[2] = "displayLayer";
+$lockReferenceExcludedNodeTypes[3] = "renderLayerManager";
+$lockReferenceExcludedNodeTypes[4] = "renderLayer";
+return $lockReferenceExcludedNodeTypes;
+}
+</pre>
+ 
+			 <p class="p" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__GUID-5C9C4056-8D08-4755-BB20-828E9D47168D">根据需要，添加或移除任何 <samp class="ph codeph" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__GUID-313952F2-9B9C-4FB7-8E6C-64F167CE986C">$lockReferenceExcludedNodeTypes[n]</samp> 行，以使用与上述示例相同的语法按节点指定属性。确保数组索引 <samp class="ph codeph" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__GUID-B56D0C26-2F38-4BCB-B23A-B3374E4746B0">[n]</samp> 是连续的。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__WS73099CC142F48755-3D114B751181C40F14B139E">保存 MEL 文件并将其放置在 Maya 脚本路径中。 
+			 <p class="p" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__WS73099CC142F48755-3D114B751181C40F14B139F">如果使用与 Maya 附带的默认名称相同的名称命名该 MEL 文件，<span class="ph uicontrol" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__GUID-507C6ADA-3086-4502-B21B-CB441F599DB7">“锁定”(Lock)</span>选项将在下次启动 Maya 时，请使用该新自定义脚本来锁定文件引用。 
+			 </p>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__SECTION_1ED012715D544B2D940E2D9B6FE86F57"><h2 class="title sectiontitle">用于排除特定节点的所有属性的 MEL 程序</h2> 
+		 
+		<p class="p">除了排除通用节点类型的属性之外，还可以添加自定义逻辑，以指定应从锁定操作中排除的特定节点。例如，您可能仅需要解除锁定部分被引用节点的变换节点和形状节点。 
+		</p>
+ 
+		<p class="p">若要排除这些特定节点的所有属性，则应创建 <samp class="ph codeph">wantContextualLockReferencedNode</samp> 和 <samp class="ph codeph">shouldLockReferencedNode</samp> 这两个 MEL 程序。 
+		</p>
+ 
+		<div class="note note" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__GUID-E14F1F8B-F048-4B9F-B7DB-677AB1C8D8DE"><span class="notetitle">注：</span>  
+		  <p class="p">这些排除将在上述 <samp class="ph codeph">getLockReferenceExcludedNodeTypes()</samp> 中指定的节点类型排除基础上起作用。换句话说，系统将先排除 <samp class="ph codeph">getLockReferenceExcludedNodeTypes()</samp> 中指定的属性，然后再排除 <samp class="ph codeph">shouldLockReferencedNode</samp> 中指定的属性。 
+		  </p>
+ 
+		  <p class="p">需要节点的完整路径，如果是 DAG 节点，则必须包含名称空间和完整 DAG 路径。 
+		  </p>
+ 
+		</div>
+ 
+		<ol class="ol" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__OL_34D58EB311784F43B179D313856BD897"><li class="li" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__LI_B947104CA72942599796B7F1D06EB936">使用文本编辑器创建 MEL 文件，并命名 MEL 文件：<em class="ph i">getLockReferenceExcludedNodeTypes.mel</em>。 
+		  </li>
+<li class="li" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__LI_A3D88CF39090441F849A53355B95BE4E">按照如下所示添加 MEL 程序 <samp class="ph codeph">wantContextualLockReferencedNode</samp>，并将其设置为返回 1。 
+		  </li>
+<li class="li" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__LI_C77259BC656C4E76B9F96E2801EA0676">按照如下所示添加 MEL 程序 <samp class="ph codeph">shouldLockReferencedNode</samp>，然后指定要从锁定操作中排除的节点，并将该程序设置为返回 0。 
+			 <p class="p">示例如下。在本示例中，有 3 个场景：<samp class="ph codeph">A.ma</samp>、<samp class="ph codeph">B.ma</samp>、<samp class="ph codeph">C.ma</samp>，<samp class="ph codeph">C.ma</samp> 引用 <samp class="ph codeph">B.ma</samp> 且 <samp class="ph codeph">B.ma</samp> 引用 <samp class="ph codeph">A.ma</samp>。 
+			 </p>
+ 
+			 <pre class="pre codeblock">global proc int wantContextualLockReferencedNode()
+{
+    // By default, only node type lock operations are excluded. 
+    // Return 1 if you want Maya to call the shouldLockReferencedNode procedure
+    return 1;
+}
+
+global proc int shouldLockReferencedNode(string $node)
+{
+    // Exclude transform node "|C:B:B" and its shape node "|C:B:B|C:B:BShape" from being locked
+    // Exclude shape node "|C:C|C:CShape" from being locked
+    // Return 0 to indicate that these attributes should be unlocked
+    if ($node == "|C:B:B" || $node == "|C:B:B|C:B:BShape" || $node == "|C:C|C:CShape")
+	{
+	    return 0;
+	}
+	else
+	{ 
+	    return 1;
+	}
+}</pre>
+ 
+		  </li>
+<li class="li" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__LI_AD128D14611C4B3E912EE80B315EB1D3">保存 MEL 文件并将其放置在 Maya 脚本路径中。 
+			 <p class="p">如果使用与 Maya 附带的默认名称相同的名称命名该 MEL 文件，<span class="ph uicontrol">“锁定”(Lock)</span>选项将在下次启动 Maya 时，请使用该新自定义脚本来锁定文件引用。 
+			 </p>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__SECTION_4F213C703AA9430DB2F6C257FBD4545A"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__UL_A1EAB69E47B740418F82922B37238C3F"><li class="li" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__LI_0412BA47CD104160BE17BAF23889D2F4"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-3B6A0258-EF7D-4E25-9744-C27BDE843C1A.htm">锁定文件引用</a> 
+		  </li>
+<li class="li" id="GUID-B1524E77-A4B2-4F49-8116-129A1B64F20B__LI_673DEDC2E6CB4B388580BDF7ACBC91F4"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-18CC5AC9-AEC0-4B29-955B-38BAEF6A2896.htm">锁定文件引用</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-3B6A0258-EF7D-4E25-9744-C27BDE843C1A.htm">锁定文件引用</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_build_a_graph_about_data_types_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>关于数据类型和端口颜色</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>关于数据类型和端口颜色</h1></div><p>值<em>类型</em> 指的是数据的类型，例如，整数、小数、向量等。还可以是每种类型的数组和数组的数组。</p>
+<p>类型通过连接和端口的颜色来表示。即使端口具有不同的颜色，仍有可能将其连接：</p>
+<ul>
+<li>可以将传入类型升级为输入端口的类型。例如，可以将 <code>float</code> 值升级为 <code>double</code>，将 <code>uint</code> 值升级为 <code>float</code>。</li>
+<li>输入端口的类型可能为 <code>auto</code>。<code>auto</code> 类型的端口可以接受不同类型的连接。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>颜色</strong></th>
+<th><strong>类型</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/type_color_decimal.png" alt="小数颜色"></td>
+<td>小数值。这些可以是单 (<code>float</code>) 或双精度 (<code>double</code>) 浮点值。</td>
+</tr>
+<tr>
+<td><img src="../images/type_color_vector.png" alt="向量颜色"></td>
+<td><code>float</code> 或 <code>double</code> 值的 2D、3D 或 4D 向量。</td>
+</tr>
+<tr>
+<td><img src="../images/type_color_matrix.png" alt="矩阵颜色"></td>
+<td><code>float</code> 或 <code>double</code> 值的矩阵。</td>
+</tr>
+<tr>
+<td><img src="../images/type_color_integer.png" alt="整数颜色"></td>
+<td>各种宽度的有符号或无符号整数。</td>
+</tr>
+<tr>
+<td><img src="../images/type_color_string.png" alt="字符串颜色"></td>
+<td>字符串。</td>
+</tr>
+<tr>
+<td><img src="../images/type_color_boolean.png" alt="布尔值颜色"></td>
+<td>布尔值。此颜色还用于枚举，如 <code>rotation_order</code>。</td>
+</tr>
+<tr>
+<td><img src="../images/type_color_object.png" alt="对象颜色"></td>
+<td>对象。对象可以是网格、体积和点对象等几何对象，也可以是旨在用于特定节点的自定义数据结构。</td>
+</tr>
+<tr>
+<td><img src="../images/type_color_other.png" alt="其他类型颜色"></td>
+<td>其他类型。这些可以是除 <code>float</code> 或 <code>double</code> 以外的类型的向量和矩阵、函数曲线 (<code>fcurves</code>) 等。一种特定类型为 <code>any</code>，该类型可用作包裹器，在运行时执行类型检查。</td>
+</tr>
+<tr>
+<td><img src="../images/type_color_auto.png" alt="未解析的 auto 颜色"></td>
+<td>auto（未解析的颜色）。类型 <code>auto</code> 是一个占位符，在编译和执行图表之前必须将其解析为另一个特定类型。如果未解析，则为灰色。否则，它为已解析类型的颜色。</td>
+</tr>
+</tbody></table>
+<h2 id="auto">关于 <code>auto</code> 类型端口</h2><p><code>auto</code> 类型端口很特殊，它们可以根据传入连接采用新的类型。<code>auto</code> 类型类似于占位符 - 必须从端口连接或默认值推断出真实的具体类型。<code>auto</code> 类型端口拥有一个垂直的“光晕”和所推断类型的颜色。</p>
+<p><img src="../images/port_auto_float.png" alt="有光晕的 auto 端口"></p>
+<p>例如，默认情况下，<code>length</code> 节点有一个解析为 <code>float3</code> 的输入端口和一个解析为 <code>float</code> 的输出端口。不过，由于这些端口是 <code>auto</code> 端口，您可以连接 <code>double2</code> 作为输入，输出变为 <code>double</code>。</p>
+<p>尽管 <code>auto</code> 端口支持多种类型，但它们并非可以支持所有类型。支持的特定类型具体取决于每个节点。例如，不可将矩阵用作 <code>length</code> 的输入，因为矩阵没有长度。</p>
+<p>通过在端口上单击鼠标右键并从“值类型”(Value Types)菜单中选择类型，可以在引用复合上设置 auto 端口的类型。请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_set_port_type_html.html">设置端口类型</a>。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/Bifrost_Common_build_a_graph_html.html">构建和修改图表</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

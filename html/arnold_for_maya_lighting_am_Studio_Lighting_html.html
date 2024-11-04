@@ -1,0 +1,160 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_lighting_am_Studio_Lighting_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_STUDIO_LIGHTING">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 工作室照明 - Arnold for Maya">
+
+<title>工作室照明</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>工作室照明</h1></div><p><img src="../images/am-Studio_Lighting-studio-lighting-chrome-sphere-1.jpg" alt=""></p>
+<p>在本教程中，我们将介绍如何重建一个可对各种物体进行照明和渲染的简单<strong><a href="https://www.google.es/search?q=product+photography+studio+setup&amp;espv=2&amp;biw=1137&amp;bih=783&amp;tbm=isch&amp;tbo=u&amp;source=univ&amp;sa=X&amp;sqi=2&amp;ved=0CCAQsARqFQoTCN2L0I7f8MYCFchVPgodSIYOvg&amp;dpr=0.9" target="_blank">摄影照明工作室设置</a></strong>。我们将组合使用 Arnold 区域四边形灯光和 HDR 贴图在场景中创建逼真的镜面反射。HDR 贴图将为任何位于灯光前面的模型的表面提供丰富的镜面反射，并为最终渲染增添照片般的真实感。</p>
+<p><strong>要下载场景文件，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_tutorials_am_Learning_Scenes_html">此处</a>（不包括 HDR 贴图）。</strong></p>
+<h2 id="strong-a-href-studiolighting-setmodel-a-strong"><strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Lighting/arnold_for_maya_lighting_am_Studio_Lighting_html.html#StudioLighting-SetModel">设置模型</a></strong></h2><p>场景包括一个弯曲的背景和一个地板平面，两侧各有一个平面，并为它们指定了暗灰色 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Surface_html">standard_surface</a></em> 着色器。</p>
+<p><img src="../images/am-Studio_Lighting-studio-lighting-model-set-maya-2.jpg" alt=""></p>
+<p><strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Lighting/arnold_for_maya_lighting_am_Studio_Lighting_html.html#StudioLighting-Lights">灯光</a></strong></p>
+<ul>
+<li>分别为顶部、左侧和右侧这三个灯光创建 Arnold 区域光。它们将用于表示摄影工作室中使用的大型柔光箱。</li>
+</ul>
+<p><img src="../images/am-Studio_Lighting-studio-lighting-position-lights-3.jpg" alt=""></p>
+<p><sub><strong>将每个灯光的 <em>light_type</em> 更改为 <em>quad</em> </strong></sub></p>
+<p>本教程中使用 HDR 贴图。如果您不想使用文件纹理，也可使用简单的矩形渐变纹理贴图。但是，模型中的反射看起来将不太逼真。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Studio_Lighting-studio-lighting-warm-4.jpg" alt=""></td>
+<td><img src="../images/am-Studio_Lighting-studio-lighting-cool-5.jpg" alt=""></td>
+<td><img src="../images/am-Studio_Lighting-studio-lighting-top-6.jpg" alt=""></td>
+</tr>
+<tr>
+<td>softbox_midlle_wrm.HDR</td>
+<td>softbox_midlle_cold.HDR</td>
+<td>softbox_square_gs.HDR</td>
+</tr>
+</tbody></table>
+<ul>
+<li>按下图中所示，将每个 HDR 贴图连接到每个区域光的 <em>color</em> 属性。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Studio_Lighting-studio-lighting-top-light-render-7.jpg" alt=""></td>
+<td><img src="../images/am-Studio_Lighting-studio-lighting-right-8.jpg" alt=""></td>
+<td><img src="../images/am-Studio_Lighting-studio-lighting-left-9.jpg" alt=""></td>
+</tr>
+<tr>
+<td>softbox_square_gs.hdr 连接到 Arnold 区域光“Top”的 <em>color</em> 属性</td>
+<td>softbox_midlle_cold.hdr 连接到 Arnold 区域光“Right”的“颜色”(Color)属性</td>
+<td>softbox_midlle_wrm.hdr 连接到 Arnold 区域光“Left”的“颜色”(Color)属性</td>
+</tr>
+</tbody></table>
+<h2 id="strong-a-href-studiolighting-exposure-a-strong"><strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Lighting/arnold_for_maya_lighting_am_Studio_Lighting_html.html#StudioLighting-Exposure">曝光</a></strong></h2><ul>
+<li>测试渲染场景。这时应得到如下图所示的场景。如果反射太亮，记得可以在 Arnold 属性中降低 <em>RenderCam</em> 的<em>曝光</em>设置。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Studio_Lighting-exposure1-10.jpg" alt=""></td>
+<td><img src="../images/am-Studio_Lighting-exposure2-11.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong><strong style="text-align: center;">降低 Arnold 的摄影机曝光属性后可以看到 HDR 贴图的高动态范围</strong></strong></sub></p>
+<p>灯光的 HDR 贴图细节可见（降低<em>摄影机曝光</em>时）。您可以在场景的<em>镜面反射</em>内看到完整的高动态范围：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Studio_Lighting-studio-lighting-0-12.jpg" alt=""></td>
+<td><img src="../images/am-Studio_Lighting-studio-lighting-2-13.jpg" alt=""></td>
+<td><img src="../images/am-Studio_Lighting-studio-lighting-4-14.jpg" alt=""></td>
+</tr>
+<tr>
+<td>曝光(Exposure)：0</td>
+<td>曝光(Exposure)：-2</td>
+<td>曝光(Exposure)：-4</td>
+</tr>
+</tbody></table>
+<p>或者，您也可以尝试更改灯光强度或 HDR 贴图的 HSV 属性，以获得想要的效果。</p>
+<p>如果您发现工作室中物体正面的照明看起来有点暗，也可以尝试在摄影机前面添加一个反光板（禁用反光板的 <em>primary_visibility</em> ）。</p>
+<p><img src="../images/am-Studio_Lighting-image2016-5-3-15-17-10-15.png" alt=""></p>
+<p><sub><strong>可以修改灯光文件纹理的“颜色增益”(Color Gain)和<em>“曝光”(Exposure)</em> 属性</strong></sub></p>
+<h2 id="">球形摄影机镜头</h2><p>学完本教程后，您可以尝试使用 <em>spherical_camera</em> 镜头将该场景转化为 HDR 贴图。</p>
+<p><img src="../images/am-Studio_Lighting-spherical-camera-lighting-studio-spherical-render-16.jpg" alt=""></p>
+<p><sub><strong>使用球形摄影机镜头渲染的场景</strong></sub></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关球形摄影机的详细信息，请单击<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_cameras_ac_spherical_camera_html" target="_blank">此处</a>。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Lighting_html.html">照明</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

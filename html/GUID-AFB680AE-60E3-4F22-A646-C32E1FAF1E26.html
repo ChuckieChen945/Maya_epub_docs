@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26">
+<meta name="language" content="CHS">
+<title>优化 nCloth</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>优化 nCloth</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-2315"><p class="p" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__WS1A9193826455F5FF6026605B1181C8F4F2E-2C83">本部分详细介绍提高 nCloth 模拟播放速度的方法。</p>
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__WS1A9193826455F5FF6026605B1181C8F4F2E-2C82" class="table" width="100%" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">模拟低分辨率 nCloth 对象</td>
+<td class="entry" valign="top" width="50%">修改和模拟非最终 nCloth 对象时保持低多边形计数。完成对模拟的更改后，对多边形网格进行平滑处理。如果必须使用高分辨率模型进行修改，请将输出布料网格用作包裹变形器。</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">适当地对 nCloth 执行建模</td>
+<td class="entry" valign="top" width="50%">将 nCloth 建模为大小统一或尽可能接近统一的四边形。</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">在适当的情况下禁用碰撞</td>
+<td class="entry" valign="top" width="50%">禁用任何不必要的碰撞以大大减少在模拟期间执行的计算量。</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">调整自碰撞设置</td>
+<td class="entry" valign="top" width="50%">减少 nClothShape 节点的<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-863CA1E4-2C74-45E2-98E7-5121E2E3E641">“厚度”(Thickness)</span>属性以加快自碰撞速度。当<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-BB8FBB94-EEB6-4F94-9215-42E5DD78FA5D">“自碰撞标志”(Self Collision Flag)</span>未设定为<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-38176FF9-0FCE-4F71-B9A1-9EA7373C599A">“顶点”(Vertex)</span>时，这种改进尤为常用。如果<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-363B1036-89DF-4C72-BF92-D6B0BC13B002">“自碰撞标志”(Self Collision Flag)</span>设定为<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-EB603C9C-509F-4A67-814D-09FBF57E3914">“顶点”(Vertex)</span>，则调整<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-8DEE73A7-5D14-4B5E-A64B-528F04DBBD94">“自碰撞宽度比例”(Self Collide Width Scale)</span>，以便碰撞球体几乎不会互相接触。</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">使用顶点向外推技术</td>
+<td class="entry" valign="top" width="50%"> <ol class="ol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__WS1A9193826455F5FF6026605B1181C8F4F2E-2C81"><li class="li" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__WS1A9193826455F5FF6026605B1181C8F4F2E-2C80">对 nCloth 对象和所有 nRigid 或被动对象禁用所有碰撞。 </li>
+<li class="li" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7F">对于每个 nRigid 对象，在<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-AF47BDFF-33EF-47BF-8D70-50EC5228CA2A">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-A369C112-6A86-4418-84E8-DA5E6340AAEF">“质量设置”(Quality Settings)</span>区域中，将<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-D96299D7-0400-46C3-931D-768C3C899CD8">“向外推”(Push Out)</span>值设定为 1。 </li>
+<li class="li" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7E">运行模拟。</li>
+<li class="li" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7D">在模拟运行期间，调整<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-F65B876B-14E1-43C2-B483-B69D56AD0506">“向外推影响半径”(Push Out Radius)</span>值，以便该值在保持碰撞仍正确显示的同时尽可能小。</li>
+<li class="li" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7C">将 nRigid 对象的<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-16994CBD-7FEE-46D0-A619-8C118A39AE8C">“厚度”(Thickness)</span>调整为足够大，以便 nCloth 三角形不会穿透该对象。</li>
+</ol>
+如果碰撞显示不正确，则激活 nCloth 和 nRigid 对象的<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-F19398F7-0FF3-4D1E-8ED2-EBCE5AFE1801">“质量设置”(Quality Settings)</span>区域中的<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-B84EE076-7F7C-4DBD-9BD0-E14CB462F117">“陷阱检查”(Trapped Check)</span>。</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">使用约束</td>
+<td class="entry" valign="top" width="50%">如果一个布料区域需要具有刚度，则使用<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-D39F9FD8-4476-4BC2-AC9B-0CE448E34117">“组件到组件”(Component to Component)</span>约束连接该区域中的顶点，而不是绘制布料属性。您可以通过将<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-4935A0F3-DA71-4B12-8910-584136E82D27">“连接方法”(Connection Method)</span>设置为<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-F83DC0D5-2C58-4A67-8559-46A7D236F315">“在最大距离内”(Within Max Distance)</span>并调整<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-0CB4016C-F8C0-4951-A51B-17BD5A5E2A20">“最大距离”(Max Distance)</span>属性来模拟刚度。如果一个布料区域需要接近角色的身体的一部分，请使用约束，而不是依赖<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-E18A3BD8-D2D0-4386-B616-0078BC0DE189">“摩擦力”(Friction)</span>和<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-F8F09DFC-230B-4E61-AD26-063AA952B8B2">“拉伸阻力”(Stretch Resistance)</span>。例如，使用<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-B5DB68B9-AFE4-43A6-B973-35CA1FE311EA">“点到曲面”(Point to Surface)</span>约束（该约束利用 nCloth 上的点和角色的身体）以及该约束的低<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-27E1B056-3EC1-4F6A-B71E-A56E5A67E46D">“强度”(Strength)</span>值。</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">将衣服绑定到骨架</td>
+<td class="entry" valign="top" width="50%">为某个角色设置动画时，请在制作衣服 nCloth 之前对衣服网格和角色骨架使用<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-A37D4A8C-FE86-4138-B0A8-00CCBDBA596C">“绑定蒙皮”(Bind Skin)</span>命令。使用<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-1B425BCC-4633-41BB-86B2-912D968B6F50">“输入网格吸引”(Input Mesh Attract)</span>将布料拉向角色的结束位置，以此减少一些 nCloth 计算。</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">减少子步数</td>
+<td class="entry" valign="top" width="50%">大多数情况下，减少 Nucleus 节点的<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-07A16B98-0646-4D4A-B11B-3336CA94AF1E">“子步”(Substeps)</span>数”和<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-8D0E179C-E305-443D-9D5D-E8BA77FAF1A2">“最大碰撞迭代次数”(Max Collide Iterations)</span>将加快播放速度，但质量却会降低。减少 nCloth 节点的<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-3D3ED826-E63E-4249-9AD9-178B2E66545B">“最大自碰撞迭代次数”(Max Self Collide Iterations)</span>也可以加快播放速度。</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">减少输入网格吸引</td>
+<td class="entry" valign="top" width="50%">避免<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-0582A3CA-E434-4DAC-BEB5-F075791AB44C">“输入网格吸引”(Input Mesh Attract)</span>值大于 1.2。</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">使用拉伸阻尼，而不是拉伸阻力</td>
+<td class="entry" valign="top" width="50%">如果 nCloth 似乎拉伸过度，只要可能，就增加<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-253DB720-9016-4833-9111-32E22C35B355">“拉伸阻尼”(Stretch Damp)</span>属性，而不是增加<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-3D5089D2-4E4D-4E2C-BA04-48FFEF3DDE65">“拉伸阻力”(Stretch Resistance)</span>属性。</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">调整层的碰撞值</td>
+<td class="entry" valign="top" width="50%">使用分层衣服时（如衬衫外面的夹克），使为外部衣服提供的<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-1B5EBD53-E18F-4560-9E89-04B674D91963">“碰撞层”(Collision Layer)</span>值高于内部衣服。这将允许您使用较低的质量设置。您还可以调整<span class="ph uicontrol" id="GUID-AFB680AE-60E3-4F22-A646-C32E1FAF1E26__GUID-08D40326-1142-4563-838F-4D0F386B520D">“碰撞层范围”(Collision Layer Range)</span>值，以便外层衣服不会计算与内层衣服（例如，角色的身体）的碰撞。</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">缓存</td>
+<td class="entry" valign="top" width="50%">缓存 nCloth 模拟后，在 Nucleus 节点中禁用“启用”。但是，当您希望附加到缓存或以后进行模拟时，请确保重新启用该选项。</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-5FD537E0-CEB4-4933-A6E2-0CF100F5CF74.htm">nCloth 提示和疑难解答</a></div>
+</div>
+</div>
+
+</body>
+</html>

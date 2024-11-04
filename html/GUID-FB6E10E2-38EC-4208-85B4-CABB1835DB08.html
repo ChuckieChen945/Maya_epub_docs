@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="05/03/2022">
+<meta name="topicid" content="GUID-FB6E10E2-38EC-4208-85B4-CABB1835DB08">
+<meta name="language" content="CHS">
+<title>在已管理颜色的场景中设置照明</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-FB6E10E2-38EC-4208-85B4-CABB1835DB08">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>在已管理颜色的场景中设置照明</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-FB6E10E2-38EC-4208-85B4-CABB1835DB08__GUID-9819EBA9-D4F3-42C0-B744-F002A339A794"> 以下是在已管理颜色的场景中设置真实照明的一些指导原则。 
+	 </p>
+<div class="section" id="GUID-FB6E10E2-38EC-4208-85B4-CABB1835DB08__SECTION_C25918B412824557B09F32468621E77E"><h2 class="title sectiontitle">视图变换</h2> 
+		 
+		<p class="p"> 通过选择使用正确色彩学的视图变换（如 ACES 建议的视图变换），可以大大帮助实现逼真的照明。这些变换应用 S 形曲线（或色调贴图），该曲线（或色调贴图）会使高光值逐渐衰减，以防止出现严重的削波。它们还应用色彩学最佳实践建议的其他校正，如正确放置中灰色。仅应用 Gamma 校正的基本体视图/显示变换是不够的，因为它们会剪裁所有大于 1 的值，并且存在其他问题，导致难以正确进行场景照明。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-FB6E10E2-38EC-4208-85B4-CABB1835DB08__SECTION_7F6AA5B2B43045BCB5C317C5796805E9"><h2 class="title sectiontitle">场景灯光</h2> 
+		 
+		<p class="p" id="GUID-FB6E10E2-38EC-4208-85B4-CABB1835DB08__GUID-F610AD71-7446-4A7A-99FC-35760139F6BB">为获得真实的结果，建议将场景灯光的<span class="ph uicontrol" id="GUID-FB6E10E2-38EC-4208-85B4-CABB1835DB08__GUID-DE739DF8-E84F-422C-9A42-54B114E14D19">“衰退速率”(Decay Rate)</span>设定为<span class="ph uicontrol" id="GUID-FB6E10E2-38EC-4208-85B4-CABB1835DB08__GUID-99C58279-B205-442B-9A1B-586C1D89A549">“二次方”(Quadratic)</span>，以模拟真实世界中灯光的行为。如果未使用颜色管理，此设置可能会导致难以找到高光和阴影之间的平衡，但在场景线性颜色空间中渲染时就没有问题。不过，您可能需要根据场景建模的比例以及与灯光的距离调整灯光的<span class="ph uicontrol" id="GUID-FB6E10E2-38EC-4208-85B4-CABB1835DB08__GUID-579872BA-1596-425B-877E-1B5C0A32693F">“强度”(Intensity)</span>。 
+		</p>
+ 
+		<p class="p" id="GUID-FB6E10E2-38EC-4208-85B4-CABB1835DB08__GUID-C1CADC7F-D546-407D-9DC0-804AB5560518">此外，建议不要在场景中使用任何环境照明。环境光是间接照明的一种快速但不自然的替代选项。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-FB6E10E2-38EC-4208-85B4-CABB1835DB08__SECTION_118E014C864D461FB09732479F868D43"><h2 class="title sectiontitle">基于图像的照明 (IBL)</h2> 
+		 
+		<p class="p" id="GUID-FB6E10E2-38EC-4208-85B4-CABB1835DB08__GUID-A2869A29-4980-4A87-9E25-4766F196FD23">如果使用任何形式的基于图像的照明，请确保<span class="ph uicontrol" id="GUID-FB6E10E2-38EC-4208-85B4-CABB1835DB08__GUID-95B372DA-B80B-41B7-BDCD-7918E09A5714">“颜色空间”(Color Space)</span>对应于所用图像文件的正确值。通常，<span class="ph uicontrol" id="GUID-FB6E10E2-38EC-4208-85B4-CABB1835DB08__GUID-CE3E029D-003F-4894-AF85-E2E44708F981">Raw</span> 适用于经常用于 IBL 的图像文件类型。但是，最好指定所用的精确颜色空间，以便它与文件的空间不同时颜色可以正确转化到渲染空间。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-A84A137B-CB0B-4BAA-A271-5A3FFF448143.htm">添加已管理颜色的纹理和其他图像输入</a>。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-96633B57-EDBD-4123-A1FC-1EA17AB18D46.htm">颜色管理任务</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,360 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_hyperspace_am_Lighting_the_Satellite_Interior_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_LIGHTING_THE_SATELLITE_INTERIOR">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 卫星内部照明 - Arnold for Maya">
+
+<title>卫星内部照明</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">                                                                            
+
+
+
+<div class="head-block"><h1>卫星内部照明</h1></div><p><img src="../images/1_satellite_interior.jpg" alt=""></p>
+<p><sub><strong>使用 _Ai 区域光_渲染的卫星内部场景</strong></sub>  </p>
+<p><strong>要下载对应的 Maya 场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Hyperspace_Madness/satellite.mb.zip" target="_blank">此处</a>。</strong></p>
+<p>在本教程中，我们将介绍如何转化和渲染之前针对 mental ray 渲染器设置的卫星内部场景。我们还将介绍使用 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_render_settings_aovs_html">AOV</a> 渲染内部场景时如何找出噪波源。 请注意，每个内部场景都是不同的，都面临着独特的照明和渲染挑战。尽管本教程尝试利用常用的技术，但它们可能不适合所有内部场景。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关采样的详细信息，请单击<a href="https://help.autodesk.com/pages/viewpage.action?pageId=154766692">此处</a>。</p>
+
+</div></div>
+
+<h2 id="">场景</h2><ul>
+<li>打开卫星场景文件。您将看到它由外部壳体、门和内部（如下方所选）构成。  </li>
+</ul>
+<p><img src="../images/2_satellite.png" alt=""></p>
+<ul>
+<li>隐藏其余所有对象，只留下 <em>satelliteInterior</em> 组。</li>
+</ul>
+<p><img src="../images/3_satellite-turntable.gif" alt=""></p>
+<p><sub><strong>“satelliteInterior”组</strong></sub></p>
+<h2 id="arnold">转化为 Arnold 着色器</h2><ul>
+<li>将名为 <em>Interior</em> 的 mental ray 着色器 <em>mia_material_x_passes</em> 替换为 <a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Standard&amp;linkCreation=true&amp;fromPageId=154764912"><em>standard_surface</em></a> 着色器。</li>
+</ul>
+<div class="head-block"><h1>场景照明</h1></div><h2 id="">圆盘灯光</h2><ul>
+<li>创建一个 _Ai 区域光_。将 <em>light_shape</em> 更改为*<a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Disk+Light&amp;linkCreation=true&amp;fromPageId=154764912">圆盘(Disk)</a>*并调整其位置，确保其指向下图中的门口。</li>
+</ul>
+<p><img src="../images/4_satellite.png" alt=""></p>
+<ul>
+<li><p>将<em>“曝光”(Exposure)</em>增加到 18 左右。</p>
+</li>
+<li><p>先后在灯光<em>“采样数”(Samples)</em>设置为 1 和 3 时渲染场景。此时您应该会发现部分噪波有所改善。但是，通常来说，我们很难得知噪波来自灯光还是其他来源。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/5_light-samples-1.jpg" alt=""></td>
+<td><img src="../images/6_light-samples-3.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>_light.samples_：1</strong></sub></td>
+<td><sub><strong>_light.samples_：3</strong></sub></td>
+</tr>
+</tbody></table>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>如果我们将 <em>diffuse_samples</em> 和 <em>specular_samples</em> 的采样数设置为 0（即禁用它们），就可以隔离直接照明，更好地确定增加 <em>light.samples</em> 数对场景产生的影响。打开“渲染设置”(Render Settings)窗口，并在<em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Sampling_html">采样(Sampling)</a>*下，将 *diffuse_samples</em> 和 <em>specular_samples</em> 设置为 0。禁用 <em>diffuse_samples</em> 和 <em>specular_samples</em>（设为 0）有助于确定灯光采样问题。相关效果如下图所示。</p>
+
+</div></div>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/7_diffuse_glossy_0_samples_1.jpg" alt=""></td>
+<td><img src="../images/8_diffuse_glossy_0_samples_3.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>_light.samples_：1</strong></sub></td>
+<td><sub><strong>_light.samples_：3</strong></sub></td>
+</tr>
+</tbody></table>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>本教程使用的 <em>Ai 区域光_的 _light_shape</em> 设置为_“圆盘”(Disk)_。但是，渲染带有方形窗户的内部场景时，建议使用 <a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Quad+Light&amp;linkCreation=true&amp;fromPageId=154764912"><em>quad_light</em></a>。<em>quad_light</em> 还有一个<em>“扩散”(Spread)</em>属性，可用于沿灯光方向聚焦照明。渲染内部场景时，此属性很有用。下图显示了使用不同_“扩散”(Spread)_值渲染此场景时的差异。</p>
+
+</div></div>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/9_spread_1.jpg" alt=""></td>
+<td><img src="../images/9_spread_1.jpg" alt=""></td>
+<td><img src="../images/11_spread_0.25.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>_扩散(Spread)_：1</strong></sub></td>
+<td><sub><strong>_扩散(Spread)_：0.5</strong></sub></td>
+<td><sub><strong>_扩散(Spread)_：0.25</strong></sub></td>
+</tr>
+</tbody></table>
+<p>下面的动画显示了降低灯光<em>“扩散”(Spread)</em>属性对内部照明的影响。</p>
+<p><img src="../images/quad-light-spread.gif" alt=""></p>
+<p><sub><strong>_quad_light.spread_：1 到 0.25</strong></sub></p>
+<h2 id="">设置采样值、光线深度和区间限定</h2><h2 id="aov-aovs">AOV(AOVs)</h2><p>尽管我们增加了灯光采样数设置，场景中还是存在噪波。这时可尝试通过调整<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Sampling_html">采样(Sampling)</a>值来解决此问题。增加这些值时必须考虑周全，因为这可能会对渲染时间产生很大的影响。要想确定噪波来自哪里进而确定应该增加哪些采样数，一个既快速又轻松的方法是渲染出 <strong><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_render_settings_aovs_html">AOV</a></strong>。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关采样和去除噪波的详细信息，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_tutorials_am_Removing_Noise_html">此处</a>。</p>
+
+</div></div>
+
+<ul>
+<li>使用 Arnold *<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_rendering_am_Arnold_RenderView_Window_html">渲染视图</a><em>窗口渲染场景。默认情况下，您应该看到系统正在渲染美景渲染。要更改希望查看的 AOV，请单击下拉菜单或转到</em>“视图 &gt; AOV”(View &gt; AOVs)*。    </li>
+</ul>
+<p>仔细检查 AOV 后，我们可以更有把握地隔离并确定场景中的噪波来源。<em>direct_diffuse</em> 和 <em>direct_specular</em> AOV 中可见稍许噪波，因为我们已经增加了直接 <em>light.samples</em> 数。但是，<em>indirect_diffuse</em> 和 <em>indirect_specular</em> AOV 中可见大量噪波。因此，我们需要分别增加 <em>diffuse_samples</em> 和 <em>specular_samples</em> 采样数。</p>
+<p>下图显示了 Arnold 渲染视图窗口中可见的 AOV。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/13_2_RV_direct_diffuse.jpg" alt=""></td>
+<td><img src="../images/14_3_RV_direct_specular.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong><em>direct_diffuse</em></strong></sub></td>
+<td><sub><strong><em>direct_specular</em></strong></sub></td>
+</tr>
+<tr>
+<td><img src="../images/15_RV_indirect_diffuse.jpg" alt=""></td>
+<td><img src="../images/16_5_RV_indirect_specular.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong><em>indirect_diffuse</em></strong></sub></td>
+<td><sub><strong><em>indirect_specular</em></strong></sub></td>
+</tr>
+</tbody></table>
+<h2 id="aa">摄影机 (AA) 采样数</h2><p>我们可以尝试增加<em>摄影机 (AA)</em> 采样数来帮助解决场景中的一些噪波。但是，间接漫反射和镜面反射区域仍然能看到噪波。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/17_camera_aa_3_diffuse_2_glossy_2.jpg" alt=""></td>
+<td><img src="../images/18_camera_aa_6_diffuse_2_glossy_2.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>3</strong></sub></td>
+<td><sub><strong>6</strong></sub></td>
+</tr>
+</tbody></table>
+<h2 id="">漫反射采样数</h2><p>下面的图像显示了增加<em>漫反射</em>采样数时的差异。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/19_aa_6_diffuse_2_glossy_2.jpeg" alt=""></td>
+<td><img src="../images/20_aa_6_diffuse_4_glossy_2.jpeg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>2</strong></sub></td>
+<td><sub><strong>4</strong></sub></td>
+</tr>
+</tbody></table>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>请记住，<em>漫反射<em>采样操作针对每个 AA 采样执行，因此，</em>摄影机 (AA)</em> 采样数和<em>漫反射</em>采样数的值都较高时，往往会减慢渲染速度。  </p>
+
+</div></div>
+
+<h2 id="">光线深度</h2><p><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Ray_Depth_html">光线深度</a>使您可以配置相应的设置，用来基于光线类型限制光线递归。较高的值会增加渲染时间。</p>
+
+<div class="callout callout-important">
+<div class="callout-title"><i class="callout-icon fa fa-exclamation-triangle" aria-hidden="true"></i>重要信息：</div>
+<div class="callout-body">
+
+<p><strong></strong>增加光线深度值时需要小心谨慎。光线深度值加一可能会导致渲染时间翻倍。</p>
+
+</div></div>
+
+<h2 id="">漫反射光线深度</h2><p>此值定义最大光线漫反射深度反弹。如果 <em>diffuse_ray_depth</em> 为零，则相当于禁用漫反射照明。增加深度会将更多的反弹光添加到场景，这在内部场景中可能尤为明显。可以在下图中看到逐步增加漫反射反弹时的细微差异。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/1_diffuse_ray_depth_0.jpeg" alt=""></td>
+<td><img src="../images/2_diffuse_ray_depth_1.jpeg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>0（仅直接灯光）</strong></sub></td>
+<td><sub><strong>1</strong></sub></td>
+</tr>
+<tr>
+<td><img src="../images/3_diffuse_ray_depth_2.jpeg" alt=""></td>
+<td><img src="../images/4_diffuse_ray_depth_3.jpeg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>2</strong></sub></td>
+<td><sub><strong>3</strong></sub></td>
+</tr>
+</tbody></table>
+<h2 id="">添加大气体积</h2><p>要为场景添加一些大气环境，可尝试为场景添加一些 *<a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Atmosphere+Volume&amp;linkCreation=true&amp;fromPageId=154764912">atmosphere_volume</a>*。</p>
+<ul>
+<li><p>转到“渲染设置”(Render Settings)的<em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Environment_html">环境(Environment)</a>*选项卡。将 *atmosphere_volume</em> 连接到<em>“大气”(Atmosphere)</em>属性。</p>
+</li>
+<li><p>如果渲染场景，则不会看到任何结果。这是因为 <em>atmosphere_volume.density</em> 默认为 0。将其增加到 1，并使用 IPR 渲染场景。  </p>
+</li>
+</ul>
+<p>添加 <em>atmosphere_volume</em> 在渲染中引入了一些<em>高亮杂点*。这时我们可尝试通过 *atmosphere_volume.samples</em> 数来减少这些高亮杂点。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关如何处理高亮杂点的详细信息，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_tutorials_am_Removing_Noise_html">此处</a>。  </p>
+
+</div></div>
+
+<p>但是，即使增加 <em>atmosphere_volume.samples</em> 数后，场景中仍然存在一些高亮杂点。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/1_volume_scattering_samples_5.jpeg" alt=""></td>
+<td><img src="../images/2_volume_scattering_samples_20.jpeg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>5</strong></sub></td>
+<td><sub><strong>20</strong></sub></td>
+</tr>
+</tbody></table>
+<h2 id="">区间限定</h2><p>我们可使用<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_system_am_Render_Settings_html">渲染设置(Render Settings)</a>窗口中的_“区间限定”(Clamping)_自动修复场景中残留的所有高亮杂点。</p>
+<p><img src="../images/21_image2016-4-11_19_14_9.png" alt="">  </p>
+<p>下面的图像显示了减小“最大值”(Max Value)对高亮杂点的影响。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/1_volume_scattering_samples_clamp_max_value_10.jpg" alt=""></td>
+<td><img src="../images/2_volume_scattering_samples_clamp_max_value_1.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>_max_value_：10。高亮杂点可见。</strong></sub></td>
+<td><sub><strong>_max_value_：1。无高亮杂点。</strong></sub></td>
+</tr>
+</tbody></table>
+<h2 id="">渲染最终图像</h2><p>打开“渲染设置”(Render Settings)窗口中的<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Sampling_html">采样(Sampling)</a>。对于测试渲染，<em>“摄影机(AA)”(Camera (AA))</em>采样数设置为 3 已足够。但是，对于最终帧渲染，至少需要将它增加到 5。在本例中，<em>“漫反射”(Diffuse)</em>和<em>“镜面反射”(Specular)</em>均设置为 6。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关采样的简要手册，请单击<a href="https://help.autodesk.com/pages/viewpage.action?pageId=154766692">此处</a>。</p>
+
+</div></div>
+
+<h2 id="arnold">Arnold 日志</h2><p>使用 MtoA 渲染场景时，建议查看<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_system_am_Render_Settings_html">渲染设置(Render Settings)</a>窗口的<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_render_settings_am_Diagnostics_html">诊断(Diagnostics)</a>选项卡中的 Arnold 日志。此日志文件将显示出现的警告和统计信息，这些信息有助于对场景文件进行诊断。</p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>在<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_render_settings_am_Diagnostics_html">日志文件</a>中，您可以看到针对不同的采样级别跟踪了多少光线。有关如何阅读渲染日志的手册，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_kick_am_How_to_Read_a_Render_Log_html">此处</a>。</p>
+
+</div></div>
+
+<p>就是这样。祝贺您已完成了本教程。现在我们要去探索新的渲染世界！</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关为室内场景提供照明的详细信息，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_lighting_am_Lighting_a_Room_html">此处</a>。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/getting-started/arnold_for_maya_getting_started_am_Hyperspace_Madness_Production_html.html">Hyperspace Madness 制作</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

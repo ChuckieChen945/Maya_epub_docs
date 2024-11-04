@@ -1,0 +1,197 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="18/08/2022">
+<meta name="topicid" content="GUID-631C665F-3092-4B2B-90B7-2A94158870C9">
+<meta name="language" content="CHS">
+<title>定义规则以便将颜色空间指定给输入文件</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>定义规则以便将颜色空间指定给输入文件</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-94D1DA38-7496-4557-9C59-8E9F70E41D37"> 将图像输入（如<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-AEFEDADD-5584-4141-958F-6D956381E6B5">“文件”(File)</span>纹理或图像平面）添加到场景时，<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-2D9BBB9D-49F0-44C6-8BFF-B237FD8ED746">颜色管理首选项</a>中的<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-F9684A5E-31F5-4AD6-A97F-AD1C28AD39DF">“输入颜色空间规则”(Input Color Space Rules)</span>确定最初指定的颜色空间。您仍可在每个节点的属性中手动更改颜色空间（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-A84A137B-CB0B-4BAA-A271-5A3FFF448143.htm">为纹理和其他图像输入指定颜色空间</a>）。
+	 </p>
+<p class="p" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-246503A2-92C2-480F-BB8E-BF2619D1B7FA">通过规则，可以基于文件扩展名和/或用于不同类型图像的文件和文件夹命名约定，自动指定输入颜色空间。例如，如果所有漫反射颜色纹理的文件名中都包含“color”，则可以创建与  
+		<kbd class="ph userinput">*color*</kbd> 和 <span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-63D25103-F4F1-4ED5-9909-ECE0168919B9">sRGB</span>（或文件实际使用的任何颜色空间）的任何扩展名匹配的规则，如果所有法线贴图的文件名或文件夹名中都包括“normal”，则可以创建第二个与  
+		<kbd class="ph userinput">*normal*</kbd> 和<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-E229AC66-4279-49F3-BA4C-CD5D210FD3E2">“原始”(Raw)</span>的任何扩展名匹配的规则。再举一个例子，如果所有 OpenEXR 文件对 sRGB 主颜色都是场景线性的，则可以创建一个规则，与任何文件名 (<kbd class="ph userinput">*</kbd>) 和 <span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-5BEA5B48-89AC-4E3A-993C-32D4127D42ED">scene-linear Rec 709/sRGB</span> 的扩展 EXR 匹配。
+	 </p>
+<p class="p">第一次使用 OCIO 配置文件时，将导入其中的规则。之后，这些规则将与您的 Maya 首选项一起存储，并用于具有相同配置文件的所有场景。配置文件不会被修改 - 首选项中的规则只是覆盖配置中的规则。
+	 </p>
+<div class="fig fignone" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__FIG_D45CFE97A61F4CEBA88CC7D79CA5E5FF"><img class="image" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__IMAGE_FFEE2D29716B4FEC911F650805C63881" src="../images/GUID-1FBF47AA-AA6F-4A0B-990D-2EB0CC3D2FDE.png"><dl class="dl" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-E2FBC1FD-35A6-4A42-9932-DE7BA32C4F8C"><dt class="dt dlterm" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-601D3111-2FAE-474D-9448-E972E47B2C2A">A.规则列表 
+			 </dt>
+<dd class="dd" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-852D7878-5797-45E7-8E3E-A57831090456">选择规则。可以使用右侧的选项（H、I、J）编辑选定的规则。
+				<p class="p">如果您使用的是默认首选项，则除了<span class="ph uicontrol">“默认”(Default)</span>规则之外，还有一些预设规则。<span class="ph uicontrol">tx</span>、<span class="ph uicontrol">hdr</span> 和 <span class="ph uicontrol">exr</span> 规则会将具有这些扩展名的任何文件的输入空间指定给<span class="ph uicontrol">“原始”(Raw)</span>。与<span class="ph uicontrol">“默认”(Default)</span>规则不同，这些规则是为方便起见而添加的普通规则，它们可以像任何其他规则一样进行编辑、删除以及上移或下移。
+				</p>
+ 
+			 </dd>
+<dt class="dt dlterm" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-AE1D3BA9-EB9F-4290-B869-85362E49030B">B.<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-F7F37ACD-1E2F-485E-A718-9C2C2C4D6B69">上移(Up)</span>、<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-832A82AF-F9C0-4559-AC31-8C4EF9AF3968">下移(Down)</span> 
+			 </dt>
+<dd class="dd" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-51489B13-6BD0-4ED4-8473-6A1C0CA977F2">按从上到下的顺序应用规则。由匹配的第一个规则指定的输入空间最初设置为图像的<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-E70DE747-0B5A-49E3-90E3-4E443EAD2C03">“颜色空间”(Color Space)</span>属性。使用<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-D88253B1-E57D-47D0-B690-5B9AB95C3D7E">“上移”(Up)</span>和<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-5E00CE42-78C1-41C6-A7DA-62C378CEA8A4">“下移”(Down)</span>按钮可移动选定的规则。
+			 </dd>
+<dt class="dt dlterm" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-EF674F9D-B2FC-49EE-989B-B9969BA84C6B">C.<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-8BE6BD10-8FFB-4ECA-BD21-D3B7400404B0">“默认”(Default)</span>规则 
+			 </dt>
+<dd class="dd" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-4C23626C-FE54-45DD-996A-AD011310E34C"> 
+				<p class="p">没有其他规则匹配时，使用由<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-2FF43415-5879-4F3E-8BA9-5E2FA52782C7">“默认”(Default)</span>规则指定的输入空间。只能指定输入颜色空间 - 无法指定要匹配的条件。<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-4B1CC5D8-05AC-4E34-9EB9-99AA53F036C6">“默认”(Default)</span>规则始终是列表中的最后一个，无法进行移动。
+				</p>
+ 
+				<p class="p">在随 <span class="ph msgph prodname" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 一起安装的配置文件中，<span class="ph uicontrol">“默认”(Default)</span>规则为<samp class="ph codeph">默认</samp>角色指定纹理，这是这些配置中解析为 <span class="ph uicontrol">sRGB</span> 的别名。
+				</p>
+ 
+			 </dd>
+</dl>
+<dl class="dl" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-A872F545-6EA2-460F-A572-D94676E27041"><dt class="dt dlterm" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-95FE7E93-FC44-4A04-8A78-1EEA1D6A08F6">D.<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-55FC0DF6-AD3C-405A-A200-36006B96E5E9">相加(Add)</span> 
+			 </dt>
+<dd class="dd" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-406C6E94-FA36-4657-81D6-A9388339566F">向列表顶部添加新规则。
+			 </dd>
+<dt class="dt dlterm">E.<span class="ph uicontrol">添加颜色空间名称规则(Add Color Space Name Rule)</span> 
+			 </dt>
+<dd class="dd"> 
+				<p class="p">添加一个称为 <span class="ph uicontrol">ColorSpaceNamePathSearch</span> 的特殊规则。此规则与 OCIO v1 中用于指定输入空间的规则类似。它将每个纹理文件指定给在文件路径的任意位置找到的最长颜色空间名称。请注意，匹配不区分大小写。
+				</p>
+ 
+				<p class="p">使用旧版颜色管理系统（称为 SynColor）时，此选项不可用。在 SynColor 模式下，可以启用<span class="ph uicontrol">“使用 OCIO 输入颜色空间规则”(Use OCIO Input Color Space Rules)</span>，但请注意，这还会禁用除<span class="ph uicontrol">“默认”(Default)</span>规则之外的所有其他规则。
+				</p>
+ 
+			 </dd>
+<dt class="dt dlterm" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-1D0E2BF9-9002-42D6-89AA-1B64FB5F9DC2">F.<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-429E7087-1C2A-49E0-8F30-2A8B9BDCA783">将规则重新应用至场景(Reapply Rules to Scene)</span> 
+			 </dt>
+<dd class="dd" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-A88CAF87-8B2C-47FB-BFAA-D8B3F84AB3D7">重新应用规则以更改场景中现有图像节点的<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-C0BAC215-C158-4303-8655-649D97E09E0C">“颜色空间”(Color Space)</span>属性。<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-654E3A70-7F17-442C-985F-652B983A60F0">“忽略颜色空间输入规则”(Ignore Color Space Input Rules)</span>处于选中状态的图像节点不受影响。
+			 </dd>
+<dt class="dt dlterm">G.<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-AA32CA5B-0DF7-4580-99C3-FF5E338E0AE0">删除</span> 
+			 </dt>
+<dd class="dd">删除选定的规则。<span class="ph uicontrol">“默认”(Default)</span>规则不能删除。
+			 </dd>
+<dt class="dt dlterm" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-B2AB3636-D6BB-432F-8021-8D265B2F6F54">H.<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-71611270-C0F6-4AFD-84D9-43D1CDC851D9">图像扩展名(Image Extension)</span> 
+			 </dt>
+<dd class="dd" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-613CE35A-F0CA-480C-AED5-479A02951B58">指定要在选定规则中匹配的文件扩展名，或者使用 * 表示任何扩展名。文件扩展名不区分大小写。
+			 </dd>
+<dt class="dt dlterm" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-03B113D6-6D6A-4F41-8790-51C5015386F4">I.<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-CE803762-E270-435C-BECA-624351BC2B2E">图像文件路径模式</span> 
+			 </dt>
+<dd class="dd" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-C49FA681-3CED-4A45-AC5D-C1F84D96DF7E">指定选定规则的图案以匹配图像文件中的完整路径。字符串区分大小写，并将所谓的“团块”语法用于模式匹配。
+			 </dd>
+<dd class="dd" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-9E7A016C-6761-456F-BEF9-C7DBC080134C"> 
+				
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__TABLE_78C7CB62C48740619118FEBA229AF67D" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top">字符串 
+						  </th>
+<th class="entry" valign="top">模式 
+						  </th>
+<th class="entry" valign="top">示例 
+						  </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top"> 
+							 <tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-015AD2C6-2409-49F9-A0C7-E0B9A08FB95A">?</tt> 
+						  </td>
+<td class="entry" valign="top">任意一个字符。
+						  </td>
+<td class="entry" valign="top"><tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-CD79D065-C60C-4533-821C-F9EA2EAFC17B">?pecular</tt> 与  
+							 <tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-14A7F0E1-045B-470F-980A-C5F214987EA7">specular</tt> 和  
+							 <tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-9FEFCD45-A30E-47D2-AA48-0AA55875A817">Specular</tt>以及  
+							 <tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-6F9E8D21-BD30-43A8-BD8F-01B57541AB92">Xpecular</tt> 和许多其他单词匹配。 
+						  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top"> 
+							 <tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-B229CE85-FC44-4002-BBDD-ABFA0DAFE866">*</tt> 
+						  </td>
+<td class="entry" valign="top">零个或多个字符。
+						  </td>
+<td class="entry" valign="top"><tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-D2580138-7EBD-43B0-816B-3BCD1B04968F">*diffuse</tt> 与  
+							 <tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-05CD2753-6062-48DE-ADC5-D0F4917AC1F8">diffuse</tt> 匹配。 
+							 <p class="p" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-2F5649A1-017C-4862-A0CF-69800361587C"><tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-679B669B-D153-406A-AD9A-5B66D47626F3">diffuse*</tt> 与  
+								<tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-7A0F46EE-48D8-4AB4-B0D0-4193995945FC">diffuse</tt> 匹配。 
+							 </p>
+ 
+							 <p class="p" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-83510197-746C-4E21-AE34-DDA94A9AB55C"><tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-000CEA17-D20E-4811-AA52-DD60E6FE7132">*diffuse*</tt> 与  
+								<tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-8565C513-A102-4724-ADBD-926F827957EC">diffuse</tt> 匹配。 
+							 </p>
+ 
+							 <div class="note tip" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-D953E673-4F4E-4575-9856-011BE2EF939F"><span class="tiptitle">提示：</span> 在每种模式的开头放置一个星号，使图像文件在任何目录中均匹配。
+							 </div>
+ 
+						  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top"> 
+							 <tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-26DB4B65-53A3-4E7E-9EA6-854D29BE7965">[<em class="ph i" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-246AA919-9CB5-43E0-AC46-5D5A3E0EFD54">chars</em>]</tt> 
+						  </td>
+<td class="entry" valign="top">指定字符中的任何一个。
+						  </td>
+<td class="entry" valign="top"><tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-66599713-6CDB-4437-ADBA-14FA2198F0EA">*[nN]ormal*</tt> 与  
+							 <tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-D546BC04-8D63-4838-9379-B8D3507C0608">normal</tt> 或  
+							 <tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-70A1B628-83A6-41FB-8F00-D89AB10006D3">Normal</tt> 匹配。 
+						  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top"> 
+							 <tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-A0206039-B944-464B-91B2-EE56F6707671">[<em class="ph i" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-3D09998F-4CBB-4C38-B990-64993F74C737">char1</em>-<em class="ph i" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-7653EB0E-8883-4978-801E-EE68FB6E6E4E">char2</em>]</tt> 
+						  </td>
+<td class="entry" valign="top">范围内的任何字符。
+						  </td>
+<td class="entry" valign="top"><tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-8072E962-1E92-48DE-BD44-366B415C79EC">*[0-9]</tt> 与以数字结尾的任何路径匹配。 
+						  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top"> 
+							 <tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-B760EEB1-331C-4ACF-AA27-03AA3FA7A78E">[!<em class="ph i" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-392DC005-D856-48F8-B418-EA50AD90B095">chars_or_range</em>]</tt> 
+						  </td>
+<td class="entry" valign="top">除指定字符之外的任何字符。
+						  </td>
+<td class="entry" valign="top"><tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-006C4359-F6EB-4EF7-B79A-329AF5A2EE62">*[!0-9]</tt> 与不以数字结尾的任何路径匹配。 
+						  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top"> 
+							 <tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-F793121D-89F7-4A20-BA5F-E7A951362E17">/</tt> 
+						  </td>
+<td class="entry" valign="top">将下一个字符转义，即，将下一个字符视为文字，而不是模式匹配语法的一部分。
+						  </td>
+<td class="entry" valign="top"><tt class="ph tt" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-AA300D49-188A-4F49-AE2B-C73803DDA602">*/[*/]*</tt> 与路径中任意位置的一对方括号匹配。 
+						  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+			 </dd>
+<dt class="dt dlterm" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-C77C8CAA-0C76-4AFC-A5F3-3E4932DE0983">J.<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-383E93B9-2B5E-4934-A600-39F5DBA17D5A">输入颜色空间(Input Color Space)</span> 
+			 </dt>
+<dd class="dd" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-0FD57608-1475-41CE-A8D3-F0D26B5BBE88">选择颜色空间以指定给与选定规则匹配的文件。有关随 <span class="ph msgph prodname" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 一起安装的配置中可用的空间的说明，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-2622A6C2-B79B-442E-B5C3-327474409CC7.htm">输入颜色空间列表</a>。
+			 </dd>
+</dl>
+</div>
+<div class="section" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__SECTION_D26473784A844BE3B90B1F17370A9CFA"><h2 class="title sectiontitle">OCIO v1 标准规则（仅限 SynColor）</h2> 
+		 
+		<p class="p" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-14542577-F3D7-48F3-9203-71DCE732F236">如果按<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-C6DE175D-C37F-4BA1-952B-512503432519.htm">使用 Maya 的旧版颜色管理 (SynColor)</a> 中所述使用旧版颜色管理系统，并且<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-727082DC-FE88-4936-8FB1-52163F1C7618">“使用 OCIO 配置”(Use OCIO Configuration)</span>选项处于启用状态，则<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-3A81BF72-019A-4905-9202-6A11058E1B4A">“使用 OCIO 输入颜色空间规则”(Use OCIO Input Color Space Rules)</span>选项将变为可用。
+		</p>
+ 
+		<div class="p">如果要在向场景添加<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-1059350B-1FE9-46DB-9C51-6E2D9EC01B03">“文件”(File)</span>纹理和其他图像输入时，使用标准 OpenColorIO v1 规则为其指定初始输入颜色空间，请启用此选项。OpenColorIO v1 规则考虑颜色空间名称是否出现在完整路径和文件名中。
+		<ul class="ul" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__UL_06C021A4F7DA48BBAACDABDD7F030BB4"><li class="li" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__LI_3F3E58BC78F4465B8A7381EAA8A7D34C">启用<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-2791040D-72ED-4DB1-8BD2-858F3AC8BE6A">“使用 OCIO 输入颜色空间规则”(Use OCIO Input Color Space Rules)</span>时，在下面的<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-3ED54025-C115-42F6-B7C6-365B529441E8">“输入颜色空间规则”(Input Color Space Rules)</span>中仅显示<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-A5104650-01F6-44DF-ADD4-5ABDB8444519">“OCIO 标准规则”(OCIO Standard Rule)</span>和<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-60AA3B1A-26F1-48C6-BF9C-45F2D136547B">“默认”(Default)</span>。无法添加任何其他规则，且无法对它们重新排序。您只能为<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-1322AFCA-815C-4D58-880E-4DDF1341A1A4">“默认”(Default)</span>规则（仅当<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-3046EED5-3AB6-497E-9C32-BA3EB388E6B8">“OCIO 标准规则”(OCIO Standard Rule)</span>没有为特定文件指定任何颜色空间时，才会使用此规则）指定颜色空间。
+		  </li>
+<li class="li" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__LI_736D65097CCE437F97CB4A38E9D5824E">禁用此选项时，您可以定义自己的规则，以将颜色空间指定给<span class="ph uicontrol" id="GUID-631C665F-3092-4B2B-90B7-2A94158870C9__GUID-CD5E2656-663C-4F5A-AEC3-689827A88D65">“输入颜色空间规则”(Input Color Space Rules)</span>中的输入图像。但是，可用的颜色空间仅限于在 OCIO 配置文件中定义的颜色空间。
+		  </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-A5A2B5C8-7992-41E3-8482-9DD86EC89717.htm">配置颜色管理</a></div>
+</div>
+</div>
+
+</body>
+</html>

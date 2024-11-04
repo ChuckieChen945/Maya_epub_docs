@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="ubershader">
+<meta name="indexterm" content="核心配置">
+<meta name="indexterm" content="ogsfx">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846">
+<meta name="language" content="CHS">
+<title>GLSL 着色器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>GLSL 着色器</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-0B20DE80-96AA-4DDA-A727-08178681168C">通过 glslShader 插件可以加载和可视化自定义 GLSL（OpenGL 着色语言）着色器，在<strong class="ph b" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-716EC9B8-87D2-435E-AB62-E0CB119FD7EC"><span class="ph uicontrol" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-BB44D0F4-9560-4B0E-B815-B4B55BCC0E20">“OpenGL 核心配置”(OpenGL Core Profile)</span></strong>模式下运行 <span class="ph uicontrol" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-84BB2A3C-9A10-4240-8469-F3F83E72CB3E">Viewport 2.0</span> 时，这些着色器支持照明、纹理、阴影和细分。通过此插件可获取与在 DirectX 11 模式下相同的视觉保真度。 
+	 </p>
+<p class="p" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-A514E194-A96F-4B72-99A4-B7EACCEEC725">有关如何在<span class="ph uicontrol" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-10D13531-228B-4E34-AE07-C0A4BD54FD24">“OpenGL 核心配置”(OpenGL Core Profile)</span>模式下运行 <span class="ph msgph prodname" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 以及如何加载 glslShader 插件的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-41D74556-0699-4F4E-8382-F9E69FBFC158.htm">创建和可视化 GLSL 着色器</a>。 
+	 </p>
+<p class="p" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-D23568A0-66B0-4859-ABCD-51232790B1B7">可以使用 <samp class="ph codeph" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-3FDEA091-3E90-4CB4-AC98-BCDC96DFBFFB">.ogsfx</samp> 文件格式创建自定义 GLSL 着色器。<samp class="ph codeph" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-CAADA672-371B-4F29-88EA-314BD6FBFF5A">.ogsfx</samp> 文件格式是一种包裹器，允许您为各个着色阶段指定 GLSL 碎片，以处理灯光和纹理绑定，并确定如何在<span class="ph uicontrol" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-87BB326F-7A24-48FD-ABFA-07B8BDEF15C3">属性编辑器</span>中显示参数。 
+	 </p>
+<p class="p" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-9A03B57F-DB85-4007-8823-4786D0E1365B">glslShader 插件支持颜色、阴影和深度过程。 
+	 </p>
+<p class="p" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-0F89AAFA-E484-42AD-B67B-C70ADF796AA2">示例 <samp class="ph codeph" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-60514AA7-C61C-4D5F-80E9-C05B80DAA419">.ogsfx</samp> 文件在 Maya 安装的 <samp class="ph codeph" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-44B88A46-780B-4668-9336-EF9B8B4B2543">..\presets\GLSL\examples</samp> 文件夹中提供。这些示例演示如何使用注释指定纹理文件，将 UI 添加到<span class="ph uicontrol" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-3DE9781B-214A-4D60-B576-F979458E6E0F">属性编辑器</span>，以及使用指定细分和几何体着色器的过程定义技术。有关这些示例的详细信息，请参见下面的“相关主题”部分。 
+	 </p>
+<p class="p" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-718F6D8D-873E-496F-A8DA-C6C26E0B2E8B">也可以将 ShaderFX 图表作为 <samp class="ph codeph" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-9DC59E75-F371-486C-9D87-7DF2010A11A2">.ogsfx</samp> 文件导出，并使用 glslShader 插件加载它。 
+	 </p>
+<p class="p" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-F55E583D-36B8-48D8-807B-C9BC1FE7CC81">在 Maya 安装的 <samp class="ph codeph" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-9A0356A6-D59B-4604-800B-4FF074987BFA">..\presets\GLSL\examples</samp> 文件夹中还提供了 UberShader 的 GLSL 版本（名为 <samp class="ph codeph" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-7718618B-042E-455D-9B9B-5B0E74D7627C">AutodeskUberShader.ogsfx</samp>）。这相当于用于 dx11Shader 插件的 <samp class="ph codeph" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-4162D484-9BEB-46BE-B9FC-41EF94B63263">AutodeskUberShader.fxo</samp>（在 <samp class="ph codeph" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-B030F697-4620-4177-A7BC-4DEEB27D10EB">..\presets\HLSL11\examples</samp>\ 中提供）和用于 Shaderfx 着色器的 <samp class="ph codeph" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-1A8EAC42-7847-45C7-B24B-503F99828B06">UberShaderGraph.sfx</samp>（在 <samp class="ph codeph" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__GUID-69F5BC7F-35ED-4C97-8C2B-CEC820DAF63D">..\presets\ShaderFX\Scenes</samp> 中提供）。 
+	 </p>
+<div class="section" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__SECTION_93138BF88B4E47DCA825E4F4C7A9E858"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__UL_CD8E1D5EB3B14C5483DB147B2C671057"><li class="li" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__LI_9E8BF7FD5D05437888462C41B9313E9A"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-41D74556-0699-4F4E-8382-F9E69FBFC158.htm">创建和可视化 GLSL 着色器</a> 
+		  </li>
+<li class="li" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__LI_8F2977F81DA548968E15DADD371852CC"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-F81B34C5-30B8-4784-8351-F252006C42D8.htm">编写自定义 GLSL 着色器：纹理、透明度和照明示例</a> 
+		  </li>
+<li class="li" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__LI_D7324B8F8919448BB8637BDD1C189199"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-1565820B-A688-4063-B09B-BF3A320E58B3.htm">编写自定义 GLSL 着色器：细分示例</a> 
+		  </li>
+<li class="li" id="GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846__LI_9415839500954634BF6956ED2F6B11F8"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8.htm">使用 ogsfx 文件中的 include 指令加载顶点和碎片着色器</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-634CAFBE-AC48-4B73-89CA-82D64FA1BC70.htm">表面材质</a></div>
+</div>
+</div>
+
+</body>
+</html>

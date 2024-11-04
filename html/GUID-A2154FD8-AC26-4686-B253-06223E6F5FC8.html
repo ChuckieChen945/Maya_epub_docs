@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8">
+<meta name="language" content="CHS">
+<title>如何自定义 AEnewNonNumericMulti.mel 以禁用按钮？</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>如何自定义 AEnewNonNumericMulti.mel 以禁用按钮？</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__WS1A9193826455F5FF-1034D8ED126D167ED83-6312">请执行以下操作，以自定义 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-79C779E3-6C14-47EC-BC84-961EBE8A61BE">AEnewNonNumericMulti.mel</samp>，来禁用“添加新项目”按钮等按钮： 
+	 </p>
+<div class="section" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__WS1A9193826455F5FF-316FD70E123DECE8002-71E4"><h2 class="title sectiontitle">方法 1：</h2> 
+		 
+		<p class="p" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__WS1A9193826455F5FF-316FD70E123DECE8002-71E3">修改 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-4CAB8D25-2823-4BBA-8926-F9DAEC141952">AEnewNonNumericMulti.mel</samp>（在 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-A9FA3614-EA92-4FB7-B252-3FC33E3F49B4">runTime/scripts/AETemplates </samp>中），以检查 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-8C6260D7-875D-4D18-A1CC-113BA814F865">$nodeName</samp> 的类型。例如，如果要在相关节点类型是“fooType”时禁用一个字段，使用以下两个语句中的一个： 
+		</p>
+ 
+		<pre class="pre codeblock">
+int $showField = nodeType( $nodeName ) != "fooType";
+int $showField = !`objectType -isa "fooType" $nodeName`;
+</pre>
+ 
+		<p class="p" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__WS73099CC142F48755-6AAE5668123E144A987-7C7F">通过给适当的 UI 控件添加标志 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-373D18E8-9EBA-4D2B-8DA9-C9F355C86652">"-m $showField"</samp> 来适当设定每个字段的管理状态，以隐藏或显示相应字段（例如，按钮、文本、行布局）。还需要在 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-88795D1D-5130-4535-A19D-8516DEDCBF04">AEreplaceNonNumericMulti</samp> 中执行类似操作，以在使用该模板加载新节点时启用或禁用同一字段。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__WS1A9193826455F5FF-316FD70E123DECE8002-71E2"><h2 class="title sectiontitle">方法 2：</h2> 
+		 
+		<ol class="ol" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__WS1A9193826455F5FF-316FD70E123DECE8002-71E1"><li class="li" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__WS1A9193826455F5FF-316FD70E123DECE8002-71E0">将 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-BCD4828C-8BE9-420D-8438-FFF27DE5D029">AEnewNonNumericMulti.mel</samp> 复制到 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-93998511-E8A1-4096-8E0A-FA5C36E9E52E">originalAEnewNonNumericMulti.mel</samp>。重命名所有 foo 函数为 originalFoo。 
+		  </li>
+<li class="li" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__WS1A9193826455F5FF-316FD70E123DECE8002-71DF">创建您自己的 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-724B4373-712C-41EE-9BF9-F97EB3B3ECB8">AEnewNonNumericMulti.mel</samp> 版本，并将其命名为 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-7D22C5D9-7A2B-42DA-8607-C6565097CD1B">myAEnewNonNumericMulti.mel</samp>。重命名所有 foo 函数为 myFoo。 
+		  </li>
+<li class="li" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__WS1A9193826455F5FF-316FD70E123DECE8002-71DE">修改原始 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-8CEE10F8-78D4-431E-9100-B555BE34CC9F">AEnewNonNumericMulti.mel</samp>，以便每个函数可以调用 originalFoo 或 myFoo，这取决于节点类型（或给定栓的节点类型，就如同 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-28ABC3BA-49E1-4F30-8447-104DE10C1291">AEremoveMultiElement</samp> 一样）。 
+		  </li>
+<li class="li" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__WS73099CC142F48755-6AAE5668123E144A987-7C7E">需要再次在 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-016EE9E2-592E-43AA-8BC2-1F67D7BAD094">AEreplaceNonNumericMulti</samp> 中执行类似操作，以处理使用该模板加载新节点。 
+		  </li>
+</ol>
+ 
+		<div class="note attention" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__WS1A9193826455F5FF-316FD70E123DECE8002-71DD"><span class="attentiontitle">注意：</span> 一旦过程正在执行中（例如，触发对 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-49794448-AF0C-4275-B738-CB81847E6CEB">AEnewNonNumericMulti</samp> 的调用），则不应从会导致重新定义所述过程的过程中源化脚本。否则，会出现错误。 
+		</div>
+ 
+		<div class="note tip" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__WS1A9193826455F5FF-316FD70E123DECE8002-71DC"><span class="tiptitle">提示：</span> 某些脚本，如 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-E9A357C6-844A-4CCB-97D2-1D2ADC4AA22E">finalGatherMergeFileUtils.mel</samp>，明确源化 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-7150920A-ABF6-4CFE-B9EB-0F19CD0278E4">AEnewNonNumericMulti.mel</samp>，因此无法只源化您自己的脚本版本来覆盖过程 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-DC2A393F-A20B-42DC-8F9B-EF34F2EC5FC2">AEnewNonNumericMulti</samp> 的定义。如要检查在哪里定义了过程，使用 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-32DECEEC-8AA3-4B99-BEFB-83E16DCC8E81">whatIs</samp>。 
+		  <p class="p" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__WS73099CC142F48755-6AAE5668123E144A987-7C7C">例如，如果源化自己的 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-1A11EDBE-6DEC-46B6-9D1D-E23B506636FB">AEnewNonNumericMulti.mel</samp>，并输入： 
+		  </p>
+ 
+		  <p class="p" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__WS1A9193826455F5FF-316FD70E123DECE8002-71DA"> 
+			 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-86EED6F6-854D-435A-8988-AC36EEEECC0F">whatIs “AEnewNonNumericMulti”;</samp> 
+		  </p>
+ 
+		  <p class="p" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__WS1A9193826455F5FF-316FD70E123DECE8002-71D9">Maya 将依据 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-3FBB2398-BB34-4737-98FF-B75EBF46FF6E">// Result: Mel procedure found in &lt;somePath&gt;/myAEnewNonNumericMulti.mel //</samp> 的各个行返回相应内容 
+		  </p>
+ 
+		  <p class="p" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__WS1A9193826455F5FF-316FD70E123DECE8002-71D8">但是，如果随后打开<span class="ph uicontrol" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-E8162127-811D-467A-A23E-A3C55D24AF7D">“渲染设置”(Render Settings)</span>窗口，并选择<span class="ph uicontrol" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-31430206-1A53-4113-9532-B8D9F67D8CA8">“间接照明”(Indirect Lighting)</span>选项卡，原始 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-B593519B-B697-4284-9173-73AB68867C32">AEnewNonNumericMulti.mel</samp> 文件将被源化，并重新定义该过程。如果现在输入： 
+		  </p>
+ 
+		  <p class="p" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__WS1A9193826455F5FF-316FD70E123DECE8002-71D7"> 
+			 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-38A61E19-CE15-4EC5-958F-67DD94665FB0">whatIs “AEnewNonNumericMulti”;</samp> 
+		  </p>
+ 
+		  <p class="p" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__WS1A9193826455F5FF-316FD70E123DECE8002-71D6">Maya 将依据 <samp class="ph codeph" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__GUID-288C6022-C0E5-4631-BD91-7B57A497F8CF"> // Result: Mel procedure found in &lt;somePath&gt;/runTime/scripts/AETemplates/AEnewNonNumericMulti.mel //</samp> 的各个行返回相应内容 
+		  </p>
+ 
+		  <p class="p" id="GUID-A2154FD8-AC26-4686-B253-06223E6F5FC8__WS73099CC142F48755-6AAE5668123E144A987-7C7B">后者确认使用的过程来自默认脚本文件，而不是来自您自己的版本。 
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B419BD4D-49E4-40EB-BCA7-C21585756DA5.htm">任务</a></div>
+</div>
+</div>
+
+</body>
+</html>

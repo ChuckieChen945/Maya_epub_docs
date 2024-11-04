@@ -1,0 +1,126 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_render_settings_am_Diagnostics_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_DIAGNOSTICS">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 诊断 - Arnold for Maya">
+
+<title>诊断</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>诊断</h1></div>
+<div class="arnold-note">
+
+
+
+<table>
+<thead>
+<tr>
+<th>延伸阅读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>请参见<strong>《Arnold 用户手册》</strong>中的<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_render_settings_html" target="_blank">渲染设置</a></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<p><img src="../images/mtoa_diagnostics_1.png" alt=""></p>
+<p>这些设置将帮助您对 Arnold 渲染进行监视、故障排除和优化。</p>
+<div class="head-block"><h1>日志</h1></div><p>Arnold 可以生成日志来报告渲染图像所需的所有步骤，以及渲染器遇到的任何警告和错误。此日志还提供详细的统计信息，这些信息对于调试、优化和衡量渲染非常有用。</p>
+<ul>
+<li>Arnold 日志提供了详细的统计信息，对于调试、优化和衡量渲染非常有用。遇到错误时应该首先检查日志，它通常是发送给支持人员的首要信息。</li>
+<li>您可以直接从 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_rendering_am_Arnold_RenderView_Window_html">Arnold 渲染视图</a>窗口打开 <em>Arnold 渲染日志</em>窗口，您可在其中查看易读版本的 Arnold 日志。</li>
+<li>请注意，将针对已渲染的每帧动画保存单独的日志文件。</li>
+</ul>
+<h3 id="verbosity-level">详细级别(Verbosity Level)</h3><p>指定日志消息中的信息量，其中，“警告”(Warnings)的信息量最少，“调试”(Debug)的信息量最多：</p>
+<ul>
+<li><ul>
+<li><strong>错误(Errors)：</strong>仅显示错误。</li>
+<li><strong>警告(Warnings)（默认值）：</strong>显示错误和警告消息。</li>
+<li><strong>信息(Info)：</strong>显示错误、警告、统计信息以及任何不会降低渲染速度的信息。</li>
+<li><strong>调试(Debug)：</strong>显示所有信息。请谨慎使用此模式，因为渲染时间可能会增加。</li>
+</ul>
+</li>
+</ul>
+<h3 id="console">控制台(Console)</h3><p>在 Maya 的输出窗口中显示日志（在 Windows 上）。在 OSX 或 Linux 上，如果从终端窗口启动 Maya，则日志将输出到该终端窗口（或者，单击“文件”(File)复选框将日志输出到文件）。</p>
+<p>在 Windows 上，如果使用 Windows 的“开始”菜单启动 Maya，您可能无法在输出窗口中看到 Arnold 日志。如果发生这种情况，您可以从命令行启动 Maya（然后 Arnold 日志将显示在输出窗口中），也可以启用文件日志记录。</p>
+<h3 id="">文件</h3><p>如果启用，将在指定文件中写入日志。</p>
+<h3 id="filename">文件名(Filename)</h3><p>指定 Arnold 日志文件的输出路径。可以使用环境变量。可以在文件名中使用填充符号 ()。</p>
+<h3 id="max-warnings">最大警告数(Max. Warnings)</h3><p>限制发送到日志的警告消息（具有相似类型）数量。</p>
+<h3 id="mtoa">MtoA 转换信息：</h3><p>在 IPR 更新等期间转储来自 MtoA 的调试消息</p>
+<h3 id="">启动日志详细级别</h3><p>加载 MtoA 插件时，可以使用 Maya 环境变量来控制日志详细级别。要执行此操作，您必须将以下文本添加到 Maya.env 文件中。例如：  </p>
+<p><code>MTOA_STARTUP_LOG_VERBOSITY = 3</code></p>
+<p>此日志记录有 4 个级别：</p>
+<p><strong>0</strong> 无。</p>
+<p><strong>1</strong> 警告和错误。</p>
+<p><strong>2</strong> 警告、错误和信息（注册的扩展数、创建的着色器节点数、加载的插件）。</p>
+<p><strong>3</strong> 所有信息。</p>
+<p>请注意，必须先通过命令行或批处理文件运行 Maya，才能在 Maya 的输出窗口 (Windows) 或控制台 (Linux) 中查看日志。</p>
+<div class="head-block"><h1>渲染统计信息/配置</h1></div><p>一组范围广泛的工具，可以更轻松地确定性能问题并优化渲染过程。按节点和类别组织的其他计时统计信息可以输出到 JSON 文件。这样，您便可以知道哪些对象的渲染成本最高以及哪些渲染器所需的时间最长。此外，它还可用于详细配置可视化，方法是将跟踪信息输出到文件（例如“my_profile.json”），调用 <code>AiProfileSetFileName("my_profile.json")</code> 或 <code>kick -profile "my_profile.json"</code>，然后将 JSON 文件加载到 Google Chrome Web 浏览器“<a href="chrome://tracing/" target="_blank">chrome://tracing/</a>”或 <a href="https://www.speedscope.app/" target="_blank">https://www.speedscope.app/</a> 中。</p>
+<h2 id="render-statistics">渲染统计信息(Render Statistics)</h2><p>为统计信息文件中收集的每个渲染过程创建一个 JSON 对象，并使文件中每个过程的编号递增（“render 0000”、“render 0001”等）。因此，如果采用附加模式，编号最大的渲染组将为最新组。否则，如果使用覆盖模式，将仅包含一个具有最新通道的对象。</p>
+<h3 id="stats-mode">统计信息模式(Stats Mode)</h3><p>创建文件名并选择“附加”(append)或“覆盖”(overwrite)模式。</p>
+<h3 id="profile">概述(Profile)</h3><p>可以启用配置，而且可以设置文件名。</p>
+<h3 id="error-handling">错误处理(Error Handling)</h3><h3 id="abort-on-error">出错时中止(Abort on Error)</h3><p>如果设置此项，一检测到错误就会停止渲染。这是推荐设置。通常，您不应忽略重要的错误消息，否则将面临崩溃、渲染瑕疵以及未定义行为的风险。</p>
+<h3 id="texture-error-color">纹理错误颜色(Texture Error Color)</h3><p>用于报告纹理错误的颜色。</p>
+<h3 id="nan-nan-error-color">NaN 错误颜色(NaN Error Color)</h3><p>用于报告 NaN 错误的颜色。</p>
+<p>包含错误网格的场景将渲染为绿色。包含错误着色器的场景将渲染为洋红色。</p>
+<div class="head-block"><h1>用户选项（覆盖）</h1></div><p>这是一个由字符串构成的通用特性。此字符串字段可以设置为覆盖 Arnold 核心节点的任何参数。例如，这允许您访问和设置当前未在用户界面中显示的 Arnold 核心参数。该特性可应用于多边形网格、头发和灯光。</p>
+<p>这是一个功能强大的选项，使用时务必要小心。字符串会直接传递给 Arnold 节点，因此用户需要完全理解所设置的参数。</p>
+<p>例如，如果渲染的清晰度至关重要，可以将 <em>texture_max_sharpen</em> 设置为 1.5。另一个示例是，要禁用稀疏纹理，可以将 <em>options.gpu_sparse_textures</em> 设置为 0。</p>
+<p>您可以使用 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_rendering_ac_cl_rendering_html" target="_blank"><em>kick</em></a> 查询 Arnold 核心节点的参数列表。例如，可以通过以下方式获取多边形网格节点的属性名称：</p>
+<p><strong><code>kick -info polymesh</code></strong></p>
+<p>请始终引用核心 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_node_reference_html" target="_blank">Arnold 节点</a>（参见页面底部），而非 Arnold 插件中显示的参数名称。</p>
+<p>如果要在 <em>user_options</em> 字符串中设置多个 Arnold 参数，则可以像在实际 ASS 文件中那样使用任何空白（空格、制表符、换行符（例如 \n））进行分隔。</p>
+<p><img src="../images/mtoa_diagnostics_2.png" alt=""></p>
+<p><sub><strong>获得“kick -info polymesh”参数</strong></sub></p>
+<div class="head-block"><h1>功能覆盖</h1></div><p>此开关组可用来禁用一系列重要的渲染功能。通过有选择地禁用某些功能，您可以了解到渲染器将大多数时间花在哪里，从而有助于优化场景。例如，启用 <em>ignore_textures</em> 或 <em>ignore_shaders</em> 可以提高照明或外观开发速度。这也有助于在调试时隔离错误和瑕疵。请注意，这些选项并非都是交互式选项，部分选项可能需要刷新/导出整个场景。</p>
+<h3 id="force-shader-assignments">强制着色器指定(Force Shader Assignments)（转换着色引擎）</h3><p>强制 MtoA 导出带有着色器链接的形状节点。这允许您将形状和着色器保存在单独的 ASS 文件中。例如，您可以用一个替代对象加载形状，用另一个替代对象加载着色器。只要形状节点包含指向着色器的链接，Arnold 就会解析链接并使用正确的着色器渲染形状。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/arnold_for_maya_render_settings_html.html">Arnold 渲染设置</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="09/03/2023">
+<meta name="topicid" content="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826">
+<meta name="language" content="CHS">
+<title>标准曲面</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>标准曲面</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 
+		<span class="ph uicontrol">标准曲面</span>着色器提供了一种与渲染无关的方法，用于对视觉特效和动画制作中使用的许多材质进行建模。它实现了 Autodesk 标准曲面规范<a class="xref" href="https://github.com/Autodesk/standard-surface/releases/tag/v1.0.1" target="_blank">版本 1.0.1</a>，并使用单个曲面着色器跨多个渲染器生成类似的渲染结果。<span class="ph uicontrol">标准曲面</span>具有一组有用的最小参数，选择这些参数可使其对美工人员友好、直观且易于使用。
+	 </p>
+<p class="p"><span class="ph uicontrol">标准曲面</span>是 Maya 中的默认节点，每个新场景都会创建它的实例 (standardSurface1)。默认情况下，初始着色组会将 standardSurface1 指定给新创建的对象。与所有默认场景对象一样，不建议在生产中使用 standardSurface1，因为修改不会在所有工作流中保持不变。相反，请创建标准曲面着色器的新实例，并将其指定给场景对象。若要创建其他实例，请单击<span class="ph uicontrol">“Hypershade”</span>的<span class="ph uicontrol">“创建”(Create)</span>选项卡中的<span class="ph uicontrol">“标准曲面”(Standard Surface)</span>，或在<span class="ph uicontrol">“渲染”(Rendering)</span>工具架中单击其图标。与任何其他着色器一样，<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-93AE85F5-F147-4B08-97B7-4D7423BB45AE.htm">将这些着色器指定给对象</a>。
+	 </p>
+<p class="p">车漆、磨砂玻璃和塑料等预设可用。单击<span class="ph uicontrol">标准曲面的</span><span class="ph uicontrol">“特性编辑器”(Property Editor)</span>或<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>上的<span class="ph uicontrol">“预设”(Presets)</span>，以选择和应用预设。
+	 </p>
+<p class="p">有关演示如何使用标准曲面着色器对玻璃或金属材质进行建模的初学者教程，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8.htm">使用标准曲面着色器对玻璃或金属建模</a>。
+	 </p>
+<div class="section" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__SECTION_2531D49FA7154520ACF94361DA36BAA7"><h2 class="title sectiontitle">标准曲面属性</h2> 
+		 
+		<p class="p"><span class="ph uicontrol">标准曲面</span>包括以下组件：
+		</p>
+ 
+		<ul class="ul" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__UL_D27BECC268CF4A81A2F172E4B41E9BE3"><li class="li" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__LI_8BD57B3BF6AD485CAF4F3F783B8D9E4E">透明度(Transparency) 
+		  </li>
+<li class="li" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__LI_4352B394C5C249C491F60E9072A9EB6A">涂层(Coat) - 位于其他所有层之上的层 
+		  </li>
+<li class="li" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__LI_B8A32C708FE74637B3853BBF0D9341A6">发射(Emission) - 位于涂层下方的层，适用于在顶部具有涂层的情况下模拟光源 
+		  </li>
+<li class="li" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__LI_3C9A336979BF4D3CB6F17F06F2E599E0">金属 
+		  </li>
+<li class="li" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__LI_82D6E8A8953243949B2A4FE070BD9948">薄膜(Thin Film) - 镜面反射组件顶部的层，可用于创建光谱着色效果 
+		  </li>
+<li class="li" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__LI_B69DCE176D654898AB538EB31C470872">镜面反射和折射 
+		  </li>
+<li class="li" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__LI_39CF0078B7BB4BF4ABA16B8BEC34FD8A">光彩(Sheen) - 用于对布料建模的层 
+		  </li>
+<li class="li" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__LI_124913FAB61146389F925A50611CC75B">漫反射和折射 
+		  </li>
+<li class="li" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__LI_FA7CC135BE884EDA80EC739BFAA62AB1">次表面散射 
+		  </li>
+</ul>
+ 
+		<p class="p">将鼠标悬停在每个属性上时，将显示带有简要描述的工具提示。有关属性的详细描述，请参见 <a class="xref" href="https://autodesk.github.io/standard-surface/" target="_blank">Autodesk 标准曲面白皮书</a>。有关标准曲面着色器的 Arnold 实施的描述，另请参见 <a class="xref" href="https://help.autodesk.com/view/MAYAUL/2024/CHS/?guid=arnold_for_maya_am_Arnold_for_Maya_User_Guide_html" target="_blank">Arnold for Maya 用户手册</a>。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__SECTION_9D25EDAD632B40F5A667D4B37149373E"><h2 class="title sectiontitle">渲染器支持</h2> 
+		 
+		<p class="p">您可以在视口中以<span class="ph uicontrol">“DirectX 11”</span>、<span class="ph uicontrol">“OpenGL - 核心配置(兼容性)”(OpenGL - Core Profile (Compatibility))</span>和<span class="ph uicontrol">“OpenGL - 核心配置(精确)”(OpenGL - Core Profile (Strict))</span>所有这些模式预览<span class="ph uicontrol">标准曲面</span>。<span class="ph uicontrol">“OpenGL - 旧版”(OpenGL - Legacy)</span>模式不受支持。
+		</p>
+ 
+		<p class="p">您可以使用<span class="ph uicontrol">硬件</span>或 <span class="ph uicontrol">Arnold</span> 渲染器或者支持<span class="ph uicontrol">标准曲面</span>的任何其他软件渲染器在 <span class="ph uicontrol">Hypershade</span> 的<span class="ph uicontrol">“材质查看器”(Material Viewer)</span>中预览<span class="ph uicontrol">标准曲面</span>。此外，<span class="ph uicontrol">Maya 软件</span>和 <span class="ph uicontrol">Maya 向量</span>渲染器还提供<span class="ph uicontrol">标准曲面</span>的近似表示。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__SECTION_06AD0098BE8F4D57B99C1BD655C69410"><h2 class="title sectiontitle">照明支持</h2> 
+		 
+		<p class="p">在视口和<span class="ph uicontrol">“Hypershade”</span>的<span class="ph uicontrol">“材质查看器”(Material Viewer)</span>中，<span class="ph uicontrol">标准曲面</span>同时适用于直接和间接照明（基于图像的照明）。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__SECTION_378444D86A284BCE8AF703863186DAC8"><h2 class="title sectiontitle">限制</h2> 
+		 
+		<ul class="ul" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__UL_F04B6AE6D2D84130873CFF629C271E3D"><li class="li" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__LI_35954D1A621148B989BF6E9361B744C9"> 
+			 <p class="p">以下<span class="ph uicontrol">“标准曲面”(Standard Surface)</span>属性无法显示以供在视口中预览：
+			 </p>
+ 
+			  
+			 <ul class="ul" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__UL_173A5E65BB8B49F6B9406C86FAFCE3E1"><li class="li" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__LI_9407AAA1995C46469567BE77E8EF1F1F"> 
+				  <p class="p"><span class="ph uicontrol">“透射”(Transmission)</span>属性，但<span class="ph uicontrol">“权重”(Weight)</span>除外（它受支持） 
+				  </p>
+ 
+				</li>
+<li class="li" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__LI_F81AE85437B7475796C20751909BC1CF"> 
+				  <p class="p"><span class="ph uicontrol">“次表面”(Subsurface)</span>属性 
+				  </p>
+ 
+				</li>
+<li class="li" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__LI_965B3917B7C34803B6A6F8F1B91738FD"> 
+				  <p class="p"><span class="ph uicontrol">“薄膜”(Thin Film)</span>属性 
+				  </p>
+ 
+				</li>
+<li class="li" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__LI_33B63DCBC5DA4AE098D7541E325A4B67"> 
+				  <p class="p"><span class="ph uicontrol">“薄壁”(Thin Walled)</span>属性 
+				  </p>
+ 
+				</li>
+<li class="li" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__LI_C3000772BA4846A0B771CB518F2107CD"> 
+				  <p class="p"><span class="ph uicontrol">“涂层凹凸贴图”(Coat Bump Mapping)</span> 
+				  </p>
+ 
+				</li>
+</ul>
+ 
+		  </li>
+<li class="li" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__LI_DAC38D28E24540BBBD5FB52FAE4C879A"> 
+			 <p class="p"> 
+				将对象或场景导出到 GPU 缓存文件时，不包括<span class="ph uicontrol">标准曲面</span>材质。通过 FBX 文件导出标准曲面材质。  
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-0944E219-0FAB-499F-B5E3-6E53C2B27826__LI_FD0B803691F84C109473749A4A05424C">涂层粗糙度仅影响视口中的直接照明，而不影响环境照明，因为在计算环境照明时，视口仅支持一种粗糙度属性。这些计算使用的是<span class="ph uicontrol">“镜面反射 &gt; 粗糙度”(Specular &gt; Roughness)</span>属性，因此将忽略<span class="ph uicontrol">“涂层 &gt; 粗糙度”(Coat &gt; Roughness)</span>。 
+		  </li>
+</ul>
+ 
+		 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-634CAFBE-AC48-4B73-89CA-82D64FA1BC70.htm">表面材质</a></div>
+</div>
+</div>
+
+</body>
+</html>

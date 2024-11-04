@@ -1,0 +1,90 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_simulate_dynamic_effects_create_aero_and_combustion_simulations_set_up_an_aero_or_combustion_simulation_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>设置 Aero 或燃烧模拟</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>设置 Aero 或燃烧模拟</h1></div><p>此处概述了如何设置燃烧模拟，以及对其进行修改以获得不同的效果。</p>
+<ol>
+<li><p>在图表顶层，<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_add_a_node_html.html"> 会添加 一个 <code>basic_aero_graph</code> 或 <code>basic_combustion_graph</code> 节点</a>。它没有输入或输出，因为它只是一个包含基本图表的复合。</p>
+</li>
+<li><p>右键单击此项，然后选择<strong>“炸开”</strong>。这将展开复合的内容。它包含具有以下复合的子图表：</p>
+<ul>
+<li><code>source_air</code> 定义发射的气体的特性。</li>
+<li><code>source_fuel</code> 定义要燃烧的燃料的特性（仅限燃烧）。</li>
+<li><code>collider</code> 可用于创建阻止空气流动的障碍。</li>
+<li><code>aero_solver_settings</code> 控制模拟的各个方面。</li>
+<li><code>aero_combustion_settings</code> 控制燃料的燃烧方式（仅限燃烧）。</li>
+<li><code>simulate_aero</code> 计算模拟。</li>
+</ul>
+</li>
+<li><p>通过将一个或多个网格或体积连接到 <code>source_air</code> 节点的 <code>geometry</code> 端口来定义要从中进行发射的对象。</p>
+</li>
+<li><p>（可选）将一个或多个网格或体积连接到 <code>collider</code> 节点的 <code>geometry</code> 端口来定义障碍。</p>
+</li>
+<li><p>将 <code>simulate_node</code> 的 <code>aero_volume</code> 输出连接到图表的 <code>output</code> 节点作为新端口。将在场景中创建名为 <code>bifrostGraph</code> 的 Bifrost 对象。</p>
+</li>
+<li><p>根据需要为 <code>source_air</code>、<code>source_fuel</code> 和其他节点上的各种参数设置初始值。物理值假定场景中的对象按 1 个单位 = 1 米的比例建模。对于具有自动端口的特性，可以使用单个值或连接数组、与特性名称对应的字符串（例如源几何体上的颜色集）或场。数组和特性值是跨源几何体插值的，并且场直接在发射位置采样。</p>
+</li>
+<li><p>（可选）创建其他可以使用的自定义特性，例如，在渲染时。这些特性在发射时应用，并随模拟平流，且可能受影响物的影响。为此，请执行以下操作：</p>
+<ol>
+<li>将 <code>set_property</code> 节点连接到 <code>source_air</code> 节点的 <code>additional_properties</code> 端口。</li>
+<li>将 <code>key</code> 设置为要使用的自定义特性的名称。</li>
+<li>连接 <code>float</code> 或 <code>float3</code> 值，或者标量或向量场，以根据发射位置改变值。请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_fields_html.html">使用场</a></li>
+</ol>
+</li>
+<li><p>现在，可以播放场景以查看从源几何体进行发射的情况。但是，要正确预览模拟，请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/create-aero-and-combustion-simulations/Bifrost_Common_simulate_dynamic_effects_create_aero_and_combustion_simulations_apply_shading_to_aero_and_combustion_simulations_html.html">对 Aero 和燃烧模拟应用着色</a>。</p>
+</li>
+</ol>
+<p>模拟可能需要进一步优化才能获得您想要的最终效果。</p>
+<h2 id="aero">修改 Aero 和燃烧图表</h2><p>除了直接调整节点上的参数外，还有多种方法可以用于修改效果。</p>
+<ul>
+<li>采用自适应模拟时，可以减少所选区域中的细节，从而节省计算时间和内存。请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/create-aero-and-combustion-simulations/Bifrost_Common_simulate_dynamic_effects_create_aero_and_combustion_simulations_set_up_adaptivity_for_aero_and_combustion_simulations_html.html">为 Aero 和燃烧模拟设置自适应性</a>。</li>
+<li>对于燃烧图表，可以将多个 <code>source_fuel</code> 节点插入 <code>source_air</code> 节点的 <code>additional_properties</code> 以创建不同燃料的混合体。</li>
+</ul>
+<p>也有适用于所有模拟图表的修改：</p>
+<ul>
+<li><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_set_up_additional_emission_sources_html.html">设置其他发射源</a></li>
+<li><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_vary_properties_on_emission_html.html">在发射时改变特性</a></li>
+<li><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_add_colliders_html.html">添加碰撞对象</a></li>
+<li><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_apply_influences_html.html">应用影响物</a></li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_create_aero_and_combustion_simulations_html.html">创建 Aero 和燃烧模拟</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

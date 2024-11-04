@@ -1,0 +1,143 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Basics">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3">
+<meta name="language" content="CHS">
+<title>使用属性模式创建属性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用属性模式创建属性</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-F326FFE9-250B-4DA9-BDE3-FF82D516D0D3"> 您可以使用<strong class="ph b" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-7DCB4667-7EF5-4EAD-A641-01228FCC99E5">属性模式</strong>创建动态或扩展属性。属性模式是关于可以添加到任何特定节点或节点类型的动态或扩展属性的描述。使用此功能后，您无需逐个使用 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-E26DA347-9F32-4CED-A127-1E058C692764">addAttr</samp> 或 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-20B5B63C-F3EA-4D87-A96A-C8A26C927EDA">addExtension</samp> 命令创建每个属性。
+	 </p>
+<p class="p" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-29261CA5-1F3A-4DB7-B05A-D9A65D6D0320"><samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-56335DD3-E04A-49B3-94CA-FE10D00C417F">pyJsonAttrPatternFactory.py</samp> 插件不支持此功能。
+	 </p>
+<div class="section" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__SECTION_64A9DCD655C74962AA0635B17DCC1C7E"><h2 class="title sectiontitle">属性模式文件</h2> 
+		 
+		<p class="p" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-41752825-E69A-418E-8623-3A60FB84CC0A">要使用此功能，首先要创建一个模式文件。该模式文件列出将添加到节点或节点类型并可以采用插件定义的任何格式的属性。Maya 插件 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-87E91DB8-801E-4F5F-8A84-6E1E96838275">pyJsonAttrPatternFactory.py</samp> 支持 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-D5F6E7BF-F8EF-4011-B117-945658007D9D">.json</samp> 格式。您也可以添加一个用于描述模式文件语法的模式文件（可选）。
+		</p>
+ 
+		<p class="p" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-FCCBE4DD-E730-4A8C-97CA-5D92F59EC7CC">模式只是关于通过 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-94D88D14-9E2A-429E-B4CE-2CEA38583C13">applyAttrPattern</samp> 命令复制到节点或节点类型的属性的描述。
+		</p>
+ 
+		<p class="p" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-E0FAF3FB-6680-4695-B2A9-B82D27094307">某些模式类型由插件定义，除非卸载该插件，否则不会删除这些模式类型。
+		</p>
+ 
+		<p class="p" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-C4F0E87A-31B5-4752-9D4B-D0FD2541892A">一个模式文件可以包含多个模式，每个模式可以包含多个属性。应用一个模式时，将应用其所有属性，并不仅仅是其中一部分。<span class="ph">有关模式文件示例，请参见 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-E816330D-027D-42A1-B08D-8F12C4574E18">attrPatternSchema.json</samp>；有关开发人员工具包安装的 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-D961EA67-671D-449F-A441-80FCADCF352E">devkit/plug-ins/scripted</samp> 目录中的模式文件示例，请参见 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-4D444A22-699E-40E3-96F4-858DC1591477">sampleAttrPatterns.json</samp>。</span> 
+		</p>
+ 
+		<div class="note note" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-D4ACA26B-4C84-4B8B-9170-E3101C94B90C"><span class="notetitle">注：</span>  
+		  <p class="p" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-0D3EA95C-D56B-4561-8FCC-1913D840581B">开发人员工具包可从 <a class="xref" href="https://www.autodesk.com/developmaya" target="_blank">Autodesk 开发人员网络</a>获取。将开发人员工具包归档复制到本地目录，取消归档它，并将文件夹复制到 Maya 安装目录。有关如何安装和设置 Maya 开发人员工具包的信息，请参见 Maya 开发人员帮助中的“设置构建环境”部分。
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__SECTION_B9245080157B4FBF9DB309045F86E8A7"><h2 class="title sectiontitle">属性模式命令</h2> 
+		 
+		<p class="p" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-4BADD887-8A25-4799-AB42-F9CC621C412E">使用 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-3B9F2613-035A-4CF9-973A-2D1A97276F51">createAttrPatterns</samp> 命令创建模式文件中列出的模式集。然后，使用 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-6B7C3F08-E91E-4384-8226-E2125000DB64">applyAttrPattern</samp> 命令将模式文件的任一模式中列出的属性附加到节点或节点类型。使用 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-F1234264-F99A-43A3-85B7-602A7DD0F178">applyAttrPattern</samp> 命令，可以确定是否创建动态或扩展属性。如果在命令之后列出节点名称，将创建动态属性。如果使用 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-89D85DA5-C490-472E-96E2-420BB61EF291">-nt</samp> 标志列出节点类型，将创建扩展属性。
+		</p>
+ 
+		<p class="p" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-46056EBF-95D7-426C-BC1B-FAC4FE107C27">使用 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-6BAA19F2-1BAE-4526-BB97-63F894B8169F">listAttrPatterns</samp> 命令列出可用的模式实例和模式类型。
+		</p>
+ 
+		<p class="p" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-3A469CA8-9661-4321-AEA4-894C546334EF">使用模式将属性应用于节点后，这些属性将不再与该模式关联，并只能使用 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-1FD6970B-C346-4C46-A069-74C1D1A5129F">deleteAttr</samp> 或 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-9603E590-14EA-46D5-A486-79CFC0A846B7">deleteExtension</samp> 命令（而不是 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-0D44FF7C-5DA9-4A29-A2A9-ED2EE53B7B8D">deleteAttrPattern</samp> 命令）删除。
+		</p>
+ 
+	 </div>
+<p class="li listintro" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-FDD29FF7-23DB-4F3C-B073-E46B5D5383FE">使用属性模式创建动态或扩展属性的工作流程概要</p>
+<ol class="ol" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__OL_20066B34BEC54B208BBD6108431B29D3"><li class="li" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__LI_CFD7026317BD48A6A85E675D6B9DFE3A">创建 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-F1A408D4-DE10-4DC0-8717-FD640C88894B">json</samp> 格式的模式文件，该文件列出了将添加到节点或节点类型的属性。
+		  <div class="note tip" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-0DFA07A0-1B6C-43FE-9A3A-B41497F5E06F"><span class="tiptitle">提示：</span> 仅设置不采用默认值的标志的值。未明确设置的任何标志采用其默认值。
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__LI_3C278E387F914A03A943C7EC70BD961A">将 <span class="ph"><samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-EAF8E5AA-ABC2-485A-962E-138CB5F2A222">devkit/plug-ins/scripted/</samp> </span>位置添加到 PYTHONPATH 环境变量。
+		</li>
+<li class="li" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__LI_1946F6822A5D488B845B3CC925F05D1C">选择<span class="ph uicontrol" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-17D8B4D4-DEEB-473B-B396-E61D941B9EC4">“窗口 &gt; 设置/首选项 &gt; 插件管理器”(Window &gt; Settings/Preferences &gt; Plug-in Manager)</span>并加载 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-FC875746-5F41-45FD-BE48-D36AD33AED80">pyJsonAttrPatternFactory.py</samp> 插件。
+		  <div class="note note" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-9ACA3C24-B9F8-4F6B-A7D5-8C549754A9FD"><span class="notetitle">注：</span> 也可以使用 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-73A64876-CE0A-4C52-B548-34644F3A6F93">loadPlugin pyJsonAttrPatternFactory.py;</samp> 命令。
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__LI_0F44F3498E414E41811ACB54FE9AC883">使用 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-800E477F-89C2-4454-9980-7CCA68700B47">createAttrPatterns</samp> 命令创建模式文件中的模式集。
+		  <div class="note note" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-B7C67591-BA99-48AD-B820-01FC07AEFAA7"><span class="notetitle">注：</span> 对于不需要模式文件的较简单属性，可以使用带有 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-07D74F86-8041-4CA7-92BD-418DEAC8D97E">-patternDefinition</samp> 标志以及包含模式描述的硬编码字符串的 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-10087D20-04E5-45C8-907E-4EEFC44A746E">createAttrPatterns</samp> 命令，来创建模式。
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__LI_846ACCF85C014693AA84F0B36452C7A3">使用 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-60E45E68-C86F-4B41-9DB3-1355620B8681">applyAttrPattern</samp> 命令将模式中所述的属性附加到特定节点（动态属性）或节点类型（扩展属性）。
+		</li>
+</ol>
+<div class="note note" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-1567DFE1-8D27-4DE7-864F-5849A5E2A2EF"><span class="notetitle">注：</span> 也可以使用 MPxAttributePatternFactory 类定义新的属性模式类型。工厂会创建包含新属性描述的 MAttributePattern。
+	 </div>
+<div class="section" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__SECTION_FBB1C572DBBB4A90896CAD4D63888E47"><h2 class="title sectiontitle">示例</h2> 
+		 
+		<p class="p" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-E723619A-1D7D-42FD-BD20-9492F1C3B142">下面是此功能的简单示例应用：
+		</p>
+ 
+		<ol class="ol" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__OL_5DDE4E055B464229890C17593A609972"><li class="li" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__LI_7CE3507516704BBAA4F75EF626C87B43">按如下方式创建模式文件，并将其保存为 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-E3FE433A-0781-4D1D-96A6-19A9E1831171">.json</samp> 文件：<pre class="pre codeblock">[
+    {
+        "name" : "samplePattern",
+        "attributes" : [
+            {
+                "name" : "sampleAttr",
+                "defaultValue" : 0.0,
+                "attributeType": "float"
+            }
+        ]
+    }
+] </pre>
+ 
+		  </li>
+<li class="li" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__LI_74811CFE85B34D009C1A3FFC4EDD102B">通过<span class="ph uicontrol" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-A94F5E62-8528-43C6-83E4-06C52077E868">“插件管理器”(Plug-in Manager)</span>或在命令行上使用 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-C233C301-1CFA-4B2B-8369-30439DB0976B">loadPlugin</samp> 来加载 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-234A62C0-DC77-4CB7-9C46-F68C8AEBB9F4">pyJsonAttrPatternFactory.py</samp>：<pre class="pre codeblock">loadPlugin pyJsonAttrPatternFactory.py;</pre>
+ 
+		  </li>
+<li class="li" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__LI_E1F54378A6004A4EAB0DBC5E5F489F8D">按如下方式创建 samplePattern：<pre class="pre codeblock">createAttrPatterns –pt “json” –pf “yourfile.json”;</pre>
+ 
+			 <div class="note note" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-FB437E27-E3FB-4E8A-A495-E775AC2D1C27"><span class="notetitle">注：</span> 现在，如果输入 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-DBF9B3DB-9FCF-41EC-9D16-D20B29A9E776">listAttrPatterns;</samp> 命令，将列出 samplePattern。
+			 </div>
+ 
+		  </li>
+<li class="li" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__LI_37708AF48E1D48CCAF2917AF1252960F">创建节点并列出其属性：<pre class="pre codeblock">createNode addMatrix;
+// Result: addMatrix1 //
+listAttrs;
+// Result: [the addMatrix attributes] //
+</pre>
+ 
+		  </li>
+<li class="li" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__LI_78FEBFFA32C34DAFBC5AF73E06F161A9">使用 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-D2D577BC-AD4E-460A-B206-2BD6CCF34B8C">applyAttrPattern</samp> 命令将模式（即其属性）从模式文件附加到节点：<pre class="pre codeblock">applyAttrPattern –pn “samplePattern” “addMatrix1”;</pre>
+ 
+			 <p class="p" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-7545E529-4D4E-4B37-AD9A-9E00279E81AC">将添加动态属性 sampleAttr。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__LI_51F4575C1C8840F4A282BA7CF73ADDB8">使用 <samp class="ph codeph" id="GUID-B103DD61-8ED8-440E-AB55-64F70E09F7D3__GUID-CA37D080-53C7-4D23-BC36-F0D401F5423A">listAttrs</samp> 命令确认是否已添加动态属性：<pre class="pre codeblock">listAttrs;
+// Result: [the addMatrix attributes] sampleAttr //</pre>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-D53B9E3D-E6E3-4CC3-A38F-3AA3A09205E5.htm">节点和属性</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="ENU">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Maya-USD">
+  <meta name="topicid" content="GUID-3A763D43-E626-4832-9824-57AAA9BC0A00">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="contextid" content="USDEXPORTOPTIONSCONFIG">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>USD Export options</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>USD Export options</h1></div><p>The USD export options appear when you select <strong>File &gt; Export</strong> and choose <strong>USD Export</strong> in the <strong>Files of type</strong> drop-down menu. The following options appear under the <em>File Type Specific Options section</em>, letting you select what is included when you export your file. .usd , .usdc, and .usda are supported file formats for export. Exporting from Maya to USD is limited to one scene to one USD file.</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>Note:</div>
+<div class="callout-body">
+
+<p> <strong>mayaUsdPlugin.mll</strong> must be loaded in the <strong>Plug-in Manager</strong> (<em>Windows &gt; Settings/Preferences &gt; Plug-in Manager</em>) for USD Export to appear in the Files of type drop-down menu.  </p>
+
+</div></div>
+
+<p><img src="../images/export_options.jpg" alt=""></p>
+<h2 id="file-type-specific-options">File-Type Specific Options</h2><h3 id="plug-in-configurations">Plug-in Configurations</h3><p>With Maya USD, you can register your plug-in and it will show up in the <strong>Plug-in Configurations</strong> section. You can easily enable/disable and configure it by clicking the <strong>options</strong> button. Visit <a href="https://github.com/Autodesk/maya-usd/blob/dev/tutorials/import-export-plugin/README.md" target="_blank">Import and Export Plugins in Python</a> for more information.</p>
+<h3 id="output">Output</h3><p><strong>.usd File Format</strong></p>
+<p>Lets you select from the following export formats:  </p>
+<ul>
+<li><p><strong>Binary (Default)</strong>: If you select this option, your exported file uses the file extension .usdc and is in binary format.</p>
+</li>
+<li><p><strong>ASCII</strong>: If you select this option, your exported file uses the file extension .usda and is in ASCII format.</p>
+<div class="note note:"><span class="notetitle">Note:</span> Manually entering a file name with an extension .usdc or .usda overrides the selection in the drop-down menu (.usdz is not supported). When a file extension is not specified, USD defaults to using the .usd extension with the binary format.</div>
+</li>
+</ul>
+<p><strong>Create Root Prim</strong></p>
+<p>If you want to create a root prim for your exported data, enter the name of the root prim here. </p>
+<p><strong>Root Prim Type</strong></p>
+<p>Upon entering the name of the root prim, you will have the option to define the type of the prim by selecting either Scope or Xform.</p>
+<p><strong>Default Prim</strong></p>
+<p>Lets you specify the default prim.</p>
+<h3 id="geometry">Geometry</h3><p><strong>Meshes</strong></p>
+<p><img src="../images/icon_usd_checkbox_full.png" alt=""> If selected, mesh geometry is included in your USD export.</p>
+<ul>
+<li><strong>Subdivision Method</strong>: Exports the selected subdivision method as a USD uniform attribute. Attributes that are uniform appear with the "uniform" modifier in any layer that contains a properly-authored opinion for the attribute. You can select from the following options:  <ul>
+<li><strong>Catmull-Clark (Default):</strong> If selected, the exported file contains no additional code.</li>
+<li><strong>Bilinear:</strong> If selected, every mesh prim in the exported file is assigned the attribute uniform token subdivisionScheme = "bilinear"</li>
+<li><strong>Loop:</strong> If selected, every mesh prim in the exported file is assigned the attribute uniform token subdivisionScheme = "loop"</li>
+<li><strong>None (Polygonal Mesh):</strong> If selected, every mesh prim in the exported file is assigned the attribute uniform token subdivisionScheme = "none"</li>
+</ul>
+</li>
+</ul>
+<div class="note note:"><span class="notetitle">Note:</span> If you are familiar with scipting in USD, <code>staticSingleSample</code> flag is available on export, which optimizes the conversion of attributes with single time samples to static values. This is especially useful for common mesh attributes as they have the benefit of reducing the complexity of the USD, especially for USD file readers. For example, this will benefit round-tripping USD files into Maya since point-cached meshes will be able to import their UVs if they are static.</div>
+<p><span style="color: purple;"><strong>Related Concepts:</strong></span> See <a href="https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-Attribute" target="_blank">attribute</a> and <a href="https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-Variability" target="_blank">variability</a> in the Pixar USD Glossary.</p>
+<p><strong>Component Tags</strong></p>
+<p><img src="../images/icon_usd_checkbox_full.png" alt="">If selected, component tags get exported as USDGeomSubsets. Note: Edges and vertices are unsupported in USD.</p>
+<p><strong>NURBS Curves</strong></p>
+<p><img src="../images/icon_usd_checkbox_full.png" alt=""> If selected, curves get exported to USD primTypes NurbsCurves or BasisCurves.</p>
+<p><strong>Color Sets</strong></p>
+<p><img src="../images/icon_usd_checkbox_full.png" alt=""> If selected, exports Maya color sets as USD primvars. Primvar stands for "primitive variable". A <em>primvar</em> is a special attribute that a renderer associates with a geometric primitive, and can vary (interpolate) the value of the attribute over the surface/volume of the primitive. When this option is turned on, color sets are written out as <code>primvars:(colorSetName)</code> and <code>primvars:(colorSetName):indices</code> in the exported file.</p>
+<p><span style="color: purple;"><strong>Related Concepts:</strong></span> See <a href="https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-Primvar" target="_blank">primvars</a> in the Pixar USD Glossary.  </p>
+<p><strong>UV Sets</strong></p>
+<p><img src="../images/icon_usd_checkbox_full.png" alt=""> If selected, exports Maya UV Sets as USD primvars. When on, UV sets are written out as <code>primvars:st</code> and <code>primvars:st:indices</code> in the exported file. When there are multiple primvars, the index is appended to <code>st</code>, <code>st1</code>, <code>st2</code>, <code>st3</code> etc. All UV names with custom metadata attached to the primvar can be expected to roundtrip (through import and export) seamlessly. Indexing will preserve on import and material override generation will only occur when necessary.</p>
+<p><strong>Skeletons</strong></p>
+<p>Exports Maya joints as part of a USD skeleton. By default this setting is toggled to <strong>None</strong>. If you want to enable the export of joints, choose between <strong>All</strong> (to automaticaly create SkelRoots in your USD file) or <strong>Only under SkelRoots</strong> (to have an explicit selection of SkelRoots).</p>
+<p><strong>Skin Clusters</strong></p>
+<p>Exports Maya skin clusters as part of a USD skeleton. By default this setting is toggled to None. If you want to enable the export of skin clusters, choose between <strong>All</strong> (to automaticaly create SkelRoots in your USD file) or <strong>Only under SkelRoots</strong> (to have an explicit selection of SkelRoots).</p>
+<p><strong>BlendShapes</strong></p>
+<p><img src="../images/icon_usd_checkbox_full.png" alt=""> If selected, exports Maya Blend Shapes as USD blendShapes. <strong>Note:</strong> This toggle requires Skeletons to be exported as well.</p>
+<p><strong>Display Colors</strong></p>
+<p><img src="../images/icon_usd_checkbox_full.png" alt=""> If selected, exports the diffuse color of the geometry’s bound shader as a displayColor primvar on the USD mesh.</p>
+<h3 id="materials">Materials</h3><p> Select the material(s) to bind to prims for export. With USD, you can bind multiple materials to prims. You can select from the following options:</p>
+<ul>
+<li><p><strong>Materials</strong>: This option is checked by default to include materials as part of the export data. Uncheck it if you want to exclude material from the export.</p>
+</li>
+<li><p><strong>USD Preview Surface</strong>: Shading data to be extracted and mapped to a UsdPreviewSurface Maya shader node.</p>
+<div class="note note:"><strong>Note</strong>: The <code>UsdPreviewSurface</code> shader node is identical to the <code>pxrUsdPreviewSurface</code> shader node provided by previous versions of the Maya USD plug-in. There may be backward compatibility issues with scenes that have both shader nodes loaded. For more information and a workaround, see <strong>USD Limitations</strong> in the <a href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/Maya_USD_USD_for_Maya_Release_Notes_html.html">Release Notes</a> topic for your version of Maya USD.</div>
+<p><span style="color: purple;"><strong>Related Concepts:</strong></span> For more information, see <a href="https://graphics.pixar.com/usd/docs/UsdPreviewSurface-Proposal.html" target="_blank">PreviewSurface</a> in the Pixar USD documentation.</p>
+</li>
+<li><p><strong>RenderMan for Maya</strong>: Exports the authored Maya shading networks, applying the same translations applied <code>rfm</code> shaders to the shader types.</p>
+</li>
+<li><p><strong>MaterialX shading</strong>: Exports bound shaders as a MaterialX UsdShade network.</p>
+</li>
+<li><p><strong>Assigned Materials Only</strong>: This option is checked by default to only export the materials assigned to the geometry. When unchecked, all the materials in the scene will be exported.</p>
+</li>
+<li><p><strong>Texture File Path</strong>: Choose whether your texture file paths will be written as absolute or relative during the export process. If you select "Automatic", the path type will be automatically determined based on the current settings in the Maya data.</p>
+</li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>Note:</div>
+<div class="callout-body">
+
+<p> If you have the Maya to Hydra plug-in installed and loaded <em>(Windows &gt; Settings/Preferences &gt; Plug-in Manager &gt; mtoh.mll)</em>, you will get an additional legacy exporter which exports to <code>UsdPreviewSurface</code> using the mtoh codebase. This does not support phong and standardSurface and shows up as <code>mtoh</code> in the drop-down menu.</p>
+
+</div></div>
+
+<p><strong>Texture File Paths</strong> </p>
+<p>Choose whether your texture files are written as relative or absolute paths as you export them to USD. If you select <strong>Automatic</strong>, it will be chosen for you in the exported USD file based on what they currently are as Maya data.</p>
+<div class="note tip:"><span class="tiptitle">Tip:</span> If you have MayaUSD and no LookdevX loaded, it is impossible to create a texture on a prim. You need LookdevX to do this. However, if you open a USD file with a texture already authored, you can change the texture to a relative path using the file browser in the Attribute Editor.  For example, you can add a texture on a rectLight or DomeLight prim relatively or even add a non-image file such as a media file on a SpacialAudio prim or a Maya file on a MayaReference prim. To do this, click on the folder icon in the Attribute Editor of a file input you want to make relative and then toggle on <img src="../images/icon_usd_checkbox_full.png" alt=""> <strong>Make Path Relative to Edit Target Layer Directory</strong>.</div>
+<h3 id="animation">Animation</h3><p><strong>Animation Data</strong></p>
+<p><img src="../images/icon_usd_checkbox_full.png" alt=""> If selected (default), animation data will be exported as USD time samples. The following option appears when Animation data is enabled:</p>
+<ul>
+<li><p><strong>Frame Range Start/End</strong>: Sets the first and last frame of animation to export.</p>
+<div class="note tip:"><strong><span class="tiptitle">Tip:</span></strong> Click Use <em><strong>Animation Range</strong></em> to automatically populate the Frame Range Start/End fields with the scene's current frame range.</div>
+</li>
+<li><p><strong>Frame Step</strong>: Specifies the increment between time sample frames during animation export. For example, a Frame Step value of 0.5 exports frames 1.0, 1.5, 2.0, 2.5, etc.</p>
+</li>
+<li><p><strong>Frame Sample</strong> : Specifies the value(s) used to multi-sample time frames during animation export. Multiple values separated by a space (-0.1 0.2) are supported. This setting can be used to help prevent interpolation errors.</p>
+</li>
+<li><p><strong>Euler Filter</strong>: Exports the euler angle filtering that was performed in Maya.</p>
+</li>
+<li><p><strong>Static Single Sample</strong>: Converts animated values with a single time sample to be static instead.</p>
+</li>
+</ul>
+<h3 id="advanced">Advanced</h3><p><img src="../images/export_options_advanced.jpg" alt=""></p>
+<p><strong>Cameras</strong></p>
+<p><img src="../images/icon_usd_checkbox_full.png" alt=""> If selected, default cameras from your viewport are exported.</p>
+<p><strong>Lights</strong></p>
+<p><img src="../images/icon_usd_checkbox_full.png" alt=""> If selected, lights in your scene are exported.</p>
+<p><strong>Visibility</strong></p>
+<p><img src="../images/icon_usd_checkbox_full.png" alt=""> If selected (default), exports Maya's visibility attributes as USD metadata. If the object is hidden in Maya, then the following metadata is included in the export <code>visibility = invisible</code>.</p>
+<p><strong>Instances</strong></p>
+<p>Lets you export instances by choosing from the following options:  </p>
+<ul>
+<li><strong>Convert to USD Instanceable References (Default):</strong> Exports Maya instances as USD instanceable references.</li>
+<li><strong>Flatten:</strong> Instances are flattened.</li>
+</ul>
+<p><strong>Merge Transform and Shape Nodes</strong></p>
+<p><img src="../images/icon_usd_checkbox_full.png" alt=""> If selected (default), merges transform and shape nodes into a single USD xform prim.</p>
+<p><strong>Include Empty Transforms</strong></p>
+<p><img src="../images/icon_usd_checkbox_full.png" alt=""> If selected (default), transform nodes that do not contain any child (empty transforms) will be exported into Xform prims. Deselect it to exclude empty transforms from the export.</p>
+<p><strong>Include Namespaces</strong></p>
+<p><img src="../images/icon_usd_checkbox_full.png" alt=""> If selected (default), namespaces are exported to the USD file in the following format: <code>nameSpaceExample_pPlatonic1</code>. When off, namespaces are removed from the USD file.</p>
+<p><strong>Worldspace Roots</strong></p>
+<p><img src="../images/icon_usd_checkbox_full.png" alt=""> If selected, exports the root prims with their worldspace transform instead of their local transform. </p>
+<p><strong>USD Stages as USD References</strong></p>
+<p><img src="../images/icon_usd_checkbox_full.png" alt=""> If selected (default), a Maya USD proxyShape is exported as a USD stage with a reference to the USD layer that contains the original stage.</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>Parent page:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/GUID-2755A1ED-4857-4111-8571-5D658EE90FA0.html">Import and export USD data in Maya</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

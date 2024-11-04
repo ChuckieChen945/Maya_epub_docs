@@ -1,0 +1,145 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="ENU">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Maya-USD">
+  <meta name="topicid" content="GUID-5355AFE8-D39C-4950-A7BB-19407D59C626">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>USD data in the Attribute Editor</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>USD data in the Attribute Editor</h1></div><p>Selecting a stage or prim in the <strong>Outliner</strong> or <strong>Viewport</strong> displays its attributes in the <strong>Attribute Editor</strong>. You can distinguish USD data in the Attribute Editor as it will read <em><strong>Universal Scene Description</strong></em> beside the <strong>Data Model</strong> label.</p>
+<h3 id="display-settings-in-the-attribute-editor">Display Settings in the Attribute Editor</h3><div class="note important:"><span class="importanttitle">Important:</span> The maximum number of tabs you can have in the AE is 100. If you are an advanced user, OptionVar <code>AEmaxRelatedTabs</code> now has a default value of 100.</div>
+<h4 id="array-attributes">Array Attributes</h4><p>You can toggle the view of USD array attributes on and off in the Attribute Editor. In the <strong>Attribute Editor</strong>, select <strong>Show &gt; Universal Scene Description &gt; <img src="../images/icon_usd_checkbox_full.png" alt=""> Show Array Attributes</strong>. Deselect the same checkbox to hide array attributes (hidden by default). Once this setting is toggled on, you can view useful widgets for Array Attributes in the Attribute Editor.</p>
+<ul>
+<li><strong>Syntax for Array Attributes</strong>: <code>dataType[sizeofArray]</code>. When an array attribute has a value contained in box brackets, on hover and rightclick, you can <em>Copy Attribute Value</em> or <em>Print to Script Editor</em> (with the same value as copy). Note: Custom array attributes and schemas with array datatypes also follow this syntax.</li>
+</ul>
+<h4 id="connected-attributes">Connected Attributes</h4><p>USD attributes that are connected can display in the AE. When an attibute is connected you can right click the widget with the Maya yellow foreground to display the connected attribute. When using this context menu, you can select to change the Attribute Editor to display the properties of that new prim. </p>
+<div class="note important:"><span class="importanttitle">Important:</span> The Maya selection is not modified. Only the <em>Attribute Editor display</em> can be expected to change with this selection.</div>
+<p><img src="../images/usd_AE_Connected-Display.png" alt=""></p>
+<h4 id="locked-attributes">Locked Attributes</h4><p>You can lock and unlock USD attributes from being edited in the AE. You can <em>right-click</em> an attribute in the Attribute Editor to choose to <strong>Lock Attribute</strong> or <strong>Unlock Attribute</strong> as prompted. Locked attributes display with a traditional "grey bar" to the left of the field as displayed below and the attribute cannot be modified.</p>
+<div class="note important:"><span class="importanttitle">Important:</span> Metadata of prims cannot be locked and unlocked as they are not attributes. Similarly, purpose or categories as part of Maya data (the proxyshape node) cannot be locked or unlocked, as the Maya proxyshape node works as a typical Maya node.</div>
+<p><img src="../images/usd_AE_transform_lockedattr.png" alt=""></p>
+<h2 id="attributes-for-a-stage-proxyshape-node">Attributes for a Stage (proxyShape node)</h2><h4 id="stage">Stage</h4><ul>
+<li><p><strong>Root Layer</strong>: Identifies the root layer of a stage. If a file path is shown in this field, the root layer is a file on disk. If a <code>&lt;layerName&gt;</code> is shown in this field, the root layer is an anonymous layer.  </p>
+<div class="note important:">  <span class="importanttitle">Important:</span> If the path of your root USD file is relative, this field will input the resolved relative path of your personal file directory (ie. this value will vary from computer to computer).</div>
+</li>
+<li><p><strong>Default Prim</strong>: As part of its metadata, each stage can identify a default prim. This is the primitive that is referenced in if you reference in a file.</p>
+<ul>
+<li><strong>Shareable</strong>: This checkbox denotes if a stage is unshareable or shareable. Currently, stages in MayaUSD default to shareable. If you would like to have a "sandbox" version of a stage that comes pre-equipped with a new root layer, you can toggle the stage to be <em>Unshareable</em>.  Edits to an unshareable stage would be serialized into your Maya scene file. You can use this checkbox to toggle back and forth between the shareable and unshareable stages in the Attribute Editor as you work.<ul>
+<li><p><img src="../images/icon_usd_checkbox_full.png" alt=""> <strong>Shareable</strong>: If enabled (default), the stage is shareable. If a shared stage is brought into a Maya scene in multiple instances (ex. multiple Maya proxyShapes use the same USD stage source), all occurrences of the stage will reflect the same edits when manipulated and behave the same way. </p>
+<ul>
+<li>Use case of shareable stage: If you Create a Stage from File in Maya using <code>ExistingStageExample</code> and add a new anonymous layer to it, it is expected that if you create another Stage from File with the same stage <code>ExistingStageExample</code>, this second stage will have the same new anonymous layer as well. <em>Any edits to a layer in one stage are reflected in all other uses of the same stage. The two different proxyShapes are sharing the same stage</em>. The stage's source File (as seen in the 'Stage Source' category in the Stage's AE template for USD) is one stage in memory. The two different proxyShape nodes grab this same stage because it's impossible to separate them as their 'Stage Source' is the same.</li>
+</ul>
+</li>
+<li><p><img src="../images/icon_usd_checkbox_empty.png" alt=""> <strong>Unshareable</strong>:  If disabled, the stage becomes unshareable. When unshareable, a stage is copied in memory as a ‘sandbox’ version with a pre-equipped root layer. Any edits to an unshareable stage are serialized into your Maya scene file.</p>
+<ul>
+<li>Use case of unshareable stage: When you have a shareable stage and then want to make it unshareable, it creates an exact copy of the stage but requires a unique factor to it, and hence implements a new anonymous root layer. <em>This means that the Stage Source doesn't change, the unshareable stage is still driven by a File or a Stage Cache, yet the new root layer allows it to exist as a unique stage</em>. Important: the new root layer cannot be saved to disk in an unshareable stage because if it could, then it would need to be shareable. Because the root layer is not saveable, the Save Stage icon disappears. Note: Any incoming layers (the layers powering the stage in the Stage Source) become uneditable. Any unsharebale stage thus allows you to create a 'sandbox' of edits for an existing stage and procedurally export those edits to a new file.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="stage-source">Stage Source</h4><ul>
+<li><p><strong>File</strong>: Load in a file as the stage source. </p>
+<ul>
+<li><img src="../images/icon_usd_loadsublayer_file.png" alt=""> Select the <em>folder icon</em> to bring up your file browser and locate a file on disk.   </li>
+<li><img src="../images/icon_usd_refresh_edits.png" alt=""> Select the <em>refresh icon</em> to reload the file as the stage source.</li>
+</ul>
+<div class="note note:"><span class="notetitle">Note:</span> When reloading or choosing a new file, you will be prompted to verify if you want to discard edits (if there are any) on your layers in your current stage.  </div>
+<div class="note tip:"><span class="tiptitle">Tip:</span> You can access your file path with the folder icon to change whether your USD stage is an absolute or relative path to your Maya scene file. If your USD stage file is saved as relative to your Maya scene file, the input of this field will display relative to the directory of where your saved Maya scene file is located. Refresh or reload when your changes are complete. To learn more about saving USD files relatively, see <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-9EF1E7A0-F187-4332-9232-62532A09D138">Make Path Relative</a>.</div>
+</li>
+</ul>
+<h4 id="stage-display">Stage Display</h4><ul>
+<li><strong>Time</strong>: Edits the current time value of a stage, which corresponds to the animation frame drawn in the viewport. By default, this value connects to Maya's global time node.</li>
+<li><strong>Prim Path</strong>: Specify the path of a prim to display it alone in the viewport. If a prim path is not specified or a matching prim path is not found, all prims in the stage are displayed.</li>
+<li><strong>Exclude Prim Path</strong>: Specify the path of a prim to exclude it from the viewport display. Multiple prim paths must be separated by a comma.</li>
+</ul>
+<h4 id="object-display">Object Display</h4><ul>
+<li><p><strong>Purpose</strong>: Toggle purpose categories on and off to change their visibility in the Viewport. Set the purpose of prims individually to use this category filter on the stage and witness the filter in the Viewport.</p>
+<div class="note note:">  <span class="notetitle">Note:</span> These checkboxes can work simultaneously. For example, Proxy and Guide can both be toggled on.</div>
+</li>
+</ul>
+<h2 id="attributes-for-a-prim">Attributes for a Prim</h2><p>Attributes for prims follow a schema-based categorization method. This system of schema inherits groups attributes per schema, allowing for custom attributes to follow their appropriate schema base. This system also allows for these custom schemas to be grouped by order in the schema inheritence system.</p>
+<p><span style="color: purple;"><strong>Related Concepts:</strong></span> To learn more about this inhertiance system, see the <a href="https://graphics.pixar.com/usd/docs/api/class_usd_schema_base.html#details" target="_blank">USD schema inheritance</a> diagram from the USD API documentation and <a href="https://graphics.pixar.com/usd/docs/Generating-New-Schema-Classes.html#GeneratingNewSchemaClasses-WhatisaSchemaClass?" target="_blank">USD schema classes</a> in the Pixar USD Glossary.</p>
+<h4 id="xformable">Xformable</h4><ul>
+<li>Transform operations are classified as one of UsdGeomXformOpTypes (translate, scale, rotatex, rotate, rotatez, rotateXYZ, orient, transform, etc.), which determines the type of transformation operation. By default, transform attributes are displayed in the Transform Attributes section, under Xformable operations of the Attribute Editor. All of the attributes are displayed in <code>Xform Op</code> order, followed by the <code>Xform Op Order</code> attribute. Each time you transform an object, the <code>Xform Op</code> attributes update.</li>
+</ul>
+<h4 id="imageable">Imageable</h4><ul>
+<li><p><strong>Visibility</strong>: When set to <strong>Invisible</strong>, the selected prim and its descendants are hidden in the Viewport. When set to <strong>Inherited</strong>, the visibility of the selected prim is the same as the prim's parent. For more information, see <a href="https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-Visibility" target="_blank">Visibility</a> in the Pixar USD Glossary.</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>Note:</div>
+<div class="callout-body">
+
+<p> This is connected to the Visibility option in the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-97358ED4-179F-4568-9382-7409E3F8E70A">USD context menu in the Outliner</a>. When you select <strong>Make Invisible</strong> from the Outliner context menu, this option is set to Invisible.</p>
+
+</div></div>
+
+</li>
+<li><p><strong>Purpose</strong>: Lets you classify prims (geometry) into visibility categories, so they can each be included or excluded from traversals of prims on a stage. Assign the purpose of a prim to specify its render fidelity in the viewport. When purpose is assigned to a prim, it overrides the purpose of its descendants. When purpose is set, the viewport display can be filtered by purpose categories under Object Display for the stage (proxyShape node).</p>
+<ul>
+<li><strong>Guide</strong>: Assign to prims intended as markings, lines, arrows or interaction guides.</li>
+<li><strong>Proxy</strong>: Assign to prims intended for lightweight proxy rendering.</li>
+<li><strong>Render</strong>: Assign to prims intended for final high-quality rendering.</li>
+</ul>
+<p>  <span style="color: purple;"><strong>Related Concepts:</strong></span> See <a href="https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-Purpose" target="_blank">Purpose</a> and <a href="https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-StageTraversal" target="_blank">Stage Traversal</a> in the Pixar USD Glossary.</p>
+</li>
+</ul>
+<h4 id="applied-schemas">Applied Schemas</h4><p>A schema class is a container of a usd prim that provides a layer of specific, named API atop the underlying scenegraph. For advanced users, USD provides a code generator script called 'usdGenSchema' for creating new schema classes. Schemas are customizable and these customized schemas are viewable from the Attribute Editor. The Attribute Editor also displays applied schemas on prims and groups attributes coming from applied schemas into their own category in the Attribute Editor.</p>
+<div class="note tip:"><span class="tiptitle">Tip:</span> If you script your own applied schema via your USD plug-in, that applied schema and attributes will appear in this category.</div>
+<h4 id="metadata">Metadata</h4><p>Prims and properties in USD can possess metadata, but metadata cannot itself have metadata.  Metadata are pre-loaded string values used  extensibly. However adding a new, named piece of metadata requires a change to a configuration file to do so, as Maya software needs to know definitively what the datatype of the metadatum should be.  </p>
+<ul>
+<li><strong>Prim Path</strong>: <em>(read-only)</em> This field shows the path of a selected prim.</li>
+<li><strong>Kind</strong>: Kind is a type of metadata used to classify prims in USD. Set the classification value from the dropdown in this menu to assign a kind category to a prim. Once, a kind value is set to a prim, you can activate <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-BF7327E1-B80D-4FAD-AFB0-2BAE3F7B0693">Selection by Kind</a>.</li>
+<li><strong>Active</strong>: If selected, the prim is set to active and contributes to the composition of a stage. If a prim is set to inactive, it doesn’t contribute to the composition of a stage (it gets striked out in the Outliner and is deactivated from the Viewport).</li>
+<li><strong>Instanceable</strong>:  If selected, instanceable is set to true for the prim and the prim is considered a candidate for <em>instancing</em>. For example, in the Script Editor, if selected, then the prim is now tagged for 'instanceable'. In the code, you can see the prim will have <code>instanceable = true</code>.</li>
+</ul>
+<h2 id="attributes-for-prims-with-dependencies">Attributes for Prims with Dependencies</h2><h3 id="relative-pathing-for-textures-and-references">Relative Pathing for Textures and References</h3><p>If you have MayaUSD and no LookdevX loaded, it is impossible to create a texture on a prim. You need LookdevX to do this. However, if you open a USD file with a texture already authored, you can change the texture to a relative path using the file browser in the Attribute Editor.  For example, you can add a texture on a rectLight or DomeLight prim relatively or even add a non-image file such as a media file on a SpacialAudio prim or a Maya file on a MayaReference prim. </p>
+<ol>
+<li>To do this, click on the folder icon <img src="../images/icon_usd_loadsublayer_file.png" alt=""> in the Attribute Editor of a file input you want to make relative and then toggle on <img src="../images/icon_usd_checkbox_full.png" alt=""> <strong>Make Path Relative to Edit Target Layer Directory</strong>.<ul>
+<li><strong>Make Path Relative to Edit Target Layer Directory:</strong> Enable this toggle to activate relative pathing to your current edit target layer’s directory. If this option is disabled, verify that your target layer is not anonymous and save it to disk. See <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-9EF1E7A0-F187-4332-9232-62532A09D138">Make Path Relative</a>. <ul>
+<li><strong>Path Preview</strong>: This field previews the path of your chosen working directory for your USD file, if you have relative pathing enabled. Note: The path preview for the file can vary for each individual as the file is handed off.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>When importing or exporting your texture file paths in USD, ensure you use the <strong>Texture File Paths</strong> toggle in the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-65E19505-E27D-4477-BD7D-7C0F2BC0D328">import</a> or <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-3A763D43-E626-4832-9824-57AAA9BC0A00">export</a> dialog to ensure your paths are saved relatively.</li>
+</ol>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>Parent page:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/GUID-2FFFAB8A-022B-42BF-9068-F5BAD45238A9.html">USD in the Maya Interface</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

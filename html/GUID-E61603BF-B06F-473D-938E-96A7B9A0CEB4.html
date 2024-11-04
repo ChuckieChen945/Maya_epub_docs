@@ -1,0 +1,103 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="采用以下两种方式之一，可覆盖应用于集合中对象的材质：创建材质覆盖（以覆盖着色组）或着色器覆盖（以覆盖表面着色器）。">
+<meta name="modified" content="25/06/2023">
+<meta name="topicid" content="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4">
+<meta name="language" content="CHS">
+<title>覆盖应用于集合中对象的材质</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>覆盖应用于集合中对象的材质</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="shortdesc">采用以下两种方式之一，可覆盖应用于集合中对象的材质：创建材质覆盖（以覆盖着色组）或着色器覆盖（以覆盖表面着色器）。
+  </p>
+<div class="note note" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__GUID-997A5398-EEE4-4011-A0DC-F8805C795D0E"><span class="notetitle">注：</span>  
+		<p class="p"> 若要标识与集合成员关联的曲面着色器和着色组节点，请单击集合<span class="ph uicontrol">“特性编辑器”(Property Editor)</span>中的<span class="ph uicontrol">“查看全部”(View All)</span>，然后启用<span class="ph uicontrol">“查看依存关系”(View Dependencies)</span>。 
+		</p>
+ 
+	 </div>
+<p class="li listintro">创建材质覆盖以覆盖着色组</p>
+<ol class="ol" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__OL_F68D5B7918EC4A2A9598D44D5B7ACB12"><li class="li" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__LI_867321FEAAF047359A321CD54C548004">在对象的集合上单击鼠标右键，然后选择<span class="ph uicontrol">“创建材质覆盖”(Create Material Override)</span>。
+		</li>
+<li class="li" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__LI_A2D139B75C8F4DA28E8405A98C27C0AF">在<span class="ph uicontrol">“特性编辑器”(Property Editor)</span>中，单击<span class="ph uicontrol">“覆盖材质”(Override Material)</span>属性旁边的贴图按钮<img class="image" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__IMAGE_6805FDC9F55A49E8835C77935FC733B6" src="../images/GUID-085F901A-F3E8-43AE-9060-FCA856106689.png">，并选择您要指定给集合中对象的新材质。
+		  <p class="p">若要使用现有材质覆盖对象的着色组，请按住鼠标中键并将其从<span class="ph uicontrol">“Hypershade</span><span class="ph uicontrol">浏览器”(Hypershade &gt; Browser)</span>面板拖动到<span class="ph uicontrol">“覆盖材料”(Override Material)</span>属性中。
+		  </p>
+ 
+		  <p class="p"><span class="ph uicontrol">“特性编辑器”(Property Editor)</span>中的<span class="ph uicontrol">“覆盖材料”</span>属性表示 *SG。例如，blinn2SG 表示覆盖连接到着色组。
+		  </p>
+ 
+		</li>
+<div class="note note" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__GUID-4F56E8DB-567B-4FDB-9462-5C3F1A0754FF"><span class="notetitle">注：</span>  
+		  <p class="p">原始着色材质与置换着色器之间的连接不会保留，这是因为着色组节点已被替换。若要保留此连接，则可改为创建着色器覆盖。
+		  </p>
+ 
+		  <p class="p">例如，应用环境光遮挡着色器以创建环境光遮挡的过程，便是一个常见的使用案例。在此示例中，如果创建材质覆盖并替换 blinn1SG，则将失去与 displacementShader 的连接，因此需要重新将 displacementShader 连接到新着色组。
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__FIG_2C06DA724534452D9F803A0289C4F2D2"><img class="image" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__IMAGE_7FFC911E6E654A94A3BCDCDD82CD11B9" src="../images/GUID-D3771021-32C9-4E6D-9EAE-63F3485CE412.png"></div>
+ 
+		  <p class="p">但是，您可以创建一个着色器覆盖，仅将 blinn1 着色器替换为环境光遮挡着色器。通过这种方式，可以保留与 displacementShader 的连接。 
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__FIG_898AB094804C4CB78A40947AED4881E6"><img class="image" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__IMAGE_9A5616325CF740E9B85ED0428C03F907" src="../images/GUID-A55C8E28-4E9B-481C-94BC-0DF08DA11B78.png"></div>
+ 
+		   
+		</div>
+</ol>
+<p class="li listintro">创建着色器覆盖以覆盖表面着色器</p>
+<ol class="ol" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__OL_01FF02487565479BB08549E1A01D3B2F"><div class="note note" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__GUID-4B0B08C1-977D-4E00-AC67-93A2135B7F05"><span class="notetitle">注：</span> 着色器覆盖不受对象支持，如未指定初始着色组的 Arnold 替代对象。但是，支持材质覆盖。
+		</div>
+<li class="li" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__LI_138A0A9110E1481CAC3CFBC9EA0204AE">在对象的集合上单击鼠标右键，然后选择<span class="ph uicontrol">“创建着色器覆盖”(Create Shader Override)</span>。
+		  <p class="p"> 已在对象集合之下创建 shadingEngines 子集合，以及对应的着色器覆盖。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__LI_D63D6663DB7E4F01A938424D6767742C">选择该着色器覆盖，在<span class="ph uicontrol">“特性编辑器”(Property Editor)</span>中，单击<span class="ph uicontrol">“覆盖着色器”(Override Shader)</span>属性旁边的贴图按钮<img class="image" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__IMAGE_2F507130FD5B40468E34FB1F07EF1DC4" src="../images/GUID-085F901A-F3E8-43AE-9060-FCA856106689.png">，然后选择您要指定给集合中对象的新表面着色器。
+		  <p class="p">若要使用现有的着色器覆盖对象的表面着色器，请按住鼠标中键并将其从<span class="ph uicontrol">“Hypershade”</span>拖动到<span class="ph uicontrol">“覆盖着色器”(Override Shader)</span>属性。
+		  </p>
+ 
+		</li>
+<div class="note note" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__GUID-8D75D206-51C3-4736-91FA-AD8CD0E1CC46"><span class="notetitle">注：</span>  
+		   
+		  <p class="p">着色器覆盖并非与集合特定相关。着色器覆盖将应用于位于同一层中且最初已指定相同的材质的所有对象（及其实例，即使这些对象属于不同的集合）。
+		  </p>
+ 
+		</div>
+</ol>
+<div class="note note" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__GUID-A0F65501-6905-4285-8B26-9ECA766C12A3"><span class="notetitle">注：</span> 如果将着色器覆盖导入到一个不含您指定给对象的新表面着色器的场景，则会在覆盖旁边显示 ！。若要解决此问题，请重新创建缺少的表面着色器，以将其重新连接到覆盖。重新创建缺少的着色器之后，层可见性图标 <img class="image" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__IMAGE_C16FF7326998408F8726EAC3DE4AC7C3" src="../images/GUID-7BFB60FC-AB73-409C-8460-0D2945F5E997.png"> 周围将显示红色边界；单击此图标可刷新层并查看更新的结果。这同样适用于材质覆盖。
+	 </div>
+<div class="section" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__SECTION_9D4DA8C41B8A439C917A408D9003B8E9"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__UL_DF8EADEB4CC74551A401740E61BAF4FE"><li class="li" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__LI_3933154C0D874213A8B58F843A68758D"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-D1880606-D6ED-4210-B86E-5B167389FC5C.htm" title="覆盖应用于集合中对象的着色器的颜色属性。">覆盖表面着色器的颜色</a> 
+		  </li>
+<li class="li" id="GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4__LI_3A9550CA3BAA4E4484B1AF72E2F2711F"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-D95BB1F1-0781-40C9-89F8-054F959D80E7.htm" title="通过拖放或在“特性编辑器”(Property Editor)中键入属性名称，可创建连接覆盖。">覆盖表面着色器上的属性连接</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-405E1713-CED2-4A07-A822-27A77C68D3FB.htm">覆盖对象的着色</a></div>
+</div>
+</div>
+
+</body>
+</html>

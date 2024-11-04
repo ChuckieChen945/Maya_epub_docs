@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="nHair 和 XGen;将 nHair 与 XGen 一起使用;">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02">
+<meta name="language" content="CHS">
+<title>使用动力学曲线设置头发、毛发或实例化样条线的动画</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用动力学曲线设置头发、毛发或实例化样条线的动画</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-97E1A509-2CAB-4384-9DFE-1EC49078C339">如果创建基于导向的描述，则可以使用 nHair 系统中的动力学曲线设置导向的动画。使用<span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-0786770C-8A6A-4908-9E71-99761A90CAC3">“曲线到导向”(Curves to Guides)</span>工具，可以将动力学曲线转化为导向，然后它驱动头发、毛发或实例化样条线。请注意，此工作流仅使用 nHair 系统中的动力学曲线。头发和毛发仍然基于 XGen。
+	 </p>
+<p class="p" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-00CA0237-5384-4E36-9758-8BA5278FD37B">可以使用同一技术设置其他类型的样条线基本体对象（如草、鳞片或羽毛）的动画。有关创建基于导向的描述的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-B3BEC412-9673-45E6-A92F-807A53607C91.htm" title="通过在角色网格上实例化样条线基本体，创建所有样式的头发和毛发。例如，将样条曲线用于长发或短发、眉毛、髭和胡须。也可以使用样条曲线为地形创建草、绳索和其他对象。">使用样条线基本体创建头发或毛发</a>。 
+	 </p>
+<div class="note tip" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-0D2CEAE2-B90F-4CDA-B93E-3D8DB4B650AD"><span class="tiptitle">提示：</span> 准备工作： 
+		<ul class="ul" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__UL_63117EB59C2643A28E78782C3818596F"><li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_B24A8FF6E2714DD6968B290BF0872510">定形导向以创建基础修饰或姿势。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-A7BD9C80-AEC1-476E-AEDB-1EC2439F71F2.htm">定形和控制 XGen 基本体</a>。 
+		  </li>
+<li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_531289F6DA724EEFAC007CB00DA38FEB">在 <span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-18A2238B-EB92-4E71-B0FE-78BF4AAE8A0B">XGen 编辑器</span>工具栏中，清除预览 (<img class="image" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__IMAGE_E9EDBE1FDDB041138BFCB41EA7E0CA5C" src="../images/GUID-C857C506-8960-4ECF-BC2D-85F6E4144536.png">)，然后禁用<span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-FE9874BC-C027-4104-ADF8-EC1D30483AE3">“自动更新预览”(Update Preview Automatically)</span>使查看曲线和导向动画变得更轻松。 
+		  </li>
+</ul>
+ 
+	 </div>
+<ol class="ol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__OL_92F2A642C32A4E8E94CF47B6370984FA"><li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_8633E99358E34F7E8BBE885F519E09B5">在 <span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-8FCD50EF-F05E-4211-AF9A-C005D989592E">XGen 编辑器</span>中，选择<span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-D01D598F-445B-4DC8-A0D4-388B5C879B94">“基本体”(Primitives)</span>选项卡。 
+		</li>
+<li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_6F91AC1F185E4FE6B2932DF8546CC6E5">在<span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-BB2D9156-2978-44E6-9E77-7ADD53EC2741">“导向动画”(Guide Animation)</span>部分中，启用<span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-3C504C5E-5BE6-4E9C-BD4A-69DE3A98CE4F">“使用动画”(Use Animation)</span>。 
+		</li>
+<li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_0345DDB666EA4AD19E123CD4DC3D24B1"> 单击<span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-3DD057BD-E290-437D-B0ED-63C981B9386E">“创建头发系统”(Create Hair System)</span>。 
+		</li>
+<li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_650597B52A474A88AC8B6C324B114EE9">在显示的<span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-29B636DF-7D25-49F8-9BAE-27F6A41DC3F2">“使曲线动力学化选项”(Make Curves Dynamic Options)</span>窗口中，执行以下操作： 
+		  <ul class="ul" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__UL_58F36C67A5AE4FB58EBD8DD7EAA60222"><li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_F466DBE3F94B4610AAF7E73E2CD50D93">将<span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-613F98D7-F211-4DEB-A19A-5803602264F7">“输出”(Output)</span>设置为<span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-F100F1C0-5044-4D79-8632-FE5CC612A332">“NURBS 曲线”(NURBS Curves)</span>。 
+			 </li>
+<li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_5271EAE1668249C49A4671B307A5F6EE">请确保所有其他选项都处于启用状态。 
+			 </li>
+<li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_25C8301DFB8641D8B50830BBE8025A75">单击<span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-CA1A6F09-F388-452A-9599-CD7AFC864AC1">“使曲线动力学化”(Make Curves Dynamic)</span>。 
+			 </li>
+</ul>
+ 
+		</li>
+<li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_00859A9C0F72494787D8442FFA01250A">在<span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-AEB704D8-4451-442B-B570-B7175E183BB1">“大纲视图”(Outliner)</span>窗口中，展开 <span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-3409D980-9B23-42C3-8109-FA5755AD2118">hairSystemOutputCurves</span>，然后选择所有曲线。 
+		</li>
+<li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_0E0D898B6B9B4B1AB60B6FB2D92655ED">在 <span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-1C7EBB26-EA5C-4313-91AB-78BF38093EE8">XGen 编辑器</span>中，单击<span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-7A7CD52F-9598-465F-BE5F-EDAF8247A8AA">“工具”(Utilities)</span>选项卡。 
+		</li>
+<li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_B39FC7C2E0BA4E9381F9BD2EA4DF95BD">选择<span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-0DDBC81B-9ADD-4126-8FD3-5DC986053794">“曲线到导向”(Curves to Guides)</span>：<img class="image" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__IMAGE_B785E25064A84BC489BE509B4E7A7451" src="../images/GUID-C280EE48-C98B-4114-B0F1-5E55725319EF.png">。 
+		</li>
+<li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_1D2ED30AB7E44F0D924A69FD990DE86D">在<span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-9D6F6CB8-C4AF-49DB-AC02-54B2DDDB67C3">“曲线到导向”(Curves To Guides)</span>下，执行以下操作： 
+		  <ul class="ul" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__UL_86C36877C7F8480BA04EFEF4C82B2B72"><li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_637CD08E052E4EECA6C6EA131A04F88C">禁用<span class="ph uicontrol">“删除曲线”(Delete Curves)</span>。 
+			 </li>
+<li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_E1C27962C11046648427F13D78CEE951">启用<span class="ph uicontrol">“保留动态链接”(Preserve Dynamic Link)</span>。 
+				<p class="p" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-7C7914E2-9D82-4C2C-AC21-3856BEE3EB07">启用时，此选项保持曲线和已转化导向之间的动态连接，以便导向继承曲线动画。 
+				</p>
+ 
+			 </li>
+</ul>
+ 
+		</li>
+<li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_69E357A18681431F87AE78515EE2378E">将所有其他<span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-D6FE9053-8FEB-43F1-8266-241862CE0F1C">“曲线到导向”(Curves to Guides)</span>选项调整为所需设置。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-1511C398-13D1-4D6D-917E-8E5A0A9C3C3A.htm">曲线到导向选项</a>。 
+		</li>
+<li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_8CE25F51CC0F4432BD2F350341E9DB09">单击<span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-A925843D-CB6B-4173-B897-0A784EB5EA76">“添加导向”(Add Guides)</span>。 
+		  <p class="p" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-A48B69D3-B830-4A0B-99B1-9DBEB13D54EE">Maya 将动力学曲线转化为新导向并隐藏原始导向。新导向将继承曲线动力学特性。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_B78336D10AF144BBAB4021B871826486">在<span class="ph uicontrol">大纲视图</span>中，选择隐藏的导向并将其删除。 
+		  <div class="fig fignone" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__FIG_79D34043A78841998608D5C42F35E301"><img class="image" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__IMAGE_9BD22E659888498499DF8F6C6977D4A6" src="../images/GUID-C78AC981-6BCC-49E6-A8D7-C279CE761A42.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_81656AEC3786417EA0849D1A447B8833">转到开始帧，然后播放模拟以查看已设置动画的导向。 
+		  <p class="p" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-A1AAF0DB-2932-4BA9-969E-E3892E7770AB">更新预览 (<img class="image" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__IMAGE_7779FBF433E44EE0BF53A0644CD0DB7B" src="../images/GUID-445BF179-66D6-4C05-B36E-B5BF4FE48900.png">) 并播放模拟以查看已设置动画的样条线。 
+		  </p>
+ 
+		  <p class="p" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-4B4BFCB1-F9A7-4DDD-88D0-C44220E64CDF">有关设置 nHair 系统的初始状态的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-AE68A63E-5A3F-4B3D-A51A-967011C8BE40.htm">设置头发曲线位置</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-27E0B850-53E8-4447-B554-A77E0A0BE298.htm">开始静止和当前位置曲线</a>。 
+		  </p>
+ 
+		</li>
+<p class="p" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-1D5CDBA7-65C9-436B-B4A8-C4151BEC89C6">使用 Nucleus 力（请参见 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-923F09A5-52AA-42A7-AC70-827204E50B61">nDynamics 模拟框架</a>）或 Maya 场（请参见 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-85AEE528-4477-46DF-8B9E-2E8AEC3C8784">Maya 场</a>）将更多动态运动添加到样条线基本体。添加 XGen 修改器（如<span class="ph uicontrol" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__GUID-C9D30D50-8499-4E66-9451-3A29A11B0E8A">“风”(Wind)</span>）（请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-E80653AE-67DA-436B-9B2D-98EB9CA20EF5.htm">XGen 风修改器选项</a>），以便为非动态运动创建。 
+	 </p>
+</ol>
+<div class="section" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__SECTION_A9A6AAC1B7D842FF91404C83E849CEEC"><h2 class="title sectiontitle">相关任务</h2> 
+		 
+		<ul class="ul" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__UL_B1CD51253D9B452484365D522D647A06"><li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_14A70DC6CF584882A25B69B7EFFB8C80"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-796D1CDE-73B4-4356-8144-006BD24F11D0.htm">保存并设置用于渲染的动力学曲线</a> 
+		  </li>
+<li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_800AD7D89FC14E8CBAE57E678A8B06C0"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02.htm">通过附加 nHair 系统设置导向的动画</a> 
+		  </li>
+<li class="li" id="GUID-355CC94C-BE59-4B16-AD0A-3FA336DFEA02__LI_21751FFEEF434EFA9FB913CAC99EFB9A"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-696C7063-42F5-4965-A9D3-9FB0CBCF1A57.htm">使用动画线修改器设置样条线基本体的动画</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-2F744E30-2632-4045-A564-E010FD57AC01.htm">设置头发、毛发或实例化样条线的动画</a></div>
+</div>
+</div>
+
+</body>
+</html>

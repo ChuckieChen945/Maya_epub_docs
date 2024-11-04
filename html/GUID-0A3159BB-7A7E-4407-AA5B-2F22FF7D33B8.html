@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="核心配置">
+<meta name="modified" content="25/06/2023">
+<meta name="topicid" content="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8">
+<meta name="language" content="CHS">
+<title>使用 ogsfx 文件中的 include 指令加载顶点和碎片着色器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 ogsfx 文件中的 include 指令加载顶点和碎片着色器</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-7A865A5C-6C02-4D0A-9DE1-63C22EC393DF"> 在 Maya 安装的 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-F9527046-05DB-4E12-8570-505A91D3E04F">presets\GLSL\examples</samp> 文件夹中提供了一个示例，演示如何使用 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-AEBBB814-5E4C-4AF3-B2CA-5CAFCA47D153">.ogsfx</samp> 文件中的 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-F5B93745-6193-48E2-B9F9-872016D48A40">#include</samp> 指令加载顶点和碎片着色器。
+	 </p>
+<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-3782AD78-DAB2-4BF0-976C-5D7278B9CDDE">使用 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-44B07B72-1225-431F-A411-2D845025CA3A">#include</samp> 指令，可以保留现有的 GLSL 着色器代码，而不必将它全部组合到一个 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-CF1C5BC5-9134-4593-8FDF-3BF03648F4FC">.ogsfx</samp> 文件中。这样，就可以在不同的应用程序之间共享同一 GLSL 片段。
+	 </p>
+<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-249F5721-5EF6-4380-AE7E-B0C6150E61CB">示例包含以下文件：
+	 </p>
+<ul class="ul" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__UL_0B0569449B5946FCB4CE45EF757F61B7"><li class="li" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__LI_1521209AA46B422E9B7C33B3D6144DBA"> 
+		  <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-339DCE6A-6C50-49A0-A053-477EB34144DA">Brix.ogsfx</samp> 
+		</li>
+<li class="li" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__LI_638F67B57DE0487A9F6D8F48A6B77041"> 
+		  <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-6BF0CB2F-0367-4727-A695-C876E86B8180">Brix.glslf</samp> 
+		</li>
+<li class="li" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__LI_FEB4D0B1DBF240EBB7AC6326D43EE53E"> 
+		  <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-61016F58-F94B-4540-84EF-F2434360C46C">Brix.glslv</samp> 
+		</li>
+</ul>
+<div class="section" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__SECTION_2CCC6FE82B7F441EA4CE171798E162C5"><h2 class="title sectiontitle">统一参数的定义</h2> 
+		 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-9597D18C-1291-4E46-8D2D-D77883271715"><samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-C6392288-576E-41AF-AA2B-23E923F6287C">.ogsfx</samp> 文件从定义统一参数开始。
+		</p>
+ 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-2D89438D-72C3-45E5-9F1E-ABC0575CAD01">HIDE_OGSFX_UNIFORMS 设置为 0，<samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-1DEC94EA-73A3-4FC1-B95B-8B2784393D18">#include</samp> 指令用于导入 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-F6C7C603-494F-4EB2-AD13-2EE9999E7410">Brix.glslf</samp> 和 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-8FE694DA-4EC7-4C32-8248-264227BE2200">Brix.glslv</samp> 着色器文件。
+		</p>
+ 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-537721C5-195F-4D31-A126-BFEA73BD0413"><samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-C0ADF7B9-6A88-4BF8-A9AD-153FE824CA45">Brix.glslf</samp> 和 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-E528288B-E77A-48BB-9709-99F00B502D71">Brix.glslv</samp> 着色器文件中包裹在 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-C04CAD1C-A5F1-44D3-9317-D2F0D1B8BC7D">#if !HIDE_OGSFX_UNIFORMS</samp> 和 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-A3447D51-BCB6-47D7-B376-2AD5094B7588">#endif</samp> 内的代码（由预处理器）插入到已扩展的中间临时 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-6E230107-74AE-4834-B8A8-29BD5D3EEEAA">.ogsfx</samp> 文件中，然后对它进行编译。仅在已完全预处理原始的 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-4A299E16-4DE6-493B-B858-08ACA110B4C3">.ogsfx</samp> 文件后，才会编译此临时 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-B8E83C7B-F03C-455C-BBBF-46F8CE15AD6B">.ogsfx</samp> 文件。
+		</p>
+ 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-CEC111A6-0C36-4AAA-9F1E-908888ABC7E8">在 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-0311C10B-081D-49EE-9644-82B1BCDFF335">#if !HIDE_OGSFX_UNIFORMS</samp> 和 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-9F492F0C-E801-4879-AF2A-449962FC7D65">#endif</samp> 包裹器内，<samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-5F31F811-C487-4BEA-B7D3-5C53B2CD7838">#if OGSFX</samp> 和 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-F7CBADE0-3165-4E23-9E84-C216FE0FF3F6">#endif</samp> 语句用于包裹 OGSFX 特定的代码。
+		</p>
+ 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-6F91F127-7869-4549-B712-4D3095674BAB">使用 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-E5419B05-E61D-45E5-9DA9-333EE1859A0D">#if</samp> 和 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-2A828F80-AF08-4720-8DF7-C1C573F56D0D">#endif</samp> 包裹器内的 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-6A77E08B-9F63-470D-9A2E-E2D7BBF2B7DD">#else</samp> 可为使用 GLSL 的其他第三方应用程序定义统一参数。
+		</p>
+ 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-3921431C-6A79-4C11-A41D-B71320AA842F">在 OGSFX 统一参数定义中，诸如 World 和 WorldInverseTranspose 之类的语义用于向 Maya 指示统一参数的含义。
+		</p>
+ 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-5D10BB5D-CAF3-4E0A-8B15-25B6ADD805BB">例如：
+		</p>
+ 
+		<pre class="pre codeblock">uniform mat4 gWorldITXf : WorldInverseTranspose &lt; string UIWidget="None"; &gt;;</pre>
+ 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-E262B108-D959-4FEC-970E-DAED1EF602C8">向 Maya 指示 gWorldITXf 是矩阵 4，它包含 World 变换信息（已反转并转置）。
+		</p>
+ 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-62EB9BAC-9273-42DE-BA74-16DCFC1AC90A">有关 Maya Viewport 2.0 支持的语义列表，请参见 Maya 开发人员帮助的“Viewport 2.0 API”部分中的“Viewport 2.0 支持的着色器语义”。
+		</p>
+ 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-62F979C3-0592-4B80-B112-CF91F34697E4">光特定的语义（如 DIRECTION 和 AMBIENT）允许光由 Maya 驱动。例如，AMBIENT 允许用户在 Maya <span class="ph uicontrol" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-5822AC95-3B8E-4E84-8348-9B1A2CD370FF">属性编辑器</span>中设置环境光颜色。
+		</p>
+ 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-9C480FC5-5335-41EF-861C-8AB6FE96D2D5">Maya 中的 GLSL 着色器支持在 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D.htm">Viewport 2.0 中 dx11Shader 插件支持的语义和注释</a>上列出的所有语义。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__SECTION_419BCBEA43934927A2635CEA0E7DD59D"><h2 class="title sectiontitle">输入流和输出流的定义</h2> 
+		 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-F0C087EB-1F2F-48AF-86B5-4779A5FB2D16">然后 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-A473E89E-51F9-4CBB-BE37-6F32D78F1E85">.ogsfx</samp> 文件定义输入流和输出流。
+		</p>
+ 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-ABD99A8C-483A-4679-B241-DDBEB38C7F19">HIDE_OGSFX_STREAMS 设置为 0，<samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-3DFF4D42-5391-47DD-9414-F4E03A4254A8">#include</samp> 指令用于导入 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-8EB09D01-BB05-4D07-968B-A438A744663C">Brix.glslf</samp> 和 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-92EA4929-E9F1-41C5-9C0A-A899CC16514A">Brix.glslv</samp> 着色器文件。
+		</p>
+ 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-B5417734-66E9-4F3C-8188-BFEF3618D98B">编译了顶点和碎片着色器文件中包裹在 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-06340B77-5980-448C-A017-5A10A2092038">#if !HIDE_OGSFX_STREAMS</samp> 和 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-CBF3AE99-3B3C-4D31-9670-166A6AD78A49">#endif</samp> 内的代码。
+		</p>
+ 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-988205C2-14FE-4F90-93E1-7A09DED38217">在 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-644D5847-8213-486A-942E-0C63B9AD5589">#if !HIDE_OGSFX_STREAMS</samp> 和 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-989ECFDE-F8BE-4E03-BC14-FCEDF45C9F71">#endif</samp> 包裹器内，<samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-7FE4F5B7-5424-4BA6-96D3-AD7334FE4508">#if OGSFX</samp> 和 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-30A515AB-BF15-4A7F-9534-5615F25D6DE4">#endif</samp> 语句将再次用于包裹 OGSFX 特定的代码。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__SECTION_4A05CCF25F3B4C6F8031F81A0E68F777"><h2 class="title sectiontitle">实现顶点和碎片着色器的主要功能</h2> 
+		 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-80BCCD48-735A-4C52-A556-9B2EAC9C9561">然后 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-E3AB0ACB-82C9-4DC1-89B7-0A78A9493E3A">.ogsfx</samp> 文件实现顶点和碎片着色器的 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-5BB29292-C379-4196-8926-9DE796197BB4">main()</samp> 函数。
+		</p>
+ 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-D7D564A8-4497-406C-B680-9C06C38E4DC9">例如，HIDE_OGSFX_CODE 设置为 0，使用 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-20998876-5643-40B5-9774-C756BFE3BB8D">#include</samp> 指令在单独的 GLSLShader 块内加载顶点和碎片着色器，如下所示：
+		</p>
+ 
+		<pre class="pre codeblock">GLSLShader VS
+{
+#include "Brix.glslv"
+}</pre>
+ 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-8CD4C3DB-2722-4F69-9136-4C655EFD7EB0">编译了顶点和碎片着色器中包裹在 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-7E058A9F-5EDF-4BD5-8781-86A215199B51">#if !HIDE_OGSFX_CODE</samp> 和 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-45388157-BC9A-4169-921F-E8066EC67675">#endif</samp> 语句内的 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-6DA7C27C-E81C-4B63-957D-780AFC7ABF39">main()</samp> 函数。只需要一个 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-1B133537-C166-41DC-8E89-A5FD0FB822A4">main()</samp> 函数，但是 main() 可以定义和调用其他函数。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__SECTION_01948310AC9F4B3D9127C2D667631607"><h2 class="title sectiontitle">技术的定义</h2> 
+		 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-F95919C0-D69B-4B44-AD89-C5C3B9F9CD3B">一个技术可以包含一个或多个过程。每个过程定义渲染对象的特定方式，并指定应该使用的顶点着色器和像素着色器。
+		</p>
+ 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-AD8659A2-0D30-40BF-8715-29C5B978A331">您可以指定多个技术，如果具有多个顶点着色器和/或多个碎片着色器，则可以指定要将哪个着色器用于每个技术。在此示例中，仅定义了一个主技术。
+		</p>
+ 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-06F86186-B6E8-4D4F-ACF0-5CF7FF4F2945">在代码处理部分中，<samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-962320CB-5FCB-46E1-A098-CFA06AD658A5">Brix.glslv</samp> 已加载并定义为 VS。
+		</p>
+ 
+		<pre class="pre codeblock">GLSLShader VS
+{
+#include "Brix.glslv"
+}</pre>
+ 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-922716D3-509E-495A-BB10-EE3553337D0F">此处，在技术定义中，使用 VS 标识相同的顶点着色器文件：
+		</p>
+ 
+		<pre class="pre codeblock">VertexShader (in appdata, out brixVertexOutput) = VS;</pre>
+ 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-7A17F865-9D7D-4C5A-8C07-7D61B4D10931">请确保在指定顶点和碎片着色器时列出的输入和输出参数与在顶点着色器和碎片着色器文件中定义的参数一致。
+		</p>
+ 
+		<p class="p" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-1012ACAC-FC1E-49BE-B736-EE3496951F5E">例如，在 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-A7FF806D-D3DA-4471-8C46-7E699A462439">Brix.glslv</samp> 中必须有名为 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-F58E4F9F-836D-414F-8728-F6B3380900E2">appdata</samp> 的匹配输入和名为 <samp class="ph codeph" id="GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8__GUID-B5A5141B-50C8-4903-B22C-28217A208360">brixVertexOutput</samp> 的匹配输出。
+		</p>
+ 
+		<pre class="pre codeblock">VertexShader (in appdata, out brixVertexOutput) = VS;</pre>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-41D74556-0699-4F4E-8382-F9E69FBFC158.htm">创建和可视化 GLSL 着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

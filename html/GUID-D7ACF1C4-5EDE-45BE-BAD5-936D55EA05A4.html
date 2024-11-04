@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4">
+<meta name="language" content="CHS">
+<title>意外的属性值</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>意外的属性值</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-948"> 使用表达式时，您有时会看到意外的属性值。以下主题描述一些引起混乱的常见原因。</p>
+<div class="note attention" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-946"><span class="attentiontitle">注意：</span> 
+<p class="p" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__GUID-6CCFD931-4E8A-465B-9CC6-FAD5812F6A08">编辑表达式并单击<span class="ph uicontrol" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__GUID-5C5556E3-EECB-4EC8-8405-C565E4A4123E">“创建”(Create)</span>按钮之后，请始终检查<span class="ph uicontrol" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__GUID-C320D2CC-57C7-4245-8DBE-43D61CB71D9C">“脚本编辑器”(Script Editor)</span>中是否出现错误消息。如果改变以前成功运行的表达式、且出现语法错误，则 Maya 将在播放动画时执行上一个成功运行的表达式。这可能会导致您认为编辑更改已生效。 </p>
+
+</div>
+<div class="section" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-945"><h2 class="title sectiontitle">回放之后出现的值</h2>
+
+<p class="p" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-944"> 回放场景时，表达式将使用为属性值进行的上一个设置来执行。这有时会产生意外结果。</p>
+
+<div class="section" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-942"><h3 class="title sectiontitle">示例</h3>
+
+<pre class="pre codeblock">
+Ball.tx = $distance;
+$distance = time;
+</pre>
+
+<p class="p" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-941">对于该示例，假定已将动画的开始帧设定为帧 0。</p>
+
+<p class="p" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-940">第一个语句将 Ball.tx 设定为变量 $distance。第二个语句将 $distance 设定为时间值。</p>
+
+<p class="p" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-93F">播放动画时，球将使用时间增量沿 X 轴移动。球的 X 轴位置为 4 栅格单位（例如，当动画时间等于 4 秒时）。</p>
+
+<p class="p" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-93E">回放动画时，沿 X 轴的球的位置不会按照您的预期返回到 0。表达式在时间等于 4 时，其上一个执行已将 $distance 变量设定为 4。因此回放会将 Ball.tx 设定为 4，然后将 $distance 的值设定为 0（即：回放时的时间值）。 </p>
+
+<p class="p" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-93D">如果再次回放，则沿 X 轴的球的位置将按照您的预期返回到 0。这是因为回放时，表达式的上一个执行会将 $distance 设定为 0，所以该表达式会立即将 Ball.tx 正确设定为 0。 </p>
+
+<p class="p" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-93C">若要修复该问题，请反转语句的顺序并编译表达式：</p>
+
+<pre class="pre codeblock">
+$distance = time;
+Ball.tx = $distance;
+</pre>
+
+<p class="p" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-93B">播放并回放表达式之后，第一个语句将会执行，并将时间指定给 $distance。下一个语句会将 $distance 值（即：第一语句设定的时间值）指定给 Ball.tx。由于第一个语句在回放之后将 $distance 设定为 0 ，因此 Ball 将返回到所需的 translateX 位置。</p>
+
+</div>
+
+</div>
+<div class="section" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-93A"><h2 class="title sectiontitle">增量操作</h2>
+
+<p class="p" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-939"> 如果在设置动画期间增加属性或变量，则可能会对其行为感到非常困惑。 </p>
+
+<div class="section" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-937"><h3 class="title sectiontitle">示例</h3>
+
+<pre class="pre codeblock">
+Ball.ty = 0;
+Ball.ty = Ball.ty + 1;
+</pre>
+
+<p class="p" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-936">球的 translateY 位置沿 Y 轴停留在第 1 个单位处。播放动画时，球的 translateY 位置不会按每一帧增加 1。</p>
+
+</div>
+
+<div class="section" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-935"><h3 class="title sectiontitle">示例</h3>
+
+<pre class="pre codeblock">
+Ball.ty = Ball.ty + 1;
+</pre>
+
+<p class="p" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-934">播放动画时，球的 translateY 位置将按每一帧增加 1。回放动画时，translateY 将再次增加 1。 </p>
+
+<p class="p" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-933">再次播放动画时，translateY 位置将按每一帧增加 1。如果回放动画或拖动当前时间指示器，则 translateY 位置将继续沿 Y 轴向上移动。该属性从不会返回其原始位置。</p>
+
+<p class="p" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-932">若要在每次回放时将球返回到开始位置，则必须将属性初始化为开始值。例如，可以使用以下表达式：</p>
+
+<pre class="pre codeblock">
+Ball.ty = Ball.ty + 1;
+if (frame == 1)
+	Ball.translateY = 0;
+</pre>
+
+<p class="p" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-931">这会在回放到帧 1 时，使球返回到为 0 的 Y 位置。但是，拖动当前时间指示器时，球不会返回到为 0 的 Y 位置。 </p>
+
+<p class="p" id="GUID-D7ACF1C4-5EDE-45BE-BAD5-936D55EA05A4__WS73099CC142F48755-3D114B7511841AEFA9F-930">仅当播放帧 1 播放时，if 语句才会将 translateY 的值重置为 0。帧 1 是回放动画时播放的默认帧。如果已将动画设定为在不同的帧中开始，则需在 if 语句中使用不同的帧编号。</p>
+
+</div>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B0A92424-8666-4669-97D7-B16F718FA3FD.htm">高级动画表达式主题</a></div>
+</div>
+</div>
+
+</body>
+</html>

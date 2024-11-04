@@ -1,0 +1,412 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="集合有两个用途：可以使用集合填充层；或者，可以将多个节点分到一个集合中，然后通过一个步骤将属性覆盖到所有这些节点上。通过提供表达式和/或通过从视口或“大纲视图”(Outliner)中选择节点，可以填充集合。">
+<meta name="indexterm" content="名称空间集合">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4">
+<meta name="language" content="CHS">
+<title>为渲染层创建集合</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>为渲染层创建集合</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="shortdesc">集合有两个用途：可以使用集合填充层；或者，可以将多个节点分到一个集合中，然后通过一个步骤将属性覆盖到所有这些节点上。通过提供表达式和/或通过从视口或<span class="ph uicontrol">“大纲视图”(Outliner)</span>中选择节点，可以填充集合。 
+  </p>
+<p class="p">集合可用于轻松管理复杂场景中的数据更改。 
+	 </p>
+<p class="p">创建集合，以便根据要在场景中覆盖的属性对节点进行分组。创建集合还可对节点进行分组，使您能够同时控制其可见性。 
+	 </p>
+<p class="p">集合成员身份基于名称。使用表达式将节点添加到集合时，名称与表达式匹配的所有节点将自动包括在内。可以重新应用该表达式，动态地适应场景中的更改。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-3E5B3B94-B132-490E-B4F2-569CEB0AAC54.htm">更新场景时更新渲染设置</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-AA669F09-9CDB-4327-BC37-3E4ECD6A0E69.htm" title="若要将非破坏性更改应用于场景，可以为集合创建覆盖。通过禁用覆盖、使其不会应用，您可以轻松将属性恢复为其原始状态。通过启用和禁用操作体验不同的覆盖。">在渲染层中为集合创建覆盖</a>。 
+	 </p>
+<p class="p">若要控制集合的可见性，您可以启用或禁用集合，这样只有已启用的集合才会影响场景且可见。此外，您还可以隔离选择集合，以便只有这些集合在视口中可见。通过此功能，您能够最少的步骤控制多个对象的可见性。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-2B94C5A1-70DE-4280-BB44-9370C5B778A5.htm" title="通过启用或禁用集合控制其可见性。只有已启用的集合才会影响层且可见。">控制集合的可见性</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-B0D3C738-A606-4001-B34D-4C3B4880BAC1.htm" title="使用隔离选择有助于重点关注视口中已启用的一个或多个集合。">在视口中显示集合的隔离子集</a>。 
+	 </p>
+<p class="p">集合<em class="ph i"><strong class="ph b">自上而下进行解释</strong></em>。在可见性和覆盖应用这两个方面，较低的集合均优先于较高的集合。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-AA669F09-9CDB-4327-BC37-3E4ECD6A0E69.htm#GUID-AA669F09-9CDB-4327-BC37-3E4ECD6A0E69__SECTION_352206A469CD4AF5B98F7C7ED22E1308">覆盖的应用顺序</a>。通过使用鼠标中键进行拖放，可以在<span class="ph uicontrol">渲染设置</span>编辑器中对集合重新排序。 
+	 </p>
+<div class="section" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__SECTION_09CD1954F3DF44FDBF50BD9BA3AA5632"><h2 class="title sectiontitle">集合类型</h2> 
+		 
+		<p class="p">默认情况下，集合仅包含变换节点，这些节点将确定当层可见时您在视口中看到的对象。集合上的变换类型 <img class="image" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__IMAGE_C7FB7815700C4037831DE9FD68F5A85F" src="../images/GUID-1C66082B-2A34-46EB-99D1-AC43C4C9ADB1.png"> 指示器反映了这一点。 
+		</p>
+ 
+		<p class="p">当您创建覆盖时，系统将自动创建包含其他节点类型（例如，形状、着色器或着色组）的子集合。Maya 会自动识别被覆盖的节点类型并创建仅包含该节点类型的子集合。集合上将显示节点类型指示器（例如，<img class="image" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__IMAGE_78413398C9154EAC97AB568689E0340E" src="../images/GUID-F7A7FA7F-2AFE-49F8-8702-83948C394844.png"> 或 <img class="image" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__IMAGE_D48159E7511A409FADFBBAF2AB4F0EA4" src="../images/GUID-87E023FE-558E-41D3-B03A-2C5B54FFF545.png">），用于表示其成员类型。有关节点类型的详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-21B83FF0-0435-4087-8C2E-23B420028B71">节点类型</a>。 
+		</p>
+ 
+		<p class="p">但是，若要进行附加控制，您还可以创建任何节点类型的集合与子集合。从<span class="ph uicontrol">“特性编辑器”(Property Editor)</span>的<span class="ph uicontrol">“集合过滤器”(Collection Filters)</span>下拉列表中选择选择所需的节点类型。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-80F24E1B-AC00-4A60-A3AF-FE0A8321AE5E.htm" title="使用“集合过滤器”(Collection Filters)功能可仅向集合添加形状、着色器和集等。此外，您还可以创建自定义过滤器，以添加感兴趣的特定节点类型。">按节点类型添加集合成员</a>。 
+		</p>
+ 
+		<p class="p" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-867738FB-72B8-41A1-B36C-2F25E54E377D"> 一个渲染层中可能存在一个或多个集合，而一个集合中可能存在一个或多个子集合。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-40AFAB32-F2AC-479B-AB98-307DCECCBCB4.htm" title="场景分为若干层。层通过集合填充，并包含要包括在渲染中的对象。">创建渲染层</a>。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__SECTION_64B7AB2DAB25461EB7CB6E1005F5E6BB"><h2 class="title sectiontitle">创建集合</h2> 
+		 
+		<p class="p" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-DB30A264-0556-4370-9F10-E098669705CB">若要创建集合，请在渲染层上单击鼠标右键，然后选择<span class="ph uicontrol" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-A3A7E998-B6CD-4765-95F4-C405F87371AA">“创建集合”(Create Collection)</span>。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__SECTION_01B883F94B7C43179B1A02B28FB85AC7"><h2 class="title sectiontitle">向集合添加成员</h2> 
+		 
+		<p class="p" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-95560DFE-83B7-4E33-868D-B8DC200D9698">选择一个集合，其属性将显示在<span class="ph uicontrol" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-31B9A3BE-1B1D-4DAD-9055-E2F91A36186C">“特性编辑器”(Property Editor)</span>中。您可通过执行以下操作之一来向集合添加节点： 
+		</p>
+ 
+		<ul class="ul" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__UL_2242DF1AC18F46B99B51DF31D1A4A9AD"><li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_3C143F38809E4067898656EC235BF005">在<span class="ph uicontrol">“包含”(Include)</span>字段中输入表达式 
+		  </li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_6E3B31FFC18F43549D06C231E9828FB1"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-8E244DC6-53FA-477C-95FB-67154C407BD4.htm#GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__SECTION_2ED486C1EE2E4522873B328DDD6DAE27">显式选择并添加节点</a> 
+		  </li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_67413B30764542448E1E70F7CB6DE01A">结合使用二者。 
+		  </li>
+</ul>
+ 
+		<p class="p">可以将同一节点添加到多个集合。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__FIG_C47FE180F6014C6F8C145A6611F0D273"><img class="image" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__IMAGE_ACC12910BD414DD58FBB5719A8769599" src="../images/GUID-66425ED2-028B-4B84-B52C-6E5CF8DA51A5.png"></div>
+ 
+		<div class="section" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__SECTION_F1C9E3BEA7BD40A2AE06FF0E658E957F"><h3 class="title sectiontitle">通过表达式添加成员</h3> 
+		   
+		  <p class="p" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-E5D8A158-4BE8-4B7E-9A3A-76DCE1508F81">在表达式中使用通配符可将节点包含在集合中；例如，使用 building* 可将名称以 <em class="ph i" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-4EBD728C-8F64-4BA5-97C7-B136C2C69681">building</em> 开头的所有节点包括在内。<samp class="ph codeph" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-6327E002-B48B-4B84-B822-1F1751E1F5F0">ls</samp> 命令支持的所有通配符也可用于此表达式。 
+		  </p>
+ 
+		  <div class="note note" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-CF2B2C4E-E986-4468-96D9-AF49CBD42C85"><span class="notetitle">注：</span>  
+			 <p class="p">默认情况下，只有与表达式匹配的变换节点才会包含在集合中。对于高级用户，您可以使用<span class="ph uicontrol">“集合过滤器”(Collection Filters)</span>下拉菜单调整集合过滤器，从而将其他类型的节点包含在集合中；例如：着色器、形状、着色引擎和集等。通过选择<span class="ph uicontrol">“全部”(All)</span>集合过滤器，您甚至可以包含所有节点，而不考虑类型。 
+			 </p>
+ 
+		  </div>
+ 
+		  <p class="p"><strong class="ph b">表达式区分大小写</strong>；例如，*cushion* 与 *Cushion* 不同。 
+		  </p>
+ 
+		  <p class="p" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-AA0BA336-6062-4BA6-96AE-BDAD373ACC04">在此示例中，表达式 Mesh_K* 将 Killamari 的身体、两只眼睛和眼镜包含在集合中。 
+		  </p>
+ 
+		  <div class="note tip" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-C0794E37-BB1A-48A9-B4B5-9661DA887E09"><span class="tiptitle">提示：</span>  还可以使用表达式将着色器包含在集合中。例如，如果场景中有十只猫，且着色器命名为 cat1_body、cat2_body，依此类推，则可创建一个集合，然后使用表达式 cat*body 将所有猫身体着色器包含在一个集合中。 
+		  </div>
+ 
+		  <div class="fig fignone" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__FIG_7903BDDCBF6C4D4887EA5134F041324B"><img class="image" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__IMAGE_C9796881EE6E472EBA9DC306700A365D" src="../images/GUID-B27DC5F6-0832-4540-BC0F-086CA8BA6E36.png"></div>
+ 
+		  <div class="section" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__SECTION_BC34B05713DE4EC991ADF1BE8E87FA3A"><h4 class="title sectiontitle">使用表达式包含名称中带有名称空间的成员</h4> 
+			  
+			 <p class="p">可以使用表达式和通配符包含名称中带有名称空间的节点。对每个名称空间使用通配符。 
+			 </p>
+ 
+			 <p class="p">例如： 
+			 </p>
+ 
+			 <p class="p">以下表达式将选择名为 <samp class="ph codeph">livingRoom_substances</samp> 的名称空间中的所有节点。例如：livingRoom_substances:greenapple4。 
+			 </p>
+ 
+			 <pre class="pre codeblock">livingRoom_substances:*</pre>
+ 
+			 <p class="p">以下表达式也会选择该名称空间中的节点，但仅限于名称以 <samp class="ph codeph">c</samp> 开头的节点。例如：livingRoom_substances:couchB。 
+			 </p>
+ 
+			 <pre class="pre codeblock">livingRoom_substances:c*</pre>
+ 
+			 <p class="p">但是，它与 livingRoom_substances:chairB_v08:chairB 等对象不匹配。在这种情况下，您可以使用： 
+			 </p>
+ 
+			 <pre class="pre codeblock">livingRoom_substances::c*</pre>
+ 
+			 <p class="p">第三个表达式以递归方式匹配嵌套的名称空间。 
+			 </p>
+ 
+			 <p class="p">使用语法 <strong class="ph b">::</strong> 可表示<strong class="ph b">递归名称空间搜索</strong>。 
+			 </p>
+ 
+			 <p class="p">此 <samp class="ph codeph">livingRoom_substances::c*</samp> 表达式表示第一个名称空间必须是 <samp class="ph codeph">livingRoom_substances</samp>，且节点名称必须以 c 开头，但是二者之间可存在任意数量的名称空间，或者也可以完全没有任何名称空间。 
+			 </p>
+ 
+			 <p class="p">例如，以下节点均包含在该表达式中： 
+			 </p>
+ 
+			 <ul class="ul" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__UL_F8A534D1AC7D4ED49A583E1E52D773E1"><li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_7F13EEBAAB094C9289961826373DBE1D"><samp class="ph codeph">livingRoom_substances:couchB</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_AE146A00AAF74956AD680E03004F58B8"><samp class="ph codeph">livingRoom_substances:chairB_v08:chairB</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_86EF6375445F4DD0A43FA768E9613333"><samp class="ph codeph">livingRoom_substances:tables:coffeeTable_v08:coffeeTable</samp> 
+				</li>
+</ul>
+ 
+			 <p class="p">如果您不想包括所有嵌套的名称空间；例如，您只希望包括两个嵌套的名称空间，以添加如下所示的节点： 
+			 </p>
+ 
+			 <pre class="pre codeblock">livingRoom_substances:chairB_v08:chairB</pre>
+ 
+			 <p class="p">而不添加  
+				<samp class="ph codeph">livingRoom_substances:couchB</samp> 或  
+				<samp class="ph codeph">livingRoom_substances:tables:coffeeTable_v08:coffeeTable</samp>。 
+			 </p>
+ 
+			 <p class="p">您可以在表达式中使用 : 代替 :: 来明确指定名称空间，而不是以递归方式搜索： 
+			 </p>
+ 
+			 <pre class="pre codeblock">livingRoom_substances:*:c*</pre>
+ 
+			 <p class="p">此表达式匹配的节点具有以下特点：第一个名称空间是 <samp class="ph codeph">livingRoom_substances</samp>，第二个名称空间可以是任何内容，并且节点名称以 <samp class="ph codeph">c</samp> 开头。 
+			 </p>
+ 
+			 <p class="p">您可以在表达式中的任意位置使用 :: 语法，甚至是在表达式开头。 
+			 </p>
+ 
+			 <p class="p">例如，<samp class="ph codeph">::c*</samp> 包括任意数量的嵌套名称空间中以 <samp class="ph codeph">c</samp> 开头的所有节点。例如，它可以包括以下节点： 
+			 </p>
+ 
+			 <ul class="ul" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__UL_D5854344F1704825A2E89632B8F171CE"><li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_6321B838EAA34E10BD7D565F53E9831F"><samp class="ph codeph">couchC</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_0856F2F0BC22408D906E9AED86C2FD24"><samp class="ph codeph">livingRoom_substances:couchB</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_487463CA6F994832B5C0740AB962E947"><samp class="ph codeph">livingRoom_substances:chairB_v08:chairB</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_02450BCC02C941C0BD48EBAE3C9938EC"><samp class="ph codeph">livingRoom_substances:tables:coffeeTable_v08:coffeeTable</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_1AF686858A4A4ED4A9524BCB19AF3061"><samp class="ph codeph">diningRoom_lights:chandelier</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_7D17CF1C8F8346EA840719AB888D2EF3"><samp class="ph codeph">diningRoom_furniture:chairA_v07:chairA</samp> 
+				</li>
+</ul>
+ 
+			 <p class="p">可以包括<strong class="ph b">同时带有递归匹配和非递归匹配</strong>的表达式。 
+			 </p>
+ 
+			 <p class="p">考虑一个包含以下节点的场景： 
+			 </p>
+ 
+			 <ul class="ul" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__UL_9C7FEA746E224031B3736AFBCFE0AB91"><li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_FBF2DEBEE5A340449D606DBA5FE50CC5"><samp class="ph codeph">pSphere1</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_63BDB132218542469B45F4D840D5E0C8"><samp class="ph codeph">aaa:pSphere1</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_A0D5BDC9541448E4B14CDE723919069F"><samp class="ph codeph">aaa:bbb:pSphere1</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_4916EE87793B484C85E8B731306DE40C"><samp class="ph codeph">aaa:bbb:ccc:pSphere1</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_5F482CB32930495BB4908486EE327D2F"><samp class="ph codeph">aaa:ccc:pSphere1</samp> 
+				</li>
+</ul>
+ 
+			 <p class="p"><samp class="ph codeph">::p*</samp> 将与任意数量的嵌套名称空间中名称以 <samp class="ph codeph">p</samp> 开头的所有节点匹配，包括不含名称空间： 
+			 </p>
+ 
+			 <ul class="ul" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__UL_FBAD88245BF84D3082B5EB0499D000A8"><li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_F9AB2A3B0C1E4D1FB9E66E95F3AFA350"><samp class="ph codeph">pSphere1</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_C82BF9627DF143AF88CB6371F8D2ADA1"><samp class="ph codeph">aaa:pSphere1</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_2B69256D41B141CCB1495B009F3373E7"><samp class="ph codeph">aaa:bbb:pSphere1</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_EBEC8B20613E4DD8B1FA4C0AFA600CD8"><samp class="ph codeph">aaa:bbb:ccc:pSphere1</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_BEB1DCCD62C04E9FBFFB758EA96F80AC"><samp class="ph codeph">aaa:ccc:pSphere1</samp> 
+				</li>
+</ul>
+ 
+			 <p class="p"><samp class="ph codeph">aaa::p*</samp> 将与以 <samp class="ph codeph">aaa</samp> 开头的名称空间中名称以 <samp class="ph codeph">p</samp> 开头的所有节点匹配： 
+			 </p>
+ 
+			 <ul class="ul" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__UL_FFA2FA601A17460E85AAE11FFCEB3EA9"><li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_987B2952BB8C42C9ACC83828EE77A86C"><samp class="ph codeph">aaa:pSphere1</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_6D844F8FB30940ABAA90CEB632E78907"><samp class="ph codeph">aaa:bbb:pSphere1</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_2AB5B3946F854982B4DEF7D7C86A4665"><samp class="ph codeph">aaa:bbb:ccc:pSphere1</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_CBCC809517354516879199BA27484E2E"><samp class="ph codeph">aaa:ccc:pSphere1</samp> 
+				</li>
+</ul>
+ 
+			 <p class="p"><samp class="ph codeph">::ccc:p*</samp> 将与以 <samp class="ph codeph">ccc</samp> 结尾的名称空间中名称以 <samp class="ph codeph">p</samp> 开头的所有节点匹配；在本例中： 
+			 </p>
+ 
+			 <ul class="ul" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__UL_2AB4D9E286E04112AAE00574C8458727"><li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_8988145D030A43A7A2703A3E6C60365E"><samp class="ph codeph">aaa:bbb:ccc:pSphere1</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_E5E45175A3CC471380818472E67885C6"><samp class="ph codeph">aaa:ccc:pSphere1</samp> 
+				</li>
+<p class="p">请注意，单个 : 表示非递归匹配。 
+			 </p>
+</ul>
+ 
+			 <p class="p"><samp class="ph codeph">aaa:ccc::p*</samp> 将与以 <samp class="ph codeph">aaa:ccc</samp> 开头的名称空间中名称以 <samp class="ph codeph">p</samp> 开头的所有节点匹配，其中， 
+				<samp class="ph codeph">aaa</samp> 与 <samp class="ph codeph">ccc</samp> 之间没有任何名称空间： 
+			 </p>
+ 
+			 <ul class="ul" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__UL_1C5D95FF996243FB86833BAB43906D99"><li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_DD5876725DF045C9B22A2DCCFC82B292"><samp class="ph codeph">aaa:ccc:pSphere1</samp> 
+				</li>
+<p class="p">请注意，单个 : 表示非递归匹配。换句话说，它与 <samp class="ph codeph">aaa:bbb:ccc:pSphere1</samp> 不匹配。 
+			 </p>
+</ul>
+ 
+			 <p class="p"><samp class="ph codeph">::bbb::p*</samp> 将与包含 <samp class="ph codeph">bbb</samp> 名称空间的任何名称空间中存在的名称以 <samp class="ph codeph">p</samp> 开头的所有节点匹配： 
+			 </p>
+ 
+			 <ul class="ul" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__UL_72FAD50330FF430B9D66B53716FB5A9C"><li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_33E03EECB0104975A1E1FB4D39086C5F"><samp class="ph codeph">aaa:bbb:pSphere1</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_2777B38B93E44DEA941FE63D0D2E6E4C"><samp class="ph codeph">aaa:bbb:ccc:pSphere1</samp> 
+				</li>
+</ul>
+ 
+			 <p class="p"><samp class="ph codeph">::aaa::ccc::p*</samp> 将与包含 <samp class="ph codeph">aaa</samp> 和 <samp class="ph codeph">ccc</samp> 名称空间的任何名称空间中存在的名称以 <samp class="ph codeph">p</samp> 开头的所有节点匹配： 
+			 </p>
+ 
+			 <ul class="ul" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__UL_EBEEEA4B4E0043D59C44DB7334A4E926"><li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_92D2CC77477F40A095E53B3A449DB1A2"><samp class="ph codeph">aaa:bbb:ccc:pSphere1</samp> 
+				</li>
+<li class="li" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__LI_16C34A746DA34DDF8B4BFEA166E54624"><samp class="ph codeph">aaa:ccc:pSphere1</samp> 
+				</li>
+</ul>
+ 
+			 <div class="note tip" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-C3A6811C-5D33-4FAB-8A54-0BD83F2CE399"><span class="tiptitle">提示：</span> 通过名称空间，可以轻松使用表达式填充集合。因此设置场景时，例如，在对象中引用时，您可能希望将类似对象引用到同一名称空间中，以便使用名称空间将这些对象添加到一个集合中。例如，将所有集对象引用到设置的名称空间中，然后可以使用名为 set:* 的表达式将其全部包含在一个集合中。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-4CF324AB-0398-498C-A539-2094BB640B7C.htm">渲染设置最佳实践</a>。 
+			 </div>
+ 
+		  </div>
+ 
+		  <div class="section" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__SECTION_2C7FAD8DE19444A1BEDCE1A4577894DB"><h4 class="title sectiontitle">在表达式中表示层次</h4> 
+			  
+			 <p class="p">使用 | 可表示层次；例如，以下表达式意味着 Mesh_All 是 LOD0 的父对象，而 LOD0 又是名称中包含 Mesh_K 的节点的父对象。 
+			 </p>
+ 
+			 <pre class="pre codeblock">|Mesh_All|LOD0|*Mesh_K*</pre>
+ 
+			 <p class="p">也可以使用通配符表示层次；例如，以下图案： 
+			 </p>
+ 
+			 <pre class="pre codeblock">aTransform|*|*</pre>
+ 
+			 <p class="p">当<span class="ph uicontrol">“集合过滤器”(Collection Filters)</span>设置为<span class="ph uicontrol">“形状”(Shapes)</span>时，将匹配以下所有项：
+			 </p>
+ 
+			 <pre class="pre codeblock">|aTransform|WildMiddle|aShape
+|aTransform|Something|aShape
+|A|Starting|Path|aTransform|SomethingElse|aShape
+|Another|Path|aTransform|OutOfNameIdeas|aShape</pre>
+ 
+			 <p class="p">也就是说，将包括所有属于 aTransform 孙对象的 aShape 节点，而不考虑 aTransform 是否从根开始。 
+			 </p>
+ 
+			 <p class="p">此表达式表示层次和名称空间。将包括名称以 c 开头且属于所设名称空间的所有节点以及所设名称空间中父节点的子节点： 
+			 </p>
+ 
+			 <pre class="pre codeblock">|set:parent|set:c*</pre>
+ 
+			 <div class="note tip" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-63795327-E390-40B2-84D7-C1CA853C9C6B"><span class="tiptitle">提示：</span>  
+				<p class="p">如果在层级中混合使用了变换和形状，例如在形状节点下设置变换的父对象，则可能需要调整<span class="ph uicontrol">“集合过滤器”(Collection Filters)</span>，以确保包含所需的所有节点。 
+				</p>
+ 
+				<p class="p">例如，您可能希望使用<span class="ph uicontrol">“自定义”(Custom)</span>过滤器，并同时包含<span class="ph uicontrol">“变换”(Transforms)</span>和<span class="ph uicontrol">“形状”(Shapes)</span>。 
+				</p>
+ 
+			 </div>
+ 
+		  </div>
+ 
+		  <div class="section" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__SECTION_F95E13EF0D984C70A6572671084C0F7D"><h4 class="title sectiontitle">合并表达式</h4> 
+			  
+			 <p class="p">通过使用逗号、分号或空格分隔多个表达式，可以合并这些表达式。例如，以下组合表达式允许包含所有 <samp class="ph codeph">livingRoom_substances:couchB</samp>、<samp class="ph codeph">livingRoom_substances:chairB_v08:chairB</samp> 和 <samp class="ph codeph">diningRoom_furniture:chairA_v07:chairA</samp>。 
+			 </p>
+ 
+			 <pre class="pre codeblock">livingRoom*::c*; diningRoom*:*:ch*</pre>
+ 
+		  </div>
+ 
+		  <div class="section" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__SECTION_67E5B0BC0CBD4A72A66E691271543FB7"><h4 class="title sectiontitle">使用表达式进行排除</h4> 
+			  
+			 <p class="p">若要使用表达式排除节点，请将表达式以 <strong class="ph b">-</strong> 开头。继续上述示例，以下表达式将从包含在第一个表达式中的沙发和椅子成员中减去椅垫节点。 
+			 </p>
+ 
+			 <pre class="pre codeblock">livingRoom*::c*; diningRoom*:*:ch*; -livingRoom*::*cushion* </pre>
+ 
+			 <p class="p">请记住，表达式区分大小写；因此，如果在场景中拼写的 cushions 和 Cushions 大小写不一致，则可能需要使用两个排除表达式： 
+			 </p>
+ 
+			 <pre class="pre codeblock">livingRoom*::c*; diningRoom*:*:ch*; -livingRoom*::*cushion*; -livingRoom*::*Cushion* </pre>
+ 
+			 <p class="p">表达式的顺序非常重要。表达式从左至右解释，您可以重新添加之前减去的节点。继续上述示例，以下表达式将右椅垫（且仅将所有椅垫中的右椅垫）重新添加回集合： 
+			 </p>
+ 
+			 <pre class="pre codeblock">livingRoom*::c*; diningRoom*:*:ch*; -livingRoom*::*cushion*; -livingRoom*::*Cushion*; livingRoom*::*cushion_right*</pre>
+ 
+		  </div>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__SECTION_2ED486C1EE2E4522873B328DDD6DAE27"><h3 class="title sectiontitle">通过静态选择添加成员</h3> 
+		   
+		  <p class="p" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-E75F18A8-ED65-4F36-BE33-83D213A214E6">您可以将成员静态添加到集合（通过显式选择并添加节点），而不是动态执行此操作（使用表达式，如上所述）。为此，请使用鼠标中键将节点从<span class="ph uicontrol" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-B175D452-A2D0-4DF0-814C-6B7E7896EF74">“大纲视图”(Outliner)</span>拖放到<span class="ph uicontrol" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-09AE7B40-32EB-4312-BCD6-3F72F9FBE175">“特性编辑器”(Property Editor)</span>。或者，可以在<span class="ph uicontrol">“大纲视图”(Outliner)</span>中选择节点，然后在<span class="ph uicontrol">“特性编辑器”(Property Editor)</span>中单击<span class="ph uicontrol">“添加”(Add)</span>。 
+		  </p>
+ 
+		</div>
+ 
+		<p class="p" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-640ED2A1-C3D6-4891-9730-58F71AFF66D9">如果已包含表达式并手动添加节点列表，则集合将同时包含与表达式和所列节点匹配的节点。 
+		</p>
+ 
+		<p class="p">您可以按字母顺序或按添加对象的顺序对此列表进行排序。在<span class="ph uicontrol">“特性编辑器”(Property Editor)</span>中单击鼠标右键，然后选择<span class="ph uicontrol">“按字母顺序排序”(Sort Alphabetically)</span>或<span class="ph uicontrol">“按添加的顺序进行排序”(Sort As Added)</span>。 
+		</p>
+ 
+	 </div>
+<div class="fig fignone" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__FIG_5CB093372C5C4C0BB85CF1B098D38B1D"><img class="image" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__IMAGE_C4D5BE43FB1349FBA4C3FA5A9B4B3A0D" src="../images/GUID-763546B0-302B-4674-B907-DD5A42A5A43B.png"></div>
+<p class="p">如果使用该方法填充集合，则重新设置节点的父对象时应谨慎操作。如果将某个节点添加到集合，然后将其父对象从一个根节点重新设置为另一个根节点，则集合中可能会失去该节点。| 用于表示每个节点的层次中。例如，|group1|group2|group3 表示 group3 是 group2 的子对象，而 group2 又是 group1 的子对象。如果将 group3 添加到某个集合，然后移动 group3 使其成为 group4 的子对象，则 group3 将不再是该集合的成员。有关如何标识集合中缺少的节点的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-4C34B056-D9BE-4296-B64B-D641C9D6D7F3.htm">标识集合中缺少的成员</a>。 
+	 </p>
+<div class="note note" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-31FE54B3-498A-4E75-B6B5-8985F58FC8EE"><span class="notetitle">注：</span> 也可以通过在对象上创建覆盖向集合添加节点。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-4AA92B1A-FDBD-48C6-B89F-28243640D59C.htm#GUID-4AA92B1A-FDBD-48C6-B89F-28243640D59C__SECTION_5DDEE74E26B9440DA2F2B40C45D830D1">通过创建覆盖向层添加对象</a>。 
+		<p class="p">默认情况下，将<span class="ph uicontrol">“集合过滤器”(Collection Filters)</span>设置为<span class="ph uicontrol">“变换”(Transforms)</span>时，仅变换节点包含在集合中。如果在<span class="ph uicontrol">“大纲视图”(Outliner)</span>中选择一个着色器，然后在<span class="ph uicontrol">“特性编辑器”(Property Editor)</span>中单击<span class="ph uicontrol">“添加”(Add)</span>，该着色器将显示在节点列表中，但是处于灰显状态以表示它已被过滤掉。换句话说，它不是集合的一部分。 
+		</p>
+ 
+		<p class="p">不必将该着色器添加到集合中即可覆盖对象的着色，因为当您创建覆盖时，系统会自动执行该操作。但是，对于高级用户，也可以通过从<span class="ph uicontrol">“集合过滤器”(Collection Filters)</span>下拉列表中选择<span class="ph uicontrol">“着色器”(Shaders)</span>菜单完成此操作。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__SECTION_B32DEDF44737483EBF8CAC6A382F1AEE"><h2 class="title sectiontitle">验证集合的成员身份</h2> 
+		 
+		<p class="p">在<span class="ph uicontrol">“特性编辑器”(Property Editor)</span>中单击<span class="ph uicontrol">“查看全部”(View All)</span>，可获得集合成员的列表。 
+		</p>
+ 
+		<p class="p">或者，也可以单击<span class="ph uicontrol">“全选”(Select All)</span>，以在场景和<span class="ph uicontrol">“大纲视图”(Outliner)</span>中选择集合成员。 
+		</p>
+ 
+		<p class="p">此外，对于通过表达式包含的成员和通过选择并添加来包含的成员，均存在单独的<span class="ph uicontrol">“选择”(Select)</span>按钮。使用这些按钮可验证通过上述两种方法添加的集合成员。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-2B18E239-D252-4897-B9DC-E16D00590B4E.htm" title="在集合的“特性编辑器”(Property Editor)中单击“查看全部”(View All)，或者使用“大纲视图”(Outliner)中的“渲染设置过滤器”(Render Setup Filter)功能标识集合成员。">标识属于集合的对象</a>。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__SECTION_79815F824F0F49038BA9A2B80C6B8CDD"><h2 class="title sectiontitle">从集合中移除成员</h2> 
+		 
+		<p class="p" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-8306AFEC-0460-4C97-B07B-5A8A7B88C84D">若要移除通过拖放添加的成员，请在集合<span class="ph uicontrol" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-05F81F9B-7B6F-4259-94AD-E2F9E85E5AD6">“特性编辑器”(Property Editor)</span>中的相应节点（或多个节点）上单击鼠标右键，然后选择<span class="ph uicontrol" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-07F12BC0-0663-41A1-96E8-730066A6595A">“移除”(Remove)</span>。还可以选择该节点并单击<span class="ph uicontrol">“移除”(Remove)</span>。 
+		</p>
+ 
+		<p class="p" id="GUID-8E244DC6-53FA-477C-95FB-67154C407BD4__GUID-A269717D-A971-4633-9EBD-F89B6EB0CCD2">若要移除通过表达式添加的成员，请删除表达式。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-2C12B195-8529-436C-9D8D-1BEA2593FA84.htm">创建子集合</a><br>
+当您创建覆盖时，系统可能自动创建子集合。Maya 会自动识别被覆盖的节点类型并为该节点类型创建子集合。或者，也可以手动为着色器、形状或集等特定节点类型创建子集合。    </li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-80F24E1B-AC00-4A60-A3AF-FE0A8321AE5E.htm">使用“集合过滤器”(Collection Filters)按节点类型添加集合成员</a><br>
+使用<span class="ph uicontrol">“集合过滤器”(Collection Filters)</span>功能可仅向集合添加形状、着色器和集等。此外，您还可以创建自定义过滤器，以添加感兴趣的特定节点类型。    </li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-D6EB87CA-F03B-4952-B6FF-E8E2A32961C6.htm">确定对象所属的集合</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-2B18E239-D252-4897-B9DC-E16D00590B4E.htm">标识集合成员</a><br>
+在集合的<span class="ph uicontrol">“特性编辑器”(Property Editor)</span>中单击<strong class="ph b"><span class="ph uicontrol">“查看全部”(View All)</span></strong>，或者使用<span class="ph uicontrol">“大纲视图”(Outliner)</span>中的<span class="ph uicontrol">“渲染设置过滤器”(Render Setup Filter)</span>功能<strong class="ph b">标识集合成员。</strong>   </li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-4C34B056-D9BE-4296-B64B-D641C9D6D7F3.htm">标识集合中缺少的成员</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-632C2672-091F-4EEA-8DD3-A3C0E37D6E07.htm">通过集合删减对象</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-646154F9-E4D2-4A3E-A0D9-B2F062960A4E.htm">Maya 渲染设置</a></div>
+</div>
+</div>
+
+</body>
+</html>

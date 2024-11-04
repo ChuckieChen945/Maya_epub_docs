@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-ManagingScenes">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-627DABDD-4EED-4892-8428-4FDD722F1761">
+<meta name="language" content="CHS">
+<title>在文件路径编辑器注册元素</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>在文件路径编辑器注册元素</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-4D1D16F8-16C1-46FF-BA5E-DF488FBBD87A"><span class="ph uicontrol" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-504EAFB0-D757-4E26-A305-C69E6A99AA11">“文件路径编辑器”(File Path Editor)</span>仅识别注册的节点和属性。默认注册参考、文件、图像平面和音频节点。包含具有 <samp class="ph codeph" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-AF496224-68B4-459C-8C96-0BB4C53A906C">usedAsFilename</samp> 标志的属性的任何其他节点均可以注册。<samp class="ph codeph" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__CODEPH_A85877210F9342AE8A488BE638B8A282">usedAsFilename</samp> 标志可以通过 <samp class="ph codeph" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__CODEPH_172EA2421C084C1D9B44BD71F4209460">addAttr</samp> 命令进行添加。 
+	 </p>
+<p class="p" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__P_7D481523D7F64344A4FA0F39FE016EA8">此要求使您可以控制显示在<span class="ph uicontrol" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-4FCCB29C-E8AE-44EA-8F62-531A91191CF1">“文件路径编辑器”(File Path Editor)</span>中的内容，并允许支持来自插件和脚本的自定义节点类型。 
+	 </p>
+<p class="li listintro" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-10E3AFFE-88D9-4DA4-A154-9984B2965A38">在文件路径编辑器注册元素</p>
+<ol class="ol" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__OL_1F6C9907945846938A1E15A34771287A"><li class="li" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__LI_AE975CD7B9784FA7B5C0A3AA86327A00">在 Maya 中，将 MEL 命令 <samp class="ph codeph" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-3E329E20-A33D-4C20-B0D4-45BBC3D99C3A">filePathEditor -registerType "&lt;nodetype&gt;.&lt;attribute&gt;" -typeLabel "&lt;labelname&gt;";</samp> 输入到<span class="ph uicontrol" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-99F13AA5-6513-44C0-A02D-440303DAD8B1">“命令行”(Command Line)</span>或<span class="ph uicontrol" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-73D65E8D-5C9F-47DB-84A8-DBC3CF0C2EE2">“脚本编辑器”(Script Editor)</span>中。 
+		  <div class="p" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-0414C6A9-A870-4F5F-B333-66470E25CAF5">例如，若要使用标签名 Sound 注册一个音频节点，可输入命令 <samp class="ph codeph" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-CBC69BF7-FF20-40E5-8529-10BECD376B0A">filePathEditor -registerType "audio.filename" -typeLabel "Sound"; </samp> 
+			 <div class="note note" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-A2163FA2-1FE1-4BFA-9A42-F78FD53AB92B"><span class="notetitle">注：</span> 若要注册<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-E9D00A25-324A-445C-AE04-590AD29C89BA.htm">场景集合(Scene Assembly)</a>路径，请执行以下操作之一： 
+				<ul class="ul" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__UL_88F2979233FB41BAADCC095E1C850F31"><li class="li" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__LI_E4E3DFA77D0E462CA299118B80B573DC">若要包括来自集合定义节点的表示文件，可使用 <samp class="ph codeph" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-0032CAFD-F62B-4742-89C6-42290FBA5369">filePathEditor -registerType "assemblyDefinition";</samp> 
+				  </li>
+<li class="li" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__LI_E1A525251E9140038EA465A43BEC32A7">若要包括来自集合引用节点的定义文件，可使用 <samp class="ph codeph" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-508E796C-AA26-42B0-A66D-97CAD25E3BDA">filePathEditor -registerType "assemblyReference";</samp> 
+				  </li>
+</ul>
+ 
+			 </div>
+ 
+		  </div>
+ 
+		  <p class="p" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-CF677036-6DF2-4AEA-A3DD-E7C5D54E2673">该元素将自动保存到首选项文件夹的 <samp class="ph codeph" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-A614480C-6630-4788-B267-54DC16ACBD09">filePathEditorRegistryPrefs.mel</samp> 文件中。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-A11EDD96-3362-4186-BE82-A245B46A0165#GUID-A11EDD96-3362-4186-BE82-A245B46A0165__WS73099CC142F487553B93539F117EA10CE8F2201">首选项</a>。 
+		  </p>
+ 
+		  <div class="p" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-FE3307E5-FCAA-4029-9FFC-16069AA77B54">注册后，此标签将用于<span class="ph uicontrol" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-3DF39458-9B5C-47E5-8FD2-8C8F304D7B18">“文件路径编辑器”(File Path Editor)</span>的以下部分： 
+		  <ul class="ul" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__UL_C33CCFAAA50A47BDA32E677A927BFEDE"><li class="li" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__LI_63D0CF79836F4AD19658C8C8592A9983"> 
+				<span class="ph uicontrol" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-6CCD426C-0AA5-423C-8BF2-4544665145A9">选项 &gt; 按文件类型列出(Options &gt; List by File Type)</span> 
+			 </li>
+<li class="li" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__LI_29689BD2399642D58F42730E87EF7480"> 
+				<span class="ph uicontrol" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-47D7A9FD-552B-43E4-B4FD-2E6138A1DEFA">选择 &gt; 按类型选择(Select &gt; Select by Type)</span> 
+			 </li>
+<li class="li" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__LI_88901BEFA8F043DF937E498BD042B47E"><span class="ph uicontrol" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-8C930A56-A5EA-4AF7-B807-6B96B91E2BCD">“显示”(Show)</span>菜单 
+			 </li>
+<li class="li" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__LI_1009ABD265AC4AEB817EF65CC7DFC865"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-287DA511-57DC-434C-AE2A-473AE49C9E9D.htm">自动解析(Auto Resolve)窗口</a>中的<span class="ph uicontrol" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-AE345B48-EC61-4701-934F-A594D2EF756B">“解析”(Resolve)</span>列表 
+			 </li>
+</ul>
+ 
+		  </div>
+ 
+		</li>
+</ol>
+<p class="li listintro" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-1B8076FF-43EA-48A8-B4EC-EC6B405B1658">在文件路径编辑器注销元素</p>
+<ol class="ol" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__OL_52079B97E063441599D4C625BADB6111"><li class="li" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__LI_2F18A7AD05E64BC7A0BC8CE254507080">在 Maya 中，将 MEL 命令 <samp class="ph codeph" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-0AF39A1F-6F06-442E-BAA7-78EFF53F36D4">filePathEditor -deregisterType "&lt;nodetype&gt;.&lt;attribute&gt;";</samp> 输入到<span class="ph uicontrol" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-5EF3B638-81B5-4470-9242-ED953F9060E4">“命令行”(Command Line)</span>或<span class="ph uicontrol" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-3222896C-5349-4C6E-8B33-C599594F1620">“脚本编辑器”(Script Editor)</span>中。 
+		  <p class="p" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-CA08DAC3-26E4-4B97-859F-984D0C3E57C9">例如，若要注销一个音频节点，可输入命令 <samp class="ph codeph" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-E5FCF760-3584-42EE-A985-947826BA7B45">filePathEditor -deregisterType "audio.filename";</samp> 
+		  </p>
+ 
+		  <p class="p" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-FFAAF514-2F94-48D3-B164-298930E90E66">该元素将自动从首选项文件夹的 <samp class="ph codeph" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-A0054C27-6AA3-4398-B99F-BB9AFC516308">filePathEditorRegistryPref.mel</samp> 文件以及<span class="ph uicontrol" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__GUID-0DEFE5B7-9F9F-47A3-9D02-4C515A4489B7">“文件路径编辑器”(File Path Editor)</span>的所有部分中移除。 
+		  </p>
+ 
+		</li>
+</ol>
+<div class="section" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__SECTION_C92D7F846E104EF3877B5A5A186F6D97"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+	 </div>
+<ul class="ul" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__UL_514257C9A79B4D289A7AAACD0AFB01E5"><li class="li" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__LI_0043E280FFFA437FA5F5B08DE9ECD90E"> 
+		  <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-A677F3A3-4DBF-46E1-85F8-97D80456171E.htm">文件路径编辑器(File Path Editor)菜单</a> 
+		</li>
+<li class="li" id="GUID-627DABDD-4EED-4892-8428-4FDD722F1761__LI_4299820B01D34C39A0F7543238F313BF"> 
+		  <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-33E848B6-51E9-4D92-B44F-BE9D169D70C1.htm" title="此工具列出了 Maya 场景中所含引用、纹理、音频节点和图像平面的所有目录路径。">文件路径编辑器(File Path Editor)</a> 
+		</li>
+</ul>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-33E848B6-51E9-4D92-B44F-BE9D169D70C1.htm" title="此工具列出了 Maya 场景中所含引用、纹理、音频节点和图像平面的所有目录路径。">文件路径编辑器(File Path Editor)</a></div>
+</div>
+</div>
+
+</body>
+</html>

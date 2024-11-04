@@ -1,0 +1,324 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-AF7452B6-4996-4012-8974-7C39A9186377">
+<meta name="language" content="CHS">
+<title>“粒子采样器信息”(Particle Sampler Info)节点工作流程示例</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-AF7452B6-4996-4012-8974-7C39A9186377">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1> 
+	 “粒子采样器信息”(Particle Sampler Info)节点工作流程示例</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-32ED"><p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2FAF"> 为了帮助使用<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-33E76355-A0AC-4CC6-AB0B-B57BF07ED7B4">“粒子采样器信息”(Particle Sampler Info)</span>节点，已提供下列示例来帮助了解如何使用<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-694F612A-2B47-40AC-8A5D-CC2552C3D847">“粒子采样器信息”(Particle Sampler Info)</span>节点来获得某些常用效果。有关<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-A318526A-8587-4256-82FD-A8C600FCD470">“粒子采样器信息”(Particle Sampler Info)</span>节点属性的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-385DE525-C35B-4100-BA58-5D8EC9005D0B.htm">设定粒子采样器信息节点属性</a>。 
+	 </p>
+<p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-337AE90B-5452-471E-95DA-03942B54D018">本主题介绍以下<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-EADC34B1-D038-42B0-B298-0FFF668B05F9">“粒子采样器信息”(Particle Sampler Info)</span>节点工作流程： 
+	 </p>
+<ul class="ul" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2FAD"><li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2FAB"> 将“粒子采样器信息”(Particle Sampler Info)节点与 rgbPP 一起使用 
+		</li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2FAA"> 创建淡出粒子 
+		</li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2FA9"> 创建烟 
+		</li>
+</ul>
+<div class="section" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2FA8"><h2 class="title sectiontitle">使用<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-A861069F-BCA0-48CE-B85C-1E6714F4A911">“粒子采样器信息”(Particle Sampler Info)</span>节点驱动纹理放置节点</h2> 
+		 
+		<p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2FA7">下面是第一种策略（使用<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-56E3B1E1-9335-4EC3-B38A-D4F07ACBC4CE">“粒子采样器信息”(Particle Sampler Info)</span>节点驱动纹理放置节点）的一个示例，该策略会为着色器颜色上纹理。在本示例中，我们将使用粒子的年龄为粒子上色。 
+		</p>
+ 
+		<p class="li listintro" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2FA6">示例：使用粒子年龄为粒子上色</p>
+<ol class="ol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS17956D7ADBC6E7361A342C07117AE3124CC-7F87"><li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2FA5">以速度 8 使圆锥体发射器向上发射，将粒子的<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-0EF1FE0A-F088-4D62-9394-D824DF8E0BB9">“寿命模式”(Lifespan Mode)</span>设定为<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-A4584C62-5C96-4197-8BA6-42E79DC26244">“恒定”(Constant)</span>（<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-A942DA61-31BC-4F30-9679-F60A931FF095">“寿命”(Lifespan)</span>为 2），然后将其渲染类型设定为“云”(Cloud)。 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2FA4">若要执行该操作，可以从<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-BEDAB70C-A3DC-420B-9B5A-4B422DBE8E0B">“Maya 帮助”(Maya Help)</span>复制下列 MEL 命令，并将它们粘贴到<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-4256C2B0-5FB3-428E-B9B8-C61653F7771B">“脚本编辑器”(Script Editor)</span>中： 
+			 </p>
+ 
+			 <pre class="pre codeblock">
+emitter -pos 0 0 0 -type volume -r 100 -vsh cone -alx 8; particle; connectDynamic -em emitter1 particle1; setAttr particleShape1.lifespanMode 1; setAttr particleShape1.lifespan 2.0; setAttr particleShape1.particleRenderType 8;
+</pre>
+ 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2FA3">选择粒子形状，并显示<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-C972074D-0E9E-4CA3-8026-25DB74C989DC">“属性编辑器”(Attribute Editor)</span>。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2FA2">选择<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-852CC7A7-E300-4AFB-9511-E98F20464C75">“particleCloud”</span>选项卡，然后按<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-A56358E1-B395-43F9-AF43-B81740264B44">“寿命中白炽度”(Life Incandescence)</span>旁边的 <img class="image" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__IMAGE_C35BC54A88F44DAFB6D9555015C81685" width="27" height="23" src="../images/GUID-F7675820-2C81-4B7F-A9D1-721839D1084B.png"> 按钮以显示<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-876D8897-6D4A-44B8-B38E-F55B0C3A8717">“创建渲染节点”(Create Render Node)</span>窗口。 
+			 <div class="note tip" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2FA1"><span class="tiptitle">提示：</span> 白炽度与颜色相同，但白炽度是自发光的，因此不需要添加灯光。 
+			 </div>
+ 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2FA0">在右侧面板中，单击 <img class="image" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__IMAGE_230D012A0C014BA2A941CF8B763153B5" width="45" height="13" src="../images/GUID-4EF55464-7256-463D-AE55-32B5FC220AA7.png">。 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F9F">该操作会创建一个新渐变、一个纹理放置节点和一个<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-4661714B-6AE5-475E-AC77-7DB76E7CDDD4">“粒子采样器信息”(Particle Sampler Info)</span>节点。<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-44BFB2FD-D49F-4633-A18B-1562A646F56C">“寿命中颜色”(Life Color)</span>实际上根本不是一个属性，它仅仅是<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-00D79DB7-4466-46C9-A15B-D875AC031966">“属性编辑器”(Attribute Editor)</span>中的一个控件，用于告诉 Maya 为您设置这些到颜色的连接。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F9E">播放场景，并进行渲染。 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F9D">将看到随粒子年龄的增加由渐变上纹理的粒子颜色。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F9C"><img class="image" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__IMAGE_83117EE086DB4C7BA7EAB3394296327C" width="167" height="110" src="../images/GUID-CC6F1E9F-3230-40E2-BA5B-2C653A28BA3D.png"></div>
+ 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F9B">现在，我们将在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-893F895A-C777-49C5-8530-D6999E71A52B">“粒子采样器信息”(Particle Sampler Info)</span>节点中更改某些控件。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F9A">选择粒子形状，并显示<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-527AA7CD-32D2-444E-9C95-AAF9A35ED2B2">“属性编辑器”(Attribute Editor)</span>。单击“particleSamplerInfo1”选项卡。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F99">启用<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-424B54C6-7E01-4504-B4CE-EF9CA1C18A0E">“UV 反向输出”(Inverse Out Uv)</span>，并重新渲染。 
+			 <div class="fig fignone" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F98"><img class="image" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__IMAGE_0A53F8518A8B42C7AA5BE3ED3FBCB14A" width="185" height="118" src="../images/GUID-A6CEC1BD-15A7-4963-AD27-1873B5A98CF9.png"></div>
+ 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F97">会反转颜色，颜色将从蓝色变为绿色再变为红色，而不是粒子从红色变为绿色再变为蓝色。 
+			 </p>
+ 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F96">现在我们将更改纹理节点上的控件。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F95">在粒子形状<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-D735D9B9-C6F6-4F9E-9756-F307B16D2A15">“属性编辑器”(Attribute Editor)</span>中，单击<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-FA2AD7F5-23FD-43CD-842D-F574FA561A9C">“particleCloud”</span>选项卡。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F94">单击<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-2B2728B0-8FB7-4721-ABC5-39D99E61C5D0">“寿命中白炽度”(Life Incandescence)</span>旁边的<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-4B1C452F-8A40-4406-9D87-2E0C42774245">“输入连接”(Input Connection)</span><img class="image" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__IMAGE_0AE5C9C4E7EE4D6B8CB4F7041A63666A" width="28" height="21" src="../images/GUID-4B5D3DDB-C379-4A42-991A-C469D0EEE8DB.png">按钮。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F93">单击“place2DTexture1”。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F92">将<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-23972890-944A-49F8-B62B-AA6A9A422EE0">“UV 向躁波”(Noise UV)</span>设置为 1.0 和 1.0，并重新渲染。 
+			 <div class="fig fignone" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F91"><img class="image" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__IMAGE_E085784584D64AD38662F3C824BB01E2" width="189" height="123" src="../images/GUID-591A61E1-8722-470F-8A2E-59A19E9E9585.png"></div>
+ 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F90">会将躁波应用到在红色、绿色和蓝色粒子中创建随机度的渐变的放置。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F8F">将<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-29F6C092-6339-40B9-8B55-C3CCC039590E">“UV 向躁波”(Noise UV)</span>更改回 0.0 和 0.0。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F8E">单击<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-AE37EC53-1D07-4E8D-987D-1DD7A1D08120">“加载属性”(Load Attributes)</span>并显示粒子形状<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-BD1603CF-CD74-49AB-9D7C-B6B994353B95">“属性编辑器”(Attribute Editor)</span>。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F8D">将<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-FCB01877-E79A-4C30-8A6A-B75FCEFD4D39">“寿命模式”(Lifespan Mode)</span>更改为<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-CD22318A-653B-421A-8DE3-BD82BFD48DA6">“永生”(Live forever)</span>。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F8C">选择<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-D32E4308-2F83-457D-B1D8-6C993A07E82B">“粒子采样器信息”(Particle Sampler Info)</span>节点对应的选项卡。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F8B">将<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-B3FE72DB-65C9-4FC4-A3C3-8E95D006D706">“输出 UV 类型”(Out Uv Type)</span>更改为<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-D6B8454A-C9E3-4388-8E3D-DA8B2BDE9F43">“绝对年龄”(Absolute Age)</span>，并设定归一化值 1。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F8A">回放，播放大约 100 帧，然后进行渲染。 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F89">请注意，粒子会随其年龄增大而多次循环渐变。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F88"><img class="image" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__IMAGE_7C65E1A21A6E4BD5B4E2FD29B02C3FFC" width="198" height="138" src="../images/GUID-FDD21A13-058C-4CFB-A26C-8FE6EF3ACE7C.png"></div>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F87"><h2 class="title sectiontitle">将<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-0B244891-D31B-4E13-A4F6-6BA2A275334A">“粒子采样器信息”(Particle Sampler Info)</span>节点与每粒子属性一起使用</h2> 
+		 
+		<p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F86">下面是第二种常规策略（使用 rgbPP 直接驱动着色器颜色）的一个示例。需要使用由除年龄以外的其他属性驱动的表达式或渐变时，请使用该策略。 
+		</p>
+ 
+		<p class="li listintro" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F85">示例：将<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-19C60C72-B5AA-49CE-98E6-A50E9D1405B3">“粒子采样器信息”(Particle Sampler Info)</span>节点与 rgbPP 一起使用</p>
+<ol class="ol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS17956D7ADBC6E7361A342C07117AE3124CC-7F86"><li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F84">以速度 8 使圆锥体发射器向上发射，将粒子的<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-9C2B306F-513B-4362-8739-1D308D01A2E8">“寿命模式”(Lifespan Mode)</span>设定为<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-F0AF5027-8FE3-4719-94D2-37A3504022B6">“恒定”(Constant)</span>（<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-19561264-133C-4351-AD37-76140CB47E9D">“寿命”(Lifespan)</span>为 2），然后将其渲染类型设定为“云”(Cloud)。 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F83">若要执行该操作，可以从<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-158BCD6A-BFED-4AC8-B11F-F259C252A985">“Maya 帮助”(Maya Help)</span>复制下列 MEL 命令，并将它们粘贴到<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-D46C248D-7199-4399-ACE6-0F3DF44E0FA5">“脚本编辑器”(Script Editor)</span>中： 
+			 </p>
+ 
+			 <pre class="pre codeblock">
+emitter -pos 0 0 0 -type volume -r 100 -vsh cone -alx 8; particle; connectDynamic -em emitter1 particle1; setAttr particleShape1.lifespanMode 1; setAttr particleShape1.lifespan 2.0; setAttr particleShape1.particleRenderType 8;
+</pre>
+ 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F82">选择粒子形状，然后选择<span class="ph menucascade" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-F51F8A6C-1EBB-493D-861E-5FFB0C55BC44"><span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-F0F0595C-4562-42C2-ABEE-21DD9BEC914E">“字段/解算器</span> &gt; <span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-72885A16-CF44-467A-9DC6-7D20E8EE127A">重力”(Fields/Solvers &gt; Gravity)</span></span>。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F81">在选定粒子形状的情况下，显示<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-EC0F69C8-001A-4D1E-BE95-61CCBCFF8A7F">“属性编辑器”(Attribute Editor)</span>。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F80">在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-0A0F384B-CFF3-4139-B3B7-69649EDB5398">“添加动态属性”(Add Dynamic Attributes)</span>下，单击<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-6AE0A838-9185-4C8C-A930-1E1630E45680">“颜色”(Color)</span>。 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F7F">将显示<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-9807FDD3-80DC-496D-BBA0-98257599F8BB">“粒子颜色”(Particle Color)</span>窗口。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F7E">单击<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-2994BDD2-04A7-4339-AE6A-D7D3322AEA3E">“添加每粒子属性”(Add Per Particle Attribute)</span>，然后单击<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-FFBD9A23-5F25-498C-AF88-5019FA227B24">“添加属性”(Add Attribute)</span>。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F7D">在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-347FF0E3-55E0-4032-93B2-FA8BB2DF7DA9">“属性编辑器”(Attribute Editor)</span>中，单击“particleCloud1”选项卡。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F7C">在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-9B76EADF-4FA3-44E3-9908-991DF96D992D">“颜色”(Color)</span>属性旁边，按 <img class="image" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__IMAGE_DF62371183B148B9A33DC3E236975239" width="27" height="23" src="../images/GUID-F7675820-2C81-4B7F-A9D1-721839D1084B.png"> 贴图按钮以显示<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-868922F1-19A4-4771-BEE4-FF0214E24AAF">“创建渲染节点”(Create Render Node)</span>窗口。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS73099CC142F48755-575EAB4C124F5234AA81881">在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-9EC5821D-ABD3-49E9-9E6A-8FB05B003AF5">“创建渲染节点”(Create Render Node)</span>窗口中，在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-39884BA8-8FDC-4786-BD5A-BDD9A25A2A42">“Maya”</span>下单击<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-E8F784AD-D682-4309-AE95-2E433A917824">“工具”(Utilities)</span>。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F7B">在右侧面板中，单击 <img class="image" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__IMAGE_7CD4A34CB50E4F14980FC07BA9A9D56B" width="70" height="28" src="../images/GUID-13A1EA6B-9072-4041-B55A-8F0A7691FF0C.png">。 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F7A">该操作会自动创建一个新的<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-97F57C23-7783-468A-9AEB-586FF9330BBF">“粒子采样器信息”(Particle Sampler Info)</span>节点，并会将其颜色输出连接到颜色属性（如果已经创建了<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-7E9081A8-2EF8-4758-833F-866476084D87">“粒子采样器信息”(Particle Sampler Info)</span>节点，可以在连接编辑器中使用该节点并直接连接它）。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F79">在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-80B5B8AC-5D1F-48F6-A2BA-EA0C2D57701D">“属性编辑器”(Attribute Editor)</span>中选择粒子形状选项卡。在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-8A380FB5-1BF8-4106-B23A-5A8A91B56F05">“每粒子(数组)属性”(Per Particle (Array)Attributes)</span>下，在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-E8213861-45A7-4A89-A4A1-FA195B01462A">“rgbPP”</span>上单击鼠标右键，然后选择<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-187CEC15-0D2F-47CD-9D3C-01D336E4CE9F">“运行时表达式”(Runtime Expression)</span>（在动力学计算之前或之后）。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F78">在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-C3C0463F-CAFD-44EC-BE24-B8CF45C81AF6">“表达式编辑器”(Expression Editor)</span>中，输入以下表达式： 
+			 <pre class="pre codeblock">
+particleShape1.rgbPP = &lt;&lt; mag(particleShape1.velocity) /
+	10, 0.0, 1 -mag(particleShape1.velocity)/10 &gt;&gt;;
+</pre>
+ 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F77">这会告知 Maya 随着速度加快将粒子颜色从蓝色更改为红色。 
+			 </p>
+ 
+			 <div class="note tip" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F76"><span class="tiptitle">提示：</span> 在本示例中，我们使用了一个表达式来实现某个特定效果。但是，不必将表达式与<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-B4864EAE-6C9F-49AD-98B2-0D1A9EC2C59C">“粒子采样器信息”(Particle Sampler Info)</span>节点一起使用。还可以使用渐变，从而获得一种不同的效果。 
+			 </div>
+ 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F75">向场景中添加灯光。建议添加平行光。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F74">播放大约 75 帧，然后进行渲染。 
+			 <div class="fig fignone" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F73"><img class="image" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__IMAGE_52D313879D2C4E47978F9AFDCD82C0DD" width="131" height="148" src="../images/GUID-01593C88-04A7-4E6D-A7E7-A56E7C6FF7AA.png"></div>
+ 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F72">请注意，如果“rgbPP”存在，<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-4B68FCFF-B52D-4356-BBAE-84A23963655A">“粒子采样器信息”(Particle Sampler Info)</span>节点 outIncandescence 输出会自动使用<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-E0C4E568-0CF6-468A-8FDD-65C5A57DD9D3">“rgbPP”</span>。如果不存在任何<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-C3A397E3-A624-4CB1-B470-6AAF6E7F75FD">“rgbPP”</span>，则该输出会使用<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-A8D8BC93-E3B2-4ACC-8B4F-5B2896541EF3">“colorRed/colorGreen/colorBlue”</span>（如果它们存在）。 
+			 </p>
+ 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F71">使用<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-BE162DD5-71D8-4724-A48A-7EAD6E30A71A">“rgbPP”</span>的优点是，可以使用对每粒子属性可用的任何方式设定 rgbPP 的值或设置 rgbPP 的值的动画，并可以在软件中看到结果。接着还将在硬件渲染和软件渲染中使用相同的颜色属性。 
+			 </p>
+ 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F70">但是，仅可以使用表达式和渐变（或组件编辑器）设置<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-8473FB97-3065-4B35-BB00-43648FF411EB">“rgbPP”</span>的动画。使用<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-1D0DEB05-5C5B-4AB7-9EAF-87AC20E52CE4">“寿命中颜色”(Life Color)</span>的优点是，可获得一个纹理放置节点并可以充分利用其附加控件。特别是，可以使用任何纹理，而不仅仅是渐变，因为获得了 U 向控制和 V 向控制。可以连接所需的任何兼容<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-282D7A2C-187E-4286-8D15-18888816403F">“粒子采样器信息”(Particle Sampler Info)</span>节点属性。 
+			 </p>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F6F"><h2 class="title sectiontitle">使用<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-20630D01-20A3-4CD5-82E0-F4B5421B1D7C">“粒子采样器信息”(Particle Sampler Info)</span>节点设定透明度</h2> 
+		 
+		<p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F6E">与颜色一样，<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-24FFF837-C3D5-45D9-B061-1E6F9DA84451">“寿命中透明度”(Life Transparency)</span>仍可用。“寿命中透明度”会将<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-1B03EF77-1B68-43A8-90A4-77C5154A59E4">“粒子采样器信息”(Particle Sampler Info)</span>节点的<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-9C8C81CA-2EA8-4176-8FB8-AC8B08E8EBE2">“outUvCoord”</span>属性与某个纹理放置节点一起使用，而不是与某个粒子透明度映射器和年龄映射器一起使用。 
+		</p>
+ 
+		<p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F6D">与颜色一样，可以直接使用诸如<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-E2A5A450-10AA-410B-B990-6083355B86BB">“opacityPP”</span>之类的每粒子属性。可以使用<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-102797D3-C22E-468B-9F72-80B81C5F0A51">“粒子采样器信息”(Particle Sampler Info)</span>节点的<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-6E9A9ADD-AF12-4712-980A-2F0FB8B84278">“outTransparency”</span>属性。 
+		</p>
+ 
+		<p class="li listintro" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F6C">示例：创建淡出粒子</p>
+<ol class="ol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS17956D7ADBC6E7361A342C07117AE3124CC-7F85"><li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F6B">使用平面圆柱形磁盘形状创建一个体积发射器，其中速度<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-D53B1D59-EE68-4FCF-8106-A2170D29914A">“远离轴”(Speed Away From Axis)</span>等于 1，而其他速度为零。 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F6A">若要执行该操作，可以从<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-F83C9E36-0636-49C0-B8F4-3C0CF824253F">“Maya 帮助”(Maya Help)</span>复制下列 MEL 命令，并将它们粘贴到<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-315B10B2-76CA-450E-9952-B41CD8590190">“脚本编辑器”(Script Editor)</span>中： 
+			 </p>
+ 
+			 <pre class="pre codeblock">
+emitter -pos 0 0 0 -type volume -r 100 -sro 0 -spd 1 -vsh cylinder -afx 1; scale -r 5 0.5 5 ; particle; connectDynamic -em emitter1 particle1;
+</pre>
+ 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F69">将速率（粒子/秒）降至 50。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F68">将粒子的渲染类型设定为“云”(Cloud)。单击<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-DF3A3454-9E6A-4F6A-8629-B641855B54AF">“为当前渲染类型添加属性”(Add Attributes for Current Render Type)</span>，然后将<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-BE1F99E8-8E29-4000-A1D7-CF0777F19D51">“半径”(Radius)</span>设定为 1.5。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F67">在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-DA6F0446-26FF-4E21-9AF5-CF2C357AAF42">“属性编辑器”(Attribute Editor)</span>中，在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-617DFFF3-8737-494A-BED8-9994EE1DCEE9">“添加动态属性”(Add Dynamic Attributes)</span>下，单击<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-E1216098-48F5-49E4-B03E-CB092332A10F">“不透明度”(Opacity)</span>。启用<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-4BD8CF76-8999-45FA-94EE-27869836E087">“添加每粒子属性”(Add Per Particle Attribute)</span>，然后单击<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-DADFC3D5-24F2-49CC-9E43-7A28BD5386DF">“添加属性”(Add Attribute)</span>。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F66">在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-13213DAB-69EA-4B05-8858-3988F46EA0F3">“每粒子属性”(Per Particle Attributes)</span>下，在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-07D5A9D4-DAF5-4A03-B218-B48CE66EEEA6">“opacityPP”</span>上单击鼠标右键，然后选择<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-7B75BBE5-429A-4CED-8DD8-3F79273DF074">“运行时表达式”(Runtime Expression)</span>（在动力学计算之前或之后）。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F65">在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-7D574C07-DDF1-4DEF-93C4-674714A10B8F">“表达式编辑器”(Expression Editor)</span>中，输入以下表达式，然后单击<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-38C61735-FA01-47D9-A9E8-4700EC24FF1B">“创建”(Create)</span>： 
+			 <pre class="pre codeblock">
+opacityPP = 1 / (0.01 + mag( position ));
+</pre>
+ 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F64">（我们在分母中加了 0.01，以避免粒子位于原点时除以零。） 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F63">选择 particleCloud 着色器选项卡，然后单击<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-D6803F20-4C41-4C09-A5B7-2B81F65AC13C">“透明度”(Transparency)</span>（而不是<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-5B66165A-3213-4C73-9A92-B272B24EE606">“寿命中透明度”(Life Transparency)</span>）对应的贴图 <img class="image" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__IMAGE_834E6ECE9B2D42978099730BB7382280" width="27" height="23" src="../images/GUID-F7675820-2C81-4B7F-A9D1-721839D1084B.png"> 按钮。 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS73099CC142F48755-575EAB4C124F5234AA81882">此时将显示<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-ADBEB38A-7F92-42AC-B7FE-771125ECB73C">“创建渲染节点”(Create Render Node)</span>窗口。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS73099CC142F48755-575EAB4C124F5234AA81883">在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-ACF3590C-3963-437A-B7DD-3176CCBC0DA9">“创建渲染节点”(Create Render Node)</span>窗口中，在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-BFD60575-95BE-4F33-A762-3D585E20A362">“Maya”</span>下单击<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-FF96A3C2-5F9D-4F3F-9114-A1CF2D2B374E">“工具”(Utilities)</span>。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F62">在右侧面板中，单击 <img class="image" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__IMAGE_E13CED54BF5F46DDAC0A31939EA0FBA2" width="70" height="28" src="../images/GUID-13A1EA6B-9072-4041-B55A-8F0A7691FF0C.png">。 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F61">该操作会创建一个新的<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-9D956FB0-BA73-4416-A708-3929A55A9B2E">“粒子采样器信息”(Particle Sampler Info)</span>节点，并会将其 outTransparency 连接到着色器透明度。与颜色和白炽度一样，outTransparency 输出会自动使用 opacityPP（如果该属性存在），否则它会使用 opacity。 
+			 </p>
+ 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F60">不透明度与透明度具有反比关系：不透明度越高，透明度就越低。如果连接了<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-EB584F00-AAC2-4ACE-B847-B2ABE7B1EF92">“粒子采样器信息”(Particle Sampler Info)</span>节点的 outTransparency 输出，那么该节点会自动将不透明度转化为透明度，以便获得正确的结果。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F5F">添加灯光，播放大约 50 帧的场景，然后进行渲染。从顶部沿 Y 轴向下看的摄影机视图是最好的。粒子离原点越远，它们看起来将越透明。 
+			 <div class="fig fignone" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F5E"><img class="image" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__IMAGE_3ECCACA4C6C24FEE9ADEC4E4416B6854" width="152" height="138" src="../images/GUID-A77F6937-BF32-4E99-A9B3-4FDCCDFB38D6.png"></div>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F5D"><h2 class="title sectiontitle">逐粒子控制躁波 </h2> 
+		 
+		<p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F5C">在需要控制的着色器中，可以将任何每粒子属性连接到该属性。然后可以将某个表达式放置在每粒子属性上，以完全按所需的方式来控制每粒子属性。 
+		</p>
+ 
+		<p class="li listintro" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F5B">示例：创建烟</p>
+<ol class="ol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS17956D7ADBC6E7361A342C07117AE3124CC-7F84"><li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F5A">创建一个垂直向上发射粒子的简单曲线发射器。 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F59">若要执行该操作，可以从<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-554D979D-D56E-4348-84A2-40256519E93C">“Maya 帮助”(Maya Help)</span>复制下列 MEL 命令，并将它们粘贴到<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-7790B95C-393F-4829-A386-5DF2C516A9C3">“脚本编辑器”(Script Editor)</span>中： 
+			 </p>
+ 
+			 <pre class="pre codeblock">
+curve -d 3 -p -6.861087 0 7.36723 -p -2.43128 0 2.685247 -p 2.685247 0 -2.43128 	-p 6.968851 0 -6.714884 -k 0 -k 0 -k 0 -k 1 -k 1 -k 1 ; emitter -type curve -r 100 -sro 0 -nuv 0 -cye none -cyi 5 -spd 6 -srn 0 -nsp 0 	-tsp 0 -mxd 0 -mnd 0 -dx 0 -dy 1 -dz 0 -sp 0 ; particle;
+connectDynamic -em emitter1 particle1;
+</pre>
+ 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F58">将粒子的寿命模式设定为随机范围。将寿命设定为 2 并将 lifespanRandom 设定为 2。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F57">将粒子渲染类型设定为“云”(Cloud)。单击<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-3A1065EC-1682-48A5-B3DC-1C456089236E">“为当前渲染类型添加属性”(Add Attributes for Current Render Type)</span>，然后将<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-021EA789-6550-49A2-AEA2-65FFD1916215">“半径”(Radius)</span>设定为 1.5。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F56">选择<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-FA16F01F-C3F8-4327-8DCB-257E183783E0">“particleCloud”</span>选项卡，然后将颜色设定为浅灰色或喜欢的任何其他颜色。 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F55">现在我们将使用您未在使用的任何每粒子属性。例如，此处我们不需要<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-47C65F6D-2114-4E78-BD8D-9F4A46F2FB07">“parentU”</span>和<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-7CEA9801-5EA9-4FF7-A372-D89B3D1D6B80">“parentV”</span>，因此我们将使用这两个属性。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F54"><span class="notetitle">注：</span>  
+				<p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-00D8E74D-0B4E-4C33-B77A-A2D96F3EC555">为简单起见，在本示例中，我们使用了 parentU 和 parentV，因为可以很容易添加它们，且它们未在使用中。但是，可以使用任何动态属性，甚至自己定义的那些动态属性。 
+				</p>
+ 
+			 </div>
+ 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F53">选择<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-7D6A3D7E-E537-4259-93B0-365F44FB22A8">“属性 &gt; 添加属性”(Attributes &gt; Add Attributes)</span>。在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-C392A78D-0921-4BCF-B99B-31C2FD6FF13A">“添加属性”(Add attribute)</span>窗口中，单击<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-327C4C11-01BB-44B3-B514-D1170D86A210">“粒子”(Particle)</span>选项卡。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F52">选择<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-7A61E87C-DB7D-48ED-9099-C15726E4DC7A">“parentU”</span>，然后单击<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-B8CADB7F-201B-4100-BEAD-E6DD3B0E000C">“添加”(Add)</span>。选择<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-F18BDB9C-88F7-4780-A832-39C3884F2F51">“parentV”</span>，然后单击<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-BBC70BAA-36B1-4EA6-A61F-1A13D2CEDBFD">“添加”(Add)</span>。单击<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-17CD2143-3745-4D01-965F-EBC916FCD948">“确定”(OK)</span>。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F51">在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-33F67388-CEEF-4108-B502-B2A2C1B04581">“parentU”</span>或<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-D462F5E6-D906-4CC5-A63B-1DC290D3CA9F">“parentV”</span>上单击鼠标右键，选择<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-252B097D-4293-4B5C-8198-4D9718652CBD">“运行时表达式”(Runtime Expression)</span>（在动力学计算之前或之后），然后添加以下表达式： 
+			 <pre class="pre codeblock">
+parentU = 0.7 + 2*(age/finalLifespanPP); parentV = age /(1.5*finalLifespanPP);
+</pre>
+ 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F50">我们希望随着粒子年龄增大，粒子越不密集且躁波越多，就像烟一样。 
+			 </p>
+ 
+			 <div class="note tip" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F4F"><span class="tiptitle">提示：</span> 在本示例中，我们使用了一个表达式来实现某个特定效果。但是，不必将表达式与<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-1310FAD2-60B6-4788-A3D3-8C13793AAD6C">“粒子采样器信息”(Particle Sampler Info)</span>节点一起使用。还可以使用渐变，从而获得一种不同的效果。 
+			 </div>
+ 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F4E">在 particleCloud<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-0E0A1D73-420F-4621-8C47-E057F084F8A4">“属性编辑器”(Attribute Editor)</span>中，单击躁波旁边的贴图 <img class="image" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__IMAGE_8EA555458AD4450188360B1E6431433F" width="27" height="23" src="../images/GUID-F7675820-2C81-4B7F-A9D1-721839D1084B.png"> 按钮。 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS73099CC142F48755-575EAB4C124F5234AA81884">此时将显示<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-142F4433-0A43-4B4E-9E83-1F156FF35CEB">“创建渲染节点”(Create Render Node)</span>窗口。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS73099CC142F48755-575EAB4C124F5234AA81885">在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-D95DA53D-2AE8-4354-9F41-0E65FE5D501F">“创建渲染节点”(Create Render Node)</span>窗口中，在<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-1C2499CC-037E-493B-9706-5FC0C13D9D87">“Maya”</span>下单击<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-B802EF84-4D14-4A3F-8BFA-7FE3DD8785FA">“工具”(Utilities)</span>。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F4D">在右侧面板中，单击 <img class="image" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__IMAGE_C975404C659D40A2B0ACE24465879CEE" width="56" height="14" src="../images/GUID-13A1EA6B-9072-4041-B55A-8F0A7691FF0C.png">。 
+			 <p class="p" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F4C">将显示<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-8C7D619E-B466-493A-8A3F-3D45EEFBDC97">“连接编辑器”(Connection Editor)</span>。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F4B">将<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-A0E06B54-6BEE-46B3-821E-03D9B094B220">“粒子采样器信息”(Particle Sampler Info)</span>的<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-923581CF-1D36-4CBD-A638-24B914DCD07B">“parentU”</span>连接到<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-CC2FDC36-DF3A-43B9-ADE4-470F1DB7D458">“躁波”(Noise)</span>，并将<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-B67A7363-8D6C-47F8-90BC-AE8E3DAED4B7">“parentV”</span>连接到<span class="ph uicontrol" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__GUID-B01E5ACC-8C6C-4C76-BED1-9F965587E9A1">“密度”(Density)</span>。 
+		  </li>
+<li class="li" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F4A">添加灯光。将场景播放至大约 60 帧，然后进行渲染。 
+			 <div class="fig fignone" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__WS1A9193826455F5FF-6D855556117FACF922E-2F49"><img class="image" id="GUID-AF7452B6-4996-4012-8974-7C39A9186377__IMAGE_097F7A02C9334A04A86AEB57B0AC0D7B" width="116" height="74" src="../images/GUID-998BABDC-F18C-4EB7-BA33-B8D7DA5CF436.png"></div>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED.htm">渲染和照明 nParticle</a></div>
+</div>
+</div>
+
+</body>
+</html>

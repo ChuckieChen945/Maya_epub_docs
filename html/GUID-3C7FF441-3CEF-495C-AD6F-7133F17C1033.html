@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033">
+<meta name="language" content="CHS">
+<title>关于使用 Ptex 贴图控制基本体</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>关于使用 Ptex 贴图控制基本体</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__GUID-DA13344F-25D3-475C-A67B-611DB59AA82F">您可以使用带有 XGen 描述的 Ptex 文件来指定基本体的位置和密度，以及控制若干基本体属性。Ptex 文件作为贴图覆盖在多边形网格上。您可以使用 Maya 中的 Ptex 绘制或者使用在 Autodesk Mudbox 2012（或更高版本）中创建的 Ptex 文件来创建 Ptex 贴图。在 Maya 中，您可以使用 Paint 3D 工具来绘制纹理，纹理在由 XGen 保存时生成 Ptex 文件。 </p>
+<p class="p" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__GUID-EBDAC9C1-1339-4A76-B2F1-495361DBCAF6">通常，Ptex 贴图可由用黑色、白色和灰色绘制的区域组成。贴图的黑色区域表示值 0，白色区域表示值 1，灰色区域表示介于 0 和 1 之间的值。 </p>
+<p class="p" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__GUID-9B7EB990-DFEB-4B62-886A-B0E4859509F9">当您将贴图附加到某项属性（如<span class="ph uicontrol" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__GUID-AECB0C9B-B7B1-4326-B90C-FA02D39FAECF">“密度”(Density)</span>的<span class="ph uicontrol" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__GUID-7AAE9713-AB9C-44C9-AE7B-65B8F5C77007">“遮罩”(Mask)</span>）时，贴图输入设置属性并基于颜色生成输出。例如，贴图的白色区域显示全部属性值，而绘制了黑色的区域生成属性值 0。 </p>
+<div class="fig fignone" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__FIG_FE91566ACB6D4BE4AD6F77018174DE91"><img class="image" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__IMAGE_D3A2FF4A9469423B8A9DAB18F2A02374" src="../images/GUID-8E16CD88-F249-4EB2-8BF7-40C298B0FD73.png"></div>
+<p class="p" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__GUID-EEFB2265-0A81-4F37-B071-2A736B38C12C"> 您也可以在网格上绘制不同的颜色来区分曲面上的不同区域。针对区域贴图使用此类型的 Ptex 贴图。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-CD325809-1C8B-4EF2-81F0-1D2C9636A876.htm">关于区域贴图和遮罩</a>。您可以通过绘制灰色来改变属性（如<span class="ph uicontrol" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__GUID-A160B84D-9E2B-4E8E-8C09-E20DD20C43B0">“长度”(Length)</span>）的值。 </p>
+<div class="fig fignone" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__FIG_C645AB4E810E4FCE8EEF84C55CBD7A48"><img class="image" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__IMAGE_935845003F9B44E4AE110B3FFF5B1DBB" src="../images/GUID-16E22555-E191-41FC-8480-B0A3DB661E24.png"></div>
+<div class="section" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__SECTION_09BAB6D5FDB344A5AD73EA276CB7685E"><h2 class="title sectiontitle">了解 Texel</h2>
+
+<p class="p" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__GUID-74CA23D8-E2D2-479C-A174-255D0C1F59A5">通过使用 Ptex 绘制可将 Texel 添加到网格的各个面。Texel 是术语“texture element（纹理元素）”的缩写。Texel 与像素类似，但不限于平面计算机屏幕。您可以将 Texel 理解为网格曲面上的单个颜色点。 </p>
+
+<p class="p" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__GUID-6289A4D6-EC18-476F-BCA0-AAA7D7CAC361">在创建 Ptex 贴图时，您可以指定网格每个基础面所需的 Texel 分辨率（<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-FC0CC451-79B2-4336-98C9-3B1E91280998.htm#GUID-FC0CC451-79B2-4336-98C9-3B1E91280998__GUID-84872D34-A8BA-42F5-9BB7-6B79B22FE492">贴图分辨率(Map Resolution)</a>）。您指定的 Texel 分辨率将告知 Maya，贴图的每个基础面需要多少细节。 </p>
+
+</div>
+<div class="section" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__SECTION_A077C9CB11614170B6AA57F7CCF2C5AC"><h2 class="title sectiontitle"> Ptex 文件名和文件夹</h2>
+
+<p class="p" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__GUID-B68C419F-0226-4468-9C9D-26BEE89B5755">当您在 Maya 中创建 Ptex 贴图时，您指定的<span class="ph uicontrol" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__GUID-1EB12B04-41BF-4F9A-9A52-1CA31E242E0D">“贴图名称”(Map Name)</span>被分配到包含 Ptex 文件的文件夹名称。Ptex 文件名派生于您对其进行绘制的多边形网格对象。Maya 将 Ptex 文件夹和文件存储在 <samp class="ph codeph" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__GUID-9F3BA2A8-FD36-4E62-B28E-58BB1EE11EA7">paintmaps</samp> 文件夹中（该文件夹存储在 Description 目录中）。例如，如果您在命名为 <samp class="ph codeph" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__GUID-7CD941CB-B154-46D4-83BA-33EFDE11C8E0">LandscapePlane</samp> 的多边形网格上绘制一个命名为 <samp class="ph codeph" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__GUID-80C0C548-336D-450D-A886-AAC18D9DB6F0">GrassDensity</samp> 的贴图，文件夹和文件的结构如下所示： </p>
+
+<div class="fig fignone" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__FIG_73046871B99446308BC86F4BFE91308F"><img class="image" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__IMAGE_14108583B4064AA4A759F8C904BDA5C0" src="../images/GUID-EAFF83A2-83B5-42A6-AA6B-18082FB2A6D8.png"></div>
+
+</div>
+<div class="section" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__SECTION_B6A655A6F1C542AA8C87ADBB6922CFE5"><h2 class="title sectiontitle">相关主题</h2>
+
+<ul class="ul" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__UL_BD379D3209B4461C91ABCF6B151C3895"><li class="li" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__LI_C7B1594657D64449AE23436DFE35345E">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-8EF9212D-8496-4563-B30E-5A80608DB122.htm" title="创建基于 Ptex 的贴图，以基于颜色值和纹理控制属性值。">创建 Ptex 贴图以控制基本体</a>
+</li>
+<li class="li" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__LI_751663411F2D437D87C04198921B9762">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-CD325809-1C8B-4EF2-81F0-1D2C9636A876.htm">区域贴图和遮罩</a>
+</li>
+<li class="li" id="GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033__LI_31D9AF9D546D4B7B9430E1052BF08192">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F.htm">存储 XGen 文件的位置</a>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-47644337-40F0-4766-BD3B-4104F9F9B7E2.htm">XGen 概念</a></div>
+</div>
+</div>
+
+</body>
+</html>

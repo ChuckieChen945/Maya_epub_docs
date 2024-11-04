@@ -1,0 +1,162 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_system_am_Render_Settings_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_RENDER_SETTINGS">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 渲染设置 - Arnold for Maya">
+
+<title>渲染设置</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+      <script src="../scripts/lang-python.js"></script>
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+<div class="head-block"><h1>渲染设置</h1></div><p>“渲染设置”(Render Settings)部分可以控制各种 Arnold 系统设置。</p>
+<p><img src="../images/bba97800-cba9-11ec-9893-ec7fe133f86d" alt="图像"></p>
+<h2 id="render-type">渲染类型(Render Type)</h2><p>可以选择“交互式”(Interactive)渲染、“导出 Ass”(Export Ass)或“导出 Ass 并使用 Kick”(Export Ass and Kick)。这些类型如下所述：</p>
+<h3 id="interactive">交互式(Interactive)：</h3><p>通过 Arnold 进行渲染的默认渲染选项，将使用 Maya 的视口进行渲染。</p>
+<h3 id="ass-export-ass">导出 Ass(Export Ass)：</h3><p>此选项会自动将 .ass 文件导出到当前项目的数据文件夹。</p>
+<h3 id="ass-kick-export-ass-and-kick">导出 Ass 并使用 Kick(Export Ass and Kick)：</h3><p>此选项会将场景导出为 .ass 文件，启动 Kick 并在 Maya 外部的本地渲染视图窗口中渲染该 .ass 文件，如下所示：</p>
+<p><img src="../images/b3057180-cbaa-11ec-8744-30d60a3bdb61" alt="图像"></p>
+<p><sub>通过 Kick 进行渲染</sub></p>
+<h2 id="bucket-scanning">渲染块扫描(Bucket Scanning)</h2><p><img src="../images/c3b5e780-cbaa-11ec-9ecd-9bff7233562d" alt="图像"></p>
+<p>指定处理图像渲染块（即线程）的空间顺序。默认情况下，渲染块从图像中心出发，然后以螺旋样式向外继续。 </p>
+<p><img src="../images/e942f100-cbaa-11ec-8c58-ff3e8386ad2d" alt="图像"></p>
+<p><sub><strong>顶部、左侧、随机、螺旋、Hilbert</strong></sub></p>
+<h2 id="">渲染块大小</h2><p>图像渲染块的大小。默认大小为 64x64 像素，这是一个较好的折衷值；较大的渲染块会使用更多的内存，而较小的渲染块可能会执行冗余计算和过滤，导致渲染速度减慢，但会加快初始的反馈速度。</p>
+<h2 id="overscan">过扫描(Overscan)</h2><p>过扫描会将渲染区域延伸到常规图像坐标以外的部分。它既可以是百分比，也可以是像素值。您可以同时混合使用百分比和像素值，但是，如果不指定单位，则默认为像素。它可以具有：</p>
+<ul>
+<li>一个值（例如 10px），为每一侧指定相同的边距。</li>
+<li>两个值（例如 10px 5px），指定顶部/底部的边距（第一个值）和右侧/左侧的边距（第二个值）。</li>
+<li>三个值（例如 10px 5px 2px），指定顶部的边距（第一个值）、右侧/左侧的边距（第二个值）和底部的边距（第三个值）。</li>
+<li>四个值（例如 10px 5px 2px 1px），分别指定顶部、右侧、底部和左侧的边距。</li>
+</ul>
+<p>例如，要在所有方向上对 640x480 图像执行大小为 10 像素的过扫描，可以将选项 region_min_x、region_min_y、region_max_x、region_max_y 分别设置为 -10、-10、649、489。以下示例显示了“过扫描”(Overscan)字段中的像素值为 10、50、100、200（顶部、右侧、底部、左侧）的情况：</p>
+<p><img src="../images/1099be00-cbab-11ec-902a-6c5d890f2d9a" alt="图像"></p>
+<p><sub><strong>将“过扫描”(Overscan)设置为 10、50、100、200，并在 Nuke 中查看结果</strong></sub></p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>您可以查看正在进行的渲染的输出图像。为此，必须执行以下操作：</p>
+<ul>
+<li>将输出设置为分片 EXR，zip 也可以。</li>
+<li>将渲染块扫描方法设置为“顶部”。</li>
+<li>使用 imf_disp 等查看器。</li>
+</ul>
+
+</div></div>
+
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>过扫描只适用于批渲染和 EXR 文件格式。</p>
+
+</div></div>
+
+<h2 id="autodetect-threads">自动检测线程(Autodetect Threads)</h2><p>基于硬件处理核心的数量使用最佳的渲染线程数。</p>
+<h2 id="threads">线程数(Threads)</h2><p>如果禁用自动检测，可通过此字段手动设置渲染线程数。也允许使用负数。如果指定 0 个线程意味着使用计算机上的所有核心，则负数可能意味着使用除了那么多核心以外的所有核心。例如，线程数=-2 表示使用除 2 个核心以外的所有核心，而线程数=2 表示仅使用 2 个核心。这在要保留一个或两个核心以执行其他任务时非常有用。例如，通过在此字段进行合理的设置，当 Arnold 在渲染视图中渲染时，DCC 应用程序可以更好地进行响应。</p>
+<h2 id="ass-binary-encode-ass-files">二进制编码 ass 文件(Binary-encode ass files)</h2><p>指定是否使用二进制编码将较大的浮点数组压缩成更紧凑的 ASCII 表示形式，以减小文件大小并提高加载速度，同时保证绝大部分内容仍然便于用户阅读。此外，二进制编码具有精确的 32 位精度，而如果不使用这种二进制输出，浮点值将被截断成最多 8 位 ASCII（例如 1234.5678）。编码数组通过为数组类型添加“b64”前缀进行表示。</p>
+<p>请注意，您可以在<a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/render-settings/system/arnold_for_maya_rendering_am_Arnold_Scene_Source_html.html">导出到 Arnold 场景源</a>主题中阅读更多有关此内容的信息。</p>
+<h2 id="asstoc-export-bounding-box-asstoc">导出边界框(.asstoc)(Export Bounding Box (.asstoc))</h2><p>指定是否以 .asstoc 文件格式导出场景的边界框。替代对象节点会使用此文件在视口中绘制内部场景的正确边界框。</p>
+<h2 id="expand-procedurals">展开程序(Expand Procedurals)</h2><p>在内部，Arnold 从程序节点创建形状节点（通常为按需创建）。“展开程序”(Expand Procedurals)会在执行 Ass 导出之前展开节点。因此，在保存 .ass 文件时，您将得到程序已创建的所有节点。</p>
+<h2 id="expand-all-shading-groups">展开所有着色组(Expand All Shading Groups)</h2><p>启用后，将导出所有着色组（或仅限导出时选定的着色组），即使这些着色组未指定给场景中的任何几何体。这样可防止将着色器指定给虚拟对象。</p>
+<h2 id="export-full-paths">导出完整路径(Export Full Paths)</h2><p>导出带有 Maya 路径的节点名称。例如，将使用 pSphere1|pSphereShape1 代替 pSphereShape1。</p>
+<h2 id="export-namespace">导出名称空间(Export Namespace)</h2><p>确定 Maya 名称空间是否必须导出为 Arnold 节点名称。“根”模式仅在全名的根处导出一次，作为附加层次。例如，在 Maya 中导入的名称空间为“asset”的球体通常在 Maya 中显示为“asset:pSphere1|asset:pSphereShape1”。以“根”模式导出时，Arnold 节点将命名为“asset/pSphere1/pSphereShape1”。</p>
+<h2 id="dag-export-dag-name">导出 Dag 名称(Export Dag Name)</h2><p>允许在导出场景时使用变换节点或形状（默认）名称。</p>
+<h2 id="export-separator">导出分隔符(Export Separator)</h2><p>确定 Arnold 节点名称中用于层次的分隔符。默认情况下，将使用“/”。例如，默认情况下 pSphere1|pSphereShape1 将导出为 /pSphere1/pSphereShape1</p>
+<h2 id="export-shading-engine-legacy">导出着色引擎（旧有）(Export Shading Engine (Legacy))</h2><p>在所有着色树的根目录导出一个特定于 Maya 的 Maya 着色引擎。此参数是出于历史原因才提供的，未来的版本中将会删除它。请注意，之前保存的 .ass 文件仍然兼容。但是，以前导出 XGen 归档文件可能无法正确渲染。</p>
+<h2 id="kick-kick-render-flags">Kick 渲染标志(Kick Render Flags)</h2><p>当渲染类型设置为“导出 Ass 并使用 Kick”(Export Ass and Kick)时，此字符串字段可用于向 Kick 传递参数。</p>
+<h2 id="render-unit">渲染单位(Render Unit)</h2><p><img src="../images/4e96e200-cbab-11ec-9622-6b76b656f0bc" alt="图像"></p>
+<p><em>使用 Maya 单位(Use Maya Unit)</em> - 使用默认的 Maya 单位设置。<em>使用自定义缩放(Use Custom Scaling)</em> - 您可以在此处指定用于缩放场景的浮点值。</p>
+<ul>
+<li><strong>场景比例(Scene Scale)</strong> - 全局场景比例参数（默认设置为 1.0）。</li>
+<li><strong>偏移原点(Offset Origin)</strong> - 选择坐标系的原点。</li>
+</ul>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p> </p>
+<ul>
+<li>建议按照真实世界的比例对场景进行建模。</li>
+<li>将场景导出到 Arnold 时，“渲染设置”(Render Settings)（系统(System)）中定义的场景单位存储在 .ass 文件头中。这样，就可以在具有不同场景单位的场景中加载文件，并获得一致的结果。如果当前场景单位与导出期间使用的单位不同，则加载 .ass 文件的 stand_in 现在将以不同的比例显示。默认情况下，MtoA 使用 Maya 首选项中定义的场景单位。</li>
+</ul>
+
+</div></div>
+
+<div class="head-block"><h1>回调</h1></div><p>在“渲染设置”(Render Settings)的“公用”(Common)选项卡中，所有的公用回调行为均符合预期。</p>
+<p><strong>转换后（仅 Python）</strong>回调在转换结束后执行。在此回调中，您可以在渲染开始前直接编辑 Arnold 领域。已设置一个常量变量 <code>UNIVERSE_ID</code>，该变量可用于检索当前渲染领域并在转换后更改节点。</p>
+<p>例如，用户可以按如下方式设置转换脚本：</p>
+<p><strong>转换后脚本</strong></p>
+<pre class="pre codeblock"><code class="lang-python prettyprint">import sys,os
+# add the location of the current scene to the PYTHONPATH
+filelocation=cmds.file(q=True,sn=True)
+dirpath=os.path.dirname(filelocation)
+sys.path.append(dirpath)
+# import the custom callback
+import callback
+# run the callback
+callback.callback(UNIVERSE_ID)</code></pre>
+<p>其中，与 Maya 场景文件在同一个文件夹中的名为 <code>callback.py</code> 的回调脚本包含如下代码，用于查找 <code>lambert1</code> 节点并将其设为绿色：</p>
+<p><strong>callback.py</strong></p>
+<pre class="pre codeblock"><code class="lang-python prettyprint">import maya.cmds as cmds
+from arnold import *
+def callback(universeId):
+    print("Universe ID : '{}'".format(universeId))
+    universe = AiUniverseGetFromId(universeId)
+    node_it = AiUniverseGetNodeIterator(universe, AI_NODE_SHADER)
+    while not AiNodeIteratorFinished(node_it):
+        node =AiNodeIteratorGetNext(node_it)
+        nodename =AiNodeGetName(node)
+        print(nodename)
+        if nodename == "lambert1":
+            AiNodeSetRGB(node, "Kd_color", 0.2, 0.8,0.2)
+
+        AiNodeIteratorDestroy(node_it)</code></pre>
+<p><strong>IPR 回调</strong></p>
+<p>MtoA 还提供了一组额外的 IPR 事件回调，位于“系统 / 回调”(System / Callbacks)。这些字符串字段可用于添加特定于 IPR 步长/阶段的前/后 MEL（或 Python）回调。为了更好地了解这些回调，必须在此上下文中指定“优化”和“步长”（这两者是增加 AA 时的单个渲染）。在 IPR 会话过程中切换场景时，MtoA 会经历一个称为“优化”的阶段。每个优化包含若干渲染通道，在此上下文中称为“步长”。这些回调会在其中任一阶段之前或之后执行。如果未更改任何内容，则 MtoA 会调用“优化已完成”。如果场景中的某些内容发生更改，则 MtoA 会停止“优化”阶段（这会调用“优化已完成”）并开始新阶段。</p>
+<p><sub><strong><sub>由 Daniel M. Lara 制作的 Pepe 模型 (Pepeland)。</sub></strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/render-settings/arnold_for_maya_render_settings_system_html.html">系统</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

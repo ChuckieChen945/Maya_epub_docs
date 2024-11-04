@@ -1,0 +1,122 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shading_am_Refractive_Caustics_using_an_Emissive_Shader_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_REFRACTIVE_CAUSTICS_USING_AN_EMISSIVE_SHADER">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用自发光着色器实现折射焦散 - Arnold for Maya">
+
+<title>使用自发光着色器实现折射焦散</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>使用自发光着色器实现折射焦散</h1></div><p><img src="../images/am-Refractive_Caustics_using_an_Emissive_Shader-caustic-title-300-1.gif" alt=""></p>
+<p>通过正确的设置，我们可以使用 Arnold 实现焦散效果。本简短教程介绍如何设置一个包含“液体”网格的场景，并在指定给它的 <em>standard_surface</em> 着色器中启用 <em>caustics*（高级）。该场景使用了一个 *emission_scale</em> 值很高的平面，由它产生折射焦散效果。</p>
+<p>目前还无法实现很小但很亮的光源（例如透过白兰地酒杯的聚光灯）产生的“硬”焦散。</p>
+<p>Arnold 使用简单的单向路径跟踪。光线从摄影机处（而非灯光处）开始。Arnold 不使用双向路径跟踪（也不使用任何其他双向技术，如从灯光发射光线的光子贴图技术）。当使用标准灯光（例如点光源和聚光灯这种零面积的理想化灯光（也就是点光源））时，Arnold 的 GI/反射/折射光线根本无法射中灯光。因此，不会形成焦散。</p>
+<p>但是，我们可以通过增大点光源和聚光灯的“半径”参数（值越大，噪波越少），将它们变成有限大小的灯光，这样它们就变成了球形灯光，从而可以产生美丽的软阴影和柔和高光。还必须启用灯光的 <em>transmission</em>，以便显示焦散。然后，GI/反射/折射光线应该就可以“看见”这些灯光了。</p>
+<p>您可以不使用 Arnold 的标准灯光，而是创建一个多边形网格，为其指定一个平面自发光着色器，然后让 GI 引擎“找到”该灯光。这样便会得到焦散。但是，这种方法的效率极低，因为小的自发光物体往往难以射中。您需要大量光线或一个非常大的自发光物体才能让噪波变得可以接受。正因为如此，用户手册指出我们可以实现大型自发光物体产生的“软”焦散。</p>
+<p><strong>有关本教程中使用的场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Refractive-Caustics_user-guide.zip" target="_blank">此处</a>。</strong></p>
+<ul>
+<li>首先，打开场景文件。该场景包含一个起始的基本对象。创建一个多边形地板平面，并将其放在网格下方。</li>
+</ul>
+<p><img src="../images/am-Refractive_Caustics_using_an_Emissive_Shader-image2013-9-13-12-30-47-2.png" alt=""></p>
+<h2 id="">自发光平面</h2><ul>
+<li>再创建一个平面，并将其放在网格上方，如下所示。</li>
+</ul>
+<p><img src="../images/am-Refractive_Caustics_using_an_Emissive_Shader-image2013-9-13-12-30-8-3.png" alt=""></p>
+<ul>
+<li>为多边形网格上方的多边形平面指定一个 <em>standard_surface</em> 着色器。这将代表我们的光源。将 <em>standard_surface</em> 着色器的 <em>base_weight</em> 值减小到 <strong>0</strong>，并将 <em>emission</em> 增加到 10 左右。</li>
+</ul>
+<h2 id="">网格着色</h2><ul>
+<li><p>为要产生折射焦散的多边形网格指定一个 <em>standard_surface</em> 着色器。我们要将其设置为玻璃着色器。</p>
+</li>
+<li><p>将 <em>diffuse</em> 值减小到 0。将 <em>specular_weight</em> 增加到 1，并将 <em>specular_roughness</em> 减小到 0。将 <em>transmission_weight</em> 增加到 1，并将 <em>IOR</em> 更改为玻璃的折射率 (1.5)。</p>
+</li>
+<li><p>接下来，我们将为着色器添加一个带颜色的染色。为玻璃 <em>standard_surface</em> 着色器的 <em>transmission_color</em> 添加一些颜色。</p>
+</li>
+</ul>
+<h2 id="">折射焦散</h2><p>要透过玻璃查看折射焦散，我们必须在指定给玻璃网格的 <em>standard_surface</em> 着色器中启用折射焦散。可以在<em>“高级”(Advanced)</em>下找到<em>“焦散”(caustics)</em>。启用此项。</p>
+<p>在下面的图像中，您可以看到启用<em>“焦散”(Caustics)</em>后的区别。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Refractive_Caustics_using_an_Emissive_Shader-no-caustics-4.jpg" alt=""></td>
+<td><img src="../images/am-Refractive_Caustics_using_an_Emissive_Shader-refractive-caustics-5.jpg" alt=""></td>
+</tr>
+<tr>
+<td>焦散(Caustics)：禁用</td>
+<td>焦散(Caustics)：启用</td>
+</tr>
+</tbody></table>
+<h2 id="">噪波</h2><p>要减少<em>焦散</em>中的噪波，必须增加<em>漫反射</em>采样数。下面的动画显示了使用不同漫反射采样数渲染焦散的区别：分别为 3 个和 6 个<em>漫反射</em>采样。使用此属性时务必小心，因为增大此值会显著增加渲染时间。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Refractive_Caustics_using_an_Emissive_Shader-top-caustic-3-samples-6.gif" alt=""></td>
+<td><img src="../images/am-Refractive_Caustics_using_an_Emissive_Shader-Top-Caustic-8.gif" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong><span style="color: rgb(0,0,0);"><em>漫反射</em>采样数：3</span></strong></sub></td>
+<td><sub><strong><span style="color: rgb(0,0,0);"><em>漫反射</em>采样数：<em>6（渲染时间长很多）。</em></span></strong></sub></td>
+</tr>
+</tbody></table>
+<p>就是这样。现在您可以开始渲染了。可以尝试渲染其他一些对象。使用此方法时的注意事项：</p>
+<ol>
+<li>精细调整指定了自发光着色器的几何体的正确<em>自发光</em>量，否则可能会产生很多白色噪波。</li>
+<li>增加<em>漫反射</em>采样数可减少噪波。</li>
+</ol>
+<p><sub><em><sup>非常感谢 <a class="external-link" href="http://www.soup-dev.com/index.html" rel="nofollow" target="_blank">SOuP</a></sup><sup> Development 的 <strong>Peter Shipkov</strong> 提供本教程中使用的 Maya 场景。</sup></em></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Shading_html.html">着色</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

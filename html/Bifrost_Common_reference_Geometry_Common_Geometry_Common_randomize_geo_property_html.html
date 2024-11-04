@@ -1,0 +1,81 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Geometry_Common_Geometry_Common_randomize_geo_property_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>randomize_geo_property</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>randomize_geo_property</code></h1></div><p>创建区间 [<code>min</code>, <code>max</code>) 内的随机数据，并将其指定给给定对象上的某个特性。</p>
+<p>与 <code>random_value_array</code> 相比，此复合的优势在于它使用 <code>point_id</code> 特性（而不是 <code>point_position</code> 特性的索引）从随机序列获取值。在发射和禁用粒子的模拟中，<code>point_position</code> 中的索引可能会更改。但是，在发射时指定的 <code>point_id</code> 不会更改，因此它总是从随机序列返回相同的值。</p>
+<p>此外，还可以使用逐点权重控制效果的幅值，以及使用曲线控制分布。 </p>
+<p>如果只需要与诸如点之类的几何体组件对应的随机值，则可以忽略 <code>out_geometry</code> 值，并仅使用 <code>random_value</code> 输出。</p>
+<h2 id="">输入</h2><h3 id="geometry"><code>geometry</code></h3><p>要为其生成随机数据的几何体。</p>
+<h3 id="weights"><code>weights</code></h3><p>控制应用的随机化量。 </p>
+<ul>
+<li>权重为 0 时，不应用随机化。</li>
+<li>权重在 0 到 1 范围内时，按 <code>min</code> 和 <code>max</code> 之间的值的一部分进行随机化。</li>
+<li>权重为 1 时，完全按 <code>min</code> 和 <code>max</code> 之间的值进行随机化。</li>
+<li>权重大于 1 时，点移动的距离大于给定值。</li>
+<li>权重在 0 到 1 范围以外时，按 [<code>min</code>, <code>max</code>) 范围以外的量进行随机化。</li>
+</ul>
+<p>如果未连接任何对象，则所有点的默认权重为 1。这是一个<em>解释的自动端口</em>，其接受以下类型：</p>
+<ul>
+<li>单个 <code>float</code> 解释为应用于所有点的常量值。</li>
+<li><code>array&lt;bool&gt;</code> 解释为每点的 0 (false) 或 1 (true) 值。</li>
+<li><code>array&lt;float&gt;</code> 解释为每个点的值。可根据需要调整数组大小以匹配点数。</li>
+<li><code>string</code> 解释为现有几何特性的名称，并使用其值。</li>
+<li><code>ScalarField</code> 将在几何体组件的每个位置处进行采样。</li>
+<li><code>array&lt;long&gt;</code> 指定要为其指定值 1 的索引。对于其他索引，则指定值 0。</li>
+</ul>
+<h2 id="">随机化</h2><h3 id="min-max"><code>min</code>、<code>max</code></h3><p>最小和最大随机值。随机值在 [<code>min</code>, <code>max</code>) 范围内，表示大于或等于 <code>min</code> 但小于 <code>max</code>。</p>
+<h3 id="seed"><code>seed</code></h3><p>随机数生成器的种子。</p>
+<h3 id="distribution"><code>distribution</code></h3><p>此 FCurve 可更改结果值的分布。在应用 FCurve 后，结果将缩放为 [<code>min</code>, <code>max</code>)。这意味着，在 FCurve 为 0 时，结果为 <code>min</code>，在 FCurve 为 1 时，结果为小于 <code>max</code> 的最大值。</p>
+<h3 id="randomization_mode"><code>randomization_mode</code></h3><p>确定如何应用随机值。 </p>
+<ul>
+<li><code>Replace</code> 表示忽略现有值，并将其替换为随机生成的值。 </li>
+<li><code>Scale</code> 表示将现有值与随机值相乘。 </li>
+<li><code>Offset</code> 表示将现有值与随机值相加。</li>
+</ul>
+<h2 id="">特性</h2><h3 id="property"><code>property</code></h3><p>要在 <code>geometry</code> 上创建或修改的特性的名称。</p>
+<h3 id="target"><code>target</code></h3><p>特性的目标组件。此项可确定输出 <code>random_value</code> 数组的大小。</p>
+<h3 id="default_value"><code>default_value</code></h3><p>当输入 <code>geometry</code> 上不存在给定特性时，要使用的默认值。当 <code>randomization_mode</code> 为 <code>Scale</code> 或 <code>Offset</code> 时，以及索引数组连接到 <code>weights</code> 时，使用此值。</p>
+<h2 id="">输出</h2><h3 id="out_geometry"><code>out_geometry</code></h3><p><code>property</code> 指定了随机值的输入几何体。</p>
+<h3 id="random_value"><code>random_value</code></h3><p>生成的随机值。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Geometry/Bifrost_Common_reference_Geometry_Common_html.html">Common</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

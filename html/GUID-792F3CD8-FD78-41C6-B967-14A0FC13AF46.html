@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46">
+<meta name="language" content="CHS">
+<title>凹凸贴图</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>凹凸贴图</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF-56C0CD8012A8003217A-1E25"><div class="fig fignone" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__WS73099CC142F48755-3D114B7511812357EFE-74E7"><img class="image" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__IMAGE_65692BD6FE044773857B525A8936318A" width="314" height="189" src="../images/GUID-1AD94AB5-26D0-416F-AE04-C2D7A4EF68F0.png"></div>
+<p class="p" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__WS73099CC142F48755-3D114B7511812357EFE-74E6"> 凹凸贴图是灰度纹理，可将它们映射到对象以在其他平坦对象上创建出表面起伏（高地和洼地）的错觉。 
+	 </p>
+<p class="p" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__WS73099CC142F48755-3D114B7511812357EFE-74E4">借助凹凸贴图，洼地和高地看起来是真实的，因为它们不会像<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-E7A03E4E-8C9A-4B62-8218-28FC063A82AB.htm">置换贴图</a>那样改变曲面的几何体。凹凸贴图只是基于凹凸贴图的<span class="ph uicontrol" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__GUID-6D52D5B5-8592-4117-AD40-1603474AA595">“Alpha 增益”(Alpha Gain)</span> 
+		<span class="ph uicontrol" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__GUID-970E709C-248D-4617-AA0A-F2E617501966"></span>值更改曲面的法线的方向。 
+	 </p>
+<p class="p" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__WS73099CC142F48755-3D114B7511812357EFE-74E3"> 使用凹凸贴图创建非常浅的起伏。例如，可以使对象看起来像是凸雕的，具有很浅的山丘，等等。 
+	 </p>
+<p class="p" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__WS73099CC142F48755-3D114B7511812357EFE-74E1">因为凹凸贴图不是真正的表面起伏，所以它们： 
+	 </p>
+<ul class="ul" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__WS73099CC142F48755-3D114B7511812357EFE-74E0"><li class="li" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__WS73099CC142F48755-3D114B7511812357EFE-74DF">不能投射或接收阴影 
+		</li>
+<li class="li" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__WS73099CC142F48755-3D114B7511812357EFE-74DE">如果使映射的对象呈现暗色轮廓，则无法看到 
+		</li>
+<li class="li" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__WS73099CC142F48755-3D114B7511812357EFE-74DD">渲染花费的时间比置换贴图的少 
+		  <div class="note note" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__WS73099CC142F48755-3D114B7511812357EFE-74DC"><span class="notetitle">注：</span> 用于凹凸贴图的文件纹理通常是通过其<span class="ph uicontrol" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__GUID-08F8C86D-DC5E-4F09-96C3-6B80F615F354">“outAlpha”</span>属性连接的。如果相应的纹理图像文件未提供 Alpha 通道，那么在使用某些图像格式时，凹凸效果可能会丢失。 
+			 <p class="p" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__WS73099CC142F48755-3D114B7511812357EFE-74DB">若要避免出现这种情况，请在<span class="ph uicontrol" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__GUID-EB1BA86A-7D42-433C-92AC-ACA234C0F3A1">“文件纹理”(File Texture)</span>节点的<span class="ph uicontrol" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__GUID-20CCDDB6-0F63-42A8-A9E8-6C5C5688FF61">“颜色平衡”(Color Balance)</span>区域中启用<span class="ph uicontrol" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__GUID-8DD7D8A6-0E39-4400-B274-ECFDE86FA451">“Alpha 为亮度”(Alpha is Luminance)</span>属性。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-309A77DA-F5ED-4474-8413-317D7AB241E6.htm">文件</a>。 
+			 </p>
+ 
+		  </div>
+ 
+		</li>
+</ul>
+<div class="note tip" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__WS73099CC142F48755-3D114B7511812357EFE-74D5"><span class="tiptitle">提示：</span>  
+		<ul class="ul" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__WS73099CC142F48755-3D114B7511812357EFE-74D4"><li class="li" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__WS73099CC142F48755-3D114B7511812357EFE-74D3">将表面起伏（凹凸或置换）映射到<span class="ph uicontrol" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__GUID-2EBA3260-88CA-4792-9D30-2BF7B9DA05E0">“Blinn”</span>表面材质可减少高光呈挂绳状或闪烁。与<span class="ph uicontrol" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__GUID-1D410809-D9F0-4941-866A-391C204070EF">“Phong”</span>表面上的更强的高光相比，<span class="ph uicontrol" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__GUID-CB456B93-1196-47BE-A65A-002B6D7F1C92">“Blinn”</span>表面上的柔和高光不太可能导致呈挂绳状或闪烁。 
+		  </li>
+<li class="li" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__WS73099CC142F48755-3D114B7511812357EFE-74D2">尽管划痕就像小洼地一样，但是使用 2D 纹理可以更加轻松地实现它们。 
+		  </li>
+</ul>
+ 
+	 </div>
+<div class="section" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__WS73099CC142F48755-3D114B7511812357EFE-74DA"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__WS73099CC142F48755-3D114B7511812357EFE-74D9"><li class="li" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__WS73099CC142F48755-3D114B7511812357EFE-74D8"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-F403A3FF-55BE-43A0-B6E1-49BA7C6BF5EE.htm">关于表面起伏</a> 
+		  </li>
+<li class="li" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__WS73099CC142F48755-3D114B7511812357EFE-74D7"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-DC60577E-1A09-4D51-BD6E-6400F4F5EFD7.htm">纹理贴图</a> 
+		  </li>
+<li class="li" id="GUID-792F3CD8-FD78-41C6-B967-14A0FC13AF46__WS73099CC142F48755-3D114B7511812357EFE-74D6"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-3B5E91EA-446C-4B93-8E22-FCDD08EE86AC.htm">映射 2D 或 3D 纹理</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-F403A3FF-55BE-43A0-B6E1-49BA7C6BF5EE.htm">表面起伏</a></div>
+</div>
+</div>
+
+</body>
+</html>

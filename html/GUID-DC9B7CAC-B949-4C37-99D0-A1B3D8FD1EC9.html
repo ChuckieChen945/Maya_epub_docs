@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9">
+<meta name="language" content="CHS">
+<title>使用 ShaderFX 编辑器构建基于物理的 Stingray 着色器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 ShaderFX 编辑器构建基于物理的 Stingray 着色器</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-3DCC76C3-C771-43F0-8BAA-E9FF52D16A15">使用 ShaderFX 编辑器窗口和可用的 ShaderFX 节点构建 Stingray 基于物理的着色器。 
+	 </p>
+<p class="p">有关可用的 ShaderFX 节点属性的参考信息，请参见 <a class="xref" href="http://www.autodesk.com/stingray-help?contextId=shaders_ref_list_globals_cat%20" target="_blank">Stingray 着色器节点参考</a>。 
+	 </p>
+<p class="p" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-F8238E9E-1A02-45BE-B3AE-4C82C42B49BF">若要开始，请先从 <span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-A2E90AA7-E5AE-4606-AF0A-7828DE7E9607">Hypershade</span> 或<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-47605EF4-1B39-4824-94ED-8BBE0F264065">“指定新材质”(Assign New Material)</span>窗口创建 <span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-14DE99EE-E861-4716-AF7B-6B821659A26A">Stingray PBS</span> 节点。 
+	 </p>
+<div class="section" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__SECTION_74B3F9C648A5462390E781274CB983D7"><h2 class="title sectiontitle">创建预设着色器图表</h2> 
+		 
+		<p class="p" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-2FD82BB8-8567-4570-BF54-0DB1D7E2BFDD">创建着色网络时，可以将图表另存为预设，并在下次创建新的 <span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-FDBD8AA9-73A0-49A6-A54D-B9E998BB7356">Stingray PBS</span> 节点时重用它。这样，就可以避免重复创建相同的着色器图表（可能会降低游戏的性能）。 
+		</p>
+ 
+		<p class="p" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-C92EEC29-458F-4563-86DD-3B50C48B5079">若要创建新的自定义预设，请在 <span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-66680E9F-1A2F-40E1-87C8-93682AA9894C">Stingray PBS</span>属性编辑器<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-92599BCF-1435-4186-BE06-5FFE71B3BCC5">的</span>“预设材质”(Preset Material)<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-73D04335-99A0-40BB-B191-4E3D17517009">下拉列表中选择</span> 
+		  <span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-A9DA902D-0703-41E9-A69A-E3A52054A3EF">“自定义”(Custom)</span>。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-58228469-AF63-4D8D-B9B2-E014277F7A2B.htm">为 Stingray 基于物理的着色器创建自定义预设</a>。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__SECTION_0C301227230E431FB4C1D73B1C3422F1"><h2 class="title sectiontitle">打开 ShaderFx 编辑着色器图表</h2> 
+		 
+		<p class="p" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-F25F9C45-6DD4-4EC6-A114-3563A602224B">单击<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-270C2182-ECEA-4C3D-B87D-C162859931CC">“打开 ShaderFX”(Open ShaderFX)</span>打开 ShaderFX 编辑器窗口。 
+		</p>
+ 
+		<p class="p" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-9138B608-8F66-41DA-A8F6-806E28F826DC">像任何 ShaderFX 网络那样，创建和连接节点。在 <span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-3E095D07-231C-431F-B00F-30AC7143D70A">ShaderFX</span> 编辑器的工作区中单击鼠标右键，并从标记菜单中选择<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-DF6E8997-4DAE-4E77-B5E2-0655B8DC4703">“添加”(Add)</span>，然后从可用的节点中进行选择。或者，可以从<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-376ABFD3-B6E1-46D5-B9C3-96A0F7424BE6">“节点浏览器”(Node Browser)</span>进行拖放。 
+		</p>
+ 
+		<div class="note note" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-CBF6DAC6-50D2-4ABC-833B-3F8ECF89F460"><span class="notetitle">注：</span>  
+		  <p class="p" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-EB4A8417-414D-4B72-98FB-1760547EB9CC">虽然可以通过 <span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-AC08593F-D437-472A-A782-267DCDF7E4B2">ShaderFX</span> 编辑器以与创建 <span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-EB624C70-9699-4AD8-BCF9-3C8D1290F5D1">ShaderFX 着色器</span>网络类似的方式，创建 <span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-458725B7-A1AE-4607-A4CD-E47CCABF5F0A">Stingray PBS</span> 着色器网络，但是无法从前者保存 <samp class="ph codeph" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-0655C196-2DF7-4F9A-99BD-2475B523FB1F">.sfx</samp> 文件，并在后者中使用它，反之亦然。虽然 ShaderFX 编辑器界面是类似的，但是可用节点集是不同的，因此不可互换。 
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__SECTION_14DE7557A175447B9DB8C04F1162CEE7"><h2 class="title sectiontitle">在着色网络中创建浮点或颜色值</h2> 
+		 
+		<p class="p" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-EA7CF2AB-D97C-458E-96DC-CDD68FEDE7D5">若要创建浮点，请创建<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-E6E27B06-3D18-428D-B30A-5AB79FC38929">“材质变量”(Material Variable)</span>节点，然后从<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-8F85DBF8-A3BB-46B0-BEAB-09DA46E3E33F">属性编辑器</span>的<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-F081CEE0-1E63-488D-BB69-CA14FAD2ECEB">“类型”(Type)</span>下拉列表中选择<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-35EBF08F-E2AB-4E70-93B5-F5CA1122E4D6">“标量”(Scalar)</span>、<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-5958E7E6-0E3D-4100-B877-5469D86945DB">“向量 3”(Vector 3)</span>或<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-4ED3E9FA-74C9-45D0-A8F7-D806FDEE758E">“向量 4”(Vector 4)</span>，以分别创建浮点、浮点 3 或浮点 4。 
+		</p>
+ 
+		<p class="p" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-7E4FD55D-9EA0-45D9-8300-B930905C208A">若要创建颜色，请创建<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-8FC0535D-122A-45AE-87D5-844139598536">“材质变量”(Material Variable)</span>节点，然后从<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-9953AF42-D136-4C89-8E77-77547F49A679">属性编辑器</span>的<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-D9C5A086-5C31-4D0F-8C44-B04CFC603305">“类型”(Type)</span>下拉列表中选择<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-C68C3452-C047-4977-8A8B-7701BE712EE7">“向量 3”(Vector 3)</span>，并从<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-96A57E96-E6DB-4416-A486-30827CD7E7F3">“向量”(Vector)</span>属性颜色缸中选择一种颜色。 
+		</p>
+ 
+		<p class="p" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-26C47E0E-765C-4EC1-B6B1-6AAF062D636D">可以连接浮点 1-4 的任意组合；即，例如可以将浮点 3 端口连接到浮点 4 端口。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__SECTION_C1977390A0A04BB9B3AFF8328F0E1ABA"><h2 class="title sectiontitle">创建纹理贴图</h2> 
+		 
+		<p class="p" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-1BCEDFA4-903D-415D-8271-69039AC345EF">若要创建纹理贴图，请创建<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-EBDD078F-62A8-4866-AD91-B47CC63E6FA6">“采样纹理”(Sample Texture)</span>节点，并将它连接到文件纹理。 
+		</p>
+ 
+		<p class="p" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-7A4367AD-70F1-4DCF-B8EF-272192628E1A">必须将“UV 集”(UV set)节点（例如 <span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-9ECEF0D8-7F36-483D-B420-0ED1087E904F">Texcoord 0</span>）连接到<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-FE2E1402-339A-4C05-AFEC-0D31AE54CD04">“采样纹理”(Sample Texture)</span>的<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-22A89E9E-1EF0-4E37-BC5D-EB74F58A8C8A">“UV”</span>属性，才能设置对象的纹理坐标。 
+		</p>
+ 
+		<p class="p" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-07BFF905-1E1E-4BFC-8AD9-5D06ED34E340">以下简单网络演示如何使用“线性插值混合”(Linear Interpolate Mix)节点将两个纹理组合在一起，以及如何使用“标量”(Scalar)值控制每个纹理的贡献。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__FIG_EB0B0073B2BC4F6B85F6DC993DE9012E"><img class="image" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__IMAGE_4EFF4EA5DB324F91A089AD1ABAB221AB" src="../images/GUID-D837C530-BB4E-44B5-B13E-E30FD72D2076.png"><p class="p" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-E08A7D8C-0B96-4A8B-9443-0EA068F81096">纹理由 www.cgtextures.com 提供 
+		  </p>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__SECTION_EA20EE69500F4F4DB63BAE699120C13A"><h2 class="title sectiontitle">在属性编辑器中显示 ShaderFX 节点</h2> 
+		 
+		<p class="p" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-08F32CCA-7BF7-4471-9EA4-327A902D84E1">可以将节点添加到图表，以便在关闭 ShaderFX 编辑器时，这些节点显示为 Stingray PBS <span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-688D45BE-8B23-48C9-8A3C-A78DC654E57D">属性编辑器</span>中的属性。这样，您就可以在重用同一自定义预设的同时调整这些属性，而无须打开 ShaderFX 编辑器。 
+		</p>
+ 
+		<p class="p" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-EBD859F1-2E71-4308-A23E-9CB1546FC413">这些节点包括： 
+		</p>
+ 
+		<ul class="ul" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__UL_B10EC16B08CE4F4E9AA58957F135124C"><li class="li" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__LI_2E38AD18DFB74095B051956D600D2023">采样立方体：接受立方体贴图纹理 
+		  </li>
+<li class="li" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__LI_D64F24AC62CB48A49464C075F92D0CEF">采样纹理：接受 2D 纹理 
+		  </li>
+<li class="li" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__LI_8C1BF65890B9448C8C66DA55FDA47096">材质变量 
+		  </li>
+</ul>
+ 
+		<p class="p" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-A529CDB8-8B55-44D7-9A82-343F203FA6DB">属性的名称取自节点的名称。因此，您可能希望更改节点的默认名称。在上面的示例中，默认名称 <em class="ph i" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-0727DCF3-D5B8-4632-A9BA-E619494EA282">texture map 5881422</em> 已更改为 <em class="ph i" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-3093F380-9ABE-4188-865C-454C706C2A72">Grass</em>，以便在关闭 ShaderFX 编辑器时 <em class="ph i" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-78975E92-05B1-4B9E-904D-D96F0F539342">Grass</em>（而不是 <em class="ph i" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-5F314448-1639-49B3-80CA-88E82232318C">texture map 5881422</em>）显示为<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-E7093FB9-EC61-4766-AB9D-A373E81754C1">属性编辑器</span>中的属性。若要重命名节点，请选择它，然后在<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-5148E1D6-721A-40CD-83D0-42301AF5DA62">属性编辑器</span>的<span class="ph uicontrol" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__GUID-4CBA1877-94CB-4148-B46A-192755797E01">“名称”(Name)</span>字段中输入新名称。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__SECTION_8279FF654F7F47258C6A04D006DEA141"><h2 class="title sectiontitle">在着色器中调整照明</h2> 
+		 
+		<p class="p">您可以限制影响着色器中阴影效果的灯光数量。着色器计算中包含大量灯光可能会降低着色器的性能，因此您可能需要设置一个合理的数量。在 ShaderFX 编辑器中选择<span class="ph uicontrol">“标准基础”(Standard Base)</span>节点以显示其<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>，然后从<span class="ph uicontrol">“阴影光线数”(Num Shadow Lights)</span>下拉列表选择从 1 到 3 之间的任意数字、不选择任何数字或全部选择。 
+		</p>
+ 
+		<p class="p">此外，Stingray PBS 节点中的灯光强度以灯光停止数进行测量。如果您发现灯光强度太亮，可以在<span class="ph uicontrol">“标准基础”(Standard Base)</span>节点的<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中禁用<span class="ph uicontrol">“灯光强度(以停止数为单位)”(Light Intensity in Stops)</span>选项。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__SECTION_7333846C72BE41449F460470423EAF18"><h2 class="title sectiontitle">IBL 颜色编码</h2> 
+		 
+		<p class="p">从<span class="ph uicontrol">“标准基础”(Standard Base)</span>节点<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol">“IBL 编码”(IBL Encoding)</span>下拉列表中，选择 IBL 立方体贴图（着色器中的全局漫反射和全局镜面反射纹理）使用的编码类型。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__SECTION_26DFD19F88604698A55A0FC21C75B1CC"><h2 class="title sectiontitle">粗糙度和反射</h2> 
+		 
+		<p class="p">在<span class="ph uicontrol">“标准基础”(Standard Base)</span>节点<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中启用<span class="ph uicontrol">“重映射粗糙度热度”(Remap Roughness hotness)</span>选项，可降低镜面反射的热度。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__SECTION_DFE4CFF5346141FF8E34CE5CD6967F80"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__UL_3499FB4C46684D1C8D637BB89102012B"><li class="li" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__LI_6BAE4CECB76146EA96AAE4B39C98896F"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-D1F9ED93-7CC5-4C34-B89D-1447A609AA56.htm">使用 ShaderFX 节点</a> 
+		  </li>
+<li class="li" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__LI_507874EA14C74246ADC3C334B19A5981"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-7C3BECD1-6E58-4963-9534-477314928E0F.htm">ShaderFX 介绍性的采样工作流</a> 
+		  </li>
+<li class="li" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__LI_B55D651EDB1D4EEDB682003E9069D454"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-3DB877CD-2BA7-4D5C-ABB6-5292955D4600.htm">Stingray 基于物理的着色器的标准预设着色器曲线图</a> 
+		  </li>
+<li class="li" id="GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9__LI_04353208052F478D9678CD82BF75E62C"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-58228469-AF63-4D8D-B9B2-E014277F7A2B.htm">为 Stingray 基于物理的着色器创建自定义预设</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3.htm">创建基于物理的 Stingray 着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

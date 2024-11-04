@@ -1,0 +1,59 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_Particles_Simulation_Particles_filter_particles_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>filter_particles</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>filter_particles</code></h1></div><p>此复合适用于从一个粒子系统到另一个粒子系统的次发射。它可用于根据碰撞状态或指定点特性以及阈值从点对象移除点。例如，可以在向另一个粒子系统中的源传递粒子之前先移除低于定义年龄的所有点，以便只发射年龄较大的粒子。或者，可以通过结合使用 point_velocity 和浮点阈值，移除高于或低于阈值速度的点。也可以使用它从粒子发生碰撞的位置发射到另一个粒子系统中。使用 retain_properties 可以仅保留对发射器有用的特性。例如，如果用于发射的点具有 point_age 特性，则发射的粒子将至少为特定年龄（通常不需要这样），因此，默认情况下将移除该特性。</p>
+<h2 id="">输入</h2><h3 id="particles"><code>particles</code></h3><p>此项为要从其移除点的点几何体。</p>
+<h3 id="enable"><code>enable</code></h3><p>enable 处于禁用状态时，这是一个简单的通过。</p>
+<h3 id="filter_by"><code>filter_by</code></h3><p>此项确定要基于什么进行过滤。 </p>
+<ul>
+<li><code>Surface Collision</code>：基于曲面碰撞特性进行过滤。这需要在 <code>particle_solver_settings</code> 复合上启用 <code>Store Surface Collisions</code>。</li>
+<li><code>Self Collision</code>：基于自碰撞特性进行过滤。这需要在 <code>particle_solver_settings</code> 复合上启用 <code>Store Self Collisions</code>。</li>
+<li><code>Property Values</code>：基于定义的 <code>property</code> 字符串（例如 <code>point_velocity</code> 或 <code>point_age</code>）进行过滤。</li>
+</ul>
+<h3 id="property"><code>property</code></h3><p>当 <code>filter_by</code> 设置为 <code>Property Values</code> 时，这是用于控制要移除的点的特性名称。它应为几何特性，例如粒子系统的 point_age、point_velocity 或 point_size。如果需要，可以忽略 <code>point_</code> 前缀。</p>
+<h3 id="threshold"><code>threshold</code></h3><p>指定特性低于此阈值的点将被移除。这可以是 float、float3、int、int3、scalarField 或 vectorField。对于 float3 和 vectorField，如果 x、y 和 z 中的任何一项超过阈值，则视为高于阈值。如果特性为 float3，但具有浮点阈值，则使用 float3 的长度。如果特性为 float4，则将其转化为 float3 rotation_vector 以进行比较。</p>
+<h3 id="invert"><code>invert</code></h3><p>如果启用此项，则指定特性低于阈值时点将被移除。</p>
+<h3 id="retain_properties"><code>retain_properties</code></h3><p>这是要在输出上保留的几何特性列表（以空格分隔）。如果需要，可以忽略名称中的 <code>point_</code> 前缀。也可以使用通配符 <code>*</code>。就其本身而言，将保留所有特性。特性 <code>point_position</code> 是必需的并且始终保留。在将点对象用作粒子源时，将使用与粒子系统上的特性匹配的任何特性初始化它们。例如，如果未从源中移除 <code>point_age</code>，则新粒子将至少为特定年龄，<code>point_size</code> 和其他点特性（包括自定义特性）同样如此。</p>
+<h2 id="">输出</h2><h3 id="out_particles"><code>out_particles</code></h3><p>输出为符合以下情况的对象：高于定义的阈值的点已被移除，并且 point_position 和 <code>retain_properties</code> 中指定的特性以外的所有几何特性均已被移除。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_Particles_html.html">Particles</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

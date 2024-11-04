@@ -1,0 +1,68 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Geometry_Tags_Geometry_Tags_tag_strand_ends_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>tag_strand_ends</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>tag_strand_ends</code></h1></div><p>按股的端点标记股。使用 <code>invert_tag</code> 端口标记股中间的点，而不是端点。此节点的可能用途包括使用 <code>delete_points</code> 切掉股的末端，或将实例放置在每个股的末端。</p>
+<h2 id="">输入</h2><h3 id="strands"><code>strands</code></h3><p>要标记的股几何体。</p>
+<h3 id="strands_filter"><code>strands_filter</code></h3><p>这是解释的自动端口，可以接受 <code>array&lt;bool&gt;</code>、<code>array&lt;long&gt;</code>、<code>array&lt;uint&gt;</code> 或输入 <code>geometry</code> 上标记的字符串名称。此端口可用于过滤节点将标记的单个股。其他标记节点的输出 <code>tag_data</code> 可以连接到此端口，以将多个标记节点链接在一起。</p>
+<h2 id="">标记部分</h2><h3 id="tag"><code>tag</code></h3><p>要输出的标记的名称。</p>
+<h3 id="invert_tag"><code>invert_tag</code></h3><p>标记股中间的点，而不是端点。</p>
+<h2 id="">权重部分</h2><h3 id="weights_curve"><code>weights_curve</code></h3><p>权重在输出之前先由此 fcurve 调整。</p>
+<h3 id="weights_scale"><code>weights_scale</code></h3><p>计算的权重在输出之前先与此值相乘。此端口是解释的自动端口。用户可以连接包含与 <code>geometry_component</code> 相同的元素数量的数组，以逐个元素缩放值。可以将来自其他标记节点的输出 <code>weights</code> 插入到此端口中，以组合多个标记节点的效果。</p>
+<h2 id="">端点部分</h2><h3 id="selection_mode"><code>selection_mode</code></h3><p>可以使用不同的度量来选择股中的点：</p>
+<ul>
+<li><code>Index</code> - 使用相对于股根部的点索引选择点。</li>
+<li><code>Length</code> - 使用点沿股的长度选择点。</li>
+<li><code>PointRatio</code> - 使用点沿股的比率选择点。</li>
+</ul>
+<p>例如，要仅选择每个股中的前两个点，则将 <code>selection_mode</code> 设置为 <code>Index</code>，将 <code>start</code> 设置为 2，将 <code>use_end</code> 设置为 false。要选择前 5 个长度单位内的所有点，则将 <code>selection_mode</code> 设置为<code>Length</code>，将 <code>start</code> 设置为 5，将 <code>use_end</code> 设置为 false。要选择每个股中前 10% 和后 10% 的点，则将 <code>selection_mode</code> 设置为 <code>PointRatio</code>，将 <code>start</code> 设置为 0.10，将 <code>end</code> 设置为 0.9。</p>
+<h3 id="use_start"><code>use_start</code></h3><p>从每个股的根部选择点。</p>
+<h3 id="start"><code>start</code></h3><p>从每个股的根部开始，标记值小于此阈值的点。</p>
+<h3 id="use_end"><code>use_end</code></h3><p>从每个股的尖端选择点。</p>
+<h3 id="end"><code>end</code></h3><p>从每个股的根部开始，标记值大于或等于此阈值的点。</p>
+<p><code>end</code> 值可以为负值。在这种情况下，该值是相对于每个股的尖端的值。例如，要选择每个股中的最后一个点，则将 <code>selection_mode</code> 设置为 <code>Index</code>，将 <code>end</code> 设置为 -1。</p>
+<h2 id="">诊断部分</h2><h3 id="point_size"><code>point_size</code></h3><p>点显示的世界空间大小。</p>
+<h2 id="">输出</h2><h3 id="strands_with_tag"><code>strands_with_tag</code></h3><p>以几何特性形式添加了标记的 <code>geometry</code>。</p>
+<h3 id="tag_data"><code>tag_data</code></h3><p>计算的组件标记。此数组的大小等于输入 <code>strands</code> 中的点数。如果此数组中某个元素对应的点已标记，则该元素为 true。</p>
+<h3 id="weights"><code>weights</code></h3><p>输出权重是归一化值，起始值为 1，位于每个股的端点，终止值为 0，位于任一方向上标记的最后一个点。此数组的大小等于输入 <code>strands</code> 中的点数。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Geometry/Bifrost_Common_reference_Geometry_Tags_html.html">Tags</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_skydome_am_Setting_Up_Skydome_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_SETTING_UP_SKYDOME">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 设置天穹和桌子 - Arnold for Maya">
+
+<title>设置天穹和桌子</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>设置天穹和桌子</h1></div><ul>
+<li>首先，我们将创建 SkyDomeLight。打开 Hypershade 窗口。在“Hypershade”窗口左侧的“创建栏”(Create Bar)中，您应该会看到一个 Arnold 节点列表。我们需要的是 <em>skydome_light。</em> 单击此节点以进行创建。您将注意到，在 Hypershade 窗口的<em>“灯光”(Lights)</em>选项卡以及“大纲视图”(Outliner)中均会显示一个对应的新节点。它将在视口中显示为黄色线框球体。</li>
+</ul>
+<p><img src="../images/am-Setting_Up_Skydome-image2017-4-5-11-26-42-1.png" alt=""></p>
+<p><sub><strong>创建 Ai SkyDomeLight</strong></sub></p>
+<ul>
+<li>选择 <em>skydome_light</em> 并显示其属性编辑器。将 <em>2D 文件纹理</em>连接到 Ai SkyDomeLight 的<em>“颜色”(Color)</em>属性。如果您使用的是 HDR 贴图，请记得将文件类型切换到“所有类型”(All Types)，以便能够在浏览器的文件打开窗口中看到 HDR 文件。请记得将<em>“格式”(Format)</em>更改为 HDR 贴图的捕捉格式。在本例中，HDR 贴图是通过<em>镜像球</em>捕捉的。</li>
+</ul>
+<p><img src="../images/am-Setting_Up_Skydome-image2016-5-3-15-33-10-2.png" alt=""></p>
+<p><sub><strong>HDR 贴图连接到 Ai SkyDomeLight。“格式”(Format)设置为“镜像球”</strong></sub></p>
+<ul>
+<li><p>在 <em>skydome_light</em> 的属性编辑器中，向下滚动到<em>“分辨率”(Resolution)</em>。键入与 HDR 贴图的分辨率匹配的值。SkyDomeLight 使用重要性采样向重要的方向发送更多光线，而重要性表的分辨率需要足够高才能捕捉 HDR 贴图中的小细节，但不得高于 HDR 贴图本身的分辨率。</p>
+</li>
+<li><p>要测试 <em>skydome_light</em> 的效果，我们需要创建一个简单的场景。创建一个多边形平面，然后将其向外扩展为接近栅格大小。创建两个多边形球体，并将其放置在平面上。</p>
+</li>
+<li><p>在 Hypershade 窗口中，创建两个 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Surface_html">standard_surface</a> 着色器。将一个 <em>standard_surface</em> 指定给一个球体，将另一个着色器指定给另一个球体。</p>
+</li>
+<li><p>现在我们将第二个 <em>standard_surface</em> 着色器更改为类似镀铬的材质。选择该节点并打开属性编辑器。首先，将它重命名为 Chrome。将 <em>base_weight</em> 增大到 1。将 <em>metalness</em> 增大到 1，将 <em>specular_roughness</em> 减小到 0，从而获得镜子般清晰的反射。</p>
+</li>
+</ul>
+<p><img src="../images/am-Setting_Up_Skydome-image2017-4-5-11-32-39-3.png" alt=""></p>
+<p><sub><strong>将一个球体设置为镀铬材质，将另一个设置为蒙版材质</strong></sub></p>
+<ul>
+<li>现在，测试渲染平面上的球体。连接到天穹灯光的 HDR 贴图现在应该对摄影机可见。不必担心此阶段产生的噪波阴影。我们将在稍后对其进行优化。</li>
+</ul>
+<p><img src="../images/am-Setting_Up_Skydome-image2016-5-4-8-45-11-4.png" alt=""></p>
+<p><sub><strong>天穹灯光在摄影机背景中可见</strong></sub></p>
+<h2 id="">桌子木材</h2><ul>
+<li><p>创建另一个标准曲面着色器，并将其指定给平面。将其重命名为“Wood Table”。在属性编辑器中，将<strong><em>木材颜色文件纹理</em></strong>连接到 <strong>base_color</strong> 窗口。</p>
+</li>
+<li><p>在属性编辑器中，将镜面反射贴图添加到镜面反射的<strong>“颜色”(Color)</strong>窗口。为了对木材材质的镜面反射设置进行微调，现在是开始 IPR 渲染的好时机。将镜面反射的“权重”(Weight)值更改为 0.3 左右。您应该注意到，球体下方木材材质上的镜面反射高光很明亮。尝试调整“粗糙度”(Roughness)值。增大“粗糙度”(Roughness)值可以柔化镜面反射高光，而减小“粗糙度”(Roughness)值可以使高光更清晰。</p>
+</li>
+</ul>
+<p><img src="../images/am-Setting_Up_Skydome-image2017-4-5-11-30-49-5.png" alt=""></p>
+<p><sub><strong>在多边形平面上木板纹理连接到标准曲面着色器</strong></sub></p>
+<ul>
+<li>打开<strong>“凹凸贴图”(Bump Mapping)</strong>，然后向其添加 <strong><em>2D 凹凸文件纹理</em></strong>节点。将<strong>“凹凸值”(bump value)</strong>调整为 <strong><em>0.01</em></strong>左右。再次使用 IPR 以交互方式调整设置。</li>
+</ul>
+<p><img src="../images/am-Setting_Up_Skydome-image2017-4-5-11-31-58-6.png" alt=""></p>
+<p><sub><strong>将凹凸贴图纹理添加到木材着色器</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Lighting/arnold_for_maya_lighting_am_Using_the_Sky_Dome_Light_html.html">使用天穹灯光</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

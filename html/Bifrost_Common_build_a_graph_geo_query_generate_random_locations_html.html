@@ -1,0 +1,86 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_build_a_graph_geo_query_generate_random_locations_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>生成随机位置</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>生成随机位置</h1></div><p>使用 <code>generate_sample_locations</code> 节点在几何体上创建均匀随机的位置分布。这对于许多情况非常有用，例如散射实例或创建自定义粒子发射。可以在网格曲面上或沿股生成随机位置。</p>
+<p><img src="../images/geoquery-generate-color-normal.png" alt="创建粒子，然后对齐其法线并根据网格上随机位置的值设置颜色"></p>
+<p>在上面的示例中，粒子是在网格上的随机位置创建的。它们与法线对齐，并根据这些位置的值进行着色。</p>
+<p>要生成随机位置，然后对特性进行采样，请执行以下操作：</p>
+<ol>
+<li><p>将 <code>generate_sample_locations</code> 节点添加到图表中。</p>
+</li>
+<li><p>将要在其上生成位置的对象连接到 <code>geometry</code> 输入。</p>
+</li>
+<li><p>指定 <code>sample_type</code>：</p>
+<ul>
+<li><code>surface</code> 会在网格曲面上或沿股分段生成位置。</li>
+<li><code>point</code> 会在网格、股或点对象的各点处生成位置。</li>
+<li><code>volume</code> 不受支持。</li>
+</ul>
+</li>
+<li><p>指定要生成的位置数：</p>
+<ul>
+<li>设置 <code>amount</code> 的值。当 <code>amount_type</code> 为 <code>density</code> 或作为模拟中每帧的平均值时，非整数值非常有用。</li>
+<li>设置 <code>amount_type</code> 以指定如何解释 <code>amount</code> 的值：每单位面积或长度的 <code>number</code> 或 <code>density</code>。</li>
+<li>如果需要，使用 <code>enable_max_number</code> 和 <code>max_number</code> 以避免生成大量的位置，例如，具有高密度和大型对象的位置。请注意，这是对每次执行节点时生成的数量的限制（通常是模拟中的每个帧），而不是对场景持续时间内总数量的限制。</li>
+</ul>
+</li>
+<li><p>更改 <code>seed</code> 或 <code>additional_seeds</code> 以生成不同的随机图案。</p>
+</li>
+<li><p>如果需要，使用遮罩控件调整在几何体不同区域中生成的位置数。这需要存储在几何体的点组件上的现有特性。特性值介于 0 和 1 之间，用于确定某个位置在某个区域中的相对概率。类型为 <code>float</code> 和 <code>double</code> 的遮罩值直接控制概率。向量视为颜色：RGB 值的解算方式为 <em>average(R, G, B)</em>，RGBA 值的解算方式为 <em>A × average(R, G, B)</em>。</p>
+<ul>
+<li>启用 <code>enable_mask</code>。</li>
+<li>将 <code>mask_property</code> 设置为要用作遮罩的特性的名称。</li>
+<li>使用 <code>mask_control</code> 指定遮罩如何影响所生成的位置数：<code>exact_rate</code> 生成由 <code>amount</code> 指定但仅限于未遮罩区域的值，而 <code>mask_by_property</code> 会根据遮罩区域成比例地减少数量。</li>
+<li>如果启用 <code>invert_mask</code>，会在遮罩特性为 0 或更小值的区域中生成全部数量的位置，但不会在特性为 1 或更大值的区域中生成位置。</li>
+</ul>
+</li>
+<li><p>使用 <code>generate_sample_locations</code> 节点的 <code>sample_locations</code> 输出对几何体上的特性值进行采样：</p>
+<ul>
+<li>可以将 <code>sample_locations</code> 连接到一个或多个 <code>sample_property</code> 节点，以立即对特性进行采样（请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/geo-query/Bifrost_Common_build_a_graph_geo_query_sample_data_at_locations_html.html">对位置的几何特性进行采样</a>）。在这些情况下，您通常在连接到 <code>generate_sample_locations</code> 节点的同一几何体上进行采样。</li>
+<li>如果输入定位与另一个几何对象的点对应，则可以将输出存储为该对象上的几何特性，以在其他位置使用它们（请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_geo_properties_html.html">获取并设置几何对象的特性</a>）。您还可以缓存它们，并将其用于模拟中的将来帧（请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_custom_sims_html.html">创建自定义模拟</a>）。</li>
+</ul>
+</li>
+</ol>
+<p><img src="../images/geoquery-generate-color-normal-graph.png" alt="在图表中生成随机位置的示例"></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_geo_query_html.html">查询几何对象上的数据</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

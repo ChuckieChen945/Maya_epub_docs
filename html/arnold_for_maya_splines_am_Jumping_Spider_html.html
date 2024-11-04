@@ -1,0 +1,280 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_splines_am_Jumping_Spider_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_JUMPING_SPIDER">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 跳跃蜘蛛 - Arnold for Maya">
+
+<title>跳跃蜘蛛</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>跳跃蜘蛛</h1></div><p><img src="../images/am-Jumping_Spider-spider-700-1.jpg" alt=""></p>
+<p>本教程是使用 XGen 样条线和 MtoA 的新手手册。其中介绍了如何将 XGen 样条线、Maya 的 Paint Effects 以及变形工具与 Arnold 渲染曲线结合使用，来为跳跃蜘蛛模型创建毛发。我们还将介绍设置曲线形状以及使其变形的方法，从而创建更逼真的效果。最后，我们将对蜘蛛模型本身进行着色和照明，以实现逼真的“电子显微镜”摄影效果。</p>
+<ul>
+<li>首先，加载<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/spider.ma" target="_blank">蜘蛛模型</a>。该模型包含多个分离的多边形模型，我们可以对其应用毛发样条线。</li>
+</ul>
+<p><img src="../images/am-Jumping_Spider-image2016-5-11-13-4-47-2.png" alt=""></p>
+<h2 id="xgen">XGen 样条线</h2><p>我们将为每个身体部位创建不同的描述。下面我们先从腿部开始。</p>
+<ul>
+<li>选择腿部几何体，然后转到<strong><em>“生成 &gt; 创建描述”(Generate &gt; Create Description)</em></strong>。此时将显示“创建 XGen 描述”(Create XGen Description)窗口。选择<strong><em>“可修饰样条线”(Groomable splines)</em></strong>，并单击“创建”(Create)。</li>
+</ul>
+<p><img src="../images/am-Jumping_Spider-image2016-5-11-13-6-29-3.png" alt=""></p>
+<ul>
+<li>为了让视口自动更新 XGen 描述，我们启用“自动更新预览”(Update Preview Automatically)。这样，对描述所做的任何更改都将实时显示在 Maya 视口中，而无需每次更改后不停更新预览（眼睛图标）。</li>
+</ul>
+<p><img src="../images/am-Jumping_Spider-image2016-5-11-14-48-23-4.png" alt=""></p>
+<ul>
+<li>为了增加毛发的数量，我们必须增加<strong>“密度”(Density)</strong>值。转到<strong>“修饰”(Grooming)</strong>选项卡，然后在<strong>“设置”(Settings)</strong>下方，将<strong>“密度”(Density)</strong>值增加到 80。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Jumping_Spider-density-1-5.jpg" alt=""></td>
+<td><img src="../images/am-Jumping_Spider-density-80-6.jpg" alt=""></td>
+</tr>
+<tr>
+<td>密度(Density)：1（默认值）</td>
+<td>密度(Density)：80</td>
+</tr>
+</tbody></table>
+<div class="head-block"><h1>修饰(Grooming)</h1></div><h2 id="">腿部</h2><p>我们可以使用 XGen 的基于笔刷的修饰工具来设计腿部毛发的样式。</p>
+<h2 id="">弯曲</h2><p>首先，我们沿腿部的形状将曲线向下弯曲。</p>
+<p><img src="../images/am-Jumping_Spider-image2016-5-11-14-49-47-7.png" alt=""></p>
+<ul>
+<li>转到<strong>“修饰”(Grooming)</strong>选项卡，然后选择<strong><em>“弯曲”(Bend)</em></strong>笔刷。在视口中，将鼠标移到腿部上方。您应该会看到，光标已更改为笔刷工具。单击并沿腿部从上到下拖动笔刷。您应该会看到，顺着毛发拂刷时，这些毛发会发生弯曲。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Jumping_Spider-no-bend-8.jpg" alt=""></td>
+<td><img src="../images/am-Jumping_Spider-bend-9.jpg" alt=""></td>
+</tr>
+<tr>
+<td>默认长度，未使用“弯曲”(Bend)笔刷</td>
+<td>使用“弯曲”(Bend)笔刷</td>
+</tr>
+</tbody></table>
+<h2 id="">噪波</h2><ul>
+<li>毛发看起来过于均匀。我们可以通过添加一些噪波将其散开。选择“噪波”(Noise)笔刷并顺着毛发重复拂刷。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Jumping_Spider-no-noise-10.jpg" alt=""></td>
+<td><img src="../images/am-Jumping_Spider-noise-11.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用“噪波”(Noise)笔刷</td>
+<td>使用“噪波”(Noise)笔刷</td>
+</tr>
+</tbody></table>
+<h2 id="">腿部着色</h2><ul>
+<li>完成曲线修饰后，选择腿部描述并为其指定 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Surface_html">standard_surface</a> 着色器。我们打算使用 <em>standard_surface</em> 着色器，而不是 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Hair_html">standard_hair</a> 着色器，因为我们需要一个没有镜面反射度的着色器，以便在渲染时实现“电子显微镜”的效果。</li>
+</ul>
+<p><img src="../images/am-Jumping_Spider-image2013-10-15-12-38-25-12.png" alt=""></p>
+<ul>
+<li>要对其他的腿添加相同的腿部描述，请选择其他腿部网格，然后转到<strong><em>“描述 &gt; 绑定面片 &gt; 添加选定面”(Descriptions &gt; Bind Patches &gt; Add Selected Faces)</em></strong>。</li>
+</ul>
+<div class="head-block"><h1>身体</h1></div><p>我们可以复制腿部描述并将其用于身体。</p>
+<ul>
+<li>选择腿部“To”，然后转到<strong>“描述 &gt; 复制描述...”(Descriptions &gt; Duplicate Description...)</strong></li>
+<li>重复上述用于将腿部几何体添加到描述的步骤。选择身体几何体，然后转到<strong>“描述 &gt; 绑定面片 &gt; 添加选定面”(Descriptions &gt; Bind Patches &gt; Add Selected Faces)</strong>。</li>
+<li>为了将一些变化快速添加到身体描述，我们可以为它添加一个修改器。转到<strong>“修改器”(Modifiers)</strong>选项卡并单击<strong><em>“添加新的修改器”(Add New Modifier)</em></strong>。</li>
+</ul>
+<p><img src="../images/am-Jumping_Spider-image2016-5-11-14-51-0-13.png" alt=""></p>
+<ul>
+<li>选择<strong>“噪波”(Noise)</strong>图标，然后单击“确定”(OK)。</li>
+</ul>
+<p><img src="../images/am-Jumping_Spider-image2016-5-11-14-52-3-14.png" alt=""></p>
+<p><sub><strong>噪波修改器</strong></sub></p>
+<ul>
+<li>增加<strong>“频率”(Frequency)</strong>和<strong>“幅值”(Magnitude)</strong>，从而获得所需的噪波量。在本例中，使用的“频率”(Frequency)为 4，“幅值”(Magnitude)为 1.3。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Jumping_Spider-body-no-noise-modifier-15.jpg" alt=""></td>
+<td><img src="../images/am-Jumping_Spider-body-noise-modifier-16.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用噪波修改器</td>
+<td>使用噪波修改器</td>
+</tr>
+</tbody></table>
+<div class="head-block"><h1>头部</h1></div><p>我们将 Paint Effects 笔刷用于头部，然后将其转化为曲线。将其转化为曲线后，我们将拥有更多的工具选择。对单个毛发曲线进行“成形”时，我们也可以更好地进行控制。</p>
+<h2 id="paint-effects">Paint Effects 笔刷</h2><ul>
+<li>首先，选择头部几何体，然后转到<strong>“Paint Effects &gt; 使可绘制”(Paint Effects &gt; Make Paintable)</strong>。这样，我们便可直接在头部曲面上绘制我们的 Paint Effects 笔划。</li>
+<li>打开<strong>“内容浏览器”(Content Browser)</strong>。选择“Paint Effects”选项卡，然后在 <strong>hair</strong> 文件夹下选择 <strong><em>furBunny.mel</em></strong> 笔刷。</li>
+</ul>
+<div class="head-block"><h1><img src="../images/am-Jumping_Spider-image2016-5-11-14-53-33-17.png" alt=""></h1></div><p><sub><strong>在 Hair 文件夹中选择“furBunny”笔划</strong></sub>  </p>
+<ul>
+<li>绘制穿过头部的笔划，如下图所示。</li>
+</ul>
+<p><img src="../images/am-Jumping_Spider-stroke-18.png" alt=""></p>
+<h2 id="paint-effects">Paint Effects 修改器</h2><p>当前，该笔划与眼几何体相交。我们希望笔划包裹眼球显示。为此，我们可以尝试使用 <strong>Paint Effects 修改器</strong>。</p>
+<ul>
+<li>选择<strong>“furbunny”</strong>Paint Effects 笔划，然后选择<strong>“Paint Effects &gt; 创建修改器”(Paint Effects &gt; Create Modifier)</strong>。缩放修改器，使其与眼球的大小相同，然后将其放置在同一位置。增加<strong><em>“力”(Force)</em></strong>值。在下面的示例中，使用的值为 2。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Jumping_Spider-no-modifier-19.png" alt=""></td>
+<td><img src="../images/am-Jumping_Spider-modifier-20.png" alt=""></td>
+</tr>
+<tr>
+<td>未使用线修改器</td>
+<td>使用线修改器</td>
+</tr>
+</tbody></table>
+<h2 id="wv">雕刻 wv</h2><p>“Paint Effects 修改器”并不能完全提供我们所需的效果，并且看起来有些过于随意。我们可以改为使用雕刻变形器使形状变形。但是，我们必须先将 Paint Effects 笔划转化为曲线，并删除 Paint Effects 修改器。</p>
+<ul>
+<li>选择<strong>“furbunny”</strong>笔划，然后转到<strong>“修改 &gt; 转化 &gt; Paint Effects 到曲线”(Modify &gt; Convert &gt; Paint Effects to Curves)</strong>。</li>
+<li>选择曲线，然后转到<strong>“创建变形器 &gt;</strong> <strong>雕刻变形器”(Create Deformers &gt; Sculpt Deformer)</strong>（设置为“投影”(Project)模式）。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Jumping_Spider-no-deformer-21.jpg" alt=""></td>
+<td><img src="../images/am-Jumping_Spider-with-deformer-22.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用雕刻变形器。笔划穿过眼睛。</td>
+<td>使用雕刻变形器。眼睛周围曲线发生变形。</td>
+</tr>
+</tbody></table>
+<h2 id="">头顶</h2><ul>
+<li>在头顶绘制另一个笔划。选择该笔划并将<strong>“全局比例”(Global Scale)</strong>增加到 6，以按照下图增大笔划的大小。</li>
+</ul>
+<p><img src="../images/am-Jumping_Spider-image2013-10-11-17-16-19-23.png" alt=""></p>
+<p><sub><strong>Paint Effects 笔划 - <span style="color: rgb(0,0,0);">全局比例(Global Scale)：6</span></strong></sub></p>
+<p>为了拉回曲线，使它们不在另一侧重叠（我们想稍后再复制到对面），可以使用<strong>晶格变形器</strong>。</p>
+<ul>
+<li>选择曲线末端，然后选择<strong>“创建变形器 &gt; 晶格”(Create Deformers &gt; Lattice)</strong>。选择晶格后，进入组件模式 (F8)，选择晶格的末端 CV 并将其向后移动，使它们不会在头部中心重叠。此外，您还可以使用此晶格进一步设置曲线的形状。</li>
+</ul>
+<p><img src="../images/am-Jumping_Spider-image2013-10-11-17-50-35-24.png" alt=""></p>
+<p><sub><strong>使用晶格变形器设置曲线的形状</strong></sub></p>
+<ul>
+<li>对曲线效果感到满意后，请将其组合在一起，并沿 -Z 方向复制到头部的另一侧。</li>
+</ul>
+<p><img src="../images/am-Jumping_Spider-image2013-10-11-17-54-24-25.png" alt=""></p>
+<p><sub><strong>将曲线复制到头部的另一侧（-Z 方向）。</strong></sub>  </p>
+<h2 id="">向曲线添加噪波</h2><p>目前，这些曲线看起来非常对称，因为我们直接将一组曲线复制到了另一侧。一种降低对称性的方法是向曲线添加一些噪波变化。<strong>雕刻变形器</strong>包含一个选项，可使用纹理贴图使曲线变形。</p>
+<ul>
+<li>选择右侧的一组曲线，然后转到<strong><em>“变形 &gt; 雕刻”(Deform &gt; Sculpt)</em></strong>。</li>
+</ul>
+<p><img src="../images/am-Jumping_Spider-image2016-5-11-14-56-57-26.png" alt=""></p>
+<ul>
+<li>将噪波纹理添加到<strong>雕刻变形器</strong>的<strong><em>“纹理”(Texture)</em></strong>属性。要在视口中查看纹理，必须启用硬件纹理 -<strong>“着色 &gt; 硬件纹理”(Shading &gt; Hardware Texturing)</strong>。</li>
+</ul>
+<p><img src="../images/am-Jumping_Spider-image2013-10-11-18-3-56-27.png" alt=""></p>
+<h2 id="">覆盖集</h2><ul>
+<li>选择曲线，为其创建集 -<strong>“创建 &gt; 集 &gt; 集”(Create &gt; Sets &gt; Set)</strong></li>
+<li>在“属性编辑器”(Attribute Editor)中打开该集。在<strong>“Arnold”</strong>下，选择<strong><em>“添加”(Add)</em></strong>。此时应该会显示“添加覆盖属性”(Add Override Attribute)窗口。将以下属性添加到集。</li>
+</ul>
+<ol>
+<li>Ai 曲线着色器(Ai Curve Shader)</li>
+<li>Ai 曲线宽度(Ai Curve Width)</li>
+<li>Ai 模式(Ai Mode)</li>
+<li>Ai 渲染曲线(Ai Render Curve)</li>
+</ol>
+<p><img src="../images/am-Jumping_Spider-image2016-5-11-14-58-7-28.png" alt=""></p>
+<p><strong><img src="../images/am-Jumping_Spider-image2016-5-11-14-59-31-29.png" alt=""></strong></p>
+<p><sub><strong><strong>将覆盖属性添加到集</strong></strong></sub></p>
+<ul>
+<li>将 <strong><em>Ai 头发</em></strong>着色器连接到<strong>“Ai 曲线着色器”(Ai Curve Shader)</strong>属性。</li>
+<li>将“Ai 曲线宽度”(Ai Curve Width)增加到 0.02，具体取决于您希望曲线呈现的厚度。</li>
+<li>将“Ai 模式”(Ai Mode)更改为<strong>“有厚度”(thick)</strong>。这将使曲线形成圆管轮廓。</li>
+<li>为要渲染的曲线选择<strong>“Ai 渲染曲线”(Ai Render Curve)</strong>。</li>
+</ul>
+<div class="head-block"><h1>着色</h1></div><h2 id="">身体</h2><p>蜘蛛的身体指定有“边缘着色器”，这会使蜘蛛看起来像是通过电子显微镜拍摄的。采样器信息节点连接到指定给 <em>standard_surface.base_color</em> 的渐变纹理。</p>
+<p><img src="../images/am-Jumping_Spider-image2013-10-30-17-22-46-30.png" alt=""></p>
+<p><sub><strong>显示<strong>蜘蛛</strong>身体着色器的节点编辑器</strong></sub></p>
+<h2 id="">照明</h2><p>仅使用设置为“四边形”(quad)的大型 Ai 区域光（表示大型摄影柔光箱）为场景提供照明。将采样数增加到 3 以进行最终渲染。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Jumping_Spider-lighting1-31.png" alt=""></td>
+<td><img src="../images/am-Jumping_Spider-spider-lighting-32.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sup><em>感谢 <strong><a class="external-link" href="http://www.pedrofe.com/" rel="nofollow" target="_blank">Pedro Fernando Gómez</a></strong> 在 XGen 方面提供的帮助。</em></sup></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-XGen_Tutorials/arnold_for_maya_xgen_am_Splines_html.html">样条线</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

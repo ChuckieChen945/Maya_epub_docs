@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="31/08/2022">
+<meta name="topicid" content="GUID-D026C965-1163-4257-AD17-4F67017BFA38">
+<meta name="language" content="CHS">
+<title>使用灯光编辑器创建插件灯光</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-D026C965-1163-4257-AD17-4F67017BFA38">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用灯光编辑器创建插件灯光</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-D23B866A-488D-403D-9D53-FB207DC830BD">可以在<span class="ph uicontrol" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-968CC6ED-E761-4329-B882-3855B3723FBB">“灯光编辑器”(Light Editor)</span>中创建所有插件灯光。加载插件之后，Maya 会自动将插件灯光添加到<span class="ph uicontrol" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-D323AF7A-4468-4E2D-BE2D-6D40A8DE92EB">“灯光编辑器”(Light Editor)</span>并加上默认图标。然后，可以通过单击灯光图标在场景中创建插件灯光。
+	 </p>
+<p class="p" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-8E73C590-03CD-4B51-9062-468E63C12DEC">只要插件节点使用灯光分类字符串，系统就会自动添加所有插件灯光。
+	 </p>
+<p class="p" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-B4479B0E-AD69-4E4D-8728-C0BA13E23905">若要验证插件节点是否使用灯光分类字符串，请运行以下 MEL 命令：
+	 </p>
+<pre class="pre codeblock">getClassification &lt;nodeType&gt;</pre>
+<p class="p" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-363BDA1D-F64F-438F-BBE0-842128170E7E">例如，<samp class="ph codeph" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-DEEAC412-2DF8-4331-872A-9B5F6E7D3AA7">getClassification pointLight</samp> 将返回 <samp class="ph codeph" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-EDB257C9-9AD1-440C-A200-23488272F982">drawdb/light/pointLight:light</samp>。
+	 </p>
+<p class="p" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-956A2D4E-1AB8-43ED-BB39-AD9E12550A25">返回的字符串中的 <samp class="ph codeph" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-7C3A46F2-B11B-489F-BA25-747BEF0F1922">light</samp> 表示灯光分类。
+	 </p>
+<p class="p" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-ADEE4C83-0B3B-42B2-98AE-397978503946">d<samp class="ph codeph" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-0B3DEC1E-E085-43A9-9C1E-33C3D111FBB6">rawdb/light/&lt;灯光类型&gt;</samp> 表示 Viewport 2.0 灯光分类。如果插件使用现有的内部分类之一（例如 <samp class="ph codeph" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-476F64D3-5DD3-44BD-9D1A-BD3A429BE68A">drawdb/light/directionalLight</samp>），则 Maya 将在视口中自动使用相应着色器进行照明，并使用内部 Viewport 2.0 几何体解算器绘制 UI。
+	 </p>
+<div class="note note" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-94A14A60-CA94-4352-A4A3-3E0BE0F0762E"><span class="notetitle">注：</span> 如果在加载插件时已打开<span class="ph uicontrol" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-033C30F0-F2CF-4CF4-A12B-9E6DAD0EBE21">“灯光编辑器”(Light Editor)</span>，则必须先关闭并重新打开编辑器以刷新其显示，然后才能看到插件灯光创建图标。
+	 </div>
+<div class="section" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__SECTION_ECAB28FA5D0F4FBB99446AD7EC6FC5E0"><h2 class="title sectiontitle">在灯光编辑器中自定义插件灯光的显示</h2> 
+		 
+		<p class="p" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-EBE29AE9-CD00-44C6-A19A-9942782BEE7C">创建模板文件以自定义编辑器中显示的插件灯光属性、创建 MEL 命令和使用的图标。
+		</p>
+ 
+		<p class="p" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-DD1E987A-F433-4529-AEC1-4D2D262F51F4">可以进行自定义，但这不是硬性要求。如果未提供图标，则将使用默认图标。如果未提供 MEL 命令，则将执行命令
+		</p>
+ 
+		<pre class="pre codeblock">shadingNode -asLight &lt;lighttype&gt;</pre>
+ 
+		<p class="p" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-C333F789-F875-4EBB-AD99-DF62C0727AC5">以创建光源。
+		</p>
+ 
+		<p class="p" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-87C66A96-7752-4D37-8AEA-0FE816573D35">示例模板文件位于安装目录的 <samp class="ph codeph" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-31DF5A07-F1FA-4C08-BF1B-E68DC8F7E95D">../scripts/AETemplates</samp> 文件夹中并带有前缀 <samp class="ph codeph" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-39AD0DCA-DFFA-4867-B65A-8A0FE873C64B">LE</samp>，例如：<samp class="ph codeph" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-AE233619-AD0E-49E3-A787-FCBB6D5314E0">LEspotLightTemplate.mel</samp>（对于聚光灯）。
+		</p>
+ 
+		<div class="section" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__SECTION_4CDB271AB53F4FE4985DAF754406E044"><h3 class="title sectiontitle">插件示例</h3> 
+		   
+		  <p class="p" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-DABE6631-B157-401B-871E-C04E31284792">开发人员工具包示例 <em class="ph i" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-E3982847-DB7C-4893-A676-734D02EB6FFC">apiDirectionalLightShape</em> 是一个示例插件，允许使用 <samp class="ph codeph" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-11641AD1-1A99-4478-B8E9-1DA4460120D0">light</samp> 以及内部 <samp class="ph codeph" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-C133B76B-0921-471C-99A2-646B3E927CC8">drawdb</samp> 分类创建插件节点。节点属性已与 Maya 的点光源、区域光、平行光和聚光灯类型相匹配。示例灯光编辑器模板随插件提供（例如，<samp class="ph codeph" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-F4D02C06-636F-45E6-A63B-01AEED5A4B01">LEapiDirectionalLightShapeTemplate.mel</samp>），并位于安装目录的 <samp class="ph codeph" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-C51CB496-95FC-4E36-837E-364668D87FB1">../scripts/AETemplates</samp> 文件夹中。
+		  </p>
+ 
+		  <p class="p" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-FAB9680C-489D-4721-B387-1B256531659A">以下示例演示了一个已创建这三类插件灯光节点的场景。每个灯光均使用不同的属性和多个自定义图标列出。其中两个插件灯光被选中，如视口中所示。
+		  </p>
+ 
+		  <p class="p" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-D62F53F8-E4C1-4499-8A5A-B629469AD902"><span class="ph uicontrol" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-A23E825C-FDD1-4620-B8E0-CEB2F6203CDE">“灯光编辑器”(Light Editor)</span>显示各种模板中列出的所有属性对应的列。但是，仅当 <samp class="ph codeph">xml</samp> 模板文件中存在特定灯光类型的属性时，才能为灯光修改该属性。在此示例中，“发射漫反射”(Emit Diffuse)是<span class="ph uicontrol">“灯光编辑器”(Light Editor)</span>中的一列，因为它位于 <samp class="ph codeph" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-646B3ED9-CC43-44C7-B844-391DB761CDB2">LEapiDirectionalLightShapeTemplate.mel</samp> 模板文件中。同时，由于“发射漫反射”(Emit Diffuse)不在 <samp class="ph codeph" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-5A63E395-23C9-425F-8BC1-753A5C46CC3D">LEdirectionalLightTemplate.mel</samp> 模板文件中，因此无法通过<span class="ph uicontrol" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__GUID-BD1F98A4-FF57-4985-BFA6-A52A18D024A9">“灯光编辑器”(Light Editor)</span>编辑本地平行光的此属性。
+		  </p>
+ 
+		   
+		  <div class="fig fignone" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__FIG_9C69C48EBEE344998FCED797152C2279"><img class="image" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__IMAGE_B72AE69198A64E0DBED796186DCE98D5" src="../images/GUID-BF42B230-F45E-4A4F-80A2-2BDA4082D0DA.png"></div>
+ 
+		  <div class="fig fignone" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__FIG_0B1C84D2D1704067B479A37CD4D77062"><img class="image" id="GUID-D026C965-1163-4257-AD17-4F67017BFA38__IMAGE_F1F29664F4854272B46D067C49CBC60E" src="../images/GUID-1017CA33-E43C-49D1-AA9C-C5A156CEC261.png"></div>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-72B6C563-E93A-4A03-8F9B-8168FB8E3C52.htm">使用“灯光编辑器”(Light Editor)在场景中创建、分组和修改灯光</a></div>
+</div>
+</div>
+
+</body>
+</html>

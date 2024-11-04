@@ -1,0 +1,229 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_noise_am_Volumes___UFO_scene_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_VOLUMES___UFO_SCENE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 体积 - UFO 场景 - Arnold for Maya">
+
+<title>体积 - UFO 场景</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>体积 - UFO 场景</h1></div><p><img src="../images/am-Volumes_-_UFO_scene-image2016-9-23-11-21-46-1.png" alt=""></p>
+<p>本制作教程介绍了如何对体积进行照明和渲染，以及渲染过程中遇到某些噪波时的其他一些相关问题。此场景有可能出现“高亮杂点”现象，因为场景中包含很小的可见光源、高度镜面反射的曲面和 _atmosphere_volume_。</p>
+<h2 id="">场景照明</h2><p>场景使用 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_lights_ac_area_light_html" target="_blank"><em>area_light</em></a> 进行照明，并且 <em>light_shape</em> 设置为<em>圆盘(Disk)</em> （月光）。UFO 的灯光是已转化为几何体灯光的几何体。除此以外，还有一个指向 UFO 下面的 <em>spot_light</em> 和一个位于右侧的区域光。MtoA 的“渲染设置”(Render Settings)窗口中已启用 _Atmosphere_volume_。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Volumes_-_UFO_scene-volume-shader-2.gif" alt=""></td>
+<td><img src="../images/ufo-scene-lighting.jpg" alt=""></td>
+<td><img src="../images/ufo-wire.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<h2 id="">月光照亮的云 - 体积着色器</h2><ul>
+<li>场景的上方、圆盘灯光的下方放置了一个多边形球体。这将用作“云层”。它位于 <em>disk_light</em> 与场景之间。另外，UFO 下方靠近地面的地方也放置了一个完全相同的球体，用于表示地面的雾。</li>
+</ul>
+<blockquote>
+<p>信息：有关将体积渲染为云的详细信息，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_volume_am_Rendering_Clouds_using_the_Volume_Shader_html">此处</a>。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Volumes_-_UFO_scene-cloud-layer-5.jpg" alt=""></td>
+<td><img src="../images/am-Volumes_-_UFO_scene-cloud-layer-wireframe-6.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>云着色器指定给一个表示云层的球体</strong></sub></p>
+<ul>
+<li>为球体指定一个 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_core_ac_standard_volume_html" target="_blank"><em>standard_volume</em></a> 着色器（将球体的 <em>step_size</em> 增大到 0.1，使它渲染为体积）。将一个 Maya“云”纹理连接到 <em>transparent_color</em>。</li>
+</ul>
+<p><img src="../images/am-Volumes_-_UFO_scene-image2017-8-4-8-51-20-7.png" alt=""></p>
+<p>渲染后，云应类似下图：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Volumes_-_UFO_scene-moon-8.jpg" alt=""></td>
+<td><img src="../images/am-Volumes_-_UFO_scene-moon-wire-9.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong><span style="color: rgb(0,0,0);">在启用了 <em>atmosphere_volume</em> 的情况下，圆盘灯光表示月光。</span></strong></sub></p>
+<h2 id="">噪波</h2><p>此场景存在某种形式的采样噪波，我们通常称之为“尖峰型噪波”或“高亮杂点”。它们是一些隔离的、在动画帧之间来回跳动的超亮像素。单纯增加渲染器中的采样数，很难去除此噪波。</p>
+<p><img src="../images/am-Volumes_-_UFO_scene-fireflies-10.jpg" alt=""></p>
+<p><sub><strong>渲染结果中出现高亮杂点（集中在灯光和光泽的镜面反射金属 UFO 材质周围）。</strong></sub></p>
+<p>此场景有一些导致噪波的因素，如高度镜面反射的曲面、<em>atmosphere_volume</em> 和很小的光源。下面我们将介绍修复这些“噪波”问题的方法：</p>
+<h2 id="">几何体灯光</h2><p>UFO 的灯光由同样已转化为 <em>mesh_light</em> 的几何体组成。<em>mesh_light</em> 创建后，被放置在与生成它的几何体相同的位置。在对光线进行采样时，这可能会是个问题，并可能会出现阴影噪波。解决此问题的一个方法是禁用几何体的 casts_shadows 和 _receive_shadows_。另一个解决方法是将灯光从对象移开（参见下图）。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Volumes_-_UFO_scene-mesh-light-close-to-mesh-11.jpg" alt=""></td>
+<td><img src="../images/am-Volumes_-_UFO_scene-mesh-light-moved-12.jpg" alt=""></td>
+</tr>
+<tr>
+<td>在与网格相同的位置生成 <em>mesh_light</em></td>
+<td>从网格中移除 <em>mesh_light</em> 可以减少噪波</td>
+</tr>
+</tbody></table>
+<h2 id="">光线切换</h2><p>另一个减少高亮杂点的方法是使网格对镜面反射光泽光线不可见。这可以通过 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Ray_Switch_html">ray_switch_shader</a> 着色器来实现。使用此方法，您可以控制任何可能导致出现高亮杂点问题的着色器。例如：</p>
+<ul>
+<li>将 <em>ray_switch_shader</em> 指定给在<em>“镜面反射”(Specular)*属性中使用了修改的着色器（例如会返回黑色的着色器，或 *specular_weight</em> 低得多的着色器）的明亮物体。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Volumes_-_UFO_scene-rayswitch--13.jpg" alt=""></td>
+<td><img src="../images/am-Volumes_-_UFO_scene-no-rayswitch-14.jpg" alt=""></td>
+</tr>
+<tr>
+<td><em>ray_switch</em> 着色器</td>
+<td>未使用 <em>ray_switch</em> 着色器</td>
+</tr>
+</tbody></table>
+<h2 id="">在漫反射/镜面反射中可见</h2><p>减少噪波的另一种方法是，禁用导致噪波的网格的<em>“漫反射”(Diffuse Reflection)</em>和/或<em>“镜面反射”(Specular Reflection)</em>属性。这些属性位于网格的 Arnold 属性中。</p>
+<p><img src="../images/am-Volumes_-_UFO_scene-image2017-4-6-11-30-44-15.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Volumes_-_UFO_scene-visible-diffuse-glossy-16.jpg" alt=""></td>
+<td><img src="../images/am-Volumes_-_UFO_scene-visible-diffuse-glossy-off-17.jpg" alt=""></td>
+</tr>
+<tr>
+<td>在_漫反射_和在_镜面反射_中可见：启用（镜面反射/漫反射噪波）。</td>
+<td>在_漫反射_和在_镜面反射_中可见：禁用（无噪波）。</td>
+</tr>
+</tbody></table>
+<h2 id="">区间限定采样值</h2><p>一个可减少噪波的选项是<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_render_settings_ac_clamping_html" target="_blank">区间限定</a>渲染的像素的采样值。但是，这将区间限定整个图像的像素。解决此问题的一个方法是区间限定特定着色器的像素。为此，请执行以下操作：</p>
+<ul>
+<li>使用鼠标中键将一个 Maya“区间限定”节点拖到要区间限定的材质（在本例中是一个 Ai 标准着色器）的着色组的“表面材质”(Surface material)属性上。</li>
+</ul>
+<p><img src="../images/am-Volumes_-_UFO_scene-image2016-5-9-10-26-8-18.png" alt=""></p>
+<p><sub><strong><em>“区间限定”(Clamp)</em> -&gt; <em>standard_surface</em> 着色器的_“着色组”(Shading Group)<em>的</em>“曲面”(Surface)_材质属性</strong></sub></p>
+<ul>
+<li>将 <em>standard_surface</em> 的“outColor”连接到_“区间限定”(clamp)_的“input”属性。</li>
+</ul>
+<p><img src="../images/am-Volumes_-_UFO_scene-image2016-5-9-10-18-34-19.png" alt=""></p>
+<p>着色网络应类似下图：</p>
+<p><img src="../images/am-Volumes_-_UFO_scene-image2016-5-9-10-19-55-20.png" alt=""></p>
+<p><sub><strong>尝试降低“区间限定颜色属性”(Clamp Color Attributes)中的“最大”(Max)值</strong></sub></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Volumes_-_UFO_scene-no-clamp-21.jpg" alt=""></td>
+<td><img src="../images/am-Volumes_-_UFO_scene-max-clamp-1-22.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用区间限定</td>
+<td>区间限定最大值：1</td>
+</tr>
+</tbody></table>
+<p>在下面的示例中，一个 Ai 标准着色器的镜面反射属性已连接到一个 Maya 区间限定节点。然后，该区间限定节点连接到 Ai 光线切换着色器的“光泽”(Glossy)属性。它将充当一个次光线区间限定，而不是“渲染设置”(Render Settings)窗口中的常规区间限定。这样，既可以将范围保持在直接高光内，又能控制任何次光线噪波。</p>
+<p><img src="../images/am-Volumes_-_UFO_scene-image2016-5-9-10-23-56-23.png" alt=""></p>
+<h2 id="">大气体积高亮杂点</h2><p>在下图中，您可以看到启用 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_core_ac_atmosphere_volume_html" target="_blank"><em>atmosphere_volume</em></a> 对场景有何影响。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/ufo-atmosphere_volume.jpg" alt=""></td>
+<td><img src="../images/no-ufo-atmosphere_volume.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p>启用 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_core_ac_atmosphere_volume_html" target="_blank"><em>atmosphere_volume</em></a> 使地面材质上出现了一些“高亮杂点”。此材质具有一定的_镜面反射_，因此导致出现高亮杂点。在图像的前景中，这一点更为明显。一种减少“高亮杂点”的简单方法是降低地面材质的镜面反射度。如果这样不行，将 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_render_settings_ac_samples_html" target="_blank"><em>specular_samples</em></a> 增大到 4 会有助于去除高亮杂点。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Volumes_-_UFO_scene-fireflies-rock-26.jpg" alt=""></td>
+<td><img src="../images/am-Volumes_-_UFO_scene-no-fireflies-27.jpg" alt=""></td>
+</tr>
+<tr>
+<td>specular_samples：2。高亮杂点可见</td>
+<td>specular_samples：4。无高亮杂点可见。</td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Removing_Noise_html.html">去除噪波</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F">
+<meta name="language" content="CHS">
+<title>将流体特性发射到栅格中</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>将流体特性发射到栅格中</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-257A"><p class="p" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__WS73099CC142F48755-3D114B7511841AEFA9F-583B"> 可以使用流体发射器将流体特性（<span class="ph uicontrol" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__GUID-EF1E084B-1FC3-4690-BEB0-C1991BC3F170">“密度”(Density)</span>、<span class="ph uicontrol" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__GUID-14952171-7413-4ACE-8F83-21B2F54D552B">“温度”(Temperature)</span>、<span class="ph uicontrol" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__GUID-E8CA4A4D-8F2C-464B-B9F2-50DC9583A7FE">“燃料”(Fuel)</span>和<span class="ph uicontrol" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__GUID-079C2710-5BB5-4348-BBD6-8C6EAE688D35">“颜色”(Color)</span>）添加到流体容器中。如同模拟一样，流体发射器创建流体特性值，并用这些值修改栅格的体素。流体发射器必须位于流体容器边界内才能发射。 </p>
+<p class="p" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__WS73099CC142F48755-3D114B7511841AEFA9F-5839">将流体特性发射到<span class="ph uicontrol" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__GUID-71CC4071-1CD8-407A-9034-81752F785E89">“动态栅格”(Dynamic Grid)</span>时，Maya 会创建特性值并解算它们以创建流体运动。 </p>
+<p class="p" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__WS73099CC142F48755-3D114B7511841AEFA9F-5838">将流体特性发射到<span class="ph uicontrol" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__GUID-D1E90060-0A61-49B9-A425-3346CB88CF68">“静态栅格”(Static Grid)</span>时，Maya 会创建特性值，但不对其进行解算，因此仅填充发射器<span class="ph uicontrol" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__GUID-F5F866D4-833E-4F44-AF90-FB1B0427E130">“最大距离”(Max Distance)</span>范围内的体素。 </p>
+<p class="p" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__WS73099CC142F48755-3D114B7511841AEFA9F-5837">可以执行下列操作： </p>
+<ul class="ul" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__WS73099CC142F48755-3D114B7511841AEFA9F-5836"><li class="li" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__WS73099CC142F48755-3D114B7511841AEFA9F-5835">从一个容器内的多个流体发射器发射。 </li>
+<li class="li" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__WS73099CC142F48755-3D114B7511841AEFA9F-5834">使用发射值为负的流体发射器，从流体容器中移除<span class="ph uicontrol" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__GUID-08E99A1A-E1C7-49E0-9E4F-4A62C9299A17">“密度”(Density)</span>、<span class="ph uicontrol" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__GUID-0BA98A2A-FCA2-49DF-AD67-12B55ABBB4AB">“热量”(Heat)</span>和<span class="ph uicontrol" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__GUID-F4552778-1D11-4B48-8E00-B320789B414A">“燃料”(Fuel)</span>。 </li>
+<li class="li" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__WS73099CC142F48755-3D114B7511841AEFA9F-5833">如同为任何其他对象设定关键帧一样，为容器内的流体发射器位置设定关键帧。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-7DE56A30-EEB4-4FDE-B4C4-6E53F4755822">设置关键帧</a>，了解有关设置关键帧的信息。 </li>
+<li class="li" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__WS1A9193826455F5FF453265C9125FAA23BBB-6268">将速度特性发射到流体容器。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-1E59D321-3E5F-4186-B87D-33A251A3ED62.htm">发射速度属性</a>。 </li>
+<li class="li" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__WS73099CC142F48755-6AAE5668123E144A987-7DA9">使用 2D 纹理发射贴图将流体特性发射到容器中。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-DD243E1F-5193-4A27-8A7D-45A787B0AD0E.htm">使用发射贴图发射流体</a>。 </li>
+<li class="li" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__LI_88323CE6C0FE480E8FB0483625BFBE0A">从对象曲面发射流体。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-14C611D2-6C22-493C-ABF8-48842690CA5F.htm">从对象发射流体</a>。 </li>
+<li class="li" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__LI_C65F89068B204953A1707BA1068303F2">使用流体填充选定几何体体积。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-B068D5DC-2D46-4970-8818-6FEAFBC8A2A4.htm">使用流体填充几何体</a>。 </li>
+<li class="li" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__WS1A9193826455F5FF-1E1423D1125831BDA67-6A40">从 nParticle 对象发射流体。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-479AAE23-5DE0-4310-8491-9915E3D06141.htm">使用 nParticle 发射流体特性</a>。 </li>
+</ul>
+<p class="p" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__WS73099CC142F48755-3D114B7511841AEFA9F-5832">有关将<span class="ph uicontrol" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__GUID-0056FABD-1985-4BB0-BEE4-ACA83B993760">“颜色”(Color)</span>发射到容器中的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-F2FD0CBF-2BA7-444A-9F80-C83BC400C320.htm">为流体添加颜色</a>。 </p>
+<div class="section" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__WS1A9193826455F5FF-1E1423D1125831BDA67-6A3F"><h2 class="title sectiontitle">相关主题</h2>
+
+<ul class="ul" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__WS1A9193826455F5FF-1E1423D1125831BDA67-6A3E"><li class="li" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__WS1A9193826455F5FF-1E1423D1125831BDA67-6A3D">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-25715456-D9A2-4700-A909-A21890EE0F13.htm">控制流体发射</a>
+</li>
+<li class="li" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__WS73099CC142F48755-751DE995125FAA274EA-6337">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-5D024390-DCEF-484C-BF99-E1C35C31EBB0.htm">将流体发射器添加到容器中</a>
+</li>
+<li class="li" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__WS1A9193826455F5FF-1E1423D1125831BDA67-6A3C">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-DD243E1F-5193-4A27-8A7D-45A787B0AD0E.htm">使用发射贴图发射流体</a>
+</li>
+<li class="li" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__WS1A9193826455F5FF-1E1423D1125831BDA67-6A3B">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-479AAE23-5DE0-4310-8491-9915E3D06141.htm">使用 nParticle 发射流体特性</a>。
+</li>
+<li class="li" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__LI_CCF3C1E59B014A1F90240675D9FE04F5">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-14C611D2-6C22-493C-ABF8-48842690CA5F.htm">从对象发射流体</a>
+</li>
+<li class="li" id="GUID-903E8C89-680A-456D-BC1E-98841BCBB06F__LI_9C36418617A24EA389299332C90F5E9D">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-B068D5DC-2D46-4970-8818-6FEAFBC8A2A4.htm">使用流体填充几何体</a>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-FB3B965A-F4F5-4522-B545-70DB00D10684.htm">创建流体效果</a></div>
+</div>
+</div>
+
+</body>
+</html>

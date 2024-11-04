@@ -1,0 +1,72 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Geometry_Mesh_Geometry_Mesh_face_group_to_points_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>face_group_to_points</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>face_group_to_points</code></h1></div><p>查找被一组指定的面引用的点。这些点分类为内部点或边界点。内部点是完全被输入 <code>faces</code> 组中的面包围的点，并且不在输入网格的边界上。边界点是位于输入 <code>faces</code> 组中面的边界上的点：这意味着它没有被选定面包围，或者位于输入网格的边界上。</p>
+<p>例如，对于此网格以及输入 <code>faces</code> f0、f1、f2 和 f3：</p>
+<pre class="pre codeblock"><code class="prettyprint">  p0──────────p1───────────p2──────────p9
+  │     s0     │     s0     │    s0     │
+  │            │            │           │
+  │s1   f0   s3│s1   f1   s3│s1  f4   s3│
+  │            │            │           │
+  │     s2     │     s2     │    s2     │
+  p3──────────p4───────────p5──────────p10
+  │     s0     │     s0     │    s0     │
+  │            │            │           │
+  │s1   f2   s3│s1   f3   s3│s1  f5   s3│
+  │            │            │           │
+  │     s2     │     s2     │    s2     │
+  p6──────────p7───────────p8──────────p11
+</code></pre><ul>
+<li>边界点是 p0、p1、p2、p3、p5、p6、p7 和 p8。</li>
+<li>内部点是 p4。</li>
+<li>边界面边是 (f0, s0)、(f0, s1)、(f2, s1)、(f2, s2)、(f3, s2)、(f3, s3)、(f1, s3) 和 (f1, s0)。</li>
+</ul>
+<h2 id="">输入</h2><h3 id="mesh"><code>mesh</code></h3><p>要查询的网格。</p>
+<h3 id="faces"><code>faces</code></h3><p>要查询的 <code>mesh</code> 的面。</p>
+<h2 id="">输出</h2><h3 id="interior_points"><code>interior_points</code></h3><p>网格中被指定 <code>faces</code> 包围且不在输入网格边界上的点。每个引用点添加到此数组一次，即使点被面组中的多个面引用也是如此。</p>
+<h3 id="border_touching_non_selected_face"><code>border_touching_non_selected_face</code></h3><p>指定 <code>faces</code> 的边界上与至少一个未被选中的面相邻的点。</p>
+<h3 id="border_points"><code>border_points</code></h3><p>指定 <code>faces</code> 的边界上的点。每个引用点添加到此数组一次，即使点被面组中的多个面引用也是如此。</p>
+<h3 id="border_face_vertices"><code>border_face_vertices</code></h3><p>面顶点的索引，其中每个面顶点位于面组内的面与不在面组内的面之间的边界上。</p>
+<h3 id="border_face_edges"><code>border_face_edges</code></h3><p>指定的 <code>faces</code> 的面边的子集，这些面边位于面组内的面与不在面组内的面之间的边界上。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Geometry/Bifrost_Common_reference_Geometry_Mesh_html.html">Mesh</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

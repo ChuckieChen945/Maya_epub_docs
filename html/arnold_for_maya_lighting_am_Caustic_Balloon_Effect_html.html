@@ -1,0 +1,256 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_lighting_am_Caustic_Balloon_Effect_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_CAUSTIC_BALLOON_EFFECT">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 气球焦散效果 - Arnold for Maya">
+
+<title>气球焦散效果</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+<div class="head-block"><h1>气球焦散效果</h1></div>
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Caustic_Balloon_Effect-image2018-9-10-9-47-10-1.png" alt=""></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<p>在上述场景中，气球正从窗前飞过并将颜色填充到房间中。本教程将演示如何使用连接到 <em>spot_light</em> （指向窗户）的 <em>gobo</em> 灯光过滤器创建此气球焦散效果。此外，我们还将介绍用于气球的着色步骤。非常感谢 <a href="https://cgrenderdna.blogspot.com/" target="_blank">Slava Sych</a> 为本教程提供的帮助。</p>
+<p><strong>要下载对应的场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Caustic_Balloon_user-guide.zip" target="_blank">此处</a>。</strong></p>
+<h2 id="">照明</h2><p>创建一个摄影机并使其朝向窗户，如上图所示。创建一个 <em>skydome_light*，并将 *physical_sky</em> 连接到其 <em>color</em> 属性。</p>
+<h2 id="">天穹灯光</h2><p>在此示例中，使用的 <em>skydome_light</em> 灯光设置如下所示：</p>
+<ul>
+<li><em>exposure</em>：2。</li>
+<li><em>samples</em>：3。</li>
+<li><em>shadow_color</em> (HSV)：4.213、0.785、0.053。<img src="../images/am-Caustic_Balloon_Effect-image2018-9-12-12-43-3-2.png" alt=""></li>
+<li><em>camera_visibility</em>：0。</li>
+<li><em>transmission_visibility</em>：0。</li>
+</ul>
+<h2 id="">物理天空</h2><p>在此示例中，使用的 <em>physical_sky</em> 设置如下所示：</p>
+<ul>
+<li><em>turbidity</em>：8.916。</li>
+<li><em>elevation</em>：90。</li>
+<li><em>azimuth</em>：247.229。</li>
+<li><em>intensity</em>：2。</li>
+<li><em>sky_tint_color</em> (HSV)：353.299、0.588、1.000。<img src="../images/am-Caustic_Balloon_Effect-image2018-9-12-12-43-37-3.png" alt=""></li>
+<li><em>sun_tint</em>：44.261、0.177、1.000。<img src="../images/am-Caustic_Balloon_Effect-image2018-9-12-12-43-52-4.png" alt=""> </li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Caustic_Balloon_Effect-edu-Caustic-Balloon-01-5.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>_Skydome_light_。窗户玻璃已隐藏并针对气球禁用阴影。</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+<h2 id="">聚光灯</h2><ul>
+<li>创建一个 <em>spot_light</em> 并将其放置在气球后面。旋转聚光灯，以使其穿过窗户。</li>
+</ul>
+<p>在此示例中，使用的 <em>spot_light</em> 设置如下所示：</p>
+<ul>
+<li><em>cone_angle</em>：144.213。</li>
+<li><em>exposure</em>：19。</li>
+<li><em>samples</em>：3。</li>
+<li><em>radius</em>：44（获取更加柔和的阴影）。</li>
+<li><em>shadow_color</em> (HSV)：13.230、0.785、0.019。<img src="../images/am-Caustic_Balloon_Effect-image2018-9-12-12-44-17-6.png" alt=""></li>
+<li><em>specular_visibility</em>（贡献）：0.1。</li>
+<li><em>sss_visibility</em>（贡献）：0.1。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Caustic_Balloon_Effect-edu-Caustic-Balloon-02-7.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong><em>Spot_light</em> 位于气球形状后面</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<h2 id="gobo">Gobo 过滤器</h2><p>将 <em>gobo</em> 过滤器连接到 <em>spot_light</em>。</p>
+<ul>
+<li>将 <em>filter_mode</em> 设置为<em>“融合”(mix)</em>。</li>
+<li>将<em>“密度”(Density)</em>增加至 0.65。</li>
+<li>将<em>噪波*着色器连接到 *gobo</em> 的 <em>slide_map</em>。</li>
+</ul>
+<h2 id="">噪波着色器</h2><p>在此示例中，使用的<em>噪波</em>着色器设置如下所示：</p>
+<ul>
+<li><em>octaves</em>：4。</li>
+<li><em>distortion</em>：1.687。</li>
+<li><em>lacunarity</em>：2.831。</li>
+<li><em>scale XYZ</em>：33（根据场景大小，可能需要对此值进行更改）。</li>
+<li><em>coord_space</em>：UV。</li>
+<li><em>mode：*</em>向量(vector)*（用于 RGB 颜色噪波）。</li>
+</ul>
+<p>要进一步调整效果，可以尝试在 <em>noise</em> 着色器之前插入 <em>color_correct</em> 着色器。在本例中，将 <em>saturation</em> 调整为 1.6。</p>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Caustic_Balloon_Effect-edu-Caustic-Balloon-03-8.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong><em>spot_light</em></strong> 的最终结果</sub></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Caustic_Balloon_Effect-edu-Caustic-Balloon-05-9.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong><em>gobo</em> 过滤器的最终设置</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<h2 id="">着色</h2><p>将 <em>standard_surface</em> 指定给气球对象，并将其重命名为 <em>BalloonMat</em>。</p>
+<h2 id="">气球材质</h2><p>在此示例中，使用的<em>气球</em>材质设置如下所示：</p>
+<ul>
+<li><em>specular_roughness</em>：0.36。</li>
+<li><em>subsurface_weight</em>：0.5。</li>
+<li><em>subsurface_scale</em>：10。</li>
+<li><em>subsurface_type</em>：<em>randomwalk2</em>。</li>
+</ul>
+<p>创建一个 <em>layerRGBA</em> 着色器，并将其连接到 <em>BalloonMat</em> 的 <em>base_color、subsurface_color</em> 和 <em>subsurface_radius</em>。</p>
+<h2 id="layerrgba-aiballoonmat">LayerRGBA-&gt;aiBalloonMat</h2><ul>
+<li>创建一个<em>工具*着色器，并将其连接到 *layerRGBA</em> 的 <em>input1</em>。</li>
+<li>创建一个 <em>colorJitter</em> 着色器并将其连接到 <em>layerRGBA</em> 的 <em>input2<em>。</em>color_jitter</em> 将用于进一步调整气球的变化和颜色。</li>
+<li>在 <em>layerRGBA</em> 的 <em>layer2</em> 中，将 <em>operation</em> 更改为<em>“相乘”(multiply)</em>，并将<em>“融合”(mix)</em>更改为 0.645。</li>
+</ul>
+<h2 id="">颜色抖动</h2><p>在此示例中，使用的 <em>color_jitter</em> 着色器设置如下所示：</p>
+<ul>
+<li>将 <em>type</em> 更改为<em>“对象”(Object)</em>。</li>
+<li><em>gain_max</em>：4。</li>
+<li><em>saturation_min</em>：0.38。</li>
+<li><em>saturation_max</em>：1.076。</li>
+<li><em>seed</em>：2313。</li>
+</ul>
+<h2 id="">工具</h2><p>在此示例中，使用的<em>工具</em>着色器设置如下所示：</p>
+<ul>
+<li><em>shade_mode</em>：<em>平面(Flat)</em>。</li>
+<li><em>color_mode</em>：<em>object</em>。这将针对每个气球显示随机颜色。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Caustic_Balloon_Effect-edu-Caustic-Balloon-04-10.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>气球的最终着色网络</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Lighting_html.html">照明</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

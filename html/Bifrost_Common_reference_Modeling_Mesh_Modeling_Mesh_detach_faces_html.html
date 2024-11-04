@@ -1,0 +1,84 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Modeling_Mesh_Modeling_Mesh_detach_faces_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>detach_faces</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>detach_faces</code></h1></div><p>将指定的 <code>faces</code> 与网格的其余部分断开。这些面与网格中其他面之间的边界上的点将重复，并且 <code>faces</code> 将被修改以引用新点。如果选中 <code>duplicate_all_border_points</code>，则所有边界将被复制，并且某些点可能会保持孤立状态。</p>
+<p>例如：</p>
+<pre class="pre codeblock"><code class="prettyprint">       mesh
+  p0─────p1─────p2
+  │      │      │ 
+  │  f0  │  f1  │ 
+  │      │      │ 
+  p3─────p4─────p5
+                          `duplicate_all_border_points`
+         │                             │
+         ▼                             ▼
+
+      out_mesh                       out_mesh
+ p0─────p1 p6─────p2         p0─────p1 p6─────p8 p2
+ │      │  │      │          │      │  │      │
+ │  f0  │  │  f1  │          │  f0  │  │  f1  │
+ │      │  │      │          │      │  │      │
+ p3─────p4 p7─────p5         p3─────p4 p7─────p9 p5
+</code></pre><p>如果 <code>faces</code> 设置为 f1，则：</p>
+<ul>
+<li>点 p1 和 p4 重复，重复项将被 f1 参照。</li>
+<li><code>detached_points</code> 是 p2、p5、p6 和 p7。</li>
+<li><code>detached_border_points</code> 是 p2、p5、p6 和 p7。</li>
+<li>如果有些面完全位于所选内容中，则 <code>detached_border_points</code> 将不同于 <code>detached_points</code>。</li>
+</ul>
+<h2 id="">输入</h2><h3 id="mesh"><code>mesh</code></h3><p>要修改的网格。</p>
+<h3 id="faces"><code>faces</code></h3><p>包含要分离的面索引的数组。</p>
+<h3 id="properties"><code>properties</code></h3><p>要传递到新几何体的几何特性的名称，例如 <code>point_color</code>。确保包含所需的所有几何特性，包括那些以面以外的组件（例如点和面顶点）为目标的几何特性。不是几何特性的特性将始终进行传递。</p>
+<ul>
+<li>使用空格分隔多个几何特性名称。</li>
+<li>您可以在表达式中使用通配符 <code>*</code>，例如使用 <code>point_user*</code> 来传递所有以字符串“point_user”开头的几何特性。</li>
+<li>默认值 <code>*</code> 将传递所有几何特性。</li>
+<li>使用空字符串可阻止传递任何几何特性，网格模式需要的几何特性除外（<code>point_position</code>、<code>face_offset</code> 和 <code>face_vertex</code>）。</li>
+<li>使用 <code>*</code> 后跟 <code>!</code> 可排除特性。例如，<code>* !point_user*</code> 将包括以字符串“point_user”开头的特性以外的所有特性</li>
+</ul>
+<h3 id="duplicate_all_border_points"><code>duplicate_all_border_points</code></h3><p>将复制边界上的所有点。有关此用法的示例，请参见 <code>extrude_faces</code>。</p>
+<h2 id="">输出</h2><h3 id="out_mesh"><code>out_mesh</code></h3><p>分离了指定面的新网格对象。</p>
+<h3 id="detached_points"><code>detached_points</code></h3><p>分离的面所引用的点。</p>
+<h3 id="detached_border_points"><code>detached_border_points</code></h3><p>沿分离边界的点。</p>
+<h3 id="border_face_edges"><code>border_face_edges</code></h3>
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Modeling/Bifrost_Common_reference_Modeling_Mesh_html.html">Mesh</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

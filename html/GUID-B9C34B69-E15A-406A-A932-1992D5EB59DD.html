@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD">
+<meta name="language" content="CHS">
+<title>运行时表达式执行</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>运行时表达式执行</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__WS73099CC142F48755-3D114B7511841AEFA9F-104A"> 对于使用<span class="ph uicontrol" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__GUID-C7784AD1-4BD4-4C77-B947-B2A9E12A66E4">“粒子工具”(Particle Tool)</span>创建的粒子，运行时表达式通常在回放时出现的帧之后或动力学计算之前或之后在每一个帧中执行。 </p>
+<p class="p" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__WS73099CC142F48755-3D114B7511841AEFA9F-1047"> 对于发射的粒子，运行时表达式通常在发射粒子的第一个帧之后在每一个帧中执行。更准确地说，每次 Maya 对动力学求值时，对于每个年龄大于 0 的粒子，运行时表达式执行一次。 </p>
+<p class="p" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__WS73099CC142F48755-3D114B7511841AEFA9F-1045"> 无论何时时间滑块的时间更改且时间大于或等于粒子对象的<span class="ph uicontrol" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__GUID-FADE2F24-BD78-4460-9B1F-E1C8C742E7F9">“开始帧”(Start Frame)</span>值，Maya 都对动力学求值。若要设定粒子对象的<span class="ph uicontrol" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__GUID-F738963C-381C-4583-9D43-DA333A65E755">“开始帧”(Start Frame)</span>，请选择粒子对象并在<span class="ph uicontrol" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__GUID-07E83D6C-13C1-4455-A175-D2C9C6E78AB5">“属性编辑器”(Attribute Editor)</span>中设定<span class="ph uicontrol" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__GUID-CBAC3596-886C-41F4-BC8E-F4F576499125">“开始帧”(Start Frame)</span>。回放、播放或相反更改当前显示的帧时，时间更改。 </p>
+<p class="p" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__WS73099CC142F48755-3D114B7511841AEFA9F-1042"> 当播放或相反更改动画时间时，运行时表达式每一个帧每一过采样级别执行一次。例如，如果过采样级别为 4，对于对象中的每个粒子，Maya 每一个帧执行四次<span class="ph uicontrol" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__GUID-F452488E-2D87-4948-9BD4-5EB8DFAA22F2">“粒子形状”(particle shape)</span>表达式。 </p>
+<p class="p" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__WS73099CC142F48755-3D114B7511841AEFA9F-1040">从<span class="ph uicontrol" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__GUID-F487A994-972D-40AA-94BC-2D012E0AC105">“动力学”(Dynamics)</span>菜单集中，使用<span class="ph menucascade" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__GUID-94CA6E5A-3731-40E2-B69E-BA0C040CD2BF"><span class="ph uicontrol" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__GUID-AF52B7BD-011D-411E-A44A-8AAD256E2C73">“解算器”(Solvers)</span> &gt; <span class="ph uicontrol" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__GUID-E43EBF64-4F9A-4687-ACB5-33C674F7EDA9">“编辑过采样”(Edit Oversampling)</span></span>以设置<span class="ph uicontrol" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__GUID-B2DA4A62-50D8-4D3C-A801-AFF24509315E">“过采样”(Over Samples)</span>级别。Maya 的默认设置为 1。 </p>
+<p class="p" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__WS73099CC142F48755-3D114B7511841AEFA9F-103F">除了在动画时间更改时执行之外，运行时表达式读取的属性值更改，以及这些操作中的任何一项出现表达式将写入的属性时，运行时表达式也执行： </p>
+<ul class="ul" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__WS73099CC142F48755-3D114B7511841AEFA9F-103E"><li class="li" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__WS73099CC142F48755-3D114B7511841AEFA9F-103D">Maya 中的某些其他节点使用其值。 </li>
+<li class="li" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__WS73099CC142F48755-3D114B7511841AEFA9F-103C">Maya 需要值来重画工作区内容。 </li>
+</ul>
+<p class="p" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__WS73099CC142F48755-3D114B7511841AEFA9F-103B">在该上下文中，预定义的变量时间和帧也被认为是表达式读取的属性。 </p>
+<div class="note attention" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__WS73099CC142F48755-3D114B7511841AEFA9F-103A"><span class="attentiontitle">注意：</span> 除<span class="ph uicontrol" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__GUID-BC2130DF-AA89-4A05-9E47-BDB06BD6E36F">“粒子形状”(particle shape)</span>节点创建表达式外，没有节点创建表达式。此类对象仅具有一种类型的表达式。（它类似于运行时表达式。） <p class="p" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__WS73099CC142F48755-3D114B7511841AEFA9F-1039">对于<span class="ph uicontrol" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__GUID-80B15DC7-9D37-422B-86AE-F9186C003200">“nParticle 形状”(nParticle shape)</span>节点，可以为其所有属性仅写入一个运行时表达式。不需要从<span class="ph uicontrol" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__GUID-BC765F85-0539-41F5-BB65-94936F9DB6A6">“属性”(Attributes)</span>列表中选择属性。可以为每种<span class="ph uicontrol" id="GUID-B9C34B69-E15A-406A-A932-1992D5EB59DD__GUID-E0729496-DE7E-49F7-84FD-D9DB32999B6B">“nParticle 形状”(nParticle shape)</span>仅创建一个运行时表达式。 </p>
+ </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-F7BE65C4-CDA4-42DC-A0D8-72B9D984B3E1.htm">关于粒子表达式</a></div>
+</div>
+</div>
+
+</body>
+</html>

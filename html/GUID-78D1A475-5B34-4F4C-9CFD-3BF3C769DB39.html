@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39">
+<meta name="language" content="CHS">
+<title>减少冗余表达式执行</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>减少冗余表达式执行</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__WS73099CC142F48755-3D114B7511841AEFA9F-76A"> 如果表达式包含冗余的语句计算，可以禁用<span class="ph uicontrol" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__GUID-13F29529-A6A6-4614-A9C7-13D025AA28A1">“求值:始终”(Always Evaluate)</span>以加快动画的拖动和播放速度。若要了解此功能适用的情况，必须了解表达式执行的细微细节。 </p>
+<p class="p" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__WS73099CC142F48755-3D114B7511841AEFA9F-768">表达式通常在每次动画时间改变时执行。每当表达式读取的属性值更改，并且发生以下两个操作之一时，也会执行表达式：</p>
+<ul class="ul" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__WS73099CC142F48755-3D114B7511841AEFA9F-767"><li class="li" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__WS73099CC142F48755-3D114B7511841AEFA9F-766">Maya 中的其他某个节点使用表达式写入的属性值。例如，变形器或着色器使用其值。 </li>
+<li class="li" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__WS73099CC142F48755-3D114B7511841AEFA9F-765">Maya 需要它写入的属性的值，以便重画工作区内容。</li>
+</ul>
+<p class="p" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__WS73099CC142F48755-3D114B7511841AEFA9F-764">在此上下文中，预定义的变量时间和帧也被视为表达式读取的属性。</p>
+<p class="p" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__WS73099CC142F48755-3D114B7511841AEFA9F-763">假设您创建的表达式用于沿 Y 轴移动 NURBS 球体，移动距离为其在 X 轴当前平移值的两倍：</p>
+<pre class="pre codeblock">
+nurbsSphere1.translateY = 2 * nurbsSphere1.translateX;
+</pre>
+<p class="p" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__WS73099CC142F48755-3D114B7511841AEFA9F-762">如果在工作区中使用<span class="ph uicontrol" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__GUID-E2154B21-BB3B-422A-8EC1-FCF343664037">“移动工具”(Move tool)</span>沿 X 轴方向拖动球体，Maya 会为拖动时<span class="ph uicontrol" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__GUID-C9706EC3-19D3-41F0-9A5C-F87582EE5E5D">“translateX”</span>属性的每次增量改变执行该表达式。 </p>
+<p class="p" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__WS73099CC142F48755-3D114B7511841AEFA9F-761">沿 X 方向拖动球体会更改表达式中<span class="ph uicontrol" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__GUID-7A68A1CA-43C6-41E2-904C-A719A0606969">“translateX”</span>属性的值。当您拖动球体而使 Maya 更新工作区的显示时，表达式中<span class="ph uicontrol" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__GUID-E52BA4E5-C14C-4663-AD6C-820ABE3BC950">“translateY”</span>属性的值会发生改变。这种改变会使表达式执行。</p>
+<p class="p" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__WS73099CC142F48755-3D114B7511841AEFA9F-760">如果禁用<span class="ph uicontrol" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__GUID-A6EF1085-8E0E-47BC-BA13-774ED0BB1A60">“求值:始终”(Always Evaluate)</span>，并且表达式只包含打印函数语句、变量指定或不读取属性值的指定，则该表达式不会执行。 </p>
+<div class="section" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__WS73099CC142F48755-3D114B7511841AEFA9F-75F"><h2 class="title sectiontitle">示例</h2>
+
+<pre class="pre codeblock">
+global float $BallHeight = 5;
+print($BallHeight+"\n");
+nurbsSphere1.tx = rand(1);
+print(nurbsSphere1.tx+"\n");
+</pre>
+
+<p class="p" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__WS73099CC142F48755-3D114B7511841AEFA9F-75E">第一条语句声明值并将其指定给变量 $BallHeight（不是属性）。下一条语句打印 $BallHeight，但不指定任何属性值。 </p>
+
+<p class="p" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__WS73099CC142F48755-3D114B7511841AEFA9F-75D">下一条语句为属性指定值，但该值是由随机数函数 rand 生成的。该函数不读取属性值。有关 rand 函数的详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-5FFEBFEB-1F39-4275-8907-DE02BB241043.htm">rand</a>。</p>
+
+<p class="p" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__WS73099CC142F48755-3D114B7511841AEFA9F-75C">最后一条语句读取并打印属性值，但不指定任何属性值。</p>
+
+<p class="p" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__WS73099CC142F48755-3D114B7511841AEFA9F-75B">禁用了<span class="ph uicontrol" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__GUID-8A765945-B238-4B62-A352-39CF1AF9745F">“求值:始终”(Always Evaluate)</span>时，这些操作都不会使表达式执行。 </p>
+
+<p class="p" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__WS73099CC142F48755-3D114B7511841AEFA9F-75A"> <span class="ph uicontrol" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__GUID-0263DF8D-2643-4787-97EB-48A84F1DFECB">“求值:始终”(Always Evaluate)</span>仅影响您要创建或编辑的表达式。可以为一个表达式启用该设置，而为另一个表达式禁用该设置。</p>
+
+<p class="p" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__WS73099CC142F48755-3D114B7511841AEFA9F-759">对于大多数动画，无论是否启用<span class="ph uicontrol" id="GUID-78D1A475-5B34-4F4C-9CFD-3BF3C769DB39__GUID-67FA3E52-115A-49F5-ACEC-5D88D81A6542">“求值:始终”(Always Evaluate)</span>，表达式都会执行。如果有疑问，请保持启用状态。</p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-64B0ADDF-7939-456B-9F64-D90C8402803E.htm">优化脚本和表达式速度</a></div>
+</div>
+</div>
+
+</body>
+</html>

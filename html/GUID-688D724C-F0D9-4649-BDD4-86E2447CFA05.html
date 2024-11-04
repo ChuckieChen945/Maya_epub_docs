@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Basics">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05">
+<meta name="language" content="CHS">
+<title>使用 MEL 脚本将元数据添加到网格</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 MEL 脚本将元数据添加到网格</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-84F45DCC-13D8-4148-A8D1-8AB490D5EC0D"> 若要将元数据添加到网格，请遵循以下准则： </p>
+<ol class="ol" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__OL_871838544C5D46C9ABE0050C47AA2860"><li class="li" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__LI_38C893E6630C478BBDAA37E9851075D1">
+<p class="p" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-06783371-3D62-4DE0-B0D9-151C0EFF603C">使用 <samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-A9307FD3-F61E-413C-9EC1-20F9E761BBF2">dataStructure</samp> 命令，创建数据结构并定义其名称、其成员及其对应的数据类型。数据结构可以有多个成员。 </p>
+
+<p class="p" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-F41CC968-C4E5-438A-97AF-2C1DFE6AC157">在此示例中，定义名为 ColorStruct 的数据结构，它具有成员 Color（类型为 float[3]）和成员 ID（类型为 int32）。 </p>
+
+<pre class="pre codeblock">dataStructure -format "raw" -asString "name=ColorStruct:float[3]=Color:int32=ID";</pre>
+
+<p class="p" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-44403E4E-3640-4F4D-AFA2-EB9138363156">创建后，数据结构无法修改。 </p>
+
+</li>
+<li class="li" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__LI_B6AA10E3AA634CB582816C2689FAFCA5">
+<p class="p" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-EDAC3D79-346C-469A-8A79-1B736F2BA6B5">使用 <samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-56F544E1-093F-42FD-8E45-CBF5DE6F910E">addMetadata</samp> 命令创建一个空流以添加到对象（<samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-16937CA3-F3B4-49D8-A03F-161AB0AF90F3">-streamName</samp> 标志）。指定应该向其添加元数据的通道类型（<samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-5D8BBA7F-CFD9-422F-88D0-8926E2C7C6BD">-channelName</samp> 标志），如预定义的网格通道：<samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-3029902F-0A27-487B-9DF5-B6F7E9861CE9">顶点</samp>、<samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-F20E8168-ED84-4FEF-87DA-CFACECFFE659">边</samp>、<samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-227B900A-5C0A-4B45-9931-526F607BDCC7">面</samp>或 <samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-D524C232-5BAE-4F2C-8C12-C2685572D7F3">vertexFace</samp>；或者为常规元数据选择的名称。指定定义要添加到对象的元数据的数据结构（<samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-07563728-F06B-4C4B-A154-0A210F00F043">-structure</samp> 标志）。 </p>
+
+<p class="p" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-BF74945E-2292-4EAF-BAC8-E4B95461ED74">可以将多个流添加到同一通道和同一对象。 </p>
+
+<p class="p" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-1B0E3026-137E-40C5-BC1F-C3BDF6A74BF3">可以在各对象之间共享同一流。 </p>
+
+<p class="p" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-F50B260B-9A86-4021-8B06-729C213B7C13">每个流可以包括多个成员 - 其成员在数据结构中进行定义。每个流仅允许有一个数据结构。 </p>
+
+<p class="p" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-4ACF2E16-C538-4838-9EC1-8C5FC2E31D7A">在此示例中，创建两个流，其数据由 ColorStruct 数据结构定义。将这些流添加到两个网格的顶点通道。 </p>
+
+<pre class="pre codeblock">addMetadata -streamName "StreamOne" -channelName "vertex" -structure "ColorStruct" smcPlaneShape smcPlane1Shape; 
+addMetadata -streamName "StreamTwo" -channelName "vertex" -structure "ColorStruct" smcPlaneShape smcPlane1Shape; </pre>
+
+</li>
+<li class="li" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__LI_F5CA58973CDE48A29B9D61AECA047794">
+<p class="p" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-09B03092-B7AA-4D26-8A3A-C5920134A349">使用 <samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-4F4A8DDD-D1CE-4996-9565-C5911886E644">editMetadata</samp> 命令，在对象上设置或移除元数据值。使用 <samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-319C79E0-79D5-4C52-8EB6-2033221ED913">-streamName</samp> 标志指定要填充的流（例如，在上面步骤 2 中创建的流），并使用 <samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-FCDCDC74-0A82-4834-B445-31D2AC1BDFD0">-memberName</samp> 标志指定流的成员。 </p>
+
+<p class="p" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-37109946-4F0A-42E4-B596-CEF9187AC85E">使用 <samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-48CAEAE3-776A-42E4-A563-BF7885098EBD">-value</samp> 或 <samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-C848F7DF-45E5-4077-86B8-C07EC74D3C2F">-stringValue</samp> 标志指定元数据。可以将元数据指定给组件，方法是使用其索引值或者选择它们。通过选择要向其添加元数据的组件（而不是使用 <samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-33788ACD-7F6A-4B72-95A1-6FDA72CC6CB7">index</samp> 标志），可以编辑特殊网格通道（即，与网格组件隐式关联的通道：<samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-AFF74F37-C950-49BF-9F9A-4A15E17AA32D">顶点</samp>、<samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-FE501B94-229B-46DE-AB77-AB581FB0C2BB">面</samp>、<samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-7D1BCB83-15E8-4782-85E4-6EC79A396ADD">边</samp>和 <samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-241658F5-BCAC-431D-9B21-A7642C6006F7">faceVertex</samp>）上的流。其他流必须使用 <samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-8CB10B82-58E7-4CF7-8270-B9A1D9BBBDEF">index</samp> 标志进行编辑，因为它们未与任何特定的几何体元素关联。 </p>
+
+<p class="p" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-18479385-D847-4F83-B347-FE3C387A167A">在此示例中，将元数据添加到 StreamOne 的 Color 和 ID 成员，再添加到 StreamTwo 的成员。通过引用其索引值将元数据添加到顶点。 </p>
+
+<pre class="pre codeblock">editMetadata -streamName "StreamOne" -memberName "Color" -value 2 -value 0.5 -value 1 -index 1 smcPlaneShape;
+editMetadata -streamName "StreamOne" -memberName "ID" -value 17 -index 1 smcPlaneShape;
+editMetadata -streamName "StreamTwo" -memberName "Color" -value -2 -value -0.5 -value 2.5 -index 2 smcPlaneShape; 
+editMetadata -streamName "StreamTwo" -memberName "ID" -value 3 -index 3 smcPlaneShape; </pre>
+
+<p class="p" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-E1A2F9AE-B36E-40C0-B49F-0A2EE00CF276">在上面的示例中，两个流从同一数据结构获取了它们的值（因此顶点通道也是这样）。但是，通过为每个流指定不同的数据结构，也可以将不同的数据结构添加到同一通道。 </p>
+
+<p class="p" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-A82284B1-6231-435B-B27D-FB4D2286AEDD">例如， </p>
+
+<pre class="pre codeblock">//Create two data structures: ColorStruct and NameStruct
+dataStructure -format "raw" -asString "name=ColorStruct:float[3]=Color:int32=ID";
+dataStructure -format "raw" -asString "name=NameStruct:string=Name:int32=ID";
+
+//Assign the ColorStruct data structure to StreamOne
+addMetadata -streamName "StreamOne" -channelName "vertex" -structure "ColorStruct" smcPlaneShape smcPlane1Shape; 
+//Assign the NameStruct data structure to StreamTwo
+addMetadata -streamName "StreamTwo" -channelName "vertex" -structure "NameStruct" smcPlaneShape smcPlane1Shape; 
+ 
+//Assign metadata to the Color and ID members of StreamOne/ColorStruct on smcPlaneShape
+editMetadata -streamName "StreamOne" -memberName "Color" -value 2 -value 0.5 -value 1 -index 1 smcPlaneShape;
+editMetadata -streamName "StreamOne" -memberName "ID" -value 17 -index 1 smcPlaneShape;
+//Assign metadata to the Name and ID members of StreamTwo/NameStruct on smcPlaneShape
+editMetadata -streamName "StreamTwo" -memberName "Name" -stringValue "cube1" -index 2 smcPlaneShape; 
+editMetadata -streamName "StreamTwo" -memberName "ID" -value 3 -index 3 smcPlaneShape;
+
+//Assign metadata to the Color and ID members of StreamOne/ColorStruct on smcPlane1Shape
+editMetadata -streamName "StreamOne" -memberName "Color" -value 127 -value 255 -value 212 -index 1 smcPlane1Shape;
+editMetadata -streamName "StreamOne" -memberName "ID" -value 8 -index 1 smcPlane1Shape;
+//Assign metadata to the Name and ID members of StreamTwo/NameStruct on smcPlane1Shape
+editMetadata -streamName "StreamTwo" -memberName "Name" -stringValue "cube2" -index 2 smcPlane1Shape; 
+editMetadata -streamName "StreamTwo" -memberName "ID" -value 36 -index 3 smcPlane1Shape;</pre>
+
+</li>
+</ol>
+<div class="note note" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-9AF04FA3-B40E-456C-92F6-032EFC8D20FB"><span class="notetitle">注：</span> 如果 polyShape 节点在其 <samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-25E6E859-9A04-422F-9D8B-283A939860F1">inMesh</samp> 属性上具有传入连接，则将从该同一传入连接提供该形状的元数据。通常，这是由构建历史或变形引起的。但是，当元数据经过 DG 时不会对其进行修改，因此任何居间节点（如更改网格拓扑的删除顶点或硬边修改）都不会修改<em class="ph i" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-06589C38-A390-401A-BF03-38A4D29913A6">元数据与网格组件的关联</em>，且元数据保持与它最初应用到的同一组件的关联，从而导致意外的结果（例如，元数据附加到不存在的顶点，或者因顶点索引改变而导致元数据在一个顶点上开始但在其他顶点上结束）。使用 <samp class="ph codeph" id="GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05__GUID-EF687681-8963-4C08-99F3-79BEB34D21A7">editMetadata</samp> 命令将 editMetadata 节点插入到历史中，以手动修复任何错误的元数据关联。 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7.htm">将元数据添加到 Maya 节点</a></div>
+</div>
+</div>
+
+</body>
+</html>

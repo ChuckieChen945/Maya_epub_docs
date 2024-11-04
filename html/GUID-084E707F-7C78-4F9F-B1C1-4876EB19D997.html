@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-ManagingScenes">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997">
+<meta name="language" content="CHS">
+<title>移除名称空间</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1> 移除名称空间 </h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__WS73099CC142F48755-3D114B751181C40F14B13DD"> 可能会出现这样一种情况：需要将节点从特定名称空间中移除，随后再将保留名称空间从场景中移除。这类情况可能如下：
+	 </p>
+<ul class="ul" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__WS73099CC142F48755-3D114B751181C40F14B13DF"><li class="li" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__WS73099CC142F48755-3D114B751181C40F14B13E0">将引用文件直接导入父场景，并计划将选定节点导出到新文件或引用中。
+		</li>
+<li class="li" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__WS73099CC142F48755-3D114B751181C40F14B13E1">需要清除当前使用的名称空间，以便其他用户可以引用该文件，而不会引起名称空间冲突。如果要导出的文件可能包含不需要的保留名称空间，这将是一个很好的做法。
+		</li>
+</ul>
+<p class="p" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-A2532734-B811-48FE-8983-85B13D452F30"> 移除名称空间时，您可以选择将已引用或导入的对象名称空间与父场景中存在的名称空间合并。如果出现重复的名称空间，将合并这些名称空间，并且重复的对象名称将以递增的数字作为后缀。
+	 </p>
+<p class="p" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__WS73099CC142F48755-3D114B751181C40F14B13E2">可以使用<span class="ph uicontrol" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-4C11B56E-B3A6-4E53-82E8-FD59B65259F3">“名称空间编辑器”(Namespace Editor)</span>或使用 MEL 命令移除名称空间。
+	 </p>
+<div class="section" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__SECTION_B36A5795F71C4148A47C30E041299C10"><h2 class="title sectiontitle">使用<span class="ph uicontrol" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-F5D4EA57-F592-4CAF-BE15-8877E2A5ED42">“名称空间编辑器”(Namespace Editor)</span>移除名称空间</h2> 
+		 
+		<ol class="ol" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__OL_4AE67C35E3DC4E90BFE0DE69FE7F9E3D"><li class="li" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__LI_86F2DF92D98249EDB6DB54C4A1045AE4">通过选择使用名称空间的任何对象/节点，确定节点的名称空间。
+			 <p class="p" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-923B9C2E-F8F8-4925-9323-42CB19C22ADD">对象/节点的名称空间将在<span class="ph uicontrol" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-6097EC35-8817-4646-8469-7DF645699301">“通道盒”(Channel Box)</span>和<span class="ph uicontrol" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-C5DD368E-71AE-4C74-B0DD-7FF040693EEB">“大纲视图”(Outliner)</span>中亮显。例如，具有指定名称空间的对象的名称可能如下所示：
+			 </p>
+ 
+			 <pre class="pre codeblock">
+spaceJunk:pSphere1
+</pre>
+ 
+		  </li>
+<li class="li" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__LI_5316FD389405403ABC6E660764A524BB">在<span class="ph uicontrol" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-E3C97D5F-33D5-4D61-9DED-81A13B442535">“名称空间编辑器”(Namespace Editor)</span>中，选择要移除的名称空间。
+			 <div class="fig fignone" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__FIG_C263094F10334E9097898484AAB0FC1D"><img class="image" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__IMAGE_C82C88173180433592EDB3375A32D80A" src="../images/GUID-B6E57079-69E2-4389-8241-1FAE240F88E9.png"></div>
+ 
+		  </li>
+<li class="li" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__LI_E284D970E75E4E8C8B7BACDE792D0BB6">单击<span class="ph uicontrol" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-72A0684B-2246-4944-8E79-6781CD078B1A">“删除”(Delete)</span>。
+			 <p class="p" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-DEC59E68-92FA-47DA-B23C-A7C309BD7578">如果要移除的名称空间包含节点，将出现<span class="ph uicontrol" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-C80A968A-E628-4628-AA67-7B1775F9C814">“删除:”(Delete:)</span>名称空间窗口。
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__FIG_280940104AF44E0C8673BBF7A695C087"><img class="image" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__IMAGE_58770F51677D485A874C4FED9F15C8F9" src="../images/GUID-C79EF904-3EF2-4501-ACF2-AA0612DBF303.png"></div>
+ 
+		  </li>
+<li class="li" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__LI_4FEB7520DA42472B9D3F83E395E11F4B">在<span class="ph uicontrol" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-04A61E64-B154-428F-9935-349C4C626EEA">“删除:”(Delete:)</span>名称空间窗口中，单击以下选项之一：
+			 <ul class="ul" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__UL_3E9603ED70A14420B374B84804EA4091"><li class="li" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__LI_BF78ED92B2C9469693A148473BA0348A"><span class="ph uicontrol" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-BFF5B0D0-2718-4606-B52D-577A3FF3DB76">“与根合并”(Merge with Root)</span>，用于合并名称空间并将已删除名称空间包含的节点移到根名称空间中。
+				</li>
+<li class="li" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__LI_6218FD6C181A4117A499C5908BB49ECF"><span class="ph uicontrol" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-36B8C5C9-54CE-460C-8E12-21A316B059B5">“与父对象合并”(Merge with Parent)</span>，用于合并名称空间并将已删除名称空间包含的节点移到直接父名称空间中。
+				</li>
+<li class="li" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__LI_B284BCFF965E447EA8682FB2EE02BC11"><span class="ph uicontrol" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-9C68B99F-1B62-4633-A7A2-A9036B7DE810">“删除”(Delete)</span>，用于删除名称空间及其包含的节点。
+				</li>
+</ul>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__WS73099CC142F48755-3D114B751181C40F14B13E3"><h2 class="title sectiontitle">使用 MEL 命令移除名称空间</h2> 
+		 
+		<p class="p" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__WS73099CC142F48755-3D114B751181C40F14B13E4">接下来的两组步骤介绍了如何使用 <samp class="ph codeph">namespace</samp> MEL 命令从场景中的现有名称空间移除节点。您可以移除名称空间及其内容，或移除该名称空间并将其内容与根名称空间或父名称空间合并。
+		</p>
+ 
+		<div class="note note" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-65312136-2ED3-4607-9999-07C6B5042F54"><span class="notetitle">注：</span> 有关此命令和所有其他命令，请参见 <a class="xref" href="https://help.autodesk.com/view/MAYAUL/2023/CHS/?guid=__Commands_index_html" target="_blank">Maya 技术文档</a>中的命令列表。
+		</div>
+ 
+		<p class="li listintro" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__WS73099CC142F48755-3D114B751181C40F14B13E6">在场景中移除所有节点的指定名称空间</p>
+<ol class="ol" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__WS73099CC142F48755-3D114B751181C40F14B13E5"><li class="li" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__WS73099CC142F48755-3D114B751181C40F14B13E7">通过选择使用名称空间的任何对象/节点，确定节点的名称空间。
+			 <p class="p" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__WS73099CC142F48755-3D114B751181C40F14B13E8">选择对象/节点后，其名称空间将出现在<span class="ph uicontrol" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-DCAD0BCA-6621-4809-88EA-7D1CD21CEEBE">“通道盒”(Channel Box)</span>、<span class="ph uicontrol" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-77CBFB4E-C770-4040-9BDB-DBB899BE7958">“大纲视图”(Outliner)</span>或其他编辑器中。具有指定名称空间的对象的名称如下所示：
+			 </p>
+ 
+			 <pre class="pre codeblock">
+spaceJunk:pSphere1
+</pre>
+ 
+			 <p class="p" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__WS73099CC142F48755-3D114B751181C40F14B13E9"> 在此示例中，名称空间称为 <em class="ph i" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-E692BF50-AE33-4281-8F83-35B85442CCE5">spaceJunk</em>。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__WS73099CC142F48755-3D114B751181C40F14B13EA">在<span class="ph uicontrol" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-07B63565-0500-46BB-A581-81ED8534DDEA">命令行</span>中，执行以下操作：
+			 <ul class="ul" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__UL_0201CA5B058343A584B0A4463FFF7AFB"><li class="li" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__LI_F97B5570004D448681A76451D8BF4514">若要移除 <em class="ph i" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-5AAA8819-40E3-431B-A46C-C74B9386329F">spaceJunk</em> 名称空间并将位于 <em class="ph i" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-22A3CF4E-DDE3-462F-8C48-02A0BF1EAAEC">spaceJunk</em> 名称空间中的任何节点与根名称空间合并，请键入：<pre class="pre codeblock">namespace -mergeNamespaceWithRoot -removeNamespace "spaceJunk";</pre>
+ 
+				</li>
+<li class="li" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__LI_6E3F9005D4804D66B59C3C7D3BA34AFD">若要移除 <em class="ph i" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-EA13F19E-09C0-467E-BF55-307BD95DC01B">spaceJunk</em> 名称空间并将位于 <em class="ph i" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-F2059F40-6F0B-4C99-94FE-5AB1C810D066">spaceJunk</em> 名称空间中的任何节点与父名称空间合并，请键入：<pre class="pre codeblock">namespace -mergeNamespaceWithParent -removeNamespace "spaceJunk";</pre>
+ 
+				</li>
+<li class="li" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__LI_8EE4D12C1A5C4BC6ABE705A84AE53F69">若要移动位于 <em class="ph i" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-1776EFF0-6C23-4067-A01F-6526FC01D61F">spaceJunk</em> 名称空间中的任何节点，使其位于默认的名称空间中，请键入：<pre class="pre codeblock">
+namespace -mv “spaceJunk” “:” -f
+</pre>
+ 
+				  <p class="p" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-48C8A9CA-A4A2-4075-877D-9FEB2D29A122">任何拥有 <em class="ph i" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-9603D0C0-1783-4A49-BF76-D1CC82F6C91C">spaceJunk</em> 名称空间的节点现在都没有指定的名称空间。即，<samp class="ph codeph" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-CDA926C1-D908-4622-91EC-D1127CB4A0A5">:</samp> 指定默认的名称空间，<samp class="ph codeph" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-C563251B-2C37-4DEC-9295-003444C8DB32">-f</samp> 标志表示强制执行命令，即使其会产生命名冲突也是如此。因此，名称相同的节点将被指定递增的数字。
+				  </p>
+ 
+				</li>
+</ul>
+ 
+		  </li>
+</ol>
+ 
+		<p class="li listintro" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__WS73099CC142F48755-3D114B751181C40F14B13EE">从文件中移除保留名称空间</p>
+<ol class="ol" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__WS73099CC142F48755-3D114B751181C40F14B13ED"><div class="note note" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-C1275121-E66C-4B77-991B-8FBF9916C69F"><span class="notetitle">注：</span> 若要移除保留名称空间，必须首先确保场景中当前没有节点位于该名称空间中。有关详细信息，请参见上述步骤。
+		  </div>
+<li class="li" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__WS73099CC142F48755-3D114B751181C40F14B13EF">应该先知道保留名称空间的名称，然后再移除它。有关确定场景中名称空间的详细信息，请参见 <samp class="ph codeph">namespace</samp> MEL 命令。在此示例中，要移除的名称空间称为 <em class="ph i" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-4656B233-4307-4829-8FC8-8C0CF37973FE">spaceJunk</em>。
+		  </li>
+<li class="li" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__WS73099CC142F48755-3D114B751181C40F14B13F0">在<span class="ph uicontrol" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-45DDB431-FA4D-4342-8A1F-8116D8C738A1">命令行</span>中，键入以下文本字符串以将保留的 <samp class="ph codeph" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-1057A268-D083-4268-AD05-4229F77D8C1A">spaceJunk</samp> 名称空间从场景中移除。<pre class="pre codeblock">
+namespace -rm “spaceJunk”
+</pre>
+ 
+			 <div class="note note" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__WS73099CC142F48755-3D114B751181C40F14B13F1"><span class="notetitle">注：</span>  
+				<p class="p" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__GUID-1DA01391-591D-4635-B291-E5CCABABD5DB">名称空间不能命名为与场景中当前使用的任何现有名称空间有冲突的名称。
+				</p>
+ 
+			 </div>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__SECTION_D9C989A229AA4DC881B45D5A361AE02B"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__UL_252325A90992488AB193FFCD436161B7"><li class="li" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__LI_91E7351FBEDE4A61AB36769A9EF68BCF"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-E173CC3D-1638-499C-9F38-73735934D8E5.htm">创建名称空间</a> 
+		  </li>
+<li class="li" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__LI_DCDE660E45CA48EAA22E60917D2D3A2F"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-9E2F2AF6-48F3-4628-B23E-0B8A07EAF737.htm">编辑名称空间</a> 
+		  </li>
+<li class="li" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__LI_2EA25A1D41204215A4685ED5E9E990E8"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-1123419D-CFAF-4E7F-B5F6-4F68429E760B.htm">显示名称空间</a> 
+		  </li>
+<li class="li" id="GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997__LI_90E1BB45D6D2488F86E86681DACD35E9"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-8139C5B1-3C37-43DF-965E-39800AA98EE2.htm">“名称空间编辑器”(Namespace Editor)概述</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-B796BE38-72AC-4B9E-9C03-3C27C3EAA171.htm">名称空间</a></div>
+</div>
+</div>
+
+</body>
+</html>

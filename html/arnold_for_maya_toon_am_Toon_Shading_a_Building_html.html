@@ -1,0 +1,148 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_toon_am_Toon_Shading_a_Building_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_TOON_SHADING_A_BUILDING">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 对建筑进行卡通着色 - Arnold for Maya">
+
+<title>对建筑进行卡通着色</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>对建筑进行卡通着色</h1></div><p><img src="../images/am-Toon_Shading_a_Building-toon-convent-1.jpg" alt=""></p>
+<p>本简短教程介绍如何使用<em>卡通</em>着色器创建老旧的草图样式“插图”，如上图所示。介绍了如何将<em>“基础色调映射”(Base Tonemap)</em>和<em>“边缘检测”(Edge Detection)</em>与使用<em>噪波</em>着色器的凹凸贴图结合使用以创建填充效果。非常感谢 <a href="http://www.javier-lajara.com/work/" target="_blank">Javier Garcia-Lajara Herrero</a> 提供其修道院模型。</p>
+<ul>
+<li>首先，将<em>卡通</em>着色器指定给几何体。</li>
+<li>将<strong>“过滤器类型”(Filter Type)</strong>更改为<strong>“轮廓”(Contour)</strong>（Arnold 渲染设置）。否则，您将无法在渲染中看到卡通<em>边着色</em>。</li>
+<li>因为我们在渲染中不需要任何镜面反射着色，所以将 <em>specular_weight</em> 减小到 0。</li>
+<li>创建一个 <em>skydome_light</em> 并渲染场景。效果应类似下图。</li>
+</ul>
+<p><img src="../images/am-Toon_Shading_a_Building-image2018-12-18-13-31-13-2.png" alt=""></p>
+<h2 id="edge-detection">边缘检测(Edge Detection)</h2><ul>
+<li>将<em>“角度阈值”(Angle Threshold)</em>减小到 20 左右<em>（“卡通 -&gt; 边缘检测”(Toon -&gt; Edge Detection)）</em>。这将在几何体周围提供更详细的边。</li>
+</ul>
+<p><img src="../images/am-Toon_Shading_a_Building-image2018-12-18-13-21-0-3.png" alt=""></p>
+<ul>
+<li><em>边</em>显得又粗又黑。通过将边的<em>“宽度比例”(Width Scale)</em>减小到 0.4 左右，可以修复此问题。</li>
+</ul>
+<p><img src="../images/am-Toon_Shading_a_Building-image2018-12-18-13-24-37-4.png" alt=""></p>
+<h2 id="base-tonemap">基础色调映射(Base Tonemap)</h2><ul>
+<li><em>基础</em>着色看起来太暗，无法获取所需的演示效果。通过使用渐变来确定场景中照明对<em>基础</em>着色的影响，我们可以调整效果。将黑白渐变连接到<em>“基础色调映射”(Base Tonemap)</em>并增加渐变中的白色分量，直到效果如下图所示。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Toon_Shading_a_Building-tonemap-before-5.jpg" alt=""></td>
+<td><img src="../images/am-Toon_Shading_a_Building-tonemap-after-6.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用基础色调映射</td>
+<td>黑白渐变 &gt; 基础色调映射(B&amp;W Ramp &gt; Base Tonemap)</td>
+</tr>
+</tbody></table>
+<h2 id="">填充（噪波着色器）</h2><p>接下来，我们将填充样式添加到<em>卡通边</em>。为此，我们可以对曲面设置凹凸效果（或进行置换）。</p>
+<ul>
+<li>将 Arnold <em>噪波<em>着色器连接到卡通着色器中的</em>“几何体</em> -&gt; <em>法线(凹凸贴图)”(Geometry -&gt; Normal (bump mapping)</em>。</li>
+<li>将<em>“倍频程”(Octaves)</em>的数量增加到 8。将 Y 轴的“比例”(Scale)减小到 0.01。这将使噪波在垂直方向上拉伸并呈现填充效果。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Toon_Shading_a_Building-noise-scale-1-7.jpg" alt=""></td>
+<td><img src="../images/am-Toon_Shading_a_Building-noise-scale-0-01-8.jpg" alt=""></td>
+</tr>
+<tr>
+<td>噪波比例：1</td>
+<td>噪波比例 Y：0.01</td>
+</tr>
+</tbody></table>
+<ul>
+<li>尝试不同的<em>噪波</em>着色器/设置以获取不同的填充/点画效果。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Toon_Shading_a_Building-noise-cell1-9.jpg" alt=""></td>
+<td><img src="../images/am-Toon_Shading_a_Building-noise-wispy-10.jpg" alt=""></td>
+</tr>
+<tr>
+<td>Cell1</td>
+<td>束状</td>
+</tr>
+<tr>
+<td><img src="../images/am-Toon_Shading_a_Building-noise-billow-11.jpg" alt=""></td>
+<td><img src="../images/am-Toon_Shading_a_Building-noise-perlin-12.jpg" alt=""></td>
+</tr>
+<tr>
+<td>翻滚</td>
+<td>柏林</td>
+</tr>
+</tbody></table>
+<p><sub><strong>各种噪波着色器 -&gt; 凹凸贴图</strong></sub></p>
+<h2 id="">最终渲染</h2><ul>
+<li>将 HDR 贴图或 <em>physical_sky</em> 连接到 <em>skydome_light</em>。</li>
+<li>还可以将浅黄色<em>基础*和 *emission_color</em> 连接到卡通着色器，以呈现陈旧的纸张效果。</li>
+<li>尝试在几何体后面使用多边形平面以向天空添加类似的着色效果（如本例中的用法）。</li>
+</ul>
+<p><img src="../images/am-Toon_Shading_a_Building-toon-convent-13.jpg" alt=""></p>
+<p><img src="../images/am-Toon_Shading_a_Building-image2018-12-20-7-37-17-14.png" alt=""></p>
+<p><sub><strong>最终的着色网络</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Shading/arnold_for_maya_shading_am_Toon_Tutorials_html.html">卡通教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

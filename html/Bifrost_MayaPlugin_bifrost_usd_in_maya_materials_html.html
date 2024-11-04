@@ -1,0 +1,83 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-MayaPlugin">
+  <meta name="topicid" content="Bifrost_MayaPlugin_bifrost_usd_in_maya_materials_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>在 Bifrost-USD 中应用材质</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>在 Bifrost-USD 中应用材质</h1></div><p>Bifrost-USD 包括高级复合，能够轻松创建 UsdPreviewSurface 材质并通过多种方式将其绑定到几何体。</p>
+<h2 id="">创建材质基本体</h2><p>USD 中的 UsdPreviewSurface 材质是一种简单但现代的基于物理的材质，它涵盖许多情况。受许多渲染器支持。</p>
+<p>添加定义材质的基本体：</p>
+<ol>
+<li>在 <code>add_to_stage</code> 节点的 <code>prim_definitions</code> 端口或基本体定义节点的 <code>children</code> 端口上单击鼠标右键，然后选择<strong>“创建节点 &gt; Usd::Shading::define_usd_preview_surface”(Create Node &gt; Usd::Shading::define_usd_preview_surface)</strong>。</li>
+<li>将 <code>path</code> 设置为标识材质的路径和名称，并根据需要设置其参数。</li>
+</ol>
+<h2 id="material">使用 <code>material</code> 端口绑定材质</h2><p>将材质应用于基本体的最简单、有时也是最便捷的方法是，将 <code>define_usd_preview_surface</code> 的输出连接到基本体定义节点的 <code>material</code> 端口。当此“模板”由 <code>add_to_stage</code> 节点处理时，将自动创建绑定。</p>
+<p>此方法的缺点是，它会在具有材质连接的每个基本体下创建材质的副本，因此它仅适用于简单情况。</p>
+<h2 id="">使用标记绑定材质</h2><p>标记可以按名称自动绑定材质。它们便于从以前在后台文件中定义的库中选择材质。</p>
+<ol>
+<li><p>（可选）将 <code>define_usd_material_tag</code> 节点添加到图表，将其输出连接到 <code>define_usd_preview_surface</code> 节点的 <code>attribute_definitions</code> 端口，并将其 <code>value</code> 设置为用于标识材质的唯一字符串。</p>
+</li>
+<li><p>将另一个 <code>define_usd_material_tag</code> 节点添加到图表，将其输出连接到基本体定义端口的 <code>attribute_definitions</code> 端口，并将其 <code>value</code> 设置为材质基本体定义的名称。 </p>
+<p>或者，如果将标记连接到材质基本体定义，则可以将 <code>value</code> 设置为同一标记 - 在本例中，可以重新使用来自同一 <code>define_usd_material_tag</code> 节点的输出。</p>
+</li>
+<li><p>在下游 <code>add_to_stage</code> 节点中，确保 <code>use_material_name_or_tag</code> 处于启用状态。</p>
+</li>
+</ol>
+<h2 id="">使用关系绑定材质</h2><p>可以使用关系明确绑定材质。</p>
+<ol>
+<li>在基本体定义节点的 <code>relationship_definitions</code> 端口上单击鼠标右键，然后选择 <strong>Usd::Prim::define_usd_relationship</strong>。</li>
+<li>默认情况下，<code>define_usd_relationship</code> 已设置为创建 <code>material:binding</code> 关系。只需将 <code>target</code> 设置为材质要绑定到的路径。</li>
+</ol>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>您可以在 Maya 的大纲视图中选择材质，然后从属性编辑器中材质基本体的选项卡上的<strong>“元数据”(Metadata)</strong>属性组中的<strong>“基本体路径”(Prim Path)</strong>复制并粘贴材质，从而获取路径。</p>
+
+</div></div>
+
+<h2 id="assign_usd_material">使用 <code>assign_usd_material</code> 绑定材质</h2><ol>
+<li>将 <code>assign_usd_material</code> 节点添加到图表，并连接其 <code>stage</code> 输入和输出端口。</li>
+<li>将 <code>material_path</code> 设置为要使用的材质的完整路径。</li>
+<li>将 <code>prim_path</code> 设置为要绑定的基本体的完整路径。</li>
+</ol>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-MayaPlugin/files/Bifrost_MayaPlugin_bifrost_usd_in_maya_html.html">Maya 中的 Bifrost-USD</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

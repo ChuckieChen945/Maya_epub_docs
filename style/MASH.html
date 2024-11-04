@@ -1,0 +1,533 @@
+﻿<!-- saved from url=(0024)http://docs.autodesk.com -->
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>The MASH API &mdash; MASH Technical Documentation 4.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index" href="genindex.html" />
+        <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="MASH Technical Documentation 4.5 documentation" href="index.html" />
+        <link rel="next" title="MASH API Examples" href="examples.html" />
+        <link rel="prev" title="Welcome to MASH Technical documentation!" href="index.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+<link rel="stylesheet" href="../style/adsk.cpm.css" type="text/css" /><meta name="experiencelevel" content="expert" /><meta name="audience" content="programmer" /><meta name="user-comments" content="enable" /><meta name="language" content="CHS" /><meta name="product" content="MAYADEV" /><meta name="release" content="2025" /><meta name="book" content="Customization" /><meta name="component" content="Maya-Tech-Docs" /><meta name="helpsystempath" content="/view/MAYADEV/2025/CHS/" /><meta name="created" content="20-09-2024" /><meta name="modified" content="20-09-2024" /><meta name="description" content="" /><meta name="topicid" content="__MASH_MASH_html" /><meta name="canonical" content="http://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/MASH/MASH.html" /></head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> MASH Technical Documentation
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get" />
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">MASH API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-example-1">Basic Example 1.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-example-2">Basic Example 2.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-network-class">The Network Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-node-class">The Node Class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">API Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DropWindow.html">Drop Window</a></li>
+<li class="toctree-l1"><a class="reference internal" href="openMASH.html">openMASH</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MASH Technical Documentation</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>The MASH API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/MASH.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr />
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-mash-api">
+<h1>The MASH API<a class="headerlink" href="#the-mash-api" title="Permalink to this headline">¶</a></h1>
+<p>The MASH API is a series of helper scripts that can be used to automate the setup and manipulation of MASH networks.</p>
+<div class="section" id="basic-example-1">
+<h2>Basic Example 1.<a class="headerlink" href="#basic-example-1" title="Permalink to this headline">¶</a></h2>
+<p>Create a MASH network, add a couple of nodes, and print out some useful information.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">MASH.api</span> <span class="kn">as</span> <span class="nn">mapi</span>
+<span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="kn">as</span> <span class="nn">cmds</span>
+
+<span class="n">sphereToDistributeOn</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">polySphere</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">()</span>
+
+<span class="c1"># create a new MASH network</span>
+<span class="n">mashNetwork</span> <span class="o">=</span> <span class="n">mapi</span><span class="o">.</span><span class="n">Network</span><span class="p">()</span>
+<span class="n">mashNetwork</span><span class="o">.</span><span class="n">createNetwork</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;HelloWorld&quot;</span><span class="p">)</span>
+<span class="c1"># print out the default node names</span>
+<span class="k">print</span> <span class="n">mashNetwork</span><span class="o">.</span><span class="n">waiter</span>
+<span class="k">print</span> <span class="n">mashNetwork</span><span class="o">.</span><span class="n">distribute</span>
+<span class="k">print</span> <span class="n">mashNetwork</span><span class="o">.</span><span class="n">instancer</span>
+<span class="c1"># add a Signal node</span>
+<span class="n">node</span> <span class="o">=</span> <span class="n">mashNetwork</span><span class="o">.</span><span class="n">addNode</span><span class="p">(</span><span class="s2">&quot;MASH_Signal&quot;</span><span class="p">)</span>
+<span class="c1"># set the signal node to have some scale noise</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;.scaleX&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="c1"># print out the name of the signal node</span>
+<span class="k">print</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span>
+<span class="c1"># add a Falloff to the Signal node</span>
+<span class="n">falloff</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">addFalloff</span><span class="p">()</span>
+<span class="c1"># move the falloff</span>
+<span class="n">falloffParent</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">falloff</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="bp">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">falloffParent</span><span class="o">+</span><span class="s2">&quot;.translateX&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="c1"># make it so the network distributes onto the surface of a mesh</span>
+<span class="n">mashNetwork</span><span class="o">.</span><span class="n">meshDistribute</span><span class="p">(</span><span class="n">sphereToDistributeOn</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="c1"># set the point count of the network</span>
+<span class="n">mashNetwork</span><span class="o">.</span><span class="n">setPointCount</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="c1"># print all the nodes in the network</span>
+<span class="n">nodes</span> <span class="o">=</span> <span class="n">mashNetwork</span><span class="o">.</span><span class="n">getAllNodesInNetwork</span><span class="p">()</span>
+<span class="k">print</span> <span class="s2">&quot;All nodes in network: &quot;</span>
+<span class="k">print</span> <span class="n">nodes</span>
+<span class="c1"># find all the falloffs in the network</span>
+<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+    <span class="n">mashNode</span> <span class="o">=</span> <span class="n">mapi</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="n">falloffs</span> <span class="o">=</span> <span class="n">mashNode</span><span class="o">.</span><span class="n">getFalloffs</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">falloffs</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">node</span><span class="o">+</span><span class="s2">&quot; has the following falloffs: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">falloffs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="basic-example-2">
+<h2>Basic Example 2.<a class="headerlink" href="#basic-example-2" title="Permalink to this headline">¶</a></h2>
+<p>Attach an existing network to Network class.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">MASH.api</span> <span class="kn">as</span> <span class="nn">mapi</span>
+<span class="n">mashNetwork</span> <span class="o">=</span> <span class="n">mapi</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="s2">&quot;MASH1&quot;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">mashNetwork</span><span class="o">.</span><span class="n">waiter</span>
+<span class="k">print</span> <span class="n">mashNetwork</span><span class="o">.</span><span class="n">distribute</span>
+<span class="k">print</span> <span class="n">mashNetwork</span><span class="o">.</span><span class="n">instancer</span>
+</pre></div>
+</div>
+<p>See the MASH API Examples page for more examples.</p>
+<hr class="docutils" />
+<span class="target" id="module-api"></span></div>
+<div class="section" id="the-network-class">
+<h2>The Network Class<a class="headerlink" href="#the-network-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="api.Network">
+<em class="property">class </em><code class="descclassname">api.</code><code class="descname">Network</code><span class="sig-paren">(</span><em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#api.Network" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class defines the base MASH network.</p>
+<dl class="method">
+<dt id="api.Network.addChannelRandom">
+<code class="descname">addChannelRandom</code><span class="sig-paren">(</span><em>dynamicsNode</em><span class="sig-paren">)</span><a class="headerlink" href="#api.Network.addChannelRandom" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Add a channel random node to either a MASH_Dynamics node or MASH_Constraint.</div>
+<div class="line">Returns a Node instance of the Channel Random node.</div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="api.Network.addCollider">
+<code class="descname">addCollider</code><span class="sig-paren">(</span><em>colliderName</em><span class="sig-paren">)</span><a class="headerlink" href="#api.Network.addCollider" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a collider to the Bullet Solver this network is connected to.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="api.Network.addConstraint">
+<code class="descname">addConstraint</code><span class="sig-paren">(</span><em>dynamicsNode</em><span class="sig-paren">)</span><a class="headerlink" href="#api.Network.addConstraint" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Add a constraint to a MASH_Dynamics node</div>
+<div class="line">Returns a Node instance of the Constraint node</div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="api.Network.addNode">
+<code class="descname">addNode</code><span class="sig-paren">(</span><em>nodeType</em><span class="sig-paren">)</span><a class="headerlink" href="#api.Network.addNode" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Adds a node to the network.</div>
+<div class="line">If the node you&#8217;re creating is a curve node, then any curves defined in self.curves will be added automatically.</div>
+<div class="line">:param  &#8211; nodeType: The node type as a string</div>
+<div class="line">:return &#8211; an instance of the Node class which can be used to further manipulate the network.</div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="api.Network.channelToList">
+<code class="descname">channelToList</code><span class="sig-paren">(</span><em>channel</em>, <em>destination</em><span class="sig-paren">)</span><a class="headerlink" href="#api.Network.channelToList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy an MArray to a list.
+This method is used mainly by MASH&#8217;s unit testing framework.
+:param  &#8211; None
+:return &#8211; None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="api.Network.checkForNodeType">
+<code class="descname">checkForNodeType</code><span class="sig-paren">(</span><em>typeToCheckFor=None</em><span class="sig-paren">)</span><a class="headerlink" href="#api.Network.checkForNodeType" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Returns true if a node of this type is present in the network.</div>
+<div class="line">:param  &#8211; typeToCheckFor: The nodeType to check for.</div>
+<div class="line">:return &#8211; bool</div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="api.Network.createNetwork">
+<code class="descname">createNetwork</code><span class="sig-paren">(</span><em>name='MASH Network'</em>, <em>distributionStyle=0</em>, <em>geometry='Default'</em><span class="sig-paren">)</span><a class="headerlink" href="#api.Network.createNetwork" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Creates a MASH network.</div>
+<div class="line">:param  &#8211; name: The desired name of the new network.</div>
+<div class="line">:param  &#8211; distributionStyle: The distribution style:</div>
+<div class="line">1 = Linear</div>
+<div class="line">2 = Radial</div>
+<div class="line">3 = Spherical</div>
+<div class="line">6 = Grid</div>
+<div class="line">7 = Initial State</div>
+<div class="line">8 = PFX</div>
+<div class="line">9 = Volume</div>
+<div class="line">:param  &#8211; geometry: The geometry type:</div>
+<div class="line">&#8216;Instancer&#8217; will create a network using the Maya Particle Instancer.</div>
+<div class="line">&#8216;Repro&#8217; will use the MASH_Repro node to output a mesh.</div>
+<div class="line">To use mesh based distribition, first create the network, then use meshDistribute() and supply the required arguements.</div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">import maya.cmds as cmds</div>
+<div class="line">import MASH.api as mapi</div>
+<div class="line">cmds.polyCube()</div>
+<div class="line">network = mani.Network()</div>
+<div class="line">network.createNetwork(geometry=&#8217;Instancer&#8217;)</div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="api.Network.createShellDynamics">
+<code class="descname">createShellDynamics</code><span class="sig-paren">(</span><em>meshes</em>, <em>freezeTransforms=True</em>, <em>name='MASH Shell Network'</em><span class="sig-paren">)</span><a class="headerlink" href="#api.Network.createShellDynamics" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Creates a MASH network with Shell Dynamics set up for every mesh in the meshes arguement list.</div>
+<div class="line">:param  &#8211; name: The desired name of the new network.</div>
+<div class="line">:param  &#8211; meshes: A list of meshes to add shell dynamics to.</div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">selected = cmds.ls(sl=True)</div>
+<div class="line">mashNetwork = mapi.Network()</div>
+<div class="line">mashNetwork.createShellDynamics(selected, &#8220;DymamicsNetwork&#8221;)</div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="api.Network.getAllNodesInNetwork">
+<code class="descname">getAllNodesInNetwork</code><span class="sig-paren">(</span><em>name=None</em>, <em>foundNames=None</em>, <em>dest=True</em><span class="sig-paren">)</span><a class="headerlink" href="#api.Network.getAllNodesInNetwork" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Returns the names of all the nodes in the MASH network</div>
+<div class="line">:return &#8211; list of names</div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="api.Network.getCurrentFrameData">
+<code class="descname">getCurrentFrameData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api.Network.getCurrentFrameData" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Gather the current frame&#8217;s data and write to lists:</div>
+<div class="line">self.position</div>
+<div class="line">self.rotation</div>
+<div class="line">self.scale</div>
+<div class="line">self.pid</div>
+<div class="line">self.time</div>
+<div class="line">This method is used mainly by MASH&#8217;s unit testing framework.</div>
+<div class="line">:param  &#8211; None</div>
+<div class="line">:return &#8211; None</div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="api.Network.meshDistribute">
+<code class="descname">meshDistribute</code><span class="sig-paren">(</span><em>mesh</em>, <em>mode=1</em><span class="sig-paren">)</span><a class="headerlink" href="#api.Network.meshDistribute" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Sets the MASH Network distribution method to mesh based.</div>
+<div class="line">:param  &#8211; mesh: The name of the mesh on which to distribute.</div>
+<div class="line">:param  &#8211; mode: The mesh distribution mode:</div>
+<div class="line">1 = Scatter</div>
+<div class="line">2 = Vertex</div>
+<div class="line">3 = Random Vertex</div>
+<div class="line">4 = Face</div>
+<div class="line">5 = Random Face</div>
+<div class="line">6 = Voxel</div>
+<div class="line">7 = Selection set</div>
+<div class="line">8 = Edge</div>
+<div class="line">9 = Random Edge</div>
+<div class="line">10 = UV Space</div>
+<div class="line">:return &#8211; nothing</div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="api.Network.rename">
+<code class="descname">rename</code><span class="sig-paren">(</span><em>newPrefix</em><span class="sig-paren">)</span><a class="headerlink" href="#api.Network.rename" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Rename all the nodes in the MASH network.</div>
+<div class="line">You can name networks on creation (see above) thus this method should only be used when not creating networks via the API.</div>
+<div class="line">:param  &#8211; newPrefix: The new prefix for the node names</div>
+<div class="line">:return &#8211; None.</div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="api.Network.setInitialState">
+<code class="descname">setInitialState</code><span class="sig-paren">(</span><em>dynamicsNode</em><span class="sig-paren">)</span><a class="headerlink" href="#api.Network.setInitialState" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Sets the Initial State of a Dynamics network, only run this once</div>
+<div class="line">to set initial state a second time use</div>
+<div class="line">mc.setDynamicsInitialState(setState=True, name=dynamicsNodeName)</div>
+<div class="line">Returns a Node instance of the Initial State node</div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="api.Network.setPointCount">
+<code class="descname">setPointCount</code><span class="sig-paren">(</span><em>count</em><span class="sig-paren">)</span><a class="headerlink" href="#api.Network.setPointCount" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Set the point count for the network.</div>
+<div class="line">:param  &#8211; count: The new point count.</div>
+<div class="line">:return &#8211; nothing</div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="the-node-class">
+<h2>The Node Class<a class="headerlink" href="#the-node-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="api.Node">
+<em class="property">class </em><code class="descclassname">api.</code><code class="descname">Node</code><span class="sig-paren">(</span><em>nodeName</em><span class="sig-paren">)</span><a class="headerlink" href="#api.Node" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">This class defines a generic MASH node.</div>
+<div class="line">:string &#8211; name: The name of the MASH node</div>
+<div class="line">:list &#8211; falloffs: The falloffs on this node</div>
+</div>
+<dl class="method">
+<dt id="api.Node.addFalloff">
+<code class="descname">addFalloff</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api.Node.addFalloff" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Add a Falloff node to the MASH node.</div>
+<div class="line">The name of the Falloff node will be returned.</div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="api.Node.addGroundPlane">
+<code class="descname">addGroundPlane</code><span class="sig-paren">(</span><em>groundTranform</em><span class="sig-paren">)</span><a class="headerlink" href="#api.Node.addGroundPlane" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the MASH node is a World node this function connects a ground plane to it. Otherwise it will return.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="api.Node.getFalloffs">
+<code class="descname">getFalloffs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api.Node.getFalloffs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the names of all the MASH Falloff objects as a list.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="examples.html" class="btn btn-neutral float-right" title="MASH API Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Welcome to MASH Technical documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr />
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Autodesk.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'4.5',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

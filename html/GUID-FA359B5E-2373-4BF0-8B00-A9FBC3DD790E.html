@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Basics">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E">
+<meta name="language" content="CHS">
+<title>在 Maya 中编辑元数据</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>在 Maya 中编辑元数据</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__GUID-D78B8640-D04F-4769-9132-543171A2B2C5"> 若要将元数据添加到对象，必须先定义数据结构，创建数据流并将它们附加到对象。执行此操作后，可以将其他元数据添加到同一流和成员，或者通过 Maya 标记菜单编辑现有的元数据。或者，也可以通过 MEL/Python 脚本执行此操作。 
+	 </p>
+<p class="p" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__GUID-5CC49A82-A651-4878-8CA6-4525B7F229B8">有关如何使用 MEL/Python 定义数据结构以及创建和附加数据流的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05.htm">使用 MEL 脚本将元数据添加到网格</a>。 
+	 </p>
+<p class="li listintro" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__GUID-11BD7883-52A1-46DD-8A4B-D03F6113A014">使用标记菜单添加或编辑元数据</p>
+<ol class="ol" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__OL_CF0F5C7DEB6D486081541BA36313BC9F"><li class="li" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__LI_5270B392621B4B8B9CD7CFF615EB9C65">右键单击对象，然后选择<span class="ph uicontrol" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__GUID-C5D59261-D3A1-4F86-81BF-4787451F6971">“元数据 &gt; 选择流”(Metadata &gt; Select Stream)</span>，以选择要为其添加或编辑元数据的流和成员。 
+		  <p class="p" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__GUID-68EB82F4-91F0-4CCF-8CA5-B1BC21CBD662">在选择流和成员时会启用元数据可视化。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__LI_6D70C326BCDC40ECA793B2413FB80B62">在视口中，选择要向其添加元数据的对象上的组件，或者选择具有要编辑的元数据的对象上的组件。 
+		  <div class="p" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__GUID-4586F317-91A7-4033-902F-D0A99EE32718">只能将元数据添加到附加到所选对象和组件的流和成员。例如，如果已先将 StreamOne 附加到 smcPlaneShape 的顶点通道，则只能将元数据添加到 smcPlaneShape 的顶点上的 StreamOne。 
+			 <pre class="pre codeblock">dataStructure -format "raw" -asString "name=ColorStruct:float[3]=Color"; 
+addMetadata -streamName "StreamOne" -channelName "vertex" -structure "ColorStruct" smcPlaneShape;  </pre>
+ 
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__LI_7C3F9A63304448EF8196F90AEAE0E667">右键单击对象，然后选择<span class="ph uicontrol" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__GUID-BD1223B9-459C-495A-A733-FAAADE850022">“元数据 &gt; 编辑元数据”(Metadata &gt; Edit Metadata)</span>。 
+		  <p class="p" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__GUID-0F434776-A829-4230-8DDB-26CDFD6DF10F">此时将显示<span class="ph uicontrol" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__GUID-A23215A7-CEA4-4B85-9DB1-FCFAB7174329">“编辑元数据”(Edit Metadata)</span>窗口。验证<span class="ph uicontrol" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__GUID-A9225400-3055-4B46-A10C-DF19C4B32262">“当前流”(Current Stream)</span>以确保这是要为其添加或编辑元数据的流。 
+		  </p>
+ 
+		  <div class="note note" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__GUID-8875FD83-F647-4C9F-B71F-F9500896612A"><span class="notetitle">注：</span>  
+			 <p class="p" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__GUID-0302CE11-50F9-4E21-BFFF-698E6C437B7C">如果选择没有为其附加元数据流的对象上的组件，则显示错误。 
+			 </p>
+ 
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__LI_27D0B49CF3624EE5B575D202A98F5B01">输入元数据值。 
+		  <p class="p" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__GUID-4D334A2D-529A-4DBF-BC87-9990200AFD10"><span class="ph uicontrol" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__GUID-AEDE21EB-4B12-4343-9470-B05E5287016B">Viewport 2.0</span> 现在反映已添加/编辑的元数据值。 
+		  </p>
+ 
+		</li>
+</ol>
+<div class="section" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__SECTION_E592244101134E45B8FCEBF388027D4A"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__UL_E9FDAAC0B8FB4903844A6932CF485CB6"><li class="li" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__LI_90C794199A0042FB940AF548DC9B8A4C"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-80F3722D-2E2D-49CE-B8B3-854A8B76C6EF.htm">在 Viewport 2.0 中可视化元数据</a> 
+		  </li>
+<li class="li" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__LI_BC6BDDCC49864534ACF4ED2BB1224577"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-04D78254-75BF-4D51-979F-49DFDAE3D280.htm">使用脚本可视化元数据</a> 
+		  </li>
+<li class="li" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__LI_BAA1D26C7B834750ABF9B68DF8A1E1DD"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-E01081B5-72D1-453D-92CA-B1D01F753E94.htm">在可视化元数据时重新映射颜色范围</a> 
+		  </li>
+<li class="li" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__LI_D695F2EAD62B425783E3F2CE922DFEEE"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-006B5435-8732-4E1C-B014-AD6B2ECBA755.htm">在可视化元数据时将顶点颜色外推到面</a> 
+		  </li>
+<li class="li" id="GUID-FA359B5E-2373-4BF0-8B00-A9FBC3DD790E__LI_276745A581B54FE8A5BC74881C7A7339"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-897320C1-8F40-4125-9C43-CBBDA1867447.htm">元数据可视化选项</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-8FE69AF2-B71A-4325-B391-C88E38D8DF02.htm">可视化元数据</a></div>
+</div>
+</div>
+
+</body>
+</html>

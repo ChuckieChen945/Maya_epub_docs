@@ -1,0 +1,86 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Geometry_Volume_Geometry_Volume_points_to_liquid_surface_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>points_to_liquid_surface</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>points_to_liquid_surface</code></h1></div><p>此复合专门用于液体模拟。由于此节点具有过滤功能，并且相较于单个较简单的节点（例如 <code>points_to_volume</code>）更加便利，因此也非常适用于其他基于粒子的模拟或点。</p>
+<p>该复合将输入点几何体体素化为等值面（带符号距离场）。然后，使用放大、平滑和腐蚀优化此等值面。（可选）还有在渲染输出流体表面时可能很重要的其他优化选项和碰撞相减功能。</p>
+<p>有两个输出。网格输出是从转化的等值面创建的，非常适合渲染。等值面是曲面的体积表示，预览速度更快，因为不需要执行额外的步骤将其转化为网格。</p>
+<h2 id="">输入</h2><h3 id="points"><code>points</code></h3><p>要进行体素化的点几何体。</p>
+<h3 id="colliders"><code>colliders</code></h3><p>包含要从流体表面等值面中减去的等值面的输入对象。</p>
+<h3 id="clip_geometry"><code>clip_geometry</code></h3><p>包含要转化为等值面并与流体表面等值面相交的几何体的输入对象。</p>
+<h2 id="">细节大小</h2><h3 id="detail_size"><code>detail_size</code></h3><p>指定用于输入点几何体的体素的（世界空间）大小。对于 Bifrost 液体，这对应于 <code>Master Voxel Size</code>。</p>
+<h3 id="resolution_factor"><code>resolution_factor</code></h3><p>生成网格之前用于调整等值面的体素分辨率的缩放因子。较高的值会创建更高频率的细节，但计算时间会较长。</p>
+<h3 id="surface_radius"><code>surface_radius</code></h3><p>用于创建曲面的每个点水滴的半径，是 <code>detail_size</code> 的倍数。</p>
+<h2 id="">等值面</h2><h3 id="properties"><code>properties</code></h3><p>要进行体素化的特性的列表（以空格分隔）。体素化特性将作为生成的等值面和网格上的特性输出。</p>
+<h3 id="close_hole_threshold"><code>close_hole_threshold</code></h3><p>将闭合体素体积小于此参数的孔。</p>
+<h3 id="dilate_amount"><code>dilate_amount</code></h3><p>在平滑之前要应用于从输入点创建的等值面的向外体素偏移。</p>
+<h3 id="grid_retopology"><code>grid_retopology</code></h3><p>在平滑期间，如果启用，栅格将重新拓扑以跟随曲面。如果禁用，将保留栅格拓扑。这可能会显著提高速度，但由于粗化，某些区域中的细节可能较少或出现瑕疵。</p>
+<h2 id="-1">平滑 1</h2><p>使用指定的过滤器平滑液体表面等值面曲面。</p>
+<h3 id="mode1"><code>mode1</code></h3><p>应用的过滤器类型。</p>
+<h3 id="iterations1"><code>iterations1</code></h3><p>应用过滤器的迭代次数。</p>
+<h2 id="">体积遮罩</h2><p>用于控制等值面上进行平滑的位置。可以使用输入场或指定的体积特性。</p>
+<h3 id="mask_field1"><code>mask_field1</code></h3><p>要用作遮罩的场。</p>
+<h3 id="mask_interpretation1"><code>mask_interpretation1</code></h3><p>如何解释遮罩（特性或场）。如果 mask_interpretation 为 FogDensity，则遮罩将被钳制在 0 和 1 之间。如果 mask_interpretation 为 SignedDistanceField，则低于 0 的值（内部）将映射到遮罩值 1，高于 0 的值（外部）将映射到遮罩值 0。</p>
+<h3 id="mask_property1"><code>mask_property1</code></h3><p>可用于在液体表面等值面上指定特性，以用作遮罩。指定遮罩体积特性时，该特性必须存在于输入点上，并且包含在要体素化的 <code>properties</code> 参数中，以便可供采样。</p>
+<p>如果还指定了场遮罩，则使用该场遮罩。</p>
+<h3 id="erode_amount"><code>erode_amount</code></h3><p>在平滑之后要应用于等值面的向内体素偏移。</p>
+<h2 id="-2">平滑 2</h2><p>在腐蚀之后使用指定的过滤器平滑液体表面等值面曲面。</p>
+<h3 id="mode2"><code>mode2</code></h3><p>应用的过滤器类型。</p>
+<h3 id="iterations2"><code>iterations2</code></h3><p>应用过滤器的迭代次数。</p>
+<h2 id="">体积遮罩</h2><p>用于控制等值面上进行平滑的位置。可以使用输入场或指定的体积特性。</p>
+<h3 id="mask_field2"><code>mask_field2</code></h3><p>要用作遮罩的场。</p>
+<h3 id="mask_interpretation2"><code>mask_interpretation2</code></h3><p>如何解释遮罩（特性或场）。如果 mask_interpretation 为 FogDensity，则遮罩将被钳制在 0 和 1 之间。如果 mask_interpretation 为 SignedDistanceField，则低于 0 的值（内部）将映射到遮罩值 1，高于 0 的值（外部）将映射到遮罩值 0。</p>
+<h3 id="mask_property2"><code>mask_property2</code></h3><p>可用于在液体表面等值面上指定特性，以用作遮罩。指定遮罩体积特性时，该特性必须存在于输入点上，并且包含在要体素化的 <code>properties</code> 参数中，以便可供采样。</p>
+<p>如果还指定了场遮罩，则使用该场遮罩。</p>
+<h3 id="subtract_colliders"><code>subtract_colliders</code></h3><p>启用后，将从等值面和网格中减去连接到 <code>colliders</code> 端口的 Bifrost 体积。</p>
+<h2 id="">曲面优化</h2><h3 id="enable_surface_refinement"><code>enable_surface_refinement</code></h3><p>启用后，应用其他步骤以进一步优化液体表面等值面，尤其是水滴和细小飞溅附近的等值面。</p>
+<h3 id="droplet_radius"><code>droplet_radius</code></h3><p>每个水滴的半径，是 <code>detail_size</code> 的倍数。</p>
+<h3 id="droplet_reveal_factor"><code>droplet_reveal_factor</code></h3><p>创建和保留生成和平滑网格时在飞溅周围的细节。较低的值会产生较平滑的网格，而较高的值会产生更小的高频率细节。</p>
+<h3 id="kernel_factor"><code>kernel_factor</code></h3><p>控制曲面网格平滑内核的宽度。较小的值可在生成的网格中产生更薄、更清晰的特征和更高的曲率。以 <code>surface_radius</code> 参数的单位指定。请注意，非零 <code>kernel_factor</code> 值可能会导致缓慢移动的粘性液体出现时间频闪。</p>
+<h2 id="">自适应性</h2><h3 id="adaptive_level_set"><code>adaptive_level_set</code></h3><p>启用空间自适应等值面生成。由于只在需要的位置生成等值面体素，因此可以节省内存和计算时间。</p>
+<h3 id="max_relative_error"><code>max_relative_error</code></h3><p>输出中允许的相对于细节大小和边界框的最大差异（与非自适应体积相比）。首先尝试默认值，然后根据结果上下调整。如果误差阈值太低，放大时可能会出现瑕疵，如果误差阈值设置得太高，将会减少内存并节省计算时间。</p>
+<h2 id="">网格分辨率</h2><h3 id="mesh_resolution_factor"><code>mesh_resolution_factor</code></h3><p>从体积转化为网格时用于调整网格分辨率的缩放因子。值越高，创建的三角形越多也越小，并且可以捕获额外的细节，但计算时间也会越长。</p>
+<h3 id="smoothing"><code>smoothing</code></h3><p>要应用于网格的平滑量。值越大，平滑程度越高。</p>
+<h2 id="">输出</h2><h3 id="mesh"><code>mesh</code></h3><p>包含多边形网格和用户指定特性的输出几何体对象。</p>
+<h3 id="level_set"><code>level_set</code></h3><p>包含等值面和用户指定特性的输出 Bifrost 体积。输出此体积后就在上面的端口中转化为网格 <code>mesh</code>。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Geometry/Bifrost_Common_reference_Geometry_Volume_html.html">Volume</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

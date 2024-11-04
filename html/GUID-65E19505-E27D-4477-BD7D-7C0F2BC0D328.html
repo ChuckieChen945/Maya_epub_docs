@@ -1,0 +1,106 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="ENU">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Maya-USD">
+  <meta name="topicid" content="GUID-65E19505-E27D-4477-BD7D-7C0F2BC0D328">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="contextid" content="USDIMPORTOPTIONSCONFIG">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>USD Import options</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>USD Import options</h1></div><p>The USD Import options appear when you select <strong>File &gt; Import</strong> and choose <strong>USD Import</strong> under the Files of type drop-down menu. The following options appear under the <em><strong>File Type Specific Options</strong></em> section. Here you can select what is included when you import a USD file into Maya.</p>
+<div class="note note:"><span class="notetitle">Note:</span> Supported file formats include the following: .usd , .usdc, and .usda. See <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-4C38EB05-BA41-4364-9B82-663616D358DE">USD File formats</a> for more information.</div>
+<div class="note important:"><span class="importanttitle">Important:</span> <strong>mayaUsdPlugin.mll</strong> must be loaded in the <strong>Plug-in Manager</strong> (<em>Windows &gt; Settings/Preferences &gt; Plug-in Manager</em>) for USD Import to appear in the Files of type drop-down menu.</div>
+<h2 id="usd-file-type-specific-options">USD File Type Specific Options</h2><h3 id="plug-in-configurations">Plug-in Configurations</h3><p>With Maya USD, you can register your plug-in and it will show up in the <strong>Plug-in Configurations</strong> section. You can easily enable/disable and configure it by clicking the <strong>options</strong> button. Visit <a href="https://github.com/Autodesk/maya-usd/blob/dev/tutorials/import-export-plugin/README.md" target="_blank">Import and Export Plugins in Python</a> for more information.</p>
+<h3 id="scope-and-variants">Scope and Variants</h3><p>When a USD file is selected, click the <strong>Hierarchy View</strong> button that appears. Use the USD Hierarchy View window to build the scope of an import and switch variants.</p>
+<p>A USD file consists of prims, the primary container object in USD. Prims can contain any scene element (ex. meshes, lights, cameras, etc). Select and deselect prims in the USD Hierarchy View window to build the scope of your import.</p>
+<p>A variant is a single, named variation of a variant set. Each variant set is a package of alternatives that users can switch between non-destructively. A variant set has no limits to what it can store. Variants can be used to swap out a material or change the entire hierarchy of an asset. A single prim can have many variants and variant sets, but only one variant from each variant set can be selected for import into Maya.</p>
+<p>After building the scope of a USD file for import, changes that are applied can be quickly reset by clicking the <img src="../images/icon_usd_refresh_edits.png" alt=""> icon.</p>
+<h3 id="materials">Materials</h3><p><img src="../images/icon_usd_checkbox_full.png" alt=""> If checked, shading data is extracted from the USD file for import and you can select a preferred conversion method from the dropdown menu.  </p>
+<p>  When this Materials checkbox is selected, the following option appears:</p>
+<ul>
+<li><strong>Material conversion:</strong> Select the <em>preferred</em> conversion method for inbound USD shading data to bind with Maya geometry. You can select from the following options:  <ul>
+<li><p><strong>No Conversion (Default):</strong> No conversion of USD shading data.</p>
+</li>
+<li><p><strong>Standard Surface:</strong> Shading data to be extracted and mapped to a standardSurface Maya shader node.</p>
+</li>
+<li><p><strong>Lambert:</strong> Shading data to be extracted and mapped to a Lambert shader node.</p>
+</li>
+<li><p><strong>USD Preview Surface:</strong> Shading data to be extracted and mapped to a UsdPreviewSurface Maya shader node.</p>
+<div class="note note:"><span class="notetitle">Note:</span> The <code>UsdPreviewSurface</code> shader node is identical to the <code>pxrUsdPreviewSurface</code> shader node provided by previous versions of the Maya USD plug-in. There may be backward compatibility issues with scenes that have both shader nodes loaded. For more information and a workaround, see USD Limitations.  </div>
+<p><span style="color: purple;"><strong>Related Concepts:</strong></span> For more information, see <a href="https://graphics.pixar.com/usd/docs/UsdPreviewSurface-Proposal.html" target="_blank">PreviewSurface</a> in the Pixar USD documentation.</p>
+</li>
+<li><p><strong>Blinn:</strong> Shading data to be extracted and mapped to a Blinn shader node.</p>
+</li>
+<li><p><strong>Phong:</strong> Shading data to be extracted and mapped to a Phong shader node.</p>
+</li>
+</ul>
+</li>
+<li><strong>Texture File Paths:</strong> Choose whether your texture files are written as relative or absolute paths as you import them to Maya. If you select <strong>Automatic</strong>, it will be chosen for you in the import based on what they currently are as USD data. <ul>
+<li>Tip: If you have MayaUSD and no LookdevX loaded, it is impossible to create a texture on a prim. You need LookdevX to do this. However, if you open a USD file with a texture already authored, you can change the texture to a relative path using the file browser in the Attribute Editor.  For example, you can add a texture on a rectLight or DomeLight prim relatively or even add a non-image file such as a media file on a SpacialAudio prim or a Maya file on a MayaReference prim. To do this, click on the folder icon in the Attribute Editor of a file input you want to make relative and then toggle on <img src="../images/icon_usd_checkbox_full.png" alt=""> <strong>Make Path Relative to Edit Target Layer Directory</strong>.</li>
+</ul>
+</li>
+<li><strong>USDZ Texture Import:</strong> When a .usdz file is chosen and this checkbox is selected, .usdz texture files are imported and copied to new files on disk. To locate these files, navigate to your current Maya workspace sourceimages directory.</li>
+</ul>
+<p><strong>Supported image file formats:</strong> The image reader for MayaUSD is facilitated through <em>OpenImageIO</em> (an open source library for image reading). MayaUSD should be able to open any image supported by <a href="https://openimageio.readthedocs.io/en/latest/builtinplugins.html" target="_blank">OpenImageIO</a>. MayaUSD also supports OpenEXR textures, 8, 16 and 32 bits, single channel, RGB and RGBA.</p>
+<h3 id="instanced-prims">Instanced Prims</h3><ul>
+<li><p><img src="../images/icon_usd_checkbox_full.png" alt=""> By default, this field is checked, indicating that instanced prims will be converted to Maya instances. Instanced prims share parts of the USD scenegraph through instancing. Each instanced prim is associated with a master prim that serves as the root of the scenegraph. This hierarchy reduces the time needed to load the file. Instanced prims must be manually tagged.</p>
+</li>
+<li><p><img src="../images/icon_usd_checkbox_empty.png" alt=""> If this field is unchecked, instanced prims will not be converted to Maya instances.</p>
+</li>
+</ul>
+<div class="note important:"><span class="importanttitle">Important:</span> When an instanced prim (<code>instanceable=true</code> USD prim) is imported into Maya using this option, the objects are linked when converted to Maya data. Thus, when one of the instances is selected in the Viewport, they are all selected.</div>
+<h3 id="animation-data">Animation Data</h3><ul>
+<li><p><img src="../images/icon_usd_checkbox_empty.png" alt=""> By default, this field is unchecked, indicating that animation data will not be imported.</p>
+</li>
+<li><p><img src="../images/icon_usd_checkbox_full.png" alt=""> If checked, animation data will be imported into your scene. The following option appears when Animation data is enabled:</p>
+<ul>
+<li><strong>Custom Frame Range:</strong> If enabled, allows you to set the frame range of your animation to import. You can specify the first and last frame of your animation to import in the <em>Frame Range Start/End</em> fields.</li>
+</ul>
+</li>
+<li><p>USD blend shapes are imported as Maya blend shapes.</p>
+</li>
+</ul>
+
+  <div class="related-links">
+      <div class="relinfo relchildren">
+        <strong>Pages in this section</strong>
+        <ul class="ullinks">
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/USD-import-export/USD-Import-options/GUID-46D6417C-BB6C-4C3D-AABF-5B0702F21EE1.html">USD Hierarchy View window</a>
+          </li>
+        </ul>
+      </div>
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>Parent page:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/GUID-2755A1ED-4857-4111-8571-5D658EE90FA0.html">Import and export USD data in Maya</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_arnold_am_Sample_Filtering_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_SAMPLE_FILTERING">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 采样过滤 - Arnold for Maya">
+
+<title>采样过滤</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>采样过滤</h1></div><p><img src="../images/Arnold-logo-small.jpg" alt=""> 请参见<strong>《Arnold 用户手册》</strong>中的<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_render_settings_html" target="_blank">渲染设置</a></p>
+<p><img src="../images/sample_filtering_mtoa.png" alt=""></p>
+<h2 id="">过滤器类型</h2><p>用于将各个子像素采样平均化到最终像素颜色的过滤器类型。其中大多数过滤器仅适用于传统用途。有关更多详细信息，请参见 <a href="http://en.wikipedia.org/wiki/Window_function" target="_blank">Wikipedia</a>。</p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>我们建议使用高斯（宽度为 2.0）或 Blackman-Harris 过滤器。</p>
+
+</div></div>
+
+<p>选择像素过滤器全凭个人喜好。一些用户倾向于使用其中一种，但最终只是在模糊量方面稍有不同。越模糊就意味着锯齿越少，但代价是损失细节。</p>
+<p>建议不要使用 _box_filter_（与禁用过滤一样）以及宽度过小的过滤器（实际上最终不执行过滤）。</p>
+<p>请务必注意，所有渲染器都不会以相同的方式实现过滤器，即使它们具有相同的名称也是如此。Arnold 中所说的高斯可能与 Photoshop 高斯或 3Delight/PRMan/MentalRay 并不相同。理论的高斯图形的支撑集是无穷的，实际应用中要考虑到何处就将它截止的问题，而各厂家对此的实现不尽相同。因此，不要假定过滤知道如何逐字从一个渲染器传递到另一个渲染器。但是，Arnold 会尝试从 RenderMan 复制标准过滤器。</p>
+<p>默认设置高斯 2.0 比其他过滤器略微模糊一些，但只要将其宽度从 2.0 减小到 1.8-1.9 就能增加清晰度。</p>
+<p><em>catrom_filter</em> 是几个具有负权重的过滤器之一，因此可能会在渲染到非区间限定浮点格式时带来麻烦。</p>
+<p>选择的像素过滤器应该不会对渲染时间产生影响。能够对渲染时间造成细微影响的是过滤器宽度；如果宽度过大，则必须在过滤每个像素时考虑许多子像素采样。例如，与 2 个像素的高斯过滤器相比，Catrom 过滤器的硬编码宽度为 4 个像素，这可能会使渲染时间略有增加。</p>
+<p>如果提高渲染的清晰度非常重要，则应确保 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_node_reference_ac_options_node_html#options-texture_max_sharpen" target="_blank">options.texture_max_sharpen</a> 设置为 1.5。</p>
+<p>其中大多数过滤器仅适用于传统用途。下面是完整的过滤器列表：</p>
+<ul>
+<li>Blackman-Harris</li>
+<li>长方体</li>
+<li>Catmull-Room</li>
+<li>高斯（默认）</li>
+<li>Mitchnell-Netravali</li>
+<li>三角形</li>
+<li>方差</li>
+<li>轮廓</li>
+</ul>
+<h2 id="">过滤器宽度</h2><p>子像素采样平均化过滤器的宽度（以像素为单位）。对于圆形对称的过滤器，其宽度是过滤器支持的直径。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Sample_Filtering-sampling-filter-checker-filter-width-2-1.jpg" alt=""></td>
+<td><img src="../images/am-Sample_Filtering-sampling-filter-checker-filter-width-3-2.jpg" alt=""></td>
+<td><img src="../images/am-Sample_Filtering-sampling-filter-checker-filter-width-4-3.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>2</strong></sub></td>
+<td><sub><strong>3</strong></sub></td>
+<td><sub><strong>4</strong></sub></td>
+</tr>
+</tbody></table>
+<p>此示例展示了过滤器宽度对图像中的摩尔纹产生的影响。增加过滤器宽度设置有助于减少摩尔纹。</p>
+<p>这在立方体的左侧和顶部更加明显。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Sample_Filtering-sampling-filter-width-moire-2-4.jpg" alt=""></td>
+<td><img src="../images/am-Sample_Filtering-sampling-filter-width-moire-4-5.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>2</strong></sub></td>
+<td><sub><strong>4</strong></sub></td>
+</tr>
+<tr>
+<td><img src="../images/am-Sample_Filtering-sampling-filter-width-moire-closeup-2-6.jpg" alt=""></td>
+<td><img src="../images/am-Sample_Filtering-sampling-filter-width-moire-closeup-4-7.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong><em>filter_width</em> 为 2 时的特写</strong></sub></td>
+<td><sub><strong><em>filter_width</em> 为 4 时的特写</strong></sub></td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/render-settings/arnold_for_maya_render_settings_arnold_html.html">Arnold 渲染器</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

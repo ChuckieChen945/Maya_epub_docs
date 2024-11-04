@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Basics">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-834BD274-8A3C-4CCB-81EC-0D2A599CA108">
+<meta name="language" content="CHS">
+<title>在“节点编辑器”(Node Editor)中创建自定义标记菜单</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-834BD274-8A3C-4CCB-81EC-0D2A599CA108">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>在“节点编辑器”(Node Editor)中创建自定义标记菜单</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-834BD274-8A3C-4CCB-81EC-0D2A599CA108__GUID-B1769288-6B47-424B-8434-A3DD9449019B"> 可以自定义节点标记菜单。以下是使用 Python 将自定义节点标记菜单项添加到 plusMinusAverage 节点的示例。 </p>
+<p class="p" id="GUID-834BD274-8A3C-4CCB-81EC-0D2A599CA108__GUID-A20FF445-E052-4B76-AC6E-6B00B822DD9D">在<span class="ph uicontrol" id="GUID-834BD274-8A3C-4CCB-81EC-0D2A599CA108__GUID-E7C84D61-5779-431C-B91A-382123924C50">“节点编辑器”(Node Editor)</span>中创建 plusMinusAverage 节点，然后在<span class="ph uicontrol" id="GUID-834BD274-8A3C-4CCB-81EC-0D2A599CA108__GUID-5D9A4029-B82F-4CEE-B224-29B7EC82B56E">“脚本编辑器”(Script Editor)</span>中运行以下脚本。 </p>
+<pre class="pre codeblock">from maya.app.general import nodeEditorMenus
+from maya import cmds
+
+def addPMAMenuItems(ned, node):
+    """
+    Check for plusMinusAverage node and create necessary menu items
+    """
+    type = cmds.nodeType(node)
+    if type == 'plusMinusAverage':
+        def doSomething(*args):
+            cmds.confirmDialog(title="Something", message="Ok?")
+        cmds.menuItem(label="PlusMinusAverage! Do something!", c = doSomething)
+        return True
+    else:
+        return False
+
+# register the custom callback with nodeEditor
+#
+nodeEditorMenus.customInclusiveNodeItemMenuCallbacks.append(addPMAMenuItems) </pre>
+<p class="p" id="GUID-834BD274-8A3C-4CCB-81EC-0D2A599CA108__GUID-E1E1708A-993F-48B6-B9A1-0490A88B5834">plusMinusAverage 节点现在包括自定义菜单项“PlusMinusAverage! Do something!”。 </p>
+<div class="fig fignone" id="GUID-834BD274-8A3C-4CCB-81EC-0D2A599CA108__FIG_5E69E101DD2F4FABB01E751305D3789C"><img class="image" id="GUID-834BD274-8A3C-4CCB-81EC-0D2A599CA108__IMAGE_10F79802814A434FA0EF0BF5B369332D" src="../images/GUID-5A5A38B9-47C6-4624-A647-EFA7A3ED3312.png"></div>
+<div class="section" id="GUID-834BD274-8A3C-4CCB-81EC-0D2A599CA108__SECTION_1EC80CC0A88841F6ACF9FD2DA52B1CF7"><h2 class="title sectiontitle">相关主题</h2>
+
+<ul class="ul" id="GUID-834BD274-8A3C-4CCB-81EC-0D2A599CA108__UL_AE14BA7732E648F9B106AA8FA56ED67B"><li class="li" id="GUID-834BD274-8A3C-4CCB-81EC-0D2A599CA108__LI_5D5326BC1BC14530A748CFA6A0784BAE">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-B99E6112-CECD-4F1A-8520-265C1407E904.htm">节点编辑器标记菜单</a>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-383D6D2A-DE9A-4764-9DE0-6514718A1578.htm">使用节点编辑器创建节点网络</a></div>
+</div>
+</div>
+
+</body>
+</html>

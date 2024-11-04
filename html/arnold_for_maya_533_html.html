@@ -1,0 +1,246 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_533_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_533">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 5.3.3 - Arnold for Maya">
+
+<title>5.3.3</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+<div class="head-block"><h1>5.3.3</h1></div><p>9 August 2023</p>
+<blockquote>
+<p>Important: <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_5331_html">MtoA 5.3.3.1</a> includes an important licensing fix for Windows and macOS (there was no issue on Linux).</p>
+</blockquote>
+<p>MtoA 5.3.3 introduces Arnold 7.2.3.0.
+See also the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_530_html">MtoA 5.3.0 release notes</a>.</p>
+<h2 id="installation">Installation</h2><ul>
+<li><a href="https://manage.autodesk.com/products/MAYA" target="_blank">Download</a> the Arnold for Maya plugin</li>
+<li>Follow these installation instructions.</li>
+</ul>
+<h2 id="enhancements">Enhancements</h2><ul>
+<li><strong>Global light Sampling support on GPU:</strong> Global Light Sampling (GLS) is now available with GPU rendering. Many scenes with moderate to large number of lights render 2-6x faster with GLS. Scenes that do not benefit from GLS tend to be a few percent faster or slower. See the GLS documentation for important information on the optimal number of light samples to use with GPU. (ARNOLD-13109)</li>
+</ul>
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Speedup over 7.2.2 GPU version using 1 light sample</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>City (100000 lights)</td>
+<td>Classical interior (80 lights)</td>
+<td>Automotive studio (9 lights)</td>
+</tr>
+<tr>
+<td><img src="../images/7.2.3_city-100000_ls=1.jpg" alt=""></td>
+<td><img src="../images/7.2.3_classical-living-room_ls=1.jpg" alt=""></td>
+<td><img src="../images/7.2.3_automotive_studio_ls=1.jpg" alt=""></td>
+</tr>
+<tr>
+<td><strong>48x speedup</strong></td>
+<td><strong>2x speedup</strong></td>
+<td><strong>2.6x speedup</strong></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li><p><strong>Procedural Viewport Improvement</strong>: Better representation of current frame of procedurals in viewport [MTOA-1480]</p>
+</li>
+<li><p><strong>Return direction and distance to nearest hit in distance shader:</strong> Arnold 7.2.3 adds <code>out_distance</code> and <code>out_direction</code> output parameters to the distance shader, which return the direction and distance to the nearest surface, respectively. The shader still returns the color-mapped result by default, which is now available as the <code>out_rgb</code> parameter. (ARNOLD-13473)</p>
+</li>
+</ul>
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><iframe width="320" height="240" src="https://www.youtube.com/embed/1kA9SzFGB-E?autoplay=1&amp;playlist=1kA9SzFGB-E&amp;loop=1" frameborder="0" allowfullscreen=""></iframe></td>
+</tr>
+<tr>
+<td>distance shading effect (Tip: Before you Play, right click and click Loop)</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><iframe width="320" height="240" src="https://www.youtube.com/embed/Ysy8GuZR5JU?" frameborder="0" allowfullscreen=""></iframe></td>
+</tr>
+<tr>
+<td>Tutorial - Building facade fire damage</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><iframe width="320" height="240" src="https://www.youtube.com/embed/FNVAySExbsU?" frameborder="0" allowfullscreen=""></iframe></td>
+</tr>
+<tr>
+<td>Tutorial - Eye makeup shading effect</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li><strong>state_float, state_int, state_vector multiple outputs:</strong> The shading state shaders now have multiple outputs, so you can use a single state shader with multiple output connections in a shading network. (ARNOLD-13579)</li>
+</ul>
+<h2 id="usd-enhancements">USD Enhancements</h2><ul>
+<li>Support vertex UV coordinates on Curves in the render delegate <a href="https://github.com/Autodesk/arnold-usd/issues/1435" target="_blank">usd#1435</a></li>
+<li>Curves without width should render with a default value <a href="https://github.com/Autodesk/arnold-usd/issues/1579" target="_blank">usd#1579</a></li>
+</ul>
+<h2 id="api-additions">API Additions</h2><ul>
+<li><strong><code>AiProceduralExpand</code></strong>: A new API <code>AiProceduralExpand</code> expands on demand the contents of a procedural (such as a 'usd', 'alembic', or 'procedural' node), as it would happen in a regular render. You can use this to force the creation of procedural child nodes before the rendering starts, and to avoid race conditions when the procedurals are not thread safe. (ARNOLD-7067)</li>
+</ul>
+<h2 id="bug-fixes">Bug Fixes</h2><ul>
+<li><p>MTOA-991 - Crash when undoing after accessing Arnold viewport</p>
+</li>
+<li><p>MTOA-985 - MaterialX exported USD file doesn't render in MtoA</p>
+</li>
+<li><p>MTOA-1407 - XgenArnoldUI.py syntax warning</p>
+</li>
+<li><p>MTOA-1488 - Crash when deleting imager</p>
+</li>
+<li><p>MTOA-1326 - Scene crashes Maya when you try to create a render layer</p>
+</li>
+<li><p>MTOA-1342 - Changing layers in Render Setup starts a render</p>
+</li>
+<li><p>MTOA-1185 - Render Sequence leaks memory</p>
+</li>
+<li><p>ARNOLD-13139 - Docked ARV resizes itself when printing status messages</p>
+</li>
+<li><p>ARNOLD-11990 - Render View crash with overscan</p>
+</li>
+<li><p>ARNOLD-10643 - FIS no longer forces a box filter</p>
+</li>
+<li><p>ARNOLD-12917 - Viewport API uses incorrect motion blur reference time</p>
+</li>
+<li><p>ARNOLD-13645 - Instancer crash if a single node is instanced but set to null</p>
+</li>
+<li><p>ARNOLD-13678 - Holes in alpha channel when opacity is almost 1</p>
+</li>
+<li><p>ARNOLD-13741 - Log messages missing colors</p>
+</li>
+<li><p>ARNOLD-13770 - Name scope clashes with nested procedurals</p>
+</li>
+<li><p>ARNOLD-13776 - NaNs when using global light sampling with low-light-threshold</p>
+</li>
+<li><p>ARNOLD-13789 - Corrupted tiff output if skip_alpha and unpremult_alpha are both enabled</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1538" target="_blank">usd#1538</a> - Fix triplanar in USD MaterialX</p>
+</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2><ul>
+<li>Maya 2022, 2023 or 2024</li>
+<li>Windows 10 or later, with the Visual Studio 2019 redistributable.</li>
+<li>Linux with at least glibc 2.17 and libstdc++ 4.8.5 (gcc 4.8.5). This is equivalent to RHEL/CentOS 7.</li>
+<li>x86-64 CPUs need to support the SSE4.1 instruction set. </li>
+<li>macOS 10.13 or later, macOS 11 and later for Maya 2024</li>
+<li>Apple Mac models with M series chips:<ul>
+<li>Natively supported by Arnold for Maya 2024</li>
+<li>Supported under Rosetta 2 mode for older versions of Maya</li>
+</ul>
+</li>
+<li>GPU rendering works on Windows and Linux only and requires an NVIDIA GPU of the Ada, Ampere, Turing, Volta, Pascal, or Maxwell architecture. We recommend using the <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">525.89 or higher drivers</a> on Linux and <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">528.49, or higher</a> on Windows. See  Arnold GPU for more information.</li>
+<li>For GPU rendering, the cache also needs to be re-populated after installing a new Arnold version, <strong>updating to a new NVIDIA driver</strong>, or changing the hardware configuration of GPUs on the system. More information can be found here.</li>
+<li>Optix™ denoiser requires an NVidia GPU with <a href="https://developer.nvidia.com/cuda-gpus" target="_blank">CUDA™ Compute Capability 5.0</a> and above.</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_5x_html.html">MtoA 5.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

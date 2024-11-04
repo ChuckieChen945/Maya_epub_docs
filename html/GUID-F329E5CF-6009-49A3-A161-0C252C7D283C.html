@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-F329E5CF-6009-49A3-A161-0C252C7D283C">
+<meta name="language" content="CHS">
+<title>自动类型转化</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-F329E5CF-6009-49A3-A161-0C252C7D283C">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>自动类型转化</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-F329E5CF-6009-49A3-A161-0C252C7D283C__WS73099CC142F48755-3D114B7511841AEFA9F-A3C"><h2 class="title sectiontitle">自动转化</h2>
+
+<p class="p" id="GUID-F329E5CF-6009-49A3-A161-0C252C7D283C__WS73099CC142F48755-3D114B7511841AEFA9F-A3B"> Maya 的自动类型转化使您无需明确指出类型即可进行类型转化。如果指定的数据类型不被接受，该功能还可自动转化该类型。</p>
+
+<p class="p" id="GUID-F329E5CF-6009-49A3-A161-0C252C7D283C__WS73099CC142F48755-3D114B7511841AEFA9F-A39">有时，意外的自动类型转化可能会引发问题。了解类型转化的规则可帮助您解决以下类型的错误：</p>
+
+<ul class="ul" id="GUID-F329E5CF-6009-49A3-A161-0C252C7D283C__WS73099CC142F48755-3D114B7511841AEFA9F-A38"><li class="li" id="GUID-F329E5CF-6009-49A3-A161-0C252C7D283C__WS73099CC142F48755-3D114B7511841AEFA9F-A37">字符串支配所有其他类型。</li>
+<li class="li" id="GUID-F329E5CF-6009-49A3-A161-0C252C7D283C__WS73099CC142F48755-3D114B7511841AEFA9F-A36">向量支配浮点型。</li>
+<li class="li" id="GUID-F329E5CF-6009-49A3-A161-0C252C7D283C__WS73099CC142F48755-3D114B7511841AEFA9F-A35">浮点型支配整型。</li>
+<li class="li" id="GUID-F329E5CF-6009-49A3-A161-0C252C7D283C__WS73099CC142F48755-3D114B7511841AEFA9F-A34">如果一个运算数为整型，另一个为浮点型，MEL 会将整型转化为浮点型。</li>
+<li class="li" id="GUID-F329E5CF-6009-49A3-A161-0C252C7D283C__WS73099CC142F48755-3D114B7511841AEFA9F-A33">在向量和矩阵类型之间，位于左侧的类型处于支配地位。</li>
+<li class="li" id="GUID-F329E5CF-6009-49A3-A161-0C252C7D283C__WS73099CC142F48755-3D114B7511841AEFA9F-A32">在指定操作中，位于左侧的类型处于支配地位。<p class="p" id="GUID-F329E5CF-6009-49A3-A161-0C252C7D283C__WS73099CC142F48755-3D114B7511841AEFA9F-A31">在指定操作中，右侧的类型将转化为左侧的类型。前四个规则适用于右侧计算期间的子表达式；在指定给左侧时将发生最终转化。</p>
+</li>
+</ul>
+
+<p class="p" id="GUID-F329E5CF-6009-49A3-A161-0C252C7D283C__WS73099CC142F48755-3D114B7511841AEFA9F-A30">下表介绍自动转化的规则。</p>
+
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-F329E5CF-6009-49A3-A161-0C252C7D283C__WS73099CC142F48755-3D114B7511841AEFA9F-A2F" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">操作</th>
+<th class="entry" valign="top" width="50%">结果数据类型</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">整型运算符浮点型</td>
+<td class="entry" valign="top" width="50%">浮点型</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">浮点运算符整型</td>
+<td class="entry" valign="top" width="50%">浮点型</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">整型运算符向量</td>
+<td class="entry" valign="top" width="50%">向量</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">向量运算符浮点</td>
+<td class="entry" valign="top" width="50%">向量</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">向量运算符矩阵</td>
+<td class="entry" valign="top" width="50%">向量</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">矩阵运算符向量</td>
+<td class="entry" valign="top" width="50%">矩阵</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">矩阵运算符字符串</td>
+<td class="entry" valign="top" width="50%">字符串</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">字符串运算符整型</td>
+<td class="entry" valign="top" width="50%">字符串</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<pre class="pre codeblock">
+$var1 = 7 + 1.3; // Type: float (8.3)
+$var2 = 7.9 + 2; // Type: float (9.9)
+$var3 = 2 + &lt;&lt;4, 5, 6&gt;&gt;; // Type: vector &lt;&lt;6, 7, 8&gt;&gt;
+$var4 = 0007 + " Lives!"; // Type: string ("7 Lives!")
+</pre>
+
+<p class="p" id="GUID-F329E5CF-6009-49A3-A161-0C252C7D283C__WS73099CC142F48755-3D114B7511841AEFA9F-A2E">在上一示例中，0007 是值 7 的整型，该值被转化为字符串，并与“Lives!”连接。生成的结果字符串隐示声明 var4 属于字符串类型，值为“7 Lives!”。</p>
+
+</div>
+<div class="section" id="GUID-F329E5CF-6009-49A3-A161-0C252C7D283C__WS73099CC142F48755-3D114B7511841AEFA9F-A2D"><h2 class="title sectiontitle">显式转化</h2>
+
+<p class="p" id="GUID-F329E5CF-6009-49A3-A161-0C252C7D283C__WS73099CC142F48755-3D114B7511841AEFA9F-A2C">有两种方法可将值从一种类型显式转化为另一种类型。最常用的方法是在值前面的括号内指定类型。例如：</p>
+
+<pre class="pre codeblock">
+$Z = (vector) "&lt;&lt;1, 2, 3&gt;&gt;"; // Type: vector (&lt;&lt;1, 2, 3&gt;&gt;)
+$cools = (float) 7;         // Type: float (7)
+$ools = (string) 47.554;    // Type: string ("47.554")
+</pre>
+
+<p class="p" id="GUID-F329E5CF-6009-49A3-A161-0C252C7D283C__WS73099CC142F48755-3D114B7511841AEFA9F-A2B">另一种将值显式转化为其他类型的方法是在值后面的括号内指定类型。例如： </p>
+
+<pre class="pre codeblock">
+$ly = vector("&lt;&lt;1, 2, 3&gt;&gt;"); // Type: vector (&lt;&lt;1, 2, 3&gt;&gt;)
+$ooly = int(3.67); // Type: int (3)
+</pre>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-98FD268C-F0A1-4CA2-833F-AD3000DFB180.htm">高级 MEL 编程</a></div>
+</div>
+</div>
+
+</body>
+</html>

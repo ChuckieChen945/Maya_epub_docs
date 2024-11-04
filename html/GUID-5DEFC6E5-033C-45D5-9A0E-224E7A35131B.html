@@ -1,0 +1,229 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B">
+<meta name="language" content="CHS">
+<title>HumanIK 角色结构</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1> HumanIK 角色结构 </h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-454055F3-E493-4A69-A10C-7DD3F96349B6">HumanIK 解算器期望角色的节点以特定典型排列进行连接。例如，右肩是右肘的父节点，而右肘相应地是右腕的父节点。HumanIK 生物机械模型配备了有关这些节点的移动方法的知识；当解算器需要在运行时移动一个或多个节点以满足 IK 效果或源动画的要求时，会使用此内置知识来构建新的姿势。 
+	 </p>
+<p class="p" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-8A715E46-D007-4B29-9AE4-D122DCED808B">为使 HumanIK 将此生物机械模型应用于角色，您需要使用此为您内置的映射创建默认 HumanIK 骨架（<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-795BDC06-8A1D-4D58-B55D-FD88D9B5A022.htm">创建和定义 HumanIK 骨架</a>），或将 HumanIK 可以识别的节点映射到角色现有骨架中的关节（<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-33859AA1-887B-4F8A-8360-F881C28EF351.htm">为 HumanIK 定义现有骨架</a>）。（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-AC690ECF-D5B7-4759-AD71-C1FEFD7CF7A8.htm">创建 HumanIK 骨架定义</a>。） 
+	 </p>
+<p class="p" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-2AD05DB9-74E0-4F12-967A-40216BE59899">如果映射现有骨架，则必须映射 HumanIK 所需的全部十五个节点。这样即可标识角色骨架的主要元素。如果未为这 15 个必需节点提供特征，则无法在运行时使用 HumanIK 控制角色。在 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-9921EDE1-05E2-4062-9F0D-4BADECA29226.htm">HumanIK 窗口</a>中，只有在成功映射所有这些必需节点之后，才能保存或锁定角色。 
+	 </p>
+<p class="p" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-477D3C8A-2FE5-46C6-B29D-CDE1B006D0B6">强烈建议您同样尽可能多地将角色骨架中的其他骨骼映射到其他 HumanIK 可选节点。这样将提高 HumanIK 在运行时构建的姿势的质量和可信度。以下部分提供了一些有关如何确定应将哪些骨骼映射到哪些节点的指导。 
+	 </p>
+<div class="note note" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-D5AB3234-C2CC-48F0-B9D4-DBB74ACA2361"><span class="notetitle">注：</span> 如果您尚未构建角色骨架并计划使用 Maya 的<span class="ph uicontrol" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-FF24F58C-1F1A-47F6-81BA-5458F652661D">“骨架生成器”(Skeleton Generator)</span>进行该操作，则不必明确映射角色关节来定义角色结构。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-795BDC06-8A1D-4D58-B55D-FD88D9B5A022.htm">创建和定义默认 HumanIK 骨架</a>。 
+	 </div>
+<div class="section" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__SECTION_6C6C405B96EF4A0FAA38B240DE9F130C"><h2 class="title sectiontitle">必需节点</h2> 
+		 
+		<p class="p" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-445D6865-C15C-43A6-929E-2C8F5FF0E2E3">HumanIK 解算器所需的 15 个节点会显示在<span class="ph uicontrol" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-EF6E02D5-8DA2-49F3-8577-59C2673BD979">“角色”(Character)</span>视图的全身布局中，并一同分组在<span class="ph uicontrol" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-8F35E9F7-E4D5-4D10-B425-5B89F1AE3CE4">“名称匹配”(Name Match)</span>视图的<span class="ph uicontrol" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-C94AE861-4D77-446C-B8F9-A70F5D87A6E8">“必需”(Required)</span>组中。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__FIG_43ABBA6DF7C04E659E02A5FFC2C84C43"><img class="image" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__IMAGE_812A496326F04D99934259D7EEFD8286" src="../images/GUID-4F9DB7C0-7325-4A14-B351-934B7EFDB086.png"></div>
+ 
+		<p class="p" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-85A5082C-A9B3-4F96-9415-FC4811A3339A">这些必需节点可标识角色骨架中的主要关节：踝关节、膝关节、髋关节、脊椎底部关节、肩关节、肘关节、腕关节和头部关节。找出骨架中哪个骨骼将映射到这些节点通常很简单： 
+		</p>
+ 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__TABLE_B1C27353680A4CE88284A655B10730C5" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="23.148148148148145%">节点 
+				  </th>
+<th class="entry" valign="top" width="76.85185185185183%">映射到 
+				  </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="23.148148148148145%">髋部 
+				  </td>
+<td class="entry" valign="top" width="76.85185185185183%">是角色的脊椎和腿部链的父对象的骨骼。 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="23.148148148148145%">左大腿和右大腿 
+				  </td>
+<td class="entry" valign="top" width="76.85185185185183%">角色的大腿中的第一个骨骼。 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="23.148148148148145%">左腿和右腿 
+				  </td>
+<td class="entry" valign="top" width="76.85185185185183%">角色的小腿中的第一个骨骼。 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="23.148148148148145%">左脚和右脚 
+				  </td>
+<td class="entry" valign="top" width="76.85185185185183%">从角色的踝部延伸到脚的第一个骨骼。 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="23.148148148148145%">脊椎 
+				  </td>
+<td class="entry" valign="top" width="76.85185185185183%">脊椎中的第一个骨骼，位于映射到髋部节点的骨骼之上。表示脊椎底部。 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="23.148148148148145%"> 左臂和右臂 
+				  </td>
+<td class="entry" valign="top" width="76.85185185185183%">角色的上臂中的第一个骨骼。 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="23.148148148148145%">左前臂和右前臂 
+				  </td>
+<td class="entry" valign="top" width="76.85185185185183%">角色的前臂中的第一个骨骼。 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="23.148148148148145%">左手和右手 
+				  </td>
+<td class="entry" valign="top" width="76.85185185185183%">从角色的腕部延伸到手的第一个骨骼。 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="23.148148148148145%">头 
+				  </td>
+<td class="entry" valign="top" width="76.85185185185183%">角色的脊椎中的最后一个完整的骨骼，不是头顶，而是颈部链中最后一个完整的骨骼。这通常是控制头部蒙皮的骨骼。 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		<div class="note note" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-CFF5B2EC-FB6E-4E52-A292-DDF037E68943"><span class="notetitle">注：</span> 全身布局中还显示两个可选节点：参照节点和髋部转换节点。有关这些可选节点的详细信息，请参见下面的“特殊节点”部分。 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__SECTION_002FD84A4FFB4344A032F773A31B3590"><h2 class="title sectiontitle">脊椎节点和颈部节点</h2> 
+		 
+		<p class="p" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-57B703AE-B45B-424D-ABC9-50915636ADD9">HumanIK 解算器最多可支持 9 个其他脊椎节点（Spine1 到 Spine9）以及 10 个颈部节点（Neck 以及 Neck1 到 Neck9）。自下而上对这些节点进行编号，越靠近髋部，编号就越小，越靠近头部，编号就越大。 
+		</p>
+ 
+		<ul class="ul" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__UL_3451F46EEB1E48238AF9440A7E6C2DC6"><li class="li" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__LI_7A69563BC34D449A98DDDA5E37C96482">将角色的脊椎中的第一个骨骼映射到必需的脊椎节点（请参见上文“必需节点”部分）。 
+		  </li>
+<li class="li" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__LI_B89566DD540A442BB0FF918B83B1259B">将角色的脊椎中的每个后续骨骼都映射到下一个可用的脊椎节点（Spine1、Spine2、Spine3 等），直到到达角色的锁骨或肩部骨骼处与脊椎相连接的点为止。HumanIK 假定手臂已连接到脊椎中定义的最后一个节点。 
+		  </li>
+<li class="li" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__LI_2DBBBFA703BE44E7A2BEB4A22248D966">将未映射到脊椎节点的角色的脊柱中的第一个骨骼映射到颈部节点。 
+		  </li>
+<li class="li" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__LI_D634D44F0085468E83B6AA3A8C7DCDC7">将位于已映射到颈部节点和头部节点的骨骼之间的每个后续骨骼映射到下一个可用的颈部节点（Neck1、Neck2、Neck3 等）。定义脊椎或颈部节点时不能跳过编号。例如，如果 Spine1 和 Spine2 节点为空，则不能将骨骼映射到 Spine3。 
+		  </li>
+</ul>
+ 
+	 </div>
+<div class="section" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__SECTION_E46A7421D98C4E3D8E39D83EFE719160"><h2 class="title sectiontitle">手节点和脚节点</h2> 
+		 
+		<p class="p" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-3F0DCB04-09D4-4686-AE23-12F97D70D342">手和脚在 HumanIK 中完全等效；每只脚和每只手均可包含相同类型的关节。但是，需要单独定义角色的每只脚和每只手。这使得每个角色内更为复杂。例如，一个海盗角色可以有一只脚踝以下方没有任何关节的木制假腿、一只仅趾跟有一个关节、但关节连接和脚趾不完整的穿靴的脚、一只关节完整的手和一只缺少几根手指的残疾手。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__SECTION_D86C7F96F875444BADCB42D36A84856D"><h2 class="title sectiontitle">手指节点和脚趾节点</h2> 
+		 
+		<p class="p" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-58C04151-ACD0-4004-B95B-23F492EFC106">通过 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-9921EDE1-05E2-4062-9F0D-4BADECA29226.htm">HumanIK 窗口</a>中的<span class="ph uicontrol" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-67D965F4-3793-4285-B332-FB7B32E283A1">“定义”(Definition)</span>选项卡，您可以为每只脚和每只手最多配置六个脚趾或手指。从左到右，手指和脚趾通常分别称为拇指、食指、中指、无名指和小指，以及大趾、二趾、中趾、四趾和小趾。HumanIK 还支持使用额外的第六个脚趾或手指（称为附加脚趾或手指）。但是，剩余手指的关节以及右手、左脚和右脚的关节都会遵循相同的命名约定。 
+		</p>
+ 
+		<ul class="ul" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__UL_D7E0D77CADB1446B820B10E112B992C5"><li class="li" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__LI_F8E9C633F174446095B6BDA37865D406">每个手指和脚趾最多可以包含四个主要关节，标识为 1、2、3 和 4。映射这些手指节点或脚趾节点时不能跳过编号。例如，在没有映射 LeftHandIndex1 和 LeftHandIndex2 这两个节点的情况下不能映射 LeftHandIndex3 节点。 
+		  </li>
+<li class="li" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__LI_1DAA3388FE114013A7914B6BA00AA5CD">为达到特殊效果，每个手指还提供了其他附加手内侧关节（LeftInHandPinky 和 LeftInHandThumb）。可以选择这些节点，也可以忽略这些节点。这些可选手内侧关节被忽略时，手指的第一个关节将直接附加到指根节点 (LeftHandFingerBase)。指根节点同样被忽略时，所有手指将直接附加到所需的腕部节点。 
+		  </li>
+<li class="li" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__LI_43770AACE6F040AF993A6BD9ED362CCD">无论是否存在指根节点，拇指将始终直接连接到腕部节点。 
+		  </li>
+<li class="li" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__LI_C6ADD2AD0FC4406AA0B8CCCDD92C2069">定义角色的手指和脚趾时，通常建议将每个手指尖和脚趾尖映射到节点。此操作在操纵手指或脚趾 IK 效应器时尤其有用。 
+		  </li>
+</ul>
+ 
+	 </div>
+<div class="section" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__SECTION_DB099E9B3D0A49CCB5B06EECEE06DCDE"><h2 class="title sectiontitle">指根节点和趾根节点</h2> 
+		 
+		<p class="p" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-BCD8363B-2D69-4B1E-97EF-E17A2B47472A">可选指根节点和趾根节点在角色的手和脚内侧提供了关节，这些关节位于手指和脚趾弯曲的点处。在每个脚趾或手指不需要完整的关节连接，但在指关节处弯曲手或脚可增加真实感的情况下，这些节点的使用最频繁。例如，就穿有闭合鞋的角色而言，即使未为各个脚趾定义任何节点，通过趾根节点，脚同样可以在趾根处像铰链一样弯曲。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__SECTION_AFFED949B4494AAC97735591BC2556BA"><h2 class="title sectiontitle">特殊节点</h2> 
+		 
+		<p class="p" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-E1B507E5-7055-42A5-B27B-2CAF99CB38F4">除上面讨论的节点以外，HumanIK 还支持以下节点以达到特殊效果。 
+		</p>
+ 
+		<div class="section" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__SECTION_401E2ECEE3A640048566520834ACF361"><h3 class="title sectiontitle">肩部节点和附加肩部节点</h3> 
+		   
+		  <p class="p" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-B2C32C33-6621-4BCA-BE70-9BF7286EBF5E">HumanIK 在身体的每一侧都提供了两个肩部节点，这有助于在手臂旋转和抬起时模拟人体肩部的移动。 
+		  </p>
+ 
+		  <p class="p" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-87C6925A-02EE-4DCE-876A-4F72ABC88787">如果骨架包含位于脊椎和已映射到左臂或右臂节点的骨骼的骨骼之间，则可以将这些骨骼映射到左肩节点、右肩节点、附加左肩节点和附加右肩节点。必须首先映射肩部节点；如果已映射左肩节点，则只能映射附加左肩节点。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__SECTION_E0746FDF53224D9D92C97D5F0E8E44F5"><h3 class="title sectiontitle">侧滚节点</h3> 
+		   
+		  <p class="p" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-E9901661-816D-486F-A313-E92A8EB11126">通过侧滚节点，您可以为角色的上臂、下臂、大腿和小腿映射骨骼。 
+		  </p>
+ 
+		  <p class="p">HumanIK 解算器将侧滚旋转应用于具有一个子侧滚节点的节点时，即会从父节点提取该侧滚节点的百分比，并将其应用于子侧滚节点。此过程称为侧滚提取。侧滚提取模拟两足动物和四足动物的手臂和腿围绕其轴旋转的实际方式。通过从更合适的位置继续沿着肢体方向控制蒙皮变形，可大大提高为蒙皮角色创建的动画的真实感。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-AB7C11EA-90A3-48C8-BDEB-E087F49214A7.htm">定义侧滚骨骼行为</a>。 
+		  </p>
+ 
+		  <p class="p">可以逐肢体最多映射五个侧滚骨骼。所有侧滚骨骼均被设置为同一肢体骨骼的子对象，且沿该肢体骨骼的侧滚骨骼放置以及每个侧滚骨骼的旋转百分比由每个肢体的侧滚骨骼数量确定。如果肢体具有多个侧滚骨骼，将在这些骨骼之间拆分旋转百分比。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__SECTION_964F01C11F8247D6805A562685A86DFC"><h3 class="title sectiontitle">参照</h3> 
+		   
+		  <p class="p" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-BFB6DAFB-B618-40C9-805E-D4D1777EA18D">此节点旨在用作角色的整体平移、旋转和缩放的可选存储库。可将其视为角色的髋部的抽象父对象。 
+		  </p>
+ 
+		  <p class="p" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-A40FC88C-DF30-4F15-90DA-76A0DA95587C">在大多数情况下，无需使用参照节点。参照节点主要用于某些特定的情况，例如： 
+		  </p>
+ 
+		  <ul class="ul" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__UL_66ADE8F9468A49F89EF33198F025FC5D"><li class="li" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__LI_25A9DEB0BBE7447AAA729A726D67F766">模型的髋部包含定义了角色的整体平移、旋转和缩放的父对象时。在这种情况下，使用参照节点可以方便地将数据从父对象同步到 HumanIK。 
+			 </li>
+<li class="li" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__LI_D8ADE14C7D7F405A9012382F60D792D8">进行动画重定目标时，可以指示 HumanIK 来强制目标角色精确遵循源角色的移动比例。在这种情况下，使用参照节点是修改目标角色的整体平移、旋转和缩放的唯一方法。 
+			 </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__SECTION_FE8B8EB682624E76BFF5A7E4148AA5EE"><h3 class="title sectiontitle">HipsTranslation</h3> 
+		   
+		  <p class="p" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-F0E8B2D3-7B82-43A5-A2CE-6335938E2DE0">该节点用作平移角色髋部的独立存储库。如果要针对角色定义该节点，且 HumanIK 解算器需要偏移角色“髋部”(Hips) 节点的平移，则结果平移将存储回映射到“HipsTranslation”节点的骨骼中，而不是存储在映射到“髋部”(Hips) 节点的骨骼中。 
+		  </p>
+ 
+		  <p class="p" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__GUID-33138DAB-7713-425E-BAE9-AE32E95EB1F7">默认情况下，即使已定义“HipsTranslation”节点，仍会将髋部的旋转存储在“髋部”(Hips) 节点中。但是，可以将 HumanIK 配置为将髋部的旋转存储在髋部转换节点中。也可以使用髋部转换节点将源角色的轨迹重定目标到目标角色。 
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__SECTION_196923D7AA0F4BC2B6ACE3E81359A5AE"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__UL_D60F2E6EBE4F4431BA8BFF4554E53561"><li class="li" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__LI_6C6FEF2283F2478D947F7ABD881A81A8"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-33859AA1-887B-4F8A-8360-F881C28EF351.htm">为 HumanIK 定义现有骨架</a> 
+		  </li>
+<li class="li" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__LI_8EC2ED53B67546C5BF3B4DA683A144B1"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-630B5349-213C-414D-B6C9-D283CE319472.htm">“定义”(Definition)选项卡</a> 
+		  </li>
+<li class="li" id="GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B__LI_86B41B8BCE244A8FAF48144EED064BA4"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-FB339D36-C8C0-42E4-B210-AC52E51BB173.htm">将动画从一个角色重定目标到另一个角色</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-EDBDA3DB-4715-40EF-9ADF-412F78BFF98E.htm">HumanIK</a></div>
+</div>
+</div>
+
+</body>
+</html>

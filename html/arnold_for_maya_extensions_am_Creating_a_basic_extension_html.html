@@ -1,0 +1,160 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_extensions_am_Creating_a_basic_extension_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_CREATING_A_BASIC_EXTENSION">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 创建基本扩展 - Arnold for Maya">
+
+<title>创建基本扩展</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+      <script src="../scripts/lang-cmd.js"></script>
+      <script src="../scripts/lang-bash.js"></script>
+      <script src="../scripts/lang-lua.js"></script>
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>创建基本扩展</h1></div><p>我们可以创建一个非常简单的扩展，用来将原生 Phong Maya 着色器转换为标准 Arnold 着色器，因为它当前不受 MtoA 支持，并且未关联任何转换器。<br>首先，我们需要创建一个新类，用来从我们需要的 MtoA 转换器继承。由于这是一个简单的示例，我们开始从最简单的 CNodeTranslator 继承：</p>
+<p><strong>translator1.h</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#include "translators/shader/ShaderTranslator.h"
+
+
+class CTestTranslator
+    : public CShaderTranslator
+{
+public:
+    AtNode* CreateArnoldNodes();
+    virtual void Export(AtNode*);
+    static void* creator();
+};
+</code></pre>
+<p>我们可以通过非常简单的方式来覆盖这些方法：<br> <strong>static void creator()</strong></p>
+<p>只返回定义的类的一个实例。</p>
+<p><strong>AtNode* CreateArnoldNodes</strong></p>
+<p>创建将导出的 Arnold 节点。我们会在此处创建一个 Arnold 标准节点，因为我们会将 Maya Phong 转换为 Arnold 标准节点。</p>
+<p><strong>virtual void Export(AtNode*)</strong></p>
+<p>导出渲染会话所需的所有属性。在此将“diffuse”Phong 属性导出到 <code>standard_surface</code> <code>base</code> 属性，将 <code>color</code> 属性导出到 standard_surface <code>base_color</code>。</p>
+<p><strong>translator1.cpp</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#include "translator1.h"
+
+#include &lt;ai_msg.h&gt;
+#include &lt;ai_nodes.h&gt;
+
+void CTestTranslator::Export(AtNode* shader)
+{
+    AiMsgInfo("[test extension] Exporting %s", GetMayaNodeName().asChar());
+    AiNodeSetFlt(shader, AtString("base"), FindMayaPlug("diffuse").asFloat() );
+    AiNodeSetRGB(shader, AtString("base_color"),
+                 FindMayaPlug("colorR").asFloat(),
+                 FindMayaPlug("colorG").asFloat(),
+                 FindMayaPlug("colorB").asFloat());
+}
+
+AtNode* CTestTranslator::CreateArnoldNodes()
+{
+    return AddArnoldNode("standard_surface");
+}
+
+void* CTestTranslator::creator()
+{
+    return new CTestTranslator();
+} </code></pre>
+<p>请注意，这只是一个示例，不会将 Phong 着色器正确导出到类似的 standard_surface 着色器。<br>最后，我们需要为 Maya Phong 着色器注册转换器的代码：</p>
+<p><strong>extension1.cpp</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#include "translator1.h"
+#include "extension/Extension.h"
+
+
+extern "C"
+{
+
+    DLLEXPORT void initializeExtension(CExtension &amp;plugin)
+    {
+        plugin.RegisterTranslator("phong",
+                                  "",
+                                  CTestTranslator::creator);
+    }
+
+    DLLEXPORT void deinitializeExtension(CExtension &amp;plugin)
+    {
+    }
+} </code></pre>
+<p>要编译扩展，请根据您的操作系统执行以下相应的操作：</p>
+<p><strong>Windows</strong></p>
+<p>打开 Visual Studio 命令提示符，然后执行以下命令：</p>
+<p>首先，设置 <code>MAYA_PATH</code> 和 <code>MTOA_PATH</code> 环境变量（根据需要更改 Maya 和 MtoA 版本）：</p>
+<pre class="pre codeblock"><code class="lang-cmd prettyprint">set MTOA_PATH="C:\solidangle\mtoadeploy\20XX"
+set MAYA_PATH="C:\Program Files\Autodesk\Maya20XX" </code></pre>
+<p>打开 Visual Studio 命令提示符，然后执行以下命令：</p>
+<pre class="pre codeblock"><code class="lang-cmd prettyprint">cl /c translator1.cpp /EHsc /MD /DNT_PLUGIN /DREQUIRE_IOSTREAM /I%MAYA_PATH%\include /I%MTOA_PATH%\include\mtoa /I%MTOA_PATH%\include\arnold
+
+cl /c extension1.cpp /EHsc /MD /DNT_PLUGIN /DREQUIRE_IOSTREAM /I%MAYA_PATH%\include /I%MTOA_PATH%\include\mtoa /I%MTOA_PATH%\include\arnold
+
+link /dll extension1.obj translator1.obj /LIBPATH:%MTOA_PATH%\lib /LIBPATH:%MAYA_PATH%\lib ai.lib OpenGl32.lib glu32.lib Foundation.lib OpenMaya.lib OpenMayaRender.lib OpenMayaUI.lib OpenMayaAnim.lib OpenMayaFX.lib mtoa_api.lib </code></pre>
+<p><strong>Linux/MacOS</strong></p>
+<p>对环境进行设置，以帮助轻松地设置构建时所针对的 Maya 和 MtoA 版本</p>
+<pre class="pre codeblock"><code class="lang-bash prettyprint">export MTOA_PATH="/usr/autodesk/arnold/20XX"
+export MAYA_PATH="/usr/autodesk/Maya20XX" </code></pre>
+<pre class="pre codeblock"><code class="lang-bash prettyprint">g++ -o translator1.os -c -fvisibility=hidden -Wno-reorder -std=c++11 -fvisibility=hidden -Wno-reorder -std=c++11 -Wall -Wsign-compare -g -fno-omit-frame-pointer -fvisibility=hidden -std=c++0x -fPIC -D_LINUX -D_BOOL -DREQUIRE_IOSTREAM -DLINUX -I${MTOA_PATH}/include/arnold -I${MTOA_PATH}/include/mtoa -I${MAYA_PATH}/include translator1.cpp
+
+g++ -o extension1.os -c -fvisibility=hidden -Wno-reorder -std=c++11 -fvisibility=hidden -Wno-reorder -std=c++11 -Wall -Wsign-compare -g -fno-omit-frame-pointer -fvisibility=hidden -std=c++0x -fPIC -D_LINUX -D_BOOL -DREQUIRE_IOSTREAM -DLINUX -I${MTOA_PATH}/include/arnold -I${MTOA_PATH}/include/mtoa -I${MAYA_PATH}/include extension1.cpp
+
+g++ -o extension1.so -fvisibility=hidden -z origin -g -shared build/translator1.os build/extension1.os -L${MTOA_PATH}/bin -L${MTOA_PATH}/bin -L${MAYA_PATH}/lib -lai -lpthread -lFoundation -lOpenMaya -lOpenMayaRender -lOpenMayaUI -lOpenMayaAnim -lOpenMayaFX -lmtoa_api </code></pre>
+<p>之后，我们需要使生成的 <code>extension1.dll/.so/dylib</code> 对 MtoA 可用，您可以通过以下两种方式之一执行此操作：</p>
+<ul>
+<li>将库复制到 MTOA_PATH/extensions</li>
+<li>将 <code>MTOA_EXTENSIONS_PATH</code> 设置为扩展库的位置，这将是首选方式。</li>
+</ul>
+<p>现在，如果我们打开 Maya 并为任何对象指定 Phong 着色器，则该对象将在 IPR 会话中进行渲染（类似于 Lambert）。如果我们更改 <code>color</code> 或 <code>diffuse</code> Phong 属性，它将在 IPR 中进行更新。</p>
+<p>如果导出场景，我们将看到导出的 Phong Maya 着色器如下所示：</p>
+<pre class="pre codeblock"><code class="lang-lua prettyprint">...
+standard_surface
+{
+    name phong1
+    base 1.0
+    base_color 0.8 0.8 0.8
+}
+... </code></pre>
+<p>在此基础上，您可以根据需要编写更为复杂的 Export 方法。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Technical/arnold_for_maya_technical_am_Writing_Extensions_html.html">编写扩展</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

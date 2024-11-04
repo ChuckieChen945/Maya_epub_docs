@@ -1,0 +1,221 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755">
+<meta name="language" content="CHS">
+<title>读取和写入文件</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>读取和写入文件</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C67"><samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/fopen.html" target="_blank">fopen</a></samp>、<samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/fwrite.html" target="_blank">fwrite</a></samp>、<samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/fprint.html" target="_blank">fprint</a></samp>、<samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/fread.html" target="_blank">fread</a></samp> 和 <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/fclose.html" target="_blank">fclose</a></samp> 命令可用于处理文件。 
+	 </p>
+<div class="section" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C66"><h2 class="title sectiontitle">打开文件</h2> 
+		 
+		<p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C65"> 必须先使用 <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/fopen.html" target="_blank">fopen</a></samp> 函数打开文件，然后才能读取或写入文件。 
+		</p>
+ 
+		<p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C62"><samp class="ph codeph">fopen</samp> 提取两个字符串参数： 
+		</p>
+ 
+		<ul class="ul" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C61"><li class="li" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C60">一个包含文件名的字符串。 
+		  </li>
+<li class="li" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C5F">利用可选模式字符串，可以指示打开文件是进行读取 (“r”)、写入 (“w”) 还是附加 (“a”) 操作。 
+			 <p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C5E">如果将“+”字符添加到模式字符，Maya 会打开文件进行读/写。 
+			 </p>
+ 
+			 <p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C5D">如果省略此参数，默认进行读取。 
+			 </p>
+ 
+		  </li>
+</ul>
+ 
+		<p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C5C">fopen 返回文件控制柄。文件控制柄表示打开文件。应此值保存到变量中，以便能够使用 <samp class="ph codeph">fprint</samp> 等其他命令处理打开的文件。 
+		</p>
+ 
+		<pre class="pre codeblock">
+$fileId = fopen($exampleFileName,"r");
+</pre>
+ 
+	 </div>
+<div class="section" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C5B"><h2 class="title sectiontitle">从文件读取</h2> 
+		 
+		<p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C5A">一旦打开文件进行读取，就可以使用以下某个命令从文件读取数据： 
+		</p>
+ 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C59" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">目的 
+				  </th>
+<th class="entry" valign="top" width="50%">使用该命令 
+				  </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C58">读取一行（读取到下一个新行）。 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C57"> 
+						<samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/fgetline.html" target="_blank">fgetline</a> 
+						  </samp>(fileID) 
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C56">读取字词（读取到下一个空格）。 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C55"> 
+						<samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/fgetword.html" target="_blank">fgetword</a> 
+						  </samp>(fileID) 
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C54">读取单个值。 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C53"> 
+						<samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/fread.html" target="_blank">fread</a> 
+						  </samp>（fileID，类型） 
+					 </p>
+ 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		<p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C52">例如： 
+		</p>
+ 
+		<pre class="pre codeblock">
+// Read a file one line at a time
+$fileId=fopen($exampleFileName,"r");
+string $nextLine = `fgetline $fileId`;
+while ( size( $nextLine ) &gt; 0 ) {
+	print ( $nextLine );
+	$nextLine = `fgetline $fileId`;
+}
+</pre>
+ 
+	 </div>
+<div class="section" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C51"><h2 class="title sectiontitle">测试文件的末尾</h2> 
+		 
+		<p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C50">如果处在文件末尾，<samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/feof.html" target="_blank">feof</a></samp> &lt;fileID&gt; 函数将返回非零值。 
+		</p>
+ 
+		<pre class="pre codeblock">
+string $nextWord = `fgetword $fileId`;
+while ( !feof($fileId) ) {
+ 	print ( $nextWord + "\n" );
+ 	$nextWord = fgetword($fileId);
+}
+</pre>
+ 
+		<p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C4F">如果打开一个空文件，<samp class="ph codeph">feof</samp> 在至少执行一个读取之前，不会检测到它在文件的末尾。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C4E"><h2 class="title sectiontitle">写入文件</h2> 
+		 
+		<p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C4D">一旦打开文件进行写入或附加操作，便可以使用以下某个命令向文件写入数据： 
+		</p>
+ 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C4C" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">目的 
+				  </th>
+<th class="entry" valign="top" width="50%">使用该命令 
+				  </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C4B">使用打印命令的同等命令打印到文件。 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C4A"><samp class="ph codeph"> 
+						  <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/fprint.html" target="_blank">fprint</a> 
+						  </samp>（fileID，字符串） 
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C49">写入二进制数据。 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C48"><samp class="ph codeph"> 
+						  <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/fwrite.html" target="_blank">fwrite</a> 
+						  </samp>（fileID，值） 
+					 </p>
+ 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		<p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C47">例如： 
+		</p>
+ 
+		<pre class="pre codeblock">
+$fileId = fopen($exampleFileName,"w");
+fprint($fileId,"Hello there\n");
+fclose($fileId);
+</pre>
+ 
+		<p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C46"><samp class="ph codeph">fwrite</samp> 命令将二进制格式的数据参数写入文件。它将字符串作为 ASCII 写入，结尾带一个 NULL 字符。不应使用 fwrite 来写入文本文件或编写原始字节，除非结尾需要一个 NULL 字符。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C45"><h2 class="title sectiontitle">管理打开文件</h2> 
+		 
+		<p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C44">若要清除写缓冲区而不关闭文件，请使用 <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/fflush.html" target="_blank">fflush</a></samp>(fileID)。 
+		</p>
+ 
+		<p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C43">若要将文件位置指针重置到文件的开头，请使用 <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/frewind.html" target="_blank">frewind</a></samp> (fileID)。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C42"><h2 class="title sectiontitle">关闭打开文件</h2> 
+		 
+		<p class="p" id="GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755__WS73099CC142F48755-3D114B7511841AEFA9F-C41">若要关闭打开文件，请使用 <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/fclose.html" target="_blank">fclose</a></samp> (fileID)。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452.htm">I/O 和用户交互</a></div>
+</div>
+</div>
+
+</body>
+</html>

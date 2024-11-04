@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-0CB26A3B-DB26-42E1-AAAB-4314B637C341">
+<meta name="language" content="CHS">
+<title>对象空间、世界空间和切线空间</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-0CB26A3B-DB26-42E1-AAAB-4314B637C341">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>对象空间、世界空间和切线空间</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-38A23F5C12A55EE7664-7EDB"><div class="section" id="GUID-0CB26A3B-DB26-42E1-AAAB-4314B637C341__WS73099CC142F48755-3D114B7511812357EFE-7C9A"><h2 class="title sectiontitle">对象空间与世界空间</h2>
+
+<p class="p" id="GUID-0CB26A3B-DB26-42E1-AAAB-4314B637C341__WS73099CC142F48755-3D114B7511812357EFE-7C99">在 Maya 中，每个对象都有其自己的局部坐标系，该局部坐标系称为对象空间。想象一个场景，它包含一把椅子的 1000 个实例，并且知道所有椅子的形状都相同。对于每把椅子来说，位于椅子顶部的顶点处于相同的位置。一把椅子的轮子上的顶点与其他椅子的轮子上的顶点处于相同的位置。 </p>
+
+<p class="p" id="GUID-0CB26A3B-DB26-42E1-AAAB-4314B637C341__WS73099CC142F48755-3D114B7511812357EFE-7C98">不管您是否意识到这一点，您总是想比较这些椅子在其对象空间中的形状。您忽略了椅子分散放置这一事实。您忽略了每把椅子的世界空间位置。世界空间是对象或顶点在整个场景中的绝对位置。在世界空间中，位于每把椅子顶部的顶点不在相同的位置，因为在世界空间中，您已在整个场景中平移椅子。但是，在对象空间（对象空间会忽略整个对象的平移）中，位于每把椅子顶部的顶点处于相同的位置。</p>
+
+<p class="p" id="GUID-0CB26A3B-DB26-42E1-AAAB-4314B637C341__WS73099CC142F48755-3D114B7511812357EFE-7C97">因此，在传递贴图（或传递属性，或复制蒙皮权重，等等）的上下文中，如果要在形状相同但不相互叠放在一起的两把椅子之间传递数据，那么会使用其对象空间传递数据。从另一点来说，如果两个对象确实相互叠放在一起，那么将使用世界空间。这种情况下是否可以使用对象空间？有时是可以的。但是，请注意，对象空间会忽略对象的平移，并且它还会忽略对象的旋转和缩放。因此，如果要将数据从一个大对象传递到一个小对象，可以放大小对象，将其偏移一点儿，旋转它以排成一行，然后在世界空间中传递数据。换句话说，是告诉 Maya 已经进行了所有调整来对齐这些对象，并且 Maya 应该完全按这些对象在场景视图中排成一行的方式执行传递。</p>
+
+</div>
+<div class="section" id="GUID-0CB26A3B-DB26-42E1-AAAB-4314B637C341__WS73099CC142F48755-3D114B7511812357EFE-7C96"><h2 class="title sectiontitle">对象空间与切线空间</h2>
+
+<p class="p" id="GUID-0CB26A3B-DB26-42E1-AAAB-4314B637C341__WS73099CC142F48755-3D114B7511812357EFE-7C95">对象空间是对象的局部 3D 空间。上方向始终是向上的，而左方向始终是向左的。这是一个真正很好理解的统一空间，因为它就像真实世界一样。而另一方面，将切线空间看作曲面空间是最好不过的了。在切线空间中，上方向始终远离曲面（也就是说，沿法线方向）。沿曲面向左、向右、向后和向前滑动。假设有个金属茶壶，您拿着一个粘在茶壶上的小磁体。您四处滑动该小磁体时，就是在跟随切线空间。处于茶壶底部时，该小磁体实际上已倒置；处于侧面时，该小磁体在旁边。</p>
+
+<div class="section" id="GUID-0CB26A3B-DB26-42E1-AAAB-4314B637C341__WS73099CC142F48755-3D114B7511812357EFE-7C94"><h3 class="title sectiontitle">在法线贴图的上下文中的对象空间与切线空间</h3>
+
+<p class="p" id="GUID-0CB26A3B-DB26-42E1-AAAB-4314B637C341__WS73099CC142F48755-3D114B7511812357EFE-7C93">开始使用法线贴图执行高级操作时，差异会变得很明显。回想一下切线空间是对象的曲面的情形。因此，如果将一个砖图案描述为相对于曲面的一个图案，可以取一个砖图案，并将其应用到任意位置，它看起来将仍然像一块砖。如果砖图案位于茶壶的底部，砖将面朝下突出（回想一下磁体倒置的情形）。如果砖在侧面，该砖将向旁边突出。因此，可以镜像切线空间法线贴图，即可以仅为角色的一半创建一个法线贴图，并将其粘合到模型的两侧，从而法线贴图将起作用。但是，在对象空间中（其中上方向始终向上），这样做是不行的。如果对象空间法线贴图显示耳朵在左侧突出，那么将对角色的全部两只耳朵进行着色，就好像它们都在左侧突出一样。这同样适用于砖图案（不仅底部的砖将向上突出到对象中，而且将对它们上下倒置进行着色），因此，从顶部向下照射光线时，将照亮对象的底部。 </p>
+
+<p class="p" id="GUID-0CB26A3B-DB26-42E1-AAAB-4314B637C341__WS73099CC142F48755-3D114B7511812357EFE-7C92">切线空间法线贴图的另一个非常普遍的用处是角色的变形。因为切线空间法线贴图相对于曲面定义角色的细节，所以可以拉伸、移动和变形角色，并且在角色手臂上的这些法线贴图脉络将与角色一起变形。如果将角色手臂上下倒置，脉络将看起来就好像它们是上下倒置的，依此类推。使用对象空间法线贴图无法实现相同的效果。 </p>
+
+<p class="p" id="GUID-0CB26A3B-DB26-42E1-AAAB-4314B637C341__WS73099CC142F48755-3D114B7511812357EFE-7C91">只需通过观看法线贴图本身即可看到这一点：对象空间法线贴图确实是多彩的，因为它包含指向许多不同方向的向量，而切线空间法线贴图仅在“上方向”上具有变体，这会使整个贴图着色成为蓝色和紫色。</p>
+
+</div>
+
+</div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-D408AF2E-944A-49B4-85E2-7874F7330B13.htm">查看切线空间或对象空间的法线贴图</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-DC60577E-1A09-4D51-BD6E-6400F4F5EFD7.htm">纹理映射</a></div>
+</div>
+</div>
+
+</body>
+</html>

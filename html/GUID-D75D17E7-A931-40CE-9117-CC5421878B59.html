@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="在“灯光编辑器”(Light Editor)中，通过修改每个灯光对应的 LE*Template.xml 文件（例如，LEareaLightTemplate.xml），可以自定义为每个灯光发布的属性列表。">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-D75D17E7-A931-40CE-9117-CC5421878B59">
+<meta name="language" content="CHS">
+<title>在灯光编辑器中自定义灯光属性列表</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-D75D17E7-A931-40CE-9117-CC5421878B59">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>在灯光编辑器中自定义灯光属性列表</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="shortdesc">在<span class="ph uicontrol">“灯光编辑器”(Light Editor)</span>中，通过修改每个灯光对应的 <samp class="ph codeph">LE*Template.xml</samp> 文件（例如，<samp class="ph codeph">LEareaLightTemplate.xml</samp>），可以自定义为每个灯光发布的属性列表。 
+  </p>
+<p class="p">模板文件位于安装目录的 <samp class="ph codeph">../scripts/AETemplates</samp> 文件夹中并带有前缀 <samp class="ph codeph">LE</samp>。 
+	 </p>
+<p class="p">或者，您也可以设置 MAYA_CUSTOM_TEMPLATE_PATH 环境变量。这与如何在<span class="ph uicontrol">属性编辑器</span>中自定义属性的显示十分类似。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-592870D2-92E6-44CC-AE54-2F79EC43076A">“属性编辑器”(Attribute Editor)模板</a>。 
+	 </p>
+<p class="p"><span class="ph uicontrol"> 若要在</span>“灯光编辑器”(Light Editor)<strong class="ph b">中发布和编辑属性，您必须将属性添加到每个适用灯光类型的模板文件。</strong> 例如，若要能够在所有 Maya 光源上编辑<span class="ph uicontrol">“阴影颜色”(Shadow Color)</span>，您必须将此属性添加到每个 Maya 光源的 XML 模板文件。 
+	 </p>
+<p class="li listintro">将灯光属性添加到<span class="ph uicontrol">灯光编辑器(Light Editor)</span></p>
+<ol class="ol" id="GUID-D75D17E7-A931-40CE-9117-CC5421878B59__OL_F3FC1D52E68A4054AA1DBB7F927B2247"><li class="li" id="GUID-D75D17E7-A931-40CE-9117-CC5421878B59__LI_A6261E56E68346BE8C9CC43E7E9B3D4E">在 <samp class="ph codeph">.xml</samp> 模板文件的第一部分中声明灯光属性，如下所示： 
+		  <pre class="pre codeblock">&lt;!-- 
+Declaration of the attributes that should be visible for this light type in the Light Editor.
+--&gt;
+...
+...
+&lt;attribute name='shadowColor' type='maya.float3'&gt;
+    &lt;label&gt;Shadow Color&lt;/label&gt;;
+&lt;/attribute&gt;
+&lt;attribute name='coneAngle' type='maya.float'&gt;
+    &lt;label&gt;Cone Angle&lt;/label&gt;;
+&lt;/attribute&gt;</pre>
+ 
+		  <div class="note note" id="GUID-D75D17E7-A931-40CE-9117-CC5421878B59__GUID-9FEF41FB-FFF3-4495-8D79-FFAFF03543D3"><span class="notetitle">注：</span> 通过参考 Maya 帮助的“技术文档”(Technical Documentation)部分中的“节点”(Nodes)文档，可以找到灯光属性名称。 
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-D75D17E7-A931-40CE-9117-CC5421878B59__LI_6644ADEE238E48F6A40285EA7236C0F8">将灯光属性添加到 <samp class="ph codeph">.xml</samp> 模板文件的模板视图部分（最后一部分），如下所示： 
+		  <pre class="pre codeblock">&lt;description&gt;View used by Light Editor&lt;/description&gt;
+...
+...
+&lt;property name='shadowColor'/&gt;
+&lt;property name='coneAngle'/&gt;</pre>
+ 
+		</li>
+</ol>
+<div class="note note" id="GUID-D75D17E7-A931-40CE-9117-CC5421878B59__GUID-B4FA787A-6293-4F48-B7F0-6FD156CD93CA"><span class="notetitle">注：</span> 若要从<span class="ph uicontrol">“灯光编辑器”(Light Editor)</span>中移除列，则必须从显示列的每个模板中移除相应的灯光属性。不需要编辑 <samp class="ph codeph">LEapi*Template.xml</samp> 文件。 
+	 </div>
+<div class="section" id="GUID-D75D17E7-A931-40CE-9117-CC5421878B59__SECTION_5CA6F8F1538B4ADF83F88ED0E1A0ACDB"><h2 class="title sectiontitle">为两个不同的属性创建单独一列</h2> 
+		 
+		<p class="p">列名称和基本属性名称为独立名称，您可以为两个不同的属性创建单独一列。这有助于加强组织，减少<span class="ph uicontrol">“灯光编辑器”(Light Editor)</span>中的列。 
+		</p>
+ 
+		<p class="p">例如，如果通过为属性 useRayTraceShadows 添加列来编辑 Maya 聚光灯模板并将其命名为“阴影”(Shadows)： 
+		</p>
+ 
+		<pre class="pre codeblock">&lt;attribute name='useRayTraceShadows' type='maya.bool'&gt;
+    &lt;label&gt;Shadows&lt;/label&gt;
+&lt;/attribute&gt;</pre>
+ 
+		<p class="p">则可编辑 Arnold for Maya aiAreaLight 模板，并为属性 aiCastShadows 添加一列，也将其命名为“阴影”(Shadows)： 
+		</p>
+ 
+		<pre class="pre codeblock">&lt;attribute name='aiCastShadows' type='maya.bool'&gt;
+    &lt;label&gt;Shadows&lt;/label&gt;
+&lt;/attribute&gt;</pre>
+ 
+		<p class="p">现在，<span class="ph uicontrol">“灯光编辑器”(Light Editor)</span>将显示额外的“阴影”(Shadows)列。通过此列，您可以调整 Maya 聚光灯的 useRayTraceShadows 属性以及 aiAreaLights 的 aiCastShadows。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-72B6C563-E93A-4A03-8F9B-8168FB8E3C52.htm">使用“灯光编辑器”(Light Editor)在场景中创建、分组和修改灯光</a></div>
+</div>
+</div>
+
+</body>
+</html>

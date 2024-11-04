@@ -1,0 +1,303 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_lighting_am_Caustic_Effect_Using_Cell_Noise_3A_Pool_Scene_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_CAUSTIC_EFFECT_USING_CELL_NOISE_3A_POOL_SCENE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用单元噪波创建焦散效果：游泳池场景 - Arnold for Maya">
+
+<title>使用单元噪波创建焦散效果：游泳池场景</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+<div class="head-block"><h1>使用单元噪波创建焦散效果：游泳池场景</h1></div><p><img src="../images/car.jpg" alt="">  </p>
+<p>这一更高级的教程演示了如何使用 <em>cell_noise</em> 着色器 <em>(noise1)</em> 创建池水的焦散效果。此外，本教程还介绍了如何创建带焦散效果的色度色差。最后，我们将使用焦散渲染图像序列以优化渲染。非常感谢 <a href="https://cgrenderdna.blogspot.com/" target="_blank">Slava Sych</a> 为本教程提供的帮助。</p>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/waterpool.gif" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>cell_noise.time 已设置关键帧</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<p><strong>要下载对应的场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/water_caustic_user-guide.zip" target="_blank">此处</a>。</strong></p>
+<h2 id="">场景</h2><ul>
+<li>首先，创建一个平面、一个 <em>spot_light</em> 和一个摄影机。将摄影机和 <em>spot_light</em> 旋转到 90 度，以便它们向下朝向平面。</li>
+<li>将 <em>spot_light</em> 的 <em>exposure</em> 值增加到 21 左右，并将 <em>roundness</em> 设置为 0。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-350">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/edu_CellNoise_part2_01.png" alt=""></td>
+<td><img src="../images/edu_CellNoise_part2_02.png" alt=""></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><sub><strong>基于摄影机的场景布局和视图</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<h2 id="gobo">Gobo</h2><ul>
+<li>将 <em>gobo</em> 过滤器添加到 <em>spot_light</em></li>
+<li>创建一个 <em>cell_noise</em> 着色器，并将其连接到 <em>gobo</em> 过滤器的 <em>slide_map</em> 。将 <em>cell_noise</em> 着色器重命名为“CellNoise1”（稍后我们将创建第二个 <em>cell_noise</em> 着色器）。</li>
+<li>在 <em>gobo</em> 中，将 <em>filter_mode</em> 更改为<em>“融合”(mix)。*这会在 *spot_light</em> 和 <em>slide_map</em> 之间对结果进行均匀地平均处理。</li>
+<li>将 <em>gobo</em> 中的<em>“密度”(density)</em> 设置为 0.585。这将允许更多灯光穿过。</li>
+</ul>
+<h2 id="cellnoise1">CellNoise1</h2><ul>
+<li>取消选中 <em>additive</em>。</li>
+<li>将 <em>octaves</em> 的数量增加到 8。</li>
+<li>将 <em>lacunarity</em> 减小到 1.023。</li>
+<li>将 <em>amplitude</em> 减小到 0.819。</li>
+<li>对于 XYZ 向量，将 <em>scale</em> 增加到 13, 17, 0。</li>
+<li>将 <em>coord_space</em> 更改为“UV”。</li>
+<li>要创建动画，请对<em>“时间”(Time)</em>属性设置关键帧。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-250">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/caustic-ui.png" alt=""></td>
+<td><img src="../images/edu_CellNoise_part2_03.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><sub><strong>CellNoise1 设置</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<h2 id="cellnoise2">CellNoise2</h2><ul>
+<li><p>创建另一个 <em>cell_noise</em> 着色器并将其重命名为 <em>CellNoise2 <em>，然后将</em>“输出颜色 R”(Out Color R)</em> 连接到 <em>CellNoise1</em> 的 <em>randomness</em> 属性。</p>
+</li>
+<li><p>将 <em>octaves</em> 的数量增加到 3。</p>
+</li>
+<li><p>对于 XYZ 向量，将 <em>scale</em> 增加到 19.5, 25.5, 0。</p>
+</li>
+<li><p>将 <em>coord_space</em> 更改为“UV”。</p>
+</li>
+<li><p>要创建动画，请对<em>“时间”(Time)</em> 属性设置关键帧。</p>
+</li>
+</ul>
+<h2 id="">范围</h2><ul>
+<li><p>创建一个<em>范围</em> 着色器，并将其连接到 <em>gobo</em> 过滤器。将 <em>CellNoise1</em> 连接到 <em>range</em> 节点的输入，并将 <em>spot_light</em> 的 <em>exposure</em> 增加到 26。</p>
+</li>
+<li><p>将 <em>output_min</em> 设置为 1。</p>
+</li>
+<li><p>将 <em>output_max</em> 设置为 0。</p>
+</li>
+<li><p>启用<em>“平滑步长”(Smoothstep)。</em></p>
+</li>
+<li><p>将 <em>contrast</em> 增加到 2.278。</p>
+</li>
+<li><p>将 <em>bias</em> 更改为 0.822。</p>
+</li>
+<li><p>将 <em>gain</em> 更改为 0.2。  </p>
+</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-250">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/caustic-range.png" alt=""></td>
+<td></td>
+</tr>
+<tr>
+<td><sub><strong>CellNoise1 与范围着色器</strong></sub></td>
+<td></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<div class="head-block"><h1>色度色差</h1></div><h2 id="uvtransform">UVTransform</h2><p>现在，需要使用 <em>CellNoise1</em> 着色器创建色度色差影响。</p>
+<p>创建两个 <em>UvTransform</em> 节点。</p>
+<ul>
+<li><p>在 UvTransform1 中，将 <em>offset</em> 设置为 -0.001 和 -0.001。</p>
+</li>
+<li><p>在 UvTransform2 中，将 <em>offset</em> 设置为 0.001 和 0.001。</p>
+</li>
+</ul>
+<h2 id="">变换</h2><ul>
+<li><p>将<em>变换</em> 着色器连接到 <em>gobo</em> 过滤器。</p>
+</li>
+<li><p>将<em>范围</em> 的<em>“输出颜色 R”(Out Color R)</em> 连接到<em>变换</em> 中的<em>“颜色 G”(Color G)</em>。</p>
+</li>
+<li><p>将 UvTransform1 的<em>“输出颜色 R”(Out Color R)</em> 连接到<em>变换</em> 中的<em>“颜色 B”(Color B)。</em></p>
+</li>
+<li><p>将 UvTransform2 的<em>“输出颜色 R”(Out Color R)</em> 连接到<em>变换</em> 中的<em>“颜色 R”(Color R)</em>。</p>
+</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-250">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/caustic-exposure.png" alt=""></td>
+<td></td>
+</tr>
+<tr>
+<td><sub><strong>此处显示结果（曝光已减小）</strong></sub></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/caustic-shader.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>最终着色器网络</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<h2 id="">优化</h2><p>要优化渲染过程，可以尝试渲染出图像序列，然后在另一个 <em>spot_light</em> 的 <em>gobo</em> 中打开此序列。</p>
+
+<div class="tablenobordernocolor gallery thumbnail-300">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/caustic-shader.png" alt=""></td>
+<td><img src="../images/aiCellNoise_Caustic_Tile.gif" alt=""></td>
+</tr>
+<tr>
+<td><em>cell_noise</em> 焦散序列</td>
+<td>后期处理和分片之后</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Lighting_html.html">照明</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-83799297-C629-48A8-BCE4-061D3F275215">
+<meta name="language" content="CHS">
+<title>来自外部解释器的 Python</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-83799297-C629-48A8-BCE4-061D3F275215">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>来自外部解释器的 Python</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-2557"><p class="p" id="GUID-83799297-C629-48A8-BCE4-061D3F275215__WS1A9193826455F5FF-29C43AA6117B273E5D1-645E">您可以将适用于 Maya 的 Python 与 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-D64ACA64-2566-42B3-BE0F-BCE843A1702F.htm">mayapy</a> 以外的外部解释器一起使用。但是，您需要手动设置环境，并且需要确保您使用的 Python 版本与 Maya 随附的 Python 版本相同。有关您的 Maya 版本随附的 Python 版本的信息，请参见相应的<a class="xref" href="http://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=Maya_SDK_Open_Source_Components_html" target="_blank">“开源组件”页面</a>。 
+	 </p>
+<p class="p">若要为 Python 解释器设置环境，请将 Maya <samp class="ph codeph" id="GUID-83799297-C629-48A8-BCE4-061D3F275215__GUID-9E8471CC-6C18-42C5-A524-169416E28111">site-packages</samp> 目录的路径添加到 PYTHONPATH 环境变量。 
+	 </p>
+<p class="p">在 Windows 上，您可以在可从“控制面板”访问的环境变量中设置 PYTHONPATH，也可以从命令提示符进行设置： 
+	 </p>
+<div class="p"> 
+		<pre class="pre codeblock">set PYTHONPATH=%PYTHONPATH%;&lt;path_to_site_packages&gt;</pre>
+ 
+	 </div>
+<p class="p">在 Linux 和 macOS 上，可以将 PYTHONPATH 添加到 <span class="ph filepath">~/.bashrc</span> 文件，也可以在命令行上进行设置： 
+	 </p>
+<div class="p"> 
+		<pre class="pre codeblock">export PYTHONPATH=$PYTHONPATH:&lt;path_to_site_packages&gt;</pre>
+ 
+	 </div>
+<p class="p">您还可以通过调用 <samp class="ph codeph">sys.path.append('&lt;path_to_site_packages&gt;')</samp> 从解释器中添加 <samp class="ph codeph">site-packages</samp> 的路径。 
+	 </p>
+<p class="p">下面列出了 <samp class="ph codeph">site-packages</samp> 的路径，它们是相对于 <span class="ph filepath">C:\Program Files\Autodesk\Maya&lt;版本号&gt;\</span>（在 Windows 上）、<span class="ph filepath">/usr/Autodesk/Maya&lt;版本号&gt;</span>（在 Linux 上）和 <span class="ph filepath">/Applications/Autodesk/maya&lt;版本号&gt;/Maya.app/Contents/</span>（在 macOS 上）的路径： 
+	 </p>
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-83799297-C629-48A8-BCE4-061D3F275215__TABLE_C54B1A38A3984493AB5FADB91E7A4F05" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="14.513788098693759%">平台 
+				</th>
+<th class="entry" valign="top" width="85.48621190130625%"><samp class="ph codeph">site-packages</samp> 的路径 
+				</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="14.513788098693759%">Windows 
+				</td>
+<td class="entry" valign="top" width="85.48621190130625%"><samp class="ph codeph">&lt;Python 版本&gt;\Lib\site-packages</samp> 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="14.513788098693759%">Linux 
+				</td>
+<td class="entry" valign="top" width="85.48621190130625%"><samp class="ph codeph" id="GUID-83799297-C629-48A8-BCE4-061D3F275215__GUID-716D478A-D73D-4261-B34B-38143C10F598">lib/&lt;Python 版本&gt;/site-packages</samp> 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="14.513788098693759%">macOS 
+				</td>
+<td class="entry" valign="top" width="85.48621190130625%"><samp class="ph codeph">Frameworks/Python.framework/Versions/Current/lib/&lt;Python 版本&gt;/site-packages/</samp> 
+				</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="p">在 Linux 上，将 <samp class="ph codeph" id="GUID-83799297-C629-48A8-BCE4-061D3F275215__GUID-A71DF4C3-16F0-4172-80B2-1745AFE83E33">$MAYA_LOCATION/lib/&lt;Python 版本&gt;</samp> 添加到 LD_LIBRARY_PATH 目录。 
+	 </p>
+<p class="p">在 LD_LIBRARY_PATH 中使用 <samp class="ph codeph">$MAYA_LOCATION</samp> 之前，请确保已将其设置为指向 Maya 安装目录 <span class="ph filepath">/usr/Autodesk/Maya&lt;版本号&gt;</span>。如果未设置 MAYA_LOCATION，请使用 Maya 安装目录的完整路径。 
+	 </p>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-703B18A2-89E5-48A8-988A-1ED815D5566F.htm">Python</a></div>
+</div>
+</div>
+
+</body>
+</html>

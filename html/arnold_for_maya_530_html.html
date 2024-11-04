@@ -1,0 +1,354 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_530_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_530">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 5.3.0 - Arnold for Maya">
+
+<title>5.3.0</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+<div class="head-block"><h1>5.3.0</h1></div><p>29 March 2023</p>
+<p>MtoA 5.3.0 introduces Arnold 7.2.0.0 and is a major feature release bringing improvements to volume shading and viewport rendering, support for Apple Silicon, and a more flexible physical sky that allows for separate sky and sun lights.</p>
+<h2 id="installation">Installation</h2><ul>
+<li><a href="https://manage.autodesk.com/products/MAYA" target="_blank">Download</a> the Arnold for Maya plugin</li>
+<li>Follow these installation instructions.</li>
+</ul>
+<h2 id="maya-plugins-compatibility">Maya Plugins Compatibility</h2><p>MtoA 5.3.0 works with the following Maya plugins:</p>
+<ul>
+<li><a href="https://help.autodesk.com/view/BIFROST/ENU/?guid=Bifrost_ReleaseNotes_release_notes_html" target="_blank">Bifrost Extension for Maya 2.7.0.0</a></li>
+<li><a href="https://github.com/Autodesk/maya-usd/releases/" target="_blank">MayaUSD 0.22.0</a></li>
+</ul>
+<h2 id="enhancements">Enhancements</h2><ul>
+<li><strong>Apple Silicon Support</strong> : Mtoa now supports Apple M1 chips for Maya 2024. In our tests, running natively on Apple M1 chips can give speedups of up to 1.45x compared to running with x86_64 Rosetta 2 translation. (MTOA-976)</li>
+</ul>
+
+<div class="gallery thumbnail-350">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/ac-rn-7140-m1_native_speedup.png" alt=""></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li><strong>Update available notification added to render settings</strong>: When a new MtoA is released, there is now an <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_render_settings_html">update-available notification</a> in the render settings. Clicking the notification  takes you to the release notes for the latest version of MtoA. (MTOA-1114)</li>
+</ul>
+
+<div class="gallery thumbnail-350">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/render_settings_ui.png" alt=""></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li><strong>Allow sky radiance to be turned off in physical_sky</strong>: A new parameter has been added to <code>physical_sky</code> to allow you to disable the sky contribution, allowing for <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_texture_am_Physical_Sky_html">separate lights for sun and sky</a>. (MTOA-1266)</li>
+</ul>
+
+<div class="gallery thumbnail-350">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/desert_no_ship.jpg" alt=""></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li><strong>Expose texture_auto_tx_path</strong>: The <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Textures_settings_html">TX Path</a> parameter allows you to use a local directory to save automatically generated .tx files. (MTOA-1271)</li>
+<li><strong>Update volume presets to use emission scaling</strong>: Presets for the <code>aiVolumeShader</code> have been updated and added for the new bifrost aero shading. (MTOA-1254)</li>
+<li><strong>Viewport render shows current render status</strong> : Rendering in the viewport now displays the current status of the render, for example, GPU shaders being compiled.(MTOA-1105)</li>
+</ul>
+
+<div class="gallery thumbnail-350">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/avp_001.png" alt=""></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li><p><strong>Support MikkT normals in Maya 2024</strong> : MtoA in Maya 2024 supports the new MikkT tangents that can be exported. (MTOA-1183)</p>
+</li>
+<li><p><strong>TX Manager displays nodes in texture list</strong> : the TX Manager can now display the scene nodes that use a texture and the colorspace they are set to. (MTOA-1283)</p>
+</li>
+<li><p><strong>Display current render state in Arnold Render View status bar</strong>. The Render view now displays the current status of the render process in the bottom status bar. (ARNOLD-12291)</p>
+</li>
+<li><p><strong>Colorspace included in TX filename</strong>: AutoTX-generated files now include the original extension and the texture and rendering color spaces in the filename. For example, running AutoTX on <code>my_texture.jpg</code> with an sRGB color space and ACEScg rendering color space would produce: <code>my_texture_sRGB_ACEScg.jpg.tx</code>. Textures that are not supposed to have colorspace changes get the tag <code>raw</code>, such as <code>my_texture_raw.jpg.tx</code>. (ARNOLD-11919)</p>
+</li>
+<li><p><strong>Faster node init/update</strong>: The node init and update time is now faster. We have seen speedups of up to 20%. (ARNOLD-12870)</p>
+</li>
+<li><p><strong>Improved many-core volume scaling</strong>: Rendering performance of volumes has been improved on certain many-core machines. The Disney cloud on a dual Intel Xeon Linux machine (56 total logical cores) now renders 1.4x faster. (ARNOLD-13004)</p>
+</li>
+<li><p><strong>Support up to 1024 CPU cores</strong>: <code>AI_MAX_THREADS</code> has been increased from 256 to 1024, which allows Arnold to now create up to 1024 threads for full CPU utilization on machines with up to 1024 cores. (ARNOLD-11015, ARNOLD-12967, ARNOLD-12997)</p>
+</li>
+<li><p><strong>Instancer light linking</strong>: If a light is linked to a shape and both are instanced, then the instancer now preserves this link within instances. This means the first light instance is linked to the first shape instance, the second light instance to the second shape instance, and so on. (ARNOLD-12929)</p>
+</li>
+<li><p><strong>polymesh.smoothing defaults to true</strong>: The default setting for polymesh.smoothing (smoothed normals) is now true across the core and plugins. Previously it was disabled in the core and only some plugins. (ARNOLD-11688)</p>
+</li>
+<li><p><strong>Remove warning about using tiled with deep_exr</strong>: We no longer warn about using tiled with deep_exr. (ARNOLD-12887)</p>
+</li>
+<li><p><strong>Improved many-core OCIO performance</strong>: Rendering performance when using OCIO has been improved (for example when using 8-bit textures, textures in a different colorspace to the rendering colorspace and not using AutoTX, or shading operations that require colorspace transforms). This can result in an up to 20% reduction in rendering time especially when using multi-socket systems. (ARNOLD-12912)</p>
+</li>
+<li><p><strong>Better autobump visibility masking</strong>: We can now also disable autobump on camera and shadow rays. These used to be treated as always enabled. For scenes with non-opaque objects, disabling autobump on shadow rays can give up to a 50% speed up, usually without changing the look. (ARNOLD-8863)</p>
+</li>
+</ul>
+<h2 id="usd-enhancements">USD Enhancements</h2><ul>
+<li><p><strong>MaterialX displacement shaders</strong>: MaterialX displacement shaders are now interpreted correctly. <a href="https://github.com/Autodesk/arnold-usd/issues/1366" target="_blank">usd#1366</a></p>
+</li>
+<li><p><strong>Arnold shader metadata</strong>: We now register all Arnold shader metadata in the Sdr registry. Before only the Help and Role metadata were passed to the registry. <a href="https://github.com/Autodesk/arnold-usd/issues/13900" target="_blank">usd#1390</a></p>
+</li>
+<li><p><strong>AutoTX environment variable</strong>: <code>HDARNOLD_auto_generate_tx</code> can be set to override the default AutoTX behaviour in the render delegate. <a href="https://github.com/Autodesk/arnold-usd/issues/1353" target="_blank">usd#1353</a></p>
+</li>
+<li><p><strong>Driver options in the RenderProduct primitive</strong>: It is now possible to set the driver options in the RenderProduct primitive using attribute names prefixed with the driver name in the Arnold namespace. For example <em>arnold:driver_jpeg:quality</em> will set the quality when rendering with the jpeg driver. <a href="https://github.com/Autodesk/arnold-usd/issues/1346" target="_blank">usd#1346</a></p>
+</li>
+</ul>
+<h2 id="api-additions">API Additions</h2><ul>
+<li><p><strong>Load/Read, Write, and Resize image API changes</strong>: The Image API functions introduced in 7.1.4 now also take an optional <code>AtParamValueMap</code> so that in the future we can add or change parameters to these functions without breaking the API. Currently there are no parameters these functions expect.
+Additionally, <code>AiLoadImage()</code> has been deprecated and replaced with the more appropriately named <code>AiReadImage()</code>; functionally they do the same thing. (ARNOLD-12937)</p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint"> bool AiReadImage(const char* filename, const uint8_t format, AtImage&amp; image, AtParamValueMap* params = nullptr);
+ bool AiWriteImage(const char* filename, const AtImage&amp; image, AtParamValueMap* params = nullptr);
+ bool AiResizeImage(const AtImage&amp; inImage, AtImage&amp; outImage, AtParamValueMap* params = nullptr);</code></pre>
+</li>
+<li><p><strong>Specify connected inputs in AiMaterialxGetOslShaderCode</strong>: The new optional <code>connected_input</code> parameter enables client code to specify input connection on a MaterialX node reference. This is needed for Geometry Property input connections like UV coordinates, to prevent them from being removed from the generated OSL code. (ARNOLD-12712)</p>
+</li>
+<li><p><strong>New API to get the name of the TX file generated for a given texture</strong>: TX file names now  include the color spaces and the extension of the original file, so we added AiTextureGetTxFileName to allow client code to get the exact name of the generated TX file. (ARNOLD-12970)</p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint"> AtString AiTextureGetTxFileName(const char* filename, AtString texture_color_space, AtString render_color_space, const AtUniverse* universe);</code></pre>
+</li>
+<li><p><strong>Enable/disable crash handler for the session</strong>: The new function <code>AiSetSystemHandlers()</code> and the environment variable <code>ARNOLD_SYSTEM_HANDLER_MASK</code> allow users to mask the Arnold built-in system handlers. The supported masks are listed in <code>AtSystemHandlerMask</code> and allow all handlers to be enabled or disabled.  (ARNOLD-13014)</p>
+</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible Changes</h2><ul>
+<li><p><strong>Arnold 7.2.0.0 breaks binary compatibility</strong>: Shaders, procedurals, and other plugins compiled against older versions of Arnold are not compatible with this version of Arnold and need to be updated and recompiled.</p>
+</li>
+<li><p><strong>Autodesk Network Licensing version</strong> : Arnold 7.2 switches to <code>ARNOL_2024</code> licensing. (ARNOLD-12833)</p>
+<ul>
+<li>Single-user subscriptions will work with Arnold 7.2. The plugin installers automatically register the new version. If you do not use a plugin, then after you download Arnold, open the Arnold License Manager and click <em>Register</em>.</li>
+<li>Existing network licenses will not work with Arnold 7.2. Log on to your Autodesk account to generate your new <code>ARNOL_2024</code> licenses.</li>
+<li>Autodesk Network License Manager (NLM) servers must be updated to version 11.18.</li>
+</ul>
+</li>
+<li><p><strong>AiLoadImage</strong>:  <code>AiLoadImage()</code> has been deprecated and replaced with the more appropriately named <code>AiReadImage()</code>; functionally they do the same thing. (ARNOLD-12937)</p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint"> inline AI_DEPRECATED bool AiLoadImage(const char* filename, const uint8_t format, AtImage&amp; image)
+ {
+    return AiReadImage(filename, format, image, nullptr);
+ }</code></pre>
+</li>
+<li><p><strong>Removed deprecated functions</strong>: The following previously deprecated functions have now been removed. (ARNOLD-12938)</p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint"> // replace with init() as there is no benefit to specifying an init bound
+ void AtBBox::init(float bound);
+
+ // replace with AtMutex
+ void AiCritSecInit(AtCritSec* cs);
+ void AiCritSecInitRecursive(AtCritSec* cs);
+ void AiCritSecClose(AtCritSec* cs);
+ void AiCritSecEnter(AtCritSec* cs);
+ void AiCritSecLeave(AtCritSec* cs);
+
+ // Replace with variants that specify the universe or render session
+ int AiDeviceSelect(AtDeviceType device_type, const AtArray* device_ids);
+ int AiDeviceAutoSelect();
+ AtDeviceType AiDeviceGetSelectedType();
+ const AtArray* AiDeviceGetSelectedIds(AtDeviceType device_type);
+
+ int AiASSWrite(const char* filename, int mask = AI_NODE_ALL, bool open_procs = false, bool binary = true);
+ int AiASSWriteWithMetadata(const char* filename, int mask = AI_NODE_ALL, bool open_procs = false, bool binary = true, const AtMetadataStore* mds = NULL);
+ int AiASSLoad(const char* filename, int mask = AI_NODE_ALL);
+
+ void AiMsgSetLogFileFlags(int flags);
+ void AiMsgSetConsoleFlags(int flags);
+ int AiMsgGetLogFileFlags();
+ int AiMsgGetConsoleFlags();
+
+ AtNode* AiNode (const AtString nentry_name, const AtString name = AtString(), const AtNode* parent = NULL);
+ AtNode* AiNodeLookUpByName (const AtString name, const AtNode* parent = NULL);
+ AtNode* AiNode (const char* nentry_name, const char* name = "", const AtNode* parent = NULL);
+ AtNode* AiNodeLookUpByName (const char* name, const AtNode* parent = NULL);
+
+ bool AiOpSetTarget(AtNode* node);
+ AtNode* AiOpGetTarget();
+
+ AtSessionMode AiGetSessionMode();
+ void AiRenderAddInteractiveOutput(uint32_t output_index);
+ bool AiRenderIsInteractiveOutput(uint32_t output_index);
+ bool AiRenderRemoveInteractiveOutput(uint32_t output_index);
+ void AiRenderRemoveAllInteractiveOutputs();
+ void AiRenderSetInteractiveOutput(uint32_t output_index);
+ uint32_t AiRenderGetInteractiveOutput();
+
+ bool AiRenderSetHintBool(AtString hint, bool value);
+ bool AiRenderSetHintInt(AtString hint, int32_t value);
+ bool AiRenderSetHintFlt(AtString hint, float value);
+ bool AiRenderSetHintStr(AtString hint, AtString value);
+ bool AiRenderSetHintArray(AtString hint, AtArray *value);
+ bool AiRenderGetHintBool(AtString hint, bool&amp; value);
+ bool AiRenderGetHintInt(AtString hint, int32_t&amp; value);
+ bool AiRenderGetHintFlt(AtString hint, float&amp; value);
+ bool AiRenderGetHintStr(AtString hint, AtString&amp; value);
+ bool AiRenderGetHintArray(AtString hint, const AtArray*&amp; value);
+
+ AtRenderErrorCode AiRender(AtRenderMode mode = AI_RENDER_MODE_CAMERA);
+ AtRenderErrorCode AiRenderBegin(AtRenderMode mode = AI_RENDER_MODE_CAMERA, AtRenderUpdateCallback update_callback = NULL, void* callback_private_data = NULL);
+ AtRenderErrorCode AiRenderEnd();
+ AtRenderStatus AiRenderGetStatus();
+ void AiRenderInterrupt(AtBlockingCall blocking = AI_NON_BLOCKING);
+ void AiRenderAbort(AtBlockingCall blocking = AI_NON_BLOCKING);
+ void AiRenderResume();
+ void AiRenderRestart();
+ bool AiRendering();
+
+ bool AiUniverseIsActive();
+ bool AiUniverseCacheFlush(int cache_flags);
+ AtNode* AiUniverseGetOptions();
+ AtNode* AiUniverseGetCamera();
+ AtBBox AiUniverseGetSceneBounds();
+ AtNodeIterator* AiUniverseGetNodeIterator(unsigned int node_mask);
+ AtAOVIterator* AiUniverseGetAOVIterator();</code></pre>
+</li>
+<li><p><strong>Removed min_optix_denoiser_sample option</strong>: Removed the deprecated and redundant <code>min_optix_denoiser_sample</code> option. (ARNOLD-11714)</p>
+</li>
+<li><p><strong>Removed non-functioning <code>kick -of</code> flag</strong>: <code>kick -of</code> was removed because it was never able to actually change the output file type. The one thing it could properly do was to output the output file types Arnold can write to, however that functionality can already be reproduced through <code>kick -nodes | grep driver_</code>. (ARNOLD-12857)</p>
+</li>
+<li><p><strong>autobump visibility masking</strong>: Camera ray visibility must now be explicitly set (before, camera ray visibility was enabled regardless of the autobump_visibility setting). Existing scenes that use autobump_visibility may need to enable camera ray visibility. (ARNOLD-8863)</p>
+</li>
+<li><p><strong>License Manager log folder changed on Linux</strong>: License Manager application and diagnostic logs are now stored under the ~/.autodesk folder on Linux. (ARNOLD-12993)</p>
+</li>
+<li><p><strong><code>kick -nostdin</code> replaced with <code>-stdin</code></strong>: kick no longer automatically reads from stdin, because in the past, waiting for input from stdin caused problems with some tools. If you want kick to read from stdin, use the new <strong>-stdin</strong> flag.  (ARNOLD-6908)</p>
+</li>
+</ul>
+<h2 id="bug-fixes">Bug Fixes</h2><ul>
+<li><p>MTOA-1294 - TX Manager doesn't support image sequences</p>
+</li>
+<li><p>MTOA-1256 - Render Sequence should create arnold batch sessions</p>
+</li>
+<li><p>MTOA-1253 - Command port opened on mtoa load</p>
+</li>
+<li><p>MTOA-1247 - Disable autotx for swatches</p>
+</li>
+<li><p>MTOA-1238 - Mayapy 2022 crashes when you load MtoA on Linux</p>
+</li>
+<li><p>MTOA-1216 - Render Settings : Offset Origin moves instanced objects twice</p>
+</li>
+<li><p>MTOA-1206 - Render Settings : Offset Origin affects 3D Texture rendering</p>
+</li>
+<li><p>MTOA-1053 - Multiple outputs are ignored on inline OSL shaders</p>
+</li>
+<li><p>MTOA-758  - Arnold Attributes in Extra Attributes for Maya Lights </p>
+</li>
+<li><p>MTOA-1035 - StandIn bounding box not getting updated properly</p>
+</li>
+<li><p>ARNOLD-12712 - Modifying texcoords in USD doesn't work with Arnold</p>
+</li>
+<li><p>ARNOLD-12982 - [LicenseManager] Support tool fails to install on Linux and macOS when running Diagnostics</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1383" target="_blank">usd#1383</a> - Relative search paths with UDIM and attribute tags are now correctly passed to Arnold</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1380" target="_blank">usd#1380</a> - Crash when updating a MaterialX shader in Solaris</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1372" target="_blank">usd#1372</a> - Primitives with an empty purpose attribute are now handled correctly</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1334" target="_blank">usd#1334</a> - Skip curves with empty radius </p>
+</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2><ul>
+<li>Maya 2022, 2023 or 2024</li>
+<li>Windows 10 or later, with the Visual Studio 2019 redistributable.</li>
+<li>Linux with at least glibc 2.17 and libstdc++ 4.8.5 (gcc 4.8.5). This is equivalent to RHEL/CentOS 7.</li>
+<li>x86-64 CPUs need to support the SSE4.1 instruction set. </li>
+<li>macOS 10.13 or later, macOS 11 and later for Maya 2024</li>
+<li>Apple Mac models with M series chips:<ul>
+<li>Natively supported by Arnold for Maya 2024</li>
+<li>Supported under Rosetta 2 mode for older versions of Maya</li>
+</ul>
+</li>
+<li>GPU rendering works on Windows and Linux only and requires an NVIDIA GPU of the Ampere, Turing, Volta, Pascal, or Maxwell architecture. We recommend using the <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">525.89 or higher drivers</a> on Linux and <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">528.49, or higher</a> on Windows. See  Arnold GPU for more information.</li>
+<li>For GPU rendering, the cache also needs to be re-populated after installing a new Arnold version, <strong>updating to a new NVIDIA driver</strong> , or changing the hardware configuration of GPUs on the system. More information can be found here.</li>
+<li>Optix™ denoiser requires an NVidia GPU with <a href="https://developer.nvidia.com/cuda-gpus" target="_blank">CUDAâ„¢ Compute Capability 5.0</a> and above.</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_5x_html.html">MtoA 5.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

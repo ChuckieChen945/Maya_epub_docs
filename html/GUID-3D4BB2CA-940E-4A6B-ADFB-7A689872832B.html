@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B">
+<meta name="language" content="CHS">
+<title>在传统渲染层中循环使用渲染图像以节省时间</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>在传统渲染层中循环使用渲染图像以节省时间</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE5291242"><div class="note note" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__GUID-4DA43FF0-4F06-43CE-9E59-A607326B3AFA"><span class="notetitle">注：</span> 提供的<strong class="ph b">新渲染设置系统</strong>现已取代传统渲染层，是 Maya 中的<strong class="ph b">默认系统</strong>。这种新方法可简化复杂场景的管理以便进行渲染，如今已成为建议的工作流。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-646154F9-E4D2-4A3E-A0D9-B2F062960A4E.htm">Maya 渲染设置</a>。 
+	 </div>
+<p class="p" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__WS73099CC142F487553B93539F117EA10CE8F6602"> 如果您的 Maya 场景包含不止一个渲染层，您可以为已完成层循环使用渲染图像。这就无需重新渲染可以重用的层，从而节省渲染时间。 
+	 </p>
+<p class="p" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__WS73099CC142F487553B93539F117EA10CE8F6604">可以在以下情况之一使用该功能： 
+	 </p>
+<ol class="ol" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__WS73099CC142F487553B93539F117EA10CE8F6605"><li class="li" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__WS73099CC142F487553B93539F117EA10CE8F6606">例如，如果场景中有五个层，同时其中的 4 个层已经处理好，但还有 1 个层仍需处理。 
+		  <p class="p" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__WS73099CC142F487553B93539F117EA10CE8F6607">在这种情况下，可以保持四个已完成层的渲染输出，同时仅渲染正在处理的那个层。与渲染所有五个层相比，这会大大缩短渲染时间。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__WS73099CC142F487553B93539F117EA10CE8F6608">所有层都很精细，但是您需要在合成时重新排序它们。 
+		</li>
+<li class="li" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__WS73099CC142F487553B93539F117EA10CE8F6609">所有层都很精细，但是您需要更改一个或多个层的融合运算符（例如，将阴影过程模式从<span class="ph uicontrol" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__GUID-E4728850-EA17-4196-AD76-CFF224118BC5">法线”(Normal)</span>更改为<span class="ph uicontrol" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__GUID-29A9EA9D-8285-4289-9115-E602183D3A8A">“变暗”(Darken)</span>）。 
+		  <p class="p" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__WS73099CC142F487553B93539F117EA10CE8F660A">在第二种和第三种情况下，可以保持所有层的渲染输出。与重新渲染场景中的每个层相比，仅重新排序层并合成它们的渲染速度更快。 
+		  </p>
+ 
+		</li>
+</ol>
+<p class="li listintro" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__WS73099CC142F487553B93539F117EA10CE8F660C">循环使用一个或多个层的渲染输出</p>
+<ol class="ol" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__WS73099CC142F487553B93539F117EA10CE8F660B"><li class="li" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__WS73099CC142F487553B93539F117EA10CE8F660D">渲染一个层。其循环使用图标将从灰色更改为红色。 
+		</li>
+<li class="li" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__WS73099CC142F487553B93539F117EA10CE8F660E">单击要保持的层。单击循环使用图表 <img class="image" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__IMAGE_29ED1A31E0894448BF5F10549A544D8A" width="18" height="16" src="../images/GUID-7CAF8B3E-8707-4254-B5F8-30F55A402663.png"> 将其从红色切换为绿色。将重用该层的最后一个渲染输出图像，同时该层将不会被重新渲染。 
+		  <p class="p" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__WS73099CC142F487553B93539F117EA10CE8F660F">对所有希望循环使用渲染输出的层重复该操作。 
+		  </p>
+ 
+		  <div class="note note" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__WS73099CC142F487553B93539F117EA10CE8F6610"><span class="notetitle">注：</span>  
+			 <ul class="ul" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__WS73099CC142F487553B93539F117EA10CE8F6611"><li class="li" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__WS73099CC142F487553B93539F117EA10CE8F6612">循环使用图标显示为灰色，直到层已被渲染至少一次。绿色循环使用图标会保存渲染图像，并可加快重新合成的速度，而红色循环使用图标将强制在合成之前重新渲染。 
+				</li>
+<li class="li" id="GUID-3D4BB2CA-940E-4A6B-ADFB-7A689872832B__WS73099CC142F487553B93539F117EA10CE8F6613">仅针对 Maya 当前会话将渲染输出保留在内存中。在退出 Maya 当前会话后，所有渲染输出将丢失。 
+				</li>
+</ul>
+ 
+		  </div>
+ 
+		</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-706EEFC4-77FD-4B0B-8BD6-3C28AB812719.htm">使用传统渲染层</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_BOSS_Simulation_BOSS_create_spectral_waves_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>create_spectral_waves</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>create_spectral_waves</code></h1></div><p>此节点计算二维栅格上的频谱波模拟，并将其输出到二维波对象中，该对象可用于使几何体发生位移或用作其他模拟（例如泡沫）的输入。二维模拟的范围由边界特性定义。如果启用了 <code>periodic</code>，则在这些边界之外无缝重复操作。</p>
+<h2 id="">输入</h2><h2 id="global-properties"><code>Global Properties</code></h2><h3 id="periodic"><code>periodic</code></h3><p>在空间中重复显示波浪图案。这样可以使用较小的面片对较大的网格平面进行变形，但平铺的重复可能会很明显。</p>
+<h3 id="space_scale"><code>space_scale</code></h3><p>X 和 Z 各方向上面片的线性比例因子。如果值介于 0 和 1.0 之间，则收缩结果；如果值大于 1.0，则展开结果。如果在缩放后波移动过快或过慢，您可以调整 <code>gravity</code>。</p>
+<h3 id="speed_scale"><code>speed_scale</code></h3><p>缩放模拟的总体速度。值为 1.0 表示适合面片大小的速度，以米为单位（忽略 Maya 单位设置），并且假定重力为 9.8。</p>
+<h3 id="frequency_spectra_type"><code>frequency_spectra_type</code></h3><p>从频率和方向的各种已发布频谱中选择。请注意，可用模型基于在不同条件下得出的测量值，并非每个组合都适用于任何给定情况。您可能需要调整 <code>wave_height</code>、<code>space_scale</code> 和其他属性，具体取决于频谱类型。所有频率模型都受 <code>wind_speed</code>、<code>short_scale_cutoff</code> 和 <code>long_scale_cutoff</code> 影响，但 <strong>Pierson</strong>、<strong>Krylov</strong> 和 <strong>Curve</strong> 不使用 <code>fetch</code>。</p>
+<ul>
+<li><p><code>Pierson-Moskowitz</code>：<strong>Pierson-Moskowitz</strong> 频谱是一种具有均匀连续频率的简单模型，模拟充分完善的开阔海洋，其中波浪长时间受风影响。</p>
+</li>
+<li><p><code>Jonswap</code>：这是 <strong>Pierson-Moskowitz</strong> 频谱，这种频谱还另外考虑吹程（即风吹的距离）。这样，它便可用于未充分完善的海洋状态。</p>
+</li>
+<li><p><code>Modified-Jonswap</code>：此模型采用修改的频谱，其高频波往往比 Jonswap 强，适用于模拟更汹涌的海洋。</p>
+</li>
+<li><p><code>Krylov</code>：<strong>Krylov</strong> 频谱是为描述暴风雨条件下的波频谱而开发的模型，考虑了不断变化的风速。在较大风速下，大波浪占主导地位，并且在较小频率下，可能会趋于平滑。</p>
+</li>
+<li><p><code>Davidan</code>：此模型类似于 <strong>Krylov</strong>，但具有不同的强度分布，这可能会导致出现更多大比例涌浪。</p>
+</li>
+<li><p><code>TMA</code>：TMA (Texel-Marsen-Alrose) 频谱可基于各种海洋深度、吹程和风速值创建逼真的效果。这是模型的最常规用途。</p>
+</li>
+<li><p><code>Multipeak</code>：此模型结合了一些主频谱，对比较复杂、不完全均匀的海洋状态进行建模。</p>
+</li>
+<li><p><code>Curve</code>：此模型根据波频率缩放波振幅。短波长接近零位置，较长波长位于右侧。从左到右的有用范围通常介于 0 和 2 之间，但非常大的涌浪超出该范围。在强风下，水平线表示将创建类似于 Pierson 的均匀分布。</p>
+</li>
+</ul>
+<h3 id="frequency_spectra"><code>frequency_spectra</code></h3><p>在 <code>frequency_spectra_type</code> 设置为 <strong>Curve</strong> 时，可使用此项创建自定义波频率分布。较小波位于左侧，较长波位于右侧。</p>
+<h3 id="directional_spectra_type"><code>directional_spectra_type</code></h3><p>此项根据与风向的角度控制波浪的幅值。除 <strong>Curve</strong> 和 <strong>Pierson</strong> 外的所有模型都另外受风速和吹程的影响。</p>
+<ul>
+<li><p><code>Pierson</code>：这是一种简单的均匀分布，波浪往往向所有方向移动，而不是沿风向移动。</p>
+</li>
+<li><p><code>Jonswap</code>：与 <strong>Pierson</strong> 相比，此分布更加集中在风向周围，并且另外受风速和吹程的影响。</p>
+</li>
+<li><p><code>Mitsuyasu</code>：此模型根据风速和吹程等因素在不同频率下变得更具方向性。吹程越低，往往越具有方向性。</p>
+</li>
+<li><p><code>Krylov</code>：Krylov 模型专门用于暴风雨条件。它往往是相当泛向的，并且主要生成大比例波浪。</p>
+</li>
+<li><p><code>Vonmises</code>：这是一种专用分布，受风速影响非常大，往往更适用于无暴风雨的浅海。它具有适度的方向性。</p>
+</li>
+<li><p><code>Hyperbolic</code>：此分布往往主要集中在风向上。</p>
+</li>
+<li><p><code>DoublePeak</code>：此分布具有几个相对于风向的主导方向，适用于比较复杂的海洋条件。</p>
+</li>
+<li><p><code>Curve</code>：此模型根据与风向的角度缩放波振幅。曲线范围 0-1 映射到相对于风向的角度 0-180 度。水平线表示将在所有方向上创建相同的波浪。</p>
+</li>
+</ul>
+<h3 id="directional_spectra"><code>directional_spectra</code></h3><p>在 <code>directional_spectra_type</code> 设置为 <strong>Curve</strong> 时，可使用此项创建自定义波方向分布。沿风向移动的波浪位于零位置，沿相反方向移动的波浪位于 1.0 位置。</p>
+<h3 id="seed"><code>seed</code></h3><p>此值用于初始化伪随机数生成器。更改此值可生成具有相同总体特征的不同结果。</p>
+<h3 id="resolution_x"><code>resolution_x</code></h3><p>模拟的 X 分辨率。值越大，细节越精细，但计算速度越慢，并且使用的内存也越多。它应为 2 的幂次方，例如 128、256、512、1024。</p>
+<h3 id="resolution_z"><code>resolution_z</code></h3><p>模拟的 Z 分辨率。值越大，细节越精细，但计算速度越慢，并且使用的内存也越多。它应为 2 的幂次方，例如 128、256、512、1024。</p>
+<h2 id="simulation"><code>Simulation</code></h2><h3 id="gravity"><code>gravity</code></h3><p>由重力产生的加速度。默认值 9.8 表示地球表面的重力强度（以 m/s² 为单位）。值越小，产生的波浪越高且移动速度越慢，值越大，产生的波浪越低且移动速度越快。可以调整此值以更改比例。</p>
+<h3 id="ocean_depth"><code>ocean_depth</code></h3><p>用于计算波浪运动的水深。在浅水中，波浪往往较长、较高及较慢。</p>
+<h3 id="wave_height"><code>wave_height</code></h3><p>波高度的人为倍增。如果值介于 0.0 和 1.0 之间，则降低波高度，如果值大于 1，则增加波高度。</p>
+<h3 id="use_horizontal_displacement"><code>use_horizontal_displacement</code></h3><p>使网格的顶点在水平方向和垂直方向发生位移。这会导致波的形状更尖锐、更不圆滑。它启用 wave_peaking。</p>
+<h3 id="wave_peaking"><code>wave_peaking</code></h3><p>启用了 <code>use_horizontal_displacement</code> 时，此项控制相对于 <code>wave_height</code> 的水平位移量，这将产生尖波。可调整此值以避免输出网格中出现自相交。值大于 1.0 时，往往会产生自相交。普通水波是摆线形状，波浪越高，也就越尖。</p>
+<h3 id="capillary_size"><code>capillary_size</code></h3><p>毛细波（曲面张力传播的较小、较快的涟漪，有时可在重力传播的较大波浪顶部看到）的最大波长（厘米）。毛细波通常仅在比例较小且分辨率较高的情况下可见，因此在许多情况下，可以让此值保留为 0.0 以避免执行不必要的计算。</p>
+<h3 id="drift_velocity_in_xz"><code>drift_velocity_in_xz</code></h3><p>修改波浪运动以使其行为就像是水按指定的速度移动。这样可以在流动的水（例如，河流或气流）上创建波浪。</p>
+<h3 id="short_scale_cutoff"><code>short_scale_cutoff</code></h3><p>要包含在计算中的最小波长。</p>
+<h3 id="long_scale_cutoff"><code>long_scale_cutoff</code></h3><p>要包含在计算中的最大波长。</p>
+<h2 id="wind"><code>Wind</code></h2><h3 id="wind_speed"><code>wind_speed</code></h3><p>生成波浪的风的速度。微风可能在 2 m/s 左右，飓风可达到 30 m/s 或更高（但请注意，这么高的风速需要非常大的面片才能包含最长和最高的波浪）。</p>
+<h3 id="wind_direction"><code>wind_direction</code></h3><p>生成波浪的风的方向。0 为 -X 方向。90 为 -Z 方向。180 为 +X 方向。270 为 +Z 方向。</p>
+<h3 id="wind_fetch_distance"><code>wind_fetch_distance</code></h3><p>风应用于水面时的距离（千米）。距离较小时，波浪往往会较短、较低及较慢。超过阈值距离（取决于风速、海洋深度和其他因素）时，波浪会充分完善，其总体特征不会发生显著变化。</p>
+<h2 id="bounds"><code>Bounds</code></h2><p>边界确定要计算的水面在 X 和 Z 方向上的尺寸。模拟仅限于此区域，但如果启用了“periodic”，则输出波将在此区域之外无缝环绕。</p>
+<h3 id="bounds_method"><code>bounds_method</code></h3><p>此项确定如何为模拟定义边界。</p>
+<ul>
+<li><p><code>Min_Max</code>：边界由特性 <code>min_bound</code> 和 <code>max_bounds</code> 确定</p>
+</li>
+<li><p><code>Size_Center</code>：边界由特性 <code>size</code> 和 <code>center</code> 确定</p>
+</li>
+<li><p><code>From_Geometry</code>：边界由连接到 <code>bounds_geometry</code> 的几何体确定</p>
+</li>
+</ul>
+<h3 id="min_bound"><code>min_bound</code></h3><p>模拟在 X 和 Z 方向上的最小范围。（当 <code>bounds_method</code> 为 <code>Min_Max</code> 时）</p>
+<h3 id="max_bound"><code>max_bound</code></h3><p>模拟在 X 和 Z 方向上的最大范围。（当 <code>bounds_method</code> 为 <code>Min_Max</code> 时）</p>
+<h3 id="size"><code>size</code></h3><p>模拟在 X 和 Z 方向上的总体大小（当 <code>bounds_method</code> 为 <code>Size_Center</code> 时）</p>
+<h3 id="center"><code>center</code></h3><p>模拟边界在 X 和 Z 方向上的中心位置（当 <code>bounds_method</code> 为 <code>Size_Center</code> 时）</p>
+<h3 id="bounds_geometry"><code>bounds_geometry</code></h3><p>当 <code>bounds_method</code> 设置为 <code>From_Geometry</code> 时，边界由连接到 <code>bounds_geometry</code> 的对象的 xz 边界确定。连接几何体（基于点的对象）。这可以是任何点对象或网格。</p>
+<h2 id="multi-fft-simulation"><code>Multi FFT Simulation</code></h2><p>可以生成多个具有不同旋转和大小的波模拟，以便在采样时创建无限海洋，而不会重复产生瑕疵。此外，每个附加的模拟都有不同的随机种子。</p>
+<h3 id="enable_multi_fft"><code>enable_multi_FFT</code></h3><p>如果启用此项，则将计算多个波模拟。否则，out_wave 数组将仅包含一个元素。</p>
+<h3 id="simulation_count"><code>simulation_count</code></h3><p>这是要计算的模拟数。out_wave 数组的大小由此确定。</p>
+<h3 id="rotate_step"><code>rotate_step</code></h3><p>每个附加的模拟都将按此步长值旋转。</p>
+<h3 id="size_step"><code>size_step</code></h3><p>每个附加的模拟都将按此值增大。值为负时模拟将缩小。边界会增大，但频率和缩放的比例相同。</p>
+<h2 id="output-options"><code>Output Options</code></h2><h3 id="output_slope"><code>output_slope</code></h3><p>如果启用此项，输出波将具有坡度几何特性，即波的 XZ 坡度（无波峰）。</p>
+<h3 id="output_velocity"><code>output_velocity</code></h3><p>如果启用此项，输出波将具有速度几何特性，即曲面上的 XYZ 速度。 </p>
+<h2 id="">输出</h2><h3 id="out_wave"><code>out_wave</code></h3><p>这是二维图像格式的一组波数据。可以将其连接到 wave_displace 等节点，使几何体发生位移。可以使用 <code>sample_wave_property</code> 从此波采样其特性（例如 <code>displacement</code>、<code>displacement_derivatives</code>、<code>slope</code> 和 <code>velocity</code>），以获得三维点数组。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_BOSS_html.html">BOSS</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

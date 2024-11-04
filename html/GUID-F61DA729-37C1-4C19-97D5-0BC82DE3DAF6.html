@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6">
+<meta name="language" content="CHS">
+<title>nParticle 疑难解答</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>nParticle 疑难解答</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS17956D7ADBC6E7361A342C07117AE3124CC-7F82"><div class="section" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2F10"><h2 class="title sectiontitle">粒子点渲染类型在一些计算机上不能硬件渲染正确的大小 </h2>
+
+<p class="p" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2F0F"> 当渲染类型设定为<span class="ph uicontrol" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__GUID-E1593250-9BC4-470F-9843-1D5D49E3B5C7">“点”(Points)</span>或<span class="ph uicontrol" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__GUID-B63BFA01-AB4C-4DBB-8AEB-306946FD26C8">“多点”(Multipoint)</span>并且启用<span class="ph uicontrol" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__GUID-774432C8-4249-486F-8F07-ADA31B9D26F0">“线平滑”(Line Smoothing)</span>时，点大小受系统上图形卡的限制。请参见图形卡的硬件规格。 </p>
+
+</div>
+<div class="section" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS17956D7ADBC6E7361A342C07117AE3124CC-7F81"><h2 class="title sectiontitle">worldVelocity 和目标方向</h2>
+
+<p class="p" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2F0D"> 不能使用 worldVelocity 属性作为实例的目标方向。 </p>
+
+<p class="p" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2F0B">解决方法 </p>
+
+<p class="p" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2F0A">将粒子变换作为标识并使用速度属性。 </p>
+
+</div>
+<div class="section" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2F09"><h2 class="title sectiontitle">在表达式中使用 rand() 时，磁盘缓存和非磁盘缓存之间的粒子系统可能具有不一致的结果</h2>
+
+<p class="p" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2F07">解决方法 </p>
+
+<p class="p" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2F06">对随机数设定种子。例如，if (frame &lt; 2) seed (1)。 </p>
+
+</div>
+<div class="section" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS17956D7ADBC6E7361A342C07117AE3124CC-7F80"><h2 class="title sectiontitle">启用了线平滑的点和多点类型的渲染方式有所不同 </h2>
+
+<p class="p" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2F05">启用和禁用线平滑时，渲染为“透明对象”的粒子的显示有所不同，即使采用相同的不透明度值。 </p>
+
+<p class="p" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2F04">解决方法 </p>
+
+<p class="p" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2F03">将不透明度属性添加到粒子形状。（如果启用了几何体遮罩，则这样做将没有影响，因为所有粒子始终都是透明的。）调整不透明度值以获得您所需的外观。 </p>
+
+</div>
+<div class="section" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS17956D7ADBC6E7361A342C07117AE3124CC-7F7F"><h2 class="title sectiontitle">粒子上的着色器辉光可能会闪烁 </h2>
+
+<p class="p" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2F02"> 解决方法 </p>
+
+<ul class="ul" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2F00"><li class="li" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2EFF">对渲染质量增加粒子采样属性。 </li>
+<li class="li" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2EFE">对着色器辉光节点增加分辨率参数。 </li>
+</ul>
+
+</div>
+<div class="section" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2EFD"><h2 class="title sectiontitle">父粒子隐藏时发射粒子的位置不正确</h2>
+
+<p class="p" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2EFC">如果粒子 A 发射粒子 B 并且粒子 A 使用场或发射对它设置了任何动画，则粒子 A 隐藏时，发射的粒子 B 粒子的位置将不正确。 </p>
+
+<p class="p" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2EFB">解决方法 </p>
+
+<p class="p" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2EFA">使粒子 A 可见，但为它指定值为 0 的不透明度属性。 </p>
+
+</div>
+<div class="section" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS17956D7ADBC6E7361A342C07117AE3124CC-7F7E"><h2 class="title sectiontitle">“活动”属性的表达式可能导致求值失败</h2>
+
+<p class="p" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2EF9">“活动”属性的表达式可能导致刚体解算器中的求值失败 </p>
+
+<p class="p" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2EF8">解决方法 </p>
+
+<p class="p" id="GUID-F61DA729-37C1-4C19-97D5-0BC82DE3DAF6__WS1A9193826455F5FF-6D855556117FACF922E-2EF7">使用相应菜单项为活动属性设置关键帧。 </p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-AEBE18A1-C2C8-4830-B600-8C8690979A35.htm">nParticle 工作流</a></div>
+</div>
+</div>
+
+</body>
+</html>

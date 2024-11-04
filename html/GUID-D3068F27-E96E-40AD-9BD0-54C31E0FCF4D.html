@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D">
+<meta name="language" content="CHS">
+<title>融合变形节点和属性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>融合变形节点和属性</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p">创建融合形变变形器（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-7413C450-603C-4EAD-AF70-465D4EAE5973.htm">创建融合形变变形器</a>）时，会为其创建融合变形节点和调整节点。这些节点在场景的依存关系图中显示为基础对象的形状节点的输入，如<span class="ph uicontrol" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__GUID-7B3D4488-B88A-4126-9F90-01C924241DFE">“通道盒”(Channel Box)</span>中所示。 
+	 </p>
+<p class="p">有关与融合形变变形器关联的节点和属性的信息，请参见此图下面的表。 
+	 </p>
+<div class="p"> 
+		<div class="fig fignone" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__FIG_1F90E491DCB7476C81F6D9DE341C3AFC"><img class="image" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__IMAGE_F302147FDEE34B04B72E732BFBDC4CF8" src="../images/GUID-41084015-3739-4868-B17F-4FD6A1647E30.png"></div>
+ 
+	 </div>
+<div class="p"> 
+	 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__TABLE_36C4E706019141799A4D67BCCD8084D0" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="25%"> 
+				</th>
+<th class="entry" valign="top" width="75%"> 
+				</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="25%">1 - 变形顺序 
+				</td>
+<td class="entry" valign="top" width="75%"> 
+				  <p class="p" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__WS1A9193826455F5FF6026605B1181C8F4F2E-3377">所有变形器的堆叠顺序（称为<em class="ph i" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__GUID-6997319E-494A-4ACD-B8F5-1819C7325961">“变形顺序”</em>）将确定 Maya 对其求值的顺序。这些变形器从堆栈底部开始求值。 
+				  </p>
+ 
+				  <p class="p" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__WS1A9193826455F5FF6026605B1181C8F4F2E-3374">通常，您可以根据需要将尽可能多的变形器应用于对象。 
+				  </p>
+ 
+				  <ul class="ul" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__UL_A28AB7FF41DB4EFF84CFBF1E70BC8671"><li class="li" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__LI_2428B68F7F3C4CED8E00ECF966402103">Maya 在原始形状节点的后面放置了一个调整节点 (tweak<em class="ph i" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__GUID-F363791E-6550-4A81-8143-79EFE4D46193">n</em>)，用于存储与原始形状的顶点偏移。 
+					 </li>
+<li class="li" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__LI_351B7A19B15A4D1DAC849A2FC59CE8B2">原始形状节点有时称为<em class="ph i" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__GUID-A08ABE5D-41F2-47A4-A3AF-D36F8BA92B7B">“中间对象”</em>。 
+					 </li>
+<li class="li" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__LI_6F359D2AF64646C8859EDCCD0108A7A3">Maya 通常按照变形器的创建顺序在调整节点上方放置用于执行变形的变形器节点，最新的变形器位于历史堆栈的顶部。顶部的变形器最后求值。 
+					 </li>
+<li class="li" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__LI_D5E4CEBF2B6142E79443A47AA7F5CEE4">最后，在所有变形器进行求值后，“形状”(SHAPES)列表中的“形状”(Shape)节点将提供基础对象的最终（变形）形状。 
+					 </li>
+</ul>
+ 
+				  <p class="p">由于变形顺序非常重要，因此您可以创建各种效果。例如，如果您先创建弯曲变形器，然后创建正弦变形器，则得出的结果与先创建正弦变形器、再创建弯曲变形器的结果不同。 
+				  </p>
+
+				  <p class="p">融合变形节点在对象历史中的顺序取决于创建时基础对象上的其他变形器，当您创建融合形变变形器时，可以在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-C954C197-6D56-4EB8-BEA0-70DD1BBBAD6B.htm">“融合变形选项”(Blend Shape Options)</a>中对其进行设置。 
+				  </p>
+ 
+				  <p class="p">此外，您还可以在创建后更改变形顺序（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-4374287D-A40D-48C1-8A1B-49FBF68EEF15.htm">更改变形顺序</a>），例如，通过将调整节点移动到融合变形节点上方，使其在融合形变变形之后解算。 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">2 - 融合变形节点 
+				</td>
+<td class="entry" valign="top" width="75%"> 
+				  <p class="p"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-9D06EE32-416C-47D8-93D4-0EFA13F9C836.htm">融合变形节点</a>是实际的融合形变变形器算法本身，并充当在其中创建的所有目标形状的“容器”。此节点将计算每个目标形状的影响物，然后插入这些值，得出使基础对象变形的融合变形。 
+				  </p>
+ 
+				  <p class="p">一个或一组对象上可以有多个融合变形节点。每个节点仅以加法计算自身相对于节点中其他目标形状的目标形状（即：每个形状的结果加在一起，不进行平均化或归一化）。 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">3 和 8 - 封套属性 
+				</td>
+<td class="entry" valign="top" width="75%"> 
+				  <p class="p" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__WS1A9193826455F5FF6026605B1181C8F4F2E-3D10">融合变形节点包括<span class="ph uicontrol">“封套”(Envelope)</span>属性，用于控制融合变形对基础对象的总体影响。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-C777B790-528D-4475-812E-CB059AF5E079.htm">缩放融合变形的影响</a>。还可以在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-3C92402C-B24E-4874-AC8D-EADF976A19DC.htm">“形变编辑器”(Shape Editor)</a>中编辑此属性。 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">4 和 7 - 带有权重滑块的目标形状 
+				</td>
+<td class="entry" valign="top" width="75%"> 
+				  <p class="p">融合变形节点包括<span class="ph uicontrol">“权重”(Weight)</span>属性，用于控制每个目标形状对融合变形的影响。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-CDC3D7EC-6D02-4319-A4E9-ACCC7ED47D30.htm">设置目标形状的权重</a>。还可以在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-3C92402C-B24E-4874-AC8D-EADF976A19DC.htm">“形变编辑器”(Shape Editor)</a>中编辑这些属性。 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">5 - 调整节点 
+				</td>
+<td class="entry" valign="top" width="75%"> 
+				  <p class="p">一旦为对象创建变形器（本例中是指融合形变变形器），就会为其创建<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-62896A44-870A-415E-8C06-5ADAC503D72B.htm">调整节点</a>。该节点通过存储对象的顶点位置信息来跟踪顶点的变换（变形）。这样可以确保在使对象变形时正确变换顶点。 
+				  </p>
+ 
+				  <p class="p">删除调整节点时，会擦除受变形影响的顶点的所有变换信息，这是从对象移除变形的一种简单方法。 
+				  </p>
+ 
+				  <p class="p">有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073.htm">对象上的点调整</a>。 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">6 - 融合变形属性选项卡 
+				</td>
+<td class="entry" valign="top" width="75%"> 
+				  <p class="p">融合变形节点包括可在<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中进行编辑的属性。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-9D06EE32-416C-47D8-93D4-0EFA13F9C836.htm#GUID-9D06EE32-416C-47D8-93D4-0EFA13F9C836__GUID-3D8F1182-5971-46D2-8D89-F67A5F9E471E">融合变形属性(Blend Shape Attributes)</a>。其中大部分属性也可在<span class="ph uicontrol">“通道盒”(Channel Box)</span>和<span class="ph uicontrol">“形变编辑器”(Shape Editor)</span>中找到。 
+				  </p>
+ 
+				</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__SECTION_729DE626364744CE855D9EF74E931019"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__UL_E348FDA5B6AD4CEBBFD6AE1D7AF6F7C9"><li class="li" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__LI_309D282E221F41D9970FE5EDDDA875D5"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-7413C450-603C-4EAD-AF70-465D4EAE5973.htm">创建融合形变变形器</a> 
+		  </li>
+<li class="li" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__LI_00414405991D43B191B25DD19BD79F41"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-9D06EE32-416C-47D8-93D4-0EFA13F9C836.htm">融合变形节点</a> 
+		  </li>
+<li class="li" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__LI_055BB426E4C84EA5B6AE2E97AD2514A2"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-62896A44-870A-415E-8C06-5ADAC503D72B.htm">调整节点</a> 
+		  </li>
+<li class="li" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__LI_16039F780BBB4B999705FB50673B5340"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-9D06EE32-416C-47D8-93D4-0EFA13F9C836.htm#GUID-9D06EE32-416C-47D8-93D4-0EFA13F9C836__GUID-3D8F1182-5971-46D2-8D89-F67A5F9E471E">融合变形属性(Blend Shape Attributes)</a> 
+		  </li>
+<li class="li" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__LI_0C384C2937134628A91F1B6639751363"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-CDC3D7EC-6D02-4319-A4E9-ACCC7ED47D30.htm">设置目标形状的权重</a> 
+		  </li>
+<li class="li" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__LI_632EED4B342F4198A4FB342C238E2BA0"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073.htm">对象上的点调整</a> 
+		  </li>
+<li class="li" id="GUID-D3068F27-E96E-40AD-9BD0-54C31E0FCF4D__LI_082929E4ABB74029A8F4A8F6D952E03B"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-4374287D-A40D-48C1-8A1B-49FBF68EEF15.htm">更改变形顺序</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-B8853C3F-2997-4DC2-95A0-7C43E45888E4.htm" title="形变创作为您提供了不同的工具来完成形状变形任务。 本部分包含有关使用融合变形、目标形状和基础形状以创建基本姿势变形的信息。">形变创作</a></div>
+</div>
+</div>
+
+</body>
+</html>

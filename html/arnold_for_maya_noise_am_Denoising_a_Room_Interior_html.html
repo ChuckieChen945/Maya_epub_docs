@@ -1,0 +1,248 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_noise_am_Denoising_a_Room_Interior_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_DENOISING_A_ROOM_INTERIOR">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 对房间内部进行降噪 - Arnold for Maya">
+
+<title>对房间内部进行降噪</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>对房间内部进行降噪</h1></div><p><img src="../images/am-Denoising_a_Room_Interior-room1080-1.jpg" alt=""></p>
+<p>本教程将介绍在巴黎式房间室内场景中减少噪波的各种方法。通常，需要大量的<em>漫反射</em>采样来减少内部的间接噪波。但是，如果使用大量的<em>漫反射</em>采样，渲染时间可能会大幅增加。因此，我们将了解如何通过降噪（<em>OptiX™ 降噪器</em>和 <em>Arnold 降噪器</em>）来减少噪波，而不必使用这么多的<em>漫反射</em>采样。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>降噪器考虑当前像素的相邻面片，并查找给定搜索区域内的类似相邻面片以便混合在一起。</p>
+
+</div></div>
+
+<p>使用 <em>skydome_light</em> 照亮房间（建议采样数至少为 3），且 <em>light_portals</em> 位于窗户外部。请注意，上面的最终图像使用的 <em>diffuse_ray_depth</em> 为 4，而下面的测试图像使用的 <em>diffuse_ray_depth</em> 为 1，因此显得较暗。另请注意，对于所有渲染，<em>摄影机 (AA)</em> 采样数已设置为 6。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p><em>OptiX™ 降噪器</em>更适合 IPR 渲染。</p>
+
+</div></div>
+
+<p><strong>要下载演示（使用 AOV）降噪的场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/denoise_test.zip" target="_blank">此处</a>。</strong></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关 <em>OptiX™ 降噪器</em>和 Arnold 降噪器的详细信息，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_rendering_am_Denoising_html">此处</a>。</p>
+
+</div></div>
+
+<h2 id="-2">漫反射采样数：2（默认值）</h2><p>现在，我们将使用默认的<em>漫反射<em>采样数 (2) 渲染场景。噪波非常严重，尤其是在左侧间接照亮的墙上。我们可以看到，</em>OptiX™ 降噪器*难以在使用如此低的 *diffuse_samples</em> 的情况下生成清晰图像。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Denoising_a_Room_Interior-denoiser-2-2.jpg" alt=""></td>
+<td><img src="../images/am-Denoising_a_Room_Interior-optix-denoiser-2-denoise-3.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用 Optix</td>
+<td>使用 Optix</td>
+</tr>
+</tbody></table>
+<p>Arnold 降噪器效果更好，但仍有一些“斑点”噪波可见，尤其是在间接照亮的墙上。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Denoising_a_Room_Interior-denoiser-2-4.jpg" alt=""></td>
+<td><img src="../images/am-Denoising_a_Room_Interior-denoiser-2-denoised-5.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用 Arnold 降噪器（默认设置）</td>
+<td>使用 Arnold 降噪器</td>
+</tr>
+</tbody></table>
+<h2 id="-5">漫反射采样数：5</h2><p>增加 <em>diffuse_samples</em> 数值可改善噪波。请注意，增加此值将增加渲染时间。但是，<em>OptiX™ 降噪器</em>仍无法很好地解决噪波问题。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/without_optix_denoiser_5_denoise.jpg" alt=""></td>
+<td><img src="../images/optix_denoiser_5_denoise.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用 Optix</td>
+<td>使用 Optix</td>
+</tr>
+</tbody></table>
+<p>Arnold 降噪器可生成更优质的图像。在大多数情况下，这已足够。我们将尝试进一步增加 <em>diffuse_samples</em> 数值，看看结果如何。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Denoising_a_Room_Interior-denoiser-5-8.jpg" alt=""></td>
+<td><img src="../images/without_denoiser_5_denoised.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用 Arnold 降噪器（默认设置）</td>
+<td>使用 Arnold 降噪器</td>
+</tr>
+</tbody></table>
+<h2 id="-10">漫反射采样数：10</h2><p>如果 <em>diffuse_samples</em> 设置为 10，我们将获得更加清晰的图像。但是，这将导致渲染时间显著增加。请注意 <em>OptiX™ 降噪器</em>如何影响窗户阳台的薄几何体。Arnold 降噪器可以更好地处理这些区域。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/without_optix_denoiser_10_denoise.jpg" alt=""></td>
+<td><img src="../images/optix_denoiser_10_denoise.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用 Optix</td>
+<td>使用 Optix</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Denoising_a_Room_Interior-denoiser-10-12.jpg" alt=""></td>
+<td><img src="../images/am-Denoising_a_Room_Interior-denoiser-10-denoised-13.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用 Arnold 降噪器</td>
+<td>使用 Arnold 降噪器</td>
+</tr>
+</tbody></table>
+<h2 id="arnold">Arnold 降噪器设置</h2><p>下面的示例图像显示了在使用默认 <em>diffuse_samples</em> (2) 的情况下更改某些 <a href="https://help.autodesk.com/display/A5ARP/Arnold+Denoiser">Arnold 降噪器</a>设置的效果。在本例中，默认的 Arnold 降噪器设置非常适合。</p>
+<h2 id="strong-variance-strong"><strong>方差(Variance)</strong></h2><p>过滤器的强度取决于方差参数，方差值越大，降噪效果越好。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/1_variance_0.2.jpg" alt=""></td>
+<td><img src="../images/2_variance_0.5.jpg" alt=""></td>
+<td><img src="../images/3_variance1_default.jpg" alt=""></td>
+</tr>
+<tr>
+<td>0.2</td>
+<td>0.5</td>
+<td>1（默认值）</td>
+</tr>
+</tbody></table>
+<h2 id="strong-pixel-search-radius-strong"><strong>像素搜索半径(Pixel Search Radius)</strong></h2><p>这是可以找到类似相邻面片的区域。值越高越好，但会增加降噪成本。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/1_pixel_search_radius_6.jpg" alt=""></td>
+<td><img src="../images/2_pixel_search_radius_9(default).jpg" alt=""></td>
+<td><img src="../images/3_pixel_search_radius_18.jpg" alt=""></td>
+</tr>
+<tr>
+<td>6</td>
+<td>9（默认值）</td>
+<td>18</td>
+</tr>
+</tbody></table>
+<h2 id="strong-pixel-patch-radius-strong"><strong>像素面片半径(Pixel Patch Radius)</strong></h2><p>这将提高降噪的柔和度（同时始终保留要素）。默认值为 3（在较大的一侧），但也可以使用较低值 0 或 1、中间值 3 以及较高值 5。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/1_pixel_patch_radius1.jpg" alt=""></td>
+<td><img src="../images/2_pixel_patch_radius3_default.jpg" alt=""></td>
+<td><img src="../images/3_pixel_patch_radius6.jpg" alt=""></td>
+</tr>
+<tr>
+<td>1</td>
+<td>3（默认值）</td>
+<td>6</td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Removing_Noise_html.html">去除噪波</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

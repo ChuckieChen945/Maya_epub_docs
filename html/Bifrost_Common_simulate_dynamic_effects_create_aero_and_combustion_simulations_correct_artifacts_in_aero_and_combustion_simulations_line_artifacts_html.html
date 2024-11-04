@@ -1,0 +1,83 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_simulate_dynamic_effects_create_aero_and_combustion_simulations_correct_artifacts_in_aero_and_combustion_simulations_line_artifacts_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>线条瑕疵</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>线条瑕疵</h1></div><p>某些 Aero 模拟可能会显示瑕疵，就好像细节程度非常高的线条噪波。要处理这些问题，请尝试下列方法。</p>
+<table>
+<thead>
+<tr>
+<th>噪波</th>
+<th>平滑</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/artifact-line-noise.png" alt="噪波线条瑕疵"></td>
+<td><img src="../images/artifact-line-smooth.png" alt="已平滑"></td>
+</tr>
+<tr>
+<td>沿中心在最大步数 = 30 时的噪波线条。</td>
+<td>最大步数 = 1 时的结果更平滑。</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>降低 <code>aero_solver_settings</code> 节点上的最大步数。</p>
+</li>
+<li><p>减小 <code>source_air</code> 节点上的 <code>fluid_detail_size</code>（如果可用的计算机内存和时间预算允许）。</p>
+</li>
+<li><p>如果 <code>aero_solver_settings</code> 节点上的 <code>style</code> 设置为 <code>busy</code>，请尝试将其设置为 <code>fluffy</code> 或 <code>wispy</code>。如果已设置为以上任一值，请尝试将其设置为 <code>smooth</code>。请注意，这也会降低细节量，因此它可能并非始终为合适的解决方案。</p>
+</li>
+<li><p>将 <code>aero_solver_settings</code> 节点上的 <code>velocity_smoothness</code> 设置为介于 0 和 1 之间的值。请先尝试一个非常小的数字，以避免流粘性过大。</p>
+</li>
+<li><p>有关与速度平滑相关的更多选项：</p>
+<ol>
+<li>将 <code>simulate_aero</code> 设置为可编辑，然后转到该节点。</li>
+<li>将 <code>solve_aero</code> 设置为可编辑，然后转到该节点。</li>
+<li>转到下一层的 <code>solve_aero</code> 复合。</li>
+<li>将 <code>solve_aero_substep</code> 设置为可编辑，然后转到该节点。</li>
+<li>调整 <code>solve_pressure</code> 节点上的 <code>velocityFilterType</code> 和 <code>numVelocityFilterIterations</code>。</li>
+</ol>
+</li>
+<li><p>如果自定义了默认图表并且要在模拟中添加高频率细节，请尝试平滑贡献，然后再添加它们。您可以使用 <code>smooth_voxel_property</code> 节点执行此操作，请确保将 <code>voxel_filter_width</code> 设置为 1 或更大。</p>
+</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/create-aero-and-combustion-simulations/Bifrost_Common_simulate_dynamic_effects_create_aero_and_combustion_simulations_correct_artifacts_in_aero_and_combustion_simulations_html.html">更正 Aero 和燃烧模拟中的瑕疵</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

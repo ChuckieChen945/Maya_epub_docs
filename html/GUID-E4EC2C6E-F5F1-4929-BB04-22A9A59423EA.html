@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA">
+<meta name="language" content="CHS">
+<title>关于 nParticle 内部渐变和每粒子属性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>关于 nParticle 内部渐变和每粒子属性</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-32E4"><p class="p" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__WS1A9193826455F5FF79F44A0A120254C3E48-722B">创建 nParticle 对象时，会连同创建自动连接到同一 nParticle 节点上相应的每粒子属性的内部渐变。内部渐变可用于控制如何将每粒子属性应用于 nParticle 对象，该属性包含在 nParticleShape 节点的<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-295CE8C5-78BC-433E-9CDA-67046FA36D5E">“属性编辑器”(Attribute Editor)</span>中。 </p>
+<p class="p" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__WS1A9193826455F5FF79F44A0A120254C3E48-722A">nParticleShape 节点和内部渐变之间的连接发生在同一节点上，而不是不同的节点之间。不存在到渐变纹理节点的外部连接。从比例输入列表的渐变中选择输入属性时会创建连接。 </p>
+<p class="p" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__WS1A9193826455F5FF79F44A0A120254C3E48-7227">例如，在<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-5238C91A-F800-4568-B1CB-07B7F59A03DA">“半径比例”(Radius Scale)</span>渐变上选择<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-1E0971C0-3754-4423-817A-BE5AECBDF791">“半径比例输入”(Radius Scale Input)</span>（如<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-20BAF615-127D-4888-86F4-947151964661">“归一化的年龄”(Normalized Age)</span>）时会更新动力学每粒子属性，并建立输入和输出连接。nParticle<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-2586E4CE-D115-49A2-B07B-04FC8F196885">“半径”(Radius)</span>现由渐变的输出决定，并根据其归一化的年龄基于每粒子应用于粒子。 </p>
+<div class="fig fignone" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__WS1A9193826455F5FF79F44A0A120254C3E48-7226"><img class="image" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__IMAGE_BA0EEAE757FA4B5396EE061FD62825F4" width="190" height="97" src="../images/GUID-D08C419D-9CED-453D-8F25-AA4A9731DAB9.png"></div>
+<p class="p" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__WS1A9193826455F5FF79F44A0A120254C3E48-7225">如果从<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-1854B63E-0D80-4DC9-B685-FC0C659B458A">“半径比例输入”(Radius Scale Input)</span>中选择<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-E837193D-C93B-443C-8866-DAB5ED1F4280">“禁用”(Off)</span>，则会断开输入和输出之间的连接，且如果输出属性是动态属性，则会将其删除。请注意，即使动态属性最初是使用某些其他方法创建的（如使用<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-0DE99CAA-09FF-46C6-BFA2-2A474B80B36C">“添加动态属性”(Add Dynamic Attributes)</span>），也会将其删除，。您可以查看<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-E24522C0-7FC9-4B93-9F0B-75970471CF99">“每粒子(数组)属性”(Per Particle (Array)Attributes)</span>以验证选定 nParticleShape 节点当前正使用的内部每粒子渐变。 </p>
+<div class="fig fignone" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__WS1A9193826455F5FF79F44A0A120254C3E48-7224"><img class="image" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__IMAGE_26FF83155C5E4562839F687C445B3D2A" width="402" height="204" src="../images/GUID-8F0BB0F8-4E66-4127-9997-CDBF05B327F7.png"></div>
+<p class="p" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__WS1A9193826455F5FF-12BA6B3A11A9C207460-637E">如果要使用表达式控制这些每粒子属性，则必须首先将其删除，方法是将各自渐变上的输入比例属性设定为<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-2450BD3B-0DE6-43C1-9C39-10970BBDD713">“禁用”(Off)</span>。 </p>
+<div class="section" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__WS1A9193826455F5FF79F44A0A120254C3E48-7223"><h2 class="title sectiontitle">nParticle 属性内部渐变</h2>
+
+<p class="p" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-52C9A64A-D50B-4474-89AD-381B5B7F4227">有关设定属性渐变的信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-6C102F00-86AC-4EA6-9357-A0C13A4BBB3B">使用渐变设定属性</a>。 </p>
+
+<p class="p" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-2B64F9AA-F44A-4D93-BB04-573C6C4EBBCF">有关在表达式中使用 nParticle 每粒子属性的信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-AA645B19-B8A4-429F-BBBA-0C1EF5512A84">了解每粒子属性和每对象属性</a>。 </p>
+
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__WS1A9193826455F5FF79F44A0A120254C3E48-7222" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="27.360611510791365%">内部渐变 </th>
+<th class="entry" valign="top" width="28.86690647482014%">每粒子属性 </th>
+<th class="entry" valign="top" width="43.77248201438849%">使用示例 </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="27.360611510791365%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-AE903597-6E73-42F5-A1EC-768EA0EAA547">半径比例(Radius Scale)</span>
+</td>
+<td class="entry" valign="top" width="28.86690647482014%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-44DD3FE4-77FC-418E-B4A8-0B5F1916FC32">radiusPP</span>
+</td>
+<td class="entry" valign="top" width="43.77248201438849%">将输入设定为<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-06F580C1-8E96-4435-AAB0-1589405D2C60">“年龄”(Age)</span>，这样粒子的大小就会随着年龄增大而减小。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-3130B434-C0D5-4FF7-94A4-7F056ADF712A#WS73099CC142F48755602CAF04118F18E7A07-63CB">半径比例</a>。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="27.360611510791365%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-2F38ACD3-2637-4C82-A126-96A3DAD17300">碰撞强度比例(Collide Strength Scale)</span>
+</td>
+<td class="entry" valign="top" width="28.86690647482014%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-D68BAF86-8C81-43C4-A415-35AB23C6D889">collideStrengthPP</span>
+</td>
+<td class="entry" valign="top" width="43.77248201438849%">将输入设定为<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-E72B99E0-1367-49FE-857A-EBFCCA0183D2">“半径”(Radius)</span>，这样小粒子就不会与其他 Nucleus 对象发生碰撞。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-3130B434-C0D5-4FF7-94A4-7F056ADF712A#WS1A9193826455F5FF2566FFD511FDE75E656796A">碰撞强度比例</a>。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="27.360611510791365%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-912531DD-7D4E-48E6-A26E-7B46BCDF2D9A">反弹比例(Bounce Scale)</span>
+</td>
+<td class="entry" valign="top" width="28.86690647482014%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-9BD20975-4894-48DE-87F7-C2A0B77D3BE5">bounceScalePP</span>
+</td>
+<td class="entry" valign="top" width="43.77248201438849%">将输入设定为<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-6C75482D-A074-411A-A23A-6848F6EBBDED">“速度”(Speed)</span>，这样快速移动的粒子在碰撞时就具有更大的转向或反弹。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-3130B434-C0D5-4FF7-94A4-7F056ADF712A#WS73099CC142F48755-381799D411F6FB5AF15-1F2D">反弹比例</a>。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="27.360611510791365%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-C5323218-F34F-43E0-911D-DAF2AE867FAD">摩擦力比例(Friction Scale)</span>
+</td>
+<td class="entry" valign="top" width="28.86690647482014%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-D3161912-ADB2-47B3-86B5-C450403D0643">frictionScalePP</span>
+</td>
+<td class="entry" valign="top" width="43.77248201438849%">将输入设定为<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-6B77525D-FBB0-4F32-B66E-5C3402356593">“速度”(Speed)</span>，这样快速移动的粒子在碰撞时就会不太倾向于阻碍相对运动。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-3130B434-C0D5-4FF7-94A4-7F056ADF712A#WS73099CC142F48755-381799D411F6FB5AF15-1EEA">摩擦力比例</a>。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="27.360611510791365%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-39BF7CCE-DFFC-4CA9-BD23-243CF333B817">粘滞比例(Stickiness Scale)</span>
+</td>
+<td class="entry" valign="top" width="28.86690647482014%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-8BA32338-1591-4845-95C0-71FC3E4CA6B2">stickinessScalePP</span>
+</td>
+<td class="entry" valign="top" width="43.77248201438849%">将输入设定为<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-21E30E0B-E016-42AF-AE91-4DF222012A36">“半径”(Radius)</span>，这样较大的粒子就会不太倾向于粘在其他 Nucleus 对象上。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-3130B434-C0D5-4FF7-94A4-7F056ADF712A#WS73099CC142F48755-381799D411F6FB5AF15-1EA7">粘滞比例</a>。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="27.360611510791365%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-419E2F9C-A36E-4DAB-BACF-92F9CBAE362E">质量比例(Mass Scale)</span>
+</td>
+<td class="entry" valign="top" width="28.86690647482014%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-138F7425-AD30-4B0F-AB3B-F45FFE90B674">质量(Mass)</span>
+</td>
+<td class="entry" valign="top" width="43.77248201438849%">将输入设定为<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-CB528595-A6BC-4471-A8D3-ECB3A2ED840B">“半径”(Radius)</span>，这样粒子越大质量就越大。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-12644447-E489-4FA5-B7F2-D02280CA368E.htm#GUID-12644447-E489-4FA5-B7F2-D02280CA368E__WS73099CC142F48755-381799D411F6FB5AF15-1E64">质量比例</a>。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="27.360611510791365%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-BB4D7115-D769-49C9-9BB0-603798D1B6AF">点场比例(Point Field Scale)</span>
+</td>
+<td class="entry" valign="top" width="28.86690647482014%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-E1589DB4-24FA-4AD4-9084-04D1119CDB8D">pointFieldScalePP</span>
+</td>
+<td class="entry" valign="top" width="43.77248201438849%">将输入设定为<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-E4C70DCE-E6B5-4D25-A246-046A56C6A6D9">“半径”(Radius)</span>，这样较大的粒子就会互相吸引或排斥。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-3130B434-C0D5-4FF7-94A4-7F056ADF712A#WS73099CC142F48755-381799D411F6FB5AF15-1E19">点场比例</a>。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="27.360611510791365%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-7E343B85-500C-496D-9439-F3B058D341AE">不透明度比例(Opacity Scale)</span>
+</td>
+<td class="entry" valign="top" width="28.86690647482014%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-83A6CBA7-E7DE-4023-8C44-157E62201828">OpacityPP</span>
+</td>
+<td class="entry" valign="top" width="43.77248201438849%">将输入设定为<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-DC94D2EE-7343-44FB-BE3C-3280A93BC1E0">“归一化的年龄”(Normalized Age)</span>，这样较旧的粒子就会逐渐褪色然后消失。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-3130B434-C0D5-4FF7-94A4-7F056ADF712A#WS73099CC142F48755-381799D411F6FB5AF15-E67">不透明度比例</a>。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="27.360611510791365%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-197E8DC0-4F11-4E30-9B0B-CFC2238508A0">颜色(Color)</span>
+</td>
+<td class="entry" valign="top" width="28.86690647482014%">无 </td>
+<td class="entry" valign="top" width="43.77248201438849%">将输入设定为<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-F8F1F3F3-9A9B-4645-A3AF-3324051174A3">“RandomizedID”</span>，这样可在粒子出生时为其随机指定颜色。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-3130B434-C0D5-4FF7-94A4-7F056ADF712A#WS73099CC142F48755-381799D411F6FB5AF15-E1C">颜色</a>。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="27.360611510791365%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-606A0D85-9221-4080-9E27-CA0F6CA742FB">白炽度(Incandescence)</span>
+</td>
+<td class="entry" valign="top" width="28.86690647482014%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-3585194E-212E-4C77-B6FB-C5FAF258E0E7">incandescencePP</span>
+</td>
+<td class="entry" valign="top" width="43.77248201438849%">将输入设定为<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-C32DD795-2ACB-4774-8399-86F1CE34BF5F">“归一化的年龄”(Normalized Age)</span>，这样从粒子进行发射的灯光的数量和颜色就会随着年龄增大而减小。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-3130B434-C0D5-4FF7-94A4-7F056ADF712A#WS73099CC142F48755-381799D411F6FB5AF15-E19">白炽度</a>。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="27.360611510791365%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-76E8E67C-4D11-4C8F-A48A-D4BD4BA34DC5">粘度比例(Viscosity Scale)</span>
+</td>
+<td class="entry" valign="top" width="28.86690647482014%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-5D8D5C28-42AA-4D6E-8436-396F1B1E5F1F">ViscosityScalePP</span>
+</td>
+<td class="entry" valign="top" width="43.77248201438849%">将输入设定为<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-D2FE8471-1DBB-4965-A7C5-A05CF927EF96">“归一化的年龄”(Normalized Age)</span>，这样就会像冷却熔岩流的效果一样使液体粒子年龄增大、粘度增加、液体流减速。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-0E076533-4FF6-41F9-A47B-9C16BD1C71D2.htm#GUID-0E076533-4FF6-41F9-A47B-9C16BD1C71D2__WS1A9193826455F5FF-6AB24494123382A9C4B-68B5">粘度比例</a>。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="27.360611510791365%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-7C79791A-1E97-4F0F-A649-9B41A5F8142B">曲面张力比例(Surface Tension Scale)</span>
+</td>
+<td class="entry" valign="top" width="28.86690647482014%">
+<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-44D4AF98-5AB6-4E95-9748-2EDD02E1463E">surfaceTensionScalePP</span>
+</td>
+<td class="entry" valign="top" width="43.77248201438849%">将输入设定为<span class="ph uicontrol" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__GUID-2B833C30-FC3B-45B6-B2B2-07D988E3C604">“速度”(Speed)</span>，这样快速移动的液体粒子可保持近距离，同时保持曲面到液体的距离。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-0E076533-4FF6-41F9-A47B-9C16BD1C71D2.htm#GUID-0E076533-4FF6-41F9-A47B-9C16BD1C71D2__WS1A9193826455F5FF-6AB24494123382A9C4B-6870">曲面张力比例</a>。 </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="section" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__WS1A9193826455F5FF-12BA6B3A11A9C207460-6385"><h2 class="title sectiontitle">相关主题</h2>
+
+<ul class="ul" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__WS1A9193826455F5FF-12BA6B3A11A9C207460-6384"><li class="li" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__WS1A9193826455F5FF-12BA6B3A11A9C207460-6383">
+<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-6C102F00-86AC-4EA6-9357-A0C13A4BBB3B">使用渐变设定属性</a>
+</li>
+<li class="li" id="GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA__LI_81CF9B4C47C1429C95E6B33CF08DC32E"> <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-AA645B19-B8A4-429F-BBBA-0C1EF5512A84">了解每粒子属性和每对象属性</a> </li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-605198E6-CC3F-427D-B510-DE21870A1DE4.htm">nParticle 概念</a></div>
+</div>
+</div>
+
+</body>
+</html>

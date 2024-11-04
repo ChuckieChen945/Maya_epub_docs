@@ -1,0 +1,67 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_simulate_dynamic_effects_create_aero_and_combustion_simulations_control_flames_and_smoke_for_combustion_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>控制燃烧的火焰和烟</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>控制燃烧的火焰和烟</h1></div><p>默认情况下，燃烧模拟会生成易燃气体的爆炸火球。您可以调整它们的设置以生成各种不同的场景，例如篝火或蜡烛火焰。</p>
+<h2 id="">比例很重要</h2><p>发射源和其他对象的大小对火焰外观有很大影响。应根据场景的建模比例调整 <code>aero_solver_settings</code> 节点上的 <code>scene_units_in_meters</code>。例如，如果在场景中 1 个栅格单位表示 1 厘米，则将此值设置为 0.01。</p>
+<h2 id="">控制火焰高度</h2><p>要使燃烧模拟看起来更像燃烧的固体燃料，而不太像火球，可以控制火焰的大小和高度。可以通过多种方法达到这种效果，即使用以下技术的不同组合：</p>
+<ul>
+<li>减小 <code>combustion_settings</code> 节点上的 <code>expansion_scale</code>。这可减弱燃烧的爆炸性质。</li>
+<li>增加 <code>combustion_settings</code> 节点上的 <code>radiative_cooling</code>。较冷的气体不会快速上升，但请注意，这会生成更多烟尘和更浓的烟。您也可以增加 <code>temperature_diffusion</code>，但这往往会使结果变得平滑。</li>
+<li>降低 <code>aero_solver_settings</code> 节点上的 <code>buoyancy</code> 的幅值。这也可降低热气的上升速度。</li>
+<li>减小 <code>source_fuel</code> 节点上的 <code>burn_rate</code>。这可减少生成的热量。您可能需要平衡 <code>burn_rate</code> 与 <code>radiative_cooling</code> 以保持持续的火焰。降低 <code>ignition_temperature</code> 有助于达到效果。</li>
+</ul>
+<h2 id="">控制烟</h2><p>有几种设置有助于控制烟量。</p>
+<ul>
+<li><code>combustion_settings</code> 节点上的 <code>soot_formation_rate</code> 直接影响烟尘量（显示为烟）。请注意，将此值设置为 0 或禁用 <code>emit_soot</code> 会使模拟不可见，因为烟尘存储在 <code>voxel_fog_density</code> 通道中 - 在 <code>source_air</code> 节点上将 <code>fog_density</code> 设置为大于 0 的值可重新显示模拟。</li>
+<li>在 <code>combustion_settings</code> 节点上启用 <code>oxidize_soot</code> 可消除一部分烟。请注意，这也会影响火焰大小和热量。您可能需要平衡 <code>soot_oxidation_rate</code> 与 <code>oxygen_diffusion</code> 以达到所需的火焰高度。</li>
+</ul>
+<h2 id="">使用火焰点燃燃料</h2><p>您可以使用一个燃料源点燃另一个燃料源，就像使用火柴点火。</p>
+<p>要执行该操作，需要两个单独的 <code>source_air</code> 和 <code>source_fuel</code> 节点链：第一个用于已在燃烧的源，第二个用于稍后点燃的源。其中每个都应连接到 <code>simulate_aero</code> 节点的 <code>sources</code> 输入。</p>
+<p>为了防止第二个燃料源立即点燃，应调整其设置，以使 <code>source_air</code> 节点上的 <code>temperature</code> 低于 <code>source_fuel</code> 节点上的 <code>ignition_temperature</code>。</p>
+<p>在场景中为第一个源设置动画，以使其非常靠近或接触第二个源。<code>combustion_settings</code> 节点上的两个参数控制第二个源的点燃方式：</p>
+<ul>
+<li><code>radiative_heating</code> 控制燃料因邻近源而升温的快慢程度。</li>
+<li><code>flame_propagation_speed</code> 控制点燃后火扩散的快慢程度。</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_create_aero_and_combustion_simulations_html.html">创建 Aero 和燃烧模拟</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

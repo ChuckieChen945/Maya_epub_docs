@@ -1,0 +1,58 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-MayaPlugin">
+  <meta name="topicid" content="Bifrost_MayaPlugin_bifrost_usd_in_maya_share_layers_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>在 Bifrost-USD 和适用于 Maya 的 USD 之间共享层</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>在 Bifrost-USD 和适用于 Maya 的 USD 之间共享层</h1></div><p>Bifrost-USD 和适用于 Maya 的 USD 使用匿名（基于内存）层连接。默认情况下，适用于 Maya 的 USD 使用由 Bifrost-USD 输出的根层副本。您可以强制 Bifrost-USD 和 适用于 Maya 的 USD 使用相同的层来节省内存，但这样做会产生重要的后果。</p>
+<p>将后台文件作为新端口连接到 Bifrost 图表的 <code>output</code> 节点时，会自动在场景中创建 Maya USD 代理并将其连接到图表输出。默认情况下，Bifrost 后台文件作为代理的不可共享层的子层包含其中。</p>
+<p><img src="../images/empty_bifrost_stage_in_layer_editor.png" alt="不可共享层中的 Bifrost 后台文件"></p>
+<p>不可共享层用于存储在 Maya 中所做的更改。例如，如果从 Maya 视口的 Bifrost 后台文件移动对象，或者选择变量，那么这些更改将作为覆盖存储在不可共享层中。</p>
+<p>这种机制是必需的，这样在 May a中所做的更改才能在您处理图表时持久存在。这是因为每次对图表重新求值时，它都会在内存中生成一个新的后台文件。如果您在 Maya 中所做的更改在共享层中，它们将会丢失。</p>
+<p>但是，Maya 的 Bifrost 后台文件副本需要额外的内存。如果您不需要在 Maya 和 Bifrost 之间来回工作，可以强制它们共享同一层以节省内存。例如，如果您使用 Bifrost-USD 创建要从 USD 文件直接加载到其他场景的程序内容，则会出现这种情况。</p>
+<p>强制适用于 Maya 的 USD 和 Bifrost-USD 在内存中使用同一层：</p>
+<ol>
+<li>在大纲视图中选择 Maya USD 代理。</li>
+<li>在 Maya 属性编辑器的 <code>mayaUsdProxyShape</code> 选项卡上，启用<strong>“后台文件”(Stage)</strong>属性组中的<strong>“可共享”(Shareable)</strong>。</li>
+</ol>
+<p>Maya 的 USD 层编辑器显示 Bifrost 中的层现在已共享：</p>
+<p><img src="../images/shared_stage_in_layer_editor.png" alt="不可共享层中的 Bifrost 后台文件"></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-MayaPlugin/files/Bifrost_MayaPlugin_bifrost_usd_in_maya_html.html">Maya 中的 Bifrost-USD</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

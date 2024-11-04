@@ -1,0 +1,139 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shading_am_Incandescent_Metal_Material_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_INCANDESCENT_METAL_MATERIAL">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 白炽灯金属材质 - Arnold for Maya">
+
+<title>白炽灯金属材质</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>白炽灯金属材质</h1></div><p><img src="../images/am-Incandescent_Metal_Material-poster-1.png" alt=""></p>
+<p>本简单教程演示如何创建白炽灯金属材质。它使用各种着色器，如连接到 <em>standard_surface</em> 着色器的 <em>emission_color</em> 的 <em>facing_ratio、范围、相乘</em>和 <em>cell_noise</em>。非常感谢 <a href="https://cgrenderdna.blogspot.com/" target="_blank">Slava Sych</a> 为本教程提供的帮助。</p>
+<p><strong>有关本教程中使用的着色器，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/incandescent-material-user-guide.ma" target="_blank">此处</a>。</strong></p>
+<h2 id="">标准曲面</h2><p>创建一个 <em>standard_surface</em> 着色器，并将其指定给您的模型。</p>
+<ul>
+<li>将 <em>metalness</em> 增大到 1</li>
+</ul>
+<h2 id="">单元噪波</h2><p>创建 <em>cell_noise</em> 着色器 <em>(cell_noise1)</em>，并更改以下参数：</p>
+<ul>
+<li><p><em>图案(Pattern)<em>：</em>worley2</em></p>
+</li>
+<li><p><em>相加(Additive)</em>：启用</p>
+</li>
+<li><p><em>倍频程(Octaves)</em>：4</p>
+</li>
+<li><p><em>间隙度(Lacunarity)</em>：1.76</p>
+</li>
+<li><p><em>振幅(Amplitude)</em>：0.72</p>
+</li>
+<li><p><em>缩放</em> XYZ(Scale XYZ)：25 25 25（请记住，<em>缩放</em>值取决于模型的大小）。</p>
+</li>
+</ul>
+<h2 id="range3">范围着色器 (range3)</h2><p>创建一个<em>范围</em> 着色器，并将其连接到 <em>standard_surface</em> 着色器的 <em>base_weight。</em> 将 <em>cell_noise</em> 着色器连接到 <em>range3</em> 的<em>“输入”(Input)</em>。更改以下参数：</p>
+<ul>
+<li><p><em>input_min</em>：0.249</p>
+</li>
+<li><p><em>output_min</em>：0.3</p>
+</li>
+<li><p><em>output_max</em>：0.7</p>
+</li>
+<li><p><em>平滑步长</em>：启用</p>
+</li>
+</ul>
+<h2 id="range2">范围着色器 (range2)</h2><p>创建另一个范围着色器，并更改以下参数：</p>
+<ul>
+<li><p><em>input_min</em>：0.3</p>
+</li>
+<li><p><em>input_max</em>：0.7</p>
+</li>
+<li><p><em>output_min</em>：0.1</p>
+</li>
+<li><p><em>平滑步长</em>：启用</p>
+</li>
+</ul>
+<h2 id="bump2d">Bump2D</h2><p>创建 <em>bump2D</em> 着色器，并将 <em>bump_height</em> 更改为 0.02。将<em>范围</em> 着色器 <em>(range2)</em> 连接到 <em>bump2d</em> 着色器中的 <em>bump_map，</em> 并将 <em>bump2d</em> 着色器连接到 <em>standard_surface</em> 着色器的<em>法线</em>。</p>
+<h2 id="">正面比</h2><p>创建一个 <em>facing_ratio</em> 着色器，并更改以下参数：</p>
+<ul>
+<li><p><em>偏差</em>：0.6</p>
+</li>
+<li><p><em>增益</em>：0.48</p>
+</li>
+<li><p><em>线性</em>：启用</p>
+</li>
+<li><p><em>反转</em>：启用</p>
+</li>
+</ul>
+<h2 id="">颜色校正</h2><ul>
+<li>创建一个 <em>color_correct</em> 着色器。将输入颜色 RGBA 更改为：2.9642 0.5212 0 1</li>
+</ul>
+<p>将 <em>facing_ratio</em> 着色器和 <em>color_correct</em> 着色器连接到<em>相乘</em>着色器 (multiply1)。</p>
+<h2 id="range4">范围着色器 (range4)</h2><p>创建另一个<em>范围</em>着色器，并更改以下参数：</p>
+<ul>
+<li><p><em>input_min</em>：0.249</p>
+</li>
+<li><p><em>input_max</em>：0.484</p>
+</li>
+<li><p><em>output_min</em>：0.7</p>
+</li>
+<li><p><em>output_max</em>：1</p>
+</li>
+<li><p>启用<em>“平滑步长”(Smoothstep)</em></p>
+</li>
+</ul>
+<p>将 <em>cell_noise</em> 着色器 (cell_noise1) 连接到<em>范围</em> 着色器 <em>(range4)</em> 的输入。</p>
+<p>创建一个<em>相乘</em> 着色器 <em>(multiply2)。 * 将 *multiply1</em> 连接到 <em>multiply2</em> 的<em>“输入 1”(Input 1)。</em><br>将<em>范围</em> 着色器 <em>(range4)</em> 连接到 <em>multiply2</em> 的<em>“输入 2”(Input 2)</em>。</p>
+<h2 id="range-1">范围着色器 (range 1)</h2><p>创建一个<em>范围</em> 着色器。</p>
+<ul>
+<li>将 <em>output_max</em> 更改为 3。</li>
+</ul>
+<p>将<em>相乘</em> 着色器 <em>(multiply2)</em> 连接到<em>范围</em> 着色器 <em>(range1)</em> 的输入。对于较高的颜色强度值，需要这样。</p>
+<p>将<em>范围</em> 着色器 <em>(range1)</em> 连接到 <em>standard_surface</em> 着色器的 <em>emission_color</em>。</p>
+<p>现在，可以使用 <em>emission_weight</em> （0 到 1）控制白炽度。如果您需要更高强度，请在<em>范围*着色器 *(range1)</em> 中增加 <em>output_max</em> 值。</p>
+<p><strong><img src="../images/am-Incandescent_Metal_Material-image2019-3-27-10-47-6-2.png" alt=""></strong></p>
+<p><sub><strong>最终的着色网络</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Shading_html.html">着色</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

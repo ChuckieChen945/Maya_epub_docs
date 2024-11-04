@@ -1,0 +1,195 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Modeling">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F">
+<meta name="language" content="CHS">
+<title>UV 映射提示</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>UV 映射提示</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B751181C40F14B3235">Maya 提供了许多功能，支持轻松创建和编辑 UV 纹理坐标，以纹理映射多边形和细分曲面。<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-73BF7546-3BF2-44F3-9192-15A024CEC173.htm"><span class="ph uicontrol" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__GUID-71222363-2E15-4A7E-BEDA-493085974B2F">UV 编辑器</span></a>（<span class="ph uicontrol" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__GUID-FEA01D40-8C5E-4E35-B591-22A5537AE9D8">“UV &gt; UV 编辑器”(UV &gt; UV Editor)</span>）是排列和排布 UV、以实现最佳纹理的的主要工具。 
+	 </p>
+<p class="p" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B751181C40F14B3236"> 了解如何排列 UV 纹理坐标（取决于是使用 UV 作为导向生成新纹理、还是调整 UV 以最佳方式适配现有图像）是一项要掌握的重要技能。最佳排列不仅取决于要应用的纹理类型，而且还取决于您是在创建渲染图像、还是在创建交互式游戏模型。 
+	 </p>
+<div class="section" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__SECTION_7142954C6FF640D8BEFA9DC63754D8E0"><h2 class="title sectiontitle">整体 UV 映射策略</h2> 
+		 
+		<p class="p"> 您可以使用多种方法映射 3D 对象，所有这些方法以不同的方式平衡优化（而不是最大限度地减少）拉伸/收缩。以下是其中三种最常见的策略及其用途。 
+		</p>
+ 
+		<div class="section" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__SECTION_60520F6D548D42ECB5992B98CB7C40E8"><h3 class="title sectiontitle">高度优化的 UV 映射</h3> 
+		   
+		  <p class="p"> 一个极端的例子是高度优化的 UV 贴图，专门用于实时图形。最终目标是尽量覆盖尽可能小的贴图。处理移动/多边形相对较少的图形时，资产非常有限，在这种情况下，最常使用高度优化的 UV 贴图，但它也可用于最新一代图形，因为将纹理加载到图形内存中是一项繁重的工作。Texel 密度会经常变化，可以根据需要有目的地创建拉伸和收缩。可以镜像（沿平面或在径向方向上）的每个壳通常彼此堆叠。此外，壳垂直定位在 U/V 方向上，而且形状不规则的壳会切成更小的部分。不要担心拉直边界壳，这样可以将壳更紧密地压缩在一起，使其可放入 0 到 +1 的 UV 空间内。此外，对于移动图形，如果您只需要一个方向（例如，渐变）甚至是一个点（如果只需要一种颜色）中的信息，请考虑将壳的 UV 挤压到一条线段中。 
+		  </p>
+ 
+		  <p class="p">有关详细信息，请参见下面的<span class="ph uicontrol">优化</span>部分。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__SECTION_5C7901C943E14B75BFEFC60D263C51D1"><h3 class="title sectiontitle">技术 UV 映射</h3> 
+		   
+		  <p class="p"> 另一个极端是技术 UV 映射。如果模型要用于预渲染图形、技术演示或宣传材料，最常使用此方法。像素纵横比十分重要，而纹理空间和优化则不太重要。所有壳具有相同的 Texel 密度，并且您尽量消除拉伸和收缩，这一点很重要。此外，通常还对网格的不同部分使用多个大型 UV 贴图（称为多平铺 UV 映射）。但是，并非所有预渲染艺术都将需要 UV 贴图，因为通常也对不同材质使用程序 3D 纹理。请始终与您的艺术总监/艺术主管联系，确保确实需要 UV 贴图。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__SECTION_B87A3F3A92D74EB99790710AFCA02F9C"><h3 class="title sectiontitle">连续 UV 映射</h3> 
+		   
+		  <p class="p"> 介于前两个极端之间。处理更高细节的有机模型（例如，角色或树）时，最常使用此方法。重点是减少接缝的数量并保持壳中的 Texel 密度。由于所有形状不规则的 UV 壳，很难实现高度优化，但不要完全忽视优化。 
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__SECTION_97375D9D5B2B48EC8E16A55B81B1637F"><h2 class="title sectiontitle">优化</h2> 
+		 
+		<div class="p"> 除非是为技术模型或 VFX 资产进行映射，否则您需要考虑优化，这将提高性能并减少内存使用量。下面是一些技巧： 
+		<ul class="ul" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__UL_6296631F10604348A053D0F511A01067"><li class="li" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__LI_BD626D92E4E844C284D2F1E925E7E7C4"> 考虑模型的哪些部分将对摄影机可见、可见频率和可见距离。首先将所有 UV 壳设置为均匀 Texel 密度，然后根据这些因素放大或缩小。例如，如果您要处理带有机械瞄准具的 FPS 武器，则瞄准镜部分的密度应该最高，枪支右前侧的密度最低。 
+		  </li>
+<li class="li" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__LI_1CF1555035204D19BD5388D44506FD4A"> 对称映射：处理对称网格时，您可以将沿平面甚至是在径向方向上镜像的壳彼此堆叠，使其参考纹理的相同部分。但在执行此操作时，请仔细考虑受影响的壳将接收何种类型的环境光遮挡阴影（如果使用 AO）。如果您将某种形式的文本或徽标放在模型的一侧，但不希望该侧镜像到另一侧，请考虑镜像除带徽标的区域外的整个壳。有时，您甚至可以围绕此徽标添加额外的几何体，以便裁切掉壳的这一特定部分，使大型壳中的其他所有对象均可堆叠。若要简化对称映射，请在执行排布前将网格切成两半。 
+		  </li>
+<li class="li" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__LI_FB715EA9FDF040679186CF502C03EB4D">分治策略：通过先将最大和形状最不规则的壳放入 UV 范围（0 到 1），开始排布 UV 壳。另外还要考虑使用除 1:1 外的其他比率（例如，2:1 甚至是 4:1），因为纹理贴图的形状根本不会影响纹理处理。从一角开始逐渐转向对角，并尝试保持布局比率不变。这样，如果最终剩余的 UV 空间太小或太大，您可以直接选择整个 UV 布局并进行缩放。 
+		  </li>
+<li class="li" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__LI_05460656FE7E435481B603EDCA40982A"> 以下因素会导致将纹理加载到图形内存中的速度减慢：纹理中的通道数量（RGBA 的开销是灰度的 4 倍）、纹理中的像素数量以及资产使用的纹理贴图数量。后者非常重要。处理环境艺术时，强烈建议您使用纹理贴图集。 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__SECTION_87E7F221A44E4B6DA35B1BC2097AEE4C"><h2 class="title sectiontitle">壳间距</h2> 
+		 
+		<div class="p">壳间距是指 UV 壳之间的空间量（也称为壳填充）。提到壳间距，需要注意以下几点： 
+		<ul class="ul" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__UL_A0C47DA6E96E4F15BB7E8CEB60D30319"><li class="li" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__LI_E38E239FFAF74B008FD84E504913F88D"> 纹理溢出：纹理溢出是指一个 UV 壳内部的颜色信息因纹理过滤而溢出到另一个 UV 壳中。通常，最好至少在所有 UV 壳周围保留 2 个像素，使到纹理贴图边界的边距为 2px 且 UV 壳之间的边距为 4px。但是，这仅适用于纹理的最终版本。如果引擎进一步减小纹理贴图的大小，则您需要增加该填充。 
+		  </li>
+<li class="li" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__LI_E770B5D7D4424C01903ABE1B80A54931"> 如果正在使用 LOD 模型，则每个 LOD/Mipmap 步长需要两倍的壳间距。例如：如果资产具有 3 倍 LOD 步长且原始纹理大小为 2048px，则在最小 Mipmap 级别上，纹理只有 512px。在这种情况下，对于 512px、1024px、2048px 纹理，壳之间需要的间距分别为 4px、8px、16px。因此，在进行排布时，您需要确保壳之间的距离至少为 16px 且到 UV 贴图边界的距离至少为 8px。您可以使用 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-73BF7546-3BF2-44F3-9192-15A024CEC173.htm">UV 工具包</a>的<span class="ph uicontrol">“测量”(Measure)</span>工具跟踪像素距离。 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B751181C40F14B3238"><h2 class="title sectiontitle">将 UV 保持在 0 到 +1 的纹理坐标范围内</h2> 
+		 
+		<p class="p" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B751181C40F14B3239"> <span class="ph uicontrol" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__GUID-64F0B60A-C669-4124-8F6D-2BB876948FD3">UV 编辑器</span>可显示标记 UV 纹理空间的栅格。栅格的工作区从 0 开始并延伸至 1。默认情况下，Maya 中的 UV 映射操作会自动将 UV 适配在 0 到 1 的坐标范围内。尽管可以移动或缩放该 UV、使其位于 0 到 1 的区域之外，但在大多数情况下，应当将曲面的 UV 定位在 0 到 1 的坐标内。 
+		</p>
+ 
+		<p class="p" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B751181C40F14B323B"> 如果 UV 延伸超出 0 到 1 的范围，则在 3D 场景或渲染图像中查看纹理时，纹理将出现重复或者包裹对应的顶点。当然，如果确实需要纹理在曲面中重复（例如，沿墙模型的砖纹理）则除外。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B751181C40F14B323D"><h2 class="title sectiontitle">重叠 UV 壳</h2> 
+		 
+		<p class="p" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B751181C40F14B323E"> 如果任一 UV 壳在<span class="ph uicontrol" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__GUID-855A09B2-08D2-4EF3-A0C8-CF63D40241E0">“UV 编辑器”(UV Editor)</span>中重叠，则该纹理将在对应的顶点中重复。根据要使用的映射策略（上文），您可能希望利用/避免这种情况。可以使用<span class="ph uicontrol">“UV 工具包”(UV Toolkit)</span>的<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-73BF7546-3BF2-44F3-9192-15A024CEC173.htm">堆叠壳(Stack Shells)</a>命令轻松堆叠壳，或者使用其<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-47C4C13C-7DB9-46A0-B044-D336671BF266.htm">排布(Layout)</a>命令分离壳。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B7511841AEFA9F-41A5"><h2 class="title sectiontitle">捕捉 UV</h2> 
+		 
+		<p class="p" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B7511841AEFA9F-41A4">您可以使用 UV 编辑器中的捕捉功能，将变换锁定至场景中的现有对象。该功能类似于场景视图中的捕捉功能。 
+		</p>
+ 
+		<p class="p" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B7511841AEFA9F-41A3">变换多个 UV 以保持其相对间距时，可以使用“移动工具”设置中的“保持组件间距”选项。 
+		</p>
+ 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B7511841AEFA9F-41A2" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="28.693947561872097%">捕捉的目标位置 
+				  </th>
+<th class="entry" valign="top" width="28.22837539818672%">按键 
+				  </th>
+<th class="entry" valign="top" width="43.0776770399412%">图标 
+				  </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="28.693947561872097%">栅格相交处 
+				  </td>
+<td class="entry" valign="top" width="28.22837539818672%">x 
+				  </td>
+<td class="entry" valign="top" width="43.0776770399412%"> 
+					 <div class="fig fignone" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B7511841AEFA9F-41A1"><img class="image" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__IMAGE_D9A81C87157A4D7FBB566A482AC47225" width="41" height="40" src="../images/GUID-E9619450-26DE-476E-926D-20A527CFD151.png"></div>
+ 
+					 <p class="p" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B7511841AEFA9F-41A0">（在状态行中） 
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="28.693947561872097%">其他 UV（点） 
+				  </td>
+<td class="entry" valign="top" width="28.22837539818672%">V 
+				  </td>
+<td class="entry" valign="top" width="43.0776770399412%"> 
+					 <div class="fig fignone" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B7511841AEFA9F-419D"><img class="image" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__IMAGE_4483495C3D6A4790A3082277ADB5DC1F" width="41" height="40" src="../images/GUID-54D02298-5CE5-4F43-8BD1-AF3FEBF2D385.png"></div>
+ 
+					 <p class="p" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B7511841AEFA9F-419E"></p>
+（在状态行中） 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="28.693947561872097%">像素 
+				  </td>
+<td class="entry" valign="top" width="28.22837539818672%"> </td>
+<td class="entry" valign="top" width="43.0776770399412%"> 
+					 <div class="fig fignone" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755527CC80126D167FFA2-6E04"><img class="image" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__IMAGE_F67EE274AB80484D9E06D2E0C02CD242" width="38" height="36" src="../images/GUID-960DB20F-FAE6-4369-8A4C-0D5A2F5040DA.png"></div>
+ 
+					 <p class="p" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B7511841AEFA9F-419C">（在 UV 编辑器工具栏中） 
+					 </p>
+ 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		<div class="note note" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B7511841AEFA9F-419B"><span class="notetitle">注：</span>  
+		  <ul class="ul" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B7511841AEFA9F-419A"><li class="li" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B7511841AEFA9F-4199">如果捕捉已启用且拖动轴操纵器（与操纵器的中心相对），则该操纵器将捕捉到最近的点或该轴限制的栅格相交处（具体取决于捕捉模式）。或者，也可以使用 Shift + x 或 Shift + v 以捕捉到分别受 U 轴或 V 轴限制的最近点。 
+			 </li>
+<li class="li" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B7511841AEFA9F-4198">“像素捕捉”由监视器的像素衡量。可以放大靠近 UV，以实现更好的结果。该设置也会影响旋转和缩放枢轴位置的捕捉。 
+			 </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B751181C40F14B3245"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B751181C40F14B3246"><li class="li" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B751181C40F14B3247"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-F5882F28-2430-4D17-9C30-77B0390727AE.htm">映射 UV</a>
+		  </li>
+<li class="li" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B751181C40F14B3248"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-CA8808FD-9645-4537-9D2E-7BD680BC0F6E.htm">创建 UV</a> 
+		  </li>
+<li class="li" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B751181C40F14B3249"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-44F2D7EF-E4D6-4C4D-B831-F89F5CF98452.htm">查看 UV 并求值</a> 
+		  </li>
+<li class="li" id="GUID-1CEF8A5B-1051-40F1-ACFE-F29AD066F56F__WS73099CC142F48755-3D114B751181C40F14B324A"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-73BF7546-3BF2-44F3-9192-15A024CEC173.htm">UV 编辑器概述</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-FDCD0C68-2496-4405-A785-3AA93E9A3B25.htm" title="UV（发音为 U-VEEZ）是二维纹理坐标，带有多边形和细分曲面网格的顶点组件信息。">UV</a></div>
+</div>
+</div>
+
+</body>
+</html>

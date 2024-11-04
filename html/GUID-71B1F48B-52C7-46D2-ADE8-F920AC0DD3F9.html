@@ -1,0 +1,135 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Modeling">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-71B1F48B-52C7-46D2-ADE8-F920AC0DD3F9">
+<meta name="language" content="CHS">
+<title>附录 A：切线和 binormal 向量</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-71B1F48B-52C7-46D2-ADE8-F920AC0DD3F9">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>附录 A：切线和 binormal 向量</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-71B1F48B-52C7-46D2-ADE8-F920AC0DD3F9__WS73099CC142F48755-7B21313411809411AE9-6E8D">下面简要介绍了如何在 Maya 中计算多边形网格几何体的切线和 binormal 向量。 </p>
+<div class="section" id="GUID-71B1F48B-52C7-46D2-ADE8-F920AC0DD3F9__WS17956D7ADBC6E7367F9C4AAC117AE333A12-8000"><h2 class="title sectiontitle">逐三角形切线计算</h2>
+
+<p class="p" id="GUID-71B1F48B-52C7-46D2-ADE8-F920AC0DD3F9__WS73099CC142F48755-7B21313411809411AE9-6E8C">输入：对于三角形的每个顶点，输入：v（顶点位置，3 浮点）、n（法线位置，3 浮点）、t（纹理坐标值，2 浮点）：V[3][3], N[3][3] t[3][2]；</p>
+
+<p class="p" id="GUID-71B1F48B-52C7-46D2-ADE8-F920AC0DD3F9__WS73099CC142F48755-7B21313411809411AE9-6E8B">输出：对于每个顶点，计算并返回一个切线向量（3 浮点）：tangentArray[3][3]；</p>
+
+<pre class="pre codeblock">
+ float $edge1[3];
+ float $edge2[3];
+ float $crossP[3];
+ float $tangentArray[3][3];
+ //==============================================
+ // x, s, t
+ // S &amp; T vectors get used several times in this vector,
+ // but are only computed once.
+ //==============================================
+ $edge1[0] = $v[1][0] - $v[0][0];
+ $edge1[1] = $t[1][0] - $t[0][0]; // s-vector - don't need to compute this multiple times
+ $edge1[2] = $t[1][1] - $t[0][1]; // t-vector
+ $edge2[0] = $v[2][0] - $v[0][0];
+ $edge2[1] = $t[2][0] - $t[0][0]; // another s-vector
+ $edge2[2] = $t[2][1] - $t[0][1]; // another t-vector
+ $crossP = crossProduct( $edge1, $edge2 ) ;
+ normalize( $crossP );
+ bool $degnerateUVTangentPlane = equivalent( $crossP[0], 0.0f );
+ if (degnerateUVTangentPlane)
+ $crossP[0] = 1.0f;
+ float $tanX = -$crossP[1]/$crossP[0];
+ $tangentArray[0][0] = $tanX;
+ $tangentArray[1][0] = $tanX;
+ $tangentArray[2][0] = $tanX;
+ //--------------------------------------------------------
+ // y, s, t
+ //--------------------------------------------------------
+ $edge1[0] = $v[1][1] - $v[0][1];
+ $edge2[0] = $v[2][1] - $v[0][1];
+ $edge2[1] = $t[2][0] - $t[0][0];
+ $edge2[2] = $t[2][1] - $t[0][1];
+ $crossP = crossProduct( $edge1, $edge2 );
+ normalize( $crossP );
+ degnerateUVTangentPlane = equivalent( $crossP[0], 0.0f );
+ if (degnerateUVTangentPlane)
+ $crossP[0] = 1.0f;
+ float $tanY = -$crossP[1]/$crossP[0];
+ $tangentArray[0][1] = $tanY;
+ $tangentArray[1][1] = $tanY;
+ $tangentArray[2][1] = $tanY;
+ //------------------------------------------------------
+ // z, s, t
+ //------------------------------------------------------
+ $edge1[0] = $v[1][2] - $v[0][2];
+ $edge2[0] = $v[2][2] - $v[0][2];
+ $edge2[1] = $t[2][0] - $t[0][0];
+ $edge2[2] = $t[2][1] - $t[0][1];
+ $crossP = crossProduct( $edge1 , $edge2 );
+ normalize( $crossP );
+ degnerateUVTangentPlane = equivalent( $crossP[0], 0.0f );
+ if (degnerateUVTangentPlane)
+ $crossP[0] = 1.0f;
+ float $tanZ = -$crossP[1]/$crossP[0];
+ $tangentArray[0][2] = $tanZ;
+ $tangentArray[1][2] = $tanZ;
+ $tangentArray[2][2] = $tanZ;
+ // Orthnonormalize to normal
+ for( int $i = 0; $i &lt; 3; $i++)
+ {
+ $tangentArray[i] -= $n[i] * $tangentArray[i].dot( n[i]);
+ }
+ // Normalize tangents
+ normalize( $tangentArray[0] );
+ normalize( $tangentArray[1] );
+ normalize( $tangentArray[2] );
+ 
+ return $tangentArray;
+</pre>
+
+</div>
+<div class="section" id="GUID-71B1F48B-52C7-46D2-ADE8-F920AC0DD3F9__WS73099CC142F48755-7B21313411809411AE9-6E8A"><h2 class="title sectiontitle">曲面切线和 Binormal 计算</h2>
+
+<p class="p" id="GUID-71B1F48B-52C7-46D2-ADE8-F920AC0DD3F9__WS73099CC142F48755-7B21313411809411AE9-6E89">切线计算基于给定纹理坐标集 (uvset) 的纹理坐标 (uv)。所用法线为参照了平滑和用户法线的几何体法线。</p>
+
+<p class="p" id="GUID-71B1F48B-52C7-46D2-ADE8-F920AC0DD3F9__WS73099CC142F48755-7B21313411809411AE9-6E88">对于一个面上的每个三角形，需计算三角形每个顶点的切线。如果三角形已被映射（即具有 uv）且这些 uv 是非退化类型，就会执行<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-71B1F48B-52C7-46D2-ADE8-F920AC0DD3F9.htm#GUID-71B1F48B-52C7-46D2-ADE8-F920AC0DD3F9__WS17956D7ADBC6E7367F9C4AAC117AE333A12-8000">逐三角形切线计算</a>中的计算。</p>
+
+<p class="p" id="GUID-71B1F48B-52C7-46D2-ADE8-F920AC0DD3F9__WS73099CC142F48755-7B21313411809411AE9-6E87">退化 uv 表示三角形任意边的 uv 空间中具有 0 长度向量。如果三角形未被映射或退化，就会用几何体边来计算切线。对于三角形的每个顶点 (i)，将进行以下计算：</p>
+
+<pre class="pre codeblock">
+tangent[i] = vertex[i+1 % 3] - vertex[i];
+tangent[i] = tangent[i] - normal[i] * dotProduct( tangent[i], normal[i]);
+normalize( tangent[i] );
+</pre>
+
+<p class="p" id="GUID-71B1F48B-52C7-46D2-ADE8-F920AC0DD3F9__WS73099CC142F48755-7B21313411809411AE9-6E86">对于已映射的面，只有在顶点的关联 normalId 完全相同的情况下，才会为顶点上的每个 uvId 保留共享切线的列表。</p>
+
+<p class="p" id="GUID-71B1F48B-52C7-46D2-ADE8-F920AC0DD3F9__WS73099CC142F48755-7B21313411809411AE9-6E85"><samp class="ph codeph" id="GUID-71B1F48B-52C7-46D2-ADE8-F920AC0DD3F9__GUID-2B42DE22-F547-44B3-BD6A-3B0B9A2959C3">uvId</samp> 是 UV 集数据数组的偏移，<samp class="ph codeph" id="GUID-71B1F48B-52C7-46D2-ADE8-F920AC0DD3F9__GUID-BD5A6046-4ECF-4E13-941A-3CE04A2DCBBD">normalId</samp> 是法线数据数组的偏移。切线数据数组将与 <samp class="ph codeph" id="GUID-71B1F48B-52C7-46D2-ADE8-F920AC0DD3F9__GUID-E58CA2D9-86DE-4F6D-9312-D475A1D9EF03">uvId</samp> 数据数组的大小匹配。每个列表都经过归一化处理，以计算最终共享的切线向量。</p>
+
+<p class="p" id="GUID-71B1F48B-52C7-46D2-ADE8-F920AC0DD3F9__WS73099CC142F48755-7B21313411809411AE9-6E84">Binormal 被计算为面的给定顶点上切线和法线向量的归一化叉积。按需要计算并缓存 Binormal。</p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-BFB2D211-BD7B-42C7-979F-0C2E651384CF.htm">多边形建模参考</a></div>
+</div>
+</div>
+
+</body>
+</html>

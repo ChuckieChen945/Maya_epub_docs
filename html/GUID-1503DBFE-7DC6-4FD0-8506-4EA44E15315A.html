@@ -1,0 +1,77 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="如果您的工作颜色空间与交付内容的颜色空间不匹配，则必须变换颜色才能输出。手动设置自定义变换链来完成该操作时，可以使用多种变换，具体取决于您的工作空间和所需的输出。">
+<meta name="indexterm" content="颜色管理:输出图像">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-1503DBFE-7DC6-4FD0-8506-4EA44E15315A">
+<meta name="language" content="CHS">
+<title>管理输出图像的颜色</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-1503DBFE-7DC6-4FD0-8506-4EA44E15315A">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>管理输出图像的颜色</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="shortdesc"> 如果您的工作颜色空间与交付内容的颜色空间不匹配，则必须变换颜色才能输出。手动设置自定义变换链来完成该操作时，可以使用多种变换，具体取决于您的工作空间和所需的输出。 
+  </p>
+<div class="p" id="GUID-1503DBFE-7DC6-4FD0-8506-4EA44E15315A__GUID-D55EB2B5-2848-4E79-B4A7-24BF2701FB83">如果图像是场景线性图像，可以在必要的情况下使用 primaries/ 目录中的一种变换将其转化为 ACES 2065-1。之后： 
+	 <ul class="ul" id="GUID-1503DBFE-7DC6-4FD0-8506-4EA44E15315A__UL_EE3C5D5105C94BA4AF40CD6FF6EC25CD"><li class="li" id="GUID-1503DBFE-7DC6-4FD0-8506-4EA44E15315A__LI_7AFC13F69F8C42459D09F9A847FA4750">如果您的目标是制作视频或数字电影，请使用 RRT+ODT/ 目录中的一种变换。 
+		</li>
+<li class="li" id="GUID-1503DBFE-7DC6-4FD0-8506-4EA44E15315A__LI_2C2B6D97C95A4D6780D2828ABEB2A65D">如果您的目标是胶片录制器，请使用 film/ADX/ 目录中的一种 ACES_to_ADX 变换。 
+		</li>
+</ul>
+ 
+	 </div>
+<p class="p" id="GUID-1503DBFE-7DC6-4FD0-8506-4EA44E15315A__GUID-1DAA2ED1-A543-4340-843A-95F31BECF07A">如果图像在对数空间中且不会输出到胶片，请先应用 film/ 目录中的一种变换将其转化为场景线性，然后如上所述继续。 
+	 </p>
+<div class="section" id="GUID-1503DBFE-7DC6-4FD0-8506-4EA44E15315A__SECTION_EB06B945240742A59127EB8B3DD86719"><h2 class="title sectiontitle">管理数字电影的色域</h2> 
+		 
+		<p class="p" id="GUID-1503DBFE-7DC6-4FD0-8506-4EA44E15315A__GUID-FCF97935-BD18-4C8F-8044-B38DE6AA8D50">数字电影发行母版 (DCDM) 要求图像位于 DCI/SMPTE X'Y'Z' 颜色空间中。RRT+ODT/ACES_to_DCI 变换会在此颜色空间生成图像（并伴随不同创意白点的变体）。 
+		</p>
+ 
+		<p class="p" id="GUID-1503DBFE-7DC6-4FD0-8506-4EA44E15315A__GUID-9CE24E77-E050-4AE9-8C02-EC3A133B6576">但是，此颜色空间远大于任何实际投影仪的颜色空间。典型的电影投影仪具有与 DCI/SMPTE 参考投影仪更接近的色域（P3 主颜色）。 
+		</p>
+ 
+		<div class="p" id="GUID-1503DBFE-7DC6-4FD0-8506-4EA44E15315A__GUID-4C13F50C-60F6-4A97-A5D0-B93289EC0995">因此，有时需要将置于 X'Y'Z' 颜色空间中的颜色的色域限制为更具代表性的投影仪的色域。这有两个优点： 
+		<ul class="ul" id="GUID-1503DBFE-7DC6-4FD0-8506-4EA44E15315A__UL_8DE565F1342D4B7894D9B01E7F5D35C9"><li class="li" id="GUID-1503DBFE-7DC6-4FD0-8506-4EA44E15315A__LI_CF5058D5517F4EEDBF4D7D7A7299E50B">色域映射是由输出变换（保留色调）而非投影仪（通常会剪裁）执行的。 
+		  </li>
+<li class="li" id="GUID-1503DBFE-7DC6-4FD0-8506-4EA44E15315A__LI_B45F36C121814EDBA26921ABFB4A8687"> 假定在具有典型 P3 色域的投影仪上对内容进行分级和审批，将颜色限制为该色域可确保稍后在具有更宽色域的设备上查看该内容时不会发生令人不愉快的意外。 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="p" id="GUID-1503DBFE-7DC6-4FD0-8506-4EA44E15315A__GUID-E5207D71-CC88-40A6-868C-12B04A8E0F42">为实现此目的，请执行以下操作： 
+		<ol class="ol" id="GUID-1503DBFE-7DC6-4FD0-8506-4EA44E15315A__OL_9FBC281787604C9B8298F9C97DDD2712"><li class="li" id="GUID-1503DBFE-7DC6-4FD0-8506-4EA44E15315A__LI_13383F47A17D44D8927FC30EC5CF3F3C">为希望限制为其色域的设备选择 RRT+ODT，例如 RRT+ODT/ACES_to_P3-D60。 
+		  </li>
+<li class="li" id="GUID-1503DBFE-7DC6-4FD0-8506-4EA44E15315A__LI_F32BB3DDCF0949438373CAB3437922E6">然后添加变换以转化为 DCI/SMPTE X'Y'Z'，例如，display/projector/P3-D60_to_CIE-XYZ，后跟 display/DCDM/CIE-XYZ_to_DCI-D60。 
+		  </li>
+</ol>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-B2CD60E0-C100-45A4-9595-84D2DF98B268.htm" title="尽管 Autodesk 颜色管理提供了适当的工具可自动应用所需的变换以便在颜色空间之间进行转化，但在某些特殊情况下，您必须更好地控制要应用的特定变换。本部分介绍如何将位于 Autodesk 颜色变换集合中的组件用作构建块以集合特定任务的自定义转化。">手动配置自定义颜色变换链的准则</a></div>
+</div>
+</div>
+
+</body>
+</html>

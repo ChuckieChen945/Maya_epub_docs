@@ -1,0 +1,101 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="product-feature" content="Unreal Live Link for Maya">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="UnrealLiveLink">
+  <meta name="topicid" content="UnrealLiveLink_streaming_custom_attributes_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="applies-to" content="MAYAUL=2022"><meta name="applies-to" content="MAYAUL=2023"><meta name="applies-to" content="MAYAUL=2024">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>将自定义属性从 Maya 流式传输到 Unreal</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>将自定义属性从 Maya 流式传输到 Unreal</h1></div><p>当将骨架关节从 Maya 实时链接到 Unreal 时，可以选择对任何已设置关键帧的自定义属性进行流式传输。这对于启用复合或自定义行为很有用。</p>
+<h2 id="">将自定义属性流式传输到角色</h2><p>要将自定义属性流式传输到角色，请执行以下操作：</p>
+<ol>
+<li><p><strong><em>在 Maya 中</em></strong>，在关节上创建自定义<em>浮点</em>属性，并确保在其上至少设置一个关键帧。</p>
+</li>
+<li><p>将关节（或整个骨架）导出为 FBX 文件。</p>
+</li>
+<li><p>将文件导入 <strong><em>Unreal</em></strong>，确保启用以下功能。</p>
+<ul>
+<li><em>导入动画(Import Animations)</em></li>
+<li><em>导入自定义属性(Import Custom Attribute)</em></li>
+<li>（可选）<em>不导入只有 0 值的曲线</em></li>
+</ul>
+</li>
+</ol>
+<p>现在，如果打开 Unreal 的<em>“资产编辑器”(Asset Editor)</em>，则会看到骨架上的自定义属性。然后，可以在 Maya 中更改值，以将其流式传输到 Unreal。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>如果在 Maya 中将新的自定义属性添加到链接对象，则必须从 Maya 的“实时链接编辑器”(Live Link Editor)中移除该对象，然后将该对象重新导出到 Unreal，重新导入该对象，然后再次设置链接，才会显示自定义属性。</p>
+
+</div></div>
+
+<h2 id="">将自定义属性流式传输到摄影机/灯光/道具</h2><p>如果要将自定义属性流式传输到摄影机、灯光或道具，则必须通过 Unreal 关卡序列执行此操作。  </p>
+<p>要将自定义属性流式传输到摄影机、灯光或道具，请执行以下操作：</p>
+<ol>
+<li><p><strong><em>在 Maya 中</em></strong>，在摄影机、灯光或道具上创建自定义<em>浮点</em>属性，并确保在其上至少设置一个关键帧。</p>
+</li>
+<li><p><strong><em>在 Unreal 中</em></strong>，为对象创建<em>蓝图</em>。</p>
+</li>
+<li><p>将变量添加到与 Maya 中的自定义属性同名的蓝图（确保使用<em>长名称</em>，而不是等效的<em>易读名称</em>），并在其上启用以下选项：</p>
+<ul>
+<li><em>向电影公开(Expose to cinematics)</em></li>
+<li><em>实例可编辑(Instance Editable)</em></li>
+</ul>
+</li>
+<li><p>编译并保存蓝图。</p>
+</li>
+<li><p><strong><em>在 Maya 中</em></strong>，将对象添加到 <em>Unreal Live Link 编辑器</em>，然后单击其旁边的<em>“链接”(link)</em>按钮。</p>
+</li>
+<li><p>在<em>“资产选择”(Asset Selection)窗口</em>中，通过在角色文本字段中键入新角色的名称来创建新角色，然后将<em>“类型”(Type)</em>设置为您创建的新蓝图。单击<em>“创建”(Create)</em>。</p>
+</li>
+<li><p>创建新的关卡序列，然后单击<em>“链接”(Link)</em>。</p>
+</li>
+</ol>
+<p>自定义属性现在在 Maya 和 Unreal 之间链接。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>如果将新的自定义属性添加到 <em>Unreal Live Link 编辑器</em>对象列表中已有的对象，则必须移除该对象并重新添加，以便将自定义属性流式传输到 Unreal。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

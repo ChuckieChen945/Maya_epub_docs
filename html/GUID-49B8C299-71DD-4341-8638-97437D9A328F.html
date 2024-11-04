@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-49B8C299-71DD-4341-8638-97437D9A328F">
+<meta name="language" content="CHS">
+<title>XGen 导向插值方法</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-49B8C299-71DD-4341-8638-97437D9A328F">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>XGen 导向插值方法</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-CAA1322C-13AD-4F2A-9F21-2A4C47636099">XGen 插值是一个非常有用的概念，在将导向插值与描述一起使用时应该了解该概念。本部分提供了有关使用导向以及 XGen 如何使用插值算法计算基本体位置和形状的附加信息。 </p>
+<div class="section" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__INTERPOLATION_PROCESS"><h2 class="title sectiontitle">过程</h2>
+
+<div class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-0EB2F4F0-7827-4C29-9097-CB8BB7A797B0">放置导向时，可以了解以下事项： <ul class="ul" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__UL_5E4D6CFECA574F639663689BB124A830"><li class="li" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__LI_114B0567558E463FABB88CA4C1D2DB2B">需要更多控制？添加一个新导向。使用导向环绕您的基本体是个很好的做法。 </li>
+<li class="li" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__LI_67BCC1C7814D408A9A3C3406F16DB1B7">使用样条线基本体时，将<span class="ph uicontrol" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-445DF116-98FC-47D4-A3D4-0DC44CE5B588">“修改器 CV 计数”(Modifier CV Count)</span>的值设的足够大，以便能捕捉导向形状。 </li>
+</ul>
+ </div>
+
+<p class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-EAE0B8EA-3B4F-40A9-A0CA-C7C012DF41C0">如果使用样条线基本体，可以使每个导向具有不同的 CV 数。还可以从导向删除 CV 或将其重建为较大的数。根据需要增减导向数。 </p>
+
+<div class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-69542117-CE3D-450D-8620-E46AE69D93CB">这不是必需的，但是最好能（最少在局部）保证导向分布一致。请确保在基本体的边界周围具有导向。您不需要密集的导向，但如果您尝试在导向之外生成基本体，XGen 必须外推导向而不是对它们进行插值，后者会导致结果差强人意而且一般会更加困难。 <div class="note note" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-138E753B-3ECE-4852-BE48-58C386F6CD30"><span class="notetitle">注：</span> 如果出现光秃面片，是因为所放置的导向已经形成了影响范围，但这一范围与曲面的那一区域不重叠。如果导向非常不规则，或者数量太少，可能出现光秃面片。尝试添加更多导向。 </div>
+ </div>
+
+</div>
+<div class="section" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__INTERPOLATION_NEIGHBORHOODS"><h2 class="title sectiontitle">相邻</h2>
+
+<p class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-0F36C6A2-FA11-452E-BF65-4299BC26A358">以下图像表示导向位置的集合： </p>
+
+<img class="image" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__IMAGE_E1C32EC4A26A4DA3A3E904629829BE4E" src="../images/GUID-EF257B7C-4D99-4D8E-9D93-FFE3AF529CA0.png">
+<div class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-645848EF-7B60-4E13-86EA-161C7A50E810">XGen 算法首先确定每个导向的相邻导向，方法是检测分隔导向定义区域的 <em class="ph i" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-254AFAA0-62F6-4EFA-8C15-E0E688DCCA48">Vornonoi</em> 边。 <div class="note note" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-1988C0C2-EBFB-45E1-86F6-9159183E8708"><span class="notetitle">注：</span> 因为 <em class="ph i" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-3A824C71-1540-49EB-95DA-6078BE754E05">Voronoi</em> 通常在 2D 中定义，所以这并不是真正的 <em class="ph i" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-78AA645B-ABCB-479F-BF74-0B7E28F9AC84">Voronoi</em>，但是在概念上，二者是相同的。 </div>
+ </div>
+
+<p class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-B84EF594-A2B2-4A64-B746-C3BA8599ED8D"> XGen 从该面的四个角点开始，评估哪条导向最近。如果所有导向相似，则该面无需特别关注，不需要进行任何其他操作。如果四个导向中任一导向不同，该长方体分为四个，并重复该评估。将长方体分割、再分割，直到根据局部导向的密度，XGen 达到足够的“分辨率”。最后四个点找到的导向值决定了相邻导向。任何不同的两个点都是相邻点，因为它们等同于分隔这些导向区域的 Voronoi 边的不同边。 </p>
+
+<p class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-A890CEBF-1C6F-4719-A9E1-9B0360A12BA1">一旦确定了相邻导向，XGen 就可以定义每个导向周围的导向影响区域，方法是从一条导向向相邻导向构建扫描，并插值计算两个导向之间的间距。这些距离构成了导向周围导向影响范围的半径。请注意，这不是导向的三角剖分。使用此方法不会获得连接两条导向的边，这样只有两条导向控制基本体的形状。相反，区域会沿相同区域重叠，使相邻导向沿该边界平滑融合。 </p>
+
+<p class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-253AA7E9-0B58-44D4-A83B-B60FB070388A">以下图像显示了在我们的例子中找到的一些导向影响范围的示例。 </p>
+
+<img class="image" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__IMAGE_5E0CAE8B955443369D973F0900F6B687" src="../images/GUID-8B5A17BF-7FA0-41D7-87BD-349AF3CE6A4E.png">
+<p class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-460558F7-1760-4492-9F6B-465F8F8DB276">随每个导向存储的导向影响范围信息是扫描角度和半径的组合，在 Maya 中显示为单字符串属性，您可以在 XGen 集文件中查看该属性。您无法编辑导向影响范围，但是可以添加导向，直到取得理想效果。 </p>
+
+<p class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-6D658E85-0C4F-4763-AF3E-0C3E339D1F79">此处的这些插图显示了 XGen 是如何确认每个导向控制的区域的；类似于在导向周围，定义了一个虚拟的围栏，围栏将环绕它的导向连接起来。 </p>
+
+</div>
+<div class="section" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__INTERPOLATION_ACTIVE-GUIDES"><h2 class="title sectiontitle">活动导向</h2>
+
+<div class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-F56C9737-F634-43EE-BD65-7B401BC1C904">插值工作流有三个部分： <ul class="ul" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__UL_8163F9957D3B42239DD699A5D7E869C8"><li class="li" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__LI_E123D28B90EC478A9A5CBAEDAF7913A8">确定活动导向 </li>
+<li class="li" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__LI_605A3D52DD9548CFB803772FC36862DE"> 为导向分配权重 </li>
+<li class="li" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__LI_228241BC2566474EA974710BDE07724B">使用这些权重插值 </li>
+</ul>
+ </div>
+
+<p class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-4A388DCA-0611-4AC8-879E-0851AB38D06E">例如，假设您要在图像中的黄色“x”给定的位置生成一个基本体。 </p>
+
+<img class="image" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__IMAGE_C21A55D05743429E9F83D721B93045A5" src="../images/GUID-9BCE8CC0-C626-4A86-9C68-056D9966602A.png">
+<img class="image" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__IMAGE_471AFDE6E55D47C28E00D53EA3154ACC" src="../images/GUID-74760141-345F-4424-9C4F-93E44D0B0FEE.png">
+<p class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-341E80A3-60CF-44C8-A909-90152FB0A669">XGen 计算包含基本体的导向的影响范围形状，从而确定要使用的导向。它使用优化技术，消除这些导向中的大多数，只集中处理重要的导向。XGen 还可以根据曲率（也就是找到位于模型错误的一侧的导向）以及区域贴图消除导向。在此示例中，XGen 确定红色、蓝色和绿色导向必须保持活动状态。 </p>
+
+</div>
+<div class="section" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__INTERPOLATION_WEIGHTS"><h2 class="title sectiontitle">权重</h2>
+
+<p class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-AB48FA0E-0022-49DB-A388-D266D8096629">通过从穿过基本体的导向形成的射线与导向影响范围相交，XGen 可以确定这些导向的权重。此图像显示为该基本体计算的权重。 </p>
+
+<img class="image" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__IMAGE_45AD39F6AE5B4C7196E51B3160A5AA53" src="../images/GUID-FDC92831-5211-4D13-B4E1-BDFF4E2E08F5.png">
+<p class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-2CD22C99-0894-4DDE-A9CA-3844B987E8F6">请注意，XGen 使用到边界的距离作为该导向的权重，因此离导向的影响范围边界越近，该导向的权重越低。相反，离导向的影响范围边界越远，该导向的权重越高。 </p>
+
+<p class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-44E4A65F-EE92-4DCA-BE2C-4CF8E1CBA17A">计算了所有导向的权重之后，对权重进行归一化，以使其可以用于计算基本体形状。 </p>
+
+</div>
+<div class="section" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__INTERPOLATION_SHAPE-INTERPOLATION"><h2 class="title sectiontitle">形状插值</h2>
+
+<p class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-1429394C-136F-4801-9F72-B1484A5E6836">XGen 确定活动导向之后，就可以对它们进行插值计算。每个活动导向都转换为基本体的位置。如有必要，XGen 将每个导向重建为相同数量的 CV（例如，样条线基本体）。对于每个 CV，XGen 使用导向的加权平均，这些导向使用之前计算的权重。 </p>
+
+<p class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-A5E6FFB0-78EE-498E-AEA6-13A79B8869AC">此过程称为相对插值。相对插值适用于毛发、草地和类似物体，即使它们的导向放置非常稀疏。相对插值还可以用于导向数稍多的头发。请注意，要得到理想效果，在头部模型上只使用 10 个导向是不够的。相对插值方法要求导向之间的曲面曲率很小。 </p>
+
+<p class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-DC971F39-4658-4320-A0CD-B929B1223671">一个小实验有助于找到有效的导向密度。此密度可能高于您在 XGen 先前版本中使用的密度，但是结果更加直观，容易预测。 </p>
+
+</div>
+<div class="section" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__INTERPOLATION_BLENDING"><h2 class="title sectiontitle">融合</h2>
+
+
+<p class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-6F353B46-0D5B-48E3-B5C2-D9F2E6B26E80">修饰毛发时，有时插值过于精确，反而无法获得平滑的外观，因为 XGen 与导向完全匹配。有时即使添加更多导向，还是会出现这种情况，尽管添加导向是个好办法，但是对于毛发，您不需要只为了更平滑的外观就管理大量的导向。如果是这种情况，请使用<span class="ph uicontrol" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-E593B145-B2DB-4890-A003-38887579A14D">“融合”(Blend)</span>属性。<span class="ph uicontrol" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-341E45C5-BF02-40BA-88C8-3EEACE26E034">“融合”(Blend)</span>属性可以放大导向的影响范围，使它们与相邻导向融合。 </p>
+
+<p class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-940A8515-3BBC-4F7D-BEE8-D7B375BE9EE3"> 如果选择一个导向集合，将他们的所有融合值设置为大于 0 的值，它们将与相邻导向融合，使区域平滑。将为每个导向执行此属性，这样您可以设置一个在元素中比较理想的值。例如，您可以将面中的<span class="ph uicontrol" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-D12ED026-E473-4C1B-B2BB-09C3EF00C981">“融合”(Blend)</span>属性设置为 <strong class="ph b" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-6CD1457E-1977-443E-89FB-0C45A3E3D010">0.2</strong>，以保持一定的清晰度，同时将其他位置的属性设置为 <strong class="ph b" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-16A8C226-AFB4-4A6C-B966-E3CE43E70739"> 0.8</strong> 以使外观柔和。然后选择面和实体之间的区域，将值设置为 <strong class="ph b" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-CABF4628-C263-48E2-BCA0-2D06B5D4B66F">0.5</strong> 以平滑过渡区域。 </p>
+
+</div>
+<div class="section" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__INTERPOLATION_VISUALIZER"><h2 class="title sectiontitle">可视化器</h2>
+
+<p class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-25A9BDB8-BC70-42AF-82DF-4F732BDE49C4">XGen 提供了实现导向影响范围可视化的工具。在预览/渲染/导出后，XGen 会在 <span class="ph uicontrol" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-3E0C9B8D-BD03-4108-BD90-89CB5B59635D">${DESC}</span> 文件夹中创建一个 <samp class="ph codeph" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-D6598C8F-C0AA-4F5C-82E8-EC6FCEA14D20">connectivity.xgc</samp> 文件，其中包含该描述的所有连接信息。虽然 XGen 内部不使用任何连接性/相邻信息，但是此信息有助于进行模拟以及调试和实现可视化。 </p>
+
+<p class="p" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-AD07475B-E0B3-42EC-AEA2-11B75BC02EF4">单击<span class="ph uicontrol" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-53232988-B046-42A3-AB8A-A5F4994E52AC">“导向</span> &gt; <span class="ph uicontrol" id="GUID-49B8C299-71DD-4341-8638-97437D9A328F__GUID-51C5AA6A-A8E7-43F8-A1C5-934A053EF509">显示导向影响范围”(Guide &gt; Display Guide Range-of-Influence)</span>，可以使用该文件绘制该导向的影响范围以及连接性，每个导向使用同一颜色。默认情况下，将显示描述的完整连接性，但是可以根据需要选择导向，从而限制显示范围。 </p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-33CE5CAE-CF32-4F09-A44C-F5A4235A49B5.htm">XGen 高级主题</a></div>
+</div>
+</div>
+
+</body>
+</html>

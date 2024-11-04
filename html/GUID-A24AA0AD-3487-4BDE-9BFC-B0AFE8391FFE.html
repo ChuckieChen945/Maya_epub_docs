@@ -1,0 +1,99 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE">
+<meta name="language" content="CHS">
+<title>使用“组件混合”(Component Swizzle)为 Stingray 基于物理的着色器输入提供不同的顶点颜色通道</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用“组件混合”(Component Swizzle)为 Stingray 基于物理的着色器输入提供不同的顶点颜色通道</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-9A80A7C3-95AB-4701-B41B-7DDA40FD35D3">通过 <span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-AE5F03B4-4265-4C8F-85AB-12319545B253">Stingray PBS</span> 节点创建的 ShaderFX 网络使用混合，以允许 xyz 的单个组件采用任何 xyz 组件的值。 
+	 </p>
+<p class="p" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-C2DDE1FF-E5A8-47E6-A86A-D2FD8C6C5CAE">在 ShaderFX 中，默认情况下 RGB 值连接到 XYZ。默认情况下，X 对应于 R，Y 对应于 G，Z 对应于 B。但是，您可以提供 xxx 或 rrr 的 float3 输入，即红色通道用于 float3 的全部 3 个浮点值。也可以提供 rgg 或 xyy，其中红色通道用于第一个浮点，绿色用于第二个和第三个浮点。 
+	 </p>
+<p class="p" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-CEDE6B50-E3C4-4BF8-9D86-0EFCB3F24ABA">通过自定义<span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-04F2BA0D-4366-48FB-8933-B5EBF7C57D1D">“标准基础”(Standard Base)</span>节点的不同通道输入（如基础颜色和不透明度），创建不同的着色器效果。 
+	 </p>
+<div class="section" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__SECTION_9BC4341864F9482D8A64BB42A4A996FF"><h2 class="title sectiontitle">设置“组件混合”(Component Swizzle)值</h2> 
+		 
+		<ol class="ol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__OL_20E12A36D43A45918CD7E58B0796E937"><li class="li" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__LI_7CD5F33F2B764DF7B62BCFBE87460389">在 <span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-90445271-09EC-456A-B7A2-F6BA90B7218A">Stingray PBS</span> 节点的 ShaderFX 编辑器中，单击要在<span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-E0495B2F-178F-4E19-B855-2D8BF79AEA8C">“标准基础”(Standard Base)</span>节点上调整的属性；例如<span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-3C16515A-C308-45CA-8DFC-DCF28DE246C8">“基础颜色”(Base Color)</span>。 
+			 <p class="p" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-6ABDAB7E-64E2-4C6E-BC62-41939C7E8368">此时将显示其<span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-0E01024E-E689-4BF6-B12E-9CD268EEF2B3">属性编辑器</span>。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__LI_6D09D7239365439C89C9B692358F4896">在<span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-85AA6120-DE97-43CB-84FA-2356FB057F7D">“组件混合”(Component Swizzle)</span>字段中，输入要输入到此属性的通道。 
+		  </li>
+<p class="p" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-9813709F-720C-4C80-AF87-7C2BA3F4C0FB">如果<span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-5F4B55B6-FB3E-4984-BB9E-D53EE8DA924E">“组件混合”(Component Swizzle)</span>字段为空，则使用默认值（例如，对 xyz 使用 rgb）。 
+		</p>
+</ol>
+ 
+		<p class="p" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-5E3F893A-3218-4E63-BC48-394607A24BE1">以下示例演示了<span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-9FA59BE6-D94D-4D34-9008-F4DF6E5E098B">“基础颜色”(Base Color)</span>输入为 xyz (rgb) 与<span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-84A46B14-5212-4C3B-BF7D-C310F36AABD3">“基础颜色”(Base Color)</span>输入为 rrr 时的不同效果。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__FIG_1B0A0ACC4DAF4BD7930A3C656C620D1E"><img class="image" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__IMAGE_FB6AAF0648A7477D97BB1C8843504A81" src="../images/GUID-18AE63AD-CA7A-46A0-8BFB-695E75E8C0E0.png"></div>
+ 
+	 </div>
+<div class="section" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__SECTION_A5957BB529074FEC9986889ED9868443"><h2 class="title sectiontitle">示例：将顶点颜色绿色通道连接到<span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-2F620F48-0C8E-4031-9CA6-69AF2EB2B983">“环境光遮挡”(Ambient Occlusion)</span></h2> 
+		 
+		<ol class="ol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__OL_91A02E0F771244E1BEDC778122A6A3AD"><li class="li" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__LI_4333BF37B4964D16B14F015E3A605FD2">将<span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-BAA9127C-D5C7-41A5-9B4C-F917553AEFE2">“颜色贴图”(Color Map)</span>的<span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-00731C55-19B5-4947-BCB0-C985CD2B3CC9">“RGBA”</span>输出连接到<span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-DF9CDC35-A2E2-4453-BDDB-FF874AE22BF6">“标准基础”(Standard Base)</span>的<span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-3253C429-921E-4FA2-8E21-97F9B9B86ACE">“基础颜色”(Base Color)</span>输入。 
+			 <p class="p" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-FEE9082A-F54C-42AB-AAE6-25C9C7B8925A">颜色贴图将为模型提供基础颜色。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__LI_D95811AD1425423DAF6F50FDBC9B92B6">将顶点颜色的<span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-D8625D6C-4B6C-4955-A668-3342E9791AEC">“RGBA”</span>输出连接到<span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-1843BB38-C5EF-4757-80F0-D5BCC2E61296">“标准基础”(Standard Base)</span>的<span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-B102577A-921A-4930-A4BD-A0F4E6947BF8">“环境光遮挡”(Ambient Occlusion)</span>输入。 
+			 <p class="p" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-BB4AC4F6-7757-4BCD-A501-0DEF80662E22">float3 输出将自动转化为浮点，且默认情况下使用 r 通道。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__LI_8DA48212232449778B48A461B3D0783A">在<span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-F1F35D8E-26A3-4BCA-9371-E9243A47B410">“标准基础”(Standard Base)</span>节点中选择<span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-118B65C3-B2B6-4E03-9FF9-27C7AF2AB299">“环境光阻挡”(Ambient Occlusion)</span>通道，然后在<span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-C1EA9A82-D2C8-40D8-B34B-F205EC4CC42F">属性编辑器</span>的<span class="ph uicontrol" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-06CDDCE7-85D9-4F92-9E79-5A47916264BC">“组件混合”(Component Swizzle)</span>属性中输入 g。 
+		  </li>
+</ol>
+ 
+		<p class="p" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-9BA9CBFC-7E07-4B39-BF15-073087AC1CCC">在此示例中，在恐龙尾巴的各部分（绘制为绿色）上可看到环境光遮挡。 
+		</p>
+ 
+		<p class="p" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__GUID-5EE90451-0518-4D57-ADF8-606FCDEA7FAC">顶点颜色的 r 和 b 通道现在可以连接到其他输入；例如，r 表示金属，b 表示粗糙度。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__FIG_6A1E5938A9074B8EB3E4CE8441D9EB5D"><img class="image" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__IMAGE_65CFEA8862124C8BABB66E2DEC6DA2B9" src="../images/GUID-CEA60350-6CC4-42CB-BFAA-CF5C22FFC018.png"></div>
+ 
+	 </div>
+<div class="section" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__SECTION_DFE4CFF5346141FF8E34CE5CD6967F80"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__UL_3499FB4C46684D1C8D637BB89102012B"><li class="li" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__LI_F417B437FC7841168110C06D7E13C97C"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3.htm">创建 Stingray 基于物理的着色器</a> 
+		  </li>
+<li class="li" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__LI_05923AA0975E4587B79A8FEC6D9A393C"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9.htm">使用 ShaderFX 编辑器构建 Stingray 基于物理的着色器</a> 
+		  </li>
+<li class="li" id="GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE__LI_507874EA14C74246ADC3C334B19A5981"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C.htm">示例工作流程：使用 Stingray 基于物理的着色器融合两个纹理</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A.htm">将顶点颜色添加到基于物理的 Stingray 着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

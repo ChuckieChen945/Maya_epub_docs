@@ -1,0 +1,434 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_aovs_am_AOVs_for_Image_Compositing_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_AOVS_FOR_IMAGE_COMPOSITING">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 用于图像合成的 AOV - Arnold for Maya">
+
+<title>用于图像合成的 AOV</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>用于图像合成的 AOV</h1></div>
+<div class="tablenobordernocolor gallery">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-AOVs_for_Image_Compositing-image2019-1-17-15-13-0-1.png" alt=""></td>
+<td></td>
+</tr>
+<tr>
+<td><sub><strong>RGBA（美景）AOV</strong></sub></td>
+<td></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+<p>本教程是使用 AOV 进行合成的初学者手册。应注意，所需的 AOV 取决于合成者的特定要求，以及他们使用这些 AOV 的方式。因此，建议先弄清楚所需的 AOV，然后再将其渲染出来。如果您不熟悉渲染过程 (AOV)，您可能想知道合成最终渲染需要哪些 AOV。这一切取决于多种因素，尤其是设置的材质和灯光、您在着色器中使用的组件以及您需要对最终图像所做的处理。但是，有时<em>美景</em>渲染就足够了。</p>
+<h2 id="aov">合成美景 AOV</h2><p>我们可以将 RGBA 美景 AOV 分割成多个较小的 AOV，每个 AOV 包含部分照明。在合成过程中，可以单独修改这些 AOV，然后将它们加在一起，得到完整的美景 AOV。AOV 越多越可以更好地控制合成，但也需要处理额外工作，它们会占用更多内存和磁盘空间，特别是与灯光组相结合时更是如此。</p>
+<p>下面是一些将 AOV 添加在一起以获得完整美景 AOV 的示例：</p>
+<ul>
+<li><em>direct、indirect、emission、background。</em></li>
+<li><em>diffuse、specular、coat、transmission、sss、volume、emission、background。</em></li>
+<li><em>diffuse_direct、diffuse_indirect、specular_direct、specular_indirect、coat、transmission、sss、volume、emission、background。</em></li>
+</ul>
+<p>只需将此类 AOV 添加在一起便可获得美景 AOV。</p>
+<h2 id="aov">标准曲面 AOV</h2><p>例如，我们来看看 <em>standard_surface</em> 着色器的组成方式以及其中有哪些 AOV。首先要考虑的是以下各部分，因为它们可以分为不同的 AOV。</p>
+
+<div class="tablenobordernocolor gallery">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-AOVs_for_Image_Compositing-image2019-1-17-15-37-29-2.png" alt=""></td>
+<td></td>
+</tr>
+<tr>
+<td><sub><strong><em>standard_surface</em> 着色器</strong></sub></td>
+<td></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<p>这是我们查看 AOV 列表时看到的内容。我们可以在 AOV 列表中看到上述所有组件，但除了 <em>standard_surface</em> 着色器中的 AOV 之外，还有其他 AOV。</p>
+
+<div class="tablenobordernocolor gallery">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-AOVs_for_Image_Compositing-image2019-1-17-10-22-12-3.png" alt=""></td>
+<td></td>
+</tr>
+<tr>
+<td><sub><strong>AOV 列表</strong></sub></td>
+<td></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<p>我们可以看到一些组件分为四个 AOV，例如，对于<em>涂层，</em> 有 <em>coat_albedo、</em> <em>coat_direct</em> 和 <em>coat_indirect。<em>此外，还有一些直接和间接 AOV，没有基础 AOV，但有漫反射 AOV。</em>standard_surface</em> 模拟基于物理的着色器，因此漫反射参数命名为<em>“base”。<em>现在我们有</em>漫反射、镜面反射、SSS、涂层、光泽</em> 以及其他 AOV。这些 AOV 可用于在合成软件包中构建最终图像。具有 <em>_albedo</em> 索引的 AOV 为组件的纯色。为该着色器的<em>“颜色”(Color)</em>参数指定了纹理（纯色）。</p>
+
+<div class="tablenobordernocolor gallery">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-AOVs_for_Image_Compositing-beauty-4.jpg" alt=""></td>
+<td><img src="../images/am-AOVs_for_Image_Compositing-specular-albedo-5.jpg" alt=""></td>
+</tr>
+<tr>
+<td><pre class="pre codeblock">美景</pre> AOV</td>
+<td><pre class="pre codeblock">specular_albedo</pre> AOV</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+<h2 id="aov">直接和间接 AOV</h2><p>现在来看看 <em>_direct</em> 和 <em>_indirect</em> AOV 的用途。它们组合在一起时，用途基本与<em>漫反射</em> AOV 相同，但分为相应的灯光组件。<em>直接</em>是指来自光源的直接光线，间接是指在直接光线照射到几何体时从几何体反射光线（光线深度参数控制此光线反弹的发生次数）。下面是一个简单示例：</p>
+
+<div class="tablenobordernocolor gallery">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-AOVs_for_Image_Compositing-image2019-1-17-11-49-51-6.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong><span style="color: rgb(38,38,38);">1：直接光线来自光源。2：从表面反弹的间接光线。</span></strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+<p>现在，如果我们合成 <em>diffuse_direct</em> + <em>diffuse_indirect<em>，则得到的结果与在</em>漫反射</em> AOV 中完全相同。这同样适用于 <em>standard_surface</em> 着色器中的其他 AOV。</p>
+
+<div class="tablenobordernocolor gallery">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-AOVs_for_Image_Compositing-1-diffuse-direct-7.jpg" alt=""></td>
+<td><img src="../images/am-AOVs_for_Image_Compositing-2-diffuse-indirect-8.jpg" alt=""></td>
+<td><img src="../images/am-AOVs_for_Image_Compositing-3-diffuse-9.jpg" alt=""></td>
+</tr>
+<tr>
+<td></td>
+<td><sub><strong><em>diffuse_direct + diffuse_indirect = 漫反射 </em>AOV</strong></sub></td>
+<td></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+<h2 id="rgba-aov">美景 (RGBA) AOV</h2><p>对于普通<em>直接</em> 和<em>间接</em> 过程，这是 <em>RGBA（美景）</em> 渲染，只是扩展到<em>直接</em> 和<em>间接</em> 光线。<em>RGBA</em> 包含完全渲染的图像，而图像中包含所有材质和灯光设置。</p>
+
+<div class="tablenobordernocolor gallery">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-AOVs_for_Image_Compositing-1-batman-direct-10.jpg" alt=""></td>
+<td><img src="../images/am-AOVs_for_Image_Compositing-2-batman-indirect-11.jpg" alt=""></td>
+<td><img src="../images/am-AOVs_for_Image_Compositing-3-batman-beauty-12.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><sub><strong><em>直接 + 间接 = RGBA（美景）</em>AOV</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+<h2 id="">合成</h2><p>现在，我们学习了着色器的工作方式，接下来我们可以继续进行下一阶段，具体来说就是确定合成图像需要哪些 AOV。简而言之：</p>
+<ul>
+<li>无。<em>美景</em> (RGBA) 渲染对我们来说足够了，即，当所有一切都已调整好并且不需要在合成中进行任何更正时使用美景 (RGBA) 渲染即可。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-AOVs_for_Image_Compositing-1-title-beauty-13.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>RGBA（美景）AOV</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+<ul>
+<li>第二种方法是可以采用组件 AOV：<em>漫反射、镜面反射、自发光</em>等，具体取决于在着色器中使用的属性。可以将颜色校正和曝光与任一 AOV 结合使用来进行某些调整时使用此方法。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-AOVs_for_Image_Compositing-3-batman-diffuse-14.jpg" alt=""></td>
+<td><img src="../images/am-AOVs_for_Image_Compositing-5-title-specular-15.jpg" alt=""></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+<ul>
+<li>后一种方法是将渲染分为组件 AOV，同时考虑 <em>_direct</em> 和 <em>_indirect</em>。需要在合成渲染器时进行大量控制（包括颜色校正、降噪等）时使用此方法。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-AOVs_for_Image_Compositing-diffuse-direct-16.jpg" alt=""></td>
+<td><img src="../images/am-AOVs_for_Image_Compositing-diffuse-indirect-17.jpg" alt=""></td>
+<td><img src="../images/am-AOVs_for_Image_Compositing-specular-direct-18.jpg" alt=""></td>
+</tr>
+<tr>
+<td>diffuse_direct</td>
+<td>diffuse_indirect</td>
+<td>specular_direct</td>
+</tr>
+<tr>
+<td><img src="../images/am-AOVs_for_Image_Compositing-specular-indirect-19.jpg" alt=""></td>
+<td><img src="../images/am-AOVs_for_Image_Compositing-sss-direct-20.jpg" alt=""></td>
+<td><img src="../images/am-AOVs_for_Image_Compositing-sss-indirect-21.jpg" alt=""></td>
+</tr>
+<tr>
+<td>specular_indirect</td>
+<td>sss_direct</td>
+<td>sss_indirect</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<ul>
+<li>重建美景 AOV 不需要反照率 AOV，但是有些情况下可能需要使用反照率 AOV，例如通过将 diffuse 除以 <em>diffuse_albedo</em> 以便只获取没有曲面纹理的原始照明时，或者仅对照明降噪而保持颜色纹理细节不变时。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-AOVs_for_Image_Compositing-albedob-Fairie1-22.jpg" alt=""></td>
+<td><img src="../images/am-AOVs_for_Image_Compositing-diffuse-albedo-Fairie1-23.jpg" alt=""></td>
+<td><img src="../images/am-AOVs_for_Image_Compositing-sss-albedo-Fairie1-24.jpg" alt=""></td>
+</tr>
+<tr>
+<td>albedo</td>
+<td>diffuse_albedo</td>
+<td>sss_albedo</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+<p><em>diffuse_albedo</em> 中存在菲涅尔是因为存在 <em>specular_IOR</em> 以及它对漫反射反照率的影响程度（以使其节能）。因此，如果没有<em>镜面反射<em>，</em>diffuse_albedo</em> 中就没有菲涅尔，因为所有能量都在漫反射中。</p>
+<ul>
+<li>除了<em>美景</em> AOV 外，还可以使用其他技术工具 AOV，例如 <em>ID</em> 遮罩，您可以通过它们选择大型场景中的特定对象并对其进行操纵。  </li>
+</ul>
+
+<div class="tablenobordernocolor gallery">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-AOVs_for_Image_Compositing-batman-ID-25.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>用于在合成中选择对象的 RGB ID 遮罩</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+
+
+<p>可使用工具 AOV 的其他示例包括：</p>
+<ul>
+<li><em>motionVector</em>（速度）：用于校正运动模糊的值。</li>
+<li><em>Z</em>：深度通道，用于散焦或虚设霭/雾。</li>
+<li><em>P</em> &amp; <em>N</em>：用于对对象进行简单重新照明。</li>
+<li><em>albedo</em>：可在降噪后用于安全信息。</li>
+<li><em>cryptomatte：</em> 自动材质 <em>ID</em> 遮罩、对象遮罩、资源遮罩（需要为合成工具安装）。</li>
+</ul>
+<p><sub><em><sup>非常感谢 Slava Sych 为本教程提供的帮助。</sup></em></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_AOV_Tutorials_html.html">AOV 教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_Fluids_Internal_Simulation_Fluids_Internal_coarsen_refine_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>coarsen_refine</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>coarsen_refine</code></h1></div><p>此节点粗化和细化输入体的容器以捕捉所有感兴趣的特征，并将结果放置在 outBody 中。 </p>
+<h2 id="">输入</h2><h3 id="source"><code>source</code></h3><p>source 是包含体素化源的对象或对象列表。如果 source 包含不同时间的对象，我们假定该列表按字母（时间、对象）顺序排序，这样，我们可以按该列表中的索引和获知的给定对象的时间戳将不同时间的同一对象关联起来。 </p>
+<h3 id="refinementregions"><code>refinementRegions</code></h3><p>指定层次边界框（用于定义空间中的区域）和我们应细化到的深度级别。列表的索引确定深度，其中第一个元素为最精细级别。 </p>
+<h3 id="resolutionfields"><code>resolutionFields</code></h3><p>指定边界框（用于定义空间中的区域）和我们应细化到的深度级别。零表示最精细级别，值增加时，细节大小按 2 的幂相应增加。这与 refinementRegions 不同，因为级别是明确指定的，并且一个对象在任何级别都可以有多个边界。 </p>
+<h3 id="significancechannelnames"><code>significanceChannelNames</code></h3><p>一组将用作重要性通道（默认通道除外，如 voxel_fog_density 和 voxel_fuel_*）的附加通道的名称。 </p>
+<h3 id="frame"><code>frame</code></h3><p>当前帧。 </p>
+<h3 id="time"><code>time</code></h3><p>当前时间。 </p>
+<h3 id="timestep"><code>timeStep</code></h3><p>此时间步的大小（增量时间）。 </p>
+<h3 id="framestarttime"><code>frameStartTime</code></h3><p>帧开始的时间（可用于子帧插值） </p>
+<h3 id="frameendtime"><code>frameEndTime</code></h3><p>帧结束的时间（可用于子帧插值） </p>
+<h3 id="cfl"><code>cfl</code></h3><p>时间步的 CFL 数量 </p>
+<h3 id="grading"><code>grading</code></h3><p>确定树的细化。尤其是在与某个感兴趣特征或源的距离小于体素对角乘以分级的一半的情况下细化体素时。 </p>
+<h3 id="voxelpadding"><code>voxelPadding</code></h3><p>为感兴趣的特征填充一层厚度至少为“voxelPadding”的体素。 </p>
+<h3 id="velocitypaddingfactor"><code>velocityPaddingFactor</code></h3><p>平铺树按速度乘以 timeStep 的方向和幅值延伸，整体乘以“velocityPaddingFactor”。 </p>
+<h3 id="divergencepaddingfactor"><code>divergencePaddingFactor</code></h3><p>平铺树根据从散度乘以“divergencePaddingFactor”得到的法向速度估算值呈放射状向外延伸。 </p>
+<h3 id="significancethreshold"><code>significanceThreshold</code></h3><p>大于“significanceThreshold”的值将被视为重要值 </p>
+<h3 id="sortintomortonorder"><code>sortIntoMortonOrder</code></h3><p>如果为 true，则将平铺树的节点排列为 Morton 顺序，以获得更好的局部性。 </p>
+<h3 id="sortingframeinterval"><code>sortingFrameInterval</code></h3><p>强制实施 Morton 顺序的帧之间的时间间隔。 </p>
+<h3 id="retainunoccupiedtiles"><code>retainUnoccupiedTiles</code></h3><p>如果为 true，则不删除与感兴趣特征相距太远的平铺。 </p>
+<h3 id="enablespatialadaptivity"><code>enableSpatialAdaptivity</code></h3><p>设置为 true 以启用空间自适应性（覆盖节点的自适应性自动检测模式）。 </p>
+<h3 id="userefinementproperty"><code>useRefinementProperty</code></h3><p>设置为 true 以在粗化和细化中使用细化特性 (voxel_refinement)。 </p>
+<h3 id="number_of_upres_levels"><code>number_of_upres_levels</code></h3><p>平铺树中将保留 upres 通道（雾密度和温度）的最精细级别的数量 </p>
+<h3 id="body"><code>body</code></h3><p>输出体（对象）。</p>
+<h2 id="">输出</h2><h3 id="outcoarsestdofdepth"><code>outCoarsestDOFDepth</code></h3><p>平铺树中具有自由度 (DOF) 的最粗糙深度。 </p>
+<h3 id="outsimulationdomain"><code>outSimulationDomain</code></h3><p>将在以世界空间坐标定义的此边界框中进行计算。 </p>
+<h3 id="outbody"><code>outBody</code></h3><p>输出体（对象）。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Fluids/Bifrost_Common_reference_Simulation_Fluids_Internal_html.html">Internal</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

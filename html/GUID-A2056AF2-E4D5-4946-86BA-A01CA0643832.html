@@ -1,0 +1,201 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832">
+<meta name="language" content="CHS">
+<title>种子</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>种子</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-129D"> 设置高斯、rand 和 sphrand 函数用于生成随机数的种子值。如果为 seed 指定一个值，然后反复执行高斯、rand 和 sphrand 函数，将生成相同的随机数序列。
+	 </p>
+<p class="p" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__GUID-92920661-8270-498F-84C5-6002F43EE48C">有关说明，请参见下面的示例和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698.htm">重新生成随机性</a>。
+	 </p>
+<p class="p" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-129B">int seed(int number) 
+	 </p>
+<p class="p" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-129A"> 
+		<em class="ph i" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__GUID-B5250BB1-8C9E-4A84-9B8E-CF7644AB9068">number</em> 设置要用作种子值的任意数字。
+	 </p>
+<div class="section" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-1299"><h2 class="title sectiontitle">示例</h2> 
+		 
+		<p class="p" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-1298">假设创建一个名为 Ball 的 NURBS 球体，然后输入以下表达式：
+		</p>
+ 
+		<pre class="pre codeblock">
+Ball.translateX = rand(5);
+</pre>
+ 
+		<p class="p" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-1297">回放动画时，Ball 的 translateX 属性会收到一个介于 0 和 5 之间的随机值，例如 1.392。播放动画时，在每一帧，translateX 属性会收到一个介于 0 和 5 之间的不同随机值。
+		</p>
+ 
+		<p class="p" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-1296">再次回放动画时，translateX 属性会收到一个不同于第一次回放时所收到值的值，例如 3.223。
+		</p>
+ 
+		<p class="p" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-1295">再次播放动画时，translateX 属性会对每个帧收到一个不同于它在第一次播放动画时所收到值的值。简而言之，每次 rand (5) 执行时，它都会产生不同的随机值。
+		</p>
+ 
+		<p class="p" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-1294">假设您将表达式更改为以下表达式：
+		</p>
+ 
+		<pre class="pre codeblock">
+if (frame == 1)
+	seed(1);
+Ball.translateX = rand(5);
+</pre>
+ 
+		<p class="p" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-1293">将场景回放到第 1 帧会执行 seed (1) 函数。然后，它为 translateX 指定一个介于 0 和 5 之间的随机值，例如 4.501。
+		</p>
+ 
+		<p class="p" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-1292">在播放动画时，rand (5) 函数会执行每个帧，并返回一个不同的值。下面是所返回值的示例：
+		</p>
+ 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-1291" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">帧 
+				  </th>
+<th class="entry" valign="top" width="50%">值 
+				  </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">1 
+				  </td>
+<td class="entry" valign="top" width="50%">4.501 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">2 
+				  </td>
+<td class="entry" valign="top" width="50%">3.863 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">3 
+				  </td>
+<td class="entry" valign="top" width="50%">3.202 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">4 
+				  </td>
+<td class="entry" valign="top" width="50%">3.735 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">5 
+				  </td>
+<td class="entry" valign="top" width="50%">2.726 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">6 
+				  </td>
+<td class="entry" valign="top" width="50%">0.101 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		<p class="p" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-1290">每次回放和播放动画时，translateX 都会收到同一随机值序列。
+		</p>
+ 
+		<p class="p" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-128F">对于不同的种子值，返回的数字序列将有所不同。您无法基于种子值预测数字序列中的值。
+		</p>
+ 
+		<p class="p" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-128E">假设您将表达式更改为以下表达式：
+		</p>
+ 
+		<pre class="pre codeblock">
+if (frame == 1)
+	seed(500);
+Ball.translateX = rand(5);
+</pre>
+ 
+		<p class="p" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-128D">rand (5) 函数在您回放和播放动画时返回以下值：
+		</p>
+ 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-128C" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">帧 
+				  </th>
+<th class="entry" valign="top" width="50%">值 
+				  </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">1 
+				  </td>
+<td class="entry" valign="top" width="50%">4.725 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">2 
+				  </td>
+<td class="entry" valign="top" width="50%">2.628 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">3 
+				  </td>
+<td class="entry" valign="top" width="50%">0.189 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">4 
+				  </td>
+<td class="entry" valign="top" width="50%">0.004 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">5 
+				  </td>
+<td class="entry" valign="top" width="50%">4.834 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">6 
+				  </td>
+<td class="entry" valign="top" width="50%">0.775 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		<p class="p" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-128B">通过更改 seed 函数的值，可以更改生成的随机数序列。
+		</p>
+ 
+		<p class="p" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-128A">使用 seed 函数时的常见错误如下：
+		</p>
+ 
+		<pre class="pre codeblock">
+seed(1);
+Ball.translateX = rand(5);
+</pre>
+ 
+		<p class="p" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-1289">回放动画时，Ball 的 translateX 属性会收到值 4.501。播放动画时，在每次执行表达式时，translateX 属性都会收到 4.501。
+		</p>
+ 
+		<p class="p" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-1288">由于您在每次执行 rand (5) 之前为 seed 指定值 (1)，因此这将初始化随机数序列。因此，在每次执行 rand (5) 函数时，它会返回数字序列的第一个值。
+		</p>
+ 
+		<div class="note attention" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__WS73099CC142F48755-3D114B7511841AEFA9F-1287"><span class="attentiontitle">注意：</span>  
+		  <p class="p" id="GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832__GUID-26DD838A-037D-4964-9361-5B4B909ED1A9">在表达式或 MEL 脚本中设置某个种子值时，该种子值会影响其他表达式和 MEL 脚本中的 rand、sphrand 和高斯函数。在您随后在当前工作会话中打开的所有场景中，此类函数将受到该种子值的影响。
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-CA91F705-2E91-425C-BEA3-E15162C4CB55.htm">随机数函数</a></div>
+</div>
+</div>
+
+</body>
+</html>

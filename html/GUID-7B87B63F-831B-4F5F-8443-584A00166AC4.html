@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="Bullet 工作流:刚体铰链模拟;铰链模拟工作流:Bullet">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4">
+<meta name="language" content="CHS">
+<title>使用 Bullet 刚体创建铰链模拟</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 Bullet 刚体创建铰链模拟</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-8202808A-154B-4178-8B01-F8B350250809"> 在新的 Maya 场景中，将<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-34D79F9D-067F-4D0C-8E5F-05081C7C2BF7">“时间滑块”(Time Slider)</span>持续时间设置为 1000 帧，并确保将其设为在第 1 帧播放。 
+	 </p>
+<ol class="ol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__OL_F854A6FD0567484B8EE7156BE6334CE5"><li class="li" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__LI_6803B034DB74406DA2B2A057B67723C4">通过依次选择<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-C1C7BCDC-2CDE-4C6B-B11F-A70A5A724714">“创建</span> &gt;<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-B02EE17C-10CA-47D3-9DF9-C07164259CE3"> 多边形基本体</span> &gt;<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-2FC9C8F5-C960-4D85-B93A-F415DEBC0A57"> 平面”(Create &gt; Polygon Primitives &gt; Plane)</span>来创建两个多边形网格。在创建每个平面时，将其宽度和高度都设为 5。 
+		</li>
+<li class="li" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__LI_CB80AC0F8A1B47048C2F8E821FBC24FF">平移网格以使其沿 Z 轴相接。完成此操作的一个方法是将一个网格的<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-F9A1A393-9B6D-43FD-B8B2-032897890629">“平移 X”(Translate X)</span>值设定为 2.5，并将另一网格的 <span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-F896E3E4-2E04-4F1E-8761-2096DB73E2F2">“平移 X”(Translate X)</span>值设定为 -2.5。 
+		  <div class="fig fignone" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__FIG_BB026DB253B44661BDA4C1331F30EC70"><img class="image" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__IMAGE_DC9CFE5017E64C7EA59BBE46AB877B21" src="../images/GUID-07720504-F787-4214-8B75-6310922D796C.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__LI_E69ACF6104324C6F8678A90435BFEB41">选择一个网格，然后依次选择<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-368449AA-4630-45ED-9888-CB7FD9D47B1D">“Bullet</span> &gt; <span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-7F03B67D-3A5A-4E4C-AC31-59962883B4DD">创建被动刚体”(Bullet &gt; Create Passive Rigid Body)</span>以将其转化为被动刚体。将此称为刚体 A。 
+		</li>
+<li class="li" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__LI_EBDFC1ADB4914BA39AE7511513FE4B3A">选择另一个网格，然后依次选择<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-F0376DEA-7165-45A7-9890-2512281FC8A4">“Bullet</span> &gt; <span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-DC290C93-D982-41C1-AAF0-79616BFA1099">创建主动刚体”(Bullet &gt; Create Active Rigid Body)</span>以将其转化为主动刚体。将此称为刚体 B。 
+		  <div class="fig fignone" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__FIG_997BE9BB4613442BB75447731A8A9AE8"><img class="image" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__IMAGE_4FE8F1BD83DD4F3BB4DA5A4732CE93DE" src="../images/GUID-D41413F2-B875-4524-BDC6-CFB6AE7976DF.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__LI_DB97293B90E9454CAC4EA58FCEFAC3A1">选择这两个网格，然后依次选择<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-C33729B8-F21E-4FFB-B748-368D2704BA3E">“Bullet</span> &gt; <span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-5C998138-A00B-4980-83D7-7E453F2B8B95">创建刚体约束”(Bullet &gt; Create Rigid Body Constraint)</span>以创建这两者间的约束。 
+		  <div class="fig fignone" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__FIG_91EF70A9BB834AB781A2FD7BCE66B1DE"><img class="image" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__IMAGE_7566C238E657410898BF968B58FA7ECC" src="../images/GUID-B3838CC1-9B26-42C1-A596-F7DB83D08536.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__LI_81F7FD61441F46B28889C03C76899249">在<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-8DC28631-3451-486B-B730-19B20129BCAC">“大纲视图”(Outliner)</span>（<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-B3896FF5-E9F1-4A40-9A13-A89BD653F20A">“窗口</span> &gt;<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-E17CDCB6-ACE7-497D-81CF-CE746CCBA404"> 大纲视图”(Window &gt; Outliner)</span>）中，选择“bulletRigidBodyConstraint”节点。 
+		</li>
+<li class="li" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__LI_3A782C4780A64EE8A70493E69C03563F">在<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-C54C7831-495A-4F63-8A78-1A1CE8AC6E93">“属性编辑器”(Attribute Editor)</span>中，单击“bulletRigidBodyConstraintShape”节点选项卡。 
+		</li>
+<li class="li" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__LI_A3DF3221371245A0A5AC65A0F315C3B4">从<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-45F6CC32-1B34-4E5D-AF07-5B9DF80E131A">“约束类型”(Constraint Type)</span>列表中选择<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-5B643C13-809D-45C0-B36D-E3824B8A32C4">“铰链”(Hinge)</span>。这将沿每个对象的 Z 轴创建一个刚体 A 和刚体 B 之间的<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-DCD45B4A-BF39-471E-9F30-4440493C9310">“铰链”(Hinge)</span>约束。 
+		</li>
+<li class="li" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__LI_17E570BD00034531A78B55343FA50CFA">选择刚体 B。 
+		</li>
+<li class="li" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__LI_BA766BCA651141D59E5251E1CF4D6A56">在<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-144C952A-9430-46F1-982D-A94C1E5437B8">“属性编辑器”(Attribute Editor)</span>中，单击“bulletRigidBodyShape”节点选项卡。 
+		</li>
+<li class="li" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__LI_1004D943E8824AF6AE82E016E7450C58">在<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-8A881B5E-C61E-49AB-BDC5-43D1E2A10F8C">“刚体特性”(Rigid Body Properties)</span>部分中，将<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-E36EDCC1-F643-4C43-91B3-0C641E36D841">“角度阻尼”(Angular Damping)</span>设为 0.4。 
+		  <div class="p" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-45880C0C-1DA0-4938-91D1-43911A84C2E7">播放模拟。刚体 B 沿其 Z 轴来回摆动。随着时间的推移，刚体摆动减缓，直到在大约 1000 帧时停止。 
+			 <div class="fig fignone" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__FIG_ADE4F20A32A248DEAD6FAF3CE0794591"><img class="image" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__IMAGE_CCA17E9A6AD94AAE8AA725B4238AA87D" src="../images/GUID-F17EF718-3BB2-4BDD-81BD-78DDB863DD7C.gif"></div>
+ 
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__LI_159295E2C1574AD59E8433CD3CD555A0">若要查看在约束上启用马达的效果，请在<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-A6803C58-043E-4B25-8629-CE22EE357725">“大纲视图”(Outliner)</span>中选择“bulletRigidBodyConstraint”节点。 
+		</li>
+<li class="li" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__LI_CA1493E6385D475EAF774DA91A54A034">在“马达”(Motors)部分的<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-781D52CD-233F-4EC5-81F7-CACF7C095E20">“属性编辑器”(Attribute Editor)</span>中，启用<span class="ph uicontrol" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-F135483D-C287-41DC-919F-12A656E0E528">“已启用角度马达”(Angular Motor Enabled)</span>。 
+		</li>
+</ol>
+<div class="p" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__GUID-ADDC6D91-F1EB-4923-8616-641179CAFD39">播放模拟。在角度马达的作用下，此时刚体 B 在固定的速度下 360 度旋转摆动。 
+		<div class="fig fignone" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__FIG_BB8EFDF6C35E421E96D3A4F20D3C872B"><img class="image" id="GUID-7B87B63F-831B-4F5F-8443-584A00166AC4__IMAGE_DE8AD4B12C8549FCB77E649985C10CF5" src="../images/GUID-DDD483E2-FD85-4DBE-9ED7-D62D621ECFEB.gif"></div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-44A75D64-8C67-4336-A7CC-9A99FD772C29.htm">Bullet 工作流示例</a></div>
+</div>
+</div>
+
+</body>
+</html>

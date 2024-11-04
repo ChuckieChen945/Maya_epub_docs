@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618">
+<meta name="language" content="CHS">
+<title>平滑蒙皮的绑定方法</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>平滑蒙皮的绑定方法</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-9995ECDB-6D98-4C65-99DA-36E749D0C91F">您选择的绑定方法将决定您绑定蒙皮时平滑蒙皮点上的初始影响权重如何设定。（通过<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-CF2C698A-44BB-4CA0-BCB9-DB36500DA812.htm">绑定蒙皮选项</a>中的<span class="ph uicontrol" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-24EE73DB-DC3C-43DC-9B83-2B1EEE655ED8">“绑定方法”(Bind Method)</span>可以指定此方法。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-8DBA9E62-3854-4348-A0AD-1F981ECEA54F.htm">绑定平滑蒙皮</a>。） 
+	 </p>
+<div class="p">本主题中所述的每种“绑定”(Bind)方法的效果均使用绘制蒙皮权重<span class="ph uicontrol"></span>工具绘制而成，其中最强烈的影响以白色显示。随着绑定效果的减弱，影响区域褪色为黄色，然后变为红色。衰减颜色从红色变为黑色，显示受绑定影响最小的区域。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-81A01C5A-646A-4386-BAFF-A561F52F845C.htm">使用绘制蒙皮权重工具测试蒙皮绑定</a>。 
+		<div class="fig fignone" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__FIG_430A00A891194D699A77E3712EE49762"><img class="image" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__IMAGE_93949A7508CC40F0974DFAD661CB88EB" src="../images/GUID-DD0A60C8-94D5-4EBB-8972-14F287EED77F.png"><p class="figcap">绘制蒙皮权重工具的“颜色渐变”(Color Ramp)可用于显示肩关节绑定的效果。</p></div>
+ 
+	 </div>
+<div class="section" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__SECTION_BA69AF996B55471E8795DC12517F9616"><h2 class="title sectiontitle"> 基于关节接近程度来设置权重</h2> 
+		 
+		<p class="p" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__WS73099CC142F48755-7B21313411809411AE9-4C70">将<span class="ph uicontrol" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-8991356A-7F4B-49CD-9D2B-841C07092B7C">“绑定方法”(Bind Method)</span>设定为<span class="ph uicontrol" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-559E310C-855E-42A8-BBCC-680F26CF88E8">“最近距离”(Closest Distance)</span>可要求 Maya 忽略骨架的层次。相反，对平滑蒙皮点的权重具有下一个最大影响的关节始终是下一个距离该点最近的关节。根据骨架的结构和模型的放置，在骨架的层次中该关节可能会比最近关节高得多或低得多。例如，如果角色的手臂垂下，以便前臂骨骼靠近髋部骨骼，那么髋部骨骼可能会对手臂的蒙皮点具有第二个最大影响。这可能会在手臂蒙皮点的权重上产生不适当的影响。 
+		</p>
+ 
+		<p class="p">下图使用绘制蒙皮权重<span class="ph uicontrol"></span>工具显示<strong class="ph b"><span class="ph uicontrol">“最近距离”(Closest Distance)</span></strong>绑定方法的效果。黄色中心指示此处影响力最强，黑色区域则反映当它穿过网格时绑定效果逐渐减弱。使用此绑定方法时，默认设置将显示肩部的影响最强，但这种影响会延伸到头顶。如果比较<span class="ph uicontrol">“最近距离”(Closest Distance)</span>和<span class="ph uicontrol">“在层次中最近”(Closest in Hierarchy)</span>插图，就会发现尽管<span class="ph uicontrol">“在层次中最近”(Closest in Hierarchy)</span>会通过胸部区域更全面地扩散，但二者均显示类似的效果。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__FIG_ABA011F8ECC2459D9AEC055700821994"><img class="image" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__IMAGE_BEB4E469F8EA4CCCA71C252F07987091" src="../images/GUID-A88690C3-BE40-46DD-AFB4-54AA8C210257.png"></div>
+ 
+	 </div>
+<div class="section" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__SECTION_CCD61BDBCFA048DFAD266CB72EAC65B4"><h2 class="title sectiontitle">基于骨架层次设置权重</h2> 
+		 
+		<p class="p" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__WS73099CC142F48755-7B21313411809411AE9-4C73">将<span class="ph uicontrol" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-F9F3C683-2005-4023-B327-FA0D1385F2E7">“绑定方法”(Bind Method)</span>设定为<span class="ph uicontrol" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-E76BAC56-D559-42E3-B79B-7287D8CF9676">“在层次中最近”(Closest in Hierarchy)</span>可要求 Maya 考虑骨架层次。将具有下一个最大影响的关节将是最近的关节的亲属（父关节或子关节）。 例如，如果角色的手臂垂下，以使前臂骨骼靠近髋部骨骼，那么可以确保手臂的蒙皮点不会受到髋部骨骼的影响。这是因为在骨架的层次中髋部骨骼不在前臂骨骼附近，即使它们之间的距离很小。 
+		</p>
+ 
+		<p class="p">此插图使用绘制蒙皮权重<span class="ph uicontrol"></span>工具显示<strong class="ph b"><span class="ph uicontrol">“在层次中最近”(Closest in Hierarchy)</span></strong>绑定方法的效果，其中黄色中心指示影响最强，黑色区域则显示绑定影响减弱。使用此绑定方法时，默认设置将显示此方法的影响如何扩散到角色网格的胸部和头部。如果比较<span class="ph uicontrol">“最近距离”(Closest Distance)</span>和<span class="ph uicontrol">“在层次中最近”(Closest in Hierarchy)</span>插图，就会发现尽管<span class="ph uicontrol">“在层次中最近”(Closest in Hierarchy)</span>会进一步延伸至胸部区域中，但二者均显示类似的效果。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__FIG_DD74C8DA7ABB4F5EB117B86A8DA0C193"><img class="image" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__IMAGE_B38E7265BBD742BC8FCC670E54B5F0E6" src="../images/GUID-2D1F7744-4E5A-4532-A66F-522DF96B8479.png"></div>
+ 
+	 </div>
+<div class="section" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__SECTION_F75C691D132342D6A2ACAD84CE947BAF"><h2 class="title sectiontitle">基于热量贴图分发权重</h2> 
+		 
+		<p class="p" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-FD57627C-4182-436E-BDF7-6CD28A3150EF">将<span class="ph uicontrol" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-ABF389BD-3DD0-474E-AB2D-90D32C143268">“绑定方法”(Bind Method)</span>设定为<span class="ph uicontrol" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-0DB6C155-01D4-4279-B9A7-AA23C1A79FF6">“热量贴图”(Heat Map)</span>可要求 Maya 使用热量扩散技术分发权重，并且通常会为您提供比<span class="ph uicontrol" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-53CEA1E0-EEF3-4848-B757-520409EF8BC6">“在层次中最近”(Closest in Hierarchy)</span>和<span class="ph uicontrol" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-BBE1776C-8D72-4BD1-9388-93AACB5EEC48">“最近距离”(Closest Distance)</span>绑定方法更好的默认结果。 
+		</p>
+ 
+		<p class="p" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-2DA4C711-6C82-4170-B972-C4ADFD28E2D7">“热量贴图”(Heat Map)绑定基于网格中的每个影响对象设定初始权重，该网格用作热量源，并在网格周围发射权重值。较高（较热）权重值最接近对象，向远离对象的方向移动时会降为较低（较冷）的值。 
+		</p>
+ 
+		<p class="p" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-45707F0A-3B88-430E-9308-3703658FA906"> 仅定义在网格内的影响对象将在<span class="ph uicontrol" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-1BF5C9CD-7745-4EA5-A8EF-B673F83498BF">“热量贴图”(Heat Map)</span>绑定期间发热。例如，如果您将骨架绑定到的末关节延伸出网格，则末关节将不会在绑定期间接收任何权重，并且不会对网格产生任何影响。但是，如果骨骼穿透网格但其关节对象未穿透网格，则从该骨骼发射的所有影响都将传递到父关节，即使父关节超出网格。 
+		</p>
+ 
+		<div class="note note" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-D74C8860-1F1E-4E0C-AE56-D6D3E4C7D161"><span class="notetitle">注：</span> 仅定义在网格<em class="ph i" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-572761B8-41C1-4F95-B4A3-D2B445DEC1B6">内</em>的影响对象将在<span class="ph uicontrol" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-34A032AF-0FFE-474B-9B88-67F90AC2237D">“热量贴图”(Heat Map)</span>绑定期间发热。例如，如果您将骨架绑定到的末关节延伸出网格，则末关节将不会在绑定期间接收任何权重，并且不会对网格产生任何影响。但是，如果骨骼穿透网格但其关节对象未穿透网格，则从该骨骼发射的所有影响都将传递到父关节，即使父关节超出网格。 
+		   
+		</div>
+ 
+		<p class="p">下图使用绘制蒙皮权重<span class="ph uicontrol"></span>工具显示<strong class="ph b"><span class="ph uicontrol">“热量贴图”(Heat Map)</span></strong>绑定方法的效果，其中白色中心指示最强影响，黑色区域则显示效果减弱。使用此绑定方法时，默认设置显示对肩关节的影响仍强烈集中在肩部，仅略微延伸至胸部。与<span class="ph uicontrol">Closest Distance“最近距离”(Closest Distance)</span>和<span class="ph uicontrol">“在层次中最近”(Closest in Hierarchy)</span>绑定方法不同，此效果不会扩散到角色网格的头部。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__FIG_8A50081BA42641B49A3722875DDF5102"><img class="image" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__IMAGE_359A6353CA434D3CBB52FF0E672A3074" src="../images/GUID-A67E1ECC-E928-4079-B45C-E7B5E77DC683.png"></div>
+ 
+	 </div>
+<div class="section" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__SECTION_B927DB9EA2C847A29D575C03E3BCE32B"><h2 class="title sectiontitle">基于测地线体素设置权重</h2> 
+		 
+		<p class="p" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-33614EFD-432A-4D3C-9668-EEFF1A01CAA3">将<span class="ph uicontrol" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-0F7E0C48-0185-48F9-97E6-E4F88F9BB5AE">“绑定方法”(Bind Method)</span>设置为<span class="ph uicontrol" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-E78F012B-5764-4910-B0C1-B0E396089A19">“测地线体素”(Geodesic Voxel)</span>可计算绑定权重（基于骨架和网格中的体素之间的测地线距离）。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7.htm">测地线体素绑定</a>。 
+		</p>
+ 
+		<p class="p" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-2A7E9BBA-530F-42DE-82C5-1FF84098F192">此方法适用于复杂的生产级网格，例如以下类型的几何体： 
+		</p>
+ 
+		<ul class="ul" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__UL_8D6BDC37EBF044DE8F70202D545C76E8"><li class="li" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__LI_089F324EBB43445AB1216CA71A907FEE">包含非流形几何体 
+		  </li>
+<li class="li" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__LI_5691CD0014514AE8811C7F5E61A381D1">不防水 
+		  </li>
+<li class="li" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__LI_876A5C82F1354BDC8F4EC9B26FF717B6">包含相交的三角形 
+		  </li>
+<li class="li" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__LI_C686580493AA4BFE97268E6BCBF34FBB">包含多个连接的组件 
+		  </li>
+</ul>
+ 
+		<p class="p" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-64080181-5596-448A-A9EB-5EC877AAC63B">由于权重分配不依赖于距离计算，您可在将角色调整为不同姿势时修改权重，从而在上下文中评估权重分配的影响。 
+		</p>
+ 
+		<div class="note note" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-9ED38381-CE44-4A5B-A166-EF2812CDFDB9"><span class="notetitle">注：</span> 如果网格中包含严重<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7.htm#GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__SECTION_BDFB54F5136A4166844D55A5FB8B3F07">退化几何体</a>，则“测地线体素绑定”可能无效。 
+		</div>
+ 
+		<p class="p">此插图使用<span class="ph uicontrol">绘制蒙皮权重</span>工具显示<strong class="ph b"><span class="ph uicontrol">“测地线体素”(Geodesic Voxel)</span></strong>绑定方法的效果，其中黄色中心指示影响最强，黑色区域收显示绑定影响减弱。使用此绑定方法时，默认设置将显示此方法的影响如何针对角色的肩关节。与<span class="ph uicontrol">“最近距离”(Closest Distance)</span>和<span class="ph uicontrol">“在层次中最近”(Closest in Hierarchy)</span>方法不同，此效果不会扩散到角色网格的头部。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__FIG_DC713A4A18F14FA8B033B39A15D102AC"><img class="image" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__IMAGE_B0C3FFC0BD5A4148AE95399EF033B913" src="../images/GUID-F9AAF388-030E-438D-9844-7AD9F079B345.png"></div>
+ 
+	 </div>
+<div class="section" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__SECTION_6473C60418A843E98FC16AA43ACEA21F"><h2 class="title sectiontitle">交互式绑定</h2> 
+		 
+		<p class="p" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__GUID-E2C8560B-F4F7-48C7-9A97-B92FD6E2E0A0">除了这些平滑绑定方法，也可以使用交互式绑定，后者会为每个绑定关节创建体积操纵器。您通过操纵这些操纵器的大小和形状来定义每个影响所影响的网格区域。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-E4E9952F-46BF-4F09-9055-75BFB37CA679.htm">平滑蒙皮的交互式绑定</a>。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__SECTION_4597FC0AC0F3407BB5A8D3DAD6D05FDE"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__UL_14D2F7444D3940B689886A75EBD3B177"><li class="li" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__LI_C846FCE3CE50461BB57C50B1C42C44E6"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-CF2C698A-44BB-4CA0-BCB9-DB36500DA812.htm">绑定蒙皮选项</a> 
+		  </li>
+<li class="li" id="GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618__LI_D12981734CC94305AD428FCE64B6ABC9"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-81A01C5A-646A-4386-BAFF-A561F52F845C.htm">使用绘制蒙皮权重工具测试蒙皮绑定</a>
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-11007900-329F-40ED-9C38-BE4DB5C39832.htm">平滑蒙皮</a></div>
+</div>
+</div>
+
+</body>
+</html>

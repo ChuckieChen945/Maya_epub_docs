@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="20/08/2022">
+<meta name="topicid" content="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A">
+<meta name="language" content="CHS">
+<title>颜色管理入门</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>颜色管理入门</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-00B71BCF-9FE2-4FB9-87B8-3518AE525EDA">颜色管理为您提供了场景线性工作流的优势，同时仍可在视口和<span class="ph uicontrol" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-6A7D9BB7-DE51-4CBD-8EFE-349417417C43">“渲染视图”(Render View)</span>中显示适用于您的显示的预览。默认颜色管理系统为 OpenColorIO v2 (OCIO v2)。
+	 </p>
+<div class="note note" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-4A2CB9E1-EF49-45CA-9091-4F0AC40DC17C"><span class="notetitle">注：</span>  
+		<p class="p">有关 OCIO 的背景信息，请访问 <a class="xref" href="https://opencolorio.org/" target="_blank">opencolorio.org</a>。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__SECTION_B95DC052BFDA4619A45821BC7CA57A69"><h2 class="title sectiontitle">设置颜色管理</h2> 
+		 
+		<ol class="ol" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__OL_0B6744FE890F451AAAB6FBA7CAA08951"><li class="li" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__LI_B27FA5E1006541DA82DCF57AD80ECE94"> 
+			 <p class="p" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-981DB274-18C3-4DFB-B043-7E4A7ED9706D">打开<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-2D9BBB9D-49F0-44C6-8BFF-B237FD8ED746">颜色管理首选项</a>并确保颜色管理处于启用状态。
+			 </p>
+ 
+			 <p class="p">通常，默认情况下对新场景启用颜色管理，但是可以在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-8F961875-1D41-4C52-9CD5-B90DE75C546C"><span class="ph uicontrol">新建场景选项</span></a>中更改此行为。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__LI_970236FB7159496494995031C33B62E9">如果项目使用特定的 OCIO 配置，请将<span class="ph uicontrol">“OCIO 配置路径”(OCIO Config Path)</span>设置为磁盘上的完整路径和文件名。
+			 <div class="note note" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-18B57FA9-2ED8-4E6C-B84A-79D06E5EEC4F"><span class="notetitle">注：</span> 如果在启动 <span class="ph msgph prodname" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 时遇到与颜色管理相关的延迟，请确保 OCIO 配置文件包含 <samp class="ph codeph">environment</samp> 部分。该部分是否为空无关紧要，例如：<pre class="pre codeblock">environment:
+  {}</pre>
+ 
+			 </div>
+ 
+			 <p class="p">如果在启动 Maya 之前已将 <samp class="ph codeph">OCIO</samp> 环境变量设置为配置文件的名称和路径，则<span class="ph uicontrol">“OCIO 配置路径”(OCIO Config Path)</span>为只读。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__LI_63437A94E1A84D648A90658DDB3722AB">将<span class="ph uicontrol" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-CF8BF657-6C92-40E3-9F6A-6C61204A50DB">“渲染空间”(Rendering Space)</span>设置为用于渲染的工作颜色空间。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-5CDEBBB6-18F7-4062-B2AF-BDFDF11501F1.htm">选择渲染空间</a>。
+		  </li>
+<li class="li" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__LI_1F710AC91B0345D3B711E278D0D8551A">确保<span class="ph uicontrol">“显示”(Display)</span>适合您的显示设备。
+		  </li>
+<li class="li" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__LI_D596FD7194264F5FAECECDE57A120F38">将<span class="ph uicontrol" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-B89B0DC9-B04E-4418-93FA-46326669364F">“视图”(View)</span>设置为最适合您的项目的预览。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-A9CA3572-FAFA-440D-92EB-37566A2DFE0B.htm">选择用于预览的视图</a>。
+		  </li>
+<li class="li" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__LI_3B74ACE18A0842B3A231B5B125EB3CB5">在<span class="ph uicontrol" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-6A453975-9022-4D63-94E8-649F834F7EB5">“输入颜色空间规则”(Input Color Space Rules)</span>中，（可选）设置用于为纹理指定颜色空间的规则。至少应设置<span class="ph uicontrol" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-692BF0AA-7CDF-4BFB-923F-44BBDD8B1A7C">“默认”(Default)</span>规则，以指定大多数图像输入使用的颜色空间。可以基于文件命名约定添加其他规则。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-631C665F-3092-4B2B-90B7-2A94158870C9.htm">定义规则以为输入文件指定颜色空间</a>。
+			 <p class="p" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-3356C5C3-FBA0-4E1A-A5E3-98605A7F4F13">默认情况下，会将由规则确定的颜色空间用作新的 2D 文件纹理和其他图像输入的初始设置。您仍可以按<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-A84A137B-CB0B-4BAA-A271-5A3FFF448143.htm">为纹理和其他图像输入指定颜色空间</a>中所述单独更改每个设置。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__LI_FD64EE2DDDC94948A0EF0EFD3ECEECA5">如果要将颜色管理应用于已经有材质、纹理和灯光的现有场景，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-ACFB6FBC-CB80-4EDA-94EC-9561D8C3EFBA.htm">将颜色管理应用于现有场景</a>。
+		  </li>
+<li class="li" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__LI_2BB0902416924E57A9FDB12D7B01046B">有关您可能需要进行的某些查看和渲染设置，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-4ABC6724-9DB0-45D5-AAF2-5C2FF135247D.htm">重要的颜色管理设置</a>。
+		  </li>
+</ol>
+ 
+		<div class="note note" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-3F67A1BA-DB6A-45B6-83BD-5769F5A59D8B"><span class="notetitle">注：</span> 在使用 Turtle 插件烘焙纹理颜色时，不应当启用颜色管理。如果执行此操作，则视口预览将不准确。
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__SECTION_9805E3D348374E5098212F214761651D"><h2 class="title sectiontitle">添加已管理颜色的图像输入</h2> 
+		 
+		<p class="p" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-0BA64006-815C-4228-97F5-1D3A2904620B">将 2D <span class="ph uicontrol" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-5ADA927F-030B-4DB4-B014-D1716C384CFD">文件</span>纹理和其他图像输入添加到场景中时，需要指定其输入<span class="ph uicontrol" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-FAA8FBAB-8926-45EA-8C42-C0DE2421E56B">“颜色空间”(Color Space)</span>（如果与规则指定的不同）。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-A84A137B-CB0B-4BAA-A271-5A3FFF448143.htm">为纹理和其他图像输入指定颜色空间</a>。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__SECTION_E55777187B894F75BA17A5FD8F088516"><h2 class="title sectiontitle">预览场景</h2> 
+		 
+		<p class="p" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-2C02AE67-686F-434D-AEF1-F00633797FF5">当您工作时，视图变换和显示变换将在视口和<span class="ph uicontrol" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-F3EC926A-01D1-4D0A-936E-96834FC93D9C">“渲染视图”(Render View)</span>中提供最终颜色预览。但是，您可以暂时关闭视图变换和显示变换，或者选择其他视图用于诊断或其他用途。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-0057E171-A622-444C-8CF8-F2FE70413BE2.htm">预览已管理颜色的场景</a>。
+		</p>
+ 
+		<p class="p" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-320248BF-38D8-47E7-9AD0-C1D5FA555DA4">对于播放预览，<span class="ph uicontrol" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-942D0BAE-8010-4C7F-BC14-49B6D1B12785">“将输出变换应用于播放预览”(Apply Output Transform to Playblast)</span>选项应用选定变换以便从渲染空间转化。通常应该启用此选项，以允许使用未对场景线性图像应用相应视图变换的设备或查看软件来播放结果。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__SECTION_17FAC92D9D444CBA91A637F5CE661D5E"><h2 class="title sectiontitle">渲染场景</h2> 
+		 
+		<p class="p" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-B7FFB1F7-3B71-45CA-85BE-2430C4B29637">渲染场景时，可以选择在输出变换中烘焙，具体取决于要渲染一个预览还是渲染图像以供合成等进一步处理。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-115A5BCB-5B99-41A5-BA1C-D055E7068157.htm">渲染已管理颜色的场景</a>。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__SECTION_0F1A3130D43A4B96AC10E8926E575E18"><h2 class="title sectiontitle">旧版颜色管理功能</h2> 
+		 
+		<p class="p" id="GUID-B260195C-A0FE-4F51-9EA2-099B61B7725A__GUID-FC104271-1DA8-4C0D-8FA1-7C73DE39B544">出于兼容考虑，defaultViewColorManager 节点在场景中仍然可用。但是，不使用其选项。
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-5320733B-F9B6-4429-BCAA-F7251D77A8E2.htm">颜色管理</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6">
+<meta name="language" content="CHS">
+<title>在对象上绘制</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>在对象上绘制</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73FE"> 若要在 NURBS 或多边形对象上绘制，必须首先使对象可绘制。直接在可绘制对象上绘制时，<span class="ph uicontrol" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__GUID-F1B42D13-E0EF-476D-AD8D-CEC8BDE1DF79">“Paint Effects”</span>将沿笔划路径在曲面上创建一条曲线，并将笔划和新笔刷附加到该曲线。平移对象时，笔划将随之移动。笔刷可从曲面偏移。 
+	 </p>
+<div class="fig fignone" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73FC"><img class="image" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__IMAGE_A013101A1B834F599FF9246D68E225CB" width="249" height="178" src="../images/GUID-44062884-A8BD-46E4-89D5-9BB18AC36CC2.png"></div>
+<p class="p" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73FB">绘制时，除非您绘制到另一个可绘制对象，否则笔划不会离开曲面。如果绘制笔划期间，绘制跨到了另一可绘制对象，那么该笔划将在其他对象上继续绘制并桥接这两个对象。 
+	 </p>
+<div class="note note" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73FA"><span class="notetitle">注：</span> 只能在 NURBS 或多边形对象上绘制。 
+	 </div>
+<div class="fig fignone" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73F9"><img class="image" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__IMAGE_4F16E1B9DD9F487FA987EC1B5EA6C721" width="250" height="177" src="../images/GUID-787C88A9-015E-4368-A3E7-9C3FA2F0CDE2.png"></div>
+<p class="li listintro">注释：</p>
+<ul class="ul" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73F7"><li class="li" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73F6"> 因为笔划将尝试保留在曲面上，所以可能会产生异常结果。例如，假设有一个与平面相交的球体。如果开始在球体上进行绘制，那么笔刷一旦离开球体，就会查找另一曲面以继续绘制，在本例中另一曲面即为平面。但是，如果开始在平面上绘制，那么笔刷就永远不会离开曲面，所以笔划不会在球体上继续绘制。 
+		</li>
+</ul>
+<div class="fig fignone" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73F3"><img class="image" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__IMAGE_E4E185D8F5E64832B807142B84259C41" width="370" height="92" src="../images/GUID-D720E2F5-A8B8-4739-99DF-E62C6BBB047C.png"></div>
+<ul class="ul" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73F2"><li class="li" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73F1">当绘制跨过曲面连接边（例如，复制半个面并将这半个面附加到第一个半面而创建出的中心线）时，笔刷笔划会看似“漏”过了该接合。若要解决此问题，请使曲面在 U 和 V 方向上形成周期。 
+		</li>
+<li class="li" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__LI_F7CF9455BEB04D24AAFBC8E87C24F7A8">根据使用的笔划和所需的效果，请考虑沿路径或沿法线（垂直于路径）翻转管方向。有关信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-A0DDAA9E-7AD5-4BAD-B308-C23EE5FD5FE9.htm">翻转管方向</a>。
+		</li>
+<li class="li" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73F0">复制具有笔划的对象，但不复制笔划。 
+		</li>
+</ul>
+<p class="li listintro" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73EE">在对象上绘制</p>
+<ol class="ol" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73EF"><li class="li" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73ED">选择要进行绘制的 NURBS 或多边形对象。如果位于场景绘制视图中，请在对象上按住 Ctrl 键并单击（Windows 和 Linux）或按住 Ctrl 键并单击 (Mac OS X)，即可选择该对象。 
+		</li>
+<li class="li" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73EC"> 在<span class="ph uicontrol">“建模”(Modeling)</span>菜单集中，选择<span class="ph menucascade"><span class="ph uicontrol">“生成</span> &gt; <span class="ph uicontrol">使可绘制”(Generate &gt; Make Paintable)</span></span>。 
+		  <p class="li listintro">注释：</p>
+<ul class="ul" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73EA"><li class="li" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73E9">选择<span class="ph uicontrol" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__GUID-2B0FBC5A-B8C2-407C-99AE-42D062EB201A">“使可绘制”(Make Paintable)</span>时，只有当前选定对象可绘制。任何之前使可绘制的对象都将不可绘制。 
+			 </li>
+<li class="li" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73E8">保存和检索场景时，任何可绘制的对象都将不可绘制。若要在这些对象上绘制，必须在检索后再次使其可绘制。 
+			 </li>
+</ul>
+ 
+		</li>
+<li class="li" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73E7">选择<span class="ph menucascade"><span class="ph uicontrol">“生成</span> &gt; <span class="ph uicontrol">在可绘制对象上绘制”(Generate &gt; Paint on Paintable Objects)</span></span>。 
+		  <div class="note note" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73E6"><span class="notetitle">注：</span> 如果场景中不含可绘制对象，则笔划将位于透视视图的栅格平面上。 
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73E5">在<span class="ph uicontrol" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__GUID-C9C13637-ACAF-4BC3-865A-96127C39C57A">“内容浏览器”(Content Browser)</span>（<span class="ph uicontrol" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__GUID-5A9269E5-8508-444E-8A6B-E30F31ACEE8B">“生成 &gt; 获取笔刷”(Generate &gt; Get Brush)</span>）中或工具架上，单击绘制时要使用的笔刷预设。 
+		</li>
+<li class="li" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73E4">如有必要，请修改笔划设置（<span class="ph menucascade"><span class="ph uicontrol">“生成</span> &gt; <span class="ph uicontrol">Paint Effects 工具”(Generate &gt; Paint Effects Tool)</span> &gt; <span class="ph uicontrol"><img class="image" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__IMAGE_8BBB67C5B1BA4DC5AF2AF9097791A6A7" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png"></span></span>）。有关这些设置的信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-914D2430-7CA2-4CAA-866B-22D293DCC013.htm">Paint Effects 工具选项</a>。 
+		</li>
+<li class="li" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73E3">如有必要，请修改笔刷属性（<span class="ph menucascade"><span class="ph uicontrol">生成</span> &gt; <span class="ph uicontrol">模板笔刷设置(Generate &gt; Template Brush Settings)</span> &gt; <span class="ph uicontrol"><img class="image" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__IMAGE_9EF01E0DB6854D8EBE7010C34D112674" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png"></span></span>）。有关这些属性的信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-FBB8499C-8C6B-4887-A69D-5E4B3D910D84.htm"><span class="ph uicontrol">Paint Effects 笔刷设置</span></a>。 
+		  <p class="li listintro">提示：</p>
+<ul class="ul" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73E1"><li class="li" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73E0">可在画布上使用热键，以便交互式地更改<span class="ph uicontrol" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__GUID-E4998087-C7DD-430D-A53D-79710F1293FF">“热键编辑器”(Hotkey Editor)</span>中<span class="ph uicontrol" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__GUID-89B09701-B29A-451A-BFF1-D74D00A4BAC1">“笔刷工具”(Brush Tools)</span>下的<span class="ph uicontrol" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__GUID-93AD3243-DADC-4B69-9202-57850E5A6A9D">“全局比例”(Global Scale)</span>（设定 ModifyUpperRadius，默认热键：B）、仅<span class="ph uicontrol" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__GUID-37B94953-9327-4497-94A3-4EE5A5678C52">“笔刷宽度”(Brush Width)</span>（设定 ModifyLowerRadius）和<span class="ph uicontrol" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__GUID-9E481003-1AAF-4CF5-8825-8B7A01DB80B0">“笔划偏移”(Stroke Offset)</span>（设定 ModifyDisplacement，默认热键：M）。有关其他 <span class="ph uicontrol" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__GUID-4C50F67F-889D-4D9D-9ED2-2A0C6E8A96AB">Paint Effects</span> 热键的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-3834424D-6421-48CA-9DD5-196AB8E92236.htm">准备使用 Paint Effects</a> 中的<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-3834424D-6421-48CA-9DD5-196AB8E92236.htm#GUID-3834424D-6421-48CA-9DD5-196AB8E92236__WS17956D7ADBC6E736-138B182117AE32E858-7FF4">使用默认 Paint Effects 热键</a>。 
+			 </li>
+<li class="li" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73DF">在镜像曲面上绘制笔划时，可以设定热键来反转曲面法线。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-7B5FC3E2-3263-4AE0-AAD1-6B20596DAA28.htm">反转所绘制的对象上的曲面法线</a>。 
+			 </li>
+</ul>
+ 
+		</li>
+<li class="li" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73DE">在场景视图或场景绘制视图中，跨平面进行拖动。 
+		  <p class="p" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73DD">有关场景绘制视图的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-BCA056E8-38FC-40D5-B5E3-E30DA5FAC4EC.htm">在场景绘制视图中更改对象着色</a>。有关在场景绘制视图中进行工作的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-757BEE33-A8B2-42EA-963A-AA6112F1EA41.htm">在曲面上自动绘制多个笔划</a>。 
+		  </p>
+ 
+		  <div class="note tip" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__WS1A9193826455F5FF-6381D1FC11809382DB8-73DC"><span class="tiptitle">提示：</span> 在完成对象上绘制后，若要在透视视图的栅格平面上进行绘制，请在场景中非对象的任意位置单击鼠标，取消选择全部对象，然后选择<span class="ph menucascade"><span class="ph uicontrol">“生成</span> &gt; <span class="ph uicontrol">使可绘制”(Generate &gt; Make Paintable)</span></span>。 
+		  </div>
+ 
+		</li>
+</ol>
+<div class="section" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__SECTION_BD18CA1F81A44CB5809AEE1E8A89C4C5"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__UL_0785015AEFE74110A1EF510711B7F8B6"><li class="li" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__LI_E41F6D1416E44CCCA46C4B5DF77CACAD"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-CD796DF6-DA44-486F-A035-A17AAB728186.htm">在透视视图的栅格平面上绘制</a> 
+		  </li>
+<li class="li" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__LI_DBF9014FFF214617B7CA571C952DCB44"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-003E8F74-70F5-4BD9-8A1F-5AAFECAB7AAD.htm">在场景视图中绘制</a> 
+		  </li>
+<li class="li" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__LI_E32BFCB910D040C0A7C0E06379FDBC21"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-0C317222-D019-47CB-AD25-1FC89FA36427.htm">在视图平面上绘制</a> 
+		  </li>
+<li class="li" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__LI_E6991D01EECB48FE96DB7E1D4DAE5C41"><a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-C2F0F829-31D6-4045-9914-5AA2FF03F9E5">在 3D 对象上进行绘制</a>（使用 3D 绘制工具） 
+		  </li>
+<li class="li" id="GUID-B5146071-05E2-4819-BBFA-F533E9AE6CF6__LI_2C90FA0D10AC4D55A347F691C5711DCD"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-C3CB3A10-E23B-47CD-B63E-5CD2E2AFA7B7.htm">创建占用曲面效果</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-90107A70-FC2B-4D55-9322-A1B90F4233D1.htm">在 3D 中以不同的方式绘制</a></div>
+</div>
+</div>
+
+</body>
+</html>

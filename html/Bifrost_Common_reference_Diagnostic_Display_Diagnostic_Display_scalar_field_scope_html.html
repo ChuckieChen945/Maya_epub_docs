@@ -1,0 +1,75 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Diagnostic_Display_Diagnostic_Display_scalar_field_scope_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>scalar_field_scope</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>scalar_field_scope</code></h1></div><p>scalar_field_scope 将采样点处的输入标量场可视化为点大小、颜色或数值显示。点是在边界框内或探测几何体顶点位置进行采样的。如果使用探测几何体，则还可以选择应用边界框。</p>
+<h2 id="">用法示例</h2><p>要将此项与 <code>fractal_noise_field</code> 一起使用，请将来自它的输出 noise_field 插入到 scalar_field_scope 的 <code>scalar_field</code> 中。然后将输出 <code>diagonostic_geo</code> 插入到图表的输出中以实现可视化。</p>
+<h2 id="">输入</h2><h3 id="scalar_field"><code>scalar_field</code></h3><p>要可视化的 scalar_field 数据。尽管 scalar_field 最终会为空间中的点定义单个浮点值，但场可能是多个计算的结果，并且可能具有任意复杂度。</p>
+<h3 id="probe_geometry"><code>probe_geometry</code></h3><p>如果连接到此项，则将在几何体位置进行采样，否则将根据 divisions 使用边界框进行采样。</p>
+<p>几何体可以是网格、点对象（如粒子系统）或体积。如果是体积，则将在体素位置对点进行采样，这可能需要进行大量采样。可以使用 <code>skip_prop_samples</code> 和 <code>apply_bounds_to_probe</code> 特性减少来自探测的采样数。另请注意，如果场包含代理场，则它们将使用探测几何体进行解算，前提是探测几何体上存在代理特性。</p>
+<h3 id="bounds_geometry"><code>bounds_geometry</code></h3><p>如果连接此项，则将使用几何体的边界框覆盖最小边界和最大边界。</p>
+<h2 id="">点大小</h2><h3 id="point_size"><code>point_size</code></h3><p>此项控制输出点的总体大小。它与来自 <code>size_remap</code> 曲线的最终值输出相乘。</p>
+<h3 id="size_remap"><code>size_remap</code></h3><p>此曲线可用于控制场值如何映射到点的大小。沿曲线底部的值表示输入场值，这些位置处曲线的值是输出。如果曲线的前外推和后外推恒定，则超出这些范围的值将会钳制。</p>
+<h2 id="">采样</h2><p>使用范围时，将对边界框内的均匀栅格进行采样，其中 <code>divisions</code> 特性控制此框相对于最大轴的细分。如果存在探测几何体，则将在探测几何体的各点处采样，而忽略 <code>divisions</code>。</p>
+<h3 id="min__bounds"><code>min__bounds</code></h3><p>这是一个表示边界框的最小位置的 float3。如果有连接到 <code>bounds_geometry</code> 的对象，则其将覆盖此设置。</p>
+<h3 id="max_bounds"><code>max_bounds</code></h3><p>这是一个表示边界框的最大位置的 float3。如果有连接到 <code>bounds_geometry</code> 的对象，则其将覆盖此设置。</p>
+<h3 id="divisions"><code>divisions</code></h3><p>此项控制在没有探测几何体时的采样数。在最小/最大边界内生成一个均匀的采样栅格，其中 divisions 是沿主轴的采样计数。</p>
+<h3 id="skip_probe_samples"><code>skip_probe_samples</code></h3><p>使用探测几何体时，此项可用于按 X 的间隔跳过采样。值为零时将使用每个几何体点，而值为 1 时将按 1 个点的间隔使用点，值为 2 时将按 2 个点的间隔使用点，依此类推。当探测为体积（可能有许多体素）时，这可能特别有用。</p>
+<h3 id="apply_bounds_to_probe"><code>apply_bounds_to_probe</code></h3><p>使用探测几何体时，此项可用于进一步将边界框应用于探测采样。</p>
+<h2 id="">形状和颜色</h2><h3 id="shape"><code>shape</code></h3><p>要用于绘制的形状：</p>
+<ul>
+<li><code>point</code>：由一个像素组成的简单点</li>
+<li><code>disk</code>：实心圆</li>
+<li><code>circle</code>：线条绘制的圆</li>
+<li><code>cube</code>：实心立方体</li>
+<li><code>sphere</code>：实心球体</li>
+<li><code>numeric</code>：此项可用于将场显示为数字。</li>
+</ul>
+<h3 id="screen_aligned"><code>screen_aligned</code></h3><p>如果为 true，点形状将旋转为朝向摄影机。</p>
+<h3 id="color_r"><code>color_R</code></h3><p>红色范围。</p>
+<h3 id="color_g"><code>color_G</code></h3><p>绿色范围。</p>
+<h3 id="color_b"><code>color_B</code></h3><p>蓝色范围。</p>
+<h3 id="color_remap"><code>color_remap</code></h3><p>此项将场值重映射到颜色值的查找。原始场值将使用此曲线进行重映射，然后结果将用作 3 条颜色曲线的输入。</p>
+<p>通常，最简单的做法是将颜色曲线保留在 0-1 范围内，并调整颜色重映射以确定映射到颜色的场范围。如果希望将 20.0 到 25.0 之间的场值映射到颜色范围，则将两个顶点的位置移动到 20（值为 0.0）和 25（值为 1.0）。</p>
+<h2 id="">输出</h2><h3 id="diagnostic_geo"><code>diagnostic_geo</code></h3><p>这是一个输出点几何体，其中包含基于场值调整了颜色和大小的采样点。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Diagnostic/Bifrost_Common_reference_Diagnostic_Display_html.html">Display</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

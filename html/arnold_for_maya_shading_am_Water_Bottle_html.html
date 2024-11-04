@@ -1,0 +1,185 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shading_am_Water_Bottle_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_WATER_BOTTLE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 水瓶 - Arnold for Maya">
+
+<title>水瓶</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>水瓶</h1></div><p><img src="../images/am-Water_Bottle-water-bottle-hdr-800-1.jpg" alt=""></p>
+<p>本文介绍了一系列用于渲染塑料瓶中液体的更高级技巧。将带您了解实现逼真效果所需的各个着色方面。另外，它还介绍了使用光线切换着色器最大限度减少某些光线计算的方法。这样，您便可以在不牺牲渲染质量的前提下缩短渲染时间。</p>
+<p>在渲染液体和容器表面时，需要考虑着色的方方面面。如果以物理准确性为先，那么默认的标准曲面着色器设置应该就已足够。但是，如果希望塑料瓶看起来更干净、更逼真，则启用“菲涅尔”(Fresnel)和“法线方向的反射率”(Reflectance at Normal)是必不可少的，而且可能更适合摄影工作室级别的图像。</p>
+<p>如果渲染速度是主要考虑因素，您可能需要禁用某些属性（“启用内部反射”(Enable Internal Reflections)、“焦散”(Caustics)、“反弹系数”(Bounce Factor)设置为 0）。要进一步缩短渲染时间，应考虑使用光线切换着色器，禁用系统开销巨大的渲染属性（如次光线的透射粗糙度）。</p>
+<p>在阅读本文之前，建议您先学习使用 Arnold 渲染玻璃曲面的教程，以便能够更熟悉渲染玻璃和液体表面所需的建模要求。</p>
+<h2 id="">场景设置</h2><p>透射的<strong>“光线深度”(Ray Depth)</strong>已增加到 <strong><em>7</em></strong>，以便让足够的光线穿过塑料瓶和液体表面。场景照明采用<strong>区域光</strong>，<strong>“灯光形状”(Light Shape)</strong>设置为<strong><em>“圆柱体”(Cylinder)</em></strong>。场景中还有一个天空。</p>
+<div class="head-block"><h1>对瓶子进行着色</h1></div><p>下面的示例显示了更改用作塑料瓶着色器的标准曲面着色器的各种属性所产生的效果。</p>
+<h2 id="">启用内部反射</h2><p>取消选中内部反射将在次反弹中禁用间接<strong>镜面反射和镜像完全反射</strong>计算。</p>
+<p>请记住，尽管禁用“启用内部反射”(Enable Internal Reflections)可以显著缩短渲染时间，但也会影响塑料的外观。因此，在使用此功能前，您应该考虑精确的渲染质量和速度哪个更重要。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Water_Bottle-enable-internal-reflections-on-2.jpg" alt=""></td>
+<td><img src="../images/am-Water_Bottle-enable-internal-reflections-off-3.jpg" alt=""></td>
+</tr>
+<tr>
+<td>启用内部反射(Enable Internal Reflections)：启用（17 分 45 秒）。</td>
+<td>启用内部反射(Enable Internal Reflections)：禁用（7 分钟）。</td>
+</tr>
+</tbody></table>
+<h2 id="">对水进行着色</h2><h2 id="">弯液面</h2><p>液体的顶部已使用弯液面准确建模。弯液面是由于表面张力而在液体上表面靠近容器或另一物体表面的位置形成的曲线。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Water_Bottle-meniscus-4.jpg" alt=""></td>
+<td><img src="../images/am-Water_Bottle-meniscus-5.png" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>为弯液面建模。请确保有足够的循环边将曲面顶部向下拉。</strong></sub></p>
+<p>注意，塑料着色器会影响穿过塑料的光线，并会对液体内部产生影响。因此，应确保透射的<strong>“光线深度”(Ray Depth)</strong>设置得足够高，以便光线可以同时穿过塑料和液体表面。<strong><em>“折射率”(Index of Refraction)</em></strong>已更改为水的折射率：<strong><em>1.33</em></strong>。<strong><em>base_weight</em></strong> 已降低到 <strong><em>0.9</em></strong>。</p>
+<p>下面的示例显示了更改水着色器的各种 <em>standard_surface</em> 属性所产生的效果。</p>
+<h2 id="">基础权重</h2><p>默认情况下，水看起来会有点暗。少量增加“漫反射”(Diffuse)有助于使水的外观“变亮”（请注意，这不是一种在物理上准确的方法）。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Water_Bottle-water-no-diffuse-6.jpg" alt=""></td>
+<td><img src="../images/am-Water_Bottle-water-diffuse-7.jpg" alt=""></td>
+</tr>
+<tr>
+<td>基础权重：0</td>
+<td>基础权重：0.2</td>
+</tr>
+</tbody></table>
+<h2 id="">镜面反射</h2><p><strong><em>Specular_weight</em></strong> 保留为 <strong><em>0</em></strong>，因为我们不希望瓶子里的水出现镜面反射。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Water_Bottle-specular-0-8.jpg" alt=""></td>
+<td><img src="../images/am-Water_Bottle-specular-1-9.jpg" alt=""></td>
+</tr>
+<tr>
+<td>镜面反射(Specular)：0（水看起来正确）。</td>
+<td>镜面反射(Specular)：1（水看起来不正确）。</td>
+</tr>
+</tbody></table>
+<h2 id="">启用内部反射</h2><p>下面的图像显示了使用和未使用<strong>“启用内部反射”(Enable Internal Reflections)</strong>时水的表面渲染效果之间的差别。这些差别非常细微，但可以看到，差别主要在瓶子底部。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Water_Bottle-liquid-enable-internal-reflections-on-10.jpg" alt=""></td>
+<td><img src="../images/am-Water_Bottle-liquid-enable-internal-reflections-off-11.jpg" alt=""></td>
+</tr>
+<tr>
+<td>启用内部反射(Enable Internal Reflections)：启用</td>
+<td>启用内部反射(Enable Internal Reflections)：禁用</td>
+</tr>
+</tbody></table>
+<h2 id="">焦散</h2><p><strong><em>“焦散”(Caustics)</em></strong>菜单位于 <em>standard_surface</em> 着色器中。标准曲面着色器中的此开关指定漫反射 GI 光线能否“看见”镜面反射和透射光线（默认情况下，在漫反射光线中只会计算标准曲面着色器的直接和间接漫反射照明）。</p>
+<p>下面的图像显示了使用和未使用焦散时瓶子和液体的渲染效果之间的差别。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Water_Bottle-caustics-off-12.jpg" alt=""></td>
+<td><img src="../images/am-Water_Bottle-caustics-on-13.jpg" alt=""></td>
+</tr>
+<tr>
+<td>焦散(Caustics)：禁用</td>
+<td>焦散(Caustics)：启用</td>
+</tr>
+</tbody></table>
+<h2 id="">使水变得浑浊</h2><p>为了使水看起来浑浊，透射的“粗糙度”(Roughness)已增大到 0.4。增大此值将增加渲染时间。我们使用了一个“光线切换”着色器来最大限度缩短渲染时间。</p>
+<h2 id="">光线切换</h2><p><strong>光线切换</strong>着色器可以帮助减少场景中计算的光线数量，从而在不牺牲渲染质量的情况下缩短渲染时间。</p>
+<p>视线需要发生折射，因为需要有浑浊粗糙度才能使液体看起来浑浊。而次级的光泽、阴影和漫反射光线使用的是另一个没有 <em>transmission_roughness</em> 的着色器 (Water_Secondary_Rays)，这会缩短渲染时间。</p>
+<p>在下面的图像中可以看到，渲染质量几乎没有区别，但渲染时间显著缩短。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Water_Bottle-no-rayswitch-14.jpg" alt=""></td>
+<td><img src="../images/am-Water_Bottle-rayswitch-15.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用光线切换着色器：31 分 15 秒</td>
+<td>光线切换着色器：16 分 14 秒</td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Shading_html.html">着色</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

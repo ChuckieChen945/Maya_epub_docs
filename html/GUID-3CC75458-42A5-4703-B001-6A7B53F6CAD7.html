@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7">
+<meta name="language" content="CHS">
+<title>开始编写 MEL 脚本：研究命令</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>开始编写 MEL 脚本：研究命令</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__SECTION_C19660A1CEFB47A483EB42094578432F"><h2 class="title sectiontitle">研究命令</h2> 
+		 
+		<p class="p" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-C4E9FC45-4766-43C0-BD30-7E81B29D50FC">在 Maya 中有三种类型的命令：运行时命令、MEL 程序和 Maya MEL 命令。 
+		</p>
+ 
+		<p class="p" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-8F1C796B-1CAE-4FBA-A63F-C302CEC894A3"><strong class="ph b" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-263B7D6F-DF4B-4FBC-A60D-65126A023E3D">运行时命令</strong>是由其他命令或脚本（例如，Maya 命令和 MEL 程序）组成的命令。它类似于单行包裹器，可用于执行具有短标签的 MEL 命令行上的长脚本（或脚本集）。可执行的许多（但不是所有）菜单项和图标都使用运行时命令来启动。 
+		</p>
+ 
+		<p class="p" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-3E74C58E-37D9-4C5D-9A0A-683EBBE70BA4">若要研究更多，请单击 Maya 右下角的 <img class="image" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__IMAGE_F7C5C534D2D14C20B47B6BCD8F99C5A0" src="../images/GUID-5149E168-18E1-49FD-A58D-0F5F30FB6213.png"> 以打开<span class="ph uicontrol" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-8061948A-7559-4DCA-A4BA-57B5530F5643">脚本编辑器</span>，然后选择<span class="ph uicontrol" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-342A58B3-AE2C-4225-A44C-757EED2D72D2">“历史 &gt; 回显所有命令”(History &gt; Echo All Commands)</span>。启用此选项时，在<span class="ph uicontrol" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-E3597F02-69A2-4B31-8E31-DAD946C63BF7">脚本编辑器</span>的顶部窗格中将显示已执行的所有命令。 
+		</p>
+ 
+		<ol class="ol" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__OL_228A87F8577F4854A09EBD6BA3E92DD8"><li class="li" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__LI_4FB52DCEF2634467ABCB300D55BE56B0"> 
+			 <p class="p" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-69627EC9-216F-4D9D-B61E-F50E8A3ED2A6">选择一个菜单，例如，创建并选择多边形，然后选择<span class="ph uicontrol" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-0E098962-F862-4ECC-AC10-8F67A6039E22">“编辑网格 &gt; 添加分段”(Edit Mesh &gt; Add Divisions)</span>。许多命令显示在<span class="ph uicontrol" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-85F18D32-E433-4E29-B7F0-3067CA5B1972">脚本编辑器</span>的顶部窗格中。在此历史中滚动，您将看到已输出这些行（朝向顶部）： 
+			 </p>
+ 
+			 <pre class="pre codeblock">SubdividePolygon;
+performPolySubdivide "" 0;
+polySubdivideFacet -dv 1 -m 0 -ch 1 pSphere1;</pre>
+ 
+		  </li>
+<li class="li" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__LI_7CCA88FD940F4F5A9E09A3A8847163CB"> 
+			 <p class="p" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-09F568A3-E8B4-435C-B346-392E63F9FD8A">在底部窗格中键入： 
+			 </p>
+ 
+			 <pre class="pre codeblock">whatIs SubdividePolygon;</pre>
+ 
+			 <p class="p" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-B7D39FBF-D7EE-4A12-BA64-BAD3B57A9DDB">选择此文本，然后单击 Ctrl+Enter 执行它。 
+			 </p>
+ 
+			 <p class="p" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-0B6B3FC6-9DB2-4DCA-8AA7-AAD854A60A2E"><span class="ph uicontrol" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-CEB03349-7BF3-41CF-9FDF-3FE6D6BBA951">脚本编辑器</span>将此文本输出在顶部窗格中： 
+			 </p>
+ 
+			 <pre class="pre codeblock">// Result: Run Time Command // </pre>
+ 
+			 <p class="p" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-94D19531-BAE7-46C4-B72A-519F47CC76D7">通过 <samp class="ph codeph" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-83CE9971-112F-4C7E-A6EC-F25006D7D309">whatIs</samp> 命令，可以查询字符串的类型（在这种情况下为 <samp class="ph codeph" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-F2F9A7B3-D992-4920-A4E9-11752D6C5419">SubdividePolygon</samp>）。 
+			 </p>
+ 
+			 <p class="p" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-B882D55D-226A-4793-AB4C-1858FF18F0E5">现在已确认 <samp class="ph codeph" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-9F641876-6C11-4633-B5C7-080905314097">SubdividePolygon</samp> 是运行时命令。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__LI_0A22FDB0A49343A7BF1DEB03CC0C23AD"> 
+			 <p class="p" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-A8670852-66B8-4588-8942-2E45600ECBCB">现在在底部窗格中键入： 
+			 </p>
+ 
+			 <pre class="pre codeblock">whatIs performPolySubdivide;</pre>
+ 
+			 <p class="p" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-CD7B6519-7FD9-4BFF-B28A-CBB037C527D6">结果如下所示： 
+			 </p>
+ 
+			 <pre class="pre codeblock">// Result: Mel procedure found in: C:/Program Files/Autodesk/&lt;version&gt;/scripts/others/performPolySubdivide.mel // </pre>
+ 
+			 <p class="p" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-7EDAB9CE-48C7-4597-98EF-C7BAAF37BD46">调用运行时命令时，将执行此<strong class="ph b" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-A49F7541-BBEB-4DC8-9D4D-7714D70DB4DE"> MEL 程序</strong>。 
+			 </p>
+ 
+			 <p class="p" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-B1B9CEAF-B8A1-416D-818F-F0C21DE975E4">此外，您可以转到 Maya 安装目录，在文本编辑器中打开指定的 <samp class="ph codeph" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-3D546BDD-3359-4CCD-8406-010EE02D988A">.mel</samp> 文件，并研究此 MEL 程序的作用。 
+			 </p>
+ 
+			 <p class="p" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-A6E2B5ED-5677-4B57-8935-5F0F5AAD3AF4">通过在脚本中浏览，可发现<strong class="ph b" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-CE19A0E6-E378-4C88-94D3-ECDAB60A5842">这是已执行的命令</strong>： 
+			 </p>
+ 
+			 <pre class="pre codeblock">polySubdivideFacet</pre>
+ 
+			 <p class="p" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-630507E3-2094-4172-8A5F-1A3346BA17DE">回想一下，在<span class="ph uicontrol" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-C6402F55-2044-489D-BD03-43FBAF142568">脚本编辑器</span>历史中也列出了此命令。 
+			 </p>
+ 
+			 <pre class="pre codeblock">polySubdivideFacet -dv 1 -m 0 -ch 1 pSphere1;</pre>
+ 
+			 <p class="p" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-EA5419D3-8084-4160-B24F-F6F31997C1DD">请参考技术文档的<strong class="ph b" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-77F38022-9C65-4CD8-8A52-9DC35A5A81BE">“MEL 命令”</strong>部分。<samp class="ph codeph" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-22E58D62-1E77-47DB-8F09-947EEA4A37F7">polySubdivideFacet</samp> 是列出的 MEL 命令，并且其命令文档还提供了上面列出的标志的描述：例如，<samp class="ph codeph" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-A8EF4865-781C-42A7-9CAC-C1CFD152741D">-dv 1</samp> 用于设置分段数，<samp class="ph codeph" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-1F6FB411-88B3-457A-8C3F-4BF3B2105273">-ch 1</samp> 用于启用构建历史。 
+			 </p>
+ 
+		  </li>
+<div class="note note" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-130BAE60-CCC8-4563-81E7-89112BC1BEBE"><span class="notetitle">注：</span> 编写自己的脚本时，如果希望脚本扩展到菜单项的行为之外，则必须使用 MEL 程序或 MEL 命令（而不是运行时命令）。 
+			 <p class="p" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-64788655-CE30-49C4-8E36-6778137963BA">若要了解更多信息，请参见 Maya 安装目录的 <samp class="ph codeph" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-64D7B007-6212-463B-8801-482C725B23E5">scripts\startup</samp> 文件夹中的 <samp class="ph codeph" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-6927E1DF-3051-4604-92C1-08733A8DF790">defaultRunTimeCommands.mel</samp>。 
+			 </p>
+ 
+			 <p class="p" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__GUID-5FF826F3-8559-4083-83B4-FA6923EBC78B">在此文件中列出了所有的运行时命令，以及与每个运行时命令关联的菜单项和 MEL 程序/Maya MEL 命令。 
+			 </p>
+ 
+		  </div>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__SECTION_75595144C7D64B2493F0370E1B060E72"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__UL_97EC54E272FF4839B1F80DE5DE45D46F"><li class="li" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__LI_C8E3B694C42B4D06AA7E6E78D2B49838"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-5050BF7A-76C4-4697-882C-3A33BFB62B37.htm">如何获取（选定）形状节点的名称</a> 
+		  </li>
+<li class="li" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__LI_321BB1079E004EA09EBC1695B1D6B4CB"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9.htm">获取和设置属性</a> 
+		  </li>
+<li class="li" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__LI_C9181F3C89344E2A97E47B236CB9F49D"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B0E70A37-1585-4FA1-99EF-D680A9152E18.htm">查看或记录与操作相关联的 MEL 命令</a> 
+		  </li>
+<li class="li" id="GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7__LI_2E5B3A7803EA49A3A7F9F7F4AE9FC182"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-BCB33B1D-21CB-4841-9C66-FA431792A3DB.htm">获取 MEL 命令帮助</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6.htm">获取变换、形状和历史节点</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667.htm">使用脚本修改属性</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-D22E9489-AE9D-48D6-9D98-4F9A67C9ACE8.htm">查询工具的名称</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-0B050B3B-B160-41A1-B813-7428FFAA5AE1.htm">保存脚本并从脚本调用程序</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-2F130C2F-C848-409A-B6AA-D02C9B40B382.htm">查询节点类型</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-60178D44-9990-45B4-8B43-9429D54DF70E.htm">MEL 概述</a></div>
+</div>
+</div>
+
+</body>
+</html>

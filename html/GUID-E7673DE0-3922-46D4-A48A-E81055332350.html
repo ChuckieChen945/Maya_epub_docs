@@ -1,0 +1,193 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Bifrost">
+<meta name="created" content="30/7/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="17/04/2023">
+<meta name="topicid" content="GUID-E7673DE0-3922-46D4-A48A-E81055332350">
+<meta name="language" content="CHS">
+<title>“BOSS 波解算器”(BOSS Wave Solver)属性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-E7673DE0-3922-46D4-A48A-E81055332350">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>“BOSS 波解算器”(BOSS Wave Solver)属性</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 可使用 BOSS 波解算器创建一些效果，例如，水面上的涟漪和尾迹。
+	 </p>
+<p class="p">若要应用该解算器，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-3F8C1BDA-769B-4258-8A3F-CB2DBBA5197F.htm">添加和编辑 BOSS 解算器</a>。
+	 </p>
+<div class="section" id="GUID-E7673DE0-3922-46D4-A48A-E81055332350__SECTION_86B5AFF065DF4A4989B39E4FDE189B2F"><h2 class="title sectiontitle"><span class="ph uicontrol">全局属性(Global Attributes)</span></h2> 
+		 
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">启用(Enable)</span> 
+			 </dt>
+<dd class="dd">禁用后就不会起作用，无需将其从场景中移除。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">开始帧(Start Frame)</span> 
+			 </dt>
+<dd class="dd">该解算器影响的第一帧。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">分辨率 X (Resolution X)</span>、<span class="ph uicontrol">分辨率 Z (Resolution Z)</span> 
+			 </dt>
+<dd class="dd">用于计算波高度的栅格的分辨率。此项还可以控制用于缓存的 EXR 文件的分辨率。值越高，细节越多，但计算时间会延长，并且需要更多磁盘空间进行缓存。匹配网格的纵横比可确保采样均匀，且不会在任何方向上挤压或拉伸。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">衰退宽度(Decay Width)</span> 
+			 </dt>
+<dd class="dd">控制抑制波的域边界处区域的宽度。这可避免域边界产生反射。值表示网格大小的小数，例如，0.1 表示 10% 的网格大小沿每个边界。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">衰退 Alpha(Decay Alpha)</span> 
+			 </dt>
+<dd class="dd">控制沿面片边界的波抑制的平滑度。值过高可能会导致出现可见瑕疵。
+			 </dd>
+</dl>
+ 
+	 </div>
+<div class="section" id="GUID-E7673DE0-3922-46D4-A48A-E81055332350__SECTION_21393AEE6E1A459BA56992931A5D2DCD"><h2 class="title sectiontitle"><span class="ph uicontrol">模拟属性(Simulation Attributes)</span></h2> 
+		 
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">重力(m/s2)(Gravity m/s2)</span> 
+			 </dt>
+<dd class="dd">由重力产生的加速度。默认值 9.8 表示地球表面的重力强度（以 m/s<sup class="ph sup">2</sup> 为单位）。值越小，产生的波浪越高且移动速度越慢，值越大，产生的波浪越低且移动速度越快。可以调整此值以更改比例。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">摩擦力(Friction)</span> 
+			 </dt>
+<dd class="dd">波速率的阻尼因子。值为 0.0 时波自由传播，值为 1.0 时几乎立即使波衰减。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">海洋深度(m)(Ocean Depth (m))</span> 
+			 </dt>
+<dd class="dd">用于计算波浪运动的水深。在浅水中，波浪往往较长、较高及较慢。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">波高度(Wave Height)</span> 
+			 </dt>
+<dd class="dd">波高度的倍增。如果值介于 0.0 和 1.0 之间，则降低波高度，如果值大于 1，则增加波高度。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">使用水平置换(Use Horizontal Displacement)</span> 
+			 </dt>
+<dd class="dd">在水平方向和垂直方向置换网格的顶点。这会导致波的形状更尖锐、更不圆滑。它还会生成适合向量置换贴图的缓存，因为 3 个轴上都存在偏移。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">波大小(Wave Size)</span> 
+			 </dt>
+<dd class="dd">控制水平置换量。可调整此值以避免输出网格中出现自相交。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">毛细波大小(cm)(Capillary Size (cm))</span> 
+			 </dt>
+<dd class="dd">毛细波（曲面张力传播的较小、较快的涟漪，有时可在重力传播的较大波顶部看到）的最大波长。毛细波通常仅在比例较小且分辨率较高的情况下可见，因此在许多情况下，可以让此值保留为 0.0 以避免执行不必要的计算。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">时间(Time)</span> 
+			 </dt>
+<dd class="dd">对波高度进行解算的时间。通常，此项直接连接到场景时间，但您可以断开连接，然后使用表达式或其他控件来减慢或加快波浪运动。
+			 </dd>
+</dl>
+ 
+	 </div>
+<div class="section" id="GUID-E7673DE0-3922-46D4-A48A-E81055332350__SECTION_360E79942725486D948E3F691D5A48F3"><h2 class="title sectiontitle"><span class="ph uicontrol">泡沫属性(Foam Attributes)</span></h2> 
+		 
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">启用(Enable)</span> 
+			 </dt>
+<dd class="dd">在缓存解算器的输出时生成表示泡沫的贴图。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-910607BB-20E7-425A-844D-31491855B37B.htm">生成 BOSS 泡沫贴图</a>。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">泡沫扩散速率(Foam Diffusion Rate)</span> 
+			 </dt>
+<dd class="dd">控制泡沫扩散和减少的速度。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">尖点比例(Cusp Scale)</span> 
+			 </dt>
+<dd class="dd">控制泡沫量。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">尖点最小值(Cusp Min)</span>、<span class="ph uicontrol">尖点最大值(Cusp Max)</span> 
+			 </dt>
+<dd class="dd">指定创建泡沫时应用的尖点值范围。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">使用速度(Use Speed)</span>、<span class="ph uicontrol">速度最小值(Speed Min)</span>、<span class="ph uicontrol">速度最大值(Speed Max)</span> 
+			 </dt>
+<dd class="dd">用于限制仅在速度处于指定范围内的区域创建泡沫。
+			 </dd>
+</dl>
+ 
+	 </div>
+<div class="section" id="GUID-E7673DE0-3922-46D4-A48A-E81055332350__SECTION_7BE28E53EE214A6A8102B2A47DB5BD17"><h2 class="title sectiontitle"><span class="ph uicontrol">缓存属性(Cache Attributes)</span></h2> 
+		 
+		<p class="p">您可以使用标记  
+		  <tt class="ph tt">&lt;project&gt;</tt>、
+		  <tt class="ph tt">&lt;scene&gt;</tt>、
+		  <tt class="ph tt">&lt;object&gt;</tt>、
+		  <tt class="ph tt">&lt;influence&gt;</tt>、
+		  <tt class="ph tt">&lt;frame&gt; </tt>和  
+		  <tt class="ph tt">&lt;f&gt;</tt> 来定义缓存文件夹和文件名。您还可以使用 csh 样式指定标记，例如，
+		  <tt class="ph tt">$frame</tt>。
+		</p>
+ 
+		<p class="p">使用标记保存缓存时，也会在场景中存储完全解析路径的副本，用于播放缓存。这意味着如果您使用一个新名称保存场景或将场景保存在不同的项目中，缓存的路径不会丢失。如果稍后重写缓存文件，将使用标记的当前值并更新解析路径。
+		</p>
+ 
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">使用缓存(Use Cache)</span> 
+			 </dt>
+<dd class="dd">播放时从缓存文件读取，而不是重新计算影响。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">导出缓存(Export Cache)</span> 
+			 </dt>
+<dd class="dd">播放时写入缓存文件。您可以手动启用此项，以在播放和调整值时覆盖缓存文件。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">缓存文件夹(Cache Folder)</span> 
+			 </dt>
+<dd class="dd">解算器的所有缓存文件的位置，如果使用了泡沫和速度，则包含泡沫和速度的缓存文件的位置。手动编辑路径时，忽略最后的“/”字符。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">缓存名称(Cache Name)</span> 
+			 </dt>
+<dd class="dd">主波缓存的基础文件名。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">缓存速度(Cache Velocity)</span> 
+			 </dt>
+<dd class="dd">创建速度的缓存文件。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">速度缓存名称(Velocity Cache Name)</span> 
+			 </dt>
+<dd class="dd">速度缓存的基础文件名 
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">泡沫缓存名称(Foam Cache Name)</span> 
+			 </dt>
+<dd class="dd">泡沫缓存的基础文件名 
+			 </dd>
+</dl>
+ 
+	 </div>
+<div class="section" id="GUID-E7673DE0-3922-46D4-A48A-E81055332350__SECTION_1EA0678FFE7A4B4983F0D9704B317C99"><h2 class="title sectiontitle"><span class="ph uicontrol">诊断(Diagnostics)</span></h2> 
+		 
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">调试(Debug)</span> 
+			 </dt>
+<dd class="dd">设置在<span class="ph uicontrol">“输出窗口”(Output Window)</span>中输出的消息的详细级别。
+				<ul class="ul" id="GUID-E7673DE0-3922-46D4-A48A-E81055332350__UL_64C2D1EF263D4092BF1D7328C4A238E1"><li class="li" id="GUID-E7673DE0-3922-46D4-A48A-E81055332350__LI_DBE8E1C337B74B9BAC4160A9CE3BD287">0 = 无消息。
+				  </li>
+<li class="li" id="GUID-E7673DE0-3922-46D4-A48A-E81055332350__LI_B5131019D1854194A8AE3C62C52FF19A">1 = 仅错误消息。
+				  </li>
+<li class="li" id="GUID-E7673DE0-3922-46D4-A48A-E81055332350__LI_AF2F2DFEBECD45DA9709277534DB7C66">2 = 错误消息和警告消息。
+				  </li>
+<li class="li" id="GUID-E7673DE0-3922-46D4-A48A-E81055332350__LI_3FA70EA54BB7486795BB79BCD4AB42B4">3 = 错误消息、警告消息和信息消息。
+				  </li>
+</ul>
+ 
+			 </dd>
+</dl>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-940D2A65-AD9D-4476-9429-03229C08BC3D.htm">BOSS 引用</a></div>
+</div>
+</div>
+
+</body>
+</html>

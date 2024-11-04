@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771">
+<meta name="language" content="CHS">
+<title>Maya 中的阴影</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>Maya 中的阴影</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF-56C0CD8012A8003217A-1E81"><p class="p" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__WS1A9193826455F5FF-29C43AA6117B26F372E1ED2"> 阴影与灯光一起工作，可增加场景的真实感。阴影可帮助定义对象的位置，例如，它们是位于地面上还是悬停在空间中。阴影可以是软边或硬边的，且阴影的存在（或不存在）可用于为场景中的对象添加平衡和对比度。 </p>
+<p class="p" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__WS1A9193826455F5FF-29C43AA6117B26F372E1ED4">若要创建阴影，场景中必须包含投射阴影的灯光、投射阴影的曲面和捕获阴影的曲面。灯光必须同时照亮投射阴影的曲面和捕获阴影的曲面。 </p>
+<div class="section" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__WS1A9193826455F5FF-29C43AA6117B26F372E1ED5"><h2 class="title sectiontitle">默认阴影</h2>
+
+<div class="fig fignone" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__WS73099CC142F48755-3D114B751181C40F14BE50"><img class="image" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__IMAGE_6ED7F2C4A51F4ADFA1E4D1E262B9A623" width="168" height="130" src="../images/GUID-A8DD5349-19D4-4B87-B979-FA02787521CC.png"></div>
+
+<p class="p" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__WS1A9193826455F5FF-29C43AA6117B26F372E1ED7">默认情况下，<span class="ph msgph prodname" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 中的灯光投射阴影。默认情况下，除环境光外，所有灯光启用光线跟踪阴影（在灯光<span class="ph uicontrol" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__GUID-1DB9D3F4-6290-4D2D-BE4D-A8B7315F9D2F">“属性编辑器”(Attribute Editor)</span><span class="ph uicontrol" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__GUID-1E11C1E2-B92C-40FC-91DC-0AEB3C478CC3">“阴影”(Shadows)</span>部分的<span class="ph uicontrol" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__GUID-86070D70-3AFC-4848-995C-829CCE064078">“光线跟踪阴影属性”(Raytrace Shadow Attributes)</span>部分启用<span class="ph uicontrol" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__GUID-7F51D8A2-9EC6-45D2-AD9D-FFC96950D029">“使用光线跟踪阴影”(Use Ray Trace Shadows)</span>）。通过禁用该属性，可以禁用阴影。阴影过多可能会弄乱场景，且需消耗时间来进行渲染，因此应根据需要使用尽可能少的阴影。 </p>
+
+<p class="p" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__WS1A9193826455F5FF-29C43AA6117B26F372E1ED8">如果场景中没有灯光投射阴影，则所有朝向光源的曲面将照亮，即使被另一个曲面遮住也是如此。（当灯光照在 <span class="ph msgph prodname" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 中的曲面上时，曲面朝向光源的部分将被照亮，曲面背向光源的部分将显示为黑色。） </p>
+
+<p class="p" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__WS1A9193826455F5FF-29C43AA6117B26F372E1ED9">但是，可以通过控制可生成阴影的灯光和曲面组合来添加阴影。通常，只需要少数特定灯光和曲面来生成阴影。通过将阴影限制为仅针对这些特定灯光和曲面，可帮助减少渲染时间。 </p>
+
+<div class="note note" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__WS1A9193826455F5FF-29C43AA6117B26F372E1EDA"><span class="notetitle">注：</span>  在 <span class="ph msgph prodname" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 中，未照亮的曲面不会被视为阴影。例如，所有背向光源的曲面不会被照亮。 </div>
+
+</div>
+<div class="section" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__WS1A9193826455F5FF-29C43AA6117B26F372E1EDB"><h2 class="title sectiontitle">相关主题</h2>
+
+<ul class="ul" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__WS1A9193826455F5FF-29C43AA6117B26F372E1EDC"><li class="li" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__WS1A9193826455F5FF-29C43AA6117B26F372E1EDD">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-BC9C9AFE-D90E-4B54-8A2E-22ED1C89A06C.htm">深度贴图和光线跟踪阴影</a>
+</li>
+<li class="li" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__WS1A9193826455F5FF-29C43AA6117B26F372E1EDF">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-84F8747A-C187-4FC9-BDCF-7795722DBEAA.htm">查看场景视图中的阴影</a>
+</li>
+<li class="li" id="GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771__WS1A9193826455F5FF-29C43AA6117B26F372E1EE0">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-11FDCB8F-F8B0-4BBA-8A95-E028913A0DAE.htm">控制投射阴影的对象</a>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-84F8747A-C187-4FC9-BDCF-7795722DBEAA.htm">在视口中查看阴影</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-11FDCB8F-F8B0-4BBA-8A95-E028913A0DAE.htm">控制投射阴影的对象</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-BC9C9AFE-D90E-4B54-8A2E-22ED1C89A06C.htm">深度贴图和光线跟踪阴影</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-604555C2-9853-46F7-A4DF-9908F8B75B25.htm">阴影链接</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-18E8EF8F-9167-4987-81D7-65A48A8CB888.htm">阴影捕捉</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-4C7A532F-CE7C-49ED-9EB0-C637AD8072BB.htm">移除阴影</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-EF0C03FC-2B17-4CA1-BDA5-911DCF9326F5.htm">照明</a></div>
+</div>
+</div>
+
+</body>
+</html>

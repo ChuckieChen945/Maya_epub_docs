@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Bifrost">
+<meta name="created" content="30/7/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="25/06/2023">
+<meta name="topicid" content="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309">
+<meta name="language" content="CHS">
+<title>将泡沫添加到 Bifrost 液体</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>将泡沫添加到 Bifrost 液体</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p">添加泡沫之前，通过将翻腾和曲率显示为颜色通道，您可以查看液体泡沫中的哪个位置将发射。若要执行此操作，请在 bifrostLiquidProperties 节点属性的<span class="ph uicontrol">“可选通道”(Optional Channels)</span>部分中启用<span class="ph uicontrol">“翻腾”(Churn)</span>和<span class="ph uicontrol">“曲率”(Curvature)</span>。启用后，这些通道可供选择，以便在<span class="ph uicontrol">“颜色通道”(Color Channel)</span>中显示。Bifrost 必须重新模拟液体，才能为<span class="ph uicontrol">“翻腾”(Churn)</span>和<span class="ph uicontrol">“曲率”(Curvature)</span>通道（请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-08445CB6-6799-4A81-9421-26CFE96D688B.htm">Bifrost 可选通道</a>）生成数据。
+	 </p>
+<div class="note tip" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__GUID-8DA21C06-9289-4C16-A3AE-9DEAB171EFFB"><span class="tiptitle">提示：</span>  若要提高视口交互性并减少模拟时间，请在添加泡沫之前创建液体模拟的用户缓存。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-36D0E99D-B4BC-4210-9174-AAB982A1CE04.htm">使用 Bifrost 用户缓存</a>。
+	 </div>
+<div class="section" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__SECTION_FA8C7A8189BE4684846737E517C3E8DF"><h2 class="title sectiontitle">添加 Bifrost 泡沫</h2> 
+		 
+		<ol class="ol" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__OL_46C4FD241EA042F8818BBCDDF33FD856"><li class="li" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__LI_AAC7DF55CF7A41AA84A2FB6F6CC00560">选择 bifrostLiquid 对象。
+		  </li>
+<li class="li" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__LI_D923EC2ABDF046858971608C2BDC351B">选择<span class="ph menucascade" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__GUID-52E7C301-3839-4AD3-8748-74644FB9DE37"><span class="ph uicontrol" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__GUID-D3BEA3F0-DDD7-4129-BD9D-89D280F97312">“Bifrost 流体</span> &gt; <span class="ph uicontrol" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__GUID-F64BBF60-6F75-4D42-92EE-BE6C8ADCFCBD">(添加)泡沫”(Bifrost Fluids &gt; (Add) Foam)</span></span>。
+			 <p class="p">以下项目将添加到场景中：
+			 </p>
+ 
+			 <ul class="ul" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__UL_B503038701A5413A91FE4FF5D1CDDAE5"><li class="li" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__LI_E6871DB7132744CEA4C46743EB5B3EC3"> 表示泡沫模拟结果并将其作为粒子显示在场景中的泡沫形状节点。它是主液体容器的子对象。
+				</li>
+<li class="li" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__LI_8F54BB89342E4742AB9F2D215A2F3A16">主要特性（称为 bifrostFoamProperties）。此节点包含用于控制泡沫粒子发射和行为的设置。
+				</li>
+</ul>
+ 
+		  </li>
+<li class="li" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__LI_8A73AB1975FD412AB7C50940406778E4">播放场景以预览模拟。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-250FE4C5-F0F8-4973-989E-7DDE8A4D4BB2.htm">预览 Bifrost 模拟</a>。
+			 <p class="p">如果场景中存在液体的 Bifrost 终结平面，请注意，该操作也会消除泡沫粒子。如果尚未向液体添加终结平面，该操作将缩短模拟时间。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-FECE414D-24AC-466B-A34A-83DBC6B03420.htm">使用 Bifrost 终结平面</a>。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__LI_607DACAABFA143FEAB9873EE5C4F1500">使用泡沫特性<span class="ph uicontrol">“发射”(Emission)</span>组中的属性可控制液体中的泡沫发射。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-BBBAAD92-28CF-44E8-BE73-E679FCCAB7BD.htm">控制 Bifrost 泡沫发射</a>。
+		  </li>
+<li class="li" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__LI_5E7CFF239B634C9984A601BE7F470B67">感到满意后，可以使用 bifrostFoamPropertiesContainer <span class="ph uicontrol" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__GUID-B8311D26-42CA-46F9-91D0-6D5477BD8FFF">属性编辑器</span>中的<span class="ph uicontrol" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__GUID-C32EDAE0-EE15-4873-A66F-D9164D2002BD">“泡沫缓存”(Foam Cache)</span>属性创建泡沫的用户缓存。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-36D0E99D-B4BC-4210-9174-AAB982A1CE04.htm">使用 Bifrost 用户缓存</a>。
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__SECTION_497A7E7545BB45948D6E96FBEA375BBF"><h2 class="title sectiontitle">移除 Bifrost 泡沫</h2> 
+		 
+		<ol class="ol" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__OL_62460C291A5843AAAF997DD0AA04F3FE"><li class="li" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__LI_D2BABF598AC3451EBE3CE81FA9800D38">选择 bifrostLiquid 或泡沫对象。
+		  </li>
+<li class="li" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__LI_B6D31482CF9D40C2B5021E251F42B3F6">选择<span class="ph menucascade" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__GUID-CC6E3E2B-A5D4-4570-BC1E-FD1FFCD5DF8E"><span class="ph uicontrol" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__GUID-F2EBD332-6D0F-44A9-8F01-171BBBDACBD9">“Bifrost 流体</span> &gt; <span class="ph uicontrol">移除</span> &gt; <span class="ph uicontrol" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__GUID-957A6DCF-A43F-407B-8B10-FEB4E497FF82">泡沫”(Bifrost Fluids &gt; Remove &gt; Foam)</span></span>。
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__SECTION_50A3EC263D654CC6873889C6F9BA5952"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__UL_5C708E2628A94DFFBA46EBCD8E560D24"><li class="li" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__LI_1F46697331A1417F86E6DDBD3356EBEA"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-C65DC6B7-7E1F-4B3A-8AC0-6431F2893A46.htm">Bifrost 泡沫特性属性</a> 
+		  </li>
+<li class="li" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__LI_89EBFF57271D4620938FE88684E5BDEF"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-F986157A-D0B6-4B3E-ACC7-A4014DE14978.htm">遮罩 Bifrost 泡沫发射</a> 
+		  </li>
+<li class="li" id="GUID-2533E2C2-8B51-4289-A3B3-5281876CF309__LI_DA4156BA61F84A44936AF3AF9EB6E090"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-82D94A77-B694-454C-A8D7-336A41F614C2.htm">使用自适应摄影机发射 Bifrost 泡沫</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-B8ABEF0F-4B49-4A7A-8EE5-86A596102C75.htm">使用 Bifrost 泡沫</a></div>
+</div>
+</div>
+
+</body>
+</html>

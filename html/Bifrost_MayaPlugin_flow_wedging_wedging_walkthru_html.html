@@ -1,0 +1,161 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-MayaPlugin">
+  <meta name="topicid" content="Bifrost_MayaPlugin_flow_wedging_wedging_walkthru_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>Flow Wedging 演示</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>Flow Wedging 演示</h1></div><p>下面简要概述了使用 Flow Wedging 技术预览版对 Bifrost 图表输出进行楔形化处理的基本步骤。如果您更希望查看已设置的示例，请尝试使用 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=Bifrost_MayaPlugin_get_started_with_sample_html">Bifrost 浏览器</a>中提供的 <code>aero_commbustion_wedging</code> 示例图。</p>
+<h2 id="flow-wedging">加载 Flow Wedging 插件</h2><p>Flow Wedging 插件随适用于 Maya 的 Bifrost 一起安装，但可能未加载。 </p>
+<ol>
+<li><p>打开 Maya 的插件管理器：<strong>“窗口 &gt; 设置/首选项 &gt; 插件管理器”(Windows &gt; Settings/Preferences &gt; Plug-in Manager)</strong>。</p>
+</li>
+<li><p>确保已加载 <code>flowWedging.py</code>。</p>
+<p><img src="../images/flowWedging-py-plugin.png" alt="Maya 插件管理器中的 `flowWedging.py`"></p>
+<p>如果要经常进行楔形化处理，可以将其设置为<strong>“自动加载”(Auto load)</strong>。</p>
+</li>
+</ol>
+<h2 id="">准备图表进行楔形化处理</h2><p>Flow Wedging 需要图表中的特殊节点：主要是用于写入和读取缓存文件的 <code>wedge_cache</code>，以及用于确定变化的 <code>wedge_parameter</code> 等其他节点。</p>
+<ol>
+<li><p>在开始之前，最好从要进行楔形化处理的对象中删除不必要的特性。例如，对于燃烧效果，可能只需要 <code>voxel_fog_density</code>、<code>voxel_temperature</code> 和 <code>voxel_velocity</code> 来渲染结果，可以擦除仅用于计算连续帧的任何其他特性。这有助于将下载的缓存文件的大小保持在最小。</p>
+<ul>
+<li>使用观察点或数据浏览器可查看对象上存在的特性。请参见 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=Bifrost_Common_build_a_graph_diagnose_and_debug_graphs_html">诊断和调试图表</a>。</li>
+<li>使用 <code>erase_property</code> 或 <code>erase_component_properties</code> 可移除最终缓存中不需要的数据。确保保留对对象几何体类型必不可少的特性，例如 <code>*_component</code>、<code>*_offset</code>、<code>voxel_tile_tree</code> 等。</li>
+<li>如果需要，可以使用常规 <code>file_cache</code> 节点在本地缓存几帧，以检查其文件大小。</li>
+</ul>
+</li>
+<li><p>将 <code>wedge_cache</code> 节点添加到图表的顶层，然后连接要楔形化处理到 <code>objects</code> 端口的对象。 </p>
+<p><img src="../images/wedge_cache_connected.png" alt="wedge_cache 节点已连接到图表中"></p>
+<ul>
+<li><code>wedge_cache</code> 节点的输出最终必须导向 <code>output</code> 节点。如果仅连接到 <code>terminal</code> 节点，则楔形化处理不起作用。</li>
+<li>通常，最好在 <code>wedge_cache</code> 节点之前指定材质，以便将该材质包含在缓存中（如果生成了预览渲染，也会包含在缓存中）。例外情况是，当您计划对缓存使用 VDB 格式时，由于 VDB 格式不支持材质指定，因此请在 <code>wedge_cache</code> 之后指定材质，以确保在读取缓存文件后正确应用材质。</li>
+<li>每个图表仅使用一个 <code>wedge_cache</code> 节点。Flow Wedging 将仅处理它在图表中找到的第一个为作业所选的节点。但是，可以将多个对象连接到 <code>objects</code> 串联输入端口，以数组形式处理多个对象。</li>
+<li>默认情况下，<code>wedge_cache</code> 节点的 <code>mode</code> 设置为<strong>“Read or Passthrough if no File”</strong>。在此模式下，一旦缓存文件在此过程中稍后存在，它将自动读取缓存文件，但由于您尚未下载任何缓存文件，因此它会改为对上游节点进行解算，并将结果直接传递到下游节点。 </li>
+</ul>
+</li>
+<li><p>将 <code>wedge_parameter</code> 节点连接到要改变的输入，然后为要测试的范围设置 <code>start</code> 和 <code>end</code> 值。根据您在稍后步骤中指定的楔形数量，楔形将在这些值之间均匀分布。例如，如果仅有一个楔形，则将在 <code>start</code> 和 <code>end</code> 之间的中点处对其进行解算；两个楔形将在 <code>start</code> 和 <code>end</code> 处精确解算；三个楔形将在 <code>start</code>、中点和 <code>end</code> 处解算；四个楔形将在 <code>start</code>、1/3 范围、2/3 范围和 <code>end</code> 处解算。</p>
+<p><img src="../images/wedge_parameter_connected.png" alt="wedge_parameter 节点已连接到输入"></p>
+<ul>
+<li>默认情况下，<code>start</code> 和 <code>end</code> 是设置为 <code>float</code> 类型的 <code>auto</code> 端口。要改变其他类型（如 <code>vector3</code>），请在任一端口上单击鼠标右键，然后选择其他值类型或连接所需类型的值。</li>
+<li>可以使用多个 <code>wedge_parameter</code> 节点来改变多个输入。但是，它们不会单独改变，而是根据要解算的楔形，在各自的 <code>start</code> 和 <code>end</code> 值之间同步改变。</li>
+<li>如果不使用任何 <code>wedge_parameter</code> 节点，仍可以提交作业。如果只想将缓存文件的生成转移到远程服务，而不进行任何楔形化处理，这可能会非常有用。</li>
+<li>作为 <code>wedge_parameter</code> 的替代方法，可以使用 <code>wedge_index</code> 返回要解算的楔形的索引（0、1、2 等），并使用自定义逻辑指定每种情况的输入值。</li>
+</ul>
+</li>
+<li><p>在图表的顶层，取消选择所有节点。图表的作业端口将显示在<strong>“参数编辑器”(Parameter Editor)</strong>中。根据需要设置<strong>“楔形”(Wedge)</strong>值。</p>
+<p><img src="../images/wedging_job_ports.png" alt="作业端口"></p>
+<ul>
+<li><code>Wedge Filename</code> 是用于下载缓存的完整路径和文件名。没有标记的路径对单个缓存有效，但请记住，应使用 <code>&lt;wedge_index&gt;</code> 标记，以确保不同的楔形不会覆盖彼此的文件。可以使用 <code>$name</code> 或 <code>${name}</code> 形式的环境变量，这些变量将在标记被替换后扩展。扩展名可确定缓存文件的格式：<code>.bob</code> 适用于 Bifrost 对象文件（任何对象）、<code>.abc</code> 适用于 Alembic 文件（网格、粒子、股）或 <code>.vdb</code> 适用于 VDB 文件（体积）。任何其他扩展名都将作为 Bifrost 对象文件写入。 </li>
+<li><code>Wedge Index</code> 指定在下载缓存文件后要读取的缓存文件集。如果选择不在单个作业中解算所有楔形，也可以使用它指定要解算的楔形。</li>
+<li><code>Wedge Index Count</code> 设置要解算的楔形总数。它还用于计算 <code>wedge_parameter</code> 节点 <code>start</code> 和 <code>end</code> 值之间范围的分数。每个作业的最大楔形数为 4。</li>
+</ul>
+</li>
+</ol>
+<h2 id="">设置预览渲染（可选）</h2><p>Flow Wedging 可以生成 Arnold 预览渲染，您可以在<strong>“Flow Job Monitor”</strong>中进行检查。需要注意的是，目前还存在一些限制，工作流今后可能会有所改变。特别是：</p>
+<ul>
+<li>仅支持 Bifrost 对象 (.bob) 缓存。</li>
+<li>必须使用 <code>assign_material</code> 或类似节点将材质指定给图表中的缓存输入（而不是缓存输出）。</li>
+<li>材质必须在图表中定义（例如，使用 <code>standard_surface_mat</code> 或 <code>Arnold_standard_volume_mat</code>），而不是从主场景中引用。</li>
+<li>不支持 GPU 渲染。确保在场景的<strong>“渲染设置”(Render Settings)</strong>（Arnold 渲染器）的<strong>“设备”(Device)</strong>选项卡上，将<strong>“渲染设备”(Render Device)</strong>设置为<strong>“CPU”</strong>。</li>
+</ul>
+<ol>
+<li><p>在 Maya 场景中，创建一个变换组并将其命名为 <code>preview</code>。</p>
+</li>
+<li><p>在此组下，为要用于预览的任何灯光设置父对象。 </p>
+<ul>
+<li>此外，还可以为要包含在预览中的任何附加几何体设置父对象。</li>
+<li>如果有多个可渲染摄影机，可以通过将其包含在预览组中来指定要使用的摄影机。</li>
+</ul>
+</li>
+</ol>
+<h2 id="">提交楔形化处理作业</h2><p>在图表准备好进行楔形化处理后，您就可以提交作业了。</p>
+<ol>
+<li><p>从 Maya 主菜单中选择<strong>“Flow Graph Engine &gt; Flow Wedging (Technology Preview) &gt; Create New Job”</strong>。根据需要登录帐户后，将启动<strong>“Flow Job Monitor”</strong>窗口，并打开<strong>“Create Flow Wedging Job”</strong>对话框：</p>
+<p><img src="../images/create_flow_wedging_job.png" alt="创建 Flow Wedging 作业"></p>
+</li>
+<li><p>根据需要设置选项：</p>
+<ul>
+<li>如果场景中有多个具有 <code>wedge_cache</code> 节点的图表，请确保将<strong>“Graph Shape”</strong>设置为要针对此作业解算的图表。</li>
+<li>设置<strong>“Wedge”</strong>以仅解算当前楔形或所有楔形。</li>
+<li><strong>“作业名称”(Job Name)</strong>仅用于在<strong>“Flow Job Monitor”</strong>中标识作业。</li>
+<li>如果要解算与场景的时间滑块不同的范围，请设置<strong>“开始帧”(Start Frame)</strong>和<strong>“结束帧”(End Frame)</strong>。但是，请注意，模拟必须从第一帧开始。</li>
+<li>如果设置预览渲染，也请设置这些选项。</li>
+</ul>
+</li>
+<li><p>单击“确定”(OK)。图表和任何连接的场景对象将上载到 Flow Wedging 服务，<strong>“Flow Job Monitor”</strong>将显示进度。</p>
+<p><img src="../images/flow_job_monitor_progress.png" alt="显示进度的“Flow Job Monitor”"></p>
+</li>
+<li><p>在后台计算作业时，可以关闭<strong>“Flow Job Monitor”</strong>，然后选择<strong>“Flow Graph Engine &gt; Flow Wedging (Technology Preview) &gt; Open Job Monitor”</strong>，随时将其重新打开以监视进度。单击特定作业可查看详细信息、日志文件、播放预览渲染等。</p>
+<p><img src="../images/flow_job_monitor_job_details.png" alt="作业的详细信息"></p>
+</li>
+</ol>
+<h2 id="">下载缓存文件</h2><p>如果在提交作业时选中了<strong>“Download Job Results”</strong>，则会自动下载缓存文件。如果取消选中该选项、在下载完成前退出 Maya 会话，或者只是需要再次下载，也可以从<strong>“Flow Job Monitor”</strong>手动下载。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>缓存结果可在 30 天内下载。如果删除作业，则无法恢复缓存结果。</p>
+
+</div></div>
+
+<ol>
+<li><p>打开<strong>“Flow Job Monitor”</strong>。</p>
+</li>
+<li><p>找到要下载的作业，然后单击<strong>“下载”(Download)</strong>。</p>
+<p><img src="../images/flow_job_monitor_download.png" alt="下载文件"></p>
+</li>
+<li><p>如果作业中有多个楔形，请选择一个楔形。</p>
+</li>
+<li><p>选择要下载的项目（例如，<strong>“All”</strong>或<strong>“Only logs”</strong>）。</p>
+</li>
+<li><p>浏览并选择磁盘上用于存储下载文件的文件夹。您无需选择在 <code>wedge_cache</code> 节点上设置的<strong>“Wedge Filename”</strong>位置，但请注意，在使用新位置更新该参数之前，图表不会读取下载的缓存文件。</p>
+</li>
+</ol>
+<h2 id="">在场景中查看下载的缓存文件</h2><p>只要楔形的前几帧可用，就可以开始在场景中快速浏览结果。</p>
+<ol>
+<li><p>在图表的顶层，取消选择所有节点。</p>
+</li>
+<li><p>将 <code>Wedge Index</code> 设置为要查看的楔形的索引：0 表示第一个楔形，1 表示第二个楔形，依此类推。您可能需要更改帧才能看到视口更新。</p>
+</li>
+<li><p>播放或拖动时间轴。</p>
+</li>
+</ol>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-MayaPlugin/files/Bifrost_MayaPlugin_flow_wedging_html.html">Flow Wedging（技术预览版）</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_lookdev_am_Multiple_Looks_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_MULTIPLE_LOOKS">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 多个外观 - Arnold for Maya">
+
+<title>多个外观</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>多个外观</h1></div><p>本教程承接上一个教程页面。它将介绍如何使用多个着色器为一个场景创建多个外观。我们将创建一个*<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_am_Operators_html">运算符</a>*图表网络，它可以帮助我们在不同的指定或外观之间切换，并提高美工人员的外观制作工作效率。</p>
+<ul>
+<li>创建另一个*<a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Include+Graph&amp;linkCreation=true&amp;fromPageId=154766129">包含图表(Include Graph)</a><em>运算符，然后将其重命名为 *lookdev_1</em>。</li>
+<li>创建*<a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Switch+Operator&amp;linkCreation=true&amp;fromPageId=154766129">切换(Switch)</a>*运算符。此运算符用于在我们希望用于渲染的图表之间切换。</li>
+<li>将所有<em>“包含图表”(Include Graph)</em>运算符连接到<em>“切换”(Switch)</em>运算符输入。</li>
+</ul>
+<p><img src="../images/am-Multiple_Looks-image2019-5-29-12-39-13-1.png" alt=""></p>
+<p><sub><strong>外观制作<em>“包含图表”(Include Graph)</em>运算符 -&gt;<em>“切换”(Switch)</em>运算符</strong></sub></p>
+<h2 id="collection">“集合”(Collection)运算符</h2><p>下面我们开始构建图表。在这种情况下，建议使用*<a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Collection&amp;linkCreation=true&amp;fromPageId=154766129">集合(Collection)</a>*运算符。如果您的外观材质指定使用相同的层级点进行材质绑定，“集合”(Collection)运算符可以从一个“集合”(Collection)节点控制指定更改。我们可以执行一次此操作，然后对每个外观重用。</p>
+<ul>
+<li>创建*<a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Collection&amp;linkCreation=true&amp;fromPageId=154766129">集合(Collection)</a><em>运算符。将其重命名为 *Color1</em>。</li>
+<li>将用于<em>“设置参数”(Set Parameter)</em>节点的相同选择字符串复制到<em>“集合”(Collection)</em>节点。</li>
+</ul>
+<p><img src="../images/am-Multiple_Looks-image2019-5-29-12-39-28-2.png" alt=""></p>
+<p><sub><strong>“集合”(Collection)运算符设置为 Color1</strong></sub></p>
+<ul>
+<li>对集合 2 重复上述步骤。</li>
+</ul>
+<p><img src="../images/am-Multiple_Looks-image2019-5-29-12-39-44-3.png" alt=""></p>
+<ul>
+<li>使用<a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Merge&amp;linkCreation=true&amp;fromPageId=154766129">合并(Merge)</a>运算符将集合合并在一起，并将其重命名为 <em>Collections</em>。</li>
+</ul>
+<h2 id="">合并设置参数</h2><ul>
+<li>现在我们需要使用另一个<a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Merge&amp;linkCreation=true&amp;fromPageId=154766129">合并(Merge)</a>运算符合并材质指定（<em>“设置参数”(Set Parameter)</em>运算符）。</li>
+<li>将<em>“设置参数”(Set Parameter)</em>运算符重新连接到此<em>“合并”(Merge)</em>运算符。</li>
+</ul>
+<p><img src="../images/am-Multiple_Looks-image2019-5-29-12-40-12-4.png" alt=""></p>
+<p><sub><strong>Collections -&gt;“合并”(Merge)运算符</strong></sub></p>
+<h2 id="set-parameter">在“设置参数”(Set Parameter)中使用集合名称</h2><p>接下来，我们将更改材质指定以开始使用 <em>Collections</em>。</p>
+<ul>
+<li>选择<em>“设置参数 1”(Set Parameter1)</em>并将<em>“选择”(Selection)</em>更改为 <strong>#Color1</strong>。对<em>“设置参数 2”(Set Parameter2)</em>重复相同操作。</li>
+</ul>
+<p><img src="../images/am-Multiple_Looks-image2019-5-29-12-40-28-5.png" alt=""></p>
+<h2 id="">多个外观</h2><p>现在，我们可以通过复制可重用的现有<em>“设置参数”(Set Parameter)</em>运算符（也可用于不同角色）创建多个外观。</p>
+<ul>
+<li>复制<em>设置参数</em> 1 和 2，选择<em>“合并”(Merge)</em>运算符。</li>
+<li>将<em>“设置参数 3”(Set Parameter3)</em>的<em>“指定”(Assignment)</em>更改为使用“蓝色”着色器。</li>
+</ul>
+<p><img src="../images/am-Multiple_Looks-image2019-5-29-12-41-11-6.png" alt=""></p>
+<ul>
+<li>将<em>“设置参数 4”(Set Parameter4)</em>的<em>“指定”(Assignment)</em>更改为使用“红色”着色器。</li>
+</ul>
+<p><img src="../images/am-Multiple_Looks-image2019-5-29-12-41-29-7.png" alt=""></p>
+<p>最终的运算符图表应类似下图：</p>
+<p><img src="../images/am-Multiple_Looks-image2019-5-30-9-18-8-8.png" alt=""></p>
+<ul>
+<li>选择<em>目标</em>节点并导出外观。</li>
+<li>渲染场景。现在，您应该会看到蓝色和红色着色器正在进行渲染。</li>
+</ul>
+<p><img src="../images/am-Multiple_Looks-image2019-5-29-12-42-13-9.png" alt=""></p>
+<p>现在您可以更改<em>“切换”(Switch)*输入数以在 *default_look</em> 与 <em>look1</em> 之间交替。对更多外观制作重复以上步骤，但选择不同颜色的着色器（即黄色和绿色）。</p>
+<p><strong>要下载最终场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/2_multiple-lookdevs.ma" target="_blank">此处</a>。</strong></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Operator_Tutorials/arnold_for_maya_operators_am_Look_Dev_Using_Operators_html.html">使用运算符进行外观制作</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

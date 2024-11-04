@@ -1,0 +1,85 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_BOSS_Simulation_BOSS_dynamic_wave_settings_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>dynamic_wave_settings</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>dynamic_wave_settings</code></h1></div><p>此项包含 <code>simulate_dynamic_waves node</code> 使用的所有全局设置。二维模拟的范围由边界特性定义。如果启用了 <code>periodic</code>，则在这些边界之外重复操作。</p>
+<h2 id="">输入</h2><h2 id="global-properties"><code>Global Properties</code></h2><h3 id="periodic"><code>periodic</code></h3><p>在空间中重复显示波浪图案。这样可以使用较小的面片对较大的网格平面进行变形，但平铺的重复可能会很明显。</p>
+<h3 id="resolution_x"><code>resolution_x</code></h3><p>模拟的 X 分辨率。值越大，细节越精细，但计算速度越慢，并且使用的内存也越多。它应为 2 的幂次方，例如 128、256、512、1024。</p>
+<h3 id="resolution_z"><code>resolution_z</code></h3><p>模拟的 Z 分辨率。值越大，细节越精细，但计算速度越慢，并且使用的内存也越多。它应为 2 的幂次方，例如 128、256、512、1024。</p>
+<h3 id="space_scale"><code>space_scale</code></h3><p>X 和 Z 各方向上面片的线性比例因子。如果值介于 0 和 1.0 之间，则收缩结果；如果值大于 1.0，则展开结果。如果在缩放后波移动过快或过慢，您可以调整 <code>gravity</code>。</p>
+<h3 id="speed_scale"><code>speed_scale</code></h3><p>缩放模拟的总体速度。值为 1.0 表示适合面片大小的速度，以米为单位（忽略 Maya 单位设置），并且假定重力为 9.8。</p>
+<h2 id="simulation"><code>Simulation</code></h2><h3 id="substeps"><code>substeps</code></h3><p>这是每帧的模拟步数。通常，默认值 1 就足够了，但对于快速移动的波浪，尤其是当 capillary_size 相对较高时，可能需要更高的步数才能稳定或获得良好的结果。</p>
+<h3 id="gravity"><code>gravity</code></h3><p>由重力产生的加速度。默认值 9.8 表示地球表面的重力强度（以 m/s² 为单位）。值越小，产生的波浪越高且移动速度越慢，值越大，产生的波浪越低且移动速度越快。可以调整此值以更改比例。</p>
+<h3 id="friction"><code>friction</code></h3><p>此项主要是随着时间的推移对波施加阻尼，使其消亡。通常，值为零或非常小的值可以获得良好的结果。</p>
+<h3 id="start_frame"><code>start_frame</code></h3><p>要从其开始模拟的帧。</p>
+<h2 id="bounds"><code>Bounds</code></h2><p>边界确定要计算的水面在 X 和 Z 方向上的尺寸。模拟仅限于此区域，但如果启用了“periodic”，则输出波将在此区域之外无缝环绕。</p>
+<h3 id="bounds_method"><code>bounds_method</code></h3><p>此项确定如何为模拟定义边界。</p>
+<ul>
+<li><p><code>Min_Max</code>：边界由特性 <code>min_bound</code> 和 <code>max_bounds</code> 确定</p>
+</li>
+<li><p><code>Size_Center</code>：边界由特性 <code>size</code> 和 <code>center</code> 确定</p>
+</li>
+<li><p><code>From_Geometry</code>：边界由连接到 <code>bounds_geometry</code> 的几何体确定</p>
+</li>
+</ul>
+<h3 id="min_bound"><code>min_bound</code></h3><p>模拟在 X 和 Z 方向上的最小范围。（当 <code>bounds_method</code> 为 <code>Min_Max</code> 时）</p>
+<h3 id="max_bound"><code>max_bound</code></h3><p>模拟在 X 和 Z 方向上的最大范围。（当 <code>bounds_method</code> 为 <code>Min_Max</code> 时）</p>
+<h3 id="size"><code>size</code></h3><p>模拟在 X 和 Z 方向上的总体大小（当 <code>bounds_method</code> 为 <code>Size_Center</code> 时）</p>
+<h3 id="center"><code>center</code></h3><p>模拟边界在 X 和 Z 方向上的中心位置（当 <code>bounds_method</code> 为 <code>Size_Center</code> 时）</p>
+<h3 id="bounds_geometry"><code>bounds_geometry</code></h3><p>当 <code>bounds_method</code> 设置为 <code>From_Geometry</code> 时，边界由连接到 <code>bounds_geometry</code> 的对象的 xz 边界确定。连接几何体（基于点的对象）。这可以是任何点对象或网格。</p>
+<h2 id="wave"><code>Wave</code></h2><h3 id="wave_height"><code>wave_height</code></h3><p>波高度的人为倍增。如果值介于 0.0 和 1.0 之间，则降低波高度，如果值大于 1，则增加波高度。</p>
+<h3 id="use_horizontal_displacement"><code>use_horizontal_displacement</code></h3><p>使网格的顶点在水平方向和垂直方向发生位移。这会导致波的形状更尖锐、更不圆滑。它启用 wave_peaking。</p>
+<h3 id="wave_peaking"><code>wave_peaking</code></h3><p>启用了 <code>use_horizontal_displacement</code> 时，此项控制相对于 <code>wave_height</code> 的水平位移量，这将产生尖波。可调整此值以避免输出网格中出现自相交。值大于 1.0 时，往往会产生自相交。普通水波是摆线形状，波浪越高，也就越尖。</p>
+<h3 id="decay_width"><code>decay_width</code></h3><p>这是与边界的距离（相对于模拟范围），在此距离内按 <code>decay_alpha</code> 对模拟施加阻尼。此项用于在模拟边界处停止波反射和创建。它通常应该是非常小的值，否则对模拟施加阻尼的程度可能会变得非常大。</p>
+<h3 id="decay_alpha"><code>decay_alpha</code></h3><p>这是模拟边界附近的阻尼量，用于避免边界处发生波反射。它应该非常小，但适当高就可以消除不需要的边界波。通常，如果 <code>decay_width</code> 较大，则此值应较小，以避免对模拟过度施加阻尼。</p>
+<h3 id="ocean_depth"><code>ocean_depth</code></h3><p>用于计算波浪运动的水深。在浅水中，波浪往往较长、较高及较慢。</p>
+<h3 id="capillary_size"><code>capillary_size</code></h3><p>毛细波（曲面张力传播的较小、较快的涟漪，有时可在重力传播的较大波浪顶部看到）的最大波长（厘米）。毛细波通常仅在比例较小且分辨率较高的情况下可见，因此在许多情况下，可以让此值保留为 0.0 以避免执行不必要的计算。</p>
+<h2 id="sources"><code>Sources</code></h2><h3 id="use_advection"><code>use_advection</code></h3><p>如果启用此项，则波将在 XZ 方向上按漂移速度平流。这可用于模拟流动的河流或水流中的湍流涡流等对象。漂移可能只是某个恒定速度（在这种情况下，它还可用于模拟摄影机在水面上飞行），也可以按每个像素映射它。例如，可以将 fractal_turbulence_field 连接到 <code>drift</code>，使水旋转起来。</p>
+<h3 id="drift"><code>drift</code></h3><p>启用了 <code>use_advection</code> 时，此速度用于推动液体。可以使用常量值 (float2) 或连接向量场。这可用于流动的液体。</p>
+<h3 id="shallow_bottom"><code>shallow_bottom</code></h3><p>这可用于模拟连续变化的深度。要实现此目的，必须将几何体或 wave_map 连接到 <code>depth</code> 特性。当与底部的距离小于波长时，波速会减慢。因此，波浪在靠近海岸时往往会越来越靠近并堆起，并且变得与海岸线平行。此项模拟输入深度中最小深度与最大深度之间的几个不同深度，然后根据局部深度值在它们之间插值。<code>num_depth_levels</code> 确定要模拟的离散深度数。</p>
+<h3 id="depth"><code>depth</code></h3><p>启用了 <code>shallow_bottom</code> 时，此项确定整个模拟中水的局部深度，这会影响波速度。它可以直接连接到定义水底的网格。如果网格未涵盖模拟的整个范围，则网格上的最小边界将表示对象外部的深度。可以使用表示深度的波贴图来代替网格。</p>
+<h3 id="num_depth_levels"><code>num_depth_levels</code></h3><p>启用了 <code>shallow_bottom</code> 时，此项确定要计算的离散深度模拟数。计算的深度分布在输入深度的最小边界与最大边界之间。输出模拟将根据某点处的局部深度对这些 FFT 模拟进行插值。</p>
+<h3 id="height"><code>height</code></h3><h3 id="input_collider_waves"><code>input_collider_waves</code></h3><h3 id="obstruction"><code>obstruction</code></h3><h3 id="velocity_potential"><code>velocity_potential</code></h3><h2 id="output-options"><code>Output Options</code></h2><h3 id="output_slope"><code>output_slope</code></h3><p>如果启用此项，输出波将具有坡度几何特性，即波的 XZ 坡度（无波峰）。</p>
+<h3 id="output_velocity"><code>output_velocity</code></h3><p>如果启用此项，输出波将具有速度几何特性，即曲面上的 XYZ 速度。 </p>
+<h2 id="">输出</h2><h3 id="solver_settings"><code>solver_settings</code></h3><p>这是具有波模拟的所有特性的对象。它应连接到 <code>simulate_dynamic_wave</code> 节点的设置。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_BOSS_html.html">BOSS</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

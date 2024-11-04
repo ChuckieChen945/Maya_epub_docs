@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="更改粒子对象的开始帧">
+<meta name="indexterm" content="控制粒子动力学的计时">
+<meta name="indexterm" content="粒子动力学后执行表达式">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22">
+<meta name="language" content="CHS">
+<title>控制粒子动力学的执行时间</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>控制粒子动力学的执行时间</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-330D"><p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3365">有多种方法可以控制粒子动力学的操作时间： </p>
+<ul class="ul" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3364"><li class="li" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3363"> 更改粒子对象的开始帧 </li>
+<li class="li" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3362"> 控制粒子动力学的计时 </li>
+<li class="li" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3361"> 粒子动力学后执行表达式 </li>
+</ul>
+<div class="section" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS17956D7ADBC6E7361A342C07117AE3124CC-7FBB"><h2 class="title sectiontitle">更改粒子对象的开始帧</h2>
+
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3360"> 每个粒子对象都具有<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-5159E058-2C75-44B2-A814-4AB5891700B7">“开始帧”(Start Frame)</span>属性，可以设定效果开始的时间。例如，可以将粒子对象上的漩涡效果延迟到自行选择的帧。 </p>
+
+<div class="fig fignone" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-335E"><img class="image" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__IMAGE_558534F79C3A45308067A2E9F64BEE96" width="241" height="199" src="../images/GUID-38CCB895-D425-4AAC-BF02-C627E06BC983.png"></div>
+
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-335D">再比如，假设您创建一个角色，从地板上的灰尘粒子上走过。灰尘连接到重力、地板碰撞对象和角色脚上的空气（尾迹）场。您希望脚上的空气场在帧 100 处开始扬起灰尘。 </p>
+
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-335C"> 可以将灰尘的<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-0B89ECAF-D13F-4176-B2C1-1BA4B0E902DC">“开始帧”(Start Frame)</span>设定为 100，以便将灰尘的动力学计算延迟到有计算需要的时候。这样可以加快场景播放并防止粒子因为重力和碰撞效果而出现轻微反弹。 </p>
+
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-335A"> 您还可以通过禁用前 100 个帧的<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-C7F9AC8A-D469-4548-A0F0-757F0ECBF86A">“为动力学”(Is Dynamic)</span>，防止针对灰尘进行动力学计算。但是，通过将<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-EA36D887-84B1-4DB0-882D-874053790081">“开始帧”(Start Frame)</span>设定为 100，您也将避免单击帧或拖动“时间滑块”时必须等待前 100 个帧的预备运行计算。 </p>
+
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3358">请注意，当创建粒子对象或发射粒子对象的发射器时，<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-5A109BCB-7802-4838-826A-597848BA462B">“开始帧”(Start Frame)</span>将默认设置为 1.0。该值是当前时间单位设置下单个帧的持续时间。 </p>
+
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3357">若要设定粒子对象的<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-50866B81-4C4C-4F81-BA1C-D4E06F3BA16A">“开始帧”(Start Frame)</span>，请选择粒子对象，然后在<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-48588271-078A-4CF2-9D0F-CF274DDA2D97">“属性编辑器”(Attribute Editor)</span><span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-FCFA66B2-CEA1-47C6-9D22-B291A7B777F1">“时间属性”(Time Attributes)</span>区域的<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-37762881-D97D-46C3-89A0-F78E2EEB4373">“开始帧”(Start Frame)</span>中输入值。 </p>
+
+<div class="note attention" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3356"><span class="attentiontitle">注意：</span>  如果要更改时间单位设置，必须将<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-350F75B5-59D8-445C-B255-5182FDFC8B78">“开始帧”(Start Frame)</span>设定为正确的初始值，以便 Maya 再次计算开始时间。 <p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3354">发射的粒子对象仅接受帧大于或等于其<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-7E981E2D-9E75-460B-803A-9D10F0F3985C">“开始帧”(Start Frame)</span>处的发射粒子。例如，若要在帧编号 -5 处发射粒子，则将发射粒子对象的<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-9FAB4262-0323-4B87-AF4B-B2A9AB0C6771">“开始帧”(Start Frame)</span>设定为 -5 或更少。 </p>
+ </div>
+
+</div>
+<div class="section" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS17956D7ADBC6E7361A342C07117AE3124CC-7FBA"><h2 class="title sectiontitle">控制粒子动力学的计时</h2>
+
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3353"> 通过动力学动画，您可以指定希望对象采用的操作，然后让软件计算出如何对对象设定动画。在历史上，将该动画方法与其他操作同步一直都富有挑战性。例如，与渐强乐谱同步提高发射粒子的速度一直非常困难。 </p>
+
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3351"> Maya 具有克服这种难题的功能。每个粒子对象都具有<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-1700D182-6F75-4D34-8F0A-D537D1033F28">“当前时间”(Current Time)</span>属性，您可以对其设定动画以降低或加快粒子效果。该属性包含独立时钟时间的值。从本质而言，减慢或加快粒子对象的时钟可以减慢或加快对其产生影响的动力学。 </p>
+
+<div class="section" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-334F"><h3 class="title sectiontitle">示例</h3>
+
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-334E">一个发射器在 150 帧动画中发射粒子。以下步骤显示了如何通过对<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-74644C8B-B09C-4B35-8218-8050960C573C">“当前时间”(Current Time)</span>设定关键帧控制粒子的速度。 </p>
+
+<div class="fig fignone" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-334D"><img class="image" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__IMAGE_F4CCC3C5AE8F40D7ACAD5F251BBEAF6F" width="93" height="161" src="../images/GUID-1FB116EA-8A10-4E7E-B1BA-E39E9CC11D5C.png"></div>
+
+<ol class="ol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-334C"><li class="li" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-334B">选择发射的粒子对象（不是发射器）。 </li>
+<li class="li" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-334A">在<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-2B86941A-9F51-4152-ACB3-046442BBEE34">“通道盒”(Channel Box)</span>中，单击<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-E1B32D50-9B4F-47E1-8E30-358DC6B45F12">“当前时间”(Current Time)</span>属性，然后单击鼠标右键并选择<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-3D6DE5B4-4315-4593-BFBE-BBA7D2019A62">“断开连接”(Break Connections)</span>。 </li>
+<li class="li" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3349">设定以下帧的<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-4A318787-4093-4B0C-8B62-B11C06E3A16A">“当前时间”(Current Time)</span>关键帧： 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3348" class="table" width="90%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">帧 </th>
+<th class="entry" valign="top" width="50%">当前时间 </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3347">0 </p>
+
+</td>
+<td class="entry" valign="top" width="50%">
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3346">0 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3345">50 </p>
+
+</td>
+<td class="entry" valign="top" width="50%">
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3344">100 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3343">100 </p>
+
+</td>
+<td class="entry" valign="top" width="50%">
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3342">110 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3341">150 </p>
+
+</td>
+<td class="entry" valign="top" width="50%">
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3340">200 </p>
+
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+ <p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-333F">在动画开始时（第 0 帧），发射粒子的<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-81729E14-8385-4ECD-B271-B31478FC077D">“当前时间”(Current Time)</span>与场景时间同步。两者的值都为 0。 </p>
+ <p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-333E">在第 50 帧处，<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-2735A34A-A67A-42DB-902D-7F04150F7383">“当前时间”(Current Time)</span>关键帧设定为 100，是场景时间值的两倍。对于第 0 帧到第 50 帧，这样会将发射粒子的操作时间增加为场景时间的两倍。因此，发射粒子以将出现速度的两倍速度移动，无需操纵<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-92BA9645-2032-40A7-8840-689C5F8A6579">“当前时间”(Current Time)</span>。 </p>
+ <p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-333D">在第 100 帧处，<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-406A2967-77C9-4522-BD82-AC3850BF269C">“当前时间”(Current Time)</span>关键帧设定为 110。从第 50 帧到第 100 帧，这样会减慢发射粒子相对于场景时间的时间过程。发射粒子以低于将存在速度的速度移动，无需操纵<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-C90B5446-F0A8-4103-A7F2-B4E5B3493DD9">“当前时间”(Current Time)</span>。 </p>
+ <p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-333C">在第 150 帧处，<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-37ABC287-82D6-4000-8AE9-D150572C272C">“当前时间”(Current Time)</span>关键帧设定为 200，再次加快发射粒子的时间过程。粒子再次以较快速度移动。 </p>
+ <div class="note tip" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-333B"><span class="tiptitle">提示：</span> 
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-CF39223B-A4B3-4BF3-AFE2-69103E9BCE9F">若要方便地减慢或加快动态效果，请在对“当前时间”设定关键帧值后使用<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-5754D685-BF71-4001-905F-4AF74AB08FFF">“曲线图编辑器”(Graph Editor)</span>调整<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-568044C8-74B8-45DC-B4D2-A20D6C43B66C">“当前时间”(Current Time)</span>的动画曲线。请参见“动画”。 </p>
+
+</div>
+ </li>
+</ol>
+
+</div>
+
+<div class="section" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS17956D7ADBC6E7361A342C07117AE3124CC-7FB9"><h3 class="title sectiontitle">了解<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-81549DBC-E65B-43FB-BE5D-7A15D6FA9091">“当前时间”(Current Time)</span>属性</h3>
+
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-333A">每个已设定动画的粒子对象都根据其自己的时钟运行。可以使该时钟独立于场景时钟，场景时钟使用“时间滑块”中的时间向前推进。 </p>
+
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3339"> 每个粒子对象都具有<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-005E88A5-9767-4857-8B8F-801313688FCF">“当前时间”(Current Time)</span>属性，其中包含其时钟值。与场景时钟时间变量不同，您可以使用关键帧、表达式或其他动画技术设定<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-67CABFE4-E6E7-4B8A-AB91-1662502E52C6">“当前时间”(Current Time)</span>的值。场景时钟是具有固定长度增量的计时装置，而粒子对象的时钟具有可以通过<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-2C7CBAA1-529F-45FC-82DA-CFCB927D0E5C">“当前时间”(Current Time)</span>属性设定的可变增量。可以改变增量以减慢或加快粒子上的动态效果。 </p>
+
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3335">对于将在粒子对象中发生的动画，其<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-9B99160B-CB65-44A1-B79D-34A2420DD071">“当前时间”(Current Time)</span>需要随场景播放而发生变化的输入连接。默认情况下，场景的预定义时间变量将为<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-293ED138-FB53-4C36-9257-63F6D4BF208F">“当前时间”(Current Time)</span>提供输入。 </p>
+
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3334">如果使用非粒子形状表达式将值指定给<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-2754202C-C1EA-4588-8DEF-07BE125E904F">“当前时间”(Current Time)</span>，则该值将解释为<span class="ph menucascade" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-77007D07-A88C-4746-A1E4-2111CE3335E6"><span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-B53D7576-1A14-40DB-BFA9-7E1EC9BAB3EC">“窗口</span> &gt; <span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-82F91565-233C-4DEF-ABCC-C838703F52E8">设置/首选项</span></span> &gt; <span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-4355299E-9881-4327-8CE7-68D54952D7B4">首选项”(Windows &gt; Settings/Preferences &gt; Preferences)</span>窗口<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-945684DE-020F-420F-9022-22821AB56A45">“设置”(Settings)</span>类别中指定的<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-08771C06-D47C-4065-89B3-0D8E67CFD73C">“时间”(Time)</span>单位类型。如果 fps 速率处于选中状态，例如，<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-AAF5DA29-FB20-43F3-B0C1-527BFC5B5F9F">“电影(24 fps)”(Film (24 fps))</span>，则<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-3D5A018F-B5C4-4FA2-B5E1-A4BE5E74BD16">“当前时间”(Current Time)</span>值将解释为帧。 </p>
+
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3333">例如，假定已将<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-274995BC-D8F4-4EAA-9E7A-D4C51157729B">“工作单位时间”(Working Units (Time))</span>值设定为<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-93C9D357-BEAB-4D15-8A7A-6CE027B6A8E9">“电影(24 fps)”(Film (24 fps))</span>。这意味着动画使用帧编号作为时间值。假定进一步使用以下表达式语句： </p>
+
+<pre class="pre codeblock">
+currentTime = 50;
+</pre>
+
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3332">50 将被视为第 50 帧，而不是，例如，50 毫秒。 </p>
+
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-3331"> 请注意，可以设定递减的<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-253C92DD-A4C5-44AE-85B6-AACBC84DB691">“当前时间”(Current Time)</span>以实现发射器将先前发射的粒子吸回自身之类的效果。若要查看该效果的结果，必须启用发射粒子的<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-E5D35988-45A6-4E1D-877A-2449F4FFD508">“缓存数据”(Cache Data)</span>并播放动画。 </p>
+
+<div class="note tip" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-332F"><span class="tiptitle">提示：</span> 
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-BF35D58F-8176-4118-A3A2-968A86FDC1C9">如果已断开与<span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-7F093BD2-B46E-4D60-B46E-F9CCE8310170">“当前时间”(Current Time)</span>的连接，要重新将其连接到场景时间，请选择粒子形状节点（不是变换），然后选择<span class="ph menucascade" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-53A6FE4E-60ED-4048-9066-976026472582"><span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-AB881974-ECA1-417E-B7EE-8BDD9D704AD8">“nParticle</span> &gt; <span class="ph uicontrol" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__GUID-41953340-9D87-48A3-84D9-9B79C386C304"> 连接到时间(nParticles &gt; Connect To Time)</span></span>。 </p>
+
+</div>
+
+</div>
+
+</div>
+<div class="section" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS17956D7ADBC6E7361A342C07117AE3124CC-7FB8"><h2 class="title sectiontitle">粒子动力学后执行表达式</h2>
+
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-332E">每个帧中运行时表达式在动力学之前或之后执行，具体取决于创建运行时表达式时选择的内容。 </p>
+
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-332D"> 在 Maya 先前版本中，必须选择粒子形状运行时表达式在其动力学计算前还是计算后执行。在 Maya 中，可以在创建运行时表达式时指定表达式在动力学计算前还是计算后执行。 </p>
+
+<p class="p" id="GUID-6ED1138F-36A5-4755-A080-A702D6B46E22__WS1A9193826455F5FF-6D855556117FACF922E-332B">例如，假定您使用重力场使粒子水滴掉落到角色身上，然后编写水滴对象位置的运行时表达式以防止其粒子穿透角色曲面。如果将该表达式创建为动力学之前的运行时，则可能会看到一些曲面穿透，因为重力场在位置约束表达式之后执行。可以创建或复制该表达式到运行时动力学后，使动力学的剩余效果不干扰表达式。 </p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-AEBE18A1-C2C8-4830-B600-8C8690979A35.htm">nParticle 工作流</a></div>
+</div>
+</div>
+
+</body>
+</html>

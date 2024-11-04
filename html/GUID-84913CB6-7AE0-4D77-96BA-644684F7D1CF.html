@@ -1,0 +1,299 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Bifrost">
+<meta name="created" content="30/7/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="17/04/2023">
+<meta name="topicid" content="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF">
+<meta name="language" content="CHS">
+<title>“BOSS 频谱波”(BOSS Spectral Wave)属性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>“BOSS 频谱波”(BOSS Spectral Wave)属性</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 使用 BOSS 频谱波解算器在水面上创建风驱动的波浪。您可以创建从平静水面到飓风状况的效果。
+	 </p>
+<div class="fig fignone" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__FIG_AF67CFF2007246C796F3039E86F1DB09"><img class="image" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__IMAGE_5CE48113C77D493FB41B135B988BD8BD" src="../images/GUID-1D68A855-DA58-42C2-AFA1-459585961FBE.png"></div>
+<p class="p">若要应用该解算器，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-3F8C1BDA-769B-4258-8A3F-CB2DBBA5197F.htm">添加和编辑 BOSS 解算器</a>。
+	 </p>
+<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">启用(Enable)</span> 
+		  </dt>
+<dd class="dd">禁用后就不会起作用，无需将其从场景中移除。
+		  </dd>
+</dl>
+<div class="section" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__SECTION_86B5AFF065DF4A4989B39E4FDE189B2F"><h2 class="title sectiontitle"><span class="ph uicontrol">全局属性(Global Attributes)</span></h2> 
+		 
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">开始帧(Start Frame)</span> 
+			 </dt>
+<dd class="dd">该解算器影响的第一帧。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">周期(Periodic)</span> 
+			 </dt>
+<dd class="dd">在空间中重复显示波浪图案。这样可以使用较小的面片对较大的网格平面进行变形，但平铺的重复可能会很明显。
+				<div class="fig fignone" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__FIG_EBBBBF2C6770488C9F786ED02BBF91EF"><img class="image" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__IMAGE_43FBD9EAC0D24453857A44B315466E4A" src="../images/GUID-4194A58B-5670-4641-82B1-06D0D3BC5DCD.png"><img class="image" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__IMAGE_EC2633482A1F46978806F2C729AAC911" src="../images/GUID-658EEE87-6280-40C2-96D1-7724416DAF85.png"><p class="figcap">启用和禁用“周期”(Periodic)</p></div>
+ 
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">面片大小 X (m)(Patch Size X (m))</span>、<span class="ph uicontrol">面片大小 Z (m)(Patch Size Z (m))</span> 
+			 </dt>
+<dd class="dd"> 
+				<div class="p">要计算的水面的水平尺寸，位于世界原点中心。这不一定与解算器的输入网格的大小相同：
+				<ul class="ul" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__UL_B0807712027245978772D9B03FCBD564"><li class="li" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__LI_F3BEB893C1294888858FEFC465056115">如果面片和网格的大小不同，并且您希望将缓存的 EXR 文件用作贴图，则需要调整最终网格上的 UV 投影以正确达到效果。
+				  </li>
+<li class="li" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__LI_1F76760B82C740AD9FFCF781850554FE">如果面片大于网格，则超过网格尺寸的面片部分会进行计算但不可见。这会执行不必要的计算，而且还会浪费磁盘空间来存储缓存文件。但是，您可以利用较大的面片为输入网格设置动画，以显示面片的不同区域，例如，移动的船周围的曲面。此外，巨浪中波长较长的大浪需要使用较大的面片。
+				  </li>
+<li class="li" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__LI_012A3F7A72AD4452898B8AA9512A9612">如果面片小于网格，则确保<span class="ph uicontrol">“周期”(Periodic)</span>已启用，以便使整个网格变形。
+				  </li>
+<li class="li" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__LI_0A6A69AE11D54E4EA97244963802831A">如果要结合使用 BOSS 频谱波和 BOSS 波解算器，则最好将面片大小设置为与网格的大小相同。这是因为，如果大小不同，则 BOSS 波解算器的结果会被挤压或拉伸以适配网格，并且将与频谱结果不一致。
+				  </li>
+</ul>
+ 
+				</div>
+ 
+				<p class="p">与其他动力学系统类似，相对于 <span class="ph msgph prodname" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span>，BOSS 使用 100:1 的比例。当 <span class="ph msgph prodname" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 中<span class="ph uicontrol">“线性”(Linear)</span><span class="ph uicontrol">工作单位</span>首选项设置为默认值<span class="ph uicontrol">“厘米”(centimeter)</span>时，BOSS 将 1 栅格单位解释为 1 米。若要使用不同的比例，您可以设置<span class="ph uicontrol">“空间比例”(Space Scale)</span>和/或更改<span class="ph uicontrol">“重力(m/s2)”(Gravity m/s2)</span>。
+				</p>
+ 
+			 </dd>
+<dd class="dd"> 
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">空间比例(Space Scale)</span> 
+			 </dt>
+<dd class="dd">X 和 Z 各方向上面片的线性比例因子。如果值介于 0 和 1.0 之间，则收缩结果；如果值大于 1.0，则展开结果。如果在缩放后波浪移动过快或过慢，可以调整<span class="ph uicontrol">“重力(m/s2)”(Gravity m/s2)</span>或使用表达式向<span class="ph uicontrol">“时间”(Time)</span>输入添加倍增。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">频谱类型(Frequency Spectra Type)</span>、<span class="ph uicontrol">方向谱类型(Directional Spectra Type)</span> 
+			 </dt>
+<dd class="dd">从频率和方向的各种已发布谱中选择。通常，<span class="ph uicontrol">“频谱类型”(Frequency Spectra Type)</span>为 <span class="ph uicontrol">TMA</span> 和<span class="ph uicontrol">“方向谱类型”(Directional Spectra Type)</span>为 <span class="ph uicontrol">Jonswap</span> 组合对于开阔的海洋是很好的选择，但您可以尝试其他选项以实现多种效果。请注意，可用模型基于在不同条件下得出的测量值，并非每个组合都适用于任何给定情况。您可能需要调整<span class="ph uicontrol">“波高度”(Wave Height)</span>、<span class="ph uicontrol">“空间比例”(Space Scale)</span>和其他属性，具体取决于谱类型。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">种子(Seed)</span> 
+			 </dt>
+<dd class="dd">此值用于初始化伪随机数生成器。更改此值可生成具有相同总体特征的不同结果。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">分辨率 X (Resolution X)</span>、<span class="ph uicontrol">分辨率 Z (Resolution Z)</span> 
+			 </dt>
+<dd class="dd">用于计算波高度的栅格的分辨率。此项还可以控制用于缓存的 EXR 文件的分辨率。值越高，细节越多，但计算时间会延长，并且需要更多磁盘空间进行缓存。匹配面片的纵横比可确保采样均匀，且不会在任何方向上挤压或拉伸。
+			 </dd>
+</dl>
+ 
+	 </div>
+<div class="section" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__SECTION_21393AEE6E1A459BA56992931A5D2DCD"><h2 class="title sectiontitle"><span class="ph uicontrol">模拟属性(Simulation Attributes)</span></h2> 
+		 
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">重力(m/s2)(Gravity m/s2)</span> 
+			 </dt>
+<dd class="dd">由重力产生的加速度。默认值 9.8 表示地球表面的重力强度（以 m/s<sup class="ph sup">2</sup> 为单位）。值越小，产生的波浪越高且移动速度越慢，值越大，产生的波浪越低且移动速度越快。可以调整此值以更改比例。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">海洋深度(m)(Ocean Depth (m))</span> 
+			 </dt>
+<dd class="dd">用于计算波浪运动的水深。在浅水中，波浪往往较长、较高及较慢。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">波高度(Wave Height)</span> 
+			 </dt>
+<dd class="dd">波高度的人为倍增。如果值介于 0.0 和 1.0 之间，则降低波高度，如果值大于 1，则增加波高度。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">使用水平置换(Use Horizontal Displacement)</span> 
+			 </dt>
+<dd class="dd">在水平方向和垂直方向置换网格的顶点。这会导致波的形状更尖锐、更不圆滑。它还会生成适合向量置换贴图的缓存，因为 3 个轴上都存在偏移。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">波大小(Wave Size)</span> 
+			 </dt>
+<dd class="dd">控制水平置换量。可调整此值以避免输出网格中出现自相交。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">毛细波大小(cm)(Capillary Size (cm))</span> 
+			 </dt>
+<dd class="dd">毛细波（曲面张力传播的较小、较快的涟漪，有时可在重力传播的较大波浪顶部看到）的最大波长。毛细波通常仅在比例较小且分辨率较高的情况下可见，因此在许多情况下，可以让此值保留为 0.0 以避免执行不必要的计算。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">X 轴方向漂移速度(m/s)(Drift Velocity in X (m/s))</span>、<span class="ph uicontrol">Z 轴方向漂移速度(m/s)(Drift Velocity in Z (m/s))</span> 
+			 </dt>
+<dd class="dd">修改波浪运动以使其行为就像是水按指定的速度移动。这样可以在流动的水（例如，河流或气流）上创建波浪。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">短缩放中止(M)(Short Scale Cutoff (m))</span>、<span class="ph uicontrol">长缩放中止(M)(Long Scale Cutoff (m))</span> 
+			 </dt>
+<dd class="dd">要包含在计算中的最小和最大波长。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">时间(Time)</span> 
+			 </dt>
+<dd class="dd">对波浪进行解算的时间。通常，此项直接连接到场景时间，但您可以断开连接，然后使用表达式或其他控件来减慢或加快波浪运动。
+			 </dd>
+</dl>
+ 
+	 </div>
+<div class="section" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__SECTION_3F0C01275F0A4324897151D7CB60C692"><h2 class="title sectiontitle"><span class="ph uicontrol">风属性(Wind Attributes)</span></h2> 
+		 
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">风速(m/s)(WindSpeed (m/s))</span> 
+			 </dt>
+<dd class="dd">生成波浪的风的速度。微风可能在 2 m/s 左右，飓风可达到 30 m/s 或更高（但请注意，这么高的风速需要非常大的面片才能包含最长和最高的波浪）。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">风向(度)(Wind Direction (degrees))</span> 
+			 </dt>
+<dd class="dd">生成波浪的风的方向。
+				<ul class="ul" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__UL_FCEF60CFFD5046F787C9CAB0FC2AE993"><li class="li" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__LI_EECEC14921B04819B971535391DCF140">0 为 -X 方向。
+				  </li>
+<li class="li" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__LI_5EAAADB922AA43C59FEE7D17605B8E0E">90 为 -Z 方向。
+				  </li>
+<li class="li" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__LI_0A633F65E1E84D8CADF7EAFB886048E7">180 为 +X 方向。
+				  </li>
+<li class="li" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__LI_1A1A373A465D46C680AF1F9ABFD4F45C">270 为 +Z 方向。
+				  </li>
+</ul>
+ 
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">风吹程距离(km)(Wind Fetch Distance (km))</span> 
+			 </dt>
+<dd class="dd">风应用于水面时的距离。距离较小时，波浪往往会较短、较低及较慢。超过阈值距离（取决于风速、海洋深度和其他因素）时，波浪会充分完善，其总体特征不会发生显著变化。
+			 </dd>
+</dl>
+ 
+	 </div>
+<div class="section" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__SECTION_D690F68EC0A44420BA89C4A0751BF594"><h2 class="title sectiontitle"><span class="ph uicontrol">反射波属性(Reflection Waves Attributes)</span></h2> 
+		 
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">使用碰撞对象(Use Colliders)</span> 
+			 </dt>
+<dd class="dd">创建与任何影响碰撞的波的反射（“BOSS 几何特性”(Boss Geo Properties)和“BOSS EXR 影响”(Boss EXR Influence)）。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">反射高度(Reflection Height)</span> 
+			 </dt>
+<dd class="dd">反射波的高度的倍增。如果值大于 1.0，则将增加高度，如果值介于 0.0 和 1.0 之间，则将降低高度。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">反射大小(Reflection Size)</span> 
+			 </dt>
+<dd class="dd">反射波的水平置换量的倍增。可调整此值以避免输出网格中出现自相交。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">反射衰退宽度(Reflection Decay Width)</span> 
+			 </dt>
+<dd class="dd">控制抑制反射波的域边界处区域的宽度。这可避免域边界产生反射。值表示面片大小的小数，例如，0.1 表示 10% 的面片大小沿每个边界。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">反射衰退 Alpha(Reflection Decay Alpha)</span> 
+			 </dt>
+<dd class="dd">控制沿面片边界的波抑制的平滑度。值过高可能会导致出现可见瑕疵。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">反射摩擦(Reflection Friction)</span> 
+			 </dt>
+<dd class="dd">反射波的速度的阻尼因子。值为 0.0 时波自由传播，值为 1.0 时几乎立即使波衰减。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">反射漂移系数(Reflection Drift Factor)</span> 
+			 </dt>
+<dd class="dd">应用于反射波的<span class="ph uicontrol">“X 轴方向漂移速度(m/s)”(Drift Velocity in X (m/s))</span>和<span class="ph uicontrol">“Z 轴方向漂移速度(m/s)”(Drift Velocity in Z (m/s))</span>量的倍增。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">反射风系数(Reflection Wind Factor)</span> 
+			 </dt>
+<dd class="dd">应用于反射波的<span class="ph uicontrol">“风速(m/s)”(WindSpeed (m/s))</span>量的倍增。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">反射毛细波大小(厘米)(Reflection Capillary Size (cm))</span> 
+			 </dt>
+<dd class="dd">能够产生反射时涟漪的最大波长。
+			 </dd>
+</dl>
+ 
+	 </div>
+<div class="section" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__SECTION_360E79942725486D948E3F691D5A48F3"><h2 class="title sectiontitle"><span class="ph uicontrol">泡沫属性(Foam Attributes)</span></h2> 
+		 
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">启用(Enable)</span> 
+			 </dt>
+<dd class="dd">在缓存解算器的输出时生成表示泡沫的贴图。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-910607BB-20E7-425A-844D-31491855B37B.htm">生成 BOSS 泡沫贴图</a>。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">泡沫扩散速率(Foam Diffusion Rate)</span> 
+			 </dt>
+<dd class="dd">控制泡沫扩散和减少的速度。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">尖点比例(Cusp Scale)</span> 
+			 </dt>
+<dd class="dd">控制泡沫量。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">尖点最小值(Cusp Min)</span>、<span class="ph uicontrol">尖点最大值(Cusp Max)</span> 
+			 </dt>
+<dd class="dd">指定创建泡沫时应用的尖点值范围。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">使用速度(Use Speed)</span>、<span class="ph uicontrol">速度最小值(Speed Min)</span>、<span class="ph uicontrol">速度最大值(Speed Max)</span> 
+			 </dt>
+<dd class="dd">用于限制仅在速度处于指定范围内的区域创建泡沫。
+			 </dd>
+</dl>
+ 
+	 </div>
+<div class="section" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__SECTION_7BE28E53EE214A6A8102B2A47DB5BD17"><h2 class="title sectiontitle"><span class="ph uicontrol">缓存属性(Cache Attributes)</span></h2> 
+		 
+		<p class="p">您可以使用标记  
+		  <tt class="ph tt">&lt;project&gt;</tt>、
+		  <tt class="ph tt">&lt;scene&gt;</tt>、
+		  <tt class="ph tt">&lt;object&gt;</tt>、
+		  <tt class="ph tt">&lt;influence&gt;</tt>、
+		  <tt class="ph tt">&lt;frame&gt; </tt>和  
+		  <tt class="ph tt">&lt;f&gt; </tt> 来定义缓存文件夹和文件名。您还可以使用 csh 样式指定标记，例如，
+		  <tt class="ph tt">$frame</tt>。
+		</p>
+ 
+		<p class="p">使用标记保存缓存时，也会在场景中存储完全解析路径的副本，用于播放缓存。这意味着如果您使用一个新名称保存场景或将场景保存在不同的项目中，缓存的路径不会丢失。如果稍后重写缓存文件，将使用标记的当前值并更新解析路径。
+		</p>
+ 
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">使用缓存(Use Cache)</span> 
+			 </dt>
+<dd class="dd">播放时从缓存文件读取，而不是重新计算影响。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">导出缓存(Export Cache)</span> 
+			 </dt>
+<dd class="dd">播放时写入缓存文件。您可以手动启用此项，以在播放和调整值时覆盖缓存文件。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">缓存文件夹(Cache Folder)</span> 
+			 </dt>
+<dd class="dd">解算器的所有缓存文件的位置，如果使用了泡沫和速度，则包含泡沫和速度的缓存文件的位置。手动编辑路径时，忽略最后的“/”字符。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">缓存名称(Cache Name)</span> 
+			 </dt>
+<dd class="dd">主波缓存的文件名。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">缓存速度(Cache Velocity)</span> 
+			 </dt>
+<dd class="dd">创建速度的缓存文件。
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">速度缓存名称(Velocity Cache Name)</span> 
+			 </dt>
+<dd class="dd">速度缓存的文件名 
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">泡沫缓存名称(Foam Cache Name)</span> 
+			 </dt>
+<dd class="dd">泡沫缓存的文件名 
+			 </dd>
+</dl>
+ 
+	 </div>
+<div class="section" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__SECTION_1EA0678FFE7A4B4983F0D9704B317C99"><h2 class="title sectiontitle"><span class="ph uicontrol">诊断(Diagnostics)</span></h2> 
+		 
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">调试(Debug)</span> 
+			 </dt>
+<dd class="dd">设置在<span class="ph uicontrol">“输出窗口”(Output Window)</span>中输出的消息的详细级别。
+				<ul class="ul" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__UL_64C2D1EF263D4092BF1D7328C4A238E1"><li class="li" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__LI_DBE8E1C337B74B9BAC4160A9CE3BD287">0 = 无消息。
+				  </li>
+<li class="li" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__LI_B5131019D1854194A8AE3C62C52FF19A">1 = 仅错误消息。
+				  </li>
+<li class="li" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__LI_AF2F2DFEBECD45DA9709277534DB7C66">2 = 错误消息和警告消息。
+				  </li>
+<li class="li" id="GUID-84913CB6-7AE0-4D77-96BA-644684F7D1CF__LI_3FA70EA54BB7486795BB79BCD4AB42B4">3 = 错误消息、警告消息和信息消息。
+				  </li>
+</ul>
+ 
+			 </dd>
+</dl>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-940D2A65-AD9D-4476-9429-03229C08BC3D.htm">BOSS 引用</a></div>
+</div>
+</div>
+
+</body>
+</html>

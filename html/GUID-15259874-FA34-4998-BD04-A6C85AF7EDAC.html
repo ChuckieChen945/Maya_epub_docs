@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-15259874-FA34-4998-BD04-A6C85AF7EDAC">
+<meta name="language" content="CHS">
+<title>使用“寿命”(lifespan)</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-15259874-FA34-4998-BD04-A6C85AF7EDAC">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用“寿命”(lifespan)</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-15259874-FA34-4998-BD04-A6C85AF7EDAC__WS73099CC142F48755-3D114B7511841AEFA9F-E93"> 从发布 3.0 版开始，Maya 简化了使用粒子寿命的方式。不再需要使用表达式，在每个粒子的基础上设定随机或恒定寿命。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-8BB30661-AA0D-42D1-8A29-49839C3964EA">设置基本 nParticle 属性</a>。 </p>
+<p class="p" id="GUID-15259874-FA34-4998-BD04-A6C85AF7EDAC__WS73099CC142F48755-3D114B7511841AEFA9F-E91">如果使用除<em class="ph i" id="GUID-15259874-FA34-4998-BD04-A6C85AF7EDAC__GUID-16207C3B-5A89-4D4B-B4C5-B7C634BFC5E1">“仅寿命PP”(lifespanPP only)</em>之外的任何寿命模式，可以在表达式语句中读取但不分配至<span class="ph uicontrol" id="GUID-15259874-FA34-4998-BD04-A6C85AF7EDAC__GUID-DE00A10F-E752-4540-B2CA-1640299289B9">“随机数流”(finalLifespanPP)</span>。例如，在可能已写入的过去版本的 Maya： </p>
+<pre class="pre codeblock">
+opacityPP = 1 - age/lifespanPP;
+</pre>
+<p class="p" id="GUID-15259874-FA34-4998-BD04-A6C85AF7EDAC__WS73099CC142F48755-3D114B7511841AEFA9F-E90">在 Maya 3.0 中，这会起作用，但仅在已将寿命模式设定为<span class="ph uicontrol" id="GUID-15259874-FA34-4998-BD04-A6C85AF7EDAC__GUID-6189D718-A4C2-41F7-B00B-722BD28C6C25">“仅寿命 PP”(lifespanPP only)</span>的情况下。现在，使用该方法可写入此表达式： </p>
+<pre class="pre codeblock">
+opacityPP = 1 - age/finalLifespanPP;
+</pre>
+<p class="p" id="GUID-15259874-FA34-4998-BD04-A6C85AF7EDAC__WS73099CC142F48755-3D114B7511841AEFA9F-E8F">此操作适用于所有寿命模式，因为<span class="ph uicontrol" id="GUID-15259874-FA34-4998-BD04-A6C85AF7EDAC__GUID-757703D8-C47F-4591-A567-8E5DC3DA1056">“随机数流”(finalLifespanPP)</span>总是存储在所有模式下用于粒子的实际寿命。 </p>
+<p class="p" id="GUID-15259874-FA34-4998-BD04-A6C85AF7EDAC__WS73099CC142F48755-3D114B7511841AEFA9F-E8E">只要选择<span class="ph uicontrol" id="GUID-15259874-FA34-4998-BD04-A6C85AF7EDAC__GUID-7BDEF0E0-FD36-44F6-8AC8-8D73DB6D8265">“仅寿命 PP”(lifespanPP only)</span>作为寿命模式，那么涉及<span class="ph uicontrol" id="GUID-15259874-FA34-4998-BD04-A6C85AF7EDAC__GUID-0C6CC50E-EEE3-48B4-9B5F-736A0C6522DB">“寿命 PP”(lifespanPP)</span>的 Maya 3.0 之前版本的表达式现在均能够正常使用。如果选择<span class="ph uicontrol" id="GUID-15259874-FA34-4998-BD04-A6C85AF7EDAC__GUID-D26520D9-F3D7-43F4-9935-2F38A51ACCD2">“恒定”(Constant)</span>或<span class="ph uicontrol" id="GUID-15259874-FA34-4998-BD04-A6C85AF7EDAC__GUID-0C2F7A11-2328-4DC8-9A52-50C68352C3C7">“随机范围”(Random Range)</span>模式，则可以读取值<span class="ph uicontrol" id="GUID-15259874-FA34-4998-BD04-A6C85AF7EDAC__GUID-F5D5FD27-63B1-46A9-977F-9C424CA8822B">“随机数流”(finalLifespanPP)</span>，而不是<span class="ph uicontrol" id="GUID-15259874-FA34-4998-BD04-A6C85AF7EDAC__GUID-62B7A769-16DD-4CAC-96A6-E108648F9465">“寿命PP”(lifespanPP)</span>。如果要使用其他寿命模式中的一种，则需要使用<span class="ph uicontrol" id="GUID-15259874-FA34-4998-BD04-A6C85AF7EDAC__GUID-0A5C51FB-7CD4-4EBD-8037-5B46DC0C2BDC">“仅随机数流”(finalLifespanPP only)</span>。 </p>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-F7BE65C4-CDA4-42DC-A0D8-72B9D984B3E1.htm">关于粒子表达式</a></div>
+</div>
+</div>
+
+</body>
+</html>

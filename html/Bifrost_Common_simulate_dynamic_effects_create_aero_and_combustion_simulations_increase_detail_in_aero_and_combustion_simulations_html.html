@@ -1,0 +1,74 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_simulate_dynamic_effects_create_aero_and_combustion_simulations_increase_detail_in_aero_and_combustion_simulations_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>在 Aero 和燃烧模拟中增加细节</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>在 Aero 和燃烧模拟中增加细节</h1></div><p>可以通过多种方法增加 Aero 和燃烧模拟的细节。</p>
+<h2 id="">减小细节大小</h2><p><code>source_air</code> 节点上设置的 <code>fluid_detail_size</code> 确定可以解析的气流的最小细节大小。减小此值可提高模拟的分辨率。</p>
+<p><code>source_air</code> 上另一个影响细节大小的设置为 <code>geo_volume_mode</code>。如果此项设置为 <code>Absolute</code>，则细节大小采用世界单位，这意味着大发射器生成的体素比小发射器生成的体素多。如果其设置为默认值 <code>Relative</code>，则在使用大发射器和小发射器的模拟中，体素数量大致相同。</p>
+<p>您还可以减小 <code>source_air</code> 节点上的 <code>geo_detail_size</code>，以及 <code>collider</code> 节点上的 <code>detail_size</code>，以提高发射和碰撞的精确度。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>请注意不要将细节大小减小太多，尤其是在 <code>Absolute</code> 模式下。体素太多会显著增加需要的内存和计算时间。</p>
+
+</div></div>
+
+<h2 id="">应用锐化</h2><p>如果模拟过于平滑，需要增加细节，那么将 <code>aero_refinement_settings</code> 节点连接到 <code>aero_solver_settings</code> 节点的 <code>additional_settings</code> 可能是成本相对较低的方式。</p>
+<p>使 <code>sharpening_amount</code> 保持较低值。增加 <code>sharpening_radius</code> 可获得更加清晰的结果，但如果值较高，则计算时间会增加。</p>
+<h2 id="">使用点增加细节</h2><p><code>aero_sharpening_settings</code> 节点上的 <code>boost_detail_with_points</code> 选项用于向模拟添加粒子。这可以减少扩散并提供更加详细的结果，但需要使用更多内存，计算时间也会增加。</p>
+<h2 id="aero">在模拟后细化 Aero</h2><p><img src="../images/aero-post-sim-refine.png" alt="具有两个细化级别的 `post_refine_aero`"></p>
+<p><code>post_refine_aero</code> 节点可以在模拟后增强 Aero 效果的细节。它仍需要原始 Aero 源和碰撞对象，但也可以应用于文件缓存。 </p>
+<p>通常，它比将 <code>aero_refinement_settings</code> 节点连接到 <code>aero_solver_settings</code> 的 <code>additional_settings</code> 端口更快，但是额外的细节不会反馈到模拟中。</p>
+<ol>
+<li><p>将 Aero 模拟的结果插入 <code>post_refine_aero</code> 节点的 <code>aero_volume</code> 端口。 </p>
+</li>
+<li><p>根据需要设置 <code>refinement_levels</code>。高优化级别需要较长的时间进行计算，并且可能会产生瑕疵。</p>
+</li>
+<li><p>连接原始模拟中的 Aero 源和碰撞对象。这将告知节点可以添加和不能添加细节的位置。</p>
+</li>
+<li><p>从头到尾播放场景。请注意，即使细化缓存的文件，也必须按顺序播放帧。</p>
+</li>
+</ol>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_create_aero_and_combustion_simulations_html.html">创建 Aero 和燃烧模拟</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

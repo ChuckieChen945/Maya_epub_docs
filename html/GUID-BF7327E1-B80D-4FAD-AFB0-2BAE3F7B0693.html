@@ -1,0 +1,87 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="ENU">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Maya-USD">
+  <meta name="topicid" content="GUID-BF7327E1-B80D-4FAD-AFB0-2BAE3F7B0693">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>USD objects in the Viewport</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>USD objects in the Viewport</h1></div><p>Maya's core viewport renderer VP2 supports fast load times of USD data. See the sections below to access visibility toggles and options based on the USD data you have selected in the Outliner or the Attribute Editor.  </p>
+<div class="note tip:"><span class="tiptitle">Tip:</span> If you have a prim selected in the Viewport and you want the Outliner to focus on it, hover your mouse over the Outliner and press F. </div>
+<h2 id="viewport-display-for-prims">Viewport display for prims</h2><ul>
+<li><p><strong>Visibility</strong>: When set to <strong>Invisible</strong>, the selected prim and its descendants are hidden in the Viewport. When set to <strong>Inherited</strong>, the visibility of the selected prim is the same as the prim's parent. For more information, see <a href="https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-Visibility" target="_blank">Visibility</a> in the Pixar USD Glossary.</p>
+<div class="note note:">  <span class="notetitle">Note:</span> This is connected to the Visibility option in the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-9FD37B6B-7559-4F9D-B393-3AAD9AB4F24B">USD contextual menu in the Outliner</a>. When you select <strong>Make Invisible</strong> from the Outliner contextual menu, this option is set to Invisible.</div>
+</li>
+<li><p><strong>Purpose</strong>: Lets you classify prims (geometry) into visibility categories, so they can each be included or excluded from traversals of prims on a stage. Assign the purpose of a prim to specify its render fidelity in the viewport. When purpose is assigned to a prim, it overrides the purpose of its descendants. When purpose is set, the viewport display can be filtered by purpose categories under Object Display for the stage (proxyShape node).</p>
+<p>  <span style="color: purple;"><strong>Related Concepts:</strong></span> See <a href="https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-Purpose" target="_blank">Purpose</a> and <a href="https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-StageTraversal" target="_blank">Stage Traversal</a> in the Pixar USD Glossary.</p>
+<ul>
+<li><strong>Guide</strong>: Assign to prims intended as markings, lines, arrows or interaction guides.</li>
+<li><strong>Proxy</strong>: Assign to prims intended for lightweight proxy rendering.</li>
+<li><strong>Render</strong>: Assign to prims intended for final high-quality rendering.</li>
+</ul>
+</li>
+</ul>
+<h2 id="viewport-display-for-stages">Viewport display for stages</h2><p><strong>Object Display</strong></p>
+<p><strong>Purpose:</strong> Toggle purpose categories on and off to change their visibility in the viewport. Set the purpose of prims individually to use this category filter on the stage and witness the filter in the Viewport.</p>
+<div class="note note:"><span class="notetitle">Note:</span> These checkboxes can work simultaneously. For example, Proxy and Guide can both be toggled on.  </div>
+<h2 id="viewport-renderer">Viewport renderer</h2><p>The USD core provides a rendering framework called Hydra, which supports multiple rendering backends. The Maya to Hydra plug-in can be turned on in the <em>Plug-in Manager (Windows &gt; Settings/Preferences &gt; Plug-in Manager &gt; mtoh.mll</em>). When on, you can select between the render delegates in the <em>Renderer panel menu</em>. Choose between the following two Renderer options:</p>
+<ul>
+<li><strong>Viewport 2.0</strong></li>
+<li><strong>(Mtoh Experimental) Hydra GL</strong></li>
+</ul>
+<h3 id="viewport-display-limitations">Viewport display limitations</h3><p>See the following <a href="https://github.com/Autodesk/maya-usd/discussions/2750" target="_blank">Github discussion topic</a> and for more information</p>
+<ul>
+<li>When USD lights are created, nodes are added to draw lights in the Viewport. By default, these light nodes are not ignored on render time and cause lighting issues at render time. These nodes can be filtered out by the translator using the following code:<pre class="pre codeblock"><code class="prettyprint">// Skip UFE nodes coming from USD runtime
+// Those will be handled by USD Imaging delegate
+MStatus              status;
+static const MString ufeRuntimeStr = "ufeRuntime";
+MPlug                ufeRuntimePlug = dagNode.findPlug(ufeRuntimeStr, false, &amp;status);
+if ((status == MS::kSuccess) &amp;&amp; ufeRuntimePlug.asString() == "USD") {
+      return;        } 
+</code></pre>
+</li>
+</ul>
+
+  <div class="related-links">
+      <div class="relinfo relchildren">
+        <strong>Pages in this section</strong>
+        <ul class="ullinks">
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/USD-in-the-Maya-Interface/USD-objects-in-the-Viewport/GUID-532E99C9-F638-49E3-9483-800FDB9B65D7.html">Select USD data in the Viewport</a>
+          </li>
+        </ul>
+      </div>
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>Parent page:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/GUID-2FFFAB8A-022B-42BF-9068-F5BAD45238A9.html">USD in the Maya Interface</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

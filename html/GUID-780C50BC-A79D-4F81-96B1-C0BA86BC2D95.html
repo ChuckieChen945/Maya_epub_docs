@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="应使用场景线性工作空间渲染 3D CG 元素。但是，手动为用于纹理和其他贴图的图像指定颜色变换时，应当以不同的方式进行处理，具体取决于图像状态和贴图类型。">
+<meta name="indexterm" content="颜色管理:纹理">
+<meta name="indexterm" content="颜色管理:贴图">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95">
+<meta name="language" content="CHS">
+<title>管理纹理和贴图的颜色</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>管理纹理和贴图的颜色</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="shortdesc"> 应使用场景线性工作空间渲染 3D CG 元素。但是，手动为用于纹理和其他贴图的图像指定颜色变换时，应当以不同的方式进行处理，具体取决于图像状态和贴图类型。 
+  </p>
+<div class="section" id="GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95__SECTION_2B3EDB7C8BA24B3D82D61F0980195255"><h2 class="title sectiontitle">材质颜色</h2> 
+		 
+		<p class="p" id="GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95__GUID-1D8F3031-5785-4C7C-886D-4BA749948984">用于材质颜色的贴图应为场景线性，但其范围限制在 0 到 1 之间。这是因为它们表示反射或透射的灯光比例。其中包括漫反射、镜面反射和环境光反射比颜色，以及透明度颜色。 
+		</p>
+ 
+		<div class="p" id="GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95__GUID-BA5B661E-90EE-43BB-8F03-F4C386A88919">首先，您必须确保图像是场景线性图像： 
+		<ul class="ul" id="GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95__UL_BA48612422E44EFAA2838657E2476903"><li class="li" id="GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95__LI_EDBC456A4CF04B1D91D0D0412A38404C">输出相关图像（如视频和 sRGB）应移除 Gamma 并应用反向色调贴图。这两项操作通常组合在一个变换中。理想情况下，您应使用用于输出和显示的色调贴图的反向色调贴图。例如，如果要使用 ACES 色调贴图，则可以使用 RRT+ODT/ 目录下的 sRGB_to_ACES 作为反向色调贴图。另外，primaries/ 目录下的 inversePhotoMap_gamma_2.4 是一个通用变换，适用于多数情况。 
+			 <div class="note note" id="GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95__GUID-B789958D-90D0-43E7-A73A-D6A3B17E781C"><span class="notetitle">注：</span> 尽管单从输出相关图像中移除 Gamma 很常见，但这不足以将图像转化为场景线性，因为始终需要反向色调贴图。如果未明显地照亮数字照片，或者数字绘制过度使用亮颜色，那么反向色调贴图可能会创建大于 1.0 的值。在这种情况下，虽然不是很理想但确实是最好的办法就是使用 gamma/ 目录下的 remove_gamma 变换之一，而不要应用反向色调贴图。 
+			 </div>
+ 
+		  </li>
+<li class="li" id="GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95__LI_69D2A7A63D364D059CA3067E769EC7AF">对数编码的图像应使用 film/ 目录下的一个变换来移除对数编码。有关其他注意事项，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-471F351A-008E-409B-8AC2-0033A186043B.htm" title="扫描胶片中的图像通常作为 Cineon 类型对数编码的 DPX 文件提供。但是，Cineon 编码从未完全标准化，各个供应商使用的实现略有不同。 如果手动设置颜色变换以导入扫描的胶片板，有多种方法可供选择。">管理扫描胶片中的图像的颜色</a>。 
+		  </li>
+<li class="li" id="GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95__LI_609E0E748235476094664FED77ACEEF2">如果主颜色与您的工作空间匹配，场景线性图像（如使用色调贴图准备显示的图像）可以按原样使用。 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<p class="p" id="GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95__GUID-2F901488-D6CB-4B9E-9AF9-2F085A3B3226">图像为场景线性后，您可以使用 primaries/ 目录下的一个或多个变换将主颜色转化为您的工作空间。例如，如果您已经将图像转化为场景线性 ACES 2065-1 并要使用 UHDTV (Rec. 2020) 主颜色进行渲染，则可以应用 ACES_to_CIE-XYZ，后跟 CIE-XYZ_to_LinearUHDTV。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95__SECTION_AA433394A35E4605B2D7E457E22631A4"><h2 class="title sectiontitle">光源</h2> 
+		 
+		<p class="p" id="GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95__GUID-9F9A3F27-3167-4F96-8E8B-AE77EAE2233A">表示光源的贴图应为场景线性，但是可以包含大于 1.0 的值。其中包括反射贴图、环境贴图和背板，以及诸如白炽度之类的一些其他效果。 
+		</p>
+ 
+		<div class="p" id="GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95__GUID-489322FA-C3F9-4F06-A419-9F4AB2D4D071"> 
+		<ul class="ul" id="GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95__UL_46334CA66B9D4BC69F3003B9EBE931B2"><li class="li" id="GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95__LI_BA324EF5BFE341C7AC498556D0FAD0B8">输出相关图像（如视频和 sRGB）应移除 Gamma 并应用反向色调贴图。之后，您可以转化主颜色（如果需要）。 
+		  </li>
+<li class="li" id="GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95__LI_C20CBD1ECD03489388132798BFBA4FAC">对数图像应移除对数编码，然后根据需要转化主颜色。 
+		  </li>
+<li class="li" id="GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95__LI_B717B9096BCD4322943C9689D1B3AFD6">仅当场景线性图像与您的工作空间不匹配时才需要转化主颜色。 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95__SECTION_633198C1DE034093A76C100F216A1B8B"><h2 class="title sectiontitle">非颜色数据</h2> 
+		 
+		<p class="p" id="GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95__GUID-A921591A-1AA7-4C80-AC91-769861561716">如果图像用于控制非颜色属性（如法线、置换等），则它们的值不应应用任何颜色变换。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-B2CD60E0-C100-45A4-9595-84D2DF98B268.htm" title="尽管 Autodesk 颜色管理提供了适当的工具可自动应用所需的变换以便在颜色空间之间进行转化，但在某些特殊情况下，您必须更好地控制要应用的特定变换。本部分介绍如何将位于 Autodesk 颜色变换集合中的组件用作构建块以集合特定任务的自定义转化。">手动配置自定义颜色变换链的准则</a></div>
+</div>
+</div>
+
+</body>
+</html>

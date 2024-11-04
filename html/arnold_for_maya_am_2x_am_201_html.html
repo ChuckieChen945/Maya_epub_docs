@@ -1,0 +1,307 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_2x_am_201_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_201">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 2.0.1 - Arnold for Maya">
+
+<title>2.0.1</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>2.0.1</h1></div><h2 id="release-date">Release Date</h2><p>June 28, 2017</p>
+<p>This version uses the Arnold <a href="https://help.autodesk.com/display/arnug/5.0.1.0">5.0.1.0</a> core.</p>
+<h2 id="downloads">DOWNLOADS</h2><ul>
+<li><a href="https://manage.autodesk.com/products/" target="_blank">https://manage.autodesk.com/products/</a></li>
+</ul>
+<p>MtoA 2.0.1 is the version included in Maya 2018. It contains major bugfixes and new features:</p>
+<h2 id="bugfixes">BugFixes:</h2><ul>
+<li>Several MtoA shaders didn't appear in batch renders</li>
+<li>Kick was returning color management errors</li>
+<li>Fixed multi-thread issues related to color management</li>
+<li>Linux : synColor_shaders.so couldn't be loaded</li>
+<li>OSX : maketx command couldn't be executed</li>
+<li>Indirect lighting was wrong with chained bump shaders</li>
+<li>Multiple XGen patches weren't rendering properly in IPR</li>
+<li>Per-face shading assignments could fail</li>
+<li>Fixed Shadow Matte result when used with an Image Plane</li>
+<li>Image plane color space was lost during IPR iterations</li>
+<li>Fixed viewport warnings in Maya 2015/2016</li>
+<li>Switch shader wasn't exported when connected to RGBA shaders</li>
+<li>Mesh lights were shaded incorrectly in transmission rays</li>
+<li>Connecting a texture to Transmission Weight was greying out the SubSurface section</li>
+</ul>
+<h2 id="arnold-renderview-arv">Arnold RenderView (ARV):</h2><ul>
+<li>ARV settings are now saved in user preferences (instead of being saved in the scene).</li>
+<li>Menu Save Image Options allows you to choose a view transform when the image is saved</li>
+<li>Added icon and hotkey for Isolate selected</li>
+<li>Fixed crash when the render camera, or the displayed AOV, is deleted</li>
+<li>Gamma slider didn't work until Display Settings weren't opened</li>
+</ul>
+<h2 id="new-features-parameters">New Features / Parameters :</h2><ul>
+<li>Introducing AOV Shaders, that allow additional shaders (like the AovWrite shaders) to be invoked during rendering. 3rd party shaders like <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_aovs_am_Cryptomatte_html">cryptomatte</a> can be ported to be used as an AOV shader.</li>
+<li>New <a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Thin+Film&amp;linkCreation=true&amp;fromPageId=154764364">Thin Film</a> parameters in Standard Surface</li>
+<li>Added support for Blobby and Cloud modes in Particles</li>
+<li>Volumes can now be used inside a PolyMesh</li>
+<li>Indirect Sample Clamp in the Render Settings allows you to reduce the noise caused by indirect illumination (it's now enabled by default)</li>
+<li>AOV Indirect attribute in Skydomes allows you to choose whether the skydome illumination has to fill the "direct" or the "indirect" AOVs.</li>
+<li>Added "Coat" builtin AOVs, and removed the coat illumination from the "Specular" AOVs</li>
+<li>Added attribute presets in Standard Surface IOR and Subsurface Radius parameters</li>
+<li>Strength parameter in !aiNormalMap</li>
+<li>Added Export Color Manager option in the export settings</li>
+<li>Texture mode in Image planes is now supported</li>
+</ul>
+<h2 id="other-changes">Other Changes :</h2><ul>
+<li>Extended "Convert deprecated shaders" menu to support alSurface/alHair</li>
+<li>Fixed/removed deprecated "help" menus</li>
+<li>Added existing atmosphere nodes in the atmosphere's "Create" list</li>
+<li>Linux: delete previously installed files before a new version is installed</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Ticket</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>#3000</td>
+<td>color management fails in kick (color space is not linear)</td>
+</tr>
+<tr>
+<td>#2941</td>
+<td>surfaceShader fails in Batch Renders in MtoA 2.0</td>
+</tr>
+<tr>
+<td>#2974</td>
+<td>crash when creating an Arnold Standin in mainline</td>
+</tr>
+<tr>
+<td>#2992</td>
+<td>Existing atmosphere nodes don't appear in the "create" list</td>
+</tr>
+<tr>
+<td>#3002</td>
+<td>XGen multiple patches support in Arnold RenderView/IPR</td>
+</tr>
+<tr>
+<td>#3035</td>
+<td>White pixels cover Geo with Subsurface, Thin Walled and Visible Mesh Light</td>
+</tr>
+<tr>
+<td>#3040</td>
+<td>Arnold 4 files are being left behind when updating to Arnold 5 on Linux</td>
+</tr>
+<tr>
+<td>#3043</td>
+<td>Mutli-thread issues in SynColor color manager</td>
+</tr>
+<tr>
+<td>#3060</td>
+<td>[Linux] unable to load dynamic library synColor_shaders.so</td>
+</tr>
+<tr>
+<td>#3065</td>
+<td>Batch render crash when texture applied to opacity</td>
+</tr>
+<tr>
+<td>#2350</td>
+<td>MayaImagePlane causes an error when imagePlane Type is Texture</td>
+</tr>
+<tr>
+<td>#2928</td>
+<td>Setting up attribute affects for aiStandard</td>
+</tr>
+<tr>
+<td>#2960</td>
+<td>unavailable Bucket Scanning settings such as "woven" become "list" in MtoA 2.0 and rendering fails</td>
+</tr>
+<tr>
+<td>#2976</td>
+<td>aiSwitch shader not working correctly</td>
+</tr>
+<tr>
+<td>#2978</td>
+<td>Shadow Matte not working with image planes</td>
+</tr>
+<tr>
+<td>#2980</td>
+<td>kick fails with 2018 using color_space_conversion</td>
+</tr>
+<tr>
+<td>#2983</td>
+<td>Crash when you remove the AOV that is shown in the Arnold Render View</td>
+</tr>
+<tr>
+<td>#2986</td>
+<td>No indirect light when you chain MayaBump2d nodes together</td>
+</tr>
+<tr>
+<td>#2987</td>
+<td>Connecting a texture to the Transmission weight disables the Subsurface section</td>
+</tr>
+<tr>
+<td>#2988</td>
+<td>ARV gamma slider doesn't work unless Display Settings are open</td>
+</tr>
+<tr>
+<td>#2990</td>
+<td>Export image planes as an option background</td>
+</tr>
+<tr>
+<td>#2991</td>
+<td>SynColor color manager crashes on OSX when config not found</td>
+</tr>
+<tr>
+<td>#2995</td>
+<td>Add option to export color_manager node or not</td>
+</tr>
+<tr>
+<td>#3001</td>
+<td>Image plane loses color space during IPR</td>
+</tr>
+<tr>
+<td>#3007</td>
+<td>Improve syncolor plugin attributes</td>
+</tr>
+<tr>
+<td>#3009</td>
+<td>MtoA Arnold &gt; Help &gt; Common Workflows - link File Not Found.</td>
+</tr>
+<tr>
+<td>#3014</td>
+<td>Viewport warnings in Maya 2016</td>
+</tr>
+<tr>
+<td>#3015</td>
+<td>Deleting render camera and update full scene crashes ARV</td>
+</tr>
+<tr>
+<td>#3022</td>
+<td>Arnold errors when trying to render type with per face shading assignments</td>
+</tr>
+<tr>
+<td>#3023</td>
+<td>Implement aov_shaders</td>
+</tr>
+<tr>
+<td>#3024</td>
+<td>OSX maketx dynamically linked with OpenColorIO</td>
+</tr>
+<tr>
+<td>#3026</td>
+<td>add command line flag to use a JSON file in Render.exe</td>
+</tr>
+<tr>
+<td>#3030</td>
+<td>Disable caustics in standard surface presets</td>
+</tr>
+<tr>
+<td>#3031</td>
+<td>ARV: save settings in user prefs</td>
+</tr>
+<tr>
+<td>#3034</td>
+<td>Move back extension procedurals to the "procedurals" folder</td>
+</tr>
+<tr>
+<td>#3037</td>
+<td>Add icon and hotkey for isolate selected</td>
+</tr>
+<tr>
+<td>#3047</td>
+<td>Add indirect sample clamp in render settings</td>
+</tr>
+<tr>
+<td>#3049</td>
+<td>Exposing new attributes in Arnold 5.0.1</td>
+</tr>
+<tr>
+<td>#3051</td>
+<td>Syncolor color manager: higher debug level for transformation messages</td>
+</tr>
+<tr>
+<td>#3052</td>
+<td>Export motion_stard/end in shapes</td>
+</tr>
+<tr>
+<td>#3053</td>
+<td>Default Shader "link" icon not working</td>
+</tr>
+<tr>
+<td>#3055</td>
+<td>Add attribute presets in standard surface</td>
+</tr>
+<tr>
+<td>#3056</td>
+<td>Cameras should be exported with the global shutter settings by default</td>
+</tr>
+<tr>
+<td>#3059</td>
+<td>Extend "convert deprecated" menu to alSurface/alHair</td>
+</tr>
+<tr>
+<td>#3067</td>
+<td>ARV: allow to choose a view transform when an image is saved</td>
+</tr>
+<tr>
+<td>#3075</td>
+<td>Add support for polymesh volumes</td>
+</tr>
+<tr>
+<td>#2436</td>
+<td>[MAYA-71219] arnoldRenderer.xml file could stay in the mtoa module</td>
+</tr>
+<tr>
+<td>#2206</td>
+<td>Add support for Blobby and Cloud particle types</td>
+</tr>
+<tr>
+<td>#2965</td>
+<td>Allow Alternative File Out Location for Render Sequence</td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_2x_html.html">MtoA 2.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

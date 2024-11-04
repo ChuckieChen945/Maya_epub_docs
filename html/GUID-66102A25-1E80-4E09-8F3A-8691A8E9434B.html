@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B">
+<meta name="language" content="CHS">
+<title>基于特征的置换</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>基于特征的置换</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF-56C0CD8012A8003217A-1E23"><p class="p" id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B__WS73099CC142F48755-3D114B7511812357EFE-74B4"> 默认情况下，Maya 使用基于特征的置换贴图可在对渲染资源的影响最小的情况下，获得高质量的置换贴图。置换特征是纹理中用作置换贴图的部分，可提供有关高度变化（凹地或仰角）的信息。 
+	 </p>
+<p class="p" id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B__WS73099CC142F48755-3D114B7511812357EFE-74B2">此技术可检测置换纹理中的特征密度（即更详细的区域），并且只将三角形添加到有需要的细分中，从而使三角形计数保持最小值。 
+	 </p>
+<p class="p" id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B__WS73099CC142F48755-3D114B7511812357EFE-74B1">使用该技术时，无需将细分属性设定为高，只要足以捕捉曲面图形即可。 
+	 </p>
+<div class="section" id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B__WS73099CC142F48755-3D114B7511812357EFE-74B0"><h2 class="title sectiontitle">基于非特征的置换 </h2> 
+		 
+		<div class="note note" id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B__WS73099CC142F48755-3D114B7511812357EFE-74AF"><span class="notetitle">注：</span>  
+		  <p class="p" id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B__GUID-3457DBC5-59C9-41D3-8A7A-AFC856546A95">我们不建议您通过关闭基于特征的置换来使用基于非特征的置换。 
+		  </p>
+ 
+		</div>
+ 
+		<p class="p" id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B__WS73099CC142F48755-3D114B7511812357EFE-74AE">在基于非特征的置换中，软件渲染器不会将顶点添加到要进行置换的几何体中。因此，如果模型中没有足够的顶点，置换贴图中的许多特征可能会丢失。 
+		</p>
+ 
+		<p class="p" id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B__WS73099CC142F48755-3D114B7511812357EFE-74AD">Maya 尝试通过对置换贴图执行凹凸贴图（在置换贴图基础上）来扰乱法线，以便在没有足够顶点的位置创建特征，从而减少可能的丢失。在这种情况下，凹凸贴图的<span class="ph uicontrol" id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B__GUID-405806F0-A9A7-4DBA-971D-39ECC977B7EC">“凹凸过滤器”(Bump Filter)</span>和<span class="ph uicontrol" id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B__GUID-2701D243-4B6A-43AD-83BC-C37170BF2B67">“凹凸过滤器偏移”(Bump Filter Offset)</span>属性（如果有）将自动进行调整以获得最佳结果。 
+		</p>
+ 
+		<p class="p" id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B__WS73099CC142F48755-3D114B7511812357EFE-74AB">如果不能对材质进行凹凸贴图<span class="ph" id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B__GUID-FE5A598C-B264-4D0B-8CB7-07302E1FFFEE">（例如，不能对<span class="ph uicontrol" id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B__GUID-0715A8D2-D02E-4565-9D53-BEBCE6BC1B25">“分层着色器”(Layered Shader)</span>进行凹凸贴图）</span>，则纹理将作为置换纹理进行连接，不会发生任何凹凸贴图。但如果凹凸贴图有意义，应将该纹理作为凹凸贴图进行连接。<span class="ph" id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B__GUID-823AAE79-377A-4D20-82B5-90BA406B6C49">例如，在连接到<span class="ph uicontrol" id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B__GUID-9C434603-6F70-42F1-A091-2347ED92C3BD">“分层着色器”(Layered Shader)</span>的各种材质上，请将置换纹理用作凹凸贴图。</span>将凹凸节点附加到着色网络中刚刚进行置换贴图的所有<span class="ph uicontrol" id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B__GUID-C7552272-83B3-4161-8082-86619FFD4F9D">“法线摄影机”(Normal Camera)</span>属性。此外，如果是在<span class="ph uicontrol" id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B__GUID-61941184-A50F-46AC-996F-7498EACF065C">“Hypershade”</span>中手动将纹理拖动到置换节点上，而非从<span class="ph uicontrol" id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B__GUID-92D9AF51-0279-4B51-A075-C80BAE5E6FEA">“Hypershade”</span>拖动到<span class="ph uicontrol" id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B__GUID-F92FCB8F-7D6F-454D-9F3C-818819EA86A3">“属性编辑器”(Attribute Editor)</span>中的<span class="ph uicontrol" id="GUID-66102A25-1E80-4E09-8F3A-8691A8E9434B__GUID-0CEF9E3F-856D-4D66-ACD2-E48981259307">“置换属性”(Displacement Attributes)</span>区域上，则不会连接任何凹凸贴图，并且置换结果可能显示不正确。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-F403A3FF-55BE-43A0-B6E1-49BA7C6BF5EE.htm">表面起伏</a></div>
+</div>
+</div>
+
+</body>
+</html>

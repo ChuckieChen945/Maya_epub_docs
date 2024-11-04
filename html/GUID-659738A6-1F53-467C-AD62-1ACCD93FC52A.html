@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A">
+<meta name="language" content="CHS">
+<title>使用 FK 创建关节姿势</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 FK 创建关节姿势</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF-56C0CD8012A8003217A-1F6C"><div class="section" id="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A__WS17956D7ADBC6E736-185AC66B117AE30DA36-7FEE"><h2 class="title sectiontitle">正向运动学 (FK) </h2>
+
+<div class="fig fignone" id="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A__WS73099CC142F48755-7B21313411809411AE9-5704"><img class="image" id="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A__IMAGE_B5858FA6683C41E3A50EF07DFA0C5551" width="228" height="223" src="../images/GUID-DC0A984D-7646-4B63-8B65-6B8DD24998B1.png"></div>
+
+<p class="p" id="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A__WS73099CC142F48755-7B21313411809411AE9-5703"> 使用正向运动学 (FK)，可以旋转或移动各个关节，以设置关节链的姿势和动画。移动关节时，将影响该关节及其层次下方的任何关节。 </p>
+
+<p class="p" id="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A__GUID-11FC57D5-F224-4FB7-ACD3-6D047599D51C">例如，如果需要关节链达到空间中的特定位置，则必须分别旋转每个关节，以便关节链可以达到该位置。为此，请旋转和平移关节链的父关节，然后旋转和平移下一个关节，直至对关节链中的每个关节均执行同样的操作为止。使用正向运动学设置骨架动画时，<span class="ph msgph prodname" id="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 将从根关节开始对关节旋转插值，然后对根关节的子关节进行插值，直至对骨架层次中的每个关节均执行同样的操作为止。 </p>
+
+<p class="p" id="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A__WS73099CC142F48755-7B21313411809411AE9-5701">正向运动学适用于创建非定向运动（例如肩部关节的旋转），且不得用于为复杂的大型骨架设置动画。此外，正向运动学很难用来指定目标定向运动。例如，如果使用 FK 设置骨架的动画，则当身体向前移动时，脚很难保持静止不动。此外，如果需要手移动到空间中的某个位置，则通常无需考虑如何旋转手臂中的所有关节。 </p>
+
+</div>
+<p class="li listintro" id="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A__WS73099CC142F48755-7B21313411809411AE9-54F6">使用正向运动学设置关节的姿势和动画</p>
+<ol class="ol" id="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A__WS73099CC142F48755-7B21313411809411AE9-54F7"><li class="li" id="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A__WS73099CC142F48755-7B21313411809411AE9-54F5">选择要设置动画的关节。 </li>
+<li class="li" id="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A__WS73099CC142F48755-7B21313411809411AE9-54F4">从<span class="ph uicontrol" id="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A__GUID-E0F8344E-222E-4697-92F1-2F9E4CFC6D0E">“工具箱”(Tool Box)</span>选择<span class="ph uicontrol" id="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A__GUID-5F1430F6-AD2A-4002-A2C1-441013284F92">“旋转工具”(Rotate Tool)</span>（热键: e）。 <p class="p" id="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A__WS73099CC142F48755-7B21313411809411AE9-54F3">此时将显示旋转变换操纵器。 </p>
+ </li>
+<li class="li" id="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A__WS73099CC142F48755-7B21313411809411AE9-54F2">沿时间滑块向前调整当前时间指示器到希望设定关键帧的时间点。 </li>
+<li class="li" id="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A__WS73099CC142F48755-7B21313411809411AE9-54F1">旋转关节以设置当前关节及其所有子关节的姿势，然后设定一个关键帧（热键: s）。 </li>
+</ol>
+<div class="section" id="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A__SECTION_ECBE593027A244A18B36A308B85ED3AC"><h2 class="title sectiontitle">相关主题</h2>
+
+<ul class="ul" id="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A__UL_B2AEEED8D20F45FB895E74AE0FB90735"><li class="li" id="GUID-659738A6-1F53-467C-AD62-1ACCD93FC52A__LI_364CD91CF49847E2A11EE3A858639225">
+<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-66ED4510-CC1B-4E11-918B-B7DC447E38A7">关键帧动画</a>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-390788DB-527D-4EE5-A8DC-B99BE2D4861F.htm">设置骨架姿势</a></div>
+</div>
+</div>
+
+</body>
+</html>

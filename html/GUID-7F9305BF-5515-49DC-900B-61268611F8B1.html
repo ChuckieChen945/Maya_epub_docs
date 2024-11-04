@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-ManagingScenes">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-7F9305BF-5515-49DC-900B-61268611F8B1">
+<meta name="language" content="CHS">
+<title>编辑引用路径</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>编辑引用路径</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F4875515A699EE12A80087827-4E75"><p class="p" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__WS73099CC142F48755-3D114B751181C40F14B15B9">您可以使用<span class="ph uicontrol" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__GUID-F812E4F9-F8A3-4159-8644-C5447BF8DDD5">“引用编辑器”(Reference Editor)</span>编辑引用路径。也可以自定义<span class="ph uicontrol" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__GUID-98FC6118-56C9-4BA8-A236-E2874CBF1FB9">“未解析名称”(Unresolved Name)</span>字段，以便其包括指定的前缀。 </p>
+<p class="li listintro" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__WS73099CC142F48755-3D114B751181C40F14B15BB">编辑引用路径</p>
+<ol class="ol" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__WS73099CC142F48755-3D114B751181C40F14B15BA"><li class="li" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__WS73099CC142F48755-3D114B751181C40F14B15BC">通过选择<span class="ph uicontrol" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__GUID-A44C3BEF-DE05-43B1-9F4F-8632491AF11D">文件 &gt; 引用编辑器(File &gt; Reference Editor)</span>打开<span class="ph uicontrol" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__GUID-0AB850B2-4D7A-47AA-99C4-89ECA9031DE9">“引用编辑器”(Reference Editor)</span>。 </li>
+<li class="li" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__WS73099CC142F48755-3D114B751181C40F14B15BD">在<span class="ph uicontrol" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__GUID-A573ACA6-4DCB-4599-8F10-ACE9D7AE96AB">“未解析名称”(Unresolved Name)</span>字段中，输入新路径或环境变量，然后单击<span class="ph uicontrol" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__GUID-39AF3CCD-1207-4F82-823A-7200403CC75B">“重新加载”(Reload)</span>以加载该位置的引用。 <p class="p" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__WS73099CC142F48755-3D114B751181C40F14B15BE">如果 Maya 找不到指定位置中的引用文件，将会搜索多个默认位置以查找该文件。 </p>
+ </li>
+</ol>
+<div class="section" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__WS1A9193826455F5FF61D1E3E812435C7CB1B-3C89"><h2 class="title sectiontitle">使用前缀自定义<span class="ph uicontrol" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__GUID-7559A81C-F7D2-4B4A-9F08-667C2560C622">“未解析名称”(Unresolved name)</span></h2>
+
+<p class="p" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__WS1A9193826455F5FF61D1E3E812435C7CB1B-3C88">您可以使用以下 Python 脚本以自定义<span class="ph uicontrol" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__GUID-5E4D220A-7ADB-4310-A122-F8E8EE37153D">“未解析名称”(Unresolved name)</span>字段，以便文件路径中将显示您选择的前缀，而不是绝对路径。 </p>
+
+<pre class="pre codeblock">
+import os.path
+import maya.cmds as cmds
+import maya.mel as mel
+import maya.OpenMaya as OpenMaya
+mel.eval('string $MyScenes; putenv $MyScenes "C:/Documents and Settings/admin/My Documents/maya/projects/default/scenes/"')
+def foo(retCode, fileObject, clientData):
+     print "Callback was given %s" % fileObject.rawFullName()
+     rel = "$MyScenes/"
+     rel = rel + (os.path.basename(fileObject.rawFullName()))
+     print "Callback changed this to %s" % rel
+     fileObject.setRawFullName(rel)
+     OpenMaya.MScriptUtil.setBool(retCode, True)
+id = OpenMaya.MSceneMessage.addCheckFileCallback(OpenMaya.MSceneMessage.kBeforeReferenceCheck, foo)
+# for deleting the callback 
+OpenMaya.MMessage.removeCallback(id)
+</pre>
+
+
+</div>
+<div class="section" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__WS73099CC142F48755-3D114B751181C40F14B15BF"><h2 class="title sectiontitle">相关主题</h2>
+
+<ul class="ul" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__WS73099CC142F48755-3D114B751181C40F14B15C0"><li class="li" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__LI_AD9B4CFF790F48B9A8386A603A4DAF17">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-021D6556-CC80-4CE3-8E07-CA80ED72B804.htm">引用编辑</a>
+</li>
+<li class="li" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__WS73099CC142F48755-3D114B751181C40F14B12B6">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-8D8E0D4A-DE37-4C63-9F59-8D71F00E3367.htm">引用编辑器(Reference Editor)</a>
+</li>
+<li class="li" id="GUID-7F9305BF-5515-49DC-900B-61268611F8B1__LI_3CB12F3C80FE4B9AAA07E78ECD3AF6F8">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-4C69BD15-DD28-4631-8EC2-2EEC59B7157A.htm">文件引用提示</a>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-6E6A219A-1EAE-418A-A92D-91B833BC40AE.htm">使用文件引用</a></div>
+</div>
+</div>
+
+</body>
+</html>

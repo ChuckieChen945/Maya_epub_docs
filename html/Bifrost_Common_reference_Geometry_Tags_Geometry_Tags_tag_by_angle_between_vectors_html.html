@@ -1,0 +1,77 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Geometry_Tags_Geometry_Tags_tag_by_angle_between_vectors_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>tag_by_angle_between_vectors</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>tag_by_angle_between_vectors</code></h1></div><p>如果不同向量之间的角度在某个阈值内，则标记元素。例如，这可用于标记网格上法线朝上的点，并且生成的标记权重可以传递到 <code>scatter_points</code> 中以仅在网格的朝上部分上散布雪。</p>
+<p>虽然基于点对应的 <code>point_normals</code> 与方向向量之间的角度标记点是最常见的用例，但此节点也可用于基于以组件类型作为目标的任何向量几何特性与给定 <code>direction_vector</code> 之间的角度标记任何组件类型（点、股、面、面顶点、体素）。</p>
+<p>输出 <code>tag_data</code> 可以连接到其他标记节点以用作过滤器，从而使下游标记节点仅考虑此节点标记的元素。同样，输出 <code>weights</code> 可以连接到其他标记节点 <code>weights_scale</code> 端口，以在下游节点的权重计算中用作倍增。</p>
+<h2 id="">输入</h2><h3 id="geometry"><code>geometry</code></h3><p>要标记的几何体。</p>
+<h3 id="geometry_component"><code>geometry_component</code></h3><p>要标记的组件类型。默认情况下，此节点将标记点。</p>
+<h3 id="elements_to_tag"><code>elements_to_tag</code></h3><p>这是解释的自动端口，可以接受 <code>array&lt;bool&gt;</code>、<code>array&lt;long&gt;</code>、<code>array&lt;uint&gt;</code> 或输入 <code>geometry</code> 上标记的字符串名称。连接到此端口的标记数据将使用 <code>merge_mode</code> 与节点生成的标记数据合并。其他标记节点的输出 <code>tag_data</code> 可以连接到此端口，以将多个标记节点链接在一起。例如，通过将两个标记节点链接在一起并将第二个节点的 <code>merge_mode</code> 设置为 <code>Union</code>，可以合并这两个标记节点的结果。</p>
+<h3 id="merge_mode"><code>merge_mode</code></h3><p>这控制如何将 <code>elements_to_tag</code> 中的标记数据与此节点生成的标记数据合并：</p>
+<ul>
+<li><code>Replace</code>：忽略 <code>elements_to_tag</code>。</li>
+<li><code>Union</code>：对 <code>elements_to_tag</code> 和生成的标记数据执行布尔并集。</li>
+<li><code>Intersection</code>：对 <code>elements_to_tag</code> 和生成的标记数据执行布尔交集。</li>
+<li><code>Subtraction</code>：从 <code>elements_to_tag</code> 中减去生成的标记数据。</li>
+</ul>
+<h3 id="vector_property"><code>vector_property</code></h3><p>将用于比较角度的几何特性。这可以是以指定 <code>geometry_component</code> 为目标的任何 float3 几何特性。默认情况下，此节点将使用输入 <code>geometry</code> 的 <code>point_normals</code>。</p>
+<h2 id="">标记部分</h2><h3 id="tag"><code>tag</code></h3><p>要输出的标记的名称。</p>
+<h3 id="invert_tag"><code>invert_tag</code></h3><p>标记 <code>direction</code> 向量之间的角度超过 <code>max_angle</code> 的元素。</p>
+<h2 id="">权重部分</h2><h3 id="weights_curve"><code>weights_curve</code></h3><p>权重在输出之前先由此 fcurve 调整。</p>
+<h3 id="weights_scale"><code>weights_scale</code></h3><p>计算的权重在输出之前先与此值相乘。此端口是解释的自动端口。用户可以连接包含与 <code>geometry_component</code> 相同的元素数量的数组，以逐个元素缩放值。可以将来自其他标记节点的输出 <code>weights</code> 插入到此端口中，以组合多个标记节点的效果。</p>
+<h2 id="">方向向量部分</h2><h3 id="direction"><code>direction</code></h3><p>要与 <code>vector_property</code> 进行比较的方向向量。这是解释的自动端口。它可以是单个值，也可以是 <code>interpret_auto_port_as_vector</code> 接受的每个 <code>geometry_component</code> 的任何数据（<code>array&lt;float3&gt;</code>、字符串、场等）。</p>
+<h3 id="max_angle"><code>max_angle</code></h3><p>如果 <code>vector_property</code> 与 <code>direction</code> 之间的角度低于此值，将对其进行标记。角度以度为单位。</p>
+<h3 id="direction_mode"><code>direction_mode</code></h3><ul>
+<li><code>positive</code> 将比较 <code>vector_property</code> 与 <code>direction</code> 向量之间的角度。</li>
+<li><code>negative</code> 将比较 <code>vector_property</code> 与反向 <code>direction</code> 向量之间的角度。</li>
+<li><code>both</code> 将使用 <code>positive</code> 和 <code>negative</code> 模式，并使用其中较小的角度进行角度比较。</li>
+</ul>
+<h2 id="">诊断部分</h2><h3 id="point_size"><code>point_size</code></h3><p>点显示的世界空间大小。</p>
+<h3 id="offset_amount"><code>offset_amount</code></h3><p>面显示的世界空间偏移。增加此值可防止发生 Z 轴冲突。</p>
+<h3 id="strand_width"><code>strand_width</code></h3><p>股显示的世界空间宽度。</p>
+<h3 id="triangle_size"><code>triangle_size</code></h3><p>用于控制面顶点角显示大小的归一化值。值的范围为 [0, 0.5]。值为 0.5 表示覆盖范围为面顶点相邻边一半边长的三角形。</p>
+<h2 id="">输出</h2><h3 id="geometry_with_tag"><code>geometry_with_tag</code></h3><p>以几何特性形式添加了标记的 <code>geometry</code>。</p>
+<h3 id="tag_data"><code>tag_data</code></h3><p>计算的组件标记。此数组的大小等于 <code>geometry_component</code> 中的元素数。如果 <code>vector_property</code> 中对应于此数组中某个元素的元素低于角度阈值，则该元素为 true。</p>
+<h3 id="weights"><code>weights</code></h3><p>输出权重是 <code>vector_property</code> 与 <code>direction</code> 向量之间的角度。此数组的大小等于 <code>geometry_component</code> 中的元素数。角度以弧度为单位。值的范围介于 [0, pi] 之间。可以将此数组插入到另一个标记节点的 <code>weight_scale</code> 中，以将此节点的效果与另一个标记节点的效果组合。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Geometry/Bifrost_Common_reference_Geometry_Tags_html.html">Tags</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

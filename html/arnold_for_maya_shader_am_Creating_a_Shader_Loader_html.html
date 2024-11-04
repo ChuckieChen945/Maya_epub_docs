@@ -1,0 +1,115 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shader_am_Creating_a_Shader_Loader_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_CREATING_A_SHADER_LOADER">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 创建着色器加载器 - Arnold for Maya">
+
+<title>创建着色器加载器</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>创建着色器加载器</h1></div><p>请参见<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_dev_guide_plugins_av_Multiple_Nodes_in_a_Library_html" target="_blank">多个节点位于一个库中</a>的相关示例，以了解如何使用着色器加载器在单个共享库中创建两个着色器。</p>
+<p><strong>loader.cpp</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#include &lt;ai.h&gt;
+#include &lt;cstring&gt;
+
+extern const AtNodeMethods* Shader1Mtd;
+extern const AtNodeMethods* Shader2Mtd;
+
+enum{
+   SHADER_1 = 0,
+   SHADER_2
+};
+
+node_loader
+{
+   switch (i)
+   {
+   case SHADER_1:
+      node-&gt;methods = Shader1Mtd;
+      node-&gt;output_type = AI_TYPE_RGB;
+      node-&gt;name = "shader1";
+      node-&gt;node_type = AI_NODE_SHADER;
+      break;
+
+   case SHADER_2:
+      node-&gt;methods = Shader2Mtd;
+      node-&gt;output_type = AI_TYPE_RGB;
+      node-&gt;name = "shader2";
+      node-&gt;node_type = AI_NODE_SHADER;
+      break;
+
+   default:
+      return false;
+   }
+
+   strcpy(node-&gt;version, AI_VERSION);
+   return true;
+} </code></pre>
+<h3 id="">添加元数据文件</h3><p>要使 MtoA 可以识别创建的着色器的元数据信息，您可以为所有着色器创建一个元数据文件。<br>下面是为这些着色器创建的一个简单的元数据文件：</p>
+<p><strong>simple_shaders.mtd</strong></p>
+<pre class="pre codeblock"><code class="prettyprint"># shader1                     0x00070001
+# shader2                     0x00070002
+
+[node shader1]
+    maya.name                 STRING     "aiShader1"
+    maya.id                 INT     0x00070001
+    maya.classification     STRING     "shader/surface"
+    maya.output_name         STRING     "outColor"
+    maya.output_shortname     STRING     "out"
+    [attr color1]
+        maya.name                 STRING     "color"
+
+[node shader2]
+    maya.name                 STRING     "aiShader2"
+    maya.id                 INT     0x00070002
+    maya.classification     STRING     "shader/surface"
+    maya.output_name         STRING     "outColor"
+    maya.output_shortname     STRING     "out"
+    [attr color2]
+        maya.name                 STRING     "color" </code></pre><p>然后，将此文件复制到编译着色器所在的文件夹：<code>MTOA_PATH\shaders\</code><br>请记住，元数据文件名应与编译着色器相同；例如，如果加载器名为 <code>simple_shaders.dll</code>，则元数据文件必须为 <code>simple_shaders.mtd</code>。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Technical/arnold_for_maya_technical_am_Creating_an_Arnold_Shader_for_Maya_html.html">为 Maya 创建 Arnold 着色器</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

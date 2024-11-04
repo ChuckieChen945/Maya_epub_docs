@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-608A2F28-5F6B-4D54-9976-E261CCC8317E">
+<meta name="language" content="CHS">
+<title>从系统命令管道读取和写入到系统命令管道</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-608A2F28-5F6B-4D54-9976-E261CCC8317E">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>从系统命令管道读取和写入到系统命令管道</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-608A2F28-5F6B-4D54-9976-E261CCC8317E__WS73099CC142F48755-3D114B7511841AEFA9F-BFD">可以使用 <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/popen.html" target="_blank">popen</a></samp> and <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/pclose.html" target="_blank">pclose</a></samp> 命令，通过管道（将其当成一个文件）从系统命令读取数据和向系统命令写入数据。 
+	 </p>
+<p class="p" id="GUID-608A2F28-5F6B-4D54-9976-E261CCC8317E__WS73099CC142F48755-3D114B7511841AEFA9F-BFC"> 与 fopen 类似，popen 打开一个管道，以便根据第二个模式参数（“r”或“w”）来读取或写入，并返回代表管道文件控制柄。然后，可以使用标准文件功能，在管道的文件控制柄上进行读取和写入（<samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/fprint.html" target="_blank">fprint</a></samp>、<samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/fgetword.html" target="_blank">fgetword</a></samp>、<samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/fgetline.html" target="_blank">fgetline</a></samp> 等）。 
+	 </p>
+<p class="p" id="GUID-608A2F28-5F6B-4D54-9976-E261CCC8317E__WS73099CC142F48755-3D114B7511841AEFA9F-BFA">如果 <samp class="ph codeph">popen</samp> 返回 0，则表示系统命令出错。 
+	 </p>
+<p class="p" id="GUID-608A2F28-5F6B-4D54-9976-E261CCC8317E__WS73099CC142F48755-3D114B7511841AEFA9F-BF9">例如： 
+	 </p>
+<pre class="pre codeblock">
+// Unix specific example. Note: if you really want to get a directory
+// listing, please use the "getFileList" command instead. This is just
+// used as a simple example.
+//
+$pipe = popen( "ls -1", "r" );
+string $dirList[];
+while ( !feof( $pipe ) ) {
+ $dirList[size( $dirList )] = fgetline( $pipe );
+}
+pclose( $pipe );
+// Windows specific example. Note: if you really want to get a directory
+// listing, please use the "getFileList" command instead. This is just
+// used as a simple example.
+//
+$pipe = popen( "DIR /B", "r" );
+string $dirList[];
+while ( !feof( $pipe ) ) {
+ $dirList[size( $dirList )] = fgetline( $pipe );
+}
+pclose( $pipe );
+</pre>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452.htm">I/O 和用户交互</a></div>
+</div>
+</div>
+
+</body>
+</html>

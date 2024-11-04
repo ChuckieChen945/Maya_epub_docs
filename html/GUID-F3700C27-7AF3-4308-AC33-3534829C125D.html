@@ -1,0 +1,91 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="ENU">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Maya-USD">
+  <meta name="topicid" content="GUID-F3700C27-7AF3-4308-AC33-3534829C125D">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>Work with USD Data in the Channel Box</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>Work with USD Data in the Channel Box</h1></div><p><img src="../images/New_Odd.png" alt=""></p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>Tip:</div>
+<div class="callout-body">
+
+<p> Selecting the option box with a Channel Box prim open will switch to the Attribute Editor with that same prim being displayed.</p>
+
+</div></div>
+
+<h3 id="channel-box-attribute-support">Channel Box Attribute Support</h3><p>The following USD attribute types are supported by the channel box: <strong>Int</strong>, <strong>Float</strong>, <strong>Double</strong>, <strong>Int3</strong>, <strong>Float3</strong>, <strong>Double3</strong>, <strong>Boolean</strong> and <strong>EnumString</strong>. </p>
+<ul>
+<li>For the <em>single types</em> (those without the "3") a single row is displayed for each attribute name (and one value is needed for the setAttr command).</li>
+<li>For the <em>vector types</em> (those with "3") there will be three rows pertaining to each axis value, and thus each of those attribute names will have X/Y/Z appended to them.<ul>
+<li>These prims will be handled as a vector and hence, you cannot set just one value. So when you edit one of them, it will have to set all three (with the other two being set to their current value). The <code>setAttr</code> command will echo three values.</li>
+</ul>
+</li>
+</ul>
+<p><img src="../images/usd_AE_ChannelBox_cube.png" alt=""></p>
+<ul>
+<li><strong>Important:</strong> When you edit any attribute value that matches, it will set that value on every selected object that has that attribute. In the <strong>Script Editor</strong> you will see multiple <code>setAttr</code> commands. These commands all undo or redo as a single block.</li>
+<li>USD Data attributes in the Channel Box have no minimum or maxmimum value.</li>
+<li>You can select multiple prims and edit mutiples of USD data with the Channel Box, just as you can with Maya data. Ex: If you select two prims that have the same attribute (such as "xformOp:translate". The object name will have "..." appended to it and Object menu will show (up to 10) selected objects.</li>
+<li>Use arithmetic options with USD data in the Channel box (ex: "+=3") and relative percentage arithmetic operations (ex: "*=5%") to ease your workflow.</li>
+<li><em>Scrub channel box values</em> by dragging left or right with your mouse and clicking with your left mouse button. You can also select an attribute name (or names) in the channel box (left-hand column) and use the middle mouse button over the viewport while dragging your mouse left or right. For both these modes you can hold SHIFT to scrub faster (by 10.0) and CTRL to scrub slower (by 0.1). These will echo a Maya <code>setAttr</code> when you release the mouse. You can also have multiple Ufe items (such as USD prims) selected and it will affect all of them that have matching attribute. Prims of the same type that share attributes as the last selected will all scrub values together.</li>
+</ul>
+<h3 id="lock-usd-attributes-in-the-channel-box">Lock USD Attributes in the Channel Box</h3><p>You can <em>right-click</em> an attribute in the Channel Box to choose to <strong>Lock Selected</strong> or <strong>Unlock Selected</strong>. Locked attributes display with a traditional "grey bar" to the left of the field as displayed below and the attribute cannot be modified.</p>
+<p><img src="../images/usd_AE_ChannelBox_lockedattr.png" alt=""></p>
+<h3 id="using-the-command-line-for-the-channel-box">Using the Command line for the Channel Box</h3><ol>
+<li>In the <strong>Script Editor</strong>, for "channelBox" command, run the following:<ul>
+<li>Use the flag <code>-ufeFixedAttrList</code> to control what attributes to display in Maya. Initially this value is empty for every runtime. MayaUSD sets it to "xformOp:translate*", "xformOp:rotate*", "xformOp:scale*", "xformOp:*", "visibility". Query this flag like so: <ul>
+<li><code>channelBox -q -ual "USD" {} mainChannelBox;</code></li>
+</ul>
+</li>
+<li>Query the currently displayed object(s) in the channel box:<ul>
+<li><code>channelBox -q -mainObjectList mainChannelBox;</code></li>
+</ul>
+</li>
+<li>Make "setAttr" command UFE aware. Currently none of the flags are supported. Some example uses are:<ul>
+<li><code>setAttr "|stage1|stageShape1,/Capsule1.xformOp:rotateY" 30 ;</code></li>
+<li><code>setAttr "|stage1|stageShape1,/Cone1.xformOp:translate" 3 5 0 ;</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>Parent page:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/USD-in-the-Maya-Interface/GUID-1E7F03A9-6940-4F28-9BE8-5C72C2963DA4.html">USD data in the Channel Box/ Layer Editor</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

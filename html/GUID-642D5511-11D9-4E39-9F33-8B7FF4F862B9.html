@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9">
+<meta name="language" content="CHS">
+<title>创建 nCloth“在曲面上滑动”(Slide on Surface)约束</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>创建 nCloth“在曲面上滑动”(Slide on Surface)约束</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF6026605B1181C8F4F2E-257D"> 可以创建<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-F6DB89BF-F784-4E26-928F-0581004FB6E9">“在曲面上滑动”(Slide on Surface)</span>约束，以将 nCloth 组件（顶点、边或面）附加到目标曲面（另一个 nCloth 曲面或被动碰撞对象），并允许受约束 nCloth 组件沿曲面（组件受该曲面约束）移动或滑动。用户可以使用<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-A25C9364-A4EE-442D-BC48-83879774903D">“在曲面上滑动”(Slide on Surface)</span>约束代替碰撞，且在大多数情况下，其工作速度比碰撞快。例如，可以对 nCloth 衬衫中的所有顶点使用<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-5710DD95-AB8F-4CC2-8301-5643196F4681">“在曲面上滑动”(Slide on Surface)</span>约束，以将这些顶点约束到角色模型，而不是将角色设置为被动对象。 </p>
+<div class="note note" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF6026605B1181C8F4F2E-257B"><span class="notetitle">注：</span> 
+<ul class="ul" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF6026605B1181C8F4F2E-257A"><li class="li" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF6026605B1181C8F4F2E-2579">如果对 nCloth 对象使用<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-77D6931C-60AA-4D8C-A0B7-EA4FEB4F900A">“在曲面上滑动”(Slide on Surface)</span>约束代替碰撞，请禁用 nCloth 的 nClothShape<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-AFDD5A6C-B2F3-413C-8393-E03E95469931">“属性编辑器”(Attribute Editor)</span>选项卡中的<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-94741B9A-8058-4EEA-9EE1-5FD76FAD0324">“碰撞”(Collide)</span>。否则，将同时计算碰撞和约束。 </li>
+<li class="li" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF6026605B1181C8F4F2E-2578">如果对 nCloth 对象使用<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-899DD00D-84B8-4E07-B8F0-B6025505AC02">“在曲面上滑动”(Slide on Surface)</span>约束代替碰撞，则可以使用<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-226CB333-7A66-4338-A0EE-3A619CAF6569">“碰撞层”(Collision Layers)</span>来有效控制 Maya Nucleus 系统中可与受约束 nCloth 对象碰撞的成员。 </li>
+</ul>
+
+</div>
+<p class="li listintro" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF6026605B1181C8F4F2E-2576"> 创建 nCloth<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-6F6C53AF-72B7-4185-A84F-E44961600D16">“在曲面上滑动”(Slide on Surface)</span>约束</p>
+<ol class="ol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF6026605B1181C8F4F2E-2577"><li class="li" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF6026605B1181C8F4F2E-2574">在场景视图中，选择要约束的 nCloth 组件（顶点、边或面）。如果选择边或面，则其所有顶点将受约束。 </li>
+<li class="li" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF6026605B1181C8F4F2E-2573">  <img class="image" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__IMAGE_73C238A5FF0342909E85A2A573955E07" width="59" height="25" src="../images/GUID-08667A50-F943-4CA7-AF8B-4BF2A40E3297.png"> 键并选择要将 nCloth 组件约束到的目标曲面。目标曲面可以是同一系统的一部分的其他 nCloth 对象、nCloth 被动对象中的一个或非 nCloth 对象。 <div class="note note" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF6026605B1181C8F4F2E-2572"><span class="notetitle">注：</span> 
+<p class="p" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-11AF05AB-D5AB-442F-85C9-4F58F761A275">如果选定的目标曲面是非 nCloth 对象，则创建约束后，该曲面将成为被动对象。 </p>
+
+</div>
+ </li>
+<li class="li" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF6026605B1181C8F4F2E-2571">在 <span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-C8B57820-20A3-4EB8-A315-3FA6D3849713">FX</span> 菜单集中，选择<span class="ph menucascade" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-035CDC81-B40B-490E-A00A-625A07D0F269"><span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-D9CC9A18-F7AD-4BC9-8408-BD4451875961">“nConstraint</span> &gt; <span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-73C15075-672A-4C63-8AC5-CBAEB2750849">在曲面上滑动”(nConstraint &gt; Slide on Surface)</span></span> &gt; <img class="image" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__IMAGE_BBFDB1632A6849B88DFE213B838341F2" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png">。 </li>
+<li class="li" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF6026605B1181C8F4F2E-256F">（可选）在<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-E73D11B6-C815-4217-8CF6-93B112852C8E">“创建在曲面上滑动约束选项框”(Create Slide on Surface Constraint Options Box)</span>窗口中，启用<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-25EB290E-C849-4F72-B1FE-D3EA059A342F">“使用集”(Use Sets)</span>以将 nCloth 组件和选定的目标曲面添加到动态约束选择集。 </li>
+<li class="li" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF6026605B1181C8F4F2E-256E">单击<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-4A3C72C1-5073-4A54-8321-BA8C3B93B7D4">“创建约束”(Create Constraint)</span>或<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-B28C8C1E-3D28-4724-8E13-692FB44B386C">“应用”(Apply)</span>。 <p class="p" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF6026605B1181C8F4F2E-256D">选定的 nCloth 组件现在受选定的目标曲面约束，并且现在通过 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Nodes/dynamicConstraint.html" target="_blank">dynamicConstraint</a> 节点连接到 nCloth 的 Maya Nucleus 解算器。 </p>
+ <p class="p" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF-4855151011E3B702B95-3C65"><samp class="ph codeph" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-B16135EC-C823-48A1-888D-460B0DB4833C">dynamicConstraint</samp> 节点上的预设特性确定约束的类型（在这种情况下为<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-BA300C96-DD8D-4EB3-A984-1C2F6530E792">“在曲面上滑动”(Slide on Surface)</span>约束）及其行为方式。例如，可以使用以下属性设置创建<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-6EBFE196-56CB-46B9-8D8C-D9E503D9E8E3">“在曲面上滑动”(Slide on Surface)</span>约束： </p>
+ <ul class="ul" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF-4855151011E3B702B95-3C64"><li class="li" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF-4855151011E3B702B95-3C63"><span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-59B54B1A-9B87-407A-953C-F4BA05B05A5B">“弹簧”(Spring)</span>作为<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-A1F8DE65-F119-47A4-8BE3-4ADB9B627E49">“约束方法”(Constraint Method)</span> </li>
+<li class="li" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF-4855151011E3B702B95-3C62"><span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-3F47054C-4865-4C73-ACD0-6CEB759BEB9F">“对象到对象”(Object to Object)</span>作为<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-5ACC5D06-D612-4C2E-BCCD-AA64F184051A">“约束关系”(Constraint Relation)</span> </li>
+<li class="li" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF-4855151011E3B702B95-3C61"><span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-304B1F51-D891-4430-8E49-2FAD5F17C2D2">“全部到第一个”(All to First)</span>作为<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-5089904A-8CC9-4519-9718-22492EF7E7ED">“组件关系”(Component Relation)</span> </li>
+<li class="li" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF-4855151011E3B702B95-3C60"><span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-117A4047-CC20-4A6D-9812-67EC037BD446">“组件顺序”(Component Order)</span>作为<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-E663AF6D-4795-4FA6-9293-8B46078EA724">“连接方法”(Connection Method)</span> </li>
+<li class="li" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF-4855151011E3B702B95-3C5F"><span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-14672D44-306E-4C2A-8393-064BF155AB58">“逐帧”(Per Frame)</span>作为<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-C1E18C49-95EE-4D8B-ACED-F0C1D43A2282">“连接更新”(Connection Update)</span> </li>
+<li class="li" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF-4855151011E3B702B95-3C5E">启用<span class="ph uicontrol" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__GUID-4CF8A693-6DBC-4150-B933-8DB450F108F2">“局部碰撞”(Local Collide)</span>特性。 </li>
+</ul>
+ <p class="p" id="GUID-642D5511-11D9-4E39-9F33-8B7FF4F862B9__WS1A9193826455F5FF-4855151011E3B702B95-3C5D"> 请参见 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-1609C235-5031-4D06-A94C-82E8A76B8726">dynamicConstraintShape</a>。 </p>
+ </li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-29C243DA-6AC1-480F-92B1-EB8AAA529AD2.htm">创建和编辑 nCloth 约束</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="concept-adsk">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="体素;光栅">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7">
+<meta name="language" content="CHS">
+<title>“测地线体素”(Geodesic Voxel)绑定</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>“测地线体素”(Geodesic Voxel)绑定</h1></div>
+</div>
+</div>
+
+<div class="body conceptbody-adsk"><p class="p" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__GUID-22341399-408A-40FC-985B-80D326F7D80E"><span class="ph uicontrol" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__GUID-6D9538BA-E761-4FDF-BDBF-1BB912044174">“测地线体素”(Geodesic Voxel)</span>绑定旨在处理可能包含非流形、非防水的相交三角形或包含多个连接组件的网格。这些组件通常会导致自动绑定算法（如热图绑定）出现问题。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-E9FC4C94-CDEB-41DC-AF8E-95469EC69BEE.htm">通过测地线体素绑定来绑定平滑蒙皮</a>。 
+</p>
+<p class="p" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__GUID-64080181-5596-448A-A9EB-5EC877AAC63B">此方法可体素化输入几何体，以计算源于骨架和网格上体素之间的测地线距离的绑定权重。 
+</p>
+<div class="p" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__GUID-A8F50D3F-79F8-4B36-85FD-B3C84C08FD1A"><span class="ph uicontrol" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__GUID-67521805-5949-4EF1-8073-DAA69C849182">“测地线体素”(Geodesic Voxel)</span>绑定方法还允许您选择多个网格，在整个几何体中提供连续权重，因为所有形状都将被视为单一体积。<span class="ph"><span class="ph uicontrol" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__GUID-FB265AEB-366D-4837-9962-F034E78D496C">“测地线体素”(Geodesic Voxel)</span>绑定会计算与线性融合或双四元数蒙皮兼容的影响权重。</span> 
+  <div class="note note" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__GUID-FF4E60F1-4A91-4A99-AE7B-42EAA3EC8D97"><span class="notetitle">注：</span>  为了有效地使用，<span class="ph uicontrol" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__GUID-711B85AD-2F47-4A4C-A4F9-4F3D0EE662FB">“测地线体素”(Geodesic Voxel)</span>绑定需要满足两个要求。与其他 Maya 绑定方法不同，使用<span class="ph uicontrol" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__GUID-2D262196-A79A-46E3-BA5A-19F7E3F52F32">“测地线体素”(Geodesic Voxel)</span>绑定时，必须将所有关节影响封闭在网格体积内。如果不执行此操作，将无法正确计算测地线距离。此外，应将几何体前向面的法线方向设定为指向外部。检查此要求遵循情况的一种简单方法是在视口中启用背面消隐，并直观地检查结果。 
+  </div>
+ 
+</div>
+<div class="section" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__SECTION_17DE733148304CC38525EAE4A58DFB9B"><h2 class="title sectiontitle">体素(Voxels)</h2> 
+   
+  <p class="p" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__GUID-25A3B96A-0A0A-447D-9EAB-D557D6D34555">体素是一个在 3D 中使用的术语，用于描述 3D 对象占用的容量或空间。对于表示以不同方式填充的定期采样空间，体素非常有用。 
+  </p>
+ 
+  <p class="p" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__GUID-2D886B32-4789-42FB-97F0-4865DDC22B4C">体素化是将 3D 几何对象转化为一组非常接近输入网格的体素的行为。该过程类似于 2D 中的光栅化过程。 
+  </p>
+ 
+  <p class="p" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__GUID-0D71F119-EF43-4FDE-B5F1-3F1715816283">此示例显示了以不同分辨率体素化的角色网格。 
+  </p>
+ 
+  <div class="fig fignone" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__FIG_F6D459F603A24D5F89E5F10838249A60"><img class="image" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__IMAGE_CCC9EBAF73594CC29AFDD54895A260A6" src="../images/GUID-6AB32623-7A02-4B72-808E-03B1F03B088F.png"></div>
+ 
+</div>
+<div class="section" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__SECTION_BDFB54F5136A4166844D55A5FB8B3F07"><h2 class="title sectiontitle">退化几何体</h2> 
+   
+  <p class="p" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__GUID-363674F8-8065-40E1-A60E-EB231638F14E"> 退化（或衰退）几何体是指几何体具有与软件认可的标准不同的特性，从而导致某些绑定算法（如 Maya 热图）出现计算问题。退化几何体可以是以下部分（或全部）情况： 
+  </p>
+ 
+  <ul class="ul" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__UL_E286C6575AC549A18803728A2BED1883"><li class="li" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__LI_4C43F914D62946D5863E6BE3EE1EF72C"> 非流形（非防水）几何体 
+	 </li>
+<li class="li" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__LI_72F2934990704BABAFB1CE4B55E99BC3"> 相交形状 
+	 </li>
+<li class="li" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__LI_716E87FE695740DB9D2459D279160D18"> 共面、共线或共点 
+	 </li>
+<li class="li" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__LI_7D19AB07368A47F3A14FC3C518E14E15"> 多个连接的组件 
+	 </li>
+<li class="li" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__LI_C0A59581585A4CE29E658ADE5869B5D5"> 相交边 
+	 </li>
+<li class="li" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__LI_DF20DE75831F4B6891B967FE0FB9397A">不能“填充”的形状 
+	 </li>
+<li class="li" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__LI_202C141E372D4A21B0CD8D0DCE36B44C">导致异常或冲突数据的任何其他形式 
+	 </li>
+</ul>
+ 
+  <p class="p" id="GUID-5EFDB81B-E332-4D6C-B1BB-0B989AD2F2C7__GUID-113801AB-2604-4965-8A30-82155ED1CE8A">如果遇到退化几何体错误或警告，请检查您的几何体，确定是否存在这些不一致情况。 
+  </p>
+ 
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-11007900-329F-40ED-9C38-BE4DB5C39832.htm">平滑蒙皮</a></div>
+</div>
+</div>
+
+</body>
+</html>

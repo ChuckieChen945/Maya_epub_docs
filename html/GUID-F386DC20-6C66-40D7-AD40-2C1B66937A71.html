@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="21/08/2024">
+<meta name="topicid" content="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71">
+<meta name="language" content="CHS">
+<title>ML 变形器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>ML 变形器</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="note important" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__GUID-BB099AC5-C1FF-4B0C-B5CD-0569ADCB8C4B"><span class="importanttitle">重要：</span>  在您训练 <span class="ph uicontrol">ML 变形器</span>时，系统可能会提示您下载并安装外部 Python 模块。默认情况下，附加模块的安装路径为 <samp class="ph codeph">&lt;MAYA_APP_DIR&gt;/mlDeformer/&lt;ml_deformer_version&gt;/Lib/site-packages</samp>。如果需要手动下载这些模块和/或将其安装到自定义位置，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-C2885274-C439-40E9-88B5-9C28C1A18A01.htm">安装 Python 库以训练 ML 变形器</a>，了解如何执行此操作。 
+	 </div>
+<div class="fig fignone" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__FIG_10423360F59C46E0993C0B5922FAE184"><img class="image" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__IMAGE_640473B38F37436EA894D9AC6C945819" src="../images/GUID-7B4F2327-D209-4536-A518-543822FA8F9B.gif" alt=""><p class="figcap"> 使用 ML 变形器将复杂变形从目标模型传递到网格</p></div>
+<p class="p"> <span class="ph uicontrol">ML 变形器</span>可读取复杂的变形系统，并通过训练和使用机器学习模型，学会以更轻、更便捷的方式来表示和近似这些系统。
+	 </p>
+<p class="p"><span class="ph uicontrol">ML 变形器</span>的工作方式是从提供目标几何体广泛运动的动画序列中学习。此动画序列可以包含运动捕捉数据、现有关键帧动画、通过 <span class="ph uicontrol">ML 变形器</span>的<span class="ph uicontrol">“姿势生成”(Pose Generation)</span>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-D0C2FCBA-C18D-4055-86C3-2611251927ED.htm">主形状(Principal Shapes)</a>功能进行的随机化或所有技术的组合。此示例数据以及影响每个帧上姿势的驱动者<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-BFC12A5E-E8F1-4C8A-84B8-9B75381DA70C.htm">控制</a>的值，将用于训练 ML 模型。
+	 </p>
+<p class="p">经过训练后，原始变形的近似效率会大大提高，从而改善动画制作时的交互性，或在群组场景中使用时加快渲染速度。可以在 <span class="ph uicontrol">ML 变形器</span>和原始复杂源变形器之间切换，以在设置动画过程中使用近似，同时在最终渲染期间使用复杂变形器以获得最佳结果。
+	 </p>
+<div class="note tip" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__GUID-B544F511-05B5-4A9E-A09B-5A7BB319166C"><span class="tiptitle">提示：</span> 可以在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-9221B2E8-7E68-4ECB-94DC-ABEB21E956BF">内容浏览器</a>中测试和试验 <span class="ph uicontrol">ML 变形器</span>示例文件（“窗口 &gt; 内容浏览器 &gt; 示例 &gt; 动画 &gt; <span class="ph uicontrol">ML 变形器</span>”(Windows &gt; Content Browser &gt; Examples &gt; Animation &gt; ML Deformer)）。
+		<div class="fig fignone" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__FIG_1E0D88675A6C4A4ABEC2742E77747C30"><img class="image" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__IMAGE_A7DEAF8DE671426B913406367049B2AC" src="../images/GUID-82F8D146-8CE2-411D-98FC-CA9A5C23238E.gif" alt=""><img class="image" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__IMAGE_A57B507CC5BF4710900F2A3BEE0A9045" src="../images/GUID-EE065FF1-170F-4334-B018-16B15D779961.gif" alt=""><p class="figcap">在内容浏览器中对 <span class="ph uicontrol">ML 变形器</span>动画进行采样</p></div>
+ 
+	 </div>
+<div class="note note" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__GUID-0065BDA8-71C7-46AB-9E4A-8D95FE08F72D"><span class="notetitle">注：</span>  
+		<div class="p">以下限制适用于 <span class="ph uicontrol">ML 变形器</span>：
+		<ul class="ul" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__UL_F497DD4553C64E70B9C5AD11E93C23B1"><li class="li" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__LI_FBBDAC6C344D41C5AB4B45DB47CD33CD"> 根据绑定的不同，在某些情况下，将<strong class="ph b"><span class="ph uicontrol">“增量模式”(Delta Mode)</span></strong>设置为<strong class="ph b"><span class="ph uicontrol">“曲面”(Surface)</span></strong>可能会产生瑕疵和不正确的锯齿变形。这种情况发生在曲面顶点帧的计算不一致时，通常是由于某些姿势中的顶点重叠。如果从训练集中删除不良姿势，结果可能会有所改善。但是，在经过训练后，<span class="ph uicontrol">ML 变形器</span>在这些姿势和类似姿势上的性能仍然较差。
+		  </li>
+<li class="li" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__LI_DE84DB44895F45A68A05A1B4995AB101"> 在经过大量控件的训练后，ML 模型往往会学习控件与网格无关部分的变形之间的错误关联。对同时触发较少控件的姿势进行训练有助于解决这个问题。
+		  </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__SECTION_D32C9E465AE8439EBC1DC372D5BF847B"><h2 class="title sectiontitle">基本工作流程</h2> 
+		 
+		<div class="p">创建 <span class="ph uicontrol">ML 变形器</span>可分为几个主要步骤：
+		<ul class="ul" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__UL_91F09073424E483BBC4D15037CA08856"><li class="li" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__LI_2510E495632C43609E633DE22D163D70"> 将 <span class="ph uicontrol">ML 变形器</span>添加到要变形的几何体 
+		  </li>
+<li class="li" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__LI_9711C3BCC91F49C1B2D54892C1837D9F">在变形堆栈中，在变形器之前重新排列 <span class="ph uicontrol">ML 变形器</span>以进行近似 
+		  </li>
+<li class="li" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__LI_487781C2E61243479D58BD26157E0C08">基于这些变形器创建目标。
+		  </li>
+<p class="p">有关逐步说明，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C.htm">创建 ML 变形器</a>。
+		</p>
+<p class="p">您也可以将源对象和目标对象与 <span class="ph uicontrol">ML 变形器</span>一起使用，以近似复杂变形：
+		</p>
+</ul>
+ 
+		<ul class="ul" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__UL_16B5739C31B14883B4A8FA8D0978E91F"><li class="li" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__LI_8719E4F30F694542ABF392E76B2BF563"> 将 <span class="ph uicontrol">ML 变形器</span>添加并指定给源对象。
+		  </li>
+<li class="li" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__LI_E4CED8E0BEEF43E9A73B1F76C8DEE811">配置并指定驱动者<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-BFC12A5E-E8F1-4C8A-84B8-9B75381DA70C.htm">控制</a>以影响姿势和相应的复杂/原始变形。
+		  </li>
+<li class="li" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__LI_54AF55773A6A402CAE8168D664A54434">使用现有动画或生成随机姿势，并将其导出为训练数据以供模型学习。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-DB744421-DE81-42EA-910D-AD7F32C915DC.htm"><span class="ph uicontrol">ML 变形器</span>“导出训练数据”(Export Training Data)窗口</a>。
+		  </li>
+<li class="li" id="GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71__LI_6C1D5F86518F41138646DED970E43557">配置训练参数并训练模型。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-2D7AF32F-814C-43FB-A93B-A8FBD95265A6.htm"><span class="ph uicontrol">ML 变形器</span>训练设置</a>。
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<p class="p"> 有关逐步说明，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-941296C2-B5DA-4D5A-A9EA-E73016E1EF06.htm">使用单独的目标几何体创建 ML 变形器</a>。
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C.htm">创建 ML 变形器</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-941296C2-B5DA-4D5A-A9EA-E73016E1EF06.htm">使用单独的目标几何体创建 ML 变形器</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-D0C2FCBA-C18D-4055-86C3-2611251927ED.htm">使用“主形状”(Principal Shapes)创建 ML 变形器训练数据</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-C2885274-C439-40E9-88B5-9C28C1A18A01.htm">安装 Python 库以训练 ML 变形器</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-4098F004-0CB7-4B13-8F9C-146F747D7BAC.htm">ML 变形器属性</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-BFC12A5E-E8F1-4C8A-84B8-9B75381DA70C.htm">ML 变形器控件收集器属性</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-C2181FFA-1BCE-42C2-8087-6E81292ACE34.htm">矩阵转化器选项</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-DB744421-DE81-42EA-910D-AD7F32C915DC.htm">ML 变形器“导出训练数据”(Export Training Data)窗口</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-2D7AF32F-814C-43FB-A93B-A8FBD95265A6.htm">ML 变形器训练设置</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-546BC66C-2DDC-4A30-A580-FC5383988F22.htm">ML 变形器训练作业监视器</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-7BF875AC-7B82-4DE9-8FE9-1E0A91E909DF.htm">ML 变形器“训练结果”(Training Results)窗口</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-59F1775C-2AF5-4589-AF05-BE4CC43087F2.htm">ML 变形器选项(ML Deformer Options)</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-B1AB118B-D620-4A74-88AA-11E8569D0E60.htm" title="将变形效果添加到角色和对象，以调整其外观并增强其动画。">在 Maya 中对对象进行变形</a></div>
+</div>
+</div>
+
+</body>
+</html>

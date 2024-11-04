@@ -1,0 +1,62 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-MayaPlugin">
+  <meta name="topicid" content="Bifrost_MayaPlugin_bifrost_usd_in_maya_create_open_stage_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>在 Bifrost-USD 中创建或打开后台文件</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>在 Bifrost-USD 中创建或打开后台文件</h1></div><p>后台文件大致相当于一个 USD 场景。它通常包含一个根层和多个组合在一起的子层。在 Bifrost 中，可以创建新的后台文件或从文件打开现有的后台文件。将后台文件连接到图表的 <code>output</code> 节点上的新端口时，会自动在场景中创建 Maya USD 代理，并在视口中显示合成的结果。</p>
+<h2 id="">创建新场景</h2><ol>
+<li>将 <code>create_usd_stage</code> 添加到图表，并将其 <code>stage</code> 输出连接到 <code>add_to_stage</code> 节点或接受后台文件作为输入的任何其他节点。如果图表中已有 <code>add_to_stage</code> 节点，则可以其 <code>stage</code> 端口上单击鼠标右键，然后选择<strong>“创建节点 &gt; Usd::Stage::create_usd_stage”(Create Node &gt; Usd::Stage::create_usd_stage)</strong>。</li>
+<li>对于 <code>file</code> 参数，连接一个层以用作根层，或输入路径和文件名以保存根层。请注意，该文件不会立即保存，但将由下游 <code>save_usd_stage</code> 节点使用（除非覆盖该节点中的文件名）。二进制 crate 格式（.usd 或 .usdc）最适合提高性能和效率，但是您可以使用 ASCII 格式 (.usda) 来提高可读性。</li>
+<li>如果需要，连接一个或多个层，作为子层包含其中。您可以在 <code>sublayers</code> 端口上单击鼠标右键，快速从<strong>“创建节点”(Create Node)</strong>菜单中选择<strong>“Usd::Layer::create_usd_layer”</strong>或<strong>“Usd::Layer::open_usd_layer”</strong>。<ul>
+<li>创建层时，请指定新文件名，并（可选）以与根层相同的方式添加嵌套子层。</li>
+<li>打开层时，只需选择现有文件。默认为只读，这样您可以引用其内容，而不会意外修改它。如果确实要进行更改，可以取消选中 <code>read_only</code>，指定其他 <code>save_file</code> 来保存修改的层。新文件避免了一个程序循环，即加载原始文件，保存修改，然后加载修改后的文件并再次进行修改。</li>
+</ul>
+</li>
+</ol>
+<h2 id="">从文件打开后台文件</h2><ol>
+<li><p>将 <code>open_usd_stage</code> 节点添加到图表。</p>
+</li>
+<li><p>选择要打开的文件。</p>
+<p>默认为只读。这样，您可以执行诸如获取默认基本体等操作，而无需修改原始文件。如果确实要修改后台文件，请取消选中 <code>read_only</code>，为修改的后台文件指定其他 <code>save_file</code>，以避免程序循环。</p>
+</li>
+</ol>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-MayaPlugin/files/Bifrost_MayaPlugin_bifrost_usd_in_maya_html.html">Maya 中的 Bifrost-USD</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

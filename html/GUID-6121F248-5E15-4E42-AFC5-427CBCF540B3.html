@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Modeling">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3">
+<meta name="language" content="CHS">
+<title>重新拓扑化 GPU 缓存节点</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>重新拓扑化 GPU 缓存节点 </h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__GUID-8C101FCA-F0F9-45DD-97E3-B79942598CD5">您可以使用 Maya 的<span class="ph uicontrol" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__GUID-C70D5EA2-2CE3-4164-A63A-2ECEDB41FC9E">“流水线缓存”(Pipeline Cache)</span>选项来重新拓扑化具有较高多边形计数的密集资产。GPU 缓存文件将把模型的原始节点层次合并为单个节点，不仅提高 Maya 的性能和内存使用情况，同时也使资产与<span class="ph uicontrol" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__GUID-C64181F3-43A1-4156-9CF1-CACA6051E114">“激活”(Make Live)</span>和<span class="ph uicontrol" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__GUID-14E4FCB0-2811-43B8-AC7A-98CAD6F74A37">“四边形绘制”(Quad Draw)</span>兼容。您可以通过以下方法创建 GPU 缓存：将模型导出为 Alembic 文件并将该文件作为 GPU 缓存节点重新导入 Maya 中。 </p>
+<p class="li listintro" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__GUID-C1551602-DFB0-4CD6-AF31-4E886391AE7B">重新拓扑化 GPU 缓存节点</p>
+<ol class="ol" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__OL_42C83E35DD4A4B76A86F28BBF130F511"><li class="li" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__LI_C0D89F173387436F89C206042F1D25E1">在 Maya 主菜单栏中，选择<span class="ph uicontrol" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__GUID-897B66C5-D3F1-437F-9D79-D0949BB69E07">“流水线缓存 &gt; GPU 缓存 &gt; 导出全部 &gt;(Pipeline Cache &gt; GPU Cache &gt; Export All &gt;)</span> <img class="image" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__IMAGE_6EDAA67E5DAD4A1087C9463F14843588" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">。 </li>
+<li class="li" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__LI_5F103C951D8D4A6DB61C6D162AAAC973">在显示的<span class="ph uicontrol" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__GUID-178D0ECA-BB29-45B9-B504-1FDD4F5DC4E2">“GPU 缓存导出选项”(GPU Cache Export Options)</span>窗口中，设置以下选项： <ul class="ul" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__UL_5132E1EE331848ECB9C0CA7A4A72D47B"><li class="li" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__LI_F0026497587C418D89FD9D33F262F595"><span class="ph uicontrol" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__GUID-BAC05B4E-FFBD-4B57-AA52-DD4F85A19EA0">缓存时间范围(Cache Time Range)</span>：<span class="ph uicontrol" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__GUID-479AFA14-2430-4279-A7CB-E32FEFFE85FB">当前帧(Current Frame)</span> </li>
+<li class="li" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__LI_948EB533BF7347909FAB4DCADD2D9EEE"><span class="ph uicontrol" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__GUID-BB854BDC-20C8-40CA-B3D6-10E6B5B9B81E">优化层次(Optimize Hierarchy)</span>：启用 </li>
+<div class="note tip" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__GUID-DEE997AF-2ADD-41C2-9442-61BD2E90528D"><span class="tiptitle">提示：</span> 如果资产中包含多个对象，请指定大于最高分辨率对象中顶点总数的<span class="ph uicontrol" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__GUID-FA3E85DD-FB3C-4F3B-86C4-1C46A2A00835">“优化阈值”(Optimization Threshold)</span> 值。例如，如果最高分辨率对象包含 22000000 个顶点，请将<span class="ph uicontrol" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__GUID-6A96F892-72ED-4300-8326-74EE3E71C7E2">“优化阈值”(Optimization Threshold)</span>设置为 22000001。 </div>
+</ul>
+ <p class="p" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__GUID-B41B4F34-F685-4977-BAC8-7BFAD05E1AF9">GPU 缓存文件将导出为 Alembic 文件，并保存在当前 Maya 项目的 <samp class="ph codeph" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__GUID-85F8706A-2102-4A79-B24C-139F8CE69EEE">cache\alembic</samp> 文件夹中。 </p>
+ </li>
+<li class="li" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__LI_0231AF118A95479FACB0D4FB83C2EC30">将 Alembic 文件导入为 GPU 缓存节点。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-907BB76E-1A01-4A29-B2FA-659B7CDA7BC4#GUID-907BB76E-1A01-4A29-B2FA-659B7CDA7BC4__OL_3B56302063A7433A84FB9B58C800C19B">导入 GPU 缓存节点</a>。 <p class="p" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__GUID-105FB71E-D834-4C2E-914A-EDA274B5FB54">该文件将在 Maya 中加载为单个节点。 </p>
+ </li>
+<li class="li" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__LI_F00AAEF8D8FB4634B0E86E783374C3E1">使 GPU 缓存节点成为引用网格。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-8917D2ED-8927-4FFF-8CA6-164906F6585F.htm">设置四边形绘制的引用网格</a>。 </li>
+<li class="li" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__LI_3108CF98680547E698DEA904C477B577">开始重新拓扑化网格。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-03933C1F-1BA7-4E7E-AAB5-31FB0E6A77B2.htm#GUID-03933C1F-1BA7-4E7E-AAB5-31FB0E6A77B2__OL_9F5FD0AC65FF486AB2A6E7D7E50B2997">使用四边形绘制重新拓扑网格</a>。 </li>
+</ol>
+<div class="section" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__SECTION_5D9C3CA84A7F41F2A513179DEFB69929"><h2 class="title sectiontitle">相关主题</h2>
+
+</div>
+<ul class="ul" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__UL_BC6561EB016146558BC0580CE15BF866"><li class="li" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__LI_86E156FF70F542ACB9075A8BBCE9750A">
+<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-907BB76E-1A01-4A29-B2FA-659B7CDA7BC4">创建或导入 GPU 缓存</a>
+</li>
+<li class="li" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__LI_96E7EB3D43554979BD4E02F5A1E42D0B">
+<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822">关于 GPU 缓存</a>
+</li>
+<li class="li" id="GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3__LI_C716443C368D4237BBD5D4988EE73B4D">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-03933C1F-1BA7-4E7E-AAB5-31FB0E6A77B2.htm">使用四边形绘制重新拓扑网格</a>
+</li>
+</ul>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-5B9A94A4-1019-49C9-B9F9-9A2ACBB66E1F.htm">使用“四边形绘制”(Quad Draw)手动创建或重新拓扑网格</a></div>
+</div>
+</div>
+
+</body>
+</html>

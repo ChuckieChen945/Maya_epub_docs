@@ -1,0 +1,119 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_rendering_am_Infinity_Mirror_Scene_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_INFINITY_MIRROR_SCENE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 无限镜像场景 - Arnold for Maya">
+
+<title>无限镜像场景</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>无限镜像场景</h1></div><p><img src="../images/am-Infinity_Mirror_Scene-infinity-mirror-1.gif" alt=""></p>
+<p><sub><strong>随时间设置关键帧的 <em>specular_ray_depth</em> (1-50)</strong></sub></p>
+<p>本简单教程介绍如何创建<a href="https://en.wikipedia.org/wiki/Infinity_mirror" target="_blank">无限镜像</a>场景。其中会演示在反射立方体内多次跟踪灯光时发生的情况。增加了 <em>specular_ray_depth</em> 以显示立方体内的多个反射。场景中包含一个内含点光源（远端）的简单反射锥形立方体和一个指向它的摄影机（也位于立方体内部）。</p>
+<p><strong>要下载场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/internal-reflection-cube_user-guide.zip" target="_blank">此处</a>。</strong></p>
+<h2 id="">场景</h2><ul>
+<li><p>首先，创建一个立方体，并在一个方向上向外扩展。</p>
+</li>
+<li><p>选择立方体的终止面，然后使其四周稍微横向扩展。这有助于创建更多内部反射。</p>
+</li>
+<li><p>创建一个点光源，并将其放置在朝向锥形立方体背面（锥形端）的位置。</p>
+</li>
+<li><p>创建一个摄影机，并将其放置在立方体的另一端（在立方体内部），同时指向点光源。</p>
+<p><img src="../images/am-Infinity_Mirror_Scene-diagram-2.gif" alt=""></p>
+<p><sub><strong>指向锥形反射立方体内部点光源的摄影机</strong></sub></p>
+</li>
+</ul>
+<h2 id="">着色</h2><ul>
+<li>为立方体指定一个 <em>standard_surface</em> 着色器，并更改以下属性：</li>
+<li>将 <em>base_weight</em> 减小到 0。我们只希望看到立方体内部的镜面反射。</li>
+<li>将 <em>specular_roughness</em> 减小到非常低的数量。例如 0.004 左右。此值取决于设置的 <em>specular_ray_depth</em> 的高低。如果 <em>specular_roughness</em> 值和 <em>specular_ray_depth</em> 都较高，则生成的渲染看起来可能太亮。</li>
+<li>渲染场景。您应该会看到类似以下渲染的结果（使用默认 Arnold 渲染设置）。</li>
+</ul>
+<p><img src="../images/am-Infinity_Mirror_Scene-specular-depth-1-3.jpg" alt=""></p>
+<p><sub><strong>使用默认 <em>specular_ray_depth</em> 为 1 的渲染</strong></sub></p>
+<h2 id="">镜面反射光线深度</h2><ul>
+<li>尝试增加 <em>specular_ray_depth</em> 以查看点光源的更多内部反射。</li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>增加 <em>specular_ray_depth</em> 值会显著增加渲染时间。</p>
+
+</div></div>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Infinity_Mirror_Scene-specular-depth-1-4.jpg" alt=""></td>
+<td><img src="../images/am-Infinity_Mirror_Scene-specular-depth-10-5.jpg" alt=""></td>
+<td><img src="../images/am-Infinity_Mirror_Scene-specular-depth-20-6.jpg" alt=""></td>
+</tr>
+<tr>
+<td>1（默认值）</td>
+<td>10</td>
+<td>20</td>
+</tr>
+</tbody></table>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>在最终渲染时，可能需要增加<em>镜面反射采样数</em> 以解决部分 <em>specular_roughness</em> 噪波。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Rendering_Tutorials_html.html">渲染教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

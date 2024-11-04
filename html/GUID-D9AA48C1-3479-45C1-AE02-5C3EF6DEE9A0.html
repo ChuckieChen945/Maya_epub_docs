@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0">
+<meta name="language" content="CHS">
+<title>移除 ShaderFX 组节点中的空套接字</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>移除 ShaderFX 组节点中的空套接字</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__GUID-F3FF7F36-FDF3-4F0C-B0D2-3E399C6EBA46"> 在<span class="ph uicontrol" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__GUID-D3ED6270-13D4-41F5-A9C2-562112E17BF9">“ShaderFX”</span>编辑器中处理组时，组节点中可能存在需要移除的空套接字。 </p>
+<p class="p" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__GUID-ADCF7C93-8B59-4F3A-9822-C7232146E573">只要满足下列条件，空套接字就会在保存并重新加载场景时移除： </p>
+<ul class="ul" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__UL_6488326851E84D309A74314C2A43079F"><li class="li" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__LI_43446F859C66494FA4CA4B281BB0425A">套接字不具有自定义标签；也就是说，它将显示默认的 <em class="ph i" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__GUID-BCB824B0-D667-43BA-A438-85641525F8A6">any</em> 标签。 </li>
+<li class="li" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__LI_50478AA9D38447DA957C3EDD5B7F61DD">空套接字下方不存在已使用的套接字（即带有连接的套接字）。 </li>
+<li class="li" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__LI_2190A04C559C41E18A73CF555F333E7E">它不是节点中唯一的空套接字。始终保留一个空套接字。 </li>
+</ul>
+<p class="p" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__GUID-227C85E5-6822-47A9-B764-E1BCE7336686">在此示例中，保存并重新加载时，<em class="ph i" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__GUID-CAE8D5CC-5A01-4F1F-AFFC-60F4F1B2EB24">0 any</em> 会被自动移除 ，而只有将 <em class="ph i" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__GUID-84E59555-514E-4AB6-ADC6-E3DC55BEA419">Alternate 1</em> 移动到 <em class="ph i" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__GUID-9B6EF42A-791A-4018-AD34-9E9AC7A66A4D">any 0</em> 上时，<em class="ph i" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__GUID-535359A0-DBD3-4866-84AA-E6005C45BDBD">any 0</em> 才能被移除。<em class="ph i" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__GUID-C93906F5-1D07-4943-90EE-B79E3896CA0E">1 any</em> 和 <em class="ph i" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__GUID-E84B097A-D480-4D7D-8443-BAC4A04761DE">any 2</em> 均保留。 </p>
+<div class="fig fignone" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__FIG_C3784AA2D589419CA173F90CE67A99CC"><img class="image" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__IMAGE_33168EE5260840EF9215025C7E857732" src="../images/GUID-F64FEC23-F16D-4A12-A7AF-E84FBD5140F9.png"></div>
+<p class="li listintro" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__GUID-24796C3C-8622-4ABF-9F4A-F4377124817B">在组节点中上移套接字</p>
+<ol class="ol" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__OL_3DA3076CD1074541A9F3B71830A2B04C"><li class="li" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__LI_4FA684DEC54B4399AE7B96573099B728">选择组节点。在<span class="ph uicontrol" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__GUID-873B09C6-DBBB-4B0B-B97A-77E9834AE55D">“属性编辑器”(Attribute Editor)</span>中，输入要上移的套接字的<span class="ph uicontrol" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__GUID-FB8D1701-71C8-4B02-8EDE-BAD44802AD53">“活动套接字”(Active socket)</span>编号。在此示例中，对于 <em class="ph i" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__GUID-CEED755D-27E6-40FE-AD21-8FFC06C90743">Alternate 1</em> 来说，编号为套接字 1。 </li>
+<li class="li" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__LI_EC612D388870407DAE3F789CE7F59912">在<span class="ph uicontrol" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__GUID-E9536A48-A9A9-4A33-8542-3CCF7460E388">“属性编辑器”(Attribute Editor)</span>中，单击<span class="ph uicontrol" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__GUID-18E7ADCA-E0CA-4419-88C2-9EA852D4BD91">“向上移动活动套接字”(Move active socket up)</span>。 <div class="fig fignone" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__FIG_4916D36E31FE4A259507BCA821260519"><img class="image" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__IMAGE_40A9DB9EE0114E648928C13EB35F4F46" src="../images/GUID-C190D8D2-8964-44E7-8B43-EC344A6C4F69.png"></div>
+ </li>
+</ol>
+<p class="p" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__GUID-70ABE6E4-B4A8-4686-8EFD-39CEE471A224">在保存并重新加载场景时，额外的空套接字会被移除。 </p>
+<div class="fig fignone" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__FIG_BE4D070B2CB3408680BC806D3F2A03C7"><img class="image" id="GUID-D9AA48C1-3479-45C1-AE02-5C3EF6DEE9A0__IMAGE_1B67BEBF0C5D449DBE34326C1795A721" src="../images/GUID-81919457-8C07-44F5-8E14-4605B3EE47BB.png" width="480"></div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-05D66C65-0B08-4EED-AD13-E40A6A3C74B4.htm">有关使用 ShaderFX 的提示和技巧</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_Influence_Simulation_Influence_modulate_influence_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>modulate_influence</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>modulate_influence</code></h1></div><p>通过 modulate_influence，用户可使用模拟特性来缩放其他影响节点应用的效果数量。此节点类似于 mask_influence，但使用模拟特性而非与几何体的距离来生成遮罩值。此项通常非常有用。例如，可以使用 Aero 特性 <code>voxel_fog_density</code> 调整 gravity_influence。这将创建类似于 Aero 浮力的效果，但使用的是密度而非温度。如果应用重力，而未进行此调整，则将对所有体素（包括空的空气）应用加速度，而不仅仅是那些有密度的体素，因此雾不会相对于空气移动。</p>
+<p>要使用此节点，请将其输出插入影响节点（如 <code>wind_influence</code> ）的 <code>influence</code> 输入。除非与其他影响节点结合使用，否则此节点将不会产生任何效果。</p>
+<h2 id="">输入</h2><h3 id="influence"><code>influence</code></h3><p>可以选择将影响场 out_influence 连接到此端口。例如，可以连接 mask_influence 节点以遮罩此影响的效果。可以将任意数量的影响场呈菊花链状连接在一起，以构建复杂的场。请注意，这也会调整连接到此端口的任何影响。</p>
+<h3 id="enable"><code>enable</code></h3><p>关闭此项可禁用效果。如果禁用，将使其成为穿过节点。请注意，禁用此项后，连接到影响输入端口的任何其他影响场仍将处于活动状态。</p>
+<h3 id="property"><code>property</code></h3><p>要用于影响的模拟特性的名称。当前，该特性必须为 float 或 float3。如果是 float3 特性（如 point_velocity），将使用特性的幅值缩放影响效果。因此，可以利用它来实现特定目的，例如，可以将此项与 drag_influence 结合使用以仅在 point_velocity 较高时对粒子应用更多。</p>
+<h3 id="use_gradient"><code>use_gradient</code></h3><p>如果启用，则将使用特性的渐变（或坡度）。目前，这仅适用于体积特性，如 aero_simulation 的 voxel_temperature。例如，可以在 Aero 模拟中使用 voxel_temperature 的渐变来调整漩涡。在模拟中整个体素的温度发生急剧变化的位置将获得更多漩涡。</p>
+<h3 id="min"><code>min</code></h3><p>此项为模拟特性的最小值，低于此值时，连接的任何影响节点都不会产生任何效果。效果呈线性增加，直到特性值达到 <code>max</code>，连接的影响随之产生完整效果。</p>
+<h3 id="max"><code>max</code></h3><p>此项为模拟特性的最大值，超过此值时，连接的任何影响节点都将产生完整效果。</p>
+<h3 id="invert"><code>invert</code></h3><p>此项用于反转此影响的效果。启用后，低于 <code>min</code> 的模拟特性值将产生完整效果，超过 <code>max</code> 的模拟特性值将不产生任何效果。</p>
+<h2 id="">输出</h2><h3 id="out_influence"><code>out_influence</code></h3><p>可以连接到模拟节点或其他影响节点的输出影响对象。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_Influence_html.html">Influence</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

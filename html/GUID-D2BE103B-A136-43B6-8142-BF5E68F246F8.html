@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-D2BE103B-A136-43B6-8142-BF5E68F246F8">
+<meta name="language" content="CHS">
+<title>表达式、运算符和语句</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-D2BE103B-A136-43B6-8142-BF5E68F246F8">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>表达式、运算符和语句</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-D2BE103B-A136-43B6-8142-BF5E68F246F8__WS73099CC142F48755-3D114B7511841AEFA9F-B07"><h2 class="title sectiontitle">表达式</h2> 
+		 
+		<p class="p" id="GUID-D2BE103B-A136-43B6-8142-BF5E68F246F8__WS73099CC142F48755-3D114B7511841AEFA9F-B06"> 表达式是求值后为新值的一系列值和运算符： 
+		</p>
+ 
+		<pre class="pre codeblock">
+3 + 5 // =&gt; 8
+size("Hello") // =&gt; 5
+size("Hello")*2 // =&gt; 10
+(10 &gt; 5) // =&gt; 1
+(5 &gt; 10) // =&gt; 0
+</pre>
+ 
+		<p class="p" id="GUID-D2BE103B-A136-43B6-8142-BF5E68F246F8__WS73099CC142F48755-3D114B7511841AEFA9F-B04">使用 MEL 命令语法内部的表达式时，必须用括号括起表达式，并且不能使用未加引号的字符串： 
+		</p>
+ 
+		<pre class="pre codeblock">
+string $object = "cake";
+setAttr $object.tx 2; // Wrong
+setAttr ($object + .tx) 2; // Wrong
+setAttr ($object + ".tx") 2; // Right
+</pre>
+ 
+		<p class="p" id="GUID-D2BE103B-A136-43B6-8142-BF5E68F246F8__WS73099CC142F48755-3D114B7511841AEFA9F-B03">Maya 也可以使用文字表达式特指可以附加到属性以驱动动画的代码。 
+		</p>
+ 
+		<ul class="ul" id="GUID-D2BE103B-A136-43B6-8142-BF5E68F246F8__WS73099CC142F48755-3D114B7511841AEFA9F-B02"><li class="li" id="GUID-D2BE103B-A136-43B6-8142-BF5E68F246F8__WS73099CC142F48755-3D114B7511841AEFA9F-B01"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-5F75516C-403A-4CC3-A118-AEDEFDE970B4.htm">动画表达式</a> 
+		  </li>
+<li class="li" id="GUID-D2BE103B-A136-43B6-8142-BF5E68F246F8__WS73099CC142F48755-3D114B7511841AEFA9F-B00"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-EF3F2007-74E7-4F23-B4A3-8D2EF94579A1.htm">创建动画表达式</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+<div class="section" id="GUID-D2BE103B-A136-43B6-8142-BF5E68F246F8__WS73099CC142F48755-3D114B7511841AEFA9F-AFF"><h2 class="title sectiontitle">运算符</h2> 
+		 
+		<p class="p" id="GUID-D2BE103B-A136-43B6-8142-BF5E68F246F8__WS73099CC142F48755-3D114B7511841AEFA9F-AFE"> 二元运算符需要两个运算数，一个位于该运算符之前，一个位于该运算符之后： 
+		</p>
+ 
+		<pre class="pre codeblock">
+operand1 operator operand2
+</pre>
+ 
+		<p class="p" id="GUID-D2BE103B-A136-43B6-8142-BF5E68F246F8__WS73099CC142F48755-3D114B7511841AEFA9F-AFB">例如： 
+		</p>
+ 
+		<pre class="pre codeblock">
+3 + 4
+$x = 5
+$bool1 or $bool2
+</pre>
+ 
+		<p class="p" id="GUID-D2BE103B-A136-43B6-8142-BF5E68F246F8__WS73099CC142F48755-3D114B7511841AEFA9F-AFA">一元运算符需要一个运算数，可以位于该运算符之前或之后： 
+		</p>
+ 
+		<pre class="pre codeblock">
+operator operand
+</pre>
+ 
+		<p class="p" id="GUID-D2BE103B-A136-43B6-8142-BF5E68F246F8__WS73099CC142F48755-3D114B7511841AEFA9F-AF9">或 
+		</p>
+ 
+		<pre class="pre codeblock">
+operand operator
+</pre>
+ 
+		<p class="p" id="GUID-D2BE103B-A136-43B6-8142-BF5E68F246F8__WS73099CC142F48755-3D114B7511841AEFA9F-AF8">例如： 
+		</p>
+ 
+		<pre class="pre codeblock">
+$x++ // Increments the value of $x by one.
+</pre>
+ 
+		<p class="p" id="GUID-D2BE103B-A136-43B6-8142-BF5E68F246F8__WS73099CC142F48755-3D114B7511841AEFA9F-AF7">此外，MEL 有一个三元（三个运算数）运算符： 
+		</p>
+ 
+		<pre class="pre codeblock">
+condition ? exp1 : exp2
+</pre>
+ 
+	 </div>
+<div class="section" id="GUID-D2BE103B-A136-43B6-8142-BF5E68F246F8__WS73099CC142F48755-3D114B7511841AEFA9F-AF6"><h2 class="title sectiontitle">语句</h2> 
+		 
+		<p class="p" id="GUID-D2BE103B-A136-43B6-8142-BF5E68F246F8__WS73099CC142F48755-3D114B7511841AEFA9F-AF5"> 语句是控制程序流的关键字和表达式的结构： 
+		</p>
+ 
+		<pre class="pre codeblock">
+if (condition)
+	exp1
+else
+	exp2
+while (condition)
+	exp1
+</pre>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D.htm">MEL 命令语法</a></div>
+</div>
+</div>
+
+</body>
+</html>

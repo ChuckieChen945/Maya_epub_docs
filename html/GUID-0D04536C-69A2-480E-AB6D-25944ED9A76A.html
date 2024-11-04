@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A">
+<meta name="language" content="CHS">
+<title>使用表达式控制交互式修饰头发和毛发</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用表达式控制交互式修饰头发和毛发</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 您可以使用表达式来为修改器属性、遮罩和区域贴图生成值。例如，可以创建一个表达式，以随机化应用于头发的<span class="ph uicontrol">“剪切”(Cut)</span>修改器的剪切量或<span class="ph uicontrol">“成束”(Clump)</span>修改器的卷曲量。 
+	 </p>
+<p class="p"> 由表达式控制的属性在<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中具有图标 <img class="image" id="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A__IMAGE_A492A6B114954267B9BD068B23C41D7F" src="../images/GUID-A2259A04-93AE-448E-805C-63D98D6D691E.png"> 和 <img class="image" id="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A__IMAGE_7F3EA22E2C1A48349CD1C1C28C42DA4B" src="../images/GUID-F36CDCA4-7A72-4A88-B091-71E778C55FDC.png">，因为它们还可由纹理文件和绘制的纹理控制。 
+	 </p>
+<div class="note note" id="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A__GUID-C23A96A3-091B-4896-84A0-950DF94957FB"><span class="notetitle">注：</span> 交互式修饰描述不支持 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-AFB8F7F3-DCCC-414A-9EC3-83B97FCC8C30.htm" title="该部分提供关于您可以在 XGen 表达式中使用的受支持全局变量、函数和运算符的参考信息。">XGen 表达式引用</a>中列出的所有变量和函数。 
+	 </div>
+<ol class="ol" id="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A__OL_D7D56FEA2FF74C5FB02B328A6AE787A7"><li class="li" id="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A__LI_324B29D76C1543D7805282D50EDB24FC">在<span class="ph uicontrol">“交互式修饰编辑器”(Interactive Groom Editor)</span>中，选择修饰的描述，并在<span class="ph uicontrol">“节点编辑器”(Node Editor)</span>中显示其输入和输出连接。 
+		  <p class="p">请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-A2A74347-EDBD-406D-954E-99DD1D12782D">显示连接</a>。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A__LI_99D3AD6C58484C5F965A3D26063E47C6">在<span class="ph uicontrol">“节点编辑器”(Node Editor)</span>中，通过按 Tab 键，然后键入 xgmSeExpr 创建一个表达式节点。 
+		</li>
+<li class="li" id="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A__LI_3D757A2145D64995BF38A44C3FA72056">将 <span class="ph uicontrol">xgmSeExpr</span> 节点的<span class="ph uicontrol">“输出 Alpha”(Out Alpha)</span>端口连接到您希望表达式控制的属性。 
+		  <p class="p">例如，对于<span class="ph uicontrol">“剪切”(Cut)</span>修改器，将其连接到<span class="ph uicontrol">“数量”(Amount)</span>属性。 
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A__FIG_6020BE59C69D43139833AD00EEFB1FEA"><img class="image" id="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A__IMAGE_4F19CBAF61E04BB293FDCA6DD6268C9F" src="../images/GUID-9ADE06C8-C3E4-43AF-A2C5-F641242773F6.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A__LI_A131DF1246984CCCAD5C62F0457D12CE">双击 <span class="ph uicontrol">xgmSeExpr</span> 节点，然后在节点的<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中，执行以下操作之一： 
+		  <ul class="ul" id="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A__UL_3708C3BC21CE41729EF257A349E9F697"><li class="li" id="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A__LI_E3DF2EC6415E4D1597D0CAD06828BDBF">在<span class="ph uicontrol">“表达式”(Expression)</span>旁边键入您的表达式。 
+			 </li>
+<li class="li" id="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A__LI_D471F5B33F53446986530527470522D8">单击<span class="ph uicontrol">“打开抑制表达式编辑器”(Open the SeExpr Editor)</span>以打开<span class="ph uicontrol">“XGen 表达式编辑器”(XGen Expression Editor)</span>，您可以使用它来创建、加载或编辑表达式。 
+				<div class="fig fignone" id="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A__FIG_63DB30A4110843E58435D29D38DEDDAE"><img class="image" id="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A__IMAGE_12FA18F5E260474094AF6C8FB5213408" src="../images/GUID-A9644FC3-E3F6-417B-8287-42D58E1F3D34.png"></div>
+ 
+				<p class="p">有关加载和编辑表达式的更多信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-BA150C17-65E0-4688-91F4-73C4F857689E.htm">XGen 表达式编辑器</a>。 
+				</p>
+ 
+			 </li>
+</ul>
+ 
+		</li>
+</ol>
+<div class="section" id="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A__SECTION_9AB099EE104C4660B92CB1779E69C5AE"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A__UL_6F7E12CDEDBF443DB6795C3CD3FE158C"><li class="li" id="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A__LI_8E080447EB1C41C7B13B31D507B02638"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921.htm">XGen 表达式基础知识</a> 
+		  </li>
+<li class="li" id="GUID-0D04536C-69A2-480E-AB6D-25944ED9A76A__LI_E23BBB4E7F2341D188FBB18D94090682"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921.htm">XGen 表达式示例</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a></div>
+</div>
+</div>
+
+</body>
+</html>

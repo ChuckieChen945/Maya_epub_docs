@@ -1,0 +1,351 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_aovs_am_Motion_Vector_AOV_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_MOTION_VECTOR_AOV">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 运动向量 AOV - Arnold for Maya">
+
+<title>运动向量 AOV</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>运动向量 AOV</h1></div>
+<div class="tablenobordernocolor gallery">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Motion_Vector_AOV-image2022-4-6-10-1-8-1.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>使用 <em>motion_vector</em> AOV 的运动模糊</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+<p>通常，建议使用自然运动模糊支持来实现 Arnold 中的运动模糊，在此情况下，在从摄影机的快门打开到快门关闭的一段时间内对象的变换和顶点将进行采样。这需要使用更多 AA 采样来解决运动模糊产生的噪波，但通常对于因景深、直接和间接照明、体积等产生的噪波，总是需要这些采样。在某些存在严格时间约束的情况下，输出<em>运动向量</em>并随后在合成软件包中使图像变模糊可能会更快。这种类型的运动模糊保真度较低；它不会在对象移动时捕捉照明变化，也不会捕捉相对于摄影机的深度的复杂交互。但在某些情况下它可能足够了。  </p>
+<p>我们将演示如何在需要的情况下生成运动向量。有两种方法可以生成运动向量，一种是使用着色器，另一种是使用 Arnold 提供的内置 AOV。本教程旨在演示如何在台球场景中使用 <em>motion_vector</em> AOV。我们将对比真实 3D 运动模糊来讨论使用此技术的优缺点。<em>motion_vector</em> AOV 输出一个颜色通道，其中显示场景内的对象移动。后期处理软件可使用此 AOV 来计算 2D 运动模糊效果。优点是，其渲染速度通常比真实 3D 运动模糊更快。  </p>
+<h2 id="">创建台球渲染</h2><p>在渲染运动向量 AOV 之前，我们必须先将台球与背景分离。我们将单独渲染台球（使用 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_node_ac_motion_vector_html" target="_blank">motion_vector</a></em> AOV），并在后期处理程序（如 Nuke）中将它们合成在一起。</p>
+<ul>
+<li>在单独渲染台球之前，必须在<em>“运动模糊”(Motion Blur)</em>设置中启用<em>“瞬间快门”(Instantaneous Shutter)</em>。这是因为我们不希望渲染中出现运动模糊，但仍想在运动向量 AOV 中保留运动速度信息。</li>
+<li>选择场景中的几何体（我们要进行运动模糊的台球除外），并禁用 <em>primary_visibility</em>。您应该只看到单独渲染的台球。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Motion_Vector_AOV-image2016-5-3-11-17-33-2.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>台球渲染（对于场景的其余部分，禁用 <em>primary_visibility</em>）</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<h2 id="">创建背景层</h2><ul>
+<li>现在，对要进行运动模糊的台球禁用 <em>primary_visibility</em>。渲染后，您应该会看到背景对象，且仅看到发生运动模糊的台球的阴影。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Motion_Vector_AOV-image2016-5-3-11-18-19-3.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>背景渲染（对于台球，禁用 <em>primary_visibility</em>）</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<h2 id="aov">添加运动向量 AOV</h2><ul>
+<li>激活台球渲染层后，在<em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_system_am_Render_Settings_html">渲染设置(Render Settings)</a>*窗口中选择“AOV”(AOVs)选项卡。在“AOV 浏览器”(AOV Browser)下，创建一个 *motionvector</em> AOV。确保将 AOV 过滤器设置为<em>“最近”(Closest)</em>。</li>
+<li>在“AOV”(AOVs)下，新创建的 <em>motionvector</em> AOV 右侧有一个向下箭头。单击此箭头，然后从菜单中选择<em>“选择驱动程序”(Select Driver)</em>。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Motion_Vector_AOV-image2016-5-3-11-21-42-4.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>通过单击 <em>motionvector</em> 右侧的向下箭头来选择<em>驱动程序</em></strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+<ul>
+<li>Arnold 驱动程序应显示在“属性编辑器”(Attribute Editor)中。启用<em>“合并 AOV”(Merge AOVs)*。这会将 *motionvector</em> AOV 与渲染的 EXR 合并为一个文件。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Motion_Vector_AOV-image2016-5-3-11-22-38-5.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>启用<em>“合并 AOV”(Merge AOVs)</em>以将 AOV 存储在一个 EXR 文件中</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li>将两个渲染层（背景和台球）渲染为 EXR 文件。</li>
+</ul>
+<h2 id="">合成</h2><ul>
+<li>在后期处理软件包（本例中为 Nuke）中打开两个 EXR 文件。</li>
+<li>将“向量模糊”节点连接至台球渲染。我们将使用向量模糊节点通过“运动向量 AOV”对台球进行模糊处理。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-300">
+
+
+<p> <img src="../images/am-Motion_Vector_AOV-vectorblur-node-6.jpg" alt=""></p>
+
+</div>
+
+
+
+
+<ul>
+<li>选择 <em>VectorBlur</em> 节点。将<em>“uv 通道”(uv channels)<em>更改为 *motionvector</em>，将<em>“mv 预设”(mv presets)</em>更改为 <em>Arnold</em>。启用 *uv alpha</em> 并选择 <em>rgba.alpha*，以防止模糊被 *motionvector</em> AOV 的 Alpha 剪裁。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Motion_Vector_AOV-image2016-7-19-11-8-39-7.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>Nuke 中的向量模糊节点设置</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Motion_Vector_AOV-vectorblur-alpha-off-8.jpg" alt=""></td>
+<td><img src="../images/am-Motion_Vector_AOV-vectorblur-alpha-on-9.jpg" alt=""></td>
+</tr>
+<tr>
+<td>向量模糊：Alpha 禁用：不正确</td>
+<td>向量模糊：Alpha 启用：正确</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<ul>
+<li>使用“合并”(merge)节点（操作设置为“覆盖”(over)），其 A 输入作为向量模糊，其 B 输入作为背景渲染。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+<p> <img src="../images/am-Motion_Vector_AOV-image2013-7-5-15-31-35-10.png" alt=""></p>
+
+</div>
+
+
+
+
+
+<p>最后，应该会看到台球渲染已合成到背景渲染中，如下所示：</p>
+
+<div class="tablenobordernocolor gallery thumbnail-200">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Motion_Vector_AOV-1-motion-vector-11.jpg" alt=""></td>
+<td><img src="../images/am-Motion_Vector_AOV-2-background-12.jpg" alt=""></td>
+<td><img src="../images/am-Motion_Vector_AOV-3-nuke-final-13.jpg" alt=""></td>
+</tr>
+<tr>
+<td>使用运动向量 AOV 渲染台球</td>
+<td>背景渲染</td>
+<td>台球合成到背景中</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<h2 id="">限制</h2><p>相较于渲染 Arnold 的原生 3D 运动模糊，渲染 2D 运动向量时存在一些限制。其中部分限制包括反射曲面中的运动模糊、变形模糊、无真实 3D 运动模糊效果（如未面向摄影机的轮子旋转）、使用运动模糊光源的延时效果。</p>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Motion_Vector_AOV-motion-vector-blur-close-text-14.jpg" alt=""></td>
+<td><img src="../images/am-Motion_Vector_AOV-true-motion-blur-15.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><sub><strong>使用运动向量模糊时无法反射运动模糊</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>运动向量 AOV 在处理变形运动模糊方面存在问题。如果您需要为变形运动模糊渲染适当的运动向量 AOV，必须创建一个自定义 AOV，并为其附加 motion_vector 着色器。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_AOV_Tutorials_html.html">AOV 教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

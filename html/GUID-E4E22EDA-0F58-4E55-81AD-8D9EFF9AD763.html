@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763">
+<meta name="language" content="CHS">
+<title>优化渲染时间</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>优化渲染时间</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF11D4ED1B128F2317A08190F"><p class="p" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__WS73099CC142F48755-3D114B7511841AEFA9F-5976"> 此处是关于优化渲染时间的几点建议：</p>
+<ul class="ul" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__WS73099CC142F48755-3D114B7511841AEFA9F-5974"><li class="li" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__WS73099CC142F48755-3D114B7511841AEFA9F-5973">在流体上使用内部灯光而不要使用 Maya 灯光，尤其是在拥有大量灯光或正使用昂贵的灯光类型（如区域光）的情况下。若要使用内部灯光，请禁用 fluidShape<span class="ph uicontrol" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__GUID-6FA937C7-23EF-43C2-B644-EB87C887719B">“属性编辑器”(Attribute Editor)</span><span class="ph uicontrol" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__GUID-E7C3461E-2A99-4802-BC4F-65840CF99E94">“照明”(Lighting)</span>区域中的<span class="ph uicontrol" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__GUID-A4B47C62-BB49-4C81-9919-2EADC6914BE4">“真实灯光”(Real Lights)</span>。</li>
+<li class="li" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__WS73099CC142F48755-3D114B7511841AEFA9F-5972">根据需要调低<span class="ph uicontrol" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__GUID-AB7A3F42-712B-45C2-B3E4-CCC566EDAB45">“质量”(Quality)</span>设置以加快预览渲染。<p class="p" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__WS73099CC142F48755-3D114B7511841AEFA9F-5971">一般来说，请调低<span class="ph uicontrol" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__GUID-A1E6D18F-A84D-4543-B236-B31B3952E341">“质量”(Quality)</span>直至看到点状瑕疵，尤其是要沿着流体边，然后再将其调高一点。然后可以尝试调高<span class="ph uicontrol" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__GUID-A91B8C34-72E8-432B-8A55-85979ED7AEBE">“对比度容差”(Contrast Tolerance)</span>。当流体含有突然边界时，低自适应容差非常有用。<span class="ph uicontrol" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__GUID-0974079B-9522-47A6-8806-06E0EF3F878B">“质量”(Quality)</span>和<span class="ph uicontrol" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__GUID-1FDE6683-E898-4FD4-BE8A-0416358E5133">“对比度容差”(Contrast Tolerance)</span>都会影响阴影的质量。</p>
+</li>
+<li class="li" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__WS73099CC142F48755-3D114B7511841AEFA9F-5970">在 fluidShape<span class="ph uicontrol" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__GUID-F3B9CB8C-DAA1-44F7-BCF7-9DA8F6AA2A15">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__GUID-DE8587D8-E070-44D9-9C76-B658E7A0CC55">“渲染统计信息”(Render Stats)</span>区域启用了<span class="ph uicontrol" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__GUID-008C16B8-9CE0-4B16-B6D8-C318EA5722D8">“接收阴影”(Receive Shadows)</span>的情况下进行光线跟踪会增加渲染时间。 </li>
+<li class="li" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__WS73099CC142F48755-3D114B7511841AEFA9F-596F">避免<span class="ph uicontrol" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__GUID-B545559D-C160-45C1-8009-BAD72C0DE519">“翻滚”(Billow)</span><span class="ph uicontrol" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__GUID-AA08375A-3955-491B-8C58-99904181BD44">“纹理类型”(Texture Type)</span>。使用<span class="ph uicontrol" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__GUID-49A8A786-207F-4FAB-8F37-5A566D77FE8F">“柏林噪波”(Perlin Noise)</span>作为替代，同时启用<span class="ph uicontrol" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__GUID-3B54F8B9-3990-44FA-BABB-1967D0FC70E4">“弯曲”(Inflection)</span>。 </li>
+<li class="li" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__WS73099CC142F48755-3D114B7511841AEFA9F-596E">尝试使用流体<span class="ph uicontrol" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__GUID-CF34969E-FA2A-4ABC-BBF1-D3ABB22926D3">“属性编辑器”(Attribute Editor)</span><span class="ph uicontrol" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__GUID-0B701D27-EF32-429E-B9DA-EF850E11DD8A">“渲染统计信息”(Render Stats)</span>区域中的<span class="ph uicontrol" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__GUID-AB7C0387-2E43-4756-BE1D-4FFF03FFF1C7">“着色采样数覆盖”(Shading Samples Override)</span>属性。当具有软边流体时效果相当好（硬边需要抗锯齿）。当<span class="ph uicontrol" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__GUID-EE2F38C8-6961-4F6B-BB7C-8C6B66712DB3">“着色采样数”(Shading Samples)</span>和<span class="ph uicontrol" id="GUID-E4E22EDA-0F58-4E55-81AD-8D9EFF9AD763__GUID-396FFA83-3F0A-4DD7-99D9-98E6EF05948E">“最大着色采样数”(Max Shading Samples)</span>都设定为 1 时，流体可能看起来可以接受。某些情况下，这可能会将渲染时间缩短一半。</li>
+</ul>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-F790652F-75A5-4B93-AA5A-93201CBF6E6C.htm">渲染流体</a></div>
+</div>
+</div>
+
+</body>
+</html>

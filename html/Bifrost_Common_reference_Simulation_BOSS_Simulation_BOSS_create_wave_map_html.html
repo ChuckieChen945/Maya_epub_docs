@@ -1,0 +1,65 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_BOSS_Simulation_BOSS_create_wave_map_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>create_wave_map</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>create_wave_map</code></h1></div><p>此节点用于定义二维像素贴图，以将源输入用于动态波模拟。此贴图位于 XZ 方向并沿 Y 轴向下投影，而且包含 ZX 方向上的边界。它可用于尾迹生成、波遮挡和水深贴图等内容。</p>
+<h2 id="">输入</h2><h3 id="value"><code>value</code></h3><p>这是要用于 wave_map 的值。它可以是恒定浮点、数组 <float> 或场。如果初始化为数组，则数组大小应为 resolutionX * resolutionZ。将使用要创建贴图的 UV 调用一个场。如果解算 position_field，则 xy 将在 0.0 到 1.0 范围内，这是贴图在 XZ 方向上的最小/最大边界映射到的范围（归一化的 XZ 位置映射到 XY 场，Z 为 零）。如果未启用边界，则这是 dynamic_wave 模拟的最小/最大 XZ。</float></p>
+<h3 id="resolution_xz"><code>resolution_xz</code></h3><p>贴图的分辨率。这是相对于由边界设置确定的贴图边界的值。如果未设置边界，则使用连接的模拟的边界。如果分辨率的纵横比与边界的纵横比不匹配，则像素可能不是方形的，尽管并不要求像素是方形的。</p>
+<h3 id="enable_bounds"><code>enable_bounds</code></h3><p>如果设置了此项，则贴图将具有自己的边界，与模拟的边界分开，否则贴图图像将拉伸以适合其连接的任何 dynamic_wave 模拟的边界。在某些情况下，单独的边界可能更有效。例如，可以创建一个具有平滑衰减的小尾迹，它可能具有较低分辨率（例如 10x10），并使用 <code>Size_Center</code> 边界方法。然后，可以使用 <code>size</code> 为模拟设置此发射器的大小，并使用 <code>center</code> 使其偏移。这样，就可以使用小贴图并在模拟区域中移动它，而不必为了计算一点发射而使用大量像素。</p>
+<h2 id="bounds"><code>Bounds</code></h2><p>边界确定贴图在 X 和 Z 方向上的尺寸。如果 <code>enable_bounds</code> 处于禁用状态，则这将是贴图连接到的波模拟的最小/最大 XZ。</p>
+<h3 id="bounds_method"><code>bounds_method</code></h3><p>此项确定如何为贴图定义边界。</p>
+<ul>
+<li><p><code>Min_Max</code>：边界由特性 <code>min_bound</code> 和 <code>max_bounds</code> 确定</p>
+</li>
+<li><p><code>Size_Center</code>：边界由特性 <code>size</code> 和 <code>center</code> 确定</p>
+</li>
+<li><p><code>From_Geometry</code>：边界由连接到 <code>bounds_geometry</code> 的几何体确定</p>
+</li>
+</ul>
+<h3 id="min_bound"><code>min_bound</code></h3><p>贴图在 X 和 Z 方向上的最小范围。（当 <code>bounds_method</code> 为 <code>Min_Max</code> 时）</p>
+<h3 id="max_bound"><code>max_bound</code></h3><p>贴图在 X 和 Z 方向上的最大范围。（当 <code>bounds_method</code> 为 <code>Min_Max</code> 时）</p>
+<h3 id="size"><code>size</code></h3><p>贴图在 X 和 Z 方向上的总体大小（当 <code>bounds_method</code> 为 <code>Size_Center</code> 时）</p>
+<h3 id="center"><code>center</code></h3><p>贴图边界在 X 和 Z 方向上的中心位置（当 <code>bounds_method</code> 为 <code>Size_Center</code> 时）</p>
+<h3 id="bounds_geometry"><code>bounds_geometry</code></h3><p>当 <code>bounds_method</code> 设置为 <code>From_Geometry</code> 时，边界由连接到 <code>bounds_geometry</code> 的对象的 xz 边界确定。连接几何体（基于点的对象）。这可以是任何点对象或网格。</p>
+<h2 id="">输出</h2><h3 id="out_wave_map"><code>out_wave_map</code></h3><p>这是输出波贴图对象，它具有名为“map”的像素数组特性以及 min_bound 和 max_bound 特性。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_BOSS_html.html">BOSS</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

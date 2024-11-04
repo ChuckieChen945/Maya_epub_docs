@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="您可以通过 Autodesk 颜色管理创建自己的 .ctf 文件来定义自定义颜色变换。">
+<meta name="indexterm" content="颜色变换:构建自定义">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-43589612-96FC-425E-A150-F2BFC364D7D7">
+<meta name="language" content="CHS">
+<title>自定义颜色变换</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-43589612-96FC-425E-A150-F2BFC364D7D7">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>自定义颜色变换</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="shortdesc"> 您可以通过 Autodesk 颜色管理创建自己的 .ctf 文件来定义自定义颜色变换。 
+  </p>
+<div class="section" id="GUID-43589612-96FC-425E-A150-F2BFC364D7D7__SECTION_F7B705725C1145C8A53E644CD86BCCB6"><h2 class="title sectiontitle">构建自定义变换</h2> 
+		 
+		<p class="p" id="GUID-43589612-96FC-425E-A150-F2BFC364D7D7__GUID-99D7A962-FED5-4664-9C3C-F5B253B34A67">在 Smoke、Flame 和 Lustre 中，您可以使用自定义模式来集合变换链，方法为通过安装的集合，或者以 ASC CDL 或第三方 LUT 格式导入变换。然后，您可以将整个链导出为单个 .ctf 文件，例如，用作查看变换或节省频繁转化的时间。 
+		</p>
+ 
+		<p class="p" id="GUID-43589612-96FC-425E-A150-F2BFC364D7D7__GUID-CF4BB894-2F7A-4682-9D00-DD32B7CF74A1">由于 .ctf 文件格式可以表示任意颜色处理操作的列表，因此导出的变换是原始处理的无损表示。换句话说，它比将原始变换烘焙到单个 3D LUT 精确得多。 
+		</p>
+ 
+		<p class="p" id="GUID-43589612-96FC-425E-A150-F2BFC364D7D7__GUID-C92EB729-5A84-4A38-B8EA-60EB7DAE6FAE">.ctf 文件是基于 XML 的格式，因此您也可以使用任意 XML 编辑器或文本编辑器来创建或修改颜色变换。您可以从头开始创建变换，或使用 &lt;Reference&gt; 元素从现有变换文件构建链。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-460BA05D-3AB7-4BE2-AD30-01F9D3440CD8.htm">Autodesk CTF 文件格式版本 1.3</a>。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-43589612-96FC-425E-A150-F2BFC364D7D7__SECTION_7CE79913DA284CD7B1EF05828521424C"><h2 class="title sectiontitle">动态曝光和对比度控件</h2> 
+		 
+		<p class="p" id="GUID-43589612-96FC-425E-A150-F2BFC364D7D7__GUID-7C401E26-DE97-45E3-9147-3FBC7C46DE14">如果这些控件已在 .ctf 文件中声明为动态，一些 Autodesk 应用程序（如 Flame 和 Smoke）允许您以交互方式调整曝光和对比度以便于查看。应用程序中设置的曝光和对比度值用于预览，但文件中设置的值用于处理。 
+		</p>
+ 
+		<p class="p" id="GUID-43589612-96FC-425E-A150-F2BFC364D7D7__GUID-45920D9C-2F9C-4C3F-9C4E-966C4E74BD0B">这意味着可以创建包括 ExposureContrast 运算符的变换，该运算符不影响颜色值（即，曝光为 0，对比度为 1），仍然可以在将变换应用于显示时调整曝光和对比度。这样可以检查非常亮或非常暗的区域中的细节。但是，将相同的变换用于处理时，输出颜色值将不受影响。 
+		</p>
+ 
+		<p class="p" id="GUID-43589612-96FC-425E-A150-F2BFC364D7D7__GUID-E9382CEE-5A5B-45D3-B0CB-121E82F6ECAA">您可以通过引用 misc/ 目录中的一个曝光-对比度文件在自己的颜色变换中利用此功能。有三种版本，因此您可以将其插入到场景线性、对数或视频颜色空间。算法已调整，例如，exposure-contrast_log 变换导致曝光和对比度滑块在对数颜色空间中的效果与 exposure-contrast_linear 在场景线性颜色空间中的效果相同。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-43589612-96FC-425E-A150-F2BFC364D7D7__SECTION_898E0CD8E1AC47D4A7AAE7F7715515E2"><h2 class="title sectiontitle">动态外观控件</h2> 
+		 
+		<p class="p" id="GUID-43589612-96FC-425E-A150-F2BFC364D7D7__GUID-85660528-8B8D-4F37-9B19-B10609A5B0E8">Flame 和 Smoke 允许您启用和禁用外观变换以进行预览。只要查看变换包括一个或多个带有 LOOK_SWITCH 动态参数的运算符元素，就会显示“外观启用/禁用”(Look On/Off)开关。如果相同的运算符将其 bypass 属性设置为 "true"，则将在处理过程中跳过它们。这允许您包括不会影响渲染到文件的值但仍可启用和禁用以便于显示的运算符。 
+		</p>
+ 
+		<div class="p" id="GUID-43589612-96FC-425E-A150-F2BFC364D7D7__GUID-111834C8-458C-47ED-9088-97973B44DA5D">利用此功能的一种方法是将外观变换文件定义为 defaultLook 别名。可以在 LUT 首选项中设置 defaultLook 别名，设置将存储在 SynColor 配置文件中。然后，可以创建一个变换链，其中包括对 misc/ 目录中某一变换的引用，而该变换会引用 defaultLook 别名： 
+		<ul class="ul" id="GUID-43589612-96FC-425E-A150-F2BFC364D7D7__UL_89FCF51DA20C47008BB6006784D4A2F8"><li class="li" id="GUID-43589612-96FC-425E-A150-F2BFC364D7D7__LI_567709988AF840F58D0F97DE1769E67A">misc/default_look 变换会直接应用外观变换。 
+		  </li>
+<li class="li" id="GUID-43589612-96FC-425E-A150-F2BFC364D7D7__LI_94DBACAD1BE242BB9DC5C316EF2A431C">如果您使用 ACES 框架并且在现场使用了 ACESproxy，则可以改为引用 misc/default_look-ACESproxy 变换。此变换首先从 ACES 2065-1 转化为 ACESproxy，然后引用 defaultLook 变换，最后转化回 ACES 2065-1。如果外观变换是 ASC CDL 运算符，并且您使用了 noClamp 选项，则 ACES 2065-1 值不会钳制到 ACESproxy 范围。由于内部处理以 32 位浮点精度完成，因此会存在可忽略的量化损失。 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<p class="p" id="GUID-43589612-96FC-425E-A150-F2BFC364D7D7__GUID-0B9F6B16-A47B-4F67-9ED4-CF06BACF004E">默认情况下，将在渲染输出时应用这些变换。但是，您可以编辑 XML 以将 <kbd class="ph userinput" id="GUID-43589612-96FC-425E-A150-F2BFC364D7D7__GUID-326D0F1B-743E-4CB0-93BD-78122DB76A35">bypass="true"</kbd> 添加到引用元素（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-7328F99E-F599-4454-88A2-7627D9659D52.htm" title="存在所有颜色变换运算符元素通用的一些属性。">通用运算符属性</a>），以便切换外观以仅用于显示，但不在渲染输出时应用。 
+		</p>
+ 
+		<p class="p" id="GUID-43589612-96FC-425E-A150-F2BFC364D7D7__GUID-7E959AC4-723E-41DB-81B4-B975A1072881">这使您能够完全控制应用外观变换的颜色空间，并允许您匹配任意现场工作流。例如，假设为您提供了用于从对数转化到视频空间的 3D LUT 以及来自现场工作流的一组 ASC CDL，并要求您在 3D LUT 之前而非之后应用 CDL。在您的变换链中，首先包括默认外观，后跟 3D LUT。应用此文件作为查看器变换，并为镜头设置相应的 ASC CDL 变换作为 defaultLook 别名。现在，您可以使用配置的查看器处理原始对数媒体，以模拟在现场看到的内容。此外，您还可以利用查看器中的动态“外观启用/禁用”(Look On/Off)开关，轻松启用和禁用外观。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-B2CD60E0-C100-45A4-9595-84D2DF98B268.htm" title="尽管 Autodesk 颜色管理提供了适当的工具可自动应用所需的变换以便在颜色空间之间进行转化，但在某些特殊情况下，您必须更好地控制要应用的特定变换。本部分介绍如何将位于 Autodesk 颜色变换集合中的组件用作构建块以集合特定任务的自定义转化。">手动配置自定义颜色变换链的准则</a></div>
+</div>
+</div>
+
+</body>
+</html>

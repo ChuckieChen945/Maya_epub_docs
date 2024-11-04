@@ -1,0 +1,253 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="使用 2D 渐变纹理来控制每粒子属性（例如粒子年龄），以及设置“rgbPP”、“opacityPP”和“radiusPP”属性。渐变纹理是 2D 纹理，其中颜色或灰度值在图像范围内由一个值更改为另一个值。">
+<meta name="topicid" content="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9">
+<meta name="language" content="CHS">
+<title>使用渐变纹理设定每粒子属性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用渐变纹理设定每粒子属性</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-3316"><p class="shortdesc">使用 2D 渐变纹理来控制每粒子属性（例如粒子年龄），以及设置<span class="ph uicontrol" id="GUID-593B3798-7F40-4463-9F86-D37E36571FD8">“rgbPP”</span>、<span class="ph uicontrol" id="GUID-534EDCC7-9067-40D7-A0A4-F9BF6DABAF2B">“opacityPP”</span>和<span class="ph uicontrol" id="GUID-58947970-D893-4B17-9C87-76695B40261E">“radiusPP”</span>属性。渐变纹理是 2D 纹理，其中颜色或灰度值在图像范围内由一个值更改为另一个值。 </p>
+<p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-34A6">还可以将渐变纹理连接到粒子的任何其他每粒子属性。对于大多数每粒子属性，在使用渐变控制其值之前，必须将该属性添加到粒子对象中。 </p>
+<div class="note note" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-34A4"><span class="notetitle">注：</span> 
+<p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-8153FB58-0221-433A-8CD0-E54C59D0DC63">若要在滴状曲面粒子对象的寿命期间设定它的颜色、透明度或白炽度，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-AF7452B6-4996-4012-8974-7C39A9186377.htm">使用粒子采样器信息节点的示例</a>。 </p>
+
+</div>
+<div class="section" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS17956D7ADBC6E7361A342C07117AE3124CC-7FC8"><h2 class="title sectiontitle">使用颜色渐变</h2>
+
+<p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-34A3">您可以使用颜色渐变将向量数组（每粒子）属性更改为粒子年龄。在为向量数组（每粒子）属性创建渐变时，会将该属性连接到颜色渐变。 </p>
+
+<p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-34A2">有关渐变属性的信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-F2C97013-5E4C-41AC-9684-E23AC52C51B8">渐变</a>。 </p>
+
+<p class="li listintro" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-34A0">使用颜色渐变 </p>
+<ol class="ol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-34A1"><li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-349F">选择粒子对象。 </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-349E"> 打开<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-7A6C6344-8E93-493F-91B0-A0EDE5900FC7">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-DE1BA3B8-DC90-46CA-A436-0C1DE2B0D07D">“每粒子(数组)属性”(Per Particle (Array) Attributes)</span>部分，然后在所需的属性上单击鼠标右键并选择<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-F967A29F-BD80-4F5C-BDE9-011661EBD1C9">“创建渐变”(Create Ramp)</span>。 <div class="note note" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-349C"><span class="notetitle">注：</span> 要控制位置、速度或加速度，请在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-1CA2BB51-56D9-4B8E-AAAF-79F1D6D9DF3C">“rampPosition”</span>、<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-A84946F7-3C81-43E8-A581-1390F7A2B69F">“rampVelocity”</span>或<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-EFB96A0C-0577-42A4-BFEC-7649BCF78967">“rampAcceleration”</span>属性框上单击鼠标右键，然后选择<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-51EAA9AA-7C7A-4D5A-A914-22D356C2CC16">“创建渐变”(Create Ramp)</span>。不能直接对位置、速度或加速度使用渐变。 <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3498">如果使用渐变和表达式来设定位置、速度或加速度，那么渐变会在表达式控制帧中的值之前设定值。 </p>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3497"><span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-90AF7632-19B3-4F11-B6CC-4E9F263A7DD2">“rampPosition”</span>、<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-6BFE11D2-D95D-4405-875D-9FF18006089C">“rampVelocity”</span>或<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-F637E3C1-6165-4541-8CBE-8CCC9DA4F011">“rampAcceleration”</span>只能接收来自渐变的输入。对于每个帧，Maya 先计算渐变属性，然后根据渐变属性中的任意值计算动力学。 </p>
+ </div>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3493">这样会创建控制属性作为粒子年龄的默认渐变。 </p>
+ </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3492">在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-DB151352-CA21-47FB-A010-CF8480B902C4">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-20C5CB73-2076-4BE1-B0AD-11C0AA68B7D7">“寿命属性”(Lifespan Attributes)</span>部分，将<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-7329B488-4889-4548-9869-87504CECDD18">“寿命模式”(Lifespan Mode)</span>设定为<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-44EADDE9-D03E-45D4-9CAB-AABECD6BB450">“恒定”(Constant)</span>，将<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-1D1444CE-EAB5-4978-9BC4-7C8BE7CFD476">“寿命”(Lifespan)</span>设定为希望粒子存在于动画中的秒数。 </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3491"> 在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-E166D99A-5ACD-452F-BD6E-7CD272BFF05E">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-996BE493-7294-46F0-8CDD-AB79B0A132A6">“每粒子(数组)属性”(Per Particle (Array) Attributes)</span>部分，在刚为其创建渐变的属性框上单击鼠标右键，然后选择<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-7E28053B-7112-4707-9E61-42036E23F447">“arrayMappern.outColorPP &gt; 编辑渐变”(arrayMappern.outColorPP &gt; Edit Ramp)</span>。 <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-348E"><span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-4255F2F9-0B65-495E-8698-1E047136982A">“属性编辑器”(Attribute Editor)</span>显示控制属性的默认颜色渐变。在粒子的整个寿命中，将该属性的三个组件值设定为渐变垂直组件 (V) 的 RGB 值。在寿命的开始阶段使用渐变底部的值，在寿命的结束阶段使用渐变顶部的值。 </p>
+ <div class="fig fignone" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-348D"><img class="image" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__IMAGE_BDB7EC4B662146F5A62BF599C5EDA0D1" width="341" height="127" src="../images/GUID-5DD4266E-0C66-4F51-8632-538BB83C028B.png"></div>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-348C">默认情况下，在每个粒子寿命的开始阶段，属性的左侧、中间和右侧向量组件等于 1、0、0，这是因为渐变底部的 RGB 值为红色 (1, 0, 0)。 </p>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-348B">在寿命的中间阶段，向量组件等于 0、1、0，因为 RGB 值为绿色 (0, 1, 0)。在寿命的结束阶段，向量组件等于 0、0、1，因为 RGB 值为蓝色 (0, 0, 1)。Maya 对这三个点之间的向量组件插值。 </p>
+ </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-348A">根据需要编辑渐变的 RGB 颜色值（有关详细信息，请参见“渲染”）。 <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3489">在编辑渐变值时，可以在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-31925B5B-142D-44CE-9813-3E4A76E9D68D">“颜色编辑器”(Color Editor)</span>中将任何数值用于 R、G 和 B。虽然 0 到 1 范围之外的值有效，但是它们在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-A6CB02D4-2D59-4A16-B152-B2E9DA5C690D">“纹理示例”(Texture Sample)</span>样例的显示中不存在任何有意义的等效颜色。不要编辑 HSV 值，否则将有可能得到不正确的结果。 </p>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3488">样例中的颜色需要代表属性组件值的属性包括<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-F0FEF274-D149-4E50-8B1B-179851691AA3">“rgbPP”</span>和<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-C687C7F9-4F2C-4847-BC9F-291EE5042142">“incandescencePP”</span>。对于不具有等效颜色的其他属性，可以通过在 R、G 和 B 框中输入值（而不是直接单击颜色），在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-68B6462D-D6A4-416D-8247-E8DF0C892631">“颜色编辑器”(Color Editor)</span>中编辑颜色值。 </p>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3487">例如，通过将渐变中相应点的 R、G 和 B 值设定为 100、0、0，您可以在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-F7A9C099-F627-4CB9-A3C5-79927FE4D07B">“寿命”(lifespan)</span>中的某点将<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-6D19AFFE-08FF-415B-BF5C-668DC03E7B8D">“rampAcceleration”</span>设定为 100、0、0。这些值会在等于 1、0、0 的渐变中创建红色。但是，将使用 100、0、0（而不是 1、0、0）对样例中的相邻点插值。 </p>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3486">还可以通过更改<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-43DB55FC-EFCE-48CB-9896-F2C4EA8A213E">“属性编辑器”(Attribute Editor)</span>中的其他渐变属性（例如，<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-A6D7EAE7-D3C3-4F41-9AFF-24663696B66C">“噪波”(Noise)</span>和<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-52ED63EA-A967-4CB9-9C30-F7FFF96B8D40">“噪波频率”(Noise Frequency)</span>）来更改颜色序列。有关渐变属性的详细信息，请参见“渲染”。 </p>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3485">请记住，默认情况下，渐变的水平组件 (U) 对属性没有任何影响。更准确地说，渐变的控制组件是<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-D08708C5-BC28-441C-99FC-D511D0A0AA59">“属性编辑器”(Attribute Editor)</span>中<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-3A4B4EF9-8474-423D-B34A-B37A0A1639E5">“纹理示例”(Texture Sample)</span>最左边的垂直边。若要也使用水平组件，请参见下面的使用渐变自定义每粒子属性控制。 </p>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3484">应用于已发射粒子的默认渐变示例如下所示： </p>
+ <div class="fig fignone" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3483"><img class="image" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__IMAGE_62956D01E7E54CC7AFE1472EF369972D" width="453" height="258" src="../images/GUID-1D010395-FBA4-48DC-BC42-3E70BF506EDC.png"></div>
+ </li>
+</ol>
+
+</div>
+<div class="section" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS17956D7ADBC6E7361A342C07117AE3124CC-7FC7"><h2 class="title sectiontitle">使用灰度渐变</h2>
+
+<p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3482">您可以使用灰度渐变来更改浮点数组属性作为粒子年龄。为浮点数组（每粒子）属性创建渐变时，会将该属性连接到灰度渐变。在灰度渐变中，黑色代表值为 0，白色代表值为 1。 </p>
+
+<p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3481">有关高级渐变功能的信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-022F69B8-B1A3-46A3-9917-0D9CBDBB6733">渐变着色器</a>。 </p>
+
+<div class="note note" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-347C"><span class="notetitle">注：</span> 
+<p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-E9E26658-FC2E-4AAC-8889-BE3080F365DD">如果为 emitterRatePP 创建渐变，那么可以随时间控制平行或泛向发射粒子对象的发射速率。该属性存在于发射的粒子对象中，而不存在于已发射粒子中。无法使用渐变控制<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-3A8FAF48-B3C7-49F2-BC4B-4BA36C6F60C9">“lifespanPP”</span>。 </p>
+
+</div>
+
+<p class="li listintro" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3479">使用灰度渐变</p>
+<ol class="ol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-347A"><li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3478">选择粒子对象。 </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3477">打开<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-D83E8789-9EA4-4CD8-891B-59CFA6F8B62A">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-F2B455BD-AF1D-477A-A202-4601ABDA230B">“每粒子(数组)属性”(Per Particle (Array) Attributes)</span>部分，然后在所需的属性上单击鼠标右键并选择<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-A179D058-CB13-472D-AEDE-2F255BAF6211">“创建渐变”(Create Ramp)</span>。 <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3476">该操作会创建控制属性作为粒子年龄的默认渐变。 </p>
+ </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3475">在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-C8936263-51C0-4A36-B197-3C29D6D535FA">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-54332DBB-0A42-40B6-A859-35C7BB7C4082">“寿命属性”(Lifespan Attributes)</span>部分，将<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-71304298-25B2-40A9-BEF9-F09076D2E5EF">“寿命模式”(Lifespan Mode)</span>设定为<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-599137E4-5059-496D-97F9-CCC1B2726DE7">“恒定”(Constant)</span>，将<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-7D6C823D-33AB-4180-9AC7-EF7BC55B7DBB">“寿命”(Lifespan)</span>设定为希望粒子存在于动画中的秒数。 <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3474">如果正在使用 emitterNameRatePP，则将<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-45F65F71-9152-435F-BE2E-C1EC11B71BAA">“寿命”(Lifespan)</span>设定为希望发射器存在的秒数。在指定<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-E67015E3-CE1E-434B-B160-BE05ACE874BA">“寿命”(Lifespan)</span>值之后，发射粒子对象将消失。 </p>
+ </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3473"> 在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-13C4F346-A7AF-445B-B83F-D6DE43893147">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-1D367B7C-FE36-426A-83D8-434C07929B55">“每粒子(数组)属性”(Per Particle (Array) Attributes)</span>部分，在刚为其创建渐变的属性框上单击鼠标右键，然后选择<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-78691063-D27C-4195-A786-2F07EC3CB725">“arrayMappern.outColorPP &gt; 编辑渐变”(arrayMappern.outColorPP &gt; Edit Ramp)</span>。 <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3470"><span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-9FA0BFCF-3261-460D-9ADC-2EF5DDA0DAFE">“属性编辑器”(Attribute Editor)</span>将显示控制属性的默认灰度渐变。在粒子的整个寿命期间，在渐变垂直组件 (V) 中，属性的值设定为 R 颜色值。在寿命的开始阶段使用渐变底部的值，在寿命的结束阶段使用渐变顶部的值。 </p>
+ <div class="fig fignone" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-346F"><img class="image" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__IMAGE_6282F2517A1D4AF6BA967B6705F3A62C" width="331" height="127" src="../images/GUID-5120A926-E114-4519-B23C-ADA1D7A23996.png"></div>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-346E">默认情况下，在每个粒子寿命的开始阶段，属性的值等于 1，这是因为渐变底部的 R 组件为 1（颜色为白色，RGB 值为 1、1、1）。 </p>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-346D">在寿命的中间阶段，属性的值等于 0.5，因为渐变底部的 R 组件为 0.5。（颜色为灰色，RGB 值为 0.5、0.5、0.5。） </p>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-346C">在寿命的结束阶段，属性的值等于 0，因为渐变底部的 R 组件为 0。（颜色为黑色，RGB 值为 0、0、0）。 </p>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-346B">Maya 对渐变中这三个点之间的值插值。 </p>
+ <div class="note tip" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-346A"><span class="tiptitle">提示：</span> 
+<p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-0C8CE496-627B-4D2D-905E-E1BC127CE000">默认情况下，年龄是与渐变一起使用的属性。还可以使用其他属性。 </p>
+
+</div>
+ </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3469">根据需要编辑渐变的 R 颜色值（有关详细信息，请参见“渲染”）。 <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3468">在编辑渐变值时，可以在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-4B4BE8F7-33F0-483B-8AB8-70C9C8D9EE36">“颜色编辑器”(Color Editor)</span>中将任何数值用于 R。虽然 0 到 1 范围之外的值有效，但是它们在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-B479555D-26D3-43DF-BF5D-FA89093D0147">“纹理示例”(Texture Sample)</span>样例的显示中不存在任何有意义的等效颜色。不要编辑 HSV 值，否则将有可能将不正确的值应用于该属性。 </p>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3467">通常，<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-A042684F-82AE-4343-8A64-2DAD55F8A08D">“opacityPP”</span>是样例中颜色代表属性中的值的唯一属性。对于不具有等效颜色的其他属性，可以通过在 R 框中输入值（而不是直接单击颜色），在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-4831E543-F35F-4339-B4B9-35746E54F5CF">“颜色编辑器”(Color Editor)</span>中编辑颜色值。 </p>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3466">还可以通过更改<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-500F04CC-A232-4CCB-ADAE-25A77C410A5C">“属性编辑器”(Attribute Editor)</span>中的其他渐变属性（例如，<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-EF814383-40D2-4CA2-80E7-B3E9D1116110">“噪波”(Noise)</span>和<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-368B7E5B-6EE4-4523-A9BF-9A7131570A14">“噪波频率”(Noise Frequency)</span>）来更改颜色序列。有关渐变属性的详细信息，请参见“渲染”。 </p>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3465">请记住，渐变的水平组件对属性没有任何影响。若要也使用水平组件，请参见下面的使用渐变自定义每粒子属性控制。 </p>
+ </li>
+</ol>
+
+</div>
+<div class="section" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS17956D7ADBC6E7361A342C07117AE3124CC-7FC6"><h2 class="title sectiontitle">使用渐变自定义每粒子属性控制</h2>
+
+<p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3464"> 渐变具有两个输入 - U（水平方向）和 V（垂直方向）。默认情况下，数组映射器的 V 向输入连接到粒子的年龄，而 U 向输入未连接。在创建渐变时，可以更改这些输入连接。 </p>
+
+<p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3462">其他渐变选项，例如，两个轴上的圆形、对角或长方体更改。您可以在渐变<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-2A009D22-D204-46B6-8E41-62CC50FFAD4B">“属性编辑器”(Attribute Editor)</span>中选择这些选项。 </p>
+
+<p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3461">若要更改每粒子属性的渐变控制，可以执行下列操作： </p>
+
+<ul class="ul" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3460"><li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-345F">使用现有渐变或自定义渐变的 U 向和 V 向控制。 </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-345E">确保渐变颜色能有意义地表示属性值。 </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-345D">断开属性的渐变控制。 </li>
+</ul>
+
+<p class="li listintro" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-345B">指定粒子的属性如何从渐变中获取值</p>
+<ol class="ol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-345C"><li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-345A">如有必要，请将属性添加到粒子中。 </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3459">打开<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-798F30E8-219B-4D0B-A80D-A72CC514FC3C">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-778DD297-88E0-4D50-99FB-F25E70D32FEC">“每粒子(数组)属性”(Per Particle (Array) Attributes)</span>部分，然后在所需的属性上单击鼠标右键并选择<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-18D9B07F-4D26-4616-B2D0-2BE5A3FA48E1">“创建渐变”(Create Ramp)</span> &gt; <img class="image" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__IMAGE_ACEABAA1E5AF4B41ADE8D5E03384078E" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png">。 <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3458">将显示<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-DD56AEE5-4743-4033-BF43-37531DCA01ED">“创建渐变”(Create Ramp)</span>选项窗口。 </p>
+ <div class="fig fignone" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3457"><img class="image" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__IMAGE_106AC3013C9E491487B47DE40E968DDD" width="161" height="123" src="../images/GUID-65B617B4-42D7-42B6-B559-D4B796904EC3.png"></div>
+ </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3456"> 要使用现有渐变，请从<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-C51511C7-EABB-470F-94F4-7B6B2C8A345D">“映射到”(Map To)</span>菜单中选择该渐变。 </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3454"> 要自定义控制 U 向（水平方向）和 V 向（垂直方向）渐变组件的属性，拾取<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-A4D5C7D2-BF35-4610-ADD1-8D8D09AE9857">“输入 U”(Input U)</span>和<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-4FA8EDE1-DECB-4B3D-BFDF-80576DD65C6E">“输入 V”(Input V)</span>中的其中一个属性。 </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3452"> 从<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-4DA8ED33-C3E2-4FD3-91F5-7E06519C0A1D">“输入 U”(Input U)</span>或<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-C3C1D82E-6FCA-42D9-B635-01AA7967EA47">“输入 V”(Input V)</span>菜单中选择属性。 <div class="note tip" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3450"><span class="tiptitle">提示：</span> 如果将<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-9E95D46E-6D06-446B-96FC-E4492AF5445B">“粒子的年龄”(Particle’s Age)</span>同时用于<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-6F7786B7-1EDB-4F5D-B6FA-3A57A735DF60">“输入 U”(Input U)</span>和<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-8D397387-FB8D-4195-ACC1-2104822D0762">“输入 V”(Input V)</span>，那么会通过下图中的对角线指示在粒子整个寿命过程中控制属性的渐变部分： <div class="fig fignone" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-344E"><img class="image" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__IMAGE_50413303BA0E49A4934AEA284AB35684" width="191" height="134" src="../images/GUID-2F14884A-4B13-44C8-A21E-7414958FFDD9.png"></div>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-344D">对于以上默认渐变，将<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-D5CB553D-2B56-410F-B79B-173126B81628">“粒子的年龄”(Particle’s Age)</span>同时用于<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-14F8C918-6C26-45CB-A93C-E31046DD93B6">“输入 U”(Input U)</span>和<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-9280EEC9-B098-4C26-9759-E44713842098">“输入 V”(Input V)</span>没有任何好处，因为渐变颜色不会在 U（水平）方向更改。 </p>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-344B">如果编辑渐变属性来创建渐变（如以下示例），则为<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-62908292-4FDB-4403-A74E-7AB28642B273">“输入 U”(Input U)</span>和<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-1CB136D8-E348-4EEF-BA29-7DA7646523E2">“输入 V”(Input V)</span>选择<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-1E1E3776-4BEA-4510-A047-739CDF94DD6D">“粒子的年龄”(Particle’s Age)</span>时会将通用性添加到属性的控制中： </p>
+ <div class="fig fignone" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3449"><img class="image" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__IMAGE_AA38125955C642B3826E9C3E7F5F12C8" width="191" height="134" src="../images/GUID-7B918B20-3E73-4363-B5D8-1095277D8AA9.png"></div>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3448">您甚至可以将纹理用作渐变的颜色的输入。例如，您可以按如下所示将 2D 棋盘格纹理映射到颜色渐变上： </p>
+ <div class="fig fignone" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3447"><img class="image" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__IMAGE_983B521AB74C467DA28500A2750F1FAE" width="191" height="134" src="../images/GUID-26EF073A-27A6-4686-A637-A4BAAC06A876.png"></div>
+ </div>
+ </li>
+</ol>
+
+<div class="section" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3446"><h3 class="title sectiontitle">编辑渐变</h3>
+
+<p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3445">您还可以编辑渐变来更改颜色。 </p>
+
+<p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3444">有关高级渐变功能的信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-022F69B8-B1A3-46A3-9917-0D9CBDBB6733">渐变着色器</a>。 </p>
+
+<p class="li listintro" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-343E">编辑渐变</p>
+<ol class="ol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-343F"><li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-343D">显示粒子形状的<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-F4C8D6CA-8C9F-4F56-9CF3-305791374EF9">“属性编辑器”(Attribute Editor)</span>。在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-BD16E718-D2F7-4854-BEE3-440C032466BF">“rgbPP”</span>的右侧，在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-1F658104-8651-4870-A7C4-89ADF8FC1A02">“&lt;-arrayMapper1.outColorPP”</span>上单击鼠标右键，然后从弹出菜单中选择<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-45A63BDE-AB3F-451A-A374-7B775EB3A3B1">“编辑渐变”(Edit Ramp)</span>。 <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-343C"><span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-C2FE2D68-9E00-4F4D-B4D8-FE01FB1558B9">“rgbPP”</span>的渐变显示在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-F2B29376-8C75-43DB-8BD7-76F89DD17214">“属性编辑器”(Attribute Editor)</span>中。 </p>
+ </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-343B">在渐变中编辑颜色。有关在渐变中编辑颜色的信息，请参见“渲染”中的“渐变”。 </li>
+</ol>
+
+</div>
+
+<div class="section" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-343A"><h3 class="title sectiontitle">映射到现有渐变</h3>
+
+<p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3439"> 除了映射到默认渐变，您还可以将目标属性映射到已在场景中使用的渐变。 </p>
+
+<p class="li listintro" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3436">映射到现有渐变</p>
+<ol class="ol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3437"><li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3435">将指针置于要为其创建渐变的每粒子属性的数据框中。单击鼠标右键以显示弹出菜单，然后选择<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-6AC7F37E-F099-48B2-80FD-4D9CF5D71C13">“创建渐变”(Create Ramp)</span> &gt; <img class="image" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__IMAGE_F273D1A3257F4803B37AF31D9B2C369D" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png"> 来显示<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-CC6D9A45-4CC4-40B9-86D0-C4D5EBBA5BFC">“创建渐变”(Create Ramp)</span>选项窗口。 </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3434">单击<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-53F931E4-631F-4ADE-BD01-B7443EF0A1BA">“映射到”(Map to)</span>按钮显示选项菜单。 <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3433">已在场景中使用的渐变在弹出菜单中列出。 </p>
+ </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3432">从列表中选择其中一个渐变。 </li>
+</ol>
+
+</div>
+
+<div class="section" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3431"><h3 class="title sectiontitle">确保渐变颜色能有意义地表示属性值。</h3>
+
+<p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3430">在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-F72AC0DA-14F5-4812-88FB-CD7683D01795">“颜色编辑器”(Color Editor)</span>中编辑 RGB（或 R）的渐变值时，虽然 0 到 1 范围之外的值有效，但是它们在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-D98AD180-DB8D-421F-8BCC-DDE987F4B901">“纹理示例”(Texture Sample)</span>样例的显示中不存在任何有意义的等效颜色}。可以按如下所示创建有意义的等效颜色： </p>
+
+<p class="li listintro" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-342E">确保渐变颜色有意义地表示属性值</p>
+<ol class="ol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-342F"><li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-342D">将渐变中最小的 RGB（或 R）值设定为 0，将渐变中最大的 RGB（或 R）值设定为 1。 </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-342C"> 在连接到渐变的每粒子属性的属性框上单击鼠标右键，将指针滑动到向右的箭头，然后选择<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-D811BEA8-FE1C-4DC8-8FA2-EBBD89E62231">“编辑数组映射器”(Edit Array Mapper)</span>。 <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-342A">通过数组映射器，可以缩放应用于粒子的属性值的范围。 </p>
+ </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3429">单击<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-06DEF9E2-72F9-4353-9347-D54D21891963">“属性编辑器”(Attribute Editor)</span>的数组映射器选项卡。 </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3428"> 对于<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-D9C34D46-9AB3-403D-98EC-451473B84FD0">“最小值”(Min Value)</span>和<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-82EBB012-AED3-4E19-840A-E443FC83D05E">“最大值”(Max Value)</span>，输入要用于属性的最小值和最大值。 <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3426">默认情况下，<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-DAD69A16-B0B8-4FA2-949E-76CC654EBB10">“最小值”(Min Value)</span>设定属性在其寿命开始阶段具有的最小值 - 渐变底部的值。默认情况下，<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-423221BE-1BCC-4E59-B8EA-EF67E555A9BC">“最大值”(Max Value)</span>设定属性在其寿命结束阶段具有的最大值 - 渐变顶部的值。 </p>
+ </li>
+</ol>
+
+</div>
+
+<div class="section" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3425"><h3 class="title sectiontitle">断开渐变的属性控制</h3>
+
+<p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3424">要断开渐变的属性控制，请在连接到渐变的每粒子属性的属性框上单击鼠标右键，将指针滑动到向右的箭头，然后选择其中一个选项： </p>
+
+<div class="section" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-37CD-2054"><dl class="dl" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-37CD-2054"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-B09062A2-5DD2-4448-AE11-A3C95D7A92FD">断开连接(Break Connection)</span>
+</dt>
+<dd class="dd" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-4855151011E4FD543C6-47C7">
+<p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3422">断开数组映射器到粒子形状的输入。该菜单项不会删除渐变节点或数组映射器。如果不希望在断开连接时删除渐变，则使用该菜单项。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-F435BD15-24DD-4E7A-B025-5DF798186EB3">删除数组映射器(Delete Array Mapper)</span>
+</dt>
+<dd class="dd" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-4855151011E4FD543C6-47C6">
+<p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3420"> 通过删除数组映射器，断开到粒子形状的数组映射器的输入。如果渐变没有其他连接，那么也将删除渐变。如果在场景中不再需要渐变，可使用该菜单项。 </p>
+
+</dd>
+</dl>
+</div>
+
+</div>
+
+</div>
+<div class="section" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-341E"><h2 class="title sectiontitle">渐变示例</h2>
+
+<div class="section" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-341D"><h3 class="title sectiontitle">根据与原点的距离设置粒子的颜色</h3>
+
+<p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-341C">在该示例中，我们将根据粒子与原点的距离，使用渐变的 V 坐标系来设置粒子的颜色。该示例使用发射器和场，以下章节有所介绍。在执行该示例之前，您可能希望阅读有关发射器和场的信息。或者，您可以将 MEL 节点剪切并粘贴到<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-D75CFC03-5269-4EF8-AB91-10645B720894">“脚本编辑器”(Script Editor)</span>中来创建发射器和场。 </p>
+
+<p class="li listintro" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-341A">根据粒子与原点的距离使用渐变设置粒子的颜色</p>
+<ol class="ol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-341B"><li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3419">创建体积发射器。按如下所示设定<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-344A6429-CCD2-471B-9D81-FBE05BD12A71">“体积速率属性”(Volume Speed attributes)</span>：将<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-CA6B1C9A-1755-4CFB-9AB1-C2063DFFA75B">“远离中心”(Away From Center)</span>设定为 1；其他所有速率都设定为 0。设定<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-BFBA472C-6610-4CCA-B301-E108F6844CD9">“缩放”(Scale)</span>（10、10、10）。 <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3418">要执行此操作，您可以从<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-6C62EC18-6776-4239-BB82-E1E63B91D1A9">“Maya 帮助”(Maya Help)</span>复制以下 MEL 命令，并将这些命令粘贴到<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-8C5AD278-C1F8-4557-AF7B-BFA2901FD2F8">“脚本编辑器”(Script Editor)</span>： </p>
+ <pre class="pre codeblock">
+emitter -pos 0 0 0 -type volume -r 100 -sro 0 -nuv 0 -cye none -cyi 1 -spd 1 -srn 0 -nsp 1 -tsp 0 -mxd 0 -mnd 0 -dx 1 -dy 0 -dz 0 -sp 0 -vsh sphere -vof 0 0 0 -vsw 360 -tsr 0.5 -afc 1 -afx 1 -arx 0 -alx 0 -rnd 0 -drs 0 -ssz 0 ;
+scale 10 10 10;
+particle;
+connectDynamic -em emitter1 particle1;
+</pre>
+ </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3417">将<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-00925276-B8D9-49DE-B1E8-24F39110D117">“体积形状”(Volume Shape)</span>设定为<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-4C0E3DDC-9943-42C0-8330-E0719DDB8B64">“球体”(Sphere)</span>的径向场应用于粒子。将<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-F3A8F6AE-ACCB-4B2A-A3DF-684524566BAC">“幅值”(Magnitude)</span>设定为 -2，<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-91350323-2867-492B-95C1-388E5EA18C29">“衰减”(Attenuation)</span>设定为 0，并禁用<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-6244D1BB-F10F-410C-9C69-849EE945F0D0">“使用最大距离”(Use Max Distance)</span>。打开<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-95FEA4C4-B627-4948-8A57-097907B1899A">“体积排除”(Volume Exclusion)</span>，并将<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-60B2E5DB-3415-4961-A7AC-72E93E22EE6B">“缩放”(Scale)</span>设定为 10、10、10。这样可使粒子保留在体积内。 <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3416">要执行此操作，您可以从<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-9573CA54-3EBE-403D-9110-271FCE42D83C">“Maya 帮助”(Maya Help)</span>复制以下 MEL 命令，并将这些命令粘贴到<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-1A4AA927-15C6-4DE7-82E0-F905339A330E">“脚本编辑器”(Script Editor)</span>： </p>
+ <pre class="pre codeblock">
+radial -pos 0 0 0 -name pushIn -m -2 -att 0 -typ 0 -mxd -1 -vsh sphere -vex 1-vof 0 0 0 -vsw 360 -tsr 0.5 ;
+scale 10 10 10;
+connectDynamic -f pushIn particle1;
+</pre>
+ </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3415">将每粒子颜色添加到粒子。 <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3414">要执行此操作，您可以从<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-5BCC4812-6A6D-4B34-83CB-1728C2092841">“Maya 帮助”(Maya Help)</span>复制以下 MEL 命令，并将该命令粘贴到<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-73D7CA57-8B80-43E9-A710-5E0D8CC74ED5">“脚本编辑器”(Script Editor)</span>： </p>
+ <pre class="pre codeblock">
+addAttr -ln "rgbPP" -dt vectorArray particleShape1;
+</pre>
+ </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3413">选择粒子，并显示<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-A132760E-705E-483B-AC76-21E6594B893D">“粒子属性编辑器”(Particle Attribute Editor)</span>。在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-2DEDDDA0-DFA0-4292-840C-1D7EF07A2A69">“rgbPP”</span>右侧的空间中，单击鼠标右键，然后选择<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-CD2281DA-94A2-43D4-9A09-50B6DEB1BCFF">“创建渐变”(Create Ramp)</span> &gt; <img class="image" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__IMAGE_AD83892F29BD437598A5B8F2CD784D9B" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png"> 来显示<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-16115127-1975-4B19-ABB8-3FBCE9B1BB35">“创建渐变选项”(Create Ramp Options)</span>。 </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3412">将<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-11DBEC45-BC44-4731-95AE-38B3F0242ECD">“输入 U”(Input U)</span>设定为<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-D7178890-A7BE-4055-A943-232F3B7DF6F1">“无”(None)</span>（默认），<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-16AF249A-27B8-4A7C-8118-C012D4BDE98E">“输入 V”(Input V)</span>设定为<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-F77610A1-A8AE-4FD0-BEEB-4A1CDF0EE358">“rgbVPP”</span>，<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-49D8C1F9-18B4-49C7-89A9-804053541C6C">“映射到”(Map to)</span> <span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-838DC9D6-5070-4F94-8A39-9112EEBF7058">设定为“新渐变”(New Ramp)</span>（默认）。单击<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-D3362E4F-F169-4280-A9F9-2BA31A42A99F">“确定”(OK)</span>。 <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3411">请注意，名为<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-1682FF07-BE29-4C98-BF8E-2785669DCFD6">“rgbVPP”</span>的新属性出现在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-338ACAA3-48A2-4E45-A44F-166DCDE49FEF">“属性编辑器”(Attribute Editor)</span>中。 </p>
+ </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-3410">在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-6B971240-709F-48E6-B583-DEC63BA36B03">“rgbVPP”</span>旁单击鼠标右键，然后选择<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-FC539393-34F2-46C6-937A-58219AF76068">“运行时表达式”(Runtime Expression)</span>（在动力学计算前或后）。在<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-412EBCB2-59A1-410D-99C9-2829D2916B56">“表达式编辑器”(Expression Editor)</span>中，复制并粘贴以下行，然后单击<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-B47F2D97-A6E2-4C99-A6B8-DA48625EC81B">“创建”(Create)</span>： <pre class="pre codeblock">
+ rgbVPP = mag( position ) / 10;
+</pre>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-340F">数量 mag（位置）始终等于粒子与原点的距离。将该值除以 10，该值为设置中粒子与原点的最大距离。 </p>
+ <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-340E">换句话说，该表达式的意思是，如果粒子位于原点，那么渐变的 V 输入的值为 0，如果渐变在球体边界的外部，则值为 10。 </p>
+ </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-340D">您可能还希望使粒子更大。 <p class="p" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-340C">要执行该操作，您可以从<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-B97886A1-5FB4-4E13-8770-A91D8F8C04E1">“Maya 帮助”(Maya Help)</span>剪切以下 MEL 命令，然后将这些命令粘贴到<span class="ph uicontrol" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__GUID-26F3D760-38CA-4AB7-894B-4859FBC30669">“脚本编辑器”(Script Editor)</span>中： </p>
+ <pre class="pre codeblock">
+addAttr -is true -ln "pointSize" -at long -min 1 -max 60 -dv 2 particleShape1;
+setAttr "particleShape1.pointSize" 4;
+</pre>
+ </li>
+<li class="li" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-340B">现在，启用平滑着色处理、回放。并播放场景。 <div class="fig fignone" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__WS1A9193826455F5FF-6D855556117FACF922E-340A"><img class="image" id="GUID-B11713AB-EF1B-464A-A145-53CA86EF0AA9__IMAGE_649874BAA0B7411280DFBA129A1E2CA6" width="235" height="253" src="../images/GUID-C42CC6FB-40B0-41C5-8094-2504DEAC9AAE.png"></div>
+ </li>
+</ol>
+
+</div>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-402F5F7A-0003-403D-A253-15CDABF699D1.htm">使用每粒子属性</a></div>
+</div>
+</div>
+
+</body>
+</html>

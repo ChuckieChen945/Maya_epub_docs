@@ -1,0 +1,347 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_3x_am_300_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_300">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 3.0.0 - Arnold for Maya">
+
+<title>3.0.0</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>3.0.0</h1></div><h2 id="release-date">Release Date</h2><p>April 4, 2018</p>
+<p>This version uses the Arnold <a href="https://help.autodesk.com/display/arnug/5.1.0.0">5.1.0.0</a> core.</p>
+<h2 id="downloads">DOWNLOADS</h2><ul>
+<li><a href="https://manage.autodesk.com/products/" target="_blank">https://manage.autodesk.com/products/</a>  </li>
+</ul>
+<p>MtoA 3.0.0 is a major feature release, that is shipped with Maya 2018 Update 3.</p>
+<p>Despite its major improvements, it is still fully binary compatible with MtoA 2.* versions.</p>
+<h2 id="toon-shader">Toon Shader:</h2><p>The new aiToon shader is part of a non-photorealistic rendering (NPR) solution that is provided in combination with the Contour Filter.</p>
+<p>It can be used to obtain a cell animation look. A variety of interesting effects can be achieved by, for example, changing the line width using the Width Scale parameter,</p>
+<p>connecting a procedural texture to Mask Color, or using stylized highlights.</p>
+<h2 id="shader-improvements">Shader Improvements:</h2><ul>
+<li>New Layer shaders: The newly added aiLayerFloat , <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Layer_Shader_html">aiLayerShader</a> and <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_texture_am_Layer_RGBA_html">aiLayerRgba</a> shaders can be used to mix float values, surface shaders (closures) and textures respectively. The maximum number of layers in these shaders is limited to 8.</li>
+<li>ID AOVs in aiStandardSurface and aiStandardHair: Both these shaders now support ID AOVs, which are useful for creating mattes.</li>
+<li><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Hair_html#StandardHair-ExtraSamples">Extra Samples</a> parameter in aiStandardHair shader: allows using additional GI samples on a per-shader basis. This allows reducing hair noise without increasing the global AA settings.</li>
+<li>Per-light group shadow mattes: aiShadowMatte has a new Light Group parameter that when enabled makes the shader sensitive only to a given light group.</li>
+<li>Added Bump in aiPassthrough shader: This allows for the assignment of a normal or bump map that affects the entire network of shaders it is connected to.</li>
+<li>Trace sets in ambient occlusion shader: aiAmbientOcclusion now includes a Trace Set parameter to specify which objects are included or excluded.</li>
+</ul>
+<h2 id="alembic-support-gpucache-arnold-now-natively-supports-alembic-files-maya-native-gpu-cache-nodes-are-now-being-exported-as-an-alembic-procedural-and-expose-in-an-arnold-section-several-parameters-as-well-as-a-list-allowing-to-inspect-the-alembic-file-and-isolate-a-given-sub-object-more-details-can-be-found-in-the-a-href-topicid-arnold_for_maya_shapes_am_alembic_html-alembic-documentation-a-img-src-images-am-300-image2018-4-5-11-40-35-1-png-alt-adaptive-sampling">Alembic support (gpuCache):## Arnold now natively supports Alembic files. Maya native GPU Cache nodes are now being exported as an alembic procedural and expose in an Arnold section several parameters, as well as a list allowing to inspect the Alembic file and isolate a given sub-object. More details can be found in the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Alembic_html">Alembic documentation</a> .<img src="../images/am-300-image2018-4-5-11-40-35-1.png" alt="">## Adaptive Sampling:</h2><p>Arnold now has the capability of adapting the sampling rate of each pixel when Adaptive Sampling is enabled in the Render Settings. It allows dedicating a greater number of camera samples (and thus also a greater amount of render time) to the pixels that show a greater variation in their sample values. When used, all pixels will receive a sampling rate of at least Camera (AA), but no more than Max Camera (AA). The adaptive sampler's sensitivity to noise may be controlled through the Adaptive Threshold render option, where lower threshold values will apply higher sampling rates to a greater number of pixels.</p>
+<h2 id="optix-denoiser">Optix Denoiser:</h2><p>The fast, GPU-powered Nvidia OptiX AI denoiser is now available in Arnold. By enabling a parameter Denoise in an AOV, Arnold will output this AOV twice: once with the original result, and a second one (suffixed with "_denoise") showing the denoised result. A denoised beauty pass can be obtained by enabling Denoise on an RGBA AOV. Note that denoising happens at the end of a full frame render, and not at each bucket. See the <a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=OptiX%E2%84%A2+Denoiser+*hidden*&amp;linkCreation=true&amp;fromPageId=154764315">Optix Denoiser documentation</a> for more details.</p>
+<p><img src="../images/am-300-Denoiser-400b-2.gif" alt=""></p>
+<h2 id="arnold-denoiser-quot-noice-quot">Arnold Denoiser "Noice":</h2><p>A standalone, post-process denoiser executable called <em>Noice</em> is now bundled with Arnold. This is a high-quality denoiser that takes into account multiple frames and multiple light AOVs. It requires variance information for the beauty output, which can be enabled with the new parameter <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_render_settings_aovs_html#AOVs-OutputVarianceAOV">Output Variance AOV</a> . It can optionally use normal, depth and albedo in order to improve the denoising.</p>
+<h2 id="operators-arnold-render-time-procedures">Operators - Arnold render time procedures :</h2><p><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_am_Operators_html">Operators</a> are a new node type which performs per-object (node) parameter assignments and overrides, including late-bindings and deferred overrides on procedurally generated nodes. They can, therefore, be used to override parameters from already exported standins at render-time. Operators can also create nodes and carry out general scene inspection and modifications. Multiple disconnected operator graphs can exist in the scene, where only the graph connected to the target operator will be evaluated for rendering. Some operators provide a selection parameter which determines, using a wildcard expression, what nodes are processed by the operator. A series of operator nodes are now available: aiMaterialx, aiSetParameter, aiDisable, aiCollection, aiSwitchOperator, and aiSetTransform. More details can be found in the Operators documentation.</p>
+<p><img src="../images/am-300-example-graph-1--3.png" alt=""></p>
+<h2 id="materialx-support">MaterialX Support:</h2><p>Using the new <em>Operator</em> nodes, it is possible to apply a MaterialX file to a Standin, an alembic procedural, or any other shape.</p>
+<p><img src="../images/am-300-image2018-4-5-11-41-59-4.png" alt="">## Structured Render Statistics / Profiling outputs:</p>
+<p>Structured render statistics can be dumped in a .json filed from the Render Setting's Log parameters. It's now also possible to dump a profiling .json file that helps to identify where render time is spent.</p>
+<h2 id="progressive-render">Progressive Render:</h2><p>New Progressive Render option in the Render Settings allows rendering progressively all the samples up to the final <em>Camera (AA)</em> Samples. Note that this option slows down render times and increases memory usage, which is why it's only supported during interactive renders for fast preview.</p>
+<h2 id="new-licensing-helper-tools">New Licensing helper tools:</h2><p>New Arnold -&gt; Licensing menus were added, which simplify the licensing installation and troubleshooting, for both RLM and CLM licenses.</p>
+<h2 id="other">Other:</h2><ul>
+<li>Removed Pymel dependency from MtoA.</li>
+<li>Improved Animated Standins workflow.</li>
+<li>Log Warnings by default.</li>
+<li>Improved VP2 representation of utility shaders.</li>
+<li>Properly remove Arnold-specific attributes when MtoA is unloaded.</li>
+<li>Export Maya File as Arnold image to ease cross-application pipelines.</li>
+<li>Export Maya bump as Arnold bump to ease cross-application pipelines.</li>
+<li>Fixed several ARV crashes.</li>
+<li>Fixed ARV bugs with wrong cameras and/or image planes. Image planes will now appear only for the correct camera.</li>
+<li>Custom procedurals now appear as a bounding box in the viewport to support selections. The min/max bounding box can be set as parameters in the procedural node.</li>
+<li>Filter changes weren't updated in IPR.</li>
+<li>Bake Geometry now working with Standins.</li>
+<li>Fix mismatch in mesh lights motion blur as compared to regular geometry.</li>
+<li>ARV: Update Full scene now flushes all caches.</li>
+<li>Shader parameters left to default value are no longer exported to the .ass file.</li>
+<li>Light instances are now supported.</li>
+<li>ARV snapshots using "Snapshot Folder" now load the snapshots by chronological order.</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible changes:</h2><ul>
+<li>Following the PyMel removal, any overrides in hooks.py will now expect node names, and not PyNode as hey did before</li>
+<li>Triplanar parameter 'P' was removed</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Ticket</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>#2707</td>
+<td>Render Maya File nodes as aiImage</td>
+</tr>
+<tr>
+<td>#3355</td>
+<td>Crash with ARV when a hidden light becomes visible during IPR</td>
+</tr>
+<tr>
+<td>#3356</td>
+<td>MAC: Crash when opening Maya scene file when ARV was left open</td>
+</tr>
+<tr>
+<td>#3357</td>
+<td>attributeAliasList error now occurs for every referenced material</td>
+</tr>
+<tr>
+<td>#3381</td>
+<td>Activating AOV Denoise filter with ARV running crashes Maya.</td>
+</tr>
+<tr>
+<td>#3063</td>
+<td>LightBlocker issue in Viewport 2.0</td>
+</tr>
+<tr>
+<td>#3209</td>
+<td>mayapy crash when opening a file that requires mtoa (and mtoa is not loaded yet)</td>
+</tr>
+<tr>
+<td>#3365</td>
+<td>Unable to use the <camera> Token in Render Settings</camera></td>
+</tr>
+<tr>
+<td>#3379</td>
+<td>Incorrect use of QString values may lead to errors and crashes due to reading deleted memory.</td>
+</tr>
+<tr>
+<td>#1913</td>
+<td>Warning: pymel.core.general: Could not create desired MFn. Defaulting to MFnDagNode.</td>
+</tr>
+<tr>
+<td>#3118</td>
+<td>Link MtoA extension attributes to the plugin after registering them</td>
+</tr>
+<tr>
+<td>#3159</td>
+<td>Add test for extensions</td>
+</tr>
+<tr>
+<td>#3221</td>
+<td>Show bounding box in the viewport for auto-procedural nodes</td>
+</tr>
+<tr>
+<td>#3227</td>
+<td>Expose "outAlpha" attribute in RGBA shaders</td>
+</tr>
+<tr>
+<td>#3238</td>
+<td>Camera nodes can be missing in the exported scenes</td>
+</tr>
+<tr>
+<td>#3240</td>
+<td>Don't regenerate standins in IPR when they're only transformed</td>
+</tr>
+<tr>
+<td>#3248</td>
+<td>Remove PyMel from MtoA</td>
+</tr>
+<tr>
+<td>#3250</td>
+<td>Support adaptive rendering</td>
+</tr>
+<tr>
+<td>#3253</td>
+<td>Improve licensing tools in MtoA</td>
+</tr>
+<tr>
+<td>#3260</td>
+<td>Remove MtoA procedurals dependency graph</td>
+</tr>
+<tr>
+<td>#3269</td>
+<td>Remove Arnold attributes when MtoA is unloaded</td>
+</tr>
+<tr>
+<td>#3273</td>
+<td>Filter changes not updated in IPR</td>
+</tr>
+<tr>
+<td>#3275</td>
+<td>Bake Geometry doesn't work with standins</td>
+</tr>
+<tr>
+<td>#3276</td>
+<td>driver_exr "tiled" doesn't have the correct default on windows</td>
+</tr>
+<tr>
+<td>#3287</td>
+<td>Maya crashes when you connect nodes to UV coords of aiImage</td>
+</tr>
+<tr>
+<td>#3290</td>
+<td>Filter width is different on Linux + Maya 2018</td>
+</tr>
+<tr>
+<td>#3291</td>
+<td>Expose Arnold operators</td>
+</tr>
+<tr>
+<td>#3298</td>
+<td>Viewport - Use Flat Lighting not supported by aiStandardSurface</td>
+</tr>
+<tr>
+<td>#3305</td>
+<td>Expose Alembic procedural</td>
+</tr>
+<tr>
+<td>#3306</td>
+<td>Rename "jpeg" outputs as "jpg"</td>
+</tr>
+<tr>
+<td>#3312</td>
+<td>Set Arnold node names on creation</td>
+</tr>
+<tr>
+<td>#3321</td>
+<td>"Arnold &gt; Render" has no effect if ARV is already open and a render was done previously</td>
+</tr>
+<tr>
+<td>#3341</td>
+<td>ARV: Cameras not restored when a scene is opened</td>
+</tr>
+<tr>
+<td>#3346</td>
+<td>Motion blur of mesh light vs that of other meshes</td>
+</tr>
+<tr>
+<td>#3349</td>
+<td>MtoA errors when extensions can't be loaded</td>
+</tr>
+<tr>
+<td>#3353</td>
+<td>Remove Install Node-Locked License menu command from Arnold &gt; Licensing</td>
+</tr>
+<tr>
+<td>#3362</td>
+<td>Utility nodes do not have viewport representations</td>
+</tr>
+<tr>
+<td>#3363</td>
+<td>Export maya_full_path user data</td>
+</tr>
+<tr>
+<td>#3368</td>
+<td>Warnings should be logged by default</td>
+</tr>
+<tr>
+<td>#3369</td>
+<td>ARV: Update Full scene should flush all caches</td>
+</tr>
+<tr>
+<td>#3370</td>
+<td>Expose option's progressive_render</td>
+</tr>
+<tr>
+<td>#3371</td>
+<td>Undoing Render Layer edits if Arnold Render Settings were used, will add UI updates to Undo stack (need to Undo several times to undo edits)</td>
+</tr>
+<tr>
+<td>#3372</td>
+<td>ARV: Update full scene can remove image plane</td>
+</tr>
+<tr>
+<td>#3374</td>
+<td>Support Optix denoiser</td>
+</tr>
+<tr>
+<td>#3382</td>
+<td>Implement Render Stats/Profiling</td>
+</tr>
+<tr>
+<td>#3383</td>
+<td>ProcessParameter shouldn't set the attribute if the value is unchanged</td>
+</tr>
+<tr>
+<td>#3386</td>
+<td>Fix regression when linking the matte color</td>
+</tr>
+<tr>
+<td>#3387</td>
+<td>Export variance AOV for Arnold denoiser</td>
+</tr>
+<tr>
+<td>#3388</td>
+<td>ARV: Add API function to get menus state</td>
+</tr>
+<tr>
+<td>#3389</td>
+<td>Expose bump on passthrough</td>
+</tr>
+<tr>
+<td>#3390</td>
+<td>Export standard_hair extra_samples</td>
+</tr>
+<tr>
+<td>#3088</td>
+<td>MTOA_EXTENSIONS_PATH order of precedence incorrect</td>
+</tr>
+<tr>
+<td>#3048</td>
+<td>Add tests around Color Mgt</td>
+</tr>
+<tr>
+<td>#2079</td>
+<td>Instances of lights in Maya should be translated as copies of lights</td>
+</tr>
+<tr>
+<td>#2412</td>
+<td>improve animated standin (sequence) workflow</td>
+</tr>
+<tr>
+<td>#3230</td>
+<td>Expose Toon (NPR) Shader</td>
+</tr>
+<tr>
+<td>#3262</td>
+<td>Add frame padding or load by timestamp for ARV snapshots from directory</td>
+</tr>
+<tr>
+<td>#3251</td>
+<td>Export Maya bump as Arnold native bump</td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_3x_html.html">MtoA 3.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

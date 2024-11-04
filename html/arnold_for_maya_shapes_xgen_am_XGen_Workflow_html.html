@@ -1,0 +1,138 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shapes_xgen_am_XGen_Workflow_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_XGEN_WORKFLOW">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" XGen 工作流 - Arnold for Maya">
+
+<title>XGen 工作流</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+<div class="head-block"><h1>XGen 工作流</h1></div><p>以下步骤介绍将头部模型渲染为 XGen 归档的过程。</p>
+<ul>
+<li>打开<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Infinite_Scan_Ver0.1.rar" target="_blank">头部场景文件</a>。您需要为其指定一个 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html" target="_blank">standard_surface</a> 着色器，并将相关纹理贴图连接到它。</li>
+</ul>
+<p><img src="../images/mtoa_xgen_workflow1.png" alt=""></p>
+<h3 id="xgen">导出 XGen 归档</h3><ul>
+<li><p>在将网格导出为归档之前，您必须先保存场景，否则 XGen 无法将其导出。</p>
+</li>
+<li><p>选择头部网格，然后转到<strong>“生成 &gt; 将当前选择项导出为归档...”(Generate &gt; Export Selection as Archive(s)...)</strong>（或者，在创建描述后，使用<strong>“归档文件”(Archive Files)</strong>下的<strong>“从当前选择创建...”(Create from Selection...)</strong>，将保存的场景转化为归档。）</p>
+</li>
+</ul>
+<p><img src="../images/mtoa_xgen_workflow2.png" alt=""></p>
+<ul>
+<li><p>此时应显示<strong>“将当前选择项导出为归档”(Export Selection as Archive(s))</strong>窗口。将<strong>“归档文件名”(Archive Name)</strong>更改为 Head。</p>
+</li>
+<li><p>选择您希望 XGen 用于保存归档文件的文件夹，并选择<strong>“导出”(Export)</strong>。然后，XGen 会在选定文件夹中将模型导出为归档文件。</p>
+</li>
+</ul>
+<p><img src="../images/mtoa_xgen_workflow3.png" alt=""></p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>将几何体导出为归档时，请确保名称中不含冒号。例如，名为 <code>Head:Group3919Shape</code> 的网格无法使用 XGen 正确导出为归档。删除冒号可解决该问题。  </p>
+
+</div></div>
+
+<p>当 XGen 导出网格时，应显示“将当前选择项导出为归档进度”(Export Selection as Archive(s) Progress)窗口：</p>
+<p><img src="../images/mtoa_xgen_workflow4.png" alt=""></p>
+<ul>
+<li><p>下一阶段是创建新场景，我们可以使用该场景将头部模型渲染为 XGen 归档。</p>
+</li>
+<li><p>创建一个多边形平面。我们会将 XGen 描述添加到该平面，它也会折叠成地板平面。选择该多边形平面，然后选择<strong>“XGen &gt; 创建描述”(XGen &gt; Create Description)</strong>。此时应显示 XGen 窗口。单击<strong><em>“创建新描述...”(Create New Description...)</em></strong></p>
+</li>
+</ul>
+<p>如果归档未正确导出，请检查是否在导出之前加载了 MtoA 渲染设置。</p>
+<h3 id="xgen">创建 XGen 描述</h3><ul>
+<li><p>将显示<strong>“创建 XGen 描述”(Create XGen Despcription)</strong>窗口。将<strong>“新的描述名称”(New Description Name)</strong>更改为 <strong><em>Heads</em></strong>。</p>
+</li>
+<li><p>选择<strong>“自定义几何体/归档文件(用于已创建的任何模型)”(Custom Geometry/Archives (use for any model you have created))</strong>，如下图所示：</p>
+</li>
+</ul>
+<p><img src="../images/mtoa_xgen_workflow5.png" alt=""></p>
+<h3 id="">预览视口显示</h3><ul>
+<li>XGen 窗口应替换属性编辑器。打开归档文件之前，请在以下位置中将<strong><em>“百分比”(Percent)</em></strong>值降为一个较低的值：<strong>“预览设置”(Preview Settings)（“预览/输出”(Preview/Output)选项卡）。</strong>这是一个好习惯，因为 XGen 可以根据“密度”(Density)等设置，自动在视口中创建许多实例。如果百分比太高，可能会导致 Maya 在毫无预警的情况下发生崩溃。</li>
+</ul>
+<p><img src="../images/mtoa_xgen_workflow6.png" alt=""></p>
+<p><sub><strong>降低预览/输出百分比</strong></sub></p>
+<ul>
+<li>返回到<strong>“基本体”(Primitives)</strong>选项卡。向下滚动到<strong>“归档文件”(Archive Files)</strong>并选择“添加”(Add)。</li>
+</ul>
+<p><img src="../images/mtoa_xgen_workflow7.png" alt=""></p>
+<ul>
+<li><p>转到保存 XGen 归档文件的位置并选择它。其名称应类似于 <strong>Head-model.xarc</strong></p>
+</li>
+<li><p>系统将显示以下提示窗口。选择<strong>“是”(Yes)</strong>，将导入随归档文件一起保存的材质（稍后，您可以根据需要更改材质指定）。</p>
+</li>
+</ul>
+<p><img src="../images/mtoa_xgen_workflow8.png" alt=""></p>
+<p><sub><strong>将头部材质导入场景</strong></sub></p>
+<h2 id="">基本体放置</h2><h3 id="density">密度(Density)</h3><p>增大<strong>“密度”(Density)</strong>会增加基本体的数量。</p>
+<p><img src="../images/mtoa_xgen_workflow9.png" alt=""></p>
+<p><sub><strong>左(Left)：50。右(Right)：90。</strong></sub></p>
+<h3 id="">大小</h3><ul>
+<li>要在视口中查看 XGen 归档模型，请在以下位置中慢慢增加<strong>“百分比”(Percent)</strong>值：<strong>“预览设置”(Preview Settings)</strong>。如果您无法看到头部模型，可能需要调整<strong>“大小”(Size)</strong>值（在<strong>“归档文件”(Archive Files)</strong>中的<strong>“添加...”(Add...)</strong>按钮下）。</li>
+</ul>
+<p><img src="../images/mtoa_xgen_workflow10.png" alt=""></p>
+<h3 id="generate-primitives">生成基本体(Generate Primitives)</h3><ul>
+<li>XGen 已<strong>随机横跨曲面</strong>放置头部，因为这是创建描述时的默认选项。如果您希望基本体按行和列放置，可以通过如下方式执行此操作：在<strong>“生成器属性”(Generator Attributes)</strong>（“基本体”(Primitives)选项卡）下的<strong>“生成基本体”(Generate Primitives)</strong>菜单中，选择<strong><em>“以统一的行和列”(In uniform rows and columns)</em></strong>。</li>
+</ul>
+<p><img src="../images/mtoa_xgen_workflow11.png" alt=""></p>
+<p><sub><strong>以统一的行和列放置头部（右侧）。随机横跨曲面放置头部（右侧）。</strong></sub></p>
+<h3 id="spacing">“间距”(Spacing)</h3><ul>
+<li>“生成基本体”(Generate Primitives)设置为<strong>“以统一的行和列”(In uniform rows and columns)</strong>时，<strong><em>“间距”(Spacing)</em></strong>属性将替换<strong>“密度”(Density)</strong>。增大“间距”(Spacing)属性会增加基本体之间的距离。</li>
+</ul>
+<p><img src="../images/mtoa_xgen_workflow12.png" alt=""></p>
+<p><sub><strong>0.1（左侧）。0.15（右侧）。</strong></sub></p>
+<h2 id="">日志文件</h2><ul>
+<li>如果保存<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_render_settings_am_Diagnostics_html">日志文件</a>，我们可以查看场景中唯一对象和多边形的总数（将<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_render_settings_am_Diagnostics_html">最大警告数(Max.Warnings)</a>增加至 6）。例如，如果我们观察以下渲染日志文件，可以看到其中包含 <strong>378001</strong> 个头部对象，总共有 <strong>71725596842</strong> 个可见三角形。</li>
+</ul>
+<p><code>00:01:46 1552MB | -----------------------------------------------------------------------------------------</code><br> <code>00:01:46 1552MB | geometric elements: ( min) ( avg.) ( max)</code><br> <code>00:01:46 1552MB | objects (top level) 4 ( 4) ( 4.0) ( 4)</code><br> <code>00:01:46 1552MB | objects (procs) **378001** ( 0) ( 1.4) ( 266256)</code><br> <code>00:01:46 1552MB | polygons 320953 ( 1) ( 80238.3) ( 320940)</code><br> <code>00:01:46 1552MB | -----------------------------------------------------------------------------------------</code><br> <code>00:01:46 1552MB | triangle tessellation: ( min) ( avg.) ( max) (/ element) (% total)</code><br> <code>00:01:46 1552MB | polymeshes 641882 ( 2) ( 320941.0) ( 641880) ( 2.00) (100.00%)</code><br> <code>00:01:46 1552MB | unique triangles: 641882</code><br> <code>00:01:46 1552MB | visible triangles: **71725596842**</code></p>
+<p><img src="../images/mtoa_xgen_workflow13.png" alt=""></p>
+<p><sub><strong>使用 XGen 渲染的 378001 个头部对象（<strong>71725596842 个可见三角形）<strong></strong></strong></strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shapes/arnold_for_maya_shapes_shapes_xgen_html.html">XGen</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Bifrost">
+<meta name="created" content="30/7/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="17/04/2023">
+<meta name="topicid" content="GUID-910607BB-20E7-425A-844D-31491855B37B">
+<meta name="language" content="CHS">
+<title>生成 BOSS 泡沫贴图</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-910607BB-20E7-425A-844D-31491855B37B">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>生成 BOSS 泡沫贴图</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 您可以使用 BOSS 生成贴图来表示海洋表面顶部的泡沫。
+	 </p>
+<div class="p">在生成的 EXR 文件中：
+	 <ul class="ul" id="GUID-910607BB-20E7-425A-844D-31491855B37B__UL_F883866AFED34EA793DD030AD0E8F34D"><li class="li" id="GUID-910607BB-20E7-425A-844D-31491855B37B__LI_47D33EA2FABB45F988ABEF7E8FA5F3AE">红色通道包含泡沫值。
+		</li>
+<li class="li" id="GUID-910607BB-20E7-425A-844D-31491855B37B__LI_6A6CE1972D714CDC8462AD8DD5056549">绿色通道包含用于计算泡沫值的尖点值。这样就允许您对贴图执行后期处理，以便修改或生成您自己的泡沫值。
+		</li>
+<li class="li" id="GUID-910607BB-20E7-425A-844D-31491855B37B__LI_90F1E08333E140559C39BADFB29BBD97">蓝色通道包含用于计算泡沫值的速度值。同样，这也允许您执行后期处理。
+		</li>
+</ul>
+ 
+	 </div>
+<div class="section" id="GUID-910607BB-20E7-425A-844D-31491855B37B__SECTION_361AABC773554176BA0C8219AE3EFC5B"><h2 class="title sectiontitle">生成泡沫贴图</h2> 
+		 
+		<ol class="ol" id="GUID-910607BB-20E7-425A-844D-31491855B37B__OL_FAC805BD983548DFAD726422335D9832"><li class="li" id="GUID-910607BB-20E7-425A-844D-31491855B37B__LI_798B54AA7A2F406795964E6CF8966542">在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-965CDA03-3CE0-4626-9507-23ED526FF776.htm"><span class="ph uicontrol">“BOSS 涟漪/波浪生成器”(Boss Ripple/Wave Generator)</span></a>窗口左侧的<span class="ph uicontrol">“波浪解算器”(Wave Solver)</span>列表中，选择要为其启用泡沫的解算器。
+		  </li>
+<li class="li" id="GUID-910607BB-20E7-425A-844D-31491855B37B__LI_432A8D2E863842B9A9D2D9C4AF99BDC0">在<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中，在解算器属性的<span class="ph uicontrol">“泡沫属性”(Foam Attributes)</span>组中激活<span class="ph uicontrol">“启用”(Enable)</span>。
+			 <ul class="ul" id="GUID-910607BB-20E7-425A-844D-31491855B37B__UL_7C6B55930F924D73A6A25C584A5166F5"><li class="li" id="GUID-910607BB-20E7-425A-844D-31491855B37B__LI_58C6522E7A304A6E866E84C419CB8019">使用<span class="ph uicontrol">“泡沫扩散速率”(Foam Diffusion Rate)</span>可控制泡沫值从生成泡沫的位置扩散到其他区域的速度。
+				</li>
+<li class="li" id="GUID-910607BB-20E7-425A-844D-31491855B37B__LI_AB45CDD990874BA98FE33FC8ADF32CFB">使用<span class="ph uicontrol">“尖点比例”(Cusp Scale)</span>、<span class="ph uicontrol">“尖点最小值”(Cusp Min)</span>和<span class="ph uicontrol">“尖点最大值”(Cusp Max)</span>可控制在波峰附近生成泡沫的方式。
+				</li>
+<li class="li" id="GUID-910607BB-20E7-425A-844D-31491855B37B__LI_8E9FB65CAAD6446B8155686E3FBF58F8">如果需要，请激活<span class="ph uicontrol">“使用速度”(Use Speed)</span>并调整<span class="ph uicontrol">“速度最小值”(Speed Min)</span>和<span class="ph uicontrol">“速度最大值”(Speed Max)</span>，以便根据速度限制泡沫生成区域。
+				</li>
+</ul>
+ 
+		  </li>
+<li class="li" id="GUID-910607BB-20E7-425A-844D-31491855B37B__LI_32F931F83AAD458AABD5657CF8C6D87F">缓存解算器。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-9A660A00-80DC-4792-A33A-3F0CC3B0EB90.htm">缓存 BOSS 解算器和影响</a>。
+			 <p class="p">泡沫贴图使用与解算器相同的缓存路径和名称生成，并在文件名与帧编号之间添加了字符串  
+				<tt class="ph tt">.foam.</tt> 。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-910607BB-20E7-425A-844D-31491855B37B__LI_5894A254FC384FD6AA2684A12B2CE43C">将该贴图作为<span class="ph uicontrol">“文件”(File)</span>纹理应用，并根据需要使用相应值驱动着色器参数。例如：
+			 <div class="fig fignone" id="GUID-910607BB-20E7-425A-844D-31491855B37B__FIG_3ABE0AF534794E538FD1C46F36168D21"><img class="image" id="GUID-910607BB-20E7-425A-844D-31491855B37B__IMAGE_14498EABDDCF4EB79A07A6C460A2C728" src="../images/GUID-9C2EC0F1-3B3D-467E-B5F5-BE2DA9BE8ED8.png"></div>
+ 
+		  </li>
+</ol>
+ 
+		<div class="note tip" id="GUID-910607BB-20E7-425A-844D-31491855B37B__GUID-6FE21567-2F4D-4462-8D0F-C96FAE984BBC"><span class="tiptitle">提示：</span> 如果激活解算器的属性中的<span class="ph uicontrol">“导出缓存”(Export Cache)</span>，则可在调整设置时获得有关泡沫值的交互式反馈。
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-1D4CE594-25ED-4442-9C22-759E3111EFD7.htm" title="通过 Bifrost 海洋模拟系统，可以创建具有波浪、涟漪和尾迹的逼真海洋表面。">BOSS - Bifrost 海洋模拟系统</a></div>
+</div>
+</div>
+
+</body>
+</html>

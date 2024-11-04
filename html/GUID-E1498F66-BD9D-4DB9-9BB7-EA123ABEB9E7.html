@@ -1,0 +1,138 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7">
+<meta name="language" content="CHS">
+<title>nDynamics 概述和概念</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>nDynamics 概述和概念</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-236A"><div class="fig fignone" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-6507591011913E8F4B8-62D3"><img class="image" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__IMAGE_713514A71D144AC3A22A6EEDE13EA6E1" width="492" height="370" src="../images/GUID-29E0A2D1-065C-4565-B715-88DF442DABFB.png"></div>
+<div class="section" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-2ADE9D9118A20D4F81-115E"><h2 class="title sectiontitle">Maya Nucleus 层次</h2>
+
+<p class="p" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF6026605B1181C8F4F2E-1FA8"> 以下节点将参与 Maya Nucleus 系统： </p>
+
+</div>
+<div class="section" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-2ADE9D9118A20D4F81-115D"><h2 class="title sectiontitle">pMeshShape</h2>
+
+<p class="p" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF6026605B1181C8F4F2E-1FA6">该上游网格形状节点为输入网格以及 nCloth 或被动对象的起始对象。 </p>
+
+</div>
+<div class="section" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-2ADE9D9118A20D4F81-115C"><h2 class="title sectiontitle">outputCloth</h2>
+
+<p class="p" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF6026605B1181C8F4F2E-1FA4">这是输出网格或当前网格以及场景视图中查看到的结果 nCloth 对象。 </p>
+
+</div>
+<div class="section" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-2ADE9D9118A20D4F81-115B"><h2 class="title sectiontitle">变换</h2>
+
+<p class="p" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF6026605B1181C8F4F2E-1FA2">这是 nCloth 或被动对象变换节点，其承载对象的变换属性（平移、旋转、缩放）。例如，pMesh 和 polySurface。 </p>
+
+<p class="p" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF6026605B1181C8F4F2E-1FA1">变换节点的输出连接取决于其 nCloth 的空间输出。如果 nCloth 具有<span class="ph uicontrol" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__GUID-7E62D17F-098E-4314-85DF-3FEC89216D73">“局部空间输出”(Local Space Output)</span><em class="ph i" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__GUID-FD7AEA21-3A35-41A3-9BB6-6B6EEE57C038">，</em>其输入和输出网格将共享同一变换。另外，输出网格变换时，nCloth 输入网格将移动并跟随其输出网格。 </p>
+
+<p class="p" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF6026605B1181C8F4F2E-1FA0">如果 nCloth 具有<span class="ph uicontrol" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__GUID-C5519050-8C1C-4726-B22F-EF17D108DE1C">“世界空间输出”(World Space Output)</span>，输入和输出网格将不再共享同一变换。另外，nCloth 的输入网格将不会移动，并在输出网格变换时追随其输出网格。例如，如果将世界空间 nCloth 输出网格平移到 XYZ 空间中的新位置，然后播放其模拟，nCloth 将像返回其原始 XYZ 位置上与被动对象互相碰撞一样继续动作。 </p>
+
+</div>
+<div class="section" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-2ADE9D9118A20D4F81-115A"><h2 class="title sectiontitle">历史</h2>
+
+<p class="p" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-2ADE9D9118A20D4F81-1159">如果有关联到 nCloth 的输入网格的构建历史或动画，则设定 nCloth 对象的<span class="ph uicontrol" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__GUID-1B509431-CF12-409E-AABF-803E927F206F">“输入网格吸引”(Input Mesh Attract)</span>属性时，该信息可以影响模拟。 </p>
+
+</div>
+<div class="section" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-2ADE9D9118A20D4F81-1158"><h2 class="title sectiontitle">nClothShape</h2>
+
+<p class="p" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF6026605B1181C8F4F2E-1F9C">该节点承载所有的 nCloth 模拟属性，管理 nCloth 网格并与 nCache 的对象相互作用。 </p>
+
+</div>
+<div class="section" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-2ADE9D9118A20D4F81-1153"><h2 class="title sectiontitle">nParticleShape</h2>
+
+<p class="p" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-2ADE9D9118A20D4F81-1152">该节点承载所有的 nParticle 对象属性，这些属性定义了 nParticle 系统中每个粒子的外观、大小和总体行为。 </p>
+
+</div>
+<div class="section" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-2ADE9D9118A20D4F81-1151"><h2 class="title sectiontitle">发射器</h2>
+
+<p class="p" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-2ADE9D9118A20D4F81-1150">这是 nParticle 发射器节点，它承载所有的粒子发射属性，如粒子发射速率和发射器类型。该节点还承载发射器对象的变换属性（平移、旋转、缩放）。nParticle 所用的发射器节点与 Maya 经典粒子所用的发射器节点为同一节点。 </p>
+
+</div>
+<div class="section" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__SECTION_372368D8CB1646E199A70192767F9BF7"><h2 class="title sectiontitle">hairSystemShape</h2>
+
+<p class="p" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__GUID-888F8F9C-FF83-4FDB-990F-4A9C428D1303">当启用<span class="ph uicontrol" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__GUID-B5C6A4C8-5739-45EE-8BE3-6BEAE8159E78">“使用 Nucleus 解算器”(Use Nucleus Solver)</span>属性时，该节点将承载所有 nHair 模拟<span class="ph uicontrol" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__GUID-B9BE05B2-CE93-4B92-8578-0E99D0BE8545">“碰撞”(Collision)</span>和<span class="ph uicontrol" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__GUID-099445A7-E117-4E06-A228-349113684587">“动力学特性”(Dynamic Properties)</span>属性，这些属性可管理头发对象与其他 Nucleus 对象的交互，并允许使用 nCaching 保存对象。 </p>
+
+</div>
+<div class="section" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-2ADE9D9118A20D4F81-114F"><h2 class="title sectiontitle">Nucleus</h2>
+
+<p class="p" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-2ADE9D9118A20D4F81-114E">这是解算器节点，它承载所有影响解算器系统的属性（包括内部力）。 </p>
+
+</div>
+<div class="section" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-2ADE9D9118A20D4F81-114D"><h2 class="title sectiontitle">nRigidShape</h2>
+
+<p class="p" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-2ADE9D9118A20D4F81-114C">这是被动对象特性节点，它承载所有的被动对象属性。 </p>
+
+</div>
+<div class="section" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-2ADE9D9118A20D4F81-114B"><h2 class="title sectiontitle">dynamicConstraintShape</h2>
+
+<p class="p" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-2ADE9D9118A20D4F81-114A">这是 nConstraint 特性节点，它承载所有 nCloth、nParticle 和 nHair 约束属性。 </p>
+
+</div>
+<div class="section" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-2ADE9D9118A20D4F81-1149"><h2 class="title sectiontitle">nComponent</h2>
+
+<p class="p" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-2ADE9D9118A20D4F81-1148">这是 nConstraint 组件特性节点，它承载所有特定于对象的 nCloth、nParticle 和 nHair 约束特性，如<span class="ph uicontrol" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__GUID-E4FF44EB-5908-42F7-9A21-4DB26828974A">“权重”(Weight)</span>。节点还将识别哪些对象组件（顶点、边或面）会参与约束。 </p>
+
+<div class="fig fignone" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF6026605B1181C8F4F2E-1F93"><img class="image" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__IMAGE_FB19BAE1AFE24EABA08596F023661DB4" width="559" height="230" src="../images/GUID-E2E24831-51D6-40D9-92AE-ADBF2AFADBEF.png"></div>
+
+<div class="fig fignone" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF-6507591011913E8F4B8-62D0"><img class="image" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__IMAGE_5D22021C41FC47C28DAC20C837AEDA0E" width="578" height="295" src="../images/GUID-C2F81790-FC8E-4A24-B195-3DB0FFE77C65.png"></div>
+
+<div class="fig fignone" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS1A9193826455F5FF6026605B1181C8F4F2E-1F91"><img class="image" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__IMAGE_83D76C9A70CE43F19125A0256AD144E7" width="486" height="81" src="../images/GUID-56A867E6-BD7C-45E5-9DBD-54CD26948247.png"></div>
+
+</div>
+<div class="section" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS73099CC142F48755-42A8108711A530FF1D3-532F"><h2 class="title sectiontitle">相关主题</h2>
+
+<ul class="ul" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS73099CC142F48755-42A8108711A530FF1D3-532E"><li class="li" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS73099CC142F48755-42A8108711A530FF1D3-532D">
+<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-6FB65F16-528E-40F5-89D6-508CF654C547">nCloth 概述和概念</a>
+</li>
+<li class="li" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__WS73099CC142F48755-42A8108711A530FF1D3-532C">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-605198E6-CC3F-427D-B510-DE21870A1DE4.htm">nParticle 概述和概念</a>
+</li>
+<li class="li" id="GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7__LI_BCFDB5A5A80445FB82774B2C03628172">
+<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-70A85F9C-9FC0-49FD-A535-76D379D2C9BC">nHair 概述和概念</a>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC.htm">Maya Nucleus 解算器特性</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-BABBD1CE-C82C-4EDB-BBF6-4C0EBC854DAA.htm">nDynamic 碰撞</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-FAD8F763-5E3D-4872-8773-CE095E3BDFD6.htm">约束 Nucleus 对象</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-3E613D29-862F-42D3-9DBC-C690DE0E58DF.htm">nDynamic 力场</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-03923C56-9612-4C27-834E-2F417FC07323.htm">Nucleus 对象和外部动态力</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-923F09A5-52AA-42A7-AC70-827204E50B61.htm" title="nDynamics 是由 Maya Nucleus 技术提供支持的动态模拟框架。Maya Nucleus 系统由一系列 Nucleus 对象组成，其中包括 nCloth、nParticle、nHair、柔体和被动碰撞对象以及动态约束和 Maya Nucleus 解算器。">nDynamics 模拟框架</a></div>
+</div>
+</div>
+
+</body>
+</html>

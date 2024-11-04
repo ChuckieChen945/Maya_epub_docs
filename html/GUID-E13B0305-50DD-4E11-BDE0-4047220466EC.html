@@ -1,0 +1,159 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="20/08/2022">
+<meta name="topicid" content="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC">
+<meta name="language" content="CHS">
+<title>在 ShaderFX 网络中使用“For 循环”(For Loop)</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>在 ShaderFX 网络中使用“For 循环”(For Loop)</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__SECTION_358540D1274D458EBD1761EB81E96979"><h2 class="title sectiontitle">使用<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-4424B0F4-B37E-4F18-996F-AA4A567034D4">“自定义代码”(Custom Code)</span>节点</h2> 
+		 
+		<p class="p" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-675E5F51-261F-4CE1-A794-52CA68F4D783"> 可以使用不同的方式创建<em class="ph i" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-B8AF5F25-D655-462A-AE15-19DF37FB729B">“For 循环”(For Loop)</em>。可以创建<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-87A9BB32-88C9-4DD3-AD8A-9D248B395565">“自定义代码”(Custom Code)</span>节点。从 ShaderFX 菜单栏中选择<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-F45F8BEF-91A6-4C2F-A7AF-324892104DD5">“设置 &gt; 切换高级模式”(Settings &gt; Toggle Advanced Mode)</span>以进入高级模式，然后选择<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-51748E3E-BE27-46CE-B381-23DAF398DDE7">“硬件着色器节点 &gt; 各种 &gt; 自定义代码”(Hw Shader Nodes &gt; Various &gt; Custom Code)</span>。按<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-DB7B3662-A381-4D22-AC1A-93FEAFA0427E">“属性编辑器”(Attribute Editor)</span>中的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-47EB3EA3-C4AA-40E0-9716-A2A403D57150">“编辑”(Edit)</span>，在显示的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-6EBA192F-315B-46BC-90F6-527AD211C63C">“自定义代码”(Custom Code)</span>编辑器中输入您的代码。如果打算使用两种模式，请使用在 DirectX 和 OpenGL 中运行的函数。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__SECTION_4E4CF3703C5E44CEB2A4FB24F92F52B5"><h2 class="title sectiontitle">使用<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-F46B21F6-AADC-4F57-97D9-931E00C140D1">“For 循环”(For Loop)</span>节点</h2> 
+		 
+		<p class="p" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-464627F4-77CD-4C70-963D-374FB88618E0">要创建<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-AD8C32C8-1D31-4D49-B38D-EF9022FE15DA">“For 循环”(For Loop)</span>节点，您还必须使用高级模式。
+		</p>
+ 
+		<p class="p" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-70825D8E-4380-4CB8-853F-56DF7727875F">以下示例说明如何使用<em class="ph i" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-D070A6DF-4FE0-40A8-B3D7-F516129CC019">“For 循环”(For Loop)</em>通过不同的 UV 偏移采样纹理三次。将采样值相加，然后除以三，所得平均值应用到 <span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-581217A0-CE37-439A-AD02-A23C975B9BBA">TraditionalGameSurfaceShader</span> 的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-92BBDBBE-7D1B-4A3A-97AF-1BC6A0A8AD56">“漫反射”(Diffuse Color)</span>通道。
+		</p>
+ 
+		<p class="li listintro" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-07DA2F48-37DC-46D3-8583-59B2C814FA63">设置 for 循环</p>
+<ol class="ol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__OL_E02F8C075D0043C2B7BB4FCEFF701696"><li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_A63D4D2BCBAB4593A94323CC61F18846">选择<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-2B8697D5-CE2C-48DE-AAF2-D248687B13DF">“硬件着色器节点 &gt; 流控制 &gt; For 循环”(Hw Shader Nodes &gt; Flow Control &gt; For Loop)</span>以创建<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-34675561-94CB-4D2A-9473-A1D8CD69DDD6">“For 循环”(For Loop)</span>节点。
+			 <div class="note tip" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-807AF718-E33F-499A-96E8-F7A61D0F789C"><span class="tiptitle">提示：</span> 方形端口表示其可以接受多个输入。
+			 </div>
+ 
+		  </li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_FE79EBCD7F0E4C13A70511308563D752">选择<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-22501472-41A4-45C2-A504-B17E511FF339">“硬件着色器节点 &gt; 值 &gt; 整数”(Hw Shader Nodes &gt; Values &gt; Int)</span>创建一个整数节点。在<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-842ACAEE-39A0-4580-8EA0-B7A0A9081C08">“属性编辑器”(Attribute Editor)</span>中将其值设置为 3，并将其连接到<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-D7B32F18-62C1-445D-9205-B82D790CC4F7">“For 循环”(For Loop)</span>节点的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-8F051ED4-2054-4E39-B20A-2B71851BE83E">“B”</span>属性。
+			 <ul class="ul" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__UL_63CC9BAD7435436FA21DA7A935B46272"><li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_A241F28C750E406DA073C2349DFE6974"><span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-2A987A20-FC1B-4ADF-B743-AB2811C87201">“A”</span>属性表示循环的开始。
+				</li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_F350F4C25C3A4099B65278375B1331F8"><span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-889FC2E4-51CC-42EE-8C79-4053031B0502">“B”</span>属性表示循环的结束。
+				</li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_A8C659900ED749C2A9C63A9BA6CC3800"><span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-5A88E00C-B17E-431A-B376-68E9738C6260">“C”</span>属性表示循环的间隔。
+				</li>
+<p class="p" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-78B59E39-636F-481C-AC99-10E1DC7BCBE4">默认情况下，<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-82828B2E-A54F-49EC-A234-87392EF60D0C">“A”</span>的值为 0，<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-C29872CF-B618-4684-A610-28847F559CC6">“C”</span>的值为 1。如果为循环使用这些默认值，则无需连接这些属性。
+			 </p>
+<p class="p" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-571F5768-FB58-4B9B-82CA-4A161A874094">在此示例中，我们设置 <samp class="ph codeph" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-239CD20A-ED5D-4369-86A0-1BC450A50313">for i = 0, I&lt;3, i++</samp>；因此，不需要明确设置<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-C399F710-1BF6-4AB6-A513-3C3D2613706B">“A”</span>和<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-AEE577D8-60BE-4558-BE7D-0F937FAAF594">“C”</span>的值。
+			 </p>
+</ul>
+ 
+		  </li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_D164D7F3613848A299646B4C846B21E6">选择<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-CC29D944-BA30-41C7-A143-FA07EEC4DEDE">“硬件着色器节点 &gt; 各种 &gt; 字符串”(Hw Shader Nodes &gt; Various &gt; String)</span>来创建一个迭代器。在其<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-8F787931-82FF-45A0-84BC-4D1B6EA05BDA">“属性编辑器”(Attribute Editor)</span>中，从<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-E1C9BD68-0254-4DFF-8FA2-7EF86146AE06">“默认选项”(Default options)</span>下拉列表中选择<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-D7140E1D-3A1B-4E4A-AE96-30B34D4A4D89">“i”</span>，并将其连接到<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-76A2B8B6-7B38-4D3D-8686-97A040127390">“For 循环”(For Loop)</span>节点的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-98D343EB-0F46-4117-B12E-FAB7D5E99812">“迭代器”(Iterator)</span>属性。
+		  </li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_B6836BDC5F1942C29E880CCCD814557F">选择<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-16B2EA12-AC73-424D-A281-594CD5C72C92">“硬件着色器节点 &gt; 值 &gt; 浮点 3”(Hw Shader Nodes &gt; Values &gt; Float 3)</span>创建一个变量，用于存储循环中计算的值。
+			 <div class="note tip" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-69DF7BA7-7CF8-4BE1-8E48-97EF40140CA4"><span class="tiptitle">提示：</span> 使用<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-4F7035B3-11C0-479D-88DB-B11C2955CF7A">“浮点 3”(Float3)</span>或<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-1649879D-D92A-4504-8699-9EEAD2625054">“浮点 4”(Float4)</span>存储这些值。请勿使用<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-F1DA6EC0-10E2-4760-9BF2-F2161B8CD044">“颜色”(Color)</span>。
+			 </div>
+ 
+		  </li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_AF2500E10B6B423185018FA6AC834E3D">在<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-D425AA03-5B13-43E2-B212-F36DD1B106A4">“浮点 3”(Float3)</span><span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-C8432909-8495-48D6-B609-CB8A1978B424">“属性编辑器”(Attribute Editor)</span>中，将该节点重命名为<em class="ph i" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-642EA762-B074-4388-94C7-17ADB635CC4C">“循环结果”(Loop Result)</em>并将值初始化为 1。
+		  </li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_97450C3C406C49CCB6E3AA3AB17BFFCA">将<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-A934058A-E81F-4CD1-AACD-D3C6B294716A">“浮点 3”(float3)</span>属性连接到<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-E85EF4B2-5B6B-4DFE-942A-C00E916C722F">“For 循环”(For Loop)</span>节点的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-826FEF60-ADF1-429B-B8DD-E1C6C5E211B3">“变量”(Variables)</span>属性。由于这是一个简单的循环，仅使用一个变量，因此也会将<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-FBB6F0AE-C617-46CE-A75C-9950F0D8A7EB">“浮点 3”(float3)</span>连接到<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-7215A5CB-4607-4DA3-9EA0-483AA2A252E0">“For 循环”(For Loop)</span>的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-DABAF467-5B50-45C8-9CD5-84C26A86D8E1">“输出”(Output)</span>属性。
+			 <div class="fig fignone" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__FIG_D245DCC1766B4120A11F9493A89B11EE"><img class="image" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__IMAGE_2E5DBFAE6F13495983C26B67BE937962" src="../images/GUID-CFE4E712-E414-413D-87A9-4CB4FEF00192.png"></div>
+ 
+		  </li>
+</ol>
+ 
+		<p class="li listintro" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-422B8B35-82B2-4A79-BB97-938A14DA3FB0">设置纹理采样</p>
+<ol class="ol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__OL_0E6D5445C81040B9B48974211984ECFC"><li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_E31B21FC1DE24DDC990BD421E3029614">选择<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-4059A48D-2341-49BB-AC2E-7486CAF60E40">“硬件着色器节点 &gt; 纹理 &gt; 纹理贴图”(Hw Shader Nodes &gt; Textures &gt; Texture Map)</span>创建<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-CE3792CF-2714-4A5D-A379-8E814E855507">“纹理贴图”(Texture Map)</span>节点。将纹理连接到<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-7531E92A-B511-423F-BB00-645100CCD818">“属性编辑器”(Attribute Editor)</span>中的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-2ED153A1-ED7A-42B2-9A13-D06F3674BCC7">“MyTexture/Path”</span>属性。
+		  </li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_E4C1A9FEBDF6422C85EFE164B8899674">选择<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-1BB44E60-5B3C-49CC-B54B-F19B31461599">“硬件着色器 &gt; 值 &gt; 数组”(Hw Shader Nodes &gt; Values &gt; Array)</span>以创建<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-79102371-40E3-4A49-89B7-A8E5AEB9D823">“数组”(Array)</span>节点。在数组中存储了三组偏移值。
+		  </li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_2F33B65F30774CA9B887EE2F04BFBF6D">选择<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-7F9E2997-1438-414A-AF20-C2C5B7F151AB">“硬件着色器节点 &gt; 值 &gt; 浮点 2”(Hw Shader Nodes &gt; Values &gt; Float 2)</span>三次，以为三组偏移值创建三个<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-1B11D18D-6678-4634-A3DA-B1C42C3C41B8">“浮点 2”(Float 2)</span>节点。对于每个<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-15AC666E-2262-4EDF-9B57-2523FE2D478F">“浮点 2”(Float 2)</span>节点，在<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-A9C84E46-B3C9-4496-9750-745157B576F9">“属性编辑器”(Attribute Editor)</span>中设置其属性，如下：
+			 <ul class="ul" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__UL_3CDA85DB89574BBE999FF6B238DDEAF0"><li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_082504A5C0714684AC09E01491B92DAF"><span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-36F23830-32FA-44BF-BCAF-CBE67B025745">“名称”(Name)</span>：Offset1，<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-C0E18A68-BD43-44BF-935E-18891FFFFB9C">“X”</span>：0.1，<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-FA5BFD34-7FF4-4356-ABC0-5BBD75F890F7">“Y”</span>：0.3 
+				</li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_DB6D23EF31B14D199B80F3F1D5F0D4B0"><span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-E0A1D48B-564F-4DCA-862E-49250F6D8149">“名称”(Name)</span>：Offset2，<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-77CD5C56-D904-44ED-97AA-CD0050C2BE2F">“X”</span>：0.2，<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-0E31760B-442B-417B-8A58-26738721E031">“Y”</span>：-0.4 
+				</li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_DDAFC993359A4E34895B9F443BA95284"><span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-623231D0-2EDC-4FAA-BA28-DA334D8DB95F">“名称”(Name)</span>：Offset3，<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-0C05F347-2AE0-432A-83B4-813F8D4EA65C">“X”</span>：0.3，<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-531AC400-E396-447B-B7A6-2F7509565766">“Y”</span>：0.2 
+				</li>
+</ul>
+ 
+		  </li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_391B08AB9E5049C3BCA40FE35084DB47">将所有三个<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-6618BA64-24F9-4348-9E1D-433B54B08346">“浮点 2”(Float 2)</span>节点连接到<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-2C2E0281-C6D1-49F7-987C-11F852B21E27">“数组”(Array)</span>节点的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-97BD2763-BD5E-4C57-9C15-8F4C79FB7F20">“值”(Values)</span>属性。
+		  </li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_4A342DE1C60F40BC95BB3023D257BE7B">选择<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-5DA60D7A-5891-4098-B759-EF61AE8BC401">“纹理贴图”(Texture Map)</span>节点。在其<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-8655624B-DEC4-4C2F-A3D6-8F8E44F2F335">“属性编辑器”(Attribute Editor)</span>中，确保<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-5A96B8DE-9EE0-4945-B9EE-CEEEC9B15A00">“采样器/U 坐标”(Sampler / U Coordinate)</span>和<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-F93F7FC7-B208-4116-A7AC-22A25D0E3441">“采样/V 坐标”(Sampling / V Coordinate)</span>属性设置为<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-F8F927C5-A289-43F3-AE45-0E79161E2D1A">“包裹”(WRAP)</span>。
+			 <p class="p" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-D831246B-5AD5-485F-9EE3-90320F57B0DD">由于纹理通过偏移进行采样，因此采样可能会超出 0 到 1 的 UV 范围。将该属性设置为<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-8FAFECC4-35A2-4D96-A1CB-CC9374C7197D">“包裹”(WRAP)</span>可确保在 UV 范围超过 1.0 时像素从纹理开头开始采样。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_CA97B43588A94E819F2C3C0C40113F33">选择<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-1237A98A-3268-4055-ADD6-2DD729A67B65">“硬件着色器节点 &gt; 输入公用 &gt; UV 集”(Hw Shader Nodes &gt; Inputs Common &gt; UV Set)</span>和<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-B9399F34-DC71-421D-B5D4-83504006F85D">“硬件着色器节点 &gt; 数学 &gt; 相加”(Hw Shader Nodes &gt; Math &gt; Add)</span>，以分别创建<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-072C9B5E-1AE0-4EB9-ACA6-65C5E3209A9A">“UV 集”(UV Set)</span>节点和<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-602F9AA2-87B2-4185-B9CA-DBD93F21897E">“相加”(Add)</span>节点。
+		  </li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_1EE55697894146E09F63AD07A62988D1">连接节点，如下所示：
+			 <ul class="ul" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__UL_214C2AAF7CE94A29A5320A42EF6C01B5"><li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_4FEEBD2FF5AA47609676EF437D0B8E2F">将<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-DCC1C306-12E2-4894-BCC6-E2873DB69110">“数组”(Array)</span>的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-DA879AF0-1C5B-4E44-BAD1-A13057205C13">“值”(Value)</span>属性连接到<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-B6387925-C636-4343-B891-782AD102AC7B">“相加”(Add)</span>的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-78145785-D349-49E3-B817-EA09F2C98139">“值”(Value)</span>属性。
+				</li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_DD27A50F039B40FBA31CC82E2166FD04">将<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-22988168-666F-4DBB-90A0-55AC857BFCBB">“UV 集”(UV set)</span>节点的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-22103693-8EEF-425C-9628-EDB8C5FE3F79">“UV”</span>属性连接到<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-828890EF-B6DA-4ECD-8B19-9466146DC8E5">“相加”(Add)</span>的其他<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-55E1A9AE-23D9-4CEF-9F25-B4DB3BB4BBA3">“值”(Value)</span>属性。
+				</li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_732EF89DFBD44D92826A1C1B9DAB1DD5">将<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-8BD02C1E-78D0-4122-9022-943AD144DB18">“相加”(Add)</span>的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-8BA513A9-FB65-4817-B24A-684A925F318D">“结果”(Result)</span>属性连接到<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-E801EE1B-15DE-41BB-BCE4-7FBBE2EFF84A">“纹理贴图”(Texture Map)</span>的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-1CF151EA-3149-47FC-8810-1CFDAD1B2434">“UV”</span>属性。
+				</li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_29643382681E4B5FABF8F2BA1004D131">将迭代器（<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-B3CD0385-25DC-4E25-AEBE-13C8220B7A78">“字符串”(String)</span>节点）的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-810E6E7D-C039-4158-A519-C6346342ABB9">“输出”(Output)</span>属性连接到<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-7CE947D6-82F2-44B3-8B36-850E3E0A0912">“数组”(Array)</span>的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-F9313BBA-B147-4F7E-96A5-E6E0DFBF8755">“索引”(Index)</span>属性。这样，<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-2C81702F-8268-4165-A4EF-0FAB7269515F">“For 循环”(For Loop)</span>可获取偏移值。
+				</li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_200DF4895FE4417FA0C606D7153221EB">将<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-53568CE5-83A8-4BF1-AD74-CEAB655E22CB">“纹理贴图”(Texture Map)</span>的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-B235A305-67A7-4FE4-9AA9-F63213FCD1FC">“颜色”(Color)</span>属性连接到<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-E00816C4-D16C-40ED-857F-CDF7C0BD0635">“For 循环”(For Loop)</span>的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-5E39B096-2D73-44FE-A260-DF47B97248C3">“计算”(Calculations)</span>属性。这样可在 for 循环中设置计算，该循环要对纹理贴图采样三次。
+				  <div class="fig fignone" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__FIG_1BAFBEDEF3A04306A4F429D8C7574A59"><img class="image" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__IMAGE_D53B8D84F0904598BBA7D38DE7218E7D" src="../images/GUID-0CD999A9-20FD-4BE0-A4E6-59A488685550.png"></div>
+ 
+				</li>
+</ul>
+ 
+		  </li>
+</ol>
+ 
+		<p class="li listintro" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-EBEDEEA5-B642-49DB-BF28-EB521F58A3BE">计算平均采样结果</p>
+<ol class="ol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__OL_27E37C91D1F748268048660413729DC8"><li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_D1438F9E3DAB44158F3CA872C66EF0EF">选择<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-FE2464EF-9011-41FB-B302-7AA60CB9013E">“硬件着色器节点 &gt; 各种 &gt; 字符串”(Hw Shader Nodes &gt; Various &gt; String)</span>创建<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-C52D3350-1D78-441E-835E-4BA6D34E4F9B">“字符串”(String)</span>节点，然后从<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-B0197F4F-500E-44F4-B618-0FC55AA01845">“默认选项”(Default options)</span>下拉列表中选择<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-5E47AA8E-D3D2-4E61-9726-06750AD1E808">“+=”</span>。
+		  </li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_15890347506F4E4089B6B5B937884420"> 将<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-74037C24-04EE-4AE4-B2CD-34549C5575C7">“字符串”(String)</span>的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-F67D4F38-A667-477B-9561-E5CD3F11EB02">“输出”(Output)</span>值连接到<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-DDA7062A-7846-4550-B4F3-34525122B469">“For 循环”(For Loop)</span>节点的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-2E1869DA-7736-4C74-BA5D-C50FA818760F">“运算符”(Operators)</span>属性。<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-45FA1404-0710-48F2-BF2F-1B7EB13D71E0">“For 循环”(For Loop)</span>会将纹理采样的结果添加到<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-B2AA11FD-9FB4-4AD3-9697-288ADE255F6C">“循环结果”(Loop Result)</span>变量中。
+		  </li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_12C9EBA1E8E1430BA7E4184A8F1B673D">选择<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-98864AF8-020F-44D8-B12D-071A2B71691C">“硬件着色器节点 &gt; 数学 &gt; 相除”(Hw Shader Nodes &gt; Math &gt; Divide)</span>创建<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-ABD664CE-7A5B-4108-8AF1-BAE5305647EC">“相除”(Divide)</span>节点。将<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-81821618-5A35-4275-BBB3-E304FB57AB5F">“For 循环”(For Loop)</span>的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-949CB44B-5C8D-4604-8CC3-526FD544AD7D">“输出”(Output)</span>属性连接到<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-2331A8C5-D5DC-465E-9277-8E314B05AD22">“相除”(Divide)</span>的第一个<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-9C7FF09B-E8EB-4288-945D-A404B27A69FD">“值”(Value)</span>属性。由于<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-94B65D21-A32A-44FA-94B2-8D019F5840FB">“循环结果”(Loop Result)</span>是三个采样值的总和，因此必须除以三才能获得其平均值。
+		  </li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_19BF2DD1933A4DC58FEB3B69F8729E76">选择<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-5C85B8BC-DE02-46F6-8141-E2F5E7B43AC7">“硬件着色器节点 &gt; 值 &gt; 浮点”(Hw Shader Nodes &gt; Values &gt; Float)</span>创建<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-40318E9A-669C-4A0A-B91A-EC2BA599DE2D">“浮点”(Float)</span>节点，并在<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-02E77DEB-BF64-48B0-ABB9-A1DD6B1C665B">“属性编辑器”(Attribute Editor)</span>中将其值设置为 3。将其<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-BC7A8377-BF28-4458-BBD4-EE1F8D8CD2EA">“浮点”(Float)</span>属性连接到<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-587DE68D-C45B-4F81-96A2-D403BE4E91A5">“相除”(Divide)</span>的其他<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-2801CE03-7211-4298-9F88-EB9E3805A0CB">“值”(Value)</span>属性，将采样结果的总和除以三。
+		  </li>
+<li class="li" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__LI_8F17B84A58E34CE6AA12B914A22CA910">将<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-37083A0D-E4E0-4444-99C6-3BB454B5A80C">“相除”(Divide)</span>的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-EDA0B70C-C3A4-4028-A05F-29ACBAF3566A">“结果”(Result)</span>属性连接到 <span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-B3D17EFB-BD13-4B60-814F-BA2B7D0D71E6">TraditionalGamesSurfaceShader</span> 的<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-BB107208-1D03-4235-BB22-5A58B7CB21ED">“漫反射颜色”(Diffuse Color)</span>属性。
+			 <div class="fig fignone" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__FIG_10D6B3B97C164F0BA06A30BCCCDA095E"><img class="image" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__IMAGE_7DE184C01FA14490A729D61A6D2C73BA" src="../images/GUID-C8507AC8-0C28-4B3A-ADC9-486947E9429D.png"></div>
+ 
+		  </li>
+</ol>
+ 
+		<div class="fig fignone" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__FIG_49B600F88B5D4418AFBDE4644A0DA08B"><img class="image" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__IMAGE_8D44340B55F545DC988BCFC15D472B8A" src="../images/GUID-3AFF48E7-B2D3-4E98-9F49-90C35DD24D54.png"></div>
+ 
+		<p class="p" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-A9CFCBC8-AB89-4C6F-BD99-E22F81F04476">可以将<span class="ph uicontrol" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-33F7B63E-05D5-4FE4-AF55-1DC738219A34">“ShaderFX”</span>材质导出到着色器文件并检查着色器代码，以查看刚创建的 <em class="ph i" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-E5F714F3-05A6-4D77-A7D6-E9EB8BECFD86">for 循环</em>：
+		</p>
+ 
+		<pre class="pre codeblock">float3 LoopResult = float3(1.0, 1.0, 1.0);	
+for(int i=0; i&lt;3; i+=1)	
+{		
+    float2 AddOp = (Array_bphdfiwhhj[i] + IN.map1.xy);		
+    float4 Sampler = numberTestTexture.Sample(MMMLWWWSampler, AddOp);		
+    LoopResult += Sampler.xyz;
+}</pre>
+ 
+		<p class="p" id="GUID-E13B0305-50DD-4E11-BDE0-4047220466EC__GUID-5DEEE35E-930F-4A3F-B1D2-EA77B6E42FAF">有关导出到着色器文件的更多信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-12C5BAA1-1709-4082-ACAD-03CBE827936B.htm">将 ShaderFX 材质导出到 HLSL、CgFX 和 GLSL</a>。
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-50D16E12-5E09-4DE9-A572-302C5C00FC03.htm">创建 ShaderFX 着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

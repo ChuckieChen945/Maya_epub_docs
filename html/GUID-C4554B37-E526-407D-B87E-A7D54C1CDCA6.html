@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Customizing">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6">
+<meta name="language" content="CHS">
+<title>DG 分析器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>DG 分析器</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-D557D8C6-6756-4E9E-8C78-C0DA6ECA24BF">分析是计算用于完成某些进程的时间和资源的过程。它对于查找降低工作效率的低效代码非常有用。<span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-77426BCA-4C7A-4706-A60B-87B4C0D11E36">“DG 分析器”(DG Profiler)</span>可通过 API 访问，它使用 MFnDependency 节点类。通过它可以识别哪些节点占用过多处理时间，然后减少不必要的调用，或通过其他方式提高进程效率。通过分析还可以在您于场景中工作时按特定指标过滤每个节点。<span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-CDD28E91-89CB-408D-8265-F210AA417C8F">“DG 分析器”(DG Profiler)</span>不会测量所复制的数据使用的内存或依存关系图 (DG) 计算的内存。 </p>
+<div class="p" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-CBD7B5BB-9BD5-4E59-917C-CA0508887491"><span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-0ED56BC6-B2FD-4552-BE16-2B282B8DFF88">“DG 分析器”(DG Profiler)</span>可生成 DG 中包括的所有节点的分析数据。该工具基于指定的迭代次数收集每个节点的各种时间度量标准。分析完成后，可将生成的数据导出到电子表格中，以便进行进一步分析。 <div class="fig fignone" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__FIG_AD50F5368BEC400F8D421AC2C6394439"><img class="image" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__IMAGE_C81A27518816477B9346AF313F175012" src="../images/GUID-479A68C4-0AB6-4ACC-8802-E8E91D1D2C72.png"></div>
+ </div>
+<p class="li listintro" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-EA7A0673-EC8B-440C-90E4-D1A8853509A5">若要打开 DG 分析器，请执行以下操作：</p>
+<ol class="ol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__OL_EE5CF5D88BEA48FB87AA39CEA235A7FE"><li class="li" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__LI_C03AA4C584724E5AAC74EB4A8042036D">在<span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-AA1FFA09-A9E6-4D9B-80E4-285AC374EE23">“窗口 &gt; 设置/首选项 &gt; 插件管理器”(Windows &gt; Settings/Preferences &gt; Plug-in Manager)</span>中启用 <samp class="ph codeph" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-B0DBD640-E296-457B-89DD-21268BF98FDA">dgProfiler.mll</samp> 插件。滚动到 <span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-20FC0FED-D55A-465C-A456-B27D57309630">dgProfiler.mll</span>，并确保其已加载。 </li>
+<li class="li" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__LI_0A19BA529CEB418981919BA91D9EEB21">选择<span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-59685DEC-E4EA-4BEB-8C20-0BF30AB48238">“窗口 &gt; 常规编辑器 &gt; DG 分析器”(Windows &gt; General Editors &gt; DG Profiler)</span>。 </li>
+</ol>
+<div class="section" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__SECTION_2BDB0958D5274E14B10BE57C9694913A"><h2 class="title sectiontitle">度量标准</h2>
+
+<div class="section" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-32757A71-D84C-4710-83FE-7BEF4D5F3668"><dl class="dl" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-32757A71-D84C-4710-83FE-7BEF4D5F3668"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-8A68012C-681B-4BCC-95FF-602091B2378E">节点名称(Node Name)</span>
+</dt>
+<dd class="dd" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-FDAEDE50-44CD-4777-8AF4-8D5F0B3717AF">节点的名称。</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-EB334DF3-2AAA-4EC7-BE0D-C8FB1A0AD87C">运行时的百分比(% of Runtime)</span>
+</dt>
+<dd class="dd" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-73B522ED-96C1-4776-A8A4-245270710A8F">以总时间的百分比表示节点的计算自时间的值。</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-2A097B57-6E01-4F16-B7DD-4F4B950A414F">节点类型(Node Type)</span>
+</dt>
+<dd class="dd" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-C1F51922-AE90-44FE-8C90-076EDCF921B6">节点的类型。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-21B83FF0-0435-4087-8C2E-23B420028B71">节点类型</a>。</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-8128ADF1-D174-4BBE-B4EB-422E6EEC7D6A">计算次数(Number of Computes)</span>
+</dt>
+<dd class="dd" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-74118CDA-AB4D-45FC-8341-A04C4D496FCF">执行节点计算的次数。</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-C8918868-936C-4A9D-9E5A-FC86864DFC70">计算自身(秒)(Compute Self (sec))</span>
+</dt>
+<dd class="dd" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-DA132FC6-A963-4608-953E-D2A688CEEC8C">计算节点自身所需的时间。</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-B34543C2-3031-4E96-B8B4-ECEABCF46854">计算包含(秒)(Compute Inclusive (sec))</span>
+</dt>
+<dd class="dd" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-F97FE406-8CD4-4428-9814-24C77BE57FA8">计算节点以及所有依存关系所需的时间。</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-7243F895-0395-4187-B9E3-73F11E468425">脏包含(秒)(Dirty Inclusive (sec))</span>
+</dt>
+<dd class="dd" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-F2C0CC83-C373-4279-B16E-198BFF3FFE7E">弄脏此节点的属性及其依存关系所需的时间。</dd>
+</dl>
+</div>
+
+</div>
+<div class="section" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__SECTION_05876CAE22544F568D63766E3CF80A5B"><h2 class="title sectiontitle">分析选项</h2>
+
+<div class="section" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-72D74EBA-CB66-4E8F-B39A-59043F929397"><dl class="dl" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-72D74EBA-CB66-4E8F-B39A-59043F929397"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-3A515F22-DF83-47AB-971F-7552743901ED">分析！(Profile!)</span>
+</dt>
+<dd class="dd" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-06159C15-379B-4DDD-AB5D-1E09FE27C5F4">启动分析过程。</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-35A9E012-34C0-4C7C-A3E1-AFA3AC12F10B">过滤器节点(Filter Nodes)</span>
+</dt>
+<dd class="dd" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-40BCAECE-C089-4F12-AE39-5DCF73B7D2A2">按节点类型过滤分析数据。在<span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-D2DF92E1-8C4F-49FD-A983-8FB67519A12F">“按节点类型过滤”(Filter by Node Type)</span>字段中输入节点类型后，选择<span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-2E21AEF9-18CE-4D9C-83E6-E0B269C00B08">“启用”(Enable)</span>可过滤数据。取消选择<span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-FAEFEEFA-901C-4EC5-ABF7-4B39BBF0DC6D">“启用”(Enable)</span>可关闭节点类型过滤。</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-A3F5CAF0-8D91-456F-8875-C1783FF6AC0D">对选定节点制图(Graph Selected Node)</span>
+</dt>
+<dd class="dd" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-EE9D7405-DB08-4E6A-B7CE-30210D2A7331">在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-5EC40DB1-FBD9-4553-A2FD-6D3508C9B868">“Hypergraph”</a>中显示选定节点的输入和输出连接。 </dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-A3A80334-1E3E-470E-97DF-48B41992E57F">保存分析数据(Save Profile Data)</span>
+</dt>
+<dd class="dd" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-1945E35E-2ECD-4BA6-BBA7-4B167D0EB1F8">可用于保存分析过程中的数据。数据将保存为逗号分隔值 (.csv) 文件类型。</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-72B4377F-F63E-45D6-965A-1FDD55990492">重置数据(Reset Data)</span>
+</dt>
+<dd class="dd" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-D3D3B0A3-0360-4D49-9BD7-875AEF4635F4">从<span class="ph uicontrol" id="GUID-C4554B37-E526-407D-B87E-A7D54C1CDCA6__GUID-EC9B8C24-4D3C-454A-A3CE-71A9E7951831">“DG 分析器”(DG Profiler)</span>中清除分析数据。</dd>
+</dl>
+</div>
+
+</div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-55B0F0CF-7B82-4A9B-A4D6-EAA665923222.htm">生成分析数据</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-66E4D9A3-2050-4CDF-B6A4-8C5645BFFBB8.htm">分析场景以提高性能</a></div>
+</div>
+</div>
+
+</body>
+</html>

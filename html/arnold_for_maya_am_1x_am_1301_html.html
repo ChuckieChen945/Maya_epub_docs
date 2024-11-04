@@ -1,0 +1,507 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_1x_am_1301_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_1301">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 1.3.0.1 - Arnold for Maya">
+
+<title>1.3.0.1</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>1.3.0.1</h1></div><h2 id="release-date">Release Date</h2><p>25 July 2016</p>
+<p>This version uses the Arnold <a href="https://help.autodesk.com/display/arnug/4.2.14.2">4.2.14.2</a> core.</p>
+<h2 id="downloads">DOWNLOADS</h2><ul>
+<li><a href="https://manage.autodesk.com/products/" target="_blank">https://manage.autodesk.com/products/</a></li>
+</ul>
+<h2 id="arnold-for-mayaarnold-for-maya-is-included-with-a-default-install-of-maya-2017-via-the-a-href-topicid-arnold_for_maya_getting_started_am_loading_the_plug_in_html-mtoa-mll-a-plug-in-this-plug-in-is-auto-loaded-and-a-href-topicid-arnold_for_maya_getting_started_am_arnold_html-arnold-a-is-set-as-the-preferred-renderer-in-maya-more-information-about-arnold-for-maya-can-be-found-in-the-a-href-http-www-autodesk-com-maya-help-2017-enu-contextid-afm-target-_blank-autodesk-maya-user-guide-a-in-maya-2017-arnold-rendering-no-longer-requires-a-license-when-executed-from-the-maya-interface-this-applies-for-the-arnold-renderview-maya-render-view-sequence-rendering-and-render-to-texture-only-batch-rendering-requires-an-arnold-license-to-be-rendered-without-watermarks">ARNOLD FOR MAYAArnold for Maya is included with a default install of Maya 2017 via the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_getting_started_am_Loading_the_Plug_in_html">mtoa.mll</a> plug-in. This plug-in is auto-loaded, and <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_getting_started_am_Arnold_html">Arnold</a> is set as the preferred renderer in Maya. More information about Arnold for Maya can be found in the <a href="http://www.autodesk.com/maya-help-2017-enu/?contextId=AfM" target="_blank">Autodesk Maya User Guide</a> .In Maya 2017, Arnold rendering no longer requires a license when executed from the Maya interface. This applies for the Arnold RenderView, Maya Render View, Sequence Rendering, and Render To Texture. Only Batch Rendering requires an Arnold license to be rendered without watermarks.</h2><p>A guide to transitioning to Arnold for Maya 2017 can be found <a href="https://help.autodesk.com/display/AFMUGTMP/Maya+2017">here.</a></p>
+<h2 id="maya-features-support">MAYA FEATURES SUPPORT</h2><p>Some existing Maya features weren't previously supported with Arnold. MtoA 1.3.0 now supports the following ones :</p>
+<ul>
+<li>Material Viewer in the Hypershade can now be rendered with Arnold (Maya 2017)<br> <img src="../images/am-1301-arnold-mtrl-view1-1.png" alt=""><img src="../images/am-1301-arnold-mtrl-view2-1--2.png" alt="">  </li>
+</ul>
+<ul>
+<li>Maya LookDevkit shaders are supported</li>
+<li>Maya Color Management is supported with MtoA (Maya 2017, see below)</li>
+<li>Extended support for Viewport 2.0 (Maya 2017, see below)</li>
+<li>Support for Maya UV-tile tokens</li>
+<li>Support more materials and textures (phong, anisotropic, ramp, mountain, water, crater, granite, leather, rock)</li>
+<li>Support for stereo / multicam renders</li>
+<li>Fixed support for import/export AOV overrides</li>
+<li>PolyTools used to crash MtoA</li>
+</ul>
+<h2 id="maya-2017-new-features">MAYA 2017 NEW FEATURES</h2><p>Maya 2017 comes with several new features related to rendering. MtoA 1.3.0 allows the following ones to be supported with Arnold :</p>
+<ul>
+<li>New Interactive sequence render mode (menu Render -&gt; Render Sequence)</li>
+<li>Light Editor</li>
+<li>Scene assembly render settings</li>
+<li>AOV callbacks</li>
+<li>Render Setup Node templates</li>
+</ul>
+<h2 id="viewport-2-0">VIEWPORT 2.0</h2><p>Previous versions of MtoA had poor support for Maya's Viewport 2.0 (VP2). Major improvements have been made with VP2 in MtoA 1.3.0 for Maya 2017, including :</p>
+<ul>
+<li><p>Arnold Lights drawing and illumination<br><img src="../images/am-1301-vp2-arnold-lighting-1-1--3.png" alt=""></p>
+</li>
+<li><p>Stand-in drawing and selection</p>
+</li>
+<li><p>Skydome / Sky shaders drawing and IBL illumination<br><img src="../images/am-1301-arnold-vp1-vp2-skydome-4.png" alt=""></p>
+</li>
+<li><p>Light blocker display</p>
+</li>
+<li><p>Support for OSD in VP2 shaders</p>
+</li>
+<li><p>Volumes</p>
+</li>
+<li><p>Hair rendering in VP2 now better matches the aiHair render in Arnold</p>
+</li>
+</ul>
+<h2 id="color-management-auto-txmaya-39-s-color-management-aka-syncolor-is-now-fully-supported-with-arnold-the-display-view-transform-defined-in-maya-preferences-windows-settings-preferences-preferences-is-now-applied-to-all-display-devices-arnold-renderview-maya-render-viewer-material-viewer-vp2-for-input-textures-the-color-management-rules-are-applied-when-converting-the-textures-to-mipmaps-tx-files-the-quot-color-space-quot-attribute-was-also-added-to-arnold-image-nodes-and-is-taken-into-account-during-the-tx-conversion-a-new-attribute-quot-auto-tx-quot-in-the-arnold-render-settings-is-enabled-by-default-it-automatically-converts-all-the-files-to-tx-mipmaps-when-necessary-this-way-the-default-behavior-is-now-that-color-management-is-correct-for-both-input-textures-and-display-a-progress-bar-will-appear-on-the-first-render-or-when-a-texture-is-modified-to-show-how-many-images-are-being-converted-to-mipmaps-by-disabling-quot-auto-tx-quot-the-textures-will-have-to-be-converted-manually-the-tx-manager-arnold-utilities-tx-manager-now-shows-the-color-space-for-each-texture-and-converts-each-of-them-to-the-appropriate-one-deprecated-quot-gamma-correction-quot-attributes-from-the-arnold-render-settings-display-gamma-shader-gamma-texture-gamma-light-gamma-were-removed-the-parameter-texture_automip-similar-to-the-new-auto-tx-but-performed-in-ram-at-every-render-has-been-removed-too-arnold-renderview-arv">COLOR MANAGEMENT / AUTO-TXMaya's Color Management (aka SynColor) is now fully supported with Arnold. The Display View Transform defined in Maya Preferences (Windows-&gt;Settings / Preferences-&gt; Preferences) is now applied to all display devices (Arnold RenderView, Maya Render Viewer, Material Viewer, VP2). For input textures, the Color management rules are applied when converting the textures to mipmaps (.TX files). The "Color Space" attribute was also added to Arnold Image nodes, and is taken into account during the TX conversion. A new attribute "auto-tx" in the Arnold Render Settings is enabled by default. It automatically converts all the files to .tx mipmaps when necessary. This way the default behavior is now that Color Management is correct for both input textures and display. A progress bar will appear on the first render (or when a texture is modified) to show how many images are being converted to mipmaps. By disabling "auto-tx", the textures will have to be converted manually : The TX Manager (Arnold-&gt;Utilities-&gt;TX Manager) now shows the color space for each texture, and converts each of them to the appropriate one. Deprecated "Gamma Correction" attributes from the Arnold Render Settings (Display Gamma, Shader Gamma, Texture Gamma, Light Gamma) were removed. The parameter texture_automip (similar to the new auto-tx but performed in RAM at every render) has been removed too.## ARNOLD RENDERVIEW (ARV)</h2><ul>
+<li>Maya Color Management is now fully supported in Arnold RenderView for Maya 2017. The View Transform appearing in ARV Display Settings now obeys the Maya preferences (including Syncolor native view transforms which are used by default). It is however still possible to override the view transform in ARV only, as with other Maya viewers.</li>
+<li>Pixel Aspect Ratio is now supported, and shows an undistorted image.</li>
+<li>A new option "File-&gt; Save Rendered Images" was added to Arnold RenderView. When enabled, the output images (including AOVs) are automatically dumped to file at every final step of a progressive render. These images are saved in the appropriate folders, as defined in the Render Settings.</li>
+<li>Added support for Foreground images in ARV Display Settings</li>
+<li>Fixed display freezing issues that happened randomly</li>
+<li>Save UI Threads : we no longer restore full threads for last AA step as it was still introducing slowdowns in Maya UI</li>
+<li>MEL callbacks defined in the Render Settings are now supported</li>
+<li>In Debug Shading, the "barycentric" and "object" modes were inverted</li>
+<li>Fixed crashes in OSX when renaming a snapshot</li>
+<li>Changing the render resolution is now updated in the viewer</li>
+<li>Some OpenGL issues between Maya Viewport and ARV have been fixed.</li>
+<li>Fixed crashes happening in Linux when both Arnold and Maya Render View were used.</li>
+</ul>
+<h3 id="xgen">XGEN</h3><ul>
+<li>XGen "Export Selection as Archive" could fail or crash in some configurations (depending on the OS or the scene). This was fixed in MtoA 1.3.0.</li>
+<li>Interactive Groom Splines now render on Mac.</li>
+<li>The error message "could not find xgen_procedural" during load has been removed.</li>
+</ul>
+<h3 id="bugfixes">BUGFIXES</h3><ul>
+<li>Fixed IPR crashes when exiting "look through selected"</li>
+<li>Changing the translator is now updated during IPR sessions.</li>
+<li>Fixed Bifrost Aero support (was broken in Arnold since Maya 2016 Extension 2)</li>
+<li>Environment nodes used to be deleted when using "Delete Unused"</li>
+<li>Particle instancer didn't create instances when deform blur was disabled</li>
+<li>Standin export didn't work properly the first time with clean Maya preferences</li>
+<li>Batch render could not be stopped on linux</li>
+<li>Shadow Catcher AOVs are now behaving properly</li>
+<li>Arnold Render Settings could appear blank in some situations</li>
+<li>Merging AOVs could corrupt the output images</li>
+</ul>
+<h3 id="mtoa-new-features">MTOA NEW FEATURES</h3><ul>
+<li>Render To Texture now supports procedural geometries</li>
+<li>Mental Ray to Arnold script is included for basic shader conversions</li>
+<li>New Outliner icons for Arnold nodes</li>
+<li>Tx Manager now supports all tokens in image filenames, relative paths, and texture color spaces.</li>
+<li>New function in MtoA NodeTranslators API to determine which attributes must trigger a re-render or not.</li>
+</ul>
+<h2 id="mtoa-installation">MTOA INSTALLATION</h2><p>Maya 2017 comes with MtoA 1.3.0, which is installed automatically with Maya (by default), but it is still possible to manually install newer versions of MtoA. For these manual installations, a forced silent install option has been added for Windows and Linux. On linux, issues used to appear when MtoA was installed by a "super-user" with administrator rights, which have now been solved.</p>
+<h2 id="fixes">Fixes</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>#1918</td>
+<td>XGen &gt; Export Selection as Archive doesn't work on Mac OS X or CentOS 7</td>
+</tr>
+<tr>
+<td>#1939</td>
+<td>Cannot export XGen archives on Windows 8</td>
+</tr>
+<tr>
+<td>#2075</td>
+<td>IPR crashes when exiting "look through selected"</td>
+</tr>
+<tr>
+<td>#2172</td>
+<td>Improve drawing of lights UI for VP2</td>
+</tr>
+<tr>
+<td>#2173</td>
+<td>Use Subcene override to draw standins in VP2</td>
+</tr>
+<tr>
+<td>#2308</td>
+<td>Add support for sky shader environment display in VP2</td>
+</tr>
+<tr>
+<td>#2326</td>
+<td>Linux installer needs a silent installation option</td>
+</tr>
+<tr>
+<td>#2331</td>
+<td>Windows installer option for forced silent install</td>
+</tr>
+<tr>
+<td>#2354</td>
+<td>Hide gamma attributes from MtoA</td>
+</tr>
+<tr>
+<td>#2440</td>
+<td>[MAYA-71151] On Linux, MtoA isn't found if Maya was installed from super user: docs/usability issue</td>
+</tr>
+<tr>
+<td>#2442</td>
+<td>Use VP2 IBL lighting for skydome/sky shader</td>
+</tr>
+<tr>
+<td>#2443</td>
+<td>[MAYA-71334] XGen interactive groom splines doesn't render on Mac</td>
+</tr>
+<tr>
+<td>#2444</td>
+<td>[MAYA-71350] Arnold in Maya's Render View fails in Chinese/Japanese language mode</td>
+</tr>
+<tr>
+<td>#2445</td>
+<td>Update EULA for MtoA</td>
+</tr>
+<tr>
+<td>#2449</td>
+<td>Fix support for Importing/Exporting Arnold AOV Overrides</td>
+</tr>
+<tr>
+<td>#2461</td>
+<td>[MAYA-71647] Linux Maya crash when using Maya Render View and then Arnold Render View</td>
+</tr>
+<tr>
+<td>#2463</td>
+<td>Remove Houdini Experimental Menu</td>
+</tr>
+<tr>
+<td>#671</td>
+<td>Environment node gets removed on "Delete Unused Nodes"</td>
+</tr>
+<tr>
+<td>#1876</td>
+<td>"Use existing .tx files" is not working with relative paths</td>
+</tr>
+<tr>
+<td>#1998</td>
+<td>Loading PolyTools and MtoA crashes Maya</td>
+</tr>
+<tr>
+<td>#2296</td>
+<td>Arnold Merge AOV's corrupting Render Settings</td>
+</tr>
+<tr>
+<td>#2302</td>
+<td>Support Maya UV-tile tokens</td>
+</tr>
+<tr>
+<td>#2307</td>
+<td>Add support for light blocker display in VP2</td>
+</tr>
+<tr>
+<td>#2340</td>
+<td>Update Gamma/Exposure from Maya impacts the RenderView display</td>
+</tr>
+<tr>
+<td>#2342</td>
+<td>Update About Box for MtoA</td>
+</tr>
+<tr>
+<td>#2374</td>
+<td>Bifrost aero broken in Maya 2016 Extension 2</td>
+</tr>
+<tr>
+<td>#2382</td>
+<td>Arnold Shading Node Problems</td>
+</tr>
+<tr>
+<td>#2383</td>
+<td>Update arnold VP2 shaders to support OSD</td>
+</tr>
+<tr>
+<td>#2386</td>
+<td>Particle instancer doesn't create instances when deform blur is disabled</td>
+</tr>
+<tr>
+<td>#2390</td>
+<td>Cannot assign new shader to object after you delete assigned shader</td>
+</tr>
+<tr>
+<td>#2395</td>
+<td>Render Selection to Texture renders with watermark</td>
+</tr>
+<tr>
+<td>#2396</td>
+<td>Arnold Stand-In export doesn't default to *.ass file</td>
+</tr>
+<tr>
+<td>#2409</td>
+<td>Include mr to arnold conversion script in MtoA release</td>
+</tr>
+<tr>
+<td>#2456</td>
+<td>Add new outliner icons</td>
+</tr>
+<tr>
+<td>#2457</td>
+<td>Add Render Setup Node Templates to MtoA</td>
+</tr>
+<tr>
+<td>#2458</td>
+<td>RenderView needs a progress message when 'Auto-convert Textures to .tx' is enabled</td>
+</tr>
+<tr>
+<td>#2462</td>
+<td>Highlight Arnold as "New" for Maya 2017</td>
+</tr>
+<tr>
+<td>#1328</td>
+<td>Batch render cannot be stopped on linux</td>
+</tr>
+<tr>
+<td>#1924</td>
+<td>MtoA logs a "Could not find xgen_procedural" error during load</td>
+</tr>
+<tr>
+<td>#2157</td>
+<td>XGen: Arnold crash when exporting selection as archive</td>
+</tr>
+<tr>
+<td>#2242</td>
+<td>Changing Render Resolution should update the RenderView</td>
+</tr>
+<tr>
+<td>#2306</td>
+<td>Add color management support for VP2 for skydome light</td>
+</tr>
+<tr>
+<td>#2311</td>
+<td>IPR Update Fail : Changing Translator</td>
+</tr>
+<tr>
+<td>#2320</td>
+<td>Update volumes for VP2 from draw override</td>
+</tr>
+<tr>
+<td>#2330</td>
+<td>Support Pixel Aspect Ratio in RenderView</td>
+</tr>
+<tr>
+<td>#2332</td>
+<td>Fix substring search out of bounds in debug, Part II</td>
+</tr>
+<tr>
+<td>#2336</td>
+<td>Prepare MtoA for Maya 2017</td>
+</tr>
+<tr>
+<td>#2339</td>
+<td>Provide mapping between VP2 hairPhysicalShader and aiHair</td>
+</tr>
+<tr>
+<td>#2343</td>
+<td>Add some support for VP2 lighting for arnold light types</td>
+</tr>
+<tr>
+<td>#2349</td>
+<td>Scene containing UDIM file textures crashes the RenderView</td>
+</tr>
+<tr>
+<td>#2360</td>
+<td>Fix exposure support for skydome VP2 display</td>
+</tr>
+<tr>
+<td>#2362</td>
+<td>Issues with OpenGL and ARV</td>
+</tr>
+<tr>
+<td>#2380</td>
+<td>Area light fails to display in VP2 when Maya first starts up</td>
+</tr>
+<tr>
+<td>#2393</td>
+<td>ShadowCatcher AOVs are failing</td>
+</tr>
+<tr>
+<td>#2430</td>
+<td>Render Settings window becomes corrupt if open when close/open Maya with Arnold renderer selected</td>
+</tr>
+<tr>
+<td>#2441</td>
+<td>Missing Scene Assembly render settings with Arnold</td>
+</tr>
+<tr>
+<td>#2464</td>
+<td>Remove texture_automip from MtoA parameters</td>
+</tr>
+<tr>
+<td>#608</td>
+<td>aiSky preview invisible in certain angles</td>
+</tr>
+<tr>
+<td>#2292</td>
+<td>Adding lights from the main Arnold menu does not add them to the light group in Hypershade</td>
+</tr>
+<tr>
+<td>#2294</td>
+<td>Fix substring search out of bounds in debug</td>
+</tr>
+<tr>
+<td>#2341</td>
+<td>maketx tries to access /home/oscar</td>
+</tr>
+</tbody></table>
+<h2 id="enhancements">Enhancements</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>#2295</td>
+<td>Automatic TX conversion</td>
+</tr>
+<tr>
+<td>#2355</td>
+<td>Support Maya's new interactive sequence render mode</td>
+</tr>
+<tr>
+<td>#2403</td>
+<td>TX Manager should be colorspace aware</td>
+</tr>
+<tr>
+<td>#1302</td>
+<td>No proper select implementation for the standin</td>
+</tr>
+<tr>
+<td>#2284</td>
+<td>Support shader nodes in Maya's LookdevKit</td>
+</tr>
+<tr>
+<td>#2293</td>
+<td>Support rendering to the Material Viewer in Maya's Hypershade editor</td>
+</tr>
+<tr>
+<td>#2348</td>
+<td>Add Support for Arnold AOV Callbacks</td>
+</tr>
+<tr>
+<td>#2408</td>
+<td>[MAYA-70831] Add layer name to Render View caption</td>
+</tr>
+<tr>
+<td>#1617</td>
+<td>On demand StandIn Update BBox info</td>
+</tr>
+<tr>
+<td>#2122</td>
+<td>Support stereo/multicam</td>
+</tr>
+<tr>
+<td>#2318</td>
+<td>Add support for Arnold lights in Maya's light editor</td>
+</tr>
+<tr>
+<td>#2334</td>
+<td>Migrate XGen UI script to Qt5/PySide2</td>
+</tr>
+<tr>
+<td>#2364</td>
+<td>Create AE/NE templates for Arnold shaders</td>
+</tr>
+<tr>
+<td>#2368</td>
+<td>Add support for more Maya materials and textures</td>
+</tr>
+<tr>
+<td>#2376</td>
+<td>Use sampling and ray depth values from render settings in the Material Viewer</td>
+</tr>
+<tr>
+<td>#2406</td>
+<td>Determine which parameters require to update IPR</td>
+</tr>
+<tr>
+<td>#2434</td>
+<td>Allow Render to Texture to support procedurals</td>
+</tr>
+<tr>
+<td>#1905</td>
+<td>Change range of "Anisotropy" in volume_scattering to [-0.9, +0.9]</td>
+</tr>
+<tr>
+<td>#2321</td>
+<td>Update comments to explain how to use Color Management in RenderView</td>
+</tr>
+<tr>
+<td>#2324</td>
+<td>Add Color Management to RenderView</td>
+</tr>
+<tr>
+<td>#2337</td>
+<td>Update MtoA Volume docs page with current image and menu info</td>
+</tr>
+<tr>
+<td>#2338</td>
+<td>Create Maya Fluids/Fire asset for VDB &amp; aiVolumeCollector, aiVolumeSample workflows</td>
+</tr>
+</tbody></table>
+<h2 id="mtoa-1-3-0-1">MtoA 1.3.0.1</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>#2489</td>
+<td>[2016.5] Cannot load MtoA: invalid literal for int() with base 10: '2016.5'</td>
+</tr>
+<tr>
+<td>#2491</td>
+<td>[2016.5] Arnold not listed as a renderer</td>
+</tr>
+<tr>
+<td>#2492</td>
+<td>Maya Render View freezes Maya</td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_1x_html.html">MtoA 1.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

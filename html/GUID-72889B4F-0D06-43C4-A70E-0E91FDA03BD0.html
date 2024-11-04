@@ -1,0 +1,83 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0">
+<meta name="language" content="CHS">
+<title>eval、后引号和 () 之间有何差异？</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>eval、后引号和 () 之间有何差异？</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-11AC">命令和过程是以相同的方式执行的。下列示例说明了这一点。 </p>
+<pre class="pre codeblock">
+proc float myTime(string $dummyFlag, float $time) {return $time;}
+ currentTime -e 1;
+ myTime -e 1;
+ currentTime "-e" "1";
+ myTime "-e" "1";
+ currentTime("-e", 1);
+ myTime("-e", 1);
+</pre>
+<p class="p" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-11AB">若要执行命令或过程并获得返回值，可以按下列示例所说明的那样，使用 <samp class="ph codeph" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__GUID-A995B655-6FA1-4E82-BFDA-3560EEA7DE62">eval</samp>、``或 <samp class="ph codeph" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__GUID-B2133F16-99AE-4686-A77A-4320C8E0579F">() </samp>语法。 </p>
+<pre class="pre codeblock">
+string $transforms[];
+$transforms = eval("ls -type transform");
+$transforms = `ls -type transform`;
+$transforms = ls("-type", "transform");
+</pre>
+<p class="p" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-11AA">使用其中每种类型的语法时需要记住的重要事项如下：以下是它们之间的关键差异。阅读这些内容，以便了解要使用其中哪种。</p>
+<div class="section" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-11A9"><h2 class="title sectiontitle">eval</h2>
+
+<ol class="ol" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-11A8"><li class="li" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-11A7"> 允许延迟的求值。通常，执行脚本时，如果未定义命令，Maya 仍会尝试执行脚本。<p class="p" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-11A5">例如，如果尝试执行一个脚本，该脚本首先加载插件，然后立即执行该插件，那么执行插件命令时，该脚本将失败。这是由于 Maya 最初会对脚本求值以检查它所不知道的命令。但是，如果插件命令是使用 eval 语法执行的，那么脚本将不会失败。 </p>
+</li>
+<li class="li" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-11A4">可以嵌套命令。例如：<samp class="ph codeph" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__GUID-83069F9B-0F6B-4AC6-8039-21D160B9155A">eval ("sphere; cone; ls") ; </samp></li>
+<li class="li" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-11A3">整个命令（包括其参数）必须为单个字符串。例如：<samp class="ph codeph" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__GUID-D5CE85AE-600A-4CE1-AEC9-001FCB65C6BC">eval ("ls -type transform") ;</samp></li>
+</ol>
+
+</div>
+<div class="section" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-11A2"><h2 class="title sectiontitle">后引号</h2>
+
+<ol class="ol" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-11A1"><li class="li" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-11A0"> 立即求值。 </li>
+<li class="li" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-119E">无法嵌套命令。 </li>
+<li class="li" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-119D">不需要将字符串参数括在引号中。例如：<samp class="ph codeph" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__GUID-57C0C580-7418-4CCB-91CC-3B9B8A69B2AC">string $trans2[] = </samp>`<samp class="ph codeph" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__GUID-88E859CF-DF25-4BA2-902B-38B2778BA2D4">ls -type transform</samp>`<samp class="ph codeph" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__GUID-E12FBAA0-9C73-489D-8ECE-9EF67BCB4E6B">; </samp></li>
+<li class="li" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-119C">不能作为独立的命令使用该语法，因为它是用于指定一个命令的结果或构建另一个命令。例如，不能执行下列命令：`<samp class="ph codeph" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__GUID-773F7811-C40C-4A6D-A3CB-4B69F482FA93">ls -type transform</samp>`<samp class="ph codeph" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__GUID-EB52CD22-566C-4CDA-A693-9F73498418A8">; </samp></li>
+</ol>
+
+</div>
+<div class="section" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-119B"><h2 class="title sectiontitle">( )</h2>
+
+<ol class="ol" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-119A"><li class="li" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-1199"> 立即求值。 </li>
+<li class="li" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-1197">无法嵌套命令。 </li>
+<li class="li" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-1196">必须将字符串参数括在引号中。例如，如果 $faces 表示对象中的面数，那么可能会使用 ( ) 来构建要打印输出的字符串。</li>
+</ol>
+
+<p class="p" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__WS73099CC142F48755-3D114B7511841AEFA9F-1195">
+<samp class="ph codeph" id="GUID-72889B4F-0D06-43C4-A70E-0E91FDA03BD0__GUID-A04AF16B-9351-47C6-8B10-C61BFE45A2C3">print("This object has " + $faces + " faces \n");</samp>
+</p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-6EBACC0D-C75E-44ED-978E-1D488390735F.htm">脚本和语法</a></div>
+</div>
+</div>
+
+</body>
+</html>

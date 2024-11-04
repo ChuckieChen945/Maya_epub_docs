@@ -1,0 +1,103 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="项目通常包括来自不同源的各种媒体，因此很难知道应用哪种颜色管理。为提供最大的灵活性，Autodesk 颜色管理集合中的变换已经设计为构建块。了解本手册中介绍的概念后，您可以结合这些构建块以应对颜色工作流挑战。考虑到这一点，此处提供了一个高级工作流示例，其中显示您可以手动指定来实现特定目标的变换。">
+<meta name="topicid" content="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53">
+<meta name="language" content="CHS">
+<title>复杂的颜色管理示例</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>复杂的颜色管理示例</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="shortdesc">项目通常包括来自不同源的各种媒体，因此很难知道应用哪种颜色管理。为提供最大的灵活性，Autodesk 颜色管理集合中的变换已经设计为构建块。了解本手册中介绍的概念后，您可以结合这些构建块以应对颜色工作流挑战。考虑到这一点，此处提供了一个高级工作流示例，其中显示您可以手动指定来实现特定目标的变换。 
+  </p>
+<p class="p" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__GUID-3DE5A514-C769-44ED-8307-3A6A29505406">假设您的项目主要使用 35mm 的胶片拍摄，但出于各种原因，一些特定的镜头使用了不同的数字电影摄影机。此外，还有一些渲染的 3D CG 元素和标题字幕。您需要组合所有这些图像以生成多个交付内容：用于剧院投影的 DCDM 以及用于家庭蓝光的 HD 视频。 
+	 </p>
+<div class="section" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__SECTION_56B912A3E3644EFDB68EF0C6A5210B64"><h2 class="title sectiontitle">选择工作颜色空间</h2> 
+		 
+		<div class="p" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__GUID-33747131-A2C1-4DAB-A4C6-9959C7CA7114">第一步是确定工作颜色空间，已经确定的除外。 
+		<ul class="ul" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__UL_9A8BBC27A7D64A6A96DB0177214FD39E"><li class="li" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__LI_C1B13C38D5FC47A49A632152A6D1023D">场景线性工作空间是个不错的选择，尤其适用于合成 3D 元素。 
+		  </li>
+<li class="li" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__LI_6A8ECF26FC2240A2AE30DC9640D250E5">考虑到交付内容是数字电影（使用 P3 主颜色投影）和 HD（使用 Rec. 709 主颜色），因此 P3 主颜色是比较好的选择。它们拥有比 Rec. 709 更大的色域，因此 DCDM 可以使用在 SMPTE 参考投影仪中可用的所有颜色。此外，通过将工作空间限制到此色域，可降低出现色域外颜色的可能性。 
+		  </li>
+<li class="li" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__LI_7856BC4E59854D989425221DB7B86F22">很多人发现 DCI 校准的白点太绿，并希望使用不同的创意白点，如 D60。 
+		  </li>
+</ul>
+ 因此，合适的工作空间选择为使用 P3 主颜色和 D60 白点的场景线性编码。 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__SECTION_99E27DA3E9D64551926185538AEA66F5"><h2 class="title sectiontitle">转化输入</h2> 
+		 
+		<div class="p" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__GUID-BDE77B4E-4FE1-48DE-BAE0-B55FDAFDF357">下一步，需要将所有输入转化为该工作空间： 
+		<ul class="ul" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__UL_BCB798B28B7348DBAE8248F6B73D0442"><li class="li" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__LI_385E8BF3603043E4952018A9DC785952">胶片扫描最可能是使用 ADX 或其他类似 Cineon 编码的 DPX 文件。您可以在导入时使用 film/ 目录下的一个变换将胶片扫描转化为场景线性 ACES 2065-1（有关其他注意事项，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-471F351A-008E-409B-8AC2-0033A186043B.htm" title="扫描胶片中的图像通常作为 Cineon 类型对数编码的 DPX 文件提供。但是，Cineon 编码从未完全标准化，各个供应商使用的实现略有不同。 如果手动设置颜色变换以导入扫描的胶片板，有多种方法可供选择。">管理扫描胶片中的图像的颜色</a>）。查看 primaries/ 目录下可用的变换，没有直接的方法可以从 ACES 2065-1 转化为 P3 主颜色。但是，可以采取两个步骤进行转化：应用 ACES_to_CIE-XYZ，后跟 CIE-XYZ_to_P3-D60。在导入许多镜头时，可以将变换的整个链导出为单个 .ctf 文件，以便于使用。 
+		  </li>
+<li class="li" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__LI_593D4268138A44BFBF814A76687021C9">数字电影摄影机都使用不同的专有编码。根据摄影机制造商、型号和照明设置，使用 camera/ 目录下的相应变换将图像转化为 ACES 2065-1（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-4BC7C063-8D1E-42BC-A5E9-7F9B09BB69D7.htm" title="手动指定颜色变换以便从数字电影摄影机导入片段时，请使用 camera/ 目录中的变换之一。系统为不同的摄影机型号和照明条件（如日光或钨丝灯）提供了多种选项。">管理数字电影摄影机片段的颜色</a>）。与胶片一样，可以通过应用 primaries/ 目录下的 ACES_to_CIE-XYZ（后跟 CIE-XYZ_to_P3-D60）将图像转化为 P3 主颜色。 
+		  </li>
+<li class="li" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__LI_FD115062C8834147A02B8E7F1888388C">渲染的 3D CG 元素最可能已经为场景线性图像，但是也可能使用 sRGB 主颜色（与 Rec. 709 主颜色相同）。您可以通过应用 primaries/ 目录下的 Rec-709-sRGB_to_CIE-XYZ（后跟 CIE-XYZ_to_P3-D60）将这些图像转化为您的工作空间（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-2722AC82-B1AB-4A9A-9933-25F4F2DD8A73.htm" title="在应用程序（如 Maya）中创建的从 3D 场景渲染的图像通常是采用浮点格式（如 OpenEXR）的场景相关线性 RGBA 图像。">管理渲染的 3D CG 图像的颜色</a>）。 
+		  </li>
+<li class="li" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__LI_7F9C2FF4360A48EEB2D634DA02D35549">假设标题字幕为 sRGB 图像。若要将它们转化为场景线性，需要应用反向色调贴图。完成此操作的一种方法是，应用 tone-map/ 目录下的 inversePhotoMap_gamma_2.4（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-8F04ECD0-9C56-46B3-8D1B-85938DC85063.htm" title="手动指定用于导入视频的颜色变换时，可以使用 gamma/ 目录下的变换来移除已应用的 Gamma。生成的颜色值是线性的，但是仍与输出相关，并且不应与场景相关的线性图像结合。">管理视频片段的颜色</a>），然后与对 3D 元素相同的方式转化主颜色，使用 primaries/ 目录下的 Rec-709-sRGB_to_CIE-XYZ，后跟 CIE-XYZ_to_P3-D60。但是，由于您将为输出（更多是即将到来）使用 ACES 色调贴图，因此使用 sRGB_to_ACES 变换，后跟 ACES_to_CIE-XYZ 和 CIE-XYZ_to_P3-D60。这可以确保反向色调贴图（用于输入）和色调贴图（用于显示和输出）的匹配组合不会更改原始 sRGB 值。 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__SECTION_F5E09138EFF443C1B1C76BDECF5A74A9"><h2 class="title sectiontitle">设置视图变换</h2> 
+		 
+		<p class="p" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__GUID-991C06E9-4009-4DC8-9B3F-256B4B773ACB">现在，您需要设置视图变换，以在工作时显示这些图像。由于工作空间与场景相关，因此需要使用色调贴图将图像转化为输出相关的值。当然，您应使用与最终交付内容相同的色调贴图。就本示例而言，假设您确定使用 ACES 色调贴图。 
+		</p>
+ 
+		<p class="p" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__GUID-68D81472-5C58-46F1-9555-2CD43C1738C0">若要使用 RRT+ODT/ 目录下的任何变换，必须首先转化为 ACES 2065-1。可以使用 primaries/ 目录下的 P3-D60_to_CIE-XYZ（后跟 CIE-XYZ_to_ACES）来完成此操作。最后，您可以应用 RRT+ODT/ 目录下的 ACES_to_current-monitor。色度调整内置于这些变换中，以将工作空间的 D60 白点映射为显示器的白点。将该变换链导出为单个 .ctf 文件，并在查看变换时对其进行设置。 
+		</p>
+ 
+		<p class="p" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__GUID-D50CCDDB-90FF-48F2-BAD7-8CCD8B54EA09">此外，您可能希望在校准为 DCI 白点的投影仪上进行预览。您可以先如上所述使用 primaries/ 目录下的 P3-D60_to_CIE-XYZ（后跟 CIE-XYZ_to_ACES）转化为 ACES 2065-1，然后使用 RRT+ODT/ 目录下的 ACES_to_P3-DCI。尽管校准白色为 DCI，创意白色为 D60，但是不需要色度调整，也不会内置色度调整（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-2C925F6A-5A9C-4B2B-B732-90F4C3D2EB49.htm" title="白点确定图像的颜色平衡。手动指定颜色变换时，可能需要根据原始场景的照明以及查看输出的条件调整白点。此过程的叫法有很多种，例如：色度调整、白色平衡、灰色平衡或中性平衡。">白点转化</a>）。 
+		</p>
+ 
+		<p class="p" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__GUID-EEFB95F1-EA54-4B82-AE3C-F0964A714BDE">有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F.htm" title="工作空间中的图像需要变换，以便在您工作时正确显示。如果您手动设置变换链来执行此操作，则需要定义显示器变换并应用视图变换。此外，应定期校准显示器。">管理显示图像的颜色</a>。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__SECTION_6EC7FEBA7C774D458E5005FD08E07A52"><h2 class="title sectiontitle">管理输出的颜色</h2> 
+		 
+		<p class="p" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__GUID-E572261B-7A84-4CDD-9E04-D6E1ACD10743">最后，需要对交付内容应用正确的变换。就显示而言，需要使用色调贴图，从场景相关转化为输出相关。 
+		</p>
+ 
+		<div class="p" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__GUID-BAA7F5C7-7DF5-436A-9761-622557F22DC5">同样，可以使用 primaries/ 目录下的 P3-D60_to_CIE-XYZ（后跟 CIE-XYZ_to_ACES），从工作空间转化为 ACES。之后： 
+		<ul class="ul" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__UL_C0D87000341045E58CFEEABC61E30A00"><li class="li" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__LI_BDB63931C42F4769831EA29E29A34165">对于 DCDM，应用 RRT+ODT/ 目录下的 ACES_to_DCI-60。 
+		  </li>
+<li class="li" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__LI_9D3AF491553C4223A9C5AD8F8BD25E30">对于 HD 视频，应用相同目录下的 ACES_to_HD-video。 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<p class="p" id="GUID-7D579180-1E60-43DD-BB9C-0C00D1968F53__GUID-22ADCB26-1E14-4688-B012-2EE7A7D28962">详细信息请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-1503DBFE-7DC6-4FD0-8506-4EA44E15315A.htm" title="如果您的工作颜色空间与交付内容的颜色空间不匹配，则必须变换颜色才能输出。手动设置自定义变换链来完成该操作时，可以使用多种变换，具体取决于您的工作空间和所需的输出。">管理输出图像的颜色</a>。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-B2CD60E0-C100-45A4-9595-84D2DF98B268.htm" title="尽管 Autodesk 颜色管理提供了适当的工具可自动应用所需的变换以便在颜色空间之间进行转化，但在某些特殊情况下，您必须更好地控制要应用的特定变换。本部分介绍如何将位于 Autodesk 颜色变换集合中的组件用作构建块以集合特定任务的自定义转化。">手动配置自定义颜色变换链的准则</a></div>
+</div>
+</div>
+
+</body>
+</html>

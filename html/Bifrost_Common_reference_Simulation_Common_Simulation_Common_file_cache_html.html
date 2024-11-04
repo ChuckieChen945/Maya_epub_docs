@@ -1,0 +1,71 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_Common_Simulation_Common_file_cache_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>file_cache</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>file_cache</code></h1></div><p>一个实验节点，可以通过将模拟写入文件来缓存和回读模拟。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>这是一个实验节点，可能在将来发生变化。使用它的复合和图表可能无法在更高版本的 Bifrost 中正常使用。</p>
+
+</div></div>
+
+<p>此节点将位于模拟下游（右侧）的图表中。它可以将模拟缓存到磁盘或从磁盘读取模拟的缓存。<code>Lazy mode</code> 可以根据文件是否存在于磁盘上，从“读取”动态切换为“写入”。</p>
+<p>它可以写入 .bob（Bifrost 对象）文件、Alembic 或 OpenVDB 文件。文件类型由 <code>filename</code> 参数的扩展名控制 - 以“.abc”结尾的文件写入为 Alembic，以“.vdb”结尾的文件写入为 OpenVDB，以“.bob”（或任何其他扩展名）结尾的文件写入和读取为 Bifrost 对象文件。<code>properties</code> 控制从这些文件中写入和读取哪些特性。</p>
+<h2 id="">用法</h2><ol>
+<li>在 <code>filename</code> 中为模拟的缓存设置文件路径。它可能包含环境变量，例如表示主目录的 <code>$HOME</code>。</li>
+<li>将模拟的输出插入到 <code>objects</code>，并使用 <code>out_objects</code> 作为输出，或者使用 <code>first_object</code> 避免转化为数组。</li>
+<li>转到模拟的开始帧。</li>
+<li>将模式设置为 <code>lazy mode</code>。</li>
+</ol>
+<h2 id="mode"><code>mode</code></h2><ul>
+<li><code>Lazy mode</code> 在读取和写入模式之间切换，具体取决于帧是否存在于磁盘上。此模式可用作可拖动、可恢复的缓存。</li>
+<li><code>Write mode</code> 拉动上游，然后写入帧并传递几何体。</li>
+<li><code>Read mode</code> 不会拉动上游和读取帧，从而输出几何体。</li>
+<li><code>Passthrough mode</code> 始终拉动上游，但不会写入任何对象和传递几何体。</li>
+</ul>
+<h2 id="alembic-openvdb">Alembic 和 OpenVDB 设置</h2><p>有关这些设置（例如 <code>volume_subdivision_structure</code> 和 <code>alembic_interpolation</code>）的更多详细信息，请参见 <code>read_Alembic</code> 和 <code>write_OpenVDB</code> 的文档。这些节点在内部使用。<code>File cache</code> 共享这些节点的相同功能和限制。</p>
+<h2 id="">帧范围</h2><p>如果 <code>active_frame_range</code> 处于启用状态，则节点默认为由 <code>start_frame</code> 和 <code>last_frame</code> 指定的帧范围以外的 <code>passthrough</code> 行为。如果 <code>invert_frame_range</code> 处于启用状态，则它切换为指定帧范围以内的 <code>passthrough</code> 行为。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_Common_html.html">Common</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

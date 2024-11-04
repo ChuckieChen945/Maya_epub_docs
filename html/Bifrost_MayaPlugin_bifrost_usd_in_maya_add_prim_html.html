@@ -1,0 +1,73 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-MayaPlugin">
+  <meta name="topicid" content="Bifrost_MayaPlugin_bifrost_usd_in_maya_add_prim_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>在 Bifrost-USD 中将基本体添加到后台文件</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>在 Bifrost-USD 中将基本体添加到后台文件</h1></div><p>基本体是可以添加到后台文件中的层的内容。它可以包含几何体、材质定义、覆盖等，以及其他作为子项的基本体。使用链中的一个或多个 <code>add_to_stage</code> 节点构建场景层级。</p>
+<ol>
+<li><p>将 <code>add_to_stage</code> 节点添加到图表。 </p>
+</li>
+<li><p>将后台文件连接到 <code>stage</code> 输入。 </p>
+<p>如果 <code>stage</code> 端口保持未连接状态，则使用新的空后台文件。在这种情况下，最好在 <code>stage</code> 端口上单击鼠标右键，然后选择<strong>“创建节点 &gt; Usd::Stage::create_usd_stage”(Create Node &gt; Usd::Stage::create_usd_stage)</strong>，以便可以指定 <code>layer</code> 文件，用于在图表中保存下游文件的根层。</p>
+</li>
+<li><p>对于 <code>parent_path</code>，指定层级中父对象的完整路径（包括前导斜杠“/”），新基本体将添加到该路径下。如果保留为空，则基本体将添加到指定层的根。如果输入的路径在后台文件中尚不存在，则会在层级中创建常规 <code>def</code> 节点 - 您可以设置这些下游基本体的特定类型。 </p>
+</li>
+<li><p>在 <code>prim_definitions</code> 路径上单击鼠标右键，从<strong>“创建节点”(Create Node)</strong>菜单中选择一个选项。 </p>
+<ul>
+<li><strong>Usd::Prim::define_usd_prim</strong> 是一个常规节点，可用于添加任何类型的基本体。默认设置定义了一个变换，它通常用作其他基本体的父对象，但您可以更改它们以定义任何基本体。</li>
+<li><strong>“创建节点”(Create Node)</strong>菜单上的其他选项基于 <code>define_usd_prim</code>，并专门用于特定用途。</li>
+</ul>
+</li>
+<li><p>在刚添加的节点中，设置参数。有关相关术语和概念的基本信息，请参见 <a href="https://graphics.pixar.com/usd/release/glossary.html" target="_blank">USD 词汇表</a>。特别是：</p>
+<ul>
+<li>设置 <code>path</code> 以指定基本体的名称及其在层级中的位置。安全的做法是始终包含前导斜杠，如果 <code>add_to_stage</code> 节点中未指定 <code>parent_path</code>，且基本体定义未连接到另一个 <code>prim_definition</code> 的 <code>children</code> 端口，则前导斜杠是必填的。同样，如果输入的路径在后台文件中尚不存在，则会在层级中创建常规 <code>def</code> 节点，您可以设置这些下游基本体的特定类型。</li>
+<li>可用的基本类型包括范围、变换、胶囊、圆锥体、立方体、圆柱体、球体、网格、NURBS 曲线和点实例化器。可用类型的完整列表取决于适用于 Maya 的 USD 版本和其他插件已注册的内容。通过在大纲视图中的 Maya USD 代理上单击鼠标右键并展开<strong>“添加新基本体 &gt; 所有已注册”(Add New Prim &gt; All Registered)</strong>菜单，可以查看完整列表。</li>
+</ul>
+</li>
+<li><p>根据需要，在基本体定义节点的串联输出端口上单击鼠标右键，以添加引用、属性等。特别是，可以在 <code>children</code> 端口上单击鼠标右键，创建任意深度的基本体定义层级。</p>
+</li>
+<li><p>在 <code>add_to_stage</code> 节点的 <code>prim_definitions</code> 端口上单击鼠标右键，然后重复上述步骤，根据需要添加更多基本体定义。</p>
+</li>
+<li><p>将 <code>add_to_stage</code> 节点的 <code>stage</code> 输出连接到将后台文件作为输入的任意节点。这最终应连接到图表顶层的 <code>output</code> 节点，以显示在主场景中添加的基本体。</p>
+</li>
+</ol>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-MayaPlugin/files/Bifrost_MayaPlugin_bifrost_usd_in_maya_html.html">Maya 中的 Bifrost-USD</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

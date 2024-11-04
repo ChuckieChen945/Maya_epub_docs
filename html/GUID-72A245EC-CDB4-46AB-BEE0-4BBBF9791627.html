@@ -1,0 +1,215 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-72A245EC-CDB4-46AB-BEE0-4BBBF9791627">
+<meta name="language" content="CHS">
+<title>使用 mayapy 和 pip 管理 Python 软件包</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-72A245EC-CDB4-46AB-BEE0-4BBBF9791627">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 mayapy 和 pip 管理 Python 软件包</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 可以在 Maya 的 Python 解释器中使用标准 Python 软件包管理系统 pip，以安装、搜索和查询 Python 软件包。
+	 </p>
+<p class="p">可使用 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-D64ACA64-2566-42B3-BE0F-BCE843A1702F.htm">Maya Python 解释器 mayapy</a> 从命令行调用 pip。无法在 Maya Python 脚本编辑器中调用它。
+	 </p>
+<p class="p">通过在 macOS<span class="ph"> 和 Linux</span> 上运行 <samp class="ph codeph">./mayapy -m pip list</samp>，在 Windows 上运行 <samp class="ph codeph">mayapy -m pip list</samp>，可以查看已安装软件包的列表。
+	 </p>
+<p class="p">有关 pip 的最新信息，请参见 <a class="xref" href="https://pip.pypa.io/en/stable/user_guide/" target="_blank">pip 用户手册</a>。
+	 </p>
+<div class="p">mayapy 位于以下目录中：
+	 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-72A245EC-CDB4-46AB-BEE0-4BBBF9791627__TABLE_75FF16D099F44020951B8070B6188808" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="26.525198938992045%">Windows 
+				</td>
+<td class="entry" valign="top" width="73.47480106100795%"><span class="ph filepath">C:\Program Files\Autodesk\Maya&lt;VersionNumber&gt;\bin</span> 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="26.525198938992045%">macOS 
+				</td>
+<td class="entry" valign="top" width="73.47480106100795%"><span class="ph filepath">/Applications/Autodesk/maya&lt;VersionNumber&gt;/Maya.app/Contents/bin</span> 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="26.525198938992045%">Linux 
+				</td>
+<td class="entry" valign="top" width="73.47480106100795%"><span class="ph filepath">/usr/autodesk/Maya&lt;版本号&gt;/bin/</span> 
+				</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+	 </div>
+<p class="p">默认情况下，pip 会将软件包安装到 Maya 的 site-packages 目录。您需要管理员权限（在 Windows 上）或超级用户权限（在 macOS<span class="ph"> 和 Linux</span> 上），才能在这些目录中安装软件包。
+	 </p>
+<p class="p">如果您没有这些权限，或者不希望在这些目录中安装软件包，则可以使用 <samp class="ph codeph">--user</samp> 标志在用户空间中安装软件包，或者使用 <samp class="ph codeph">--target</samp> 选项在版本特定的 site-packages 目录中安装软件包。
+	 </p>
+<p class="p">启动 Maya 时，将创建版本特定的 site-packages 目录。
+	 </p>
+<p class="p">您不需要管理员或超级用户权限即可将软件包安装到版本特定的站点软件包目录，这些目录中的软件包将优先于其他位置中安装的软件包。
+	 </p>
+<div class="section" id="GUID-72A245EC-CDB4-46AB-BEE0-4BBBF9791627__SECTION_F6805E4DE73F41298E94927B760D226B"><h2 class="title sectiontitle">在 Windows 上安装软件包</h2> 
+		 
+		<div class="p"> 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-72A245EC-CDB4-46AB-BEE0-4BBBF9791627__TABLE_92F9F6239F6A4651B45685B9A55FDEC3" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="37.17472118959108%">安装到 Maya 的默认 site-packages 目录 
+				  </td>
+<td class="entry" valign="top" width="62.825278810408925%"><samp class="ph codeph">mayapy -m pip install &lt;标志&gt; &lt;软件包&gt; </samp> 
+					 <p class="p">必须从以管理员身份运行的命令窗口运行 
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="37.17472118959108%">安装到用户空间 
+				  </td>
+<td class="entry" valign="top" width="62.825278810408925%"><samp class="ph codeph">mayapy -m pip install &lt;标志&gt; --user &lt;软件包&gt; </samp> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="37.17472118959108%">安装到版本特定的目录 
+				  </td>
+<td class="entry" valign="top" width="62.825278810408925%"><samp class="ph codeph">mayapy -m pip install &lt;标志&gt; &lt;软件包&gt; --target C:/Users/&lt;用户名&gt;/Documents/maya/&lt;版本&gt;/scripts/site-packages</samp> 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-72A245EC-CDB4-46AB-BEE0-4BBBF9791627__SECTION_ABCE5F80A10644B18A0A79EE9795D620"><h2 class="title sectiontitle">在 macOS 上安装软件包</h2> 
+		 
+		<div class="p"> 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-72A245EC-CDB4-46AB-BEE0-4BBBF9791627__TABLE_3F390A99FE03439493188528EDE3D382" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="37.17472118959108%">安装到 Maya 的默认 site-packages 目录 
+				  </td>
+<td class="entry" valign="top" width="62.825278810408925%"><samp class="ph codeph">sudo ./mayapy -m pip install &lt;标志&gt; &lt;软件包&gt;</samp> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="37.17472118959108%">安装到用户空间 
+				  </td>
+<td class="entry" valign="top" width="62.825278810408925%"><samp class="ph codeph">./mayapy -m pip install &lt;标志&gt; --user &lt;软件包&gt;</samp> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="37.17472118959108%">安装到版本特定的目录 
+				  </td>
+<td class="entry" valign="top" width="62.825278810408925%"><samp class="ph codeph">./mayapy -m pip install &lt;标志&gt; &lt;软件包&gt; --target $HOME/Library/Preferences/Autodesk/maya/&lt;版本&gt;/scripts/site-packages</samp> 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-72A245EC-CDB4-46AB-BEE0-4BBBF9791627__SECTION_CE7EA0CFBFCC4D74AAC3F5D54FC41D2E"><h2 class="title sectiontitle">在 Linux 上安装软件包</h2> 
+		 
+		<div class="p"> 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-72A245EC-CDB4-46AB-BEE0-4BBBF9791627__TABLE_5CF1F05C04634D1894F87219CB5351C2" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="37.17472118959108%">安装到 Maya 的默认 site-packages 目录 
+				  </td>
+<td class="entry" valign="top" width="62.825278810408925%"><samp class="ph codeph">sudo ./mayapy -m pip install &lt;标志&gt; &lt;软件包&gt; </samp> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="37.17472118959108%">安装到用户空间 
+				  </td>
+<td class="entry" valign="top" width="62.825278810408925%"><samp class="ph codeph">./mayapy -m pip install &lt;标志&gt; --user &lt;软件包&gt; </samp> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="37.17472118959108%">安装到版本特定的目录 
+				  </td>
+<td class="entry" valign="top" width="62.825278810408925%"><samp class="ph codeph">./mayapy -m pip install &lt;标志&gt; &lt;软件包&gt; --target $HOME/maya/&lt;版本&gt;/scripts/site-packages </samp> 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		</div>
+ 
+	 </div>
+<div class="note note" id="GUID-72A245EC-CDB4-46AB-BEE0-4BBBF9791627__GUID-E51E4ABB-9E09-4329-AA6D-53E24F381130"><span class="notetitle">注：</span>  默认情况下，pip 将尝试在 Maya site-packages 目录中安装软件包。如果您没有可在该目录中进行安装的适当权限，软件包将安装在用户空间中。
+	 </div>
+<div class="section" id="GUID-72A245EC-CDB4-46AB-BEE0-4BBBF9791627__SECTION_3922301264CD4A70983D3295E0D68835"><h2 class="title sectiontitle">卸载软件包</h2> 
+		 
+		<p class="p">使用 <samp class="ph codeph">pip uninstall &lt;软件包&gt;</samp> 从用户空间中删除软件包：
+		</p>
+ 
+		<div class="p"> 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-72A245EC-CDB4-46AB-BEE0-4BBBF9791627__TABLE_7EBB318CE5944DC28F541623E670655C" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="25%"><span class="ph">Linux 和 </span>macOS 
+				  </td>
+<td class="entry" valign="top" width="75%"><samp class="ph codeph">./mayapy -m pip uninstall &lt;软件包&gt; </samp> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">Windows 
+				  </td>
+<td class="entry" valign="top" width="75%"><samp class="ph codeph">mayapy -m pip uninstall &lt;软件包&gt;</samp> 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		</div>
+ 
+		<p class="p">如果已安装到 Maya site-packages 目录，则需要具有管理员或超级用户权限才能卸载软件包：
+		</p>
+ 
+		<div class="p"> 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-72A245EC-CDB4-46AB-BEE0-4BBBF9791627__TABLE_4637775DE67E4185B97FCA4178FBD32F" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="25%"><span class="ph">Linux 和 </span>macOS 
+				  </td>
+<td class="entry" valign="top" width="75%"><samp class="ph codeph">sudo ./mayapy -m pip uninstall &lt;软件包&gt; </samp> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">Windows 
+				  </td>
+<td class="entry" valign="top" width="75%"><samp class="ph codeph">mayapy -m pip uninstall &lt;软件包&gt;</samp> 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		</div>
+ 
+		<p class="p">如果已安装到版本特定的 site-packages 目录，则需要手动从版本特定的 site-packages 目录中删除软件包：
+		</p>
+ 
+		<div class="p"> 
+		<ol class="ol" id="GUID-72A245EC-CDB4-46AB-BEE0-4BBBF9791627__OL_96104C3325AD4D1A9AC5CDF1029248C2"><li class="li" id="GUID-72A245EC-CDB4-46AB-BEE0-4BBBF9791627__LI_4AB8FBF045C1422B8010CD4E332EFC31">将目录更改为版本特定的站点软件包目录 
+		  </li>
+<li class="li" id="GUID-72A245EC-CDB4-46AB-BEE0-4BBBF9791627__LI_EEE8B57BCEB84E5BB31F30A7C0E73FB5">查找要删除的软件包的目录 
+		  </li>
+<li class="li" id="GUID-72A245EC-CDB4-46AB-BEE0-4BBBF9791627__LI_541CC1753AFF4CD986127E752539B95B">删除整个目录 
+		  </li>
+</ol>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-703B18A2-89E5-48A8-988A-1ED815D5566F.htm">Python</a></div>
+</div>
+</div>
+
+</body>
+</html>

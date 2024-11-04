@@ -1,0 +1,76 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Modeling_Points_Modeling_Points_translate_points_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>translate_points</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>translate_points</code></h1></div><p>按指定的平移偏移基于点的几何体的 <code>point_position</code> 特性。</p>
+<h2 id="">输入</h2><h3 id="points"><code>points</code></h3><p>具有要移动的点的几何体。</p>
+<h3 id="weights"><code>weights</code></h3><p>要应用的 <code>translation</code> 值的比例。 </p>
+<ul>
+<li>权重为 0 时，不进行平移。</li>
+<li>权重在 0 到 1 范围内时，按给定 <code>translation</code> 值的相应比例移动点。</li>
+<li>权重为 1 时，按精确的 <code>translation</code> 值移动点。</li>
+<li>权重大于 1 时，点移动的距离大于给定的 <code>translation</code> 值。</li>
+<li>权重小于 0 时，朝相反方向移动点。</li>
+</ul>
+<p>如果未连接任何对象，则所有点的默认权重为 1。这是一个<em>解释的自动端口</em>，其接受以下类型：</p>
+<ul>
+<li>单个 <code>float</code> 解释为应用于所有点的常量值。</li>
+<li><code>array&lt;float&gt;</code> 解释为每个点的值。可根据需要调整数组大小以匹配点数。</li>
+<li><code>array&lt;bool&gt;</code> 被解释为每点的 0 (false) 或 1 (true) 值。</li>
+<li><code>string</code> 解释为现有几何特性的名称，并使用其值。</li>
+<li><code>ScalarField</code> 将在几何体组件的每个位置处进行采样。</li>
+<li><code>array&lt;long&gt;</code> 指定要为其指定值 1 的索引。对于其他索引，则指定值 0。</li>
+</ul>
+<h3 id="translation"><code>translation</code></h3><p>要按其移动点的基本向量。此外，实际偏移还与 <code>weights</code> 值相关。</p>
+<p>这是一个<em>解释的自动端口</em>，其接受以下类型：</p>
+<ul>
+<li>连接单个 <code>float3</code> 以将其值用于所有点。</li>
+<li>连接 <code>array&lt;float3&gt;</code> 以对每个点使用数组的相应元素。可根据需要调整数组大小以匹配点数。</li>
+<li>连接 <code>string</code> 以使用具有相应名称的特性给定的向量（每个点的 <code>float3</code>）。</li>
+<li>连接 <code>VectorField</code> 以使用点的当前位置之处的场的值。</li>
+</ul>
+<p>请注意，也可以使用标量值而不使用向量，在这种情况下，将对所有三个轴使用单个元素。但是，这对平移几乎没有任何用处。</p>
+<h3 id="local_space"><code>local_space</code></h3><p>如果选中此选项，则将在每个点的局部坐标空间中应用平移，同时考虑每个点的当前方向和比例。</p>
+<h2 id="">输出</h2><h3 id="out_points"><code>out_points</code></h3><p>具有已平移点的几何体。</p>
+<h3 id="point_position"><code>point_position</code></h3><p>在几何体上设置的 <code>point_position</code> 值。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Modeling/Bifrost_Common_reference_Modeling_Points_html.html">Points</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

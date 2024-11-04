@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A">
+<meta name="language" content="CHS">
+<title>执行系统命令</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>执行系统命令</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C1D">使用 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/system.html" target="_blank">system</a> 命令将要执行的字符串传递到操作系统。将返回操作系统命令的输出。 
+	 </p>
+<p class="p" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C1C"> 例如： 
+	 </p>
+<pre class="pre codeblock">
+system "ls -l";
+</pre>
+<p class="p" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C1A">在基于 UNIX 的系统（不是 Windows）上，这将以长格式打印当前目录到<span class="ph uicontrol" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__GUID-53B42361-0703-4008-B8E8-98AD62FB807F">“脚本编辑器”(Script Editor)</span>。Windows 等效： 
+	 </p>
+<pre class="pre codeblock">
+system "dir";
+</pre>
+<div class="section" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C19"><h2 class="title sectiontitle">后台进程（仅非 Windows）</h2> 
+		 
+		<p class="p" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C18"> 若要在后台运行命令（即，执行非阻塞系统调用），则必须重定向所有命令的输出： 
+		</p>
+ 
+		<pre class="pre codeblock">
+system("cmd &gt;/dev/null 2&gt;&amp;1 &amp;");
+</pre>
+ 
+		<p class="p" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C16">当然，可以发送输出到 <samp class="ph codeph" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__GUID-13118394-7054-407B-BEFC-E8D0C72A5B40">/dev/null</samp> 之外的其他地方。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C15"><h2 class="title sectiontitle">文件名</h2> 
+		 
+		<p class="p" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C14"> 应始终将路径名括在引号中。尤其在 Mac OS 中，文件名可以包含拥有命令行含义的字符，如空格、|（管）、&gt;（重定向）和 &amp;（在后台运行）。 
+		</p>
+ 
+		<p class="p" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C11">例如，不执行该操作： 
+		</p>
+ 
+		<pre class="pre codeblock">
+string $fileName = {get this from somewhere}; system ("some_command " + $fileName);
+</pre>
+ 
+		<p class="p" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C10">...改为使用以下： 
+		</p>
+ 
+		<pre class="pre codeblock">
+system ("some_command \"" + $fileName + "\"");
+</pre>
+ 
+		<p class="p" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C0F">这使得代码独立于平台。 
+		</p>
+ 
+		<p class="p" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C0E">AppleScript 和 UNIX 使用不同的文件夹分隔符。AppleScript 使用冒号 (::)，而 UNIX 使用正斜杠 (/)。此外，UNIX 中的体积带有前缀 /Volumes/，而在 AppleScript 中，路径以划分名称开头。 
+		</p>
+ 
+		<p class="p" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C0D">在以下示例中，一个名为 eagle.ma 的场景文件在名为 Emerald 的体积（划分）上。 
+		</p>
+ 
+		<p class="p" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C0C">AppleScript 表示为： 
+		</p>
+ 
+		<pre class="pre codeblock">
+Emerald:projects:default:scenes:eagle.ma
+</pre>
+ 
+		<p class="p" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C0B">UNIX 表示为： 
+		</p>
+ 
+		<pre class="pre codeblock">
+/Volumes/Emerald/projects/default/scenes/eagle.ma
+</pre>
+ 
+		<p class="p" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C0A">若要在文本编辑中打开 eagle.ma，您可以使用： 
+		</p>
+ 
+		<pre class="pre codeblock">
+tell application "TextEdit" open "Emerald:projects:default:scenes:eagle.ma" end tell
+</pre>
+ 
+		<p class="p" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C09">若要从 Unix Shell 的文本编辑打开该文件，您可以输入： 
+		</p>
+ 
+		<pre class="pre codeblock">
+open -e /Volumes/Emerald/projects/default/scenes/eagle.ma
+</pre>
+ 
+		<div class="section" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS17956D7ADBC6E73619DF4ECD117AE329100-8000"><h3 class="title sectiontitle">文件引用和导入的文件名注意事项</h3> 
+		   
+		  <p class="p" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C08">无法从其名称是非法标识符的命令行引用或导入文件，除非明确使用 -rpr 或 -ns 标志。这将包含文件名以数字开始的文件。若要避免该问题，建议您避免命名文件，以便它们以数字开始。否则，您将需要使用以下解决方法。 
+		  </p>
+ 
+		  <div class="section" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C07"><h4 class="title sectiontitle">解决方法</h4> 
+			  
+			 <ul class="ul" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C06"><li class="li" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C05">使用 -rpr 或 -ns 标志明确指定有效的重命名前缀。 
+				</li>
+<li class="li" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C04">重命名文件为以字母开头的名称（例如，a107953.sph.ma）。 
+				</li>
+</ul>
+ 
+		  </div>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C03"><h2 class="title sectiontitle">线末端</h2> 
+		 
+		<p class="p" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C02">若要将 UNIX 命令应用到 Mac OS X 上的 mayaAscii 场景文件内容中，将场景文件转化为具有 UNIX 线末端。您可以使用 Mac OS X <samp class="ph codeph" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__GUID-59C0AB46-7E7C-4911-9B05-242DE546BBE0">tounix</samp> 命令执行该操作。 
+		</p>
+ 
+		<p class="p" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-C01"> 例如，如果您的 MEL 代码在另一个平台上看起来像这样： 
+		</p>
+ 
+		<pre class="pre codeblock">
+string $fileName = {get this from somewhere}; string $result = system ("grep something" + $fileName);
+</pre>
+ 
+		<p class="p" id="GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A__WS73099CC142F48755-3D114B7511841AEFA9F-BFF">...改为使用以下： 
+		</p>
+ 
+		<pre class="pre codeblock">
+if ('about -mac') { 	system("tounix \"" + $fileName + "\""); } string $result = system ("grep something \"" + $fileName + "\"");
+</pre>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452.htm">I/O 和用户交互</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-74599EBE-1DC5-4ECE-86C0-A0216ABE0794">
+<meta name="language" content="CHS">
+<title>释放未使用纹理的 GPU 内存</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-74599EBE-1DC5-4ECE-86C0-A0216ABE0794">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>释放未使用纹理的 GPU 内存</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 您可以释放当前未使用纹理的 GPU 内存，以便使用 <samp class="ph codeph">ogs</samp> 命令和 <samp class="ph codeph">drt</samp> 标志进行渲染。例如，使用此命令可以在从纹理模式切换到着色模式之后、或者在模板化或隐藏对象之后释放纹理内存。 
+	 </p>
+<p class="p">使用此命令后，必须刷新当前视图才能释放内存。这可以通过翻滚视口或执行刷新命令三次来实现。 
+	 </p>
+<p class="p">若要利用这种性能改进，必须先将环境变量 MAYA_OGS_GPU_FLUSHING_ENABLE 设置为 1。 
+	 </p>
+<div class="note tip" id="GUID-74599EBE-1DC5-4ECE-86C0-A0216ABE0794__GUID-A2A05A37-49E0-4872-868D-0C57DE3C7D72"><span class="tiptitle">提示：</span>  
+		<p class="p">也可以使用 <samp class="ph codeph">ogs</samp> 命令的 <samp class="ph codeph">gpu</samp> 标志验证使用的内存总量。 
+		</p>
+ 
+		<p class="p">若要释放 GPU 内存，请遵循以下准则： 
+		</p>
+ 
+	 </div>
+<ol class="ol" id="GUID-74599EBE-1DC5-4ECE-86C0-A0216ABE0794__OL_965254FB811649D8B782E3B347C6ACF5"><li class="li" id="GUID-74599EBE-1DC5-4ECE-86C0-A0216ABE0794__LI_395420C35C8747F6BF542A3A02E43F24">运行带有 <samp class="ph codeph">gpu</samp> 标志的 <samp class="ph codeph">ogs</samp> 命令，列出使用的纹理内存总量： 
+		  <pre class="pre codeblock">ogs -gpu -dt total</pre>
+ 
+		</li>
+<li class="li" id="GUID-74599EBE-1DC5-4ECE-86C0-A0216ABE0794__LI_79C764644CD342E5A1675D47969645E4">使用 <samp class="ph codeph">drt</samp> 标志释放未使用纹理的 GPU 内存： 
+		  <pre class="pre codeblock">ogs -drt</pre>
+ 
+		</li>
+<li class="li" id="GUID-74599EBE-1DC5-4ECE-86C0-A0216ABE0794__LI_7030487B69904758971AAB438E64AC1C">翻滚视口以刷新活动视图，或者运行刷新命令三次，如下所示： 
+		  <pre class="pre codeblock">refresh -force</pre>
+ 
+		</li>
+<li class="li" id="GUID-74599EBE-1DC5-4ECE-86C0-A0216ABE0794__LI_E0AFB1F8992E4B939E4914CFDA600DE0">再次运行带有 <samp class="ph codeph">gpu</samp> 标志的 <samp class="ph codeph">ogs</samp> 命令，查看已释放的纹理内存。 
+		</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-1C24534D-8B91-45FF-971A-B3AD07E1067F.htm">纹理</a></div>
+</div>
+</div>
+
+</body>
+</html>

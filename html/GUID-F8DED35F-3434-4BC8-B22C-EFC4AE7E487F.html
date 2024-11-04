@@ -1,0 +1,147 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="ENU">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Maya-USD">
+  <meta name="topicid" content="GUID-F8DED35F-3434-4BC8-B22C-EFC4AE7E487F">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>USD for Maya v0.24.0 Release Notes</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>USD for Maya v0.24.0 Release Notes</h1></div><p><strong>USD version 0.24.0 is the latest release available.</strong> Visit the official <a href="https://github.com/Autodesk/maya-usd" target="_blank">Autodesk MayaUSD GitHub repository</a> to obtain this version or any subsequent releases.</p>
+<div class="note note:"><span class="notetitle">Note:</span> For working with USD and other plug-ins in the Maya ecosystem, visit this <a href="https://knowledge.autodesk.com/support/maya/learn-explore/caas/simplecontent/content/maya-usd-bifrost-and-arnold-compatibility.html" target="_blank">support article</a> for version-specific compatibilities.</div>
+
+<div class="callout callout-important">
+<div class="callout-title"><i class="callout-icon fa fa-exclamation-triangle" aria-hidden="true"></i>Important:</div>
+<div class="callout-body">
+
+<p> With the release of v0.23, <strong>Hydra for Maya</strong> (Technology Preview) is introduced. <strong>Hydra for Maya</strong> is a Technology Preview and has similar capabilities to the original <code>MtoH</code> but is not officially production ready. However, as Hydra for Maya is available, it is intended for use as a render delegate in the Viewport. See <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-8FB49D7F-8651-47CE-80FC-5C940E568C97">load and manage plug-ins</a> for more information and visit the official <a href="https://github.com/Autodesk/maya-usd" target="_blank">Autodesk MayaUSD GitHub repository</a> to learn more about Hydra. Note: Hydra for Maya is not supported on MacOS.</p>
+
+</div></div>
+
+<h2 id="highlights">Highlights</h2><p>This build is compiled with USD 22.11 and MaterialX 1.38.5.  This release installer includes the following improvements:</p>
+<p>General Updates:</p>
+<ul>
+<li>Session layer staying in sync when removing, reparenting, or grouping prims while edit routing is enabled</li>
+<li>Preventing edits to persist across Maya sessions</li>
+<li>Support for edit routing</li>
+<li>Pulled Maya object inherits visibility from ancestor prims (routing edits for visibility toggle)</li>
+<li>Drag and drop a sublayer that is saved/loaded as a relative path</li>
+<li>Pin a stage in the USD Layer Editor</li>
+</ul>
+<h2 id="what-39-s-fixed">What's Fixed</h2><table>
+<thead>
+<tr>
+<th>Fixed Issues from GitHub</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[Github #2872] Saving Maya scene that includes USD cache does not trigger serialization <em>MAYA-127817</em></td>
+</tr>
+<tr>
+<td>[Github #2549] Routing visibility edits only works with certain commands and not all commands that edit Visibility <em>MAYA-127758</em></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>General Fixed Issues</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>USD plugin for Autodesk Maya security enhancements <em>MAYA-127417</em></td>
+</tr>
+</tbody></table>
+<h2 id="known-limitations">Known Limitations</h2><p>The following list of limitations remains in flux as development is ongoing.</p>
+<h3 id="usd-stage-creation-workflow-limitations">USD stage creation workflow limitations</h3><p>See <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-4D29A90A-FD4E-41F8-A68F-202B8DAAAC23">Create a USD stage</a> for more information</p>
+<ul>
+<li>Switching selected object variant can cause sync issues.</li>
+<li>It is not recommended/supported to use the same USD stage repeatedly, as it can cause operation sync issues. For example, there can be multi transform issues when rotating or scaling a secondary stage of the same USD file.</li>
+</ul>
+<h3 id="usd-import-and-export-workflow-limitations">USD import and export workflow limitations</h3><p>See <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-65E19505-E27D-4477-BD7D-7C0F2BC0D328">USD import options</a> and <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-3A763D43-E626-4832-9824-57AAA9BC0A00">USD export options</a> for more information</p>
+<ul>
+<li>The round-trip workflow is currently lossy (ie. contains a loss of information from compression).</li>
+<li>Mesh component level control is currently unsupported.</li>
+<li>Vertex/Edge Component tags are currently unsupported.</li>
+</ul>
+<h3 id="usd-materials-workflow-limitations">USD materials workflow limitations</h3><p>See <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-65E19505-E27D-4477-BD7D-7C0F2BC0D328">USD import options</a> for more information</p>
+<ul>
+<li>Duplicate Shader Nodes in the <strong>Materials</strong> dropdown of the <strong>USD File Type Specific Options Menu</strong>:<br>Loading the latest MayaUSD plug-in will provide the <code>UsdPreviewSurface</code> shader node. Loading a previous version of the plug-in will provide a <code>pxrUsdPreviewSurface</code> shader node. While both materials can import and export intrinsically to USD, loading both plugins into the same file will provide both nodes and create backward compatibility issues. The two nodes will correctly export to <code>UsdPreviewSurface</code>, but importing the scene back into Maya will choose the first registered node (ie. selection is dependent on plug-in load order).<ul>
+<li><strong>Workaround</strong>: Have <em>only one</em> of the two aforementioned plug-ins loaded in Maya <strong>or</strong> ensure the <em>first</em> loaded plug-in is the preferred selection.</li>
+<li><strong>Note</strong>: Normal map connection is lost on export of <code>UsdPreviewSurface</code> and this is also an issue while using MaterialX.</li>
+</ul>
+</li>
+<li>USD core rendering backend HydraGL(Storm) is not fully supported in Maya (switching to Hydra render delegate from VP2 on a Maya scene can cause Maya to crash)  <ul>
+<li><strong>Workaround</strong>: To ensure Maya's native VP2 render delegate can support the materials of a file, verify that the file's meta data inputs are importing correctly in Maya by using USD View. Generally, to achieve similar material results to an original file, convert to the original materials used on import.</li>
+</ul>
+</li>
+</ul>
+<h3 id="push-pull-workflow-limitations">Push/Pull workflow limitations</h3><p>See <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-C1C08BA5-24EA-44FF-9497-71E0A6843744">edit as Maya data</a> for more information</p>
+<ul>
+<li>USD data is unaware of Maya data inside in the mixed-data model:<ul>
+<li>When Maya data is inside a USD hierarchy, its visibility isn't inherited from its USD ancestors.</li>
+<li>When Maya data is inside a USD hierarchy, reframing the Viewport on its USD ancestors will not include Maya data. Transforms can misconfigure when animating pulled USD data.</li>
+</ul>
+</li>
+<li>When pulled Maya data is orphaned, the orphaned objects can still appear/ be visible in the Viewport.</li>
+<li>Edit as Maya is unavailable on material prims. A warning is provided.</li>
+</ul>
+<h3 id="maya-reference-limitations">Maya reference limitations</h3><p>See <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-EDC40BE3-2112-46D5-9E31-B620C08C8DDE">add a Maya reference</a> for more information</p>
+<ul>
+<li>When a USD object is in a pulled state, a mixed-data model will be active, where the pulled object will be Maya data, yet still inside of the proxyShape node or prim. When in this state, current limitations bar selection, hierarchy and other general expected behavious. For example, if you select the USD parent node of a pulled object, the Maya data nested inside will not be a part of that selection, which will not allow operations such as hiding objects etc.</li>
+<li>Editing a Maya reference as Maya data can cause targets to switch while caching to USD.</li>
+</ul>
+<h3 id="display-layer-limitations">Display Layer limitations</h3><p>See <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-C52465E4-FA5F-46AF-A186-E20ABEDD9BF2">work with prims as display layers</a> and <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-7A6E36CC-73B9-462D-A134-3BDECFCDB5DA">display layer contextual menu</a> for more information</p>
+<ul>
+<li>Importing Maya files containing stages and display layers into Maya is not supported. Display Layer assignments will break during the import process.</li>
+<li>Instances of point instancers are unsupported.</li>
+<li>Referenced display layers are unsupported.</li>
+</ul>
+<h3 id="viewport-display-limitations">Viewport display limitations</h3><p>See the following <a href="https://github.com/Autodesk/maya-usd/discussions/2750" target="_blank">Github discussion topic</a> and <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-BF7327E1-B80D-4FAD-AFB0-2BAE3F7B0693">USD data in the Viewport topic</a> for more information</p>
+<ul>
+<li>When USD lights are created, nodes are added to draw lights in the Viewport. By default these light nodes are not ignored on render time and cause lighting issues at render time. These nodes can be filtered out by the translator using the following code:<pre class="pre codeblock"><code class="prettyprint">// Skip UFE nodes coming from USD runtime
+// Those will be handled by USD Imaging delegate
+MStatus              status;
+static const MString ufeRuntimeStr = "ufeRuntime";
+MPlug                ufeRuntimePlug = dagNode.findPlug(ufeRuntimeStr, false, &amp;status);
+if ((status == MS::kSuccess) &amp;&amp; ufeRuntimePlug.asString() == "USD") {
+      return;        } 
+</code></pre>
+</li>
+<li>Some HUD display text (fps, poly count, camera names etc.)  in the Viewport can be darker and blurrier than in VP2 when <em>(mayaHydra Experimental) Hydra GL</em> is selected as the Viewport renderer. See <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-8FB49D7F-8651-47CE-80FC-5C940E568C97">load and manage plug-ins</a> for more information and visit the official <a href="https://github.com/Autodesk/maya-usd" target="_blank">Autodesk MayaUSD GitHub repository</a> to learn more about Hydra.</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>Parent page:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/Maya_USD_USD_for_Maya_Release_Notes_html.html">USD for Maya Release Notes</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

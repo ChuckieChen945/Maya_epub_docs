@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Basics">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83">
+<meta name="language" content="CHS">
+<title>静态、动态和扩展属性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1> 
+	 静态、动态和扩展属性 </h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-C24851F5-CDBA-4E30-B7F9-6FDB95A93057"><span class="ph msgph prodname" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 中存在三种类型的属性：静态、扩展和动态。
+	 </p>
+<p class="p" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-782CB580-1B29-45E2-AE71-D852789F0087">静态属性内置在代码中或者是插件节点的成员，且无法修改或移除。
+	 </p>
+<p class="p" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-8385C095-031F-4688-9394-67D40B18EDD4">动态属性可用于在特定节点上添加或删除属性。动态属性与静态属性不同，只与节点类型的特定实例相关。
+	 </p>
+<p class="p" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-382AEA9A-8509-452D-9EC8-C4A149915AB4">扩展属性可用于在运行时在给定类型的所有节点上添加或删除属性。例如，可以将属性添加到变换类型而不是变换实例中。<em class="ph i" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-08086581-33FD-4227-86CA-0AE60AFB939C">变换</em>类型的所有节点（当前存在的或将要创建的）将包含扩展属性，直到删除扩展属性为止。
+	 </p>
+<div class="note note" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-CD5D6F7E-C56C-4C21-BA5D-814099F806F4"><span class="notetitle">注：</span> 为 DAG 对象添加扩展属性的同时会将该属性添加到对象继承的所有节点类型中。换言之，变换和形状节点（包括所有类型的形状：网格、NURBS 和细分曲面）都将具有扩展属性。
+	 </div>
+<p class="p" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-7A6C703F-107B-4E5B-AB49-958EF193BEF6">有关每个节点的父对象，请参见“节点”参考文档。例如，<em class="ph i" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-6D8A4FB2-0ACC-432C-82DB-AF8AE106E74A">surfaceShape</em> 是 <em class="ph i" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-CD2A2E56-55F2-48EC-9FDD-88ACA16B92F8">mesh</em> 的父对象；因此，存在于 <em class="ph i" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-1D825ED9-21C2-4B32-8298-4299E5C2BF4E">surfaceShape</em> 中的所有属性（包括静态属性和扩展属性）也将存在于 <em class="ph i" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-35B537C3-DA2F-4EA4-BFB5-1FDCA15310DC">mesh</em> 中。
+	 </p>
+<div class="section" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__SECTION_8AC7A75E628946FF8099BFF384D9738B"><h2 class="title sectiontitle">添加和删除扩展属性</h2> 
+		 
+		<p class="p" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-2B079166-DE84-419C-8AE6-1B03D8B5E32E">可以使用 <em class="ph i" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-090F9CC3-36F1-4626-888A-D13B3992FF97">addExtension</em> 命令添加扩展属性。<span class="ph" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-E94287F8-04AD-4385-AE6E-9F1CBCDFB787">在 MDGModifier 中可找到该命令的 API 等效命令。</span> 
+		</p>
+ 
+		<p class="p" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-4C237D31-EA00-4EB2-A27C-0CDB3975A894"><em class="ph i" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-60B5C4E8-84AD-4433-9B2E-37ABDFD3D080">addExtension</em> 命令与 <em class="ph i" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-6DDE4028-004E-4048-A17B-D02EB7FA61A3">addAttr</em> 命令具有相同的参数，但有一个例外情况。使用 <em class="ph i" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-35325830-2A84-43EF-BC63-8E5D454F25B6">addAttr</em> 命令时，必须为即将添加动态属性的节点指定名称。但是，使用 <em class="ph i" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-CD05B702-D8E4-4271-9A30-0535A1CEFEFA">addExtension</em> 命令时，可以使用 -nodeType 标志为即将添加扩展属性的节点指定类型。
+		</p>
+ 
+		<p class="p" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-6F1119C1-E6C7-4862-AF29-11C61BD325F4">可以使用 <em class="ph i" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-D046AB88-B511-43BA-AE96-9D0B3CE36557">deleteExtension</em> 命令删除扩展属性。<span class="ph" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-36AB355C-53C4-47A0-AEA3-85679326D2FD">在 MDGModifier 中可找到该命令的 API 等效命令。</span> 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__SECTION_7C3FEB10CF8340B39F4D8E5537FF45D7"><h2 class="title sectiontitle">序列化</h2> 
+		 
+		 
+		 
+		<p class="p" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-EEEDFBA3-9D95-4BBC-A5E8-B02A34588DBB">没有将 <samp class="ph codeph" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-D635E4F9-3F01-4092-BACA-4BC2392A3187">addExtension</samp> 命令添加到 Maya ASCII 文件中，也没有将二进制等效命令添加到 Maya 二进制文件中。
+		</p>
+ 
+		<p class="p" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-465D287B-3348-4255-BB88-CAA74E8AB059">插件创建的扩展属性依赖于使用这些属性的文件（包括所有被引用文件）中的插件要求。如果插件加载失败或无法添加扩展属性，属性将不可用，而且文件可能会缺少这些信息。
+		</p>
+ 
+		<p class="p" id="GUID-D034A248-C41C-47E2-9EFC-F5BFACF84E83__GUID-A2A4FC3D-4948-4B82-99A7-157EF45BD7EA">同样，通过脚本或用户命令创建的任何扩展属性在文件中也都没有关于这些属性定义的任何信息，只有这些属性的连接和值集。以这种方式保存的扩展属性值，将依靠用户来运行任何使用这些属性值的文件加载之前最初创建这些属性的同一脚本。这是一种很好的编码方法，可以确认在再次添加扩展前并不存在相同的扩展；这样，每次都将成功完成安装脚本的多次运行。
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-D53B9E3D-E6E3-4CC3-A38F-3AA3A09205E5.htm">节点和属性</a></div>
+</div>
+</div>
+
+</body>
+</html>

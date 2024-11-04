@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-ManagingScenes">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF">
+<meta name="language" content="CHS">
+<title>引用编辑的最佳做法</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>引用编辑的最佳做法</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS73099CC142F48755-3D114B751181C40F14B142E"> 父场景文件可能会受到在层次的被引用子场景文件级别所做的编辑的不利影响。以下部分提供了会影响父场景解决以前所做编辑的能力的一些编辑示例： </p>
+<div class="section" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS73099CC142F48755-3D114B751181C40F14B1430"><h2 class="title sectiontitle">对 DAG 层次进行更改</h2>
+
+<p class="p" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS73099CC142F48755-3D114B751181C40F14B1431">请勿更改被引用文件的 DAG 节点层次。如果在被引用子场景被引用到父场景之后在该子场景中对 DAG 层次进行修改，使得 DAG 路径不同于在父场景中进行编辑指定的路径，则可能无法再实现这些编辑，或者可能以意外方式应用这些编辑。 </p>
+
+
+</div>
+<div class="section" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS73099CC142F48755-3D114B751181C40F14B1432"><h2 class="title sectiontitle">重命名被引用文件中的节点</h2>
+
+<p class="p" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS73099CC142F48755-3D114B751181C40F14B1433">如果在被引用子文件被引用到父场景之后重命名该文件中的节点，则将无法再实现在父场景中对该节点所做的任何编辑。例如，有两个节点分别存在于被引用子文件中，并在父场景中进行编辑以连接这两个节点。如果随后在子文件级别重命名其中任一节点，则父场景将无法应用其所做编辑（因为名称已更改），并显示错误消息。 </p>
+
+</div>
+<div class="section" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS73099CC142F48755-3D114B751181C40F14B1434"><h2 class="title sectiontitle">已设定关键帧的属性</h2>
+
+<p class="p" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS73099CC142F48755-3D114B751181C40F14B1435">属性上的关键帧用于将要设定关键帧的属性连接到新节点。如果父场景文件无法找到节点（因为其名称已更改），动画可能会断开。 </p>
+
+</div>
+<div class="section" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS73099CC142F48755-3D114B751181C40F14B1436"><h2 class="title sectiontitle">角色装备</h2>
+
+<p class="p" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS73099CC142F48755-3D114B751181C40F14B1437">在角色装备中添加、删除和重命名属性是很常见的。创建特定角色节点可以作为任何后续更改的保护措施。在将要引用的装备文件中创建角色节点，而不是在引用装备的父场景文件中创建。 </p>
+
+</div>
+<div class="section" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS17956D7ADBC6E7361CFBC89E117AE314237-7FF1"><h2 class="title sectiontitle">重命名角色集的成员</h2>
+
+<p class="p" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS73099CC142F48755-3D114B751181C40F14B1438">在引用角色集时，如果被引用文件修改或连接到重命名对象，则不允许重命名该集的成员或重命名角色本身。这可能会导致动画对角色集不起作用或者对角色集的错误成员起作用。 </p>
+
+</div>
+<div class="section" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__SECTION_3FB2DE56A20A4503BD4B32D93AB7578B"><h2 class="title sectiontitle"> DAG 层次和偏移对象 </h2>
+
+<p class="p" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__GUID-07AD53BC-6706-40C6-8E17-656CAB705CA0"> 自 Maya 2014 起，角色集将能够自动确定角色的偏移对象（或<em class="ph i" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__GUID-E814A186-3E36-49FD-8884-55F0F0E8FAF6">根</em>）。如果偏移对象在 DAG 层次<em class="ph i" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__GUID-4A3421BE-1FC2-4640-8CFA-AAA8AC9A93CD">外部</em>，但已连接到它，则 Maya 不会将其标识为角色的根。 </p>
+
+</div>
+<div class="section" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS73099CC142F48755-3D114B751181C40F14B1439"><h2 class="title sectiontitle">添加多边形历史</h2>
+
+<p class="p" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS73099CC142F48755-3D114B751181C40F14B143A">在必须编辑被引用文件中的曲面几何体的情况下，用户可以将历史添加到被引用模型中。预照明就属于这种情况，这种效果用于以网格顶点颜色存储从该网格的渲染外观获得的着色和照明信息。只要被引用文件中的多边形几何体具有历史，就可以在父场景中添加新历史。在引用子场景文件中添加历史的一种简单方法是选择网格，然后选择<span class="ph uicontrol" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__GUID-F25FFE83-53E5-47EE-8FB2-07EDF92D7294">编辑网格 &gt; 变换(Edit Mesh &gt; Transform)</span>。 </p>
+
+</div>
+<div class="section" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS73099CC142F48755-3D114B751181C40F14B143B"><h2 class="title sectiontitle">为属性值设定关键帧</h2>
+
+<p class="p" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS73099CC142F48755-3D114B751181C40F14B143C">如果在被引用子场景文件中更改某个属性的值，则除了立即<span class="ph uicontrol" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__GUID-3EEFEB8E-2ECF-4371-9337-1003057D03BF">“撤消”(Undo)</span>，没有任何其他方法可恢复该属性。如果必须恢复该值，请考虑通过设定关键帧、Trax 姿势或 Trax 片段来存储该值。另一个方法是在<span class="ph uicontrol" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__GUID-136BF5DB-023B-4AE9-953C-592CDF524C43">“属性编辑器”(Attribute Editor)</span>中将该值存储为节点预设。 </p>
+
+</div>
+<div class="section" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS73099CC142F48755-3D114B751181C40F14B143D"><h2 class="title sectiontitle">编辑已分组的引用</h2>
+
+<p class="p" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS73099CC142F48755-3D114B751181C40F14B143E">在使用组选项创建文件引用时，层次中的某些对象可能会在平移、旋转或缩放新组节点时收到双重变换（在父场景中工作时）。例如，在平移某个对象时，该对象会接收两个命令，要求根据它在层次中的位置进行变换。对于骨架和蒙皮角色之间已存在关系的装备角色，很容易发生这种情况。在这些情况下，必须为被引用文件中的项目禁用<span class="ph uicontrol" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__GUID-9A186599-D607-47E1-9D13-331E29156FD7">“继承变换”(Inherit Transforms)</span>属性，或者确定分组层次的替代方法。 </p>
+
+</div>
+<div class="section" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS73099CC142F48755-3D114B751181C40F14B143F"><h2 class="title sectiontitle">在父场景中更新引用</h2>
+
+<p class="p" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS73099CC142F48755-3D114B751181C40F14B1440">当多个用户处理一个项目，并且一个用户正在编辑的被引用文件同时被其他用户引用时，其他用户将无法看到第一个用户在他们自己的父场景中所做的修改，除非重新加载文件引用。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-8D8E0D4A-DE37-4C63-9F59-8D71F00E3367.htm">引用编辑器</a>。 </p>
+
+</div>
+<div class="section" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS73099CC142F48755-3D114B751181C40F14B1443"><h2 class="title sectiontitle">将在父场景中所做的编辑保存到文件引用</h2>
+
+<p class="p" id="GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS73099CC142F48755-3D114B751181C40F14B1444">如果需要在保存引用编辑操作的过程中写出节点，则可以导入被引用文件，使所有项均位于场景中，然后仅选择导入的那些项目，并再次作为引用导出所选项。这样，对节点和属性所做的所有编辑均将写入导出的文件引用。 </p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-021D6556-CC80-4CE3-8E07-CA80ED72B804.htm">引用编辑</a></div>
+</div>
+</div>
+
+</body>
+</html>

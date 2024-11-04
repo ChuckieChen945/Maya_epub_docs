@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Bifrost">
+<meta name="created" content="30/7/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="Bifröst:网格 Bifröst:导出网格的运动模糊 运动模糊:Bifröst Alembic:使用 Bifröst 网格的运动模糊">
+<meta name="indexterm" content="Bifröst:网格">
+<meta name="indexterm" content="Bifröst:导出网格的运动模糊">
+<meta name="indexterm" content="运动模糊:Bifröst">
+<meta name="indexterm" content="Alembic:使用 Bifröst 网格的运动模糊">
+<meta name="indexterm" content="Bifrost:网格">
+<meta name="indexterm" content="Bifrost:导出网格的运动模糊">
+<meta name="indexterm" content="运动模糊:Bifrost">
+<meta name="indexterm" content="Alembic:使用 Bifrost 网格的运动模糊">
+<meta name="modified" content="17/04/2023">
+<meta name="topicid" content="GUID-B5D406CF-922E-46BD-9238-9BB48347055D">
+<meta name="language" content="CHS">
+<title>使用 Bifrost 网格</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 Bifrost 网格</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__GUID-4E478685-228A-43E5-9BFD-D321C4826FD4"> 可以从 Bifrost 模拟的等值面生成网格以更好地控制曲面。可以将通道（如速度和漩涡）作为颜色集传递到网格。
+	 </p>
+<p class="p" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__GUID-07D1CB76-468D-42E8-9E06-9D9B5DFEAD8D">网格是在创建 Bifrost 模拟时自动添加到场景中，但要在 <span class="ph uicontrol" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__GUID-93F7201F-85E8-4A57-BDBB-9E067C413279">bifrostShape</span> 节点上激活网格之后才会有多边形的单独对象。这通常是渲染或导出之前的最后一个步骤。
+	 </p>
+<div class="section" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__SECTION_86131691A8234427AECBA8FD9FF3DF1B"><h2 class="title sectiontitle">从 Bifrost 模拟生成网格</h2> 
+		 
+		<ol class="ol" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__OL_FF0DE196B0C8417DAFB82EAD68762B0E"><li class="li" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__LI_3C8657A164794145A1B3105332B0505C">如果需要，您可以先缓存整个模拟，避免同时进行模拟和划分网格所需的计算开销。
+			 <ul class="ul" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__UL_87CE24F3F2DF4A5ABB31ADD73FFD80E4"><li class="li" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__LI_EB82320BF29A4693BDC45FF0BF967C3A">若要生成用户缓存，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-36D0E99D-B4BC-4210-9174-AAB982A1CE04.htm">使用 Bifrost 用户缓存</a>。
+				</li>
+<li class="li" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__LI_0599AF0594584AF0B0420BBAE6F375EC">若要使用临时缓存，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-250FE4C5-F0F8-4973-989E-7DDE8A4D4BB2.htm">预览 Bifrost 模拟</a>。
+				</li>
+</ul>
+ 
+		  </li>
+<li class="li" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__LI_845192681AF8420A88B5A48054D976F9">在<span class="ph uicontrol" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__GUID-339BB391-A367-4CE5-9D67-4FF6D1D4B603">“bifrostShape”</span>节点下的<span class="ph uicontrol" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__GUID-A55EBBE8-A8AE-440C-B65A-5C6A658FF3D3">“Bifrost 网格”(Bifrost Meshing)</span>属性组中，选择<span class="ph uicontrol" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__GUID-708AE3AD-09B0-4CBD-883E-52F57CABFD88">“启用”(Enable)</span>。
+			 <p class="p" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__GUID-447232C4-FDCA-4B6C-AD16-B932E9B65610">这将为<span class="ph uicontrol" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__GUID-A495E3A2-ABD7-48B7-9379-B584CF039133">“bifrostMesh”</span>对象生成网格曲面。
+			 </p>
+ 
+			 <p class="p">划分泡沫网络时，还会向场景添加多边形网格并将其连接到相应形状（默认情况下，泡沫形状没有关联的网格）。但是，该网格不会添加到任何着色组，因此您必须手动应用材质。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__LI_0921D273FB21457CA6AC99B4E94204E0">根据需要设置其他<span class="ph uicontrol" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__GUID-4DCB1DDE-FA0F-461D-A9F0-B226420DE60B">“Bifrost 网格”(Bifrost Meshing)</span>控件。
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__SECTION_B7BAF96796F1430FB1B73869291DF6BB"><h2 class="title sectiontitle">通过部分 Bifrost 模拟生成网格</h2> 
+		 
+		<p class="p" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__GUID-F35D8CF3-CF75-4303-AE72-E09CD35D9D0D"> 通过指定<span class="ph uicontrol" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__GUID-7FE9FF35-5A02-4A84-9F38-3DC19517FC45">“剪裁”(Clipping)</span>网格，可以减少为 Bifrost 模拟生成网格所需的时间。例如，可以在摄影机的视图中，围绕流体的一部分放置一个长方体，以仅为该区域生成网格。剪裁网格的拓扑无关紧要，仅考虑其世界对齐的边界框。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-992513A9-4D41-45B3-B9D0-94071DB38180.htm">使用 Bifrost 禁用体积和剪裁网格</a>。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__SECTION_EA344ABAD9904CCF9CD9B868DE8D2488"><h2 class="title sectiontitle">缓存 Bifrost 网格</h2> 
+		 
+		<p class="p" id="GUID-B5D406CF-922E-46BD-9238-9BB48347055D__GUID-3F4CFD3B-3D3F-4CD1-BBAA-9ED975A8D45E">若要缓存 Bifrost 网格，请为模拟创建用户缓存（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6.htm">创建 Bifrost 用户缓存</a>）并确保已在<span class="ph uicontrol">“Bifrost 计算和缓存选项”(Bifrost Compute and Cache Options)</span>窗口中启用<span class="ph uicontrol">“缓存元素:网格”</span> <span class="ph uicontrol">(Cache Elements: &gt; Mesh)</span>。
+		</p>
+ 
+		<p class="p">您可以按<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-F4F0A21E-815B-45A1-8030-5318E284202E.htm">使用 BIF 格式缓存网格</a>中所述将生成的已缓存网格导入到其他场景中。
+		</p>
+ 
+		<p class="p">或者，您可以按<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-05E68AC2-9189-4381-8A42-1C4A364B95D6.htm">将 Bifrost 网格缓存为 Alembic 文件</a>中所述，将 Bifrost 网格缓存为 Alembic 文件。
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-490292AC-38B2-4D13-9F41-9E959A767064.htm">使用 Bifrost 模拟流体</a></div>
+</div>
+</div>
+
+</body>
+</html>

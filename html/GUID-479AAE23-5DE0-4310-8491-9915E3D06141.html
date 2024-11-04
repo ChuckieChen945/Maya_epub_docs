@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-479AAE23-5DE0-4310-8491-9915E3D06141">
+<meta name="language" content="CHS">
+<title>使用 nParticle 发射流体特性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 nParticle 发射流体特性</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-2575"><p class="p" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C89"> 可以使用 nParticle 将流体属性（密度、温度、燃料和颜色）添加到流体容器中。与流体发射的其他方法一样，从 nParticle 对象发射流体将创建流体属性值并在播放模拟时修改栅格体素的值。 </p>
+<p class="p" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C88">可以通过使用流体发射器属性或 nParticle 每粒子速率和每粒子半径属性，控制流体从 nParticle 发射的发射速率。 </p>
+<div class="fig fignone" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C87"><img class="image" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__IMAGE_25AB49C8D16D4A6F8C4E2B54C5AEAD51" width="171" height="212" src="../images/GUID-0EE5B37D-2718-4AE6-98AF-187519E10859.png"></div>
+<div class="section" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C86"><h2 class="title sectiontitle">从 nParticle 发射流体</h2>
+
+<p class="p" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C85">要从 nParticle 发射流体，必须先创建 nParticle 对象。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-87BE424C-46D1-4245-9546-86C44797B104.htm">创建 nParticle</a>。 </p>
+
+<p class="li listintro" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C83">从 nParticle 发射流体</p>
+<ol class="ol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C84"><li class="li" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C82">通过选择<span class="ph menucascade" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-9312B599-B286-4B86-A334-0EB86F81309A"><span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-CBF195B8-248B-49AE-BEFC-459ACAB5B024">“流体效果</span> &gt; <span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-FBEC22E3-3593-4771-A83F-5EE758B1C8CD">创建 3D 容器”(Fluid Effects &gt; Create 3D Container)</span></span>或<span class="ph menucascade" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-647D7CBE-CF64-4FF0-81BC-2A101439EB7A"><span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-0F5E14D7-9454-4E82-8651-86B7DD248313">“流体效果</span> &gt; <span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-8F18352A-80BF-42AE-952A-3D830B56A390">创建 2D 容器”(Fluid Effects &gt; Create 2D Container)</span></span>创建流体容器。 </li>
+<li class="li" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C81"> <span class="ph" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-830806EA-5163-4068-A527-7B171E843AE7">按住 Shift</span> 键并选择流体容器和 nParticle 对象，然后选择<span class="ph menucascade" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-928BCE5D-0937-406B-B7E6-52A995EDD6E7"><span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-40F77D3F-BB07-4BFA-B28C-69396F7DB112">“流体</span> &gt; <span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-95E17326-21F4-4464-8525-1126BFCC9635">添加/编辑内容</span> &gt; <span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-49823AB4-DC64-4AD6-92CC-D715BB8719F7"> 从对象发射”(Fluids &gt; Add/Edit Contents &gt; Emit from Object)</span></span>。 <p class="p" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C80">现在，nParticle 对象便会发射流体。 </p>
+ </li>
+</ol>
+
+</div>
+<div class="section" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C7F"><h2 class="title sectiontitle">将流体发射设定为 nParticle 逐点速率或逐点半径</h2>
+
+<p class="p" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C7E">可以使用每粒子速率（<span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-CD28EE3C-8C8C-417E-865A-857D1D637104">“速率 PP”(Rate PP)</span>）和每粒子半径（<span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-EC7F1DD6-7DAC-497D-9D6C-8C64C74DAA5C">“半径 PP”(Radius PP)</span>）属性来控制流体发射速率。例如，可以将流体发射半径设定为以发射流体的 nParticle 的每粒子半径值为基础。 </p>
+
+<p class="p" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS73099CC142F48755-575EAB4C124F5234AA8-37D4">有关每粒子属性的信息，请参见以下内容： </p>
+
+<ul class="ul" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS73099CC142F48755-751DE9951262947C01C-5FD4"><li class="li" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS73099CC142F48755-751DE9951262947C01C-5FD3">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-A3FAD0DD-A082-4E8B-92BC-A6EE9CB0C912.htm">nParticle 菜单</a>
+</li>
+<li class="li" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS73099CC142F48755-751DE9951262947C01C-5FD2">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-D21760B2-6DF6-4BA9-98F2-04373659D222.htm">改变每个点的 nParticle 发射</a>
+</li>
+<li class="li" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS73099CC142F48755-751DE9951262947C01C-5FD1">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA.htm">关于 nParticle 内部渐变和每粒子属性</a>
+</li>
+</ul>
+
+<div class="note note" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C7D"><span class="notetitle">注：</span> 
+<p class="p" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-FCBD5460-5C5A-4665-BE09-684E644002B0">要使用每粒子半径进行流体发射，还必须使用逐点粒子发射速率。 </p>
+
+</div>
+
+<p class="p" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C7C">要基于每粒子速率或每粒子半径发射流体，必须设置 nParticle 对象才能发射流体。 </p>
+
+<p class="li listintro" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C7A">将流体发射设定为 nParticle 逐点速率</p>
+<ol class="ol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C7B"><li class="li" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C79">在<span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-EEF9A903-A6E7-46F0-9744-2E4D53D0EB73">“大纲视图”(Outliner)</span>中，选择 nParticleShape 和流体发射器对象。 <p class="p" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C78">如果 nParticle 对象设定为发射流体，则 nParticleShape 和 fluidEmitter 对象都将列在 nParticle 下的<span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-44A0F822-0AB2-4D25-8D59-ECF88FB087DD">“大纲视图”(Outliner)</span>中。 </p>
+ <div class="fig fignone" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C77"><img class="image" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__IMAGE_BC0DCD4B600C4D31915ECC8069769BB2" width="112" height="93" src="../images/GUID-0B6FA4D6-06E6-4129-A0C1-E8B719CF5226.png"></div>
+ </li>
+<li class="li" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C76">在<span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-D92AC975-DC7B-48DC-8FAE-CDE2FEF4E82B">“nDynamics”</span>菜单集中，选择<span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-C47E5116-1296-4D13-9666-1C8E15E0F37E">“nParticle &gt; 逐点发射速率”(nParticles &gt; Per-Point Emission Rates)</span>。 </li>
+<li class="li" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C75">选择流体对象，并在<span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-977A3D68-9D52-4358-8BCC-2AAF72DCF3E3">“属性编辑器”(Attribute Editor)</span>中单击 fluidEmitter 选项卡。 </li>
+<li class="li" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C74">在 fluidEmitter<span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-0FD78CCE-EA59-4C19-9B57-15D9642455C2">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-F58AC672-C8FA-4E69-9890-56EC736D1267">“基本发射器属性”(Basic Emitter Attributes)</span>区域中，确保<span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-8C0D83D6-5581-4947-B119-2953885C8613">“使用逐点速率”(Use Per-Point Rate)</span>处于启用状态。 <p class="p" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C73">此时，<span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-5ADB3254-AF4D-4EE5-ACFE-6B2C9BBA0DCE">“流体发射器速率 PP”(Fluid Emitter Rate PP)</span>每粒子属性将显示在 nParticle 对象的<span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-FE7EE7F6-6355-47B6-AB9B-F13E1D1E7090">“每粒子(数组)属性”(Per-Particle (Array) Attributes)</span>中。可以使用渐变或表达式来基于每粒子控制流体发射。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-402F5F7A-0003-403D-A253-15CDABF699D1.htm">使用每粒子属性</a>。 </p>
+ </li>
+</ol>
+
+<p class="li listintro" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C71">将流体发射半径设定为 nParticle 逐点半径</p>
+<ol class="ol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C72"><li class="li" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C70">在 fluidEmitter<span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-40E5A941-E1BF-4DBF-93EB-7B4BA59B2112">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-3A4BF70D-D16A-493B-8983-7FAF63F82989">“基本发射器属性”(Basic Emitter Attributes)</span>区域中，启用<span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-27224550-FE23-406B-91AA-672DFC0FC7A1">“使用逐点半径”(Use Per-Point Radius)</span>。 <div class="note note" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C6F"><span class="notetitle">注：</span> 
+<p class="p" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-2C048D6D-2400-437F-98C7-8700CBE29A4E">要使用每粒子半径进行流体发射，还必须将流体发射设置为使用逐点速率。 </p>
+
+</div>
+ </li>
+<li class="li" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C6E">选择 nParticle 对象，并在<span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-322F287D-3808-4FD0-A089-C421C648BADD">“属性编辑器”(Attribute Editor)</span>中单击 nParticleShape 选项卡。 </li>
+<li class="li" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C6D"> 在<span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-FA78ED8C-8BFA-4A7B-B32C-17059EC9CDB1">“粒子大小”(Particle Size)</span>区域中，设定<span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-C2C6A487-93A2-4310-B5E0-3D7EA826B436">“半径”(Radius)</span>。 </li>
+<li class="li" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C6C">在<span class="ph uicontrol" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__GUID-2FD4AB17-7808-445C-86F8-D683EC2B666F">“半径比例”(Radius Scale)</span>区域中，将标记添加到渐变中，并选择一个输入以控制发射流体的 nParticle 的每粒子半径。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-6C102F00-86AC-4EA6-9357-A0C13A4BBB3B">使用渐变设置属性</a>。 <p class="p" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__WS1A9193826455F5FF-75C1F7C3124F51CCBD1-3C6B">也可以使用表达式来控制每粒子半径。 </p>
+ </li>
+</ol>
+
+</div>
+<div class="section" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__SECTION_B735B56CE51A4395B03C6E543C877915"><h2 class="title sectiontitle">相关主题</h2>
+
+<ul class="ul" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__UL_8C4361AF018049488D4BD6B684B3E6C0"><li class="li" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__LI_02928686E79A4C6685B50862BB515743">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-14C611D2-6C22-493C-ABF8-48842690CA5F.htm">从对象发射流体</a>
+</li>
+<li class="li" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__LI_CCF3C1E59B014A1F90240675D9FE04F5">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-B068D5DC-2D46-4970-8818-6FEAFBC8A2A4.htm">使用流体填充几何体</a>
+</li>
+<li class="li" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__LI_688267E1AEAD4A97BDEA16A9F250056B">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-903E8C89-680A-456D-BC1E-98841BCBB06F.htm">将流体特性发射到栅格中</a>
+</li>
+<li class="li" id="GUID-479AAE23-5DE0-4310-8491-9915E3D06141__LI_1B935B3258C34F9EB7AAF230AD0FC825">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-DD243E1F-5193-4A27-8A7D-45A787B0AD0E.htm">使用发射贴图发射流体</a>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-FB3B965A-F4F5-4522-B545-70DB00D10684.htm">创建流体效果</a></div>
+</div>
+</div>
+
+</body>
+</html>

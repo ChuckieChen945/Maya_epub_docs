@@ -1,0 +1,204 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE">
+<meta name="language" content="CHS">
+<title>编辑平滑蒙皮</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>编辑平滑蒙皮</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C59"> 
+		如果不喜欢绑定后的平滑蒙皮行为，可以分离蒙皮，编辑骨架或可变形对象，设定新的绑定选项，然后再次绑定。蒙皮可以是检查绑定、分离和编辑骨架然后再次绑定的迭代过程。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-6DBFEC3E-5459-43C2-A178-670938885DB8.htm">分离平滑蒙皮</a>。 
+	 </p>
+<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C57">还可以编辑平滑绑定选项（例如，<span class="ph uicontrol" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-3FBE2A39-FE07-4FBC-AEFA-89C04821F2C8">“最大影响”(Max Influences)</span>和<span class="ph uicontrol" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-27E9069F-A271-4C18-BC2A-13D545A54D1D">“衰减速率”(Dropoff Rate)</span>），<em class="ph i" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-16D4FCFB-3F3C-4822-B940-33B8A78F0AC9">而无需</em>分离和再次绑定。（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-2B01ACCC-6CB5-4760-A4F1-2BCDBA3C5DF5.htm">编辑最大影响</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-58FA53F4-9370-488E-A7A1-CE86F4AB175E.htm">编辑关节平滑蒙皮属性</a>。 
+	 </p>
+<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-30506974-91DE-4A5B-B0BA-66365A3F1BA7">练习使用可变形对象和检查绑定时，可以通过使用<span class="ph uicontrol" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-0C8A417C-29B2-4F29-B75A-DFAE4AA085B6">“绘制蒙皮权重工具”(Paint Skin Weights Tool)</span>查看关节影响并绘制权重来修改变形效果。（请参见本主题中更靠后的“绘制平滑蒙皮点权重”。）<span class="ph" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-91DFF16F-EFEA-4D56-88AD-893CFF081007">若要直接编辑蒙皮点权重，可以使用<span class="ph uicontrol" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-7312CB91-805B-43DA-B431-EEBC84C8C8B5">“组件编辑器”(Component Editor)</span>。请参见本主题中更靠后的“编辑蒙皮点权重”。</span> 
+	 </p>
+<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C54">请注意，如果编辑关节平滑蒙皮属性并更改<span class="ph uicontrol" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-F62D3442-3740-4E03-8FC3-A4F534191B0C">“衰减”(Dropoff)</span>属性，则需要 Maya 重新计算受影响的蒙皮点的权重。反过来，这样可能改变已对蒙皮点权重所做的任何其他更改。因此，最好的做法是首先编辑<span class="ph uicontrol" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-8D80D6EB-51C1-40E1-BD10-4F3B9A6FE404">“衰减”(Dropoff)</span>属性，然后继续编辑和绘制蒙皮点权重。 
+	 </p>
+<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C53">也可以使用平滑蒙皮影响对象来控制平滑蒙皮变形效果。平滑蒙皮影响对象可以是任何 NURBS 曲面、NURBS 曲线，或多边形曲面（网格）。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-11200337-2A62-4FAF-BA84-3DD1DFCE490B.htm">平滑蒙皮影响对象</a>。 
+	 </p>
+<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-6DC89A81-0003-4BC6-903A-226877DE8C8F">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-11007900-329F-40ED-9C38-BE4DB5C39832.htm">平滑蒙皮</a>。 
+	 </p>
+<div class="section" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__SECTION_2907B9BDE125431B8E2C72CEAA4F1868"><h2 class="title sectiontitle">编辑蒙皮点权重</h2> 
+		 
+		<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C45"> 可以使用<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-B698CC5D-2771-488E-98E8-2D4E31DB3B2D.htm">“组件编辑器”(Component Editor)</a>直接修改各个蒙皮点权重的值。通过<span class="ph uicontrol" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-5CBAEC6B-233E-4504-A924-2CD52E11A2D0">“组件编辑器”(Component Editor)</span>，可以轻松将特定的蒙皮点权重设置为特定值。 
+		</p>
+ 
+		<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-5159429B-1DB4-43C2-AF39-4FD7014557D0"><span class="ph" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-3285F1BE-C20A-4B7F-B699-D8C5FF171074">如果要直接确定变形的形状而不考虑特定值，可以改为</span>使用<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-99189E9D-237F-471E-A02C-BE6593B4828B.htm">绘制蒙皮权重工具(Paint Skin Weights Tool)</a>绘制权重。 
+		</p>
+ 
+		<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C41">编辑蒙皮点权重时，可以随时将权重重置为其初始值（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-B48C93AF-CB39-480E-A3AF-40F9AC2BDAE7.htm">将蒙皮点权重重置为默认权重</a>）。也可以防止间接更改蒙皮点权重（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-C170E134-0746-44DC-B122-9F8FA7894674.htm">锁定平滑蒙皮权重</a>），这会在 Maya 归一化权重时发生（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-97C10B22-F128-4464-A91C-CD798680365D.htm">平滑蒙皮权重归一化</a>）。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__SECTION_AA4D48D0532747DBA1B89B9E0C7DECD2"><h2 class="title sectiontitle">复制平滑蒙皮权重</h2> 
+		 
+		<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C31">可以将平滑蒙皮权重从一个平滑蒙皮对象复制到另一个对象，或从一组平滑蒙皮对象复制到另一组对象。还可以在蒙皮的选定组件或从单个顶点复制蒙皮权重。 
+		</p>
+ 
+		<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C30">如果项目需要设置多个相似角色（例如，足球游戏的一队运动员），复制平滑蒙皮权重可以节省大量的时间。将精力集中在一个角色上进行绘制，然后复制这些权重到其他运动员，而不需要对所有角色进行蒙皮并分别绘制其变形效果的权重。使用该技术设置多个角色的初始权重，可以使您有更多的时间来微调权重和变形，使每个角色都是唯一的。 
+		</p>
+ 
+		<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C2F">为获得最佳效果，被复制的角色骨架和将复制至的角色骨架应该具有相同的结构。如果骨架相似，Maya 将继续尝试复制权重。但是，如果骨架在缩放或比例上有很大不同，那么请考虑在复制之前执行下列操作： 
+		</p>
+ 
+		<ul class="ul" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C2E"><li class="li" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C2D">缩放并旋转关节以便使骨架能够更好地匹配。 
+		  </li>
+<li class="li" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C2C">如果两个角色中都存在 UV，请使用 UV 空间影响关联设置来复制蒙皮权重。 
+		  </li>
+</ul>
+ 
+		<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C2B">另外，复制过程中各个角色的骨架应处于相同的姿势。如果关节的方向不相似，那么复制可能会不够精确，这意味着您可能需要对结果执行一些修饰性的绘制。 
+		</p>
+ 
+		<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C2A">如果蒙皮对象具有不同数量的 CV，或者 CV 的排序不同，复制将智能考虑这些差异并提供相同类型的权重。如果想要将平滑蒙皮权重从高分辨率角色应用到低分辨率版本角色，这将非常适用。 
+		</p>
+ 
+		<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C29">虽然可以在不同类型的蒙皮对象之间复制蒙皮权重，但是当源对象为多边形网格时这些选项将取得最佳效果：例如，复制多边形网格的蒙皮权重至 NURBS 曲面或细分曲面。 
+		</p>
+ 
+		<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-0B2CA67E-5ED6-4725-AD7D-85045DBB3879">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-7D895BB0-1522-4388-96E0-4245127F90AB.htm">复制平滑蒙皮权重</a>。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__SECTION_9394F26AD0634F0481D4F76968EC935F"><h2 class="title sectiontitle">镜像平滑蒙皮权重</h2> 
+		 
+		<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C28"> 可以从一个平滑蒙皮对象到另一个平滑蒙皮对象，或者在同一平滑蒙皮对象内，镜像平滑蒙皮权重。也可以在蒙皮的选定组件上镜像蒙皮权重。 
+		</p>
+ 
+		<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C26">镜像平滑蒙皮权重加快了对蒙皮变形效果进行编辑和微调的过程。例如，可以使角色右肩区域的平滑蒙皮权重完美化，然后将权重镜像到角色左肩。 
+		</p>
+ 
+		<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C25">Maya 会在其全局工作区轴定义的各个平面之间对权重进行镜像处理。为了使镜像正常工作，蒙皮对象（或角色）应位于全局轴的中心，或至少沿着要镜像的轴对齐。此外，蒙皮对象（包括其骨架）应该在整个镜像平面内采取一个对称的姿势。 
+		</p>
+ 
+		<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-C4393375-0054-4C29-84B4-6C6C8CEC7DB2">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-C3034EAB-C824-476E-91A5-AE2A62A7E24D.htm">镜像平滑蒙皮权重</a>。 
+		</p>
+ 
+		<div class="note note" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C24"><span class="notetitle">注：</span>  
+		  <span class="ph uicontrol" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-A7074661-F7C9-47BA-8563-512F9B3EEA12">“绘制蒙皮权重工具”(Paint Skin Weights Tool)</span>禁用了<span class="ph uicontrol" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-5C30FAA0-5C75-466D-9584-A5E9C6A28981">“反射”(Reflection)</span>。可以使用<span class="ph uicontrol" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-8FCF1CD7-32F6-4AC3-B1D4-5107C7EF141A">“蒙皮 &gt; 镜像蒙皮权重”(Skin &gt; Mirror Skin Weights)</span>作为替代方法，以便反射蒙皮权重。 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__SECTION_EB222F99641149339F7E28CFECC695A0"><h2 class="title sectiontitle">绘制平滑蒙皮点权重</h2> 
+		 
+		<div class="fig fignone" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C40"><img class="image" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__IMAGE_AAE117C992544DE6BAB50E701F146FA3" width="177" height="207" src="../images/GUID-8FE14F03-54C1-4417-90E2-11AAC891FA97.png"></div>
+ 
+		<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C3F"> 可以用<span class="ph uicontrol" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-CAD58F13-AA7E-4989-9632-16BD2A055E19">“绘制蒙皮权重工具”(Paint Skin Weights Tool)</span>绘制蒙皮点权重。<span class="ph uicontrol" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-849F576D-9BC1-415A-B7C4-ACF89C0D60AA">“绘制蒙皮权重工具”(Paint Skin Weights Tool)</span>提供了一种直观的方式，用于更改平滑蒙皮的变形效果<span class="ph" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-730A45B6-AE8C-4EC0-ABD9-8FF8600F17D3">。如果要将单个蒙皮点权重设定为特定值，可以使用<span class="ph uicontrol" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-FFD497AE-A93C-43A0-80DF-2E9B84E225C7">“组件编辑器”(Component Editor)</span></span>（请参见本主题中前面的“编辑蒙皮点权重”）。 
+		</p>
+ 
+		<div class="note note" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C3D"><span class="notetitle">注：</span>  
+		  <ul class="ul" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C3C"><li class="li" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C3B"> 
+				<span class="ph uicontrol" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-BE4CDBEC-2214-43F3-9DF4-DF9F2CEC49A4">“绘制蒙皮权重工具”(Paint Skin Weights Tool)</span>禁用了<span class="ph uicontrol" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-0693B8FF-F194-47BE-A617-BD3D62B2F8D1">“反射”(Reflection)</span>。可以使用<span class="ph uicontrol" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-2A783D87-9DF3-4512-8410-5E67B55FCEDA">“蒙皮</span> &gt; <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-35ECFBC1-A65B-46AF-9542-213BD304C632.htm#GUID-35ECFBC1-A65B-46AF-9542-213BD304C632__SECTION_E6486357D39246BF8BA6174724641291">镜像蒙皮权重</a>”(Skin &gt; Mirror Skin Weights)作为替代方法，以便反射蒙皮权重。 
+			 </li>
+<li class="li" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C3A">使用<span class="ph uicontrol" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-77BFFB63-3774-45F1-ABA5-782519071E6F">“绘制蒙皮权重工具”(Paint Skin Weights Tool)</span>时，无法通过 Maya 标记菜单选择想要为其绘制权重的关节。相反，您需要从<span class="ph uicontrol" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-47A52827-D4CB-43BE-8411-86C98F318C9E">“绘制蒙皮权重工具”(Paint Skin Weights Tool)</span>设置的影响列表中选择关节，或者使用鼠标中键 (<img class="image" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__IMAGE_69BF791F478A4585BA7CC141EA394420" width="20" height="23" src="../images/GUID-D75F7EC7-14A4-4B03-B0A1-C445CF45AC10.png">) 单击关节，然后按键盘上的上下箭头键来浏览角色的关节层次。 
+			 </li>
+</ul>
+ 
+		</div>
+ 
+		<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C39">绘制蒙皮点权重时，您可以随时将权重重置为其初始值（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-B48C93AF-CB39-480E-A3AF-40F9AC2BDAE7.htm">将蒙皮点权重重置为默认权重</a>）。 
+		</p>
+ 
+		<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C38">若要浏览包括绘制蒙皮点权重的示例，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-03F74536-BFE9-40CD-B647-153FC1CA1801.htm#GUID-03F74536-BFE9-40CD-B647-153FC1CA1801__WS17956D7ADBC6E736-5D7D28FA117AE30DDFF-7FC1">通过平滑蒙皮对圆柱体进行蒙皮</a>。 
+		</p>
+ 
+		<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C37">请注意，绘制平滑蒙皮点权重和绘制刚性蒙皮点权重使用的绘制工具不同。 
+		</p>
+ 
+		<div class="section" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C35"><h3 class="title sectiontitle">在遮罩顶点绘制蒙皮权重</h3> 
+		   
+		  <p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C34"> 可以在蒙皮上创建遮罩，它不受您所做的任何权重绘制的影响。在遮罩上应用笔刷笔划时，无论绘制权重操作如何，遮罩区域上的顶点均保留其权重。 
+		  </p>
+ 
+		  <p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS73099CC142F48755-7B21313411809411AE9-4C32">必须在创建遮罩前先创建蒙皮。有关遮罩曲面的详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-97E0B720-5F75-4078-8E91-A86EB1542EEA">限制绘制区域</a>。 
+		  </p>
+ 
+		  <p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__WS1A9193826455F5FF-414E5ED12075B5C5DC-280D"> 可以在绘制权重时使用<span class="ph uicontrol" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-F685B3F7-E2FD-4D58-A2B5-120AFED088FB">“绘制蒙皮权重工具”(Paint Skin Weights Tool)</span>中的<span class="ph uicontrol" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-52D22D51-02C0-411A-9195-06C4609AA73E">“绘制选择模式”(Paint Select mode)</span>来有效地遮罩部分网格。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-7BA63E24-F575-4A33-BE70-D1F0DBB31107.htm">创建用于绘制权重的遮罩</a>。 
+		  </p>
+ 
+		</div>
+ 
+		<p class="p" id="GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE__GUID-15128C94-C426-4F60-9A0B-D3848825C1EC">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-7D773C38-F9CF-4141-8ADD-4E0454838BB7.htm">绘制蒙皮权重</a>。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-97C10B22-F128-4464-A91C-CD798680365D.htm">平滑蒙皮权重归一化</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-900D77E4-D3CA-4086-BAE1-674DE07D7A14.htm">更改蒙皮对象的变形顺序</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-7BA63E24-F575-4A33-BE70-D1F0DBB31107.htm">绘制蒙皮权重时创建遮罩</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-7D895BB0-1522-4388-96E0-4245127F90AB.htm">复制平滑蒙皮权重</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-6DBFEC3E-5459-43C2-A178-670938885DB8.htm">分离平滑蒙皮</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-58FA53F4-9370-488E-A7A1-CE86F4AB175E.htm">编辑关节平滑蒙皮属性</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-2B01ACCC-6CB5-4760-A4F1-2BCDBA3C5DF5.htm">编辑最大影响</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-84144C4B-8A73-40B2-AD56-724620B90F51.htm">编辑蒙皮簇通道或属性</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-7681F977-32D2-4FE4-A83D-E1C9FB2B402F.htm">导出权重</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-DD0E4715-294F-43EF-A70B-1EAD8389CA0E.htm">导入权重</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-E2091D85-86D6-479A-B793-61B933E6CECF.htm">修复平滑权重</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-C170E134-0746-44DC-B122-9F8FA7894674.htm">锁定平滑蒙皮权重</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-C3034EAB-C824-476E-91A5-AE2A62A7E24D.htm">镜像平滑蒙皮权重</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-1E9D36A8-92D1-4D1A-A769-D4A05AE852FB.htm">修改蒙皮权重</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-7684CEC9-6434-4546-ABAD-8CAAEA4FAF55.htm">将权重移到其他影响</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-7D773C38-F9CF-4141-8ADD-4E0454838BB7.htm">绘制蒙皮权重</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-D75050F4-F4B8-41D1-AC6C-12894A40B7AD.htm">删减次要的平滑蒙皮权重</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-2E1B7D69-53BB-4A05-8535-A5AE59F5FE96.htm">查询蒙皮权重</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-9B3973A1-B119-40DC-A3D1-0ECACFDE7557.htm">从平滑蒙皮曲面移除未使用的影响</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F.htm">将绑定几何体替换为未绑定的几何体</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-B48C93AF-CB39-480E-A3AF-40F9AC2BDAE7.htm">将蒙皮点权重重置为默认权重</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-B101FEF9-013B-4D1B-81DC-DA0421D1DF9F.htm">在绘制蒙皮权重时旋转关节</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-5166D596-558A-4010-A51B-B8C859C9DD78.htm">设置归一化模式和归一化权重</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-ED92EA61-4957-4476-8931-4ADC41633D76.htm">平滑蒙皮权重</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-11007900-329F-40ED-9C38-BE4DB5C39832.htm">平滑蒙皮</a></div>
+</div>
+</div>
+
+</body>
+</html>

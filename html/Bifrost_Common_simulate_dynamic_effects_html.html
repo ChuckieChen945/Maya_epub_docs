@@ -1,0 +1,77 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_simulate_dynamic_effects_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>模拟动力学效果</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>模拟动力学效果</h1></div><p>提供了专业化的解算器来获得动力学效果，例如，基本粒子系统、空气动力学、燃烧、布料和颗粒材质（如沙子或雪）。可以使用风等影响物以及碰撞对象以相似方式控制所有模拟。</p>
+<h2 id="bifrost">在 Bifrost 中进行模拟的注意事项</h2><h3 id="">播放每一帧</h3><p>对于所有模拟，如果播放时在视口中没有显示正确的结果，请确保将场景设置为播放每一帧。</p>
+<h3 id="">设置开始帧</h3><p>所有模拟系统的开始帧均有一个参数，默认情况下设置为 1。如果希望模拟在其他帧处开始，必须更改此值。</p>
+<h3 id="">在模拟播放期间修改图表</h3><p>在播放期间对图表进行更改时，如果可能，将保留已缓存到内存的反馈端口的当前状态。您可以在播放中途暂停以及更改图表后恢复模拟 - 模拟将基于修改的图表从当前帧开始继续，尽管在之前帧上发射的粒子的 <code>point_size</code> 等特性会保留其旧值，直到从第一帧重新开始模拟。</p>
+<p>不仅在修改未连接输入的值时保留反馈端口缓存，在添加和删除节点和连接时也保留反馈端口缓存。例如，可以中途模拟，然后决定添加并连接范围节点以在视口中可视化值，或者连接 I/O 节点以保存模拟的当前状态，然后继续播放。</p>
+<p>反馈端口本身不存在时（例如，如果您删除模拟节点或断开它与所有输出的连接（以便由编译器对其进行优化））会重置反馈端口缓存。包含反馈端口的图表层级更改时（例如，如果您创建或炸开包含反馈端口的复合）也会重置反馈端口缓存。</p>
+<p>并非每个特性都可以在模拟过程中更改。在播放期间，无法更改 <code>geo_detail_size</code> 等特性和 <code>time_step_size</code> 等解算器特性。要查看此类更改的效果，请返回到开始帧并向前播放。</p>
+<p>要立即重置模拟并手动清除反馈端口缓存，请选择<strong>“编辑 &gt; 重置反馈状态”(Edit &gt; Reset Feedback State)</strong>。</p>
+
+  <div class="related-links">
+      <div class="relinfo relchildren">
+        <strong>此部分中的页面</strong>
+        <ul class="ullinks">
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_create_particle_simulations_html.html">创建粒子模拟</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_create_aero_and_combustion_simulations_html.html">创建 Aero 和燃烧模拟</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_create_mpm_simulations_html.html">创建 MPM 模拟</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_set_up_additional_emission_sources_html.html">设置其他发射源</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_vary_properties_on_emission_html.html">在发射时改变特性</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_add_custom_properties_html.html">对发射添加自定义特性</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_add_colliders_html.html">添加碰撞对象</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_apply_influences_html.html">应用影响物</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_boss_html.html">在图表中使用 BOSS 创建海洋模拟</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_terminate_html.html">终止模拟</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_resume_from_cache_html.html">从缓存文件恢复模拟</a>
+          </li>
+        </ul>
+      </div>
+  
+    <div class="familylinks">
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Animation">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-87541258-2463-497A-A3D7-3DEA4C852644">
+<meta name="language" content="CHS">
+<title>ANIM 文件格式</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-87541258-2463-497A-A3D7-3DEA4C852644">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>ANIM 文件格式</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-87541258-2463-497A-A3D7-3DEA4C852644__WS1A9193826455F5FF-29C43AA6117B26F372E5E3">通过动画文件格式，可以导出和编辑动画曲线。文件格式以这种形式进行定义：外部应用程序可以轻松读取和写入，而无需使用 Maya API。 </p>
+<pre class="pre codeblock">
+Anim File Format
+// A description of the anim file format.
+// August 16, 1998
+// 
+// The .anim file format (version 1.0):
+// // and # are both valid comment characters.
+//
+// All of the lines in the file that do not contain curly braces
+// (’{’ or ’}’) should end with a ’;’ After the ’;’ character, start
+// a new line.
+//
+// The keywords and data are whitespace delimited. 
+//
+// Version 1.1 changes:
+// April 20, 1999
+// new weighted keyword for animData
+// new breakdown flag for keys
+//
+// The version of the file format. This is a required line.
+//
+animVersion string
+// The Maya version. The string is the value of MGlobal::mayaVersion()
+mayaVersion string
+ 
+// The following two lines are optional. If they are not included,
+// the clipboard is set to the range defined by the anim curves
+// contained in the clipboard.
+//
+// These are used by anim curves that have time inputs.
+//
+startTime [float] // The starting frame for the clipboard.
+endTime [float] // The ending frame for the clipboard.
+// The following two lines are optional. If they are not included,
+// the clipboard is set to the range defined by the anim curves
+// contained in the clipboard.
+//
+// These are used by anim curves with unitless inputs.
+//
+startUnitless [float] // The starting value for for the clipboard.
+endUnitless [float] // The ending value for the clipboard.
+// The following three keywords are used to set the units for the file.
+// Each anim curve may have its own units, but these are the default 
+// units if the anim curve units are not given (see the animData section).
+//
+// If the units are not given, then the ui units are used.
+//
+timeUnit [game|film|pal|ntsc|show|palf|ntscf|hour|min|sec|millisec]
+linearUnit [mm|cm|m|km|in|ft|yd|mi]
+angularUnit [rad|deg|min|sec]
+// All of the keywords described above can only be in the header section
+// of the file. As soon as anim curve information is encountered, the 
+// header section is completed and the body of the file is begun.
+//
+// The string is the name of the attribute the anim curve is connected to.
+// The next three ints are the row, child, and attr values used by the
+// clipboard. See the documentation for MAnimCurveClipboard for more
+// information.
+// 
+// If the anim curve is not connected to any attributes, the string
+// is not needed, but the following ints should be 0 0 0. 
+anim [string] [int] [int] [int] 
+// The second form of the anim line has three strings which list what
+// the anim curve was connected to.
+//
+// The strings are: the full attribute name, the leaf attribute name,
+// and the node name. The row, child, and attr ints are still required.
+//
+anim [string] [string] [string] [int] [int] [int]
+// The third and final form of the anim line is used for clipboard
+// place holder objects. These are used to skip node which do not
+// contain any anim curve data, but are positioned in a hierarchy 
+// with nodes that have attached anim curves.
+//
+// In this case, the string is the node name and the three ints are the 
+// same as the other two formats.
+//
+anim [string] [int] [int] [int]
+// The animData must follow a line with a valid anim statement.
+//
+animData {
+ // The input type of the anim curve. Defaults to time.
+ input [time|unitless] 
+ // The output type of the anim curve. Defaults to linear.
+ output [time|linear|angular|unitless]
+ // Whether or not the anim curve has weighted tangents. Defaults to false.
+ // This is available with animVersion &gt;= 1.1
+ weighted [1|0]
+ // The unit of the anim curve input, if it is a time input.
+ // The units default to the time units specified in the file header.
+ inputUnit [game|film|pal|ntsc|show|palf|ntscf|hour|min|sec|millisec]
+ // The unit of the anim curve output. The output unit should match
+ // the output type of the curve. These default to the units specified
+ // in the header.
+ outputUnit [game|film|pal|ntsc|show|palf|ntscf|hour|min|sec|millisec]
+ outputUnit [mm|cm|m|km|in|ft|yd|mi]
+ outputUnit [rad|deg|min|sec]
+ 
+ // The unit of the tangent angles, if there are any fixed tangents.
+ // The units default to the angular units specified in the file header.
+ tangentAngleUnit [rad|deg|min|sec]
+ 
+ // The pre-infinity type. Defaults to constant.
+ preInfinity [constant|linear|cycle|cycleRelative|oscillate]
+ 
+ // The post-infinity type. Defaults to constant.
+ postInfinity [constant|linear|cycle|cycleRelative|oscillate]
+ // The start of the actual keyframe data. Each key is a row in the 
+ // braced section.
+ keys { 
+ [float] [float] [in tan] [out tan] [tan locked] [weight locked]
+ // animVersion 1.1 adds breakdown information
+ [float] [float] [in tan] [out tan] [tan locked] [weight locked] [breakdown]
+ .
+ .
+ .
+// The first two values are the input and output values in the
+ // units defined by the inputUnit and outputUnit keywords.
+ // The in and out tangents should be valid tangent types.
+ // These are followed by three int values for tangent locking,
+ // weight locking and the breakdown flag. If they are 0, the values
+ // are unlocked, or not a breakdown, otherwise they are locked.
+ //
+ // If either, or both, or the tangents are fixed, then additional 
+ // information is needed: a tangent angle and weight.
+ // These two values, per fixed tangent, are added at the end of 
+ // the above line.
+ //
+ // For example:
+ // 1.0 2.0 fixed linear 1 1 0 62.345 0.04;
+ // 
+ // In the above case, 62.345 is the tangent angle for the first 
+ // tangent and the tangent weight is 0.04.
+ //
+ // An example with two fixed tangents:
+ // 1.0 2.0 fixed fixed 1 1 0 62.345 0.04 45.3 0.023;
+ }
+}
+The pattern of an anim line followed by animData should be used until all of the anim curves are described.
+The following example is an animated joint chain consisting of 4 joints. The first three joints are animated and the fourth joint is not animated.
+animVersion 1.1;
+mayaVersion 2.0;
+timeUnit ntsc;
+linearUnit cm;
+angularUnit deg;
+startTime 1;
+endTime 30;
+anim rotate.rotateX rotateX joint1 0 1 0;
+animData {
+ input time;
+ output angular;
+ weighted 0;
+ preInfinity constant;
+ postInfinity constant;
+ keys {
+ 1 0 linear linear 1 1 0;
+ 30 0 linear linear 1 1 0;
+ }
+}
+anim rotate.rotateY rotateY joint1 0 1 1;
+animData {
+ input time;
+ output angular;
+ weighted 0;
+ preInfinity constant;
+ postInfinity constant;
+ keys {
+ 1 0 linear linear 1 1 0;
+ 30 0 linear linear 1 1 0;
+ }
+}
+anim rotate.rotateZ rotateZ joint1 0 1 2;
+animData {
+ input time;
+ output angular;
+ weighted 0;
+ preInfinity constant;
+ postInfinity constant;
+ keys {
+ 1 0 spline spline 1 1 0;
+ 10 -16.774359 spline spline 1 1 0;
+ 15 -1.6493069 spline spline 1 1 0;
+ 22 -3.064691 spline spline 1 1 0;
+ 30 0 spline spline 1 1 0;
+ }
+}
+anim rotate.rotateX rotateX joint2 1 1 0;
+animData {
+ input time;
+ output angular;
+ weighted 0;
+ preInfinity constant;
+ postInfinity constant;
+ keys {
+ 1 0 linear linear 1 1 0;
+ 30 0 linear linear 1 1 0;
+ }
+}
+anim rotate.rotateZ rotateZ joint2 1 1 1;
+animData {
+ input time;
+ output angular;
+ weighted 0;
+ preInfinity constant;
+ postInfinity constant;
+ keys {
+ 1 0 spline spline 1 1 0;
+ 10 60.962438 spline spline 1 1 0;
+ 15 106.06094 spline spline 1 1 0;
+ 22 33.259896 spline spline 1 1 0;
+ 30 0 spline spline 1 1 0;
+ }
+}
+anim rotate.rotateX rotateX joint3 2 1 0;
+animData {
+ input time;
+ output angular;
+ weighted 0;
+ preInfinity constant;
+ postInfinity constant;
+ keys {
+ 1 0 spline spline 1 1 0;
+ 10 0 spline spline 1 1 0;
+ 15 0 spline spline 1 1 0;
+ 22 0 spline spline 1 1 0;
+ 30 0 spline spline 1 1 0;
+ }
+}
+anim rotate.rotateY rotateY joint3 2 1 1;
+animData {
+ input time;
+ output angular;
+ weighted 0;
+ preInfinity constant;
+ postInfinity constant;
+ keys {
+ 1 0 spline spline 1 1 0;
+ 10 0 spline spline 1 1 0;
+ 15 0 spline spline 1 1 0;
+ 22 0 spline spline 1 1 0;
+ 30 0 spline spline 1 1 0;
+ }
+}
+anim rotate.rotateZ rotateZ joint3 2 1 2;
+animData {
+ input time;
+ output angular;
+ weighted 0;
+ preInfinity constant;
+ postInfinity constant;
+ keys {
+ 1 0 spline spline 1 1 0;
+ 10 0 spline spline 1 1 0;
+ 15 0 spline spline 1 1 0;
+ 22 0 spline spline 1 1 0;
+ 30 0 spline spline 1 1 0;
+ }
+}
+anim joint4 3 0 0;
+</pre>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-91EE8FBF-3267-4A41-BD7B-A2EBA1478F27.htm">导入和导出 .anim 格式的动画曲线</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-6C84AB97-1766-4260-9C2A-754C9578AE42.htm" title="有关 ATOM 和 ANIM 动画文件格式的信息。">动画文件格式</a></div>
+</div>
+</div>
+
+</body>
+</html>

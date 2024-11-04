@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D">
+<meta name="language" content="CHS">
+<title>通过传统渲染层进行批渲染和命令行渲染</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>通过传统渲染层进行批渲染和命令行渲染</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529123D"><p class="p" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__WS73099CC142F487553B93539F117EA10CE8F65B7"> 批渲染和命令行渲染与渲染层进行交互。阅读本节可了解它们如何协同工作。 
+	 </p>
+<div class="note note" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__GUID-3138307C-F318-4C11-982E-A56F9D83B073"><span class="notetitle">注：</span> 提供的<strong class="ph b">新渲染设置系统</strong>现已取代传统渲染层，是 Maya 中的<strong class="ph b">默认系统</strong>。这种新方法可简化复杂场景的管理以便进行渲染，如今已成为建议的工作流。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-646154F9-E4D2-4A3E-A0D9-B2F062960A4E.htm">Maya 渲染设置</a>。 
+	 </div>
+<div class="section" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__WS73099CC142F487553B93539F117EA10CE8F65B9"><h2 class="title sectiontitle">如何在命令行中通过渲染层来渲染帧</h2> 
+		 
+		<p class="p" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__WS73099CC142F487553B93539F117EA10CE8F65BA">在先前版本的 Maya 中执行命令行渲染时，会先渲染帧的每个渲染层，然后再移动到下一帧。 
+		</p>
+ 
+		<p class="p" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__WS73099CC142F487553B93539F117EA10CE8F65BB">为了相应地支持 Maya 8 中对不同层使用不同渲染器的情况，从命令行渲染 (<samp class="ph codeph" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__GUID-406C562A-932A-4A09-A2E9-ECBA66829AA1">render</samp>) 将渲染特定层的所有帧，然后再移动到下一层，如下图中所示。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__WS73099CC142F487553B93539F117EA10CE8F65BC"><img class="image" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__IMAGE_029E600A9A374F27A74DC89A17542139" width="423" height="182" src="../images/GUID-D6EE35BC-2A5B-4B35-9616-7CDD0E66F103.png"></div>
+ 
+		<p class="p" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__WS73099CC142F487553B93539F117EA10CE8F65BD">上一个渲染行为由虚线箭头表示；当前渲染行为使用绿色箭头表示。按层在层管理器中显示的顺序对其进行渲染。 
+		</p>
+ 
+		<p class="p" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__WS73099CC142F487553B93539F117EA10CE8F65BE">这可能会影响调度程序及其他渲染管理器，因为在渲染完最后一层之前，不会触发由完成特定帧所触发的脚本。 
+		</p>
+ 
+		<div class="note note" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__WS73099CC142F487553B93539F117EA10CE8F65BF"><span class="notetitle">注：</span>  
+		  <p class="p" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__GUID-E1DDCBD8-2B19-478B-A6B2-C347B05DFB38">为了获取最大效率，需在批处理和命令行中按帧/层顺序进行处理。由于需要更新所有属性覆盖，因此切换层会影响渲染处理。 
+		  </p>
+ 
+		</div>
+ 
+		<p class="li listintro" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__WS73099CC142F487553B93539F117EA10CE8F65C1">在命令行渲染器中渲染所有层</p>
+<ol class="ol" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__WS73099CC142F487553B93539F117EA10CE8F65C0"><li class="li" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__WS73099CC142F487553B93539F117EA10CE8F65C2">在<span class="ph uicontrol" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__GUID-B692B325-1636-4C35-B0BF-F39D6588CA2E">“命令提示”</span>、<span class="ph uicontrol" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__GUID-16E9B5EA-9968-47EF-8D21-63AF039E4E8D">“终端窗口”</span>或壳处键入以下内容： 
+			 <p class="p" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__WS73099CC142F487557109353211EEADCAF73-6A5D"> 
+				<samp class="ph codeph" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__GUID-93FF59E8-7D0A-4B62-B23C-3BAAECA00053">render -r file &lt;filename&gt;</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__WS73099CC142F487553B93539F117EA10CE8F65C3">批渲染器将针对每层使用文件中的指定渲染器来渲染场景。 
+			 </p>
+ 
+			 <p class="p" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__WS73099CC142F487553B93539F117EA10CE8F65C4">此外，<samp class="ph codeph" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__GUID-1473E5CC-7AD1-40C5-82FE-B2FEE68E3B75">-rl</samp> 标志指定要渲染的层。 
+			 </p>
+ 
+			 <p class="p" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__WS73099CC142F487553B93539F117EA10CE8F65C5">例如，<samp class="ph codeph" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__GUID-19F1040D-9076-4165-9D54-3234FA4933BE">Render -r file -rl layer1 &lt;filename&gt;</samp> 使用 layer1 中指定的渲染器来渲染 layer1；无论文件中指定哪个渲染器，<samp class="ph codeph" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__GUID-298492DB-8A38-4AF3-BD07-07E52CF684FA">Render -r sw -rl layer1 &lt;filename&gt;</samp> 都使用软件渲染器来渲染 layer1。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__WS73099CC142F487553B93539F117EA10CE8F65C6"><span class="notetitle">注：</span>  
+				<p class="p" id="GUID-94B3AD49-5C1B-4C10-99CA-060B6FB3624D__GUID-4690FED4-47B5-4048-A6ED-FF4CD7104A28">如果未明确指定渲染器，则 Maya 将使用场景文件中指定的渲染器。该行为与 Maya 2010 不同。 
+				</p>
+ 
+			 </div>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-706EEFC4-77FD-4B0B-8BD6-3C28AB812719.htm">使用传统渲染层</a></div>
+</div>
+</div>
+
+</body>
+</html>

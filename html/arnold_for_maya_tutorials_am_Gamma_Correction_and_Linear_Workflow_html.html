@@ -1,0 +1,140 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_tutorials_am_Gamma_Correction_and_Linear_Workflow_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_GAMMA_CORRECTION_AND_LINEAR_WORKFLOW">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" Gamma 校正和线性工作流 - Arnold for Maya">
+
+<title>Gamma 校正和线性工作流</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>Gamma 校正和线性工作流</h1></div><p>Gamma 校正属性已弃用，不再出现在 Maya 2017 中。您应使用 Maya 的原生颜色管理设置。 </p>
+<blockquote>
+<p>信息：有关在 Maya 2017 中将颜色管理与 MtoA 结合使用的详细信息，请单击<a href="https://help.autodesk.com/display/AFMUGTMP/Maya+2017">此处</a>。</p>
+</blockquote>
+<p>Gamma 校正控件有助于用户确保他们在放射测量线性空间（也称为“线性工作流”）中工作。线性工作流可确保在场景中交互的所有元素（灯光颜色、纹理和着色器颜色）与实际灯光量保持线性关系，从而确保渲染器以物理上精确的方式正确计算灯光。这很有必要，因为灯光在物理世界中也具有线性特征（如果光子数加倍，颜色值也会加倍）。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Gamma_Correction_and_Linear_Workflow-non-linear-1.jpg" alt=""></td>
+<td><img src="../images/am-Gamma_Correction_and_Linear_Workflow-linear-2.jpg" alt=""></td>
+</tr>
+<tr>
+<td>非线性工作流：不正确</td>
+<td>线性工作流：正确</td>
+</tr>
+</tbody></table>
+<p>虽然所有计算都需要在线性颜色空间中进行，但所有查看设备（输入和输出）都需要在经过 Gamma 校正的空间（如 sRGB Gamma）中显示。</p>
+<p>如果未采用正确的线性工作流进行渲染，所产生的问题主要有灯光看起来过分夸张，以及颜色看起来不自然。遇到这样的问题时，美工人员可能会尝试调整场景中的照明、衰减、颜色等参数，但这只能在一定程度上缓解问题。下面的图像显示了美工人员使用不同的 Gamma 输出渲染图像时的常见错误：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Gamma_Correction_and_Linear_Workflow-gamma-incorrect-light-3.jpg" alt=""></td>
+<td><img src="../images/am-Gamma_Correction_and_Linear_Workflow-gamma-incorrect-dark-4.jpg" alt=""></td>
+<td><img src="../images/am-Gamma_Correction_and_Linear_Workflow-gamma-1-correct-5.jpg" alt=""></td>
+</tr>
+<tr>
+<td>太亮。未对纹理进行颜色管理且输出为 sRGB（不正确）。</td>
+<td>太暗。未对纹理进行颜色管理且颜色输出为线性（不正确）。</td>
+<td>对输入进行颜色管理且输出显示为 sRGB - 线性工作流（正确）。</td>
+</tr>
+</tbody></table>
+<p>建议将渲染图像输出为 EXR（线性浮点格式），以维持线性工作流。</p>
+<p>渲染流程可分为以下步骤：</p>
+<p><img src="../images/am-Gamma_Correction_and_Linear_Workflow-inputs-diagram-6.jpg" alt=""></p>
+<p><sub><strong>如何使输入呈线性</strong></sub></p>
+<p>渲染到磁盘（例如使用批渲染）的图像需使用支持 LUT 的图像查看器来查看。如果通过不支持 LUT 的标准查看器查看渲染后的图像，相比之下，这些图像看起来会太暗。</p>
+<p>渲染到磁盘（例如使用批渲染）的图像需使用支持 LUT 的图像查看器来查看。如果通过不支持 LUT 的标准查看器查看渲染后的图像，相比之下，这些图像看起来会太暗。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>Arnold 会扫描纹理内容（不依赖于扩展），所有不属于浮点的内容都被视为执行了 Gamma 烘焙，即使图像嵌入了不同的颜色空间也是如此。</p>
+
+</div></div>
+
+<h2 id="tx">Tx 纹理格式</h2><p>可以使用 <a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Maketx&amp;linkCreation=true&amp;fromPageId=154765189">make tx</a> 工具将纹理转化为线性空间，从而确保所有纹理在渲染之前都是线性的。可以选择使用 linear、sRGB 和 Rec709。例如，可使用以下命令：</p>
+<pre class="pre codeblock"><code class="prettyprint"> maketx --colorconvert sRGB linear C:/Program Files/Autodesk/Arnold/maya2023/crayons.jpg </code></pre><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Gamma_Correction_and_Linear_Workflow-crayons-before-7.jpg" alt=""></td>
+<td><img src="../images/am-Gamma_Correction_and_Linear_Workflow-crayons-after-8.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>使用 maketx 工具转化 Crayons.jpg 图像的颜色空间</strong></sub></p>
+<h2 id="tx-tx-manager">Tx 管理器(Tx Manager)</h2><p>也可以使用 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_utils_am_Tx_Manager_html">TX 管理器(TX Manager)</a>轻松将纹理转化为 .tx 格式。该管理器中提供了一个选项框，可用于向转化过程中添加<a href="https://help.autodesk.com/display/A5AFMUG/Maketx#Maketx-Parameters">参数</a>。</p>
+<p><img src="../images/am-Gamma_Correction_and_Linear_Workflow-image2016-5-3-10-32-42-9.png" alt=""></p>
+<p><sub><strong>带有“maketx --colorconvert sRGB linear”选项的“Tx 管理器”(Tx Manager)窗口</strong></sub></p>
+<h2 id="">颜色管理</h2><p>以下是使用 Arnold 和最新 Maya 版本时的颜色管理基本工作流。</p>
+<ul>
+<li><p>在 Maya 中启用颜色管理。</p>
+</li>
+<li><p>“MtoA 显示 Gamma”(MtoA Display Gamma)仅应用于渲染视图，如果希望由 Maya 处理显示颜色管理，则可将其设置为 1。</p>
+</li>
+<li><p>如果使用纯色，请在颜色拾取器中设置颜色：要与特定 sRGB 值匹配，请将“混合颜色空间”(Mixing Color Space)设置为“显示空间”(Display Space)，并输入 sRGB 值，这时您在样例中看到的将是渲染的内容。</p>
+</li>
+<li><p>如果使用的是文件纹理，请先对文件进行线性化处理，然后再将其加载到 Maya 中（您可以在转化为 .tx 期间进行线性化处理）。</p>
+</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/arnold_for_maya_tutorials_html.html">教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

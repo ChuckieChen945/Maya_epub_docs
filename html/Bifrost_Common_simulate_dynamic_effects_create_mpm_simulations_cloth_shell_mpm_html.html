@@ -1,0 +1,98 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_simulate_dynamic_effects_create_mpm_simulations_cloth_shell_mpm_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>设置 MPM 布料或壳模拟</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>设置 MPM 布料或壳模拟</h1></div><p>MPM 可用于模拟基本布料。它还可以模拟薄壳，如因碰撞而凹陷的钣金。</p>
+<ol>
+<li><p>获取一个或多个网格用作布料或壳的初始形状。这些网格可以从场景中输入，也可以在图表中创建。为了获得最佳的结果，请执行以下操作：</p>
+<ul>
+<li>网格应尽可能规则，例如，不带任何长条的三角形或四边形。</li>
+<li>边长应反映模拟中所需的细节大小。</li>
+<li>如果使用场景中的网格，请隐藏原始网格。</li>
+</ul>
+</li>
+<li><p>将每个网格连接到 <code>make_mpm_cloth</code> 或 <code>make_mpm_shell</code> 节点的 <code>geometry</code> 输入，然后设置其特性。</p>
+<ul>
+<li>如果希望不同的网格具有不同的特性，请使用单独的 <code>make_*</code> 节点。</li>
+<li>如果希望多个网格具有相同的特性，请将它们连接到同一节点以提高效率。（可选）也可以预先将它们合并为单个网格。</li>
+</ul>
+</li>
+<li><p>将 <code>make_*</code> 节点的输出连接到 <code>simulate_mpm</code> 节点的 <code>sources</code> 端口。</p>
+</li>
+<li><p>将 <code>mpm_solver_settings</code> 节点的输出连接到 <code>simulate_mpm</code> 节点的 <code>settings</code> 端口，然后设置其特性。</p>
+</li>
+<li><p>使用图表中 <code>simulate_mpm</code> 节点的 <code>cloth_mesh</code> 或 <code>shell_mesh</code> 输出。例如，将其连接到图表输出、<code>terminal</code> 节点或文件 I/O 节点。</p>
+</li>
+<li><p>根据需要设置图表和场景的其余部分：</p>
+<ul>
+<li>（可选）添加 <code>collider</code> 节点，将其输出连接到 <code>simulate_mpm</code> 节点的 <code>colliders</code> 输入，并将充当障碍的几何体连接到其 <code>geometry</code> 输入。可以将多个几何体连接到 <code>collider</code> 节点，将多个 <code>colliders</code> 节点连接到 <code>simulate_mpm</code> 节点。</li>
+<li>（可选）将影响节点（如 <code>wind_influence</code> 或 <code>turbulence_influence</code>）连接到 <code>simulate_mpm</code> 节点的 <code>influences</code> 输入。</li>
+</ul>
+</li>
+</ol>
+<h2 id="">固定布料或壳</h2><p>使用 <code>constrain_mpm</code> 将布料或壳的某些部分固定到场景中的几何体。</p>
+<ol>
+<li><p>在 <code>make_mpm_cloth</code> 或 <code>make_mpm_shell</code> 节点与 <code>simulate_mpm</code> 节点之间连接 <code>constrain_mpm</code> 节点。</p>
+<ul>
+<li><code>cloth_source</code> 或 <code>shell_source</code> 输出应连接到 <code>constrain_mpm</code> 的 <code>mpm_source</code> 输入。</li>
+<li><code>constrain_mpm</code> 的 <code>out_mpm_source</code> 输出应连接到 <code>simulate_mpm</code> 的 <code>sources</code> 输入。</li>
+<li>如果 <code>make_mpm_cloth</code> 或 <code>make_mpm_shell</code> 节点已直接连接到 <code>simulate_mpm</code> 节点，请删除该连接。否则，将模拟两次网格 - 一次已固定，一次未固定。</li>
+</ul>
+</li>
+<li><p>将一个或多个实体网格连接到 <code>constrain_mpm</code> 节点的 <code>constraint_geometry</code> 输入。</p>
+<ul>
+<li>网格应包含要固定的点。</li>
+<li>通常，您需要使用在场景中隐藏的简单小网格。</li>
+<li>如果网格需要跟随场景中的可见几何体，请确保已设置网格动画。</li>
+</ul>
+</li>
+<li><p>使用 <code>constrain_mpm</code> 的 <code>strength</code> 参数控制受约束点跟随约束网格的程度以及它们受碰撞影响的程度。此值可以设置为大于 1.0。</p>
+</li>
+</ol>
+<h2 id="">在角色上创建布料</h2><p>以下是一些有关在角色上模拟布料的提示：</p>
+<ul>
+<li>添加小的隐藏网格，以在关键区域（如肩部、颈后和手腕正面）固定布料。</li>
+<li>确保在场景中对网格进行约束或设置动画，以便在角色移动和变形时跟随该角色。</li>
+<li>将角色的网格用作碰撞对象。</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_create_mpm_simulations_html.html">创建 MPM 模拟</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

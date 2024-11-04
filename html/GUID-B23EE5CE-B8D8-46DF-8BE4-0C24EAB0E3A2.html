@@ -1,0 +1,147 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2">
+<meta name="language" content="CHS">
+<title>优化表达式</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>优化表达式</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-7A1"> Maya 以厘米、弧度和秒为单位进行内部计算。弧度是数学中常用的角度单位。它等于 180 度除以派（π），或大约为 57.3 度。</p>
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-79C"> 将某个数字指定给其值为度量单位的属性时，默认情况下，该表达式会将数字解释为您在<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-E30A83F4-706A-4CF0-8EFF-8512850AA996">“首选项”(Preferences)</span>窗口的<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-A1ABEC65-CC2E-4A7F-BE36-5044CFB4CF09">“设置”(Settings)</span>类别中选定的适当单位。默认情况下，单位类型的选择为厘米、弧度和每秒 24 帧。</p>
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-799">如果已选择的度量单位与对应的内部单位不同，则 Maya 会将该数字转化为适当的内部单位，以执行指定。 </p>
+<div class="section" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-798"><h2 class="title sectiontitle">示例</h2>
+
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-797">假设已从<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-350EAA2B-6532-4E17-9B56-719FA4360978">“首选项”(Preferences)</span>窗口的<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-498572A8-D6FD-44D5-8F34-03153EF6DDFA">“设置”(Settings)</span>区域中的<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-80DD0444-071A-4508-B0F0-99C9E2EA65DF">“角度”(Angular)</span>菜单选择度。然后为名为“球”的对象编写以下表达式： </p>
+
+<pre class="pre codeblock">
+Ball.rotateZ = 10;
+</pre>
+
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-796">Maya 会将 10 读取为 10 度，然后将该值转化为适当的弧度数，以便对球的<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-40BD2EC4-2A35-409A-A36F-51CB3512F6C5">“rotateZ”</span>属性进行指定。转化将自动进行。从您的角度来说，Maya 仅会使球旋转 10 度。</p>
+
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-795">在非粒子表达式中，这些自动转化会影响 Maya 性能。由于该表达式执行速度较慢，因此当您播放、回放或以其他方式更改动画时间时，Maya 的运行速度会比较慢。此外，在包含表达式的场景上执行保存、打开和其他文件操作也比较慢。 </p>
+
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-794">若要提高 Maya 性能，则可禁用转化为内部单位的功能。如果执行该操作，则必须以表达式语句转化单位。</p>
+
+<p class="li listintro" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-792"> 若要加快表达式执行的速度，请执行下列操作：</p>
+<ol class="ol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-793"><li class="li" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-790">显示<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-CE763114-3D80-43A1-987C-B76E0F57F157">“表达式编辑器”(Expression Editor)</span>。</li>
+<li class="li" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-78F">选择以下<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-CD9D2392-B7E3-42F8-8531-A230FDC27939">“转化单位”(Convert Units)</span>选项之一：<div class="section" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-7D2-176"><dl class="dl" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-7D2-176"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-CC28CBE3-BE36-4CF8-99D1-7A7A50B3EC3C">无(None)</span>
+</dt>
+<dd class="dd" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS1A9193826455F5FF-4855151011E4FD543C6-38AB">
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-78D">不转化单位。必须使用厘米、弧度或秒为属性指定值（如果适当）使用该选项的执行速度最快。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-A6D8A837-D506-4E6A-904D-28C51233432F">仅角度(Angular Only)</span>
+</dt>
+<dd class="dd" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS1A9193826455F5FF-4855151011E4FD543C6-38AA">
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-78B">转化角度单位，但不转化其他。必须使用厘米、秒或弧度为属性指定值（如果适当）。（以上描述假设正在使用<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-D4B59F86-D0E7-49A4-B229-4DE5BF69BB82">“首选项”(Preferences)</span>中的默认度设置。如果已选定弧度，则必须输入弧度）。</p>
+
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-789">如果不知如何将度转化为弧度，请选择该选项。除非表达式具有许多角度值，否则使用该选项的执行速度很快。 </p>
+
+</dd>
+</dl>
+</div>
+</li>
+</ol>
+
+<p class="li listintro" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-787">若要返回默认转化，请执行下列操作：</p>
+<ol class="ol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-788"><li class="li" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-786">显示<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-9178DFDF-999D-4A91-8728-C922BCFE2EBC">“表达式编辑器”(Expression Editor)</span>。</li>
+<li class="li" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-785">对于<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-03A164DE-2E9D-4C86-890B-319AD268A08A">“转化单位”(Convert Units)</span>选项，请选择<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-73D02A2F-F8C7-42CC-9919-D7A45D68F3CA">“全部”(All)</span>。<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-784">这将允许您使用<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-F9DADE0B-CC9C-41A3-AFC1-4697B754A7C2">“工作单位”(Working Units)</span>首选项设置中指定的相同单位输入所有度量数值。使用该选择的执行速度最慢，但表达式编写过程最简单。 </p>
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-782">可以为每个表达式设定不同的转化选项。</p>
+</li>
+</ol>
+
+</div>
+<div class="section" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-781"><h2 class="title sectiontitle">示例</h2>
+
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-780">假设在<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-7224DA90-7AFA-4BA3-8789-4A136BD7C763">“首选项”(Preferences)</span>窗口中，已将<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-1E9F9D58-BA5F-48AA-8103-DDF69AD14E37">“线性”(Linear)</span>单位设定为<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-EB1360FA-9E47-4579-B021-6AF007141545">“毫米”(millimeter)</span>，且将<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-6301FB7C-32C9-4050-B350-704562A0252C">“角度”(Angular)</span>单位设定为<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-23E73D87-182E-4416-BF64-919ECB17468C">“度”(degrees)</span>。然后，可以编写下列表达式：</p>
+
+<pre class="pre codeblock">
+Ball.translateX = 5;
+Ball.rotateZ = 10;
+</pre>
+
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-77F"> <span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-50865F58-35EB-4F95-8FEA-2B5634CEC2C7">“全部”(All)</span>可导致 Maya 将 5 读取为 5 毫米，将 10 读取为 10 度。</p>
+
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-77E"> <span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-94AFEE35-A06D-4ABA-A125-4CF30328B87A">“无”(None)</span>可导致 Maya 将 5 读取为 5 厘米，将 10 读取为 10 弧度。 </p>
+
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-77D"> <span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-B6455DF2-3F55-4898-A192-BA69568671A6">“仅角度”(Angular Only)</span>会导致 Maya 将 5 读取为 5 厘米，将 10 读取为 10 度。</p>
+
+<p class="li listintro" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-77B">使用表达式语句转化单位</p>
+<ol class="ol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-77C"><li class="li" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-77A"> 必须以语句采用数学方式转化单位。</li>
+</ol>
+
+</div>
+<div class="section" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-778"><h2 class="title sectiontitle">示例</h2>
+
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-777">假设在<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-92D397E7-91F1-483F-B703-4353ADCD6CAA">“首选项”(Preferences)</span>窗口中，已将<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-90F5A575-7803-4433-8079-24575AB52A00">“线性”(Linear)</span>单位设定为<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-A2298BA4-57F8-496D-A7B4-179B2F4001E6">“毫米”(millimeter)</span>，且将<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-AB5036FC-892B-49D9-A944-14BD598030B1">“角度”(Angular)</span>单位设定为<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-63412546-C4E6-42A7-A811-8086F0F6B841">“度”(degrees)</span>。 </p>
+
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-776">在<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-109C2242-23A7-4B5E-A77E-1452226E2194">“表达式编辑器”(Expression Editor)</span>中，将<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-981D77D1-6B5C-4277-A00D-EBC812C78830">“转化单位”(Convert Units)</span>选项设定为<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-F3EACE42-94EE-4A95-ACF6-A26C7C1C5A66">“无”(None)</span>并输入以下表达式：</p>
+
+<pre class="pre codeblock">
+Ball.translateX = 5;
+Ball.rotateZ = 10;
+</pre>
+
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-775">“无”会导致 Maya 将 5 读取为 5 厘米，将 10 读取为 10 弧度，但这并非是您所需的结果。 </p>
+
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-774">若要将 5 毫米指定给球的<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-EF257A1C-5261-4171-AEFC-B633E630ED48">“translateX”</span>属性，则必须将 5 转化为适当的厘米数。若要将 10 度指定给球的<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-FF891C70-AC19-452F-B104-BE0E159F3C4A">“rotateZ”</span>属性，则必须将 10 转化为适当的弧度数。</p>
+
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-773">下列语句可执行该操作：</p>
+
+<pre class="pre codeblock">
+Ball.translateX = 5.0 / 10.0;
+Ball.rotateZ = 10.0 / 57.3;
+</pre>
+
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-772">每厘米有 10 毫米。换句话说，1 毫米等于 1 厘米除以 10。因此，5 毫米等于 5 厘米除以 10。这样，可以使用运算 5.0/10.0。 </p>
+
+<div class="note attention" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-771"><span class="attentiontitle">注意：</span> 
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-FA2F4053-0FF2-4629-8ED0-8876A92D01C5">当除以浮点属性或变量时，请输入浮点值。例如，为罗马数字 5 输入 5.0。这样可以确保 Maya 不会尝试将结果转化为整型<samp class="ph codeph" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-5D488306-BB01-4C27-95F3-1E299E00B0E7"></samp>。</p>
+
+</div>
+
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-770">每弧度等于 57.3 度。换句话说，1 度等于 1 弧度除以 57.3。因此，10 度等于 10 弧度除以 57.3。这样，可以使用值 10.0/57.3。</p>
+
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-76F"> 如果需要更精确地转化为弧度，请将 1 度除以 57.29578，而不是除以 57.3。可以改为使用如下所示的 deg_to_rad 函数：</p>
+
+<pre class="pre codeblock">
+Ball.rotateZ = deg_to_rad(10.0);
+</pre>
+
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-76D">deg_to_rad 函数会将 10.0 度转化为精确的等价弧度。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-FAF696E5-D51F-43D3-B9D6-1C804D9AB58C.htm">deg_to_rad</a>。</p>
+
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-76C">禁用单位转化仅影响表达式。它不会影响其他 Maya 命令、选项或显示。例如，上述示例表达式将厘米指定给<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-439335B3-F849-4DE2-912F-FBF9BA034386">“translateX”</span>，将弧度指定给<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-BE36B59E-C00D-455B-81B8-98ACD814DA87">“rotateZ”</span>。但是，<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-5958AB69-1944-4ADB-97FB-D0349B73297E">“通道盒”(Channel Box)</span>仍会以毫米和弧度为单位显示这些属性的值。它将以您在<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-8E1AA021-9B8B-454A-AD8D-6587DAA1B56E">“首选项”(Preferences)</span>窗口的<span class="ph uicontrol" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__GUID-E3F8572A-4090-458B-A5B4-F9B5D6A242E5">“设置”(Settings)</span>部分中选择的任何单位为单位显示值。</p>
+
+<p class="p" id="GUID-B23EE5CE-B8D8-46DF-8BE4-0C24EAB0E3A2__WS73099CC142F48755-3D114B7511841AEFA9F-76B">您不能禁用粒子形状节点表达式的单位转化。对于这类表达式，Maya 以不同方式处理单位转化时，几乎不会对性能产生影响。</p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-64B0ADDF-7939-456B-9F64-D90C8402803E.htm">优化脚本和表达式速度</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,822 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="本部分假定了解 MEL 脚本和编程的知识。">
+<meta name="indexterm" content="工具设置清理">
+<meta name="indexterm" content="获取数组属性">
+<meta name="indexterm" content="初始化完成">
+<meta name="indexterm" content="获取集值">
+<meta name="indexterm" content="获取曲面">
+<meta name="indexterm" content="更改栅格大小">
+<meta name="indexterm" content="绘制圆锥体">
+<meta name="indexterm" content="抖动栅格">
+<meta name="keyword" content="命令">
+<meta name="experiencelevel" content="general">
+<meta name="job" content="programming">
+
+<meta name="audience" content="programmer">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A">
+<meta name="language" content="CHS">
+<title>编写用于“绘制脚本工具”(Paint Scripts Tool)的 MEL 脚本</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>编写用于“绘制脚本工具”(Paint Scripts Tool)的 MEL 脚本</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF11D4ED1B128F2317A08FB1"><p class="shortdesc">本部分假定了解 MEL 脚本和编程的知识。 
+  </p>
+<p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-3D5FA950-76C5-43C9-AEFA-CD4C5DAC2174">有关 MEL 的详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E">面向程序员的 MEL</a>。 
+	 </p>
+<p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-253F"><span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-35EDC62A-DBBF-4105-BC42-BC1AA843046B">“绘制脚本工具”(Paint Scripts Tool)</span>的依据是在 NURBS 或多边形曲面上叠加的二维数值数组的概念。该数组由曲面的顶点位置定义或由均匀分布于曲面参数空间的任意 2D 栅格定义。将该数值数组想象成 2D 灰度图像，其中各像素对应一个数组位置，而灰度值对应与该数组位置相关联的数值。与<span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-532B47A6-0044-4455-A9BD-EB5FB9966CF3">“绘制脚本工具”(Paint Scripts Tool)</span>相关联的脚本确定 Artisan 解释数值数组的方式。需要知道指定给如上所述其中之一数组位置的数值时，Artisan 调用脚本。更改指定给其中一个数组位置的数值时，Artisan 也可以调用脚本。 
+	 </p>
+<div class="section" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS17956D7ADBC6E736-2518B635117AE30950E-7FF8"><h2 class="title sectiontitle">脚本绘制 MEL 程序</h2> 
+		 
+		<p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-253E"> <span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-4E092836-D37D-4FEB-9413-7B80A207C6FE">“绘制脚本工具”(Paint Scripts Tool)</span>由一组 MEL 程序定义。MEL 程序的名称在<span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-1BF049B4-B9C5-488A-84BA-4EB8DDF313E8">“工具设置”(Tool Settings)</span>编辑器的<span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-4BCB2F51-E3F1-420F-8578-E34DF173F5D4">“设置”(Setup)</span>区域显示。您还可以使用 MEL 命令 artUserPaintCtx 设置 MEL 程序。本章介绍了以下 Artisan MEL 程序： 
+		</p>
+ 
+		<ul class="ul" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-253C"><li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-253B"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A.htm#GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-87962695-E61A-4F5F-82AD-244F9F802CCB">“工具设置命令”(Tool Setup Command) (-tsc "ToolSetupCommand")</a> 
+		  </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-253A"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A.htm#GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-E8850AC6-75F5-40CF-A27C-0BE6E5E5156D">“工具清理命令”(Tool Cleanup Command) (-tcc "ToolCleanupCommand")</a> 
+		  </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2539"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A.htm#GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-8C059B0C-F74D-4177-97EF-785820410A27">“获取数组属性命令”(Get Array Attribute Command) (-gac "GetArrayAttributeCommand")</a> 
+		  </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2538"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A.htm#GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-E76B3B53-776F-49F8-9F69-6EBBE6757D5B">“初始化命令”(Initialize Command) (-ic "InitializeCommand")</a> 
+		  </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2537"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A.htm#GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-6ABFEC50-26E6-4F9B-BED4-4435D090482F">“完成命令”(Finalize Command) (-fc "FinalizeCommand")</a> 
+		  </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2536"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A.htm#GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-EB47C64B-B3CE-4B3F-BF2D-69106D4E1851">“设置值命令”(Set Value Command) (-svc "SetValueCommand")</a> 
+		  </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2535"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A.htm#GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-807EC37D-6E2B-4096-ACBE-2F6B6C7BAE5B">“获取值命令”(Get Value Command) (-gvc "GetValueCommand")</a> 
+		  </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2534"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A.htm#GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-42124D64-48B3-489A-B7C3-21604DABE2B5">“获取曲面命令”(Get Surface Command) (-gsc "GetSurfaceCommand")</a> 
+		  </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2533"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A.htm#GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-9B8B0569-7759-4C11-A34C-3ECF2E33D4EE">更改栅格大小</a> 
+		  </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2532"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A.htm#GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS17956D7ADBC6E736-2518B635117AE30950E-7FEC">绘制圆锥体而不是球体</a> 
+		  </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2531"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A.htm#GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS17956D7ADBC6E736-2518B635117AE30950E-7FEB">抖动栅格</a> 
+		  </li>
+</ul>
+ 
+		<p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2530">在下列描述中，用于设置命令的 artUserPaintCtx 标志括在括号内。 
+		</p>
+ 
+		<div class="section" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS17956D7ADBC6E736-2518B635117AE30950E-7FF7"><h3 class="title sectiontitle"> 
+			 <span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-87962695-E61A-4F5F-82AD-244F9F802CCB">“工具设置命令”(Tool Setup Command)</span> (-tsc "ToolSetupCommand")</h3> 
+		   
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-252F">如果已定义，一选定（通过使用<span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-711EACF2-E019-4FAE-ABEA-0FBC47664E95">修改 &gt; 绘制脚本工具(Modify &gt; Paint Scripts Tool)</span>菜单项或从<span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-FC56176B-8E61-40D8-88C1-5E97CD9168F1">“工具箱”(Tool Box)</span>或工具架中选择）<span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-0A6341C8-5DDF-4627-A23E-FDAC60886F0A">“绘制脚本工具”(Paint Scripts Tool)</span>之后，即调用 ToolSetupCommand。该程序常用于设置所有其他的 Artisan MEL 程序。该程序定义如下： 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+global proc ToolSetupCommand (
+	string $toolContextName
+)
+{
+	// This is an example artUserPaintCtx command that would setup
+	// the following Artisan procedures. This is not a realistic
+	// example because you would never have all the procedures
+	// defined.
+	//
+	artUserPaintCtx -e
+		-tcc "ToolCleanupCommand"
+		-gac "GetArrayAttributeCommand"
+		-ic "InitializeCommand" -fc "FinalizeCommand"
+		-svc "SetValueCommand" -gvc "GetValueCommand"
+		-gsc "GetSurfaceCommand"
+		$toolContextName;
+}
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-252E">其中，$toolContextName 是选定工具上下文的名称。旨在将其用作 artUserPaintCtx 命令的最终参数。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS17956D7ADBC6E736-2518B635117AE30950E-7FF6"><h3 class="title sectiontitle"> 
+			 <span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-E8850AC6-75F5-40CF-A27C-0BE6E5E5156D">“工具清理命令”(Tool Cleanup Command)</span> (-tcc "ToolCleanupCommand")</h3> 
+		   
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-252D">如果已定义，在即将退出<span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-9EA79044-1058-445C-82B2-208D92A52C82">“绘制脚本工具”(Paint Scripts Tool)</span>之前，调用 ToolCleanupCommand。该程序定义如下： 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+global proc ToolCleanupCommand (
+	string $toolContextName
+)
+{
+	...
+}
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-252C">其中，$toolContextName 是已退出工具上下文的名称。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS17956D7ADBC6E736-2518B635117AE30950E-7FF5"><h3 class="title sectiontitle"> 
+			 <span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-8C059B0C-F74D-4177-97EF-785820410A27">“获取数组属性命令”(Get Array Attribute Command)</span> (-gac "GetArrayAttributeCommand")</h3> 
+		   
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-252B">如果定义该命令，可忽略对初始化命令、完成命令、设置值命令以及获取值命令定义的任何命令。 
+		  </p>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-252A">如果已定义，一旦选定用于绘制的各个曲面，即调用 GetArrayAttributeCommand。该程序返回字符串，其解释为指称某些依存关系节点上双数组属性的名称列表。该程序定义如下： 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+global proc string GetArrayAttributeCommand (
+	string $surfaceName
+)
+{
+	string $arrayAttributes
+	// determine array attributes that correspond to
+	// $surfaceName
+	...
+	return $arrayAttributes;
+}
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2529">其中，$surfacename 是曲面的名称，其与返回的数组属性相关联。如果返回多个数组属性，Artisan 需要一个值时将读取第一个属性，但是 Artisan 会将所有属性都写入。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS17956D7ADBC6E736-2518B635117AE30950E-7FF4"><h3 class="title sectiontitle"> 
+			 <span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-E76B3B53-776F-49F8-9F69-6EBBE6757D5B">“初始化命令”(Initialize Command)</span> (-ic "InitializeCommand")</h3> 
+		   
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2528">如果已定义，开始每个笔划前会调用一次 InitializeCommand。该程序定义如下： 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+global proc string InitializeCommand(
+	int $surfaceName
+)
+{
+	string $flags;
+	// build up $flags
+	//
+	...
+	return $flags;
+}
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2527">其中，$surfacename 是曲面名称。有关示例，请参见以下目录中的 spherePaint.mel 和 geometryPaint.mel： 
+		  </p>
+ 
+		  <ul class="ul" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2526"><li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2525">(Windows) <samp class="ph codeph" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-CCB0C10E-4753-4CB3-AC47-69359C5C2BB3">Drive:\Program Files\Autodesk\<span class="ph msgph prodname" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span>&lt;版本&gt;\scripts\others</samp> 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2524">(Linux) <samp class="ph codeph" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-D97F4F20-36CE-4C62-BA01-9D23DFE48EA6">mayapath/scripts/others</samp> 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2523">(Mac OS X) <samp class="ph codeph" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-78DF7A70-A47E-4E71-9EC7-093B189F0473">/Applications/Autodesk/<span class="ph msgph prodname" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span>&lt;版本&gt;/Maya.app/Contents/scripts/others</samp> 
+			 </li>
+</ul>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2522">该程序应： 
+		  </p>
+ 
+		  <ul class="ul" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2521"><li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2520">为该曲面确定唯一的整数 曲面 ID。该 ID 将被传递到与该曲面相关联的 SetValueCommand、GetValueCommand 和 FinalizeCommand 的未来调用。如果脚本保持每个曲面的信息，将该 ID 变成数组索引是极容易的，索引可用于轻松访问每个曲面的信息。 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-251F">确定未来调用与该曲面相关联的 SetValueCommand 哪种类型的信息。 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-251E">确定是在曲面顶点绘制，还是在曲面参数空间中等间距分布的栅格上绘制。 
+			 </li>
+</ul>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-251D">所有这类信息通过程序传递回的 $flags 变量传递回 Artisan。该字符串包含一系列标志和参数，这些标志和参数与能够传递到标准 MEL 程序中的标志和参数非常类似。下面介绍了<span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-1379251B-8134-4811-B939-8CCDC52C140D">“绘制脚本工具”(Paint Scripts Tool)</span>能够识别的标志。每个标志都有一个短版本和一个长版本（按下面的方式即为：-短/长）以及一些参数： 
+		  </p>
+ 
+		  <ul class="ul" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-251C"><li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-251B"> 
+				<samp class="ph codeph" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-E0F313A9-8166-40E4-9F05-D0F85D2E7934">-id/identifier int</samp> 
+				<p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-251A">该标志表示即将用于该曲面的整数曲面 ID。如果该标志未指定，该曲面的曲面 ID 为 -1。 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2519"> 
+				<samp class="ph codeph" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-7005DB5E-32A6-40B4-8F16-B7670480327F">-uv/uvlong string</samp> 
+				<p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2518">该标志指示是否应该将 (U,V) 位置发送到 SetValueCommand。对于此标志，可能的值为 none、surface 或 normalized。默认值为 none。 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2517"> 
+				<samp class="ph codeph" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-DDD049C1-AFC1-4168-BEE9-365F8CBA1C31">-p/position string</samp> 
+				<p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2516">该标志指示是否应该将 (x,y,z) 位置发送到 SetValueCommand。对于此标志，可能的值为 none、local 或 world。默认值为 none。 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2515"> 
+				<samp class="ph codeph" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-DC402DD9-5206-474E-B59C-F26D040E6A15">-n/normal string</samp> 
+				<p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2514">该标志指示是否应该将 (nx,ny,nz) 法线发送到 SetValueCommand。对于此标志，可能的值为 none、local 或 world。默认值为 none。 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2513"> 
+				<samp class="ph codeph" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-8450A48A-5422-40BA-AD0E-0FAEEC9DCC1C">-g/grid int1 int2</samp> 
+				<p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2512">该标志指示应在曲面 U 方向大小为 int1 且曲面 V 方向大小为 int2 的参数空间内等间距分布的栅格上进行绘制。如果未指定该标志，将在曲面顶点定义的数组上进行绘制。 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2511"> 
+				<samp class="ph codeph" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-9B39CAC5-BBDA-43F4-9E5F-8E395D45EFEA">-j/jitter boolean</samp> 
+				<p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2510">该标志仅与 -grid 标志配合使用时才有效。如果为 true，那么在将其传递到 SetValueCommand 之前，栅格位置发生抖动。默认值为 false。 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-250F"> 
+				<samp class="ph codeph" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-29C68D86-3AA5-4ACD-8DD3-43E911F2E372">-d/dither boolean</samp> 
+				<p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-250E">该标志仅与 -grid 标志配合使用时才有效。如果为 true，Artisan 使用 16x16 抖动矩阵，以确定是否为其调用 SetValueCommand。 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-250D"> 
+				<samp class="ph codeph" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-78C313EF-BA47-4CD8-877D-14EE279A955A">-dt/directionType string </samp> 
+				<p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-250C">该标志指示 (U,V,W) 笔划方向是否应发送到 SetValueCommand。对于此标志，可能的值为 none、screenV（屏幕空间中的向量）或 worldV（世界空间中的向量）。默认值为 none。对于投影绘制，screenV 和 worldV 均返回屏幕空间中的向量。方向选项不支持反射绘制。如果请求的方向为屏幕向量，那么第三个值 (W) 将无效。 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-250B"> 
+				<samp class="ph codeph" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-5C8D2AA7-45F9-40A8-84D9-CF4994A1773D">-sp/stampPosition string </samp> 
+				<p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-250A">该标志指示 (spX,spY,spZ) 图章位置是否应发送到 SetValueCommand。对于此标志，可能的值为 none、local 或 world。默认值为 none。 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__LI_CC99FD3D8E8C4A7EB9DF1A7130167ABA"><samp class="ph codeph">-pa/path boolean</samp>
+				<p class="p">此标志指示应将曲面路径发送到 SetValueCommand/GetValueCommand。默认值为 false。
+				</p>
+
+			 </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS17956D7ADBC6E736-2518B635117AE30950E-7FF3"><h3 class="title sectiontitle"> 
+			 <span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-6ABFEC50-26E6-4F9B-BED4-4435D090482F">“完成命令”(Finalize Command)</span> (-fc "FinalizeCommand")</h3> 
+		   
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2509">如果已定义，每个笔划完成后，各可绘制曲面调用一次 FinalizeCommand。该程序定义如下： 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+global proc FinalizeCommand(
+	int $surfaceID
+)
+{
+	...
+}
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2508">其中，$surfaceID 是由该曲面相应的 InitializeCommand 指定给曲面的曲面标识符。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS17956D7ADBC6E736-2518B635117AE30950E-7FF2"><h3 class="title sectiontitle"> 
+			 <span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-EB47C64B-B3CE-4B3F-BF2D-69106D4E1851">“设置值命令”(Set Value Command)</span> (-svc "SetValueCommand")</h3> 
+		   
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2507">如果已定义，Artisan 设置了与曲面的特定“位置”相关联的值后，调用 SetValueCommand。每个位置调用该程序一次。因此，如果某个 Artisan 绘制操作在曲面上的 10 处位置更改值，那么调用 SetArrayAttributeCommand 10 次。该程序定义如下： 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+global proc SetValueCommand(
+	int $surfaceID,
+	int $index,
+	float $value,
+	//
+	// The following arguments are only passed if requested by
+	// InitializeCommand. However this is the order that they
+	// will be passed in.
+	//
+	float $u,			// ($u,$v) is UV location on surface
+	float $v,				
+	float $px,			// ($px,$py,$pz) is position on surface
+	float $py,
+	float $pz,
+	float $nx,			// ($nx,$ny,$nz) is surface normal
+	float $ny,
+	float $nz,
+	string $path			// the full path to the associated surface
+)
+{
+	...
+}
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2506">其中： 
+		  </p>
+ 
+		  <ul class="ul" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2505"><li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2504">$surfaceID 是由该曲面相应的 InitializeCommand 指定给曲面的曲面标识符 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2503">$index 是顶点或栅格索引 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2502">$value 是即将指定给传递索引的值 
+			 </li>
+</ul>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2501">传递到该程序的附加参数取决于曲面 InitializeCommand 的返回。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS17956D7ADBC6E736-2518B635117AE30950E-7FF1"><h3 class="title sectiontitle"> 
+			 <span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-807EC37D-6E2B-4096-ACBE-2F6B6C7BAE5B">“获取值命令”(Get Value Command)</span> (-gvc "GetValueCommand")</h3> 
+		   
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-2500">如果已定义，Artisan 想要与曲面的特定“位置”相关联的值时，调用 GetValueCommand。该程序定义如下： 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+global proc float GetValueCommand(
+        int $surfaceID,
+        int $valueIndex,
+        //
+        // The following arguments are only passed if requested by
+        // InitializeCommand. However, this is the order that they
+        // will be passed in.
+        //
+        string $path
+)
+{
+	float $value
+	// determine the value associated with $valueIndex location
+	// on surface $surfaceID
+	//
+	...
+	return $value;
+}
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24FF">其中： 
+		  </p>
+ 
+		  <ul class="ul" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24FE"><li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24FD">$surfaceID 是由该曲面相应的 InitializeCommand 指定给曲面的曲面标识符 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24FC">$valueIndex 是 Artisan 请求其值的某“位置”的索引 
+			 </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS17956D7ADBC6E736-2518B635117AE30950E-7FF0"><h3 class="title sectiontitle"> 
+			 <span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-42124D64-48B3-489A-B7C3-21604DABE2B5">“获取曲面命令”(Get Surface Command)</span> (-gsc "GetSurfaceCommand")</h3> 
+		   
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24FB">很少对该命令进行定义。如果已定义，Artisan 每次处理选择列表时，选择列表上各依存关系节点调用一次 GetSurfaceCommand。任何时候选定<span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-4B73B6ED-5C05-4840-BE1C-CCEC086F0ACF">“绘制脚本工具”(Paint Scripts Tool)</span>，通常都会出现这种情况。该程序定义如下： 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+global proc string GetSurfaceCommand (
+	string $selectedDependencyNode
+)
+{
+	string $surface;
+	// Set $surface based on $selectedDependencyNode.
+	// Set $surface to NULL string (""), if no surface 
+	// is to be painted because of $selectedDependencyNode.
+	//
+	...
+	
+	return $surface;
+}
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24FA">该程序覆盖 Artisan 对选择列表的默认处理。 
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS17956D7ADBC6E736-2518B635117AE30950E-7FEF"><h2 class="title sectiontitle">示例脚本绘制脚本</h2> 
+		 
+		<p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24F9"> 本部分介绍总体脚本布局并给出注释脚本示例。 
+		</p>
+ 
+		<div class="section" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24F7"><h3 class="title sectiontitle">总体脚本布局</h3> 
+		   
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24F6">用于<span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-E09A867F-DCBC-48A7-8BAB-40F704B53321">“绘制脚本工具”(Paint Scripts Tool)</span>的脚本可以以多种方式排列。该示例脚本布局用于采样 Artisan 脚本，可见于： 
+		  </p>
+ 
+		  <ul class="ul" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24F5"><li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24F4">(Windows) <samp class="ph codeph" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-44F20699-83AB-465E-9BEC-1CF3EA671E23">Drive:\Program Files\Autodesk\<span class="ph msgph prodname" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span>&lt;版本&gt;\scripts\others</samp> 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24F3">(Linux) <samp class="ph codeph" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-4303B1F9-391A-4577-9824-C703A31FF81D">mayapath/scripts/others</samp> 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24F2">(Mac OS X) <samp class="ph codeph" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-016EE718-D3CB-45C4-9756-6A28A4E9F202">/Applications/Autodesk/<span class="ph msgph prodname" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span>&lt;版本&gt;/Maya.app/Contents/scripts/others</samp> 
+			 </li>
+</ul>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24F1">布局在一个文件中保留所有 MEL 程序，所有的脚本，并仅允许填充<span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-A9CA703D-ED8D-4BA7-87CC-2C74BE0300EC">“工具设置”(Tool Settings)</span>窗口<span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-452F35EB-9602-4367-A0CB-A0A3C82021A4">“设置”(Setup)</span>区域中的<span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-BA17F4FC-32CC-4E49-8BF3-2CB4759513FC">“工具设置命令”(Tool Setup Cmd)</span>框的方式定义所有脚本。该程序通过使用 artUserPaintCtx 命令设置所有其他 MEL 程序。对此的详细介绍如下： 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+// Define global variables used throughout the script
+//
+global ...;
+// Define the Tool Setup Cmd procedure. This procedure will
+// setup all the other MEL procedures used by the Paint //Scripts tool.
+//
+// "spherePaint" would be entered into the Tool Setup Cmd field in
+// the Setup section of the tool settings window.
+//
+global proc spherePaint( string $context )
+{
+	artUserPaintCtx -e
+		-ic "initSpherePaint"
+		-fc "finishSpherePaint"
+		-svc "setSpherePaintValue"
+		-gvc "getSpherePaintValue"
+		-gsc ""
+		-gac ""
+		-tcc ""
+		$context;
+}
+// Define various procedures that were mentioned in the Tool
+//Setup Cmd procedure above. All the procedures defined by
+//the artUserPaintCtx command have to be global.
+//
+global proc string initSpherePaint( string $surfaceName )
+{
+	...
+}
+...
+</pre>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS17956D7ADBC6E736-2518B635117AE30950E-7FEE"><h3 class="title sectiontitle">spherePaint.mel</h3> 
+		   
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24F0">这是一个注释版本的 spherePaint.mel 文件，提供位置如下： 
+		  </p>
+ 
+		  <ul class="ul" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24EF"><li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24EE">(Windows) <samp class="ph codeph" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-7D254C15-D96A-4C60-8774-1F704CC896AB">Drive:\Program Files\Autodesk\<span class="ph msgph prodname" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span>&lt;版本&gt;\scripts\others</samp> 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24ED">(Linux) <samp class="ph codeph" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-CBA25307-5445-4207-9BC3-5EA2133ADA73">mayapath/scripts/others</samp> 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24EC">(Mac OS X) <samp class="ph codeph" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-96380EF9-39C0-40C2-BE61-8A3CADA790B7">/Applications/Autodesk/<span class="ph msgph prodname" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span>&lt;版本&gt;/Maya.app/Contents/scripts/others</samp> 
+			 </li>
+</ul>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24EB">该脚本仅适用于 NURBS 曲面。 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+//
+// This is a simple example script for the Artisan Paint 
+//Scripts tool. It will paint spheres onto the selected
+//surfaces. The size of the spheres are controlled by the
+//painted values.
+//
+// Usage:
+// 1) Place this script into your scripts directory (usually
+//the <span class="ph msgph prodname" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span>/scripts directory in your home directory
+// 2) Select the Paint Scripts Tool (Modify &gt; Paint Scripts
+// Tool) and bring up the Tool Settings window
+// 3) Go to the Setup section and enter "spherePaint" into 
+// the "Tool Setup Cmd" field and hit enter
+// 4) Paint Geometry
+//
+// Tips:
+// Once you have the Geometry Paint Tool setup you may want
+// to it from the toolbar to the shelf so that it is always
+// accessible
+//
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24EA">这些全局变量用于确定正在绘制的曲面数量并确定曲面 ID。$sphereNamePrefix 是一个字符串数组，每个活动曲面一个字符串。如果条目为空字符串，则表示可获取其数组索引，并将其用作曲面 ID。如果该条目非空，那么创建球体时将该字符串用作前缀。$spherePaintFreeSlot 是 $sphereNamePrefix 的第一个可用条目，$spherePaintSlots 是 $sphereNamePrefix 的当前大小。曲面 ID 使用数组索引来存储每个曲面信息，这种方法经常在一些其他的采样 Artisan 脚本中频繁使用。 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+// These are global variables used to keep track of multiple
+// surfaces and the name prefixes used for the spheres on each
+// surface
+//
+global string $sphereNamePrefix[];
+global int $spherePaintFreeSlot = 0;
+global int $spherePaintSlots = 0;
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24E9">spherePaint 是初始化<span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-65567706-FF7B-41EC-867C-6BC10A7A6F7B">“绘制脚本工具”(Paint Scripts Tool)</span>的程序，方法是告知其在各种情况下应调用哪些程序。 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+// This procedure should be set as the "Tool Setup Cmd" in the 
+// Setup section of the <span class="ph msgph prodname" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> Artisan Paint Scripts Tool’s tool settings
+// window. The tool context is supplied as an argument.
+//
+global proc spherePaint( string $context )
+{
+	// initialize all the other commands in this scriptable 
+	// paint tool context.
+	// 
+	artUserPaintCtx -e
+		-ic "initSpherePaint"
+		-fc "finishSpherePaint"
+		-svc "setSpherePaintValue"
+		-gvc "getSpherePaintValue"
+		-gsc ""
+		-cc ""
+		-tcc ""
+		-gac ""
+		$context;
+}
+// This is the "Initialize Cmd". This procedure is called once
+// for every selected surface when an initial click is received
+// on any surface. The argument is the name of the surface. This
+// procedure returns a string which indicates to the scriptable
+// tool how to behave for the duration of the stroke. 
+//
+global proc string initSpherePaint( string $name )
+{
+	global string $sphereNamePrefix[];
+	global int $spherePaintFreeSlot;
+	global int $spherePaintSlots;
+	int $slot;
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24E8">首先要确定与该曲面相关联的曲面 ID。这可以通过查阅 $sphereNamePrefix 数组，查找第一个可用条目完成。一旦找到条目，该条目索引将被用作曲面 ID ($slot)。 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+	// find a free slot for this surface in the global arrays
+	//
+	for ( $slot = $spherePaintFreeSlot; $slot &lt; $spherePaintSlots; $slot++ )
+	{
+		if ( $sphereNamePrefix[$slot] == "" ) {
+			break;
+		}
+	} 
+	if ( $slot == $spherePaintSlots ) {
+		$spherePaintSlots++;
+		$spherePaintFreeSlot = $spherePaintSlots;
+	}
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24E7">下一步是确定传入的 $name 是否对应于 NURBS 曲面。如果对应，那么生成已绘制球体的前缀，并将其存储到 $sphereNamePrefix 数组中相应的条目。 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+	if ( ‘nodeType $name‘ == "nurbsSurface" ) {
+		// save the name of the parent of this shape as well
+		// as a prefix to use when creating the spheres
+		//
+		string $parent[] = `listRelatives -p $name`;
+		$sphereNamePrefix[$slot] = $parent[0] + "Sphere";
+	}
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24E6">初始化程序的最终功能是返回一个字符串，该字符串指示 Artisan 如何处理该曲面。该字符串是特殊标志及其参数组成的一个序列，上文已有描述。在本例中，字符串包含的标志可指示 Artisan： 
+		  </p>
+ 
+		  <ul class="ul" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24E5"><li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24E4">应为该曲面使用哪个曲面 ID 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24E3">绘制应在曲面的参数空间上均匀分布的 20x20 栅格上进行 
+			 </li>
+<li class="li" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24E2">任何时候一旦调用，即将世界空间的位置传递到 setSpherePaintValue。 
+			 </li>
+</ul>
+ 
+		  <pre class="pre codeblock">
+	// Return an argument string which:
+	// - tells the tool what surface ID to use for this surface
+	// - indicates that values should be distributed on a 20x20
+	// grid on the surface
+	// - indicate that the associated world space position
+	// should also be passed to the "Set Value Cmd".
+	//
+	return ( "-id " + $slot
+		 + " -grid 20 20"
+		 + " -position world");
+}
+// This is the "Finalize Cmd". This procedure is called at the
+// end of the stroke. It is passed the surface ID, that was
+// generated by the "Initialize Cmd".
+//
+global proc finishSpherePaint( int $slot )
+{
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24E1">在笔划结束时调用。使用 $slot 清除该曲面在 $sphereNamePrefix 中的相应条目。如果数组中已有 $slot，也可以用 $slot 更新 $spherePaintFreeSlot。 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+	
+	global string $sphereNamePrefix[];
+	global int $spherePaintFreeSlot;
+	// clear out the slot that was used for this surface
+	//
+	$sphereNamePrefix[$slot] = "";
+	if ( $slot &lt; $spherePaintFreeSlot ) {
+		$spherePaintFreeSlot = $slot;
+	}
+}
+// This is the "Set Value Cmd". It is called everytime a value
+// on the surface is changed. A surface ID, a grid index
+// on the surface and the value associated with that grid index
+// is passed. There can be additional arguments depending on the
+// options generated by the return value of the "Initialize Cmd".
+// In this case the (x,y,z) surface position for this grid point
+// is also passed.
+// 
+global proc setSpherePaintValue(
+	int $slot,
+	int $index,
+	float $val,
+	float $x,
+	float $y,
+	float $z
+)
+{
+	global string $sphereNamePrefix[];
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24E0">确定 $slot 是否是有效的曲面 ID，方法是检查 $sphereNamePrefix 中的相应条目是否并非空字符串。 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+	if ( $sphereNamePrefix[$slot] != "" ) {
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24DF">已绘制的所有球体都具有唯一的名称，该名称是曲面的 $sphereNamePrefix 和栅格索引的组合。这正是该脚本确定在此位置是否已进行绘制的方式。该方法的一个缺点是它对 initSpherePaint 中指定的栅格大小较为敏感。例如，索引 44 将对应于 10x10 栅格上的栅格位置 (4,4)。但是，如果栅格大小已更改为 20x20，索引 44 现在将对应于栅格位置 (2,4)。 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+		// determine the name of the sphere associated with this
+		// grid location 
+		//
+		string $objname = $sphereNamePrefix[$slot] + $index;
+		if ( ‘objExists $objname‘ ) {
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24DE">在本例中，球体已经存在。因此，传递的值 $val 将用作球体的总体比例因子。作为一种特殊情况，如果值小于或等于 0，应移除对应的球体。 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+			// if the sphere already exists, use the value to
+			// adjust the size of the sphere. If the value is
+			// 0, the sphere is deleted
+			//
+			if ( $val &gt; 0 ) {
+				scale $val $val $val $objname;
+			} else {
+				delete $objname;
+			}
+		} else if ( $val &gt; 0 ) {
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24DD">在本例中，对应于该栅格位置没有已绘制的球体。使用球体 MEL 命令创建一个球体，并使用 -name 选项为新创建的球体给出所需名称。球体创建之后，均匀地更改球体的比例因子，直至达到传入的值 ($val)。此时球体也将定位，通过将球体从原点（默认情况下在此处创建球体）移动到传入该程序的世界空间位置 ($x,$y,$z)，可以使球体出现在正确的位置。 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+			
+			// the sphere doesn’t exist
+			//
+			string $sname[];
+			// create a sphere with the proper name, scale it by
+			// the passed value and parent the sphere to the same
+			// parent as the surface we are painting on
+			//
+			$sname=‘sphere -ch off -name $objname‘;
+			if ( $sname[0] != $objname ) {
+				print ("SPHERE NAME FAILED: wanted "
+					+ $objname + " got " + $sname[0] + "\n");
+			}
+			scale $val $val $val;
+			move $x $y $z;
+		}
+	}
+}
+// This is the "Get Value Cmd". It is called everytime a value
+// on the surface is needed by the scriptable paint tool. A
+// surface ID and a grid index is passed in. This procedure should
+// return the value for this grid location on the specified surface.
+// 
+global proc float getSpherePaintValue( int $slot, int $index )
+{
+	global string $sphereNamePrefix[];
+	if ( $sphereNamePrefix[$slot] != "" ) {
+		// if this slot is valid, generate the name for the
+		// sphere at this grid index
+		//
+		string $objname = $sphereNamePrefix[$slot] + $index;
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24DC">任何时候 Artisan 需要一个对应于特定栅格位置的值时，便会调用该程序。在该脚本中，值是球体的比例因子。 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+		
+		if ( ‘objExists $objname‘ ) {
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24DB">如果在 $index 引用的位置上绘制了球体，将返回球体的 X 轴比例因子。X 轴比例因子也没有什么神奇奥妙之处。可能很容易拥有 Y 轴或 Z 轴比例因子，或者是所有与此相关的比例因子的平均值。这完全取决于脚本。 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+			
+			// if the sphere exists, return the X scale factor
+			// as the value for this grid location
+			//
+			return ‘getAttr ($objname + ".sx")‘;
+		} else {
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24DA">如果在该位置没有球体，那么仅返回 0.0 作为该位置的值。 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+			// the sphere doesn’t exist, therefore return 0 as
+			// the value for this grid location
+			//
+			return 0.0;
+		}
+	} else {
+		return 0.0;
+	}
+}
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24D9">以下是几个试验，可以尝试使用该脚本，以便要了解其工作方式。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS17956D7ADBC6E736-2518B635117AE30950E-7FED"><h3 class="title sectiontitle">更改<span class="ph uicontrol" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__GUID-9B8B0569-7759-4C11-A34C-3ECF2E33D4EE">栅格大小</span></h3> 
+		   
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24D8">更改第 89 行自： 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+		 + " -grid 20 20"
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24D7">为： 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+		 + " -grid 40 30"
+		
+</pre>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS17956D7ADBC6E736-2518B635117AE30950E-7FEC"><h3 class="title sectiontitle">绘制圆锥体而不是球体</h3> 
+		   
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24D6">更改第 154 行自： 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+			$sname=‘sphere -ch off -name $objname‘;
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24D5">为： 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+			$sname=‘cone -ch off -name $objname‘;
+</pre>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS17956D7ADBC6E736-2518B635117AE30950E-7FEB"><h3 class="title sectiontitle">抖动栅格</h3> 
+		   
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24D4">添加行： 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+		 + " -jitter true"
+</pre>
+ 
+		  <p class="p" id="GUID-048A5F9C-FA4F-4F4C-A15A-5054F9C3FD1A__WS1A9193826455F5FF-6D855556117FACF922E-24D3">于第 90 行之前。 
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-931047D8-6327-4274-B328-87CF115047B3.htm">使用 MEL 脚本和绘制脚本工具绘制</a></div>
+</div>
+</div>
+
+</body>
+</html>

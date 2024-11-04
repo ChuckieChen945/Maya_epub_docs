@@ -1,0 +1,75 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_Influence_Simulation_Influence_attract_repulse_influence_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>attract_repulse_influence</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>attract_repulse_influence</code></h1></div><p>attract_repulse_influence 朝向或背离输入几何体应用力。</p>
+<p>要使用此节点，请将其输出插入模拟节点（如 <code>simulate_aero</code>、<code>simulate_particles</code> 或 <code>simulate_mpm</code>）的 <code>influences</code> 输入。</p>
+<h2 id="">输入</h2><h3 id="influence"><code>influence</code></h3><p>使用此项可选择将影响场的 <code>out_influence</code> 连接到此端口。例如，可以连接 <code>mask_influence</code> 节点以遮罩此影响的效果。可以将任意数量的影响场呈菊花链状连接在一起，以构建复杂的场。</p>
+<h3 id="geometry"><code>geometry</code></h3><p>此项为要朝其吸引或远离的几何体。使用闭合网格（如长方体或球体，而不是平面）或具有等值面的体积（<code>voxel_signed_distance</code> 特性）。</p>
+<h2 id="">常规</h2><h3 id="enable"><code>enable</code></h3><p>关闭此项可禁用效果。如果禁用，将使其成为穿过节点。请注意，禁用此项后，连接到影响输入端口的任何其他影响场仍将处于活动状态。</p>
+<h3 id="geo_shape"><code>geo_shape</code></h3><p>此项定义要用于输入几何体的方法。</p>
+<ul>
+<li><code>Mesh</code>：使用与输入对象的实际距离和方向。此方法使用指定的 <code>detail_size</code> 将输入几何体转化为体积距离场，如果 detail_size 值较小，可能会比较慢。</li>
+<li><code>Bounding Box</code>：这会将几何体替换为限制输入几何体的隐式长方体。</li>
+<li><code>Bounding Sphere</code>：这会将几何体替换为理想的隐式球体，该球体适合几何体边界框的内部边界。</li>
+</ul>
+<h3 id="resolution_mode"><code>resolution_mode</code></h3><p>分辨率模式决定 <code>geo_detail_size</code> 的单位。</p>
+<ul>
+<li>在 <code>Automatic</code> 模式下，如果 <code>geometry</code> 是点，则 <code>geo_detail_size</code> 以世界空间单位进行解释（即类似于 <code>Absolute</code> 模式）；否则，<code>geo_detail_size</code> 会解释为相对于输入几何体的边界框（即类似于 <code>Relative</code> 模式）。</li>
+<li>在 <code>Absolute</code> 模式下，<code>geo_detail_size</code> 以世界空间单位指定。</li>
+<li>在 <code>Relative</code> 模式下，<code>geo_detail_size</code> 相对于输入几何体的边界框指定。</li>
+</ul>
+<h3 id="geo_detail_size"><code>geo_detail_size</code></h3><p>此项定义在创建要用于力的距离场（或等值面）时将输入几何体体素化的精细程度。值越小，捕捉的输入几何体的细节越精细，但速度也会越低，且占用内存也越多。该大小相对于输入几何体的边界框，因此，如果值为 0.1，则创建的体素将为边界框大小的 1/10。</p>
+<h3 id="geo_volume_mode"><code>geo_volume_mode</code></h3><p>定义输入网格的体素化方式。</p>
+<ul>
+<li><code>Solid</code>：在此模式下，将多边形网格体素化为实体，如果网格是密闭网格，效果最好。</li>
+<li><code>Shell</code>：在此模式下，将网格体素化为壳，不要求网格是密闭网格。</li>
+</ul>
+<h2 id="attract_repulse">Attract_Repulse 特性</h2><h3 id="attraction"><code>attraction</code></h3><p>此项控制应用的推力幅值。如果为正值，将吸引几何体；如果为负值，将排斥几何体。</p>
+<p>可以连接 <code>float</code>、<code>ScalarField</code>、<code>float3</code> 或 <code>VectorField</code>。<code>VectorField</code> 和 <code>float3</code> 值在每个轴上以不同方式调整效果。</p>
+<h3 id="min_distance"><code>min_distance</code></h3><p>与网格的距离小于 <code>min_distance</code> 时，应用力的完全幅值。</p>
+<h3 id="max_distance"><code>max_distance</code></h3><p>与几何体的距离大于 <code>max_distance</code> 时，将没有效果。</p>
+<h3 id="dropoff"><code>dropoff</code></h3><p>此项确定在距离介于 <code>min_distance</code> 和 <code>max_distance</code> 之间时力衰减的速度。如果值为 0.0，则距离位于 <code>max_distance</code> 以内时将产生完整效果，超过该距离时将没有效果。值为 1.0 时，将为线性衰减，距离位于 <code>min_distance</code> 时将产生完整效果，距离位于 <code>max_distance</code> 时将没有效果。值为 2.0 时，将按 2 的幂衰减。值越高，随着距离增大，力衰减越快。</p>
+<h3 id="drag"><code>drag</code></h3><p>此项朝影响速度方向应用阻力。影响场中的阻力将所有力效果的速度之和视为风，并减弱相应运动（而非直接减弱到零速度）。可以连接一个 <code>ScalarField</code> 以改变空间上的效果。</p>
+<h2 id="">输出</h2><h3 id="out_influence"><code>out_influence</code></h3><p>可以连接到模拟节点或其他影响节点的输出影响对象。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_Influence_html.html">Influence</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

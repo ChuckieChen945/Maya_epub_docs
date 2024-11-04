@@ -1,0 +1,636 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2">
+<meta name="language" content="CHS">
+<title>XGen 表达式函数</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>XGen 表达式函数</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__SECTION_BAEFBF995F434EBFB7A7D6DD53EDC0C6"><h2 class="title sectiontitle">重要说明</h2> 
+		 
+		<ul class="ul" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__UL_C314C41063CD48388D1F02414A80FE6C"><li class="li" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__LI_FA32DFC9275442DCAAABF780662B560B">有一组函数调用可在表达式中使用。所有参数都可作为子表达式。如果表达式需要向量参数，请以大写形式提供输入值。如果将标量传递到需要向量的函数，则使用在所有三个通道具有相等值的向量。例如，<samp class="ph codeph">length(2) == length([2,2,2])</samp>。 
+		  </li>
+<li class="li" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__LI_3018EABDA6FA41939D82BFE4C4FC8F6B">如果向量传递给标量运算，则按分量方式执行运算 <samp class="ph codeph">cos(X) = [cos(X[0]),cos(X[1]),cos(X[2])]</samp>)。这包括算术运算，例如 <samp class="ph codeph">X*Y = [X[0]*Y[0],X[1]*Y[1],X[2]*Y[2]]</samp>)。比较和条件仅使用 <samp class="ph codeph">[0]</samp> 分量。相等测试 (<samp class="ph codeph">==,!=)</samp> 会比较所有三个分量。函数中的任何标量结果都将为 <samp class="ph codeph">[0]</samp> 分量。 
+		  </li>
+<li class="li" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__LI_21A000FBD7C44575B7867EB4CC076D71">下面函数定义中的方括号指明了可选参数： 
+		  </li>
+<li class="li" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__LI_E082817B0A2948B1BBDFA0E1F3D07907">如果表达式无效，将显示错误消息，并将其计算为 0.001。 
+		  </li>
+<li class="li" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__LI_49DBD3000CF4427BBC421CA48ED56F30">以下常量有效： 
+			 <ul class="ul" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__UL_EB00A7CC33014A90813C222CF324D103"><li class="li" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__LI_CE650F83CEE845DD94835F62A083D5B0"><samp class="ph codeph">PI</samp> - 圆的周长与其直径的比率 (3.14159265358979323846)。 
+				</li>
+<li class="li" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__LI_EAB7ACE3223242C898C5472AFEA081C5"><samp class="ph codeph">E</samp> - 自然对数的底 (2.7182818284590452354)。 
+				</li>
+</ul>
+ 
+		  </li>
+</ul>
+ 
+	 </div>
+<p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-96E2F5E5-7B2D-45D2-9380-386D7DCD1889"> 
+	 </p>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-8E90BAC7-9AA8-4E74-92B5-DDE6EA3F2B68"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__ABS">abs(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-34EAA2C7-E2A6-4BED-9643-32D52DF8F672"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-A4ECC490-EE96-4804-80D7-D3391F1BEFCF">x 的绝对值。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-BC193CBB-DAAA-4FC8-9285-986A9BAE8F19"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__ACOS">acos(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-CE2364EB-FAD4-4EF3-88A9-C660E20B3815"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-35EED2D4-78D4-4AD4-9E02-511E1ECC9E6B">x 的反余弦，范围在 0 到 pi 弧度之间。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-2B41876B-ACF7-4170-97A7-A8776EE825E0"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-0E48D32A-12A3-4A1B-AAF0-702CB106E5DB"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__ACOSD">acosd(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-1E4AB9F6-6524-403F-BCBE-FCB9CBBF83B9"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-30A488F5-CD81-4EF1-92C5-B2E3A5DB55C5">x 的反余弦，范围在 0 到 180 度之间。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-753A00AF-FB95-4802-A666-D5276E2C6A99"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-CBF16552-FDED-4106-B652-D85E9883830D"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__ACOSH">acosh(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-7D99FCF7-8BC3-4ED9-9F85-B9C373D3F376"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-81415C97-16D2-4C8B-A662-E95AD2A28710">x 的双曲余弦。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-64AFF907-8265-43C7-9673-A24EB1CFAB00"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__ALIGNN">alignU([X]) alignV([X]) alignN([X]) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-B48C9824-4E3F-4F0A-AA37-0A42D801D8F4"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-5E60F92C-5287-40EA-95C5-E81FC973607B">将基本体与给定的向量对齐。这三个表达式应放置在 offU、offV 和 offN 中。如果没有传递参数，则使用默认值 [0,1,0]，所得结果会“增长”。当传递参数时，会将同一参数传递给所有三个表达式。参数可以是表达式，无需进行归一化。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-F61B411A-A73D-42FD-AF79-4851D2796EC7"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__ANGLE">angle(X, Y) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-C606EA83-CA0A-4F2B-9C1D-BB368AB08369"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-8AB47151-1AE1-4770-9743-3CD59D6273AD">向量之间的夹角（以弧度为单位）。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-F878C595-474B-4B80-99F0-259F2B311DD0"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__ASIN">asin(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-C646F0F6-AD70-4422-95A4-37E887BECBB0"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-AB428B76-42E0-4D97-AEE1-8A6D65393DA6">x 的反正弦，范围在 -pi/2 到 pi/2 弧度之间。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-222239F7-4008-4B09-9AF3-ACF773A05E40"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__ASIND">asind(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-E676D704-9549-49BB-82FA-5E4E6A7190C1"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-B86926D4-BBFC-4B00-B8D2-701697ADCD48">x 的反正弦，范围在 -90 到 90 度之间。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-A8401F2A-027F-4007-B9A7-D6E966D4FDFC"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-832573B1-40CD-4A35-9467-B49B0CA58D1D"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__ASINH">asinh(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-8EBCDC6C-0C8E-4AC7-A83D-0913075DD49A"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-15E84E36-B361-4B9E-83A6-3E38C06D9409">x 的双曲正弦。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-86712413-5E65-4201-ABA5-8A8BD482B224"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__ATAN">atan(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-8733EE07-AB20-429A-A641-EDCB9D40021C"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-E8AA982B-4E47-4A70-BB34-431D58BECFC3">x 的反正切，范围在 -pi/2 到 pi/2 弧度之间。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-4BC87F69-2B3A-418F-A693-E763E0AD3272"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-8277DC74-1320-4D02-B867-EFCBFF240F62"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__ATAND">atand(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-AEDD3C6A-E53E-4F08-9DB7-BB6060726DEA"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-0EE2C88D-D32C-4266-9649-78B662098534">x 的反正切，范围在 -90 到 90 度之间。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-79BBA0FC-FD6D-463E-AEE3-5D693A14B550"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-A9E48249-1AA2-4D47-9448-04053C36F028"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__ATAN2">atan2(x, y) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-0371CB6A-8704-42A6-BBB1-B25686E97400"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-41948FE7-4639-4DF7-855E-A6EE19DE6F2C">x/y 的反正切，范围在 -pi/2 到 pi/2 之间。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-D67AA706-F271-4662-859D-12B133C16C5D"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__ATANH">atanh(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-9C99C9A8-9E26-468A-836C-BB0C80DEF519"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-3FACFD85-F8EA-4C57-BC1A-6686E1AC0D02">双曲反正切。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-B0808EBC-C973-4E94-8A62-A5AC4095D457"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__BIAS">bias(x, b) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-79516826-8D1B-442D-A505-D2D851498FD0"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-AF9E8C8B-824F-4D2E-A2ED-3D18124203D8">对比度的辅助对象，是 Gamma 的变体。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-5AE6E36F-F989-4EDA-B722-A34DE36E6CCE"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-462BE893-8C9A-494A-9161-2E80914AD41E"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__BOXSTEP">boxstep(x, val) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-5FB4A490-CB6E-48D5-AA2E-F0CBF986E762"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-85285B5F-D8E7-43C4-92B0-1EC4DBDE4A7D">表达式计算小于 val 的值时生成 0，否则生成 1。从 boxstep 减去 boxstep 生成框函数，小于第一个 boxstep 的 val 时值为 0，介于两个 val 之间时值为 1，大于第二个 boxstep 的 val 时值为 0。确保从前一 boxstep 中减去后一 boxstep，否则会生成反转的框函数。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-F40ED917-ED3F-4988-9EB3-C94242CC0622"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-860BDE64-2A68-4DDD-8246-CB864AF685C1"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__CBRT">cbrt(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-277BDAA4-3DC6-423E-800B-C04724B2D0D6"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-A3E07DC5-E6CD-4666-A78D-BBD6D7F6BF3B">x 的立方根。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-55358D51-A3FE-4F41-A68D-47E8F17D4E7C"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__CEIL">ceil(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-71C6957F-5D3A-4800-A0F7-1BF95CAFDB63"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-F088EFDF-307B-41B4-A252-A15385963DE9">不小于 x 的最小整数（向上舍入）。请参见 floor、round 和 trunc。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-9932087D-6142-4486-BE6D-9807E09F90FC"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__CLAMP">clamp(x, min, max) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-40A7B98E-1393-42E7-93B0-9FE8BE77808A"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-A258C23E-4863-46CF-B5CF-7C4416EA6852">在最小值和最大值之间钳制 x。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-BEBED997-838C-4208-BAC1-F168E54843A7"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-E35BAA4D-0623-4EFC-8747-10971A18C659"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__COMPONENT">component(x, y, z) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-F8976E6B-87A6-480A-91C9-F05425EBC613"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-49D13AC4-8BBE-4843-B124-B9A42A5EE7F7">允许表达式设置向量或颜色的各个分量的值。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-8FB1FB24-BBC1-4AC7-8BCA-C892B782B020"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__CONTRAST">contrast(x, c) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-23BB2FF1-5EBA-428A-B708-33D8AF4CB7A8"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-10DE70B6-6177-4DB9-A661-DFE8E592B50B">x 的对比度函数。c &lt; 0.5 会减小对比度，c &gt; 0.5 会增加对比度。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-615A305F-4F40-4D4E-A4D6-889AC582842E"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-2608D3F2-CDBF-448B-AE75-85867C32D3B1"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__COS">cos(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-ECBB233D-E980-4A85-BE24-7A79D8E97A57"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-D891404A-1E4A-4150-ADD8-7D732E3AD0EB">x 的余弦（x 以弧度为单位）。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-46186113-6921-4061-B9B6-776B5CA93741"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__COSD">cosd(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-73DBF9BF-4CA9-4BA1-A72D-BED394554968"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-E9DF9448-FBD6-4EB4-A5F4-C211B1369A2A">以度为单位的余弦。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-AF028343-4DCC-41D5-B51C-F8D433C9BA03"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__COSH">cosh(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-9D829B45-5164-4DAC-BF2C-00A09AFF9925"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-A4A9D679-F0B7-4BA0-B2E8-49D18B20A242">x 的双曲余弦。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-15FB0391-AD6A-4F44-A043-01AE11E24223"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__CROSS">cross(V, W) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-601D67ED-7D6D-4954-A0FF-CC7742DAC1EB"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-2E3607EF-E59F-4B97-9D8E-8DE85BBE2706">向量的叉积 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-40DA32B4-1CBA-4AC2-8700-3893323E7C5C"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__DEG">deg(r) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-156BFCBF-11BC-4D84-9CE8-AE1F9803597F"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-8DF976AE-D47D-4BA5-862A-42B11FE31F64">将弧度转换为度。请参见弧度。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-7B214FE5-B466-44C8-8986-0ECEB3F18259"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-6FCA0C72-F415-4EE6-B00D-F214E0361A07"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__DOT">dot(V, W) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-F4BFCC86-0A8F-4013-8D9D-D9474FD9AC85"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-AF5056A2-9298-4214-9DC8-DAD2B5BAB969">向量的点积。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-85CE0D04-A4FE-4FA7-885E-52CAFC4A1990"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-F71E2D52-1D05-4BCF-9366-0D69005EA04A"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__DIST">dist(x1, y1, z1, x2, y2, z2) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-92D9CE26-D263-4B8A-ABDE-B489AFB8C4CF"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-83E61216-70D6-4042-818D-C99C40EC0CF0">两点之间的距离。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-00FDE715-1AFC-4755-9434-F1AF1E61C462"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-755B9E05-C7F8-4DFF-B081-3A963B84F30D"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__EXP">exp(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-2A61CD35-1415-45FA-9E3E-D8B3F7FB3220"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-7B86FBBA-F4E6-48D3-98B1-7244DE8A4CB7">x 的 e 次幂。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-CB1C74CB-52E9-48E7-A725-264A57E3F96B"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__FIT">fit(x, a1, b1, a2, b2) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-0A051296-FA39-463E-AD83-39882AC2FF45"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-6CADFB8F-BD28-4873-BE36-1F682CF01704">将 [a1..x..b1] 线性转移为 [a2..result..b2]。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-16F07B8C-002E-4C40-95CC-C16AA1318A22"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__FLOOR">floor(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-49E4ED25-9615-478D-A82E-40F4E9AEECA5"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-76A23936-416A-4E31-ABD3-3C2A44C7D6CB">不大于 x 的最大整数（向下舍入）。请参见 ceil、round 和 trunc。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-223280D8-7D11-4EC5-A184-C06CD8040AA5"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__FMOD">fmod(x, y) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-76B35639-C1E4-4389-809F-484AB6B514BD"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-A7BF4C42-F59C-4BA7-84D7-A45A4EAF1D26">x 除以 y 的实际余数。与 x%y 相同。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-EB7A418F-E224-4F49-8544-EC2460E72D05"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GAMMA">gamma(x, g) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-6BE62C60-848B-4705-A8CF-9E985E092181"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-50E7DEE0-5857-40C5-8E45-0F3342FC623A">x 的 Gamma 校正。与 pow( x, 1/g) 相同。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-02D5A3D7-A61E-4930-BA89-39B375192A7B"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GAUSSSTEP">gaussstep(x, a, b) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-9A81FB13-E5AE-417D-AC58-D30DB5940B1D"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-4960B446-359C-42F3-9671-47C875724129">生成从 0 到 1 的高斯过渡。x 等于 a 时结果为 0，x 等于 b 时结果为 1。如果超出该范围，结果是连续的：超过 a 会生成连续的 0，超过 b 会生成连续的 1。如果 a 小于 b，则该函数为增函数，否则为减函数。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-595D8161-D21B-4F81-9158-6B2C7C40A6A7"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl"><dt class="dt dlterm"> guidesAttr(N) 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p">对于当前帧内当前导向中名为 N 的属性，获取 Maya 属性值。Maya 属性必须是渲染面片缓存的一部分。将导向转化为（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-3C7FF441-3CEF-495C-AD6F-7133F17C1033.htm">“导向到曲线”(Guides To Curves)选项</a>）曲线，并将这些曲线添加到面片缓存。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-7E5F9D34-37F4-4A10-8C81-E901E0304DF7"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__HYPOT">hypot(x, y) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-AC72502C-8345-469C-AF58-9DAA363D5277"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-C63BA56C-9DF7-4BE7-94CC-BEABE85ECD5F">(x*x + y*y) 的平方根。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-A3105E70-20FC-4637-9582-C39EE1685F46"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-6F261C57-1444-42FA-99BA-9943D5ACA119"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__LENGTH">length(V) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-305C65BF-C420-4420-BE6C-AF27D8C636C7"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-8CEFC4C2-207A-46B4-BDC2-D37988D2AFAE">向量的长度。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-A6784D3B-02C7-48F3-BF1D-8A8DEEA6D7B5"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-D4117EF5-E077-40AA-BF7C-5058DDDCAD24"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__LINEARSTEP">linearstep(x, a, b) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-8515BB00-B5B0-442F-85E0-AE873BAA14C9"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-7F77E539-6D66-4D2F-9CBE-1E5F1EE71529">生成从 0 到 1 的线性过渡。x 等于 a 时结果为 0，x 等于 b 时结果为 1。如果超出该范围，结果是连续的：超过 a 会生成连续的 0，超过 b 会生成连续的 1。如果 a 小于 b，则该函数为增函数，否则为减函数。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-5BAEF4F7-47B4-4DE4-B036-894C0F3A7230"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-2FB9C36C-0FE6-4675-B2F4-DA6D87E312BC"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__LOG">log(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-83636E0D-3F7C-4C28-9522-7E8960847E36"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-A6074F75-68DF-4EE3-9AC2-7A3EF2347848">x 的自然对数。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-C45CD3EE-CC36-4DE2-AB3C-5A10BE8A493A"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__LOG10">log10(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-FF08C16D-452C-47D4-A8FE-FABDE1DD4F6A"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-7968B10F-1BEF-4A9B-A093-60CAAB4F7D14">以 10 为底的 x 的对数。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-3ABFDF11-61AD-4DD2-A189-77BCD815B4E1"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__MAP">map("mapname"<em class="ph i" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-3FDA7C64-66E0-46A1-A154-6C14EB43B48D"> [</em>, s, t]<em class="ph i" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-62A2A5B8-B0EF-4D2D-831B-AB46C737B1CD"> [</em>, channel]) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-C1B43350-8453-42CA-97AE-B3E45B653C4B"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-4EC5B3AC-62AF-44A2-8459-29FA4C2A554E">在当前 (u,v) 或提供的 (s,t) 处计算 mapname。mapname 只能是 Ptex 文件的路径。如果您打算使用正则表达式修改要使用的默认 <samp class="ph codeph" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-C408E765-69C5-4030-B31A-FB54E73879B4">$g.ptx</samp>，只需指定文件模式。可以指定可选通道以指示应读取图像的哪一通道。可以将变量 <samp class="ph codeph" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-ADD0A6B5-B320-4499-AA86-44C98276586D">${DESC}</samp> 用于描述名称。还可以使用内置 <samp class="ph codeph" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-B3DB77C9-ED0F-49DC-A38B-F0961C0249B2">$PAL</samp> 宏来引用贴图。例如，<samp class="ph codeph" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-7A06AD6B-313F-4A8D-A60D-7E45A8EFF07E">map( “baseCoat_${PAL,myPick}” )</samp>，其中将计算名为 myPick 的选项板表达式，并以 <samp class="ph codeph" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-163B1F34-0B63-4B02-85C8-5F86DB6A579A">%04d</samp> 格式插入其结果。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-F2F98968-C732-4B88-A7A7-ED262166B974"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__MAX">max(x, y) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-9C445B6B-3C89-49CC-8AA5-9EDAD527A8E8"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-C70E4C5E-B4AE-42FA-89FB-3BDFC436A503">返回两个值中较大的值。请参见 min。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-716D1117-D0DC-4EA0-A88A-E0FFE4AAC05A"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-FC5E4EB2-FBB9-4462-9CB2-EE3A36A31EEC"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__MIN">min(x, y) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-D5E44B15-4F23-48D5-876A-C8458D3C0FD1"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-E7CB3541-DAA9-42FA-80A0-AE919120B302">返回两个值中较小的值。请参见 max。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-6CFCEC2D-8CB4-4557-882B-CDBD59EFC499"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-411FE9E0-18D6-4199-9103-B288A20262B9"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__NOISE">noise([x]<em class="ph i" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-054F9CCA-AD6E-47BB-AB1E-2B7C098F7643"> [</em>, y]<em class="ph i" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-727EDF39-B8D8-42E0-BF9B-64D6E1E1C682"> [</em>, z]) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-19C7DDBF-5106-4AE8-9970-2A733CDF42A4"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-9B47F62D-D172-4D6C-84AA-D1D7618B69F1">计算柏林噪波函数。未指定参数时，在当前 (u,v) 处计算该函数。可将一个、两个或三个参数用于具有一个、两个或三个维度的噪波。返回值始终为介于 -1 和 1 之间的浮点数。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-2091DF0A-5EC4-4C03-9A6A-F716C0F45D70"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-FD8A558F-6E2C-4D8E-A753-A5A9DC1F9EB2"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__NORM">norm(V) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-531085C8-89C0-4675-B1F3-4E3F5BD22995"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-F8582BEA-5053-4435-A5FD-750C43436E6F">归一化向量 V。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-87E3D134-CCE6-40FF-A45B-D4B2AA1888C6"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__ORTHO">ortho(X, Y) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-BB77C71A-2746-473A-989E-BBE5A681B9F5"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-ACB66695-6D3C-4CFD-95BA-589177612854">正交向量（等同于 norm(cross(X,Y))）。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-3FE1B203-4F47-49AB-A93E-BBF3E3EF2F9E"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__POW">pow(x, y) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-997BFE1B-DB7F-40AB-936E-8DC2514DC5F6"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-29D13AC9-98CD-468D-8EA9-7BD4B55D0AD1">计算 x 的 y 次幂。与 x^y 相同。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-A9A54716-AAD3-4DE9-A5AB-9102A3649FAC"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__RAD">rad(d) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-E8C2906E-7353-4EC8-8D78-A842FABCEFE3"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-E17E29F3-BA2B-406C-812D-86F4B848265A">将度转换为弧度。请参见 deg。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-88C83962-ED98-407D-A2FE-1B92D866A359"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-FC663BE8-4063-460D-BE65-7093CC2C9560"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__RAND">rand([<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2.htm#GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__MAX">max</a>, <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2.htm#GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__MIN">min</a>]<em class="ph i" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-710BBD3C-5544-4732-86BC-B54DC3F5C10E"> [</em>, seed]) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-83C88EF3-7634-4863-AEE8-19AA02311590"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-4B2FB046-9962-4A52-AA1F-834E4AEE5C63">生成一个随机数字。未指定参数时，生成介于 0 和 1 之间的数字。（可选）可以传递两个参数以指定随机数字的范围。在任一情况下，都可指定 seed 值，确保返回的数字是随机的，并且可以预测（超过 <em class="ph i" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-AEF995A8-437F-472C-97A9-0551E35DECC0">y</em> 时始终为 <em class="ph i" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-7A25FABD-E181-47EF-AE41-D505D553FBBB">x</em>）。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-39F53DCF-54D0-4E48-BADD-A3882EF0E92E"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-35C1392D-D5B3-41C8-B810-40B028902D4A"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__REMAP">remap(x, source, range, falloff, interpolation) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-E3B31B02-1012-48AF-9A63-BD371D9AE56F"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-53E5083B-4325-4079-A420-FC98FAFB5738">在 0 和 1 之间重映射 x，当 x 在源的范围距离内时，结果等于 1。一旦超出该范围，结果将在衰减距离内衰减到 0。可以按名称或整数键指定插值方案：线性=0，平滑=1，高斯=2，boxstep=3。当使用 boxstep 插值时，使用衰减值 0.0。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-54AB197A-E0E0-4A35-837F-F1A3E19AF055"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-FCDF2263-6478-4F9A-B50E-26915430AA2C"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__ROUND">round(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-804ED440-23E3-4539-A280-B773BEC90A31"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-E8ADE591-ED07-420B-AEC9-5D513FC836E9">对 x 进行舍入生成的整数值，当小数部分时小于 0.5 时向零舍入，否则朝远离零的方向舍入。请参见 floor、ceil 和 trunc。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-959E4213-B262-4856-AFC4-2374041AA675"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-8DBA2798-08F3-419A-90A5-23265DE6E1B8"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__SHADOW">shadow(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-92D8B020-7F90-4FAD-AF80-958392E6D0E5"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-1A768955-37B7-45A3-B13D-204854F55F23">仅在渲染的阴影过程中计算传入的表达式。用于更改渲染的颜色和阴影过程中的长度、宽度、密度等属性。如果不在阴影过程中，则该函数的计算结果为 1.0，因此其应用作乘数。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-AE4A7C8D-9AC8-44D6-AE19-4B5DE7903765"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__SIN">sin(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-24A928CE-8C14-499D-A85E-CB24A58F94A4"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-83936596-0BB2-4DCC-A2F7-315F6DC3514B">x 的正弦（x 以弧度为单位）。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-9147E638-009C-4300-8EAC-FC9B685427EF"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__SIND">sind(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-9DA09E93-816A-4CF5-BE73-0DA074E8B144"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-AAEC2463-2DE0-43B7-93C4-E86F97E3AE5E">x 度的正弦，以度为单位。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-6714DA12-AC11-4E56-AACC-254FD729727D"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__SINH">sinh(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-CC622B45-5E48-4A47-9679-2944125A9A90"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-A36DBBFE-1B45-4A53-B057-C629A1384D91">x 的双曲正弦（x 以弧度为单位）。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-18122F76-97DD-417D-91A6-2A9168C2116C"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__SMOOTHSTEP">smoothstep(x, a, b) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-E0CC43DE-23F0-4AD2-8E18-C13E31EC6B50"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-CDC54063-366E-42EA-A685-44D5AAF1C34A">生成从零到一的平滑过渡（二次）。x 等于 a 时结果为 0，x 等于 b 时结果为 1。如果超出该范围，结果是连续的：超过 a 会生成连续的 0，超过 b 会生成连续的 1。如果 a 小于 b，则该函数为增函数，否则为减函数。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-1EC052FC-FD44-4EA1-AA67-843C63EAA1E3"><span class="notetitle">注：</span> 交互式修饰样条线支持。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a>。 
+			 </div>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-4E02A0E2-687D-41D3-89FB-A129FCC2A697"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__SQRT">sqrt(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-9E06C070-399B-4C11-81B4-84F465565917"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-90BF70B5-74DD-43CC-9DCE-173E20DEEECE">x 的平方根。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-7E02A37F-CC25-4520-AC44-447BAB71DAB0"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__TAN">tan(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-77F7B376-E2AB-4A22-9330-41C5546BDC74"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-456CAF6E-616B-41A0-A256-AED5723856E4">x 的正切（x 以弧度为单位）。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-E72227E3-7084-40D0-85B9-9C59F1083376"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__TANH">tanh(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-ED893D2F-BB92-4E01-8DBD-51C59D1C419A"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-9A5B08F5-D2F0-4424-BD57-5768E6CD9959">x 的双曲正切。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-692CBF75-B085-4415-A72D-3F8DB5B48E51"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__TRUNC">trunc(x) 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-7FF4CE88-B574-4069-ABF0-BBA376C9EF4D"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-9AE272C7-C0F5-4AE1-AE93-7CD59E389276">简单地去除 x 的小数部分（向零舍入）。请参见 ceil、floor 和 round。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-4F7391F2-3043-4B11-97DC-F2378D393A75"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__OTHER">other() 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-09B94EBA-915F-442D-BBD6-337B2DB518B8"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-815504A1-E17B-4D40-9C85-B00B2EE98DC3">选项板表达式以函数形式调用。如果您有一个名为 <em class="ph i" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-A2E2C4E5-29DF-48E5-A408-D7D25D9253A5">myPick</em> 的选项板表达式，则可通过以下语法在另一表达式中调用它： 
+				<cite class="cite">myPick()</cite>. 用于连接属性，例如指定长度和宽度之间的关联。还用于在单独描述中驱动属性，如设置选项板范围的宽度值。为选项板表达式指定的名称不能与任何预定义 XGen 函数重叠；否则，选项板表达式将无法访问。 
+			 </p>
+ 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-419D989A-8A56-4BAF-BF06-03066447850E">以下常量有效： 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-C6B73ED5-93A9-42ED-B26C-5C490AFB05BE"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__PI">PI 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-398FAB3E-BE3F-4FB2-A56F-B1196EC05ECC"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-51853435-4C19-45C1-AB83-E75E8F24423B">圆的周长与其直径的比率 (3.14159265358979323846）。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<dl class="dl" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-89F5727C-F79B-484F-8B6F-DF7C00A8B6BD"><dt class="dt dlterm" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__E">E 
+		  </dt>
+<dd class="dd" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-EEE8E0F1-3E75-4032-BB7C-B95C4BE143D3"> 
+			 <p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-766463F5-8C4F-436A-B42C-CCE5382FFFE7">自然对数的底 (2.7182818284590452354）。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<div class="note note" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-6CD2DAA4-F80D-43FC-9F33-E6D9084303D6"><span class="notetitle">注：</span>  
+		<p class="p" id="GUID-543824F8-2D67-4FA3-B2FA-000ED3D37FC2__GUID-620EADB3-7E6E-43D3-B1BF-365E5F45F5F5">如果表达式无效，将显示错误消息，并将其计算为 0.001。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-AFB8F7F3-DCCC-414A-9EC3-83B97FCC8C30.htm" title="该部分提供关于您可以在 XGen 表达式中使用的受支持全局变量、函数和运算符的参考信息。">XGen 表达式引用</a></div>
+</div>
+</div>
+
+</body>
+</html>

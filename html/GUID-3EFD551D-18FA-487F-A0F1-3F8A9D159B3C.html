@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Bifrost">
+<meta name="created" content="30/7/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="17/04/2023">
+<meta name="topicid" content="GUID-3EFD551D-18FA-487F-A0F1-3F8A9D159B3C">
+<meta name="language" content="CHS">
+<title>Bifrost 模拟剖析</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-3EFD551D-18FA-487F-A0F1-3F8A9D159B3C">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>Bifrost 模拟剖析</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> Bifrost 模拟中包含多个连接在一起的对象、特性和容器节点。编辑并优化模拟时，需要在多个位置调整属性。尽管可以使用<span class="ph uicontrol">“Bifrost 流体”(Bifrost Fluids)</span>菜单和<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>执行大部分工作，但是<span class="ph uicontrol">“节点编辑器”(Node Editor)</span>对于了解各种元素之间的关系非常有用。
+	 </p>
+<p class="p">下图是基本液体模拟节点图的简化视图。Aero 模拟涉及到一些类似元素，但通常更为简单。
+	 </p>
+<p class="p"><img class="image" id="GUID-3EFD551D-18FA-487F-A0F1-3F8A9D159B3C__IMAGE_02CC4B61376B4479BBB5A1D6510ABB05" src="../images/GUID-3FDBCCDA-FA50-476D-9853-2BF0F1CFA181.png"> 
+	 </p>
+<dl class="dl"><dt class="dt dlterm">1.碰撞对象、发射器和其他网格 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p">该图中包含两个碰撞对象网格和两个发射器网格，这些网格通过碰撞对象和发射器特性连接到主容器。您可以将其他网格类型的类似特性添加到场景中。每个网格特性都具有与如何在模拟中使用网格相关的属性，例如，发射器特性具有连续发射、密度等的属性。
+			 </p>
+ 
+			 <p class="p">在本示例中，碰撞对象网格使用单独的特性节点。这允许它们使用不同的设置。这样，您可以通过使用<span class="ph uicontrol">“Bifrost 流体”(Bifrost Fluids)</span>菜单上的命令逐一添加网格来连接它们。
+			 </p>
+ 
+			 <p class="p">发射器网格共享同一发射器特性。这意味着它们始终使用相同的设置，您无需调整多个特性上的设置。这样，您可以通过同时添加网格或者通过先选择现有特性来连接它们。
+			 </p>
+ 
+			 <p class="p">通过重新关联该图（即，根据需要添加新特性或删除不需要的特性），可以更改网格的连接方式。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm">2.全局导向特性 
+		  </dt>
+<dd class="dd">全局导向特性节点包含用于导向模拟的设置。系统将自动为所有液体图表创建该节点，但除非您设置导向模拟，否则不会使用它（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-27B3938C-B471-4585-92C3-AC3F36D09C36.htm">引导液体曲面的 Bifrost 模拟</a>）。
+		  </dd>
+<dt class="dt dlterm">3.主特性 
+		  </dt>
+<dd class="dd">主特性节点包含大多数用于控制总体模拟的设置。其中包括重力、体素大小和自适应性，以及其他特定于液体或 aero 模拟的属性。主特性节点还具有用于读取和写入用户缓存文件的控件。
+		  </dd>
+<dt class="dt dlterm">4.主容器 
+		  </dt>
+<dd class="dd">主容器是从输入获取特性值并执行模拟的节点。该节点具有一些属性，可以控制执行模拟的方式和时间，例如开始帧和临时缓存。
+		  </dd>
+<dt class="dt dlterm">5.形状 
+		  </dt>
+<dd class="dd">形状对象表示场景中的模拟结果。该对象具有用于将结果显示为粒子或体素的属性，以及许多诊断选项。此外，还具有用于激活和控制如何对结果划分网格的属性。
+		  </dd>
+<dt class="dt dlterm">6.网格 
+		  </dt>
+<dd class="dd">网格是结果的另一种表示。除了进行渲染之外，还可以将网格导出为 Alembic 或其他缓存供另一个场景或软件使用。请注意，除非在形状上激活网格划分，否则网格没有多边形。
+		  </dd>
+<dt class="dt dlterm">7.材质 
+		  </dt>
+<dd class="dd">默认情况下，可能会有不同的着色器应用于形状，具体取决于您的渲染器。某些渲染器（如 Arnold）可以直接渲染 Bifrost 形状。如果您使用的渲染器不支持此项，则必须改为渲染网格。
+		  </dd>
+</dl>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-43D655E2-45A3-4FD8-847C-6622AF22995C.htm">Bifrost 流体：概述和概念</a></div>
+</div>
+</div>
+
+</body>
+</html>

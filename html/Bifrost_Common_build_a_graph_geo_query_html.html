@@ -1,0 +1,85 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_build_a_graph_geo_query_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>查询几何对象上的数据</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>查询几何对象上的数据</h1></div><p>几何体查询用于对几何对象中的数据（例如，网格曲面上顶点颜色的插值）进行采样。查询将返回对象上的位置或组件索引，然后使用这些结果查找一个或多个现有特性的相应值。</p>
+<p><img src="../images/geoquery-dent-bulge.png" alt="使用几何体查询创建的凹陷和凸起效果"></p>
+<p>高级查询包括两个单独的步骤，可以在图表的不同部分执行：</p>
+<ol>
+<li><p>第一步是在 <code>Geometry::Query</code> 名称空间中使用以下高级查询之一：</p>
+<ul>
+<li><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/geo-query/Bifrost_Common_build_a_graph_geo_query_generate_random_locations_html.html"><code>generate_sample_locations</code></a></li>
+<li><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/geo-query/Bifrost_Common_build_a_graph_geo_query_query_raycast_html.html"><code>get_raycast_locations</code></a></li>
+<li><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/geo-query/Bifrost_Common_build_a_graph_geo_query_query_closest_location_html.html"><code>get_closest_locations</code></a></li>
+<li><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/geo-query/Bifrost_Common_build_a_graph_geo_query_query_closest_point_html.html"><code>get_closest_point</code></a></li>
+<li><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/geo-query/Bifrost_Common_build_a_graph_geo_query_query_points_in_radius_html.html"><code>get_points_in_radius</code></a></li>
+</ul>
+</li>
+<li><p>第二步是使用查询的输出来访问几何体上一个或多个特性的值。根据查询，它可能会返回位置和/或点索引。</p>
+<ul>
+<li>使用 <code>sample_property</code> 节点从网格曲面上或沿股的位置获取数据。请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/geo-query/Bifrost_Common_build_a_graph_geo_query_sample_data_at_locations_html.html">对位置的几何特性进行采样</a>。</li>
+<li>使用返回的索引直接访问几何特性的数据数组中的值。请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_geo_properties_html.html">获取并设置几何对象的特性</a>。</li>
+</ul>
+</li>
+</ol>
+<p>还可以在 <code>Geometry::Query</code> 名称空间中使用基本构建块，创建用于特殊用途的自定义查询。例如，如果要在同一个几何体上查找最近的位置以及半径内的点，或者要在 <code>for_each</code> 或其他类型的循环内查找位置，则这样做会更高效。请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/geo-query/Bifrost_Common_build_a_graph_geo_query_query_custom_html.html">创建自定义几何体查询</a>。</p>
+
+  <div class="related-links">
+      <div class="relinfo relchildren">
+        <strong>此部分中的页面</strong>
+        <ul class="ullinks">
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/geo-query/Bifrost_Common_build_a_graph_geo_query_generate_random_locations_html.html">生成随机位置</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/geo-query/Bifrost_Common_build_a_graph_geo_query_query_raycast_html.html">查询光线投射交点</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/geo-query/Bifrost_Common_build_a_graph_geo_query_query_closest_location_html.html">查询几何体上最近的位置</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/geo-query/Bifrost_Common_build_a_graph_geo_query_query_closest_point_html.html">查询几何体上最近的点</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/geo-query/Bifrost_Common_build_a_graph_geo_query_query_points_in_radius_html.html">查询半径内的所有点</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/geo-query/Bifrost_Common_build_a_graph_geo_query_sample_data_at_locations_html.html">对位置的几何特性进行采样</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/geo-query/Bifrost_Common_build_a_graph_geo_query_query_custom_html.html">创建自定义几何体查询</a>
+          </li>
+        </ul>
+      </div>
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/Bifrost_Common_build_a_graph_html.html">构建和修改图表</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

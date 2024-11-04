@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="Bullet 工作流:柔体布料模拟;柔体;Bullet 布料模拟:布料模拟:Bullet">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C">
+<meta name="language" content="CHS">
+<title>使用 Bullet 柔体创建布料模拟</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 Bullet 柔体创建布料模拟</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-8444F977-B781-4ABB-B478-4CD83A8780FF"> 此工作流使用柔体平面和锚点约束来展示一个简单的布料模拟。 
+	 </p>
+<ol class="ol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__OL_7D1A9532C08C423E8D775B4CED88DCDD"><li class="li" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__LI_A589C583B6A644DE95F322A41FA30526">在新的 Maya 场景中，将 Maya 时间滑块持续时间设为 200 帧，并确保将其设置为从第 1 帧开始播放。 
+		</li>
+<li class="li" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__LI_CCCC57A584EC410A98AE51DEC6FC6CA5">通过选择<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-D0A253A7-B58D-4CC9-B6F3-29068366AF64">“创建</span> &gt; <span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-CFFEE9E1-8756-4FAF-A337-5DCF917B8C17">多边形基本体</span> &gt; <span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-F160C931-28D4-4698-8246-FA8893C81107">平面”(Create &gt; Polygon Primitives &gt; Plane)</span> &gt; <img class="image" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__IMAGE_07628FF9BABE454682BEDC979D8161A4" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png"> 来创建一个多边形平面。将<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-2E3AF1EC-7C5D-40B9-A474-2E2B17C2F4D9">“宽度”(Width)</span>和<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-9A4C15F7-8C54-4F5E-ADA9-8821AAACDDAA">“高度”(Height)</span>设为 5 并将<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-8041C733-1870-48C8-81C6-C02C07D6E297">“宽度分段数”(Width divisions)</span>和<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-CDFECA3C-8D34-4155-9B13-FF27524B363D">“高度分段数”(Height divisions)</span>设为 20。单击<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-EB664E85-3EE4-4EB7-8DD3-E6CB9BE88909">“创建”(Create)</span>。 
+		  <div class="fig fignone" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__FIG_9ED23DE9E33A4116A8DB6171B7536BF5"><img class="image" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__IMAGE_C213852C74F94BB190F7265070C9E1AD" src="../images/GUID-30E41009-A6DA-4F4E-959A-29422D299764.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__LI_FC042F3FDA6241849CF2A7AE19122877">打开通道盒，然后将“平移”(Translate)值设置为以下值以放置平面： 
+		  <ul class="ul" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__UL_04CA88202A5744BDAEB7075C99A897F7"><li class="li" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__LI_BF6B38E3F5AC42919099797559CDC19C">X：2.5 
+			 </li>
+<li class="li" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__LI_45A2746AE4354DB1B8BF8D143C3E0890">Y：0.0 
+			 </li>
+<li class="li" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__LI_E8284D2F3AEC414BA7A083EFD7AA600C">Z：2.5 
+			 </li>
+</ul>
+ 此时，平面的四个角中的一个应位于原点。 
+		  <div class="fig fignone" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__FIG_142483877F8149B2ADF0E47C2C20C4FC"><img class="image" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__IMAGE_912CFC1FA2D243E3B5265D0CC1A703C2" src="../images/GUID-5EFC22CD-E694-463A-BC2E-B63C72A93DF8.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__LI_6AD5EE34D2234CB2AADF4F8F83AE02B1">将平面转化为柔体，方法为先选择该平面，然后选择<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-EE0DCBBB-CE42-4449-8C5F-3F57E3EB082B">“Bullet</span> &gt; <span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-90168B2F-9FEB-4D35-873E-E9B52F4587BB">创建柔体”(Bullet &gt; Create Soft Body)</span>。平面此时是一个柔体对象。 
+		</li>
+<li class="li" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__LI_F3999527351F4FE68BD45D9806EF2820">选择<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-838A5D52-5092-48CA-B67D-7A189BAB9D67">“创建</span> &gt; <span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-86B064E0-28B1-41DB-8773-425673B759C9">定位器”(Create &gt; Locator)</span>，在位于平面角上的原点创建定位器。 
+		  <div class="fig fignone" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__FIG_4C7F3F82562042B8AD492A66B401AFDD"><img class="image" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__IMAGE_F7A725C9684648D7A0B6E694ECCABA9D" src="../images/GUID-B4955D81-3CAF-406E-9278-2D1E7C754251.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__LI_1E83A845160440AAB27AA11CBB613FC9">在网格上单击鼠标右键，然后从显示的菜单中选择<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-16033A77-53BF-49B2-99C6-013732BB6EEC">“顶点”(Vertex)</span>。 
+		</li>
+<li class="li" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__LI_D34B4E5B905D44359BF2BB5A980A4804">按住 Shift 键的同时选择位于原点的网格顶点（在平面的角上）和定位器，然后选择<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-84A19E65-5049-46D7-9D80-D9204EFA2787">“Bullet</span> &gt; <span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-A8276037-A8D0-4527-B182-A3D190CC9783">创建柔体锚点”(Bullet &gt; Create Soft Body Anchor)</span>。这会将选定的顶点附加到定位器。 
+		  <div class="note note" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-23935F22-CF44-4D62-BC20-AC73AC94CFE4"><span class="notetitle">注：</span> 如果在 Maya 菜单栏中未看到<span class="ph uicontrol">“Bullet”</span>菜单，请确保选择了 FX <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-D90A2BDB-FD05-4528-8A95-C33A02D15129">菜单集</a>（按 F5 键）。如果仍未看到，请确保在插件管理器中加载了 <em class="ph i">bullet.mll</em>。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-48DD9C9F-D714-43CD-A3A1-E4075D71F074.htm">加载 Bullet 插件</a>。
+		  </div>
+
+		  <div class="p" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-D0E48A88-611D-4311-B27C-0C70ED87EF9C">播放模拟。布料因重力作用而降落，但会像受约束的布料那样悬挂在定位器上。 
+			 <div class="fig fignone" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__FIG_6C029E75F54E4F07ACC4B970DEC437C6"><img class="image" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__IMAGE_7E6F0C84643942F6B6A7CEC9344DB247" src="../images/GUID-85330F86-3EE6-4873-AA94-155B44AE69A0.gif"></div>
+
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__LI_2C6B853177004161B636E64F45960B1F">下一步，要了解 Bullet 对象如何交互，请创建一个多边形球体，方法是依次选择<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-261FA795-068D-4B45-BC94-E735F10EEF61">“创建</span> &gt;<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-B697EEB8-92B7-4FCC-A3DD-BD6600336D32"> 多边形基本体</span> &gt;<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-5C2E8FC1-8169-4CF2-AE7E-6B18F8FE6424"> 球体”(Create &gt; Polygon Primitives&gt;Sphere)</span>。将<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-443B434D-B461-46BE-88A0-952C8ACBF662">“半径”(Radius)</span>设为 1.00，并将<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-0149E050-0D7B-421F-AABC-3EB29D931E39">“轴”(Axis)</span>和<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-E401FE7A-92C5-457A-9C9F-48EEA7D4ECCD">“高度”(Height)</span>分段数设置为 20。单击<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-A2D1F7F6-07CF-41D4-B117-9126B47C8FE1">“创建”(Create)</span>。 
+		</li>
+<li class="li" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__LI_B88F0FBB2B7848DB9B100E90FEBBB4EE">在<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-EBB160C4-1C68-4E59-ABA2-47FBA5D381E6">“通道”(Channel)</span>框中，将<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-F48E9D10-2A64-4FA8-9AB1-FFAF2831F944">“平移”(Translate)</span>值设置为以下值以定位球体： 
+		  <ul class="ul" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__UL_4BD501BC861340AB871A77CC8AD6D261"><li class="li" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__LI_E5B039AB65BF4D8E870F6652F971D492">X：2.0 
+			 </li>
+<li class="li" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__LI_3F75B5CE646645299E2F9605A4673D91">Y：-2.0 
+			 </li>
+<li class="li" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__LI_5C47ADAE5A0E482593297A39EA6827DB">Z：3.0 
+			 </li>
+</ul>
+此时，球体位于平面的下方。 
+		  <div class="fig fignone" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__FIG_C59F0E8FB4DC47238BE87A8E253F19A3"><img class="image" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__IMAGE_FBEDB09396304DF99B5C2CAC47DA37E5" src="../images/GUID-F6E6C676-E1AC-4734-BD3D-E75CE7CB866C.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__LI_C8BC2418A5894FCBAA19FBC91ED98D75">依次选择<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-31EA414B-F048-44EB-B659-C62147B31BB6">“Bullet</span> &gt; <span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-3DBCC739-847E-4101-AC65-32B859A59486">创建被动刚体”(Bullet &gt; Create Passive Rigid Body)</span>，以将球体包括在解算中。将<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-51015A94-9224-41FF-B3D5-A9AFAC4531D1">“碰撞对象形状类型”(Collider Shape Type)</span>设为<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-23CD9E4D-0969-41BC-9E17-5387DFD0A1DC">“球体”(Sphere)</span>。 
+		</li>
+<li class="li" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__LI_D7D429F134D2419EA0BE8F23B20A1D3A">播放模拟。由于您已将球体设置为被动刚体（这会将球体包括在解算中），布料垂挂在球体上面。 
+		  <div class="fig fignone" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__FIG_C52C20AF306C484797D55E3D1E9D1D55"><img class="image" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__IMAGE_6EC9063185464E1B866F20A71208B0F7" src="../images/GUID-00F32824-A540-4CCC-9262-FA7446D5A213.gif"></div>
+ 
+		</li>
+<li class="li" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__LI_3BCD8128025849AC8FCB7806955920A1"> 请确保布料具有足够多的分辨率 (UV)，然后在<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-ADD2B8FF-0F10-454B-A493-4F7D3498144F">“属性编辑器”(Attribute Editor)</span>的 BulletSoftBodyShape 设置中激活<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-67AD2587-4598-478F-B19E-0E6DA7C39413">“生成弯曲约束”(Generate Bend constraint)</span>和<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-BB833261-2372-41DC-860A-0111F39A81E4">“自碰撞”(Self-Collision)</span>。请确保在<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-B3E91B97-D94C-409B-848C-AF6C7371DC07">“属性编辑器”(Attribute Editor)</span>中，BulletSoftBodyShape 的<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-2FA5E3EF-6403-4F1A-AE58-2893F6F7FCED">“柔体特性”(Soft Body Properties)</span> 
+		  <span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-580BBAB2-5D66-4D24-AAA0-E08D5A73CCE6">和“弯曲阻力”(Bend Resistance)</span>设置不会设成太高，并且<span class="ph uicontrol" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-D1CF99A0-4590-4391-8054-CEE8E915C0D7">“线性刚度”(Linear Stiffness)</span>值较低。 
+		  <div class="note note" id="GUID-6FA1B885-DF4C-45A8-B7E3-B0991449471C__GUID-4523C78D-9284-4652-9C16-50A85C9C520D"><span class="notetitle">注：</span> 您可以通过将解算器的内部帧速率设置为 120 Hz 来改善解算行为。 
+		  </div>
+ 
+		</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-44A75D64-8C67-4336-A7CC-9A99FD772C29.htm">Bullet 工作流示例</a></div>
+</div>
+</div>
+
+</body>
+</html>

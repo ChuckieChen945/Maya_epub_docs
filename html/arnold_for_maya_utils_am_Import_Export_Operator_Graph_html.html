@@ -1,0 +1,74 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_utils_am_Import_Export_Operator_Graph_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_IMPORT_EXPORT_OPERATOR_GRAPH">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 导入/导出运算符图表 - Arnold for Maya">
+
+<title>导入/导出运算符图表</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>导入/导出运算符图表</h1></div><p><img src="../images/mtoa_export_operator_graph.png" alt=""></p>
+<p>通过工具菜单<em>“导出运算符图表”(Export Operator Graph)</em>，可以将<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_operators_html" target="_blank">运算符</a>图表烘焙到 .ass 文件。随后，用户可以将它导入另一个场景（或另一个 DCC），或者使用 aiIncludeGraph 运算符将它包含在内。可以导出所选的图表，也可以导出在<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_system_am_Render_Settings_html">渲染设置(Render Settings)</a>的“目标运算符”(Target Operator)参数中定义的全局场景图表。也可以将由<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_operators_ac_set_parameter_html" target="_blank">设置参数(Set Parameter)</a>运算符引用的最终着色器导出到文件。导出/导入/包含运算符图表可以跨 DCC 工作，并允许在不同的 Arnold 插件（MtoA、HtoA、C4DToA、MAXtoA、KtoA 等）中重现相同的外观制作。</p>
+<h3 id="filename">文件名(Filename)</h3><p>指向输出 .ass 文件的路径。</p>
+<h3 id="export">导出(Export)</h3><p>此字段确定要导出的运算符图表：</p>
+<ul>
+<li><strong>场景图表(Scene Graph)</strong>：烘焙在“渲染设置”(Render Settings)的“目标运算符”(Target Operator)中设置的场景运算符图表。</li>
+<li><strong>选择(Selection)</strong>：烘焙所选图表。如果选择了多个运算符，则当 aiIncludeGraph 运算符加载烘焙的 .ass 文件时，可以选择要应用哪个运算符。这样，就可以在单个 .ass 文件中烘焙多个“外观”，然后选择在外观制作期间要使用哪个外观。如果选择了一个程序几何体（<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Stand_ins_html">替代对象</a>、<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Alembic_html">gpuCache</a>、自定义程序等），则会烘焙附加到此几何体的运算符图表。</li>
+</ul>
+<h3 id="export-assigned-shaders">导出指定的着色器(Export Assigned Shaders)</h3><p>运算符图表可以通过<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_operators_ac_set_parameter_html" target="_blank">设置参数(Set Parameter)</a>运算符来应用着色器指定。默认情况下，导出运算符图表时将保存指定而不是着色器。如果导入/包含了此运算符图表，则这些着色器应当以相同的名称存在。启用“导出指定的着色器”(Export Assigned Shaders)选项时，还允许导出 .ass 文件中指定的所有着色器。当通过 aiIncludeGraph 运算符加载此 .ass 文件时，它将是自包含的，并将重现与保存图表时相同的外观制作。</p>
+<h3 id="import-operator-graph">导入运算符图表(Import Operator Graph)</h3><p>工具菜单“导入运算符图表”(Import Operator Graph)可以导入先前已烘焙到 .ass 文件的运算符图表，并将整个图表创建为 Maya 场景中的运算符节点。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>这将仅导入运算符。最终使用“导出指定的着色器”(Export Assigned Shaders)选项烘焙到文件的着色器无法重新导入。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/arnold_for_maya_utils_html.html">工具</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="HumanIK:解算;解算:HumanIK">
+<meta name="modified" content="04/07/2022">
+<meta name="topicid" content="GUID-2B11031D-69AD-4B20-B5AD-5803CF1023C0">
+<meta name="language" content="CHS">
+<title>HumanIK 解算属性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-2B11031D-69AD-4B20-B5AD-5803CF1023C0">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>HumanIK 解算属性</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="li listintro">打开解算属性 </p>
+<ul class="ul" id="GUID-2B11031D-69AD-4B20-B5AD-5803CF1023C0__UL_783FCD6BBAF74343BA03A0F78552A0DB"><li class="li" id="GUID-2B11031D-69AD-4B20-B5AD-5803CF1023C0__LI_E9D805409CA9469FA4C5CF6B20F849BF">选择角色骨架后，从<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中，选择“HIKproperties”选项卡 
+		</li>
+</ul>
+<p class="p"> 使用 HIK 解算属性可以定义如何解算特定移动。 
+	 </p>
+<dl class="dl"><dt class="dt dlterm">绑定对齐(Rig Align) 
+		  </dt>
+<dd class="dd"> 设置了复杂绑定时，很难可视化操纵如何在角色的骨架上创建最终解算。由于 FK 和 IK 系统的解算方式不同，并且这些系统可以在关键帧之间不同的方向上进行插值，因此，即使骨骼上的最终动画没有问题，绑定也可能会显示为已断开连接。 
+			 <p class="p"> 此外，也很难跟踪作为 FK 或 IK 效应器子对象的道具（如约束到腕部的武器），以及它们在最终动画中的位置。由于它们可以跟随 IK 或 FK，根据您为“达到”(Reach)特性设置动画的方式，道具对象也可能显示为已与角色断开连接，即使它们正常出现在最终解算中也是如此。 
+			 </p>
+ 
+			 <p class="p">使用“绑定对齐”(Rig Align)控件，可以直观地将 IK 和 FK 系统合并在一起，从而清晰地在角色的骨骼上显示最终解算。这样，就可以让您预览最终动画，以及显示从其计算子对象位置的最终解算。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm">肩部校正(Shoulder Correction)/上部脊椎校正(Top Spine Correction)/下部脊椎校正(Lower Spine Correction) 
+		  </dt>
+<dd class="dd">
+			 <p class="p">仅当进行重定目标的源动画在腰部向前弯曲而头部向后倾斜时，才使用此设置。 
+			 </p>
+
+			 <p class="p">调整此特性有助于防止重定目标的角色在颈部显示锐弯，或显示平直的颈部至下巴曲线。
+			 </p>
+
+			 <p class="p"> 为 100% 时，颈部旋转会最大程度地向后扩散到脊椎，并在颈部创建更平滑的弯曲。为 50%（默认值）时，该特性没有任何效果，而为 0% 时，颈部弯曲比使用默认值时更为锐利。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm">附加锁骨比率(Extra Collar Ratio) 
+		  </dt>
+<dd class="dd"> 定义肩部旋转在锁骨节点上的分布。此值必须介于 0.0 和 1.0 之间，0.0 表示对基础锁骨骨骼应用旋转，1.0 表示对额外锁骨骨骼应用旋转。 
+		  </dd>
+<dt class="dt dlterm">锁骨刚度 X(Collar Stiffness X)/锁骨刚度 Y(Collar Stiffness Y)/锁骨刚度 Z(Collar Stiffness Z) 
+		  </dt>
+<dd class="dd"> 介于 0% 和 100% 之间的减少百分比表示对每个轴上的锁骨移动应用平均值。 
+		  </dd>
+<dt class="dt dlterm">髋部平移模式(Hips Translation Mode) 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p"> 如果在特殊窗口组中定义了髋部平移对象，则使用“髋部平移模式”(Hips Translation Mode)设置可以选择是否将旋转数据应用于该对象。 
+			 </p>
+ 
+			 <p class="p"> 如果选择“世界刚性”(World Rigid)作为髋部平移模式，则旋转数据将只应用于在基础窗口组中定义的髋部对象。如果选择“身体刚性”(Body Rigid)作为髋部平移模式，则旋转数据将同时应用于在基础窗口组中定义的髋部对象和在特殊窗口组中定义的髋部平移对象。 
+			 </p>
+ 
+			 <p class="p"> 如果定义了第二个对象以用于平移模型的髋部，并且不希望第二个对象接收旋转数据，则此设置很有用。 
+			 </p>
+ 
+			 <div class="p"> 若要使用此设置，必须定义髋部平移对象。 
+			 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-2B11031D-69AD-4B20-B5AD-5803CF1023C0__TABLE_6E98B21BCE6647F69749570123343A77" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">设置 
+						</th>
+<th class="entry" valign="top" width="50%">描述 
+						</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%"> 身体刚性(Body Rigid) 
+						</td>
+<td class="entry" valign="top" width="50%"> 将旋转发送到髋部和髋部平移对象。 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%"> 世界刚性(World Rigid) 
+						</td>
+<td class="entry" valign="top" width="50%"> 将旋转仅发送到髋部对象，而不发送到髋部平移对象。 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">轨迹 
+						</td>
+<td class="entry" valign="top" width="50%"> 将存储在源角色的髋部平移中的任何数据发送到目标角色的髋部平移。 
+						</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+			 </div>
+ 
+		  </dd>
+<dt class="dt dlterm">左臂最大伸展角度(Left Arm Max Ext Angle)/右臂最大伸展角度(Right Arm Max Ext Angle) 
+		  </dt>
+<dd class="dd"> 定义节点的最大伸展角度。 
+		  </dd>
+<dt class="dt dlterm">左腿最大伸展角度(Left Leg Max Ext Angle)/右腿最大伸展角度(Right Leg Max Ext Angle) 
+		  </dt>
+<dd class="dd"> 定义节点的最大伸展角度。
+		  </dd>
+</dl>
+<dl class="dl"><dt class="dt dlterm">逼真的左膝解算(Realistic Left Knee Solving)/逼真的右膝解算(Realistic Right Knee Solving) 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p"> 用于重新生成人膝盖的旋转。此设置用于调整大腿旋转时应用于膝盖的旋转量。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<div class="section" id="GUID-2B11031D-69AD-4B20-B5AD-5803CF1023C0__SECTION_60E6BD18CC2B4C40ACAE63B41AD7062F"><h2 class="title sectiontitle">偏移属性</h2> 
+		 
+		<div class="p"> 用于偏移角色的身体部位。 
+		<dl class="dl"><dt class="dt dlterm"> 胸部 T 偏移 X/Y/Z(Chest T Offset X/Y/Z) 
+			 </dt>
+<dd class="dd"> 用于精确地对胸部应用偏移以及调整偏移。为使偏移影响胸部，必须将“达到胸部”(Reach Chest)选项设置为 0 以外的任何值。 
+			 </dd>
+<dt class="dt dlterm"> 髋部 T 偏移 X/Y/Z(Hips T Offset X/Y/Z) 
+			 </dt>
+<dd class="dd"> 用于精确地对髋部应用偏移以及调整偏移。 
+			 </dd>
+</dl>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-EB6801E1-1DA2-4E47-8C45-F7159AA452F1.htm">HumanIK 属性</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Animation">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="31/08/2022">
+<meta name="topicid" content="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39">
+<meta name="language" content="CHS">
+<title>在时间编辑器中为 HumanIK 角色设置动画</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>在时间编辑器中为 HumanIK 角色设置动画</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 在<span class="ph uicontrol">“时间编辑器”(Time Editor)</span>中使用 HumanIK 角色装备时，需要注意一些特殊事项。这是因为 HumanIK 装备具有“全身”(Full Body)和“身体部位”(Body Part)等特殊的设置关键帧模式，可以控制 HumanIK 控制器的不同组合。由于这些模式特定于 HumanIK，因此还必须确保已选择适当的控制器。
+	 </p>
+<p class="p">在<span class="ph uicontrol">时间编辑器</span>中使用 HIK 装备和层片段时，必须将与正在设置关键帧的身体部位相关的所有控制器包含在层片段中，然后同时为其设置关键帧。例如，若要为肩部控制器的旋转属性设置关键帧，您需要选择肩部控制器的所有子对象。否则，设置关键帧的操作仅会影响选定控制器，看起来像所有对象均未设置动画一样。
+	 </p>
+<p class="p">下图显示了在<span class="ph uicontrol">时间编辑器</span>中为 HIK 角色装备创建肩部旋转的适当方法：
+	 </p>
+<p class="p"> 
+		<img class="image" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__IMAGE_33E4FBFB0D2A4557820590267CA9E523" src="../images/GUID-1FCCF45A-1619-411B-8E29-E91F25B7FA33.png"> 
+	 </p>
+<div class="section" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__SECTION_D830B3C0B7394E279C1CE29FA728FE0D"><h2 class="title sectiontitle">使用 HumanIK 角色装备创建姿势片段/动画片段</h2> 
+		 
+		<p class="p">如果要从 HumanIK 角色装备创建姿势片段，请务必包括要为其创建姿势片段的控制器的所有子控制器。例如，若要为肩部控制器创建姿势片段，必须选择肩部的所有子对象。如果只在肩部上设置旋转，则肩部将旋转，但是不会自动包括与其链接的控制器，使效果呈静态（即使控制器的旋转值显示在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-4C954FB2-8B6A-4BBD-9695-DF432616D0D2">通道盒(Channel Box)</a>中），这是因为所有子控制器均不包含在动画中。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__SECTION_96C29C2A4EBC44129334374B8CE0DF52"><h2 class="title sectiontitle"> 在时间编辑器中的 HumanIK 装备上创建层片段</h2> 
+		 
+		<p class="p"> <span class="ph uicontrol">时间编辑器</span>中的层片段受 HumanIK 的特殊设置关键帧模式影响。因此，必须将所有必需的属性添加到<span class="ph uicontrol">时间编辑器</span>动画层中。如果在<span class="ph uicontrol">“大纲视图”(Outliner)</span>中将其全部选定，则可执行该操作。
+		</p>
+ 
+		<p class="p"> 将覆盖层添加到 HIK 装备时，时间编辑器会为选定对象的当前属性值创建快照。此操作会根据当前视口值创建静态关键帧，其效果是固定装备。（而另一方面，相加层会将选定对象的默认值设置为 0，从而防止在创建层后发生更改。） 
+		</p>
+ 
+		<p class="p"> 请注意，仅使用您希望覆盖层驱动的属性，否则可能会无意中固定装备上的对象。只要选择角色装备的一部分创建覆盖层，就会根据当前姿势创建新动画；无意中选择的包括在该层内的任何节点将固定显示在当前帧。
+		</p>
+ 
+		<div class="p"> 
+		<p class="li listintro">为 HumanIK 装备创建时间编辑器动画层</p>
+<ol class="ol" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__OL_7D03F6714D264548B5FDABFDAA32269A"><li class="li" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__LI_5C6BB7FCA5134582B9A342A4E28882F1">在片段上单击鼠标右键，然后从<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-AD0AC3AC-EA7C-4B0F-A80E-53DD62ED628D.htm">时间编辑器片段(Clip)上下文菜单</a>中选择<span class="ph uicontrol">“选择受驱动对象”(Select driven Objects)</span>。
+		  </li>
+<li class="li" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__LI_0010D963EB7A4D88892A15005FFF68FA">根据此选择将层添加到片段。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-B3FFE1AA-F44D-4EC3-A570-316A3BF3DF88.htm">将层片段添加到时间编辑器</a>。
+		  </li>
+</ol>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__SECTION_DD768F1AFA324BECB85361BDB8C0C4FD"><h2 class="title sectiontitle"> 在时间编辑器中的 HumanIK 装备上，在片段和片段层中设置关键帧</h2> 
+		 
+		<p class="p">HIK 特殊设置关键帧模式的存在也会影响设置 HumanIK 装备的关键帧，因此需要再次确保已选择适当的控制器。通常，在设置 HumanIK 控制器的关键帧时，将根据 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-9921EDE1-05E2-4062-9F0D-4BADECA29226">HumanIK 窗口</a>定义的设置关键帧模式（例如，“全身”(Full Body)和“身体部位”(Body Part)）设置相关控制器的关键帧。
+		</p>
+ 
+		<div class="p">例如，在 Maya 中，若要创建手臂旋转动画，可以选择角色装备的肩部控制器。
+		  <div class="fig fignone" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__FIG_9453316342744A1FB084D7A0E75AFBCB"><img class="image" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__IMAGE_75EE8B723E254E609E4ED369DD0E82D2" src="../images/GUID-583F4F2A-6C0E-4D10-B54F-0642F0B2915D.png"></div>
+ 
+		</div>
+ 
+		<div class="p">但是，由于时间编辑器不遵循 HIK 设置关键帧模式，因此您需要手动包括正确的控制器。
+		<p class="li listintro">在驱动 HumanIK 装备的时间编辑器片段中设置关键帧</p>
+<ol class="ol" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__OL_3A524F4D2F2F4D509DC88B9F3D243943"><li class="li" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__LI_BA2467BEFCD14221BBE3C00136532931">通过上述“从 HumanIK 角色装备创建动画片段”中介绍的步骤，确保片段包含所有控制器。
+		  </li>
+<li class="li" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__LI_5EB411CD87734C409E32FD45DDB21D07">设置装备的姿势。
+		  </li>
+<li class="li" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__LI_5A8AF8F7879F4041B8BDB0B81B87D6B1">选择要在时间编辑器中设置关键帧的片段。
+		  </li>
+<li class="li" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__LI_0DC0EDB8984544AABA34143AF7BD9833">取消选择所有控制器。
+		  </li>
+<li class="li" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__LI_6042BE5C9807443E8F996AA444358E82">设置一个关键帧（按 s 键或关键帧按钮），为片段内的所有对象设置关键帧。
+		  </li>
+</ol>
+ 
+		<p class="li listintro">在驱动 HumanIK 装备的时间编辑器片段层中设置关键帧</p>
+<ol class="ol" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__OL_DCC9A4D3C37B4FC79C2848D187E6D00E"><li class="li" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__LI_DDE50183695E4F1EBFA7E99A6F1C7A95">通过上述“从 HumanIK 角色装备创建动画片段”中介绍的步骤，确保片段包含所有控制器。
+		  </li>
+<li class="li" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__LI_3E47002DC108467A84C155CB612CCEF0">设置装备的姿势。
+		  </li>
+<li class="li" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__LI_00228E0F08AF4978B28F92032FCA4519">选择要在时间编辑器中设置关键帧的片段层。
+		  </li>
+<li class="li" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__LI_7198E8201D4B408FBABE74037E24D111">取消选择所有控制器。
+		  </li>
+<li class="li" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__LI_3D05A2E07AAD4573A66B9D8AC760DC50">设置一个关键帧（按 s 键或关键帧按钮），为片段内的所有对象设置关键帧。
+		  </li>
+</ol>
+ 
+		<div class="note note" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__GUID-6A474EDD-AA84-4144-9DEF-90D2F5FE1AEF"><span class="notetitle">注：</span> 在上述两种情况下，还可以手动选择所有属于特定身体部位的控制器。
+		  <div class="fig fignone" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__FIG_AD0CFB36EA174ED281A0C1EA7BD9A0AD"><img class="image" id="GUID-A3D4A1E8-E353-4ADA-A7C2-F264DF083C39__IMAGE_34B7BE0923B64EB0B234939A4BAE33EF" src="../images/GUID-DFA6220A-C6F2-4D4D-954B-5EC9B78FAA4C.png"></div>
+ 
+		</div>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-FC2107FA-8F60-4CA8-A83E-B9F1C98B943F.htm">在时间编辑器中设置动画关键帧</a></div>
+</div>
+</div>
+
+</body>
+</html>

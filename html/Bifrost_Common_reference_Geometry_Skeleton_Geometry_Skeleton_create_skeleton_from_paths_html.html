@@ -1,0 +1,61 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Geometry_Skeleton_Geometry_Skeleton_create_skeleton_from_paths_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>create_skeleton_from_paths</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>create_skeleton_from_paths</code></h1></div><p>从解释为路径的无序 <code>array&lt;string&gt;</code> 构造骨架。这可用于构造骨架的拓扑数据，无需处理 <code>joint_parent_index</code> 索引和关节数据排序。</p>
+<p>路径使用正斜线 <code>/</code> 作为起始字符和实体名称之间的分隔符。 </p>
+<p>此节点对路径进行排序，使父关节位于其子关节之前，此外还过滤潜在的重复项，使每个关节路径都唯一。如果两个或更多路径相冲突，则将保留要注册的最后一个重复路径以用于构造骨架。</p>
+<p>假定以下输入 <code>paths</code>：</p>
+<pre class="pre codeblock"><code class="prettyprint">paths[0] = /joint0/joint1/joint2
+paths[1] = /joint0/joint1
+paths[2] = /joint0
+paths[3] = /joint0/joint1</code></pre><p>构造的骨架的关节数据数组以及返回的 <code>joint_path</code> 将按如下所示排序：</p>
+<pre class="pre codeblock"><code class="prettyprint">joint_path[0] = /joint0
+joint_path[1] = /joint0/joint1
+joint_path[2] = /joint0/joint1/joint2</code></pre><p>骨架的 <code>joint_parent_index</code> 将按如下所示构造： </p>
+<pre class="pre codeblock"><code class="prettyprint">[4294967295, 0, 1]</code></pre><p><code>sorted_indices</code> 输出数组将返回以下索引： </p>
+<pre class="pre codeblock"><code class="prettyprint">[2, 3, 0]</code></pre><p>请注意输入 <code>paths[1] = /joint0/joint1</code> 是如何被忽略的。原因在于 <code>paths[3] = /joint0/joint1</code> 覆盖已注册的路径，因为它是第一个路径的重复项。因此，如果两个或更多路径相冲突，则将保留要注册的最后一个重复路径以用于构造骨架。</p>
+<h2 id="">输入</h2><h3 id="paths"><code>paths</code></h3><p>包含用于构造骨架拓扑的路径的 <code>array&lt;string&gt;</code>。</p>
+<h2 id="">输出</h2><h3 id="skeleton"><code>skeleton</code></h3><p>构造的骨架对象。</p>
+<h3 id="sorted_indices"><code>sorted_indices</code></h3><p>排序和过滤的索引，这是按字母顺序对 <code>paths</code> 进行排序并过滤其中任何重复项的结果。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Geometry/Bifrost_Common_reference_Geometry_Skeleton_html.html">Skeleton</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

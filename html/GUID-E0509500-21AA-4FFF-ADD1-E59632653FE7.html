@@ -1,0 +1,67 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Animation">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7">
+<meta name="language" content="CHS">
+<title>记录运动</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>记录运动</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7__WS1A9193826455F5FF-6D855556117E9F816D225C0"><h2 class="title sectiontitle">定义设备<span class="ph" id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7__GUID-95451AB1-E066-418B-B5CC-2797852B2256"> <span class="ph" id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7__GUID-8E7D4D13-8753-458C-9D20-14F0704D3D92"></span> </span></h2> 
+		 
+		<p class="p" id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7__WS1A9193826455F5FF-6D855556117E9F816D225C1"> 大多数运动捕捉设备是<em class="ph i" id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7__GUID-4429EAFA-AA7F-426A-AD53-5E0D5B93C70A">数据服务器设备</em>。若要使用数据服务器设备，会需要一个服务器。有关将服务器用于特定设备的详细信息，请参见设备供应商提供的文档。
+		</p>
+ 
+		<p class="p" id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7__WS1A9193826455F5FF-6D855556117E9F816D225C3">在定义和不定义数据服务器和撤消队列之间存在一个重要的交互。
+		</p>
+ 
+		<p class="p" id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7__WS1A9193826455F5FF-6D855556117E9F816D225C4">如果撤消 <em class="ph i" id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7__GUID-BAC33F8D-CE53-49E4-A208-2A90BDA4F79E">defineDataServer</em> 命令，那么与数据服务器设备之间的连接不会断开，直到 <em class="ph i" id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7__GUID-E4F064F3-38A8-4E92-BA2B-107742EA2C32">defineDataServer</em> 命令不在撤消队列中为止。如果撤消数据服务器的未定义，那么与服务器的连接不会断开，直到该命令不在撤消队列中为止。从撤消队列中移除命令最简单的方式是使用 <em class="ph i" id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7__GUID-DC49F66B-EF97-4A98-94A7-AC787A8C5066">flushUndo</em> MEL 命令。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7__WS1A9193826455F5FF-6D855556117E9F816D225C5"><h2 class="title sectiontitle">映射设备数据</h2> 
+		 
+		<p class="p" id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7__WS1A9193826455F5FF-6D855556117E9F816D225C6"> 有时，来自设备的数据处于错误的单位系统中，或者需要调整到其比例或偏移。
+		</p>
+ 
+		<p class="p" id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7__WS1A9193826455F5FF-6D855556117E9F816D225C8">有两种类型的映射：附加和设备映射。这两者都会影响设备数据的比例和偏移。会将设备数据乘以比例项，然后会将其与偏移相加。
+		</p>
+ 
+		<ul class="ul" id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7__WS1A9193826455F5FF-6D855556117E9F816D225C9"><li class="li" id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7__WS1A9193826455F5FF-6D855556117E9F816D225CA"> 
+			 <em class="ph i" id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7__GUID-94D4FF0F-B404-488F-BD12-EADD888FE097">附加</em>贴图会应用到属性附件。建议将这些贴图用于运动捕捉工作。可以撤消它们。
+		  </li>
+<li class="li" id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7__WS1A9193826455F5FF-6D855556117E9F816D225CC"> 
+			 <em class="ph i" id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7__GUID-3621686C-0BE0-41D5-BCAE-45CC9B7DE7EF">设备</em>贴图会应用到轴。<em class="ph i" id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7__GUID-B1DD9D8C-01DD-4043-BB1A-DF13F3FE044D">无法</em>撤消它们。
+		  </li>
+</ul>
+ 
+		<p class="p" id="GUID-E0509500-21AA-4FFF-ADD1-E59632653FE7__WS1A9193826455F5FF-6D855556117E9F816D225CE">将设备与附加贴图一起使用易于出错，并可能会产生无意的结果。
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-E22429ED-85B3-4F70-BB17-A055F6F097F4.htm">运动捕捉过程</a></div>
+</div>
+</div>
+
+</body>
+</html>

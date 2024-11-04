@@ -1,0 +1,55 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_Common_Simulation_Common_set_initial_state_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>set_initial_state</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>set_initial_state</code></h1></div><p>此复合使模拟从磁盘读取现有文件，并从该点继续进行模拟。</p>
+<h2 id="">约定：</h2><p>在设置初始状态，然后更改任何模拟复合上的任何模拟特性（源/碰撞对象/影响物/设置，包括添加或移除这些复合）时 - 这相当于已模拟到相应帧，在这些特性上设置动画关键帧，然后继续进行模拟。如果添加或移除复合，则等同于对“启用”设置动画。从这个意义上来说，初始状态是模拟在给定帧处的带戳记快照。</p>
+<p>设置初始状态时所在的帧是此模拟存在的最低要求。这意味着，开始帧或启用的结束帧小于初始状态帧的任何复合都不会进行模拟。即使原始源已断开连接或关闭，也始终会在其帧处读取初始状态。开始帧大于初始状态帧的复合将正常进行模拟。最后，解算器设置上的主开始帧仅影响源和碰撞对象上的开始帧，因此初始状态不受其影响。</p>
+<h2 id="">输入</h2><h3 id="enable"><code>enable</code></h3><p>打开或关闭初始状态。</p>
+<h3 id="filename"><code>filename</code></h3><p>磁盘上将用作初始状态的文件的文件名。支持的文件类型包括 bifrost 对象文件 (.bob) 和 OpenVDB 文件 (.vdb)。对于 MPM 布料、纤维和壳，只能使用 bifrost 对象文件 (.bob)。</p>
+<h3 id="set_to_frame"><code>set_to_frame</code></h3><p>此初始状态将设置为哪个帧。</p>
+<h2 id="">输出</h2><h3 id="initial_state"><code>initial_state</code></h3><p>输出是一个包含指定特性的对象，应连接到 <code>aero_solver_settings</code> 节点的 <code>additional_settings</code> 端口。</p>
+<h2 id="">示例：</h2><p>示例 1：源的开始帧为 1，模拟到帧 x。然后，获取帧 x，并将其加载为初始状态，set_to_frame = 20。从第 1 帧到第 19 帧不会发生任何操作，在第 20 帧读入缓存，并且从源继续进行模拟。</p>
+<p>但是，假设将第 x 帧加载到缓存中，并且 set_to_frame = 20，之后还将源的开始帧更改为 30 - 同样，从第 1 帧到第 19 帧不会发生任何操作，在第 20 帧，将读入缓存，模拟将继续，但在第 30 帧之前，不会从源发射任何新内容。</p>
+<p>示例 2：有 2 个源 - 其中一个源的开始帧为 1，另一个源的开始帧为 50。缓存到第 25 帧，然后使用第 25 帧作为初始状态，并且 set_to_frame = 10。从第 1 帧到第 9 帧不会发生任何操作。在第 10 帧时，将读入缓存，并从之前的第 25 帧状态继续进行模拟，第一个源继续发射，但在第 50 帧之前不会从第二个源发射任何内容。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_Common_html.html">Common</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_room_am_Lighting_with_the_Ai_Sky_Dome_Light_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_LIGHTING_WITH_THE_AI_SKY_DOME_LIGHT">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用 Ai 天穹灯光提供照明 - Arnold for Maya">
+
+<title>使用 Ai 天穹灯光提供照明</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>使用 Ai 天穹灯光提供照明</h1></div><p><img src="../images/am-Lighting_with_the_Ai_Sky_Dome_Light-skydome-1.png" alt=""></p>
+<p>我们也可以使用 <em>skydome_light</em> <a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Ai+Skydome+Light&amp;linkCreation=true&amp;fromPageId=154765793"></a>提供室内照明。但是，此灯光专为需要从多个方向进行照明的室外场景而设计。它在场景的地平线上采用球形圆顶，且物体将跟踪光线以对灯光进行采样。在室内，大多数光线会照射到物体上，根本就没有获得任何贡献。如果使用此灯光来提供室内照明，场景中将产生大量间接噪波，因此大多数情况下不建议使用此灯光。</p>
+<p>不建议对室内场景使用天穹灯光 (skydome_light)。此灯光专为室外场景设计，在背景中表示为球形圆顶。多重重要性灯光采样将在此圆顶的特定方向上跟踪光线。但是，在室内场景中，大多数跟踪光线会照射到物体上，根本就没有从灯光获得任何贡献，反而会产生噪波。在这种情况下，<a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Lighting/am-Lighting_a_Room/arnold_for_maya_room_am_Lighting_with_the_Ai_Sky_Dome_Light_html.html">四边形灯光</a>和/或<a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Lighting/am-Lighting_a_Room/arnold_for_maya_room_am_Lighting_with_the_Ai_Sky_Dome_Light_html.html">带方向性的照明</a>将是更好的选择。</p>
+<p><img src="../images/am-Lighting_with_the_Ai_Sky_Dome_Light-skydome-2.jpg" alt=""></p>
+<ul>
+<li>您可以从 Hypershade 窗口或 MtoA 工具架创建 <em>skydome_light</em>。  </li>
+</ul>
+<p>下图显示了“颜色”(Color)设置为白色的 <em>skydome_light</em>。通过将 Ai 天穹灯光采样数设置为 3 并将 GI 漫反射采样数设置为 8，我们可获得更加清晰的图像。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Lighting_with_the_Ai_Sky_Dome_Light-Skydome-ray-diffuse-depth-1-3.jpg" alt=""></td>
+<td><img src="../images/am-Lighting_with_the_Ai_Sky_Dome_Light-Skydome-ray-diffuse-depth-3-4.jpg" alt=""></td>
+</tr>
+<tr>
+<td>diffuse_ray_depth：1</td>
+<td>diffuse_ray_depth：3</td>
+</tr>
+</tbody></table>
+<h2 id="hdri">HDRI</h2><p>我们还可以使用 HDRI 对房间进行照明。这会使房间的照明看起来比较自然。在这种室内照明场景中，HDRI 的照明效果有好有坏。建议使用具有强太阳光的 HDRI，以便获得更好的透过窗户的带方向性的灯光。</p>
+<ul>
+<li>创建一个 Maya 文件纹理，并打开一个 HDRI。在本例中，我们使用了一个具有强烈方向性太阳光的 HDRI。这将透过窗户呈现出更强烈、更清晰的带方向性的阴影。将 HDRI 连接到 <em>skydome_light</em> 的<em>“颜色”(Color)</em>属性。</li>
+</ul>
+<p><img src="../images/am-Lighting_with_the_Ai_Sky_Dome_Light-image2013-8-12-13-19-56-5.png" alt=""></p>
+<p>增大<strong>漫反射采样数</strong>可减少图像中的噪波。但是，这会花费更多时间进行渲染，而且即使<strong><em>漫反射采样数为 8</em></strong>，图像仍然存在噪波。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Lighting_with_the_Ai_Sky_Dome_Light-gi-diffuse-0-6.jpg" alt=""></td>
+<td><img src="../images/am-Lighting_with_the_Ai_Sky_Dome_Light-gi-diffuse-3-7.jpg" alt=""></td>
+<td><img src="../images/am-Lighting_with_the_Ai_Sky_Dome_Light-gi-diffuse-8-8.jpg" alt=""></td>
+</tr>
+<tr>
+<td>diffuse_samples：0</td>
+<td>diffuse_samples：3</td>
+<td>diffuse_samples：8</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Lighting_with_the_Ai_Sky_Dome_Light-diffuse-samples-3-3-mins-9.jpg" alt=""></td>
+<td><img src="../images/am-Lighting_with_the_Ai_Sky_Dome_Light-diffuse-samples-8-14-mins-10.jpg" alt=""></td>
+</tr>
+<tr>
+<td>diffuse_samples：3（3 分钟）</td>
+<td>diffuse_samples：8（14 分钟）</td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Lighting/arnold_for_maya_lighting_am_Lighting_a_Room_html.html">对房间进行照明</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

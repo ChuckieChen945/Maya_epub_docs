@@ -1,0 +1,283 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_1x_am_141_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_141">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 1.4.1 - Arnold for Maya">
+
+<title>1.4.1</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>1.4.1</h1></div><h2 id="release-date">Release Date</h2><p>24 November 2016</p>
+<p>This version uses the Arnold <a href="https://help.autodesk.com/display/arnug/4.2.16.0">4.2.16.0</a> core.</p>
+<h2 id="downloads">DOWNLOADS</h2><ul>
+<li><a href="https://manage.autodesk.com/products/" target="_blank">https://manage.autodesk.com/products/</a></li>
+</ul>
+<p>MtoA 1.4.1 addresses important issues regarding the Texture Workflow.  A few more IPR fixes have been done, as well as some improvements in the Arnold RenderView.</p>
+<p>Windows users will no longer have to run the installer twice to update MtoA.</p>
+<p>This release comes with a new shelf icon, and it might therefore be necessary to erase the "shelves" directory in Maya's user preferences folder to see it updated.## Texture Workflow Fixes</p>
+<ul>
+<li>Use Existing TX was always expecting an existing TX file to be present, and failed otherwise</li>
+<li>Tx Manager was tagging files with (tx) even if the .TX file didn't exist</li>
+<li>Supporting multiple tokens with <udim> and <f></f></udim></li>
+<li>UDIM textures could disappear from the render during render sessions</li>
+<li>Tx Manager didn't find all UDIM textures in "Mari" mode</li>
+<li>Swatch render of non-tiled textures could crash maya</li>
+<li>Tx Manager appeared at the top left of the screen and couldn't be moved</li>
+<li>Fixed bug with conflicting color spaces (Maya 2017)</li>
+<li>Color Management wasn't supported in arnold Image nodes (Maya 2017)</li>
+<li>Tx Manager could apply the operations to the wrong textures when referenced by multiple nodes</li>
+<li>Optionally show full paths in Tx Manager (turned off by default)</li>
+<li>Swatch render now supports "use existing tx" for faster display</li>
+</ul>
+<h2 id="ipr-fixes">IPR Fixes</h2><ul>
+<li>Changing the camera GL parameters no longer refreshes the IPR</li>
+<li>Changing the render resolution or the render layer was restarting the render even with the IPR disabled</li>
+<li>Light-links were not always refreshed in IPR</li>
+<li>"Duplicate Special-&gt;Instance" wasn't refreshed in IPR</li>
+<li>Activating deformation blur wasn't refreshed in IPR</li>
+<li>Textured Area Lights weren't flushing the cache during an IPR</li>
+<li>UV Editor tweaks weren't always refreshed correctly</li>
+</ul>
+<h2 id="maya-2017-fixes">Maya 2017 fixes</h2><ul>
+<li>Sequence Rendering couldn't be cancelled</li>
+<li>Bump wasn't appearing in the Material Viewer</li>
+</ul>
+<h2 id="arnold-renderview-improvements">Arnold RenderView improvements</h2><ul>
+<li>It is now possible to open the Arnold RenderView without starting the render (it might be necessary to clear Maya's preferences to see the new shelf icon)</li>
+<li>The viewer is no longer resized when "Update Full Scene" is used</li>
+<li>Gamma/Exposure weren't working with OCIO in Maya 2015/2016</li>
+<li>Added Debug shading mode "lighting", which renders the scene as a white lambert</li>
+<li>Implemented "lock selection" option for isolate selected, in order to ignore the selection changes</li>
+<li>Fixed the exposure toolbar button so that it correctly resets it to 0</li>
+<li>Added optional gamma icon in the toolbar (not enabled by default)</li>
+<li>Added a right-click menu on the RGBA icon</li>
+<li>Added 1:1 icon in the toolbar for "Real size" menu</li>
+<li>Added a shortcut 'I' for "Display Pixel Information"</li>
+</ul>
+<h2 id="new-mesh-light">New Mesh Light</h2><p>When selecting a mesh and doing "Arnold-&gt;Light-&gt;Mesh light", it now creates a new type of light in Maya that references the selected shape. This allow you to see the light in Maya UIs like Light Editor, Light-linking Editor, etc... and make it consistent with other types of Arnold Lights. The previous system (changing mesh parameter "translator" to "mesh_light") is still supported but is now considered as deprecated and will be removed in the long-term future.</p>
+<h2 id="export-all-shading-groups">Export All Shading Groups</h2><p>With this export option, all shading groups are exported (or only the selected ones during export selected), even if they're not assigned to any geometry in the scene. This prevents you from assigning the shaders to dummy geometries for export (as could be done in the past).</p>
+<h2 id="other-changes">Other changes</h2><ul>
+<li><p>Installer no longer needs to be executed twice to uninstall/reinstall MtoA.</p>
+</li>
+<li><p>Standins couldn't be selected along with other shapes.</p>
+</li>
+<li><p>Fixed possible slowdown during batch render</p>
+</li>
+<li><p>Instanced shapes can now be exported with "Export Selected"</p>
+</li>
+<li><p><strong>Improved oriented curves mode</strong> : The oriented curves mode will now produce an actual 3D surface when rendering, making it more suitable for shapes like grass and feathers. This replaces the previous behavior that was based on the 2D ribbon mode.</p>
+</li>
+<li><p><strong>Faster minimum pixel width</strong> : <code>min_pixel_width</code> for curves and points is now significantly faster in certain situations.</p>
+</li>
+<li><p><strong>Light portal mode</strong> : skydome lights now have a <code>portal_mode</code> parameter with options <code>off</code> , <code>interior_only</code> and <code>interior_exterior</code> to respectively turn off portals, block any light outside portals for interior only scenes, and let light outside portals through for mixed interior and exterior scenes.</p>
+</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible Changes</h2><ul>
+<li><strong>Light Temperature</strong> color calculation has been corrected, with a white point now at 6500K (used to be 5500K because of the incorrect color space). This will change the behavior of existing scenes using this option.</li>
+</ul>
+<p>An option "Legacy Temperature" in the Render Settings (Tab "Lights") allows to restore the previous behavior.</p>
+<ul>
+<li>Restored behavior of <strong>LOD Visibility</strong> as it was before 1.4.0 : disabling it hides geometries from the viewport but not from the render</li>
+</ul>
+<h2 id="fixes">Fixes</h2><table>
+<thead>
+<tr>
+<th>Ticket</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>#2432</td>
+<td>Texture with <udim> + <f></f></udim></td>
+</tr>
+<tr>
+<td>#2482</td>
+<td>Swatch render crashes Maya</td>
+</tr>
+<tr>
+<td>#2652</td>
+<td>Bump mapping no longer appears in Material Viewer using Arnold Shaders</td>
+</tr>
+<tr>
+<td>#2675</td>
+<td>Udim textures can disappear from the render during sessions</td>
+</tr>
+<tr>
+<td>#2649</td>
+<td>User is unable to cancel Render Sequence with Arnold</td>
+</tr>
+<tr>
+<td>#2672</td>
+<td>Support Color Management in Arnold Image nodes</td>
+</tr>
+<tr>
+<td>#2674</td>
+<td>Swatch render should support "use existing tx"</td>
+</tr>
+<tr>
+<td>#2145</td>
+<td>Tx Manager doesn't find all scene textures when UV Tiling Mode = UDIM (Mari)</td>
+</tr>
+<tr>
+<td>#2435</td>
+<td>Cannot marquee or drag select standins and regular Maya objects</td>
+</tr>
+<tr>
+<td>#2588</td>
+<td>Allow to open ARV without starting the render</td>
+</tr>
+<tr>
+<td>#2589</td>
+<td>Possible slowdown due to batch_progress_driver</td>
+</tr>
+<tr>
+<td>#2609</td>
+<td>Arnold TX manager floating window stuck in UI</td>
+</tr>
+<tr>
+<td>#2611</td>
+<td>Light color temperature should be computed in sRGB Linear color space</td>
+</tr>
+<tr>
+<td>#2618</td>
+<td>Some changes refresh ARV even if IPR is disabled</td>
+</tr>
+<tr>
+<td>#2629</td>
+<td>Tx Manager lists texture as converted to tx even when tx file does not exist</td>
+</tr>
+<tr>
+<td>#2632</td>
+<td>Cameras GL viewport attributes shouldn't affect IPR</td>
+</tr>
+<tr>
+<td>#2650</td>
+<td>Maya hangs if you use Tx Manager to maketx a texture with two different color spaces</td>
+</tr>
+<tr>
+<td>#2654</td>
+<td>Spread attribute missing from Curvature Shader UI</td>
+</tr>
+<tr>
+<td>#2655</td>
+<td>Need to run installer twice when a previous version exists</td>
+</tr>
+<tr>
+<td>#2656</td>
+<td>Light-links don't always update in IPR</td>
+</tr>
+<tr>
+<td>#2657</td>
+<td>Duplicate in instance mode doesn't refresh in IPR</td>
+</tr>
+<tr>
+<td>#2658</td>
+<td>MayaBlend should clamp mask values to be between 0 and 1</td>
+</tr>
+<tr>
+<td>#2660</td>
+<td>Enabling deformation blur not updated in IPR</td>
+</tr>
+<tr>
+<td>#2663</td>
+<td>Better handling of ARV window resizing</td>
+</tr>
+<tr>
+<td>#2664</td>
+<td>Area Light might need to flush cache during IPR</td>
+</tr>
+<tr>
+<td>#2668</td>
+<td>Tx Manager applies operation to wrong file</td>
+</tr>
+<tr>
+<td>#2671</td>
+<td>Optionally show full paths in Tx Manager</td>
+</tr>
+<tr>
+<td>#2676</td>
+<td>UV Editor changes are not always updated in IPR</td>
+</tr>
+<tr>
+<td>#2677</td>
+<td>Standins Export failing if options weren't created</td>
+</tr>
+<tr>
+<td>#2679</td>
+<td>Restore pre-1.4.0 behavior of LOD visibility</td>
+</tr>
+<tr>
+<td>#2681</td>
+<td>XGen description no longer inherits transforms (Maya 2017 or later)</td>
+</tr>
+<tr>
+<td>#2683</td>
+<td>Expose portal_mode parameter in skydome</td>
+</tr>
+<tr>
+<td>#648</td>
+<td>When a shape node is selected, it is not exported by "Export Selection..."</td>
+</tr>
+<tr>
+<td>#2590</td>
+<td>If Use Existing TX files enabled and TX file doesn't exist, MtoA doesn't use the non-TX texture</td>
+</tr>
+<tr>
+<td>#2648</td>
+<td>aiStandard shader presets default to Beckmann and not GGX specular</td>
+</tr>
+<tr>
+<td>#2385</td>
+<td>Improve the node representation for mesh lights</td>
+</tr>
+<tr>
+<td>#2637</td>
+<td>scene shading network export option</td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_1x_html.html">MtoA 1.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

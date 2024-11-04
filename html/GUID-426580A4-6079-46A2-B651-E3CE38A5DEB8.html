@@ -1,0 +1,228 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8">
+<meta name="language" content="CHS">
+<title>使用标准曲面着色器对玻璃或金属建模</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用标准曲面着色器对玻璃或金属建模</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p">使用<span class="ph uicontrol">标准曲面</span>着色器，可以轻松创建反射材质（例如，金属）或折射材质（例如，玻璃）。以下部分介绍了可以调整的一组关键属性，以快速获得想要的结果。 
+	 </p>
+<div class="note tip" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__GUID-2FFB142D-D8A0-4B60-860D-03AF61782B8D"><span class="tiptitle">提示：</span>  也可以单击<span class="ph uicontrol">标准曲面的</span> 
+		<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>或<span class="ph uicontrol">“特性编辑器”(Property Editor)</span>中的<span class="ph uicontrol">“预设*”(Presets*)</span>，以选择预设（例如，<span class="ph uicontrol">“磨砂玻璃”(Frosted Glass)</span>或<span class="ph uicontrol">“汽车涂料”(Car Paint)</span>）。 
+	 </div>
+<p class="p">调整着色器时，可以在 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-FAB13FA2-7068-4169-8D27-016B13E5C930.htm" title="通过“材质查看器”(Material Viewer)，可以轻松地可视化子网络和未连接的网络，因此优化了合成和着色器开发工作流。">Hypershade 材质查看器</a>或 <a class="xref" href="https://docs.arnoldrenderer.com/display/A5AFMUGCHS/Arnold+RenderView+Window" target="_blank">Arnold 渲染视图</a>中预览结果。 
+	 </p>
+<div class="section" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__SECTION_CC96D5BC4A664890A2FF8A8BE2EB1668"><h2 class="title sectiontitle">创建玻璃材质</h2> 
+		 
+		<p class="p">在此场景中，将 Arnold 天穹灯光映射到 <samp class="ph codeph">.hdr</samp> 图像以提供基于图像的环境照明。有关天穹灯光的详细信息，请参见 <a class="xref" href="https://docs.arnoldrenderer.com/display/A5AFMUGCHS/Ai+Skydome+Light" target="_blank">Ai 天穹灯光</a>。 
+		</p>
+ 
+		<p class="p">需要调整的关键属性位于<span class="ph uicontrol">标准曲面</span> 
+		  <span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol">“基础”(Base)</span>、<span class="ph uicontrol">“镜面反射”(Specular)</span>和<span class="ph uicontrol">“透射”(Transmission)</span>区域中。 
+		</p>
+ 
+		<ol class="ol" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__OL_E808A29224D04C76B5B1EED9A7A5AD54"><li class="li" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__LI_DA41EDC1F8124AE586B5D230951562B0"> 
+			 <p class="p">选择模型，然后单击鼠标右键并选择<span class="ph uicontrol">“指定收藏材质 &gt; 标准曲面”(Assign Favorite Material &gt; Standard Surface)</span>。现在，standardSurface2 着色器已指定给玻璃模型。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__FIG_7EF38340284340328154536855291D63"><img class="image" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__IMAGE_6CAE20C4E1E544E0980A1F2C81558088" src="../images/GUID-7AD1DDCC-81B0-42AE-8C4A-77BA4052C998.png"></div>
+ 
+		  </li>
+<li class="li" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__LI_73743A94001F4C0C81BE0A8AA844B07B"> 
+			 <p class="p">在<span class="ph uicontrol">标准曲面的</span> 
+				<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中，将<span class="ph uicontrol">“镜面反射 &gt; 粗糙度”(Specular &gt; Roughness)</span>减小为 0。 
+			 </p>
+ 
+			 <p class="p">如果要对透明玻璃建模，则无需设置粗糙度值。如果减小此值，则镜面反射会看起来更光亮，渲染速度也会更快。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__FIG_449C9705271E410EB2F3D225DC6FE8ED"><img class="image" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__IMAGE_B3A2CF672DA5491C990DE8A6889AB114" src="../images/GUID-D2C19B85-1FCA-453E-894F-C7A5876F7012.png"></div>
+ 
+		  </li>
+<li class="li" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__LI_FFCCCD7539FC468CB6388F1053CCBC33"> 
+			 <p class="p">若要使玻璃透明，请调整<span class="ph uicontrol">“透射 &gt; 权重”(Transmission &gt; Weight)</span>。这样，灯光可以穿过表面进行散射，非常适用于对玻璃或水进行建模。 
+			 </p>
+ 
+			 <p class="p">将此选项设置为较高的值，例如，对于玻璃，设置为 0.95。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__FIG_016E5318D46347A2B8FEA3FDE138CE4C"><img class="image" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__IMAGE_1035BEA70B7649B0AEE0088DDDC366A8" src="../images/GUID-5B6B3D8E-4912-4B76-8A18-9AC681FFC010.png"></div>
+ 
+		  </li>
+<li class="li" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__LI_515C3C1CEDD4434F8EF3D5486354721B"> 
+			 <p class="p">减小<span class="ph uicontrol">“基础 &gt; 权重”(Base &gt; Weight)</span>的值，使<span class="ph uicontrol">“基础 &gt; 权重”(Base &gt; Weight)</span>和<span class="ph uicontrol">“透射 &gt; 权重”(Transmission &gt; Weight)</span>值之和等于 1。也就是说，将<span class="ph uicontrol">“基础 &gt; 权重”(Base &gt; Weight)</span>设置为 0.05，因为<span class="ph uicontrol">“透射 &gt; 权重”(Transmission &gt; Weight)</span>已设置为 0.95。 
+			 </p>
+ 
+			 <p class="p">默认情况下，<span class="ph uicontrol">标准曲面</span>着色器能量守恒：其所有层是平衡的，因此传出曲面的灯光量不会超过传入的灯光量。通过将层权重设置为 1，可确保材质能量守恒且材质在不同照明中将按预期做出反应。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__FIG_A451A9929A8645E3A285CD2901C3DC05"><img class="image" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__IMAGE_BA143993F5114A69B05E277B3E39D3F9" src="../images/GUID-9D19C735-2989-4692-AEA0-FCCCDFA9B485.png"></div>
+ 
+		  </li>
+<li class="li" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__LI_AD472F8F4A034B49BAF420620C04BB55"> 
+			 <p class="p">增加<span class="ph uicontrol">“镜面反射 &gt; 权重”(Specular &gt; Weight)</span>以捕捉来自直接光源的镜面反射贡献。权重越高，镜面反射高光越亮。 
+			 </p>
+ 
+			 <p class="p">在下图中，镜面反射权重设置为 1。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__FIG_D1154A0472D4445390C2C84DC835311B"><img class="image" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__IMAGE_979DF16134F045EC807D3369CB26A833" src="../images/GUID-700A934B-F09B-4F70-9B90-EE17F403E964.png"></div>
+ 
+		  </li>
+<li class="li" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__LI_7A848CDE6C584F08A8D418D291281DC8"> 
+			 <p class="p"> 若要使玻璃变得更加多样化，请调整属性（例如，<span class="ph uicontrol">“透射 &gt; 颜色”(Transmission &gt; Color)</span>）以对玻璃进行染色。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__FIG_0778CD37C85B4279A9D25F79613CC98B"><img class="image" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__IMAGE_E6D0423E15F64E779C51E6CD9D227D60" src="../images/GUID-17594D4E-3C90-4B2C-9588-5C93BD3AEE38.png"></div>
+ 
+		  </li>
+<li class="li" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__LI_D748D07A09A04DFCB167EB0496E6FC50"> 
+			 <p class="p">若要创建磨砂玻璃而非透明玻璃，请增加<span class="ph uicontrol">“镜面反射 &gt; 粗糙度”(Specular &gt; Roughness)</span>。 
+			 </p>
+ 
+			 <p class="p">粗糙度值为 0 时，会产生极为清晰的镜面反射，而较高的值会产生更接近于漫反射的反射。在此示例中，使用的值为 0.177。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__FIG_31CAEA24E3004FDDB677FE8AE4EBD73B"><img class="image" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__IMAGE_DC0B8A221FC4471783B07DE230C2AD8B" src="../images/GUID-D820D99F-583E-4E81-8640-E25C517ECB42.png"></div>
+ 
+		  </li>
+</ol>
+ 
+		<p class="p">
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__SECTION_51B9952C41544531AC68097EB25ED5DD"><h2 class="title sectiontitle">创建金属</h2> 
+		 
+		<p class="p">在此场景中，将 Arnold 天穹灯光映射到 <samp class="ph codeph">.hdr</samp> 图像以提供基于图像的环境照明。有关天穹灯光的详细信息，请参见 <a class="xref" href="https://docs.arnoldrenderer.com/display/A5AFMUGCHS/Ai+Skydome+Light" target="_blank">Ai 天穹灯光</a>。 
+		</p>
+ 
+		<p class="p">需要调整的关键属性位于<span class="ph uicontrol">标准曲面</span> 
+		  <span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol">“基础”(Base)</span>、<span class="ph uicontrol">“镜面反射”(Specular)</span>和<span class="ph uicontrol">“涂层”(Coat)</span>区域中。 
+		</p>
+ 
+		<ol class="ol" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__OL_9B5F50D2538E41788BFE89E90D8AF808"><li class="li" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__LI_6BB55F9B1D6248CE9E3CA879DF356284"> 
+			 <p class="p">选择模型，然后单击鼠标右键并选择<span class="ph uicontrol">“指定收藏材质 &gt; 标准曲面”(Assign Favorite Material &gt; Standard Surface)</span>。现在，standardSurface2 着色器已指定给材质球模型。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__FIG_1EEA0C6ABA8E47B991F8BA803142C0D4"><img class="image" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__IMAGE_7DB1496C09C84A8CA51F5D2AA332DCDB" src="../images/GUID-3A5CFFFC-95F9-4FF4-B652-E66689EFCDDB.png"></div>
+ 
+		  </li>
+<li class="li" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__LI_EE3243749B2046D18283A225088549E0"> 
+			 <p class="p">在<span class="ph uicontrol">标准曲面的</span> 
+				<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中，将<span class="ph uicontrol">“镜面反射 &gt; 粗糙度”(Specular &gt; Roughness)</span>减小为 0 以创建铬合金材质。 
+			 </p>
+ 
+			 <p class="p"><span class="ph uicontrol">“粗糙度”(Roughness)</span>值越小，反射越清晰。值为 0 时会产生极为清晰的镜面反射。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__FIG_AC199E07AB34488C802F0509E8BB6231"><img class="image" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__IMAGE_F682A9F6B0AB4D46AD69607B91081ED1" src="../images/GUID-8D0EDAFA-AB45-4D9E-A443-EE8B1BDBB016.png"></div>
+ 
+		  </li>
+<li class="li" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__LI_401C2E80CDE544CAB5CA0F6CC353D6D0"> 
+			 <p class="p">将<span class="ph uicontrol">“镜面反射 &gt; 权重”(Specular &gt; Weight)</span>设置为 0.8，以捕捉来自直接光源的镜面反射贡献。值越大，生成的反射高光越亮。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__FIG_78EFAADD35A5435882E38885132D2EBF"><img class="image" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__IMAGE_B13C6E87BAD24AA2B0AC4E4C05A514F5" src="../images/GUID-B2F3A786-08A4-462F-B028-8284095A41CD.png"></div>
+ 
+		  </li>
+<li class="li" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__LI_83E4817D16514F71AE33AE722068CB1E"> 
+			 <p class="p">将<span class="ph uicontrol">“基础 &gt; 金属度”(Base &gt; Metalness)</span>设置为 1，以将曲面转化为金属。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__FIG_59D928BCFBF4437D9CA446ADD698A066"><img class="image" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__IMAGE_2202831F86EB42BEBA21BF4B9E92C0E8" src="../images/GUID-E6A3B331-71F8-4364-A261-BB8F6A818698.png"></div>
+ 
+		  </li>
+<li class="li" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__LI_FD92C2DADAE7481D829EB69B8DB4134E"> 
+			 <p class="p">设置<span class="ph uicontrol">“基础 &gt; 颜色”(Base &gt; Color)</span>以对金属进行染色。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__FIG_F2D5D4148F9E4B1D8E9B5E48A65984E3"><img class="image" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__IMAGE_F2DA876A719C40E3909D9596B5C74F24" src="../images/GUID-C9306A79-010C-410B-BEB9-74C40933F7AB.png"></div>
+ 
+		  </li>
+<li class="li" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__LI_D45435BF569B4778A631311BC845F2DB"> 
+			 <p class="p">如果要对车漆建模，可以通过添加<span class="ph uicontrol">“镜面反射 &gt; 粗糙度”(Specular &gt; Roughness)</span>来创建无光泽面（而非光泽面）。 
+			 </p>
+ 
+			 <p class="p">在此示例中，<span class="ph uicontrol">“粗糙度”(Roughness)</span>设置为 0.45。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__FIG_AD69F1A746CA4BE59425FDC1C362366C"><img class="image" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__IMAGE_AD8439404BA9410B9A60EB3599632D80" src="../images/GUID-D3AC14DF-DCC9-4DE7-A8D5-E7FFC238DA26.png"></div>
+ 
+		  </li>
+<li class="li" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__LI_326CE88BA88645D684352054AA4D280F"> 
+			 <p class="p">然后，可以通过调整<span class="ph uicontrol">“涂层 &gt; 权重”(Coat &gt; Weight)</span>将反射透明涂层添加到金属。 
+			 </p>
+ 
+			 <p class="p">对于将透明涂层添加到车漆，或者将层压、保护或油滑薄膜添加到曲面，这一定非常有用。 
+			 </p>
+ 
+			 <p class="p">在此示例中，“涂层”(Coat)设置为 0.3。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__FIG_8A4403B19DF049B6A7B690C86A051F5D"><img class="image" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__IMAGE_4D8C4C776B4A44CD876A84E50C6B7C65" src="../images/GUID-8354DE41-03C9-4FED-9B78-2492FD26BDC4.png"></div>
+ 
+		  </li>
+<li class="li" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__LI_43D4917E3AEC4373AD704C1BD455E5D7"> 
+			 <p class="p">若要模糊此薄膜，请调整<span class="ph uicontrol">“涂层 &gt; 粗糙度”(Coat &gt; Roughness)</span>。 
+			 </p>
+ 
+			 <p class="p">在此示例中，“粗糙度”(Roughness)设置为 0.25。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__FIG_7754D8BBB6344E3ABA2321115F61BABD"><img class="image" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__IMAGE_591FA4748F5D4E33801529F4929CD842" src="../images/GUID-7D7FB0FE-E030-4761-98AA-0DB3F636E3BF.png"></div>
+ 
+			 <div class="note note" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__GUID-C647F7BE-C631-4C5E-BD58-173403DCC305"><span class="notetitle">注：</span> <span class="ph uicontrol">“镜面反射 &gt; 粗糙度”(Specular &gt; Roughness)</span>仅影响对象金属度的方向和环境灯光贡献；它不影响涂层。必须分别调整金属的粗糙度和涂层的粗糙度。 
+			 </div>
+ 
+		  </li>
+</ol>
+ 
+		<p class="p">
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__SECTION_2C350835B60B4D4F94E337B696180E23"><h2 class="title sectiontitle">使用天顶灯光的提示和技巧</h2> 
+		 
+		<p class="p">默认情况下，用于环境照明的 <samp class="ph codeph">.hdr</samp> 图像将包含在背景中。若要从最终渲染中排除此图像，请选择 <span class="ph uicontrol">aiSkyDomeLightShape 的</span> 
+		  <span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>，然后将<span class="ph uicontrol">“可见性 &gt; 摄影机”(Visibility &gt; Camera)</span>设置为 0。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__FIG_3337267F41BB45E88A89164E6D935398"><img class="image" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__IMAGE_816D97D9C3DE4D80934C63190EA4BEC1" src="../images/GUID-B9654765-E16E-482A-82B6-44A39750593D.png"></div>
+ 
+		<p class="p">此外，默认情况下，环境照明产生的反射和折射也将烘焙到渲染中。如果计划将渲染合成到中性背景，则可能需要排除这些反射和折射。若要执行此操作，请选择 <span class="ph uicontrol">aiSkyDomeLightShape 的</span> 
+		  <span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>，然后将<span class="ph uicontrol">“可见性 &gt; 透射”(Visibility &gt; Transmission)</span>设置为 0。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__FIG_4908EA9FABC9424D8F012ACAE0F4BBD8"><img class="image" id="GUID-426580A4-6079-46A2-B651-E3CE38A5DEB8__IMAGE_3FB492317BD6434DB0DCC7F9E4A3A208" src="../images/GUID-EB2BE5B5-4FCF-4770-B5DA-95846D114BFA.png"></div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-D43C875E-DFF1-4AB6-877B-AE2D3E7632B9.htm">关于着色和纹理曲面</a></div>
+</div>
+</div>
+
+</body>
+</html>

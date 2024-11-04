@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D">
+<meta name="language" content="CHS">
+<title>使用系统事件和 scriptJob</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用系统事件和 scriptJob</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__WS73099CC142F48755-3D114B7511841AEFA9F-B50">可以使用 MEL 创建脚本，每当发生特定的系统事件时，就可以使用 <samp class="ph codeph">scriptJob</samp> 命令运行这些脚本。
+	 </p>
+<p class="p" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__P_3A379406A3454430A1B38E076612017C">Maya 会定义大量系统事件，您可以将脚本附加到这些事件中。正常使用 Maya 就会触发这些事件。有些事件会在选择发生更改时、打开新文件时以及拾取新工具时告知您。
+	 </p>
+<p class="p" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__WS73099CC142F48755-3D114B7511841AEFA9F-B4E">可以使用以下带有 <samp class="ph codeph">-listEvents</samp> 标志的 <samp class="ph codeph">scriptJob</samp> 命令获取所有事件的完整列表：<samp class="ph codeph">scriptJob -listEvents;</samp> 这些事件的名称通常不需解释；有关详细说明，请参见 <samp class="ph codeph">scriptJob</samp> 文档。
+	 </p>
+<p class="p" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__WS73099CC142F48755-3D114B7511841AEFA9F-B4D">还有另一种系统事件，称为条件。条件与事件类似，只是条件还具有 True 或 False 值。例如，有些条件可在选择某些内容或动画播放时告知您。可以使用以下带有 <samp class="ph codeph">-listConditions</samp> 标志的 <samp class="ph codeph">scriptJob</samp> 命令获取所有条件的完整列表：
+	 </p>
+<pre class="pre codeblock">
+scriptJob -listConditions;
+</pre>
+<p class="p" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__WS73099CC142F48755-3D114B7511841AEFA9F-B4C">无论条件的状态是从 True 更改为 False，还是从 False 更改为 True，条件都会触发其附加的脚本。您可以随时使用 <samp class="ph codeph">isTrue</samp> 命令测试其状态。
+	 </p>
+<p class="p" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__WS73099CC142F48755-3D114B7511841AEFA9F-B4B">最终，当对象的属性值发生更改时，会创建一个事件。将脚本附加到事件或条件时，条件不会马上运行。在触发事件或条件时，会将脚本添加到队列中，并在下次系统处于空闲状态时运行脚本。无论在繁忙期间触发了多少次事件或条件，在下次系统处于空闲状态时，脚本都仅运行一次。
+	 </p>
+<div class="note note" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__GUID-BC807863-7455-44C7-9774-5CB749E34368"><span class="notetitle">注：</span> 只有在使用图形用户界面运行 Maya 时，<samp class="ph codeph">scriptJob</samp> 命令才起作用。它们在批处理模式或提示模式下不起作用。可以使用它们来自定义您的用户界面。在运行动画期间，不要尝试使用它们使情况发生，因为它们在播放或批渲染期间不会执行。请改用表达式。
+	 </div>
+<div class="section" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__WS73099CC142F48755-3D114B7511841AEFA9F-B48"><h2 class="title sectiontitle">示例</h2> 
+		 
+		<p class="p" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__WS73099CC142F48755-3D114B7511841AEFA9F-B47">假设您需要编写一段脚本。只要没有选择其他内容，该脚本便会选择某一特定对象。下面是用于选择对象的脚本：
+		</p>
+ 
+		<pre class="pre codeblock">
+select -r myObject;
+</pre>
+ 
+		<p class="p" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__WS73099CC142F48755-3D114B7511841AEFA9F-B46">您可能希望在不选择任何内容时运行此脚本。有一个名为 <samp class="ph codeph">SomethingSelected</samp> 的条件。此条件仅在选择某些内容之后才会为 True。如果该条件变为 False，则需要运行您的脚本。下面是用于执行该操作的命令：
+		</p>
+ 
+		<pre class="pre codeblock">
+scriptJob -conditionFalse "SomethingSelected" "select -r myObject";
+</pre>
+ 
+		<p class="p" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__WS73099CC142F48755-3D114B7511841AEFA9F-B45">再举个例子，假设您希望对象始终处于选中状态。您具有的 scriptJob 在每次选择发生更改时都会运行，而且可确保对象位于适当的位置：
+		</p>
+ 
+		<pre class="pre codeblock">
+scriptJob -event "SelectionChanged" "select -add myObject";
+</pre>
+ 
+		<p class="p" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__WS73099CC142F48755-3D114B7511841AEFA9F-B44">在本示例中，您希望在场景中的对象升高得太远时以警告形式通知您。您可能具有适当的脚本，只要对象发生更改，该脚本就会转换对象的 Y 值：
+		</p>
+ 
+		<pre class="pre codeblock">
+global proc checkY(){
+ float $y = `getAttr myObject.ty`;
+ if ( $y &gt; 10.0 ){
+ window;
+ columnLayout;
+ text -l "Object is too far up!";
+ showWindow;
+ }
+ }
+ scriptJob -attributeChange "myObject.ty" "checkY";
+</pre>
+ 
+	 </div>
+<div class="section" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__WS73099CC142F48755-3D114B7511841AEFA9F-B43"><h2 class="title sectiontitle">删除作业</h2> 
+		 
+		<p class="p" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__WS73099CC142F48755-3D114B7511841AEFA9F-B42"> 使用 <samp class="ph codeph">scriptJob</samp> 命令将脚本附加到事件或条件时，该命令将返回唯一的 <samp class="ph codeph">job number</samp>。您可以使用此编号来删除（消除）已创建的作业。假设以上示例返回的数字为 17。若要停止该脚本使其不再运行，可以使用带有 <samp class="ph codeph">-kill</samp> 标志的 <samp class="ph codeph">scriptJob</samp> 命令，如下所示：
+		</p>
+ 
+		<pre class="pre codeblock">
+scriptJob -kill 17;
+</pre>
+ 
+		<p class="p" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__WS73099CC142F48755-3D114B7511841AEFA9F-B40">若要获得系统中运行的所有 scriptJob 的完整列表，请使用以下 <samp class="ph codeph">-listJobs</samp> 标志：
+		</p>
+ 
+		<pre class="pre codeblock">
+scriptJob -listJobs;
+</pre>
+ 
+		<p class="p" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__WS73099CC142F48755-3D114B7511841AEFA9F-B3F">这将返回作业编号列表，后跟 <samp class="ph codeph">scriptJob</samp> 命令用于在第一个位置创建作业的所有标志和参数。
+		</p>
+ 
+		<p class="p" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__WS73099CC142F48755-3D114B7511841AEFA9F-B3E">可以采用多种方式导致作业自动消除（删除）本身。如果在 <samp class="ph codeph">-runOnce</samp> 标志设置为 True 的情况下创建作业，则作业只会运行一次，随后便删除其本身。
+		</p>
+ 
+		<p class="p" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__WS73099CC142F48755-3D114B7511841AEFA9F-B3D">您可以使用 -parent 标志将作业附加到 UI 的特定元素，以便在删除 UI 元素时，也一同删除作业。下一个示例可创建一个窗口。<samp class="ph codeph">scriptJob</samp> 用于更新窗口中的文本，这些文本说明是否已选择某些内容。在删除窗口时，作业将被自动消除：
+		</p>
+ 
+		<pre class="pre codeblock">
+global proc updateSelWind(){
+ if ( `isTrue SomethingSelected` ){
+ text -edit -label "Something is selected." selText;
+ } else {
+ text -edit -label "Nothing is selected." selText;
+ }
+ }
+ string $windowName = `window`;
+ columnLayout;
+ text selText;
+ updateSelWind;
+ showWindow $windowName;
+ scriptJob
+ -parent $windowName // attach the job to the window
+ -conditionChange "SomethingSelected" "updateSelWind";
+</pre>
+ 
+	 </div>
+<div class="section" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__WS73099CC142F48755-3D114B7511841AEFA9F-B3C"><h2 class="title sectiontitle">查看正在运行的作业</h2> 
+		 
+		<p class="p" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__WS73099CC142F48755-3D114B7511841AEFA9F-B3B"> 运行的作业通常不会显示在<span class="ph uicontrol" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__GUID-AF85272A-85E2-4CFF-A865-EFB7152F24CD">“脚本编辑器”(Script Editor)</span>窗口中。您可以通过在<span class="ph uicontrol" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__GUID-F29D65AE-39D2-4652-BA63-1747BEA76DE4">“脚本编辑器”(Script Editor)</span>的<span class="ph uicontrol" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__GUID-60A0DC20-A2D9-4E11-95D4-E47CDA28A2B4">“编辑”(Edit)</span>菜单中启用“回显所有命令”(Echo All Commands)选项来显示它们。
+		</p>
+ 
+		<div class="section" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__WS73099CC142F48755-3D114B7511841AEFA9F-B39"><h3 class="title sectiontitle">有关详细信息</h3> 
+		   
+		  <p class="p" id="GUID-A42F2A04-0216-408D-8073-F4D4D896CE8D__WS73099CC142F48755-3D114B7511841AEFA9F-B38">有关事件和条件的详细信息，请参见 <a class="xref" href="https://help.autodesk.com/view/MAYAUL/2024/CHS/?guid=__Commands_index_html" target="_blank">MEL 命令参考</a>中的 <samp class="ph codeph">scriptJob</samp>、<samp class="ph codeph">isTrue</samp>、<samp class="ph codeph">condition</samp> 和 <samp class="ph codeph">dimWhen</samp> 文档。
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B612C992-B8F8-41CA-9DB7-7EBBFD671F1A.htm">创建界面</a></div>
+</div>
+</div>
+
+</body>
+</html>

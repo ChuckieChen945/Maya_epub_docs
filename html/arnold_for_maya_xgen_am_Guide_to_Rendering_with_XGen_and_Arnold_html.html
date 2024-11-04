@@ -1,0 +1,82 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_xgen_am_Guide_to_Rendering_with_XGen_and_Arnold_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_GUIDE_TO_RENDERING_WITH_XGEN_AND_ARNOLD">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" XGen 和 Arnold 渲染手册 - Arnold for Maya">
+
+<title>XGen 和 Arnold 渲染手册</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>XGen 和 Arnold 渲染手册</h1></div><p><img src="../images/am-Guide_to_Rendering_with_XGen_and_Arnold-image2015-11-13-9-28-15-1.png" alt=""></p>
+<p>在本教程中，我们将使用 XGen 创建一个复杂场景，该场景中包含一个基本体的 5 万多个实例，而且这个基本体本身也有 10 万多个三角形。最终场景共有约 30 亿个可见的三角形，但渲染时只会使用 1.2 GB 内存。</p>
+<p><strong>要下载对应的场景，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/xgen-stalagmite.zip" target="_blank">此处</a>。</strong></p>
+<h2 id="1">1 - 基本体归档</h2><p>首先，加载要用作 XGen 归档的几何体。稍后我们将使用 XGen 的<strong>“大小”(Size)</strong>属性来调整它的大小。您可以对模型应用任何初始着色器，因为稍后还可以对其进行修改。在导出归档前，为了确保导出为 Arnold 格式，应加载 MtoA 插件。另外，还应打开 Arnold“渲染设置”(Render Settings)来初始化场景的 MtoA 设置。保存场景，然后再继续操作。</p>
+<p>选择立方体后，转到<strong><em>“生成 &gt; 将当前选择项导出为归档...”(Generate &gt; Export Selection as Archive(s)...)</em></strong>将<strong>“归档文件名”(Archive Name)</strong>重命名为 <strong><em>Stalagmite</em></strong>，然后选择将归档保存到 Local Archives 文件夹。</p>
+<p><img src="../images/am-Guide_to_Rendering_with_XGen_and_Arnold-stalagmite-2.jpg" alt=""></p>
+<h2 id="xgen--2">2 - XGen 描述</h2><p>创建一个多边形平面。我们将使用此平面指定 XGen 描述。选择该多边形平面，然后转到<strong><em>“生成 &gt; 创建描述...”(Generate &gt; Create Description...)</em></strong>。此操作将打开<strong>“创建 XGen 描述”(Create XGen Description)</strong>。选择<strong><em>“自定义几何体/***</em></strong>归档文件”(Custom Geometry/Archives)<strong><em>。保留其他默认设置不变，然后单击</em></strong>“创建”(Create)***。</p>
+<p>在<strong>“归档文件”(Archive Files)</strong>部分，添加前面创建的归档。您可能需要修改下方的<strong>“大小”(Size)</strong>属性，使基本体的大小适合场景。</p>
+<p>刚才，基本体是随机散布在平面上，但大小和方向都是相同的。我们将在<strong>“扭曲”(Twist)</strong>属性中使用一个 XGen 示例表达式来为方向增添一些随机性：</p>
+<p>在<strong>“基本体属性”(Primitive Attributes)</strong>下，单击<strong><em>“扭曲”(Twist)</em></strong>滑块控件右侧的向下箭头。从菜单中依次选择以下各项：<strong>“加载表达式 &gt; 示例 &gt; 几何体 &gt; flatten_Room”(Load Expression &gt; samples &gt; Geometry &gt; flatten_Room)</strong>。您应该会看到<strong><em>“宽度”(Width)</em></strong>和<strong><em>“深度”(Depth)</em></strong>属性出现在<strong>“扭曲”(Twist)</strong>下方。将<strong>“扭曲宽度”(Twist Width)</strong>增大到至少 200。</p>
+<p><img src="../images/am-Guide_to_Rendering_with_XGen_and_Arnold-2-Xgen-description-3.jpg" alt=""></p>
+<h2 id="3">3 - 密度</h2><p>根据表达式编辑器中使用的值，您可能需要更改<strong>“密度”(Density)</strong>值。如果石笋归档过于密集地聚在一起，您可以减小密度值。相反，如果它们相距太远，则可能需要增大密度或减小最大<strong><em>宽度</em></strong>大小。下图显示了增大密度对 XGen 创建的基本体数量的影响。</p>
+<p>一个常见问题是您的场景可能会有过多的基本体，从而降低 Maya 视口的性能。在 XGen 的<strong>“预览/输出”(Preview/Ouput)</strong>选项卡中，您可以降低<strong>“预览设置”(Preview Settings)</strong>部分的<strong>“百分比”(Percent)</strong>属性。这将减少视口中当前显示的基本体数量，同时仍能在调用 Arnold 时渲染所有基本体。</p>
+<p><img src="../images/am-Guide_to_Rendering_with_XGen_and_Arnold-image2014-6-20-9-24-47-4.png" alt=""></p>
+<h2 id="4">4 - 使用纹理贴图修改属性</h2><p>我们可以结合使用纹理贴图和表达式来控制基本体的长度（高度）。首先，创建一个纹理贴图来控制它们的长度。单击<strong>“长度”(Length)</strong>右侧的向下箭头。选择<strong><em>“创建贴图...”(Create Map...)</em></strong>（请注意，仅在平面指定有 Maya 着色器时该选项才有效，这一点非常重要）。将<strong>“贴图分辨率”(Map Resolution)</strong>增加到 200 左右。然后，单击<strong>“创建”(Create)</strong>。</p>
+<p>这时，在<strong>“Hypershade”</strong>或<strong>“节点编辑器”(Node Editor)</strong>窗口中应该会看到，文件纹理节点已连接到平面。选择该文件纹理，然后打开要用于驱动基本体长度的纹理贴图。要在 XGen 中更新文件纹理，需要单击“长度”(Length)属性控件右侧的磁盘图标。</p>
+<p>目前高度值介于 0 到 1 之间。我们要更改此范围，并为基本体的高度增添一些随机性。我们可以通过修改当前的<strong>“长度”(Length)</strong>表达式来实现这一点。</p>
+<p>单击<strong><em>“长度”(Length)</em></strong>滑块控件右侧的<strong>表达式</strong>图标。在<strong>“表达式编辑器”(Expression Editor)</strong>中应该可以看到以下<strong><em>长度</em></strong>表达式文本：nw <code>$a=map('${DESC}/paintmaps/length'); #3dpaint,200.0.</code></p>
+<p><code>$a</code></p>
+<p>在<strong><strong>“表达式编辑器”(Expression Editor)</strong></strong>中的最后一行前面添加以下代码行：<code>$a = 2*$a + rand(0,0.75);</code> 现在基本体的长度范围将介于 0 到 2 之间，并会另外添加介于 0 到 0.75 之间的随机值。完成后，单击<strong><em>“接受”(Accept)</em></strong>。</p>
+<p><img src="../images/am-Guide_to_Rendering_with_XGen_and_Arnold-image2014-6-24-13-36-34-5.png" alt=""></p>
+<h2 id="5">5 - 照明和摄影机景深</h2><p>我们将使用 <em>skydome_light</em> 为场景提供照明。在 Arnold 菜单中，选择<strong><em>“Arnold &gt; 灯光 &gt; 天穹灯光”(Arnold &gt; Lights &gt; SkyDome Light)</em></strong>。将一个文件纹理连接到天穹灯光的<strong>“颜色”(Color)</strong>属性，然后选择一个合适的 HDR 贴图。在天穹灯光的 Arnold 设置中调整“曝光”(Exposure)，使灯光均匀照亮场景。为了减少场景中的任何阴影噪波，将灯光采样数增大到 3。我们将为摄影机增添一些景深来模拟微距拍摄效果。将摄影机放在靠近 XGen 描述的位置。您还需要增大摄影机的焦距。最终的图像中使用的值为 65mm。选择摄影机并转到 Arnold 设置。选择<strong>“启用 DOF”(Enable DOF)</strong>，然后选择一个聚焦距离。要为摄影机添加浅景深，请增大<strong>“光圈大小”(Aperture Size)</strong>。您需要根据场景的大小调整此值。</p>
+<p><img src="../images/am-Guide_to_Rendering_with_XGen_and_Arnold-image2014-6-24-10-4-0-6.png" alt=""></p>
+<h2 id="6">6 - 渲染</h2><p>您应该使用 IPR 对场景进行测试渲染。将 IPR 渲染与 MtoA 结合使用，您能够交互式地更新场景中的照明、摄影机和着色器，并获得快速反馈。对 XGen 描述进行任何调整后，您可能需要刷新 IPR。对外观满意后，就可以进行最终渲染了。将<strong>“摄影机(AA)”(Camera (AA))</strong>采样数增大到 7 或 8 左右。您可能需要根据图像中包含摄影机景深的区域中可见的噪波量来调整此值。如果您发现场景的间接照明区域有任何噪波，可尝试将<strong>“漫反射”(Diffuse)</strong> (GI) 采样数增大到 2 或 3。</p>
+<p><img src="../images/am-Guide_to_Rendering_with_XGen_and_Arnold-6-lighting-rendering-7.png" alt=""></p>
+<p><sub><strong><em>本教程刊载于《3D World》杂志的第 [189] 期。</em></strong></sub></p>
+<p><img src="../images/am-Guide_to_Rendering_with_XGen_and_Arnold-image2015-3-17-10-23-37-8.png" alt=""></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_XGen_Tutorials_html.html">XGen 教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

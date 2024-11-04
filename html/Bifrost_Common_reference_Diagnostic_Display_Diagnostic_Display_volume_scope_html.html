@@ -1,0 +1,69 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Diagnostic_Display_Diagnostic_Display_volume_scope_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>volume_scope</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>volume_scope</code></h1></div><p>Volume scope 查询体积，以提供可视诊断信息。</p>
+<p>它可用于以多种方式可视化插入到 <code>volume</code> 端口的体积平铺树数据。其中包括沿速度的流线、平铺树结构或体积中的数值。</p>
+<h2 id="">用法</h2><p>若要使用它，请将一个体积或一组体积（例如 Aero 模拟的输出）插入到体积栓，并将该输出连接到一个输出。连接 <code>probe_geometry</code> 以控制进行采样的位置。该输出是一组诊断几何体，用于以可视方式查询体积。</p>
+<h2 id="">探测几何体和体积采样</h2><p>体积中要查询的位置可以在此处以基于点的几何体（网格、点、股、实例）的形式提供。将使用几何体点的位置 (<code>point_position</code>)。</p>
+<p>如果未提供探测几何体，则会自动构建采样点的 3D 栅格。它是由 <code>divisions</code> 控制的。</p>
+<p><code>sampler</code> 设置控制如何对体积进行采样。</p>
+<h2 id="">流线显示</h2><p>流线是使用 <code>display_flowlines</code> 激活的。 </p>
+<p>流线是从采样位置开始并通过速度场跟踪流的 <code>strands</code>。它们可以被认为是模拟粒子在体积中平流传递的路径。它们与探测几何体、采样、消隐和颜色协同工作。可以沿着 <code>voxel_velocity</code> 或使用 <code>flowline_voxel_property</code> 指定的任何其他向量特性创建它们。</p>
+<p>由于流线模拟粒子在流中的路径，因此通过指定粒子在该流中的持续时间来控制长度。参数 <code>flowline_length_in_seconds</code> 设置粒子平流传递的时间（以秒为单位）。流中的时间越多，股越长。</p>
+<p><code>flowline_samples_per_second</code> 按时间控制采样密度，并用作生成的曲线的平滑度参数。当 <code>flowline_samples_per_second</code> 为 100 时，0.05 秒长的流线将由 5 个采样组成，一秒长的流线将有 100 个采样。采样越多，越平滑，并且需要的计算时间越多。</p>
+<p>宽度按 <code>flowline_width_scale</code> 缩放。 </p>
+<h2 id="">颜色</h2><p>可以根据 <code>color_voxel_property</code> 中的值，使用 <code>high_color</code>、<code>mid_color</code>、<code>low_color</code> 将颜色 (<code>remap_colors</code>) 重映射为三种颜色（表示高、中和低值）。各种形式的诊断将使用重缩放到这些颜色的值进行绘制。如果使用流线上的速度，它们表示速度的分布。</p>
+<h2 id="">点显示和数值显示</h2><p>点和数值显示是使用 <code>display_points</code> 激活的。</p>
+<p>在采样位置对给定特性进行采样，并使用流线中的颜色创建可显示的点几何体。它们与探测几何体、采样、消隐和颜色协同工作。</p>
+<p><code>numeric_display</code> 以数字方式显示采样位置处 <code>numeric_property</code> 中的值。</p>
+<p>点按 <code>point_scale</code> 以及由 <code>size_voxel_property</code> 指定的可选特性缩放。</p>
+<h2 id="">消隐</h2><p>消隐会移除采样数。</p>
+<p><code>cull_by_property</code> 移除指定了 <code>culling_property</code> 的特性中接近于零的任何采样。容差是使用 <code>cull_by_property_threshold</code> 指定的。例如，可以消隐雾密度为零的值。</p>
+<p>您还可以通过提供几何体来按 <code>culling_bounds_geometry</code> 消隐。</p>
+<p>可以按特性或按边界框进行消隐。 </p>
+<h2 id="">多分辨率显示</h2><p>参数 <code>display_tile_tree</code> 支持多分辨率体积层级的可视化。将显示最深的 n 级 (<code>visible_levels</code>)。这些可视化由框和 <code>strands</code> 轮廓组成。它们与消隐和颜色协同工作。</p>
+<p>更高分辨率的平铺使用 <code>high_color</code>（默认为红色）进行绘制。然后，中等分辨率的平铺变为 <code>mid_color</code>（默认为绿色），低分辨率的平铺变为 <code>low_color</code>（默认为蓝色）。请记住，您看到的框是平铺而不是体素。在每个平铺中，都有一个大约 5x5x5 实际体素的迷你栅格，具体取决于体积设置。</p>
+<p>它与消隐几何体和颜色协同工作。</p>
+<p>框架（框轮廓）的厚度是使用 <code>frame_thickness</code> 缩放的，透明度是使用 <code>tile_transparency</code> 控制的。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Diagnostic/Bifrost_Common_reference_Diagnostic_Display_html.html">Display</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

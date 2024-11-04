@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-2F587872-8825-4FA0-8264-C3BC936E9043">
+<meta name="language" content="CHS">
+<title>实例化来自 Paint Effects 的笔划</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>实例化来自 Paint Effects 的笔划</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-3312"><p class="p" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__WS1A9193826455F5FF-6D855556117FACF922E-33C8"> 可使用来自<span class="ph uicontrol" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__GUID-84A64C88-0724-4821-AAFA-7FB0455E4688">“Paint Effects”</span>的笔划作为粒子的实例化对象。下面的图像采用实例到粒子的<span class="ph uicontrol" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__GUID-9E6DF21B-AF78-40D7-889B-CDA36EC5564A">“Paint Effects”</span>笔划进行创建。 </p>
+<p class="p" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__WS1A9193826455F5FF-6D855556117FACF922E-33C6">有关在场景中进行绘制的信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-90107A70-FC2B-4D55-9322-A1B90F4233D1">在 3D 中以不同的方式绘制</a>；有关实例化的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-BCF2EDB8-8D46-4968-BF72-A2CD2C666CFC.htm">将几何体实例化为粒子（单个并已设置动画）</a>。 </p>
+<div class="fig fignone" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__WS1A9193826455F5FF-6D855556117FACF922E-33C5"><img class="image" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__IMAGE_04463CA51CBE47BA97119922C4CBF00B" width="508" height="508" src="../images/GUID-DA5D3A55-7B35-4E99-AC20-DE414E37C166.png"></div>
+<div class="section" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__WS1A9193826455F5FF-6D855556117FACF922E-33C4"><h2 class="title sectiontitle">使粒子上的笔划居中</h2>
+
+<p class="p" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__WS1A9193826455F5FF-6D855556117FACF922E-33C3"> 当您对粒子进行对象实例化时，会将对象的局部原点实例化到粒子上。对于球体和立方体而言，局部原点就是对象的中心。 </p>
+
+<p class="p" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__WS1A9193826455F5FF-6D855556117FACF922E-33C1">但是，对于由 Paint Effects 中的笔划构成的 NURBS 曲线而言，局部原点并非直接与曲线的几何体相关。无论实际上如何绘制曲线，曲线的原点就是世界原点。例如，如果在工作区 5,0,5 位置上通过绘制一个较短的笔划绘制一朵花，并将其实例到粒子对象上，则花将从粒子处按 5,0,5 发生偏移。 </p>
+
+<p class="p" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__WS1A9193826455F5FF-6D855556117FACF922E-33C0">若要使<span class="ph uicontrol" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__GUID-34242028-BAFA-4232-B99C-866BF8156CEE">“Paint Effects”</span>几何体在粒子上居中，则有多项操作可以执行。显而易见的一种方式就是在原点处开始绘制曲线。遗憾的是，在常规<span class="ph uicontrol" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__GUID-985AE55F-1911-4CF3-BB19-5887A4A9ABAE">“Paint Effects”</span>模式下此操作比较难以实现，因为这是在绘制曲线，而不是通过栅格捕捉来放置 CV。我们建议采取以下步骤： </p>
+
+<p class="li listintro" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__WS1A9193826455F5FF-6D855556117FACF922E-33BE">使粒子上的实例化笔划居中（方法 1）</p>
+<ol class="ol" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__WS1A9193826455F5FF-6D855556117FACF922E-33BF"><li class="li" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__WS1A9193826455F5FF-6D855556117FACF922E-33BD">在原点附近绘制曲线。 </li>
+<li class="li" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__WS1A9193826455F5FF-6D855556117FACF922E-33BC">取消隐藏曲线。 </li>
+<li class="li" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__WS1A9193826455F5FF-6D855556117FACF922E-33BB">在组件模式下，选择曲线内的所有 CV，然后使用<span class="ph uicontrol" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__GUID-3BFC7D9E-828D-4563-9D3F-C9018E17F940">“平移”(Translate)</span>工具移动 CV，使<span class="ph uicontrol" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__GUID-17BE62D6-8D41-4544-81DB-047818E72A10">“Paint Effects”</span>几何体的基础（例如花的基础）位于原点处。 <p class="p" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__WS1A9193826455F5FF-6D855556117FACF922E-33BA">移动 CV 而不要移动变换，因为系统会忽略实例化层次最上方的平移和旋转。 </p>
+ </li>
+</ol>
+
+<p class="li listintro" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__WS1A9193826455F5FF-6D855556117FACF922E-33B8">使粒子上的实例化笔划居中（方法 2）</p>
+<ol class="ol" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__WS1A9193826455F5FF-6D855556117FACF922E-33B9"><li class="li" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__WS1A9193826455F5FF-6D855556117FACF922E-33B7">分组笔划。 </li>
+<li class="li" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__WS1A9193826455F5FF-6D855556117FACF922E-33B6">移动笔划的变换，使<span class="ph uicontrol" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__GUID-5DFD2CA7-1676-4187-B171-28304ABFA749">“Paint Effects”</span>几何体的基础位于新组节点的原点处。 </li>
+<li class="li" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__WS1A9193826455F5FF-6D855556117FACF922E-33B5">实例化组，而不是实例化笔划。 <p class="p" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__WS1A9193826455F5FF-6D855556117FACF922E-33B4">该操作与移动 CV 具有相同效果。 </p>
+ <div class="note tip" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__WS1A9193826455F5FF-6D855556117FACF922E-33B3"><span class="tiptitle">提示：</span> 
+<p class="p" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__GUID-709169C6-8EB0-4EAC-9EA5-52ADF6DB78B6">启用<span class="ph uicontrol" id="GUID-2F587872-8825-4FA0-8264-C3BC936E9043__GUID-89508BA2-C11F-4DB3-A87B-6B41BBEFDBB1">“管完成”(Tube Completion)</span>。这样，您绘制一个极短的笔划，管就可持续增加直到达到其分段数的尾数。 </p>
+
+</div>
+ </li>
+</ol>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-BCF2EDB8-8D46-4968-BF72-A2CD2C666CFC.htm">使用 nParticle 实例化几何体</a></div>
+</div>
+</div>
+
+</body>
+</html>

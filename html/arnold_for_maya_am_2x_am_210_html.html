@@ -1,0 +1,372 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_2x_am_210_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_210">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 2.1.0 - Arnold for Maya">
+
+<title>2.1.0</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>2.1.0</h1></div><h2 id="release-date">Release Date</h2><p>November 10th, 2017</p>
+<p>This version uses the Arnold <a href="https://help.autodesk.com/display/arnug/5.0.2.0">5.0.2.0</a> core.</p>
+<h2 id="downloads">DOWNLOADS</h2><ul>
+<li><a href="https://manage.autodesk.com/products/" target="_blank">https://manage.autodesk.com/products/</a></li>
+</ul>
+<p>MtoA 2.1.0 is the version included in Maya 2018 Update 2. It contains lots of improvements and bugfixes.</p>
+<h2 id="aov-improvements">AOV improvements</h2><p>The AOV editor has been refactored to simplify the use of recent AOV controls :</p>
+<ul>
+<li>Selecting an AOV row in the AOV browser selects the AOV node in the attribute editor for simple editing.</li>
+<li>Cryptomatte AOVs just need to be added to the list of Active AOVs. This automatically creates/selects the corresponding shader to edit its parameters, and adds it to the list of AOV shaders.</li>
+<li>Light Group AOVs are now much easier to set. It is possible for each "lighting" AOV to decide if it needs to be rendered "globally", or "per-light-group", or for a specific list of light groups.</li>
+<li>Light Path Expressions (LPE) can be filled with a menu icon. It includes the list of available LPE tokens, as well as the LPE expression for builtin AOVs.</li>
+<li>Optional Camera parameter can be used to set a specific camera to an AOV. This only works with the batch render.</li>
+</ul>
+<p>A video showing the AOV improvements in MtoA 2.1.0 can be found <a href="https://www.youtube.com/watch?v=K0kBDXAFiiY&amp;index=3&amp;list=PL4htthnCnICBugulxiszbtVq_MuW7AIs3" target="_blank">here.</a></p>
+<h2 id="arnold-renderview-arv">Arnold RenderView (ARV)</h2><ul>
+<li>Support Snapshot AOVs, when a snapshots folder is set.</li>
+<li>Zoom is now centered on the mouse cursor (this can be disabled by the option Window-&gt;Mouse Centered Zoom).</li>
+<li>Mid-mouse button now pans the image.</li>
+<li>A/B handles are now always visible.</li>
+<li>View Transform list can be added to the toolbar.</li>
+<li>Opening ARV without rendering now shows the correct resolution, which allows seeing previously stored snapshots correctly.</li>
+<li>Enabling snapshots folder automatically opens the folder browser.</li>
+<li>The cameras list is now always up-to-date with Maya, even when a new camera is created, or when ARV is opened without rendering.</li>
+<li>Opening and closing the snapshots library or the display settings will now resize ARV properly unless it's docked in the Maya UI.</li>
+<li>Added an option Window-&gt;Shape Picking to disable the shapes selection when clicking on the viewer.</li>
+</ul>
+<p>A video showing the new ARV features in MtoA 2.1.0 can be found <a href="https://www.youtube.com/watch?v=VKmuJDwc__I&amp;index=2&amp;list=PL4htthnCnICBugulxiszbtVq_MuW7AIs3" target="_blank">here.</a></p>
+<h2 id="new-subsurface-scattering">New Subsurface Scattering</h2><p>A new, more accurate way of calculating SSS has been added. Unlike the current empirical BSSRDF method based on diffusion theory, this new method actually traces below the surface with a real random walk and makes no assumptions about the geometry being locally flat. This means it can take into account anisotropic scattering like brute-force volume rendering and produces much better results around concavities and small details. It can also be substantially faster for large scattering radius (i.e. large mean free path) compared to the old method. On the other hand, the new method can be slower in dense media (i.e. small mfp), does not support sss_setname for blending two surfaces together, may require redialing materials to achieve a similar look, and is more sensitive to non-closed meshes, "mouth bags", eyeballs, and internal geometry potentially casting shadows. This new algorithm is exposed in the aiStandardSurface shader via the new parameters subsurface_type (with enum values diffusion and randomwalk) and subsurface_anisotropy (Henyey-Greenstein's eccentricity parameter 'g' from -1.0 to +1.0). The default is to use the old empirical diffusion method in order not to break the look of existing scenes.</p>
+<p><img src="../images/am-210-502-sss-cornellbox-1.jpg" alt=""></p>
+<p>A video showing the new Subsurface Scattering can be found <a href="https://www.youtube.com/watch?v=kttqV5c9AWs&amp;index=1&amp;list=PL4htthnCnICBugulxiszbtVq_MuW7AIs3" target="_blank">here.</a></p>
+<h2 id="car-paint-shader">Car Paint shader</h2><p>We are now shipping a dedicated shader for car paint, which can be thought of as the combination of a simplified version of the aiStandardSurface and aiFlakes shaders. This shader can create a wide range of car paint looks without having to connect several nodes. For example, a pearlescent effect can be easily added to both the specular and flakes layers by simply tweaking a few parameters such as specular_flip_flop and flake_flip_flop. An arbitrary number of layers of flakes can be used (flake_layers). The flakes at a deep layer are covered by the ones closest to the surface and more tinted by pigments (specified by the transmission_color parameter).</p>
+<p> <img src="../images/am-210-mazda-2k-2.jpg" alt=""><img src="../images/am-210-flakes-close-2k-3.jpg" alt=""></p>
+<h2 id="shadow-matte-improvements">Shadow Matte improvements</h2><p>Many improvements were added to the shadow matte shader in Arnold 5.0.2 based on user feedback, and MtoA now exposes these improvements:</p>
+<ul>
+<li><p>Self-reflections are no longer rendered.</p>
+</li>
+<li><p>New parameter background can either be set to scene_background (default) or background_color, which allows connecting a specific texture in the shadow matte's parameter background_color.</p>
+</li>
+<li><p>Image planes were not seen by shadow matte secondary bounces.</p>
+</li>
+<li><p>Shadow matte indirect illumination now fills the builtin AOVs diffuse_indirect and specular_indirect. The previous AOVs (and confusingly named) indirect_diffuse and indirect_specular owned by shadow_matte have been removed.</p>
+</li>
+<li><p>Parameters offscreen_color and background_type were removed.</p>
+</li>
+<li><p>Parameter alpha_mask was added to control whether the alpha must be opaque or if it has to contain the shadow mask.</p>
+</li>
+<li><p>Indirect Specular now has Fresnel enabled, controlled by specular_ior.</p>
+<p><img src="../images/am-210-Ford-gt-road-half-4.jpg" alt=""><img src="../images/am-210-Ford-gt-road-wireframe-polys-half-5.jpg" alt=""></p>
+</li>
+</ul>
+<p>A video showing the improvements in the Shadow Matte shader can be found <a href="https://www.youtube.com/watch?v=VZiytjt5wD0&amp;list=PL4htthnCnICBugulxiszbtVq_MuW7AIs3&amp;index=4" target="_blank">here.</a></p>
+<h2 id="namespace-controls-in-standins">Namespace controls in StandIns</h2><p>Since Arnold 5, each standin is automatically namespaced to avoid name collisions, but this prevented from exporting shapes and shaders as separate standins. In Arnold 5.0.2.0 an optional namespace attribute was added to StandIns. By setting the same namespace on different standins, their nodes will be able to "connect" with each other. This will allow exporting shapes and shaders separately, as in Arnold 4. The parameter "Force Translate Shading Engines" (that is necessary for this workflow) has been renamed "Force Shader Assignments" in the export options UI, and only appears when "Export Shaders" is turned off.</p>
+<p>A video showing the new features in StandIns and procedurals can be found <a href="https://www.youtube.com/watch?v=1xJysJKvJMk" target="_blank">here.</a></p>
+<h2 id="procedurals">Procedurals</h2><ul>
+<li>When a mesh is rendered with "Translator" set to "procedural" in order to behave like a standin, it now has the same full set of features than the standin (overrides shaders/visibility / animated standins, etc..).</li>
+<li>Since Arnold 5, StandIns can only reference .ass files. Loading custom procedurals (.dll, .so, .dylib) has now to be done through specific nodes, which can be complicated to handle for procedurals that aren't part of a MtoA extension. This was improved in MtoA 2.1.0, where custom procedurals having the metadata "maya.procedural" enabled will automatically appear in the Arnold menu "Custom Shapes". The Attribute editor will display the procedural's attributes, as well as the common shape parameters so that all the StandIn features (override shaders/visibility, etc.) can now be used in custom procedurals as well.  See documentation <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Custom_Procedurals_html">here</a> .</li>
+</ul>
+<h2 id="subdivision-frustum-culling">Subdivision Frustum Culling</h2><p>Subdivision patches outside the view or dicing camera frustum will not be subdivided. This is useful for any extended surface that is only partially visible as only the directly visible part will be subdivided, potentially saving memory and subdivision time. Similarly, no subdivision work will happen if a mesh is not directly visible. This can be turned on globally by enabling the Render Settings parameter Subdivision Frustum Culling and can be turned off for specific meshes with aiSubdivFrustumIgnore (perhaps to avoid artifacts in hard cast shadows, reflections, etc). The option aiSubdivFrustumPadding adds a world space padding to the frustum that can be increased as needed to minimize artifacts from objects that straddle the frustum boundaries. Note that motion blur is not yet taken into account and moving objects might require some additional padding.</p>
+<p>A video showing the new Subdivision Frustum Culling can be found <a href="https://youtu.be/lE4RYto3izM" target="_blank">here.</a></p>
+<h2 id="maya-shading-engine-removal">Maya Shading Engine removal</h2><p>MtoA always used to export a Maya-specific MayaShadingEngine at the root of all shading trees. This is no longer the case in MtoA 2.1.0. Apart from decreasing the number of shader nodes in an Arnold scene, which increases efficiency, this also makes it easier to render .ass files exported from Maya in other DCC plugins. Previously saved .ass files are still compatible. However, previously exported XGen archives might not render properly. As a workaround for eventual pipeline specific regressions, a temporary parameter Export Shading Engines (Legacy) was added in the Render Settings (in Tab "System").</p>
+<h2 id="other-improvements">Other improvements</h2><ul>
+<li>asstoc files are no longer exported. The bounds information is now stored in metadata in the .ass file itself.</li>
+<li>Orientation in XGen interactive groom splines (when "face camera" is disabled) is now supported.</li>
+<li>Post-Translation callbacks are added in the Render Settings, in order to edit the scene between export and render.</li>
+<li>"Transmit AOVs and Alpha" was added to aiStandardSurface. It allows passing of AOVs through transmissive shaders.</li>
+<li>MtoA debug translation logs are now rendered separately, to avoid confusion with Arnold debug logs, which were getting too big and cluttered. They are now enabled by parameter "MtoA Translation Info" and now appear in Maya logs (instead of Arnold logs).</li>
+<li>Added support for light groups in volume rendering.</li>
+<li>Improved flakes shader makes it easier to control the amount and size of flakes.</li>
+<li>Cellular option in triplanar shader: The triplanar shader now supports projection through Voronoi cells using the new cell parameter. The rotation angle of the projected texture for each cell can be controlled with the cellRotate parameter. Cells can be smoothly blended using the cellBlend parameter.</li>
+<li>Support for more OSL attributes: OSL shaders now support getattribute() lookups of standard camera attributes (e.g. camera:fov, camera:resolution, etc) as well as the geometry attributes geom:type, geom:name, geom:bounds, and geom:objbounds on objects.</li>
+</ul>
+<h2 id="bugfixes">BugFixes</h2><ul>
+<li>Duplicating a node was resetting its aiTranslator parameter. For example, duplicating an area light was always resetting it to "quad light".</li>
+<li>LookDevKit shaders could fail in batch rendering.</li>
+<li>XGen archives were randomly missing shaders in interactive renders.</li>
+<li>In Maya 2018, opening the Render Settings was triggering an IPR refresh.</li>
+<li>Scenes containing a large number of AOVs are now much faster to load in Maya.</li>
+<li>Set Overrides can now be applied to the whole Maya hierarchy, which allows overriding multiple nodes simultaneously.</li>
+<li>Fixed race condition that could cause some shapes to be randomly missing from the render.</li>
+<li>Motion Vector AOV was empty when the shutter was set to "End on Frame".</li>
+<li>StandIns were sometimes displayed as a simple line in the viewport.</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible changes</h2><ul>
+<li>The removal of MayaShadingEngine shader could introduce regressions in any pipeline expecting it to be present at the root of all shading trees. Previously XGen archives could also fail to load in some cases. As a workaround, a temporary parameter Export Shading Engines (Legacy) was added in the Render Settings (in Tab "System").</li>
+<li>aiShadowMatte changes: The shader AOVs indirect_diffuse and indirect_specular were removed since the shader now fills the corresponding built-in AOVs. Parameters offscreenColor and backgroundType were removed. Specular reflection is now affected by Fresnel. To roll back to the previous specular behavior, set specularIOR to a high value like 100, which effectively disables the Fresnel effect.</li>
+<li>The flakes shader has been changed, to simplify the control of the number and density of flakes.</li>
+<li>motionvector AOV: The motion vector scaling factor in the built-in motionvector AOV has changed. This was required to fix a bug that caused zero motion vectors for certain shutter positions. The output from the aiMotionVector shader is unchanged: it can be used as a workaround in your old scenes if you require the previous scaling.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>#2665</td>
+<td>Can't resize programmatically ARV in Maya 2017</td>
+</tr>
+<tr>
+<td>#3208</td>
+<td>lookdevkit shaders don't batch render when you load MtoA with userSetup.mel</td>
+</tr>
+<tr>
+<td>#2093</td>
+<td>Intensity attribute in the mesh_light should be a slider</td>
+</tr>
+<tr>
+<td>#2105</td>
+<td>Enlarge post, pre render mel callbacks interface</td>
+</tr>
+<tr>
+<td>#2600</td>
+<td>Camera Filtermap icon does not work</td>
+</tr>
+<tr>
+<td>#2732</td>
+<td>Add XGen orientation to Arnold curves</td>
+</tr>
+<tr>
+<td>#2835</td>
+<td>Duplicating an object resets aiTranslator</td>
+</tr>
+<tr>
+<td>#2855</td>
+<td>All previously-installed versions of MtoA appear in Start &gt; All Programs in Windows 7</td>
+</tr>
+<tr>
+<td>#2922</td>
+<td>Minimum pixel width crashes</td>
+</tr>
+<tr>
+<td>#2939</td>
+<td>mtoa_shaders loaded twice</td>
+</tr>
+<tr>
+<td>#2946</td>
+<td>Errors of "Extension already managed" on Linux and Mac with latest MtoA</td>
+</tr>
+<tr>
+<td>#3107</td>
+<td>Risk of clashing node names in onConnectionChanged callback.</td>
+</tr>
+<tr>
+<td>#3115</td>
+<td>Large numbers of AOVs slow scene open time</td>
+</tr>
+<tr>
+<td>#3149</td>
+<td>Resize ARV in Maya 2018 when needed</td>
+</tr>
+<tr>
+<td>#3178</td>
+<td>IPR restarts render when opening the Render Settings window (Maya 2018)</td>
+</tr>
+<tr>
+<td>#3180</td>
+<td>Regression in AOVs during batch render</td>
+</tr>
+<tr>
+<td>#3181</td>
+<td>Geometries randomly missing</td>
+</tr>
+<tr>
+<td>#3183</td>
+<td>shadow_matte AOV indirect_specular isn't exposed</td>
+</tr>
+<tr>
+<td>#3184</td>
+<td>Image plane not seen by Shadow Matte secondary bounces</td>
+</tr>
+<tr>
+<td>#3185</td>
+<td>Add offscreen_color to Image Plane</td>
+</tr>
+<tr>
+<td>#3187</td>
+<td>Render setup regression tests fail if MtoA is loaded</td>
+</tr>
+<tr>
+<td>#3190</td>
+<td>IPR Update issue : changing shaders connections in shading groups</td>
+</tr>
+<tr>
+<td>#3195</td>
+<td>Expose car paint shader</td>
+</tr>
+<tr>
+<td>#3197</td>
+<td>[ARV] A/B handles not always visible</td>
+</tr>
+<tr>
+<td>#3201</td>
+<td>Export All Shading Groups not exporting displacements</td>
+</tr>
+<tr>
+<td>#3203</td>
+<td>Loading MtoA plugin in mayapy and then exiting causes crash</td>
+</tr>
+<tr>
+<td>#3207</td>
+<td>[ARV] Cameras list not always up-to-date with Maya</td>
+</tr>
+<tr>
+<td>#3213</td>
+<td>Xgen archive shaders not rendered in interactive sessions</td>
+</tr>
+<tr>
+<td>#3223</td>
+<td>ARV : Opening the viewer without rendering shows wrong resolution size</td>
+</tr>
+<tr>
+<td>#3224</td>
+<td>Rename bifrost procedural folder name to lower case</td>
+</tr>
+<tr>
+<td>#3226</td>
+<td>Add test for MtoA ABI compatibility</td>
+</tr>
+<tr>
+<td>#3228</td>
+<td>Curve collector transform applied twice</td>
+</tr>
+<tr>
+<td>#3229</td>
+<td>Camera filtermap icon doesn't work</td>
+</tr>
+<tr>
+<td>#3231</td>
+<td>Expose Transmit AOVs</td>
+</tr>
+<tr>
+<td>#3233</td>
+<td>arnoldScene could return the list of created Arnold objects</td>
+</tr>
+<tr>
+<td>#3236</td>
+<td>ARV: Crashes when picking on the viewer after opening a new scene</td>
+</tr>
+<tr>
+<td>#3237</td>
+<td>Standins exported without bbox show a simple line in the viewport</td>
+</tr>
+<tr>
+<td>#3239</td>
+<td>Export subdiv frustum culling</td>
+</tr>
+<tr>
+<td>#1555</td>
+<td>Remove MayaShadingEngine</td>
+</tr>
+<tr>
+<td>#2826</td>
+<td>[ARV] Show snapshots AOVs when snapshots folder is set</td>
+</tr>
+<tr>
+<td>#2961</td>
+<td>Give autogenerated procedural Maya UIs the same features as AiStandin</td>
+</tr>
+<tr>
+<td>#3108</td>
+<td>Replace .asstoc by .ass metadata</td>
+</tr>
+<tr>
+<td>#2948</td>
+<td>Zoom ARV centered on cursor like Maya Render View</td>
+</tr>
+<tr>
+<td>#3054</td>
+<td>Review MtoA debug logs</td>
+</tr>
+<tr>
+<td>#3148</td>
+<td>Add post-translation callback</td>
+</tr>
+<tr>
+<td>#3162</td>
+<td>Improve AOVs window</td>
+</tr>
+<tr>
+<td>#3170</td>
+<td>Support per-camera AOV</td>
+</tr>
+<tr>
+<td>#3174</td>
+<td>Implement Standins namespacing</td>
+</tr>
+<tr>
+<td>#3176</td>
+<td>Procedural translator in meshes is missing parameters</td>
+</tr>
+<tr>
+<td>#3194</td>
+<td>ARV: mid mouse button should pan the image</td>
+</tr>
+<tr>
+<td>#3198</td>
+<td>[ARV] Support view transforms list in toolbar</td>
+</tr>
+<tr>
+<td>#3212</td>
+<td>Add menu to create custom shapes</td>
+</tr>
+<tr>
+<td>#3215</td>
+<td>Export XGen archives with the surface shader</td>
+</tr>
+<tr>
+<td>#3222</td>
+<td>ARV: Enabling "use snapshots folder" should open the browser</td>
+</tr>
+<tr>
+<td>#3225</td>
+<td>Add export full paths option in render settings</td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_2x_html.html">MtoA 2.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

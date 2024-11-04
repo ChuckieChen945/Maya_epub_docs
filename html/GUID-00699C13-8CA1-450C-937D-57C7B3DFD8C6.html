@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="task-adsk">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="video-id" content="gwMWVhMTE6JZFQ8pnZJE4m67DWqrYUyG">
+<meta name="description" content="">
+<meta name="indexterm" content="姿势空间变形">
+<meta name="contextid" content="EDITPOSEINTERPOLATORADD">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6">
+<meta name="language" content="CHS">
+<title>创建姿势空间变形</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>创建姿势空间变形</h1></div>
+</div>
+</div>
+
+<div class="body taskbody-adsk"><p class="shortdesc"> 
+</p>
+<p class="p"> 
+</p>
+<p class="p"> 处理蒙皮角色时，如果角色处于特定姿势，通常需要使用特殊形状来修复蒙皮变形问题。变形问题通常出现在角色的关节连接点处，如肩部、下臂、膝盖和腹股沟部位。 
+</p>
+<p class="p">使用<span class="ph uicontrol">“姿势编辑器”(Pose Editor)</span>，可以通过名为姿势空间变形 (PSD) 的技术修复这些问题。首先为选定关节创建一个姿势插值器节点，每个节点包含不同的姿势。对于每个姿势，旋转或移动角色中存在蒙皮变形问题的关节，然后创建或使用关联的修正融合变形（称为姿势形状）修复该问题。然后，只要角色的关节达到该姿势，便会自动使用这些融合变形。对于每个形状，可以根据需要为其姿势设置强度（权重），并在这些姿势与蒙皮网格之间插值。 
+</p>
+<div class="note note" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__GUID-76C9B76A-7B98-424A-B6A7-8F22235749C2"><span class="notetitle">注：</span> 如果使用的关节受装备中的控件（IK 或其他控件）驱动，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-7C5BE381-CBB3-43E7-8B4B-77376CAD09FA.htm">将控制器驱动关节用于姿势空间变形</a>以获取信息。 
+</div>
+<div class="section" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__SECTION_95BF6FD69CEC4676A4422AF1BCA98AF1"><h2 class="title sectiontitle">姿势空间变形的使用提示</h2> 
+   
+  <p class="p">创建修正姿势形状时，最好先为所有极端姿势构建形状，然后根据需要添加中间帧姿势形状。 
+  </p>
+ 
+  <p class="p">但是，如果要简化此工作流并“即时”创建形状，您可能会遇到每个附加姿势的权重值增加的问题。若要避免此问题，请选择某个特定姿势，然后在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-2AB6C4C3-75AC-4094-A65C-C232739AFB30.htm">姿势编辑器</a>的“高级设置”(Advanced Settings)面板（在姿势编辑器中选择<span class="ph menucascade"><span class="ph uicontrol">“视图</span> &gt; <span class="ph uicontrol">高级”(View &gt; Advanced)</span></span>，或者在姿势名称上单击鼠标右键并选择<span class="ph uicontrol">“显示高级设置”(Show Advanced Settings)</span>以显示此面板）中激活<span class="ph uicontrol">“独立”(Independent)</span>选项。如果姿势独立，则会从包含其他姿势的归一化计算中移除，并且只能通过其旋转和/或平移衰减进行调整。 
+  </p>
+ 
+</div>
+<p class="p"><video data-video-id="gwMWVhMTE6JZFQ8pnZJE4m67DWqrYUyG" crossorigin="anonymous" controls="controls" poster="https://help.autodesk.com/videos/gwMWVhMTE6JZFQ8pnZJE4m67DWqrYUyG/poster"><source type="video/webm" src="https://help.autodesk.com/videos/gwMWVhMTE6JZFQ8pnZJE4m67DWqrYUyG/video.webm"></source><source type="video/mp4" src="https://help.autodesk.com/videos/gwMWVhMTE6JZFQ8pnZJE4m67DWqrYUyG/video.mp4"></source></video> 
+</p>
+<p class="li listintro">在角色上创建具有关联修正形状的姿势</p>
+<ol class="ol" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__GUID-8740AE39-7514-4B9C-957B-CF4806BAD65E"><li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_ACF143F6E7F5459E93DFF8103AED1A60">选择与要修复变形的蒙皮区域对应的角色关节。这将是形状的中性姿势。 
+  </li>
+<li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_2ABF50AE0C6742D3AA83CF2FF7B4812E">若要创建新的姿势插值器模式，请执行以下操作之一： 
+	 <ul class="ul" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__UL_EC67D3DF0FE84C2FB06AC6208C0D1F10"><li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_B41198DD88E444CB906412D169567133">在“建模”(Modeling)、“装备”(Rigging)或“动画”(Animation)菜单集中，选择<span class="ph menucascade"><span class="ph uicontrol">“变形</span> &gt; <span class="ph uicontrol">姿势空间变形</span> &gt; <span class="ph uicontrol">创建姿势插值器”(Deform &gt; Pose Space Deformation &gt; Create Pose Interpolator)</span></span>。 
+		</li>
+<li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_7691252F18A841B19D14414B8DFEC7FD">打开<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-2AB6C4C3-75AC-4094-A65C-C232739AFB30.htm">姿势编辑器</a>并单击<span class="ph uicontrol">“创建姿势插值器”(Create Pose Interpolator)</span>按钮，或者选择<span class="ph menucascade"><span class="ph uicontrol">“姿势</span> &gt; <span class="ph uicontrol">创建姿势插值器”(Poses &gt; Create Pose Interpolator)</span></span> &gt; <img class="image" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__IMAGE_5E49E35FA0D04D488B27ECAF9A449B36" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">。 
+		  <ul class="ul" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__UL_5B00C6DB330343BC9C3163ACC5160E51"><li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_D6B55D8126534F7BA789D9782969C0BA">如果单击<span class="ph uicontrol">“创建姿势插值器”(Create Pose Interpolator)</span>按钮，则会自动创建中性姿势。 
+			 </li>
+<li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_BE724CC58E9A4BC0851E2B754F3B71C0">如果选择<span class="ph menucascade"><span class="ph uicontrol">“姿势</span> &gt; <span class="ph uicontrol">创建姿势插值器”(Poses &gt; Create Pose Interpolator)</span></span> &gt; <img class="image" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__IMAGE_2B54FB710FC3414292C2891CF3532EC0" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">，则可决定是（默认）否选择<span class="ph uicontrol">“添加中性姿势”(Add Neutral Poses)</span>选项。为获得最佳结果，您应选择此选项，因为中性姿势可以确保当关节处于此中性姿势时，不会激活添加到此姿势插值器节点的其他姿势。 
+			 </li>
+</ul>
+ 
+		</li>
+</ul>
+ 
+  </li>
+<li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_DAC0D50886A243E0BAF9DF63755772A0"> 
+	 <p class="p">新节点将显示在<span class="ph uicontrol">“姿势编辑器”(Pose Editor)</span>的<span class="ph uicontrol">“姿势插值器”(Pose Interpolators)</span>面板中。默认情况下，该名称是带有“_poseInterpolator”后缀的关节名称。 
+	 </p>
+ 
+  </li>
+<li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_37995FDDD92046149F00088A005717C8">选择此节点，可在右侧的姿势面板上查看其默认姿势。起初仅显示三个中性姿势。 
+  </li>
+<li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_1F10F054505C464BA8B5CC8D73C03225">将关节旋转或移动到要添加具有关联修正形状的姿势的位置。这将是第一个要添加形状的极端姿势。 
+  </li>
+<li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_76AB72251DD9471FBEDC0C8674D2427A">在姿势编辑器中，选择姿势插值器节点，然后单击<span class="ph uicontrol">“添加姿势”(Add Pose)</span>按钮，或者选择<span class="ph menucascade"><span class="ph uicontrol">“姿势</span> &gt; <span class="ph uicontrol">添加姿势”(Poses &gt; Add Pose)</span></span> &gt; <img class="image" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__IMAGE_BA0890C8BB734D859F741EF4D525E3D2" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">，将此当前状态添加为新姿势。 
+	 <ul class="ul" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__UL_EF737D860A0A4D9ABA0B39ABF4D62125"><li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_A541D9D43A374BED880E2CBC1D9BFC4B"> 如果此姿势插值器节点尚未连接到融合形变变形器，则将打开<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-784EA63C-9E27-4893-B1B5-2ADBEC9FB52F.htm">创建姿势形状(Create Pose Shape)窗口</a>，您可在其中创建一个融合形变变形器。 
+		</li>
+<li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_FDC56BA6C1F0489090A974D53589FF71">如果蒙皮网格上已存在融合形变变形器，则将打开<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-C4DA19BB-4B0B-4609-B383-4844BF41E922.htm">添加姿势选项(Add Pose Options)</a>，您可从中选择姿势类型（“摆动”(Swing)、“摆动和扭曲”(Swing and Twist)或“扭曲”(Twist)）。 
+		</li>
+</ul>
+ 
+  </li>
+<li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_8F3117E46A6A461E82800F5B4670FA94">为此新姿势提供一个描述性名称。默认情况下，该名称为 <em class="ph i">driverName_rx_ry_rz</em>。其中，driverName 是关节的名称，rx/ry/rz 是关节在此姿势中的旋转值。 
+  </li>
+<p class="p">现在，需要校正或增强蒙皮在此姿势中的变形： 
+</p>
+<li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_A565818520C74F7F82404B9394807213">创建姿势时，将自动激活其<span class="ph uicontrol">“编辑”(Edit)</span>按钮，以便能够立即编辑网格。确保姿势的“权重”(Weight)值不为 0（通常最好为 1）。 
+</li>
+<li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_C511B33F83B748B890397FA1D9AFC876"> 使用雕刻工具或任一变换工具（移动、旋转或缩放）修改蒙皮上的顶点位置。 
+  <p class="p">您每次所做的修改都是蒙皮原始形状的顶点位置增量。此特定信息是为该姿势形状而存储，并由姿态插值器节点用于计算蒙皮上的变形。 
+  </p>
+ 
+  <div class="note note" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__GUID-386E3548-16B9-4D75-91F4-B5863C265BB5"><span class="notetitle">注：</span> 打开摄影机的翻滚工具设置，然后启用<span class="ph uicontrol">“翻滚中心: 翻滚枢轴”(Tumble About: Tumble pivot)</span>和<span class="ph uicontrol">“自动设置翻滚枢轴”(Automatically set tumble pivot)</span>选项。这会自动将摄影机的翻滚枢轴调整到上一选择或雕刻笔划。 
+  </div>
+ 
+</li>
+<li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_80F44C2215264E1C835F1036E1C13543">修复完此姿势的蒙皮后，单击<span class="ph uicontrol">“编辑”(Edit)</span>按钮退出该模式。 
+</li>
+<p class="p">现在转到下一个极端姿势： 
+</p>
+<li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_653BBEFB5B2947FCB5E031B0D9F08094">设置角色的姿势，或者转到时间轴中蒙皮网格以不理想的方式变形或要更改蒙皮形状的帧。 
+</li>
+<li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_F622C01B00BB478C8890CB076A2E6090">如前所述，单击<span class="ph uicontrol">“添加姿势”(Add Pose)</span>按钮或选择<span class="ph menucascade"><span class="ph uicontrol">“姿势</span> &gt; <span class="ph uicontrol">添加姿势”(Poses &gt; Add Pose)</span></span> &gt; <img class="image" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__IMAGE_50A30762B1D34B3E9CE6B333F3B815AF" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">，将此当前状态添加为新姿势。 
+</li>
+<li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_A494E750E35D4A4EA69A35A17AC9C307">单击姿势的<span class="ph uicontrol">“编辑”(Edit)</span>按钮，并使用雕刻或变换工具修改蒙皮，完成后再次单击<span class="ph uicontrol">“编辑”(Edit)</span>退出该模式。 
+</li>
+<li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_27EBF139A03C444381416DA75E5CF935">旋转受影响的关节，查看如何将姿势形状融合到剩余蒙皮中。旋转关节时，姿势的权重将会相互归一化。姿势的权重值更新范围为 0（无权重）到 1（完全权重），具体取决于关节旋转距存储的姿势有多近。 
+</li>
+<li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_37BD244E4F3C40F8BB0C649D9EBABB2C">在面板中双击姿势，或者在姿势上单击鼠标右键，然后选择<span class="ph uicontrol">“转到姿势”(Go To Pose)</span>，快速返回到该姿势（当权重为 100% 时应用）。例如，先后双击中性姿势和创建的姿势，查看当角色处于该姿势时如何自动应用修正形状。 
+</li>
+<li class="li" id="GUID-00699C13-8CA1-450C-937D-57C7B3DFD8C6__LI_F9EBD102EFC842A7956CA577C21ADA0D">重复此过程来添加和编辑姿势，以便根据需要尽可能为角色创建基于姿势的形状。 
+</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-45D389D6-B8E4-4225-B27B-9927BB61C28D.htm">姿势空间变形 (PSD)</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_build_a_graph_work_with_programming_loops_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>使用编程循环</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>使用编程循环</h1></div><p>大多数情况下，无需创建显式循环。这是因为当输入为数组时，Bifrost 节点会自动循环，如<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_work_with_arrays_html.html">使用数组</a>中所述。但是，当您需要创建循环时，可以在图表中添加循环复合。</p>
+<p>有三种类型的循环复合：</p>
+<ul>
+<li><code>iterate</code> 循环按顺序处理多个元素。它可以使用状态端口将中间值（如累积和）向前传递到下一次迭代。</li>
+<li><code>for_each</code> 循环并行处理多个元素。由于自动循环，只需在特定情况下使用 <code>for-each</code> 循环，例如当您想要在循环计算中使用迭代计数器时。</li>
+<li><code>do_while</code> 循环会重复子图，直到满足条件。请注意，即使条件为假，也始终执行一次子图。</li>
+</ul>
+<h2 id="">循环复合上的特殊端口类型</h2><p>循环复合上的端口可以具有特殊行为。在复合内的输入或输出节点上，右键单击其端口可以打开或关闭这些行为。</p>
+<h3 id="img-src-images-icon_iteration_counter-png-alt"><img src="../images/icon_iteration_counter.png" alt="迭代计数器"> 迭代计数器</h3><p>迭代计数器适用于所有循环。通过它们，您可以在复合内的计算中使用当前迭代的索引。</p>
+<p>当您向图表中添加循环复合时，会有一个名为 <code>current_index</code> 的默认迭代计数器。您可以创建类型为 long 的其他迭代计数器。每次迭代时，每个计数器都会独立递增。</p>
+<p>默认情况下，迭代索引从 0 开始。通过连接复合外部的端口或在“参数编辑器”(Parameter Editor)中设置值，您可以将其初始化为非零值。但是，将其初始化为非零值不会影响循环执行的次数。</p>
+<h3 id="img-src-images-icon_iteration_limit-png-alt"><img src="../images/icon_iteration_limit.png" alt="迭代限制"> 迭代限制</h3><p>迭代限制适用于所有循环。它们限制循环执行的次数。</p>
+<p>当您向图表中添加循环复合时，会有一个名为 <code>max_iterations</code> 的默认迭代限制。您可以创建类型为 long 的其他迭代限制。</p>
+<p>在以下对象中，执行循环的实际次数为最低值：</p>
+<ul>
+<li>任何迭代限制端口的所有值。</li>
+<li>连接到迭代目标端口的任何数组输入的所有大小。</li>
+</ul>
+<h3 id="img-src-images-icon_iteration_target-png-alt"><img src="../images/icon_iteration_target.png" alt="迭代目标"> 迭代目标</h3><p>迭代目标适用于 <code>for_each</code> 和 <code>iterate</code> 循环。这些端口在复合的外部显示为数组，但是在复合的内部显示为单一值。复合会对数组的每个元素进行一次解算。</p>
+<p>请注意，如果较小的数组连接到不同的迭代目标，或者如果迭代限制具有较小的值，则迭代次数可能会更低。</p>
+<h3 id="img-src-images-icon_state_port-png-alt"><img src="../images/icon_state_port.png" alt="状态端口"> 状态端口</h3><p>状态端口适用于 <code>iterate</code> 和 <code>do_while</code> 循环。它们是匹配的输入和输出端口对，因此输出值用作下一次循环迭代的输入（而不是下一次执行复合）。需要使用上一次循环迭代的结果（例如，在循环运行时累加值）时，使用状态端口。</p>
+<p>当您创建状态端口时，必须指定其匹配端口。</p>
+<p>任何输入值或连接均被视为第一次迭代的初始值。</p>
+<h3 id="img-src-images-icon_looping_condition-png-alt"><img src="../images/icon_looping_condition.png" alt="循环条件"> 循环条件</h3><p><code>do_while</code> 循环中提供单个循环条件端口。此循环始终至少执行一次，由连接到循环条件的值决定是否再次执行此循环。</p>
+
+  <div class="related-links">
+      <div class="relinfo relchildren">
+        <strong>此部分中的页面</strong>
+        <ul class="ullinks">
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/work-with-programming-loops/Bifrost_Common_build_a_graph_work_with_programming_loops_create_an_iterate_loop_html.html">创建 iterate 循环</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/work-with-programming-loops/Bifrost_Common_build_a_graph_work_with_programming_loops_create_a_for_each_loop_html.html">创建 for_each 循环</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/work-with-programming-loops/Bifrost_Common_build_a_graph_work_with_programming_loops_create_a_do_while_loop_html.html">创建 do_while 循环</a>
+          </li>
+        </ul>
+      </div>
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/Bifrost_Common_build_a_graph_html.html">构建和修改图表</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

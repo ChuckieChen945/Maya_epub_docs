@@ -1,0 +1,133 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_build_a_graph_transforms_rigging_rigging_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>绑定(Rigging)</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>绑定(Rigging)</h1></div><p><img src="../images/centipede.png" alt="Bifrost 浏览器中提供的行走蜈蚣示例"></p>
+<p>Bifrost 包含一些基本工具，可帮助完成程序绑定任务。其核心是一个极简变换模型，由 <code>Core::Core::Transform</code> 数据类型及其相关节点实现。为了对它们的工作原理有一个基本的了解，请查看 Bifrost 浏览器中的<strong>“绑定”(Rigging)</strong>示例图表。</p>
+<h2 id="transform"><code>Transform</code> 类型</h2><p><code>Core::Core::Transform</code> 类型由一组 4×4 双精度矩阵组成，这些矩阵可以一起更新。</p>
+<p><img src="../images/transform_components.png" alt="变换中包含的矩阵"></p>
+<table>
+<thead>
+<tr>
+<th>矩阵</th>
+<th>描述</th>
+<th>公式<nbsp></nbsp><nbsp></nbsp><nbsp></nbsp><nbsp></nbsp><nbsp></nbsp><nbsp></nbsp><nbsp></nbsp><nbsp></nbsp><nbsp></nbsp><nbsp></nbsp><nbsp></nbsp></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>枢轴</td>
+<td>图表的世界空间中的静止姿势。这通常是静态值。</td>
+<td>P（直接输入）</td>
+</tr>
+<tr>
+<td>枢轴反转</td>
+<td>世界空间中静止姿势的反转。</td>
+<td>P<sup>-1</sup></td>
+</tr>
+<tr>
+<td>枢轴局部</td>
+<td>变换父对象的局部空间中的静止姿势。</td>
+<td>P<sub>L</sub> = P<sub>P</sub><sup>-1</sup> × P</td>
+</tr>
+<tr>
+<td>运算符</td>
+<td>对缩放、旋转和平移的累积更改。这通常是动画值。</td>
+<td>O（直接输入）</td>
+</tr>
+<tr>
+<td>移动局部</td>
+<td>应用于枢轴空间的运算符。例如，如果枢轴在 X 轴方向旋转 90 度，则 Y 轴上的运算符平移会导致 Z 轴上的移动平移。</td>
+<td>M<sub>L</sub> = P × O × P<sup>-1</sup></td>
+</tr>
+<tr>
+<td>移动世界</td>
+<td>由于所有运算符应用于层次中的变换而导致的世界空间变化。</td>
+<td>M<sub>W</sub> = M<sub>W<sub>P</sub></sub> × M<sub>L</sub></td>
+</tr>
+<tr>
+<td>局部</td>
+<td>父对象局部空间中的动画姿势。</td>
+<td>L = P<sub>L</sub> × O</td>
+</tr>
+<tr>
+<td>世界</td>
+<td>世界空间中的动画姿势。</td>
+<td>W = M<sub>W</sub> × P</td>
+</tr>
+</tbody></table>
+<p>除了 <code>pivot_matrix</code> 和 <code>operator_matrix</code> 输入之外，<code>compute_transform</code> 节点还需要从父对象的变换中提取的以下两个矩阵。这些矩阵不直接包含在变换的数据中。</p>
+<table>
+<thead>
+<tr>
+<th>矩阵</th>
+<th>描述</th>
+<th>公式<nbsp></nbsp><nbsp></nbsp><nbsp></nbsp><nbsp></nbsp><nbsp></nbsp><nbsp></nbsp><nbsp></nbsp><nbsp></nbsp><nbsp></nbsp><nbsp></nbsp><nbsp></nbsp></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>父枢轴反转</td>
+<td>父对象枢轴的反转。</td>
+<td>P<sub>P</sub><sup>-1</sup>（直接输入）</td>
+</tr>
+<tr>
+<td>父移动世界</td>
+<td>父变换的移动世界矩阵。</td>
+<td>M<sub>W<sub>P</sub></sub>（直接输入）</td>
+</tr>
+</tbody></table>
+<p>可以使用 <code>update_transform</code> 节点更新 <code>Transform</code> 值中的所有矩阵。您选择的更新方法决定是将输入解释为新的局部、世界、运算符还是枢轴矩阵。</p>
+<p>将 <code>Transform</code> 值输出到场景时，其成员矩阵可直接用于在场景图形中进行连接。您不需要单独提取和输出这些矩阵。</p>
+<p><img src="../images/transform_scene_output.png" alt="场景中的变换组件输出"></p>
+<p><code>Transform</code> 类型也可以自动升级为 <code>double4x4</code> 矩阵。这意味着，您可以将变换值直接插入到接受此类矩阵的端口，并且将使用世界矩阵值。</p>
+<h2 id="">矩阵和变换链</h2><p>链是一个由 4x4 矩阵或变换组成的数组，其中每个矩阵或变换被视为数组中下一个矩阵或变换的父对象。您可以使用 <code>compute_transform chain</code> 节点轻松地从匹配的枢轴和运算符矩阵数组创建变换链。<code>ik_fk_solver</code> 节点是一个解算器示例，可以对双骨骼链执行反向运动学。有关如何使用链的其他一些示例，请参见 Bifrost 浏览器的“绑定”(Rigging)类别中的 <code>resample_matrix_chain</code> 和 <code>compute_transform_chain</code> 图表。</p>
+<h2 id="">变换树和骨架</h2><p>变换树与链类似，都是变换的平面数组，但需要额外的 <code>parent_indices</code> 或 <code>joint_parent_index</code> 数组来定义树拓扑。父索引必须引用数组中的较早元素，或者在根关节或孤立关节的情况下，父索引必须等于 <code>invalid_index</code> 的输出。</p>
+<p>骨架是一个类似几何体的对象，由关节树组成。可以使用 <code>construct_skeleton</code> 从枢轴矩阵数组和相应的父索引数组创建骨架。或者，也可以使用 <code>create_skeleton_from_paths</code> 从由斜杠 (/) 分隔的字符串组成的数组构造骨架。</p>
+<p>要了解如何使用骨架，请查看 Bifrost 浏览器的“绑定”(Rigging)类别中的以下图表：</p>
+<ul>
+<li><code>dancing_skeleton</code></li>
+<li><code>maya_skeleton_to_bifrost</code></li>
+<li><code>usd_skeleton_animation</code></li>
+<li><code>usd_skeleton_skinning</code></li>
+<li><code>walking_centipede</code></li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_transforms_rigging_html.html">变换和绑定</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

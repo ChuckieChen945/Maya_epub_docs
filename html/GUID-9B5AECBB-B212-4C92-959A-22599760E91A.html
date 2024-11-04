@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-9B5AECBB-B212-4C92-959A-22599760E91A">
+<meta name="language" content="CHS">
+<title>Python 和线程</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>Python 和线程</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-2558"><p class="p" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__WS1A9193826455F5FF-29C43AA6117B273E5D1-647E"> Python 语言附带有内置线程支持。该功能在 Maya 中可用，但是存在 Python 开发人员需要注意的一些重要限制事项。 </p>
+<p class="p" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__WS1A9193826455F5FF-29C43AA6117B273E5D1-647C">Maya API 和 Maya 命令架构不是线程安全的架构。如果在主线程外调用 Maya 命令，它们会抛出一个异常，从主线程以外的线程中使用 OpenMaya API 时会产生无法预料的副效应。</p>
+<p class="p" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__WS1A9193826455F5FF-29C43AA6117B273E5D1-647B">尽管存在一些限制，Python 中的线程在 Maya 环境中仍具有很多潜在用途；例如，繁殖用于查看输入的套接字的线程。为了使 Python 线程的用途更为实用，我们为主线程外的其他线程提供了一种方法，用于在主线程中执行代码并等待结果。</p>
+<p class="p" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__WS1A9193826455F5FF-29C43AA6117B273E5D1-647A"><samp class="ph codeph" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__GUID-0EE54F07-2157-4C16-AAC2-16815604A90E">maya.utils.executeInMainThreadWithResult()</samp> 函数可以接受包含 Python 代码的字符串或 Python 可调用对象（例如函数）。如果是后者，<samp class="ph codeph" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__GUID-1262B5DA-5EC3-4AE7-82B8-1CCA34CC2809">executeInMainThreadWithResult()</samp> 也接受在其运行时传递给可调用对象的常规参数和关键字参数。</p>
+<p class="p" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__WS1A9193826455F5FF-29C43AA6117B273E5D1-6479">在下一个空闲事件期间，会在主线程中执行脚本或可调用对象。在主线程空闲并运行代码之前，调用 <samp class="ph codeph" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__GUID-CE848B8E-F0FE-4C76-A34A-6D3E2E78F016">executeInMainThreadWithResult()</samp> 的线程会阻塞。主线程执行完代码后，<samp class="ph codeph" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__GUID-D77CB14C-1709-4A0C-8EA7-EE9516B1144C">executeInMainThreadWithResult() </samp>会返回结果。如果 <samp class="ph codeph" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__GUID-61AFAB55-E34A-46E3-96E7-7C5E30BEBCC0">executeInMainThreadWithResult() </samp>是从主线程调用的，则它会立即运行代码并返回结果。</p>
+<p class="p" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__WS1A9193826455F5FF-29C43AA6117B273E5D1-6478">由于将使用空闲事件来实现 <samp class="ph codeph" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__GUID-30857D51-5B33-473B-B3ED-7B0B265B0477">executeInMainThreadWithResult()</samp>，因此无法在批处理模式下使用该函数。</p>
+<pre class="pre codeblock">
+import maya.utils import maya.cmds
+def doSphere( radius ):
+	maya.cmds.sphere( radius=radius )
+maya.utils.executeInMainThreadWithResult( doSphere, 5.0 )
+</pre>
+<div class="section" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__WS17956D7ADBC6E7362626226A117AE335D4A-7FF9"><h2 class="title sectiontitle">maya.utils</h2>
+
+<p class="p" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__WS1A9193826455F5FF-29C43AA6117B273E5D1-6477"> maya.utils 软件包中存储的是非特定于 API 或命令的实用程序例程。该模块在将来的版本中可能会扩展。</p>
+
+<p class="p" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__WS1A9193826455F5FF-29C43AA6117B273E5D1-6475">当前，maya.utils 软件包包含三个与线程相关的例程（有关 <samp class="ph codeph" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__GUID-5BAE101C-E336-4E72-BB17-A3882368D22B">executeInMainThreadWithResult</samp> 的详细信息，请参见上一节）。 </p>
+
+<p class="p" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__WS1A9193826455F5FF-29C43AA6117B273E5D1-6474">以下是 maya.utils 中的另外两个例程： </p>
+
+<ul class="ul" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__WS1A9193826455F5FF-29C43AA6117B273E5D1-6473"><li class="li" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__WS1A9193826455F5FF-29C43AA6117B273E5D1-6472"> <samp class="ph codeph" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__GUID-8105733B-98F5-487A-A4A4-651AB4A22D2C">maya.utils.processIdleEvents()</samp>。它主要用于测试：强制处理任何排队等待的空闲事件。 </li>
+<li class="li" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__WS1A9193826455F5FF-29C43AA6117B273E5D1-6471"> <samp class="ph codeph" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__GUID-F9E324ED-F46F-413A-B1D3-59A2B6EA0AB3">maya.utils.executeDeferred()</samp>。 <p class="p" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__WS1A9193826455F5FF-29C43AA6117B273E5D1-6470">（类似于 <samp class="ph codeph" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__GUID-7B883665-BB3B-41CD-A937-BD46A6C96EDA">maya.utils.executeInMainThreadWithResult()</samp>，只是它不等待返回值。）它会延迟执行给定脚本或函数，直到 Maya 处于空闲状态。该函数使用空闲事件循环运行代码。这意味着在执行该 Python 代码之前，主线程必须处于空闲状态。</p>
+<p class="p" id="GUID-9B5AECBB-B212-4C92-959A-22599760E91A__WS1A9193826455F5FF-29C43AA6117B273E5D1-646F">有两种不同的方法可以调用该函数。第一种方法是提供包含要执行的 Python 代码的单个字符串参数。在这种情况下，会解释代码。第二种方法是通过将该例程传递给可调用对象来调用它。如果是这种情况，则其余的常规参数和关键字参数也会传递给可调用对象。</p>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-703B18A2-89E5-48A8-988A-1ED815D5566F.htm">Python</a></div>
+</div>
+</div>
+
+</body>
+</html>

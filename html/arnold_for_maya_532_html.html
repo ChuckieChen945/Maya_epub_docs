@@ -1,0 +1,179 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_532_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_532">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 5.3.2 - Arnold for Maya">
+
+<title>5.3.2</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+<div class="head-block"><h1>5.3.2</h1></div><p>7 June 2023</p>
+<p>MtoA 5.3.2 introduces Arnold 7.2.2.0. See also the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_530_html">MtoA 5.3.0 release notes</a>.</p>
+<h2 id="installation">Installation</h2><ul>
+<li><a href="https://manage.autodesk.com/products/MAYA" target="_blank">Download</a> the Arnold for Maya plugin</li>
+<li>Follow these installation instructions.</li>
+</ul>
+<h2 id="enhancements">Enhancements</h2><ul>
+<li><p><strong>Improved interactivity when modifying large scenes</strong>: Arnold 7.2.2 improves the responsiveness of the renderer when modifying large scenes interactively. When editing lights or shaders in scenes with millions of instances, the time to first pixel is nearly instantaneous instead of having to wait multiple seconds. For example, this change improves interactivity greatly when rendering scenes using the point instancer in USD. Modifying nodes during an interactive session now usually results in an update of just the modified node, not of all nodes. In scenes with many nodes, this can substantially speed up interactive node updates. In case of missing updates, you can disable this feature by setting <code>options.enable_fast_ipr</code> to <code>false</code>. An Arnold cache flush can also be used to trigger all nodes to update again. (ARNOLD-4873)</p>
+</li>
+<li><p><strong>Improved global light sampling performance</strong>: The efficiency of global light sampling with indirect lighting has been improved in many cases. See the global light sampling documentation for more details. (ARNOLD-13381)</p>
+</li>
+</ul>
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/gls8.png" alt=""></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li><strong>Reduced numerical precision differences across CPU vendors</strong>: While images rendered on Intel, AMD, and Apple CPUs were already often perceptually equivalent, we have removed more precision-related differences so that even more results are now perceptually identical. (ARNOLD-5211)</li>
+<li><strong>Reduced noise from mesh lights in volumes</strong>: The amount of noise in volumes when using a mesh light with very small triangles is now much reduced. (ARNOLD-11880)</li>
+</ul>
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/7.2.1.1_mesh_light-atmosphere_volume.jpg" alt=""></td>
+<td><img src="../images/7.2.2_mesh_light-atmosphere_volume.jpg" alt=""></td>
+</tr>
+<tr>
+<td>7.2.1.1</td>
+<td>7.2.2</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li><p><strong>Specify which AOV to show in kick display</strong>: A new kick flag <code>-aov</code> selects the AOV to show in the kick display window. (ARNOLD-13360)</p>
+</li>
+<li><p><strong>OCIO color manager handles better missing configs</strong>: If the OCIO color_manager is not given a config filename and the OCIO environment variable is not defined, Arnold will now use the builtin config. Previously it would fail with a warning and not apply any color conversions. (ARNOLD-11565)</p>
+</li>
+<li><p><strong>Per shape autobump SSS visibility</strong>: You can now control whether autobump is visible on SSS for specific shapes,  instead of relying on the global control, just as you can for the other autobump visibility controls. This setting has subtle effects and can increase rendering times, so enabling it only where it matters will help optimize scenes. (ARNOLD-12989)</p>
+</li>
+<li><p><strong>Update CER</strong>: The Customer Error Reporting (CER) library is updated to v6.2.3. (ARNOLD-13510)</p>
+</li>
+</ul>
+<h2 id="usd-enhancements">USD Enhancements</h2><ul>
+<li><strong>Load 3rd party MaterialX node definitions</strong>: It is now possible to render MaterialX nodes defined in third-party node definitions using the <code>ARNOLD_MATERIALX_NODE_DEFINITIONS</code> environment variable. (ARNOLD-13398)</li>
+<li><strong>Estimated render time in the Render Delegate</strong>: Add Arnold render status and estimated render time to viewport annotation. <a href="https://github.com/Autodesk/arnold-usd/issues/1492" target="_blank">usd#1492</a> - </li>
+<li><strong>Camera filters</strong>: Add support for camera filtermap and uv_remap. <a href="https://github.com/Autodesk/arnold-usd/issues/1499" target="_blank">usd#1499</a></li>
+<li><strong>Deterministic USD prototype names</strong>: This change forces USD to generate non-random prototype names for instances when using the <code>USD_ASSIGN_PROTOTYPES_DETERMINISTICALLY</code> environment variable. This addresses frame stability issues when using Cryptomatte. (ARNOLD-13349)</li>
+<li><strong>Material scope</strong>: Add a Mtl scope for materials when authoring usd file.  <a href="https://github.com/Autodesk/arnold-usd/issues/1486" target="_blank">usd#1486</a></li>
+<li><strong>Subsurface ray visibility</strong>: Add <code>AI_RAY_SUBSURFACE</code> visibility flag support in the render delegate and procedural. <a href="https://github.com/Autodesk/arnold-usd/issues/1529" target="_blank">usd#1529</a></li>
+</ul>
+<h2 id="api-additions">API Additions</h2><ul>
+<li><strong>AiMallocUsableSize()</strong>: <code>AiMallocUsableSize()</code> returns how much memory a pointer returned by <code>AiMalloc()</code> is using. This is helpful when paired with <code>AiAddMemUsage()</code> for tracking memory allocation and deallocations. (ARNOLD-13354)</li>
+<li><strong>Per-object subsurface autobump visibility</strong>: The per-object <code>autobump_visibility</code> flag <code>AI_RAY_SUBSURFACE</code> now toggles the appearance of autobump normal perturbations in subsurface scattering effects. (ARNOLD-12989)</li>
+<li><strong>Support ARNOLD_MATERIALX_NODE_DEFINITIONS in AiMaterialxGetOslShaderCode</strong>: The <code>AiMaterialxGetOslShaderCode</code> function will now respect the value of the ARNOLD_MATERIALX_NODE_DEFINITIONS environment variable, and also supports an optional <code>MATERIALX_SEARCH_PATH</code> argument to load 3rd part MaterialX node definitions. (ARNOLD-13398)</li>
+<li><strong>Forcing node updates</strong>: To force a specific <code>AtNode</code> type to be always updated, you can set the boolean metadata <code>force_update</code> to <code>true</code> on the node :  <code>AiMetaDataSetBool(node_entry, nullptr, "force_update", true);</code> (ARNOLD-4873)</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible changes</h2><ul>
+<li><strong>Deprecated sss_use_autobump</strong>: The <code>sss_use_autobump</code> global option is now deprecated in favor of the per-object <code>autobump_visibility</code> flag. While the global option still works, it now prints a warning when used, and will eventually be removed. (ARNOLD-12989)</li>
+</ul>
+<h2 id="bug-fixes">Bug Fixes</h2><ul>
+<li>MTOA-1362 Export to USD with parent scope duplicates namespace</li>
+<li>MTOA-1396 aiSetParameter.enableAssignment set to a default value ignored during batch renders</li>
+<li>MTOA-1415 Node initialization for instancer takes forever in Arnold RenderView</li>
+<li>ARNOLD-11789 - AiAOVSampleIteratorGetInvDensity for non-adaptive renders was always 1</li>
+<li>ARNOLD-11880 - Bright pixel artifacts in atmosphere_volume when using a mesh light with very small triangles</li>
+<li>ARNOLD-11888 - OIDN doesn't work if noice denoising AOVs are also output</li>
+<li>ARNOLD-11900 - AOV samples memory stats report negative value and large unaccounted memory</li>
+<li>ARNOLD-12774 - Support multipart scanline EXRs</li>
+<li>ARNOLD-13346 - Set_transform in append mode only considers the first matrix key</li>
+<li>ARNOLD-13376 - Crash when modifying a mesh referenced by an instancer node</li>
+<li>ARNOLD-13460 - Strip _forced_box_filter from .ass export</li>
+<li>ARNOLD-13463 - UDIM tiles greater than 1009 do not render with MaterialX image nodes</li>
+<li>ARNOLD-13495 - Hang when reading corrupt .ass file</li>
+<li>ARNOLD-13511 - RLM_DEBUG env var prints weird characters</li>
+<li>ARNOLD-13512 - Incorrect values in Arnold MaterialX Node Definitions</li>
+<li>ARNOLD-13523 - Fix slowdown when using big arrays of nodes with the dependency graph enabled</li>
+<li>ARNOLD-13539 - Log messages from AiScene API incorrectly reference "[ass]" when .ass file are not used</li>
+<li>ARNOLD-13550 - Quad light sometimes produces NaN artifacts</li>
+<li>ARNOLD-13615 - AutoTX occasionally uses wrong colorspace</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1502" target="_blank">usd#1502</a> - Render delegate crashes with empty arrays</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1522" target="_blank">usd#1522</a> - Support <code>UsdPrimvarReader_float2</code> shader returning the <code>st</code> variable</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1530" target="_blank">usd#1530</a> - Fix a crash when a user primvars has an empty array on a keyframe</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2><ul>
+<li>Maya 2022, 2023 or 2024</li>
+<li>Windows 10 or later, with the Visual Studio 2019 redistributable.</li>
+<li>Linux with at least glibc 2.17 and libstdc++ 4.8.5 (gcc 4.8.5). This is equivalent to RHEL/CentOS 7.</li>
+<li>x86-64 CPUs need to support the SSE4.1 instruction set. </li>
+<li>macOS 10.13 or later, macOS 11 and later for Maya 2024</li>
+<li>Apple Mac models with M series chips:<ul>
+<li>Natively supported by Arnold for Maya 2024</li>
+<li>Supported under Rosetta 2 mode for older versions of Maya</li>
+</ul>
+</li>
+<li>GPU rendering works on Windows and Linux only and requires an NVIDIA GPU of the Ada, Ampere, Turing, Volta, Pascal, or Maxwell architecture. We recommend using the <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">525.89 or higher drivers</a> on Linux and <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">528.49, or higher</a> on Windows. See  Arnold GPU for more information.</li>
+<li>For GPU rendering, the cache also needs to be re-populated after installing a new Arnold version, <strong>updating to a new NVIDIA driver</strong>, or changing the hardware configuration of GPUs on the system. More information can be found here.</li>
+<li>Optix™ denoiser requires an NVidia GPU with <a href="https://developer.nvidia.com/cuda-gpus" target="_blank">CUDA™ Compute Capability 5.0</a> and above.</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_5x_html.html">MtoA 5.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

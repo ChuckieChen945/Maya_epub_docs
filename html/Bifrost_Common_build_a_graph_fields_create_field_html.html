@@ -1,0 +1,64 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_build_a_graph_fields_create_field_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>创建场</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>创建场</h1></div><p>有多个节点可创建基本场，然后可以将其与其他场组合以实现复杂的效果。</p>
+<h2 id="">位置场</h2><p>虽然对场进行采样始终涉及在位置对其解算，但有时还需要显式使用该位置来定义场的公式。为此，可以使用 <code>position_field</code> 节点获取位置值，然后使用 <code>vector3_to_scalar</code> 获取成分 X、Y 和 Z 值（如有必要）。</p>
+<p>例如，公式 √(x² + y² + z²) 可以得出从任何位置到原点的距离。</p>
+<p><img src="../images/field-distance-to-origin.png" alt="到原点的距离作为场"></p>
+<h2 id="">常量场</h2><p>当公式中需要简单值（例如 2.5x²）时，常量场很有用。</p>
+<ul>
+<li><code>to_field</code> 节点是一个方便的复合，具有多个过载，允许您根据需要将许多不同的类型转化为标量场或向量场。</li>
+<li><code>scalar_field</code> 节点可专门用于将单个 <code>float</code> 值转化为标量场。</li>
+<li><code>vector_field</code> 节点可专门用于将单个 <code>float3</code> 值转化为向量场。</li>
+</ul>
+<h2 id="">基本形状</h2><p><code>plane_field</code> 和 <code>sphere_field</code> 节点可用于创建表示平面和球体的有符号距离场。</p>
+<p>此外，<code>superquadric_shape_field</code> 节点创建的形状范围从具有凹侧边的尖角八面体，到具有凸侧边的凸出八面体和球体，再到具有圆角的长方体，具体取决于其输入值。但是，请注意，结果不是有符号距离场，而只是一个等值面，其中场值 0 表示曲面。</p>
+<h2 id="">噪波场</h2><p>有多个噪波场可供选择：</p>
+<ul>
+<li><code>simplex_noise_field</code> 创建一个基本的标量噪波场，其值介于 –1 和 1 之间。使用 <code>time</code> 输入可获取随时间逐渐变化的噪波场。</li>
+<li><code>fractal_noise_field</code> 创建一个由单一噪波的多个频率组成的更复杂的标量噪波场。</li>
+<li><code>curl_noise_field</code> 创建一个无散度的向量噪波场。无散度噪波对不可压缩的流体很有用，因为没有汇流消失的汇点，也没有汇流的来源。</li>
+<li><code>fractal_turbulence_field</code> 创建一个由卷曲噪波的多个频率组成的复杂向量噪波场。</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_fields_html.html">使用场</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

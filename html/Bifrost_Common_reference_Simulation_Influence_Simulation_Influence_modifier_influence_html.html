@@ -1,0 +1,62 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_Influence_Simulation_Influence_modifier_influence_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>modifier_influence</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>modifier_influence</code></h1></div><p>modifier_influence 可用于对模拟特性（如 <code>voxel_density</code>、<code>point_velocity</code> 或 <code>point_size</code>）的值进行替换、相加、相乘运算或对其进行钳制。</p>
+<p>要使用此节点，请将其输出插入模拟节点（如 <code>simulate_aero</code>、<code>simulate_particles</code> 或 <code>simulate_mpm</code>）的 <code>influences</code> 输入。</p>
+<h2 id="">输入</h2><h3 id="influence"><code>influence</code></h3><p>可以选择将影响场 <code>out_influence</code> 连接到此端口。例如，可以连接 <code>mask_influence</code> 节点以遮罩此影响的效果。可以将任意数量的影响场呈菊花链状连接在一起，以构建复杂的场。</p>
+<h3 id="enable"><code>enable</code></h3><p>关闭此项可禁用效果。如果禁用，将使其成为穿过节点。请注意，禁用此项后，连接到影响输入端口的任何其他影响场仍将处于活动状态。</p>
+<h3 id="property"><code>property</code></h3><p>要修改的模拟特性的名称。</p>
+<h3 id="operation"><code>operation</code></h3><p>要应用于指定模拟特性的数学运算，使用以下指定值：</p>
+<ul>
+<li><code>Replace</code>：将当前值替换为指定的 <code>value</code></li>
+<li><code>Multiply</code>：将当前值与 <code>value</code> 相乘</li>
+<li><code>Add</code>：将 <code>value</code> 与当前值相加。</li>
+</ul>
+<h3 id="value"><code>value</code></h3><p>此项为要替换、相乘或相加的值。通常，应该与特性具有相同的类型，但可以将 float3 特性（如 point_velocity）与一个简单的浮点值相乘，从而加快速度。</p>
+<h3 id="rate"><code>rate</code></h3><p>此项为运算应用的速度。例如，除非速率非常高，否则替换不会立即将模拟设置为 <code>value</code>。可以连接一个 <code>ScalarField</code> 以改变空间上的效果。</p>
+<h3 id="enable_clamp"><code>enable_clamp</code></h3><p>如果启用此项，则定义特性的值将被钳制在指定的 <code>min</code> 和 <code>max</code> 值范围内。钳制不使用速率，而是立即钳制值，即使速率为 0 也是如此。要仅进行钳制而不进行数学运算，可以将速率设置为零。钳制当前仅适用于 float 和 float3 特性。对于 float 特性，可以使用 float 或 scalarField 类型对 min 和 max 进行钳制。对于 float3 特性，min 和 max 应为 float3 或 vectorField。</p>
+<h3 id="min"><code>min</code></h3><p>要钳制到的最小值（仅当 enable_clamp 处于启用状态时才有效果）。可以是 float、float3、scalarField 或 vectorField。</p>
+<h3 id="max"><code>max</code></h3><p>要钳制到的最大值（仅当 enable_clamp 处于启用状态时才有效果）。可以是 float、float3、scalarField 或 vectorField。</p>
+<h2 id="">输出</h2><h3 id="out_influence"><code>out_influence</code></h3><p>可以连接到模拟节点或其他影响节点的输出影响对象。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_Influence_html.html">Influence</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

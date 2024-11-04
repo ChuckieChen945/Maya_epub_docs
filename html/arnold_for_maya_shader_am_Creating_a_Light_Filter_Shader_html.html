@@ -1,0 +1,150 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shader_am_Creating_a_Light_Filter_Shader_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_CREATING_A_LIGHT_FILTER_SHADER">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 创建灯光过滤器着色器 - Arnold for Maya">
+
+<title>创建灯光过滤器着色器</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+      <script src="../scripts/lang-python.js"></script>
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+<div class="head-block"><h1>创建灯光过滤器着色器</h1></div><p>要创建此着色器，像先前一样，您将需要一个源代码文件、一个加载器、一个元数据和一个模板。我们将在此处对它们进行介绍。</p>
+<h3 id="">创建着色器</h3><p>我们可以将灯光过滤器着色器添加到之前在前面部分中创建的着色器加载器：</p>
+<p>首先，创建着色器：</p>
+<p><strong>simpleLightFilter.cpp</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#include &lt;ai.h&gt;
+
+
+AI_SHADER_NODE_EXPORT_METHODS(SimpleLightFilterMtd);
+
+
+enum simpleLightFilterParams {
+    p_intensity
+};
+
+
+    node_parameters
+{
+    AiParameterFlt("Intensity", 0.0f);
+}
+
+node_initialize
+{
+}
+
+node_update
+{
+}
+
+node_finish
+{
+}
+
+shader_evaluate
+{
+    // test if we are running as a light filter
+    if (sg-&gt;light_filter)
+    {
+       float intensity = AiShaderEvalParamFlt(p_intensity);
+          sg-&gt;light_filter-&gt;Liu = sg-&gt;light_filter-&gt;Liu*intensity;
+    }
+} </code></pre>
+<p>现在，要将着色器添加到加载器，您只需将此代码添加到<a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Technical/am-Creating_an_Arnold_Shader_for_Maya/arnold_for_maya_shader_am_Adding_Parameters_html.html">前面部分</a>中的先前 <code>loader.cpp</code> 文件：</p>
+<p><strong>loader.cpp</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">...
+extern AtNodeMethods* SimpleLightFilterMtd;
+
+
+enum{
+    SHADER_1 = 0,
+    SHADER_2,
+    PARAMETERS_SHADER,
+    SIMPLE_LIGHT_FILTER
+};
+...
+
+
+    case SIMPLE_LIGHT_FILTER:
+        node-&gt;methods        = SimpleLightFilterMtd;
+        node-&gt;output_type     = AI_TYPE_RGB;
+        node-&gt;name            = "simpleLightFilter";
+        node-&gt;node_type     = AI_NODE_SHADER;
+        break;
+... </code></pre>
+<p>您将能够按照前面部分所述再次编译灯光过滤器和加载器，确保 Arnold 可以正确加载着色器，并将已编译的着色器复制到正确的文件夹（就像法线着色器），以便 Maya 可以使用它。</p>
+<h3 id="maya">将灯光过滤器集成到 Maya 中</h3><p>要将灯光过滤器集成到 Maya 中，我们需要如前面部分中一样向元数据文件中添加额外的信息，并创建一个模板脚本。</p>
+<h2 id="">添加灯光过滤器元数据信息</h2><p>要添加元数据信息，您只需将其添加到在前面部分中创建的 loader.mtd 文件，其中此文件与已编译着色器文件位于同一文件夹中。</p>
+<p><strong>loader.mtd</strong></p>
+<pre class="pre codeblock"><code class="prettyprint"> [node simplyLightFilter]
+    maya.name             STRING    "aiSimplyLightFilter"
+    maya.id             INT         0x00070004
+    maya.classification STRING     "light/filter"
+    maya.lights         STRING     "pointLight spotLight"
+
+    [attr Intensity]
+        maya.name         STRING     "lightIntensity"
+        softmin         FLOAT     0
+        softmax         FLOAT     10
+        default         FLOAT     1 </code></pre><p>在这里，需要将 maya.classification 设置为“light/filter”，这一点非常重要。此外，还可以将 maya.lights 设置为一个字符串，其中包含可使用此灯光过滤器的所有灯光（如 ambientLight、directionalLight、pointLight、spotLight、areaLight 或 aiAreaLight）。</p>
+<h2 id="maya">添加 Maya 模板</h2><p>如前面部分中所述，我们可以使用与法线着色器相同的方式为此灯光过滤器创建一个简单模板。无论如何，我们应避免某些对灯光过滤器没有任何意义的命令：</p>
+<p><strong>aiSimpleLightFilterTemplate.py</strong></p>
+<pre class="pre codeblock"><code class="lang-python prettyprint">import maya.mel
+from mtoa.ui.ae.shaderTemplate import ShaderAETemplate
+
+class AEaiSimpleLightFilterTemplate(ShaderAETemplate):
+    def setup(self):
+        self.beginScrollLayout()
+
+        self.beginLayout("Parameters", collapse=False)
+        self.addControl('lightIntensity', label="Light Intensity")
+
+        self.endLayout()
+
+        maya.mel.eval('AEdependNodeTemplate '+self.nodeName)
+        self.addExtraControls()
+        self.endScrollLayout() </code></pre>
+<p>现在，当您创建此灯光过滤器接受的一种灯光时，可以在灯光的“Arnold”部分的“灯光过滤器”(Light Filters)部分中添加此灯光过滤器：</p>
+<p><img src="../images/am-Creating_a_Light_Filter_Shader-LightFiltersMenu-1.png" alt="">  </p>
+<p><sub><strong>图 7：“灯光过滤器”(Light Filters)菜单</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Technical/arnold_for_maya_technical_am_Creating_an_Arnold_Shader_for_Maya_html.html">为 Maya 创建 Arnold 着色器</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

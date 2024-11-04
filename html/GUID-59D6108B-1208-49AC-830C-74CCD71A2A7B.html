@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B">
+<meta name="language" content="CHS">
+<title>创建 nCloth 碰撞</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>创建 nCloth 碰撞</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-2312"><p class="p" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__GUID-FC68586D-480F-4B8C-89A7-44B1F8DF85B9">在开始之前，请考虑以下事项： </p>
+<ul class="ul" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__WS1A9193826455F5FF6026605B1181C8F4F2E-25CE"><li class="li" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__WS1A9193826455F5FF6026605B1181C8F4F2E-25CD">在 Nucleus<span class="ph uicontrol" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__GUID-9A5F7EB9-4D41-43EA-B47B-0B4246A64AA7">“属性编辑器”(Attribute Editor)</span>选项卡中启用<span class="ph uicontrol" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__GUID-3AD88C24-2124-404B-89D2-DA3727CF8E3D">“使用平面”(Use Plane)</span>可以为 nCloth 启用地板碰撞。 </li>
+<li class="li" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__WS1A9193826455F5FF6026605B1181C8F4F2E-25CC">在模拟过程中，Maya 会降低对象的相对<span class="ph uicontrol" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__GUID-F8FA5C94-AEEE-449D-849B-922E7322115B">“碰撞厚度”(Collision Thickness)</span>（<samp class="ph codeph" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__GUID-E4C62304-6D12-4C91-AAE1-4B1336893050">nClothShape</samp> 节点），以便它们不会在开始帧重叠。这样可以避免在开始帧突然弹出，但在某些情况下，这可能导致摩擦力增加。在场景视图中无法看到厚度减小的效果。若要避免这种情况，可对开始状态进行建模，使具有厚度的曲面不发生重叠。此外，可以使用<span class="ph menucascade" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__GUID-61F33BB8-467C-449F-A2C5-59D1887582F9"><span class="ph uicontrol" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__GUID-C746C22A-58ED-44EE-BFA0-816A9F36D4C1">“字段/解算器</span> &gt; <span class="ph uicontrol" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__GUID-ACA224F6-2A58-40E6-8E70-91FDA64DF4D4">初始状态</span> &gt; <span class="ph uicontrol" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__GUID-E70446F4-EB8F-4929-9862-EE3A115B98C3"> 解决穿透”(Fields/Solvers &gt; Initial State &gt; Resolve Interpenetration)</span></span>。 </li>
+</ul>
+<p class="p" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__WS1A9193826455F5FF6026605B1181C8F4F2E-25CB">请参见 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-BABBD1CE-C82C-4EDB-BBF6-4C0EBC854DAA">nDynamic 碰撞</a>。 </p>
+<p class="li listintro" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__WS1A9193826455F5FF6026605B1181C8F4F2E-25C9">创建 nCloth 碰撞对象</p>
+<ol class="ol" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__WS1A9193826455F5FF6026605B1181C8F4F2E-25CA"><li class="li" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__WS1A9193826455F5FF6026605B1181C8F4F2E-25C8">在场景视图中，选择要生成 nCloth 被动对象的多边形网格。 </li>
+<li class="li" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__WS1A9193826455F5FF6026605B1181C8F4F2E-25C7">选择要为其创建被动对象的 nCloth。 </li>
+<li class="li" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__WS1A9193826455F5FF6026605B1181C8F4F2E-25C6">在 <span class="ph uicontrol" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__GUID-A9EFAC3D-1289-4534-8C01-B761A3E932F6">FX</span> 菜单集中，选择<span class="ph menucascade" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__GUID-5A6647D2-C37E-472B-BA58-E832642033CF"><span class="ph uicontrol" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__GUID-7BA44B0D-B5EC-435D-AA91-40D28D9AB559">“nCloth</span> &gt; <span class="ph uicontrol" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__GUID-957B7A74-F6C8-4EB3-9C8F-1E4340473D9C">创建被动碰撞对象”(nCloth &gt; Create Passive Collider)</span></span>。 <p class="p" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__WS1A9193826455F5FF6026605B1181C8F4F2E-25C5">所创建的多边形网格成为所选 nCloth 的一个碰撞对象或被动对象。被动对象通过 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Nodes/nRigid.html" target="_blank">nRigid</a> 节点连接到 nCloth 的 Maya Nucleus 解算器。 </p>
+ </li>
+</ol>
+<div class="section" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__SECTION_2AD389B9C5974B7AA75BC30A72D2D6DF"><h2 class="title sectiontitle">相关主题</h2>
+
+<ul class="ul" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__UL_842035254C46474D9548E0882F79277A"><li class="li" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__LI_C2449EA0373B4EB9B3ADA92C05561192">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-E292CC4A-1B3C-4280-A1B9-79DF0010C296.htm">编辑 nCloth 碰撞</a>
+</li>
+<li class="li" id="GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B__LI_1AB72D647A5947ED90F6CD8FDE5B9E4D">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-6BF99673-E935-48ED-B371-C62EFD380F1B.htm">提高 nCloth 碰撞质量</a>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-6A645A7C-1583-476D-86EA-B56E317B8D6F.htm">创建和编辑 nCloth</a></div>
+</div>
+</div>
+
+</body>
+</html>

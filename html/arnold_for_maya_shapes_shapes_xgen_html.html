@@ -1,0 +1,174 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shapes_shapes_xgen_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="SHAPES_XGEN">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" XGen - Arnold for Maya">
+
+<title>XGen</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>XGen</h1></div><img src="../images/image2013-11-28-8-24-41.jpg" width="400px">
+
+
+
+<p><sub><strong>使用 XGen 渲染的头发（图片来源：<a class="external-link" href="http://subdivme.com/" rel="nofollow" target="_blank">Jonas Tornqvist</a>）。</strong></sub></p>
+<p>MtoA 支持 Maya 的 XGen。XGen 是一种强大的几何体实例化工具。目前将 XGen 与 MtoA 结合使用时存在一些限制。如下所述：</p>
+<ul>
+<li><p>不支持基本体类型“卡片”(Card)。</p>
+</li>
+<li><p>确保在 XGen 插件之前加载 MtoA 插件，否则 Arnold 不会显示在<strong>“渲染器”(Renderer)</strong>列表中。</p>
+</li>
+<li><p>如果 XGen 样条线与 Arnold <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_rendering_am_Arnold_RenderView_Window_html">渲染视图</a>窗口中的视口匹配，请务必先保存场景。    </p>
+</li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关使用 XGen 的教程，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_tutorials_am_XGen_Tutorials_html">此处</a>。有关如何使用 XGen 渲染 .ass 文件的信息，请单击<a href="">此处</a>。</p>
+
+</div></div>
+
+<h2 id="arnold">Arnold 输出设置</h2><p>显示 Arnold 输出设置：</p>
+<ol>
+<li>在 XGen 编辑器中，转到<strong>“预览/输出”(Preview/Output)</strong>选项卡。</li>
+<li>在<strong>“输出设置”(Output Settings)</strong>部分中，选择<strong>“渲染器”(Renderer)</strong>列表中的<strong>“Arnold 渲染器”(Arnold Renderer)</strong>。</li>
+</ol>
+<p><img src="../images/xgen_arnold_output_settings.jpg" alt=""></p>
+<h2 id="arnold-arnold-settings">Arnold 设置(Arnold Settings)</h2><h3 id="render-mode">渲染模式(Render Mode)</h3><p><strong>“实时”(Live)</strong>允许 XGen 直接从 Maya 查询面片和导向动画。此模式不支持运动模糊，并将尝试重用预览生成的信息。</p>
+<p><strong>“批渲染”(Batch Render)</strong>模式将始终从文件读取几何体和动画。执行批渲染时，将始终启用批渲染模式。必须先将面片和导向动画导出到缓存。使用此模式可确保在执行批渲染前正确导出缓存。</p>
+<h3 id="tools">工具(Tools)</h3><p>将默认 Arnold XGen 头发着色器应用于当前描述。该着色器受 XGen 自定义着色器参数 <strong>root_color</strong>、<strong>tip_color</strong> 和 <strong>back_color</strong> 影响。</p>
+<h2 id="arnold-arnold-curve-settings">Arnold 曲线设置(Arnold Curve Settings)</h2><p><strong>最小像素宽度(Min Pixel Width)</strong> - Arnold 的最小曲线像素宽度。在<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Curves_html#Curves-Min.PixelWidth">此处</a>查看详细信息。</p>
+<p><strong>模式(Mode)</strong> - 曲线基本体可以渲染为<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Curves_html">带状或有厚度模式</a>。要获得不朝向摄影机的“定向”样条线，必须禁用“XGen 基本体”(XGen Primitives)选项卡中的<strong>“朝向摄影机”(Face Camera)</strong>。</p>
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/thick.jpg" alt=""></td>
+<td><img src="../images/ribbon.jpg" alt=""></td>
+<td><img src="../images/oriented.jpg" alt=""></td>
+</tr>
+<tr>
+<td>有厚度</td>
+<td>带状</td>
+<td>定向</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<h2 id="arnold-arnold-motion-blur-settings">Arnold 运动模糊设置(Arnold Motion Blur Settings)</h2><p>在以下选项之间进行选择：<strong>“全局设置”(Global Settings)</strong>（使用 MtoA <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Motion_Blur_html">运动模糊</a>渲染设置）、<strong>“启用”(On)</strong>或<strong>“禁用”(Off)</strong>。</p>
+<p><strong>运动模糊和样条线</strong></p>
+<p>使用 XGen 样条线渲染运动模糊时，必须采用以下步骤，这一点非常重要。</p>
+<ul>
+<li>确保已保存场景。</li>
+<li>选择几何体和 XGen 描述之后，转到“文件 &gt; 导出面片以进行批渲染”(File &gt; Export Patches for Batch render)。</li>
+<li>在 XGen 描述或“渲染设置”(Render Settings)中，启用“运动模糊”(Motion Blur)（请记住在“XGen 描述”(XGen Description)中选择<strong>“全局设置”(Global settings)</strong>）。</li>
+<li>再次保存场景。</li>
+</ul>
+<h2 id="arnold-arnold-advanced-settings">Arnold 高级设置(Arnold Advanced Settings)</h2><p>使用<em>“导出面片以进行批渲染”(Export Patches for Batch render)</em>时，XGen 将创建一个 .abc 文件，该文件与场景存储在同一文件夹中。<em>“使用辅助渲染面片”(Use Aux Render Patch)</em>允许您显式选择要使用的文件，例如，先前导出的 .abc 文件。</p>
+<h3 id="use-aux-render-patch">使用辅助渲染面片(Use Aux Render Patch)</h3><p>启用/禁用“辅助渲染面片”(Auxiliary Render Patch)。</p>
+<h3 id="auxiliary-render-patch">辅助渲染面片(Auxiliary Render Patch)</h3><p>用于导出的 .abc 文件的文件路径。</p>
+<h2 id="spline-opacity">样条线不透明度(Spline Opacity)</h2><p>要更改 XGen 样条线的“不透明度”(Opacity)，您必须先选择 XGen 描述，然后在属性编辑器的“附加属性”(Extra Attributes)中禁用“Ai 不透明”(Ai Opaque)。</p>
+<p><img src="../images/image2014-9-4-16_32_14.png" alt=""></p>
+<h2 id="spline-color">样条线颜色(Spline Color)</h2><p>要从 XGen 样条线获取颜色信息（例如，在 <a href="https://knowledge.autodesk.com/zh-hans/support/maya/learn-explore/caas/CloudHelp/cloudhelp/2016/CHS/Maya/files/GUID-32DAA595-96A4-4CD2-A85C-E98982114313-htm.html" target="_blank">XGen 预设</a>中找到的信息），您需要添加以下步骤。</p>
+<ul>
+<li>要下载演示此过程的场景，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/xgen-color-user-guide.zip" target="_blank">此处</a>。</li>
+</ul>
+<ol>
+<li>转到 XGen 窗口（“预览/输出”(Preview/Output)选项卡）并记录自定义着色器参数名称。</li>
+</ol>
+<p><img src="../images/image2015-11-17-10_11_35.png" alt=""></p>
+<ol start="2">
+<li><p>将着色器指定给 XGen 描述。</p>
+</li>
+<li><p>将 <strong><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shaders_userdata_html">aiUserDataColor</a></strong> 着色器连接到要使用的着色器的颜色属性（例如，根颜色）。</p>
+</li>
+</ol>
+<p><img src="../images/image2015-11-17-10_22_38.png" alt=""></p>
+<p><sub><strong>aiUserDataColor 着色器连接到 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Hair_html">standard_hair</a> 属性</strong></sub></p>
+<ol start="4">
+<li>将该属性的名称添加到 aiUserDataColor 着色器的<strong>“颜色属性名称”(Color Attr Name)</strong>属性。在本例中为<strong>“root_color”</strong>。</li>
+</ol>
+<p><img src="../images/image2015-11-17-10_41_34.png" alt=""></p>
+<p><sub><strong>使用 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_userdata_am_Ai_UserData_Color_html">aiUserDataColor</a></em></strong></sub> 渲染的 XGen 头发颜色</p>
+<h3 id="uv">曲线隐式 UV</h3><p>可以在渐变的<em>“附加属性”(Extra Attributes)</em>中启用曲线上的隐式 UV (root-to-tip)。</p>
+<p><img src="../images/image2017-5-9-12_35_27.png" alt=""></p>
+<p><sub><strong>当禁用<em>“曲线隐式 UV”(CurveImplicit UVs)</em>时，渐变将应用于实际 UV 坐标</strong></sub></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>“XGen 样条线”中支持 UV。这是一个 XGen 形状（在 Maya 2017 中提供），位于<em>“生成 -&gt; 创建交互式修饰样条线”(Generate -&gt; Create Interactive Groom Splines)</em>中。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+      <div class="relinfo relchildren">
+        <strong>此部分中的页面</strong>
+        <ul class="ullinks">
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shapes/shapes-xgen/arnold_for_maya_shapes_xgen_am_XGen_Workflow_html.html">XGen 工作流</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shapes/shapes-xgen/arnold_for_maya_shapes_xgen_am_Using_kick_to_render_ASS_files_with_XGen_html.html">利用 kick 来实现使用 XGen 渲染 ASS 文件</a>
+          </li>
+        </ul>
+      </div>
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/arnold_for_maya_shapes_html.html">形状</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

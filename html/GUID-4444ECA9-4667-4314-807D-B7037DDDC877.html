@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Modeling">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="06/03/2024">
+<meta name="topicid" content="GUID-4444ECA9-4667-4314-807D-B7037DDDC877">
+<meta name="language" content="CHS">
+<title>使用重新拓扑预处理网格的最佳实践</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用重新拓扑预处理网格的最佳实践</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 
+	 </p>
+<ul class="ul" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__UL_92322A5B17694376BE599ACD49E742BC"><li class="li" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__LI_D69DE7DFDA31409481AAB1BE08516A36"><span class="ph uicontrol">网格(Mesh) &gt; 重新拓扑(Retopologize) &gt; <img class="image" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__IMAGE_DAB43C54EDBA40EEA583DA410614DC12" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png" alt=""> &gt; 预处理网格(Preprocess Mesh)</span> 
+		</li>
+<li class="li" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__LI_67C8F42C911545828ACCBF038385B049"><span class="ph uicontrol">polyRetopo 节点（属性编辑器(Attribute Editor)）&gt; 设置(Settings) &gt; 预处理网格(Preprocess Mesh)</span> 
+		</li>
+</ul>
+<div class="fig fignone" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__FIG_6404AB76AA674321B4854C7540258A8F"><img class="image" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__IMAGE_D14B5C79FB6947A4AD57327B223D0736" src="../images/GUID-78F56EE4-601A-4E1F-803D-800EC543991A.png" alt=""><p class="p"><em class="ph i">模型提供者：Christoph Schädl</em> 
+		</p>
+<p class="figcap"></p></div>
+<p class="p"><span class="ph uicontrol">“预处理网格”(Preprocess Mesh)</span>会优化密集输入网格以提高<span class="ph uicontrol">“重新拓扑”(Retopologize)</span>操作的速度和成功率。
+	 </p>
+<div class="p"> 
+		<div class="note important" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__GUID-F523438A-43DE-4BEE-9BD4-DCDF4AFE6605"><span class="importanttitle">重要：</span> 在运行<span class="ph uicontrol">“重新拓扑”(Retopologize)</span>算法之前，预处理会优化密集网格。这不仅涉及在场景后台重新将网格三角化，还涉及平滑，这可能会导致细节丢失。禁用<span class="ph uicontrol">“预处理网格”(Preprocess Mesh)</span>后，将保留更多细节，但运行<span class="ph uicontrol">“重新拓扑”(Retopologize)</span>需要更长时间。默认情况下，<span class="ph uicontrol">“预处理网格”(Preprocess Mesh)</span>处于启用状态。
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__SECTION_5B66330F30E64510AD25B34E9323C26B"><h2 class="title sectiontitle">最佳实践</h2> 
+		 
+		<div class="p">以下最佳实践可帮助您在<span class="ph uicontrol">“重新拓扑”(Retopologize)</span>工作流中使用<span class="ph uicontrol">“预处理网格”(Preprocess Mesh)</span>获得最佳结果：
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__TABLE_71DF9C059C4D441F8DC4DEC86ED7C576" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="23.4192037470726%"> 
+					 <p class="p">最佳实践 
+					 </p>
+ 
+				  </th>
+<th class="entry" valign="top" width="76.58079625292741%"> 
+					 <p class="p">其他信息 
+					 </p>
+ 
+				  </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="23.4192037470726%"> 
+					 <p class="p">用于高分辨率输入网格 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="76.58079625292741%"> 
+					 <p class="p"><span class="ph uicontrol">“预处理网格”(Preprocess Mesh)</span>选项专门设计用于三角形计数较高 (100k+) 的输入网格。这些网格也可能包含拓扑噪波和网格缺陷。
+					 </p>
+ 
+					 <p class="p">如果用于具有整洁几何体的低分辨率网格，<span class="ph uicontrol">“预处理网格”(Preprocess Mesh)</span>可能没有优势。如果要处理低分辨率网格（少于 100k 个面），请考虑在运行<span class="ph uicontrol">“重新拓扑”(Retopologize)</span>之前禁用<span class="ph uicontrol">“预处理网格”(Preprocess Mesh)</span>。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="23.4192037470726%"> 
+					 <p class="p">在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-8B176ACA-FBEA-4756-B55E-130AD3E75BA9.htm">重新拓扑选项(Retopologize Options)</a>或 polyRetopo 节点中，将<span class="ph uicontrol">“目标面数”(Target Face Count)</span>设置为 50% 或小于输入网格的面数 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="76.58079625292741%"> 
+					 <p class="p">如果<span class="ph uicontrol">“目标面数”(Target Face Count)</span>值设置为输入网格的面数的 50%（或大于输入网格的面数），并且<span class="ph uicontrol">“预处理网格”(Preprocess Mesh)</span>处于启用状态，则运行<span class="ph uicontrol">“重新拓扑”(Retopologize)</span>可能会很慢或导致对网格进行不必要的平滑。
+					 </p>
+ 
+					 <p class="p">为了缓解此问题，请禁用<span class="ph uicontrol">“预处理网格”(Preprocess Mesh)</span>，然后再次运行<span class="ph uicontrol">“重新拓扑”(Retopologize)</span>。
+					 </p>
+ 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__SECTION_950F1A0E468A4B9FBAE3C1B4DB9831ED"><h2 class="title sectiontitle">何时使用<span class="ph uicontrol">“预处理网格”(Preprocess Mesh)</span>与<span class="ph uicontrol">“重新划分网格”(Remesh)</span></h2> 
+		 
+		<div class="p">尽管<span class="ph uicontrol">“预处理网格”(Preprocess Mesh)</span>和<span class="ph uicontrol">“重新划分网格”(Remesh)</span>（<span class="ph uicontrol">“网格 &gt; 重新划分网格”(Mesh &gt; Remesh)</span>）均可用于优化拓扑和/或减少输入网格的多边形计数，但在某些特定情况下，使用其中一个选项会产生比使用另一个选项更好的结果。
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__TABLE_FF56DA11259D44EB8F793E3FA506C55F" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="31.61094224924012%">场景 
+				  </th>
+<th class="entry" valign="top" width="30.3951367781155%"> 
+					 <p class="p">预处理网格(Preprocess Mesh) 
+					 </p>
+ 
+				  </th>
+<th class="entry" valign="top" width="37.993920972644375%"> 
+					 <p class="p">重新划分网格(Remesh) 
+					 </p>
+ 
+				  </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="31.61094224924012%">具有干净拓扑的高分辨率输入网格 
+				  </td>
+<td class="entry" valign="top" width="30.3951367781155%"> 
+					 <p class="p"><img class="image" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__IMAGE_37EB2391483D4D34BA974133569CA646" src="../images/GUID-BA0DE794-0214-4B0E-8B74-8BC76F6B776C.png" alt=""> 
+					 </p>
+ 
+					 <p class="p">尽管在此场景中可以使用<span class="ph uicontrol">“预处理网格”(Preprocess Mesh)</span>和<span class="ph uicontrol">“重新划分网格”(Remesh)</span>，但<span class="ph uicontrol">“预处理网格”(Preprocess Mesh)</span>产生结果的速度更快。
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="37.993920972644375%"> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="31.61094224924012%">具有要保留的细节的高分辨率输入网格 
+				  </td>
+<td class="entry" valign="top" width="30.3951367781155%"> 
+				  </td>
+<td class="entry" valign="top" width="37.993920972644375%"> 
+					 <p class="p"><img class="image" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__IMAGE_FE79C956D10D487699A06E5CF9FF5E6D" src="../images/GUID-BA0DE794-0214-4B0E-8B74-8BC76F6B776C.png" alt=""> 
+					 </p>
+ 
+					 <p class="p"><span class="ph uicontrol">“预处理网格”(Preprocess Mesh)</span>通过平滑密集网格来优化它们，这可能会导致细节丢失。在运行<span class="ph uicontrol">“重新拓扑”(Retopologize)</span>时，可以尝试运行<span class="ph uicontrol">“重新划分网格”(Remesh)</span>以获得可预测性更高的结果。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="31.61094224924012%">具有大量细节的高分辨率输入网格，并且优先考虑达到较低的<span class="ph uicontrol">“目标面数”(Target Face Count)</span> 
+				  </td>
+<td class="entry" valign="top" width="30.3951367781155%"><img class="image" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__IMAGE_2133BB811BB24FECB143E57CFF8BECC8" src="../images/GUID-BA0DE794-0214-4B0E-8B74-8BC76F6B776C.png" alt=""> 
+					 <p class="p"><span class="ph uicontrol">“重新拓扑”(Retopologize)</span>算法优先考虑输入网格的细节，而不是面数。<span class="ph uicontrol">“预处理网格”(Preprocess Mesh)</span>会平滑网格的细节，从而使算法结果更容易达到较低的<span class="ph uicontrol">“目标面数”(Target Face Count)</span>。如果您优先考虑达到较低的<span class="ph uicontrol">“目标面数”(Target Face Count)</span>，请确保在运行<span class="ph uicontrol">“重新拓扑”(Retopologize)</span>时启用<span class="ph uicontrol">“预处理网格”(Preprocess Mesh)</span>。
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="37.993920972644375%"> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="31.61094224924012%">在启用<span class="ph uicontrol">“预处理网格”(Preprocess Mesh)</span>的情况下运行<span class="ph uicontrol">“重新拓扑”(Retopologize)</span>未产生预期结果 
+				  </td>
+<td class="entry" valign="top" width="30.3951367781155%"> 
+				  </td>
+<td class="entry" valign="top" width="37.993920972644375%"> 
+					 <p class="p"><img class="image" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__IMAGE_47F43291692C4C1AA032127E45AB06ED" src="../images/GUID-BA0DE794-0214-4B0E-8B74-8BC76F6B776C.png" alt=""> 
+					 </p>
+ 
+					 <p class="p">遇到问题或错误时，请禁用<span class="ph uicontrol">“预处理网格”(Preprocess Mesh)</span>，并且先运行<span class="ph uicontrol">“重新划分网格”(Remesh)</span>，然后再次运行<span class="ph uicontrol">“重新拓扑”(Retopologize)</span>。
+					 </p>
+ 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__SECTION_01B6ABFDA45643FCAD92E5F4263C8EB0"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__UL_5F142F3C74FF48A5B236ED1C3D18DA08"><li class="li" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__LI_768324205CC140839F83529658071D03"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-8B176ACA-FBEA-4756-B55E-130AD3E75BA9.htm">重新拓扑选项(Retopologize Options)</a> 
+		  </li>
+<li class="li" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__LI_0AC415298D524D40933690F45653E3D4"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-130672A1-657D-4864-B995-2E10855CF162.htm">重新拓扑问题疑难解答</a> 
+		  </li>
+<li class="li" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__LI_7143FF31B87A48E3BECDDD643A8C9D13"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-98239F6D-12E7-451D-9BD9-0720D9CE6969.htm">准备重新拓扑网格</a> 
+		  </li>
+<li class="li" id="GUID-4444ECA9-4667-4314-807D-B7037DDDC877__LI_CCC49A910B0C4C7EB57D45B60127DDE9"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-083D2387-5553-4C03-BCB1-9231293626AD.htm">自动重新拓扑网格</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-083D2387-5553-4C03-BCB1-9231293626AD.htm">自动重新拓扑网格</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="ENU">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Maya-USD">
+  <meta name="topicid" content="GUID-C452B331-7C4D-4B58-A1BA-D03775F266A8">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>Using UsdView and more from the USD Toolset with Maya</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>Using UsdView and more from the USD Toolset with Maya</h1></div><p>UsdView is a part of the USD toolset created by Pixar which combines interactive GL preview, navigation &amp; introspection, a (growing) set of diagnostic or debugging facilities and an interactive python interpreter.</p>
+<p>You can access UsdView with an installation of the MayaUSD plug-in and Maya. It can be accessed in two ways:</p>
+<ol>
+<li>Run UsdView from within Maya</li>
+<li>Run UsdView from the command line</li>
+</ol>
+<h3 id="to-run-usdview-from-within-maya-1">1. To run UsdView from within Maya</h3><p>USDView needs an asset to view, hence, you need to select a USD asset in Maya before running this script.</p>
+<p>Run the following python script from the <strong>Script Editor</strong>:</p>
+<pre class="pre codeblock"><code class="lang-py prettyprint">import maya.cmds as cmds
+import ufe
+from pxr import Usd
+import mayaUsd as uLib
+import os
+import sys
+import subprocess
+if ufe.GlobalSelection.get().empty():
+    cmds.error('Select any ufe item under (and including) gateway node')
+ufeItem = ufe.GlobalSelection.get().back()
+stage = uLib.ufe.getStage(ufe.PathString.string(ufeItem.path()))
+sdfLayer = stage.GetRootLayer()
+if not sdfLayer.realPath:
+    cmds.error('Selected ufe item does not have a concrte layer path - is it an anonymous layer?')
+mayaVer = int(cmds.about(q=True, majorVersion=True))
+mayapyBinPath = os.path.join(os.environ['MAYA_LOCATION'], 'bin')
+if mayaVer == 2022:
+    mayapyPath = os.path.join(mayapyBinPath, 'mayapy{ver}'.format(ver='' if sys.version_info.major == 3 else '2'))
+else:
+    mayapyPath = os.path.join(mayapyBinPath, 'mayapy')  
+usdRootPath = os.environ['USD_LOCATION']
+
+# sanitise the path separators - slightly inefficient
+mayapyPath = mayapyPath.replace('\\', os.path.sep).replace('/', os.path.sep)
+usdRootPath = usdRootPath.replace('\\', os.path.sep).replace('/', os.path.sep)
+sdfLayerPath = sdfLayer.realPath.replace('\\', os.path.sep).replace('/', os.path.sep)
+
+# finally build out the nice pathing
+usdToolsPath = os.path.join(usdRootPath, "bin")
+usdLibPath = os.path.join(usdRootPath, "lib")
+usdViewPath = os.path.join(usdToolsPath, 'usdview')
+
+# Install OpenGL module, if needed
+try:
+    import OpenGL
+except:
+    subprocess.check_call([mayapyPath, '-m', 'pip', 'install', 'PyOpenGL==3.1.0'])
+if sys.platform in ('win32'): 
+    creationflags = 0x08000000 # CREATE_NO_WINDOW only for win32, not MacOS or Linux
+else:
+    creationflags = 0
+print("Executing command\n    {}".format(" ".join([mayapyPath, usdViewPath, sdfLayerPath])))
+subprocess.Popen([mayapyPath, usdViewPath, sdfLayerPath], creationflags=creationflags)
+</code></pre>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>Tip:</div>
+<div class="callout-body">
+
+<p> For quick access, you can also add UsdView to a shelf button in Maya by selecting and dragging the text to the shelf.</p>
+
+</div></div>
+
+
+<div class="callout callout-important">
+<div class="callout-title"><i class="callout-icon fa fa-exclamation-triangle" aria-hidden="true"></i>Important:</div>
+<div class="callout-body">
+
+<p> For troubleshooting, if the command does not appear to run, there may be a library conflict due to other packages installed in your system path. To verify this please see the command shell instructions which provide more detail and configurability.</p>
+
+</div></div>
+
+<h3 id="to-run-usdview-and-other-tools-from-the-command-line-2">2. To run UsdView and other tools from the Command Line</h3><div class="note important:"><span class="importanttitle">Important:</span> The following examples are specific to the Windows operating system. For other OS platforms (ie. Mac and Linux) paths must be adjusted accordingly. </div>
+<blockquote>
+<p><strong>Compatibility Note:</strong> The version of MayaUSD shipped with Maya 2022 was built using python from Maya and <code>mayapy</code>, so UsdView will run with <code>mayapy</code>.<em>To run with Python 2, use <code>mayapy2</code> (instead of "mayapy") and change to <code>USD2</code> (from “USD3”).</em> UsdView is accessible for other versions of Maya. However, Maya 2022 provided dual support for python 2 and python 3. </p>
+</blockquote>
+<p>The simplest way to set up an environment that matches the maya environment is to use the <strong>Script Editor</strong> to locate the paths to the USD
+toolset, <strong>launch a shell and use the commands from there</strong>:</p>
+<pre class="pre codeblock"><code class="lang-py prettyprint">    import maya.cmds as cmds
+    import os
+    import sys
+    import subprocess
+    mayaVer = int(cmds.about(q=True, majorVersion=True))
+    if mayaVer == 2022:
+        mayapyPath = os.path.join(os.environ['MAYA_LOCATION'], 'bin', 'mayapy{ver}'.format(ver='' if sys.version_info.major == 3 else '2'))
+    else:
+        mayapyPath = os.path.join(os.environ['MAYA_LOCATION'], 'bin', 'mayapy')
+    usdRootPath = os.environ['USD_LOCATION']
+    # sanitise the path separators - slightly inefficient
+    mayapyPath = mayapyPath.replace('\\', os.path.sep).replace('/', os.path.sep)
+    usdRootPath = usdRootPath.replace('\\', os.path.sep).replace('/', os.path.sep)
+    # finally build out the nice pathing
+    usdToolsPath = os.path.join(usdRootPath, "bin")
+    usdLibPath = os.path.join(usdRootPath, "lib")
+    mayapyBinPath = os.path.dirname(mayapyPath)
+    path_divider = ";" if sys.platform in ('win32') else ":"  
+    print("        usdtools: {}".format(usdToolsPath))
+    print("minimum path set: {}".format(path_divider.join([mayapyBinPath, usdToolsPath, usdLibPath])))
+    subprocess.Popen(['cmd'])   # or powershell, bash, zsh, tcsh - your shell of choice
+</code></pre>
+<p>At the command shell you can then run the tools via the <code>mayapy</code> interpreter:
+<img src="../images/usdview_screenshot1.jpg" alt=""></p>
+<p><strong>TROUBLESHOOTING:</strong>
+If you see errors about DLL/SO load failures:
+<img src="../images/usdview_screenshot2.jpg" alt=""></p>
+<p>It is possible that your shell has additional paths, the minimum set of paths needed are:</p>
+<ul>
+<li>Path containing the mayapy binary</li>
+<li>Path containing the usd binaries</li>
+<li>Path containing the usd libraries</li>
+</ul>
+<p><em>The script will print these paths to the Script Editor.</em></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>Parent page:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/GUID-8FB49D7F-8651-47CE-80FC-5C940E568C97.html">Install USD for Maya</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

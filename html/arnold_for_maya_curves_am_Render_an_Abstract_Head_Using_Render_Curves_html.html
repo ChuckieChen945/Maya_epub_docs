@@ -1,0 +1,150 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_curves_am_Render_an_Abstract_Head_Using_Render_Curves_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_RENDER_AN_ABSTRACT_HEAD_USING_RENDER_CURVES">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用渲染曲线渲染抽象头部 - Arnold for Maya">
+
+<title>使用渲染曲线渲染抽象头部</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>使用渲染曲线渲染抽象头部</h1></div><p><img src="../images/curve-head1.png" alt=""></p>
+<p>借助 Maya 的 Paint Effects，能够以有趣、轻松的方式创建复杂的曲线形状。本教程将向您介绍如何组合使用以下各项来渲染抽象头像：Maya 的 Paint Effects 笔刷、<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Curves_html">渲染曲线</a>和_覆盖集_。</p>
+<p>非常感谢 <a href="http://www.ir-ltd.net" target="_blank">Lee Perry Smith</a> 提供本教程中使用的头部扫描模型。</p>
+<ul>
+<li>首先，下载 Lee Perry Smith 的模型，然后使用 Maya 将其打开。您应该会看到此模型由多个片组成。否则，您需要分离模型 -<strong><em>“网格 &gt; 分离”(Mesh &gt; Separate)</em></strong>。</li>
+</ul>
+<p><img src="../images/curve-head2.png" alt=""></p>
+<h2 id="">卡通轮廓</h2><ul>
+<li><p>选择整个模型，然后转到<strong>“卡通 &gt; 指定轮廓 &gt; 添加新的卡通轮廓”(Toon &gt; Assign Outline &gt; Add New Toon Outline)</strong>。</p>
+</li>
+<li><p>隐藏头部模型。选择卡通轮廓 <strong>(pfxToonShape1)</strong>，并减小<strong>“线宽”(Line Width)</strong>，使它如下图中一样清晰可见。在此例中，使用的值为 <strong><em>0.005</em></strong>。</p>
+</li>
+</ul>
+<p><img src="../images/curve-head3.png" alt=""></p>
+<p><sub><strong>卡通轮廓</strong></sub></p>
+<h2 id="paint-effects">将 Paint Effects 笔刷指定给卡通线</h2><p>我们可以按原样将卡通轮廓转化为曲线。但是，我们可以先将 Paint Effects 笔刷添加到卡通轮廓以使其看起来更有趣。</p>
+<ul>
+<li>打开<strong>“内容浏览器”(Content Browser)</strong>窗口。在“Paint Effects”下，选择 <strong>pens</strong> 文件夹。我们要使用的笔刷名为 <strong>bpointScribbleIndigo.mel</strong>。此笔刷具有多个笔划，在将卡通轮廓转化为曲线时，这些笔划将添加更多体积。</li>
+</ul>
+<p><img src="../images/curve-head4.png" alt=""></p>
+<ul>
+<li>选择卡通轮廓，然后按住 Shift 键选择 Visor 中的笔刷<strong>“bpointScribbleIndigo.mel”</strong>。在“卡通”(Toon)菜单下，选择<strong>“将 Paint Effects 笔刷指定给卡通线”(Assign Paint Effects Brush to Toon Lines)</strong>。根据场景比例，可能需要在属性编辑器（已选择卡通轮廓）中减小 <strong>bpointScribbleIndigo</strong> 笔刷的<strong><em>“全局比例”(Global Scale)</em></strong>。在本例中，使用的值为 1。</li>
+</ul>
+<p><img src="../images/curve-head5.png" alt=""></p>
+<p><sub><strong>“bpointScribbleIndigo”笔刷指定给卡通轮廓（全局比例(Global Scale)：1）</strong></sub></p>
+<ul>
+<li>增加 <strong>bpointScribbleIndigo</strong> 笔刷的<strong><em>“每步长管数”(Tubes Per Step)</em></strong>可将更多曲线添加至笔划。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/curve-head6.jpg" alt=""></td>
+<td><img src="../images/curve-head7.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>每步长管数(Tubes Per Step)：1</strong></sub></td>
+<td><sub><strong>每步长管数(Tubes Per Step)：3</strong></sub></td>
+</tr>
+</tbody></table>
+<h2 id="paint-effects">Paint Effects 修改器</h2><ul>
+<li>我们可以使用修改器来扭曲曲线的形状，以创建更有趣的头部形状。选择 <strong>pfxToon</strong> 笔刷后，转到“Paint Effects &gt; 创建修改器”(Paint Effects &gt; Create Modifier)，以便将 Paint Effects 笔刷拉向头部的背面。</li>
+</ul>
+<h2 id="paint-effects">Paint Effects 到曲线</h2><ul>
+<li><p>对 Paint Effects 效果满意后，我们就可以将其转化为曲线。选择 <strong>bpointScribbleIndigo</strong> 笔刷后，转到<strong>“修改 &gt; 转化 &gt; Paint Effects 到曲线”(Modify &gt; Convert &gt; Paint Effects to Curves)</strong>。</p>
+</li>
+<li><p>现在，我们需要使曲线可以通过 MtoA 进行渲染。为此，我们需要为曲线创建一个<strong>覆盖集</strong>。选择曲线，然后为其创建 Maya <strong>集</strong> -<strong><em>“创建 &gt; 集 &gt; 集”(Create &gt; Sets &gt; Set)</em></strong>。</p>
+</li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>更快、更高效地渲染多条曲线的方法是使用<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Curves_html">曲线收集器</a>。</p>
+
+</div></div>
+
+<ul>
+<li>选择此集，然后转到属性编辑器中的<strong>“Arnold”</strong>。</li>
+</ul>
+<p><img src="../images/curve-head9.png" alt=""></p>
+<ul>
+<li>选择<strong>“添加”(Add)</strong>，然后选择以下属性：</li>
+</ul>
+<p><img src="../images/curve-head10.png" alt=""></p>
+<p>在此集的属性编辑器中，新创建的属性应显示在<strong>“Arnold”</strong>的<strong><em>“附加属性”(Extra Attributes)</em></strong>下。</p>
+<p><img src="../images/curve-head11.png" alt=""></p>
+<ul>
+<li>将 <strong><em>standard_surface</em></strong> 着色器连接到<strong>“Ai 曲线着色器”(Ai Curve Shader)</strong>属性。</li>
+<li>将“Ai 曲线宽度”(Ai Curve Width)增加到 0.02，具体取决于您希望曲线呈现的厚度。</li>
+<li>将“Ai 模式”(Ai Mode)更改为<strong>“有厚度”(thick)</strong>。这将使曲线形成圆管轮廓。</li>
+<li>为要渲染的曲线选择<strong>“Ai 渲染曲线”(Ai Render Curve)</strong>。</li>
+</ul>
+<p><img src="../images/curve-head12.jpg" alt=""></p>
+<p>就是这样。现在可以开始进行照明和渲染了！享受其中的乐趣，并尝试使用不同的 Paint Effects 笔刷和变形器设置来获得一些有趣的结果。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/curve-head13.jpg" alt=""></td>
+<td><img src="../images/curve-head14.jpg" alt=""></td>
+<td><img src="../images/curve-head15.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>更多示例</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Rendering_Curves_html.html">渲染曲线</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

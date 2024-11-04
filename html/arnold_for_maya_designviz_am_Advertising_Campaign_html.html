@@ -1,0 +1,169 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_designviz_am_Advertising_Campaign_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_ADVERTISING_CAMPAIGN">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 广告推广活动 - Arnold for Maya">
+
+<title>广告推广活动</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>广告推广活动</h1></div><p><img src="../images/trainer-title.png" alt=""></p>
+<p><sub><strong>本教程使用 Arnold 中的<em>卡通</em>和 <em>clip_geo</em> 着色器实现的风格化效果示例</strong></sub>  </p>
+<p>本教程将介绍如何创建可用于广告推广活动或运动图形动画的有趣图像。我们将介绍如何使用<em>卡通*着色器准备和着色几何体。此外，我们还将介绍如何将几何体导出为可用作</em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shapes_node_ac_procedural_node_html" target="_blank">程序</a><em>的 .ass（Arnold 场景源）文件，以使场景保持轻巧和响应迅速。然后，我们将实例化这些<em>程序</em>，并使用 *<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_utility_shaders_ac_clip_geo_html" target="_blank">clip_geo</a></em> 着色器创建炫酷的风格化效果。有关此效果的更多示例，请单击<a href="https://leegriggs.com/trainers" target="_blank">此处</a>。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>在本教程中，我们将使用一个免费的鞋模型（可从 <a href="https://grabcad.com/library/adidas-tubular-nova-pk-1" target="_blank">Grabcad 模型库</a>下载该模型）。</p>
+
+</div></div>
+
+
+<div class="callout callout-important">
+<div class="callout-title"><i class="callout-icon fa fa-exclamation-triangle" aria-hidden="true"></i>重要信息：</div>
+<div class="callout-body">
+
+<p><strong>*</strong>卡通*着色器目前无法与 GPU 结合使用。</p>
+
+</div></div>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/trainer2.jpg" alt=""></td>
+<td><img src="../images/trainer3.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>使用此技术可以实现的不同样式变化效果</strong></sub></p>
+<h2 id="">场景准备</h2><ul>
+<li><p>首先，下载 zip 文件（上面的链接）。</p>
+</li>
+<li><p>导入鞋模型：<em>tubular nova pk ads.IGS（Z 轴）。</em></p>
+</li>
+<li><p>对其进行定位和定向，使其位于场景栅格中心。</p>
+</li>
+</ul>
+<p><img src="../images/trainer4.png" alt=""></p>
+<p><sub><strong>在 Maya 中导入的 <em>.STEP</em> 鞋模型</strong></sub></p>
+<h2 id="">着色</h2><p>现在，我们将默认的 <em>Lambert</em> 替换为 Arnold <em>卡通</em>着色器。  </p>
+<ul>
+<li><p>打开 <em>Hypershade</em> 窗口。</p>
+</li>
+<li><p>创建一个*<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_toon_html" target="_blank">卡通</a>*着色器，并将其指定给鞋。</p>
+</li>
+<li><p>在 <em>edge_detection</em> 下，将 <em>angle_threshold</em> 从 180 减小到 10 左右。这将在鞋底显示具有更多细节的边。</p>
+</li>
+<li><p>创建一个<em>工具<em>着色器，并将其连接到</em>卡通<em>着色器的 *emission_color</em>。将 *emission_weight</em> 增大到 1。</p>
+</li>
+<li><p>将工具的<em>“颜色模式”(Color Mode)</em>更改为 <em>obj</em>，并将<em>“着色模式”(Shade Mode)</em>更改为 <em>ndoteye</em>。这将得到一些有趣的颜色以及实现平面卡通样式着色。</p>
+</li>
+</ul>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>使用 <em>color_correct</em> 着色器可优化<em>工具</em>着色器呈现的颜色着色效果的色调、饱和度等值。</p>
+
+</div></div>
+
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>要查看 <em>toon_edge</em>，必须将 <strong><em>filter_type</em></strong>（采样设置）更改为<strong><em>“轮廓”(Contour)</em></strong>。请注意，增加 <em>contour_filter_width</em>（采样设置）值将会增加渲染时间。如果看起来太厚，请尝试将其减小到 1。</p>
+
+</div></div>
+
+<p><img src="../images/trainer_5.png" alt=""></p>
+<p><sub><strong><em>渲染设置(Render Settings)：Arnold &gt;“Arnold 渲染器”(Arnold Renderer)选项卡 &gt;“过滤器”(Filter) &gt;“类型”(Type)：轮廓(Contour)</em></strong></sub></p>
+<p><img src="../images/trainer_6.png" alt=""></p>
+<p><sub><strong><em>utility -&gt; color_correct -&gt; toon</em></strong></sub></p>
+<h2 id="arnold">Arnold 场景源</h2><p>现在，我们要将完成的运动鞋几何体导出为 .ass 文件。这样，我们便可使用程序，以便保持场景轻巧和响应迅速。</p>
+<ul>
+<li>选择运动鞋几何体，然后转到<em>“文件 &gt; 导出当前选择”(File &gt; Export Selection)<em>。选择是否要保存 .</em>ass</em> 文件。系统会询问您要导出的内容。</li>
+</ul>
+<p><img src="../images/trainer_7.png" alt=""></p>
+<p><sub><strong>使用默认导出设置导出为 <em>Arnold 场景源 (.ass)</em></strong></sub></p>
+<h2 id="">程序</h2><p>接下来，我们要创建一个 Arnold <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Stand_ins_html">替代对象</a>*，我们可以在其中导入之前导出的 *.<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_rendering_am_Arnold_Scene_Source_html">ass</a></em> 文件。利用<em>替代对象</em>，您可以将几何体数据的加载延缓到渲染时进行，从而保持场景轻巧且适宜（交互）工作。在创建多个实例时，这非常有用。</p>
+<ul>
+<li><p>创建一个新场景。</p>
+</li>
+<li><p>转到<em>“Arnold -&gt; 替代对象”(Arnold -&gt; Standin)</em>。  </p>
+</li>
+<li><p>在<em>替代对象</em>中选择“路径”(Path)文件夹，然后选择我们之前导出的 .ass 文件。</p>
+</li>
+</ul>
+<p><img src="../images/trainer_8.png" alt=""></p>
+<p><sub><strong>在替代对象中加载 shoe .ass 文件。视口绘制模式(Viewport Draw Mode)：多边形线(Polywire)。</strong></sub></p>
+<ul>
+<li>我们只想使用简单的平面照明实现<em>卡通</em>着色效果。这可以通过创建 [<em>skydome_light</em>] 来完成</li>
+</ul>
+<h2 id="">实例化</h2><p>现在，我们要创建<em>程序*的多个实例，并使其随机分布在原始鞋程序周围。它们将用作剪切几何体，当为其指定 *clip_geo</em> 着色器后可提供效果。</p>
+<p>程序的位置和旋转情况将确定最终效果的外观，因此可以随意尝试执行本教程此部分的操作。例如，您也可以使用 XGen <em>富有创意地</em>分布更多实例。</p>
+<ul>
+<li>复制<em>替代对象</em>，并将其重命名为 <em>clip_geo</em>。</li>
+<li>选择 Arnold <em>程序</em>，并创建 MASH 网络。</li>
+<li>选择<em>“分布”(Distribute)</em>节点并启用<em>“中心分布”(Center Distribution)</em>。</li>
+<li>选择 MASH Waiter，并创建一个<em>“随机”(Random)</em>节点。将“位置 X”(Position X)、“位置 Y”(Position Y)、“位置 Z”(Position Z)增加到 10。</li>
+</ul>
+<p><img src="../images/trainer_9.png" alt=""></p>
+<p><sub><strong><em>“视口 &gt; 显示模式”(Viewport &gt; Display Mode)</em>设置为<em>“线框”(wireframe)</em>的鞋<em>程序</em></strong></sub></p>
+<h2 id="">剪裁几何体</h2><p>创建 <em>clip_geo</em> 着色器，并将其指定给实例化<em>程序<em>（不是原始程序）。</em>clip_geo</em> 程序将从与几何体相交的任何形状剪裁几何体。在本例中，实例化程序将剪裁原始鞋程序。</p>
+<p><img src="../images/trainer_10.jpg" alt=""></p>
+<p><sub><strong>剪裁原始鞋<em>程序</em>的实例化<em>程序</em>（添加了地板平面并指定了另一个<em>卡通</em>着色器）</strong></sub></p>
+<p>对效果满意后，就可以开始渲染了。您也可以尝试为<em>程序</em>设置动画，以创建可用于运动图形动画的效果。</p>
+<p>就是这样。您已看完本教程。做得不错！我们建议您多花一些时间阅读 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_am_Arnold_for_Maya_User_Guide_html">MtoA 用户手册</a>，该手册中提供了像本教程这样的其他教程。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Design_Visualization_Tutorials_html.html">设计可视化教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

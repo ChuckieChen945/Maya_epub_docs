@@ -1,0 +1,171 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_rendering_am_Underwater_Scene_with_Fog_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_UNDERWATER_SCENE_WITH_FOG">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用雾设置水下场景 - Arnold for Maya">
+
+<title>使用雾设置水下场景</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>使用雾设置水下场景</h1></div><p><img src="../images/am-Underwater_Scene_with_Fog-shark-tutorial-title-render-1.jpg" alt=""></p>
+<p><sub><strong><span style="color: rgb(0,0,0);">鲨鱼！我们水下场景的主题</span></strong></sub>  </p>
+<p>在本教程中，我们将介绍如何对一个有一群鲨鱼的水下场景进行照明和渲染。我们将使用雾设置场景，从而使场景获得水下效果。您将了解到如何使用 <em>gobo</em> 创建伪焦散效果来对场景进行照明。我们还将说明使用<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_displacement_am_Vector_Displacement_html">向量置换</a>创建海洋材质的过程。</p>
+<h2 id="strong-a-href-underwaterscenewithfog-fog-fog-a-strong"><strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Underwater_Scene_with_Fog_html.html#UnderwaterScenewithFog-Fog">雾(Fog)</a></strong></h2><ul>
+<li><p>首先，我们为水下场景创建一些雾。打开“渲染设置”(Render Settings)窗口。在<em>“环境”(Environment)</em>属性下，将<strong><em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Environment_html">“大气”(Atmosphere)</a></em></strong>从“无”(None)更改为_“雾”(Fog)_。</p>
+</li>
+<li><p>您应该会在属性编辑器中看到<em>“雾”(Fog)</em>属性。少量增加<strong>“距离”(Distance)</strong>，如增加至 <strong><em>0.02</em></strong>，然后渲染场景。得到的结果应类似下图：</p>
+</li>
+</ul>
+<p><img src="../images/am-Underwater_Scene_with_Fog-image2016-5-10-11-33-0-2.png" alt=""></p>
+<p><sub><strong>默认的雾设置。 默认情况下，“地面点”(Ground Point)为 Z。</strong></sub></p>
+<h3 id="strong-a-href-underwaterscenewithfog-groundnormal-ground-normal-a-strong"><strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Underwater_Scene_with_Fog_html.html#UnderwaterScenewithFog-GroundNormal">地面法线(Ground Normal)</a></strong></h3><ul>
+<li>将雾颜色更改为中蓝，然后将<strong>“地面法线”(Ground Normal)</strong>更改为 <strong><em>Y</em></strong> 轴上方向，方法是在 <strong>Y 轴</strong>字段中输入 <strong><em>1</em></strong>，在 <strong>Z 轴</strong>字段中输入 <strong><em>0</em></strong>。鲨鱼将在海面附近活动，因此我们想营造一种灯光来自顶部并沿 Y 方向逐渐衰减的效果。</li>
+</ul>
+<p><img src="../images/am-Underwater_Scene_with_Fog-image2016-5-10-11-35-8-3.png" alt=""></p>
+<p><sub><strong><span style="color: rgb(0,0,0);">地面法线(Ground Normal)：1（Y 轴）</span></strong></sub></p>
+<h2 id="strong-a-href-underwaterscenewithfog-distance-distance-a-strong"><strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Underwater_Scene_with_Fog_html.html#UnderwaterScenewithFog-Distance">距离(Distance)</a></strong></h2><ul>
+<li>现在，我们要增加雾量。将<strong>“距离”(Distance)</strong>值增加到 <strong>1</strong> 左右。</li>
+</ul>
+<p><img src="../images/am-Underwater_Scene_with_Fog-image2016-5-10-11-37-15-4.png" alt=""></p>
+<p><sub><strong>“距离”(Distance)增加到 1</strong></sub></p>
+<h2 id="strong-a-href-underwaterscenewithfog-height-height-a-strong"><strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Underwater_Scene_with_Fog_html.html#UnderwaterScenewithFog-Height">高度(Height)</a></strong></h2><ul>
+<li>顶部的鲨鱼不会接收到太多雾。增加<strong>“高度”(Height)</strong>值。这会将更多的雾推到场景顶部，使场景看起来更真实。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/shark_tutorial_height_5.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<h2 id="strong-a-href-underwaterscenewithfog-spotlightlighting-spotlight-lighting-a-strong"><strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Underwater_Scene_with_Fog_html.html#UnderwaterScenewithFog-Spotlightlighting">聚光灯照明(Spotlight lighting)</a></strong></h2><p>现在，我们需要在场景中投射一些灯光。我们将使用一个聚光灯。这样，我们可以向其添加一些灯光过滤器，从而更好地控制场景照明。</p>
+<ul>
+<li>创建<a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Spot+Light&amp;linkCreation=true&amp;fromPageId=154767231">聚光灯</a>并增大<strong>“圆锥体角度”(Cone Angle)</strong>，使其覆盖整个可渲染场景。在本例中，我们使用的圆锥体角度为 <strong><em>175</em></strong>。增加足够的强度或曝光，以使鲨鱼可见。</li>
+</ul>
+<p><img src="../images/am-Underwater_Scene_with_Fog-image2016-5-10-11-42-18-5.png" alt=""></p>
+<h2 id="strong-a-href-underwaterscenewithfog-aigobo-ai-gobo-a-strong"><strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Underwater_Scene_with_Fog_html.html#UnderwaterScenewithFog-AiGobo">Ai Gobo</a></strong></h2><ul>
+<li><p>接下来，我们将创建通过光源投影的伪焦散效果。为此，我们向聚光灯添加一个 <em>gobo</em> 灯光过滤器。在聚光灯的“Arnold”部分下选择<strong>“灯光过滤器”(Light Filters)</strong>，然后添加 <em>gobo</em> 灯光过滤器。</p>
+</li>
+<li><p>将文件纹理连接到“滑动贴图”(Slide Map)属性。我们将使用包含焦散图案的纹理贴图。下方的纹理贴图用作连接到 <em>gobo.slide_map</em> 的伪焦散效果。</p>
+</li>
+</ul>
+<p><img src="../images/am-Underwater_Scene_with_Fog-image2016-5-10-11-45-59-6.png" alt=""></p>
+<p><sub><strong>焦散纹理连接到 aiGobo 的“Slidemap”属性</strong></sub></p>
+<ul>
+<li>测试渲染场景。使用默认设置时，焦散效果的比例看起来太小。减小“比例 S”(Scale S)和“比例 T”(Scale T)值将增大用于“滑动贴图”(Slide Map)的焦散纹理的比例。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/shark_tutorial_default_gobo_render1.jpg" alt=""></td>
+<td><img src="../images/shark_tutorial_default_gobo_render_0.5.jpg" alt=""></td>
+</tr>
+<tr>
+<td>Gobo“比例 S”(Scale S)和“比例 T”(Scale T)设置为 1。焦散图案太小。</td>
+<td>将 Gobo“比例 S”(Scale S)和“比例 T”(Scale T)降低为 0.5 会获得较大的焦散效果</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Gobo 效果看起来会略强。我们可以通过增大“密度”(Density)值减弱其效果。尝试将其稍微增加到 0.5。这看起来更好。</li>
+</ul>
+<p><img src="../images/am-Underwater_Scene_with_Fog-image2016-5-10-11-53-24-7.png" alt=""></p>
+<p><sub><strong>“密度”(Density)增大为 0.5</strong></sub></p>
+<p><strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Underwater_Scene_with_Fog_html.html#UnderwaterScenewithFog-Sea">海洋(Sea)</a></strong></p>
+<p>接下来，创建一个多边形平面，然后将其放大，使其覆盖整个场景。我们希望海洋平面是透明的。因此，必须在平面的 Arnold 属性中取消选中<strong>“不透明”(Opaque)</strong>。为其指定一种 Ai 标准材质，并将其重命名为“Sea”。将<strong>“基础权重”(Base Weight)</strong>减小为 <strong><em>0</em></strong>。将镜面反射的<strong>“权重”(Weight)</strong>增大为 <strong><em>1</em></strong>，并将镜面反射的<strong>“粗糙度”(Roughness)</strong>减小为 <strong><em>0</em></strong>。在<strong>“透射”(Transmission)</strong>下方，将透射的<strong>“权重”(Weight)</strong>增大为 <strong><em>1</em></strong>。将<strong>“折射率”(IOR)</strong>更改为 <strong><em>1.3</em></strong>（空气与水接触平面的折射率）。1.3 是物理上精确的水折射率值，但您可以根据偏好调整此值。</p>
+<p><img src="../images/am-Underwater_Scene_with_Fog-shark-tutorial-sea-polygon-plane-8.png" alt=""></p>
+<p><sub><strong>用于海洋曲面的多边形平面</strong></sub></p>
+<h2 id="strong-a-href-underwaterscenewithfog-displacement-displacement-a-strong"><strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Underwater_Scene_with_Fog_html.html#UnderwaterScenewithFog-Displacement">置换(Displacement)</a></strong></h2><p>为获得更加逼真的波浪效果，我们将使用<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shaders_displacement_html">向量置换</a>贴图来置换海浪。与仅在一个方向置换几何体的传统置换贴图不同，向量置换将围绕不同于法线的方向置换海洋几何体。有关创建海面的详细信息，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shading_am_Rendering_an_Ocean_with_Displacement_html">此处</a>。</p>
+<ul>
+<li>将下面的文件纹理连接到 Maya 置换节点。将置换节点连接到用于海洋的 Ai 标准着色器的着色组。</li>
+</ul>
+<p><img src="../images/OceanShape_0000.jpg" alt=""></p>
+<p><sub><strong>使用纹理贴图作为海洋的向量置换</strong></sub>  </p>
+<ul>
+<li>在海洋多边形平面的 Arnold 属性中，将细分的“类型”(Type)更改为“Catclark”并增加“迭代次数”(Iterations)。开始时，请使用较小的“迭代次数”(Iterations)，然后逐渐增大，直到获得逼真的效果。值越高，内存使用量和渲染时间会随之增加，因此请注意，不要一开始就将此值设置得过高。</li>
+</ul>
+<p><img src="../images/am-Underwater_Scene_with_Fog-image2016-5-10-12-2-59-10.png" alt=""></p>
+<p><sub><strong>海洋多边形平面的 Arnold 细分设置</strong></sub></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Underwater_Scene_with_Fog-fog-with-sea-11.jpg" alt=""></td>
+<td><img src="../images/am-Underwater_Scene_with_Fog-fog-no-sea-12.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<h2 id="strong-a-href-underwaterscenewithfog-tonemapping-tone-mapping-a-strong"><strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Underwater_Scene_with_Fog_html.html#UnderwaterScenewithFog-ToneMapping">色调映射(Tone Mapping)</a></strong></h2><p>在下面，您可以看到 Arnold 中的最终渲染（左图）以及进行色调映射和颜色校正后的效果（右图）：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Underwater_Scene_with_Fog-sharks-composite-13.jpg" alt=""></td>
+<td><img src="../images/am-Underwater_Scene_with_Fog-sea-sky-14.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<h2 id="strong-a-href-underwaterscenewithfog-summary-a-strong"><strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Underwater_Scene_with_Fog_html.html#UnderwaterScenewithFog-Summary">摘要</a></strong></h2><p>有关创建水下雾场景的教程到此结束。使用雾等环境效果，可以简单地向场景中添加逼真的环境光。此外，<em>gobo</em> 灯光过滤器还可用来模拟真实的照明效果（如焦散），增强您的控制能力，同时渲染开销较低。</p>
+<p>下面是一些使用其他节点（例如 <em>atmosphere_volume</em> 和一个 <em>skydome_light</em>）的备选示例渲染，用于进一步控制水下效果。</p>
+<p><img src="../images/am-Underwater_Scene_with_Fog-image2021-6-22-15-39-35-15.png" alt=""></p>
+<p><img src="../images/am-Underwater_Scene_with_Fog-gobo-light-filter-16.jpg" alt=""></p>
+<p><sub><strong>Ai Gobo 焦散效果</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Rendering_Tutorials_html.html">渲染教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

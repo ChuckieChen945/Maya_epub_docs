@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3">
+<meta name="language" content="CHS">
+<title>归档和植被实例化表达式</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>归档和植被实例化表达式 </h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__USER-TIPS_ALWAYS-GROW-UP"><h2 class="title sectiontitle">强制基本体到点垂直</h2>
+
+<p class="p" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-811FCE8A-19DD-4E38-A306-946EFB93D839">如果您在不使用导向的情况下修饰一块草地，并且地平面是不平坦或呈起伏状的，默认情况下草将会朝向曲面法线的方向。要使草的叶片默认呈垂直方向，您必须更改方向以使每张叶片指向上方（或至少是近似方向），请尝试输入以下表达式： </p>
+
+<pre class="pre codeblock">
+tiltU: (90 - acosd(dot(norm($dPdu),[0,1,0]))) / 90
+tiltV: (90 - acosd(dot(norm($dPdv),[0,1,0]))) / 90</pre>
+
+<div class="p" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-6A1DA612-468F-4C47-B407-5C06BF95A485">这些表达式组合可调整 <samp class="ph codeph" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-3A2B74A9-54F8-4C87-BED8-61E55EE7DB53">tiltU</samp>（<span class="ph uicontrol" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-E1DCDA51-8F33-414D-8D0B-0C3C6F7F2E07">“倾斜 U”(Tilt U)</span>）和 <samp class="ph codeph" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-7AA30DB3-BBA5-4924-A740-49454C433209">tiltU</samp>（<span class="ph uicontrol" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-788F475B-73F8-4E1F-800E-FBA35E81E3E7">“倾斜 V”(Tilt V)</span>）属性，并影响等参线切线和上方向向量之间的任何更改。如果您需要更精确的草地方向，请参见后面所述的“沿精确方向生长”。 <div class="note note" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-08F1DEE4-B74D-4E1D-BF90-7D27024C712D"><span class="notetitle">注：</span>  您也可以使用 <span class="ph uicontrol" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-DFD3511B-E62E-4A96-A687-51EC4A31363A">alignU</span>、<span class="ph uicontrol" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-813D934B-B92D-4CFE-8C74-5D4181913FC9">alignV</span> 和 <span class="ph uicontrol" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-EC8154F9-65E8-4D96-B9BC-2B34547094C2">alignN</span> 表达式。 </div>
+ </div>
+
+</div>
+<div class="section" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__USER-TIPS_ALWAYS-DROOP-DOWN"><h2 class="title sectiontitle">始终下垂</h2>
+
+<div class="p" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-39E55717-8AA3-466E-8238-7476589E7055">如果想要在场景中模拟叶子下垂的效果，您可以在没有导向的情况下使用下列步骤。 <p class="li listintro" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-3098DAC0-436F-4953-9150-AC84FE9EA52D">要模拟下垂的叶子：</p>
+<ol class="ol" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__OL_04582248E4E74753862CBED3B79CEAB7"><li class="li" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__LI_74400459AD36491D88506F5C665B3953">首先，在<span class="ph uicontrol" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-429811CD-9360-419E-9453-DB639604ECD1">“XGen 表达式编辑器”(XGen Expression Editor)</span>中创建两个全局表达式： <pre class="pre codeblock">float bendMagU  -acosd(dot(abs(norm($N)),[0,1,0]))/180*(dot(norm($dPdu),[0,1,0]))
+float bendMagV  -acosd(dot(abs(norm($N)),[0,1,0]))/180*(dot(norm($dPdv),[0,1,0]))</pre>
+ </li>
+<li class="li" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__LI_1AF0959B14CD48669AC460973562CACD">然后，将 <samp class="ph codeph" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-45D14F90-6CD7-4F71-ACBF-0781F21CFEA1">tiltU</samp> 和 <samp class="ph codeph" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-5E953361-57BA-49D9-974D-262214ABE256">bendMagU</samp> 表达式设定为： <pre class="pre">bendMagU()</pre>
+ </li>
+<li class="li" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__LI_CC3C325D395F40729371317011D37FAB">将 <samp class="ph codeph" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-CB77DA0B-ABC0-4DA1-85EE-C19C70EB7523">tiltU</samp> 和 <samp class="ph codeph" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-AF2FC5D9-E66E-4FA5-A128-95EEFA1209BF">bendMagV</samp> 设定为： <pre class="pre">bendMagV()</pre>
+ <div class="note note" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-8CAF879F-DB08-4F9C-87F6-4EF28931FE4D"><span class="notetitle">注：</span> 请确保将<span class="ph uicontrol" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-DF18143F-5C45-4425-9489-E38921174D4F">“控制使用”(Control using)</span>设置为<span class="ph uicontrol" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-874F41B1-FC1C-4548-A0CB-3B17D37A933B">“属性”(Attribute)</span>。 </div>
+ </li>
+</ol>
+ </div>
+
+</div>
+<div class="section" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__USER-TIPS_SERIOUSLY-GROW-IN-EXACTLY-THIS-DIRECTION"><h2 class="title sectiontitle">沿精确方向生长</h2>
+
+<div class="p" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-779B9170-D117-47A0-96CA-9CE2CA77D36E">“总是垂直生长”(Always Grow Vertical)提示应用于草地时可获得很好的效果，但它不如通过 <samp class="ph codeph" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-176134AE-D0D3-4414-A91A-C5B239E5115D">tiltU</samp> 和 <samp class="ph codeph" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-46EB47D0-CD84-418A-9649-2720E18BDE35">tiltV</samp> 进行约束时那样精确，也就是说您不能使用表达式来突破切线平面。如果您需要更高的精度，例如，让松树的松针指向特定的方向，包括指向生成针叶的曲面，请尝试以下工作流： <p class="li listintro" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-468072A2-058C-4682-B3E7-A77A683BB54B">要指定精确的方向：</p>
+<ol class="ol" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__OL_BB906B846C5E48ED87EF8D72E91CF4F3"><li class="li" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__LI_47C6B5DA24E34349B7C6151A67C198C6">创建四个全局表达式： <pre class="pre codeblock">vector dir 
+$x = -0.0750; # -1.000, 1.000
+$y = 0.2550; # -1.000, 1.000
+$z = 0.1650; # -1.000, 1.000
+norm([$x, $y, $z])
+float   dotU  dot( norm($dPdu), dir() )
+float   dotV  dot( norm($dPdv), dir() )
+float   len   100.0 * (abs(dotU()) + abs(dotV()))</pre>
+ </li>
+<li class="li" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__LI_74DA5084F5104A4089EA85C8ECA341CA">输入以下样条线基本体属性： <pre class="pre codeblock">tiltU  dotU() / len()
+tiltV  dotV() / len()
+tiltN  acosd( dot($N, dir()) )</pre>
+ </li>
+</ol>
+ </div>
+
+<p class="p" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-98CC6F7D-0697-446F-B5CD-0718491A8E01">这会在 <samp class="ph codeph" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-AA8217F4-198B-42C9-80DC-8C56073366DE">dir</samp> 全局表达式中提供归一化方向。这可以是一个常量（如在本示例中），也可以是一个绘制的法线贴图，该贴图可以转化回正确的归一化向量。 </p>
+
+<p class="p" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-766CC10A-38BF-4C02-97F1-458E283CA467">因为全局表达式确定基本体应该旋转的方向，所以此步骤是可行的。如果您要将其更改为较小的值并用 <samp class="ph codeph" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-7EA63580-8C29-4421-96B8-A3EDEB8BA650">tiltU</samp> 和 <samp class="ph codeph" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-3A3ACDEE-EACE-4F1D-808F-53490FC47334">tiltV</samp> 表达式来填充，您可以使用 <samp class="ph codeph" id="GUID-AA6BB307-1CE5-40A5-8AB9-3EC7DFC98DE3__GUID-5B22ED16-9989-44A5-8E8C-6A8019ADC36C">tiltN</samp> 来实现真正的旋转。这会突破切线平面并创建基本体与方向向量对齐所需的幅值。不使用全局表达式，则无法保证方向，只能保证旋转幅值。 </p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-EF55C3B5-D09B-4B6A-BB80-574A0311EE0F.htm" title="本部分提供了大量 seExpr 表达式示例，可供您用于修饰和景观场景。提供面向所有用户级别的示例，包括面向新用户的基本表达式。">XGen 表达式示例</a></div>
+</div>
+</div>
+
+</body>
+</html>

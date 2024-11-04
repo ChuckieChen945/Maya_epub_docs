@@ -1,0 +1,82 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_Aero_Simulation_Aero_aero_adaptivity_settings_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>aero_adaptivity_settings</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>aero_adaptivity_settings</code></h1></div><p>定义 Aero 和燃烧模拟的不同细节区域（空间自适应分辨率）。这将连接到 <code>aero_solver_settings</code> 节点的 <code>additional_settings</code> 端口。</p>
+<p>在整个空间中解算器的体素分辨率可以变化，对于越靠近摄影机的区域，或在预期要生成更精细的细节的区域内，可以使用更高的细节。通常，空间自适应模拟生成的细节量接近于或高于空间均匀模拟生成的细节量，但计算成本较低。</p>
+<p><code>aero_adaptivity_settings</code> 节点可以通过两种方式控制模拟的自适应性：</p>
+<ul>
+<li><strong>自动自适应性</strong>会根据指定的条件在整个空间中进行粗化和细化。例如，您可以在可视细节水平较高的区域附近进行细化（按体素雾密度）。</li>
+<li><strong>分辨率边界</strong>可为不同的空间区域指定特定的分辨率级别。例如，您可以为远离摄影机的区域指定较低的分辨率。</li>
+</ul>
+<p>自适应性给计算增加了一些开销。在很多情况下，此开销会通过性能提升进行补偿。但有时情况并非如此。例如，如果自适应性设置为在内部粗化，但模拟是非常薄的流，则可供粗化的内部不会太多。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>实现空间自适应性的另一种方法是使用具有不同 <code>fluid_detail_size</code> 的源。例如，远离摄影机的发射器的分辨率可以较低（<code>fluid_detail_size</code> 较高）。</p>
+
+</div></div>
+
+<h2 id="">输入</h2><h2 id="auto-adaptivity"><code>Auto Adaptivity</code></h2><h3 id="enable_auto_adaptivity"><code>enable_auto_adaptivity</code></h3><p>启用自动自适应性模式，在此模式下，解算器会根据 <code>coarsen</code> 设置自动进行粗化和细化。</p>
+<h3 id="coarsen"><code>coarsen</code></h3><p>选择粗化和细化的条件：</p>
+<ul>
+<li><code>interior</code>：在体素雾密度高于 <code>interior_density_threshold</code> 的烟尘内部进行粗化。</li>
+<li><code>low_disturbance</code>：在干扰定义为速度场中漩涡、拉伸和斜切组合的低干扰区域中进行粗化。</li>
+<li><code>low_fog_detail</code>：在体素雾密度平滑到可以采用较粗糙的分辨率准确表示的低雾细节区域中进行粗化。</li>
+<li><code>all</code>：根据所有可用条件同时进行粗化。</li>
+</ul>
+<h3 id="interior_density_threshold"><code>interior_density_threshold</code></h3><p>自动自适应性 <code>interior</code> 用来将体素雾密度区域分类为烟尘内部的阈值。理想值取决于烟尘内细节在最终渲染中可见的深度。</p>
+<h3 id="fidelity"><code>fidelity</code></h3><p>允许执行自动自适应性算法的最大粗化量。这是介于 0 到 1 之间的数字，其中 1 表示不执行粗化，0（默认值）表示将栅格粗化到与全分辨率模拟相比仅保留 30％ 体素的程度。通过使 <code>aero_adaptivity_settings</code> 节点可编辑，然后在内部 <code>adaptivity_parameters</code> 节点上设置 <code>fidelity_zero_accuracy</code>，可以修改 30% 这一选择。请注意，通常 <code>fidelity</code> 值越低，模拟速度会越快，但与完全细化的模拟外观的差距也会越大。为了确保自适应模拟与完全分辨率模拟之间具有更高的相似度，请调整 <code>adaptivity_smoothness</code>。</p>
+<h3 id="adaptivity_smoothness"><code>adaptivity_smoothness</code></h3><p>介于 0 到 1 之间的数字，可用于确保自动自适应性算法不会引入视觉瑕疵（表现为视觉上明显的分辨率跃升）。值越高，粗化过程引入视觉瑕疵的可能性越低。但是，值越高，速度也可能越慢，因为粗化量越少。理想值取决于烟的渲染方式。如果烟尘相当透明，则通常较低的 <code>adaptivity_smoothness</code> 值即可满足要求。</p>
+<h2 id="resolution-bounds"><code>Resolution Bounds</code></h2><h3 id="enable_resolution_bounds"><code>enable_resolution_bounds</code></h3><p>根据分辨率边界启用自适应性，并允许使用网格构建分辨率边界。</p>
+<p>分辨率级别由网格连接到的端口确定。每个分辨率级别之间分辨率跃升两倍。请注意，输入网格的轴对齐边界框用于确定分辨率边界，而不是实际网格本身。</p>
+<p>不需要在较低分辨率边界内嵌套较高分辨率边界，可以任意放置边界。如果较低分辨率边界完全位于较高分辨率边界内，则不会有任何影响，因为在重叠区域中始终使用最高分辨率。分辨率边界优先级高于发射器上设置的 <code>fluid_detail_size</code>。</p>
+<p>可以随时间的推移更改分辨率边界，例如，如果模拟需要一个不必以完全分辨率执行的预演算。此时，可以使用 <code>if</code> 节点根据当前帧编号更改端口的输入网格。</p>
+<h3 id="base_resolution"><code>base_resolution</code></h3><p>一组网格，用于指定空间中应以最精细的分辨率级别模拟烟和燃烧的区域。</p>
+<h3 id="half_resolution"><code>half_resolution</code></h3><p>一组网格，用于指定空间中应以一半的基本分辨率模拟烟和燃烧的区域。</p>
+<h3 id="quarter_resolution"><code>quarter_resolution</code></h3><p>一组网格，用于指定空间中应以四分之一的基本分辨率模拟烟和燃烧的区域。</p>
+<h3 id="eighth_resolution"><code>eighth_resolution</code></h3><p>一组网格，用于指定空间中应以八分之一的基本分辨率模拟烟和燃烧的区域。</p>
+<h2 id="">输出</h2><h3 id="adaptivity_settings"><code>adaptivity_settings</code></h3><p>输出是一个对象，其中包含 Aero 解算器的自适应性输入集合，应连接到 <code>aero_solver_settings</code> 节点上的 <code>additional_settings</code> 端口。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_Aero_html.html">Aero</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

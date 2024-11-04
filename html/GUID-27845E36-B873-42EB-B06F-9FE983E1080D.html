@@ -1,0 +1,300 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Customizing">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="13/10/2023">
+<meta name="topicid" content="GUID-27845E36-B873-42EB-B06F-9FE983E1080D">
+<meta name="language" content="CHS">
+<title>解算器参考</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>解算器参考</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 本主题详细说明了<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-E22B253D-914B-4056-93F5-755702A6C998.htm">解算工具包</a>中的某些自定义解算器设置。若要从技术层面深入了解并行解算以及有关自定义解算器的背景信息，请参见<a class="xref" href="http://www.autodesk.com/using-parallel-maya" target="_blank">使用并行 Maya</a>。
+	 </p>
+<div class="section" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__SECTION_C6B01E88045A40A6A276B044138CDB3E"><h2 class="title sectiontitle">曲线管理器解算器</h2> 
+		 
+		<div class="p">可以使用曲线管理器解算器在解算图中包含其他节点。这样，您便可以：
+		<ul class="ul" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__UL_1261EEF5835A43B7A834CF44BAC39C70"><li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_5AB1AAC5C2F14777977EF63FEBC0B925">使用并行解算和 GPU 变形来操纵其他节点，从而在交互式操纵期间提高响应速度 
+		  </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_81334F48C8CE42C289121EE05DD76AF3">减少解算图重建，因为静态节点可能已包含在解算图中 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="p">为了高效地实现这些优势，曲线管理器解算器执行两个主要任务：
+		<ul class="ul" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__UL_256134B90D95483998F66D22361762AC"><li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_3B26296CABF94621BF7817612EA09F2F">在解算图构建期间，它将从附加节点触发脏传播，以使它们包含在图表构建过程和生成的解算图中 
+		  </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_B6CCBC61750C4269A8EFA7ACF55E95E5">在场景解算期间，它将处理部分附加节点的解算以维持性能，因为它们不需要解算。
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="p"> 为了说明此结果，下面来比较一个场景中的以下三种情况：
+		<ol class="ol" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__OL_B6E68162C7D44F0EAED23CFD37E212B2"><li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_10A24608F75E427FA1430E73BA6429F4">所有控制器只有一个关键帧（即，静态动画曲线）。由于生成的动画曲线是恒定的，因此其被视为静态的，并且不包含在解算图中。播放没有要解算的内容。
+		  </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_2548142194534910A0A0AC2995CA6722">所有控制器具有值不同的关键帧（即，已设置动画的曲线）。因此，它们将包含在解算图中，并且播放将解算所有内容。
+		  </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_2ED3BB8B245C4FD49B541AB355A7BBAD">所有控制器只有一个关键帧（即，静态动画曲线），但曲线管理器解算器在解算图中预填充这些静态曲线。
+		  </li>
+</ol>
+ 
+		</div>
+ 
+		<p class="p"> 在第三种情况下，我们尝试通过采用一个已设置为在操纵控制器时进行并行解算的解算图来利用曲线管理器解算器。
+		</p>
+ 
+		<div class="p">下表汇总了这些情况之间的差异。
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__TABLE_B5280005BD8C4EF58A84659662125A12" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="20%">情况 
+				  </th>
+<th class="entry" valign="top" width="20%">解算图中的节点数 
+				  </th>
+<th class="entry" valign="top" width="20%">播放 
+				  </th>
+<th class="entry" valign="top" width="20%"> EM 操纵 
+				  </th>
+<th class="entry" valign="top" width="20%"> 设置关键帧时重建 
+				  </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="20%">静态曲线 + 曲线管理器关闭 
+				  </td>
+<td class="entry" valign="top" width="20%">最低 
+				  </td>
+<td class="entry" valign="top" width="20%">最快 
+				  </td>
+<td class="entry" valign="top" width="20%">否 
+				  </td>
+<td class="entry" valign="top" width="20%">是 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="20%"> 已设置动画的曲线 
+				  </td>
+<td class="entry" valign="top" width="20%">最高 
+				  </td>
+<td class="entry" valign="top" width="20%">最慢 
+				  </td>
+<td class="entry" valign="top" width="20%">是 
+				  </td>
+<td class="entry" valign="top" width="20%">否 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="20%"> 静态曲线 + 曲线管理器打开 
+				  </td>
+<td class="entry" valign="top" width="20%">最高 
+				  </td>
+<td class="entry" valign="top" width="20%">中间 
+				  </td>
+<td class="entry" valign="top" width="20%">是 
+				  </td>
+<td class="entry" valign="top" width="20%">否 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		</div>
+ 
+		<p class="p"> 总而言之，通过采用已填充节点的解算图，曲线管理器解算器可从中受益，因此在对交互式操纵进行解算时响应速度高，而对于在播放期间恒定的节点，成本则会尽可能低。可以使用以下命令激活它：
+		</p>
+ 
+		<p class="p"><samp class="ph codeph">cmds.evaluator(name="curveManager", enable=True) cmds.evaluator(name="curveManager", configuration="forceAnimatedCurves=keyed") </samp> 
+		</p>
+ 
+		<div class="p">forceAnimatedCurves 的可用值包括：
+		<ul class="ul" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__UL_5BF83B5823E549EE88094145E07709B1"><li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_9AACF9EE1E67430C8A217D14ACB9E972"> 
+			 <samp class="ph codeph"><strong class="ph b">none</strong></samp>：在解算图中不强制使用任何曲线。
+		  </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_86DB19637EA6418EB6926ED205139FBF"><samp class="ph codeph"><strong class="ph b">controller</strong></samp>：在解算图中将强制使用连接到控制器节点的曲线。这基本上属于广义的控制器概念。
+		  </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_9D0B6AFF3EBE438D874F13ADE61F7D49"><samp class="ph codeph"><strong class="ph b">keyed</strong></samp>：在解算图中将强制使用已设置关键帧的静态曲线（即具有一个或多个同值关键帧的曲线）。
+		  </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_E5011D92F40F48B892B7BD4339992582"><samp class="ph codeph"><strong class="ph b">all</strong></samp>：在解算图中强制使用所有曲线。
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="p"> 可以使用另一个选项 <samp class="ph codeph">forceAnimatedNodes</samp>。
+		<ul class="ul" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__UL_AB9651E8862C4699A3887FA062E8313B"><li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_1167D8B89BB344C0A5939CE41DAAD302"><samp class="ph codeph"><strong class="ph b">none</strong></samp>：在解算图中不强制使用任何节点。
+		  </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_0FD390656DDB4BC5A14CEE5274636A10"><samp class="ph codeph"><strong class="ph b">forcedAnimatedAttribute</strong></samp>：在解算图中将强制使用以下节点：其强制已设置动画的属性设置为 true。
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<p class="p"> 这样可以添加具有布尔动态属性的标记节点。默认情况下，此属性的名称为 forcedAnimated。如果某个节点上存在此属性且设置为 true，则该节点将添加到图表中。此属性的名称可以使用 <samp class="ph codeph">forcedAnimatedAttributeName</samp> 选项进行控制。
+		</p>
+ 
+		<p class="p">默认情况下，曲线管理器解算器会尝试跳过对图表静态部分的解算。出于调试或性能测量目的，可以禁用此优化：
+		</p>
+ 
+		<p class="p"> 
+		  <samp class="ph codeph">cmds.evaluator(name="curveManager", configuration="skipStaticEvaluation=disable")</samp> 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__SECTION_429B612D71E943B59A6BB1DBC878348F"><h2 class="title sectiontitle">变形器解算器</h2> 
+		 
+		<p class="p"><span class="ph uicontrol">deformer</span> 解算器实现了<span class="ph uicontrol">“GPU 覆盖”(GPU Override)</span>选项。
+		</p>
+ 
+		<p class="p"> 为了提高场景性能，<span class="ph uicontrol">变形器</span>解算器将变形器节点链的 CPU 解算替换为 GPU 解算。使用 deformerEvaluator 命令可检索有关场景中支持的变形器节点的节点链信息，或者了解特定节点不受支持的原因。使用解算<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-0E9D9594-6664-4B69-B944-8B69E9551415.htm">平视显示仪 (HUD) 选项</a>可在屏幕上显示<span class="ph uicontrol">“GPU 覆盖”(GPU Override)</span>支持的 deformerEvaluator 中的顶点或节点数。
+		</p>
+
+		<p class="p">有关用于获取有关变形链反馈的工具，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-E22B253D-914B-4056-93F5-755702A6C998.htm">解算工具包</a> <strong class="ph b">6) 图形输出</strong>部分。
+		</p>
+ 
+		<div class="section" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__SECTION_2C78C509501E4FE6B80BBAA7AD060B33"><h3 class="title sectiontitle">限制</h3> 
+		   
+		  <ul class="ul" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__UL_88648BBE4278473B8E4FFE4510B92721"><li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_27C244BF26FE4C38910D50C3091072F6">每个变形链均必须以没有输出连接的网格节点结尾。这意味着，若要受支持，网格不能具有 pointOnPoly 约束、毛囊或其他任何输出连接。
+			 </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_B15BBB758DBD4EB691C16147B3ABAD7A">仅支持 blendShape、skinCluster、簇、softMod 和调整节点以及特定功能。
+			 </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__SECTION_CDB60D2AAC2D4F02B237DDF560B2B969"><h2 class="title sectiontitle">动力学解算器</h2> 
+		 
+		<p class="p"><span class="ph uicontrol">动力学</span>解算器用于对动力学相关节点（通常具有复杂的解算要求）正确解算。尽管该解算器支持一些配置选项，但您往往不会与其进行交互，因为默认行为通常是可接受的。
+		</p>
+ 
+		<div class="p">动力学解算器承担以下三项主要职责：
+		<ol class="ol" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__OL_752E2E8E2BB84F428B0D20B4CD7AAEC4"><li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_2F411E2BC2964AABBBBBD9B5344FC92F">将簇中要由动力学解算器进行解算的动力学相关节点分组在一起。
+		  </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_4348C7EA935B46E2B4D8C939B7E9C9A1"> 管理此类簇的解算，使其遵循动力学相关节点所需的复杂解算规则。
+		  </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_7C491043100D4D49B2B116EFE6C381A4"> 在检测到不受支持的设置时禁用并行解算 
+		  </li>
+</ol>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__SECTION_FEC65B7F4A8E4537B50DBB1A4CCF08C8"><h3 class="title sectiontitle">限制</h3> 
+		   
+		  <ul class="ul" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__UL_113E5EBB1EFE4AF19D730F76E67E888D"><li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_1730ED0106A445FF8F12569541ACD169"> 在某些情况下，使用解算管理器（进而使用动力学解算器）的动力学模拟生成的结果与基于 DG 的解算不同。但是，无论动力学模拟发生在 Maya 视口中还是发生在 Maya 批处理中，这些结果均一致。
+			 </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_78F2550C374F4692AE13C116CF4C8A34"> 动力学解算器不支持旧版动力学（例如，旧版粒子和流体）。如果在场景中找到不受支持的动画节点，则会禁用并行解算。
+			 </li>
+</ul>
+ 
+		</div>
+ 
+		<p class="p"> 有关动力学解算和不受支持的功能的更多详细信息，请参见<a class="xref" href="http://www.autodesk.com/using-parallel-maya" target="_blank">使用并行 Maya</a>。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__SECTION_916946393E924774848C157A93064B59"><h2 class="title sectiontitle">冻结解算器</h2> 
+		 
+		<p class="p"> <span class="ph uicontrol">冻结</span>解算器可用于从解算中排除解算图的子区域。它适用于<em class="ph i">冻结</em>属性，允许使用由解算器配置设置的规则将冻结状态传播到相关节点。仅当您熟悉 DAG 和解算图中的连接和传播概念时才使用冻结解算器。否则，请使用更简单的<em class="ph i">不可见性</em>解算器。
+		</p>
+ 
+		<p class="p"> 解算管理器不对已将<em class="ph i">冻结</em>属性设置为 True 的任何节点进行解算。如果启用了冻结解算器，则会根据与已启用选项对应的规则阻止对相关节点解算。
+		</p>
+ 
+		<p class="p"> <span class="ph uicontrol">冻结</span>解算器的运行过程分为三个阶段：
+		</p>
+ 
+		<ol class="ol" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__OL_2C8AB71EAFB4418CBAF79C5294FAA662"><li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_75F61C798B504A06A4AFE7787BAFF80F"> 收集标记为<strong class="ph b">不可见的</strong>节点和标记要冻结的 <strong class="ph b">displayLayers</strong> 选项。
+		  </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_4F127FAB274C44CD8E588B9411C05082"> 通过解算图向外传播冻结状态（根据<strong class="ph b">下游</strong>和<strong class="ph b">上游</strong>选项的值）。
+		  </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_242D768FB4D84087B5DBCB4C503B440A">分析冻结节点，以便跳过没有其他解冻输入的下游节点。在下文介绍的限制中，该步骤称为运行时操作。
+		  </li>
+</ol>
+ 
+		<div class="section" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__SECTION_3B939BDB58E84B82AFAAF0350764B239"><h3 class="title sectiontitle"> 
+		  <strong class="ph b">限制</strong> </h3> 
+		   
+		  <ul class="ul" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__UL_EA244147DCAA47C2A5E49940FDA49FB8"><li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_4E7018084BEF4B80B7915A8B21849761"> 若要冻结解算器对受影响的节点禁用解算，必须至少将一个<em class="ph i">冻结</em>属性设置为“True”。实际上，这主要用于显示层，以便将节点作为一个整体冻结。
+			 </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_9234E364FBAA4711A79B1ECBD64D3D4B"> 如果<em class="ph i">冻结</em>属性或任何用于定义相关隐式节点以便冻结（例如，不可见性）的属性已设置动画，则该解算器不会将其从解算中移除。这些属性仍会进行调度，但是只有<strong class="ph b">运行时</strong>选项才有助于避免进行不必要的解算。
+				<div class="note note" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__GUID-40665494-60DB-4DD6-83F7-4623E5A90B40"><span class="notetitle">注：</span> 运行时选项不会修改解算器操作，而是修改节点的解算调度。您在解算器信息中将看不到受此选项影响的节点，例如，<em class="ph i">cmds.evaluator( query=True, clusters=True, name='frozen' )</em> 的输出。 
+				</div>
+ 
+			 </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_0BEA397489204D069EAC74B634AE3944"> 除非循环的所有输入均已冻结，否则该解算器不会冻结循环成员。这是因为循环作为一个整体进行解算，冻结循环的单个成员毫无意义。
+			 </li>
+</ul>
+ 
+		</div>
+ 
+		<p class="p"> 有关更详细的分析，请参见<a class="xref" href="http://www.autodesk.com/using-parallel-maya" target="_blank">使用并行 Maya</a>。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__SECTION_C97D55EC8308468B8266015116E630AC"><h2 class="title sectiontitle">不可见性解算器</h2> 
+		 
+		<div class="p"><span class="ph uicontrol">不可见性</span>解算器通过标识所有为了对视口进行建模而被视为不可见的 DAG 节点，防止对不来自可见 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-5029CF89-D420-4236-A7CF-884610828B70">DAG</a> 节点上游的任何节点进行解算。若要确定要渲染的节点中有哪些不可见，该解算器将考虑以下任意情况：
+		<ol class="ol" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__OL_53341289D44B4C6989DB45E5F859E0B1"><li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_BB599081DB2D423BBCA85D2482C7B29E">一个节点的“可见性”(Visibility)属性设置为 false。
+		  </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_7CEACEF190E84B32BC98992F3DBBE6A5">一个节点的“绘制覆盖可见性”(Draw Override Visibility)属性设置为 false，“启用绘制覆盖”(Draw Override Enabled)属性设置为 true。
+		  </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_F7FEE1A3D8DD4E03B627CF5D1A2F0024">显示层中有一个节点导致选项 2（参见上文）为 true。
+		  </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_0E4829AE1CE94708A5C286DC908C4517">一个节点的“IsIntermediateObject”属性设置为 true。
+		  </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_2C5A7FFB95674A348B689AB6D23F2AA7">一个节点中每条上升到根的路径至少遇到一个至少符合上述一种情况的节点。（在这种情况下，就实例化而言，<em class="ph i">每条路径</em>都很重要。必须渲染节点的每条实例路径，使其对上方的节点之一不可见。） 
+		  </li>
+</ol>
+ 
+		</div>
+ 
+		<p class="p">任何仅驱动不可见节点的节点均已冻结，不会进行解算。（可见的 DAG 节点被视为驱动本身，因此始终会进行解算。） 
+		</p>
+ 
+		<p class="p">在大多数情况下，启用<span class="ph uicontrol">不可见性</span>解算器最终将导致更改在场景中不可见，并适度或显著提高播放速度（具体取决于不可见的对象）。
+		</p>
+ 
+		<div class="section" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__SECTION_4C36D3173053429182AF4A99E9300C3D"><h3 class="title sectiontitle">不可见性解算器不适用的情况</h3> 
+		   
+		  <p class="p"><span class="ph uicontrol">不可见性</span>解算器仅仅根据节点的可见性状态定义“可见”，因此如果 UI 或插件代码要求对不可见节点解算，请勿使用<span class="ph uicontrol">不可见性</span>解算器。
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__SECTION_BE38D04163CA41F490B398B4E128CA11"><h3 class="title sectiontitle">限制</h3> 
+		   
+		  <ul class="ul" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__UL_05536DF281BC48F2B4C2CE6A088B7B99"><li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_AB202F11295E4BB0AC8BC9B00493825D"><span class="ph uicontrol">不可见性</span>解算器仅考虑静态可见性。按照上述定义，设置了可见性动画（即，选中的所有属性均已设置动画）的任何节点都视为始终可见。
+			 </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_AE2917B2B66D4F8B9D02F8FE75E029CE">如果存在循环，则循环中的一切均必须处于不可见状态，否则循环不会冻结。
+			 </li>
+<li class="li" id="GUID-27845E36-B873-42EB-B06F-9FE983E1080D__LI_79D8EFCA2A54495A82B596404439A416">如果节点已实例化且至少有一条可见路径向上，则将对所有向上的路径解算（即，使两个实例之一不可见无效果）。 
+			 </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-E22B253D-914B-4056-93F5-755702A6C998.htm">解算工具包(Evaluation Toolkit)</a></div>
+</div>
+</div>
+
+</body>
+</html>

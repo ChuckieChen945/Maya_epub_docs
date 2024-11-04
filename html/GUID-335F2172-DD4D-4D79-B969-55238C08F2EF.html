@@ -1,0 +1,340 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Interoperability">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="20/08/2022">
+<meta name="topicid" content="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF">
+<meta name="language" content="CHS">
+<title>FBX 常规 MEL 命令</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>FBX 常规 MEL 命令</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p">以下 MEL 命令用于模拟 FBX 用户界面中的其他选项。
+	 </p>
+<dl class="dl" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-04BA2322-E6A3-4A3E-BC4A-C579212AD533"><dt class="dt dlterm" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-B55ABD41-A3C3-443E-8B4F-FC350C47F23F">FBXClose 
+		  </dt>
+<dd class="dd" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-0CDBB30A-D494-47FA-A24A-5371D4019102"> 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-781D83D2-301E-4804-B2FD-C35F980FAE04"> 
+				<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-22A1263E-8496-42E0-9663-C4EC481F2228">FBXClose;</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-20B54D85-7494-467D-877B-F09E65115E8C">关闭 FBX 导入器，以便解除锁定使用 FBXRead 命令启动的所有 FBX 文件。
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-6CA5E9DE-2167-423B-B490-3A95A77B88BB"> 使用 FBXRead 命令时，将打开并锁定 FBX 文件。若要释放该文件，必须调用 FBXClose 命令，或者调用可打开一个新文件的命令（例如 FBXRead 或 FBXImporter 等）。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm"> FBXExtPlugin 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p"><samp class="ph codeph">FBXExtPlugin -l;</samp> 
+			 </p>
+ 
+			 <p class="p"><samp class="ph codeph"> FBXExtPlugin &lt;pluginName&gt; [-q] -state [on|off];</samp> 
+			 </p>
+ 
+			 <p class="p"><samp class="ph codeph">FBXExtPlugin &lt;pluginName&gt; [-q] -opts [optionsString]; </samp> 
+			 </p>
+ 
+			 <p class="p">用户可使用 <span class="ph uicontrol">FBXExtPlugin</span> 列出、启用、禁用 FBX 扩展插件以及将选项传递到 FBX 扩展插件。
+			 </p>
+ 
+			 <p class="p">状态和选项存储在内存中，而不是存储在 FBX 文件中。它们将会一直保留其设置，直到再次调用 <span class="ph uicontrol">FBXExtPlugin</span> 更改它们为止。
+			 </p>
+ 
+			 <p class="p"> 选项字符串是用双引号引起来的单个字符串。传递到扩展插件的选项的语法由其传递到的扩展插件确定。这意味着，您将需要参阅扩展插件的文档以确定选项名称和值分隔符。如果选项字符串过长，则会被截断。
+			 </p>
+ 
+			 <p class="p"><samp class="ph codeph">FBXExtPlugin -l</samp> 用于输出安装的扩展插件列表。
+			 </p>
+ 
+			 <p class="p"><samp class="ph codeph">FBXExtPlugin &lt;pluginName&gt; -q -state</samp> 用于查询特定扩展插件的状态。
+			 </p>
+ 
+			 <p class="p"><samp class="ph codeph">FBXExtPlugin &lt;pluginName&gt; -state [on|off]</samp> 用于启用或禁用扩展插件。
+			 </p>
+ 
+			 <p class="p"><samp class="ph codeph">FBXExtPlugin &lt;pluginName&gt; -q -opts</samp> 用于查询传递到扩展插件的选项。
+			 </p>
+ 
+			 <p class="p"><samp class="ph codeph">FBXExtPlugin &lt;pluginName&gt; -opts &lt;optionsString&gt;</samp> 用于将选项传递到扩展插件。
+			 </p>
+ 
+			 <div class="note note" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-434C078E-94DC-4476-9D08-4987B9FC438B"><span class="notetitle">注：</span>  有关扩展插件的详细信息，请参阅 FBX 扩展 SDK 软件包。
+			 </div>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-0E848A9D-9A86-4E94-A3BC-11A2CAE3ABD5">FBXGetTakeComment 
+		  </dt>
+<dd class="dd" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-AEEC8BB3-0EBC-457B-937D-C1D6F43485B9"> 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67C5"> 
+				<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-F8EA6B39-C23A-4CE6-8FC3-813818E6B8D6">FBXGetTakeComment [index]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF-54F556CA1166AC9EE9E-970">返回附加到镜头阵列中指定索引处的镜头的注释。此命令使用存储在文件缓冲区中的文件。
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF-54F556CA1166AC9EE9E-96F">可以使用 <span class="ph uicontrol" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-3BEC5DF4-3AB8-4A62-A78D-3EE5A28440D2">FBXRead</span> 命令将文件加载到文件缓冲区。
+			 </p>
+ 
+			 <div class="note note" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF-54F556CA1166AC9EE9E-96E"><span class="notetitle">注：</span>  输入的数字必须介于 1 和文件中包含的镜头数之间，否则脚本会返回消息：<span class="ph uicontrol" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-95CB5F7D-6E56-46E3-A7A6-7A3491591D61">“无此镜头”(No such take)</span>。Maya FBX 插件将大于文件中所含镜头数的镜头数、负值或 0 视为无效。
+			 </div>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-974BD2EA-A6FA-4DB9-B9BC-FD92731D139B">FBXGetTakeCount 
+		  </dt>
+<dd class="dd" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-63E0B99C-DA59-44FA-8AE7-9838F4A6D94C"> 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67C4"> 
+				<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-EEFC5880-D2D9-43F8-8738-2C1B2454F8B1">FBXGetTakeCount; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF-54F556CA1166AC9EE9E-979">返回在文件缓冲区中存储的文件中保存的镜头数。
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF-54F556CA1166AC9EE9E-978">可以使用 <span class="ph uicontrol" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-8AA80416-1CD0-4F51-9023-31183EDA8FD2">FBXRead</span> 命令将文件加载到文件缓冲区。
+			 </p>
+ 
+			 <div class="note note" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF-54F556CA1166AC9EE9E-977"><span class="notetitle">注：</span>  如果 Maya FBX 插件未在文件中找到任何镜头，该脚本返回的值为 0。
+			 </div>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-0C575BD0-FE8A-4CBC-894B-E127848911DD">FBXGetTakeIndex 
+		  </dt>
+<dd class="dd" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-24E16EAA-AABA-479E-A6F9-F389F654D686"> 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67C3"> 
+				<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-95C0B67E-CA3F-4E63-A829-F74484904D04">FBXGetTakeIndex [take name]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF-54F556CA1166AC9EE9E-976">返回镜头阵列中命名为参数的第一个镜头的索引。此命令使用存储在文件缓冲区中的文件。
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF-54F556CA1166AC9EE9E-975">可以使用 <span class="ph uicontrol" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-6B21347B-ABE9-47C6-BE21-D2B3C14224D9">FBXRead</span> 命令将文件加载到文件缓冲区。
+			 </p>
+ 
+			 <div class="note note" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF-54F556CA1166AC9EE9E-974"><span class="notetitle">注：</span>  如果 [take name] 不包含有效的名称，脚本将返回消息：<span class="ph uicontrol" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-5AB30D0F-45DF-4954-B79C-B20DA6FE1D3A">“无此镜头”(No such take)</span>。
+			 </div>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-4C4C8187-7DA2-4944-A93C-6DD552DFE846">FBXGetTakeLocalTimeSpan 
+		  </dt>
+<dd class="dd" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-261FD23F-E678-4E1F-9172-6C520CABAD2E"> 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67C2"> 
+				<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-7F67D44C-8A80-4178-9848-74E241A3E204">FBXGetTakeLocalTimeSpan [index];</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF-54F556CA1166AC9EE9E-96D">返回镜头阵列中指定索引处镜头的本地开始和停止时间。此命令使用存储在文件缓冲区中的文件。
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF-54F556CA1166AC9EE9E-96C">可以使用 <span class="ph uicontrol" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-DC39A9B6-BDDB-4F2B-B202-9775B7DE063C">FBXRead</span> 命令将文件加载到文件缓冲区。
+			 </p>
+ 
+			 <div class="note note" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF-54F556CA1166AC9EE9E-96B"><span class="notetitle">注：</span>  输入的数字必须介于 1 和文件中包含的镜头数之间，否则脚本会返回消息：<span class="ph uicontrol" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-C8C033FC-99B5-41CD-BC84-2F1CD455A1B9">“无此镜头”(No such take)</span>。Maya FBX 插件将大于文件中所含镜头数的镜头数、负值或 0 视为无效。
+			 </div>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-7EBCC21F-80A3-4AF8-8B77-99437F9F7456">FBXGetTakeName 
+		  </dt>
+<dd class="dd" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-484A9425-5B9A-405B-B4AB-212A7D95A7E4"> 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67C1"> 
+				<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-57C487D1-A5BB-43D8-A0F1-EA441FA4055A">FBXGetTakeName [index]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF-54F556CA1166AC9EE9E-973">返回镜头阵列中指定索引处镜头的名称。此命令使用存储在文件缓冲区中的文件。
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF-54F556CA1166AC9EE9E-972">可以使用 <span class="ph uicontrol" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-328FFF75-F2AA-40E9-8A40-8508A569E033">FBXRead</span> 命令将文件加载到文件缓冲区。
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-8CCFAD6C-5CD0-4214-913D-0775895A4BA7"> 
+				<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-86B5DFE1-232E-4B8F-A676-5467170AC106">FBXGetTakeName [index];</samp> 
+			 </p>
+ 
+			 <div class="note note" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF-54F556CA1166AC9EE9E-971"><span class="notetitle">注：</span>  输入的数字必须介于 1 和文件中包含的镜头数之间，否则脚本会返回消息：<span class="ph uicontrol" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-DC90EB31-3BF3-4651-B8FA-0285459714CE">“无此镜头”(No such take)</span>。Maya FBX 插件将大于文件中所含镜头数的镜头数、负值或 0 视为无效。
+			 </div>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-9B56ED72-BFE9-4A08-BAD7-5C68C8D6E1B0">FBXGetTakeReferenceTimeSpan 
+		  </dt>
+<dd class="dd" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-0567CD7C-0678-4353-BAA1-0EEF4259AE20"> 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67C0"> 
+				<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-29A17CBF-3425-449F-988F-4CE627ED1D75">FBXGetTakeReferenceTimeSpan [index];</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF-54F556CA1166AC9EE9E-96A">返回镜头阵列中指定索引处的镜头的引用开始和停止时间。此命令使用存储在文件缓冲区中的文件。
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF-54F556CA1166AC9EE9E-969">可以使用 <span class="ph uicontrol" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-784C0281-99AF-4080-A09F-DE238D123C32">FBXRead</span> 命令将文件加载到文件缓冲区。
+			 </p>
+ 
+			 <div class="note note" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF-54F556CA1166AC9EE9E-968"><span class="notetitle">注：</span>  输入的数字必须介于 1 和文件中包含的镜头数之间，否则脚本会返回消息：<span class="ph uicontrol" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-CAC83B3E-3ACC-4273-BC16-5CAFC52DBEFC">“无此镜头”(No such take)</span>。Maya FBX 插件将大于文件中所含镜头数的镜头数、负值或 0 视为无效。
+			 </div>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-B684D611-D4E2-42E8-B815-5E4460780D7C">FBXLoadExportPresetFile 
+		  </dt>
+<dd class="dd" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-011CE723-284C-4421-BF6D-B687424679C2"> 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67BF"> 
+				<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-F7C61B6D-B17F-4736-8007-2D85953C1D11">FBXLoadExportPresetFile -f [filepath]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF-150B16DA11960D83164-67B1">设置导出预设文件路径。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-97A6278A-4C7B-4DC8-BAC9-978A7D755D01">FBXLoadImportPresetFile 
+		  </dt>
+<dd class="dd" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-5E85CFC7-F3F4-4970-983D-6E11762C90CF"> 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67BE"> 
+				<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-1C1EE119-1B7C-49EF-81AB-BE59F5014376">FBXLoadImportPresetFile -f [filepath]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF-150B16DA11960D83164-67AE">通过此命令，可以设置导入预设文件路径。
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-0B2058DB-D0AA-4CB0-B4BC-2AA3B6948E10">您可以使用此命令加载 MotionBuilder 导入预设，而无需知道其文件路径。
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-B769FBBC-C0D2-437E-947A-D1290BE780D8">例如：<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-97A208A2-93A4-4B42-84F0-8EA4466C18AB"> FBXLoadMBImportPresetFile; </samp>将加载“C:\&lt;Maya 版本&gt;\bin\plug-ins\FBX\Presets\&lt;版本&gt;\import\Autodesk MotionBuilder.fbximportpreset”（在您的计算机上，路径可能会有所不同）。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-C62C9626-34D0-4C8E-8CAD-DF349CDDAE9C">FBXLoadMBExportPresetFile 
+		  </dt>
+<dd class="dd" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-9B059BE6-E050-4519-BCC9-E20356ED12B0"> 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-626C604C-BB78-4703-909B-975410F42353"> 
+				 <samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-FD3865C8-5EB3-40B0-8686-7E6E6BB498D7">FBXLoadMBExportPresetFile</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-1CA1DA2A-34C1-4E88-A4B9-BDD3F2BCD89E">此命令加载随每个版本提供的 MotionBuilder 预设。
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-DD92F695-C91B-412C-8518-68438FA24323">您可以使用此命令加载 MotionBuilder 导入/导出预设，而无需知道其文件路径。
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-962CFC58-26B9-4273-A488-10342D1B1D2B">例如：FBXLoadMBExportPresetFile; 将加载<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-7C933CFB-6086-4FFC-A706-3898460733EE">“C:\&lt;Maya 版本&gt;\bin\plug-ins\FBX\Presets\&lt;版本&gt;\export\Autodesk MotionBuilder.fbxexportpreset”</samp>（在您的计算机上，路径可能会有所不同）。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-E63CBDEC-0CF7-425D-9933-BE21B28C3823"> FBXLoadMBImportPresetFile 
+		  </dt>
+<dd class="dd" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-C4A0C99D-C474-4788-BCD4-14A5EC3C0FC5"> 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-0B2BDA22-6A19-4909-BEBE-755A126DFAB7"> 
+				<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-504AAE30-9BAF-481D-B0E9-8DF124C6D4CC"> FBXLoadMBImportPresetFile</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-8C7032BC-5DEE-4EE1-8574-9588C450A657">此命令加载随每个版本提供的 MotionBuilder 预设。
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-21CA6029-722B-49F0-AF31-34FA36333E31">您可以使用此命令加载 MotionBuilder 导入/导出预设，而无需知道其文件路径。
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-168159EF-82BB-4506-BFDC-0E7ACA2B66B9">例如：FBXLoadMBImportPresetFile; 将加载“<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-EB0023A3-D8B7-42AD-8EF8-6752B22F8C7B">C:\m&lt;Maya 版本&gt;\bin\plug-ins\FBX\Presets\&lt;版本&gt;\import\Autodesk MotionBuilder.fbximportpreset</samp>”，FBXLoadMBExportPresetFile; 将加载“<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-E18DAAFD-6301-4D73-A134-232F88714F2D">C:\&lt;Maya 版本&gt;\bin\plug-ins\FBX\Presets\&lt;版本&gt;\export\Autodesk MotionBuilder.fbxexportpreset</samp>”（在您的计算机上，路径可能会有所不同）。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-A5939E06-7AB2-422D-9418-8E6E52254F0D">FBXPopSettings 
+		  </dt>
+<dd class="dd" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-CA324B90-836E-41E5-A9D9-53949245F1E8"> 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-35657C89-AFAF-44C9-83BF-3F498B3DC6C9"> 
+				<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-D0CD7FFC-E88F-4D0D-93EE-0346FA299C5E">FBXPopSettings; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-BA31BD03-9113-45DC-9D4D-A856A5E6E138"> 此设置会加载 Pop 脚本保存的所有设置；在您执行单击操作时会保留设置的当前状态。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-7C7C1DF3-540B-4075-9DC8-EDF89F394B62"> FBXPushSettings 
+		  </dt>
+<dd class="dd" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-709182F4-FF13-4187-9B8A-31C7DAD576CB"> 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-263ED2D0-2D5E-4BD6-AC61-96ED663BA97C"> 
+				<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-95BB15D1-410D-4CE4-A241-AE4E154A7E32">FBXPushSettings;</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-E84AA47D-695B-4FCA-A558-9A7200B3C23D">此设置保存所有 I/O 设置。使用 FBXPushSettings 可在您执行“发送到”操作时保留设置的当前状态。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-64A42154-9ABB-45C7-88AA-DCDE3E0858B9">FBXRead 
+		  </dt>
+<dd class="dd" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-CB02EBFF-5BD4-4689-89C1-27255F67C526"> 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67BD"> 
+				<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-D97B2E1E-6341-4B16-B05C-8392580247E5">FBXRead -f [filename];</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF1DBC298511635BEA8754A4">读取指定的 FBX 文件，而不将任何内容导入到 Maya 中。文件存储在缓冲区中。此命令用于镜头查询。
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF1DBC298511635BEA8754A5">读取或导入后，使用命令 <span class="ph uicontrol" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-D117AC38-D04B-4EFF-B9F5-FB985D413B4F">FBXGetTakeCount</span>、<span class="ph uicontrol" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-71BD74F9-65CD-4370-A23D-A89B0B37B681">FBXGetTakeName</span>、<span class="ph uicontrol" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-23A73164-2C70-4ABC-AE4E-5333F003253E">FBXGetTakeIndex</span> 进行镜头查询。
+			 </p>
+ 
+			 <div class="note note" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF1DBC298511635BEA8754A6"><span class="notetitle">注：</span>  正在读取的文件必须与现有文件名匹配，否则如果试图读取或导入不存在的文件，缓冲区中的文件将被损坏。
+			 </div>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-A252C428-B623-423C-B445-5FF0DC9DFCAD">FBXResetImport 
+		  </dt>
+<dd class="dd" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-122C7089-2F30-4BE3-A951-BBAE48CD41B3"> 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF1DBC298511635BEA8754A2"> 
+				<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-488955DD-144C-416D-BEE3-47E03CD66B41">FBXResetImport;</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67BC">该命令可以恢复<span class="ph uicontrol" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-7D48B313-568A-440A-AC41-15249D88CE8B">“FBX 导入器”(FBX Importer)</span>的默认值并加载 Autodesk Media &amp; Entertainment <strong class="ph b" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-E79A2345-196E-4D3B-A241-5423B958EC7C">导入</strong>预设中指定的设置，就像在 UI 中一样。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>主题中的“导入预设”。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-7AC91E8B-1BD2-42BF-BD5A-3253788BDAC8">FBXResetExport 
+		  </dt>
+<dd class="dd" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-9066FD69-C274-4253-9965-FBDC0E18D1A2"> 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF1DBC298511635BEA87544D"> 
+				<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-78DDECCF-11BA-476B-BCFF-B451D0DE8342">FBXResetExport; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67BB">该命令可以恢复 <span class="ph uicontrol" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-C9A82C35-4DA1-4C60-B02C-F360E8F9A0AA">“FBX 导出器”(FBX Exporter)</span>的默认值，并加载在 Autodesk Media &amp; Entertainment <strong class="ph b" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-BA8B43CB-99C9-49EF-8781-E271234CB4C2">导出</strong>预设中指定的设置。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-FE8DBEAA-C2DD-43B3-9933-4BA4CDDEAA89.htm">FBX 导出选项</a>中的“导出预设选项”。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-4F0066BA-AA63-41F9-B039-4A8F234978C8">FBXResamplingRate 
+		  </dt>
+<dd class="dd" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-1093A659-B39D-4A26-A693-A1AFE53044A3"> 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF1DBC298511635BEA8754BE"> 
+				<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-2E75CD82-C5E3-4FA1-AF2F-3F9D077A2205">FBXResamplingRate -v [float]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67BA"> 
+				<samp class="ph codeph" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__GUID-2940B53A-6041-45E3-A670-1576AA062254">FBXResamplingRate -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67B9">设置导出器在需要重新对数据采样时生成关键帧所用的速率。
+			 </p>
+ 
+			 <p class="p" id="GUID-335F2172-DD4D-4D79-B969-55238C08F2EF__WS1A9193826455F5FF1DBC298511635BEA8754BF">当 Maya 中的动画曲线的插值不能由 MotionBuilder 中的曲线正确表示时，需要进行重采样。
+			 </p>
+ 
+		  </dd>
+</dl>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-F48E3B78-3E56-4869-9914-CE0FAB6E3116.htm">FBX MEL 脚本</a></div>
+</div>
+</div>
+
+</body>
+</html>

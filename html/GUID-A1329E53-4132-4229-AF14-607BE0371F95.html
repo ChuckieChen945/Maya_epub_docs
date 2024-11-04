@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-A1329E53-4132-4229-AF14-607BE0371F95">
+<meta name="language" content="CHS">
+<title>线性工作流和颜色管理</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-A1329E53-4132-4229-AF14-607BE0371F95">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>线性工作流和颜色管理</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-09E6434A-C26F-41D6-99C7-EB06E29362D0">线性工作流是一种进行着色、照明和渲染的方法，与直接使用原始的非线性视频值相比，它具有许多优势。颜色管理通过正确转化输入、渲染、显示和输出颜色实现线性工作流。 
+	 </p>
+<p class="p">但是，有关“线性工作流”的许多可用信息实际上描述了简单的“de-gamma 和 re-gamma”工作流。从渲染空间准备颜色值以进行显示的正确视图变换应包括具有摄影响应的色调贴图。 
+	 </p>
+<div class="section" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__SECTION_A05FC1D386A746059D583624B89F76C7"><h2 class="title sectiontitle">关于场景线性工作流</h2> 
+		 
+		<p class="p" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-A7810007-6892-4DDE-B980-1669886C2312"> 在现实世界中，灯光以线性方式相加。这意味着，如果使用两个光源，则总亮度为每个灯光亮度直接相加之和。 
+		</p>
+ 
+		<p class="p" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-F7B41444-0022-4BFD-AF66-665A01B20873">几乎所有 3D 渲染器使用的算法都按照同样的方式工作。线性工作流通过确保渲染过程中使用的所有颜色值与场景中的亮度成正比，确认了这一事实。这解决了许多照明和着色问题。例如，可以更轻松地实现宜人的照明效果，保持高光和阴影之间的良好平衡，而无需使用额外灯光等技巧。此外，线性输出适合合成等进一步的处理，而无需额外的调整和校正。 
+		</p>
+ 
+		<p class="p" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-DC03658B-93DC-4A8C-9CD6-23989BA97940">线性工作流的一个问题是，已准备好显示的图像（如，用作纹理的 .png 文件）不是线性的。换句话说，数字颜色值与亮度不成比例。这意味着必须对其进行转化或变换，然后才能用于线性工作流。 
+		</p>
+ 
+		<p class="p" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-4AE4E20A-9CA1-483F-8A5B-4946CB59F906">反过来，线性工作流的渲染结果是线性的，不适合直接显示。也需要对其进行变换，然后才能在显示器上正确显示。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__SECTION_8AC1D83107C44D43950B92DA226468C9"><h2 class="title sectiontitle">颜色管理适用对象</h2> 
+		 
+		<div class="p" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-C589CDBD-2B99-4AE2-80D8-A2D6917E9235"> 颜色管理包括应用适当的变换以根据需要在颜色空间之间进行转化。在预览和渲染过程中的特定点应用这些变换： 
+		<ul class="ul" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__UL_8E4459361DBF48A18A11EA033928B6D8"><li class="li" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__LI_D6050F268AFC4BBFA42923CC590CE894">输入时，应用变换以将图像从对其进行保存的颜色空间转化为渲染空间。 
+		  </li>
+<li class="li" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__LI_1CED8290DCB34C429149612F01035124">当您工作时，视图和显示处理功能将对渲染空间的颜色进行转化，以在视口、<span class="ph uicontrol" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-A7688EDC-FF7F-4C07-B7A7-B10BAFF17152">“渲染视图”(Render View)</span>和<span class="ph uicontrol" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-19F802BC-2B56-4151-B0BC-83C6875DF335">“UV 编辑器”(UV Editor)</span>中提供有用的预览。 
+		  </li>
+<li class="li" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__LI_6895F66227B34754B24B354E5A7D5475">（可选）您可以将输出变换应用于经过渲染的图像文件，以在外部查看器中显示它们。 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__SECTION_40370F9B89CC467D89D5AF2AC5509DEE"><h3 class="title sectiontitle">处理图像输入</h3> 
+		   
+		  <p class="p" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-5211139F-8C04-4A3D-BF48-2089749F75DE">处理输入图像（如纹理）的正确方法取决于在场景中如何使用图像。还取决于图像本身，包括图像当前的颜色空间、编码和图像状态（图像的颜色值是与场景相关的亮度值成比例，还是与显示相关的亮度值成比例）。 
+		  </p>
+ 
+		  <p class="p" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-BBE1C75D-BEF6-4500-A968-B3F9AC9D1855">用于非颜色数据的图像不应应用任何变换。这包括凹凸、法线、置换贴图，以及用于其他属性（如半透明、镜面反射度、反射率等）的贴图。 
+		  </p>
+ 
+		  <p class="p" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-134A4E1C-05EA-4CC3-A565-E93F31162FFA">对于用于表示颜色的图像，存在几种可能性。已经场景线性的图像不需要任何转化，只是可能需要从输入空间的主颜色转化为渲染空间的主颜色（如果它们不同）。这包括大多数高动态范围图像，如 OpenEXR、HDR 和一些 TIFF 文件。 
+		  </p>
+ 
+		  <p class="p" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-E2BB9464-2D46-4D7F-9A90-906D0C614CDF">使用特定设备捕捉的图像应该应用特定于该设备的输入变换。这包括数字电影摄影机拍摄的片段，以及来自 ADX 校准的扫描仪的胶片板。其他类型的扫描胶片板通常需要某种形式的对数到线性变换。 
+		  </p>
+ 
+		  <p class="p" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-A27585D8-5C5D-4506-8951-413D101F8374">已经准备好显示的图像应移除 Gamma。这适用于许多常用的图形格式，包括 JPEG、PNG、BMP、Targa 和一些 TIFF 文件。但是，请务必注意，在移除 Gamma 后，颜色值与显示的亮度成线性正比，而非与场景的亮度成线性正比。在某些情况下，还需要通过应用反向色调贴图，使值成为场景线性。在其他情况下，反向色调贴图可能会创建大于 1.0 的值，这不适用于漫反射率（漫反射系数）、透明度和其他贴图的颜色。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__SECTION_FE0C12DF8AE84BD2A626A586DB130E6C"><h3 class="title sectiontitle"> 显示渲染的输出 </h3> 
+		   
+		  <p class="p" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-842AAA18-E975-4D13-9001-681BB4F6CA35"> 若要显示场景线性图像，必须对它进行转化以供查看或输出。此变换通常涉及两个步骤： 
+		  </p>
+ 
+		  <ul class="ul" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__UL_BA7FA514D05443EB93C4037ED40C1D9B"><li class="li" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__LI_77204C953792422780F59F88A4D7E5EE">第一步是，将场景相关的值转化为显示相关的空间。例如，这可能需要通过色调贴图将颜色从高动态范围转化为 [0, 1]，并更改主颜色。<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-2D9BBB9D-49F0-44C6-8BFF-B237FD8ED746">颜色管理首选项</a>中的<span class="ph uicontrol">“视图”(View)</span>设置用于控制所应用的色调贴图。 
+			 </li>
+<li class="li" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__LI_497C9AE6BC8E4063939095BF70A18925">第二步是，针对特定显示转化值。这可能需要再次更改主颜色和相应 Gamma，并将其编码为适当的整数值。首选项中的<span class="ph uicontrol">“显示”(Display)</span>设置用于确定使用哪些主颜色和 Gamma 对整数值进行编码。 
+			 </li>
+</ul>
+ 
+		  <p class="p" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-4B7A36CE-1621-4FAE-A9E2-294537D4E39F">3D 场景模拟真实世界，主要体现在存在范围非常广泛的亮度值。另一方面，由于最大值编码为 1.0，因此显示设备可以输出的亮度值范围有限。另外，通常在比户外场景更暗或者比明亮的电影布景更暗的照明环境下查看显示设备。出于此原因，通过生成合适图像的摄影响应，使用色调贴图将高动态范围值压缩到显示范围内。通常色调贴图应用 S 形曲线，提高对比度和饱和度以补偿较低动态范围和暗淡的查看环境。 
+		  </p>
+ 
+		  <p class="p" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-074B6266-B21F-49C1-9CDC-81D5BEB2FB73">只应用 Gamma 不足以充分准备场景线性图像以供显示。不使用色调贴图，大于 1.0 的颜色值将保持大于 1.0，并且被显示器剪裁。 
+		  </p>
+ 
+		  <p class="p" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-EADE8CD8-65C4-4843-874F-295D9E737F22"> 
+			 <img class="image" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__IMAGE_EB36649DC5A1448BB93B00F2FEF728DC" src="../images/GUID-343592B8-9ADB-4FF5-A471-438052EEF9CA.png"> 
+			 <img class="image" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__IMAGE_C398127EA4E3479B85DF2F34BD186E30" src="../images/GUID-A2802C6D-AE51-4243-88C9-5D8E54D21502.png"> 
+			 <img class="image" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__IMAGE_BAE11BA3337B47429339853458C0C320" src="../images/GUID-AEB07B99-055A-421B-8819-DE92A73335BD.png"> 
+		  </p>
+ 
+		  <dl class="dl" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-A7908B6B-2628-44FB-B6A1-ED12CD52F936"><dt class="dt dlterm" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-7A1F0580-96DF-4EF3-B457-C213C2FC9755">1. 正确转化以供显示 
+				</dt>
+<dd class="dd" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-8EC40F94-CBC4-47A0-A64C-99C6C711A127">通过颜色管理，可对渲染空间中的线性输出进行正确变换，以用于查看。 
+				</dd>
+<dt class="dt dlterm" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-06125B54-3058-44B0-AD2C-CBD937B1B73D">2. 无转化 
+				</dt>
+<dd class="dd" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-D1D3B096-77FD-4018-90F8-A8118FCB9F53">如果没有通过视图和显示变换进行转化，图像将过暗并且阴影中的细节将丢失。 
+				</dd>
+<dt class="dt dlterm" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-A47181BE-F5AD-4D02-AD45-FBFD45D5262C">3. 已错误补偿 
+				</dt>
+<dd class="dd" id="GUID-A1329E53-4132-4229-AF14-607BE0371F95__GUID-5B6E9FFD-58BB-46BA-B313-06C6D5ADD5D2">如果增加曝光以补偿未变换图像的黑暗度，则高光将出现过爆现象。更糟糕的是，如果增加场景中的灯光以进行补偿，则渲染结果将出错。 
+				</dd>
+</dl>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-5320733B-F9B6-4429-BCAA-F7251D77A8E2.htm">颜色管理</a></div>
+</div>
+</div>
+
+</body>
+</html>

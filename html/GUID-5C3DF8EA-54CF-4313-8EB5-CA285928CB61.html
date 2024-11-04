@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-5C3DF8EA-54CF-4313-8EB5-CA285928CB61">
+<meta name="language" content="CHS">
+<title>将命令附加到 UI 元素</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-5C3DF8EA-54CF-4313-8EB5-CA285928CB61">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>将命令附加到 UI 元素</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-5C3DF8EA-54CF-4313-8EB5-CA285928CB61__WS73099CC142F48755-3D114B7511841AEFA9F-B64"> 创建包含所有必需元素的窗口之后，就会希望使用此窗口执行某些操作。每个控件均可执行由用户操作触发的 MEL 命令或程序。每个控件支持的操作类型均取决于该控件的性质。例如，按钮只有在被按住时才支持命令的执行，而滑块在被拖动时和更改值时均支持命令。有关每个控件支持的回调列表，请参见命令文档。 
+	 </p>
+<p class="p" id="GUID-5C3DF8EA-54CF-4313-8EB5-CA285928CB61__WS73099CC142F48755-3D114B7511841AEFA9F-B62">向按钮附加命令就是一个简单的示例。按住按钮时，以下命令将更改该按钮的标签文本。 
+	 </p>
+<div class="section" id="GUID-5C3DF8EA-54CF-4313-8EB5-CA285928CB61__WS73099CC142F48755-3D114B7511841AEFA9F-B61"><h2 class="title sectiontitle">脚本 5. 简单功能</h2> 
+		 
+		<pre class="pre codeblock">
+window -width 200 -title "Test Window" ExampleWindow5;
+ columnLayout;
+ // Create the button.
+ // 
+ string $button = `button -label "Initial Label"`;
+ // Add the command.
+ // 
+ string $buttonCmd;
+ $buttonCmd = ("button -edit -label \"Final Label\" " + $button);
+ button -edit -command $buttonCmd $button;
+showWindow ExampleWindow5;
+</pre>
+ 
+		<p class="p" id="GUID-5C3DF8EA-54CF-4313-8EB5-CA285928CB61__WS73099CC142F48755-3D114B7511841AEFA9F-B60">在本示例中，向按钮附加了单个命令。附加带有参数的程序同样简便。以下示例对上述示例进行了少许更改。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-5C3DF8EA-54CF-4313-8EB5-CA285928CB61__WS73099CC142F48755-3D114B7511841AEFA9F-B5F"><h2 class="title sectiontitle">脚本 6. 程序中的简单功能</h2> 
+		 
+		<pre class="pre codeblock">
+window -title "Test Window" -widthHeight 200 100 ExampleWindow6;
+ columnLayout;
+ // Create the button.
+ // 
+ string $button = `button -label "Initial Label"`;
+ // Add the command.
+ // 
+ button -edit -command ("changeButtonLabel " + $button) $button;
+showWindow ExampleWindow6;
+proc changeButtonLabel (string $whichButton) {
+ string $labelA;
+ string $labelB;
+ string $currentLabel;
+ 
+ $currentLabel = `button -query -label $whichButton`;
+ $labelA = "New Label A";
+ $labelB = "New Label B";
+ if ($currentLabel != $labelA) {
+ button -edit -label $labelA $whichButton;
+ } else {
+ button -edit -label $labelB $whichButton;
+ }
+}
+</pre>
+ 
+		<p class="p" id="GUID-5C3DF8EA-54CF-4313-8EB5-CA285928CB61__WS73099CC142F48755-3D114B7511841AEFA9F-B5E">通常，控件发出的命令中会作为参数需要控件的值。若要避免在控件的状态更改时对其进行查询，可将其值作为字符串“#1”象征性地嵌入到命令中。控件更改值时，“#1”将在发出命令后替换为控件的实际值。包含多个值的组会将“#2”、“#3”等用作其不同组件的值。例如，包含三个场的浮动场组可在其命令中分别使用“#1”、“#2”和“#3”表示每个场的值。 
+		</p>
+ 
+		<p class="p" id="GUID-5C3DF8EA-54CF-4313-8EB5-CA285928CB61__WS73099CC142F48755-3D114B7511841AEFA9F-B5D">通常，您会希望通过控件来显示节点的属性的值，并在该属性更改进行更新。达到此目的的最简单方法是使用“attr”版本的控件，即 <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/attrFieldGrp.html" target="_blank">attrFieldGrp</a></samp>，而不是 <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/floatFieldGrp.html" target="_blank">floatFieldGrp</a></samp>。如果 <samp class="ph codeph">attr</samp> 命令不存在，则使用 <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/connectControl.html" target="_blank">connectControl</a></samp> 命令。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B612C992-B8F8-41CA-9DB7-7EBBFD671F1A.htm">创建界面</a></div>
+</div>
+</div>
+
+</body>
+</html>

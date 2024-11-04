@@ -1,0 +1,74 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_camera_am_Integrating_the_Camera_in_MtoA_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_INTEGRATING_THE_CAMERA_IN_MTOA">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 将摄影机集成到 MtoA 中 - Arnold for Maya">
+
+<title>将摄影机集成到 MtoA 中</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+      <script src="../scripts/lang-python.js"></script>
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>将摄影机集成到 MtoA 中</h1></div><p>要将摄影机集成到 MtoA 中，我们需要创建一个模板和一个元数据文件，并将它们复制到 MtoA 安装目录中的正确文件夹。</p>
+<h3 id="">创建元数据文件</h3><p>要添加元数据信息，您必须将以下内容写入 oculusCamera.mtd 文件。</p>
+<p><strong>oculusCamera.mtd</strong></p>
+<pre class="pre codeblock"><code class="prettyprint"># oculusCamera                    0x00070007
+[node oculusCamera]
+    maya.name               STRING  "camera"
+    maya.id                 INT     0x00070007
+    maya.translator         STRING  "oculusCamera" </code></pre><p>然后，将此文件和“oculusCamera.dll”文件放在此文件夹中：<code>%MTOA_PATH%\shaders\</code></p>
+<h3 id="">创建模板文件</h3><p>现在，您需要为此摄影机创建 Maya 模板。<br>在 <code>MTOA_PATH\scripts\mtoa\ui\ae\</code> 中或在 <code>MTOA_TEMPLATES_PATH</code> 中定义的任意文件夹中创建 aiOculusCameraTemplate.py 文件</p>
+<p><strong>aiOculusCameraTemplate.py</strong></p>
+<pre class="pre codeblock"><code class="lang-python prettyprint">import mtoa.ui.ae.templates as templates
+class aiOculusCameraTemplate(templates.AttributeTemplate):
+    def setup(self):
+        pass
+
+templates.registerTranslatorUI(aiOculusCameraTemplate, "camera", "oculusCamera") </code></pre>
+<p>现在，在 Maya 中，您将可以选择“oculusCamera”作为其中一个摄影机转换器。</p>
+<p><img src="../images/am-Integrating_the_Camera_in_MtoA-image2014-9-26-18-1-24-1.png" alt=""></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Technical/arnold_for_maya_technical_am_Creating_an_Oculus_Rift_Camera_Node_html.html">创建 Oculus Rift 摄影机节点</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

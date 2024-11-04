@@ -1,0 +1,435 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_lighting_am_Converting_an_Interior_Scene_to_MtoA_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_CONVERTING_AN_INTERIOR_SCENE_TO_MTOA">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 转化室内场景以使用 MtoA 进行渲染 - Arnold for Maya">
+
+<title>转化室内场景以使用 MtoA 进行渲染</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+<div class="head-block"><h1>转化室内场景以使用 MtoA 进行渲染</h1></div><p><img src="../images/converting-bathroom.jpg" alt=""></p>
+<p>本教程详细介绍了转化已为另一渲染器设置的室内场景以使用 MtoA 进行渲染所需的工作流。场景设置和渲染的用时应不超过一小时。本示例中使用的场景来自<a href="http://www.evermotion.org/shop/show_product/archinteriors-for-c4d-vol-37/12074" target="_blank">此建筑室内装饰作品集</a>。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>另一个演示为房间照明的不同方法的教程位于<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_lighting_am_Lighting_a_Room_html">此处</a>。</p>
+
+</div></div>
+
+<p>整个工作流涵盖以下主题：</p>
+<h4 id="">照明</h4><h4 id="">着色</h4><h4 id="">渲染设置</h4><p>场景已从 3ds Max 导出为 .fbx 文件，并已使用 FBX 插件导入到 Maya 中。</p>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Converting_an_Interior_Scene_to_MtoA-interior-3.gif" alt=""></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li>当您导入该场景时，将看到“大纲视图”(Outliner)和“Hypershade”窗口非常杂乱。因此在开始前，我们转到_“文件 &gt; 优化场景”(File &gt; Optimize Scene)_，删除所有空的组节点，并将几何体添加到一个组节点。</li>
+</ul>
+<h2 id="">照明</h2><ul>
+<li><p>场景的照明非常简单，在房间窗户的外面放置了 <em>skydome_light</em> 和灯光_引导口_。您可能需要增加 <em>skydome_light</em> 采样数以进行最终渲染（3 或 4）。</p>
+</li>
+<li><p>将 <em>skydome_light</em> 的_“曝光”(Exposure)_增加到 4 左右。</p>
+</li>
+<li><p>使用<em>带方向性的灯光</em>模拟从远端窗外照射进来的日光。将<em>“角度”(Angle)</em>稍微增大到 0.2 左右。这将使太阳光照射在地板上的阴影呈现更柔和的边缘。您可以根据需要增加_带方向性的_灯光的<em>“采样数”(Samples)</em>（3 应该足够）。启用 <em>color_temperature</em>，然后选择一个稍暖一些的色温，如 5000。</p>
+</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Converting_an_Interior_Scene_to_MtoA-lighting-4.gif" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>使用窗户外的灯光引导口（与 _skydome_light_）和表示太阳光的_带方向性的灯光_照亮场景</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<p>要预览照明将如何影响场景，可以为场景应用一个默认 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Surface_html">standard_surface</a> 着色器覆盖。这样可以有效创建渲染的“石膏预览”，并让您只专注于照明，而不必考虑着色。另外，<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_rendering_am_Arnold_RenderView_Window_html">Arnold 渲染视图</a>窗口的 <em>debug_shading</em> 中还有一个_“照明”(Lighting)模式_。</p>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Converting_an_Interior_Scene_to_MtoA-image2016-7-12-15-34-2-5.png" alt=""></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>将 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_render_settings_ac_samples_html" target="_blank"><em>diffuse_samples</em></a> 减小到 0 实际上将禁用间接照明。这在测试渲染场景中的直接照明时非常有用，并且会提高渲染速度。</p>
+
+</div></div>
+
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Converting_an_Interior_Scene_to_MtoA-image2016-7-12-16-33-33-6.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>_Diffuse_samples_：0（禁用间接照明）</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<h2 id="">着色</h2><p>场景自带 Maya 中的默认 Phong 着色器，它们显示在“Hypershade”窗口中。我们需要将这些着色器转化为 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Surface_html">standard_surface</a> 着色器。</p>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Converting_an_Interior_Scene_to_MtoA-image2016-7-1-11-48-55-7.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>默认的 Maya 场景包含 Maya Phong 着色器并显示在“Hypershade”窗口中</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<ul>
+<li>选择一个 Phong 着色器，然后打开“属性编辑器”(Attribute Editor)。从“类型”(Type)下拉菜单中选择“Phong”，然后选择 <em>standard_surface_。任何漫反射颜色信息都将传递给 _standard_surface</em> 着色器。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Converting_an_Interior_Scene_to_MtoA-image2017-4-5-9-42-43-8.png" alt=""></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+<p>如果在 Phong 着色器中为<em>“颜色”(Color)</em> 指定了纹理，这些纹理将自动连接到 _standard_surface.base_color_，不需要额外的设置。</p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>MtoA 提供了一个<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_utils_am_Convert_Shaders_to_Arnold_html">着色器转化脚本</a>，以方便将多个着色器转化为 _standard_surface_。</p>
+
+</div></div>
+
+<h2 id="">地板着色器</h2><p><img src="../images/am-Converting_an_Interior_Scene_to_MtoA-image2016-7-1-11-56-35-9.png" alt=""></p>
+<ul>
+<li>将漫反射颜色贴图连接到 <em>standard_surface</em> 着色器的 _base_color_。</li>
+<li>将凹凸贴图连接到_“凹凸”(Bump)_属性。将 <em>bump_depth</em> 减小到一个较小值，如 0.03。</li>
+<li>将 <em>specular_weight</em> 增大到 0.3，并将 <em>specular_roughness</em> 减小到 0.1，以使地板呈现出光泽的外观。</li>
+</ul>
+<h2 id="">镜子</h2><ul>
+<li>为镜子指定一个 <em>standard_surface</em> 着色器，并将其重命名为“Mirror”。</li>
+<li>将 <em>base_weight</em> 增大到 1。</li>
+<li>将 <em>metalness</em> 增大到 1。</li>
+</ul>
+<h2 id="">窗帘</h2><p>此处，我们将增加一些半透明度来实现从背后照亮窗帘的效果。</p>
+<ul>
+<li>为窗帘指定一个 <em>standard_surface</em> 着色器，并将其重命名为“Curtain”。</li>
+<li>将 <em>sss</em> 增大到 0.5 左右，并启用 <em>thin_wall</em>。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Converting_an_Interior_Scene_to_MtoA-backlighting-0-10.jpg" alt=""></td>
+<td><img src="../images/am-Converting_an_Interior_Scene_to_MtoA-backlighting-1-11.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><sub><strong>请参见 <em>thin_wall</em> 和 <em>sss</em> 对幕墙的影响</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+<h2 id="a-href-topicid-arnold_for_maya_lighting_am_converting_an_interior_scene_to_mtoa_html-a"><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_lighting_am_Converting_an_Interior_Scene_to_MtoA_html">玻璃门</a></h2><p>请确保多边形的面法线全部朝向正确的方向（这一点在使用 Arnold 渲染玻璃曲面时尤其重要）。</p>
+<ul>
+<li>选择窗户几何体，并确保在属性编辑器的“Arnold”选项卡中禁用_“不透明”(opaque)_。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Converting_an_Interior_Scene_to_MtoA-image2017-4-5-9-44-2-12.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>非不透明曲面（例如玻璃）的“不透明”(Opaque)开关已禁用</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li>为玻璃门指定一个 <em>standard_surface</em> 着色器，并将其重命名为“Glass”。</li>
+<li>将 <em>base_weight</em> 减小到 0。</li>
+<li>将 <em>specular_weight</em> 增加到 1。</li>
+<li>将 <em>transmission_weight</em> 增加到 1（这将使玻璃变得透明）。</li>
+<li>将 <em>specular_IOR</em> 增加到 1.5（玻璃）。</li>
+<li>您还可以通过向 <em>transmission_color</em> 添加细微的色调，非常轻松地为玻璃添加染色。</li>
+</ul>
+<div class="head-block"><h1>渲染设置</h1></div><h2 id="sampling">采样(Sampling)</h2><ul>
+<li>对于最终渲染，*<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_render_settings_ac_samples_html#Samples-Camera(AA)" target="_blank">摄影机(AA)(Camera (AA))</a>*设置增加到 6。</li>
+<li><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_render_settings_ac_samples_html#Samples-Diffuse" target="_blank"><em>diffuse_samples</em></a> 也增加到 6，以减少房间中间接照亮区域的噪波。下图显示了 <em>diffuse_samples</em> 为 2（默认值）和 6 时渲染效果之间的差异。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Converting_an_Interior_Scene_to_MtoA-chalk-diffuse-2-13.jpg" alt=""></td>
+<td><img src="../images/chalk_diffuse_6.jpg" alt=""></td>
+</tr>
+<tr>
+<td>2</td>
+<td>6</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<div class="callout callout-important">
+<div class="callout-title"><i class="callout-icon fa fa-exclamation-triangle" aria-hidden="true"></i>重要信息：</div>
+<div class="callout-body">
+
+<p><strong></strong>增加此值时应小心谨慎，因为渲染时间也会随之大幅增加。</p>
+
+</div></div>
+
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关去除噪波的详细信息以及教程，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_tutorials_am_Removing_Noise_html">此处</a></p>
+
+</div></div>
+
+<div class="head-block"><h1>光线深度(Ray Depth)</h1></div><h2 id="">漫反射光线深度</h2><p>下面是 <em>diffuse_ray_depth</em> 为 1（默认值）和 4 时的渲染图像。您可以发现，窗帘周围的反弹光存在明显差异。</p>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Converting_an_Interior_Scene_to_MtoA-master-diffuse-10-Ray-Diffuse-1-15.jpg" alt=""></td>
+<td><img src="../images/am-Converting_an_Interior_Scene_to_MtoA-master-diffuse-10-Ray-Diffuse-4-16.jpg" alt=""></td>
+</tr>
+<tr>
+<td>1</td>
+<td>4</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>请注意，渲染时间将根据光线漫反射反弹次数而线性增加，因此增大此值时应小心谨慎。</p>
+
+</div></div>
+
+<h2 id="">透射光线深度</h2><p>在下面的图像中，您可以“清楚地”看到增加 <em>transmission_ray_depth</em> 后玻璃花瓶有何不同。</p>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Converting_an_Interior_Scene_to_MtoA-refraction-2-17.jpg" alt=""></td>
+<td><img src="../images/am-Converting_an_Interior_Scene_to_MtoA-refraction-4-18.jpg" alt=""></td>
+<td><img src="../images/am-Converting_an_Interior_Scene_to_MtoA-refraction-8-19.jpg" alt=""></td>
+</tr>
+<tr>
+<td>2</td>
+<td>4</td>
+<td>8</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+
+
+<p>有关转化室内场景以使用 Arnold 进行渲染的教程到此结束。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Lighting_html.html">照明</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

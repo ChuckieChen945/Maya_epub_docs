@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5">
+<meta name="language" content="CHS">
+<title>创建和渲染硬件着色器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>创建和渲染硬件着色器</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-38A23F5C12A55EE7664-7E99"><p class="p">使用硬件着色器，可以通过上传到 GPU 的二进制小程序创建有趣的图形效果。对于执行计算机图形应用程序中常见的选定任务，GPU 比 CPU 更高效。 
+	 </p>
+<p class="p">若要编写这些二进制程序，可以使用高级着色器语言（如 HLSL 和 GLSL）来创建效果文件。 
+	 </p>
+<p class="p">Maya 提供了以下三个<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-2CF7D90B-EF10-40D1-9129-9D401CCAB952">插件</a>，通过这些插件可以创建加载这些效果文件的硬件着色器： 
+	 </p>
+<ul class="ul" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__UL_B863BAD44A854F50B16161E8866FE478"><li class="li" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__LI_F1EBE1E726EF4D3D83D404894E7B752E"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-547BDF7D-2FDE-4823-8FA3-A0B3F74EB481.htm">dx11Shader.mll</a> - 用于加载 HLSL 着色器 (<samp class="ph codeph">.fx</samp>) 
+		</li>
+<li class="li" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__LI_AB3BA3D7F9CD4AE4AAA532CF28BA5079"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-41D74556-0699-4F4E-8382-F9E69FBFC158.htm">glslShader.mll</a> - 用于加载 GLSL 着色器 (<samp class="ph codeph">.ogsfx</samp>) 
+		</li>
+<li class="li" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__LI_0276BBE43D704C4989DA86A8FA4DC37B"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA.htm">cgfxShader.mll</a> - 用于加载 Cg 着色器 (<samp class="ph codeph">.cgfx</samp>) 
+		</li>
+</ul>
+<div class="note note" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__GUID-42CC5C44-CD57-4F68-9306-F34597E6435F"><span class="notetitle">注：</span> Cg 着色器基于传统技术，因此不再建议使用。请改用 GLSL 着色器。 
+	 </div>
+<ol class="ol" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__OL_369BD25C2B1A43719BF87B2BD3F7EBBD"><li class="li" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__LI_A8F72F51F7FE4EE78C264D11BC68C7A2"> 
+		  <p class="p">加载所需的着色器插件。 
+		  </p>
+ 
+		  <p class="p">对应的硬件着色器将显示在 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-447C9ADA-A285-483E-A93D-6ED1B2792D5F.htm">Hypershade</a> 的<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-76B10C8D-EC19-4AFE-8433-743326C49DBE.htm">“创建”(Create)选项卡</a>中。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__LI_7D1673E411C349B88249B905D24C212A"> 
+		  <p class="p">请确保在正确的显示模式下运行 Maya。 
+		  </p>
+ 
+		  <p class="p" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__GUID-488370BD-1B3B-4F31-8D42-49C6931B5107">若要创建和渲染 GLSL 着色器，必须在 Viewport 2.0 中以 OpenGL 核心配置模式运行 Maya。选择<span class="ph uicontrol" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__GUID-E26BFB90-E678-4AB6-8A6C-85A6BB18719C">“窗口 &gt; 设置/首选项 &gt; 首选项”(Windows &gt; Settings/Preferences &gt; Preferences)</span>以打开<span class="ph uicontrol" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__GUID-58B131BA-B0C3-4D9C-B127-D29E38E8EF45">“首选项”(Preferences)</span>窗口，然后从<span class="ph uicontrol" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__GUID-5622194D-26C4-4792-8D69-D4162CA2C0C0">“显示”(Display)</span>类别中选择<span class="ph uicontrol" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__GUID-0B5F384B-B9AA-4C75-B6C7-0D49192B59A3">“OpenGL 核心配置”(OpenGL Core Profile)</span>作为<span class="ph uicontrol" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__GUID-1CCE60A6-3319-4B01-902E-80866537AD11">“渲染引擎”(Rendering engine)</span>。 
+		  </p>
+ 
+		  <p class="p">或者，若要创建和渲染 HLSL 着色器，必须以 DirectX 11 模式运行 Maya。从<span class="ph uicontrol">“首选项”(Preferences)</span>窗口的<span class="ph uicontrol">“显示”(Display)</span>类别中，选择 <span class="ph uicontrol">DirectX 11</span> 作为渲染引擎。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__LI_2068A552B8E943CA92A727DBF0745A5C">单击着色器节点以创建它，然后从<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>加载效果文件。 
+		</li>
+<li class="li" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__LI_A276B23DE1B243B6A04CBD7100D15200"> 
+		  <p class="p">单击热键 6，或者从面板菜单中选择<span class="ph uicontrol">“着色 &gt; 硬件纹理”(Shading &gt; Hardware Texturing)</span>。 
+		  </p>
+ 
+		  <p class="p">在视口中启用纹理模式时，会使用硬件着色器。 
+		  </p>
+ 
+		</li>
+</ol>
+<div class="note note" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__GUID-CD87E59E-DCA0-419F-8465-8AC36765D1A8"><span class="notetitle">注：</span>  
+		<p class="p" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__WS73099CC142F48755-3D114B7511812357EFE-7C7B">若要看到硬件着色器，必须具有受支持的显卡。请查阅 Autodesk 网站 (<a class="xref" href="http://www.autodesk.com/hardware-chs" target="_blank">http://www.autodesk.com/hardware-chs</a>)，获取有关合格硬件最精确的信息。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__SECTION_769060211543440A8933533797663383"><h2 class="title sectiontitle">硬件着色器属性</h2> 
+		 
+	 </div>
+<div class="section" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__WS73099CC142F48755-3D114B7511812357EFE-77D4"><h2 class="title sectiontitle">技术</h2> 
+		 
+		<p class="p">单个效果可以指定一种或多种技术以提供不同的着色变化。Maya 会在<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>的下拉列表中显示可用的技术。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__FIG_643170914B124A60A0EFF28D153155F9"><img class="image" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__IMAGE_85881BB61E8F4C6AA06142E115593890" src="../images/GUID-8CF8F727-6A08-48B3-A3BB-DCFCC2107AF6.png"></div>
+ 
+	 </div>
+<div class="section" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__WS73099CC142F48755-3D114B7511812357EFE-77D2"><h2 class="title sectiontitle">着色器参数和着色器网格数据</h2> 
+		 
+		<p class="p">使用一致参数来映射 Maya 信息（如文件纹理和照明）以及显示着色器输入。Maya 将它们作为“属性编辑器”(Attribute Editor)中的着色器属性显示。 
+		</p>
+ 
+		<p class="p">通过变化的参数，可以从几何体传递逐顶点数据。这包括选择着色器将使用的 UV 集、颜色集、切线和法线。Maya 通过快捷菜单显示这些参数，您可以从中选择要传递到着色器的数据。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__SECTION_09720750E8844C74B628A4DEDD017F91"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__UL_DD8A1828F0B5422EB352B42A26A90789"><li class="li" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__LI_375AF2FD68354499A1EE4A0EE6C702C1"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846.htm">GLSL 着色器</a> 
+		  </li>
+<li class="li" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__LI_AE59C2B456EE4C3D9F68B1A3007DB188"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-F81B34C5-30B8-4784-8351-F252006C42D8.htm">编写自定义 GLSL 着色器</a> 
+		  </li>
+<li class="li" id="GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5__LI_393C17E9DDEF4B6BB3BB9B439BE38C4D"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-21D2A020-EC76-4679-B38A-D5270CE52566.htm">DirectX 11 Shader</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-547BDF7D-2FDE-4823-8FA3-A0B3F74EB481.htm">创建 DirectX 着色器</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D.htm">Viewport 2.0 中 dx11Shader 和 glslShader 插件所支持的语义和注释</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-41D74556-0699-4F4E-8382-F9E69FBFC158.htm">创建和可视化 GLSL 着色器</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA.htm">创建 CgFX 着色器</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4.htm">创建 HLSL 着色器</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-06252A3F-603B-49C0-950D-AEF2FCC50CAD.htm">HLSL 着色器疑难解答</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-D43C875E-DFF1-4AB6-877B-AE2D3E7632B9.htm">关于着色和纹理曲面</a></div>
+</div>
+</div>
+
+</body>
+</html>

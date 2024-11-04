@@ -1,0 +1,310 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_531_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_531">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 5.3.1 - Arnold for Maya">
+
+<title>5.3.1</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+<div class="head-block"><h1>5.3.1</h1></div><p>29 March 2023</p>
+<p>MtoA 5.3.1 introduces Arnold 7.2.1.0.
+See also the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_530_html">MtoA 5.3.0 release notes</a>.</p>
+<p>MtoA 5.3.1, <a href="https://help.autodesk.com/view/BIFROST/ENU/?guid=Bifrost_ReleaseNotes_release_notes_html" target="_blank">Bifrost 2.7.0.1</a>, and <a href="https://github.com/Autodesk/maya-usd/releases/" target="_blank">MayaUSD 0.23.0</a> all use a version of USD that provides important security enhancements. We recommend that you upgrade to these versions of the plug-ins. For more information on version compatibility, see <a href="https://www.autodesk.com/support/technical/article/caas/tsarticles/ts/2aZO1BEEN1yOnBswYFuvwz.html" target="_blank">Maya USD, Bifrost, and Arnold Compatibility</a>.</p>
+<h2 id="installation">Installation</h2><ul>
+<li><a href="https://manage.autodesk.com/products/MAYA" target="_blank">Download</a> the Arnold for Maya plugin</li>
+<li>Follow these installation instructions.</li>
+</ul>
+<h2 id="maya-plugins-compatibility">Maya Plugins Compatibility</h2><p>MtoA 5.3.1 works with the following Maya plugins:</p>
+<ul>
+<li><a href="https://help.autodesk.com/view/BIFROST/ENU/?guid=Bifrost_ReleaseNotes_release_notes_html" target="_blank">Bifrost Extension for Maya 2.7.0.1</a></li>
+<li><a href="https://github.com/Autodesk/maya-usd/releases/" target="_blank">MayaUSD 0.23.0</a></li>
+</ul>
+<h2 id="enhancements">Enhancements</h2><ul>
+<li><strong>Distance shader</strong>: A new distance shader that uses the distance to the nearest surface to interpolate between near and far color values. (ARNOLD-9361)</li>
+</ul>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/PKQViQDYwek?" frameborder="0" allowfullscreen=""></iframe>
+
+
+
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/02eabpenguins.jpg" alt=""></td>
+<td><img src="../images/9f.jpg" alt=""></td>
+<td><img src="../images/5.jpg" alt=""></td>
+<td><img src="../images/03b.jpg" alt=""></td>
+<td><img src="../images/white-spheres-clip.jpg" alt=""></td>
+<td><img src="../images/9ee.jpg" alt=""></td>
+<td><img src="../images/02dcccspheres4.jpg" alt=""></td>
+<td><img src="../images/clay-pipes.jpg" alt=""></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li><strong>Global light sampling</strong>: A new, more efficient sampling technique for lights is available. To enable global light sampling, set <code>options.light_samples</code> to a non-zero value. When enabled, the light sample settings on individual lights are ignored and the overall, global contribution of all lights together is computed using <code>options.light_samples</code> number of samples only. In this release, global light sampling does not apply to environment, directional lights, volumes, and GPU rendering. See the full documentation for more details. (ARNOLD-12860)</li>
+</ul>
+
+<div class="gallery center thumbnail">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/light_samples_0_8min3secs.png" alt=""></td>
+<td><img src="../images/light_samples_8_3min51secs.png" alt=""></td>
+</tr>
+<tr>
+<td>without <em>Global Light Sampling</em>: 2 mins, 41 secs</td>
+<td>with <em>Global Light Sampling</em>: 44 secs</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/benchmark_per-light_vs_global.png" width="550px"></td>
+</tr>
+<tr>
+<td>For equal-quality renders of this scene, the new light sampling technique becomes progressively faster than per-light sampling as more lights are used.</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li><p><strong>Support per-channel connections during shader import</strong>: Shading trees with per-channel connections will now import correctly in Maya when using "Import Shaders" (MTOA-353)</p>
+</li>
+<li><p><strong>Support multiple shader outouts during shader import</strong> : Shaders with multiple outputs will be imported correctly, when using "Import Shaders" (MTOA-1298)</p>
+</li>
+<li><p><strong>Improved triangle intersector</strong>: Triangle intersection is now 20% faster and less likely to allow rays to incorrectly slip between triangles, which manifested as holes in a mesh. (ARNOLD-4136)</p>
+</li>
+<li><p><strong>Faster loading of OpenVDB volumes in Windows</strong>: On Windows, OpenVDB volumes are faster to load, especially on certain many-core CPUs. On one 112-core machine we've seen 4.5x faster loads; other CPUs saw smaller speedups. (ARNOLD-12633)</p>
+</li>
+<li><p><strong>Faster instancer initialization</strong>: The instancer procedural is now faster on single-socket CPUs. We've seen up to 1.6x faster node initialization on some machines. (ARNOLD-12963)</p>
+</li>
+<li><p><strong><code>alembic.objectpath</code> changed to an array</strong> : The Alembic procedural parameter <code>objectpath</code> is now an ARRAY type, so multiple object paths can be given to a single Alembic procedural. (ARNOLD-12950)</p>
+</li>
+<li><p><strong><code>uv_transform</code> improvements</strong> : The uv_transform shader now has a <code>wset</code> parameter, which is the name of a float user data value. A new matrix attribute <code>uvw_matrix</code> returns new coordinates based on the uvw values. If the new attribute <code>uvcoords</code> is linked to a shader, the values returned by that shader override the uv coordinates, at the cost of efficiency because this prevents Arnold from using the correct filtering. (ARNOLD-13049, ARNOLD-13156)</p>
+</li>
+<li><p><strong>Motion blur with set_transform</strong>: The <code>set_transform</code> operator now has a matrix attribute, that can be animated. This allows <code>set_transform</code> to apply animations <em>and</em> get correct motion blur. (ARNOLD-13068)</p>
+</li>
+<li><p><strong>Update OSL</strong> : Open Shading Language (OSL) has been updated to <a href="https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/releases/tag/v1.12.9.0" target="_blank">version 1.12.9</a>. (ARNOLD-11791)</p>
+</li>
+<li><p><strong>Update Boost</strong>: The Boost library has been updated to 1.81.0. (ARNOLD-12271)</p>
+</li>
+<li><p><strong>Update zlib</strong>: The zlib library has been updated to 1.2.13. (ARNOLD-13097)</p>
+</li>
+<li><p><strong>Update Cryptomatte</strong>: Cryptomatte has been updated to 1.2.2. (ARNOLD-13101), so sidecar manifests now work with Solaris.</p>
+</li>
+<li><p><strong>autotx metadata in tx files</strong>: TX files generated with AutoTX now have the metadata <code>autotx 1</code> added to the TX file. (ARNOLD-13025)</p>
+</li>
+<li><p><strong>New environment variable for external control of autotx</strong>: The new environment variable <code>ARNOLD_AUTO_GENERATE_TX</code> overrides the options parameter <code>texture_auto_generate_tx</code>. This environment variable can be either <code>never</code> or <code>when_outdated</code>, which are equivalent to disabling or enabling the global autotx option. (ARNOLD-12875)</p>
+</li>
+</ul>
+<h2 id="usd-enhancements">USD Enhancements</h2><ul>
+<li><p><strong>Update Arnold-USD</strong>: USD has been updated to 22.11 (ARNOLD-13075, ARNOLD-13099)</p>
+</li>
+<li><p><strong>Support more MaterialX shaders in USD</strong>. The MaterialX Standard Library shaders for creating and manipulating BSDFs, VDFs, and EDFs, such as <code>layer</code>, <code>mix</code>, and <code>add</code>, are now supported in USD as well as the following shaders : <code>triplanarprojection</code>, <code>switch</code>, and <code>constant</code>.</p>
+</li>
+<li><p><strong>Convert cube, sphere, cylinder, capsule primitives as meshes in the procedural</strong>. Geometric primitives are now converted to Hydra meshes instead of Arnold primitives. <a href="https://github.com/Autodesk/arnold-usd/issues/1318" target="_blank">usd#1318</a> <a href="https://github.com/Autodesk/arnold-usd/issues/1451" target="_blank">usd#1451</a></p>
+</li>
+<li><p><strong>Support render delegate products for all Arnold drivers</strong>. When rendering using Hydra, with husk for example, the render delegate now uses the RenderProduct drivers. <a href="https://github.com/Autodesk/arnold-usd/issues/1422" target="_blank">usd#1422</a></p>
+</li>
+<li><p><strong>Arnold Render Products in Hydra</strong>: Setting the render product type to "arnold" (instead of the default "raster") will now render the scene with Arnold drivers. This means we support the driver parameters defined in the Arnold tab of the render products. <a href="https://github.com/Autodesk/arnold-usd/issues/1423" target="_blank">usd#1423</a></p>
+</li>
+<li><p><strong>Instanced skinned meshes</strong>: Skinned instances are now rendering in the correct transform and order. <a href="https://github.com/Autodesk/arnold-usd/issues/1412" target="_blank">usd#1412</a></p>
+</li>
+<li><p><strong>fStop and aperture_size</strong>: The procedural and render delegate now support both the fStop and the aperture_size parameters in the camera. <a href="https://github.com/Autodesk/arnold-usd/issues/1421" target="_blank">usd#1421</a></p>
+</li>
+<li><p><strong>Support combination of half and full precision AOVs in the procedural</strong>. The procedural can now render a combination of half- and full- precision aovs. <a href="https://github.com/Autodesk/arnold-usd/issues/1416" target="_blank">usd#1416</a></p>
+</li>
+<li><p><strong>Always read RenderVar aov:name as an output layer</strong>.  The <code>RenderVar</code> parameter driver:parameters:aov:name is now used as the output aov layer name. <a href="https://github.com/Autodesk/arnold-usd/issues/1408" target="_blank">usd#1408</a></p>
+</li>
+<li><p><strong>Support Render Product names</strong>: Render Product names are now used as the Arnold output layer names. In exr files, each layer name can now be customized. <a href="https://github.com/Autodesk/arnold-usd/issues/1408" target="_blank">usd#1408</a></p>
+</li>
+<li><p><strong>Support asset attributes for filenames when no tokens are present</strong>. "filename" Arnold attributes are now SdfAssetPaths in USD <a href="https://github.com/Autodesk/arnold-usd/issues/1163" target="_blank">usd#1163</a></p>
+</li>
+<li><p><strong>Filename attributes as Assets</strong>: In Arnold shaders (like the image shader), the filename is now an asset parameter. This allows Arnold to support relative paths in a more consistent way for USD. <a href="https://github.com/Autodesk/arnold-usd/issues/1418" target="_blank">usd#1418</a></p>
+</li>
+</ul>
+<h2 id="api-additions">API Additions</h2><ul>
+<li><p><strong>Enable/disable crash handler for the session</strong>: The new function <code>AiSetSystemHandlers()</code> and the environment variable <code>ARNOLD_SYSTEM_HANDLER_MASK</code> have been added, allowing a user to mask Arnold built-in system handlers. The supported masks are listed in <code>AtSystemHandlerMask</code> and currently allow all handlers to be either fully enabled or disabled. (ARNOLD-13014) </p>
+</li>
+<li><p><strong>Check if TX file is up to date</strong>: The new function <code>AiTextureTxFileNeedsUpdate()</code> returns true if the TX file needs to be regenerated from its source texture. This can happen if the source texture was modified or if Arnold was updated with a newer OpenImageIO library. (ARNOLD-12994)</p>
+</li>
+<li><p><strong>Get original texture name for TX file</strong>: The new function <code>AiTextureGetTxSourceFileName()</code> returns the name of the texture file used to generate a given TX file. (ARNOLD-13047) </p>
+</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible changes</h2><ul>
+<li><p><strong>Auto Generate TX and OpenImageIO versioning</strong>: Arnold now regenerates tx files only if the OIIO version in Arnold is newer. Using an older Arnold with an older OIIO does not force a regeneration of the tx files. (ARNOLD-12992) </p>
+</li>
+<li><p><strong>Auto Generate TX on write-protected folder</strong>: When a TX file cannot be generated because the target folder is write protected, the TX file is generated in the system temp folder. (ARNOLD-13039) </p>
+</li>
+<li><p><strong>Minimum driver requirement raised</strong>: The minimum supported NVIDIA driver versions are now 512.78 (for Windows) and 510.73.05 (for Linux). (ARNOLD-13169)</p>
+</li>
+</ul>
+<h2 id="bug-fixes">Bug Fixes</h2><ul>
+<li><p>MTOA-1366 USD Lights in a usdProxyShape appear twice in the scene</p>
+</li>
+<li><p>MTOA-1359 IPR gets triggered when selecting a prim in a usdProxyShape, when the USD file contains lights</p>
+</li>
+<li><p>MTOA-1300 - Importing Arnold Shaders does not import uv_projection.matrix</p>
+</li>
+<li><p>MTOA-1234 - Account for scene unit conversion when exporting recursive StandIns</p>
+</li>
+<li><p>ARNOLD-13171 - AiMsgDebug messages don't appear in Arnold log</p>
+</li>
+<li><p>ARNOLD-13090 - Opening a background image in the ARV/Display tab crashes MtoA IPR</p>
+</li>
+<li><p>ARNOLD-12964 - Rare crash when threads are creating AtStrings at the same time</p>
+</li>
+<li><p>ARNOLD-13032 - <code>AiTextureAutoTxFlags</code> not resolving auto color space</p>
+</li>
+<li><p>ARNOLD-13115 - Use textures in <code>texture_auto_tx_path</code> even when autotx generation is disabled</p>
+</li>
+<li><p>ARNOLD-13197 - Log callbacks ignore maximum number of warnings</p>
+</li>
+<li><p>ARNOLD-13201 - Crashes when default universe is null</p>
+</li>
+<li><p>ARNOLD-13350 - Set AtNode LocalData pointer to null after node_finish is called</p>
+</li>
+<li><p>ARNOLD-12995 - [MaterialX] Support nodes from the MaterialX PBR library in USD</p>
+</li>
+<li><p>ARNOLD-13073 - [MaterialX] <code>AiMaterialxGetOslShaderCode</code> fails on <code>ND_switch_color3</code></p>
+</li>
+<li><p>ARNOLD-13074 - [MaterialX] <code>AiMaterialxGetOslShaderCode</code> fails on <code>ND_separate3_color3</code></p>
+</li>
+<li><p>ARNOLD-13107 - Mesh lights occasionally do not render</p>
+</li>
+<li><p>ARNOLD-13163 - [GPU] CPU memory leak when rendering multiple frames on the GPU</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1412" target="_blank">usd#1412</a> - Fix instance skinned mesh in incorrect position and order.</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1438" target="_blank">usd#1438</a> - Creating surface models from PBR nodes doesn't work</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1433" target="_blank">usd#1433</a> - Material binding not handling correctly the different scopes</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1447" target="_blank">usd#1447</a> - MaterialX Triplanar renders black</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1427" target="_blank">usd#1427</a> - Motion blur differences between procedural and delegate</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1442" target="_blank">usd#1442</a> - Velocity motion blur doesn't work if PointInstancer has more than one prototype</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1354" target="_blank">usd#1354</a> - Vertex mismatch with velocity blur and point normals in Hydra</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1420" target="_blank">usd#1420</a> - Unify <code>fStop</code> and <code>aperture_size</code></p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1430" target="_blank">usd#1430</a> - deepexr driver parameters like <code>depth_tolerance</code> are ignored</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1411" target="_blank">usd#1411</a> - <code>append</code> parameter (for checkpointing renders) is not translated</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1413" target="_blank">usd#1413</a> - Crash in UsdSkel in the procedural</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1352" target="_blank">usd#1352</a> - Skinned instances in wrong world position</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1394" target="_blank">usd#1394</a> - USD procedural renders characters in the wrong positions and order</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1443" target="_blank">usd#1443</a> - Incorrect number of motion keys with skinned primvar normals and motion blur</p>
+</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2><ul>
+<li>Maya 2022, 2023 or 2024</li>
+<li>Windows 10 or later, with the Visual Studio 2019 redistributable.</li>
+<li>Linux with at least glibc 2.17 and libstdc++ 4.8.5 (gcc 4.8.5). This is equivalent to RHEL/CentOS 7.</li>
+<li>x86-64 CPUs need to support the SSE4.1 instruction set. </li>
+<li>macOS 10.13 or later, macOS 11 and later for Maya 2024</li>
+<li>Apple Mac models with M series chips:<ul>
+<li>Natively supported by Arnold for Maya 2024</li>
+<li>Supported under Rosetta 2 mode for older versions of Maya</li>
+</ul>
+</li>
+<li>GPU rendering works on Windows and Linux only and requires an NVIDIA GPU of the Ada, Ampere, Turing, Volta, Pascal, or Maxwell architecture. We recommend using the <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">525.89 or higher drivers</a> on Linux and <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">528.49, or higher</a> on Windows. See  Arnold GPU for more information.</li>
+<li>For GPU rendering, the cache also needs to be re-populated after installing a new Arnold version, <strong>updating to a new NVIDIA driver</strong>, or changing the hardware configuration of GPUs on the system. More information can be found here.</li>
+<li>Optix™ denoiser requires an NVidia GPU with <a href="https://developer.nvidia.com/cuda-gpus" target="_blank">CUDA™ Compute Capability 5.0</a> and above.</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_5x_html.html">MtoA 5.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

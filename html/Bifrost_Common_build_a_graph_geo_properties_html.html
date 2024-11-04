@@ -1,0 +1,61 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_build_a_graph_geo_properties_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>获取并设置几何对象的特性</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>获取并设置几何对象的特性</h1></div><p>您可以获取并设置几何对象（如网格和体积）的特性（如 <code>point_position</code> 或 <code>voxel_fog_density</code>）。您还可以创建自己的特性以控制自定义效果。</p>
+<h2 id="">关于特性</h2><p>通常，特性是对象的键-值对。键是一个名称（字符串），值可以是几乎任何内容。在许多情况下，值是另一个具有一个或多个自己的特性的对象。</p>
+<p>特别是，几何对象可以具有<em>几何特性</em>。<code>point_position</code> 和 <code>voxel_fog_density</code> 都是几何特性的示例。几何特性的值本身就是具有其自己特性的对象，包括：</p>
+<ul>
+<li>特性所<em>针对</em>（即与之关联）的几何组件。例如，<code>point_position</code>、<code>point_normal</code> 和 <code>point_size</code> 都针对 <code>point_component</code>，而 <code>voxel_fog_density</code> 和 <code>voxel_temperature</code> 针对 <code>voxel_tile_tree</code>。</li>
+<li>特性的默认值。</li>
+<li>特性的数据（例如，<code>float3</code> 点定位的数组）。</li>
+</ul>
+<h2 id="">获取并设置特性的节点</h2><p>有几个节点用于获取并设置特性。大多数情况下，应该使用 <code>get_geo_property</code> 和 <code>set_geo_property_data</code>。例如，要更改粒子的大小，首先使用 <code>get_geo_property</code> 获取 <code>point_size</code> 数据，然后修改值，最后使用 <code>set_geo_property_data</code> 将其存储在对象上。</p>
+<h3 id="get_geo_property"><code>get_geo_property</code></h3><p>使用 <code>get_geo_property</code> 返回几何特性的值数组。它还返回目标组件的默认值和名称。但是，如果几何对象上不存在该特性，则返回的数据为空数组。</p>
+<p>有一个名为 <code>get_geo_property_check</code> 的变体，它还返回一个布尔值，以指示是否找到该特性。</p>
+<p>还有一些常用特性的专用节点，例如 <code>get_particle_position</code> 和 <code>get_particle_velocity</code>。这些节点更为方便，因为您不需要键入特性名称。</p>
+<h3 id="set_geo_property_data"><code>set_geo_property_data</code></h3><p>使用 <code>set_geo_property_data</code> 更新现有几何特性的数据的数组。它比 <code>set_geo_property</code> 更方便，因为特性已经存在，您不需要指定默认值或目标组件。</p>
+<h3 id="set_geo_property"><code>set_geo_property</code></h3><p>使用 <code>set_geo_property</code> 创建几何特性并设置其初始数据值。您可以出于任何目的创建和修改自定义几何特性。创建几何特性后，您可以使用 <code>get_geo_property</code> 和 <code>set_geo_property_data</code> 获取并设置它。</p>
+<p>使用 <code>set_geo_property</code> 创建自定义特性的原因之一是存储用户数据以用于渲染。支持 Bifrost 的渲染器可以使用此数据。例如，通过 Arnold，您可以使用用户数据着色器获取几何特性的值，并将其连接到着色器树中。浮点几何特性值在顶点之间进行插值。有关受支持类型及其转化方式的列表，请参见 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_for_maya_bifrost_am_Bifrost_Graph_html" target="_blank">Arnold 手册中的“Bifrost 图表”</a>。</p>
+<h3 id="get_property-set_property"><code>get_property</code>、<code>set_property</code></h3><p>使用 <code>get_property</code> 和 <code>set_property</code> 获取并设置任何特性。这些特性并不仅仅限于几何特性。请注意确保这些值的类型正确，因为这些节点不执行任何检查。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/Bifrost_Common_build_a_graph_html.html">构建和修改图表</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

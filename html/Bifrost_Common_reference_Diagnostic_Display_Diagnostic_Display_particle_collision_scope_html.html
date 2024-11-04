@@ -1,0 +1,61 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Diagnostic_Display_Diagnostic_Display_particle_collision_scope_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>particle_collision_scope</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>particle_collision_scope</code></h1></div><p>可视化粒子对象的碰撞特性，以帮助诊断问题。要使此节点正常工作，必须在 <code>particle_solver_settings</code> 节点中至少启用 <code>store_surface_collisions</code> 或 <code>store_self_collisions</code> 之一。</p>
+<p>单击节点下方的 <strong>D</strong> 标志以切换视口中的诊断显示。请注意，为显示相关信息，也必须在所有父复合中启用此标志。</p>
+<h2 id="">输入</h2><h3 id="particles"><code>particles</code></h3><p>要在其上可视化碰撞的输入粒子对象。</p>
+<h2 id="">显示选项</h2><p>碰撞位置基于粒子在碰撞时的确切位置，如果粒子在碰撞后的剩余帧内移动，则可能与粒子的当前位置不同。</p>
+<h3 id="display_collide_position"><code>display_collide_position</code></h3><p>在曲面碰撞的位置绘制彩色点。请注意，必须在 <code>particle_solver_settings</code> 节点上启用 <code>store_surface_collisions</code>。</p>
+<h3 id="display_self_collide_position"><code>display_self_collide_position</code></h3><p>在粒子与其他粒子碰撞的位置绘制彩色点。请注意，必须在 <code>particle_solver_settings</code> 节点上启用 <code>store_self_collisions</code>。</p>
+<h3 id="display_surface_normal"><code>display_surface_normal</code></h3><p>绘制箭头，显示碰撞点处的法线。这始终是曲面法线，而不是双面碰撞使用的潜在翻转法线。请注意，必须在 <code>particle_solver_settings</code> 节点上启用 <code>store_surface_collisions</code>。</p>
+<h3 id="display_point_id"><code>display_point_id</code></h3><p>显示碰撞和自碰撞粒子的 ID。请注意，必须在 <code>particle_solver_settings</code> 节点中启用 <code>store_surface_collisions</code> 和/或 <code>store_self_collisions</code>。</p>
+<h2 id="">范围设置</h2><p>这些输入都是解释的 <code>auto</code> 端口，允许您连接数组或场以及单个值。</p>
+<h3 id="point_size"><code>point_size</code></h3><p>诊断点的显示大小。例如，要匹配粒子大小，可以为 <code>point_size</code> 创建标量 <code>property_proxy_field</code> 场，并将其连接到此端口。</p>
+<h3 id="arrow_size"><code>arrow_size</code></h3><p>诊断箭头的显示长度。例如，要匹配粒子速度，可以为 <code>point_velocity</code> 创建向量 <code>property_proxy_field</code>，将其连接到 <code>length</code>，然后将结果连接到此端口。</p>
+<h3 id="arrow_color"><code>arrow_color</code></h3><p>用于箭头的颜色。</p>
+<h3 id="point_color"><code>point_color</code></h3><p>用于点的颜色。默认情况下，曲面碰撞和自碰撞的颜色相同。要使用不同的颜色，请为 <code>point_self_collision</code> 创建标量 <code>property_proxy_field</code>，将其连接到 <code>switch_fields</code> 节点的 <code>condition</code> 端口，将结果连接到此端口，然后使用 <code>switch_fields</code> 节点在两个 <code>vector_field</code> 节点（为 true 和 false 情况定义不同的颜色）之间切换。</p>
+<h2 id="">输出</h2><h3 id="diagnostic_geometry"><code>diagnostic_geometry</code></h3><p>由诊断显示着色和使用的完整几何体数组。此对象数组可以包含用于碰撞点、自碰撞点、法线箭头和点 ID 的单独对象。</p>
+<h3 id="collide_index"><code>collide_index</code></h3><p>与曲面碰撞的粒子的索引数组。您可以将此选项与 <code>get_from_array</code> 一起使用，以访问各种粒子特性数组的碰撞粒子值。</p>
+<h3 id="self_collide_index"><code>self_collide_index</code></h3><p>与其他粒子碰撞的粒子的索引数组。您可以将此选项与 <code>get_from_array</code> 一起使用，以访问各种粒子特性数组的自碰撞粒子值。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Diagnostic/Bifrost_Common_reference_Diagnostic_Display_html.html">Display</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

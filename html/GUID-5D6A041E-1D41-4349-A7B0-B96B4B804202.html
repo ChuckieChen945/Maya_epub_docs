@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Animation">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202">
+<meta name="language" content="CHS">
+<title>动画层堆栈</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>动画层堆栈 </h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F4875515A699EE12A80087827-4AD9"><p class="p" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS1A9193826455F5FF-6D855556117E9F816D2211A"> 使用创建动画层的顺序在<span class="ph uicontrol" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__GUID-CC947AAC-4612-4A4D-A080-9EBF29441057">“动画层编辑器”(Animation Layer Editor)</span>中堆栈它们。默认情况下，层以从下到上的顺序来堆栈，这意味着新层将被添加到层窗格顶部，同时现有层将被下推。
+	 </p>
+<p class="p" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS73099CC142F487552A50A53111913E7C26F-71C9">如果愿意，可以更改堆栈以上至下的顺序显示，其中新层被添加到层窗格底部。（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-257D7FE2-DCF7-4D04-942C-849D1CBE9A19.htm">更改动画层堆栈显示</a>。） 
+	 </p>
+<div class="note note" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS1A9193826455F5FF-12BA6B3A11A9C207460-3DD5"><span class="notetitle">注：</span>  在本文档中，假定了默认堆栈显示。
+	 </div>
+<div class="fig fignone" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS1A9193826455F5FF-792EF2E611F6FB4710D-6CEE"><img class="image" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__IMAGE_5F2C46A4A6894E12BDA5AC56AFAECF1F" width="365" height="203" src="../images/GUID-44EC10AA-1903-456E-8928-41D89E07177F.png"></div>
+<p class="p" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS73099CC142F487552A50A53111913E7C26F-71C8">无论选择以哪种方式显示堆栈，动画层始终有效地堆栈在<span class="ph uicontrol" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__GUID-73CC8B39-BCBC-4722-A568-86AB77EF1034">“基础动画”(BaseAnimation)</span>顶部。
+	 </p>
+<div class="section" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS73099CC142F48755602CAF041189DA6B6082706"><h2 class="title sectiontitle">求值顺序</h2> 
+		 
+		<p class="p" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS1A9193826455F5FF-2ADE9D9118A20D4F81-94F"> 可以更改堆栈中的单个层顺序来组织层（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-57FE5E0F-54A8-4B08-AA07-7E5E908865B5.htm">重新排序和设置动画层父子关系</a>），但是很重要的一点是，首先了解这可能影响结果动画的方式。
+		</p>
+ 
+		<p class="p" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS73099CC142F48755602CAF041189DA6B60822F8">更改堆栈中的层顺序会更改 Maya 计算结果动画的顺序。如果您的层都不共享同一属性，则计算顺序无关紧要，同时重新排列层不会更改结果。
+		</p>
+ 
+		<p class="p" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS73099CC142F48755602CAF041189DA6B60822F9">如果不止一个层上的关键帧具有相同的属性，以下层模式会在重新排列层时影响结果动画：
+		</p>
+ 
+		<ul class="ul" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS73099CC142F48755602CAF041189DA6B6081BE9"><li class="li" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS73099CC142F48755602CAF041189DA6B6081BEA"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-BBCA0BC3-7608-4E86-8E9F-B4099C316156.htm">动画层模式</a> 
+			 <p class="p" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS73099CC142F48755602CAF041189DA6B60822FA"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-BBCA0BC3-7608-4E86-8E9F-B4099C316156.htm#GUID-BBCA0BC3-7608-4E86-8E9F-B4099C316156__WS1A9193826455F5FF6026605B1181237E9461603">“覆盖”(Override)模式</a>中的动画层会阻塞来自任何之前具有共享属性层的动画。更改<span class="ph uicontrol" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__GUID-EF33154B-04DC-481E-9F28-E34AC7DC011B">“覆盖”(Override)</span>层的位置会更改它要覆盖的层。
+			 </p>
+ 
+			 <p class="p" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS1A9193826455F5FF-2ADE9D9118A20D4F81-94E">大多数情况下，在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-BBCA0BC3-7608-4E86-8E9F-B4099C316156.htm#GUID-BBCA0BC3-7608-4E86-8E9F-B4099C316156__WS1A9193826455F5FF6026605B1181237E94615FF">“相加”(Additive)模式</a>中更改层顺序不会更改结果。但是，如果<span class="ph uicontrol" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__GUID-CBE1B895-EFF8-4EA4-8D3C-E93D30DD9E7E">“相加”(Additive)</span>层包含布尔属性（如可见性）或枚举类型属性，在<span class="ph uicontrol" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__GUID-83BEC526-5D7C-4253-BB8B-CAA29613C71F">“覆盖”(Override)</span>模式中始终会计算这些属性。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS1A9193826455F5FF453265C9125FAA23BBB-4D6D"> 
+			 <span class="ph uicontrol">旋转累积(Rotation Accumulation)</span>（位于<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-C7987782-C10D-433C-A78D-94C10D800608.htm">动画层编辑器菜单栏</a>主题中） 
+		  </li>
+<li class="li" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS1A9193826455F5FF453265C9125FAA23BBB-4D6C"> 
+			 <span class="ph uicontrol">缩放累积(Scale Accumulation)</span>（位于<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-C7987782-C10D-433C-A78D-94C10D800608.htm">动画层编辑器菜单栏</a>主题中） 
+		  </li>
+</ul>
+ 
+		<p class="p" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS73099CC142F48755602CAF041189DA6B6081BEB">此外，重新排列共享属性的层会影响哪个层接收关键帧。在所有这三种层设置关键帧模式中，层在堆栈中的顺序会影响 Maya 考虑它们接收关键帧的顺序。有关每一设置关键帧模式以及 Maya 如何管理接收关键帧层的详细信息，请参见<span class="ph uicontrol">“选项”(Option)</span>菜单（位于<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-C7987782-C10D-433C-A78D-94C10D800608.htm">动画层编辑器菜单栏</a>主题中）中的<span class="ph uicontrol">“选定层中的关键帧”(Key in Selected Layer(s))</span>、<span class="ph uicontrol">“上一活动层中的关键帧”(Key in Last Active Layer(s))</span>和<span class="ph uicontrol">“混合”(Hybrid)</span>。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS1A9193826455F5FF6026605B1181C8F4F2E-14C9"><h2 class="title sectiontitle">动画层层次</h2> 
+		 
+		<p class="p" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS1A9193826455F5FF6026605B1181237E94615FD"> 可以建立和断开动画层的父子关系，以在堆栈中创建一个层次，允许您以逻辑方式组织和编组动画层。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-A9D4CA63-B0BB-4E4A-A302-FE0E33B024B2.htm">建立和断开动画层的父子关系</a>。
+		</p>
+ 
+		<p class="p" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS73099CC142F48755602CAF041189DA6B6081BED">如果将层组织到层次中，需要注意的是，父层的状态会以以下方式影响子层：
+		</p>
+ 
+		<ul class="ul" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS73099CC142F48755602CAF041189DA6B6081BEE"><li class="li" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS73099CC142F48755602CAF041189DA6B6081BEF">禁用父层会禁用其子层。当它们的父对象被禁用时，不能取消禁用子层，尽管它们可以独立于父对象被禁用。
+		  </li>
+<li class="li" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS73099CC142F48755602CAF041189DA6B6081BF0">子对象层的权重受其父对象权重的影响。通过将其自己的<span class="ph uicontrol" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__GUID-39A30BCC-756D-4175-A39B-2FE293DFF232">“权重”(Weight)</span>值与其父对象的<span class="ph uicontrol" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__GUID-45E8E4B1-61E7-4B1B-AAB0-93CEEDB80D68">“权重”(Weight)</span>值相乘，计算结果动画中的子对象权重。
+			 <p class="p" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS73099CC142F48755602CAF041189DA6B60822FC">例如，如果子层的<span class="ph uicontrol" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__GUID-434BB234-EAE3-4E02-A900-7D0969F1D7E0">“权重”(Weight)</span>为 1，同时其父对象层的<span class="ph uicontrol" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__GUID-3ED05CB3-2D2C-46D6-AC30-FE087F7A1F1B">“权重”(Weight)</span>为 0.5，则会在结果中播放子层动画的一半。
+			 </p>
+ 
+			 <div class="note tip" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS1A9193826455F5FF-6507591011913E8F4B8-516E"><span class="tiptitle">提示：</span>  
+				<p class="p" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__GUID-A71D5BE9-9B03-4E6E-BD99-E5DF6C744529">如果仅使用父层来组织子层组，可以将父层留空，同时保持其<span class="ph uicontrol" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__GUID-38036CCA-9C2F-4B58-8628-B2278B375601">“权重”(Weight)</span>被设定为 1。这避免了父对象和子对象权重相乘所产生的任何问题。
+				</p>
+ 
+			 </div>
+ 
+		  </li>
+<li class="li" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS73099CC142F48755602CAF041189DA6B6081BF1">默认情况下，如果其父层收拢并取消选择，子层将被取消选择，同时在其收拢的父对象被选定时选定。使用<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-C7987782-C10D-433C-A78D-94C10D800608.htm">动画层编辑器菜单栏</a>主题的“选项”(Options)菜单中的<span class="ph uicontrol">“选择收拢的父对象下的子对象”(Select Children Under Collapsed Parent)</span>选项，可以更改此行为。
+			 <p class="p" id="GUID-5D6A041E-1D41-4349-A7B0-B96B4B804202__WS73099CC142F48755602CAF041189DA6B6082707">根据选定的层设置关键帧模式，子层仍可接收关键帧，即使它们的父对象层收拢，同时被取消选择。有关每一设置关键帧模式的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-C7987782-C10D-433C-A78D-94C10D800608.htm">动画层编辑器菜单栏</a>主题中的“选项”(Options)菜单。 
+			 </p>
+ 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-B08BE389-B1F0-4394-9FD1-6A477536464F.htm">了解分层动画</a></div>
+</div>
+</div>
+
+</body>
+</html>

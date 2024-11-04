@@ -1,0 +1,160 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="ENU">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Maya-USD">
+  <meta name="topicid" content="GUID-59686914-791F-4386-8B0C-78DBEA96B029">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>USD for Maya v0.30.0 Release Notes</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>USD for Maya v0.30.0 Release Notes</h1></div><h2 id="release-highlights">Release Highlights</h2><h3 id="usd-in-the-viewport">USD in the Viewport</h3><ul>
+<li><p><strong>Control USD cameras in the native Maya viewport.</strong> With USD for Maya 0.30, you can now use the native Maya viewport's camera controls, such as tumbling, tracking and dollying, to manipulate USD cameras.</p>
+<p>  <img src="../images/MayaUSD_camera.gif" alt="gif for "> </p>
+</li>
+<li><p><strong>Display light shapes.</strong> We have added shapes for all core USD lights that were previously not visible in the Viewport. Note that this feature does not support Arnold lights.</p>
+</li>
+</ul>
+<h3 id="usd-in-the-outliner">USD in the Outliner</h3><ul>
+<li><strong>Reload references for prims.</strong> The Outliner now lets you reload references, payloads and nested references for prims.</li>
+<li><strong>Set the outliner text color for USD prims.</strong> A new <strong>Object Display</strong> option in the <strong>Attribute Editor</strong> lets you set the text color for USD prims in the Outliner.</li>
+</ul>
+<h3 id="export-update">Export update</h3><ul>
+<li><strong>Export a Maya USD proxyShape as a USD reference.</strong> We have added a new export option that lets you export a Maya USD proxyShape as a USD stage, which references the USD layer containing the original stage.</li>
+</ul>
+<h3 id="what-else-is-new">What else is new?</h3><ul>
+<li><strong>OpenPBR.</strong> The Assign New Material option now includes the ability to assign an OpenPBR MaterialX shader to a prim.</li>
+<li><strong>Bulk duplication.</strong> You can now duplicate multiple objects as USD data simultaneously.</li>
+<li><strong>General stability and performance improvements</strong></li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>Note:</div>
+<div class="callout-body">
+
+<p> In Maya 2025.3, there is a change in how UFE paths should be called, related to the normally hidden "world" node. Starting with this version, "world" must always be added as a prefix to UFE paths, regardless of whether it was previously included. In earlier versions, the "world" prefix was only added if the path was not already prefixed.</p>
+<p>Avoid using <code>str(ufe.Path)</code> as it was intended for debugging. Instead, use <code>ufe.PathString.string(ufe.Path)</code>. Examples:</p>
+<p>Use <code>ufe.PathString.string(ufe.Path(pathSegment))</code> instead of <code>str(pathSegment)</code><br>
+Use <code>ufe.PathString.string(path)</code> instead of <code>str(path)</code>
+<br>  </p>
+
+</div></div>
+
+<h2 id="what-39-s-fixed">What's Fixed</h2><table>
+<thead>
+<tr>
+<th align="left">Build</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">[GitHub #3909] Trimmed down the UsdUfe linking to only what is needed.</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">Translation Framework</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">[GitHub #3886] Added USD Support for Maya Dual Quaternion skinned shapes.</td>
+</tr>
+<tr>
+<td align="left">[GitHub #3867] Placed Material Scope under the default prim when a scripted export automatically generates a default prim.</td>
+</tr>
+<tr>
+<td align="left">[GitHub #3858] Improved curve import sanity checking.</td>
+</tr>
+<tr>
+<td align="left">[GitHub #3849] Fixed a bug where the default prim settings in the export options were not retained.</td>
+</tr>
+<tr>
+<td align="left">[GitHub #3843] Updated the USD Exporter to prompt users to save anonymous layer edits when exporting stages as references.</td>
+</tr>
+<tr>
+<td align="left">[GitHub #3820] Fixed an issue where a skeleton exported from Maya to USD was positioned incorrectly.</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">Workflow</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">[GitHub #3904] Fixed an issue with saving and restoring a non-local target layer.</td>
+</tr>
+<tr>
+<td align="left">[GitHub #3883] Added a fallback light type for unsupported lights.</td>
+</tr>
+<tr>
+<td align="left">[GitHub #3881] Fixed an issue where the location of a prim changed when editing it as Maya data.</td>
+</tr>
+<tr>
+<td align="left">[GitHub #3874] Fixed edit routing errors when routing transforms followed by parenting commands.</td>
+</tr>
+<tr>
+<td align="left">[GitHub #3868] Fixed an issue where disabling the Meshes option in the export settings prevented future caching to USD with meshes.</td>
+</tr>
+<tr>
+<td align="left">[GitHub #3851] Fixed an issue where the Universal Manipulator appeared in the wrong location for USD prims parented to multiple transforms.</td>
+</tr>
+<tr>
+<td align="left">[GitHub #3826] Fixed an issue where objects were incorrectly positioned when pulling USD data on animated meshes.</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">Miscellaneous</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">[GitHub #3894] Fixed an issue where material settings in the Export All Options Box were not retained.</td>
+</tr>
+<tr>
+<td align="left">[GitHub #3875] Fixed excessive CPU and GPU usage when viewing through a UFE camera.</td>
+</tr>
+<tr>
+<td align="left">[GitHub #3869] Added missing functions to MayaUsdAPI required for LookdevX.</td>
+</tr>
+<tr>
+<td align="left">[GitHub #3863] Added a tooltip for Default Prim in Export Options.</td>
+</tr>
+</tbody></table>
+<h2 id="known-limitation">Known Limitation</h2><p>The light shape orientation is incorrectly rotated 90 degrees in the viewport. Lights such as like rectlight and disklight will render 90 degrees off the axis.</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>Parent page:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/Maya_USD_USD_for_Maya_Release_Notes_html.html">USD for Maya Release Notes</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

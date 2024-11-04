@@ -1,0 +1,103 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shapes_am_USD_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_USD">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" USD - Arnold for Maya">
+
+<title>USD</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>USD</h1></div>
+<div class="arnold-note">
+
+
+
+<table>
+<thead>
+<tr>
+<th>延伸阅读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有关 Arnold 形状和形状参数的完整文档，请参见<strong>《Arnold 用户手册》</strong>中的<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shapes_html" target="_blank">形状</a>。</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<p>此页面介绍 MtoA 中的 <a href="https://en.wikipedia.org/wiki/Universal_Scene_Description" target="_blank">USD</a>（通用场景描述）兼容性。</p>
+<ul>
+<li>有关 Arnold USD 页面的简介，请单击此处。有关如何在 Arnold 中使用 USD 的教程，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_tutorials_am_Operator_Tutorials_html">此处</a>。</li>
+<li>USD 摄影机显示在<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_render_settings_html">渲染设置(Render Settings)</a>摄影机列表中。</li>
+<li>在命令行中渲染时，用户可以使用 USD 摄影机，例如 <code>Render -r arnold -cam |stage1|stageShape1,/path/to/camera</code></li>
+</ul>
+<h2 id="maya-usd">Maya USD 导出</h2><p>在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-C468A370-3EE5-48E6-BEFA-6125872A1F38" target="_blank">Maya USD</a> 0.15 或更高版本中，提供了一个名为<em>“插件配置”(Plug-in Configuration)</em> 的导出选项。将此选项切换到 <em>Arnold</em> 会让 MayaUSD 除了导出 MayaUSD 内容外，还导出所有必要的 Arnold 数据。然后，可以通过运行 <code>kick scene.usd.</code> 来独立渲染场景。此外，如果使用 MayaUSD 将此文件作为代理形状加载或通过 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Stand_ins_html">aiStandIn</a> 来加载，则可以在另一个场景之上渲染此文件。</p>
+<p><img src="../images/32f80e00-cc75-11ec-8659-19dc7130b50d.png" alt=""></p>
+<p>已知限制：</p>
+<ul>
+<li><p>将此类 USD 文件导入 Maya 时，不会将所有 Arnold 数据导回 Maya。</p>
+</li>
+<li><p>为了开始导出 USD 文件，需要创建摄影机，以便 MayaUSD 将其导出。MayaUSD 将忽略默认的“透视”摄影机。</p>
+</li>
+</ul>
+<p>请注意，如果“插件配置”(Plug-in Configuration)列表中未显示“Arnold”，则意味着您的 MtoA 版本与已安装的 MayaUSD 版本不兼容。</p>
+<h2 id="usd">USD/替代对象</h2><ul>
+<li>可以在<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Stand_ins_html">替代对象</a>中打开 USD 文件，并且可以使用 MtoA 对其进行渲染。</li>
+<li>要将场景/当前选择导出为 .usd 文件，请转到<em>“Arnold -&gt; 场景导出 -&gt; 将所有内容/当前选择导出为 USD”(Arnold -&gt; Scene Export -&gt; Export All/Selection to USD)</em>。</li>
+</ul>
+<p><img src="../images/41462a00-cc75-11ec-87da-ec39098b8fb0.png" alt=""></p>
+<p><sub><strong><em>Arnold -&gt; 场景导出 -&gt; 将所有内容/当前选择导出为 USD(Arnold -&gt; Scene Export -&gt; Export All/Selection to USD)</em></strong></sub>  </p>
+<h2 id="maya-to-hydra">Maya to Hydra</h2><p>在 Maya USD 中，还有一个名为 <strong><em>mtoh.mll</em></strong> 的插件 (Maya to Hydra)。利用此插件，您可以在视口中启用 Arnold (Hydra) 查看器。</p>
+<p><img src="../images/5a4edb00-cc75-11ec-9f58-4dd8d3c842de.png" alt=""></p>
+<p>Maya to Hydra 设置：</p>
+<p><img src="../images/6a66ba80-cc75-11ec-9b0a-7d97f97065d9.png" alt=""></p>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/xaNfGC46mMk?" frameborder="0" allowfullscreen=""></iframe>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/arnold_for_maya_shapes_html.html">形状</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="CTF 文件格式">
+<meta name="indexterm" content="颜色变换文件格式">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-460BA05D-3AB7-4BE2-AD30-01F9D3440CD8">
+<meta name="language" content="CHS">
+<title>Autodesk CTF 文件格式版本 1.3</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-460BA05D-3AB7-4BE2-AD30-01F9D3440CD8">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>Autodesk CTF 文件格式版本 1.3</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-460BA05D-3AB7-4BE2-AD30-01F9D3440CD8__GUID-E7348130-FA1E-4961-8F61-31F328482702">媒体和娱乐行业中使用了多种颜色变换（也称为 LUT）格式。这将导致工作流问题，因为您可能会收到您使用的一个或多个应用程序不支持的 LUT。此外，其中大多数 LUT 格式基于过期的技术且缺乏应对当今要求所需的质量、灵活性和元数据。 </p>
+<p class="p" id="GUID-460BA05D-3AB7-4BE2-AD30-01F9D3440CD8__GUID-F59CD63E-B051-4816-BCF5-ACB55956986A">为了解决这些问题，美国电影艺术与科学学院以及美国电影摄影师协会技术委员会召集了一组专家来设计可以成为行业标准的通用变换格式。 </p>
+<p class="p" id="GUID-460BA05D-3AB7-4BE2-AD30-01F9D3440CD8__GUID-FC199A6F-DCA2-4D65-93CF-9805EF106612">Autodesk 已选择采用此格式作为颜色管理技术的本地格式，我们还在应用程序中提供了大量此格式的变换（例如，支持学院颜色编码系统）。 </p>
+<p class="p" id="GUID-460BA05D-3AB7-4BE2-AD30-01F9D3440CD8__GUID-F09C8CD9-337A-45DC-8FE3-D4E79E587A27">本指南提供了有关 Academy/ASC 格式的信息，以帮助您编写自己的颜色变换。此外，它还定义了多个 Autodesk 特定的扩展，您可以在编写专用于 Autodesk 应用程序的颜色变换时加以利用。所有 Autodesk 扩展都标有其引入或更新的版本。所有其他元素和属性都属于原始 Academy/ASC 格式。 </p>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-58B41B52-7D28-463A-8D70-796B01829508.htm">CTF 文件剖析</a><br>
+变换格式允许编写者定义任意颜色运算符（也称为处理节点）链。可用运算符类型集包括 1D LUT、3D LUT、矩阵以及下面定义的其他类型。此格式以 XML 编写，因此用户可读。 </li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-BDBD5904-04E6-45AC-ADD8-C4EE256F6043.htm">CTF 语法摘要</a><br>
+以下是 CTF 文件语法的简要概述。 </li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-858C6536-EBB6-427D-92B2-C81FC5277EF8.htm">XML 声明</a><br>
+XML 声明为可选选项，但建议使用。它向 XML 解析器指明使用的 XML 版本和字符编码。 </li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-CBAFCA34-9642-408D-A900-9021EB26D063.htm">ProcessList</a><br>
+ProcessList 元素是 CTF 文件的根元素。它必须至少包含一个运算符元素。 </li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-FD88DC04-0566-4C9F-953B-E2C83A2D0004.htm">元数据元素</a><br>
+元数据元素提供有关可在应用程序的信息面板中显示的颜色变换的信息。 </li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-31B4073F-EBAC-4F94-95A8-57C7A08B9965.htm">运算符元素</a><br>
+运算符元素指定要应用于颜色数据的运算。您可以在 ProcessList 元素中添加任意多的运算，并按应用顺序排列好。 </li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-85B74050-4ECE-4D70-8B4A-39BC2C09358E.htm">注释</a><br>
+您可以在 CTF 文件中包含标准 XML 注释。 </li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-BB4F38CF-6AA8-4D35-96DD-7F75D62FD3A7.htm">Autodesk 颜色管理 - 补充信息</a></div>
+</div>
+</div>
+
+</body>
+</html>

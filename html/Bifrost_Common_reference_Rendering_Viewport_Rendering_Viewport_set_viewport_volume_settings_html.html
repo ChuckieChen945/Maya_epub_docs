@@ -1,0 +1,59 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Rendering_Viewport_Rendering_Viewport_set_viewport_volume_settings_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>set_viewport_volume_settings</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>set_viewport_volume_settings</code></h1></div><p>此节点提供了一种图表内机制，用于定义要在视口中显示的每个体积对象的质量和特征。将在由体积着色器读取的体积对象上创建相应的特性。当体积对象上未定义任何渲染特性时，节点的默认值与在视口中使用的值相同。</p>
+<h2 id="">输入</h2><h3 id="volume"><code>volume</code></h3><p>将定义的渲染设置应用到输入体积。</p>
+<h2 id="volume-settings"><code>Volume Settings</code></h2><h3 id="mode"><code>mode</code></h3><p>“NanoVTT”是一种高效的 GPU 原生体积格式，它利用 Bifrost 中提供的体素平铺树。NanoVTT 和相应的视口着色器添加了对彩色体素、基于物理的发射缩放、具有指定 <code>standard_surface_mat</code> 的等值面和自适应体积的支持。“旧版体积”是 Bifrost 之前附带的原始体积着色器。此节点上的渲染设置除了启用旧版着色器外，不会影响旧版着色器。</p>
+<h2 id="quality-settings"><code>Quality Settings</code></h2><h3 id="quality"><code>quality</code></h3><p>quality 会影响渲染器在体积中行进时所采用的步长。quality 值越大，体积中看到的细节就越多，因为在同一空间中采集了更多的样本。这也会增加渲染时间。</p>
+<h3 id="interactive_quality"><code>interactive_quality</code></h3><p>与 quality 相同，但仅当在视口中导航或操纵对象时，此项才生效。通常，这会设置为低于 quality 参数，以确保用户仍然可以在显示体积的情况下快速工作。</p>
+<h3 id="coarsen_tile_tree"><code>coarsen_tile_tree</code></h3><p>强制显示体积以在平铺树中向上 n 级。这在显示大型体积或模拟时特别有用，因为在这种情况下，质量损失最小，更重要的是保持速度并降低任何“TDR”GPU 超时风险。</p>
+<h2 id="precompute-lighting"><code>Precompute Lighting</code></h2><h3 id="precompute_lighting"><code>precompute_lighting</code></h3><p>顾名思义，此功能将预计算体积照明，并显著加快渲染速度。当照明和体积是静态的并且用户更新视口时，此优化非常有用。如果体积或照明不断变化（例如调整照明方向或位置），或者当播放缓存的体积时，优化就不那么有效（甚至可能会增加成本），因为将重新计算每一帧以进行渲染。</p>
+<h3 id="coarsen_precomputed_lighting"><code>coarsen_precomputed_lighting</code></h3><p>强制照明的计算在平铺树中向上 n 级进行。通常，在计算照明时，只会损失少量的质量，同时显著提高速度。</p>
+<h2 id="depth"><code>Depth</code></h2><h3 id="geometry_depth_test"><code>geometry_depth_test</code></h3><p>在视口中，在体积和其他对象之间启用深度测试。禁用几何体深度测试可以将渲染速度提高近两倍。但是，对象不再“位于”体积中，而仅使用体积边界在体积边界之前或之后进行绘制。如果用户仅在视口中绘制体积而不是几何体，则主要用于优化。</p>
+<h2 id="auto-quality"><code>Auto Quality</code></h2><h3 id="auto_quality"><code>auto_quality</code></h3><p>允许着色器动态调整步长，以达到以每秒帧数指定的渲染时间目标。这在查看大型体积或大量模拟时特别有用，因为着色器可以根据需要降低质量来帮助防止“TDR”GPU 超时。指定的每秒帧数是着色器中花费的总时间。这意味着，由于开销，视口中显示的实际每秒帧数可能会更低。<code>quality</code> 的值用作具有自动质量的体积渲染精细度的限制。</p>
+<h3 id="target_fps"><code>target_fps</code></h3><p>当用户不与视口交互时渲染体积的一帧所允许的最长时间（以每秒帧数为单位指定）。</p>
+<h3 id="interactive_target_fps"><code>interactive_target_fps</code></h3><p>当用户与视口交互时渲染体积的一帧所允许的最长时间（以每秒帧数为单位指定）。请注意，这仅是一个目标，着色器对于绘制体积的速度有限制。步长不会超过线框体积渲染模式。视口中每秒渲染的帧数有限制。</p>
+<h3 id="coarsen_tile_tree_start"><code>coarsen_tile_tree_start</code></h3><p>这是在绘制体积时用于粗化平铺树的“起始”级数。如果指定目标中还有剩余时间，则着色器可以切换到更详细的平铺树级别并进行渲染。此值也用作步长的倍增。较大的值将有利于以较低的质量进行更快的渲染。要查看大型体积，理想的情况是将其设置为 1 或更大值，以确保不会出现“TDR”GPU 超时。</p>
+<h2 id="">输出</h2><h3 id="out_volume"><code>out_volume</code></h3><p>输入体积对象，但具有附加 <code>render_settings</code> 特性，这些特性确定由节点指定的渲染方法和质量。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Rendering/Bifrost_Common_reference_Rendering_Viewport_html.html">Viewport</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

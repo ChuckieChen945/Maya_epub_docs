@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2">
+<meta name="language" content="CHS">
+<title>创建 nParticle 碰撞事件</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>创建 nParticle 碰撞事件 </h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-32F9"><p class="p" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF-6D855556117FACF922E-30A0"> 使用<span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-DADE0C0F-3C79-47DF-A21E-0DF2C1A24D6A">“粒子碰撞事件编辑器”(Particle Collision Event Editor)</span>创建事件，以在 nParticle 与其他 nParticle 系统或 Nucleus 对象发生碰撞时生成或禁用粒子。当 nParticles 自碰撞时不会发生碰撞事件。 </p>
+<p class="p" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS73099CC142F48755-5C83E7B1120018DE8C0EBE">也可以在粒子或 nParticles 发生碰撞时执行 MEL 脚本。接触后发生的动作称为“事件”。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-F423BB37-7E63-4568-8928-5D54455683B2.htm">为碰撞事件创建 MEL 程序</a>。 </p>
+<div class="note note" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF5CF1D02511B1D000978-63E1"><span class="notetitle">注：</span> 
+<div class="p" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-8D9A5C91-9DC8-4EFC-9EB9-2F21F5D3F13E">创建粒子碰撞事件时，请注意以下事项： <ul class="ul" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF5CF1D02511B1D000978-63E0"><li class="li" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF5CF1D02511B1D000978-63DF">不支持 nParticles 碰撞事件的 collisionGeometryIndex 输出属性。 </li>
+<li class="li" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF5CF1D02511B1D000978-63DE">nParticle 碰撞事件将与 nParticles 对象发生碰撞的 Nucleus 的名称（而非几何体的名称）传递给事件回调。 </li>
+<li class="li" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF5CF1D02511B1D000978-63DD">Nucleus 地平面不能是 nParticle 碰撞事件的目标。 </li>
+</ul>
+ </div>
+
+</div>
+<p class="li listintro" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF-6D855556117FACF922E-309C"> 创建 nParticle 碰撞事件</p>
+<ol class="ol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF-6D855556117FACF922E-309D"><li class="li" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF-6D855556117FACF922E-309A">选择要用作事件源粒子对象的 nParticle。 </li>
+<li class="li" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF-156C9AA7119D8906FDE-7621"> 在 <span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-61D52E22-CBA9-467B-87E0-49B20478690E">FX</span> 菜单集中，选择<span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-9CCD58DD-B0FF-4334-A28C-5F9058C15FC8">“nParticle</span> &gt; <span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-67695FAB-4022-46AD-B205-36FFE8863584">粒子碰撞事件编辑器”(nParticles &gt; Particle Collision Event Editor)</span>。 </li>
+<li class="li" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF79F44A0A120254C3E48-7E8F">在<span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-FB3EEA9F-CD70-4931-95AC-D143FA67F3FB">粒子碰撞事件编辑器</span>中，单击<span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-DB1B01A9-76D1-4D29-98F3-676B6F7567B6">“创建事件”(Create Event)</span>。 <p class="p" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF79F44A0A120254C3E48-7E8E">新事件将在<span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-B7689C97-2F22-4CA2-A720-EE45B62028C6">“事件”(Events)</span>面板中显示。 </p>
+ </li>
+<li class="li" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF-6D855556117FACF922E-3097">（可选）在<span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-35860624-026C-41C0-8B20-163B6CADA7BB">“设置事件名称”(Set event name)</span>字段中键入事件名称。 </li>
+<li class="li" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF-6D855556117FACF922E-3096">通过执行下列操作之一来指定事件频率： <ul class="ul" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF79F44A0A120254C3E48-7E8D"><li class="li" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF79F44A0A120254C3E48-7E8C">如果要在每次粒子碰撞时执行事件，请启用<span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-475C8AF5-D2C5-4849-9E6B-EF3A401E85DD">“所有碰撞”(All Collisions)</span>。 <div class="note tip" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-902DCB9C-B31B-49E2-8D92-8959BF04491F"><span class="tiptitle">提示：</span> 
+<p class="p" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-A96FB41E-9FF5-4225-BF5B-47C902AD47FA">请注意，从目标对象发射的 nParticle 可能与其他 nParticle 碰撞，从而导致碰撞事件过早执行。若要避免不需要的 nParticle 碰撞，您可以禁用目标对象上的“碰撞”(Collide)属性。您还可以使用<span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-E366B9A1-63F2-4130-8AA9-98741269321E">“碰撞强度”(Collide Strength)</span>和<span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-9DC6A648-71D4-4B12-83EB-718072712B9E">“碰撞强度比例”(Collide Strength Scale)</span>属性抑制或延迟目标对象上的碰撞。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53.htm">nParticle 碰撞属性</a>。 </p>
+
+</div>
+ </li>
+<li class="li" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF79F44A0A120254C3E48-7E8B">通过设定<span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-47D68A35-6AC3-45BA-9A62-40CA15999CE0">“碰撞编号”(Collision number)</span>指定要执行事件的碰撞。 </li>
+</ul>
+在<span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-27FE5637-B3CD-4DB8-B79E-646EA11186D9">“事件类型”(Event type)</span>下，通过执行以下操作指定事件设置： <ul class="ul" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF79F44A0A120254C3E48-7E8A"><li class="li" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF79F44A0A120254C3E48-7E89">启用<span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-60634DAC-3B80-401F-8F48-3A8A767B393B">“发射”(Emit)</span>或<span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-EBCDCD80-2287-4939-8484-F1F7F795C2AE">“分割”(Split)</span>。 <p class="p" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF79F44A0A120254C3E48-7E88">启用<span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-5ADEB583-ADCB-47E8-AC66-CD18FD183380">“发射”(Emit)</span>后，源粒子对象将在碰撞事件后继续活动。目标粒子年龄在创建对象时开始。 </p>
+ <p class="p" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF79F44A0A120254C3E48-7E87">当启用<span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-308C35B5-8FA8-4B87-B3A8-3AA17E12EB61">“分割”(Split)</span>时，源粒子对象将在碰撞后消亡。目标粒子从源粒子继承年龄。 </p>
+ </li>
+<li class="li" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF79F44A0A120254C3E48-7E86">如果要创建随机数量的目标粒子，请打开<span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-18E29BB2-041D-43A5-B8EB-6F6F3E1B03E8">“随机粒子数”(Random # particles)</span>。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-645E1CBE-C25D-4C92-A5CB-3D79C7BB462E.htm#GUID-645E1CBE-C25D-4C92-A5CB-3D79C7BB462E__GUID-1116CF3E-1E98-47DD-BF1A-9FD419040C07">随机粒子数</a>。 </li>
+<li class="li" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF79F44A0A120254C3E48-7E85">通过设定<span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-0EAE003E-1E70-47D5-82F9-3B4B2B925B0C">“粒子数”(Num particles)</span>指定要为每个粒子碰撞创建的目标粒子数。 </li>
+<li class="li" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF79F44A0A120254C3E48-7E84">设定目标粒子的<span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-75DAFEEE-3D11-4ACE-8CED-2C324193A83F">“扩散”(Spread)</span>。 </li>
+<li class="li" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF79F44A0A120254C3E48-7E83">通过键入现有粒子或 nParticle 对象的名称指定<span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-4C61D151-C152-4A4D-8E8C-223DBBC4CE3B">“目标粒子”(Target particle)</span>。可以使用 nParticle 对象的形状节点的名称或者其变换节点名称。 </li>
+</ul>
+ </li>
+<li class="li" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__WS1A9193826455F5FF-6D855556117FACF922E-3094">（可选）若要创建另一个碰撞事件，请单击<span class="ph uicontrol" id="GUID-30EEF03D-43F7-46CF-9279-98FA828C53A2__GUID-E81F9111-F58D-4D7E-8527-8D39015CB770">“新建事件”(New Event)</span>。 </li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-355BF326-DF25-41F1-A572-7C417019BBFE.htm">处理 nParticle 碰撞事件</a></div>
+</div>
+</div>
+
+</body>
+</html>

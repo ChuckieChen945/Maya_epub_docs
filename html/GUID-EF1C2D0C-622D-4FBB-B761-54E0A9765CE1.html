@@ -1,0 +1,803 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Animation">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="不支持的节点:缓存播放:不支持的节点;缓存播放:节点疑难解答;节点:缓存播放">
+<meta name="contextid" content="CACHEDPLAYBACKUNSUPPORTEDNODES">
+<meta name="modified" content="17/04/2023">
+<meta name="topicid" content="GUID-EF1C2D0C-622D-4FBB-B761-54E0A9765CE1">
+<meta name="language" content="CHS">
+<title>“缓存播放”(Cached Playback)不支持的节点</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-EF1C2D0C-622D-4FBB-B761-54E0A9765CE1">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>“缓存播放”(Cached Playback)不支持的节点</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p">Maya 依存关系图 (DG) 中的某些节点将禁用<span class="ph uicontrol">“缓存播放”(Cached Playback)</span>过程。此部分仅讨论禁用“播放缓存”(Playback Caching)的已设置动画节点。如果节点未设置动画，“播放缓存”(Playback Caching)将不会受其影响。<span class="ph">例如，只要未设置动画的 XGen 节点是静态的，便可以将其与<span class="ph uicontrol">“缓存播放”(Cached Playback)</span>结合使用。（其中“未设置动画”表示节点不是解算图的一部分。）</span> 
+	 </p>
+<p class="p">如果 Maya 在场景中检测到任何不支持的节点，则禁用“播放缓存”(Playback Caching)并进入安全模式。当<span class="ph uicontrol">“缓存播放”(Cached Playback)</span>处于安全模式时，<span class="ph uicontrol">“缓存播放”(Cached Playback)</span>状态行和<span class="ph uicontrol">“缓存播放”(Cached Playback)</span>图标将变为黄色。（有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-836D5CD0-E2A1-4117-8291-3B5027EEFA11.htm">缓存播放状态行的状态</a>。） 
+	 </p>
+<div class="fig fignone" id="GUID-EF1C2D0C-622D-4FBB-B761-54E0A9765CE1__FIG_6B81EFC2F6FA42C78063DC01ECBE960B"><img class="image" id="GUID-EF1C2D0C-622D-4FBB-B761-54E0A9765CE1__IMAGE_F581F2917B774CDDA789011CD7E37B26" src="../images/GUID-E1962425-643E-4910-A1B0-C7A0AFD2573A.png"><p class="figcap">在安全模式下时，“缓存播放”(Cached Playback)图标变为黄色</p></div>
+<ul class="ul" id="GUID-EF1C2D0C-622D-4FBB-B761-54E0A9765CE1__UL_540E3885F2AE4C81B3348E6AC82B5E24"><li class="li" id="GUID-EF1C2D0C-622D-4FBB-B761-54E0A9765CE1__LI_771FB0BCE90942D384DE0C2138C3DE3C"><strong class="ph b">textureDeformer</strong> 节点不受支持，因此禁用<span class="ph uicontrol">“缓存播放”(Cached Playback)</span>。
+		</li>
+<li class="li" id="GUID-EF1C2D0C-622D-4FBB-B761-54E0A9765CE1__LI_AA66379991DC41C6863F785D73D2CBB4">仅当“hairSystem.simulationMethod”为 <strong class="ph b">off</strong> 或 <strong class="ph b">static</strong> 并且 nucleus 节点设置为<strong class="ph b">“已禁用”(disabled)</strong>时，才支持 <strong class="ph b">hairSystem</strong> 节点，而无论<span class="ph uicontrol">“缓存动力学”(Cache Dynamics)</span>选项（在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-E22B253D-914B-4056-93F5-755702A6C998"><span class="ph uicontrol">解算工具包(Evaluation Toolkit)</span></a>的<span class="ph uicontrol">“缓存”(Caching)</span>部分中）如何。
+		</li>
+</ul>
+<p class="p">提供了单独的“动力学”(Dynamics)状态行（不同于“动画”(Animation)状态行），可用于在场景中加载和刷新 nParticle 和 nCloth 动力学以及动画（尚不支持 nHair）。使用<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-3CB35662-DB1D-4CF3-9135-E09B973635DE">缓存播放首选项(Cached Playback Preferences)</a>的<span class="ph uicontrol">“缓存”(Caching)</span>部分中的<span class="ph uicontrol">“缓存动力学”(Cache Dynamics)</span>选项，激活<span class="ph uicontrol">“缓存播放”(Cached Playback)</span>动力学支持。
+	 </p>
+<p class="p"> 通过使用以下环境变量，您可以覆盖任何其他动力学的限制并将<span class="ph uicontrol">“缓存播放”(Cached Playback)</span>强制用于动力学节点：<samp class="ph codeph">MAYA_CACHE_IGNORE_UNSAFE_&lt;节点名称&gt;</samp>。
+	 </p>
+<p class="p"> 对于每个不支持的节点，使用下表中的变量。
+	 </p>
+<div class="note note" id="GUID-EF1C2D0C-622D-4FBB-B761-54E0A9765CE1__GUID-FA6761E2-0A36-4690-9F71-695AE3BE977F"><span class="notetitle">注：</span> 有关使用环境变量的信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04">使用 Maya.env 设置环境变量</a>。
+	 </div>
+<div class="note note" id="GUID-EF1C2D0C-622D-4FBB-B761-54E0A9765CE1__GUID-A826703B-7C10-4B8E-ADFC-4D444A5BFADF"><span class="notetitle">注：</span> 有关<span class="ph uicontrol">“缓存播放”(Cached Playback)</span>的更多技术详细信息，请参见 <a class="xref" href="https://knowledge.autodesk.com/support/maya/learn-explore/caas/simplecontent/content/using-parallel-maya.html" target="_blank">Maya 缓存播放白皮书</a>。
+	 </div>
+<dl class="dl"><dt class="dt dlterm">Bifrost 
+		  </dt>
+<dd class="dd"> 
+			 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-EF1C2D0C-622D-4FBB-B761-54E0A9765CE1__TABLE_2E156A20C44B45038CD54F96A01CB1BE" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="33.33333333333333%">禁用的节点/属性 
+						</th>
+<th class="entry" valign="top" width="33.33333333333333%">支持的值 
+						</th>
+<th class="entry" valign="top" width="33.33333333333333%">强制启用缓存方式 
+						</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p">bifrostContainer 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"><samp class="ph codeph">MAYA_CACHE_IGNORE_UNSAFE_BIFROST</samp> 
+						</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		  </dd>
+<dt class="dt dlterm"> 缓存文件 
+		  </dt>
+<dd class="dd"> 
+			 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-EF1C2D0C-622D-4FBB-B761-54E0A9765CE1__TABLE_DE4548F188504CFDA10C1A3F665FD70E" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="33.33333333333333%">禁用的节点/属性 
+						</th>
+<th class="entry" valign="top" width="33.33333333333333%">支持的值 
+						</th>
+<th class="entry" valign="top" width="33.33333333333333%">强制启用缓存方式 
+						</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> cacheFile 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"><samp class="ph codeph">MAYA_CACHE_IGNORE_UNSAFE_CACHE_FILE</samp> 
+						</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		  </dd>
+<dt class="dt dlterm">MASH 
+		  </dt>
+<dd class="dd"> 
+			 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-EF1C2D0C-622D-4FBB-B761-54E0A9765CE1__TABLE_AF8CEE6C32EB459AAACEB8E2B858EEFA" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="33.33333333333333%">禁用的节点/属性 
+						</th>
+<th class="entry" valign="top" width="33.33333333333333%">支持的值 
+						</th>
+<th class="entry" valign="top" width="33.33333333333333%">强制启用缓存方式 
+						</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> MASH_Jiggle 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"><samp class="ph codeph">MAYA_CACHE_IGNORE_UNSAFE_MASH</samp> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> MASH_Trails.trailsMode 
+						  </p>
+ 
+						  <p class="p">（有条件的支持：某些属性值禁用缓存） 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p">接合点 (2) 
+						  </p>
+ 
+						  <p class="p">连接到点 (3) 
+						  </p>
+ 
+						  <p class="p">连接到最近点 (4) 
+						  </p>
+ 
+						  <p class="p">按距离连接 (5) 
+						  </p>
+ 
+						  <p class="p"> 约束对 (6) 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> MASH_Flight 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%">FALSE 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> MASH_Spring 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%">FALSE 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> MASH_Falloff.falloffEventType 
+						  </p>
+ 
+						  <p class="p">（有条件的支持：某些属性值禁用缓存） 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%">FALSE 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> MASH_Time.enableVelocity 
+						  </p>
+ 
+						  <p class="p">（有条件的支持：某些属性值禁用缓存） 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%">FALSE 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> MASH_Time.simulateTime 
+						  </p>
+ 
+						  <p class="p"> （有条件的支持：某些属性值禁用缓存） 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%">FALSE 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> MASH_Orient.orientMode 
+						  </p>
+ 
+						  <p class="p"> （有条件的支持：某些属性值禁用缓存） 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> FALSE 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> MASH_Color.enableVelocity 
+						  </p>
+ 
+						  <p class="p"> （有条件的支持：某些属性值禁用缓存） 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%">FALSE 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		  </dd>
+<dt class="dt dlterm">肌肉 
+		  </dt>
+<dd class="dd"> 
+			 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-EF1C2D0C-622D-4FBB-B761-54E0A9765CE1__TABLE_980FD32519E24DB584CDC267C55F68DD" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="33.33333333333333%">禁用的节点/属性 
+						</th>
+<th class="entry" valign="top" width="33.33333333333333%">支持的值 
+						</th>
+<th class="entry" valign="top" width="33.33333333333333%">强制启用缓存方式 
+						</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> cMuscleSystem.enableJiggle 
+						  <p class="p">（有条件的支持：某些属性值禁用缓存） 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p">FALSE 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"><samp class="ph codeph">MAYA_CACHE_IGNORE_UNSAFE_MUSCLE</samp> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> cMuscleSystem.enableSliding 
+						  </p>
+ 
+						  <p class="p">（有条件的支持：某些属性值禁用缓存） 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%">FALSE 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> cMuscleSystem.enableForce 
+						  </p>
+ 
+						  <p class="p"> （有条件的支持：某些属性值禁用缓存） 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%">FALSE 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> cMuscleSystem.enableRelax 
+						  </p>
+ 
+						  <p class="p"> （有条件的支持：某些属性值禁用缓存） 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%">FALSE 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		  </dd>
+<dd class="dd"> 
+			 <div class="note note" id="GUID-EF1C2D0C-622D-4FBB-B761-54E0A9765CE1__GUID-E20E35CC-8401-4380-9B52-E389BC6340ED"><span class="notetitle">注：</span> 将“绘制肌肉权重”(Paint Muscle Weights)与“缓存播放”(Cached Playback)结合使用可能会产生意外行为。若要避免这种情况，请在绘制权重时禁用“缓存播放”(Cached Playback)。
+			 </div>
+ 
+		  </dd>
+<dt class="dt dlterm">细分(Subdivision) 
+		  </dt>
+<dd class="dd"> 
+			 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-EF1C2D0C-622D-4FBB-B761-54E0A9765CE1__TABLE_B96FC23C28214B44A6C93938AFAEB38B" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="33.33333333333333%">禁用的节点/属性 
+						</th>
+<th class="entry" valign="top" width="33.33333333333333%">支持的值 
+						</th>
+<th class="entry" valign="top" width="33.33333333333333%">强制启用缓存方式 
+						</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> subdiv.aOutSubdiv 
+						  <p class="p">（有条件的支持：某些属性值禁用缓存） 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> *未设置动画 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"><samp class="ph codeph">MAYA_CACHE_IGNORE_UNSAFE_DEFORMING_SUBDIV</samp> 
+						</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		  </dd>
+<dt class="dt dlterm">纹理变形器(Texture Deformer) 
+		  </dt>
+<dd class="dd"> 
+			 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-EF1C2D0C-622D-4FBB-B761-54E0A9765CE1__TABLE_4F1F915766704A3A9B4F61F14C0DDB08" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="33.33333333333333%">禁用的节点/属性 
+						</th>
+<th class="entry" valign="top" width="33.33333333333333%">支持的值 
+						</th>
+<th class="entry" valign="top" width="33.33333333333333%">强制启用缓存方式 
+						</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> textureDeformer 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"><samp class="ph codeph">MAYA_CACHE_IGNORE_UNSAFE_TEXTURE_DEFORMER</samp> 
+						</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		  </dd>
+<dt class="dt dlterm">Trax 
+		  </dt>
+<dd class="dd"> 
+			 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-EF1C2D0C-622D-4FBB-B761-54E0A9765CE1__TABLE_07B041AF28B64E908E601B9A1E7F2D85" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="33.33333333333333%">禁用的节点/属性 
+						</th>
+<th class="entry" valign="top" width="33.33333333333333%">支持的值 
+						</th>
+<th class="entry" valign="top" width="33.33333333333333%">强制启用缓存方式 
+						</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="33.33333333333333%">animClip 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"><samp class="ph codeph">MAYA_CACHE_IGNORE_UNSAFE_TRAX</samp> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> clipGhostData 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> clipLibrary 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> clipScheduler 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> clipToGhostData 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		  </dd>
+<dt class="dt dlterm">XGen 
+		  </dt>
+<dd class="dd"> 
+			 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-EF1C2D0C-622D-4FBB-B761-54E0A9765CE1__TABLE_C40335C23B694ACE8353364B3C40C00A" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="33.33333333333333%">禁用的节点/属性 
+						</th>
+<th class="entry" valign="top" width="33.33333333333333%">支持的值 
+						</th>
+<th class="entry" valign="top" width="33.33333333333333%">强制启用缓存方式 
+						</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="33.33333333333333%">xgmPalette 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"><samp class="ph codeph">MAYA_CACHE_IGNORE_UNSAFE_XGEN</samp> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmDescription 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmPatch 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmMakeGuide 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmGuide 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmGuideManip 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmGuideSculptManip 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmPointsManip 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmConnectivity 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmPointsViewer 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmNurbsPatch 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmSubdPatch 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmArchiveGuide 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmCardGuide 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> createPtexUV 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmHairMapping 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmSphereGuide 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmSplineGuide 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmSplineBase 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmModifierBase 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmModifierCut 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmModifierCollision 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmModifierSculpt 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmModifierNoise 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmModifierDisplacement 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmModifierGuide 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmModifierLinearWire 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmModifierScale 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmModifierClump 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmCurveToSpline 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmSeExpr 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmSplineCache 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> xgmSplineDescription 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> igBrushManip 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+						  <p class="p"> igmDescription 
+						  </p>
+ 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+						</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		  </dd>
+</dl>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-D2F57DBE-7546-477D-9DB9-42A2EA03EB97.htm">“缓存播放”(Cached Playback)限制</a></div>
+</div>
+</div>
+
+</body>
+</html>

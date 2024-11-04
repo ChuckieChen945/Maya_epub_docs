@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Animation">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28">
+<meta name="language" content="CHS">
+<title>高级工作流：结合使用约束和表达式以及动画层</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>高级工作流：结合使用约束和表达式以及动画层</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F4875515A699EE12A80087827-4AB3"><p class="p" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS1A9193826455F5FF-2ADE9D9118A20D4F816308"> 可以使用含约束和表达式的动画层来驱动场景中的对象。有关将约束添加到动画层的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-B865F8D9-AE8E-47F7-AFB4-DFF9D6A17DB4.htm">为动画层添加约束</a>。
+	 </p>
+<p class="p" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755-42A8108711A530FF1D38AB">请注意，将表达式添加到动画层的工作流更加复杂，并且还有一些已知的限制。（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28.htm#GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755360AA6ED11A9C1EFFAA-7D43">动画层和约束的已知限制</a>）。 
+	 </p>
+<p class="p" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755-42A8108711A530FF1D38AF">若要设置表达式以驱动含分层动画的对象，则必须找到与要驱动的属性相对应的层的融合节点。然后，设置该表达式以驱动该融合节点的<span class="ph uicontrol" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__GUID-EC679A47-87C2-446C-8263-3A833B41C010">“inputB”</span>属性。
+	 </p>
+<p class="p" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755-42A8108711A530FF1D38C2">以下示例描述了如何将表达式添加到含分层动画对象的 translateY 属性中。
+	 </p>
+<p class="li listintro" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755-63C0748611A1FA08F71-E55">创建可驱动分层动画的表达式 </p>
+<ol class="ol" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755-63C0748611A1FA08F71-E56"><li class="li" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755-63C0748611A1FA08F71-E54">创建新场景，并添加任何要使用表达式设置动画的对象。以下示例描述了如何设置球体的动画。
+		</li>
+<li class="li" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS1A9193826455F5FF-4FDFBFFB11A5310C890-7DB0">选择球体之后，单击<span class="ph uicontrol" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__GUID-EB38F1BD-C208-4110-B518-DC99BB0A43DC">“动画层编辑器”(Animation Layer Editor)</span>中的 <img class="image" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__IMAGE_E9E28A389F4A45DD895CA60A45002277" width="26" height="26" src="../images/GUID-C8645E83-E124-4F36-9694-0C964122AC7D.png">，以创建包含球体属性的层。默认情况下，新层名为 AnimLayer1。
+		  <p class="p" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755-42A8108711A530FF1D38C3">后续步骤描述如何将表达式添加到 AnimLayer1 以驱动球体的 translateY 属性。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755-63C0748611A1FA08F71-E51">请执行下列操作之一，找到要连接表达式的融合节点：
+		  <ul class="ul" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755-63C0748611A1FA08F71-E50"><li class="li" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755-63C0748611A1FA08F71-E4F">在<span class="ph uicontrol" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__GUID-A6A0D0B6-D680-4BCB-AA65-C356759F2AD3">“动画层编辑器”(Animation Layer Editor)</span>中，选择<span class="ph uicontrol" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__GUID-E48B8EFA-6E07-43C8-A9A2-B0717D3F54C6">“层 &gt; 打包到资产中”(Layers &gt; Package Into Assets)</span>。（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-4A7F53F9-4EDF-4140-9893-6EAB3A9F2665.htm">将动画层打包到资产中</a>。） 
+			 </li>
+<li class="li" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755-63C0748611A1FA08F71-E4E">打开<span class="ph uicontrol" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__GUID-8CFA5B1C-35D9-4D71-BCC6-A2991071C9CC">“Hypergraph”</span>窗口（<span class="ph uicontrol" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__GUID-86F8740B-C80D-4A23-8224-53C88B4FFD2C">“窗口 &gt; Hypergraph: 连接”(Window &gt; Hypergraph: Connections)</span>）。双击展开 AnimLayer1_Asset，然后双击展开嵌套的 AnimLayer1_BlendNodes 资产。
+			 </li>
+<li class="li" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS1A9193826455F5FF-4FDFBFFB11A5310C890-7DAD">选择 pSphere1_translateY_AnimLayer1 融合节点。
+				<p class="p" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755-42A8108711A530FF1D38C4">这是与球体的 translateY 属性相对应的融合节点。
+				</p>
+ 
+			 </li>
+</ul>
+ 
+		</li>
+<li class="li" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755-63C0748611A1FA08F71-E4B">打开<span class="ph uicontrol" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__GUID-96A418B5-87A2-4C48-A0E6-EC890DFF5A4A">“表达式编辑器”(Expression Editor)</span>（<span class="ph uicontrol" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__GUID-FE6958C5-2B2F-48A2-A5BC-06DE7206DDF6">“窗口 &gt; 动画编辑器 &gt; 表达式编辑器”(Window &gt; Animation Editors &gt; Expression Editor)</span>）。
+		</li>
+<li class="li" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS1A9193826455F5FF-4FDFBFFB11A5310C890-7DAC">选择<span class="ph uicontrol" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__GUID-483BC91A-C381-4F99-905E-DADE4BFA2C85">“属性”(Attributes)区域</span>中的<span class="ph uicontrol" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__GUID-52DA4938-B6E0-44C3-B769-F648768BDC0A">“inputB”</span>，然后键入表达式以驱动<span class="ph uicontrol" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__GUID-08DA3E15-9941-4A55-A148-DC2F326F8B05">“表达式”(Expression)</span>区域中融合节点的<span class="ph uicontrol" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__GUID-4D45F5B5-5407-4DC1-900A-5749193801BA">“inputB”</span>。
+		  <p class="p" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS1A9193826455F5FF-4FDFBFFB11A5310C890-7DAB">例如，若要添加可驱动球体的 translateY 值的正弦函数，请输入以下内容：
+		  </p>
+ 
+		  <pre class="pre codeblock">
+pSphere1_translateY_AnimLayer1.inputB = sin(time);
+</pre>
+ 
+		  <p class="p" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F487557BFAA8DA122EC01152F490C">（请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-EF3F2007-74E7-4F23-B4A3-8D2EF94579A1">创建动画表达式</a>。） 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F487557BFAA8DA122EC01152F490D">单击<span class="ph uicontrol" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__GUID-0CB5A423-D751-404C-8A3D-9A1FCFE1D7D3">“创建”(Create)</span>。
+		  <p class="p" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755360AA6ED11A9C1EFFAA-69AC">现在，您为<span class="ph uicontrol" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__GUID-32BD964E-D05B-4EEB-AEA0-1905E56D0797">“inputB”</span>属性写入的表达式将驱动 AnimLayer1 中的球体 translateY 动画。示例表达式使球体随着时间的变化沿正弦波上下移动。
+		  </p>
+ 
+		</li>
+</ol>
+<div class="section" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755360AA6ED11A9C1EFFAA-7D43"><h2 class="title sectiontitle">含约束和表达式的动画层的已知限制</h2> 
+		 
+		<p class="p" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755360AA6ED11A9C1EFFAA-7D42">使用含约束和表达式的动画层时，应注意以下已知限制和解决方案。
+		</p>
+  
+		<ul class="ul" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755-42A8108711A530FF1D38AC"><li class="li" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755-42A8108711A530FF1D38AD">含约束或表达式的层无法使用动画层编辑器输出工具导出。（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-A9775404-5F21-4F4C-A5BB-745AC0566562.htm">导入和导出动画层</a>。） 
+		  </li>
+<li class="li" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755-42A8108711A530FF1D38AE"><span class="ph uicontrol" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__GUID-062BF441-D37C-4BA2-80F9-076D65B7A546">“曲线图编辑器”(Graph Editor)</span>并非完全支持含约束的动画层。与<span class="ph uicontrol" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__GUID-78D8788F-9465-4785-ACEA-0F9A0B32BEB9">基础动画(BaseAnimation)</span>关联的约束属性始终会显示，即使将它们添加到层也是如此。
+		  </li>
+<li class="li" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755360AA6ED11A9C1EFFAA-7D3F">一旦曲线添加到动画层，便不能使用<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-D2B1C7EF-F177-4B0E-9E41-B479CFF2AFD4.htm">“设置受驱动关键帧”(Set Driven Key)</a>窗口编辑<span class="ph uicontrol" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__GUID-82024B2A-820F-445A-93F9-DDF86F068B97">“设置受驱动关键帧”(Set Driven Key)</span>曲线。但仍可以使用<span class="ph uicontrol" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__GUID-FAF0FF5A-F4B7-4356-A57D-5C7F725FEC47">“曲线图编辑器”(Graph Editor)</span>来编辑曲线。（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-F5429279-8EDB-449C-9E8D-4B5C0210757D.htm">设置受驱动关键帧</a>。） 
+		  </li>
+<li class="li" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755360AA6ED11A9C1EFFAA-7D3E">一旦多源约束移到动画层中，则无法向多源约束添加新目标。请改为创建含该约束的多个实例的多个层，然后调整层的权重值，以实现所需的效果。
+		  </li>
+</ul>
+ 
+	 </div>
+<div class="section" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755-63C0748611A1FA08F71-E4A"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755-63C0748611A1FA08F71-E49"><li class="li" id="GUID-21EBDB73-5A64-46CD-852A-05F1EFB8BE28__WS73099CC142F48755-63C0748611A1FA08F71-E48"> 
+			 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-251640EA-AACC-4F1B-A341-297F0F4CEFE4">表达式编辑器</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-0B7E62A8-ED42-4026-AE0D-CED5903E925B.htm">包含动画层的示例工作流</a></div>
+</div>
+</div>
+
+</body>
+</html>

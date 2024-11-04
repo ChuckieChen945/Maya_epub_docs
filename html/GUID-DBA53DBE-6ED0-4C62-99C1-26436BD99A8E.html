@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Bifrost">
+<meta name="created" content="30/7/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="17/04/2023">
+<meta name="topicid" content="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E">
+<meta name="language" content="CHS">
+<title>转换早期版本中的 Bifrost 场景</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>转换早期版本中的 Bifrost 场景</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p">应该更新在 Maya 早期版本中创建的 Bifrost 模拟场景，使其与当前版本兼容。
+	 </p>
+<div class="section" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__SECTION_1276D41FB1694106BB15575E21BE5310"><h2 class="title sectiontitle">转换 Maya 2016 Extension 2 及更高版本中的场景</h2> 
+		 
+		<p class="p">对于在 Maya 2016 Extension 2 及更高版本中创建的 Bifrost 模拟场景，其节点结构与当前版本相同，可以像以前一样在当前版本中使用。但是，如果要使用运动场等新功能，则需要更新节点，以便修改图表并添加新端口。
+		</p>
+ 
+		<ol class="ol" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__OL_019FB7CFFF1046E190EC37056C9EEF62"><li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_37CD41FF5FF54DC7BD0BECBD0E584B29">打开场景。
+			 <p class="p">当检测到来自 Maya 2016 Extension 2 及更高版本的先前版本 Bifrost 模拟时，将记录一条警告。例如：
+			 </p>
+ 
+			 <pre class="pre">// Warning: Bifrost: to use the new Bifrost features, graph |bifrostLiquid1|bifrostLiquidContainer1 needs to be updated to the latest version, call mel script: replaceBifrostFXGraphsWithFactoryGraphs |bifrostLiquid1|bifrostLiquidContainer1 ; // 
+</pre>
+ 
+			 <p class="p">请注意，显示的确切消息取决于场景中的模拟类型和对象名称。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_BD250FC9DEFE47A7936BF5461DB27C3B">打开<span class="ph uicontrol">“脚本编辑器”(Script Editor)</span>。
+			 <p class="p">有关使用<span class="ph uicontrol">脚本编辑器</span>的常规详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-7C861047-C7E0-4780-ACB5-752CD22AB02E">脚本编辑器</a>。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_09D178CCECB84B8082308E45C7302988">将该行的后半部分（即：从冒号后开始一直到分号为止，包括分号）从顶部的历史窗格复制到底部的 MEL 窗格。例如：
+			 <pre class="pre">replaceBifrostFXGraphsWithFactoryGraphs |bifrostLiquid1|bifrostLiquidContainer1 ;</pre>
+ 
+		  </li>
+<li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_7AF886166F07456FAD25058B608E4E8A">运行脚本行。
+			 <p class="p">现在可以使用 Bifrost 中的新功能。
+			 </p>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__SECTION_714A51783FC34364A97BC68072B12B20"><h2 class="title sectiontitle">转换 Maya 2016 Extension 2 之前版本中的场景</h2> 
+		 
+		<p class="p"> 对于在 <span class="ph msgph prodname" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> Extension 2 之前版本中创建的 Bifrost 模拟场景，节点结构有所不同，与当前版本不兼容。但是，您可以运行一些脚本来将其转换为当前版本并复制部分重要属性。如果旧场景使用缓存文件，则您还需要重新组织文件夹。
+		</p>
+ 
+		<div class="section" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__SECTION_333E1A2B95234B43821D01753DB84206"><h3 class="title sectiontitle">转换场景</h3> 
+		   
+		  <ol class="ol" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__OL_63F6067A5AF94DE9B0B38D59DCCD9A6B"><li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_14C47C4AD78E40E3AD0E320776542DC3">打开场景。
+				<p class="p">当检测到来自早期版本的 Bifrost 模拟时，该模拟将被禁用并记录一条警告。例如：
+				</p>
+ 
+				<pre class="pre">// Warning: Bifrost: graph |bifrostLiquid1|bifrostLiquidContainer1 needs to be updated to the latest version, call mel script: migrateBifrostGraphToVersion2016R2 |bifrostLiquid1|bifrostLiquidContainer1 ; //</pre>
+ 
+				<p class="p">请注意，显示的确切消息取决于场景中的模拟类型和对象名称。
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_1B91A7CD94C546D4AFE9AD037F378922">打开<span class="ph uicontrol">“脚本编辑器”(Script Editor)</span>。
+				<p class="p">有关使用<span class="ph uicontrol">脚本编辑器</span>的常规详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-7C861047-C7E0-4780-ACB5-752CD22AB02E">脚本编辑器</a>。
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_66894BD324A34607897E625C7F546198">将该行的后半部分（即：从冒号后开始一直到分号为止，包括分号）从顶部的历史窗格复制到底部的 MEL 窗格。例如：
+				<pre class="pre">migrateBifrostGraphToVersion2016R2 |bifrostLiquid1|bifrostLiquidContainer1 ;</pre>
+ 
+			 </li>
+<li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_E5BB65453F3F426F9BFBE9E541664081">运行脚本行。
+				<p class="p">将构建新图表并删除旧图表。
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_DD095249FDF24ED28BC8C319142B5AE6">根据需要更新任何设置。下面列出的设置将会自动传递。所有其他设置将还原为其当前的默认值，其中某些与早期版本相比已发生更改。
+				<ul class="ul" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__UL_9CCC039E7C6349508844B461860B0C29"><li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_AAE3797F35F14A128FE3AEB1CFF79F94">主容器：<span class="ph uicontrol">“临时缓存”(Scratch Cache)</span>、<span class="ph uicontrol">“开始帧”(Start Frame)</span>。
+				  </li>
+<li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_B198F853FFDB410B896492C74322D430">主特性：<span class="ph uicontrol">“主体素大小”(Master Voxel Size)</span>、<span class="ph uicontrol">“重力幅值”(Gravity Magnitude)</span>、<span class="ph uicontrol">“重力方向”(Gravity Direction)</span>。
+				  </li>
+<li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_7CB7E83639F5446393BD624B553FA7BA">导向特性：<span class="ph uicontrol">“启用”(Enable)</span>、<span class="ph uicontrol">“模拟”(Simulation)</span>模式、<span class="ph uicontrol">“网格”(Mesh)</span>模式。
+				  </li>
+<li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_1E0237BE19BA4EC58F4E058C58FF9134">泡沫特性：<span class="ph uicontrol">“启用”(Enable)</span>。
+				  </li>
+<li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_4873A93F7AC54987BB0A1AD03385B1F8">发射器特性：<span class="ph uicontrol">“启用”(Enable)</span>、<span class="ph uicontrol">“连续发射”(Continuous Emission)</span>。
+				  </li>
+<li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_87A0755521774710B1BE3F9C7AEF79ED">碰撞对象特性：<span class="ph uicontrol">“启用”(Enable)</span>、<span class="ph uicontrol">“转化”(Conversion)</span><span class="ph uicontrol">模式</span>。
+				  </li>
+</ul>
+ 
+			 </li>
+</ol>
+ 
+		   
+		</div>
+ 
+		<div class="section" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__SECTION_7E2334073FAF4E23BC844424777C2C35"><h3 class="title sectiontitle">组织缓存文件</h3> 
+		   
+		  <p class="p">早期版本将不同的缓存文件混合在同一文件夹中，但是当前版本要求将这些文件组织到以其对象命名的单独文件夹中。流体体素和点缓存文件共享同一对象且必须位于相同的文件夹中，但是实体（碰撞对象）等其他缓存属于不同的对象且必须位于其他文件夹中。
+		  </p>
+ 
+		  <ol class="ol" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__OL_BCD6D166B45E4DFAA405CBDAB9083C62"><li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_01A6B4D7E6644C97BD229D9961BB810C">在命令提示下，运行 <kbd class="ph userinput">bifinfo.exe</kbd>（位于 Bifrost 插件安装目录的 bin/ 文件夹中）并指定一个缓存帧。例如：
+				<pre class="pre">bifinfo &lt;<em class="ph i">path_to_cache_files</em>&gt;/&lt;<em class="ph i">prefix</em>&gt;_liquid_point.&lt;<em class="ph i">nnnn</em>&gt;.bif</pre>
+ 
+			 </li>
+<li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_6E283C2680CE4FD2BBD56042484D6CFE">在输出中，找到以 <kbd class="ph userinput">object</kbd> 开头的行。例如：
+				<pre class="pre">   object voxel_liquid</pre>
+ 
+			 </li>
+<li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_09EA25F92DEC4797BE51B6F01CDB9865">创建具有相同名称的文件夹，例如，<kbd class="ph userinput">voxel_liquid</kbd>。
+			 </li>
+<li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_15C0EF3852AA4CFF902A3DDC7F3C841F">将相应的缓存文件移动到新目录。
+			 </li>
+<li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_1EAD3CD1C5534808BD1ECC0BBD1D62D7">对其他缓存文件类型重复上述步骤，例如，
+				<tt class="ph tt">&lt;<em class="ph i">prefix</em>&gt;_solids_voxel</tt>。
+			 </li>
+<li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_6B5E7D080BC34A0C9D4A496B07025873">转换场景之后，在相应特性（如液体、导向、泡沫或 Aero）的<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中启用缓存。
+			 </li>
+<li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_5D2328C34EA64061BAA8994F3FB2EF7D">将<span class="ph uicontrol">“缓存控制”(Cache Control)</span>设置为 1（读取模式）。
+			 </li>
+<li class="li" id="GUID-DBA53DBE-6ED0-4C62-99C1-26436BD99A8E__LI_146A528EAD504560A87FF492F549021D">单击缓存名称字段旁边的文件夹图标，然后在新位置中浏览并选择相应的缓存文件之一。
+			 </li>
+</ol>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-490292AC-38B2-4D13-9F41-9E959A767064.htm">使用 Bifrost 模拟流体</a></div>
+</div>
+</div>
+
+</body>
+</html>

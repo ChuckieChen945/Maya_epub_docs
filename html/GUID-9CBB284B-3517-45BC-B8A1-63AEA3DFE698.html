@@ -1,0 +1,170 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698">
+<meta name="language" content="CHS">
+<title>重新生成随机性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>重新生成随机性</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9CA"> 如果在一个表达式中重复执行 rand、sphrand 和高斯函数，Maya 会返回一个随机数序列。（有关这些函数的详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-CA91F705-2E91-425C-BEA3-E15162C4CB55.htm">随机数函数简介</a>。）每次回放和播放动画时，随机数序列都有所不同。通常，您要生成每次播放动画时都会重复的随机数序列。 </p>
+<p class="p" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9C6">例如，假设您使用 rand 函数将随机半径指定给已发射的渲染为<span class="ph uicontrol" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__GUID-FB3755F2-6AA1-4BC1-9E45-47772D517BD3">“球体”(Spheres)</span>的粒子流中的每个粒子。默认情况下，每次播放动画时，Maya 都为粒子提供不同的随机半径值序列。 </p>
+<p class="p" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9C5"> 若要每次播放动画时创建相同的半径值，您可以在 rand、sphrand 或高斯函数执行之前在表达式中使用 seed 函数。无需对每个动画都多次执行 seed 函数，除非您需要播放动画时生成几个不同的重复随机数字序列。 </p>
+<div class="note attention" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9C3"><span class="attentiontitle">注意：</span> 在表达式或 MEL 脚本中设定种子值时，种子值会影响在其他表达式和 MEL 脚本中的 rand、sphrand 和高斯函数。在当前工作会话中随后打开的所有场景中，此类函数都受此种子值的影响。 <p class="p" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9C2">此种子值与粒子形状节点中可用的<span class="ph uicontrol" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__GUID-2D3EB06F-F480-4135-9C5B-B25B6DC72CED">“种子”(Seed)</span>属性无关。因此，seed 函数不会影响用动力学创建的随机性。 </p>
+ </div>
+<div class="section" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9C1"><h2 class="title sectiontitle">示例</h2>
+
+<p class="p" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9C0">假设您使用 rand 函数在第 1 帧将多个大理石定位于场景中的随机<span class="ph uicontrol" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__GUID-C1F29949-E897-4931-A177-F770E4BB2418">“translateX”</span>位置： </p>
+
+<pre class="pre codeblock">
+if (frame == 1)
+{
+	marble1.tx = rand(-10,10);
+	marble2.tx = rand(-10,10);
+	marble3.tx = rand(-10,10);
+	marble4.tx = rand(-10,10);
+}
+</pre>
+
+<p class="p" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9BF">每次执行时，rand (-10,10) 返回介于 -10 和 10 之间的一个随机数字。当将动画回放到第 1 帧时，Maya 可能将这些值指定给大理石的<span class="ph uicontrol" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__GUID-9E967F9B-02CD-4473-AD7A-BA69EC689917">“translateX”属性</span>： </p>
+
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9BE" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">属性 </th>
+<th class="entry" valign="top" width="50%">值 </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">marble1.tx </td>
+<td class="entry" valign="top" width="50%">2.922 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">marble2.tx </td>
+<td class="entry" valign="top" width="50%">5.963 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">marble3.tx </td>
+<td class="entry" valign="top" width="50%">-4.819 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">marble4.tx </td>
+<td class="entry" valign="top" width="50%">7.186 </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="fig fignone" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9BD"><img class="image" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__IMAGE_BC274A6944064F1C969C951BF1BC9FA9" width="187" height="95" src="../images/GUID-35726CEF-31CA-4B2E-9DAE-EE154C586279.png"></div>
+
+<p class="p" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9BC">下一次将动画回放到第 1 帧时，每个大理石的<span class="ph uicontrol" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__GUID-DE966FB2-73D1-4069-AD18-54EC589683CA">“translateX”</span>属性将接收一个不同的随机值。Maya 可能指定下列值： </p>
+
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9BB" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">属性 </th>
+<th class="entry" valign="top" width="50%">值 </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">marble1.tx </td>
+<td class="entry" valign="top" width="50%">-3.972 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">marble2.tx </td>
+<td class="entry" valign="top" width="50%">9.108 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">marble3.tx </td>
+<td class="entry" valign="top" width="50%">-7.244 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">marble4.tx </td>
+<td class="entry" valign="top" width="50%">-3.065 </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="fig fignone" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9BA"><img class="image" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__IMAGE_185A967C43DB4FB2ACD8A15F00F66307" width="224" height="84" src="../images/GUID-8E79F521-F5E3-476B-B482-F0FD070CFADD.png"></div>
+
+<p class="p" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9B9">例如，您可能希望在回放时，大理石的<span class="ph uicontrol" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__GUID-63A7459E-AFEB-4380-A432-1B420D34EC37">“translateX”</span>值能保持不变，以便您可以在模糊的背景中正确地合成大理石。 </p>
+
+<p class="p" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9B8">您可以使用 seed 函数将回放动画时 rand 函数返回的随机值序列保持一致。 </p>
+
+<pre class="pre codeblock">
+if (frame == 1)
+{
+	seed(10);
+	marble1.tx = rand(-10,10);
+	marble2.tx = rand(-10,10);
+	marble3.tx = rand(-10,10);
+	marble4.tx = rand(-10,10);
+}
+</pre>
+
+<p class="p" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9B7">通过将种子值设定为一个任意数字，例如，10，后续执行 rand 函数时将返回一个重复的随机数序列。 </p>
+
+<p class="p" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9B6">当第一次回放动画时，Maya 可能将这些值指定给大理石的<span class="ph uicontrol" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__GUID-AF1100B6-F219-47B0-ADE3-5CD101CB9FA5">“translateX”</span>属性： </p>
+
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9B5" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">属性 </th>
+<th class="entry" valign="top" width="50%">值 </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">marble1.tx </td>
+<td class="entry" valign="top" width="50%">8.020 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">marble2.tx </td>
+<td class="entry" valign="top" width="50%">-2.973 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">marble3.tx </td>
+<td class="entry" valign="top" width="50%">-7.709 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">marble4.tx </td>
+<td class="entry" valign="top" width="50%">0.741 </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="fig fignone" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9B4"><img class="image" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__IMAGE_5D928B2DE7F54D419FA40CA36A8ED332" width="233" height="90" src="../images/GUID-618BD184-56BC-4087-8BA1-208DB3EF89B6.png"></div>
+
+<p class="p" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9B3">之后每次回放动画时，Maya 会将这些相同的值指定给大理石的<span class="ph uicontrol" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__GUID-8089FE71-8F35-4296-ADBF-4D88D704D3F6">“translateX”</span>属性。大理石不会移动。 </p>
+
+<p class="p" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9B2">每次语句将种子值设定为 10 时，后续执行 rand 函数都会从以起始数字开始的序列返回数字。换句话说，将种子值重置为 10 会将随机数生成过程重新启动到采用序列中的第一个值。 </p>
+
+<p class="p" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9B1">假设您将表达式更改为如下： </p>
+
+<pre class="pre codeblock">
+if (frame == 1)
+{
+	seed(10);
+}
+	marble1.tx = rand(-10,10);
+	marble2.tx = rand(-10,10);
+	marble3.tx = rand(-10,10);
+	marble4.tx = rand(-10,10);
+</pre>
+
+<p class="p" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9B0">当将动画回放到第 1 帧时，表达式将种子设定为 10。Maya 将值指定给大理石的<span class="ph uicontrol" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__GUID-59F2A5A8-CA88-4337-8B54-42CF02DF3EEA">“translateX”</span>属性，像在以前的表达式中那样。 </p>
+
+<p class="p" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9AF">由于表达式不会在非第 1 帧的其他帧设定种子值，因此播放动画会使 rand 函数每一帧返回一个新的但重复的随机数序列。如果多次播放动画，则<span class="ph uicontrol" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__GUID-7E24FD66-7742-45C8-B62A-14F99377B575">“translateX”</span>值将在动画播放期间不断变化，但每次播放动画时，值的序列是相同的。 </p>
+
+<p class="p" id="GUID-9CBB284B-3517-45BC-B8A1-63AEA3DFE698__WS73099CC142F48755-3D114B7511841AEFA9F-9AE">您可以为种子指定不同的值以生成不同的返回值序列。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-A2056AF2-E4D5-4946-86BA-A01CA0643832.htm">种子</a>。 </p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B0A92424-8666-4669-97D7-B16F718FA3FD.htm">高级动画表达式主题</a></div>
+</div>
+</div>
+
+</body>
+</html>

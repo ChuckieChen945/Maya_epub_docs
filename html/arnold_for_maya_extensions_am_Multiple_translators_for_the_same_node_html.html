@@ -1,0 +1,146 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_extensions_am_Multiple_translators_for_the_same_node_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_MULTIPLE_TRANSLATORS_FOR_THE_SAME_NODE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 多个转换器用于同一节点 - Arnold for Maya">
+
+<title>多个转换器用于同一节点</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+      <script src="../scripts/lang-python.js"></script>
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>多个转换器用于同一节点</h1></div><p>我们可以将多个转换器关联到同一个 Maya 节点。我们需要使用在<a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Technical/am-Writing_Extensions/arnold_for_maya_extensions_am_Creating_a_basic_extension_html.html">创建基本扩展</a>和<a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Technical/am-Writing_Extensions/arnold_for_maya_extensions_am_Adding_specific_Arnold_attributes_to_a_node_html.html">将特定 Arnold 属性添加到节点</a>中生成的转换器执行以下步骤：</p>
+<p>首先，在注册转换器时，应为转换器提供名称。我们可以按如下所示重新编写第一个扩展：</p>
+<p><strong>extension1.cpp</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#include "translator1.h"
+#include "extension/Extension.h"
+
+
+extern "C"
+{
+
+    DLLEXPORT void initializeExtension(CExtension &amp;plugin)
+    {
+        plugin.RegisterTranslator("phong",
+                                  "",
+                                  CTestTranslator::creator);
+    }
+
+    DLLEXPORT void deinitializeExtension(CExtension &amp;plugin)
+    {
+    }
+}</code></pre>
+<p>并按如下所示重新编写第二个扩展：</p>
+<p><strong>extension2.cpp</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#include "translator2.h"
+#include "extension/Extension.h"
+
+
+extern "C"
+{
+
+    DLLEXPORT void initializeExtension(CExtension &amp;plugin)
+    {
+        plugin.RegisterTranslator("phong",
+                                  "",
+                                  CTestTranslator2::creator,
+                                  CTestTranslator2::NodeInitializer);
+    }
+
+    DLLEXPORT void deinitializeExtension(CExtension &amp;plugin)
+    {
+    }
+
+}</code></pre>
+<p>您还可以将两个转换器组合为单个扩展，如下所示：</p>
+<p><strong>extension2.cpp</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#include "translator1.h"
+#include "translator2.h"
+#include "extension/Extension.h"
+
+
+extern "C"
+{
+
+    DLLEXPORT void initializeExtension(CExtension &amp;plugin)
+    {
+        plugin.RegisterTranslator("phong",
+                                  "trans1",
+                                  CTestTranslator::creator);
+
+        plugin.RegisterTranslator("phong",
+                                  "trans2",
+                                  CTestTranslator2::creator,
+                                  CTestTranslator2::NodeInitializer);
+    }
+
+    DLLEXPORT void deinitializeExtension(CExtension &amp;plugin)
+    {
+    }
+
+}</code></pre>
+<p>接下来，为了让每个扩展有不同的属性编辑器模板，我们可以按如下所示重新编写之前的模板：</p>
+<p><strong>extension2.py</strong></p>
+<pre class="pre codeblock"><code class="lang-python prettyprint">import mtoa.ui.ae.templates as templates
+from mtoa.ui.ae.templates import AttributeTemplate
+
+
+class PhongTemplate1(AttributeTemplate):
+    def setup(self):
+        pass
+
+
+class PhongTemplate2(AttributeTemplate):
+    def setup(self):
+        self.addControl("aiSpecularWeight")
+
+
+templates.registerTranslatorUI(PhongTemplate1, "phong", "trans1")
+templates.registerTranslatorUI(PhongTemplate2, "phong", "trans2")</code></pre>
+<p>得到的属性编辑器将如下所示：</p>
+<p> <img src="../images/am-Multiple_translators_for_the_same_node-PhongAE1-1.png" alt=""> <img src="../images/am-Multiple_translators_for_the_same_node-PhongAE2-2.png" alt=""></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Technical/arnold_for_maya_technical_am_Writing_Extensions_html.html">编写扩展</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

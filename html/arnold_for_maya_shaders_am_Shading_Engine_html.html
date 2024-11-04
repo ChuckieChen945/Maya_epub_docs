@@ -1,0 +1,99 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shaders_am_Shading_Engine_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_SHADING_ENGINE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 着色引擎 - Arnold for Maya">
+
+<title>着色引擎</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>着色引擎</h1></div><p>下面介绍了属于 Maya 着色引擎的 Arnold 着色组属性：</p>
+<h2 id="">曲面着色器</h2><p><img src="../images/mtoa_shading_engine1.png" alt=""></p>
+<p><em>“着色引擎”(Shading Engine)</em> 的“Arnold”部分中有一个 <em>surface_shader</em> 窗口。当有着色器连接到此窗口时，系统将使用此着色器，不使用 Maya 曲面着色器。当没有连接着色器时，系统将使用 Maya 曲面着色器，这样就不会破坏向后兼容性。当您需要在 Maya 视口中显示的着色器与指定给同一曲面的着色器不同时，此功能会很有帮助。因为每个渲染器都有自己的曲面着色器窗口，您可以将 Maya 着色器和 Arnold 着色器连接到同一个着色引擎。</p>
+<p>在下面的示例中，蓝色 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html" target="_blank">standard_surface</a></em> 着色器连接到红色 <em>standard_surface</em> 着色组的 Arnold“曲面着色器”(Surface Shader)属性。球体在视口中使用红色 <em>standard_surface</em> 着色器着色，但渲染为蓝色 <em>standard_surface</em> 着色器。</p>
+<p><img src="../images/mtoa_shading_engine2.png" alt=""></p>
+<p><sub><strong>蓝色 standard_surface -&gt; 曲面着色器</strong></sub></p>
+<h2 id="img-src-images-am-shading_engine-image2017-4-3-8-42-23-3-png-alt">体积着色器<img src="../images/am-Shading_Engine-image2017-4-3-8-42-23-3.png" alt=""></h2><p><img src="../images/mtoa_shading_engine3.png" alt=""></p>
+<p>“着色引擎”(Shading Engine)的“Arnold”部分中有一个<em>“体积着色器”(Volume Shader)</em>窗口。当有着色器连接到此窗口时，系统将使用此着色器，不使用 Maya 曲面着色器。当没有连接着色器时，系统将使用 Maya 曲面着色器，这样就不会破坏向后兼容性。</p>
+<table>
+<thead>
+<tr>
+<th>有关演示此工作流的 Maya 场景，请单击<a href="">此处</a>。</th>
+</tr>
+</thead>
+</table>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>Arnold 可以将形状容器用于体积渲染点、球体和长方体基本体。有关如何将网格渲染为体积的信息，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_polygons_am_Volume_Attributes_html">此处</a>。</p>
+
+</div></div>
+
+<h4 id="">示例</h4><p>以下示例显示了如何将自定义体积着色器连接到材质的着色组：</p>
+<ul>
+<li>首先，您需要为要指定<em>体积着色器</em>的网格或粒子设置 *<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_volumes_am_Maya_Fluids_html">step_size</a>*（值越小，渲染时间越长）。</li>
+</ul>
+<p><img src="../images/mtoa_shading_engine4.png" alt=""></p>
+<p><sub><strong>多边形网格的体积属性</strong></sub></p>
+<ul>
+<li>对于指定给球体的着色器的着色组，将 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_volume_shaders_ac_standard_volume_html" target="_blank">standard_volume</a></em> 着色器连接到 Arnold 属性中的 <em>volume_shader</em>。</li>
+</ul>
+<p><img src="../images/mtoa_shading_engine5.png" alt=""></p>
+<p><sub><strong>标准体积连接到某一标准曲面着色器的“着色组属性”(Shading Group Attributes)中的“体积着色器”(Volume Shader)</strong></sub></p>
+<ul>
+<li>创建 3D 噪波纹理，并将它连接到 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_volume_shaders_ac_standard_volume_html" target="_blank">standard_volume</a></em> 的 <em>transparent_weight</em> 属性（在本例中，使用了 Maya“云”纹理）。</li>
+</ul>
+<p><img src="../images/mtoa_shading_engine6.png" alt=""></p>
+<p><sub><strong>Maya 云 -&gt; <em>standard_volume 的透明度</em></strong></sub>  </p>
+<p>完成的着色器网络应如下图所示：</p>
+<p><img src="../images/mtoa_shading_engine8.png" alt=""></p>
+<p>最终，您应获得如下所示的结果：</p>
+<p><img src="../images/mtoa_shading_engine8.png" alt=""></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/arnold_for_maya_shaders_html.html">着色器</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

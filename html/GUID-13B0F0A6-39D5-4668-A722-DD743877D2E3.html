@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3">
+<meta name="language" content="CHS">
+<title>创建基于物理的 Stingray 着色器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1> 创建基于物理的 Stingray 着色器</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-53004281-6329-45B6-9292-23D2E2426060">可以创建和指定遵循物理定律和能量守恒的、基于物理的着色器。通过 <span class="ph uicontrol" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-6B4857D0-DC74-4F5F-94DB-80797E4DA8E0">Stingray PBS</span>（基于物理的着色器）节点，可以使用粗糙度贴图、法线贴图和金属贴图对扩散/反射和微曲面细节/反射率进行平衡。 
+	 </p>
+<p class="li listintro" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-BFFF332E-E11C-470C-B6B8-174CD289C0EF">创建基于物理的 Stingray 着色器</p>
+<ol class="ol" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__OL_5BF302E6CD2148F3B7A5820B0817CFE7"><li class="li" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__LI_38EBEF37704D4E67A091F805BB3F4D40">请执行下列任一操作： 
+		  <ul class="ul" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__UL_E76BB7F89F0345F3A8B65C96264AE962"><li class="li" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__LI_477F477E9045418AA3C3755683700BF4">右键单击对象并选择<span class="ph uicontrol" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-B157C764-C46A-4961-A82B-392ABC4974CB">“指定新材质”(Assign New Material)</span>，然后从<span class="ph uicontrol" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-B0294230-F893-4CBB-92FF-3EE9B3328E25">“指定新材质”(Assign New Material)</span>窗口中选择 <span class="ph uicontrol" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-47ADCFAC-18FB-4CEB-AA83-81D26E582BE8">Stingray PBS</span>。 
+			 </li>
+<li class="li" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__LI_D8AF9FDC5E484375A4B5B7B3C57ED1E3">打开 <span class="ph uicontrol" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-6F1F563E-6721-453F-AC95-19A0C38985C9">Hypershade</span> 窗口，然后从 <span class="ph uicontrol" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-3CFB20BE-A30D-475A-81D3-1AE79B0AFC2F">Maya</span> 类别下的<span class="ph uicontrol" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-090E54B5-8111-4D61-941F-301BF8BFB07E">“表面”(Surface)</span>子类别中选择 <span class="ph uicontrol" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-A63752F7-B222-4214-B251-E6B4668291D7">Stingray PBS</span>。 
+				<p class="p" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-D3620DAB-16D7-45BF-9806-93A080BF1322">（若要为某对象指定 <span class="ph uicontrol" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-14FAE358-36FE-46C4-A234-1898D4BD3DAB">Stingray PBS</span>，可以使用鼠标中键将材质从 <span class="ph uicontrol" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-CFBEE822-F9B2-45F9-A227-1D7CFA89E2E6">Hypershade</span> 拖至场景中的该对象上，操作过程如同其他 <span class="ph uicontrol" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-25587536-06EE-4BAB-8529-2C6AB8726BF1">Maya</span> 着色器一样。） 
+				</p>
+ 
+			 </li>
+</ul>
+ 
+		</li>
+</ol>
+<p class="p" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-F2FAD2A9-9028-4641-8A1C-2E2099F40A73">然后可以执行以下操作： 
+	 </p>
+<ul class="ul" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__UL_7C36EC9CD8FD4CC4B73234EC7C0E881F"><li class="li" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__LI_6618AB7C94B346A9B0DA4D8284CB7CE9">将输入纹理贴图连接到着色器。 
+		  <p class="p" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-EE41A6F8-1745-4FD1-8867-866FB7542C8D">默认情况下，Stingray PBS 节点接受“颜色”(Color)、“放射光”(Emissive)和“金属”(Metallic)等贴图输入。如果您仅需要将纹理贴图连接到着色器节点，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E.htm">将贴图连接到基于物理的 Stingray 着色器</a>。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__LI_216E7AD4B9914C148774D87FCDD42D7E">使用 <span class="ph uicontrol" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-CEBCDD9E-3FB7-4065-8DBB-25C2C27A5E2D">ShaderFX</span> 节点，在 <span class="ph uicontrol" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-CBEF861E-30A7-4BFD-9BA2-06C8EA03D9CF">ShaderFX</span> 编辑器窗口中构建着色器网络。 
+		  <p class="p" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-7C726F0D-8E04-4BEC-88A8-1611FFFC14CF">如果要自定义 StingrayPBS 节点的着色器图表，可以使用 ShaderFX 编辑器窗口和可用的 ShaderFX 节点构建此图表。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9.htm">使用 ShaderFX 编辑器构建基于物理的 Stingray 着色器</a>。 
+		  </p>
+ 
+		  <p class="p">有关 Stingray ShaderFX 节点属性的参考信息，请参见 <a class="xref" href="http://www.autodesk.com/stingray-help?contextId=shaders_ref_list_globals_cat%20" target="_blank">Stingray 着色器节点参考</a>。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__LI_70F7067D720E4BF2AD81933EA3D00975">通过将 <span class="ph uicontrol" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-7E37EAC9-B7EB-4061-B0B1-43C8920A1172">Stingray PBS</span> 节点与其他 <span class="ph msgph prodname" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 渲染节点连接在一起，在 <span class="ph uicontrol" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__GUID-F33C29DE-82BE-47BD-AE1A-503810A57A62">Hypershade</span> 中创建着色网络。 
+		</li>
+</ul>
+<div class="section" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__SECTION_DFE4CFF5346141FF8E34CE5CD6967F80"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__UL_3499FB4C46684D1C8D637BB89102012B"><li class="li" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__LI_DA78995CE23E429CA43EE284645FE948"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-DDEDAE6E-E6B0-4318-AD7A-520508AA79FA.htm">关于 ShaderFX 节点</a> 
+		  </li>
+<li class="li" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__LI_6BAE4CECB76146EA96AAE4B39C98896F"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-D1F9ED93-7CC5-4C34-B89D-1447A609AA56.htm">使用 ShaderFX 节点</a> 
+		  </li>
+<li class="li" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__LI_507874EA14C74246ADC3C334B19A5981"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-7C3BECD1-6E58-4963-9534-477314928E0F.htm">ShaderFX 介绍性的采样工作流</a> 
+		  </li>
+<li class="li" id="GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3__LI_94C4FE1CDA294AB5A7C24004771B45C8"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-CD59A6C7-CC54-4037-8800-6569711FBD78.htm">导出基于物理的 Stingray 着色器</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9.htm">使用 ShaderFX 编辑器构建基于物理的 Stingray 着色器</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E.htm">将贴图连接到基于物理的 Stingray 着色器</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-3DB877CD-2BA7-4D5C-ABB6-5292955D4600.htm">基于物理的 Stingray 着色器的标准预设着色器图表</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A.htm">将顶点颜色添加到基于物理的 Stingray 着色器</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C.htm">示例工作流程：使用基于物理的 Stingray 着色器融合两个纹理</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-674F6836-1A54-45CB-B670-65E81748971E.htm">使用基于物理的 Stingray 着色器创建双面材质</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-C84FB2BF-94E4-4F5F-83DD-C1A22907081B.htm">使用 StingrayPBS 创建透明材质</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-4492AD29-841B-497E-BFBB-A048316EF53E.htm">使用基于物理的着色器创建次表面散射效果</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-BA3EAC92-BB7B-483A-B3BB-B2640497758F.htm">向基于物理的着色器添加折射</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-EEE0D7B1-622A-406E-8ADF-57ADCC5681FD.htm">解决 Stingray 基于物理的着色器网络问题</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-E5BB182E-B4E3-4E64-A7D2-75081C2A7932.htm">使用 Stingray 基于物理的着色器解决场景中的灯光强度问题</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-1A332991-19DD-42A6-9019-5199C616F20E.htm">覆盖默认的基于物理的 Stingray 着色器</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-CD59A6C7-CC54-4037-8800-6569711FBD78.htm">导出 Stingray 基于物理的着色器</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-EBC6DF48-857D-4230-9D3C-0B04DAF58403.htm">关于 ShaderFX</a></div>
+</div>
+</div>
+
+</body>
+</html>

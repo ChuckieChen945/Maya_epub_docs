@@ -1,0 +1,99 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Customizing">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118">
+<meta name="language" content="CHS">
+<title>在分析器中查找动画瓶颈</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>在分析器中查找动画瓶颈</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__GUID-80FBDA08-EC58-4CAC-9BB3-3D8E24689985"> 通过<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-3423BE20-0F03-422D-A05A-A1757C7B0A70.htm">分析器</a>，可以判断对场景解算时时间花在何处。使用<span class="ph uicontrol" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__GUID-60629983-5970-43EC-9170-7DA3F42C37F7">分析器</span>（<span class="ph uicontrol" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__GUID-A5BA81B4-340A-41F1-8BC6-DF2597FC71BA">“窗口 &gt; 常规编辑器 &gt; 分析器”(Window &gt; General Editors &gt; Profiler)</span>）对场景解算以找出性能瓶颈。 
+	 </p>
+<div class="p" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__GUID-0D4E09FD-75B9-4FDA-BF3B-898883BA9C93"> 通过查找<span class="ph uicontrol" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__GUID-0336B44E-FE8E-41F1-B3B7-F21C1242A04B">分析器</span>中完成所用时间很长的事件，识别分析器中的性能减慢。这些事件由长水平条表示，如图所示。 
+		<div class="fig fignone" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__FIG_F3DA9EFDFF2B499BB68AE629A1A75B62"><img class="image" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__IMAGE_E6C64DA896704E18BADB519617C6E47E" src="../images/GUID-97450698-7A4D-4236-B551-228120E9376F.png"></div>
+ 
+	 </div>
+<div class="section" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__SECTION_98F734FFC208409E8AC7DF1088BD958C"><h2 class="title sectiontitle">分析器脏事件</h2> 
+		 
+		<p class="p" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__GUID-17949C26-9ACE-4CAE-84B3-18281D0FB5F4">脏事件应仅存在于 DG 解算模式中，而不应存在于串行、并行或 GPU 覆盖模式中，因为这些模式没有来自脏事件的开销。如果此类别为空，则没有脏事件。 
+		</p>
+ 
+		<div class="p" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__GUID-B28C4A7F-A098-4E57-B57E-1D295F6A5667">如要在分析器中查找脏事件，请查找名为“Maya 脏”(Maya Dirty)的类别，其中事件以紫色显示。 
+		  <div class="note note" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__GUID-5AA4F9F9-9B9B-47BF-B068-ED0CE6E729CA"><span class="notetitle">注：</span> “弄脏”是 Maya 确定需要在场景中更新什么才能在视口中绘制正确图像的过程。在计算数量之前，Maya 读取图表中的所有网格节点，直到它找到设置几何体动画的参数曲线。在每个步骤中，Maya 将每个节点标志为需要重新解算或“脏”。在适当地更新所有节点后，Maya 调用每个脏节点上的计算方法。 
+		  </div>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__SECTION_7EA6D072BD61492B85DE2818D85220C6"><h2 class="title sectiontitle">分析器解算事件</h2> 
+		 
+		<p class="p" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__GUID-CBE23339-10DB-4B2C-BA3D-0019BAB2E23A">在分析器中以不同色度的棕色显示解算事件。如果瓶颈在解算中，则尝试识别造成性能问题的绑定元素。 
+		</p>
+ 
+		<p class="li listintro" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__GUID-B33D63D8-99E8-4F02-9AC2-6F74821D7FD8">若要找到解算事件，请执行以下操作：</p>
+<ol class="ol" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__OL_8DE144E7E7854A9187FAC96C1633B5EE"><li class="li" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__LI_4244C1067541421BB0D3E2C0570367DD">单击分析器中表示慢任务的栏。在时间轴光标附近将显示一个标签，其中包含正在解算的节点的名称。 
+		  </li>
+<li class="li" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__LI_A340FE6D69EC4C338AA29875E78048E2">接下来，打开<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-23277302-6665-465F-8579-9BC734228F69">节点编辑器</a>，并找到该节点以调查它在场景中的使用方式。确定节点设置是否在导致不必要的计算，例如： 
+			 <ul class="ul" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__UL_2EBC54EFC81A44D7ADF55C57305781C2"><li class="li" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__LI_E1C8EDE780B44DAF907A26ECD744C75C"> skinCluster 中是否有太多的权重？是否可以减少该数量？ 
+				</li>
+<li class="li" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__LI_E7769E5369F54CB58904D04A99FB12E5">使用的是融合权重而不是线性或 DQ？融合权重会占用大量资源，并需要更多的工作。 
+				</li>
+<li class="li" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__LI_8909A7DD38524511A1BFA9E074B4C399">在绑定解算时间是否使用建模节点？（例如，deleteComponents 会占用大量资源，因为它对模拟的每一帧都重新解算。） 
+				</li>
+<li class="li" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__LI_FAA101FDD8CB44959D7BF8069EF54EA8">是否使用适合您任务的变形器？例如，如果只有一个逐顶点权重（从不改变），则不需要 skinCluster 变形器。如果是这样，请改用簇。 
+				</li>
+<li class="li" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__LI_8D00A479647649DD976018618F79C068">是否在不可见的绑定元素上使用昂贵的变形器？（与 GPU 上的变形相对应的解算事件以黄色显示。） 
+				</li>
+</ul>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__SECTION_EEA2DCB519EE406B84794FABDD731DC5"><h2 class="title sectiontitle">分析器渲染事件</h2> 
+		 
+		<p class="p" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__GUID-6793D118-FADE-403B-971E-DDFE5FB48B42">在每一帧上，在解算事件之后执行渲染。渲染事件源自在视口中绘制场景几何体。渲染事件以蓝色显示。有关每个事件颜色表示什么的列表，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-54095CD4-7C0E-4031-8981-A45131348182.htm">分析器颜色</a>。
+		</p>
+
+		<div class="section" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__SECTION_E4F557A47E38405BB8896EDBD6A3E846"><h3 class="title sectiontitle">相关主题</h3>
+		  
+		  <div class="p">
+		  <ul class="ul" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__UL_1FA1F4A5B72E485E923DCD8387BB4F96"><li class="li" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__LI_54B0230BE5924F86A62D218895E098C7"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-4BDF6A79-AB0B-4AC4-8F56-C44677CFF69E.htm">解释分析器图表结果</a>
+			 </li>
+<li class="li" id="GUID-B1D67D2A-1283-488D-90EB-B7F16E26A118__LI_FA8BED2AA5F64609BE18ED978240D245"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC.htm">分析器解释示例</a>
+			 </li>
+</ul>
+
+		  </div>
+
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-66E4D9A3-2050-4CDF-B6A4-8C5645BFFBB8.htm">分析场景以提高性能</a></div>
+</div>
+</div>
+
+</body>
+</html>

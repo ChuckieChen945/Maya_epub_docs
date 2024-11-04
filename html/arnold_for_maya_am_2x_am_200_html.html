@@ -1,0 +1,97 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_2x_am_200_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_200">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 2.0.0 - Arnold for Maya">
+
+<title>2.0.0</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>2.0.0</h1></div><h2 id="release-date">Release Date</h2><p>April 12, 2017</p>
+<p>This version uses the Arnold <a href="https://help.autodesk.com/display/arnug/5.0.0.0">5.0.0.0</a> core.</p>
+<h2 id="downloads">DOWNLOADS</h2><ul>
+<li><a href="https://manage.autodesk.com/products/" target="_blank">https://manage.autodesk.com/products/</a></li>
+</ul>
+<p>MtoA 2.0 is based on Arnold 5. This version contains major changes. It is not backwards compatible with older scenes. An Arnold 5 FAQ is available <a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Arnold+5.0%2B&amp;linkCreation=true&amp;fromPageId=154764362">here</a> .</p>
+<h2 id="new-shaders">New Shaders:</h2><ul>
+<li>aiStandardSurface: a new surface shader was added, with intuitive and energy conserving parameters, a secondary specular coat with separate normal, metallic Fresnel, thin surface support, per-light AOVs, and more. This shader supersedes the old aiStandard shader, which is now deprecated.</li>
+<li>aiStandardHair: a new physically-based hair shader was added, with much more accurate specular and transmissive scattering based on the d'Eon model, better diffuse scattering for dirty hair, melanin controls, and simple and intuitive parameters.</li>
+<li>aiStandardVolume : a new volume shader was added, usable for rendering a wide variety of volumes. The shader provides independent control of density, scattering color and transparency, in a way that is energy conserving by default. Fire can be rendered using blackbody emission driven by temperature. Displacement can be used to add more detail to volumes. This supersedes the density volume shader, which has been removed.</li>
+<li>Utility shader set : a large number of Arnold utility shaders are introduced in MtoA 2.0.</li>
+</ul>
+<p>Older shaders like aiStandard and aiHair are still supported but considered deprecated (and don't appear in the hypershade list of nodes). It is possible to replace old shaders by new ones in the shading tree, through the menu "Arnold -&gt; Utility -&gt; Convert Deprecated Shaders". This preserves the shading tree connections, but doesn't guarantee that the look of the old shader will be preserved.## Improved Sampling:</p>
+<ul>
+<li>Two-dimensional dithered sampling: most samplers (e.g. soft shadows, indirect illumination, depth of field) will now take advantage of dithered sampling, which improves the visual distribution of noise specially at low sample rates.</li>
+<li>Quad lights: a new sampler has been developed that reduces noise for surface lighting, especially in unoccluded regions. For debugging and for comparisons with the previous sampler, the global options.enable_new_quad_light_sampler can be disabled (this control will be removed in a future update).</li>
+<li>Cylinder lights: sampling has been improved, significantly reducing noise inside volumes or where cylinder lights are located near other surfaces.</li>
+<li>Disk lights: a novel sampling algorithm has been implemented for disk lights which can greatly improve their rendering quality when shading points near the disk's surface, particularly in volumes.</li>
+<li>Russian roulette: on average better performance for hair, transmission and volume scattering.</li>
+<li>Caustic noise reduction: a new method was added to reduce noise from caustics. The global option indirect_specular_blur controls the trade-off between more accurate noisy renders at 0.0, and more blurry biased renders with reduced noise at higher values.</li>
+<li>Faster opacity mapping: opacity-mapped transparent surfaces, such as tree leaves, are now sampled more efficiently and can render up to 20% faster, specially in machines with many threads.</li>
+</ul>
+<h2 id="open-shading-language-osl">Open Shading Language (OSL):</h2><p>Shaders can now be written in both C++ and Open Shading Language, an advanced shading language for production GI renderers. OSL shaders placed in the shader search path are automatically registered as Arnold shader nodes, with their parameters converted to Arnold parameters. Once loaded, they can be inspected, instantiated and linked in exactly the same way as C++ shaders. OSL shaders can be used to implement anything from simple texture patterns to full materials using closures . See the Arnold OSL documentation for more details <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_osl_shaders_html" target="_blank">https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_osl_shaders_html</a> .</p>
+<h2 id="aovs">AOVs:</h2><ul>
+<li>Light Group AOVs: Surface shaders now natively support light group AOVs. Previously this feature was only available for volume shading.</li>
+<li>Light Path Expressions: LPEs are used to extract and write lighting components into separate AOVs. In addition to the existing mechanism for defining simple per-shader AOVs, individual shaders can now define AOVs for direct/indirect light and various layers with a regular expression syntax to define the subset of all scattering and emission events in the scene that should be written to each AOV. Built-in AOVs are available for the common cases. See the LPE documentation for details ( <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_output_aovs_ac_expression_aovs_html" target="_blank">https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_output_aovs_ac_expression_aovs_html</a> ).</li>
+</ul>
+<h2 id="namespaces-for-standins">Namespaces for standins:</h2><p>Arnold scenes are organized in hierarchies of procedurals, which previously could lead to naming conflicts when identically named nodes existed in different procedurals. Each procedural now has its own naming scope, which automatically solves these conflicts. Nodes inside a standin or procedural can be replaced by other nodes with the overrideNodes parameter. This may be used, for example, to replace shaders in an existing standin. When the parameter is enabled, nodes will replace identically named nodes inside the procedural.</p>
+<h2 id="skydome-light-camera-visibility">Skydome Light camera visibility:</h2><p>New camera and transmission parameters control the amount of light contributed to camera and specular transmission rays. It is no longer necessary to create a separate background sky shader for such purposes. A new shader parameter may be used to link closure shaders for additional control in color and transparency. Skydome lights are now preferred over background shaders, as they provide the same lighting functionality with much better sampling.</p>
+<h2 id="color-management-tx">Color Management / TX:</h2><p>Arnold now supports color_manager nodes. Maya scenes will be exported with synColor's color manager. This allows output rendered images to be color managed. For input textures, even though it is strongly recommended to rely on preprocessed TX files, non-TX textures will be applied the correct color space per texture lookup at render time (with a corresponding hit in render times). It is also possible now to choose a specific rendering color space.</p>
+<p>TX generation is now multi-threaded. Auto-Tx is therefore much more efficient and is in fact instantaneous when textures are up-to-date.</p>
+<h2 id="volume-implicit">Volume Implicit:</h2><p>It is now possible to render volumes as implicit surfaces, by changing the volume attribute type to implicit.</p>
+<h2 id="bifrost">Bifrost:</h2><p>Bifrost Liquids are now supported natively. For Aero, Liquid, and Foam, new parameters appear in the Arnold section to control the rendering of the simulation.</p>
+<h2 id="others">Others:</h2><ul>
+<li>New roundness and soft edge attributes in quad lights and spot lights.</li>
+<li>VR camera : a virtual reality vr_camera is now included in Arnold.</li>
+<li>Hair UVs : It is no longer necessary to set uparamcoord, vparamcoord parameters for hair UVs.</li>
+<li>Faster curves: The curves geometric primitive now renders about 5 to 15% faster. In addition, when rendering dense hair clumps, min_pixel_width is now up to 2x faster and results in more accurate shadowing, at the expense of a slight increase in sampling noise.</li>
+<li>Faster MtoA loading: loading MtoA in Maya has been optimized, making maya startup potentially faster by a few seconds.</li>
+<li>aiImage, aiStandin and aiVolume filenames now appear in Maya's File path Editor.</li>
+<li>Support for polygon holes in meshes.</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_2x_html.html">MtoA 2.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

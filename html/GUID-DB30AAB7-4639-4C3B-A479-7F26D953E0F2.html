@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-DB30AAB7-4639-4C3B-A479-7F26D953E0F2">
+<meta name="language" content="CHS">
+<title>使用 MEL 更改用户脚本位置</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-DB30AAB7-4639-4C3B-A479-7F26D953E0F2">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 MEL 更改用户脚本位置</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-DB30AAB7-4639-4C3B-A479-7F26D953E0F2__WS73099CC142F48755-3D114B7511841AEFA9F-A11"> Maya 维护在寻找脚本时搜索的目录列表。在调用未知全局过程或在使用“source”命令时，Maya 将搜索此路径。</p>
+<p class="p" id="GUID-DB30AAB7-4639-4C3B-A479-7F26D953E0F2__WS73099CC142F48755-3D114B7511841AEFA9F-A0F">搜索路径存储在名为 MAYA_SCRIPT_PATH 的环境变量中。可以在存储首选项的 Maya.env 文件中设置此环境变量。或者，可以采用适合于正在使用的系统的任何其他方式来设置该环境变量。</p>
+<p class="p" id="GUID-DB30AAB7-4639-4C3B-A479-7F26D953E0F2__WS73099CC142F48755-3D114B7511841AEFA9F-A0E">存储在 MAYA_SCRIPT_PATH 中的值是目录列表（在 Windows 上以分号分割，在其他平台上以冒号分隔）。例如，您的 Maya.env 文件中可能具有以下信息（Mac OS X 示例）：</p>
+<pre class="pre codeblock">
+USER_SCRIPT_PATH = /Volumes/Sapphire/render/scenes/lego pov library/Library:/Volumes/Sapphire/render/scenes/maya/scripts
+MAYA_SCRIPT_PATH=$USER_SCRIPT_PATH:$MAYA_SCRIPT_BASE/ scripts/test:$MAYA_SCRIPT_BASE/scripts/unsupported
+</pre>
+<p class="p" id="GUID-DB30AAB7-4639-4C3B-A479-7F26D953E0F2__WS73099CC142F48755-3D114B7511841AEFA9F-A0D">也直接从 MEL 中使用 <samp class="ph codeph" id="GUID-DB30AAB7-4639-4C3B-A479-7F26D953E0F2__GUID-528BFA1F-7A4A-4747-AAD8-5A2707FD801E">putenv</samp> 命令为 Maya 会话临时设置脚本路径。例如：</p>
+<pre class="pre codeblock">
+putenv "MAYA_SCRIPT_PATH" "&lt;explicit path&gt;";
+</pre>
+<p class="p" id="GUID-DB30AAB7-4639-4C3B-A479-7F26D953E0F2__WS73099CC142F48755-3D114B7511841AEFA9F-A0C">请务必注意，Maya 脚本搜索路径将被缓存。Maya 仅在启动后以及每次 MAYA_SCRIPT_PATH 变量发生更改时才扫描路径中的脚本。这意味着，如果在 Maya 处于运行状态时将脚本添加到源路径上的目录中，Maya 不会自动查找文件。<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/rehash.html" target="_blank">rehash</a> MEL 命令会告知 Maya 重新扫描脚本路径并寻找新脚本。脚本路径缓存功能可提高 Maya 的性能，尤其是搜索路径的各个部分位于网络驱动器上时。</p>
+<p class="p" id="GUID-DB30AAB7-4639-4C3B-A479-7F26D953E0F2__WS73099CC142F48755-3D114B7511841AEFA9F-A0B">Maya 始终会在用户目录中搜索脚本。您可以在那里安装脚本，以便让 Maya 找到它，而不必更改 Maya 的脚本路径。此目录的位置视操作系统而异，但是您始终可以使用以下 Maya 命令查找此目录：</p>
+<pre class="pre codeblock">
+internalVar -usd
+</pre>
+<div class="note note" id="GUID-DB30AAB7-4639-4C3B-A479-7F26D953E0F2__WS73099CC142F48755-3D114B7511841AEFA9F-A0A"><span class="notetitle">注：</span> 
+<p class="p" id="GUID-DB30AAB7-4639-4C3B-A479-7F26D953E0F2__GUID-9B5ECCBA-73B9-4341-951E-54D2FC881D8A">您无法修改该目录的位置。</p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-98FD268C-F0A1-4CA2-833F-AD3000DFB180.htm">高级 MEL 编程</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_displacement_am_Vector_Displacement_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="NODES-AIVECTORDISPLACEMENT">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 向量置换 - Arnold for Maya">
+
+<title>向量置换</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>向量置换</h1></div>
+<div class="arnold-note">
+
+
+
+<table>
+<thead>
+<tr>
+<th>延伸阅读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有关完整的着色器文档，请参见<strong>《Arnold 用户手册》</strong>中的<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shading_ac_shading_displacement_html" target="_blank">置换</a>。</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<p><img src="../images/sea-vector-displacement_300.gif" alt=""></p>
+<p><sub><strong>使用向量贴图置换海浪</strong></sub></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>要下载对应的 Maya 场景文件和耳朵向量置换贴图，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/ear-vector-displacement.zip" target="_blank">此处</a>。</p>
+
+</div></div>
+
+
+<div class="arnold-note">
+
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有关向量置换着色器的详细信息，请单击<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shading_ac_shading_displacement_html" target="_blank">此处</a>。</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<div class="callout callout-important">
+<div class="callout-title"><i class="callout-icon fa fa-exclamation-triangle" aria-hidden="true"></i>重要信息：</div>
+<div class="callout-body">
+
+<p><strong></strong>在 Maya (2017) 中使用颜色管理时，应将向量置换贴图设置为<strong>“未经处理”(RAW)</strong>。</p>
+
+</div></div>
+
+<h2 id="">工作流</h2><ul>
+<li>首先，您必须将细分“类型”(Type)设置为“Catclark”，并增加细分的“迭代次数”(Iterations)。从低值开始，然后逐步增加该数量，直到实现优质的置换效果。对基础网格进行细分是必不可少的。否则，当使用低多边形基础网格时，会出现分面和法线不匹配的问题。</li>
+</ul>
+<p><img src="../images/mtoa_catclark.png" alt=""></p>
+<p><sub><strong>含 6 次 <em>subdivision_iterations</em> 的 Catclark 细分</strong></sub></p>
+<ul>
+<li>在本例中，我们已从 Mudbox 中导出了一个预设向量贴图，并使用 Arnold 渲染了它。为了保持最佳的向量置换效果，我们将它导出为 32 位 EXR 图像。</li>
+<li>该向量贴图必须连接到“置换”(Displacement)节点的“向量置换”(Vector Displacement)。请务必连接整个属性，而不是按组件连接。</li>
+</ul>
+<p><img src="../images/mtoa_displacement_attributes_vector_displacement.png" alt=""></p>
+<p><sub><strong>向量置换贴图连接到 Maya 置换节点的“向量置换”(Vector Displacement)属性（“向量空间”(Vector Space)设置为“切线”(Tangent)）</strong></sub></p>
+<h3 id="">向量置换</h3><p>用于连接向量置换贴图的输入属性。</p>
+<h3 id="vector-encoding">向量编码(Vector Encoding)</h3><p><strong>“浮点绝对值”(Floating Point Absolute)</strong>（对于浮点贴图）或<strong>“带符号编码”(Signed</strong> <strong>Encoding)</strong>（通常是 8 位贴图，其 RGB 重映射到 (-1..1) 范围）。</p>
+<h3 id="vector-space">向量空间(Vector Space)</h3><p>可以为<strong>“世界”(World)、“对象”(Object)、“切线”(Tangent)</strong>。这是应用向量的坐标空间。默认值为“切线”(Tangent)。如果为默认值，则可通过以下三种方法定义切线：</p>
+<ol>
+<li>创建 UV 空间，以便着色器能够使用 U 导数作为切线方向</li>
+<li>手动指定<strong>“切线”(Tangent)</strong>向量（例如，为平面栅格指定 1,0,0）或通过纹理对其进行映射。如果<strong>“切线”(Tangent)</strong>向量不为空 (0,0,0)，则使用此选项。</li>
+<li>让 Arnold 以最佳方式推测切线。如果未创建 UV 空间且<strong>“切线”(Tangent)</strong>为空，则着色器默认为此选项。</li>
+</ol>
+<h3 id="tangent">切线(Tangent)</h3><p>用于连接基于切线的向量置换贴图的输入属性。</p>
+<ul>
+<li>该图像在切线空间中进行计算，这非常适用于变形几何体（请参见下图）。MtoA 支持 Maya 置换着色器中的所有向量空间（_“对象”(Object)<em>、</em>“世界”(World)<em>和</em>“切线”(Tangent)_）。</li>
+</ul>
+<p><img src="../images/mtoa_ear_vector_displacement.png" alt=""></p>
+<p><sub><strong>设置为指定给变形几何体的切线空间的向量置换贴图。</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shaders/arnold_for_maya_shaders_displacement_html.html">置换</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

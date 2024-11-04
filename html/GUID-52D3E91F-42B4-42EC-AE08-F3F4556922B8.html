@@ -1,0 +1,197 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-52D3E91F-42B4-42EC-AE08-F3F4556922B8">
+<meta name="language" content="CHS">
+<title>测试动力学事件</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-52D3E91F-42B4-42EC-AE08-F3F4556922B8">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>测试动力学事件</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-52D3E91F-42B4-42EC-AE08-F3F4556922B8__WS73099CC142F48755-3D114B7511841AEFA9F-14CF">作者：Rob Tesdahl 和 Jonathan Southard，Autodesk（早期名为 Alias）圣巴巴拉开发中心。</p>
+<p class="p" id="GUID-52D3E91F-42B4-42EC-AE08-F3F4556922B8__WS73099CC142F48755-3D114B7511841AEFA9F-14CE"> 此脚本为 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-52D3E91F-42B4-42EC-AE08-F3F4556922B8.htm#GUID-52D3E91F-42B4-42EC-AE08-F3F4556922B8__WS17956D7ADBC6E736-40D2EEAA117AE328894-7FFA">dynTestEvent.mel</a>，用于测试粒子和粒子碰撞事件的功能。它将在一个倾斜平面上创建两个发射器。发射的粒子在与倾斜平面碰撞时受到重力影响。碰撞后，粒子会发生分裂或发射，具体取决于其发射器。</p>
+<div class="section" id="GUID-52D3E91F-42B4-42EC-AE08-F3F4556922B8__WS17956D7ADBC6E736-40D2EEAA117AE328894-7FFA"><h2 class="title sectiontitle">dynTestEvent.mel</h2>
+
+<pre class="pre codeblock">
+// dynTestEvent.mel
+//
+// Alias Script File
+// MODIFY THIS AT YOUR OWN RISK
+//
+//
+// Creation Date: 4 September 1996; Modified 09 January 2000
+// Author: robt, js
+//
+// Procedure Name:
+// dynTestEvent
+//
+// Description:
+// Test the basic functionality of collision events.
+//
+// Input Arguments:
+// None.
+//
+// Return Value:
+// Number of errors that occurred in the test.
+//
+//
+//
+// ========== dynTestEvent ==========
+//
+// SYNOPSIS
+// Test the basic functionality of collision events.
+//
+global proc int dynTestEvent()
+{
+ // First delete anything that might be left over
+ // from a previous test.
+ //
+ file -force -new;
+ currentTime -e 1;
+ int $errors = 0;
+ // Create the planes to bounce off.
+ //
+ nurbsPlane -d 3 -p 0 0 0 -w 1.5cm -lr 1 -axis 0cm 0cm 0cm 
+ -name table;
+ scale 10 10 10;
+ rotate -1.5708rad 0rad 0rad;
+ move -os 0.5 0.5 0;
+ move -r -5 0 5;
+ rotate -r 10 0 0;
+ // Create the particle shapes to do the bouncing and splitting.
+ // Material assignments will be interesting only if the lighting is
+ // set.
+ //
+ particle -inherit 1.0 -p 0 5 -3 -n blueParticles;
+ addAttr -ln colorBlue -dv 1.0 -at double blueParticlesShape;
+ particle -inherit 1.0 -p 0 5 -3.5 -n redParticles;
+ addAttr -ln colorRed -dv 1.0 -at double redParticlesShape;
+ particle -inherit 1.0 -p 0 5 -3.5 -n greenParticles;
+ addAttr -ln colorGreen -dv 1.0 -at double redParticlesShape;
+ gravity -pos 10 10 10 -m 20 -name gravityField;
+ // Warning: Changing resilience will change the (hardcoded)
+ // number of particles that this test expects to create.
+ //
+ collision -r 1.0 -f 0.01 table;
+ connectDynamic -f gravityField -c table blueParticles redParticles
+ greenParticles;
+ event -split 2 -sp 0.2 blueParticles;
+ event -emit 3 -die true -sp 0.2 redParticles;
+ event -emit 1 greenParticles;
+ // Set up the playback options.
+ //
+ float $frames = 55;
+ playbackOptions -min 1 -max $frames -loop once;
+ // Time how long it takes to play the scene and then determine the 
+ // playback frame rate. Make sure when getting the frame rate
+ // that no values are divided by zero.
+ //
+ float $startTime = `timerX`;
+ play -wait;
+ float $elapsed = `timerX -st $startTime`;
+ float $fps = ($elapsed == 0.0 ? 0.0 : $frames/$elapsed);
+ // Check whether any blue particles went through the boundary.
+ //
+ if ( `getAttr blueParticles.boundingBoxMinZ` 
+ &lt; `getAttr table.boundingBoxMinZ` )
+ {
+ print( "dynTestEvent: Failure: \"blueParticles\" particles "
+ + "went through boundary.\n" );
+ $errors += 1;
+ }
+ // Check whether any red particles went through the boundary.
+ //
+ if ( `getAttr redParticles.boundingBoxMinZ` 
+ &lt; `getAttr table.boundingBoxMinZ` )
+ {
+ print( "dynTestEvent: Failure: \"redParticles\" particles "
+ + "went through boundary.\n" );
+ $errors += 1;
+ }
+ // Make sure that the blue particle hit one Z wall, creating two 
+ // particles that each hit the other Z wall to create four total particles.
+ // This is visually apparent from the side and front views together.
+ //
+ int $blueParticles_i = `particle -count -q blueParticles`;
+ if ( $blueParticles_i != 4 &amp;&amp; ! $errors ) // Warning Magic#
+ {
+ print( "dynTestEvent: Failure: There are " + $blueParticles_i
+ + " \"blueParticles\" particles instead of the correct "
+ + "value, 4.\n" );
+ $errors += 1;
+ }
+ // Test that the number of events resulting in a red particle
+ // creation is correct.
+ //
+ int $redParticles_i = `particle -count -q redParticles`;
+ if ( $redParticles_i != 9 &amp;&amp; ! $errors ) // Warning Magic#
+ {
+ print( "dynTestEvent: Failure: There are " + $redParticles_i
+ + " \"redParticles\" particles instead of the correct "
+ + "value, 9.\n" );
+ $errors += 1;
+ }
+ // Check the totalEventCount variable.
+ //
+ if ((`getAttr redParticles.totalEventCount` != 4) ||
+ (`getAttr blueParticles.totalEventCount` != 3))
+ {
+ print( "dynTestEvent: Failure: Event count attributes had " +
+ "incorrect value(s).\n" );
+ $errors += 1;
+ }
+ // Check the event attribute on the green particles.
+ //
+ float $event[] = `particle -at event -order 0 -q greenParticlesShape`;
+ if ($event[0] != 2)
+ {
+ print( "dynTestEvent: Failure: Event attribute had incorrect" +
+ "value(s).\n" );
+ $errors += 1;
+ }
+ // If there are no errors, the events passed this test.
+ //
+ if ( $errors == 0 )
+ {
+ print( "dynTestEvent: Passed. (" );
+ }
+ else
+ {
+ print( "dynTestEvent: Failed. (" );
+ }
+ // Print the frames per second (fps) in the form X.X.
+ //
+ print( (int)($fps * 10)/10.0 + " fps)\n" );
+ // Reset the current time to zero so user can replay the test.
+ //
+ currentTime -e 1;
+ return $errors;
+} // dynTestEvent //
+</pre>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-EE07691C-D04C-4C22-8FFD-2E99B3489AE5.htm">示例脚本</a></div>
+</div>
+</div>
+
+</body>
+</html>

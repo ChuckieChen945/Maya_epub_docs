@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF">
+<meta name="language" content="CHS">
+<title>连接纹理作为置换贴图</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>连接纹理作为置换贴图</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF-56C0CD8012A8003217A-1E22"><p class="p" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__WS73099CC142F48755-3D114B7511812357EFE-74A3"> 有关置换的详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-E7A03E4E-8C9A-4B62-8218-28FC063A82AB.htm">置换贴图</a>。 
+	 </p>
+<div class="note note" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__WS73099CC142F48755-3D114B7511812357EFE-74A1"><span class="notetitle">注：</span>  
+		<ul class="ul" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__WS73099CC142F48755-3D114B7511812357EFE-74A0"><li class="li" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__WS73099CC142F48755-3D114B7511812357EFE-749F">请不要使用<span class="ph uicontrol" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__GUID-D3F76692-22B0-42AE-B2B4-4C13D093FB97">“环境”(Environment)</span>纹理作为置换贴图。环境贴图的基本特征排除了用于置换贴图时的精确计算。 
+		  </li>
+<li class="li" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__WS73099CC142F48755-3D114B7511812357EFE-749E">在凹凸或置换贴图过程中，如果图像文件包含遮罩通道，则遮罩通道用于置换和凹凸贴图。如果缺少遮罩通道，那么 RGB 的亮度会用于置换贴图和/或凹凸贴图。 
+		  </li>
+</ul>
+ 
+		<p class="p" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__GUID-DB276DAB-0330-4AE3-9B59-B3E80DD63370"> 如果希望使用亮度信息作为 Alpha，请启用<span class="ph uicontrol" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__GUID-8047828D-3793-463D-80F6-6E0BDD091FF7">“Alpha 为亮度”(Alpha Is Luminance)</span>属性（在文件纹理的<span class="ph uicontrol" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__GUID-5042F886-31B0-4816-A187-8C6E82973284">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__GUID-38C57C55-93A1-462E-8245-1C2A01FE5709">“颜色平衡”(Color Balance)</span>区域中）。 
+		</p>
+ 
+	 </div>
+<p class="li listintro" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__WS73099CC142F48755-3D114B7511812357EFE-749C">创建置换贴图</p>
+<ol class="ol" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__WS73099CC142F48755-3D114B7511812357EFE-749D"><li class="li" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__WS1A9193826455F5FF6026605B1181987E588-3576">在<span class="ph uicontrol" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__GUID-7628967A-5596-48FD-AD64-0E4249367967">“Hypershade”</span>窗口中，将所需材质（<span class="ph" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__GUID-D4AD5739-8FE7-4181-917A-68FD8D6BBC1F">例如，<span class="ph uicontrol" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__GUID-79D6C1EF-F03B-45D8-BF2F-781F50BE77FF">Blinn</span>）</span>拖放到工作区来创建它，然后按住鼠标中键将材质样例拖动到视口中的对象上来指定它。 
+		</li>
+<li class="li" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__WS1A9193826455F5FF6026605B1181987E588-3574">选择着色组节点。在着色组<span class="ph uicontrol" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__GUID-213D638D-3018-4793-A574-50CEC7A4ACDE">“属性编辑器”(Attribute Editor)</span>中，单击<span class="ph uicontrol" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__GUID-3E8F7A62-A24D-41C9-8EF5-304E3F9C1FCE">“置换材质”(Displacement mat)</span>属性旁边的贴图按钮并为其指定一个新的文件节点。 
+		</li>
+<li class="li" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__LI_245FFB41E66C43E9BB9CE1346AD78388">在文件选项卡中，指定所需的图像文件。 
+		</li>
+<li class="li" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__WS1A9193826455F5FF6026605B1181987E588-3572">单击“渲染当前帧”按钮可显示渲染结果。 
+		  <div class="note tip" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__WS73099CC142F48755-3D114B7511812357EFE-7497"><span class="tiptitle">提示：</span> 默认情况下，置换贴图结果不会显示在视口中。若要预览结果，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-50A6338F-ACBE-472C-9C81-D1820CD61048.htm">预览置换结果</a>。 
+			 <p class="p" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__WS73099CC142F48755-3D114B7511812357EFE-7496">您也可以使用<span class="ph uicontrol" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__GUID-D9185697-8C6A-4B28-91C3-922103EABA16">“修改 &gt; 转化 &gt; 置换到多边形”(Modify &gt; Convert &gt; Displacement to Polygons)</span>将置换烘焙到实际多边形几何体。 
+			 </p>
+ 
+		  </div>
+ 
+		  <div class="fig fignone" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__WS73099CC142F48755-3D114B7511812357EFE-7495"><img class="image" id="GUID-9E4B4E8F-F4B7-4005-B3F0-5441E65170CF__IMAGE_F4A2CCECED59433AAD5C9DFF2E1D59A2" width="453" height="309" src="../images/GUID-979BB2C2-2816-49C1-9D66-84E08BA5F7C1.png"></div>
+ 
+		</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-F403A3FF-55BE-43A0-B6E1-49BA7C6BF5EE.htm">表面起伏</a></div>
+</div>
+</div>
+
+</body>
+</html>

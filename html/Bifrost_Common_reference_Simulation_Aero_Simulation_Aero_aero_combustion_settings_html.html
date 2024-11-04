@@ -1,0 +1,83 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_Aero_Simulation_Aero_aero_combustion_settings_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>aero_combustion_settings</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>aero_combustion_settings</code></h1></div><p>设置燃烧模拟选项。将此节点的输出连接到 <code>aero_solver_settings</code> 节点的 <code>additional_settings</code> 端口。</p>
+<p>可以使用 Aero 解算器模拟燃烧现象（爆炸、火和火焰）。要实现特定现象，请记住燃烧物理学的基础知识：</p>
+<ul>
+<li>如果温度超过特定温度（点燃温度），燃料和氧气会发生化学反应，并产生热量和一些产物（例如水蒸汽、二氧化碳和烟灰）。</li>
+<li>产生的热量使流体的温度和质量密度发生变化，进而使体积发生膨胀，而体积膨胀在某些方面起决定性作用，例如，爆炸的冲击波幅值。</li>
+<li>传热通过三个基本过程实现：辐射、传导（扩散）和对流（传输）。</li>
+</ul>
+<h2 id="">输入</h2><h2 id="general"><code>General</code></h2><h3 id="enable_combustion"><code>enable_combustion</code></h3><p>启用燃烧解算器。</p>
+<h3 id="combustion_smoothness"><code>combustion_smoothness</code></h3><p>如果 <code>voxel_fog_density</code>、<code>voxel_fog_temperature</code> 或黑体辐射渲染中存在锯齿或体素瑕疵，请增大此值。这会在火焰前缘产生更加平滑的烟灰产物和更加平滑的温度。</p>
+<p>通常，燃烧模拟可能会导致温度和烟灰出现较大渐变（特别是在启用 <code>oxidize_soot</code> 时）。这可能会在黑体辐射渲染中显示为锯齿。</p>
+<p>如果锯齿在具有三元三次插值的高质量渲染器中持续存在，则可能需要对烟灰和/或温度进行一些后处理。</p>
+<ul>
+<li>如果 <code>voxel_fog_density</code> 中存在锯齿，请使用 <code>remap_property</code> 节点将其重映射到 0 到 1 范围。</li>
+<li>如果火焰边缘的 <code>voxel_temperature</code> 中存在锯齿（颜色从饱和白色变为黑色背景），或者如果在因烟灰氧化而变得非常薄的烟尘中存在锯齿，请尝试结合使用 <code>smooth_aero_temperature</code> 节点和 0 到 1 范围内的平滑度。请注意，应用 <code>smooth_aero_temperature</code> 后，可能需要对温度比例稍作调整以重新获得正确的黑体辐射外观。</li>
+<li>或者，也可以将使用 <code>smooth_volume</code> 节点的一些常规平滑应用于 <code>voxel_fog_density</code> 或 <code>voxel_temperature</code>，但仅在万不得已的情况下使用此方法，因为这可能会对较精细的细节进行平滑处理，并且需要重映射温度以获得逼真的黑体辐射渲染。</li>
+</ul>
+<h3 id="store_blue_flame"><code>store_blue_flame</code></h3><p>启用 <code>voxel_combustion_rate</code> 特性的输出，可以渲染为对应于光谱线发射的蓝色火焰。</p>
+<h3 id="store_water_vapor"><code>store_water_vapor</code></h3><p>使解算器能够远离有燃料和可见雾密度的区域，以便可靠地跟踪水蒸汽。如果水蒸汽要被渲染或用于后期处理，则必须启用 <code>store_water_vapor</code>，但设置对模拟本身没有影响。请注意，水蒸汽存储在 <code>voxel_gas_vapor</code> 特性中，可以使用 <code>condense_water_vapor</code> 节点为渲染做好准备。</p>
+<h2 id="thermodynamic-properties"><code>Thermodynamic Properties</code></h2><h3 id="expansion_scale"><code>expansion_scale</code></h3><p>设置因燃烧引起的温度变化而导致的体积变化比例。<code>expansion_scale</code> 越大，爆炸越剧烈。增大 <code>expansion_scale</code> 可能会导致速度非常高，而模拟会因子步数增加而变慢。从默认设置开始，逐渐调整 <code>expansion_scale</code>，直到达到所需的效果。</p>
+<h3 id="radiative_heating"><code>radiative_heating</code></h3><p>设置辐射传热量比例，使物质加热速度更快或更慢。如果设置较高的值，火焰速度会提高，在某个距离处燃料可能会点燃。请注意，辐射传热可以加热位于某个距离处的物质，而不会加热中间的空气。</p>
+<h3 id="radiative_cooling"><code>radiative_cooling</code></h3><p>应用于辐射冷却的单独缩放因子，使物质冷却速度更快或更慢。值越高，火焰高度越低。辐射冷却遵循 Stefan-Boltzmann 定律。</p>
+<h3 id="flame_propagation_speed"><code>flame_propagation_speed</code></h3><p>设置火焰传播速度比例。通常，空间中特定点处的火焰传播速度由该特定点处存在的燃料、氧气和产物组合确定。在 Bifrost 中，火焰传播速度基于层流火焰速度的真实世界测量值，但可以通过 <code>flame_propagation_speed</code> 参数修改。</p>
+<h3 id="oxygen_diffusion"><code>oxygen_diffusion</code></h3><p>控制氧气扩散量。氧气扩散对于模拟现象（例如烟灰氧化）很重要，在这种情况下，空气中的氧气与烟灰簇发生化学反应后生成其他（不可见）产物，从而生成无烟火焰。氧气扩散对于模拟扩散火焰也很重要，在这种情况下，燃料不会提前与氧气混合，实际燃烧仅发生在燃料和氧化剂之间的薄层区域，其中氧气和燃料通过扩散过程混合。</p>
+<h2 id="soot-properties"><code>Soot Properties</code></h2><h3 id="emit_soot"><code>emit_soot</code></h3><p>在燃料燃烧时自动生成烟灰。烟灰将被添加到 <code>voxel_fog_density</code> 特性中。</p>
+<h3 id="soot_model"><code>soot_model</code></h3><p>确定用于生成烟灰的模型。当前有两个选项：</p>
+<ul>
+<li><code>None</code>：不生成烟灰，行为与禁用 <code>emit_soot</code> 相同。</li>
+<li><code>Simple</code>：此模型将生成相对于反应速率的烟灰，因此，在这种情况下将在化学计量条件下生成烟灰。</li>
+<li><code>Physical</code>：由以物理方式验证过的烟灰模型生成烟灰，默认情况下，仅在真实世界中出现烟灰的地方生成烟灰。请注意，这可能会导致出现某些混乱，因为在所有可用燃料和氧气发生化学反应后形成副产物的化学计量条件下，不会生成烟灰。对于小规模现象（例如蜡烛火焰），建议使用物理烟灰模型并启用 <code>store_blue_flame</code> 选项，这样可以渲染烟灰和蓝色火焰组合。请注意，当 <code>burn_rate</code> 较低时，生成的烟灰可能看起来有锯齿。这可以通过略微增加 <code>burn_rate</code> 或增加 <code>combustion_smoothness</code> 来解决。</li>
+</ul>
+<h3 id="soot_formation_rate"><code>soot_formation_rate</code></h3><p>应用于烟灰形成速率的缩放因子，用于增加或减少烟灰生成量。</p>
+<h3 id="lower_formation_limit"><code>lower_formation_limit</code></h3><p>仅与 <code>Physical</code> 烟灰模型相关，设置用于确定烟灰形成条件的下限比例。例如，如果设置为 0，则只要燃料质量比大于 0，就可以形成烟灰。这与真实世界观察情况不一致，但可用于艺术目的。</p>
+<h3 id="upper_formation_limit"><code>upper_formation_limit</code></h3><p>设置用于确定烟灰形成条件的上限比例。这仅适用于 <code>Physical</code> 烟灰模型。在真实世界中，如果燃料质量比大于某个特定限制，就不会形成烟灰，但可以使用 <code>upper_formation_limit</code> 修改此限制。例如，如果过小而无法生成烟灰，则可以将 <code>upper_formation_limit</code> 设置为 2 或更高。</p>
+<h3 id="oxidize_soot"><code>oxidize_soot</code></h3><p>允许氧化烟灰。烟灰氧化是一个过程，在此过程中，空气中的氧气与烟灰簇发生化学反应后生成其他（不可见）产物。这可用于生成无烟火焰，例如清晰的蜡烛火焰。此选项通常也要求启用 <code>oxygen_diffusion</code>，这样才能开始氧化过程。Bifrost 中应用的氧化模型针对烟灰氧化的真实世界测量值以物理方式验证过。</p>
+<h3 id="soot_oxidation_rate"><code>soot_oxidation_rate</code></h3><p>设置烟灰氧化速率比例，用于增加或减少烟灰氧化量。例如，此选项可以用于减少火焰中烟或火焰本身的高度。实际上，<code>soot_oxidation_rate</code> 和 <code>oxygen_diffusion</code> 可能需要设置为大于 1 的值，这样才能获得所需的火焰高度。</p>
+<h3 id="lower_oxidation_limit"><code>lower_oxidation_limit</code></h3><p>设置用于确定发生烟灰氧化时的温度下限比例。根据实验，默认情况下，开始发生烟灰氧化的温度下限是 1300K。但是，如果为了达到艺术目的，需要在特定情况（例如所有温度）下氧化烟灰，可以使用值为 0 的 <code>lower_oxidation_limit</code>。</p>
+<h3 id="upper_oxidation_limit"><code>upper_oxidation_limit</code></h3><p>设置激活烟灰氧化时的上限比例。具体而言，如果燃料质量比大于某个特定限制，在真实世界中不会发生氧化，但可以使用 <code>upper_oxidation_limit</code> 修改此限制以达到艺术目的。</p>
+<h2 id="">输出</h2><h2 id="combustion_settings"><code>combustion_settings</code></h2><p>输出是一个对象，其中包含 Aero 解算器的燃烧相关输入集合，应连接到 <code>aero_solver_settings</code> 节点上的 <code>combustion_settings</code> 端口。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_Aero_html.html">Aero</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

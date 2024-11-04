@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23">
+<meta name="language" content="CHS">
+<title>变量</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>变量</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__WS73099CC142F48755-3D114B7511841AEFA9F-A9F"> 可以使用变量作为值的符号名称。变量可在脚本的不同点处使用不同的值。</p>
+<p class="p" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__WS73099CC142F48755-3D114B7511841AEFA9F-A9D">变量名称始终以美元符号 ($) 开头。该名称可以包含字母、数字和下划线 (_)。该名称的第一个字符（在 $ 之后）不能为数字。</p>
+<p class="p" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__WS73099CC142F48755-3D114B7511841AEFA9F-A9C">变量名称区分大小写。MEL 将 <samp class="ph codeph" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__GUID-11795762-6E0A-497E-88AA-246731939B02">$X</samp> 和 <samp class="ph codeph" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__GUID-231D5755-332B-44D8-8A96-2691ADC09AC4">$x</samp> 视为不同的变量。</p>
+<p class="p" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__WS73099CC142F48755-3D114B7511841AEFA9F-A9B">以下是有效变量名称的示例：</p>
+<pre class="pre codeblock">
+$x
+$floaty5000
+$longDescriptiveName
+$name_with_underscores
+$_line
+</pre>
+<p class="p" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__WS73099CC142F48755-3D114B7511841AEFA9F-A9A">若要使 MEL 脚本清晰明了且易于理解，请使用可描述变量功能的变量名称。</p>
+<p class="p" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__WS73099CC142F48755-3D114B7511841AEFA9F-A99">与 <samp class="ph codeph" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__GUID-6EB94486-E013-4ADE-862B-B43FE784FEBA">$x</samp>、<samp class="ph codeph" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__GUID-7EFCD48A-CF0E-4A60-A190-4AEC8B5A1F83">$t</samp> 和 <samp class="ph codeph" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__GUID-DB29C071-62F0-4946-A473-7FC83AEA11B1">$wtb</samp> 等变量名称相比，<samp class="ph codeph" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__GUID-5FB51C53-CE2E-4DAF-8EF7-8CC9B563AFE9">$carIndex</samp>、<samp class="ph codeph" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__GUID-31D18609-3B72-4131-9E85-C64BF5822344">$timeLeft</samp> 和 <samp class="ph codeph" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__GUID-3F34408F-746C-4615-9D6E-05E065F500CE">$wingTipBend</samp> 等变量名称传递的信息更具体。但是，变量名称不能过于冗长。例如，<samp class="ph codeph" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__GUID-6CF081A9-96E9-4DDB-856E-F0F86FD20060">$indexForMyNameArray</samp> 便属于描述过长的名称。</p>
+<div class="section" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__WS73099CC142F48755-3D114B7511841AEFA9F-A98"><h2 class="title sectiontitle">使用变量之前声明变量。</h2>
+
+<p class="p" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__WS73099CC142F48755-3D114B7511841AEFA9F-A97"> 必须先声明变量，然后才能使用它。声明变量，是指向 Maya 指出您要使用具有该名称的变量，并指定变量支持的值的类型。</p>
+
+<p class="p" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__WS73099CC142F48755-3D114B7511841AEFA9F-A95">若要声明变量，请使用显式类型的关键字，后跟变量名称。例如：</p>
+
+<pre class="pre codeblock">
+float $param;
+int $counter;
+string $name;
+vector $position;
+</pre>
+
+<p class="p" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__WS73099CC142F48755-3D114B7511841AEFA9F-A94">必须在使用变量之前先声明变量，这样可以防止出现一系列常见问题，那些拼错或位置放置错误的变量会造成许多很难发现的错误。如果尝试执行下列操作，则 MEL 解释器将报警：</p>
+
+<ul class="ul" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__WS73099CC142F48755-3D114B7511841AEFA9F-A93"><li class="li" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__WS73099CC142F48755-3D114B7511841AEFA9F-A92">MEL 解释器遇到尝试访问您尚未声明的变量的代码。</li>
+<li class="li" id="GUID-3BB540E8-EE58-4B0D-B1A7-DDBF3C410E23__WS73099CC142F48755-3D114B7511841AEFA9F-A91">您尝试使用不同的类型两次声明同一变量。</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-1C145B8B-AB8F-4375-BBF3-3604803344FD.htm">值和变量</a></div>
+</div>
+</div>
+
+</body>
+</html>

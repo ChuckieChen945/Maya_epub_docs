@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359">
+<meta name="language" content="CHS">
+<title>常见问题</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>常见问题</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7EF"> 以下主题介绍了表达式流控制语句中常见错误的解决方案。 </p>
+<div class="section" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7ED"><h2 class="title sectiontitle">在测试条件下修改变量值</h2>
+
+<p class="p" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7EC"> 如果在表达式中使用 while、do 或 for 循环，请记住更改正在该循环的测试条件下测试的变量或属性。否则，Maya 操作可能停止。 </p>
+
+<div class="section" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7E8"><h3 class="title sectiontitle">示例 1</h3>
+
+<p class="p" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7E7">假设您创建了一个名为 Balloon 的对象，并决定在动画播放三秒后使用 while 循环来增加 Y 轴缩放。 </p>
+
+<pre class="pre codeblock">
+while (time &gt; 3)
+	Balloon.scaleY = time;
+</pre>
+
+<p class="p" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7E6">您可能认为该表达式会将 Balloon 的 scaleY 属性设定为动画播放超过三秒后增加的时间值，但实际上，Maya 操作会在播放时间超过三秒时立即停止。这是由于 while 条件此时为真，因此，while 循环语句 Balloon.scaleY = time 将反复无休止地执行。 </p>
+
+<p class="p" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7E5">即使语句在表达式内设定属性，Maya 也仅在表达式执行完毕后对属性进行更新。由于表达式从不结束执行，因此 Maya 将停止。 </p>
+
+<p class="p" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7E4">除非您在 while 循环内将时间更改为一个小于或等于 3 的值，否则该语句将无限地执行下去。 </p>
+
+<p class="p" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7E3">若要获得所需结果而不停止 Maya，请使用此表达式： </p>
+
+<pre class="pre codeblock">
+if (time &gt; 3)
+	Balloon.scaleY = time;
+</pre>
+
+<p class="p" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__GUID-DD21AEE7-E3C4-47AB-BCBE-42C20E7DBFFD">有关时间关键字的详情，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-CCF9692B-5284-4F84-B6D2-AD7A5120668F.htm">时间和帧关键字</a>。 </p>
+
+</div>
+
+<div class="section" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7E2"><h3 class="title sectiontitle">示例 2</h3>
+
+<p class="p" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7E1">假设您创建两个对象，分别命名为 Cone 和 Ball，然后使用 while 语句将 Ball 的<span class="ph uicontrol" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__GUID-27504C58-2494-49FB-B235-C4BD1EAB4C88">“translateY”</span>属性关联到 Cone 的<span class="ph uicontrol" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__GUID-F5A8C5E7-CF98-4AAA-89CD-AB5DB6A52463">“translateY”</span>属性： </p>
+
+<pre class="pre codeblock">
+while (Cone.translateY &gt; 0)
+	Ball.translateY = Cone.translateY;
+</pre>
+
+<p class="p" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7E0">乍一看，只要 Cone 的<span class="ph uicontrol" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__GUID-A65481AA-6FB5-4192-8E7A-DD938BFAD977">“translateY”</span>大于 0，该表达式似乎都会将 Ball 的<span class="ph uicontrol" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__GUID-70C8A742-EBD9-4F88-8A74-BCE854EB5DF4">“translateY”</span>位置设定为 Cone 的<span class="ph uicontrol" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__GUID-CEA76618-5E84-4EE6-B180-C1A073265AA6">“translateY”</span>位置值。 </p>
+
+<p class="p" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7DF">实际上，只要您将 Cone 平移到一个大于 0 的 Y 位置，表达式将立即停止 Maya。这是由于 while 条件此时为真，因此，while 循环语句 Ball.translateY = Cone.translateY 将无休止地执行。 </p>
+
+<p class="p" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7DE">您在用户界面执行的任何操作都无法更改 Cone 的<span class="ph uicontrol" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__GUID-7CDC9C26-27BB-4D70-B5D0-CB05AABF11A5">“translateY”</span>位置。它始终位于 0<span class="ph uicontrol" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__GUID-48233071-3A04-4C2F-B878-058F54C55BC4">“translateY”</span>值处。 </p>
+
+<p class="p" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7DD">除非您在 while 循环内将 Cone.translateY 更改为一个小于或等于 0 的值，否则该语句将无限地执行下去。 </p>
+
+<p class="p" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7DC">若要获得所需结果而不停止 Maya，请使用此表达式： </p>
+
+<pre class="pre codeblock">
+if (Cone.translateY &gt; 0)
+	Ball.translateY = Cone.translateY;
+</pre>
+
+</div>
+
+</div>
+<div class="section" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7DB"><h2 class="title sectiontitle">使用 == 将浮点值与 0 进行比较</h2>
+
+<p class="p" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7DA"> 如果使用 == 运算符将浮点变量或属性与 0 进行比较，表达式可能无法正常工作。当您假设内置函数（如 cosd）返回的值正好为 0 时，通常会发生这种情况。 </p>
+
+<div class="section" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7D8"><h3 class="title sectiontitle">示例</h3>
+
+<pre class="pre codeblock">
+float $x = cosd(90);
+if ($x == 0)
+	print("This equals 0.\n");
+else
+	print("This doesn't equal 0.\n");
+</pre>
+
+<p class="p" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7D7">表达式将显示以下文本： </p>
+
+<pre class="pre codeblock">
+This doesn't equal 0.
+</pre>
+
+<p class="p" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7D6">虽然 90 度余弦的数学值为 0，cosd (90) 函数返回的值为 6.123e-17，已经非常接近于 0，但仍不完全相等。尽管实际使用时该数字与 0 相同，但由于计算机处理浮点数的方式的原因，在计算机中它却存储为大于 0 的小数。 </p>
+
+<p class="p" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7D5">若要解决此问题，请使用此表达式比较值： </p>
+
+<pre class="pre codeblock">
+float $x = cosd(90);
+if (($x &gt; -0.0001) &amp;&amp; ($x &lt; 0.0001))
+	print("This equals 0.\n");
+else
+	print("This doesn't equal 0.\n");
+</pre>
+
+<p class="p" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7D4">表达式将显示以下文本： </p>
+
+<pre class="pre codeblock">
+This equals 0.
+</pre>
+
+<p class="p" id="GUID-C172ECB0-91BF-494D-81E6-6D5014A9C359__WS73099CC142F48755-3D114B7511841AEFA9F-7D3">检查 $x 是否介于 -0.0001 和 0.0001 之间，以确保执行适当的打印语句。cosd (90) 返回的值与 0 非常接近，因此位于 if 语句的数值比较中指定的较小数值范围内。 </p>
+
+</div>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-493CA022-0F3C-46D1-BF19-457BC9E8129E.htm">控制脚本的流</a></div>
+</div>
+</div>
+
+</body>
+</html>

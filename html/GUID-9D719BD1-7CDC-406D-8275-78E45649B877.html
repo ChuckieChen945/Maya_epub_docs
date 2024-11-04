@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="通常需要沿着图像流水线在颜色空间之间进行多次转化。例如，可能需要将来自不同空间的几个输入转化为通用工作空间，以便可以合成和融合它们，然后将它们转化为另一个空间用于输出。 Autodesk 颜色管理使用连接空间执行这些转化。">
+<meta name="indexterm" content="颜色变换:转化颜色空间">
+<meta name="indexterm" content="颜色空间:转化">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-9D719BD1-7CDC-406D-8275-78E45649B877">
+<meta name="language" content="CHS">
+<title>使用连接空间在颜色空间之间转化</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1> 使用连接空间在颜色空间之间转化</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="shortdesc">通常需要沿着图像流水线在颜色空间之间进行多次转化。例如，可能需要将来自不同空间的几个输入转化为通用工作空间，以便可以合成和融合它们，然后将它们转化为另一个空间用于输出。 Autodesk 颜色管理使用连接空间执行这些转化。 
+  </p>
+<div class="section" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__SECTION_FC8A490C4D6944F388EEF1D7A1D5CFC1"><h2 class="title sectiontitle">什么是连接空间？</h2> 
+		 
+		<p class="p" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__GUID-A1EE9DFA-8E43-4784-8F4F-A38004F13637">连接空间是中间颜色空间，用于最大程度地减少从每个颜色空间转化为所有其他颜色空间所需的不同颜色变换的数量。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__FIG_32807D1E95134A3F98252E7F96AAD189"><img class="image" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__IMAGE_0DD220AC8FD84AB08E96A48076B276BD" src="../images/GUID-10EDF398-C93B-4EC1-870D-6DC85B93CB23.png"></div>
+ 
+		<p class="p" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__GUID-B9EE4067-5D9B-43F4-998E-4CFE5B57E35C">例如，若要在 4 个颜色空间之间直接来回转化，将需要 12 个不同的变换。如果添加第 5 个颜色空间，则需要再添加 8 个变换，也就是总共 20 个变换。通常，添加第 N 个空间，则需要另外添加 2(N – 1) 个变换，也就是总共 N<sup class="ph sup" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__GUID-7B0F10F6-AFC2-4402-B4DE-8265E482CD9E">2</sup> – N 个变换。 
+		</p>
+ 
+		<p class="p" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__GUID-BF8DA95D-02D8-4E24-A74F-F3D21328D7DA">但是，对于连接空间，仅需要 8 个变换即可在 4 个颜色空间之间来回转化。每添加 1 个颜色空间只需要添加 2 个变换，也就是总共 2N 个变换。但请注意，现在每个转化需要两个步骤：首先从源空间转化为连接空间，然后从连接空间转化为目标空间。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__SECTION_F1C5F198F17E443A916D9FB2736712F3"><h2 class="title sectiontitle">Autodesk 颜色管理中的连接空间</h2> 
+		 
+		<p class="p" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__GUID-F5072E46-607C-4C43-9C84-B60D524BD94E">在应用程序中的颜色空间之间转化时，Autodesk 颜色管理在后台使用连接空间。 
+		</p>
+ 
+		<div class="p">如果需要<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-B2CD60E0-C100-45A4-9595-84D2DF98B268.htm" title="尽管 Autodesk 颜色管理提供了适当的工具可自动应用所需的变换以便在颜色空间之间进行转化，但在某些特殊情况下，您必须更好地控制要应用的特定变换。本部分介绍如何将位于 Autodesk 颜色变换集合中的组件用作构建块以集合特定任务的自定义转化。">手动指定自定义变换链</a>，该集合包括一些变换，允许您使用两个连接空间之一在颜色空间之间来回转化： 
+		<ul class="ul" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__UL_CEA5DFD25A4C45508D1EA36595DA13F0"><li class="li" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__LI_AF3F0E87A4314D65A44EF59F151E6912">ACES 2065-1 可用作场景线性图像的连接空间。 
+			 <ul class="ul" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__UL_A977224EA01A483EA0249D9062C7289B"><li class="li" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__LI_A1D6BBA455EA4AF6895D757EB44EF160">camera/ 目录包含用于从各种数字摄影机格式转化的变换。 
+				</li>
+<li class="li" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__LI_C4C7A7ACF1C740E9B5D2366BD0EAD864">film/ADX/ 目录包含用于在 Academy Density Exchange 格式与其他格式之间来回转化的变换。 
+				</li>
+<li class="li" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__LI_2D1093AAFA224C928E65D68956BD3153">interchange/ACESproxy/ 目录包含用于与在现场使用的 ACESproxy 系统进行转化的变换。 
+				</li>
+<li class="li" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__LI_8F6B2F5D4B45466DBAD99ADC33682434">RRT+ODT/ 目录包含用于与各种输出相关的空间进行转化的变换。 
+				</li>
+</ul>
+ 
+		  </li>
+<li class="li" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__LI_F05F933B3080416CA2A8C152C49DCB37">CIE XYZ 可以用作输出相关图像（即不需要任何色调贴图的图像）的连接空间。集合中的变换包含与 CIE XYZ D65 白点进行转化必需的任何色度调整（如有需要）。 
+			 <ul class="ul" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__UL_F9CECC6478A542F7884647CD35EAA88F"><li class="li" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__LI_03C7DEBE2472400DA59C2E12CD1A85AA">display/ 目录包含用于针对特定显示设备与各种 RGB 颜色空间编码进行转化的变换。 
+				</li>
+<li class="li" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__LI_C921D4BFB65A4003A0B89AF9D406ABEA">interchange/ 目录包含用于与通常用于数字图像交换的颜色空间（包括 sRGB 和 AdobeRGB）进行转化的变换。 
+				</li>
+</ul>
+ 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="note note" id="GUID-9D719BD1-7CDC-406D-8275-78E45649B877__GUID-A059D368-1F2F-4D6B-B057-EF4B02794715"><span class="notetitle">注：</span>  primaries/ 目录下的变换仅转化主颜色。这些变换需要并生成线性颜色空间编码，而且可以应用于场景线性或输出线性值。 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-1658466E-7EC2-4191-B379-F30D3BDEFCA5.htm" title="颜色管理可以使颜色在不同的设备和媒体中尽可能精确地重现。与颜色校正不同，颜色管理的目的不是更改颜色，而是在不同的情况下保留感知颜色。">颜色管理概念</a></div>
+</div>
+</div>
+
+</body>
+</html>

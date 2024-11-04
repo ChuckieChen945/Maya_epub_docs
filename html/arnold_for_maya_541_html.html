@@ -1,0 +1,289 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_541_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_541">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 5.4.1 - Arnold for Maya">
+
+<title>5.4.1</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+<div class="head-block"><h1>5.4.1</h1></div><p>27 March 2024</p>
+<p><img src="../images/7.3_release_notes_image.png" alt=""></p>
+<p>MtoA 5.4.1 introduces Arnold <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_core_7310_html" target="_blank">7.3.1.0</a>.</p>
+<h2 id="installation">Installation</h2><ul>
+<li><p>Download <a href="https://manage.autodesk.com/products/MAYA" target="_blank">Arnold for Maya</a> from your Autodesk Account.
+See <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_download_arnold_html" target="_blank">Download Arnold</a> for more information about downloading MtoA from your Autodesk Account.</p>
+</li>
+<li><p>Follow these installation instructions.</p>
+</li>
+</ul>
+<h2 id="enhancements">Enhancements</h2><ul>
+<li><strong>Denoising by default with Intel Open Image Denoise (OIDN):</strong> The Intel  ®  Open Image Denoiser imager is now added by default to new scenes (MTOA-1787)</li>
+</ul>
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/Title_5_surfer_van_no_denoising.jpg" alt=""></td>
+<td><img src="../images/Title_1_surfer_van_assume_noisy.jpg" alt=""></td>
+</tr>
+<tr>
+<td>without denoising</td>
+<td>with <em>imager_denoiser_oidn</em></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<ul>
+<li><p><strong>Improvements to the Arnold Render View Snapshots:</strong>  The snapshot workflow and interface in the Arnold RenderView has multiple enhancements and behaviours.</p>
+<ul>
+<li>Press the S hotkey in the Arnold RenderView to save a snapshot.</li>
+<li>Improved UI for Snapshot buttons (ARNOLD-232)</li>
+</ul>
+</li>
+</ul>
+
+<div class="gallery center thumbnail-400">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am541_snap_AB.gif" alt="Alt text"></td>
+</tr>
+<tr>
+<td>You can now compare snapshots of the same resolution using the Ctrl key modifier when selecting a second snapshot</td>
+</tr>
+<tr>
+<td><img src="../images/am541_snap_delmulti.gif" alt="Alt text"></td>
+</tr>
+<tr>
+<td>You can now select multiple snapshots with the Shift modifer and delete multiple selected snapshots with the Del key</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li><strong>OSL Enum support in Attribute Editor :</strong> Shader parameters of type ENUM on the OSL code node create a combo box with the available options (MTOA-1781)</li>
+</ul>
+
+<div class="gallery center thumbnail-400">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am541_osl_enum.png" alt="Alt text"></td>
+</tr>
+<tr>
+<td>OSL enum parameter values displayed as a drop-down list</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li><p><strong>New presets added to aiRampRgb :</strong> We have added over 100 presets to the aiRampRGB node (MTOA-1630)</p>
+</li>
+<li><p><strong>aiStandardVolume assigned on creation of new aiVolume node :</strong> When creating a new aiVolume node a new aiStandardVolume shader will be created and assigned to the new node (MTOA-1803)</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>Update Intel Open Image Denoise (OIDN) to version 2.2.2</strong>: The updated denoiser has 10% better performance on CPU, includes some critical bug fixes, and handles high-frequency details better. (ARNOLD-14772)</p>
+</li>
+<li><p><strong>OptiX denoiser runs on progressive negative AA passes</strong>: The OptiX denoiser imager now denoises the low-resolution progressive passes (renders with AA &lt; 0). This should result in higher quality feedback in IPR. (ARNOLD-11487)</p>
+</li>
+</ul>
+
+<div class="gallery center thumbnail-500">
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/ac-rn-7310-robotIPR_optixDenoising.gif" alt=""></td>
+</tr>
+<tr>
+<td>Left side shows the previous behavior where denoising was only applied to the AA &gt; 0 passes. Right side is new behavior where all progressive passes are denoised.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+<p>|</p>
+<ul>
+<li><p><strong>MaterialX node definitions</strong>: The MaterialX node definitions for Arnold shaders now use the standard surfaceshader and volumeshader types, which make them easier to use in DCCs and mix with standard library shaders. The UI for Arnold MaterialX shaders is also improved with the addition of parameter groups and node categories. (ARNOLD-14717, ARNOLD-14736, ARNOLD-14716)</p>
+</li>
+<li><p><strong>OCIO environment variable priority</strong>: The OCIO environment variable now takes priority over the configuration file set in the Arnold OCIO color manager as well as the builtin OCIO configuration file. A new <code>ignore_environment_variable</code> parameter on the OCIO color manager causes Arnold to ignore the value of the environment variable and restores the previous behavior. The OCIO environment variable is also now taken into account by maketx. (ARNOLD-9012)</p>
+</li>
+<li><p><strong>Curves in procedural viewport API</strong>: Procedurals now return curves nodes in <code>AI_PROC_POLYGONS</code> viewport mode. This is an API change only. MtoA does not yet use this API for displaying curves in the viewport. (ARNOLD-14756)</p>
+</li>
+</ul>
+<h2 id="usd-enhancements">USD Enhancements</h2><ul>
+<li>Improved support for USD cameras (MTOA-1597)<ul>
+<li>Cameras from a USD Stage are displayed in the Render View Camera list</li>
+<li>You can use UFE camera paths when rendering in batch</li>
+<li>USD Stage cameras are listed in the Render Settings if they are set to the "default" or "render" purpose.</li>
+</ul>
+</li>
+<li><strong>Light linking on custom procedurals</strong>: You can now use light linking on custom procedurals such as Yeti in the render delegate. (<a href="https://github.com/Autodesk/arnold-usd/issues/1730" target="_blank">usd#1730</a>)</li>
+<li><strong>Improved tooltips</strong>: The tooltips in DCCs for Arnold nodes in USD is much improved. <a href="https://github.com/Autodesk/arnold-usd/issues/1835" target="_blank">usd#1835</a> </li>
+<li><strong>Imager node support</strong>: USD support for the new Arnold <code>AI_NODE_IMAGER</code> node type. <a href="https://github.com/Autodesk/arnold-usd/issues/1870" target="_blank">usd#1870</a></li>
+<li><strong>Export ArnoldOptions as UsdRenderSettings</strong> - The Arnold USD exporter covnerts the Arnold options node to UsdRenderSettings, UsdRenderProduct, and UsdRenderVar nodes. <a href="https://github.com/Autodesk/arnold-usd/issues/1852" target="_blank">usd#1852</a>, <a href="https://github.com/Autodesk/arnold-usd/issues/1865" target="_blank">usd#1865</a></li>
+<li><strong>Velocities motion blur for points</strong> - Points with a velocities attribute now render with motion blur.  <a href="https://github.com/Autodesk/arnold-usd/issues/1868" target="_blank">usd#1868</a></li>
+<li><strong>Better default for transmission ray depth</strong> - Set the default transmission depth to 8, so that the default settings work better with glass, and to match default in other Arnold plugins like HtoA and MtoA. <a href="https://github.com/Autodesk/arnold-usd/issues/1889" target="_blank">usd#1889</a> </li>
+</ul>
+<h2 id="api-changes">API changes</h2><ul>
+<li><strong>Imager plugin API</strong>: A public API is now available for imagers. This adds support for custom and third-party imagers in Arnold. (ARNOLD-10322)</li>
+</ul>
+<p>The API is built upon a new <code>AI_NODE_IMAGER</code> node type and is implemented via two main API.</p>
+<ul>
+<li><code>imager_evaluate</code> allows you to modify output pixels of a render.</li>
+</ul>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#define imager_evaluate
+static void ImagerEvaluate(AtRenderSession* render_session, AtNode* node, struct AtOutputIterator* iterator, int bucket_xo, int bucket_yo, int bucket_size_x, int bucket_size_y, uint16_t tid)</code></pre>
+<ul>
+<li><code>imager_prepare</code> is an optional API allows you to query the outputs an imager will recieve and prepare any evaluation specific data.</li>
+</ul>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#define imager_prepare
+static void ImagerPrepare(AtRenderSession* render_session, AtNode* node, const AtNode* driver, struct AtOutputIterator* iterator, AtImagerSchedule&amp; schedule);</code></pre>
+<p>Additionally, there are a couple of helper APIs for the <code>imager_prepare</code> method. These API let you request additional inputs to be rendered for imager evaluation, and to add additional output layers that the user may want to write to the driver.</p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">AI_API bool AiImagerAddInput(AtRenderSession* render_session, const AtNode* imager, const AtNode* driver, int aov_type, AtString aov_name, AtNode* filter);
+AI_API bool AiImagerAddOutput(AtRenderSession* render_session, const AtNode* imager, const AtNode* driver, int output_type, AtString output_name);</code></pre>
+<ul>
+<li><strong>Improved builtin metadata</strong>: Node and node parameter definitions have been further augmented with metadata that could be useful across DCCs. The metadata that have been added or improved are the following: <em>help</em>, <em>category</em>, <em>ui.groups</em>. Some of these metadata were previously distributed as separate mtd files in each DCC.  (ARNOLD-14677, ARNOLD-14678, ARNOLD-14702, ARNOLD-14661)</li>
+</ul>
+<h2 id="usd-enhancements">USD Enhancements</h2><ul>
+<li><strong>Light linking on custom procedurals</strong>: You can now use light linking on custom procedurals such as Yeti in the render delegate. (<a href="https://github.com/Autodesk/arnold-usd/issues/1730" target="_blank">usd#1730</a>)</li>
+<li><strong>Improved tooltips</strong>: The tooltips in DCCs for Arnold nodes in USD is much improved. <a href="https://github.com/Autodesk/arnold-usd/issues/1835" target="_blank">usd#1835</a> </li>
+<li><strong>Imager node support</strong>: USD support for the new Arnold <code>AI_NODE_IMAGER</code> node type. <a href="https://github.com/Autodesk/arnold-usd/issues/1870" target="_blank">usd#1870</a></li>
+<li><strong>Export ArnoldOptions as UsdRenderSettings</strong> - The Arnold USD exporter covnerts the Arnold options node to UsdRenderSettings, UsdRenderProduct, and UsdRenderVar nodes. <a href="https://github.com/Autodesk/arnold-usd/issues/1852" target="_blank">usd#1852</a>, <a href="https://github.com/Autodesk/arnold-usd/issues/1865" target="_blank">usd#1865</a></li>
+<li><strong>Velocities motion blur for points</strong> - Points with a velocities attribute now render with motion blur.  <a href="https://github.com/Autodesk/arnold-usd/issues/1868" target="_blank">usd#1868</a></li>
+<li><strong>Better default for transmission ray depth</strong> - Set the default transmission depth to 8, so that the default settings work better with glass, and to match default in other Arnold plugins like HtoA and MtoA. <a href="https://github.com/Autodesk/arnold-usd/issues/1889" target="_blank">usd#1889</a> </li>
+</ul>
+<h2 id="incompatible-changes">Incompatible Changes</h2><ul>
+<li><strong>OCIO environment variable priority</strong>: The OCIO environment variable now takes priority over the file set in the Arnold OCIO color manager. Setting <code>color_manager_ocio.ignore_environment_variable</code> to <code>true</code> restores the previous behavior.</li>
+</ul>
+<h2 id="bug-fixes">Bug Fixes</h2><ul>
+<li>ARNOLD-6309 - System locale should not affect .ass reading or writing</li>
+<li>ARNOLD-366 - [RenderView] Display glitches for high res images in the snapshot folder</li>
+<li>ARNOLD-365 - [RenderView] Selected snapshot label gets truncated</li>
+<li>ARNOLD-364 - [RenderView] snapshot labels are hard to read due to BG and FG colors</li>
+<li>ARNOLD-238 - [RenderView] A/B snapshots labels are too small</li>
+<li>ARNOLD-14693 - [RenderView] Changing test resolution during render gives incorrect resolution</li>
+<li>ARNOLD-14033 - [RenderView] Snapshots cannot be viewed after rendering with a different resolution</li>
+<li>MTOA-1198 - Importing aiImagerLensEffects fails with Error.</li>
+<li>MTOA-1608 - OCIO env var not respected by MayaBatch/Render.exe</li>
+<li>MTOA-1740 - Maya USD export does not work if you load Yeti after MtoA</li>
+<li>MTOA-1779 - Import Shader cannot connect range to vector_map.input</li>
+<li>MTOA-1778 - Import Shader cannot connect vector_map to shadingEngine.displacement</li>
+<li>MTOA-1815 - Exporting Arnold nodes to USD fails to author animated attributes</li>
+<li>MTOA-1848 - Error message occurred when clicking Export All to .ASS or Export Selection to .ASS</li>
+<li>MTOA-1864 - TX Manager freezes maya if there's an error while IPR is running</li>
+<li>MTOA-1865 - Viewport render does not  account for isolate select on initialization</li>
+<li>MTOA-1796 - Disabling "Isolate Select" in Viewport render doesn't revert to normal rendering</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1547" target="_blank">usd#1547</a> - Fix mesh lights shutoff when there is a light link in the scene.</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1859" target="_blank">usd#1859</a> - Support PointInstancer invisibleIDs for lights </li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1881" target="_blank">usd#1881</a> - Support UDIM and relative paths on mtlx image shaders</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1884" target="_blank">usd#1884</a> - Set a proper name to skydome image node in Hydra</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1890" target="_blank">usd#1890</a> - Reduce VtArray memory consumption, specially in the instancer.</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1874" target="_blank">usd#1874</a> - Shader output attributes should be outputs:out to match the Sdr registry</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1878" target="_blank">usd#1878</a> - Make Arnold relative path optional for image shaders</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1873" target="_blank">usd#1873</a> - Ensure materials are written under a scope primitive</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2><ul>
+<li>Maya 2023, 2024, or 2025</li>
+<li>Windows 10 or later, with the Visual Studio 2019 redistributable.</li>
+<li>Linux with at least glibc 2.17 and libstdc++ 4.8.5 (gcc 4.8.5). This is equivalent to RHEL/CentOS 7.</li>
+<li>x86-64 CPUs need to support the SSE4.1 instruction set. </li>
+<li>macOS 10.13 or later, macOS 11 and later for Maya 2024</li>
+<li>Apple Mac models with M series chips:<ul>
+<li>Natively supported by Arnold for Maya 2024</li>
+<li>Supported under Rosetta 2 mode for older versions of Maya</li>
+</ul>
+</li>
+<li><a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_rendering_ac_arnold_gpu_html" target="_blank">GPU rendering</a> works on Windows and Linux only and requires an NVIDIA GPU with the Maxwell architecture or later.<ul>
+<li>On Linux, we recommend <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">535.104 or higher</a> drivers.</li>
+<li>On Windows, we recommend <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">537.13 or higher</a> drivers.</li>
+</ul>
+</li>
+<li>Optix™ denoiser requires an NVidia GPU with <a href="https://developer.nvidia.com/cuda-gpus" target="_blank">CUDA™ Compute Capability 5.0</a> and above.</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_5x_html.html">MtoA 5.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

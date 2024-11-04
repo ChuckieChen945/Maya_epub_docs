@@ -1,0 +1,99 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-A842D2FC-C191-452B-9229-3AC15DC00179">
+<meta name="language" content="CHS">
+<title>HLSL 着色器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>HLSL 着色器</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-38A23F5C12A55EE7664-7ED7"><p class="p" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__WS73099CC142F48755-3D114B7511812357EFE-7C59"> HLSL（高级着色语言）着色器节点可以在 Maya 中创建和配置本地 HLSL 硬件着色器。HLSL 是 Direct X 的原生着色语言，因此对于许多基于 Direct X 的目标应用程序是首选的着色语言，包括适用于 XBOX 系列控制台的游戏。与 Maya 中的上一个 HLSL 支持不同，HLSL 着色器提供本地 Direct X 编译渲染。
+	 </p>
+<p class="p" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__GUID-38400664-C255-474F-B913-7380F1574DD2">有关如何创建 HLSL 着色器的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4.htm">创建 HLSL 着色器</a>。
+	 </p>
+<div class="note note" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__WS73099CC142F48755-3D114B7511812357EFE-7C57"><span class="notetitle">注：</span>  
+		<p class="p" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__GUID-B4F57B71-EE2E-43F8-90AB-BF436EDBB5E5"><samp class="ph codeph" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__GUID-7CD8A02E-C3C3-4BF2-A806-EDCD0E9B7DB5">dx11Shader.mll</samp> 是用于创建 Direct X 着色器的首选插件。因此，不再随标准 Maya 安装提供 HLSL 插件。
+		</p>
+ 
+		<p class="p" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__GUID-4262D711-20F5-491C-8EC0-059AA8752286">为了向后兼容，可以从 Maya Bonus Tools 软件包（从 Maya 菜单中选择<span class="ph uicontrol" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__GUID-ED6C2A4B-9283-4BDF-A1FB-AB4133AF37B5">“帮助 &gt; Maya 资源和工具 &gt; 下载 Bonus Tools”(Help &gt; Maya Resources and Tools &gt; Download Bonus Tools)</span>）下载 <samp class="ph codeph" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__GUID-2A48C8F3-113F-41D1-8C87-4410AB841A60">hlslShader.mll</samp>，<span class="ph">或者从 <a class="xref" href="https://www.autodesk.com/developmaya" target="_blank">Autodesk Developer Network</a> 上的开发人员工具包中下载 <em class="ph i" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__GUID-91F79791-B86A-40F7-85B6-C703A4D9C6DE">hlslShader</em> 插件示例</span>。
+		</p>
+ 
+		<p class="p" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__GUID-27ABEBDE-6E0F-4423-B4A9-AC6556FC2F04">该功能需要安装 2007 年 2 月版的 Direct X。
+		</p>
+ 
+	 </div>
+<p class="p" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__WS73099CC142F48755-3D114B7511812357EFE-7C56">若要将旧的 <samp class="ph codeph" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__GUID-52F1CCA9-788B-49B5-81B3-5AB8A8976B4A">.fx</samp> 文件转换为新的 <samp class="ph codeph" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__GUID-74C20614-B86E-4DFC-809C-E401EE2F97B6">.cgfx</samp> 格式，请使用 NVIDIA 提供的转换工具。Cg 和 CgFX 还提供了大量文档。请参见 <a class="xref" href="http://www.developer.nvidia.com" target="_blank">www.developer.nvidia.com</a>。
+	 </p>
+<div class="section" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__WS73099CC142F48755-3D114B7511812357EFE-7C55"><h2 class="title sectiontitle">基本工作流程</h2> 
+		 
+		<p class="p" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__WS73099CC142F48755-3D114B7511812357EFE-7C54">下列步骤概括了使用 HLSL 插件的基本工作流程。
+		</p>
+ 
+		<ul class="ul" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__WS73099CC142F48755-3D114B7511812357EFE-7C53"><li class="li" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__WS73099CC142F48755-3D114B7511812357EFE-7C52">在场景视图中，启用<span class="ph uicontrol" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__GUID-DD04E0BE-DE9D-4463-B1A7-1CB282606ECD">“硬件纹理”(Hardware Texturing)</span>。
+		  </li>
+<li class="li" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__WS73099CC142F48755-3D114B7511812357EFE-7C51">从<span class="ph uicontrol" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__GUID-4375B399-6F20-4274-BD76-B88F15C4CF79">“插件管理器”(Plug-in Manager)</span>加载 hlslShader.mll。
+		  </li>
+<li class="li" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__WS73099CC142F48755-3D114B7511812357EFE-7C50">在<span class="ph uicontrol" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__GUID-3DBAB9E2-5BAF-4749-BFF1-CE7B2953C7E8">“Hypershade”</span>中，创建<span class="ph uicontrol" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__GUID-77D94E06-99DE-4DA5-B4B5-030638F6A920">“HLSL 着色器”(HLSL Shader)</span>材质。
+		  </li>
+<li class="li" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__WS73099CC142F48755-3D114B7511812357EFE-7C4F">在场景视图中，为对象指定 HLSL 材质。
+		  </li>
+<li class="li" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__WS73099CC142F48755-3D114B7511812357EFE-7C4E">在<span class="ph uicontrol" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__GUID-5137CD16-1DE1-4584-9FD9-E036DC646285">“属性编辑器”(Attribute Editor)</span>中，将 <samp class="ph codeph" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__GUID-A85F5DF3-94E5-4BFB-B17B-39C2229F6B11">.fx</samp> 文件连接到<span class="ph uicontrol" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__GUID-E3EE0B58-96FA-4651-A429-DAB4088C9EC7">“HLSL 着色器”(HLSL Shader)</span>材质。
+		  </li>
+<li class="li" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__WS73099CC142F48755-3D114B7511812357EFE-7C4D">如有必要，调整属性。
+		  </li>
+</ul>
+ 
+		<p class="p" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__WS73099CC142F48755-3D114B7511812357EFE-7C4C">若要创建并使用 HLSL 着色器，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4.htm">使用 HLSL 着色器</a>。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__WS73099CC142F48755-3D114B7511812357EFE-7C4B"><h2 class="title sectiontitle">HLSL 限制和其他注释</h2> 
+		 
+		<p class="p" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__WS73099CC142F48755-3D114B7511812357EFE-7C49">HLSL 着色器当前仅受默认 Maya 场景视图支持。当前，不支持高质量渲染器或外部渲染器。
+		</p>
+ 
+		<p class="p" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__GUID-AD9738A3-E02E-40D6-9B45-D28C108658FF">不能在 Maya 中使用包含某些效果的 HLSL 着色器：
+		</p>
+ 
+		<ul class="ul" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__WS73099CC142F48755-3D114B7511812357EFE-7C75"><li class="li" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__WS73099CC142F48755-3D114B7511812357EFE-7C74">全局效果 
+		  </li>
+<li class="li" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__WS73099CC142F48755-3D114B7511812357EFE-7C73">多过程效果 
+		  </li>
+</ul>
+ 
+		<p class="p" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__WS73099CC142F48755-3D114B7511812357EFE-7C48">HLSL 插件当前不支持可以使几何体变形的着色器。将可以看到这些效果，但在将 DX 和 GL 场景元素合成在一起时可能会存在瑕疵。
+		</p>
+ 
+		<div class="note note" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__WS73099CC142F48755-191A86AC126720FA354-58FC"><span class="notetitle">注：</span>  
+		  <p class="p" id="GUID-A842D2FC-C191-452B-9229-3AC15DC00179__GUID-D019305A-D401-4478-BB9D-CF11BBA53F64">在 Linux 平台上，Maya 硬件工作区不支持远程显示或任何间接渲染设备上的 GLSL 或 Cg 着色语言。
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-634CAFBE-AC48-4B73-89CA-82D64FA1BC70.htm">表面材质</a></div>
+</div>
+</div>
+
+</body>
+</html>

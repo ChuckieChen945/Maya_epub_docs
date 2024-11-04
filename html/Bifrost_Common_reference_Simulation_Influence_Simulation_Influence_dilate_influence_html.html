@@ -1,0 +1,53 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_Influence_Simulation_Influence_dilate_influence_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>dilate_influence</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>dilate_influence</code></h1></div><p>dilate_influence 可用于防止 Aero 模拟中发射的颜色随时间变暗。它会将密集区域内的定义特性向外传播到零密度区域。例如，如果向源添加 voxel_color，则发射区域外的体素最初将为黑色。随着时间推移，这些区域将与密集区域逐渐混合，颜色可能变为黑色。此影响可用于将颜色从密集区域向外扩展一个或两个体素，这样，混合在其中的空边界始终具有明确定义的颜色。要使用此节点，请将其输出插入 <code>simulate_aero</code> 的 <code>influences</code> 输入。</p>
+<h2 id="">输入</h2><h3 id="influence"><code>influence</code></h3><p>可以选择将影响场 out_influence 连接到此端口。例如，可以连接 mask_influence 节点以遮罩此影响的效果。可以将任意数量的影响场呈菊花链状连接在一起，以构建复杂的场。</p>
+<h3 id="enable"><code>enable</code></h3><p>关闭此项可禁用效果。如果禁用，将使其成为穿过节点。请注意，禁用此项后，连接到影响输入端口的任何其他影响场仍将处于活动状态。</p>
+<h3 id="property"><code>property</code></h3><p>要传播到零密度区域的体素特性的名称。</p>
+<h3 id="field_type"><code>field_type</code></h3><p>这是要传播的特性的数据类型。应将其设置为与命名特性的类型匹配。例如，<code>voxel_fog_density</code> 应为 <code>float</code>，而 <code>voxel_velocity</code> 应为 <code>float3</code>。</p>
+<h3 id="voxel_size"><code>voxel_size</code></h3><p>这是将体素特性扩展到零密度区域的距离（以世界空间单位表示）。如果值大于一个体素，则可能会以块状方式扩展，因为扩展仅沿正交方向进行。为了防止颜色随时间变暗，可能需要使用相当于细节大小 2 或 3 倍的值，尤其是在模拟速度较高时。请注意，当分辨率模式设置为 <code>absolute</code> 时，模拟的细节大小是源的 <code>fluid_detail_size</code>。可以连接一个 <code>ScalarField</code> 以改变空间上的效果。</p>
+<h3 id="density_threshold"><code>density_threshold</code></h3><p>voxel_fog_density 低于此阈值的体素将被视为空。此值应该很小，但不应为零，因为在模拟过程中可能会发生小的密度扩散，这会快速传播到原本看起来为空的区域。可以连接一个 <code>ScalarField</code> 以改变空间上的效果。</p>
+<h2 id="">输出</h2><h3 id="out_influence"><code>out_influence</code></h3><p>可以连接到模拟节点或其他影响节点的输出影响对象。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_Influence_html.html">Influence</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

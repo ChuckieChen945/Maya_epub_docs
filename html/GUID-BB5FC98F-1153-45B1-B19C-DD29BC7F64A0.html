@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0">
+<meta name="language" content="CHS">
+<title>数据类型转化</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>数据类型转化</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-92F"> Maya 在处理数据类型方面很灵活。如果在两种不同的数据类型之间执行赋值或算术运算，Maya 会在必要时转化数据类型，而不报告语法错误。 </p>
+<p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-92D"> 下列主题介绍此类情况下进行的转化。了解这些细节可能有助于解决非期望属性和变量值的问题。</p>
+<p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-92B">除非有编程经验，否则不要自行转化数据类型。非期望属性和变量值可能会令人困惑。</p>
+<div class="section" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-92A"><h2 class="title sectiontitle">指定给浮点属性或变量</h2>
+
+<p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-929">如果将向量指定给浮点属性或变量，Maya 会根据以下等式将该向量转化为一个浮点值：</p>
+
+<div class="fig fignone" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-928"><img class="image" width="101" height="41" src="../images/GUID-A22257D0-2436-4010-B6A6-5441E66384C8.png"></div>
+
+<p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-927">公式中的 x、y 和 z 数值表示向量中的三个分量。结果值是向量的幅值。</p>
+
+<div class="section" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-926"><h3 class="title sectiontitle">示例</h3>
+
+<pre class="pre codeblock">
+Ball.scaleY = &lt;&lt;1,2,0&gt;&gt;;
+</pre>
+
+<p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-925">Maya 将已转化的向量指定给浮点 ScaleY 属性：</p>
+
+<div class="fig fignone" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-924"><img class="image" width="216" height="41" src="../images/GUID-182AF3B5-7E3E-4D0B-9C95-C07661ED21CE.png"></div>
+
+<p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-923">如果将一个整数指定给浮点属性或变量，那么 Maya 不会进行任何转化。无需执行任何操作。</p>
+
+</div>
+
+<div class="section" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-922"><h3 class="title sectiontitle">示例</h3>
+
+<pre class="pre codeblock">
+Ball.scaleY = 1;
+</pre>
+
+<p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-921">Maya 将值 1 指定给 Ball.scaleY。</p>
+
+</div>
+
+</div>
+<div class="section" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-920"><h2 class="title sectiontitle">指定给整数属性或变量</h2>
+
+<p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-91F"> 如果将浮点值指定给一个整数属性或变量，Maya 会删除数值的小数部分。</p>
+
+<p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-91D">如果将向量指定给整数属性或变量，Maya 会使用上一主题中提到的平方根等式，将向量转化为整数。但是，它会删除结果的小数分量。 </p>
+
+<div class="section" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-91C"><h3 class="title sectiontitle">示例</h3>
+
+<pre class="pre codeblock">
+int $pi = 3.14;
+</pre>
+
+<p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-91B">Maya 将值 3 指定给整数变量 $pi。</p>
+
+<pre class="pre codeblock">
+int $temp = &lt;&lt;1,2,0&gt;&gt;;
+</pre>
+
+<p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-91A">Maya 将该向量值指定给整数变量 $temp：</p>
+
+<div class="fig fignone" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-919"><img class="image" width="242" height="41" src="../images/GUID-E4C1C987-B6D7-4CCA-9A7E-99EF18B266E5.png"></div>
+
+<p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-918">它会删除小数分量 .2360607。$temp 变量会收到删除分量后的值 2。</p>
+
+</div>
+
+</div>
+<div class="section" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-917"><h2 class="title sectiontitle">指定给向量属性或变量</h2>
+
+<p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-916">如果将一个整数或浮点值指定给向量属性或变量，Maya 会将该整数或浮点值放入向量的每个分量中。</p>
+
+<div class="section" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-915"><h3 class="title sectiontitle">示例</h3>
+
+<pre class="pre codeblock">
+vector $speed = 1.34;
+</pre>
+
+<p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-914">因为 $speed 是一个向量，Maya 会将 &lt;&lt;1.34,1.34,1.34&gt;&gt; 指定给它。 </p>
+
+</div>
+
+</div>
+<div class="section" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS17956D7ADBC6E736-6B6263BE117AE32723D-7FF7"><h2 class="title sectiontitle">将混合数据类型与算术运算符一起使用</h2>
+
+<p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-913"> 下表列出了在表达式中不同类型之间使用算术运算符时，Maya 转化数据类型的方式。</p>
+
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-911" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">运算</th>
+<th class="entry" valign="top" width="50%">结果数据类型</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">整数运算符浮点</td>
+<td class="entry" valign="top" width="50%">浮点</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">整数运算符向量</td>
+<td class="entry" valign="top" width="50%">向量</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">向量运算符浮点</td>
+<td class="entry" valign="top" width="50%">向量</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-910"><h3 class="title sectiontitle">示例</h3>
+
+<p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-90F">假定将名为 $velocity 的向量变量与浮点数 0.5 相乘，如下所示：</p>
+
+<pre class="pre codeblock">
+$race = $velocity * 0.5;
+</pre>
+
+<p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-90E">执行上述表达式时，如果 $velocity 为 &lt;&lt;2,3,0&gt;&gt;，则将结果向量值 &lt;&lt;1,1.5,0&gt;&gt; 指定给 $race 变量。</p>
+
+<div class="note attention" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-90D"><span class="attentiontitle">注意：</span> Maya 在未声明数据类型的文字常量和变量上执行算术运算时，它会基于存在的值来猜测数据类型。 <p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-90C">例如，在语句 Ball.scaleY = 1/3; 中，Maya 将 1 和 3 视为整数，因为它们没有小数点。该表达式会将整数 1 除以整数 3。整数结果为 0，并有余数 1。Maya 会丢弃该余数。</p>
+<p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-90B">因为 Ball.scaleY 是浮点属性，所以 Maya 会将整数 0 结果转化为浮点 0（它是相同的值），然后将其指定给 Ball.scaleY。 </p>
+<p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-90A">若要获得预期的结果 1/3，必须键入 Ball.scaleY = 1.0/3.0; </p>
+<p class="p" id="GUID-BB5FC98F-1153-45B1-B19C-DD29BC7F64A0__WS73099CC142F48755-3D114B7511841AEFA9F-909">Maya 会将 1.0 和 3.0 视为浮点数，因为它们包含小数点。数值 1.0 除以 3.0 的结果是 0.33333333333。</p>
+</div>
+
+</div>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B0A92424-8666-4669-97D7-B16F718FA3FD.htm">高级动画表达式主题</a></div>
+</div>
+</div>
+
+</body>
+</html>

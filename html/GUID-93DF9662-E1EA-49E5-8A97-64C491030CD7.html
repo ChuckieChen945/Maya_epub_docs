@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-93DF9662-E1EA-49E5-8A97-64C491030CD7">
+<meta name="language" content="CHS">
+<title>CgFX 着色器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-93DF9662-E1EA-49E5-8A97-64C491030CD7">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>CgFX 着色器</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-38A23F5C12A55EE7664-7ED8"><div class="note note" id="GUID-93DF9662-E1EA-49E5-8A97-64C491030CD7__GUID-24DB56FA-0FD9-4BE8-B6B7-8A38FC6C4102"><span class="notetitle">注：</span> Cgfx 着色器基于传统技术，因此不再建议使用。请改用 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846.htm">GLSL 着色器</a>。
+	 </div>
+<p class="p" id="GUID-93DF9662-E1EA-49E5-8A97-64C491030CD7__WS73099CC142F48755-3D114B7511812357EFE-7C6C"> Maya 中经过编译的 CgFX 插件允许您创建硬件着色器。以前，您可能已从 nVidia<span name="glyph_span">®</span> 下载了 Cg/CgFx 库。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5.htm">创建和渲染硬件着色器</a>。
+	 </p>
+<p class="p">CgFX 着色器仅在<span class="ph uicontrol">“OpenGL - 旧版”(OpenGL - Legacy)</span>和<span class="ph uicontrol">“OpenGL - 核心配置(兼容性)”(OpenGL - Core Profile (Compatibility))</span>显示模式下受支持。请参见 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-BF017019-B89A-47F0-8AB5-106C058AB854#GUID-BF017019-B89A-47F0-8AB5-106C058AB854__SECTION_B04F0E5A1332417DA2CD3FE483F186D4">Viewport 2.0 渲染引擎</a>。
+	 </p>
+<p class="p" id="GUID-93DF9662-E1EA-49E5-8A97-64C491030CD7__GUID-6EF84929-036C-490C-B7A3-48DD94B8827F">有关如何创建 CgFX 着色器的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA.htm">创建 CgFX 着色器</a>。
+	 </p>
+<div class="note note" id="GUID-93DF9662-E1EA-49E5-8A97-64C491030CD7__WS73099CC142F48755-3D114B7511812357EFE-7C6A"><span class="notetitle">注：</span>  
+		<p class="p" id="GUID-93DF9662-E1EA-49E5-8A97-64C491030CD7__GUID-2FA7CC43-22DE-4ADE-AC8D-30B2E8B7948F">该插件使用 Cg 3.0.015 版。Cg 编译器 (cgc) 和所有 dll 均包含在 Maya 的存储箱目录中。
+		</p>
+ 
+	 </div>
+<p class="p" id="GUID-93DF9662-E1EA-49E5-8A97-64C491030CD7__WS73099CC142F48755-3D114B7511812357EFE-7C69">旧效果支持另一不同的语法 <samp class="ph codeph" id="GUID-93DF9662-E1EA-49E5-8A97-64C491030CD7__GUID-399E8602-FD49-4D48-B4DE-421C67DFABC8">.fx</samp> (MS) 文件，而当前效果支持：<samp class="ph codeph" id="GUID-93DF9662-E1EA-49E5-8A97-64C491030CD7__GUID-F592C1F2-BF22-4F9A-BBD1-793D37839B5F">.cgfx</samp>。由于 CG 是 HLSL 的超集，因此，CGFX 3.0.015 拥有 Cg 的所有容量（界面和未标注大小的数组）。因此，CgFX 3.0.015 采用名为 <samp class="ph codeph" id="GUID-93DF9662-E1EA-49E5-8A97-64C491030CD7__GUID-5EDD7257-9277-4135-9E32-D83D4870D6DC">.cgfx</samp> 的格式，允许开发人员使用 Cg 语言进行编程。 
+	 </p>
+<p class="p" id="GUID-93DF9662-E1EA-49E5-8A97-64C491030CD7__WS73099CC142F48755-3D114B7511812357EFE-7C68">如果已安装 CgFX 的旧版本，则必须先将其卸载，或禁用随安装设定的环境变量。
+	 </p>
+<p class="p">在 macOS 上，nVidia Cg 库不再受支持。需要移植依赖此库的插件（例如 CgFX 着色器）。
+	 </p>
+<div class="section" id="GUID-93DF9662-E1EA-49E5-8A97-64C491030CD7__SECTION_09720750E8844C74B628A4DEDD017F91"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-93DF9662-E1EA-49E5-8A97-64C491030CD7__UL_DD8A1828F0B5422EB352B42A26A90789"><li class="li" id="GUID-93DF9662-E1EA-49E5-8A97-64C491030CD7__LI_1A1834ED10E949F2B99FBEDEF8697AA0"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA.htm">创建 CgFX 着色器</a> 
+		  </li>
+<li class="li" id="GUID-93DF9662-E1EA-49E5-8A97-64C491030CD7__LI_F0989CE2535C4A2F8CC79BCF7A1A63E7"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4.htm">编写 CgFX 着色器</a> 
+		  </li>
+<li class="li" id="GUID-93DF9662-E1EA-49E5-8A97-64C491030CD7__LI_028FE4BB2C66480E81B3F9A22D0A7279"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-BD4A13F2-C4C3-40D7-9C01-45BABEBE929B.htm">CgFX 着色器限制</a> 
+		  </li>
+<li class="li" id="GUID-93DF9662-E1EA-49E5-8A97-64C491030CD7__LI_F1D171A57F8643FC8DF639C00719DB45"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-651CFFC4-80BC-4B20-933A-744F20021DA5.htm">CgFX 着色器的纹理坐标系的方向</a> 
+		  </li>
+<li class="li" id="GUID-93DF9662-E1EA-49E5-8A97-64C491030CD7__LI_1C8B72973D6949ADAC7CE138B72B6F1B"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31.htm">CgFX 着色器疑难解答</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-634CAFBE-AC48-4B73-89CA-82D64FA1BC70.htm">表面材质</a></div>
+</div>
+</div>
+
+</body>
+</html>

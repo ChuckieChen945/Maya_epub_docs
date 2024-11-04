@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="转化为旧版 XGen 描述">
+<meta name="indexterm" content="将交互式修饰转化为旧版 XGen">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C">
+<meta name="language" content="CHS">
+<title>将交互式修饰头发传递到 XGen 默认样条线描述</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>将交互式修饰头发传递到 XGen 默认样条线描述</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 您可以使用 Alembic 缓存将通过交互式修饰头发创建的发型传递到 XGen 默认样条线描述。在此工作流中，您可以缓存少量雕刻的头发，然后在默认样条线描述中将这些曲线转化为导向。 
+	 </p>
+<div class="section" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__SECTION_187CEFB8F80844B08E49A2CB0C061A66"><h2 class="title sectiontitle">准备交互式修饰头发用于导出</h2> 
+		 
+		<p class="p"> 
+		</p>
+ 
+		<ol class="ol" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__OL_4C63AF8713A54A788B50BA0927D77E85"><li class="li" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__LI_5F6F8ABEF3294A81BB62739D8D757695">在<span class="ph uicontrol">“交互式修饰编辑器”(Interactive Groom Editor)</span>中，选择 <span class="ph uicontrol">description_base</span> 节点。 
+		  </li>
+<li class="li" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__LI_1C9917D47044478DA556C1F95947FE87">在节点的<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol">“生成器”(Generator)</span>组中，将<span class="ph uicontrol">“密度倍增”(Density Multiplier)</span>值减少 20 到 50 倍。 
+			 <p class="p">例如，如果<span class="ph uicontrol">“密度倍增”(Density Multiplier)</span>值是 5.0，则将其设置为 0.10。这会将导出的头发曲线的密度减少到接近于在默认样条线描述上生成发型所需的正确导向数量。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__LI_9C885C800410420791FD5903C7E74DCA">在<span class="ph uicontrol">“交互式修饰编辑器”(Interactive Groom Editor)</span>中选择该描述节点，然后选择<span class="ph menucascade"><span class="ph uicontrol">“描述</span> &gt; <span class="ph uicontrol">缓存</span> &gt; <span class="ph uicontrol">导出缓存”(Description &gt; Cache &gt; Export Cache)</span></span>以创建头发曲线的 Alembic 缓存。 
+			 <p class="p">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-3A686139-7D48-4BF8-B3BA-FDC227A5ECB8.htm">创建交互式修饰头发缓存</a>。 
+			 </p>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__SECTION_C8C6DAF94C874F29B0AFA28F8187BFD4"><h2 class="title sectiontitle">导入交互式头发曲线并将其作为导向添加到默认样条线描述</h2> 
+		 
+		<ol class="ol" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__OL_2D0F93FF2AC84B60AEDE9D871072D325"><li class="li" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__LI_BD76B743561E429AAB5FED820F5222B6">在场景中，选择要在其上传递交互式修饰头发的角色网格。 
+		  </li>
+<li class="li" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__LI_0EB74CFF1FE44DC2A07151CF916A2929">从 Maya 主菜单中，选择<span class="ph menucascade"><span class="ph uicontrol">“缓存</span> &gt; <span class="ph uicontrol">Alembic 缓存</span> &gt; <span class="ph uicontrol">导入 Alembic”(Cache &gt; Alembic Cache &gt; Import Alembic)</span></span>，然后浏览到缓存的交互式修饰头发所在的位置。 
+			 <p class="p">这会将头发曲线导入到与角色网格相同的世界空间位置。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__LI_9969FDCA8F944DF6994A8227C6C8F35E">再次选择该网格，然后选择<span class="ph menucascade"><span class="ph uicontrol">“生成</span> &gt; <span class="ph uicontrol">描述”(Generate &gt; Description)</span></span>。 
+		  </li>
+<li class="li" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__LI_E4DE2F84EDEC46318DB7654D965CA405">若要创建基于导向的默认样条线描述，请在 XGen 编辑器中进行以下设置： 
+			 <ul class="ul" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__UL_F35EAA3EC7C14C9CACB4EAF3F96E7C58"><li class="li" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__LI_1EEA5880E84B4806814EF577D382E8CE"> 
+				  <span class="ph uicontrol">此描述将生成什么类型的基本体？(What kind of Primitives are made by this Description?)</span>设置为<span class="ph uicontrol">“样条线(用于长头发、藤等)”(Splines (use for long hair, vines, etc))</span>。 
+				</li>
+<li class="li" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__LI_14A0129439E74C46BBB41FCFA40366BB"> 
+				  <span class="ph uicontrol">“生成基本体”(Generate the Primitives)</span>设置为“随机横跨曲面”(Randomly across the surface)。 
+				</li>
+<li class="li" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__LI_9FB60D192E4046D19ECA6590B4BDDE6F"><span class="ph uicontrol">“基本体的控制方式”(Control the Primitives by)</span>设置为“放置和成形导向”(Placing and shaping Guides)。 
+				</li>
+<li class="li" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__LI_C777E6455C314764A6583F8C9FE1A563">单击<span class="ph uicontrol">“创建”(Create)</span>。 
+				</li>
+</ul>
+ 
+		  </li>
+<li class="li" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__LI_0424C3EE2BF54F3A9F6559CDC4937D6E">在 <span class="ph uicontrol">XGen 编辑器</span>中，单击<span class="ph uicontrol">“工具”(Utilities)</span>选项卡。 
+		  </li>
+<li class="li" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__LI_39861716EF264600ACC35500F6299D18">在<span class="ph uicontrol">“工具”(Utilities)</span>下，选择<span class="ph uicontrol">“曲线到导向”(Curves to Guides)</span>。 
+		  </li>
+<li class="li" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__LI_9D0C28E9B8D341978F8A3253095D091E">在<span class="ph uicontrol">“大纲视图”(Outliner)</span>中，选择导入的 Alembic 缓存。 
+		  </li>
+<li class="li" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__LI_1B5E485D85A3498FAE0F6BB52867A5A5">在<span class="ph uicontrol">“XGen 编辑器”(XGen Editor)</span>中的<span class="ph uicontrol">“曲线到导向”(Curves to Guides)</span>下，单击<span class="ph uicontrol">“添加导向”(Add Guides)</span>。 
+			 <p class="p">Maya 将缓存的曲线转化为 XGen 导向。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-D239C6EC-D569-49C9-ACD0-BBBE5E32AF7C__LI_0496F8BE60D942ABA0A38B1A1F13F2B0">预览描述。 
+		  </li>
+</ol>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-496603B0-F929-45CD-B607-1CFCD3283DBE.htm" title="XGen 交互式修饰提供了一系列专用于创建所有头发和毛发样式的完整工具，其中包括雕刻笔刷、修改器和雕刻层。">XGen 交互式修饰</a></div>
+</div>
+</div>
+
+</body>
+</html>

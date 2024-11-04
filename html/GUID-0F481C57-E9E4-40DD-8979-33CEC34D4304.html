@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-0F481C57-E9E4-40DD-8979-33CEC34D4304">
+<meta name="language" content="CHS">
+<title>重命名对象</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-0F481C57-E9E4-40DD-8979-33CEC34D4304">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>重命名对象</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-0F481C57-E9E4-40DD-8979-33CEC34D4304__WS73099CC142F48755-3D114B7511841AEFA9F-965"> 如果重命名已在表达式中使用其属性的某个对象，<span class="ph uicontrol" id="GUID-0F481C57-E9E4-40DD-8979-33CEC34D4304__GUID-B55824F0-53FB-4BE3-BB23-AFCDB37A1CB7">“表达式编辑器”(Expression Editor)</span>会继续读取或设置这些属性。Maya 不会将属性与表达式断开连接。<span class="ph uicontrol" id="GUID-0F481C57-E9E4-40DD-8979-33CEC34D4304__GUID-889AEE52-4EEC-400A-9F99-3A871AFB21DF">表达式编辑器(Expression Editor)</span>会在您下次单击<span class="ph uicontrol" id="GUID-0F481C57-E9E4-40DD-8979-33CEC34D4304__GUID-ADD67E4D-9F7A-42F3-96DA-394405E6D71E">表达式编辑器(Expression Editor)</span>中的<span class="ph uicontrol" id="GUID-0F481C57-E9E4-40DD-8979-33CEC34D4304__GUID-94E87BAF-3A0C-4328-B542-40A7CB883016">“重新加载”(Reload)</span>按钮时转化为该对象的新名称。 </p>
+<p class="p" id="GUID-0F481C57-E9E4-40DD-8979-33CEC34D4304__WS73099CC142F48755-3D114B7511841AEFA9F-963"> 在重新加载表达式时，<span class="ph uicontrol" id="GUID-0F481C57-E9E4-40DD-8979-33CEC34D4304__GUID-EFA2122C-C911-4513-B128-77E4A966E2A4">“表达式编辑器”(Expression Editor)</span>会将任何短属性名称转化为其等效的长属性名称。例如，如果最初键入属性名称 <em class="ph i" id="GUID-0F481C57-E9E4-40DD-8979-33CEC34D4304__GUID-41889161-690D-4B33-820F-002780D46ED6">Ball.ty</em>，则重新加载表达式会将其重命名为 <em class="ph i" id="GUID-0F481C57-E9E4-40DD-8979-33CEC34D4304__GUID-9DF1F68B-0F2F-4633-9EB4-FB199002D1D5">Ball.translateY</em>。</p>
+<p class="p" id="GUID-0F481C57-E9E4-40DD-8979-33CEC34D4304__WS73099CC142F48755-3D114B7511841AEFA9F-961">如果重命名某个对象并在表达式的 MEL 命令中使用该名称（请参见下面一节），则必须在表达式中手动更改该名称。<span class="ph uicontrol" id="GUID-0F481C57-E9E4-40DD-8979-33CEC34D4304__GUID-E1754F56-0B2C-4C6C-876C-08837F12B301">“表达式编辑器”(Expression Editor)</span>不会转化 MEL 语句中存在的对象名称。例如，假设您在表达式中成功使用下列语句：</p>
+<pre class="pre codeblock">
+Cube.translateX = 'getAttr Ball.translateX';
+setAttr Ball.translateX 0;
+</pre>
+<p class="p" id="GUID-0F481C57-E9E4-40DD-8979-33CEC34D4304__WS73099CC142F48755-3D114B7511841AEFA9F-960">如果稍后将 Ball 重命名为 Sphere，<span class="ph uicontrol" id="GUID-0F481C57-E9E4-40DD-8979-33CEC34D4304__GUID-1B8D97C2-A611-4C22-A8A6-318763B90FE0">“表达式编辑器”(Expression Editor)</span>不会将名称 Ball 更改为 Sphere，并且表达式将失败。必须在表达式中手动更改该名称。</p>
+<p class="p" id="GUID-0F481C57-E9E4-40DD-8979-33CEC34D4304__WS73099CC142F48755-3D114B7511841AEFA9F-95F">在下列语句中，<span class="ph uicontrol" id="GUID-0F481C57-E9E4-40DD-8979-33CEC34D4304__GUID-1C9CFAF7-7B66-4973-9E07-78135E158E1A">“表达式编辑器”(Expression Editor)</span>将名称 Ball 更改为 Sphere，表达式将执行，并且不出现错误。之所以会发生这种情况，是因为这些语句使用标准表达式语法，而不是 MEL 命令语法。</p>
+<pre class="pre codeblock">
+Cube.translateX = Ball.translateX;
+Ball.translateX = 0;
+</pre>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B0A92424-8666-4669-97D7-B16F718FA3FD.htm">高级动画表达式主题</a></div>
+</div>
+</div>
+
+</body>
+</html>

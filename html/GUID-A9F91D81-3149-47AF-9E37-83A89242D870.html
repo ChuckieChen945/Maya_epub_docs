@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Animation">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="时间">
+<meta name="modified" content="01/09/2022">
+<meta name="topicid" content="GUID-A9F91D81-3149-47AF-9E37-83A89242D870">
+<meta name="language" content="CHS">
+<title>Maya 如何计算时间</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-A9F91D81-3149-47AF-9E37-83A89242D870">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>Maya 如何计算时间</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 在设置动画时，<span class="ph msgph prodname" id="GUID-A9F91D81-3149-47AF-9E37-83A89242D870__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 需要跟踪关键帧的计时。Maya 在内部将每个帧的时间值转换为 64 位整数表示（称为<em class="ph i">“标记”(tick)</em>）。
+	 </p>
+<div class="section" id="GUID-A9F91D81-3149-47AF-9E37-83A89242D870__SECTION_7933E7CC5FBE40489CFF84C4B6D77F2A"><h2 class="title sectiontitle">标记</h2> 
+		 
+		<p class="p"> 标记是 <span class="ph msgph prodname" id="GUID-A9F91D81-3149-47AF-9E37-83A89242D870__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 中最小的时间增量，每个标记表示 1/141,120,000 秒。这意味着 <span class="ph msgph prodname" id="GUID-A9F91D81-3149-47AF-9E37-83A89242D870__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 以 24 帧/秒 (fps) 的速率计量 141,120,000 标记/秒 (tps)，即 5,880,000 标记/帧 (tpf)。
+		</p>
+ 
+		<div class="p"> 尽管 <span class="ph msgph prodname" id="GUID-A9F91D81-3149-47AF-9E37-83A89242D870__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 始终使用相同的每秒标记数，但每帧标记数会根据您选择的播放速度发生变化。要计算每帧的标记数，<span class="ph msgph prodname" id="GUID-A9F91D81-3149-47AF-9E37-83A89242D870__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 将应用您选定的播放速度，即将 tps (141,120,000) 除以使用的播放速度。
+		  <div class="fig fignone" id="GUID-A9F91D81-3149-47AF-9E37-83A89242D870__FIG_6773BA26034A494DA7DCDFF1F0D03554"><img class="image" id="GUID-A9F91D81-3149-47AF-9E37-83A89242D870__IMAGE_0DCCA66B03A04D72A158D226832BCD7E" src="../images/GUID-9DA5C87F-7734-4888-BCFA-CE8FDD54B61C.png"></div>
+ 
+		</div>
+ 
+		<p class="p"> 例如，对于 15 fps，tpf 数为 9,408,000 (141,120,000/15)。
+		</p>
+ 
+		<div class="p"> 对非整数（或约整数）帧速率（例如 29.97 fps）使用此公式时，得到的结果并不总是为整数（例如整数 5）。这是因为 <span class="ph msgph prodname" id="GUID-A9F91D81-3149-47AF-9E37-83A89242D870__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 不能表示每个有小数的帧速率（如 25.55）。任何时候，<span class="ph msgph prodname" id="GUID-A9F91D81-3149-47AF-9E37-83A89242D870__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 都需要对标记值进行近似计算，时间显示时带星号 *。
+		  <div class="fig fignone" id="GUID-A9F91D81-3149-47AF-9E37-83A89242D870__FIG_08E19F56594347D4960CD2A287F3A5CF"><img class="image" id="GUID-A9F91D81-3149-47AF-9E37-83A89242D870__IMAGE_CEF08918181040CF9380268AB5B9CB2F" src="../images/GUID-D541BB3B-1D4A-437C-A953-FF8F993A7A13.png"></div>
+ 
+		</div>
+ 
+		<p class="p">但是，<span class="ph msgph prodname" id="GUID-A9F91D81-3149-47AF-9E37-83A89242D870__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 标记非常小（1/141,120,000 秒），因此，即使使用有小数的帧速率（例如 24.976 或 29.97 fps），也依然极其精确。
+		</p>
+ 
+		<div class="note note" id="GUID-A9F91D81-3149-47AF-9E37-83A89242D870__GUID-117CB260-5D27-45A9-B195-7727582CCFCC"><span class="notetitle">注：</span> 为了避免出现数字上溢或下溢问题，将标记强制限制在 64 位（带符号）整数范围内。
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-A9F91D81-3149-47AF-9E37-83A89242D870__SECTION_BBC88D29646C47319D740E59200DDB62"><h2 class="title sectiontitle">时间精度和二进制文件格式</h2> 
+		 
+		<p class="p"> 为了向后兼容，我们建议您先将您的场景保存为 <span class="ph msgph prodname" id="GUID-A9F91D81-3149-47AF-9E37-83A89242D870__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> ASCII (.<em class="ph i">ma</em>) 文件。<span class="ph">从 Maya 2018 起，二进制文件以 64 位格式保存，这导致 Maya <em class="ph i">二进制</em>文件(*.<em class="ph i">mb</em>)与先前版本的 Maya 不兼容。 </span>
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-91055F04-C5E0-45DA-BE0C-218D92AF6A16.htm" title="介绍 Maya 中的各种动画技术。">动画基础知识</a></div>
+</div>
+</div>
+
+</body>
+</html>

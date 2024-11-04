@@ -1,0 +1,129 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_rendering_am_Rendering_Opacity_Maps_with_Paint_Effects_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_RENDERING_OPACITY_MAPS_WITH_PAINT_EFFECTS">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用 Paint Effects 渲染不透明贴图 - Arnold for Maya">
+
+<title>使用 Paint Effects 渲染不透明贴图</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>使用 Paint Effects 渲染不透明贴图</h1></div><p><img src="../images/am-Rendering_Opacity_Maps_with_Paint_Effects-paintfx-trees-1.jpg" alt=""></p>
+<p>本教程旨在演示一些在使用 Arnold 渲染树叶时可用来缩短渲染时间的工作流。在本示例中，我们将使用一个已转化为多边形的 Maya Paint Effects 场景。但是，这些方法也可应用于涉及不透明贴图的其他类型的几何体。</p>
+<table>
+<thead>
+<tr>
+<th>要下载对应的场景，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_tutorials_am_Learning_Scenes_html">此处</a>。</th>
+</tr>
+</thead>
+</table>
+<p><em>不透明度*的典型工作流是将 Alpha 遮罩连接到 *<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Surface_html">standard_surface</a></em> 着色器的不透明度属性。</p>
+<p><img src="../images/am-Rendering_Opacity_Maps_with_Paint_Effects-image2017-8-4-9-41-35-2.png" alt=""></p>
+<p><sub><strong>Alpha 贴图连接到 <em>standard_surface.opacity</em> 的叶</strong></sub></p>
+<h2 id="">光线切换</h2><p>要加快叶的渲染速度，一种方法是使用 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Ray_Switch_html">ray_switch</a></em> 节点。<em>ray_switch</em> 为我们提供了更大的灵活性，让我们可以只包含和排除想要渲染的光线。在这种情况下，我们不需要包含每片叶的每个着色方面。一种工作流方法是：</p>
+<ul>
+<li>为叶指定一个 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Ray_Switch_html">ray_switch</a></em> 着色器。</li>
+<li>将具有漫反射和不透明贴图的 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Surface_html">standard_surface</a></em> 着色器连接到 <em>ray_switch</em> 着色器的<em>摄影机</em>光线。</li>
+<li>将另一个 <em>standard_surface</em> 着色器连接到 <em>ray_switch</em> 着色器的 <em>diffuse_reflection</em> 和<em>阴影</em>光线。</li>
+</ul>
+<p>这样，将只计算<em>摄影机<em>光线和</em>漫反射*光线（使用简单的漫反射 *standard_surface</em> 着色器），从而缩短渲染时间：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_Opacity_Maps_with_Paint_Effects-rayswitch-1min-03-3.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_Opacity_Maps_with_Paint_Effects-no-rayswitch-1-min-48-4.jpg" alt=""></td>
+</tr>
+<tr>
+<td>ray_switch：1 分 3 秒</td>
+<td>无 ray_switch：1 分 48 秒</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_Opacity_Maps_with_Paint_Effects-rayswitch-6-min-40-5.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_Opacity_Maps_with_Paint_Effects-no-rayswitch-15-min-47-6.jpg" alt=""></td>
+</tr>
+<tr>
+<td>无 ray_switch：15 分 47 秒</td>
+<td>ray_switch：6 分 40 秒</td>
+</tr>
+</tbody></table>
+<h2 id="">叶宽度比例</h2><p>在 Paint Effects 中，有一种解决方法可以一并避免不透明度的问题。由于解决问题的思路是不使用任何基于纹理的透明度，因此<em>宽度比例</em>将决定叶的形状。我们可以将纹理想象成<em>“宽度比例”</em>形状的一个颠倒的封套或晶格变形（一半树叶形状/一半纹理）。</p>
+<p>下面是所涉及的工作流的一个示例：</p>
+<ul>
+<li>选择 Paint Effects 笔刷属性（在本例中为 strokeBirchBlowing）。转到<em>“叶宽度比例“(Leaf Width Scale)</em>。此选项位于<em>“管 &gt; 生长 &gt; 叶”(Tubes &gt; Growth &gt; Leaves)</em>下面。</li>
+</ul>
+<p><img src="../images/am-Rendering_Opacity_Maps_with_Paint_Effects-image2016-5-10-10-59-4-7.png" alt=""></p>
+<ul>
+<li>绘制一个细节适当的叶轮廓（只要没有任何底割即可）。</li>
+</ul>
+<p><img src="../images/am-Rendering_Opacity_Maps_with_Paint_Effects-image2013-5-28-9-6-45-8.png" alt=""></p>
+<ul>
+<li>在图像编辑程序中，使用一个无 Alpha 的纹理来匹配叶的形状。叶纹理需要缩放至纹理贴图的边缘，以确保没有间隙。</li>
+</ul>
+<p><img src="../images/am-Rendering_Opacity_Maps_with_Paint_Effects-leaf-photoshop-9.jpg" alt=""></p>
+<ul>
+<li><p>将修改的叶纹理连接到一个 <em>standard_surface</em> 着色器，然后将它指定给叶几何体。</p>
+</li>
+<li><p>将 Paint Effects 笔刷转化为多边形，并为其指定 <em>standard_surface</em> 着色器。</p>
+<p><img src="../images/am-Rendering_Opacity_Maps_with_Paint_Effects-image2013-5-28-8-53-11-10.png" alt=""><img src="../images/am-Rendering_Opacity_Maps_with_Paint_Effects-image2013-5-28-8-55-5-11.png" alt=""></p>
+</li>
+</ul>
+<p><sub><strong>修改的叶纹理被指定给修改了<em>“叶宽度比例”(Leaf Width Scale)</em>的叶几何体</strong></sub></p>
+<p><sup><sub><strong>非常感谢 <strong>Jonathan Richter </strong>为本教程提供的帮助。</strong></sub></sup></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Rendering_Tutorials_html.html">渲染教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_color_am_Assigning_Color_to_Sphere_Primitives_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_ASSIGNING_COLOR_TO_SPHERE_PRIMITIVES">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 为球体基本体指定颜色 - Arnold for Maya">
+
+<title>为球体基本体指定颜色</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>为球体基本体指定颜色</h1></div><p><img src="../images/am-Assigning_Color_to_Sphere_Primitives-image2014-2-14-8-41-22-1.png" alt=""></p>
+<p>本教程介绍如何结合使用<a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-XGen_Tutorials/am-Assigning_Color/arnold_for_maya_color_am_Assigning_Color_to_Sphere_Primitives_html.html">用户数据</a>节点和纹理贴图，向 XGen 基本体应用颜色。这种效果与名为<a href="http://en.wikipedia.org/wiki/Pointillism" target="_blank">点描法</a>的技法类似，即在图案中运用彩色小点来形成图像。</p>
+<p>开始阅读本教程前，建议您另外阅读<a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-XGen_Tutorials/am-Assigning_Color/arnold_for_maya_color_am_Assigning_Color_to_Sphere_Primitives_html.html">使用纹理贴图控制基本体</a>教程，其中介绍了如何定义 XGen 基本体的比例。</p>
+<ul>
+<li>首先，创建一个多边形平面。将其<strong><em>“细分宽度”(Subdivisions Width)</em></strong>和<strong><em>“高度细分数”(Subdivisions Height)</em></strong>增大到 <strong>10</strong>。我们将使用此平面指定 XGen 描述。</li>
+</ul>
+<p><img src="../images/am-Assigning_Color_to_Sphere_Primitives-image2016-5-11-11-49-45-2.png" alt=""></p>
+<ul>
+<li>选择该多边形平面，然后转到<strong><em>“生成 &gt; 创建描述”(Generate &gt; Create Description)</em></strong>。此操作将打开下面的<strong>“创建 XGen 描述”(Create XGen Description)</strong>。</li>
+<li>选择<strong><em>“球体”(Spheres)</em></strong>基本体。保留其他默认设置不变，然后单击<strong><em>“创建”(Create)</em></strong>。</li>
+</ul>
+<p><img src="../images/am-Assigning_Color_to_Sphere_Primitives-image2016-5-11-11-50-59-3.png" alt=""></p>
+<ul>
+<li>建议先降低<strong>“预览/输出”(Preview/Output)</strong>选项卡中的<strong><em>“百分比”(Percent)</em></strong>值，然后再继续操作。如果<strong><em>“百分比”(Percent)</em></strong>的值过高，您可能会发现计算机会因生成大量的基本体而停止运行。</li>
+</ul>
+<p><img src="../images/am-Assigning_Color_to_Sphere_Primitives-image2016-5-11-11-51-58-4.png" alt=""></p>
+<ul>
+<li>将<strong>“密度”(Density)</strong>增大到 100 左右，并将球体基本体的<strong><em>“长度”(Length)、“宽度”(Width)和“深度”(Depth)</em></strong>减小到 0.1 左右。</li>
+</ul>
+<p><img src="../images/am-Assigning_Color_to_Sphere_Primitives-image2016-5-11-11-53-24-5.png" alt=""></p>
+<p><sub><strong>球体基本体的“密度”(Density)设置为 100。“长度”(Length)、“宽度”(Width)和“深度”(Depth)为 0.1</strong></sub></p>
+<ul>
+<li>将一个 <em>standard_surface</em> 着色器指定给新的 XGen 集合。</li>
+<li>创建一个 <strong><em>Ai 用户数据颜色</em></strong>节点，并将其连接至 <em>standard_surface</em> 着色器的<strong>“颜色”(Color)</strong>属性。</li>
+</ul>
+<p><img src="../images/am-Assigning_Color_to_Sphere_Primitives-image2016-5-11-11-54-21-6.png" alt=""></p>
+<p><sub><strong><em>userdata_color</em> -&gt; <em>standard_surface.color</em> 着色器</strong></sub></p>
+<ul>
+<li>在 Ai 用户数据颜色节点的<strong>“颜色属性名称”(Color Attr Name)</strong>中键入 <strong><em>color</em></strong>。我们将在 XGen 描述中使用相同的<strong>“Color”</strong>名称。</li>
+</ul>
+<p><img src="../images/am-Assigning_Color_to_Sphere_Primitives-image2016-5-11-11-54-54-7.png" alt=""></p>
+<p><sub><strong>将名称“color”添加到 Ai 用户数据颜色节点中的“颜色属性名称”(Color Attr Name)</strong></sub></p>
+<ul>
+<li>MtoA 不会对 Ai 用户数据颜色节点进行 Gamma 校正。因此，您需要在 <strong>Ai 用户数据颜色</strong> 节点与标准曲面着色器的<strong>“颜色”(Color)</strong> <strong>属性</strong> 之间添加一个 <strong>*Maya</strong> <strong>Gamma 校正*</strong> 节点，如下所示。将“Gamma RGB”的值更改为 0.454。</li>
+</ul>
+<p><img src="../images/am-Assigning_Color_to_Sphere_Primitives-image2016-5-11-11-55-11-8.png" alt=""></p>
+<ul>
+<li>渲染场景。球体是黑色的，因为 <strong>Ai 用户数据颜色</strong>的<strong><em>“默认值”(Default Value)</em></strong>为黑色。我们需要使用 XGen 中的<strong>“自定义着色器参数”(Custom Shader Parameters)</strong>将其连接到 XGen 描述。</li>
+</ul>
+<p><img src="../images/am-Assigning_Color_to_Sphere_Primitives-image2014-2-14-11-16-56-9.png" alt=""></p>
+<p><sub><strong>球体基本体使用 Ai 用户数据颜色节点的默认颜色（黑色）</strong></sub></p>
+<h2 id="custom-shader-parameters">自定义着色器参数(Custom Shader Parameters)</h2><ul>
+<li>单击 XGen 中的<strong>“预览/输出”(Priview/Output)</strong>选项卡，并打开<strong><em>“输出设置”(Output Settings)</em></strong>。您应该会在下方看到<strong>“自定义着色器参数”(Custom Shader Parameters)</strong>。我们将在这里添加表达式。</li>
+</ul>
+<p><img src="../images/am-Assigning_Color_to_Sphere_Primitives-image2016-5-11-11-55-36-10.png" alt=""></p>
+<p><sub><strong>自定义着色器参数(Custom Shader Parameters)</strong></sub></p>
+<ul>
+<li>在<strong>“名称”(Name)</strong>文本字段中，键入用于 <strong>Ai 用户数据颜色</strong>节点的<strong><em>“颜色属性名称”(Color Attr Name)</em></strong>的相同名称。在本例中，我们使用单词<strong>“Color”</strong>。单击<strong>“浮点”(float)</strong>并将其更改为<strong><em>“颜色”(Color)</em></strong>，因为这是我们想要更改的属性。</li>
+</ul>
+<p><img src="../images/am-Assigning_Color_to_Sphere_Primitives-image2016-5-11-11-55-52-11.png" alt=""></p>
+<p><sub><strong>“自定义着色器参数”(Custom Shader Parameters)设置为“颜色”(Color)</strong></sub></p>
+<ul>
+<li>单击颜色文本字段右侧的向下箭头 <img src="../images/am-Assigning_Color_to_Sphere_Primitives-image2015-9-24-16-26-40-12.png" alt="">。选择<strong><em>“创建贴图...”(Create Map...)</em></strong>（请务必注意，仅当平面指定有 Maya 着色器时，该选项才有效）。将“贴图分辨率”(Map Resolution)增加到 200 左右。</li>
+</ul>
+<p><img src="../images/am-Assigning_Color_to_Sphere_Primitives-image2016-5-11-11-56-23-13.png" alt=""></p>
+<ul>
+<li>这时应该会在“Hypershade”和“节点编辑器”(Node Editor)窗口中看到文件纹理已连接到平面。选择该文件纹理，然后打开要用于驱动球体基本体的颜色的纹理贴图。</li>
+</ul>
+<p><img src="../images/am-Assigning_Color_to_Sphere_Primitives-image2014-2-14-12-27-28-14.png" alt=""></p>
+<p>更新用于定义基本体属性的文件纹理后，记得选择磁盘图标 <img src="../images/am-Assigning_Color_to_Sphere_Primitives-image2015-9-24-16-26-55-15.png" alt="">。否则，XGen 不会将 Ptex 贴图更新到磁盘，渲染将不会发生变化。</p>
+<ul>
+<li><p>渲染场景。现在，您的球体基本体应该与文件纹理贴图的颜色相同。您只需要调整球体基本体的比例和密度即可！</p>
+<p><img src="../images/am-Assigning_Color_to_Sphere_Primitives-image2014-2-14-8-41-22-16.png" alt=""></p>
+</li>
+</ul>
+<p><sup><sub><strong>感谢 <strong><a class="external-link" href="http://www.pedrofe.com/" rel="nofollow" target="_blank">Pedro Fernando Gómez</a></strong> 在 XGen 方面提供的帮助。</strong></sub></sup></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-XGen_Tutorials/arnold_for_maya_xgen_am_Assigning_Color_html.html">指定颜色</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F">
+<meta name="language" content="CHS">
+<title>MEL 与 Python 之间的重要差异</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>MEL 与 Python 之间的重要差异</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-2556"><div class="section" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-644D"><h2 class="title sectiontitle">更改</h2> 
+		 
+		<ul class="ul" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-644C"><li class="li" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-644B"> 在 Python 中可以访问使用 MEL <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/runTimeCommand.html" target="_blank">runTimeCommand</a> 命令创建的 MEL 命令。例如： 
+			 <p class="p" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6449">在 MEL 选项卡中： 
+			 </p>
+ 
+		  </li>
+</ul>
+ 
+		<pre class="pre codeblock">
+runTimeCommand -command "sphere -name myName" mySphere;
+</pre>
+ 
+		<p class="p" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6448">在 Python 选项卡中 
+		</p>
+ 
+		<pre class="pre codeblock">
+import maya.cmds as cmds 
+cmds.mySphere() 
+</pre>
+ 
+		<p class="p" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6447">同样，可以使用以下语法创建 Python 运行时命令，并从 Python 中调用这些命令： 
+		</p>
+ 
+		<pre class="pre codeblock">
+import maya.cmds as cmds 
+def mySphere(): 	 
+     cmds.sphere(name='myName') 
+     cmds.runTimeCommand('MyBall', command='mySphere()') 
+     cmds.MyBall() 
+</pre>
+ 
+	 </div>
+<div class="section" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6446"><h2 class="title sectiontitle">其他差异</h2> 
+		 
+		<ul class="ul" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6445"><li class="li" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6444">在 Python 中不支持 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/eval.html" target="_blank">eval</a> 和 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/evalDeferred.html" target="_blank">evalDeferred</a> Maya 命令。但是，请注意下列事项： 
+			 <ul class="ul" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6443"><li class="li" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6442">Python 有一个用于对 Python 表达式求值的内置 <samp class="ph codeph" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__GUID-C2E79D1C-1071-432B-813D-1F98B76315C9">eval</samp> 函数。 
+				</li>
+<li class="li" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6441">Python 具有用于对 MEL 表达式求值的 <samp class="ph codeph" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__GUID-2AC39672-D163-4ED0-A491-3AD51CBF606C">maya.mel.eval</samp>。 
+				</li>
+<li class="li" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6440"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/Maya-Tech-Docs/Commands/evalDeferred.html" target="_blank">evalDeferred</a> 已由 <samp class="ph codeph" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__GUID-4F2310EF-E01F-47D1-99D4-0330C0ADA425">maya.utils.executeDeferred()</samp> 取代。 
+				</li>
+</ul>
+ 
+			 <p class="p" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-643F">有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-55B63946-CDC9-42E5-9B6E-45EE45CFC7FC.htm#GUID-55B63946-CDC9-42E5-9B6E-45EE45CFC7FC__WS17956D7ADBC6E7362626226A117AE335D4A-7FFB">使用 Python</a>。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-643E">MEL 具有它自己的警告和错误消息报告机制，该机制已与 Maya 消息报告集成。这包括命令行上的颜色反馈。Python 附带系统模块，这些模块提供警告和错误报告功能；但是，这些模块未集成到 Maya 中，并且在命令行中不提供颜色反馈。 
+		  </li>
+<li class="li" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-643D">必须将 Python 中的单位指定为带引号的字符串；例如： 
+			 <pre class="pre codeblock">
+maya.cmds.scale(3, 3, 3, r=True, p=('0cm', '0.5cm', '0cm'))
+</pre>
+ 
+		  </li>
+<li class="li" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-643C">Python 脚本中的命令标志参数采用一个包含 Python 脚本的字符串（就像 MEL 等效项一样）或一个 Python 可调用对象（如函数）。 
+			 <p class="p" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-643B">例如： 
+			 </p>
+ 
+			 <pre class="pre codeblock">
+import maya.cmds as cmds 
+def defaultButtonPush(*args): 	
+    print 'Default was pushed.' 
+    cmds.window( width=150 ) 
+    cmds.columnLayout( adjustableColumn=True ) 
+    cmds.button( label='Default', command=defaultButtonPush ) 
+    cmds.button( label='Left', align='left' ) 
+    cmds.button( label='Center', align='center' ) 
+    cmds.button( label='Right', align='right' ) 
+    cmds.showWindow()
+</pre>
+ 
+		  </li>
+<li class="li" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-643A">MEL 使用不同于 Python 的语法来指定值的范围。在 MEL 中，使用 "*" 来指定值的范围，而不使用 *，例如： 
+			 <pre class="pre codeblock">
+select -r surface1.cv["*"][0]; 
+</pre>
+ 
+			 <p class="p" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6439">在 Python 中，使用不带引号的 * 指定值的范围。对于上面的示例，在 Python 中则为： 
+			 </p>
+ 
+			 <pre class="pre codeblock">
+cmds.select( 'surface1.cv[*][0]' , r=True) 
+</pre>
+ 
+		  </li>
+</ul>
+ 
+	 </div>
+<div class="section" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6438"><h2 class="title sectiontitle">返回和回显结果</h2> 
+		 
+		<p class="p" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6437">存在两种方式，MEL 和 Python 在返回和回显结果方面会有差异。一个是与正确的脚本执行相关的，而另一个是表面问题。本节将讨论回显结果和返回结果，有时会混淆它们。 
+		</p>
+ 
+		<p class="p" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6436">本节主要对熟悉 MEL 但不熟悉 Python 的人员有帮助。 
+		</p>
+ 
+		<div class="section" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6435"><h3 class="title sectiontitle">返回结果</h3> 
+		   
+		  <p class="p" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6434">MEL 在执行脚本时会返回最后执行的语句的结果（如果有）。将值指定给变量和返回结果的过程调用的语句属于返回结果的语句类型。例如，以下代码块将有一个结果，MEL 会将该结果回显到脚本编辑器和命令行消息区域： 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+if ( $foo == 1 ) $bar = 42; else $bar = 7;
+</pre>
+ 
+		  <p class="p" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6433">相比之下，在 Python 中指定值的语句不返回结果，尽管 Python 执行该指定。 
+		  </p>
+ 
+		  <p class="p" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6432">使用 Python 的语法，只需引用一个变量即可返回其值。MEL 的语法不允许只是编写变量的名称作为一条完整的语句。 
+		  </p>
+ 
+		  <p class="p" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6431">在 Python 中可以将上述 MEL 代码片段编写为以下内容。最后一行 (<samp class="ph codeph" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__GUID-EDE16BA8-3E9F-49CC-85A8-FF3FFAA91EC3">bar</samp>) 会返回结果。 
+		  </p>
+ 
+		  <p class="p" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6430"> 
+			 <samp class="ph codeph" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__GUID-F33E1B5A-A1CA-488A-BCCC-20CCDC7AF961">if foo == 1: bar = 42 else bar = 7 bar</samp> 
+		  </p>
+ 
+		  <p class="p" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-642F">如果需要在一种语言的上下文中使用在另一种语言中计算的值，那么了解该差异是很重要的。例如，如果希望在 MEL 中使用 Python 值，只需执行以下命令： 
+		  </p>
+ 
+		  <p class="p" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-642E"> 
+			 <samp class="ph codeph" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__GUID-6A3D994D-241A-4BD2-82D7-14CB5331AF63">$myMELvariable = python ("myPythonVariable");</samp> 
+		  </p>
+ 
+		  <p class="p" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-642D">反之，如果希望在 Python 中使用 MEL 变量，则需要执行类似以下的命令： 
+		  </p>
+ 
+		  <p class="p" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-642C"> 
+			 <samp class="ph codeph" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__GUID-BBC3E932-7D18-4D91-BF0C-17B1702DBDE5">import maya.mel myPythonVariable = maya.mel.eval ('global $myMELvariable; $temp=$myMELvariable;' )</samp> 
+		  </p>
+ 
+		  <p class="p" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-642B">可以这样做是因为赋值语句会返回一个结果，该语句是脚本中传递到 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/CommandsPython/eval.html" target="_blank">eval</a> 命令的最后一条语句。 
+		  </p>
+ 
+		  <p class="p" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-642A">在 Python 中只能访问全局范围的 MEL 变量。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6429"><h3 class="title sectiontitle">回显结果</h3> 
+		   
+		  <p class="p" id="GUID-B501C403-42CB-437E-A8BE-8E77B5D4277F__WS1A9193826455F5FF-29C43AA6117B273E5D1-6428">MEL 会回显由脚本的最后一条语句返回的结果（如果有），而不管脚本中有多少行。Python 仅回显单条语句的结果。 
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-703B18A2-89E5-48A8-988A-1ED815D5566F.htm">Python</a></div>
+</div>
+</div>
+
+</body>
+</html>

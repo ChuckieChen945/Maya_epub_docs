@@ -1,0 +1,202 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-MotionGraphics">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="contextid" content="MASH_DYNAMICS">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7">
+<meta name="language" content="CHS">
+<title>动力学</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>动力学</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="fig fignone" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__FIG_856914648C2343E5A47202EF0141F4D0"><img class="image" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__IMAGE_19DAF10BDBB441818976FD00BBB1D8E2" src="../images/GUID-B13FB674-806B-49C6-861A-4C3981BF5FDF.gif"></div>
+<div class="p" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__WS73099CC142F48755-7B21313411809411AE9-7505">（通过使用 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-CC0BDE04-468D-4383-9553-14157E23D171">Bullet</a>）将动力学作用力应用于 MASH 网络，包括（但不限于）重力、摩擦力和碰撞。在播放期间，您可以通过调整模拟属性与模拟实时交互。 
+		<div class="note note" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__GUID-3ADE0EE1-57E8-4FD9-BD1C-143583BEAF0C"><span class="notetitle">注：</span> 若要与 MASH 网络之外的对象碰撞，必须将这些对象添加到 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-MotionGraphics/files/GUID-325F6D2C-C0AD-4A6D-9F37-970CE7F32FE4.htm">BulletSolver</a> 节点的<span class="ph uicontrol">“外部碰撞对象”(External Colliders)</span>列表中。 
+		</div>
+ 
+		<div class="note note" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__GUID-C87749D6-DB15-438D-8990-2CE010A0E85D"><span class="notetitle">注：</span> 请避免将已设置动画的对象（例如，变形）添加到动态 MASH 网络。MASH 仅将其开始位置/形状视为碰撞形状，这意味着第 1 帧之后的碰撞将显示不正确。 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__SECTION_CA0179E605B0496DBED958A00D8D1B28"><h2 class="title sectiontitle">MASH 对象</h2> 
+		<div class="section" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__GUID-64802DB0-E961-4003-8D8F-F2447836F6F5"><dl class="dl" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__GUID-64802DB0-E961-4003-8D8F-F2447836F6F5"><dt class="dt dlterm"> 
+		<span class="ph uicontrol">碰撞形状(Collision Shape)</span> </dt>
+<dd class="dd">确定每个对象周围的碰撞框的形状。选项包括： 
+		<ul class="ul" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__UL_1F701E7989E04947A298356F46940BE9"><li class="li" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__LI_886E7EAD11244F90A73FBBEBFAC42F9D"><span class="ph uicontrol">自动(Automatic)</span>：根据每个点自动从<span class="ph uicontrol">“长方体”(Box)</span>、<span class="ph uicontrol">“凸面壳线”(Convex hull)</span>或<span class="ph uicontrol">“凹面网格”(Concave mesh)</span>中选择最合适的碰撞形状。 
+		  </li>
+<li class="li" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__LI_A7484AEE132045AAB3612FB4F6B5B3E6"><span class="ph uicontrol">长方体(Box)</span>：简单的立方体。提供最佳性能。 
+		  </li>
+<li class="li" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__LI_847C25DA04E846F2812ED58B80FA7F15"><span class="ph uicontrol">球体(Sphere)</span>：包含球中的对象。性能低于“长方体”(box)。 
+		  </li>
+<li class="li" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__LI_B9B42F27AD0649F6878C14A08D66DF3C"><span class="ph uicontrol">胶囊(Capsule)</span>：包含圆头圆柱体中的对象。 
+		  </li>
+<li class="li" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__LI_91D55A05361B47E0A9887E393D578ADF"><span class="ph uicontrol">凸面壳线(Convex hull)</span>：通过围绕对象构建边的壳线包含相应对象。可以大致近似圆化形状。 
+		  </li>
+<li class="li" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__LI_EB4E7805BC77491D828C0A65E6EBF8FA"><span class="ph uicontrol">圆柱体(Cylinder)</span>：包含平头圆柱体中的对象。 
+		  </li>
+<li class="li" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__LI_9A1C1D04E0154E1B8DC0281CB4FC15F0"><span class="ph uicontrol">网格(Mesh)</span>：包含实际几何体的网格副本中的对象。这是最准确的碰撞形状，但执行较慢。 
+		  </li>
+</ul>
+</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">自动适配(Auto fit)</span> </dt>
+<dd class="dd">自动根据每个对象缩放碰撞形状。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">碰撞形状比例(Collision Shape Scale)</span> </dt>
+<dd class="dd">可用于增大或减小<span class="ph uicontrol">“碰撞形状”(Collision Shape)</span>的大小。放大可能会导致对象在其几何体相交之前发生碰撞，而缩小可能会导致对象在碰撞注册之前发生穿透。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">碰撞形状长度(Collision Shape Length)</span> </dt>
+<dd class="dd">可用于在<span class="ph uicontrol">“碰撞形状”(Collision Shape)</span>设置为<span class="ph uicontrol">“胶囊”(capsule)</span>或<span class="ph uicontrol">“圆柱体”(cylinder)</span>时增加或减少圆柱体长度。</dd>
+</dl>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__SECTION_44A30C00C95E4515AB5B4D85A0C80738"><h2 class="title sectiontitle">物理特性</h2> 
+		<div class="section" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__GUID-2AE4B3B9-4389-4B9A-875E-AC1AE1FC0279"><dl class="dl" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__GUID-2AE4B3B9-4389-4B9A-875E-AC1AE1FC0279"><dt class="dt dlterm"> 
+		<span class="ph uicontrol">摩擦力(Friction)</span> </dt>
+<dd class="dd">设置对象的曲面阻力。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">滚动摩擦(Rolling Friction)</span> </dt>
+<dd class="dd">设置滚动时对象的阻力。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">阻尼(Damping)</span> </dt>
+<dd class="dd"> 抑制对象的线性速度。增大该值可减慢运动。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">滚动阻尼(Rolling Damping)</span> </dt>
+<dd class="dd">抑制对象的滚动摩擦。增大该值可在更短的时间内使对象停止滚动。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">反弹(Bounce)</span> </dt>
+<dd class="dd"> 设置对象恢复到其原始状态时的速度。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">使用质量密度(Use Mass as Density)</span> </dt>
+<dd class="dd">计算每个 MASH 点的体积，然后将<span class="ph uicontrol">“质量”(Mass)</span>属性转化为<span class="ph uicontrol">“密度”(Density)</span>值（单位体积的质量，或质量/体积）。如果要使较大的对象具有更高的质量，则启用此选项。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">质量(Mass)</span> </dt>
+<dd class="dd"> 为模拟计算设置每个对象的质量。 </dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">碰撞抖动(Collision Jitter)</span> </dt>
+<dd class="dd">在对象碰撞时随机添加冲量，用于模拟对象的小瑕疵可能对碰撞体产生的效果。</dd>
+</dl>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__SECTION_572A87C41352487680A45729E77BFC7E"><h2 class="title sectiontitle">速度</h2> 
+		 
+	 </div>
+<div class="section" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__GUID-5064B0C6-DB09-4E3E-8FE2-EE278E9FE793"><dl class="dl" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__GUID-5064B0C6-DB09-4E3E-8FE2-EE278E9FE793"><dt class="dt dlterm"> 
+	 <span class="ph uicontrol">最大平移(Maximum Translational)</span> </dt>
+<dd class="dd">允许对象每秒移动的最大单位。</dd>
+<dt class="dt dlterm"> 
+	 <span class="ph uicontrol">最大旋转(Maximum Rotational)</span> </dt>
+<dd class="dd">允许对象每秒旋转的最大单位。</dd>
+<dt class="dt dlterm"> 
+	 <span class="ph uicontrol">初始平移(Initial Translational)</span> </dt>
+<dd class="dd">设置对象在模拟开始状态下的初始速度。</dd>
+<dt class="dt dlterm"> 
+	 <span class="ph uicontrol">初始旋转(Initial Rotational)</span> </dt>
+<dd class="dd">设置对象在模拟开始状态下的初始旋转速度（自旋）。</dd>
+</dl>
+</div>
+<div class="section" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__SECTION_763C1EA1C01B478B9448907912AD33CA"><h2 class="title sectiontitle">MASH 偏移</h2> 
+		<div class="section" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__GUID-52926E1A-1870-4655-BC2B-C5783F390D5A"><dl class="dl" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__GUID-52926E1A-1870-4655-BC2B-C5783F390D5A"><dt class="dt dlterm"> 
+		<span class="ph uicontrol">位置强度(Position Strength)</span> </dt>
+<dd class="dd">影响模拟，使对象位置更紧密地粘附到原始 MASH 网络。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">旋转强度(Rotational Strength)</span> </dt>
+<dd class="dd">影响模拟，使对象旋转更紧密地粘附到原始 MASH 网络。</dd>
+</dl>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__SECTION_C42ABFD592BF447D8F5AB350FDB78457"><h2 class="title sectiontitle">睡眠</h2> 
+		 
+		<p class="p">以下选项确定动力学 MASH 对象何时处于活动或非活动状态。对于在停止移动的对象上消除不必要的计算或防止这些对象原地抖动，这一点非常重要。 
+		</p>
+<div class="section" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__GUID-AF07C66F-248C-433E-87B8-1168321ABBFE"><dl class="dl" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__GUID-AF07C66F-248C-433E-87B8-1168321ABBFE"><dt class="dt dlterm"> 
+		<span class="ph uicontrol">开始时睡眠(Initially Sleeping)</span> </dt>
+<dd class="dd">以非活动状态启动对象，直到这些对象与另一对象碰撞为止。有关设置碰撞的详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-MotionGraphics/files/GUID-325F6D2C-C0AD-4A6D-9F37-970CE7F32FE4.htm">BulletSolver</a> 节点的<span class="ph uicontrol">“外部碰撞对象”(External Colliders)</span>。 </dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">位置速度阈值(Position Velocity Threshold)</span> </dt>
+<dd class="dd">确定对象移动变为非活动状态时的位置速度。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">旋转速度阈值(Rotational Velocity Threshold)</span> </dt>
+<dd class="dd">确定对象自旋变为非活动状态时的旋转速度。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">初始状态(Initial State)</span> </dt>
+<dd class="dd">单击“+”按钮，将当前帧设置为模拟的开始状态。这会将初始状态节点添加到 MASH 网络。可以通过按“刷新”(Refresh)按钮来刷新用作<span class="ph uicontrol">“初始状态”(Initial State)</span>的帧，也可以通过右侧按钮切换<span class="ph uicontrol">“初始状态”(Initial State)</span>。</dd>
+</dl>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__SECTION_BB748BED27364F0EB406D9E2034FDF9E"><h2 class="title sectiontitle">每点属性</h2> 
+		<div class="section" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__GUID-7050CB12-697B-4061-BC40-111079490B6C"><dl class="dl" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__GUID-7050CB12-697B-4061-BC40-111079490B6C"><dt class="dt dlterm"> 
+		<span class="ph uicontrol">每点调整(Per Point Adjustments)</span> </dt>
+<dd class="dd">可用于通过 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-MotionGraphics/files/GUID-C3ECD657-402F-41A7-B7DF-94E49395B9F5.htm">MASH 通道随机化器</a>节点逐点向特定的属性通道添加差异。在该字段的空白部分上单击鼠标右键可创建新的随机化器，或者在现有条目上单击鼠标右键并选择“断开连接”(Break Connection)可将其移除。</dd>
+</dl>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__SECTION_FA11CE24109B4045A700FA55DDE221C6"><h2 class="title sectiontitle">约束</h2> 
+		 
+		<p class="p">可用于通过 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-MotionGraphics/files/GUID-7BB21670-A2B0-491F-9727-B6482D6B02F3.htm">MASH 约束</a>节点以各种方式使点彼此约束。在该字段的空白部分上单击鼠标右键可创建新的随机化器，或者在现有条目上单击鼠标右键并选择<span class="ph uicontrol">“断开连接”(Break Connection)</span>可将其移除。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__SECTION_E37A0B03538047E0B3F9DC16E6D674F2"><h2 class="title sectiontitle">接触</h2> 
+		<div class="section" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__GUID-BE034608-C7C3-4702-8001-9F129B7BD163"><dl class="dl" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__GUID-BE034608-C7C3-4702-8001-9F129B7BD163"><dt class="dt dlterm"> 
+		<span class="ph uicontrol">从碰撞发射(Emit From Collisions)</span> </dt>
+<dd class="dd">创建对象发生碰撞（相互碰撞和与地面碰撞）的稳定点。点位置存储在 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-MotionGraphics/files/GUID-325F6D2C-C0AD-4A6D-9F37-970CE7F32FE4.htm">BulletSolver</a> 的<span class="ph uicontrol">“输出碰撞点”(Output Collision Points)</span>属性中，且可用作其他 MASH 网络的输入点。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">碰撞距离阈值(Collision Distance Threshold)</span> </dt>
+<dd class="dd">确定围绕对象注册碰撞的距离。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">忽略不可见对象(Ignore Invisible Objects)</span> </dt>
+<dd class="dd">将点设置为忽略与隐藏对象的碰撞效果。</dd>
+</dl>
+</div>
+ 
+		<div class="section" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__SECTION_7AD698D160C548819FBE17106ED25C71"><h3 class="title sectiontitle">交互遮罩</h3> 
+		   
+		  <p class="p">这可用于自定义特定点或点范围（通过其 ID）的碰撞行为。 
+		  </p>
+ <div class="section" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__GUID-C2D33FCF-88B3-4C2C-94B7-EA81AA16603F"><dl class="dl" id="GUID-1249B03C-0EA6-4F97-BA44-7B0646F7E1C7__GUID-C2D33FCF-88B3-4C2C-94B7-EA81AA16603F"><dt class="dt dlterm"> 
+		  <span class="ph uicontrol">接触遮罩层(Contact Mask Layers)</span> </dt>
+<dd class="dd">指定启用<span class="ph uicontrol">“从碰撞发射”(Emit From Collisions)</span>时不会生成点的层。</dd>
+<dt class="dt dlterm"> 
+		  <span class="ph uicontrol">碰撞组层(Collision Group Layers)</span> </dt>
+<dd class="dd">指定 MASH 网络所属的层。</dd>
+<dt class="dt dlterm"> 
+		  <span class="ph uicontrol">碰撞遮罩层(Collision Mask Layers)</span> </dt>
+<dd class="dd">指定可以与 MASH 网络碰撞的层。</dd>
+</dl>
+</div>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-MotionGraphics/files/GUID-D4FECFDC-F91A-4BDC-A1B0-A24EB087B2DD.htm">MASH 节点概述</a></div>
+</div>
+</div>
+
+</body>
+</html>

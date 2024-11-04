@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Customizing">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="profiler:tag;tagging&quot;profiler nodes'nodes&quot;tagging;metadata:tagging">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-8D5FFC12-608C-45EA-B035-1AB56F3C42F1">
+<meta name="language" content="CHS">
+<title>在分析器中使用标记标识节点</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-8D5FFC12-608C-45EA-B035-1AB56F3C42F1">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1> 在分析器中使用标记标识节点</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 
+		 为了更方便地找出性能瓶颈，可对节点进行标记，使其以可标识的颜色和名称（例如“手臂”、“面”等）显示在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-3423BE20-0F03-422D-A05A-A1757C7B0A70.htm">分析器</a>中。 可通过添加两个元数据集创建标记：一个用于节点名称，一个用于指定颜色。 有关使用元数据标识 Maya 网格对象的 Maya 节点以及组件（顶点、面、边和顶点面）的详细信息，另请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7">将元数据添加到 Maya 节点</a>和<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-8FE69AF2-B71A-4325-B391-C88E38D8DF02">可视化元数据</a>。 
+	 </p>
+<div class="p">在 Maya 的<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-7C861047-C7E0-4780-ACB5-752CD22AB02E">脚本编辑器(Script Editor)</a>中，只能使用以下 <strong class="ph b">MEL</strong> 脚本添加分析器标记： 
+	 <p class="li listintro">标记对象使其出现在分析器中</p>
+<ol class="ol" id="GUID-8D5FFC12-608C-45EA-B035-1AB56F3C42F1__OL_1EA1F696925C454A9AB60426B8AA27EF"><li class="li" id="GUID-8D5FFC12-608C-45EA-B035-1AB56F3C42F1__LI_481007DEE8BB44E1BE227641CC98D00B"> 加载场景文件。 
+		</li>
+<li class="li" id="GUID-8D5FFC12-608C-45EA-B035-1AB56F3C42F1__LI_2B9992FC6E3048698C67EE6F87C0450D">在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-7C861047-C7E0-4780-ACB5-752CD22AB02E">脚本编辑器(Script Editor)</a>中，执行以下 MEL 脚本： 
+		  <pre class="pre codeblock">global proc addProfilerTag(string $tagValue, int $r, int $g, int $b)
+{
+    // Add the profile tag data structures we need
+    dataStructure -format "raw" -asString "name=NodeProfileStruct:string=NodeProfileTag:int32=NodeProfileTagColor";
+    
+    // set the channels
+    addMetadata -streamName "ProfileTagStream" -channelName "ProfileTag" -structure "NodeProfileStruct";
+    addMetadata -streamName "ProfileTagColorStream" -channelName "ProfileTagColor" -structure "NodeProfileStruct";
+    
+    // set the actual data
+    editMetadata -streamName "ProfileTagStream" -memberName "NodeProfileTag" -channelName "ProfileTag" -stringValue $tagValue -index 0;
+    
+    editMetadata -streamName "ProfileTagColorStream" -memberName "NodeProfileTagColor" -channelName "ProfileTagColor" -value $r -index 0;
+    editMetadata -streamName "ProfileTagColorStream" -memberName "NodeProfileTagColor" -channelName "ProfileTagColor" -value $g -index 1;
+    editMetadata -streamName "ProfileTagColorStream" -memberName "NodeProfileTagColor" -channelName "ProfileTagColor" -value $b -index 2;    
+</pre>
+ 
+		</li>
+<li class="li" id="GUID-8D5FFC12-608C-45EA-B035-1AB56F3C42F1__LI_19B70F8D0EF94613957BC6C3F667FB2C">必须使用以下脚本选择要标记的场景元素： 
+		  <pre class="pre codeblock">select -r &lt;elementname&gt;;</pre>
+ 
+		  <p class="p">其中 <samp class="ph codeph">&lt;elementname&gt;</samp> 为场景中的元素名称。 例如，对于名称为 <em class="ph i">secondBlendShape</em> 的对象，使用： 
+		  </p>
+<samp class="ph codeph">select -r secondBlendShape;</samp> 
+		  <div class="note note" id="GUID-8D5FFC12-608C-45EA-B035-1AB56F3C42F1__GUID-9E82B69E-8C1D-431F-8345-11E3035AEF44"><span class="notetitle">注：</span> 必须使用此脚本选择该元素。 无法通过在视口中选中<span class="ph uicontrol">“分析器”(Profiler)</span>的元素对其进行标记。 
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-8D5FFC12-608C-45EA-B035-1AB56F3C42F1__LI_ADBC22C909FF45DBB97146D04AECA7E1"> 执行以下脚本以设置名称和颜色： 
+		  <pre class="pre codeblock">addProfilerTag("Blendshape2", 255, 0, 200);
+
+getMetadata -streamName "ProfileTagStream" -memberName "NodeProfileTag" -channelName "ProfileTag" -index "0";</pre>
+ 
+		</li>
+<li class="li" id="GUID-8D5FFC12-608C-45EA-B035-1AB56F3C42F1__LI_24567BDEA7614604A803DD3AFAB7D148">打开<span class="ph uicontrol">“分析器”(Profiler)</span>，单击<span class="ph uicontrol">“开始录制”(Start Recording)</span>，然后播放动画 
+		</li>
+<li class="li" id="GUID-8D5FFC12-608C-45EA-B035-1AB56F3C42F1__LI_7D5E3C25A273445588E60FB8DD23897D"> 捕捉少量动画后，单击<span class="ph uicontrol">“停止录制”(Stop Recording)</span>。 
+		</li>
+</ol>
+ 
+	 </div>
+<div class="p">该标记将出现在<span class="ph uicontrol">“分析器”(Profiler )</span>中。选择该标记时，输出中的所有相关数据都将处于选中状态。 
+		<div class="fig fignone" id="GUID-8D5FFC12-608C-45EA-B035-1AB56F3C42F1__FIG_5551602B50CB435C94EA904B61FD360F"><img class="image" id="GUID-8D5FFC12-608C-45EA-B035-1AB56F3C42F1__IMAGE_A1762183D04741C69EB171B494AE3E43" src="../images/GUID-C580015A-3854-4051-B5EA-D7B260A0CBA0.png"></div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-66E4D9A3-2050-4CDF-B6A4-8C5645BFFBB8.htm">分析场景以提高性能</a></div>
+</div>
+</div>
+
+</body>
+</html>

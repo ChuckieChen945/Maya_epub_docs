@@ -1,0 +1,281 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7">
+<meta name="language" content="CHS">
+<title>面向初级 Python 脚本编写人员的提示和技巧</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>面向初级 Python 脚本编写人员的提示和技巧</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-2554"><div class="section" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755F2FC9DF120970276F7-109B"><h2 class="title sectiontitle">内置 Python 库</h2> 
+		 
+		<p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755F2FC9DF120970276F7-109A">Python 具有许多有用的内置库和数据结构。大多数情况下，可以使用一个现有的库来完成常规的编程任务，这样不必与 MEL 脚本一样创建自定义工具。可在 <a class="xref" href="http://docs.python.org" target="_blank">http://docs.python.org</a> 中找到内置 Python 库的文档。该网站还针对常规 Python 编程提供了一个很好的初级教程。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS1A9193826455F5FF-3859B43C1209703A8382437"><h2 class="title sectiontitle">使用 Python 类的自定义 UI</h2> 
+		 
+		<p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS1A9193826455F5FF-3859B43C1209703A8382438">其中一个方便的 Python 函数是 <samp class="ph codeph" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-31F144D5-3C68-4D50-B45F-B8F385086066">functools.partial</samp>，该函数可用于将附加信息传递到回调函数。例如，下面的类创建的窗口具有多个在单击时会输出数字的按钮：
+		</p>
+ 
+		<pre class="pre codeblock">
+from functools import partial
+import maya.cmds as cmds
+class ButtonWin(object):
+   def __init__(self):
+      self.win = cmds.window()
+      self.layout = cmds.columnLayout(parent=self.win)
+      for x in range(10):
+         cmds.button(label="Click Here %d"%x, parent=self.layout, command=partial(self.report,x))
+         cmds.showWindow()
+   def report(self,buttonIndex,value):
+      (print "button %d got %s"%(buttonIndex,value))
+f = ButtonWin()
+</pre>
+ 
+	 </div>
+<div class="section" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755F2FC9DF120970276F7-1099"><h2 class="title sectiontitle">在 Maya 中调试 Python 脚本</h2> 
+		 
+		<p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755F2FC9DF120970276F7-1098">可以使用任何调试器来调试 Python 脚本。一些 IDE（如 Eclipse 和 Wing IDE）会附带自己的调试器。它们具有便捷的图形界面，可用于调试脚本。有关如何启动调试会话的信息，请参见首选 IDE 对应的文档。
+		</p>
+ 
+		<p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755F2FC9DF120970276F7-1096">Python 还附带自己的内置调试器 <em class="ph i" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-1813DD2F-FBA3-4A21-8FA2-08EFA0FEBD8E">pdb</em>。<em class="ph i" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-E8E7FA6B-B286-4B28-8711-2D692C4ED9D6">pdb</em> 具有文本界面，可以直接从<span class="ph uicontrol" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-50DBBC79-1695-4E38-8D52-1EDDD05C485C">“脚本编辑器”(Script Editor)</span>的脚本内调用。您需要导入 <em class="ph i" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__I_617CAAD092A54A8D9362F2FEF3AEFD4B">pdb</em> 模块，然后使用 <samp class="ph codeph">pdb.set_trace()</samp> 设置断点：
+		</p>
+ 
+		<div class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__P_3D9C28ADF17C4F0BAA56F67B1A22D294"> 
+		  <pre class="pre codeblock">
+import pdb
+pdb.set_trace()
+</pre>
+ 
+		</div>
+ 
+		<p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755F2FC9DF120970276F7-1095">当执行达到 <samp class="ph codeph">pdb.set_trace()</samp> 时，将显示输入对话框。可以使用标准命令继续、单步执行、打印值或执行其他调试操作。只要 <em class="ph i" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-6C4C6970-F394-4EB2-B338-9B9EEB764695">pdb</em> 需要输入，就会显示输入对话框。
+		</p>
+ 
+		<p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755F2FC9DF120970276F7-1094">有关如何使用 <em class="ph i" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-08C88A97-0C9B-4293-A49F-79B74E19F574">pdb</em> 的详细信息，请参见 <a class="xref" href="http://docs.python.org/library/pdb.html" target="_blank">Python 调试器</a>。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755F2FC9DF120970276F7-BBF"><h2 class="title sectiontitle">将 Python 函数注册为 MEL 程序</h2> 
+		 
+		<p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755F2FC9DF120970276F7-BBE">可以使用 <samp class="ph codeph" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-423115D4-768D-449F-95E9-F45D3E529D08">createMelWrapper</samp> 函数将 Python 函数注册为 MEL 程序。然后，在调用 MEL 程序时，会调用 Python 函数，从而传递收到的任何参数并返回函数的结果。
+		</p>
+ 
+		<p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755F2FC9DF120970276F7-BBD">有关该函数的详细信息，请参见 Maya 安装目录的 <samp class="ph codeph">..\Python\lib\site-packages\maya\mel</samp> 文件夹中的 <samp class="ph codeph" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-3B4FE095-A165-4EE8-B9E9-34F7D0E6AFB0">melutils.py</samp> 文件。
+		</p>
+ 
+		<p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755F2FC9DF120970276F7-BBB">或者，在脚本编辑器中执行以下命令：
+		</p>
+ 
+		<pre class="pre codeblock">
+import maya.mel
+help(maya.mel.createMelWrapper)
+</pre>
+ 
+		<p class="li listintro" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755F2FC9DF120970276F7-BB9">使用该函数的优点：</p>
+<ul class="ul" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755F2FC9DF120970276F7-BBA"><li class="li" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755F2FC9DF120970276F7-BB8">通过将 Python 函数注册为 MEL 程序，您不需要获取 MEL 脚本的源代码（如果程序和脚本共享相同的名称）。相比之下，如果使用的是 Python，则必须先显式导入脚本，然后才能访问其包含的函数或类。使用该包裹器函数可以使 Maya 即时获得源代码，且不必始终加载每个脚本。
+		  </li>
+<li class="li" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755F2FC9DF120970276F7-BB7">Maya 中的某些属性只接受 MEL 程序。例如，在<span class="ph uicontrol" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-310C0535-9EF4-4BFF-880F-123C11A59070">“asset”</span>（以前称为 container）节点中，<span class="ph uicontrol" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-2CE0EF90-31D6-4D75-881C-6D7FE683E2B7">“上下文特性”(Context Properties)</span>区域下的<span class="ph uicontrol" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-A49365C4-6206-45DB-9FFB-61B35DDD7C44">“鼠标右键命令”(Rmb Command)</span>属性只接受 MEL 程序。
+		  </li>
+</ul>
+ 
+		<div class="section" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755-385A98B012180D20F193ADA"><h3 class="title sectiontitle">示例</h3> 
+		   
+		  <p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS1A9193826455F5FF-3859B43C1209703A838347B">以下示例说明如何使用 <samp class="ph codeph" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-96AB0CED-64DE-44DD-8B8C-3CA94D74AF31">createMelWrapper</samp> 函数将 Python 函数注册为 MEL 程序，以便使用<span class="ph uicontrol" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-978C2909-E1C2-49CC-B65C-9D5C95B09FA1">“asset”</span>（以前称为 container）节点中的<span class="ph uicontrol" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-A32C0D8E-1A9C-49C2-ABB5-EF5CC233434E">“鼠标右键命令”(Rmb Command)</span>属性。
+		  </p>
+ 
+		  <ol class="ol" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS1A9193826455F5FF-3859B43C1209703A838347C"><li class="li" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS1A9193826455F5FF-3859B43C1209703A838347D">将以下脚本另存为首选项文件夹的 <samp class="ph codeph" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-454B52C8-64BB-4E1E-A4F3-6D22B67B5D02">scripts</samp> 目录中的 <samp class="ph codeph" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-EC89BE7C-353B-411D-B091-BE6002BB0D65">rmbScript.py</samp>：<pre class="pre codeblock">
+import maya.cmds as cmds
+import maya.mel as mel
+def exCoNotes(node):
+    if(cmds.nodeType(node)=='container'):
+       objCont = node 
+    else:
+       objCont = cmds.container(q=True, findContainer=node)
+    exec(cmds.getAttr(objCont+'.notes'))
+    pyfunction = 'main("'+node+'","'+objCont+'")'
+    exec(pyfunction) 
+    cmds.select(node, r=True)
+def setThisContainerCurrent(node):
+    if(cmds.nodeType(node)=='container'):
+       objCont = node 
+    else:
+       objCont = cmds.container(q=True, findContainer=node)
+    cmds.container(objCont, e=True, c=True)
+    cmds.select(node, r=True)
+def rmbMyContainerScript():
+    return ("Execute Container Notes", "exCoNotes",
+    "Set This Container Current", "setThisContainerCurrent")
+</pre>
+ 
+			 </li>
+<li class="li" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS1A9193826455F5FF-3859B43C1209703A838347E">在<span class="ph uicontrol" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-2B358ADA-4839-4E95-A576-E0BDC0924328">“脚本编辑器”(Script Editor)</span>中，从 Python 选项卡执行以下脚本。该操作将创建所需的 MEL 包裹器脚本：<pre class="pre codeblock">
+from rmbScript import *
+import maya.cmds as cmds
+import maya.mel as mel
+mel.createMelWrapper(rmbMyContainerScript,retType='string[]')
+mel.createMelWrapper(exCoNotes)
+mel.createMelWrapper(setThisContainerCurrent)
+</pre>
+ 
+			 </li>
+<li class="li" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS1A9193826455F5FF-3859B43C1209703A838347F">创建一个对象。
+			 </li>
+<li class="li" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS1A9193826455F5FF-3859B43C1209703A8383480">选择<span class="ph uicontrol" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-607AD445-6820-4B46-9740-C254E69274F6">“资产 &gt; 高级资产 &gt; 创建”(Assets &gt; Advanced Assets &gt; Create)</span>，然后将 <samp class="ph codeph" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-86B12782-C980-4A56-BBD3-102C5EB86794">rmbMyContainerScript</samp> 添加到资产的<span class="ph uicontrol" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-7286D575-B8B1-4BA6-897E-84D8FF6703F0">“鼠标右键命令”(Rmb Command)</span>属性。
+				<div class="note note" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755-2231E4B3128F27EE529-2543"><span class="notetitle">注：</span>  
+				  <p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-1A8432B9-7F59-4E31-A570-31049D1BEDEA">还可以借助变换资产使用该步骤；但是，节点类型将为 <samp class="ph codeph" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-964BB80D-F6FE-4D7D-BFE2-C913113D39C8">dagContainer</samp>。
+				  </p>
+ 
+				</div>
+ 
+			 </li>
+<li class="li" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS1A9193826455F5FF-3859B43C1209703A8383481">将类似如下的脚本添加到<span class="ph uicontrol" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-01826D7A-7A10-4B73-918F-0347322740AE">“asset”</span>节点的<span class="ph uicontrol" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-7C62A58F-9857-4D44-AFC4-623C4453EA63">“注释”(Notes)</span>部分：<pre class="pre codeblock">
+def main(node, container):
+    print node
+    print container
+</pre>
+ 
+			 </li>
+<li class="li" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755-385A98B012180D20F194230">在<span class="ph uicontrol" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-1EDC2924-1E14-4549-9C90-3737787CECAA">“脚本编辑器”(Script Editor)</span>的 MEL 选项卡中，输入以下脚本：<pre class="pre codeblock">
+rehash;
+</pre>
+ 
+			 </li>
+<li class="li" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755-385A98B012180D20F194231"> 在对象上单击鼠标右键，并从标记菜单中选择<span class="ph uicontrol" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-9C24B154-9F00-4C93-8ED0-C6E89106D413">“自定义”(Custom)</span>。您现在可以查看自定义鼠标右键菜单。有关详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-686BF88E-A5A7-4570-AC0E-5C9AB39F2DC0">为资产指定自定义命令或菜单</a>。
+			 </li>
+</ol>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS1A9193826455F5FF219F8B8B1249CF2CB82-5517"><h2 class="title sectiontitle">为已设置动画的曲线创建关键帧</h2> 
+		 
+		<p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS1A9193826455F5FF219F8B8B1249CF2CB82-5516">可以使用以下 Python 示例脚本来创建已设置动画的曲线并设定其关键帧：
+		</p>
+ 
+		<pre class="pre codeblock">
+import maya.OpenMaya as om
+import maya.OpenMayaAnim as oma
+def addkeys(plugName, times, values, changeCache):
+   # Get the plug to be animated.
+   sel = om.MSelectionList()
+   sel.add(plugName)
+   plug = om.MPlug()
+   sel.getPlug(0, plug)
+   # Create the animCurve.
+   animfn = oma.MFnAnimCurve()
+   animCurve = animfn.create(plug, oma.MFnAnimCurve.kAnimCurveTL)
+   
+   # Copy the times into an MTimeArray and the values into an    MDoubleArray.
+   timeArray = om.MTimeArray()
+   valueArray = om.MDoubleArray()
+   for i in range(len(times)):
+      timeArray.append(om.MTime(times[i], om.MTime.uiUnit()))
+      valueArray.append(values[i])
+   # Add the keys to the animCurve.
+   animfn.addKeys(
+      timeArray,
+      valueArray,
+      oma.MFnAnimCurve.kTangentGlobal,
+      oma.MFnAnimCurve.kTangentGlobal,
+      False,
+      changeCache
+   )
+</pre>
+ 
+		<p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F487551D68DD061249D36330F-6FC8">以上示例代码会将关键帧动画添加到通道（即栓）。如果不需要具有撤消更改的能力，则可以按以下方式进行调用：
+		</p>
+ 
+		<pre class="pre codeblock">
+addkeys('pCube1.tx', [1.0, 3.0, 5.0], [0.6, 1.2, 2.4], None)
+</pre>
+ 
+		<p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F487551D68DD061249D36330F-6FC7">但是，如果需要具有撤消更改的能力，那么请按以下方式进行调用：
+		</p>
+ 
+		<pre class="pre codeblock">
+changeCache = oma.MAnimCurveChange()
+addkeys('pCube1.tx', [1.0, 3.0, 5.0], [0.6, 1.2, 2.4], changeCache)
+</pre>
+ 
+		<p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS1A9193826455F5FF219F8B8B1249CF2CB82-4BA8">然后执行以下脚本以撤消更改：
+		</p>
+ 
+		<pre class="pre codeblock">
+changeCache.undoIt()
+</pre>
+ 
+		<div class="note note" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F487551D68DD061249D36330F-6FC6"><span class="notetitle">注：</span>  
+		  <p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-2D7E3E6B-A1FE-4B0C-B107-111B28654241">为简便起见，该函数假定由 <samp class="ph codeph" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-B2715F22-2C65-486C-943F-BC64A63500AB">plugName</samp> 指定的栓当前未设置动画。这种情况作为练习，以便您添加使假设不必要所需的检查。
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS1A9193826455F5FF-75C1F7C3124F51CCBD1B2C"><h2 class="title sectiontitle">常见信息消息</h2> 
+		 
+		<p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS1A9193826455F5FF-75C1F7C3124F51CCBD1B2D">在使用 dgInfo 命令获取有关 DG 的信息时，您可能会看到诸如 DIRTY BLOCK、DIRTY PROP 等信息消息。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755-6377FFD2127D87DB08E-7F89"><h2 class="title sectiontitle">使用 ScriptJob 创建用户事件</h2> 
+		 
+		<p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755-6377FFD2127D87DB08E-7F88">可以在 Python 脚本中使用 API 调用执行该操作。以下脚本演示了如何注册称为 <em class="ph i" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-A46B84E5-5C07-41B4-92F3-7D84BB4A2257">myEvent</em> 的新用户事件类型：
+		</p>
+ 
+		<pre class="pre codeblock">
+import maya.OpenMaya as om
+om.MUserEventMessage.registerUserEvent('myEvent')
+</pre>
+ 
+		<p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755-6377FFD2127D87DB08E-7F87">若要在事件发生时执行称为 <em class="ph i" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-D3D36B67-92A7-487B-ACAE-45F4FE54961C">myFunc</em> 的函数，请执行以下脚本：
+		</p>
+ 
+		<pre class="pre codeblock">
+def myFunc(data):
+    print('Got a myEvent event!')
+callbackId = om.MUserEventMessage.addUserEventCallback('myEvent', myFunc)
+</pre>
+ 
+		<p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755-6377FFD2127D87DB08E-7F86">若要发送 <em class="ph i" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__GUID-97BC1EF7-0261-4389-81CD-3E1689BF4570">myEvent</em> 事件，请执行以下脚本：
+		</p>
+ 
+		<pre class="pre codeblock">
+om.MUserEventMessage.postUserEvent('myEvent')
+</pre>
+ 
+		<p class="p" id="GUID-8A96A8DB-FD6F-434F-A878-288DD84E99C7__WS73099CC142F48755-6377FFD2127D87DB08E-7F85">若要在完成后移除回调函数，请执行以下脚本：
+		</p>
+ 
+		<pre class="pre codeblock">
+om.MUserEventMessage.removeCallback(callbackId)
+</pre>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-703B18A2-89E5-48A8-988A-1ED815D5566F.htm">Python</a></div>
+</div>
+</div>
+
+</body>
+</html>

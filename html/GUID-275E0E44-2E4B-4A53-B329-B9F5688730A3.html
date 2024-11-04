@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Modeling">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3">
+<meta name="language" content="CHS">
+<title>NURBS 曲线和曲面参数化</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>NURBS 曲线和曲面参数化</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21AF"><h2 class="title sectiontitle">什么是参数？</h2> 
+		 
+		<p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21B0"> 参数是曲线或曲面上点的唯一数值（类似于坐标）。通过参数，可以沿曲线的长度方向引用特定点。参数值越大，点在曲线方向上的距离越远。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21B2"><img class="image" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__IMAGE_1DE121908F8B4650A0A7E4EBEBAE149D" width="170" height="80" src="../images/GUID-893D026F-A4FC-4697-BC60-CFBED3E25530.png"></div>
+ 
+		<p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21B3">就像空间中的点具有三个维度（称为 X、Y 和 Z），点的参数是沿着曲线的一个内部维度（长度）测得的。我们将该维度称为 U。 
+		</p>
+ 
+		<p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21B4">由于曲面具有两个内部维度（长度和宽度），因此，我们需要除 U 之外的另一个参数才能指定曲面上的点。我们将该参数称为 V。 
+		</p>
+ 
+		<p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21B5">沿曲线长度方向上的每个点都有一个 U 参数，同样，曲面上的每个点都有 U 和 V 两个参数。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21B6"><h2 class="title sectiontitle">什么是参数化？</h2> 
+		 
+		<p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21B7"> 应用程序用于沿曲线为点编号的方法称为曲线的参数化。有两种参数化方法可用：统一和弦长。 
+		</p>
+ 
+		<p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21BA">每种方法各有优缺点，具体取决于曲线的使用方式。可以在创建新曲线时选择要使用的参数化方法，也可以重建现有曲线以使用特定的参数化方法。 
+		</p>
+ 
+		<p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21BB">不同操作可以使用不同的参数化方法创建曲线或曲面，通常为用户可配置的选项。例如，默认情况下，<span class="ph uicontrol" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__GUID-B79C3565-56CD-4E60-B385-2B065AA67709">“CV 曲线工具”(CV Curve Tool)</span>和<span class="ph uicontrol" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__GUID-BFF25FE9-2EA6-4FB0-86C6-98A2FC70EA13">“EP 曲线工具”(EP Curve Tool)</span>使用统一结间距。<span class="ph uicontrol" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__GUID-585258EA-DD7B-4CFE-819B-C65208C169A8">“铅笔工具”(Pencil Tool)</span>使用弦长结间距。 
+		</p>
+ 
+		<div class="section" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21BC"><h3 class="title sectiontitle">统一</h3> 
+		   
+		  <div class="fig fignone" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21BD"><img class="image" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__IMAGE_D4F10ED95A6640C99A2D9996BF14556E" width="175" height="66" src="../images/GUID-F7C6B704-45DB-497E-8E06-FF3695A974EB.png"></div>
+ 
+		  <p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21BE">统一参数化为编辑点指定整数参数值，并沿两个编辑点之间的跨度均匀分布参数。因此，第一个编辑点的参数始终是 0.0，第二个编辑点始终是 1.0，第三个编辑点始终是 2.0，依此类推。 
+		  </p>
+ 
+		  <p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21BF">统一参数化的一个额外功能是，最后一个编辑点的参数值同时还是曲线的跨度数。但是，与弦长参数化不同的是，统一曲线的参数与曲线的实际长度无关。 
+		  </p>
+ 
+		  <p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21C0">虽然统一参数化范围的默认值为 0 到总跨度数，但是，可以使用<span class="ph uicontrol" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__GUID-D4E7CE10-FAE0-4188-A3BE-E0BCF937900B">“重建曲线/重建曲面”(Rebuild Curve/Rebuild Surface)</span>来将范围更改为 0 到 1。0 到 1 方案常见于其他计算机图形软件包；某些用户可能考虑到熟悉程度而希望使用这种方案。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21C1"><h3 class="title sectiontitle">弦长</h3> 
+		   
+		  <div class="fig fignone" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21C2"><img class="image" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__IMAGE_8CD2EA44E5514E9190369F235A040D9D" width="176" height="66" src="../images/GUID-DB1C2AA9-87CA-4EC7-B60A-F8043A3F1527.png"></div>
+ 
+		  <p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21C3">弦是将一系列编辑点从曲线的起点连接到终点的线性段。弦长参数化为曲线起点指定参数 0.0，然后依据从起点到相关编辑点的总弦长成比例增大参数值。因此，在所示曲线中，第三个点处的参数值 3.8 是从起点到点 2 与从点 2 到点 3 这两条弦的总长度。
+		  </p>
+ 
+		  <p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21C4">与统一参数化不同，弦长曲线的参数在编辑点之间并非均匀分布，而且编辑点的参数不是整数。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21C5"><h3 class="title sectiontitle">比较</h3> 
+		   
+		  <p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21C6">每种参数化方法各有优缺点，具体取决于如何使用曲线或曲面。 
+		  </p>
+ 
+		  
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21C7" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="33.333333333333336%">类型 
+					 </th>
+<th class="entry" valign="top" width="33.333333333333336%">优点 
+					 </th>
+<th class="entry" valign="top" width="33.333333333333336%">缺点 
+					 </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="33.333333333333336%"> 
+						<p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21C8">弦长 
+						</p>
+ 
+					 </td>
+<td class="entry" valign="top" width="33.333333333333336%"> 
+						<p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21C9">参数值指示点在曲线上的相对位置。 
+						</p>
+ 
+						<p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21CA">曲率分布更好。 
+						</p>
+ 
+						<p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21CB">使纹理的拉伸和挤压最小化。 
+						</p>
+ 
+					 </td>
+<td class="entry" valign="top" width="33.333333333333336%"> 
+						<p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21CC">参数不直观。 
+						</p>
+ 
+						<p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21CD">由于交叉结插入，通过弦长曲线构建的曲面可能会更复杂。 
+						</p>
+ 
+					 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.333333333333336%"> 
+						<p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21CE">统一 
+						</p>
+ 
+					 </td>
+<td class="entry" valign="top" width="33.333333333333336%"> 
+						<p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21CF">参数易于估计（例如，1.5 大约位于 1.0 和 2.0 两个编辑点的中间位置）。 
+						</p>
+ 
+					 </td>
+<td class="entry" valign="top" width="33.333333333333336%"> 
+						<p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21D0">许多情况下，编辑点之间的插值不是很好。 
+						</p>
+ 
+						<p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21D1">可能导致渲染过程中出现无法预测的纹理拉伸。 
+						</p>
+ 
+					 </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		  <p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21D2">与次数一样，曲面对于其 U 向和 V 向维度，可以有不同的参数化方法。例如，可以对曲面的 U 向等参线采用次数为 3 的统一参数化方法，而对其 V 向等参线采用次数为 1 的弦长参数化方法。 
+		  </p>
+ 
+		  <p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21D3">为了避免在操纵接合曲面和为其设定纹理时出现问题，请确保接合曲面使用相同的参数化方法（统一或弦长）。如果两个曲面都使用统一参数化方法，请确保二者使用相同的参数范围（0 到 1 或 0 到总跨度数）。 
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21D4"><h2 class="title sectiontitle">查看参数</h2> 
+		 
+		<p class="p" id="GUID-275E0E44-2E4B-4A53-B329-B9F5688730A3__WS73099CC142F48755-3D114B751181C40F14B21D5">当选择曲线或曲面上的点时，随着拖动，会在状态行中显示 U 值和 V 值（对于曲面）。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-5EC05798-3F28-4AD2-8154-36BC444A4DC9.htm">NURBS 概述</a></div>
+</div>
+</div>
+
+</body>
+</html>

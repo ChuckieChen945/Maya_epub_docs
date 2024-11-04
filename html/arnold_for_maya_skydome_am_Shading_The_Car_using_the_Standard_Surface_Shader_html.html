@@ -1,0 +1,129 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_skydome_am_Shading_The_Car_using_the_Standard_Surface_Shader_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_SHADING_THE_CAR_USING_THE_STANDARD_SURFACE_SHADER">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用标准曲面着色器对汽车进行着色 - Arnold for Maya">
+
+<title>使用标准曲面着色器对汽车进行着色</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>使用标准曲面着色器对汽车进行着色</h1></div><p>现在开始进行有趣的操作。首先，让我们将材质添加到模型中。</p>
+<h2 id="">汽车涂料</h2><ul>
+<li>创建一个 <em>standard_surface</em> 着色器，并将其指定给车身面板几何体。将其重命名为 <em>Car Paint*。将 *base_color</em> 更改为蓝色，并将 <em>specular_weight</em> 增大到 0.3。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Shading_The_Car_using_the_Standard_Surface_Shader-6-Car-paint-1.jpg" alt=""></td>
+<td><img src="../images/am-Shading_The_Car_using_the_Standard_Surface_Shader-7-Car-paint-metallic-2.jpg" alt=""></td>
+</tr>
+<tr>
+<td>汽车涂料</td>
+<td>金属汽车涂料（增加金属度）</td>
+</tr>
+</tbody></table>
+<h2 id="">玻璃</h2><ul>
+<li>确保在 Arnold 中对任何需要透明度的几何体禁用<em>“不透明”(Opaque)</em>。选择要作为玻璃的几何体，然后在属性编辑器的“Arnold”部分中禁用<em>“不透明”(Opaque)</em>。</li>
+</ul>
+<p><img src="../images/am-Shading_The_Car_using_the_Standard_Surface_Shader-image2016-5-4-10-10-18-3.png" alt=""></p>
+<p><sub><strong>对任何玻璃曲面禁用<em>“不透明”(Opaque)</em></strong></sub></p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>将 Arnold 属性应用到场景中的多个对象时，请使用_覆盖集_。</p>
+
+</div></div>
+
+<ul>
+<li>创建另一个标准曲面着色器，并将其重命名为 <em>Glass Windscreen*。将其应用于挡风玻璃几何体。将 *base_weight</em> 和 <em>specular_weight</em> 减小到 0。将 <em>specular_ior</em> 更改为 1.5（真实玻璃的值），并将 <em>transmission_weight</em> 增大到 1.0。将 <em>transmittance_color</em> 更改为浅蓝色。这会将挡风玻璃染色为浅蓝色。</li>
+</ul>
+<p><img src="../images/am-Shading_The_Car_using_the_Standard_Surface_Shader-image2017-4-5-11-34-46-4.png" alt=""></p>
+<p><sub><strong>为挡风玻璃创建玻璃着色器</strong></sub>  </p>
+<ul>
+<li>将先前用于球体的_镀铬_材质指定给前灯和修剪曲面。</li>
+</ul>
+<p><img src="../images/am-Shading_The_Car_using_the_Standard_Surface_Shader-image2017-4-5-11-35-17-5.png" alt=""></p>
+<h2 id="">轮缘</h2><p>接下来，我们将创建软缎面金属材质。创建一个新的标准曲面着色器，并将其指定给轮缘和保险杠。将其重命名为 <em>Satin Metal<em>。将</em>“金属度”(Metalness)*增大到 0.8 左右，将 *specular_weight</em> 减小到 0.7。将 <em>specular_roughness</em> 增大到 0.3 左右以模糊反射。</p>
+<p><img src="../images/am-Shading_The_Car_using_the_Standard_Surface_Shader-image2017-4-5-11-37-54-6.png" alt=""></p>
+<p><sub><strong>为轮缘创建缎面金属着色器</strong></sub></p>
+<h2 id="">塑料</h2><ul>
+<li>将另一个 <em>standard_surface</em> 着色器指定给座椅。在本例中，我们为座椅创建软塑料外观。将其重命名为 <em>Soft Plastic*。将 *base_color</em> 更改为浅米色。将 <em>specular_weight</em> 设置为 0.2，将 <em>specular_roughness</em> 设置为 0.6 左右。</li>
+</ul>
+<p><img src="../images/am-Shading_The_Car_using_the_Standard_Surface_Shader-image2016-5-4-11-10-52-7.png" alt=""></p>
+<p><sub><strong>座椅的塑料着色器</strong></sub></p>
+<ul>
+<li>要使材质外观更加柔和，可以为其添加一些次表面散射。这会使座椅材质看上去吸收了更多的灯光。向下滚动到<em>“次表面散射”(Subsurface scattering)*，并将 <em>sss_weight</em> 值略微增加到 0.1。增加 *sss_radius</em> 值，使塑料看起来更柔和。</li>
+</ul>
+<p><img src="../images/am-Shading_The_Car_using_the_Standard_Surface_Shader-image2017-4-5-11-39-10-8.png" alt=""></p>
+<p><sub><strong>为塑料座椅添加次表面散射</strong></sub></p>
+<ul>
+<li>创建另一个标准着色器，并将其指定给挡风玻璃雨刷器和方向盘。将其重命名为 <em>Glossy Plastic*。将 *base_color</em> 更改为深灰色。将 <em>specular_color</em> 更改为中等灰，并将 <em>specular_weight</em> 更改为 0.3 左右。</li>
+</ul>
+<p><img src="../images/am-Shading_The_Car_using_the_Standard_Surface_Shader-image2017-4-5-11-40-0-9.png" alt=""></p>
+<p><sub><strong>为挡风玻璃雨刷器指定有光泽的塑料材质</strong></sub></p>
+<h2 id="">轮胎：置换</h2><ul>
+<li><p>对于轮胎，请将 Maya 置换着色器与 <em>standard_surface</em> 着色器结合使用。复制 <em>Glossy Plastic</em> 材质，然后将其重命名为 <em>Plastic Tire*。将其指定给轮胎几何体。选择 *Plastic Tire</em> 节点的<em>“着色组”(Shading Group)</em>节点，然后使用鼠标中键将<em>置换节点</em>拖动到属性编辑器中“着色组”(Shading Group)节点的<em>“置换材质”(Displacement mat.)</em>窗口中，如下图所示。</p>
+</li>
+<li><p>现在，我们需要告知 Arnold 置换轮胎几何体时要使用的细分类型。选择轮胎几何体并打开“属性编辑器”(Attribute Editor)。在“Arnold”下应看到 <em>subdivision_type<em>。将其从</em>“无”(None)<em>更改为 *catclark</em>。增加 *subdivision_iterations</em> 将改进置换效果的细化程度。在本例中，该值已增加到 1。</p>
+</li>
+</ul>
+<p><img src="../images/am-Shading_The_Car_using_the_Standard_Surface_Shader-image2016-5-4-12-11-56-10.png" alt=""></p>
+<p><sub><strong>在车轮几何体的 Arnold 属性中更改细分设置</strong></sub></p>
+<ul>
+<li>选择置换节点并将贴图纹理指定给置换节点的<em>“贴图”(Map)窗口*。在本例中，使用了带有 *cylindrical_projection</em> 节点的<em>渐变*。将 *displacement_scale</em> 增加到 0.01 左右并执行测试渲染。IPR 渲染不会更新对置换所做的任何更改。每次更改 <em>displacement_scale</em> 后，您都需要重新渲染。</li>
+</ul>
+<p><img src="../images/am-Shading_The_Car_using_the_Standard_Surface_Shader-image2016-5-4-12-8-0-11.png" alt=""></p>
+<p><sub><strong>为轮胎指定置换着色器</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Lighting/arnold_for_maya_lighting_am_Using_the_Sky_Dome_Light_html.html">使用天穹灯光</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

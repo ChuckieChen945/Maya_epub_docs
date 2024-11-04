@@ -1,0 +1,253 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_curves_am_Rendering_Curves_as_Feathers_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_RENDERING_CURVES_AS_FEATHERS">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 将曲线渲染为羽毛 - Arnold for Maya">
+
+<title>将曲线渲染为羽毛</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>将曲线渲染为羽毛</h1></div><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-feather-1.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-feather-wire-2.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>羽毛渲染为曲线</strong></sub></p>
+<p>本教程将介绍如何使用已转化为曲线的 Paint Effects 笔刷渲染羽毛。</p>
+<p><strong>Maya 文件位于<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/feather_user_guide.zip" target="_blank">此处</a>。</strong></p>
+<ul>
+<li>曲线首先生成为 <strong>Paint Effects</strong> 笔刷 - <strong><em>strokeFeatherExoticLarge.mel</em></strong>，然后转化为曲线 -<strong><em>“修改 &gt; 转化 &gt; Paint Effects 到曲线”(Modify &gt; Convert &gt; Paint Effects to curves)</em></strong>。</li>
+</ul>
+<p><img src="../images/am-Rendering_Curves_as_Feathers-image2016-5-10-9-36-58-3.png" alt=""></p>
+<ul>
+<li>要渲染如此多的曲线，首先需要为曲线创建一个覆盖集。这样，您就能够统一将以下“覆盖属性”添加到曲线，而不必为每个曲线逐个添加。</li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>更快、更高效地渲染多个曲线的方式是使用<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Curves_html">曲线收集器</a>。</p>
+
+</div></div>
+
+<h2 id="mode">模式(Mode)</h2><p>Arnold 中有两种渲染曲线的算法，分别是<em>“带状”(Ribbon)</em>和<em>“有厚度”(Thick)</em>。对于主干，您需要使用<em>“有厚度”(Thick)</em>模式来渲染曲线。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-circle-ribbon-4.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-circle-thick-5.jpg" alt=""></td>
+</tr>
+<tr>
+<td>模式(Mode)：<em>带状</em></td>
+<td>模式(Mode)：<em>有厚度</em></td>
+</tr>
+</tbody></table>
+<p>单个羽支使用<em>带状</em>模式渲染效果更好：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-thick-6.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-ribbon-7.jpg" alt=""></td>
+</tr>
+<tr>
+<td>模式(Mode)：<em>有厚度</em></td>
+<td>模式(Mode)：_带状_（更适合渲染羽支）。</td>
+</tr>
+</tbody></table>
+<h2 id="ai-ai-curve-width">Ai 曲线宽度(Ai Curve Width)</h2><p>当<em>“Ai 曲线宽度”(Ai Curve Width)</em>设置得过高时，曲线会开始重叠，并且采样会出错。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-ai-curve-width-0-01-8.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-ai-curve-width-0-005-9.jpg" alt=""></td>
+</tr>
+<tr>
+<td>_Ai 曲线宽度(Ai Curve Width)_：0.01。曲线重叠。</td>
+<td>将_“Ai 曲线宽度”(Ai Curve Width)_减小到 0.005 可修复此问题</td>
+</tr>
+</tbody></table>
+<h2 id="opacity">不透明度(Opacity)</h2><p>向 <em>standard_hair</em> 的<em>“不透明度”(Opacity)</em>添加渐变纹理贴图将会柔化曲线的边缘。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-no-opacity-ramp-10.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-opacity-ramp-11.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用不透明度</td>
+<td>渐变纹理连接到 <em>standard_hair.opacity</em> 着色器</td>
+</tr>
+</tbody></table>
+<p>确保已将<em>“Ai 不透明”(Ai Opaque)</em>属性添加到集，并且禁用该选项，以便让不透明度正常工作。</p>
+<h2 id="">主干</h2><p>增大 <em>curve_width</em>，使其至少为羽毛曲线宽度的两倍（本例中使用的值为 0.04）。确保将模式更改为<em>“有厚度”(Thick)</em>，使曲线显得圆润。羽毛的主干需要使用常规的光泽材质。将一个 <em>standard_surface</em> 着色器连接到主干曲线的<em>曲线着色器</em>。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-stem-render-12.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-stem-wire-13.jpg" alt=""></td>
+</tr>
+<tr>
+<td>以_“有厚度”(Thick)_模式渲染主干曲线</td>
+<td>线框</td>
+</tr>
+</tbody></table>
+<h2 id="">着色</h2><p>创建一个 <em>standard_hair</em> 着色器，并将其连接到曲线集的<em>“Ai 曲线着色器”(Ai Curve Shader)</em>属性。</p>
+<h2 id="">根颜色</h2><p>下面的图像显示了改变根颜色的效果。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-root-color-white-14.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-root-color-black-15.jpg" alt=""></td>
+</tr>
+<tr>
+<td>_root_color_：白色</td>
+<td>_root_color_：黑色</td>
+</tr>
+</tbody></table>
+<h2 id="">纹理</h2><p>下面的图像显示了向 <em>standard_hair</em> 着色器的 <em>specular_tint</em> 添加彩色<em>圆形渐变</em>产生的效果。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-secondary-specular-16.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-root-color-17.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-color-ramp-feather-18.jpg" alt=""></td>
+</tr>
+<tr>
+<td>渐变纹理连接到镜面反射颜色</td>
+<td>渐变纹理连接到根颜色</td>
+<td>渐变纹理连接到根和镜面反射颜色</td>
+</tr>
+</tbody></table>
+<p>SSS 仅适用于多边形网格，因此不受曲线基本体支持。</p>
+<h2 id="">在镜面反射/透射中可见</h2><p>要在光泽反射和折射中看到曲线，需要添加以下<em>覆盖属性</em>：</p>
+<ul>
+<li>Ai 在光泽中可见(Ai Visible in Glossy)</li>
+<li>在折射中可见(Visible In Refractions)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-drop-visible-refractions-19.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-drop-no-visible-refractions-20.jpg" alt=""></td>
+</tr>
+<tr>
+<td>Ai 在光泽中可见(Ai Visible in Glossy)/在折射中可见(Visible In Refractions)：禁用</td>
+<td>Ai 在光泽中可见(Ai Visible in Glossy)/在折射中可见(Visible In Refractions)：启用</td>
+</tr>
+</tbody></table>
+<p>默认情况下，曲线在反射中不可见。如果您想让曲线出现反射倒影，需要向包含曲线的覆盖集添加<em>“在反射中可见”(Visible in Reflections)</em>属性。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-curve-in-reflection-21.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_Curves_as_Feathers-curve-in-specular-22.jpg" alt=""></td>
+</tr>
+<tr>
+<td>曲线在反射中不可见</td>
+<td>“在反射中可见”(Visible in Reflections)覆盖已添加到曲线的覆盖集</td>
+</tr>
+</tbody></table>
+<p><img src="../images/am-Rendering_Curves_as_Feathers-image2017-4-6-18-33-43-23.png" alt=""></p>
+<p><sub><strong><sup>Arnold 集属性</sup></strong></sub></p>
+<p>有关如何将曲线渲染为羽毛的教程到此结束。使用覆盖集将曲线渲染为头发是一种创建复杂外观场景的实用方法，而且可以避免处理大量几何体产生的系统开销。</p>
+<p><img src="../images/am-Rendering_Curves_as_Feathers-pink-feathers-1024-24.jpg" alt=""></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Rendering_Curves_html.html">渲染曲线</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

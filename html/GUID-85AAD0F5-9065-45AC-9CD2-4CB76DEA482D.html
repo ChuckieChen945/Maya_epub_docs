@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-85AAD0F5-9065-45AC-9CD2-4CB76DEA482D">
+<meta name="language" content="CHS">
+<title>通过引用传递数组参数</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-85AAD0F5-9065-45AC-9CD2-4CB76DEA482D">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>通过引用传递数组参数</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-85AAD0F5-9065-45AC-9CD2-4CB76DEA482D__WS73099CC142F48755-3D114B7511841AEFA9F-A14"> 数组是通过引用传递的。如果将数组作为参数传递到某过程并在该过程中修改此参数，则数组将在从过程调用返回时具有修改的值。例如：</p>
+<pre class="pre codeblock">
+proc fred( string $myArray[] ) {
+ for ( $i=0; $i&lt;size($myArray); ++$i ) {
+ $myArray[$i] = "fred";
+ }
+ $myArray[$i] = "flintstone"; // add to the end of the array.
+ }
+ string $a[] =`ls -geometry`;
+ print("Before call to fred\n");
+ print $a;
+ fred($a);
+ print("After call to fred\n");
+ print $a;
+produces this output: 
+Before call to fred
+nurbConeShape1
+nurbConeShape2
+nurbSphereShape1
+nurbSphereShape2
+After call to fred
+fred
+fred
+fred
+fred
+flintstone
+</pre>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-98FD268C-F0A1-4CA2-833F-AD3000DFB180.htm">高级 MEL 编程</a></div>
+</div>
+</div>
+
+</body>
+</html>

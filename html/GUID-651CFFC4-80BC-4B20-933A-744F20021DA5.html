@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="18/08/2022">
+<meta name="topicid" content="GUID-651CFFC4-80BC-4B20-933A-744F20021DA5">
+<meta name="language" content="CHS">
+<title>CgFX 着色器的纹理坐标系的方向</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-651CFFC4-80BC-4B20-933A-744F20021DA5">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>CgFX 着色器的纹理坐标系的方向</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-651CFFC4-80BC-4B20-933A-744F20021DA5__GUID-461CDD90-F30E-4122-B197-D2B23534EC78"> 在编译 CgFX 着色器时，CgFX 插件会将编译宏 MAYA_TEXCOORD_ORIENTATION_OPENGL 或 MAYA_TEXCOORD_ORIENTATION_DIRECTX 设置为 1，以指定用于纹理坐标系的方向。
+	 </p>
+<p class="p" id="GUID-651CFFC4-80BC-4B20-933A-744F20021DA5__GUID-93AA8FCF-DA21-45B4-BE60-B08AFF28F145">将 MAYA_TEXCOORD_ORIENTATION 环境变量设定为 OPENGL 或 DIRECTX，以分别定义 MAYA_TEXCOORD_ORIENTATION_OPENGL 或 MAYA_TEXCOORD_ORIENTATION_DIRECTX 宏。定义宏之后，该宏将设定为 1。
+	 </p>
+<div class="section" id="GUID-651CFFC4-80BC-4B20-933A-744F20021DA5__GUID-42B25B64-614E-439B-8BC8-B0A1E3ABD791"><dl class="dl" id="GUID-651CFFC4-80BC-4B20-933A-744F20021DA5__GUID-42B25B64-614E-439B-8BC8-B0A1E3ABD791"><dt class="dt dlterm">OPENGL</dt>
+<dd class="dd" id="GUID-651CFFC4-80BC-4B20-933A-744F20021DA5__GUID-96C91D63-6972-4A19-BC1A-ED78FC71A91F">指定使用 OpenGL 约定。在该约定中，纹理的原点位于纹理的左下角。</dd>
+<dt class="dt dlterm">DIRECTX</dt>
+<dd class="dd" id="GUID-651CFFC4-80BC-4B20-933A-744F20021DA5__GUID-72A5DADE-FB0E-4276-ADC2-A86A1B0DF2A1">指定使用 DirectX 约定。在该约定中，纹理的原点位于纹理的左上角。</dd>
+</dl>
+</div>
+<p class="p" id="GUID-651CFFC4-80BC-4B20-933A-744F20021DA5__GUID-046F45A9-6407-4E1D-A106-497BDC35E1FA">对于 Maya 2011 和较低版本，上述两个宏均未定义，且着色器应采用 DirectX 纹理坐标系的方向。
+	 </p>
+<p class="p" id="GUID-651CFFC4-80BC-4B20-933A-744F20021DA5__GUID-4F2E2942-E925-46BB-84EB-9BC80028FB33">对于 Maya 2012 和更高版本，默认情况下，MAYA_TEXCOORD_ORIENTATION_OPENGL 宏设置为 1。在启动 Maya 之前，通过将环境变量 MAYA_TEXCOORD_ORIENTATION 设定为 DirectX，可以更改默认设置。
+	 </p>
+<p class="p" id="GUID-651CFFC4-80BC-4B20-933A-744F20021DA5__GUID-B9B8157B-1DC1-48F2-AFA6-1FFA5E93A8B3">将默认渲染器或硬件渲染器与着色器（指为 Maya 先前版本编写、且尚未经过修改、无法支持 OPENGL 纹理坐标方向的着色器）一起使用时，将 MAYA_TEXCOORD_ORIENTATION 环境变量设定为 DirectX 十分有用。在 MAYA_TEXCOORD_ORIENTATION 环境变量设置为 DirectX 时，将出现以下情况：
+	 </p>
+<ul class="ul" id="GUID-651CFFC4-80BC-4B20-933A-744F20021DA5__UL_403B0C8E69974D8C9C7FD53145FC4C7F"><li class="li" id="GUID-651CFFC4-80BC-4B20-933A-744F20021DA5__LI_9897FFE714EA4E4FB2FECD9FFAF2DE02">着色器将使用设定为 1 的 MAYA_TEXCOORD_ORIENTATION_DIRECTX 宏进行编译。
+		</li>
+<li class="li" id="GUID-651CFFC4-80BC-4B20-933A-744F20021DA5__LI_8C0D615B4A7A49B38325046B3B167E36">纹理将使用 DirectX 方向进行加载。
+		</li>
+<li class="li" id="GUID-651CFFC4-80BC-4B20-933A-744F20021DA5__LI_EA4D720A6DE6412EA7279E0EC46DB22C">默认渲染器和硬件渲染器将使用 DirectX 方向生成 UV 坐标。
+		</li>
+<li class="li" id="GUID-651CFFC4-80BC-4B20-933A-744F20021DA5__LI_8B251CC18D464426A77D0297A634828F">但是，使用 OpenGL 方向存在限制，它将导致 Viewport 2.0 仍然生成 UV 坐标。这可能会导致使用 Viewport 2.0 时纹理将沿 V 轴翻转渲染。
+		</li>
+</ul>
+<p class="p" id="GUID-651CFFC4-80BC-4B20-933A-744F20021DA5__GUID-C83D77F1-EB91-4C37-8429-EAED729D5E49"> 这将会更改 UV 坐标的生成和纹理图像的加载，如果着色器使用 UV 坐标采样纹理，则渲染的图像在两个坐标系中均相同。但是，当使用着色器以程序方式生成的 UV（相对于由 <span class="ph msgph prodname" id="GUID-651CFFC4-80BC-4B20-933A-744F20021DA5__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 生成的、来自于 UV 源流中的 UV）对纹理进行采样时，插件必须能够控制两种约定。<samp class="ph codeph" id="GUID-651CFFC4-80BC-4B20-933A-744F20021DA5__GUID-97B41289-F8ED-4DFA-811E-1389B0D09A72">$(MAYA_ROOT)/presets/CgFX/example</samp> 中包含的 <samp class="ph codeph" id="GUID-651CFFC4-80BC-4B20-933A-744F20021DA5__GUID-D1E190A1-DE3D-49AF-8FF7-47994CE51411"> brix.cgfx</samp> 示例举例说明了上述运行方式：
+	 </p>
+<pre class="pre codeblock">/******************** pixel shader *********************/
+#ifdef MAYA_TEXCOORD_ORIENTATION_OPENGL
+     float GBalanceCorr = 1.0f - GBalance;
+ #else     
+     float GBalanceCorr = GBalance;
+#endif
+    
+    float v = ((float4)tex2D(stripeSampler,float2(IN.BrickUV.x,0.5))).x;
+    float4 dColor1 = lerp(SurfColor1,SurfColor2,v);
+    v = ((float4)tex2D(stripeSampler,float2(IN.BrickUV.x*2,GBalanceCorr))).x;   
+    dColor1 = lerp(GroutColor,dColor1,v);
+    v = ((float4)tex2D(stripeSampler,float2(IN.BrickUV.x+0.25,0.5))).x;  
+    float4 dColor2 = lerp(SurfColor1,SurfColor2,v);
+    v = ((float4)tex2D(stripeSampler,float2((IN.BrickUV.x+0.25)*2,GBalanceCorr))).x;
+    dColor2 = lerp(GroutColor,dColor2,v);
+    v = ((float4)tex2D(stripeSampler,float2(IN.BrickUV.y,0.5))).x;
+    float4 brix = lerp(dColor1,dColor2,v);
+    v = ((float4)tex2D(stripeSampler,float2(IN.BrickUV.y*2,GBalanceCorr))).x;  
+    brix = lerp(GroutColor,brix,v);
+       return IN.DCol * brix;
+}
+</pre>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA.htm">创建 CgFX 着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

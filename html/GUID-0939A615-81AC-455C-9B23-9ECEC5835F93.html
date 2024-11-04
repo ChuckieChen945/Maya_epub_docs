@@ -1,0 +1,915 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="26/04/2023">
+<meta name="topicid" content="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93">
+<meta name="language" content="CHS">
+<title>Viewport 2.0 支持的着色器语义</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>Viewport 2.0 支持的着色器语义</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-7CA98873-B620-4FC5-819E-DB793EF32CDD">在 Viewport 2.0 中，可识别并支持以下语义以与着色器一起使用。在创作使用 <samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-FA6E7FC1-1AF9-4196-98C6-38816A904B25">MShaderManager</samp> 类作为 <samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-8A367832-4120-43BC-A1CD-9EC1A7D97D0B">MShaderInstance</samp> 对象访问的完整效果时，可以使用它们。还可以将其应用于使用 <samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-256C715B-3B17-4566-A5FD-9F3B34B78588">MFragmentManager</samp> 注册的碎片的参数。
+	 </p>
+<div class="note note" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-89DAA23C-B157-49FA-AA24-111B18F2EB33"><span class="notetitle">注：</span> <samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-1B141FFE-EBA4-41C8-9E84-8D9E8F043A67">dx11Shader.mll</samp> 和 <samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-EC481B67-4C47-451E-857B-E69EE62E04DA">glslShader.mll</samp> 插件都是 <samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-FC9337EF-A30A-4CB0-B1B9-F6DF13A1A44E">MPxShaderOverride</samp>。因此，它们必须解析效果才能确定并手动绑定语义。相比之下，碎片系统和 <samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-95E9E5AD-1994-4E74-8A22-D10AAEF1AEBE">MShaderInstance</samp> 都可自动执行所有这些操作；但是，它们也都更具限制性。
+	 </div>
+<p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-29F0FDF4-BE04-400D-B83F-F0D0E1650FB5">世界坐标系可以进一步分为不同的区域设置，每个区域设置具有不同的原点。然后可以在其中任一区域设置中指定节点。这样，建立的节点位置比在世界坐标系中定义的精度更高。
+	 </p>
+<p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-57BD2721-8105-4131-9683-21A61C7FDFAC">当前节点的区域设置与以前节点的区域设置不同时，将重新应用属于 FrameLocale 组的所有矩阵。在渲染时，摄影机和灯光将变换到当前节点的区域设置空间中，以便对象、摄影机和灯光都在同一局部坐标空间中表示，并可以用单精度浮点值存储和表示。
+	 </p>
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__TABLE_F6591839B8CB4061B0842BB3EF174519" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> 
+				  <strong class="ph b" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-95EA0820-ACA2-470D-BEA0-BACA7CA5A41B">语义</strong> 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%"> 
+				  <strong class="ph b" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-F33D9471-FB78-4062-A1D8-8C766AC7A1B3">用法</strong> 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <strong class="ph b" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-4894D2C6-E7A5-4DD6-9513-3689F2306A4E">类型</strong> 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <strong class="ph b" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-2DC2C358-88A2-4F3B-9F9C-0643803AADDB">组</strong> 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">World 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界变换 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldTranspose 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界变换，已转置 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldInverse 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界变换，已反转 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldInverseTranspose 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界变换，已反转并已转置 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">PreviousWorld 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">上一世界变换 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">项目 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">NextWorld 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">下一世界变换 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">项目 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">View 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">视图变换 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">FrameLocale 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">ViewTranspose 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">视图变换，已转置 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">FrameLocale 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">ViewInverse 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">视图变换，已反转 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">FrameLocale 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">ViewInverseTranspose 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">视图变换，已反转并已转置 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">FrameLocale 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">Projection 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">投影变换 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">帧 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">ProjectionTranspose 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">投影变换，已转置 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">帧 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">ProjectionInverse 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">投影变换，已反转 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">帧 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">ProjectionInverseTranspose 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">投影变换，已反转并已转置 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">帧 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> 
+				  <p class="p">ProjectionZSense 
+				  </p>
+ 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">指示投影矩阵在变换时是否翻转点的 Z 分量。如果翻转，则为 -1.0 ，否则为 1.0。
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">浮点 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">帧 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%"> 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldView 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界视图变换 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldViewTranspose 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界视图变换，已转置 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldViewInverse 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界视图变换，已反转 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldViewInverseTranspose 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界视图变换，已反转并已转置 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-33B0F28C-B01C-4686-8FD4-CF880BA501D4">WorldLocaleOrigin 
+				  </p>
+ 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">将偏移应用于区域设置变换矩阵，以获取真实的（全局的）世界变换矩阵。
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-C53DAB92-F9B1-4038-931F-571D77084DE3">如果需要双精度来表示大坐标系中的精确位置，则应用此偏移可能会导致精度不足。
+				  </p>
+ 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Float3 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">FrameLocale 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">ViewProjection 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">视图投影变换 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">FrameLocale 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">ViewProjectionTranspose 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">视图投影变换，已转置 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">FrameLocale 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">ViewProjectionInverse 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">视图投影变换，已反转 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">FrameLocale 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">ViewProjectionInverseTranspose 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">视图投影变换，已反转并已转置 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">FrameLocale 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">PreviousViewProjection 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">上一视图投影变换 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">FrameLocale 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldViewProjection 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界视图投影变换 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldViewProjectionTranspose 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界视图投影变换，已转置 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldViewProjectionInverse 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界视图投影变换，已反转 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldViewProjectionInverseTranspose 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界视图投影变换，已反转并已转置 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">矩阵 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" colspan="4" valign="top"> 
+				  <p class="p">以下是其他语义的 MultiDraw 版本，当 <samp class="ph codeph">MPxShaderOverride::supportsMultiDraw()</samp> 被覆盖以返回 true·时用作渲染 MultiDraw 整合的替代项。
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldMD 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界变换的 MultiDraw 数组 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Matrix[64] 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldTMD 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界变换的 MultiDraw 数组，已转置 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Matrix[64] 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldIMD 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界变换的 MultiDraw 数组，已反转 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Matrix[64] 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldITMD 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界变换的 MultiDraw 数组，已反转并已转置 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Matrix[64] 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%"> 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldViewMD 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界视图变换的 MultiDraw 数组 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Matrix[64] 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldViewTMD 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界视图变换的 MultiDraw 数组，已转置 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Matrix[64] 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldViewIMD 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界视图变换的 MultiDraw 数组，已反转 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Matrix[64] 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldViewITMD 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界视图变换的 MultiDraw 数组，已反转并已转置 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Matrix[64] 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%"> 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldViewProjMD 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界视图投影变换的 MultiDraw 数组 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Matrix[64] 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldViewProjTMD 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界视图投影变换的 MultiDraw 数组，已转置 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Matrix[64] 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldViewProjIMD 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界视图投影变换的 MultiDraw 数组，已反转 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Matrix[64] 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">WorldViewProjITMD 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">世界视图投影变换的 MultiDraw 数组，已反转并已转置 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Matrix[64] 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				  <p class="p">项目 <sup class="ph sup">FL</sup> 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%"> 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%"> 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">ViewDirection 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">视图（摄影机）的世界空间方向 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Float3 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">FrameLocale 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">ViewPosition 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">视图（摄影机）的世界空间位置 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Float3 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">FrameLocale 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">LocalViewer 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">表示要使用局部视图方向还是要使用非局部视图方向 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">布尔 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">帧 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">IsOrthoGraphic 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">表示投影矩阵是否为正交 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">布尔 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">帧 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">ViewportPixelSize 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">当前视口的尺寸（以像素为单位），即宽度和高度 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Float2 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">帧 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">ClippingPlanes 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">活动剪裁平面的系数，每平面一个 float4 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Float4 数组 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">剪裁 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">ClippingPlaneCount 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">活动剪裁平面的数量 
+				   
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">整数 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">剪裁 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">NearClipPlane 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">摄影机的近剪裁平面 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">浮点 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">帧 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-105B4916-4770-43D6-9B68-2EEEF5C055F2">Time 
+				  </p>
+ 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-CA2C68E6-5104-4461-BB19-ED2F2604E1B7">AnimationTime 
+				  </p>
+ 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-5F6B7AA6-90FF-4EE2-A579-065A42F0382C">Sas.Time.Now 
+				  </p>
+ 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%"> 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-F873B1BA-9CFF-4E9D-B7F8-234BF99691EE">时间（秒） 
+				  </p>
+ 
+				  <div class="note note" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-7A527536-0D0E-4191-9BDC-F8FFFFC93331"><span class="notetitle">注：</span>  
+					 <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-43BCD405-B2CE-4D2B-BD2B-E4A3B71E8DFF">仅适用于使用 <samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-63CD4B94-36B5-4F36-95B2-20506D3D2BF6">MPxShaderOverride</samp> 创建的着色替代。<samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-6BA7E968-F6CC-4ADA-B65F-ABAEF82546A0">MPxShaderOverride</samp> 必须支持将 <samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-F366C893-A4D5-478F-8536-25AE41DDB585">MUniformParameter</samp> 自动绑定到着色器一致参数。
+					 </p>
+ 
+					 <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-F5ED1133-AEAD-495F-A76D-36386F9335B8">即，<samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-33D1E751-9B23-4681-A88A-0A84789B2D46">MPxShaderOverride</samp> 必须为每个一致参数创建 <samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-3D7438B5-50EE-4AE7-84A4-2EBBA1832A3A">MUniformParameter</samp>，根据关联语义检索每个 <samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-F7A710FE-6B42-4479-87C4-C93E4E5BD93F">MUniformParameter</samp> 值，并将此值绑定到着色器一致参数。
+					 </p>
+ 
+					 <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-AC42EAAD-20F6-4D86-ABB5-56DB939A6FD7">此操作由 <samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-334E4F25-A570-4C0D-8E1F-26E16FA50CC6">dx11Shader</samp> 和 <samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-A9038F5D-14AB-40A8-96E0-EC21B3002382">glslShader</samp> 插件自动完成。
+					 </p>
+ 
+					 <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-11BD2A4D-C78A-4790-BE30-DF21FE925299">此外，仅当已从 <samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-D55DD439-F1D8-4949-BE73-31007FB576FF">glslShader</samp> 插件加载效果文件时，“时间”(Time)和“帧”(Frame)才可用。
+					 </p>
+ 
+				  </div>
+ 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">浮点 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">帧 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-15566208-8077-4624-95EE-2572E7D0D01D">Frame 
+				  </p>
+ 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-B561D443-7B30-465C-A887-BD8671B9DFDA">FrameNumber 
+				  </p>
+ 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%"> 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-016C3436-E901-4E69-82F7-D0241BFD780B">在帧单位中框显 
+				  </p>
+ 
+				  <div class="note note" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-4A1D6F0E-E938-4C54-AA2E-3DD70653F974"><span class="notetitle">注：</span>  
+					 <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-3E1E1915-EA98-47DB-86FC-565A01C436F6">仅适用于使用 <samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-9C00332C-8469-49B6-BD8E-8B04DA74D004">MPxShaderOverride</samp> 创建的着色替代。<samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-90180684-72E8-4003-8DFA-D76D9C009AAF">MPxShaderOverride</samp> 必须支持将 <samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-D80C076A-20DE-46FA-8376-77F170D12DE2">MUniformParameter</samp> 自动绑定到着色器一致参数。
+					 </p>
+ 
+					 <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-918BBA9E-89CF-4A47-A51B-96C46D368944">即，<samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-5E5A49E3-CCB2-4981-9F7A-410D5216E649">MPxShaderOverride</samp> 必须为每个一致参数创建 <samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-165CD883-F54C-41FB-9A76-DB25F62E530E">MUniformParameter</samp>，根据关联语义检索每个 <samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-0B2816D2-115F-4DE9-8700-ABB2B1E831FE">MUniformParameter</samp> 值，并将此值绑定到着色器一致参数。
+					 </p>
+ 
+					 <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-F263A79F-E5FB-460A-BFF6-CEE60230F0E1">此操作由 <samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-DA4B3E85-5B70-46EF-9831-33E8489E48AD">dx11Shader</samp> 和 <samp class="ph codeph" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-536A6C05-B58E-4A9F-9995-987723C6341F">glslShader</samp> 插件自动完成。
+					 </p>
+ 
+				  </div>
+ 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">整数 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">帧 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">AlphaTestFunction 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">Alpha 测试比较函数 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-EE159836-FCD7-461F-BA2D-D7AAB40CCDFF">1 = 从不 
+				  </p>
+ 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-95FD92A2-0231-457E-8EB2-17CD9002FB9B">2 = 小于 
+				  </p>
+ 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-A7DAF2A6-1B0C-485D-8793-2BBD923DC50B">3 = 等于 
+				  </p>
+ 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-6F3FBB25-9802-45FE-880E-573068AE5A6E">4 = 小于或等于 
+				  </p>
+ 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-9EDDB7C4-D4AF-42EA-9FBF-F7D00DFDFED9">5 = 大于 
+				  </p>
+ 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-1D2866EE-F35F-43E6-856E-1F0B292E583D">6 = 不等于 
+				  </p>
+ 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-ACA9C7F3-5F04-4325-B2B9-DDCFD2EFE988">7 = 大于或等于 
+				  </p>
+ 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-8EA6365F-C996-4DDB-8CDE-2D2D06D06339">8 = 始终 
+				  </p>
+ 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">整数 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Alpha 测试 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">AlphaTestReference 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">Alpha 测试引用值，范围为 (0.0, 1.0) 
+				   
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">浮点 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Alpha 测试 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">RelativeViewportDimensions 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">指定相对视口尺寸 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Float2 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">帧 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">MayaReceivesShadowOn 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">表示对象是否接收阴影 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">布尔 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">项目 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">EnableXRayComp 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">表示是否已启用 X 射线组件模式 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">布尔 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">帧 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">MayaViewportModes 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">视口模式 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-14E5AA82-FCDB-49E7-970D-1BCB5B4BBE88">0 = 不包含边界框 
+				  </p>
+ 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-70D3C9DE-99F4-4F92-8BBB-97530384DDA5">1 = 包含边界框 
+				  </p>
+ 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">整数 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">帧 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="35.714285714285715%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+<td class="entry" valign="top" width="14.285714285714285%"> </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">FogEnabled 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">表示是否已启用硬件雾 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">布尔 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">帧 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">FogMode 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">硬件雾衰减模式 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-2087A985-C505-4130-8D04-BFE0D8AEC1F7">0 = 线性 
+				  </p>
+ 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-6F568841-FDA5-4D84-BE55-C8E2494D794B">1 = 指数 
+				  </p>
+ 
+				  <p class="p" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-6404C7B5-AAED-4B52-BA30-81473C88DB54">2 = 指数平方 
+				  </p>
+ 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">整数 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">帧 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">FogStart 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">视图空间中的硬件雾开始 z 距离 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">浮点 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">帧 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">FogEnd 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">视图空间中的硬件雾结束 z 距离 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">浮点 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">帧 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">FogDensity 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">硬件雾密度 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">浮点 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">帧 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="35.714285714285715%">FogColor 
+				</td>
+<td class="entry" valign="top" width="35.714285714285715%">硬件雾颜色 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">Float4 
+				</td>
+<td class="entry" valign="top" width="14.285714285714285%">帧 
+				</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="note note" id="GUID-0939A615-81AC-455C-9B23-9ECEC5835F93__GUID-8A0D2127-2784-4F2F-A2B4-21246B35813E"><span class="notetitle">注：</span> <sup class="ph sup">FL</sup> 表示语义还与帧区域设置相关。
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-677E53F2-E63B-4078-8896-959B3B9BC3AB.htm">使用 Viewport 2.0</a></div>
+</div>
+</div>
+
+</body>
+</html>

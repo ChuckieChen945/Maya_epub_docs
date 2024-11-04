@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36">
+<meta name="language" content="CHS">
+<title>关于 XGen 的常见问题解答</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>关于 XGen 的常见问题解答</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-C5BF0DB9-20A1-40B6-85E5-1EEBBF801196"><dl class="dl" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-C5BF0DB9-20A1-40B6-85E5-1EEBBF801196"><dt class="dt dlterm">什么是法线补偿？ </dt>
+<dd class="dd" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-BA901A0C-4BF5-4DA9-9FEA-652602ADBA8C">基本体在参数化面片空间而非 Euclidean (XYZ) 空间中生成。因此，基本体的分布采用方形面片以与方形参数空间相匹配。法线补偿会尝试补偿非方形面片分布。 <p class="p" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-CDECD5D0-D109-4651-A915-43ED2C795C4A">为了补偿非方形分布，XGen 会查找 U 和 V 等参线的比率。例如，如果面片的宽度是高度的两倍，则形状补偿会调整头发密度，使沿高度生成一半的头发。基本上，补偿会修改参数空间以匹配 Euclidean 空间，然后消隐在参数化域之外的任何点。 </p>
+</dd>
+<dt class="dt dlterm"> 什么是参数化补偿？</dt>
+<dd class="dd" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-81454661-2322-4803-A17E-2D3F712DC006">如上所述。基本体在面片的参数空间而非 Euclidean (XYZ) 空间中生成。因此，基本体分布假定统一参数空间与面片上的统一曲面面积相匹配。参数化补偿会对等参线参数间距不统一的任何面片进行更正。 <p class="p" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-6046C48A-0E6D-4264-AF79-A5292739ACA5"> 例如，您拥有一个方形面片，不需要法线补偿，但等参线在 Euclidean 空间中扭曲，面片的中心区域的面积比面片另一位置的其他类似参数范围小得多。这种差异导致基本体在小面积区域中显得非常密集，而在大面积区域中显得不太密集。 </p>
+ <p class="p" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-5F36221B-5A04-41E7-960A-91FE5A9F9A87"> XGen 通过基于统一参数间距查找曲面面积数组，对此进行补偿。然后，比较这些面积并进行缩放以生成密度补偿贴图，从而指示生成器在面积较大的面片区域中生成更多基本体，在面积较小的区域中生成更少的基本体。 </p>
+</dd>
+<dt class="dt dlterm">如何重新生成我的参数化补偿贴图？</dt>
+<dd class="dd" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-CA3255F2-869C-4728-A7A2-953FCA68D9B8">实现优化目的，如果面片存在贴图，则会重用。XGen 不会检查几何体中的更改。这一点很重要，因为参数化补偿贴图应在面片引用的模型中生成。若要重新生成贴图，请单击 <span class="ph uicontrol" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-377725D9-22F2-4502-AE84-E06309DE39A8">“补偿法线”(Compensate Normals)</span>下的<span class="ph uicontrol" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-10953EFF-8B7D-4145-B50E-32228B871CD8">“创建参数化贴图”(Create Parameterization Map)</span>。 <div class="note note" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-35E66BC2-AB3B-4D26-8EBF-54A263D93137"><span class="notetitle">注：</span> XGen 不会自动生成贴图，因此您必须生成一个贴图。只需在存在拓扑更改或基础模型更改的情况下执行此操作。 </div>
+</dd>
+<dt class="dt dlterm">为模型设置动画时为什么会弹出基本体？ </dt>
+<dd class="dd" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-6F03E1CF-BE4F-4265-B9AB-A62A6DC9376C">面片面积在绑定时计算，然后进行缓存。面片在以下情况下被视为绑定： <ul class="ul" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__UL_BADDB0E12589416386D895C31C527161"><li class="li" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__LI_A13974CF4DAA4FA9A060E9F4BAB01511">您手动绑定面片。 </li>
+<li class="li" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__LI_2E7F44BDD07242F5A10C1479CA023D10">面片通过 Maya 场景加载。 </li>
+<li class="li" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__LI_E3581D4ADD684448A7EBCB997F421D61">导入的面片。 </li>
+</ul>
+ <p class="p" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-A076672A-DF26-414E-8354-2088C5FD6033"> 由于渲染涉及描述导入，因此届时会绑定面片并计算面积。在渲染时，由于变形，面片每个帧可能具有不同的面积。这通常会导致生成不同数量的基本体。因此，最好使用面片引用的模型。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-0D47A0EB-1917-4619-AA5E-630E16399E0F.htm#GUID-0D47A0EB-1917-4619-AA5E-630E16399E0F__SECTION_2155E19614FB485EA9770120EBE2CAC2">XGen 面片</a>。 </p>
+</dd>
+<dt class="dt dlterm"> 为什么我在渲染时仍会弹出面片引用的模型？ </dt>
+<dd class="dd" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-43B80F5B-A06C-4376-94A9-A0DBE3D64FC6"> 面片引用的模型与模型几何体同时绑定。如果加载场景，并且没有面片引用，则不绑定面片引用的模型。如果随后创建面片引用，则 XGen 不会注意到它，并且不会使用它。因此，如果您在加载场景之后创建面片引用，请保存该场景然后重新加载，以便 XGen 可以正确地绑定面片引用的模型。 </dd>
+<dt class="dt dlterm">我如何预览选定的 XGen 面片或描述？</dt>
+<dd class="dd" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-6545119C-E6D6-4363-8BD5-49A3D9162C19">若要预览选定对象，请选择以下项之一： <ul class="ul" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__UL_EA373F0A7E9043AA820B6DEB9D4B3F90"><li class="li" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__LI_604BF746FBE74B2EB6E39635B37620A5">几何体对象 </li>
+<li class="li" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__LI_EBBB321200F648D9872F1FDD08103AAF"> XGen 面片 </li>
+<li class="li" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__LI_5CC7A806548A409B82F552C8E8E84E94"> 说明 </li>
+<li class="li" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__LI_D3553E0062D2419DA90DF65A1A29756D">导向 </li>
+</ul>
+ 然后从 XGen 菜单选择预览选项。 <p class="p" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-3E74DF9E-5FE1-41C9-BD94-5E528A1C0080">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-66822A1A-C6AD-47B4-8782-E058B5E6A528.htm">预览生成的基本体</a>。 </p>
+ </dd>
+<dt class="dt dlterm">如何设置调试和统计信息级别？ </dt>
+<dd class="dd" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-D44116EE-80AD-402A-ADE6-84F86963C60E">您可以通过两种方式设置调试级别，具体取决于您如何使用 XGen。 <div class="p" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-1E86BDA7-F3C9-4799-9B50-F905BF59981A">在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-BA150C17-65E0-4688-91F4-73C4F857689E.htm"> XGen 表达式编辑器</a>中使用以下命令： <pre class="pre codeblock">
+xgmMessage -d &lt;debuglevel&gt; -s &lt;statlevel&gt; -w &lt;warninglevel&gt;
+</pre>
+ 可以使用<span class="ph uicontrol" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-64183C23-3863-4848-9D66-7DB835032A35">“调试”(Debug)</span>修改器（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-80CF5F8E-21C8-4E75-AC57-E7019364D5B5.htm">调试</a>）设置调试级别。也可以从 <span class="ph uicontrol" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-3FF1B669-901F-4F40-B8A6-2E5B767F44B3">XGen 编辑器</span>中的<span class="ph uicontrol" id="GUID-4E71E00B-ACCC-470D-A615-A65DEF98BF36__GUID-9A8DB03D-9257-48BB-95E4-B312FB59B014">“日志”(Log)</span>菜单设置调试级别。 </div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-463D1930-F3FC-4C65-8C16-5A2927EDE8A7.htm">XGen 疑难解答和常见问题解答</a></div>
+</div>
+</div>
+
+</body>
+</html>

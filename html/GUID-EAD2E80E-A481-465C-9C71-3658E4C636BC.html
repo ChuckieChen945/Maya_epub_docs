@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-EAD2E80E-A481-465C-9C71-3658E4C636BC">
+<meta name="language" content="CHS">
+<title>期望标志参数成为浮点时为什么会出现转换错误？</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-EAD2E80E-A481-465C-9C71-3658E4C636BC">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>期望标志参数成为浮点时为什么会出现转换错误？</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-EAD2E80E-A481-465C-9C71-3658E4C636BC__WS73099CC142F487553BD5B66812435C29801-6107">某些标志（例如，<samp class="ph codeph" id="GUID-EAD2E80E-A481-465C-9C71-3658E4C636BC__GUID-407714AE-2057-49BE-91BC-F0A8634B1D64">polyColorPerVertex</samp> 命令的 <samp class="ph codeph" id="GUID-EAD2E80E-A481-465C-9C71-3658E4C636BC__GUID-9209D9DC-4AC1-4CFE-BD93-F98B79AD5F2A">-alpha</samp> 标志）可能会返回浮点数组，而不是浮点。因此，如果查询如下所示的标志参数：</p>
+<pre class="pre codeblock">
+float $a = `polyColorPerVertex -q -a pCube1.vtx[0]`; 
+</pre>
+<p class="p" id="GUID-EAD2E80E-A481-465C-9C71-3658E4C636BC__WS73099CC142F487553BD5B66812435C29801-6106">将产生以下错误：</p>
+<pre class="pre codeblock">
+// Error : Cannot convert data of type float[] to float. 
+</pre>
+<p class="p" id="GUID-EAD2E80E-A481-465C-9C71-3658E4C636BC__WS73099CC142F487553BD5B66812435C29801-6105">查询该标志的正确方法如下所示：</p>
+<pre class="pre codeblock">
+float $a[] = `polyColorPerVertex -q -a pCube1.vtx[0]`; 
+</pre>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-6EBACC0D-C75E-44ED-978E-1D488390735F.htm">脚本和语法</a></div>
+</div>
+</div>
+
+</body>
+</html>

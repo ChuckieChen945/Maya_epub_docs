@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-2BC24917-C57C-4B6E-867F-73FECF20AF98">
+<meta name="language" content="CHS">
+<title>父对象和子对象</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-2BC24917-C57C-4B6E-867F-73FECF20AF98">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>父对象和子对象</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-2BC24917-C57C-4B6E-867F-73FECF20AF98__WS73099CC142F48755-3D114B7511841AEFA9F-B88"> 您将看到与 UI 元素和 ELF 命令相关的使用的术语“父对象”和“子对象”。在该上下文中，父对象只是一个包含其他 UI 元素的 UI 元素，而子对象是包含在父对象中的元素。一个父对象的子对象也可以是其他子对象的父对象。 
+	 </p>
+<p class="p" id="GUID-2BC24917-C57C-4B6E-867F-73FECF20AF98__WS73099CC142F48755-3D114B7511841AEFA9F-B86">窗口是层次的最顶层父对象。层次中的其他元素可以是布局、控件、菜单、菜单项等。层次可以是任意深的，因为布局可以包含其他布局，菜单项可以包含子菜单。 
+	 </p>
+<div class="section" id="GUID-2BC24917-C57C-4B6E-867F-73FECF20AF98__WS17956D7ADBC6E736-382DDEB7117AE328B72-7FFC"><h2 class="title sectiontitle">默认父对象</h2> 
+		 
+		<p class="p" id="GUID-2BC24917-C57C-4B6E-867F-73FECF20AF98__WS73099CC142F48755-3D114B7511841AEFA9F-B85">为了简化窗口的创建并减少脚本中的混乱，ELF 命令应了解默认父对象的概念。这意味着不必为每个创建的元素显式指定父对象。创建一个窗口后，该窗口将成为所有后续菜单或控件的默认父对象。新的 UI 元素将一直显示在该窗口内部，直到显式更改了默认父对象（使用 <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/setParent.html" target="_blank">setParent</a></samp> 命令）或创建了另一个窗口为止。 
+		</p>
+ 
+		<p class="p" id="GUID-2BC24917-C57C-4B6E-867F-73FECF20AF98__WS73099CC142F48755-3D114B7511841AEFA9F-B84">布局和菜单有不同的默认父对象。窗口是控件的初始默认父对象，并且如果该窗口是使用菜单栏创建的，那么它也是菜单的初始默认父对象。创建一个布局后，该布局将成为布局和控件的新默认父对象。创建一个菜单栏布局后，该菜单栏布局将成为菜单的新默认父对象。创建一个菜单后，该菜单将成为菜单项的默认父对象。 
+		</p>
+ 
+		<p class="p" id="GUID-2BC24917-C57C-4B6E-867F-73FECF20AF98__WS73099CC142F48755-3D114B7511841AEFA9F-B83">默认父对象可以通过创建新父对象隐式更改，也可以通过使用 <samp class="ph codeph">setParent</samp> 命令显式更改。<samp class="ph codeph">-menu</samp> 标志用于更改菜单的默认父对象。将父对象设置为窗口或菜单栏布局，将为菜单和布局设定默认父对象。以下是一个小代码示例，说明为布局使用默认父对象。 
+		</p>
+ 
+		<div class="section" id="GUID-2BC24917-C57C-4B6E-867F-73FECF20AF98__WS73099CC142F48755-3D114B7511841AEFA9F-B82"><h3 class="title sectiontitle">脚本 1. 默认父对象布局的示例</h3> 
+		   
+		  <pre class="pre codeblock">
+window ExampleWindow1;
+ columnLayout;
+ button -label "Button 1";
+ button -label "Button 2";
+ rowColumnLayout -numberOfColumns 2;
+ text -label "Name:";
+ textField;
+ text -label "City:";
+ textField;
+ setParent ..;
+ checkBox -label "Lights ";
+ checkBox -label "Camera ";
+ checkBox -label "Action ";
+showWindow ExampleWindow1;
+</pre>
+ 
+		  <p class="p" id="GUID-2BC24917-C57C-4B6E-867F-73FECF20AF98__WS73099CC142F48755-3D114B7511841AEFA9F-B81"><samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/text.html" target="_blank">text</a></samp> 和 <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/textField.html" target="_blank">textField</a></samp> 元素是行列布局的子对象。按照行列布局，它们排列在两列中。如果未使用 <samp class="ph codeph">setParent ..</samp> 命令，则默认父对象将继续是行列排布，且复选框也会在两个列中进行排布。为了进行演示，下一示例与上一个示例相同，除了已将 <samp class="ph codeph">setParent</samp> 命令注释掉之外。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-2BC24917-C57C-4B6E-867F-73FECF20AF98__WS73099CC142F48755-3D114B7511841AEFA9F-B80"><h3 class="title sectiontitle">脚本 2. setParent 命令对默认父对象布局产生的影响</h3> 
+		   
+		  <pre class="pre codeblock">
+window ExampleWindow2;
+ columnLayout;
+ button -label "Button 1";
+ button -label "Button 2";
+ rowColumnLayout -numberOfColumns 2;
+ text -label "Name:";
+ textField;
+ text -label "City:";
+ textField;
+ //setParent ..;
+ checkBox -label "Lights ";
+ checkBox -label "Camera ";
+ checkBox -label "Action ";
+showWindow ExampleWindow2;
+</pre>
+ 
+		  <p class="p" id="GUID-2BC24917-C57C-4B6E-867F-73FECF20AF98__WS73099CC142F48755-3D114B7511841AEFA9F-B7F"><samp class="ph codeph">setParent</samp> 命令接受 <samp class="ph codeph">-up</samp> 和 <samp class="ph codeph">-top</samp> 标志，分别将层次向上移动一个级别或移动到层次的顶层。类似地，您还可以显式指定一个新默认父对象，例如 <samp class="ph codeph">setParent &lt;windowOrLayoutName&gt;;</samp>。也可以使用 <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/setParent.html" target="_blank">setParent</a></samp> 命令查询当前父对象；例如，<samp class="ph codeph">setParent -query</samp>。 
+		  </p>
+ 
+		  <p class="p" id="GUID-2BC24917-C57C-4B6E-867F-73FECF20AF98__WS73099CC142F48755-3D114B7511841AEFA9F-B7E">以下是一个简短示例，说明为菜单使用默认父对象。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-2BC24917-C57C-4B6E-867F-73FECF20AF98__WS73099CC142F48755-3D114B7511841AEFA9F-B7D"><h3 class="title sectiontitle">脚本 3. 默认父对象菜单示例</h3> 
+		   
+		  <pre class="pre codeblock">
+window -menuBar true ExampleWindow3;
+ menu -label "File" TestFileMenu;
+ menuItem -label "Open" menuItem1;
+ menuItem -label "Close" menuItem2;
+ menuItem -label "Quit" menuItem3;
+ menu -label "Edit" TestEditMenu;
+ menuItem -label "Cut" menuItem1;
+ menuItem -label "Copy" menuItem2;
+ menuItem -label "Paste" menuItem3;
+ menu -label "Options" TestOptionsMenu;
+ menuItem -label "Color" -subMenu true menuItem1;
+ menuItem -label "Red";
+ menuItem -label "Green";
+ menuItem -label "Blue";
+ setParent -menu ..;
+ menuItem -label "Size" -subMenu true menuItem2;
+ menuItem -label "Small";
+ menuItem -label "Medium";
+ menuItem -label "Large";
+ setParent -menu ..;
+showWindow ExampleWindow3;
+</pre>
+ 
+		  <p class="p" id="GUID-2BC24917-C57C-4B6E-867F-73FECF20AF98__WS73099CC142F48755-3D114B7511841AEFA9F-B7C">创建 UI 元素的所有命令也会接受 <samp class="ph codeph">-parent parentName</samp> 标志，从而显式指定该元素的父对象。该标志将始终优先于默认父对象。 
+		  </p>
+ 
+		  <p class="p" id="GUID-2BC24917-C57C-4B6E-867F-73FECF20AF98__WS73099CC142F48755-3D114B7511841AEFA9F-B7B">会以不同的方式处理集合。它们使用当前布局作为默认父对象，并且它们也接受 <samp class="ph codeph">-parent</samp> 标志，以便显式设置父对象。但是，集合还能够跨窗口，且有一个用于选择该行为的 <samp class="ph codeph">-global</samp> 标志。使用 <samp class="ph codeph">-global</samp> 标志时，集合将没有父对象。为集合设置父对象仅仅是为了方便其删除。如果删除了该父对象，也将删除该集合。全局集合必须显式删除。 
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B612C992-B8F8-41CA-9DB7-7EBBFD671F1A.htm">创建界面</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="18/08/2022">
+<meta name="topicid" content="GUID-4229261F-36AA-42B2-A497-27E73885DCE0">
+<meta name="language" content="CHS">
+<title>ShaderFX 纹理和 Gamma 校正</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>ShaderFX 纹理和 Gamma 校正</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__SECTION_E27C4DB715F64F6BB728E8B60DC258DD"><h2 class="title sectiontitle">将贴图转化为线性空间</h2> 
+		 
+		<p class="p" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-EB4427E7-F561-4CAB-9DB0-5D2F7129086C">如果目标引擎为线性，则应当对 RGB 纹理进行 Gamma 校正。若要将纹理贴图转化为线性空间，请选择<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-A635F867-D570-4891-A2E3-C9DDCFBB0B93">“纹理贴图”(Texture Map)</span>节点，并启用<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-6327139F-BD23-4962-A8A8-D5575191BCE5">“属性编辑器”(Attribute Editor)</span>中的<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-D65AE0DC-E7CE-4C92-9FDE-81FCDC10CDBE">“ConvertToLinearSpace”</span>。
+		</p>
+ 
+		<p class="p" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-0E3C9BDA-2120-4197-A17E-70151186F726"> 从 ShaderFX 菜单栏中选择<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-6953B1C8-B814-4BF6-9C3D-EAD2AE1F5014">“设置 &gt; 切换高级模式”(Settings &gt; Toggle Advanced Mode)</span>以启用高级模式。单击<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-2DF7E051-A642-4E77-8E8A-8EE3F53CEF3A">“纹理贴图”(Texture Map)</span>节点上的“组”(Group) <img class="image" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__IMAGE_B9DD383830A64624BA7861DD7B7C83E5" src="../images/GUID-A0BF4325-29A5-4BBB-BA85-4EE11D93834B.png"> 图标以可视化组网络。在组网络视图中，找到<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-BD51AA6D-583D-4769-8FFF-5BBF79372A21">“ToLinearSpace”</span>组。单击其“组”<img class="image" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__IMAGE_69860073717F476EB556C0532B68F9F7" src="../images/GUID-A0BF4325-29A5-4BBB-BA85-4EE11D93834B.png"> 图标以展开网络，然后根据需求进行编辑。
+		</p>
+ 
+		<div class="note note" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-5B782024-F12C-4E5E-8B0E-54C2847B6D54"><span class="notetitle">注：</span> 如果通过<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-1DDE9A0D-CB05-4BAB-A96D-8C95A3346328">“ConvertToLinearSpace”</span>对颜色纹理去除 Gamma，则还应当针对<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-C60DDCD7-5A44-4B3A-982D-A74FA4C52A43">“材质”(Material)</span>节点启用 Gamma。
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__SECTION_D578BFCCDC654CB99544BD4F13390455"><h2 class="title sectiontitle">着色器端点的 Gamma 校正</h2> 
+		 
+		<p class="p" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-E40D6CB5-C922-443D-81B2-16AB9E8C0451">如果通过<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-50EFC9BF-10FB-4BB5-A307-1BA4A784C00E">“ConvertToLinearSpace”</span>对颜色纹理去除 Gamma，则还应当针对<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-20D21419-96A4-429E-BA79-61D6A83B417E">“材质”(Material)</span>节点启用 Gamma。您可以在着色器端点重新应用 Gamma 校正，如下所示：
+		</p>
+ 
+		<ol class="ol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__OL_4CFA2765E0B84C2E9885908A08D657A1"><li class="li" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__LI_DD9D54ACECA041D086D3124BD2BA236B"> 从 ShaderFX 菜单栏中选择<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-1C219B78-8E06-4E0D-93C8-1EE8F794CDDC">“设置 &gt; 切换高级模式”(Settings &gt; Toggle Advanced Mode)</span>以启用高级模式。
+		  </li>
+<li class="li" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__LI_12BDC1657A3047FD971249F283556E2B">选择<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-6E1EE633-D043-44C9-A5A6-2C1F7025A553">“图形节点 &gt; 值 &gt; 布尔值”(Graph Nodes &gt; Values &gt; Bool Value)</span>以创建<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-605C4DF7-FAE4-47DF-9F2D-C64D8BE31A00">“布尔值”(Bool Value)</span>节点。
+		  </li>
+<li class="li" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__LI_183126F78DC64C82B7AA8E7DE10CB3FD">将<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-3FE7452A-67B2-40F2-AB2E-08DCB2A30773">“布尔值”(Bool Value)</span>的<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-78109411-B158-42AA-B17F-7360202829D3">“布尔”(bool)</span>属性连接到<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-9447F855-B3EA-4E49-9CCC-24993C76D804">“材质”(Material)</span>节点的<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-DFE625A9-A05F-44DD-9DF2-1FC06BA1206E">“Gamma”</span>属性。
+			 <div class="fig fignone" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__FIG_641BD4F116F748EEB91EA5114768B60B"><img class="image" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__IMAGE_D0A5CE6E8310492D93CD7CDECA1604A2" src="../images/GUID-DD0D6ACE-6C68-4C27-8833-9887FF320FE6.png"></div>
+ 
+			 <p class="p" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-C2CCA4FE-F73D-48C5-8BEA-3229EC78380F">当<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-07774BAA-4597-4B79-84E0-F78D9E1077D5">“布尔值”(Bool Value)</span>的<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-D51CC3FF-E628-444A-828B-A91C2A05505B">“值”(Value)</span>设置为 true 时，将应用 Gamma 校正。
+			 </p>
+ 
+			 <p class="p" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-EA49A999-71AF-4C23-A60A-4406EA491079">有关<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-513F2BEA-052F-4E23-9622-1A751AB688B6">“图形节点”(Graph Nodes)</span>的详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D.htm">使用“高级模式图形节点”(Advanced Mode Graph Nodes)添加开关</a>。
+			 </p>
+ 
+		  </li>
+</ol>
+ 
+		<div class="note note" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-021A1436-88A3-4430-A771-AD691A4B7739"><span class="notetitle">注：</span> 您也可以通过转到<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-0280AAAE-B485-4445-8C12-651872F73EBC">“渲染设置”(Render Settings)</span>窗口，然后选择<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-CFF2D8F2-0747-43B9-A674-C9FDFC3E1C57">“Gamma 校正”(Gamma Correction)</span>下的<span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-ED16DD57-942E-4F79-B8E9-64944BFE5946">“启用”(Enable)</span>来启用 <span class="ph uicontrol" id="GUID-4229261F-36AA-42B2-A497-27E73885DCE0__GUID-C031A089-8C0E-4871-8F52-5D70C0485DA0">Viewport 2.0</span> 中的 Gamma 校正。
+		</div>
+ 
+		 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-50D16E12-5E09-4DE9-A572-302C5C00FC03.htm">创建 ShaderFX 着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

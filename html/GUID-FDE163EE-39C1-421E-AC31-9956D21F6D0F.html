@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Modeling">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="06/03/2024">
+<meta name="topicid" content="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F">
+<meta name="language" content="CHS">
+<title>polyRetopo</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>polyRetopo</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 
+	 </p>
+<p class="p"><img class="image" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__IMAGE_AA47C365EFD14D57B8F49D5C92E14D5D" src="../images/GUID-57E9DA6F-DB97-48FB-859F-5FA7A7471DF8.png" alt="">
+	 </p>
+<div class="section" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__SECTION_4CF5D336232943288E2DDB427F917A62">默认情况下，执行重新拓扑操作（<span class="ph uicontrol">“网格 &gt; 重新拓扑”(Mesh &gt; Retopologize)</span>）时，将创建<span class="ph uicontrol">“polyRetopo”</span>节点。
+	 </div>
+<dl class="dl"><dt class="dt dlterm">暂停(Pause)
+		  </dt>
+<dd class="dd">暂停<span class="ph uicontrol">“重新拓扑”(Retopologize)</span>算法后，在禁用<span class="ph uicontrol">“暂停”(Pause)</span>之前，它不会再次运行，从而可以更快、更轻松地对网格进行调整。
+		  </dd>
+</dl>
+<div class="section" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__SECTION_752D7ACBC859414591E099C0ABC4D51C"><h2 class="title sectiontitle"><span class="ph uicontrol">设置(Settings)</span></h2>
+		
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__UICONTROL_86B51F04B3594DE2A480E7C7384DFA96">预处理网格(Preprocess Mesh)</span> 
+			 </dt>
+<dd class="dd">优化密集输入网格以提高重新拓扑操作的速度和成功率。此选项专门设计用于三角形计数较高 (100k+) 的输入网格，这些输入网格可能包含拓扑噪波和网格缺陷。它不适用于具有整洁几何体的低分辨率网格。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-4444ECA9-4667-4314-807D-B7037DDDC877.htm">使用重新拓扑预处理网格的最佳实践</a>。
+				<div class="note tip" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__GUID-27ADD3D1-0BA4-4CA7-87C9-9E963EF2270F"><span class="tiptitle">提示：</span> 预处理可优化密集网格，这需要平滑处理并可能导致丢失细节。禁用<span class="ph uicontrol">“预处理网格”(Preprocess mesh)</span>时，将保留更多细节，但重新拓扑操作可能需要较长时间才能完成。
+				</div>
+ 
+			 </dd>
+</dl>
+
+	 </div>
+<div class="section" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__SECTION_1D4743B3DE5A4B2DAB0B98E0161F5D68"><h2 class="title sectiontitle"><span class="ph uicontrol">面数</span></h2>
+		
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">目标面数(Target Face Count)</span> 
+			 </dt>
+<dd class="dd"> 
+				<p class="p">重新拓扑网格的所需面数。这不是硬性计数，而更多的是<span class="ph uicontrol">“重新拓扑”(Retopologize)</span>尝试达到的目标。
+				</p>
+ 
+				<p class="p"><span class="ph uicontrol">“重新拓扑”(Retopologize)</span>算法优先考虑输入网格的细节，而不是面数。例如，如果尝试重新拓扑高度细节化的网格并将<span class="ph uicontrol">“目标面数”(Target Face Count)</span>设置得非常低，则该算法会尝试保留尽可能多的细节，而生成的面数可能不会如预期低。
+				</p>
+ 
+				<div class="note tip" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__GUID-FCFBD13D-B55D-4D21-B972-979B3F4E5425"><span class="tiptitle">提示：</span> 如果您优先考虑达到较低的<span class="ph uicontrol">“目标面数”(Target Face Count)</span>，则可以启用<span class="ph uicontrol">“预处理网格”(Preprocess Mesh)</span>，然后尝试再次运行<span class="ph uicontrol">“重新拓扑”(Retopologize)</span>。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-4444ECA9-4667-4314-807D-B7037DDDC877.htm">使用重新拓扑预处理网格的最佳实践</a>。
+				</div>
+ 
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">容差(Tolerance)(%)</span> 
+			 </dt>
+<dd class="dd"> 
+				<p class="p"><span class="ph uicontrol">“目标面数”(Target Face Count)</span>的可接受误差范围 (%)。非常低的值 (&lt; 10) 可能会导致性能低下。较高的值可能会导致面数不太接近目标设置。
+				</p>
+ 
+			 </dd>
+</dl>
+
+	 </div>
+<div class="section" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__SECTION_DDD8FF8A0E814FE1B7EF4DE8160B9FBC"><h2 class="title sectiontitle"><span class="ph uicontrol">拓扑</span></h2> 
+		 
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">拓扑规则性(Topology Regularity)</span>
+			 </dt>
+<dd class="dd"> 
+				<p class="p">确定结果中奇点（除 4 条连接边外的顶点）的数量。当设置为 0 时，结果对曲面敏感，产生更多奇点。当设置为 1 时，则产生的奇点较少，并且结果可能会平滑精细的细节。
+				</p>
+ 
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">面均匀性(Face Uniformity)</span>
+			 </dt>
+<dd class="dd"> 
+				<p class="p"> 表示面的总体大小和形状。当设置为 0 时，将导致大小变化，区域的曲率越高，面越小。当设置为 1 时，面的大小更均匀（不考虑曲面曲率）。
+				</p>
+ 
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">各向异性(Anisotropy)</span> 
+			 </dt>
+<dd class="dd"> 
+				<p class="p"> 可根据曲面的方向曲率自适应。当设置为 0 时，面拉伸较小，并呈方形。当设置为 1 时，面会进一步拉伸以适应每个曲率方向的曲面。注意：如果均匀性设置为 1，则各向异性将没有任何效果。
+				</p>
+ 
+				<div class="fig fignone" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__FIG_82B03999975A4870AD8100F40E5AEB25"><img class="image" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__IMAGE_6FA186BA43E24A23A4CC1868AF6ACC36" src="../images/GUID-A00844E6-4F85-4F71-988D-B4B697FC3A3F.png"></div>
+ 
+			 </dd>
+</dl>
+ 
+	 </div>
+<div class="section" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__SECTION_3ED6318F0FB84437A641C06651BADF43"><h2 class="title sectiontitle"><span class="ph uicontrol">功能保留(Feature Preservation)</span></h2> 
+		 
+		<dl class="dl"><dt class="dt dlterm">保留: 硬边(Preserve: Hard edges) 
+			 </dt>
+<dd class="dd"> 
+				<div class="p">启用此选项后，使用输入网格上的显式硬边（使用<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-57FBF97C-F60F-4D8A-8801-852B8B56D4EF.htm"><span class="ph uicontrol">网格显示 &gt; </span><span class="ph uicontrol">硬化边(Mesh Display &gt; Harden Edges)</span></a>定义的硬边）来影响重新拓扑的网格上的特征保留。因此，硬边周围的特征（如褶皱、眉毛、嘴唇等）将更精确地转化为新网格。但是，过多硬边会导致重新拓扑算法运行时间非常长。禁用此选项会将所有边视为软边。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991.htm">保留重新拓扑网格的区域</a>。
+				  <div class="fig fignone" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__FIG_DC5E294CC3374D8E8FEB915445C0E66D"><img class="image" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__IMAGE_098F9512997C4428BDB85115D50508C8" src="../images/GUID-748866DA-E1F6-4120-B19D-7D9E1FC3C1DC.png"></div>
+ 
+				</div>
+ 
+				<div class="note note" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__GUID-D06759CD-DFA7-4A59-ADFB-B4F6D692CDB9"><span class="notetitle">注：</span> 重新拓扑网格的分辨率（<span class="ph uicontrol">目标面数(Target Face Count)</span>）将确定输入网格形状和边流的保留程度。例如，较低的<span class="ph uicontrol">“目标面数”(Target Face Count)</span>值会保留输入网格的常规形状，而较高的<span class="ph uicontrol">“目标面数”(Target Face Count)</span>值生成的网格会更接近输入网格。
+				</div>
+ 
+			 </dd>
+<dt class="dt dlterm">保留: 按角度保留边(Preserve: Edges by angle) 
+			 </dt>
+<dd class="dd"> 
+				<p class="p"> 
+				</p>
+启用此选项后，将基于指定的角度容差保留边。如果相邻面之间的角度超过指定的角度容差，将保留面之间的边。
+			 </dd>
+<dd class="dd">如果网格包含的边在视觉上不是硬边（即在网格内部），或者您不想显式定义硬边，请使用此选项。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991.htm">保留重新拓扑网格的区域</a>。
+			 </dd>
+<dt class="dt dlterm">保留: 边组件标记(Preserve: Edge component tags) 
+			 </dt>
+<dd class="dd"> 
+				<p class="p"> 
+				</p>
+启用此选项后，<samp class="ph codeph">polyRetopo</samp> 节点在输入网格上搜索指定的边组件标记，并在结果网格上将它们用作影响物。这样，您可以保留边，而不会使其变为硬边。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-788B1C8B-7F45-4862-BC42-0A334DFECFD3.htm">为几何体指定组件标记</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-076E5928-5204-4E35-AF17-F4B3FFCEC3C6.htm">使用组件标记保留重新拓扑网格的区域</a>。
+			 </dd>
+<dd class="dd">文本框支持以逗号分隔的边组件标记列表。此外，它还支持 <samp class="ph codeph">&lt;名称&gt;*</samp> 格式的通配符。
+				<div class="note note" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__GUID-E14742F7-6863-418A-89D4-0E2E1965B5B0"><span class="notetitle">注：</span> 使用边组件标记来保留特征对于引导特定区域中结果网格的边流非常有用。与“保持原始”(Keep Original)选项结合使用时，可以在输入网格的组件标记中添加和移除边，并查看重新拓扑的结果网格上动态显示的更新。 
+				</div>
+ 
+			 </dd>
+</dl>
+ 
+	 </div>
+<div class="section" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__SECTION_C3B8F8948CFB4AE79F25539770C19398"><h2 class="title sectiontitle"><span class="ph uicontrol">对称(Symmetry)</span></h2> 
+		 
+		<p class="p"> 
+		</p>
+ 
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">对称(Symmetry)</span> 
+			 </dt>
+<dd class="dd">允许您使用以下选项在网格的两侧创建均匀边流：
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">轴位置(Axis position)</span>
+			 </dt>
+<dd class="dd">用于为选定对象选择对称平面。可从下列选项中选择：
+				<ul class="ul" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__UL_BD65F2B7390F4FCDA29F6C6AFD3E7C52"><li class="li" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__LI_6C522D5274FA4FD785ACF0A29642384E"><span class="ph uicontrol">对象(Object)</span>：相对于选定对象的轴位置和方向剪切和填充网格 
+				  </li>
+<li class="li" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__LI_55E5FDEFFE814170AC87F446FB5E0FD8"><span class="ph uicontrol">边界框(Bounding Box)</span>：相对于包含选定对象的不可见立方体的一侧剪切和填充网格 
+				  </li>
+<li class="li" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__LI_C488B9C65FF34749AFAE13527E06EA50"><span class="ph uicontrol">世界(World)</span>：相对于世界空间原点剪切和填充网格 
+				  </li>
+</ul>
+ 
+			 </dd>
+<dt class="dt dlterm">轴(Axis) 
+			 </dt>
+<dd class="dd">用于选择执行对称操作的轴和方向。例如，选择“+X 到 -X”(+X to -X)时，将从 +X 轴剪切拓扑并将其填充到 -X 轴。
+			 </dd>
+<dd class="dd">可从下列选项中选择：
+				<ul class="ul" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__UL_18D32994D37344C89635FE1A91B9F6ED"><li class="li" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__LI_4E98E07BD8D94CA7A5D0A62D3E194B06">+X 到 -X(+X to -X) 
+				  </li>
+<li class="li" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__LI_954ADE80ACBA482687FE526A0470C4F8">-X 到 +X(-X to +X) 
+				  </li>
+<li class="li" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__LI_AC7CD9FAED4043EE8AB7CA392DBCAED4">+Y 到 -Y(+Y to -Y) 
+				  </li>
+<li class="li" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__LI_089FE38ECC194096A6E306DBAA6092A7">-Y 到 +Y(-Y to +Y) 
+				  </li>
+<li class="li" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__LI_62013833547C4FA2BAEBBC050994A74D">+Z 到 -Z(+Z to -Z) 
+				  </li>
+<li class="li" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__LI_5A3BB6220BB4479F867F69C3D066E201">-Z 到 +Z(-Z to +Z) 
+				  </li>
+</ul>
+ 
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">偏移(Offset)</span>
+			 </dt>
+<dd class="dd"> 沿选定轴将对称切割平面偏移指定距离。
+			 </dd>
+</dl>
+ 
+		<p class="p">有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-A76DE7BA-D2E8-4902-A6C3-BD6B9ED3330E.htm">使用对称重新拓扑网格</a>。
+		</p>
+ 
+		<div class="section" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__SECTION_01B6ABFDA45643FCAD92E5F4263C8EB0"><h3 class="title sectiontitle">相关主题</h3> 
+		   
+		  <ul class="ul" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__UL_5F142F3C74FF48A5B236ED1C3D18DA08"><li class="li" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__LI_768324205CC140839F83529658071D03"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-130672A1-657D-4864-B995-2E10855CF162.htm">重新拓扑问题疑难解答</a> 
+			 </li>
+<li class="li" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__LI_45DAB038FF154C9AB7E1EE5CEAED6E1B"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-A76DE7BA-D2E8-4902-A6C3-BD6B9ED3330E.htm">使用对称重新拓扑网格</a> 
+			 </li>
+<li class="li" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__LI_7143FF31B87A48E3BECDDD643A8C9D13"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-98239F6D-12E7-451D-9BD9-0720D9CE6969.htm">准备重新拓扑网格</a> 
+			 </li>
+<li class="li" id="GUID-FDE163EE-39C1-421E-AC31-9956D21F6D0F__LI_CCC49A910B0C4C7EB57D45B60127DDE9"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-083D2387-5553-4C03-BCB1-9231293626AD.htm">自动重新拓扑网格</a> 
+			 </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-770A8F84-5D15-4CCD-A274-5695F7AE3019.htm">多边形节点</a></div>
+</div>
+</div>
+
+</body>
+</html>

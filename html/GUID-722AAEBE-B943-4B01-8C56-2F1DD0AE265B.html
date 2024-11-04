@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Bifrost">
+<meta name="created" content="30/7/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="17/04/2023">
+<meta name="topicid" content="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B">
+<meta name="language" content="CHS">
+<title>使用低分辨率模拟引导 Bifrost 液体</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用低分辨率模拟引导 Bifrost 液体</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__GUID-B4D9AB20-3434-4C5E-B5A7-8A11E5B3919A"> 可以使用低分辨率液体模拟的顶部曲面层引导高分辨率模拟。通过阻断波浪等，这可提供详细的曲面模拟，而无需对完全深度的液体执行高分率模拟。可以预览低分辨率下液体的批量移动，在您感到满意时，使用它引导高分辨率模拟以获取更精细的细节。
+	 </p>
+<div class="section" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__SECTION_EC267778AB17483DBFF524A38FA10C91"><h2 class="title sectiontitle">缓存低分辨率模拟</h2> 
+		 
+		<ol class="ol" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__OL_DF9A16A14696490B9886D8B31D000177"><li class="li" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__LI_9F95003562D348EE992BCC14F9C4B142"> 以通常方式设置低分辨率液体模拟。请确保碰撞对象相当厚（至少为<span class="ph uicontrol">“主体素大小”(Master Voxel Scale)</span>的 4 倍），包括用于将液体池保持原地的对象的碰撞对象。
+		  </li>
+<li class="li" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__LI_CC82F35A335447A8AB861ED3EB6A81B4">创建低分辨率模拟的缓存。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-36D0E99D-B4BC-4210-9174-AAB982A1CE04.htm">使用 Bifrost 用户缓存</a>。
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__SECTION_ED0350379C294A19933822BDC669C252"><h2 class="title sectiontitle">设置导向模拟</h2> 
+		 
+		<ol class="ol" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__OL_2E5CC8BD562A4B6A8813714773134DB8"><li class="li" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__LI_7AFC577D844E42669F5EAE772EF1DCB1">建议启动一个新场景。这种方法可避免因在同一场景中进行两次模拟而产生内存和计算开销，同时如果以后要进行更改，则还允许从原始场景重新生成低分辨率缓存。在这种情况下，从原始场景导入用于发射器、碰撞对象等的几何体用作视觉参照（其中液体应位于新场景中）可能非常有用。
+			 <p class="p">或者，可以将原始场景重用于导向模拟。在这种情况下，要最大程度地减少开销，建议在原始模拟的液体特性中禁用<span class="ph uicontrol">“启用”(Enable)</span>复选框。此外，您还需要仔细调整正确模拟的设置。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__LI_8F448161B742409A8B36ED0FE1568B9F">在未选择任何对象的情况下，选择<span class="ph menucascade"><span class="ph uicontrol">“Bifrost 流体</span> &gt; <span class="ph uicontrol">液体”(Bifrost Fluids &gt; Liquid)</span></span>。
+		  </li>
+<li class="li" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__LI_7A68E985CC9F47BBB81CFF9262B2B0E4">在全局导向特性中，激活<span class="ph uicontrol">“导向模拟”(Guided Simulation)</span>属性组中的<span class="ph uicontrol">“启用”(Enable)</span>。
+		  </li>
+<li class="li" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__LI_59D977BA517744FEAF97D4F974FF49B7">在<span class="ph uicontrol" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__GUID-D5A64FD6-69E3-44AF-A6BB-81549268C9A0">“输入”(Input)</span>子组中，激活<span class="ph uicontrol" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__GUID-D207F906-7F74-4B07-BC03-EF070D22CC11">“模拟”(Simulation)</span>模式。
+		  </li>
+<li class="li" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__LI_687DB64463E24C51952EF5BB9256A025">此外，请激活<span class="ph uicontrol">“网格”(Mesh)</span>模式。尽管需要启用该复选框，但您不必向模拟添加导向网格。
+			 <div class="note note" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__GUID-44D7219B-8546-4F1D-B14B-B9495F893C13"><span class="notetitle">注：</span> 如果添加了导向网格，它将用作模拟的附加导向影响。
+			 </div>
+ 
+		  </li>
+<li class="li" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__LI_59EB03600E9544B3899E6ABA3B8BE066">单击<span class="ph uicontrol" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__GUID-F1EC5023-E7FF-460D-BC5C-A83AD9A58C4E">“Sim 缓存名称”(Sim Cache Name)</span>旁边的文件夹图标，然后浏览到存储低分辨率缓存的目录，并选择任一 voxel_liquid_volume 缓存文件。
+		  </li>
+<li class="li" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__LI_7BC2132BD650424A83C5F2D2E185D91E">（可选）调整<span class="ph uicontrol" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__GUID-F51DD394-37F6-44E1-A702-F3A39F9C1B54">“最小模拟深度”(Min Simulation Depth)</span>。这控制在世界空间中模拟的液体的深度，且可能需要根据为场景建模的比例进行调整。
+		  </li>
+<li class="li" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__LI_0F846F98F3464F5CAF34898FE79C78A4">创建一个或多个网格以定义要模拟的液体体积的区域。为获得最佳效果，这些网格不应水平延伸到缓存的液体导向的边界之外，也不应太靠近底部。但是，它们应该在液体曲面下方至少垂直延伸到<span class="ph uicontrol">“最小模拟深度”(Min Simulation Depth)</span>，并在曲面上方留出足够的飞溅空间。
+		  </li>
+<li class="li" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__LI_BB61E079B1A74576B591B559F970ACB5">选择网格和主液体容器或形状，然后选择<span class="ph menucascade"><span class="ph uicontrol">“Bifrost 流体</span> &gt; <span class="ph uicontrol">(添加)发射区域”(Bifrost Fluids &gt; (Add) Emission Region)</span></span>。
+			 <p class="p">您应当会在发射区域内看到一段液体。
+			 </p>
+ 
+			 <div class="note note" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__GUID-D7E0054F-3C23-4427-9907-527CAABA554C"><span class="notetitle">注：</span>  如果需要，请重复此步骤以添加其他发射区域。每组网格将连接到具有单独发射区域特性的模拟。若要使用现有特性连接一个或多个网格，请选择网格和特性节点（而不是模拟容器或形状），然后选择<span class="ph menucascade"><span class="ph uicontrol">“Bifrost 流体</span> &gt; <span class="ph uicontrol">(添加)发射区域”(Bifrost Fluids &gt; (Add) Emission Region)</span></span>。
+			 </div>
+ 
+		  </li>
+<li class="li" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__LI_094CB050C95E42378FA4B1127AB7ED1A">进行播放，并在必要时调整设置（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-B6ED57CB-0B68-42F3-AF47-442E127AD980.htm">调整 Bifrost 导向模拟</a>）。首先使用低分辨率（高<span class="ph uicontrol" id="GUID-722AAEBE-B943-4B01-8C56-2F1DD0AE265B__GUID-17B86D5A-A7ED-4F0D-9DEF-3F8202C8CF56">“主体素大小”(Master Voxel Size)</span>），然后在满意其工作后增大分辨率。
+		  </li>
+</ol>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-27B3938C-B471-4585-92C3-AC3F36D09C36.htm">引导液体曲面的 Bifrost 模拟</a></div>
+</div>
+</div>
+
+</body>
+</html>

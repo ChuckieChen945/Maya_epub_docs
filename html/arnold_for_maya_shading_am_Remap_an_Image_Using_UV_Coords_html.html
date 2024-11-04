@@ -1,0 +1,108 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shading_am_Remap_an_Image_Using_UV_Coords_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_REMAP_AN_IMAGE_USING_UV_COORDS">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用 UV 坐标重映射图像 - Arnold for Maya">
+
+<title>使用 UV 坐标重映射图像</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>使用 UV 坐标重映射图像</h1></div><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Remap_an_Image_Using_UV_Coords-mona-lisa-reversed-1.gif" alt=""></td>
+<td><img src="../images/am-Remap_an_Image_Using_UV_Coords-SA-remap-2.gif" alt=""></td>
+</tr>
+</tbody></table>
+<p>本简单教程介绍如何使用<em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_texture_shaders_ac_texture_image_html" target="_blank">图像</a>*着色器的 *uv_coords</em> 属性重映射图像，生成抽象图案的扭曲效果。要查看更多示例，请单击<a href="http://www.leegriggs.com/textured-faces" target="_blank">此处</a>。</p>
+<p><strong>要下载场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/mona-lisa.zip" target="_blank">此处</a>。</strong>  </p>
+<ul>
+<li>首先，为一个多边形平面指定一个 <em>standard_surface</em> 着色器。</li>
+<li>将 <em>standard_surface</em> 的<em>“自发光”(Emission)*增加到 1。将 *base_weight</em> 和 <em>specular_weight</em> 减小到 0。</li>
+<li>将一个<em>图像<em>着色器连接到 *emission_color</em>，然后向 *image_name</em> 添加一个文件纹理。在本例中，我们使用了迷人的蒙娜丽莎画像。</li>
+</ul>
+<p><img src="../images/am-Remap_an_Image_Using_UV_Coords-image2017-9-25-4-56-37-4.png" alt=""></p>
+<ul>
+<li>创建一个 <em>rampRGB</em> 纹理，并将其连接到<em>图像<em>着色器的 *UV_coords</em>。将渐变的 *u_coord</em> 连接到<em>图像<em>着色器的 *uvcoordsY</em>。将 *rampRGB</em> 的 <em>v_coord</em> 连接到<em>图像</em>着色器的 <em>uvcoordsX</em>。</li>
+<li>将渐变类型更改为<em>“四角渐变”(Four Corner Ramp)</em>。</li>
+<li>为渐变创建四种不同的颜色：“红”(red)、“黄”(yellow)、“绿”(green)和“蓝”(blue)。</li>
+</ul>
+<p><img src="../images/am-Remap_an_Image_Using_UV_Coords-image2017-9-22-14-19-30-5.png" alt=""></p>
+<p>您可以通过调整渐变的 HSV 值来更改图像的重映射方式。</p>
+<ul>
+<li>将文件或<em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_texture_am_Noise_html">噪波</a>*着色器连接到 *rampRGB</em> 的 <em>color_offset</em>。这将驱动扭曲效果。</li>
+</ul>
+<p>您也可以在文件纹理与渐变之间添加*<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_math_shaders_ac_math_range_html" target="_blank">范围</a><em>或</em>重映射*着色器以进一步控制效果。</p>
+<p><img src="../images/am-Remap_an_Image_Using_UV_Coords-image2017-9-25-5-0-19-6.png" alt=""></p>
+<p><sub><strong>最终的着色网络</strong></sub></p>
+<h2 id="uv">图像：UV 坐标</h2><p>在<em>图像*着色器的 *UV_coordinates</em> 中，有控制设置用来进一步更改纹理贴图的位置。设置动画后，这可以生成有趣的效果：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Remap_an_Image_Using_UV_Coords-offset-U-7.gif" alt=""></td>
+<td><img src="../images/am-Remap_an_Image_Using_UV_Coords-offset-V-8.gif" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>U 向偏移（左侧）。 V 向偏移（右侧）。</strong></sub>  </p>
+<ul>
+<li>对连接到用来扭曲<em>图像</em>着色器的纹理的<em>曝光</em>进行动画渲染（使用 *<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_imagers_node_ac_color_correct_html" target="_blank">color_correct</a>*），将生成最终结果。</li>
+</ul>
+<p><img src="../images/am-Remap_an_Image_Using_UV_Coords-mona-lisa-reversed-9.gif" alt=""></p>
+<p><sub><strong>曝光（-10 到 0）</strong></sub></p>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/iHxtErJ6p_4?" frameborder="0" allowfullscreen=""></iframe>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Shading_html.html">着色</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

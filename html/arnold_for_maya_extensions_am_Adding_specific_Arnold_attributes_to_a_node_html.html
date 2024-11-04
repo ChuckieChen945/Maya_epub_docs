@@ -1,0 +1,153 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_extensions_am_Adding_specific_Arnold_attributes_to_a_node_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_ADDING_SPECIFIC_ARNOLD_ATTRIBUTES_TO_A_NODE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 将特定 Arnold 属性添加到节点 - Arnold for Maya">
+
+<title>将特定 Arnold 属性添加到节点</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+      <script src="../scripts/lang-python.js"></script>
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>将特定 Arnold 属性添加到节点</h1></div><p>现在，我们可能需要 Phong 转换器的某个特定属性，但 Maya 节点中没有该属性。这时我们可以创建该属性，并在节点的属性编辑器中为 Arnold 属性添加一个部分。<br>我们将使用 Phong 转换器，向其中添加一个镜面反射权重属性，该属性将用在 Arnold 转换器中。<br>首先，我们需要 <code>NodeInitializer</code> 方法。</p>
+<p><strong>translator2.h</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#include "translators/shader/ShaderTranslator.h"
+
+class CTestTranslator2
+    : public CShaderTranslator
+{
+public:
+    AtNode* CreateArnoldNodes();
+    virtual void Export(AtNode*);
+    static void* creator();
+    static void NodeInitializer(CAbTranslator context);
+};  </code></pre>
+<p>在该方法中，我们将使用所需的特性创建这个特定属性。我们可以在这里定义软性和硬性范围来限制属性值。</p>
+<p><strong>translator2.cpp</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#include "translator2.h"
+
+#include &lt;ai_msg.h&gt;
+#include &lt;ai_nodes.h&gt;
+
+void CTestTranslator2::Export(AtNode* shader)
+{
+    AiMsgInfo("[test extension2] Exporting %s", GetMayaNodeName().asChar());
+    AiNodeSetFlt(shader, AtString("base"), FindMayaPlug("diffuse").asFloat() );
+    AiNodeSetRGB(shader, AtString("base_color"),
+                 FindMayaPlug("colorR").asFloat(),
+                 FindMayaPlug("colorR").asFloat(),
+                 FindMayaPlug("colorR").asFloat());
+    AiNodeSetFlt(shader, AtString("specular"), FindMayaPlug("aiSpecularWeight").asFloat() );
+}
+
+AtNode* CTestTranslator2::CreateArnoldNodes()
+{
+    return AddArnoldNode("standard_surface");
+}
+
+void* CTestTranslator2::creator()
+{
+    return new CTestTranslator2();
+}
+
+void CTestTranslator2::NodeInitializer(CAbTranslator context)
+{
+    CExtensionAttrHelper helper(context.maya, "standard_surface");
+
+    CAttrData data;
+
+    // Add new atterbute to the Phong node for the arnold parameter "specular_weight"
+    data.name = "aiSpecularWeight";
+    data.shortName = "ai_specular_weight";
+    data.hasSoftMin = true;
+    data.softMin.FLT() = 0.1f;
+    data.hasSoftMax = true;
+    data.softMax.FLT() = 0.9f;
+    data.hasMin = true;
+    data.min.FLT() = 0.f;
+    data.hasMax = true;
+    data.max.FLT() = 1.0;
+    data.defaultValue.FLT() = 0.5f;
+    helper.MakeInputFloat(data);
+}</code></pre>
+<p>最后，在注册扩展时，我们需要提供 <code>NodeInitializer</code> 方法：</p>
+<p><strong>extension2.cpp</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#include "translator2.h"
+#include "extension/Extension.h"
+
+
+extern "C"
+{
+
+    DLLEXPORT void initializeExtension(CExtension &amp;plugin)
+    {
+        plugin.RegisterTranslator("phong",
+                                  "",
+                                  CTestTranslator2::creator,
+                                  CTestTranslator2::NodeInitializer);
+    }
+
+    DLLEXPORT void deinitializeExtension(CExtension &amp;plugin)
+    {
+    }
+
+}</code></pre>
+<p>最后还要做的一件事是，在“属性编辑器”(Attribute Editor)中创建一个“Arnold”部分来显示此属性。我们可以通过在以下同一文件夹中放置一个与编译的扩展同名的 python 文件来实现这一点：<code>MTOA_PATH/extensions, or by using the environment variable MTOA_TEMPLATES_PATH</code></p>
+<p><strong>extension2.py</strong></p>
+<pre class="pre codeblock"><code class="lang-python prettyprint">import mtoa.ui.ae.templates as templates
+from mtoa.ui.ae.templates import AttributeTemplate
+
+
+class Phong2Template(AttributeTemplate):
+    def setup(self):
+        self.addControl("aiSpecularWeight")
+
+
+templates.registerAETemplate(Phong2Template, 'phong')</code></pre>
+<p>这将在 Phong 着色器的“属性编辑器”(Attribute Editor)中创建一个类似如下的部分：</p>
+<p><img src="../images/am-Adding_specific_Arnold_attributes_to_a_node-PhongAE-1.png" alt="Arnold 属性已添加到 Phong 着色器"></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Technical/arnold_for_maya_technical_am_Writing_Extensions_html.html">编写扩展</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

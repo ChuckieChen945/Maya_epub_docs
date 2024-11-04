@@ -1,0 +1,152 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_aovs_am_Z_Depth_AOV_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_Z_DEPTH_AOV">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" Z 深度 AOV - Arnold for Maya">
+
+<title>Z 深度 AOV</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>Z 深度 AOV</h1></div><p><img src="../images/am-Z_Depth_AOV-image2022-4-6-10-8-36-1.png" alt=""></p>
+<p><sub><strong>美景渲染与 <em>z</em>depth_ AOV 合成</strong></sub></p>
+<p>在本简短教程中，我们将介绍设置和渲染出“Z”深度 AOV 的过程，随后可以在 Nuke 中将此 AOV 与美景渲染合成，实现逼真的景深效果。“Z”深度 AOV 包含着色点的深度信息。</p>
+<p><strong>要下载对应的场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Pool-Balls_Z-Depth-AOV.zip" target="_blank">此处</a>。</strong></p>
+<p>要渲染和合成“Z”深度 AOV，必须执行以下操作：</p>
+<ul>
+<li><p>首先，打开<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_system_am_Render_Settings_html">渲染设置(Render Settings)</a>窗口，然后转到 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_render_settings_aovs_html">AOV(AOVs)</a>选项卡。创建一个 Z 深度 AOV。</p>
+</li>
+<li><p>在<em>“AOV”(AOVs)</em>下，新创建的“Z”AOV 右侧有一个向下箭头。单击此箭头，然后从菜单中选择<em>“选择驱动程序”(Select Driver)</em>。</p>
+</li>
+</ul>
+<p><img src="../images/am-Z_Depth_AOV-image2016-5-3-12-17-57-2.png" alt=""></p>
+<ul>
+<li>Arnold 驱动程序应显示在“属性编辑器”(Attribute Editor)中。选择<em>“合并 AOV”(Merge AOVs)</em>。这会将“Z”AOV 与渲染的 EXR 合并为一个文件。</li>
+</ul>
+<p><img src="../images/am-Z_Depth_AOV-image2016-5-3-12-18-37-3.png" alt=""></p>
+<p><sub><strong>启用<em>“合并 AOV”(Merge AOVs)</em>以将 AOV 存储在一个 EXR 文件中<br></strong></sub></p>
+<ul>
+<li>渲染场景，然后在 Nuke 中打开 EXR 文件。</li>
+</ul>
+<p>如果在 Photoshop 中打开多层 <em>EXR</em>，必须使用 32 位进行操作，因为如果将其转换为 8 位，将会丢失所有深度信息。Z 深度图像未进行区间限定，因此它可能显示为纯白色。转到<em>“图像 -&gt; 调整 -&gt; 曝光”(Image -&gt; Adjustments -&gt; Exposure)</em>，然后调整曝光，直到获得与常规 Z 深度过程类似的效果。</p>
+<p>在 Nuke 中查看深度 AOV 时，它可能仅显示红色。深度通道将提供 Alpha 通道中所需的非抗锯齿、非归一化的深度数据。非归一化意味着 Z 深度值未介于 0 到 1 之间（摄影机前方距离），因此必须将 Z 值除以远剪裁平面值以获得介于 0 到 1 之间的值。仅当在查看器中查看深度通道时，才需要此重映射。zdefocus 节点无需此重映射也可以工作。</p>
+<p><img src="../images/am-Z_Depth_AOV-image2013-7-26-12-38-53-4.png" alt=""></p>
+<p><sub><strong>在 Nuke 中查看 Z 深度通道</strong></sub></p>
+<ul>
+<li><p>将“Zblur”（Nuke 7 中为“ZDefocus”）连接到 EXR 渲染，然后启用“焦平面设置”(focal-plane setup)。Zblur 节点的默认设置应该已足够。应将 Z 设置为“depth.z”，并将“数学”(math)设置为“深度”(depth)（深度通道中的 Z 值是摄影机前方距离）。</p>
+</li>
+<li><p>调整“焦平面”(focus plane)，直到绿色区域位于您想要聚焦的区域。红色代表具有较小景深的区域。蓝色代表位于景深区域外部的区域。绿色代表位于景深区域内部的区域。如果将深度参数设置为 0，将无法看到任何绿色。</p>
+</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Z_Depth_AOV-image2013-7-26-12-33-32-5.png" alt=""></td>
+<td><img src="../images/am-Z_Depth_AOV-zblur-node-6.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><sub><strong>启用“焦平面设置”(focal-plane setup)（绿色区域位于聚焦处）</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+<ul>
+<li>对“焦平面”(focus plane)满意后，禁用“焦平面设置”(focal-plane setup)。将“景深”(depth of field)增加到 1。现在，应该可以看到“Zblur”节点已使 RGB 图像变模糊。</li>
+</ul>
+<p>此简短教程到此结束。很明显，使用 Z 深度 AOV 的优势在于速度和灵活性。能够在合成器中实时更改景深，这是一大优势。要想使用真实景深进行渲染，并在多数情况下呈现较好的效果，可能需要大量 AA 采样才能解决噪波问题。下面比较了使用真实景深进行渲染和未使用 DOF 渲染场景（使用合成的“Z”深度 AOV）的效果。即使<em>“摄影机(AA)”(Camera (AA))</em>采样数为 8，使用真实景深渲染的图像在较深的景深区域仍然有一些噪波。在本例中，相较于使用 Z 深度 AOV 渲染图像，使用真实 DOF 进行渲染所用时间大约是前者的两倍。</p>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Z_Depth_AOV-zblur-title-7.jpg" alt=""></td>
+<td><img src="../images/am-Z_Depth_AOV-True-dof-48mins-8.jpg" alt=""></td>
+</tr>
+<tr>
+<td>使用 Z 深度 AOV 合成 DOF</td>
+<td>真实 DOF（AA 采样数：8）</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+<h2 id="">限制</h2><p>使用“Z”深度 AOV 时存在一些限制。例如，无法聚焦在镜子中反射的物体上（请参见下图）：</p>
+<p> <img src="../images/am-Z_Depth_AOV-man-in-the-mirror-9.jpg" alt=""><img src="../images/am-Z_Depth_AOV-mirror-top-10.jpg" alt=""></p>
+<p><sub><strong>无法使用 2D“Z”深度 AOV 聚焦在镜子中的物体上（上图使用真实景深进行渲染）。</strong></sub></p>
+<p><em><sub>3D 扫描模型来源：<a class="external-link" href="http://www.ten24.info/" rel="nofollow" target="_blank">Ten24</a>。</sub></em></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_AOV_Tutorials_html.html">AOV 教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

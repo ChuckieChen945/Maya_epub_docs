@@ -1,0 +1,1351 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-285972ED-A529-4004-8079-56D2DF6D6025">
+<meta name="language" content="CHS">
+<title>使用表达式或 MEL 设置 nParticle 属性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-285972ED-A529-4004-8079-56D2DF6D6025">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用表达式或 MEL 设置 nParticle 属性</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF11D4ED1B128F2317A0818BC"><p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41FD"> 下表提供了可以在表达式或 MEL 中设置或检查的 nParticle 形状节点属性的摘要。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-F7BE65C4-CDA4-42DC-A0D8-72B9D984B3E1">关于粒子表达式</a>。 </p>
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-5DA6CFED-F0AC-4013-AE66-11A6F67880CC">这些属性影响它们所在的粒子对象。请注意下列问题： </p>
+<ul class="ul" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41FB"><li class="li" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41FA">该表显示在表达式和 MEL 中要求的属性拼写。用户界面拼写通常在单词之间使用大写字母和空格。 </li>
+<li class="li" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41F9">数据类型为向量数组或浮点数组的属性是每粒子属性。所有其他属性都是每对象属性。有关数据类型的详细信息，请参见表达式和联机 MEL 文档。 </li>
+<li class="li" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41F8">标有星号 (*) 的属性是动态属性，仅当您或 Maya 将这些属性添加到对象时，这些属性才会存在。在圆括号中列出属性的短名称的那些属性默认情况下存在于每粒子对象中。 </li>
+<li class="li" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41F7">对于 API 开发人员，请注意，在联机文档中还介绍了更多属性。使用 Internet 浏览器转到主 Maya 文档页面，然后转到<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-D349EB89-D217-43A7-84CA-8B4C71688194">“依存关系图节点”(Dependency Graph Nodes)</span>页面，最后转到<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-843944D4-5E6D-428D-8B96-1304CB5F6618">“粒子”(Particle)</span>页面。 </li>
+<li class="li" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41F6"> 该表忽略复合属性质心和 worldCentroid。复合属性由两个或多个组件属性组成。<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-156AD7D6-CFB6-4A06-9068-F4D8B8DA7DF9">“质心”(centroid)</span>属性由<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-051B0E4A-80AC-4807-A8E8-00083E28C47A">“centroidX”</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-15DC51BF-675C-4832-8042-478415F12967">“centroidY”</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-7BF975FF-075E-4047-B2AD-A1749516C359">“centroidZ”</span>属性组成。<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-4273D59B-CF88-4BB5-842C-BDB0F831FCD6">“worldCentroid”</span>属性由<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-7429CA7A-A52F-4335-95DA-6100E961C9BB">“worldCentroidX”</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-0DF7919D-5B67-4AC6-BB3F-B9B2B73D85FE">“worldCentroidY”</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-518AB354-1022-488B-85D4-FF0164A1F916">“worldCentroidZ”</span>组成。可以将复合属性与诸如 setAttr 之类的 MEL 命令一起使用。有关详细信息，请参见联机 MEL 文档。 </li>
+</ul>
+<div class="section" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS73099CC142F48755-4607E7CC11B1CFFF571-60F7"><h2 class="title sectiontitle">属性长名称（和短名称）</h2>
+
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41F3" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="24.785553047404065%">属性长名称（和短名称） </th>
+<th class="entry" valign="top" width="45.71106094808127%">描述 </th>
+<th class="entry" valign="top" width="29.503386004514674%">数据类型 </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41F2"> acceleration (acc) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41F0">逐粒子设定速度更改的速率。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41EF">向量数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41EE"> age (ag) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41EC">包含自从第一帧之后对象中的每个粒子已存在的秒数。该属性为只读属性。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41EB">浮点数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41EA"> attributeName* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41E8">指定其值将显示在粒子位置的属性的名称。默认情况下，会显示粒子 ID 号。对于<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-F8FCFF82-DB57-43EC-BD9F-C1EF1195B01D">“数值”(Numeric)</span>渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41E7">字符串 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41E6"> betterIllumination* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41E4">以增加处理时间为代价，提供更平滑的照明和阴影。对于<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-2A123226-AFB6-4254-B41A-E97EE03F9EEB">“云”(Cloud)</span>渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41E3">布尔 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41E2"> birthPosition </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41E0">存储每个粒子在粒子的局部空间中出生的位置。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41DF">向量数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41DE"> birthTime (bt) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41DC">包含<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-5A5329C1-44CD-4E1E-85AE-4AAF22B1E189">“当前时间”(Current Time)</span>值，对象中的每个粒子是在该值处创建的。该属性为只读属性。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41DB">浮点数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41DA"> cacheData (chd) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41D8">启用或禁用对象的动力学状态缓存。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41D7">布尔 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41D6"> castsShadows (rsh) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41D4">启用或禁用对象在软件渲染图像中投射阴影的能力。对于<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-B503A448-3B90-466D-AA3F-8468125C8725">“云”(Cloud)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-B28262BF-D9B9-4C31-9F46-35A441C28AD4">“滴状曲面”(Blobby Surface)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-60B5996A-E648-4EB5-BE05-3F029D04AB37">“管状体”(Tube)</span>渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41D3">布尔 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41D2"> centroidX、centroidY、centroidZ（ctdx、ctdy、ctdz） </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41D0">包含其粒子的平均位置的 X、Y 和 Z 元素。这些属性是只读属性。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41CF">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41CE"> collisionFriction (cfr) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41CC">设定随着碰撞粒子从碰撞曲面上弹起，碰撞粒子在平行于曲面的方向上速度减小或增大的程度。该属性在用户界面中显示为<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-7812E3F2-7629-4599-87CC-A6D5D64F146D">“摩擦力”(Friction)</span>。它适合逐几何体使用。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41CB">浮点（多重） </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41CA"> collisionResilience (crs) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41C8">设定粒子与曲面碰撞时发生反弹的程度。该属性在用户界面中列为<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-42060F36-1BAB-4E08-8A56-84BF7C0EA01D">“弹性”(Resilience)</span>。它适合逐几何体使用。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41C7">浮点（多重） </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41C6"> collisionU、collisionV* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41C4">在当前帧中粒子碰撞所在的<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-9EB1CBDA-D923-4FC9-B348-EA35EE98BFD8">“NURBS 曲面”(NURBS surface)</span>的 U 位置和 V 位置。对于多边形曲面，这些值始终为 0。在每个帧的开始处，会将这些值重置为 -1。值仅在发生碰撞的帧中更改。这些属性是只读属性。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41C3">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41C2"> colorAccum* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41C0">添加重叠粒子的 RGB 组件。还添加重叠粒子的不透明度值。通常，颜色在重叠时会变得更亮和更不透明。若要查看<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-8767B22A-5361-4F24-9058-D82085BD5F49">“颜色积累”(Color Accum)</span>的效果，必须为显示为<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-92CAE26B-F7A4-4EBC-9713-6A442F0F189D">“点”(Points)</span>的粒子添加一个不透明度属性。对于<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-4B67E820-1853-44EF-82D3-5C1E94D755FE">“多点”(MultiPoint)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-832B5E96-371B-4245-BDE6-DAB0FAACC10E">“多条纹”(MultiStreak)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-E858D706-5AAC-4604-BF57-D29A07DC04FE">“点”(Points)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-AE9F48D6-C8E7-4E6B-92C5-71CC767C9F9A">“条纹”(Streak)</span>渲染类型有效。 </p>
+
+<div class="note note" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-D1EB6E38-1A9D-433C-90CA-9336924FDE26"><span class="notetitle">注：</span> 对于 Viewport 2.0：您不需要使用<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-B40986C9-E4B0-40A5-879D-F5DD02C304DB">“不透明度”(Opacity)</span>属性即可查看<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-B5ACD780-8524-412B-A6BE-7F4ED1EF15B4">“颜色积累”(Color Accum)</span>的效果。但是，将这两个属性结合使用会产生更加真实的光晕粒子效果。首先将每个粒子的不透明度乘以<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-EDB22ECE-B4AF-44B8-83D1-549D0CE113F1">“不透明度”(Opacity)</span>值，然后将重叠粒子加在一起。降低<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-275A14F3-DF03-4BB6-9FD9-65DE1B938463">“不透明度”(Opacity)</span>值可防止粒子过亮，从而产生更平滑的效果。 </div>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41BF">布尔 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41BE"> colorBlue* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41BC">设定 RGB 颜色的蓝色分量。对于除<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-138A913F-131A-499A-A206-4F83D5B6988D">“数值”(Numeric)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-1646FFC2-85A3-4B88-8515-2D1B226006E9">“管”(Tube)</span>状体”之外的所有渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41BB">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41BA"> colorGreen* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41B8">设定 RGB 颜色的绿色分量。对于除<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-1AB2272C-2B9A-4144-98DC-78C7DE0D9193">“数值”(Numeric)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-376E45C4-7E1C-4A0D-B036-B5A053C9E1A6">“管”(Tube)</span>状体”之外的所有渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41B7">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41B6"> colorRed* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41B4">设定 RGB 颜色的红色分量。对于除<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-10322AD3-7EB3-4F12-A8B8-918D54FA61C1">“数值”(Numeric)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-386D034F-04CB-4250-ABE2-4BBC5D24692F">“管”(Tube)</span>状体”之外的所有渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41B3">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41B2"> conserve (con) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41B0">设定在帧与帧之间保留粒子对象的速度属性值的程度。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41AF">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41AE"> count (cnt) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41AC">包含对象中粒子的总数。该属性为只读属性。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41AB">整数 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41AA"> currentTime (cti) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41A8">设定粒子对象的独立时钟的时间值。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41A7">时间 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41A6"> depthSort (ds) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41A4">为渲染启用或禁用粒子的深度排序。这样可防止在硬件渲染重叠彩色透明粒子时出现意外的颜色。对于<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-3D291497-0364-42E9-A1B5-0333151284A5">“多点”(MultiPoint)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-6C66B467-DED5-4598-8B98-6B74824F5AD7">“多条纹”(MultiStreak)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-EBBE39F2-816D-4CD3-A1A4-745E21D789D9">“点”(Points)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-A711D416-A106-42C9-B775-FF71F97AE8C4">“条纹”(Streak)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-3F7B20BC-31A8-4E21-9F45-881FD214ED65">“精灵”(Sprites)</span>渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41A3">布尔 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41A2"> dynamicsWeight (dw) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-41A0">调整场、碰撞、弹簧、目标和发射对粒子产生的效果。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-419F">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-419E"> emissionInWorld (eiw) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-419C"> 如果启用该属性，会在世界坐标系中进行发射。这是默认设置。如果禁用该属性，会在发射的粒子对象的局部空间中进行发射。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-419A">布尔 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4199"> emitterRatePP* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4197">设定每粒子发射速率。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4196">浮点数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4195"> enforceCountFromHistory (ecfh) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4193">在柔体中，如果以改变 CV 数、顶点数或晶格点数的方式更改了原始几何体的构建历史，那么 Maya 会相应地更新柔体的粒子数。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4192">布尔 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4191"> event* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-418F">包含对象中的每个粒子发生撞击的次数。该属性为只读属性。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-418E">浮点数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-418D"> expressionsAfterDynamics (ead) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-418B">设定是否在其他动力学之前或之后对表达式求值。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-418A">布尔 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4189"> force (frc) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4187"> 包含作用在粒子对象上的所有力的累积。该属性为只读属性。如果在某个表达式中使用该属性，请首先启用 expressionsAfterDynamics。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4185">向量数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4184"> forcesInWorld (fiw) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4182">设定在世界空间中还是其局部空间中将力应用于对象。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4181">布尔 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4180"> goalActive (ga) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-417E">对于目标对象，启用或禁用每个目标。它与将相应的 goalWeight 设定为 0 具有相同的效果，但是动画处理的效率更高。该属性适合逐对象使用。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-417D">布尔（多重） </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-417C"> goalOffset* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-417A">将偏移设定为目标对象的世界空间位置。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4179">向量数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4178"> goalPP* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4176">设定粒子尝试逐粒子跟随目标的程度。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4175">浮点数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4174"> goalSmoothness (gsm) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4172">设定随着目标权重从 0 更改为 1，目标力更改的平滑程度。该数字越大，更改越平滑。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4171">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4170"> goalU、goalV* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-416E">设定吸引粒子的<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-EE390B19-CCCC-486B-A845-CF268B6EA374">“NURBS 曲面”(NURBS surface)</span>上的精确位置。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-416D">浮点数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-416C"> goalWeight (gw) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-416A">设定将对象的所有粒子吸引到目标的程度。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4169">浮点（多重） </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4168"> incandescencePP* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4166">将辉光颜色与软件渲染<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-0BCC2E2E-3837-4978-9168-7B595886CD14">“粒子白炽度映射器节点”(Particle Incand Mapper Node)</span>一起设定（请参见“渲染”）。对于“云”和“管状体”渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4165">向量数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4164"> inheritFactor (inh) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4162">设定发射的粒子对象从发射器继承的速度的（小数）分数。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4161">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4160"> inputGeometrySpace (igs) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-415E">对于柔体，该属性设定坐标空间，Maya 使用该坐标空间来定位由输入几何体提供给粒子形状的点数据。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-415D">整数 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-415C"> isDynamic (isd) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-415A">启用或禁用对象的动力学动画。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4159">布尔 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4158"> isFull (ifl) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4156">如果发射的粒子形状已满，则包含 1；如果未满，则包含 0。当发射的粒子数等于 maxCount 时，发射的粒子形状已满。该属性为只读属性。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4155">布尔 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4154"> lifespan* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4152">设定何时对象中的所有粒子消亡。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4151">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4150"> lifespanPP* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-414E">逐粒子设定何时粒子消亡。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-414D">浮点数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-414C"> levelOfDetail (lod) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-414A">调整可以发射到发射的粒子对象中的粒子数。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4149">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4148"> lineWidth * </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4146">设定条纹粒子的宽度。对于<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-8387B860-0C2E-4B0D-8430-777526E3BCC9">“多条纹”(MultiStreak)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-B57D7A14-F243-4691-B052-CE88EE0F7E13">“条纹”(Streak)</span>渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4145">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4144"> mass (mas) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4142">指定粒子的物理质量。质量值影响动力学计算的结果。默认情况下，粒子对象的每个粒子的质量为 1。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4141">浮点数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4140"> mass0 (mas0) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-413E">质量的初始状态对应项。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-413D">浮点数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-413C"> maxCount (mxc) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-413A">设定对发射的粒子形状从发射器接受的粒子数的限制。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4139">int </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4138"> multiCount* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4136">设定要为对象中的每个粒子显示的点数。对于<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-F39B6148-4BD8-43AD-9821-D05BD39F5D5B">“多点”(MultiPoint)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-AF48E018-2080-440A-8DA7-B77ACA3195D7">“点”(Points)</span>渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4135">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4134"> multiRadius* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4132">设定随机分布粒子的球形区域的半径。对于<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-A7529E54-8657-4608-82C8-D3E5880B1D16">“多点”(MultiPoint)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-61C44745-9EF6-4C93-8B62-A952C1F58AB6">“多条纹”(MultiStreak)</span>渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4131">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4130"> needParentUV* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-412E"> 启用或禁用读取 parentU 和 parentV 属性的能力。如果将曲面发射器添加到<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-47177570-53D6-403C-8828-A7BEDF2FF180">“NURBS”</span>或<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-06BD7373-DEE2-4455-A0DF-C318DB43672E">“多边形曲面”(polygonal surface)</span>，那么 parentU 和 parentV 会包含发射每个粒子的位置的 UV 坐标。可以在表达式和 MEL 脚本中使用这些属性。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-412C">布尔 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-412B"> normalDir* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4129">为粒子设定法线的方向。与 useLighting 一起使用。对于<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-232A4370-05F6-4BBA-8A18-86F8E285F8EA">“多点”(MultiPoint)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-12785659-FA16-4EC1-A0C0-C28EA16A1654">“多条纹”(MultiStreak)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-D26CFA07-B6B4-48EC-AF53-C8A2F748E92D">“点”(Points)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-174A03B9-53A5-45AE-887D-35DB443E1F76">“条纹”(Streak)</span>渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4128">整数 (1-3) </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4127"> opacity* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4125">为对象中的所有粒子设定透明度的量。对于除<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-42D60A03-D2F4-4BF6-BF2C-1A6DCEACA06E">“数值”(Numeric)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-D8B12342-C9C2-4037-8C84-CD7848CE8EF5">“管”(Tube)</span>状体”之外的所有渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4124">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4123"> opacityPP* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4121">逐粒子设定透明度的量。对于除<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-A7EC93B1-B525-4EE3-B139-EAC4A1E9BD69">“数值”(Numeric)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-AF02F827-FA55-4D08-A410-5AA23D56BD4C">“管状体”(Tube)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-D50ED268-8C95-44AF-B56D-1AAF18C34CEA">“滴状曲面”(Blobby Surface)</span>之外的所有渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4120">浮点数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-411F"> particleId (id) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-411D">包含每个粒子的 ID 号。对于<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-2C65435D-A7BD-44CB-AA52-BA685B1B0D6F">“数值”(Numeric)</span>渲染类型有效。该属性为只读属性。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-411C">浮点数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-411B"> parentId* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4119">如果从粒子对象发射，该属性会包含发射粒子的所有粒子的 ID。您可以使用该 ID 查询发射对象的属性值，例如，加速度、速度和寿命 PP。该属性为只读属性。 </p>
+
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4118">请注意，如果使用 MEL 发射命令创建发射的粒子，那么这些发射的粒子的 parentId 属性始终为 0。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4117">浮点数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4116"> parentU、parentV* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4114"> 如果将曲面发射器添加到<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-94F16AB3-E860-47B5-8EF9-A75DB898FAB0">“NURBS”</span>或<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-50698AB1-FC6E-44B8-8F91-A99EB2BB5C26">“多边形曲面”(polygonal surface)</span>，那么这些属性会包含发射每个粒子的位置的 UV 坐标。若要使用这些只读属性，必须在发射器中启用<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-B290832D-3F69-4BFA-9437-CB7039460645">“需要父 UV”(Need Parent UV)</span>。可以在表达式和 MEL 脚本中使用这些属性。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4111">浮点数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4110"> particleRenderType* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-410E">设定粒子的渲染显示类型，例如<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-6F5405A0-5783-472D-8C0F-6399F8877051">“条纹”(Streak)</span>。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-410D">整数 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-410C"> pointSize* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-410A">设定粒子显示得有多大。对于<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-09150F67-1ADA-47C3-A4A4-A946CDB14B1A">“多点”(MultiPoint)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-E4CB29ED-4E5D-4F9C-9C5C-3C2945EB209F">“数值”(Numeric)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-7A36895C-E187-456C-BDD1-F4F9DD91BE89">“点”(Points)</span>渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4109">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4108"> position (pos) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4106">逐粒子设定在局部空间坐标中的对象位置。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4105">向量数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4104"> position0 (pos0) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4102">位置的初始状态对应项。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4101">向量数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4100"> radius* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40FE">设定所有粒子的半径大小。对于<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-142EBA3F-A799-4981-965B-99C1201296C0">“滴状曲面”(Blobby Surface)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-46F0477A-A632-40CF-B947-268CB117FAD3">“云”(Cloud)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-9EA6B505-BA1F-47B3-B13E-3C91B2D42EDF">“球体”(Sphere)</span>渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40FD">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40FC"> radius0* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40FA">设定<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-AB3553ED-B90E-4FB6-BF95-DFB96E8A3E72">“管”(Tube)</span>状体”渲染类型的起点半径。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40F9">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40F8"> radius1* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40F6">设定<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-0DA15758-8E5B-4346-A3A6-E23B2CDA15FD">“管”(Tube)</span>状体”渲染类型的终点半径。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40F5">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40F4"> radiusPP* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40F2">逐粒子设定半径大小。对于<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-5D287E92-42F5-4C68-BB15-6CA955752085">“滴状曲面”(Blobby Surface)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-79742B6F-2424-49AA-B62C-189626794D19">“云”(Cloud)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-DDF00650-DA18-488A-9798-3FD584A9DCDA">“球体”(Sphere)</span>渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40F1">浮点数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40F0"> rampAcceleration (rac) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40EE">使用渐变控制加速度。会将加速度的任何其他动画添加到渐变控制的加速度。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40ED">向量数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40EC"> rampPosition (rps) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40EA">使用渐变控制位置。会将位置的任何其他动画添加到渐变控制的位置。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40E9">向量数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40E8"> rampVelocity (rvl) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40E6">使用渐变控制速度。会将速度的任何其他动画添加到渐变控制的速度。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40E5">向量数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40E4"> rgbPP* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40E2">逐粒子设定颜色。对于<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-DE0214A5-B4FA-46FB-8F3F-32CC79CAA115">“多点”(MultiPoint)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-4B96DCB4-A369-4CA9-A39F-741E20765BF7">“多条纹”(MultiStreak)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-D656EA6A-C559-468C-8FBC-21C8C5CC7DCB">“点”(Points)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-A5050251-92EE-4B59-AEA7-CEFEF6C5EA41">“球体”(Spheres)</span><span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-08005FFA-FE69-4F47-9E46-CF51FB78D126">“精灵”(Sprites)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-20DCC9A3-C5C1-423B-8866-3BA2387670E8">“条纹”(Streak)</span>渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40E1">向量数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40E0"> seed (sd) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40DE">设定相关联的发射器的随机数生成器的 ID。该属性适合逐对象使用。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40DD">浮点（多重） </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40DC"> sceneTimeStepSize (sts) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40DA">包含在最后显示的帧与当前帧之间的时间差异值。如果只是播放动画，或单击帧向前或向后按钮，则该属性包含 1。如果单击时间滑块中相隔很远的帧，则该属性包含在这两个帧之间的时间差异。该属性为只读属性。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40D9">时间（使用当前单位） </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40D8"> selectedOnly* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40D6">仅为选定粒子启用或禁用 ID 号的显示。对于<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-EF74BDD7-711A-4B46-B7E2-0FAF565603CB">“数值”(Numeric)</span>渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40D5">布尔 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40D4"> spriteNum* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40D2">为<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-FDA51E45-CCA2-4CA3-9BA8-CF5B38F09A16">“精灵”(Sprite)</span>图像序列设定图像编号索引。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40D1">整数 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40D0"> spriteNumPP* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40CE">逐粒子设定<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-EA89F852-9143-4C30-97DE-05F97DCA755B">“精灵”(Sprite)</span>图像序列图像编号索引。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40CD">整数数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40CC"> spriteScaleX、spriteScaleY* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40CA">设定<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-36152B9F-DC7B-4F60-BDBE-0EBAC747B52E">“精灵”(Sprite)</span> X 轴和 Y 轴图像比例。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40C9">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40C8"> spriteScaleXPP、spriteScaleYPP* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40C6">逐粒子设定<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-6B8FC00F-25A0-42BE-82E3-AA482914DB7A">“精灵”(Sprite)</span> X 轴和 Y 轴图像比例。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40C5">浮点数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40C4"> spriteTwist* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40C2">设定<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-5FC9873C-7DBE-421C-B3FC-D977A048F509">“精灵”(Sprite)</span>图像的旋转角度。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40C1">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40C0"> spriteTwistPP* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40BE">逐粒子设定<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-3219777E-C6E9-455E-BCDE-A48398D346CA">“精灵”(Sprite)</span>图像的旋转角度。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40BD">浮点数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40BC"> startFrame (stf) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40BA">设定动画帧，在该帧之后会为对象计算动力学（包括发射）。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40B9">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40B8"> surfaceShading* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40B6">设定显示<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-E067F8C2-66A1-46A3-ADDA-87CFB47466BF">“云”(Cloud)</span>渲染类型的球体的清晰度。使用一个介于 0 和 1 之间的值。值为 1 会更加清晰地显示球体；值为 0 会创建更加模糊不清的效果。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40B5">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40B4"> tailFade* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40B2">设定尾部褪色的不透明度。对于<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-3DAA799B-DB06-457D-831C-33890DD43D8D">“多条纹”(MultiStreak)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-E60196F9-D441-4095-9D0E-C60BFA858DF9">“条纹”(Streak)</span>渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40B1">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40B0"> tailSize* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40AE">为<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-CC6E97C2-4D01-43BF-8446-D5EF2783ED87">“多条纹”(MultiStreak)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-400C5DB0-7BBA-42ED-9C5B-FEBAFAF4CEEF">“条纹”(Streak)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-2B4600C1-0E99-4A73-B624-939CBE1DE037">“管”(Tube)</span>状体”渲染类型设定尾部的长度。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40AD">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40AC"> targetGeometrySpace (tgs) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40AA">对于柔体，设定坐标空间，Maya 使用该坐标空间来定位由粒子形状提供给目标几何体的点数据。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40A9">整数 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40A8"> threshold* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40A6">控制在<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-156BA8A9-3792-4D2E-90E2-D5F260B153FB">“云”(Cloud)</span>或<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-E4A5E11A-A276-4350-A260-054D1E93DC11">“滴状”(Blobby)</span>曲面球体之间的曲面融合。该属性为只读属性。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40A5">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40A4"> timeStepSize (tss) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40A2">包含以当前单位表示的动画帧增量。例如，如果动画设定为<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-D37BD195-2CBE-4654-BCE5-4756000C3BCD">“电影(24 fps)”(Film (24 fps))</span>，则<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-145EB9D8-D574-4048-A494-F72DFBB50D55">“timeStepSize”</span>具有值 1（帧）。 </p>
+
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40A1">设定关键帧或设定<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-DF487C52-0A18-4DAE-B78F-55C6317DEC59">“当前时间”(Current Time)</span>值会改变 timeStepSize。例如，在帧速率为每秒 24 帧的情况下，假定将第 0 帧处的<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-17800405-94EA-47BF-91D3-9250719228EC">“当前时间”(Current Time)</span>设定为 0，并将第 50 帧处的“当前时间”设定为 100。因为要将第 0 帧和第 50 帧之间的时间压缩两倍，所以<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-675F1C6E-4BF9-47A6-9128-3DCF004CFF3A">“timeStepSize”</span>为两倍大，也就是说，是 2。该属性为只读属性。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-40A0">时间 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-409F"> totalEventCount (evc) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-409D">包含对于对象的所有粒子发生的事件总数。该属性为只读属性。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-409C">整数 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-409B"> traceDepth (trd) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4099">设定在每个动画时间步长中 Maya 可以为对象检测到的最大碰撞数。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4098">整数 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4097"> traceDepthPP* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4095">逐粒子设定跟踪深度。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4094">浮点数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4093">
+<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-9FB8FEA7-DB86-4AFB-9785-5DE9BE5BA6A4">UseCurrentUVSet</span>
+</p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4091">在用于带纹理发射效果的多边形发射器上选择 UV 集。相同的 UV 集会用于附加到所有带纹理发射效果（颜色/不透明度和发射速率）的所有纹理。如果选中<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-3D8661EE-BC44-4694-A553-F19DC1EDCCE9">“UseCurrentUVSet”</span>选项，则会使用曲面发射器上的活动 UV 集。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4090">布尔 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-408F"> useLighting* </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-408D">启用或禁用场景照明是否照亮粒子。对于<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-F353B97C-8FDE-479C-8C89-18B5C127081C">“多点”(MultiPoint)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-7BCA3785-E8CF-4061-8352-18C28980EA3E">“多条纹”(MultiStreak)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-CECAC94C-97E5-4BEA-ACA1-6656DBD3F899">“点”(Points)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-4D8C5DD9-520A-4F4B-975E-D4F8F536BD3C">“精灵”(Sprites)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-232A8569-4349-411C-9C50-A343F65C7E89">“条纹”(Streak)</span>渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-408C">布尔 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-408B"> userScalar1PP userScalar2PP userScalar3PP userScalar4PP userScalar5PP </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4089">在<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-F46E529F-7F01-4E11-80BF-32C49078148E">“粒子采样器信息”(Particle Sampler Info)</span>节点中使用的用户定义属性的预定义输出。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4088">浮点数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4087"> userVector1PP userVector2PP userVector3PP userVector4PP userVector5PP </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4085">在<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-A7D5ACC6-B038-44E3-9F0A-17B271B4F2FA">“粒子采样器信息”(Particle Sampler Info)</span>节点中使用的用户定义属性的预定义输出。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4084">向量数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4083"> velocity (vel) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4081">逐粒子设定速度和方向。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4080">向量数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-407F"> velocity0 (vel0) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-407D">速度的初始状态对应项 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-407C">向量数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-407B"> visibleInReflections (rrl) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4079">启用或禁用软件渲染时对象在反射中是否可见。对于<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-4DD812AA-BBCD-42A2-891C-C93220575E51">“云”(Cloud)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-F06BC6F7-9B73-4110-B5F7-CA2AD89AAC1E">“滴状曲面”(Blobby Surface)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-2288AA5A-C02A-46C5-B20E-161AE5357530">“管状体”(Tube)</span>渲染类型有效。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4078">布尔 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4077"> visibleInRefractions (rrr) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4075">启用或禁用软件渲染时对象在折射中是否可见。对于<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-7386574F-A8CA-420D-B44C-4B3A423014B6">“云”(Cloud)</span>、<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-527B54AC-2C25-46C5-9D1D-30C3649A6BF3">“滴状曲面”(Blobby Surface)</span>和<span class="ph uicontrol" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__GUID-DB3BFBD6-FB07-496C-9869-9D8551FDA6A1">“管状体”(Tube)</span>渲染类型有效 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4074">布尔 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4073"> worldBirthPosition </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4071">存储每个粒子在世界空间中出生的位置。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4070">向量数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-406F"> worldCentroidX、worldCentroidY、worldCentroidZ（wctx、wcty、wctz） </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-406D">包含其粒子的平均位置的世界空间 X、Y 和 Z 元素。这些属性是只读属性。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-406C">浮点 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-406B"> worldPosition (wps) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4069">包含位置的世界空间对应项。该属性为只读属性。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4068">向量数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4067"> worldVelocity (wvl) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4065">包含速度的世界空间对应项。该属性为只读属性。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4064">向量数组 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.785553047404065%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4063"> worldVelocityInObjectSpace (wvo) </p>
+
+</td>
+<td class="entry" valign="top" width="45.71106094808127%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4061">包含与对象的世界空间速度等效的局部空间。该属性为只读属性。 </p>
+
+</td>
+<td class="entry" valign="top" width="29.503386004514674%">
+<p class="p" id="GUID-285972ED-A529-4004-8079-56D2DF6D6025__WS1A9193826455F5FF-6D855556117FACF922E-4060">向量数组 </p>
+
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-3130B434-C0D5-4FF7-94A4-7F056ADF712A.htm">nParticleShape 节点</a></div>
+</div>
+</div>
+
+</body>
+</html>

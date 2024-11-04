@@ -1,0 +1,55 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_Influence_Simulation_Influence_influence_set_orientation_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>influence_set_orientation</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>influence_set_orientation</code></h1></div><p>可以使用 float3 或 VectorField 在模拟上设置 point_orientation 特性，以定义点旋转。point_orientation 在内部保持为四元数，但是此节点仅允许使用 Euler 角度或旋转向量进行设置，然后在内部将其转化为四元数。使用 influence_set_property 或 modifier_influence，可以以 float4 四元数形式设置 point_orientation。VectorField 是 float3，不直接支持四元数，因此它们必须采用旋转向量或 Euler 格式。可以使用 VectorField 代理获取当前 point_orientation，值将自动转化为旋转向量。请注意，旋转向量类似于轴角度，但旋转向量是轴与角度的乘积，因此是 float3 而不是 float4。</p>
+<p>要使用此节点，请将其输出插入模拟节点（如 <code>simulate_aero</code>、<code>simulate_particles</code> 或 <code>simulate_mpm</code>）的 <code>influences</code> 输入。</p>
+<h2 id="">输入</h2><h3 id="influence"><code>influence</code></h3><p>可以选择将影响场 <code>out_influence</code> 连接到此端口。例如，可以连接 mask_influence 节点以遮罩此影响的效果。可以将任意数量的影响场呈菊花链状连接在一起，以构建复杂的场。</p>
+<h3 id="orientation"><code>orientation</code></h3><p>这是用于替换 point_orientation 的值。可以从 VectorField 进行连接，以随空间变化值。</p>
+<h3 id="rotation_type"><code>rotation_type</code></h3><p>这用于确定传入的旋转类型。point_orientation 特性在内部定义为四元数。将从 Euler 角度或旋转向量转化为四元数。</p>
+<ul>
+<li><code>Euler</code>：绕每个轴的旋转角度（以度为单位）。当前始终使用 XYZ 旋转顺序。</li>
+<li><code>RotationVector</code>：采用旋转向量格式，其中向量方向表示旋转轴，向量长度表示旋转量。</li>
+</ul>
+<h2 id="">输出</h2><h3 id="out_influence"><code>out_influence</code></h3><p>可以连接到模拟节点或其他影响节点的输出影响对象。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_Influence_html.html">Influence</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

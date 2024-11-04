@@ -1,0 +1,263 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_lighting_am_Studio_Automotive_Rendering_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_STUDIO_AUTOMOTIVE_RENDERING">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 工作室汽车渲染 - Arnold for Maya">
+
+<title>工作室汽车渲染</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>工作室汽车渲染</h1></div><p><img src="../images/am-Studio_Automotive_Rendering-image2017-6-22-9-9-14-1.png" alt=""></p>
+<p>本制作教程介绍了一些照明、着色和渲染提示，用于复制工作室灯光风格的汽车照片。成功进行汽车渲染的关键在于采用真实的照明。为了在工作室中正确地为汽车提供照明，需要进行大量工作和微调。实现正确的照明是创建有趣的镜面反射的关键，有助于加强汽车的美感。此处提供的提示旨在简化整个过程。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关在现实世界中为汽车照明的示例，请单击<a href="https://vimeo.com/208515491" target="_blank">此处</a>。</p>
+
+</div></div>
+
+<p>本教程分为以下章节：</p>
+<h4 id="">照明</h4><h4 id="">反光板</h4><h4 id="">着色</h4><h4 id="">四边形区域照明</h4><p>场景简单地使用区域光（四边形）进行照明，形成大型工作室柔光箱照明。另外，还添加了一个反光板，用于显示车身侧面的反射。</p>
+<p><img src="../images/am-Studio_Automotive_Rendering-image2017-6-14-16-22-34-2.png" alt=""></p>
+<h2 id="">颜色纹理</h2><p>为了在汽车涂料和挡风玻璃中获得真实的颜色和镜面反射，建议向灯光的颜色添加 HDR 贴图。要下载此场景中使用的示例 HDR 贴图，请单击<strong><a href="https://www.pingo.nu/vfxtools" target="_blank">此处</a></strong> <em>(Flat_2.hdr)</em>。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/with_HDR_map.jpg" alt=""></td>
+<td><img src="../images/no-hdr.jpeg" alt=""></td>
+</tr>
+<tr>
+<td>使用 HDR 贴图</td>
+<td>未使用 HDR 贴图。请注意，如果没有添加 HDR 贴图，灯光的反射（和颜色）中会缺少一些有趣的效果。</td>
+</tr>
+</tbody></table>
+<h2 id="">软边</h2><p>使用 <em>quad_light</em> 中的 <em>soft_edge</em>，可以为灯光的边缘指定平滑衰减。这会在汽车涂料和挡风玻璃中创建一个更柔和的灯光镜面反射效果。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/front-soft-0.jpeg" alt=""></td>
+<td><img src="../images/front-soft-1.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p>在这里我们可以看到使用渲染摄影机将 <em>soft_edge</em> 增加到 0.5 时的效果。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/soft-edge_0.jpg" alt=""></td>
+<td><img src="../images/soft-edge_0.5.jpeg" alt=""></td>
+</tr>
+</tbody></table>
+<h2 id="">镜面反射贡献</h2><p>我们在汽车引擎盖上看到一些过爆高光。降低灯光的<em>曝光*会有所帮助。但是，这也会降低场景的整体照明，而我们不希望这样。更简单、更有效的方法是减小 *quad_light</em> 的<em>镜面反射</em>贡献。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/specular-1.jpg" alt=""></td>
+<td><img src="../images/specular_0.6.jpeg" alt=""></td>
+</tr>
+</tbody></table>
+<p>通过向 <em>quad_light</em> 添加 <em>light_blocker</em>，可以对灯光在汽车中的反射位置和方式进行更好的艺术控制。请留意它对汽车右侧的照明和反射的影响。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/1_without_blocker.jpg" alt=""></td>
+<td><img src="../images/2-light-blocker.jpeg" alt=""></td>
+</tr>
+</tbody></table>
+<h2 id="">自发光平面</h2><p>已放置白色的反射平面，目的是增加汽车侧面的反射和照明。这是因为汽车摄影师通常不会直接将灯光照射到汽车上，而是将灯光照射到汽车涂料反射的表面上。在本例中，<em>emission_weight</em> 为 0.5。当然，您还可以将纹理映射到 <em>emission_color*。但是，在本例中，即使 *emission_color</em> 为白色，也可以发挥作用。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/without_reflector.jpg" alt=""></td>
+<td><img src="../images/reflector.jpeg" alt=""></td>
+</tr>
+</tbody></table>
+<p>如果我们启用<em>“诊断 -&gt; 功能覆盖”(Diagnostics -&gt; Feature Overrides)</em>下的“忽略灯光”(Ignore Lights)，则可以清楚地看到自发光平面在汽车反射中的效果。</p>
+<p><img src="../images/am-Studio_Automotive_Rendering-image2017-6-14-11-16-54-15.png" alt=""></p>
+<p><sub><strong>当启用“忽略灯光”(Ignore Lights)（在“功能覆盖”(Feature Overrides)下）时，自发光平面的效果更清晰可见</strong></sub></p>
+<h2 id="">着色</h2>
+<div class="callout callout-important">
+<div class="callout-title"><i class="callout-icon fa fa-exclamation-triangle" aria-hidden="true"></i>重要信息：</div>
+<div class="callout-body">
+
+<p><strong></strong>本部分中的大多数内容都是附加说明，因为这些着色效果可以使用 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_node_ac_car_paint_html" target="_blank">car_paint</a></em> 着色器来实现。</p>
+
+</div></div>
+
+<h2 id="">正面比着色器</h2><p><em>facing_ratio</em> 可用于为汽车涂料创建珠光颜色涂层。在下面的示例中，<em>coat_color</em> 已添加到 <em>standard_surface</em> 着色器。在本例中，<em>facing_ratio</em> 着色器已连接到 <em>coat_weight*，并用于增强 *coat_color</em> 效果。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/1-base-color.jpeg" alt=""></td>
+<td><img src="../images/2-metalness_0.8.jpeg" alt=""></td>
+<td><img src="../images/3-coat-color.jpeg" alt=""></td>
+<td><img src="../images/5-beauty.jpeg" alt=""></td>
+</tr>
+<tr>
+<td>base_color</td>
+<td>metalness</td>
+<td>coat_color</td>
+<td>facing_ratio -&gt; coat_weight</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/car-with-facing-ratio.jpg" alt=""></td>
+<td><img src="../images/am-Studio_Automotive_Rendering-without-facing-ratio-21.jpeg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>此效果在面向摄影机的区域（如前照灯）更明显。</strong></sub></p>
+<h2 id="">薄膜</h2><p>我们也可以使用 <em>standard_surface</em> 着色器中的 <em>Thin_film</em> 来创建多色调汽车涂料材质（<em>厚度</em>：400，<em>IOR</em>：1.43）。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/with_thin_film.jpg" alt=""></td>
+<td><img src="../images/am-Studio_Automotive_Rendering-without-thin-film-23.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<h2 id="">工具着色器</h2><p>有一些着色器可用于渲染汽车模型。<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_utility_shaders_ac_utility_utility_html" target="_blank">工具</a>和<a href="https://support.solidangle.comhttps://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_surface_wireframe_html" target="_blank">线框</a>着色器可用于在评估模型时诊断轮廓线和点连续性问题。通过工具着色器中的<em>“反射线”(Reflection Lines)</em>模式，您还可以了解实际的反射情况。当<a href="https://knowledge.autodesk.com/support/alias-products/getting-started/caas/CloudHelp/cloudhelp/2016/CHS/Alias-Tutorials-Legacy/files/GUID-5AB94F40-F1A9-40D8-AD42-4FBBF9F0D458-htm.html" target="_blank">构建汽车模型</a>（其中曲面求值至关重要）时，此类着色特别有用。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/car-reflection-lines.jpeg" alt=""></td>
+<td><img src="../images/car-wireframe.jpeg" alt=""></td>
+</tr>
+<tr>
+<td>反射线（工具着色器）</td>
+<td>线框着色器</td>
+</tr>
+</tbody></table>
+<p><em>工具</em>着色器还具有“金属”(Metal)<em>shade_mode</em>。这可以作为测试并检查汽车中的反射高光的一个简单着色方法。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/car-high-roughness.jpg" alt=""></td>
+<td><img src="../images/am-Studio_Automotive_Rendering-metal-low-roughness-27.jpeg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>使用<em>工具</em>着色器（<em>shade_mode</em> 设置为“金属”(Metal)），可以更清晰地看到灯光的镜面反射效果。</strong></sub></p>
+<p>关于汽车工作室渲染的教程到此结束。试着使用此处介绍的一些技术复制汽车的工作室照片。</p>
+<p><img src="../images/am-Studio_Automotive_Rendering-image2017-7-8-16-29-18-28.png" alt=""></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关如何使用 MtoA 照亮汽车的视频教程，请单击<a href="https://www.youtube.com/watch?v=W50eTWwOpog&amp;t=1s" target="_blank">此处</a>。</p>
+
+</div></div>
+
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>汽车模型可从<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_tutorials_am_Learning_Scenes_html">学习场景</a>页面获取。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Lighting_html.html">照明</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

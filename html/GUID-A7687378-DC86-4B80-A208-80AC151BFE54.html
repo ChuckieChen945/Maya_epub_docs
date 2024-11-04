@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-A7687378-DC86-4B80-A208-80AC151BFE54">
+<meta name="language" content="CHS">
+<title>将 PSD 网络用作 Maya 中的纹理</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>将 PSD 网络用作 Maya 中的纹理</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-38A23F5C12A55EE7664-7EA5"><p class="p" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-7887">通过“PSD 文件”节点，可以将 PSD 文件用作 Maya 中的纹理网络。它类似于 Maya 的“文件纹理”节点，但仅适用于 PSD 文件。
+	 </p>
+<div class="fig fignone" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-7886"><img class="image" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__IMAGE_5B2B3361781245CDBFFF9436074E241B" width="253" height="100" src="../images/GUID-0077025F-18CE-4200-8692-E404D71C0421.png"></div>
+<p class="p" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-7885">默认情况下，Maya 会将 PSD 文件链接到包含在 PSD 文件中的合成图像。Maya 只能读取图像和向量层，因此在 PSD 节点链接到 Adobe Photoshop 的合成图像（默认情况）时，Maya 会支持 Adobe Photoshop 支持的所有内容，包括（例如）层样式、调整层、文本等。
+	 </p>
+<p class="p" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-7884">但是，您可以选择将 PSD 节点链接到层集，在这种情况下，不支持层样式和调整层，应在 Maya 中读取 PSD 文件之前对其进行光栅化。
+	 </p>
+<div class="section" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-7883"><h2 class="title sectiontitle">带有层集的 PSD 文件的优点 </h2> 
+		 
+		<p class="p" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-7882">带有层集的 PSD 文件有助于进行迭代绘制：
+		</p>
+ 
+		<ul class="ul" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-7881"><li class="li" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-7880">Adobe Photoshop 艺术工作者可以在保持 Maya 中的连接的同时添加、修改或删除层集中任意数量的层（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-B750BF4E-2343-4AA0-A09F-C7FA5F270B95.htm">在 Maya 中创建包含层集的 PSD 文件</a>）。
+		  </li>
+<li class="li" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-787F">Maya 艺术工作者可以将 PSD 节点转化为<span class="ph uicontrol" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__GUID-312A929F-C187-4C03-B24B-91146F890970">“分层纹理”(Layered Texture)</span>，并将层集视为连接到<span class="ph uicontrol" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__GUID-69C4DAA1-E3B6-4063-B174-BC31DD8D3C7B">“Hypershade”</span>中的分层纹理的多个<span class="ph uicontrol" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__GUID-AF0A7E0F-E3F3-4D90-AC31-40D86DC6D338">“PSD 文件纹理”(PSD File Texture)</span>。
+			 <div class="note note" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-787E"><span class="notetitle">注：</span>  
+				<p class="p" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__GUID-13D28FE3-F8C3-4DEA-B12D-DE5C488B1D87">Maya 会将层集中的所有层视为单个展平图像。
+				</p>
+ 
+			 </div>
+ 
+		  </li>
+</ul>
+ 
+		<p class="li listintro" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-787C"> 使用 Maya 中现有的 PSD 文件</p>
+<ol class="ol" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-787D"><li class="li" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-787A">在<span class="ph uicontrol" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__GUID-FB8D530C-1664-4E23-B5CD-92D8205371EF">“Hypershade”</span>中，使用新的<span class="ph uicontrol" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__GUID-A3B182FE-18C5-4944-A817-AE1B464975AF">“PSD 文件纹理”(PSD File Texture)</span>节点加载 PSD 图像文件（<span class="ph uicontrol" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__GUID-642BBEBE-B7C7-4990-8E27-9652F26FB7AF">“创建 &gt; 2D 纹理 &gt; PSD 文件”(Create &gt; 2D textures &gt; PSD File)</span>）。
+			 <p class="p" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-7879">PSD 文件将链接到 Adobe Photoshop 的合成图像。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-7878">如果该文件具有多个遮罩通道，可以选择要查看的通道。从<span class="ph uicontrol" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__GUID-80B28266-6C5D-4FF1-B06C-163DA6283E50">“属性编辑器”(Attribute Editor)</span>中的<span class="ph uicontrol" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__GUID-0725763D-8F9D-4A4F-BB5D-DDA743942886">“要使用的 Alpha”(Alpha to Use)</span>属性选择遮罩。
+		  </li>
+<li class="li" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-7877">如果 PSD 文件具有层集，则可以选择要链接到的层集。从<span class="ph uicontrol" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__GUID-E9DFE422-74C1-44B5-ABAF-77FDA7F03878">“属性编辑器”(Attribute Editor)</span>中的<span class="ph uicontrol" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__GUID-9712DCD0-414B-4250-A383-6A39E290F30C">“链接到层集”(Link to Layer Set)</span>属性选择层。
+		  </li>
+<li class="li" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-7876">与 Maya 中的任何<span class="ph uicontrol" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__GUID-101FCDA9-23B7-4C79-9046-7DE689F59086">“文件纹理”(File Texture)</span>一样，您可以设置任何<span class="ph uicontrol" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__GUID-285AB92D-9D45-4C65-89F9-A089C37F2653">“PSD 文件纹理”(PSD File Texture)</span>属性。
+			 <p class="p" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-7875">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-648C6045-45B5-49FB-9FA5-77A8D67835FF.htm#GUID-648C6045-45B5-49FB-9FA5-77A8D67835FF__WS17956D7ADBC6E736-51D3585C117AE33DCFA-7F89">文件属性(File Attributes)</a>。
+			 </p>
+ 
+		  </li>
+</ol>
+ 
+		<p class="li listintro" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-7873"> 将带有层集的现有 Adobe Photoshop<span class="ph uicontrol" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__GUID-B95E9967-DAEF-421B-BCAC-5CF1C138FB01">“文件纹理”(File Texture)</span>转化为<span class="ph uicontrol" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__GUID-0A69C53B-6184-4E98-9F9F-20A7C1C98C75">“分层纹理”(Layered Texture)</span></p>
+<ol class="ol" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-7874"><li class="li" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-7871">在<span class="ph uicontrol" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__GUID-722FA6CF-FE18-4F42-B129-8E7B6DD09779">“Hypershade”</span>中，执行下列操作之一：
+			 <ul class="ul" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-7870"><li class="li" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-786F">在<span class="ph uicontrol" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__GUID-425C889B-E93A-459F-9852-E35B21951F08">“PSD 文件纹理”(PSD File Texture)</span>上单击鼠标右键，然后选择<span class="ph uicontrol" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__GUID-14EC8239-E1F3-47A0-90E2-DFEBD9C59FA4">“转化为分层纹理”(Convert to Layered Texture)</span>。
+				</li>
+<li class="li" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-786E">选择<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-EF6DFB31-CFCF-428D-8961-3D96CE673F99.htm#GUID-EF6DFB31-CFCF-428D-8961-3D96CE673F99__GUID-A0332172-AC9F-4439-8FD5-761BB6B362D6">编辑 &gt; 将 PSD 转化为分层纹理(Edit &gt; Convert PSD to Layered Texture)</a>。
+				</li>
+</ul>
+ 
+		  </li>
+<li class="li" id="GUID-A7687378-DC86-4B80-A208-80AC151BFE54__WS73099CC142F48755-3D114B7511812357EFE-786D">若要查看连接到分层纹理的多个层集，请对分层纹理重新制图。
+		  </li>
+</ol>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-B5E77188-0505-4591-8E03-BB993A7D4822.htm">调整转化选项</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-0715124A-ED83-4983-9AD9-F086B125DD82.htm">将 PSD 节点转化为文件纹理</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-B750BF4E-2343-4AA0-A09F-C7FA5F270B95.htm">从 Maya 中创建包含层集的 PSD 文件</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-E88D55EB-4F63-409D-BB14-810F8AE7A50A.htm">在场景视图中显示 PSD 文件的 Alpha</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-339E0BD8-9B40-4246-8DDD-060C88D92693.htm">编辑 PSD 网络</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-FD5CE223-8AEA-446E-9428-E5E38520BCF3.htm">从 Maya 打开 Adobe Photoshop 中的 PSD 网络</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-6DCF2FB1-CBE8-4395-B5A9-57B8D01801BD.htm">为绘图应用程序草拟参考线（“草绘”）</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-648C6045-45B5-49FB-9FA5-77A8D67835FF.htm">更新 PSD 网络</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-7A54282E-7B05-4C85-9E7E-4E3967DE403F.htm">Photoshop 集成限制</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-1C24534D-8B91-45FF-971A-B3AD07E1067F.htm">纹理</a></div>
+</div>
+</div>
+
+</body>
+</html>

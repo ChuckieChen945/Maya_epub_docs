@@ -1,0 +1,139 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shading_am_Wear_and_Tear_with_the_Curvature_Shader_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_WEAR_AND_TEAR_WITH_THE_CURVATURE_SHADER">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用曲率着色器制作磨损效果 - Arnold for Maya">
+
+<title>使用曲率着色器制作磨损效果</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>使用曲率着色器制作磨损效果</h1></div><p><img src="../images/am-Wear_and_Tear_with_the_Curvature_Shader-image2022-3-29-15-16-3-1.png" alt="">  </p>
+<p><em>曲率</em>着色器是为着色器添加细节和真实感的一种简单方法。在本简短教程中，我们将使用<em>曲率</em>着色器制作一种磨损痕迹的着色效果。它将用来表现机甲模型上坚硬曲面边缘发生擦痕的地方。请注意上图中喷漆边缘的磨损程度，已经露出了下面的金属。</p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>在本教程中，您可以使用<em>层</em>着色器或 <em>mix_shader</em>。</p>
+
+</div></div>
+
+<p><strong>要下载此场景中使用的着色器，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/curvature_user-guide.ma" target="_blank">此处</a></strong>。<strong>有关视频教程，请单击<a href="https://www.youtube.com/watch?v=gPnmm_4lVfA" target="_blank">此处</a>。</strong></p>
+<h2 id="">混合着色器</h2><p><em>mix_shader</em> 用于对两个不同的 <em>standard_surface</em> 着色器进行分层。我们将一个 <em>standard_surface</em> 着色器用于顶部绿漆层（绿色），并使用另一个 <em>standard_surface</em> 着色器来表示底部外露的金属曲面。</p>
+<ul>
+<li>创建 <em>mix_shader</em>，并将其指定给对象。</li>
+<li>创建一个 <em>standard_surface</em> 着色器并将其重命名为“<em>Green Paint</em>”。</li>
+<li>创建另一个 <em>standard_surface</em> 着色器并将其重命名为“<em>Metal</em>”。</li>
+<li>将 Green Paint 连接到 <em>mix_shader</em> 的 <em>Layer1*，将 Metal 材质连接到 *mix_shader</em> 的 <em>Layer2</em>。</li>
+</ul>
+<h2 id="">曲率着色器</h2><ul>
+<li>将<em>噪波<em>着色器连接到</em>曲率<em>着色器的</em>“半径”(Radius)<em>（</em>“偏差”(Bias)<em>和</em>“相乘”(Multiply)*也将起作用）。尝试使用不同的噪波设置以获得所需外观。不要忘记，您可以将 *color_correct</em> 着色器连接到<em>噪波</em>着色器以进一步优化“磨损”的外观。</li>
+<li>将<em>曲率<em>着色器连接到分层着色器的</em>“透明度”(Transparency)*属性。这将控制两个 *standard_surface</em> 着色器之间的混合。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Wear_and_Tear_with_the_Curvature_Shader-noise-off-2.jpg" alt=""></td>
+<td><img src="../images/am-Wear_and_Tear_with_the_Curvature_Shader-noise-on-3.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用噪波着色器</td>
+<td>使用噪波着色器</td>
+</tr>
+</tbody></table>
+<h2 id="bias">偏差(Bias)</h2><ul>
+<li>在下面的示例图像中，<em>曲率</em>着色器的<em>偏差</em>参数已增大并有所夸张，以便更好地演示效果。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Wear_and_Tear_with_the_Curvature_Shader-bias-0-4.jpg" alt=""></td>
+<td><img src="../images/am-Wear_and_Tear_with_the_Curvature_Shader-bias-0-5-5.jpg" alt=""></td>
+<td><img src="../images/am-Wear_and_Tear_with_the_Curvature_Shader-bias-1-6.jpg" alt=""></td>
+</tr>
+<tr>
+<td>偏差：0</td>
+<td>偏差：0.5（默认值）</td>
+<td>偏差：1</td>
+</tr>
+</tbody></table>
+<h2 id="samples">采样数(Samples)</h2><ul>
+<li>增大 <em>curvature_samples</em> 的数量可减少噪波，并得到更高质量的结果。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Wear_and_Tear_with_the_Curvature_Shader-3-samples-7.jpg" alt=""></td>
+<td><img src="../images/am-Wear_and_Tear_with_the_Curvature_Shader-6-samples-8.jpg" alt=""></td>
+</tr>
+<tr>
+<td>curvature_samples：3</td>
+<td>curvature_samples：6</td>
+</tr>
+</tbody></table>
+<p><img src="../images/am-Wear_and_Tear_with_the_Curvature_Shader-image2021-4-12-11-24-21-9.png" alt=""></p>
+<p><sub><strong>cell_noise -&gt; curvature -&gt; mix_weight</strong></sub></p>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/gPnmm_4lVfA?" frameborder="0" allowfullscreen=""></iframe>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Shading_html.html">着色</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_build_a_graph_anatomy_graph_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>图表剖析</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>图表剖析</h1></div><p>下图显示了示例粒子图表的顶层。所有 Bifrost 图表都具有类似元素。</p>
+<p><img src="../images/anatomy-graph.png" alt="图表剖析"></p>
+<h2 id="">数据流</h2><p>Bifrost 是纯数据流图表。数据沿着节点上端口之间的连接从左到右向“下游”流动。</p>
+<p>输入可能通过 <code>input</code> 节点（例如，场景几何体或数值参数）来自主场景。或者，可以在图表本身内创建它们，例如，使用 <code>value</code> 节点或简单的几何体创建节点（如 <code>create_mesh_sphere</code>）。</p>
+<p>图表计算的结果将通过与 <code>output</code> 或 <code>terminal</code> 节点的连接发送到场景。大多数图表输出 Bifrost 几何体对象，从而在场景中创建 <code>bifrostGraph</code> 对象。这些对象可以显示在视口中，也可以使用 Arnold 等兼容渲染器进行渲染。</p>
+<p>默认情况下，图表具有一个 <code>input</code> 节点和一个 <code>output</code> 节点。但是，您可以采用与其他节点相同的创建方式来创建更多的 <code>input</code> 和 <code>output</code> 节点。</p>
+<p>或者，Bifrost 图表可以将几何体输出到标准格式（如 Alembic 和 VDB），以便与其他渲染器一起使用。请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_file_io_html.html">从文件输入和输出数据</a>。</p>
+<h2 id="">节点</h2><p>节点对其输入执行操作，并输出结果。输入端口位于左侧，输出端口位于右侧。</p>
+<p>有执行基本函数的节点（例如 <code>add</code> 和 <code>multiply</code>）。也有执行许多操作以创建效果的高级节点（例如 <code>simulate_particles</code>），以及用作有用工具函数的中级节点。</p>
+<p>高级节点和中级节点通常是<em>复合</em>。复合是包含其他节点（甚至可能是其他复合）的子图的节点。可以双击复合以进入它并查看其内容。还可以创建您自己的复合来组织图表，以及发布它们供重复使用 - 请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_create_and_edit_compounds_html.html">创建和编辑复合</a>。</p>
+<p>默认情况下会<em>引用</em>您添加到图表中的已发布复合。这意味着，它们指代磁盘上的节点定义。您不能修改所引用复合的内部子图，除非您在本地将其导入到图表中 - 请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/create-and-edit-compounds/Bifrost_Common_build_a_graph_create_and_edit_compounds_import_a_referenced_compound_html.html">导入引用复合</a>。</p>
+<p><img src="../images/node.png" alt="节点的元素"></p>
+<ol>
+<li>节点名称或值。默认名称基于节点的类型，但您可以双击该名称以键入新名称。如果当前显示值而不是名称，则在选择节点时，可能需要先选择<strong>“显示 &gt; 显示节点名称”(Display &gt; Show Node Names)</strong>。若要在名称上方显示节点类型，请按 <strong>T</strong> 键，或选择<strong>“显示 &gt; 显示节点类型”(Display &gt; Show Node Types)</strong>。</li>
+<li>菱形图标。这表示节点是一个引用的复合。引用的复合包含已发布以供重用的子图。您不能修改其内部图，除非使其可编辑。请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/create-and-edit-compounds/Bifrost_Common_build_a_graph_create_and_edit_compounds_import_a_referenced_compound_html.html">导入引用复合</a>。</li>
+<li>单击三角形以收拢或展开节点。或者，您可以使用 <strong>1</strong>、<strong>2</strong> 和 <strong>3</strong> 热键或<strong>“显示”(Display)</strong>菜单上的命令。当节点收拢时，不会显示其各个端口。</li>
+<li>端口组。单击 <strong>+</strong> 或 <strong>–</strong> 以展开和收拢。</li>
+<li>输入端口。连接其他节点的输出，或在<strong>“参数编辑器”(Parameter Editor)</strong>中输入值。右键单击以访问其他选项。</li>
+<li>节点菜单。也可以右键单击节点的主体。</li>
+<li>输出端口。连接到其他节点的输入。右键单击以访问其他选项。</li>
+<li>节点图标。某些节点可能具有与其功能相关的特殊图标。上面显示的图标是复合的默认图标。在大多数情况下，该图标有助于图表的可读性和识别性，但在使用具有实验图标（实验室烧瓶的橙色叠加图案）的节点时要小心 - 请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/add-a-node/Bifrost_Common_build_a_graph_add_a_node_about_experimental_nodes_html.html">关于实验节点</a>。</li>
+</ol>
+<p><img src="../images/icon_experimental.png" alt="实验节点图标"></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/Bifrost_Common_build_a_graph_html.html">构建和修改图表</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

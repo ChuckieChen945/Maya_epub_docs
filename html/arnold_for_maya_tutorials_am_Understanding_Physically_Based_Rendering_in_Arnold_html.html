@@ -1,0 +1,379 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_tutorials_am_Understanding_Physically_Based_Rendering_in_Arnold_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_UNDERSTANDING_PHYSICALLY_BASED_RENDERING_IN_ARNOLD">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 了解 Arnold 中基于物理的渲染 - Arnold for Maya">
+
+<title>了解 Arnold 中基于物理的渲染</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+<div class="head-block"><h1>了解 Arnold 中基于物理的渲染</h1></div><p><img src="../images/am-Understanding_Physically_Based_Rendering_in_Arnold-image2016-5-5-10-0-36-1.png" alt=""></p>
+<p>根据物理定律设计材质可大大简化着色和照明，即使在没必要追求真实感或物理准确性时也是如此。通过了解和应用一些法则，我们可以让图像更真实可信，并创建在不同照明设置下表现更可预见的材质。  </p>
+<p>在现代渲染器中，基于物理的渲染是指能量守恒、物理上合理的散射以及材质分层和线性颜色空间之类的概念。Arnold 是基于物理的渲染器，但是如果需要，它也允许打破规则，创建出不符合物理定律的材质和灯光。在本文档中，我们将介绍基础理论，以及如何设置着色器来遵循这些法则。</p>
+<p><img src="../images/am-Understanding_Physically_Based_Rendering_in_Arnold-image2022-3-29-15-40-25-2.png" alt=""></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>Arnold 支持各种第三方应用程序，如 <a href="https://www.allegorithmic.com/products/substance-painter" target="_blank">Substance Painter</a>。</p>
+
+</div></div>
+
+<h2 id="">光子和散射</h2><p>在渲染中，我们会模拟光子从光源发出，经过空气传播，在表面上和体积中反弹，最终落在摄影机的传感器上。数以百万计的光子在摄影机传感器上组合在一起，就形成了渲染的图像。</p>
+<p>这意味着，从物理角度来说，曲面着色器描述了曲面如何与光子相互作用。击中物体的光子可能会被吸收、在曲面发生反射、透过曲面发生折射，或者在物体内部四处散射。这些组件组合在一起，就产生了种类众多的材质。</p>
+<h2 id="">能量守恒</h2><p>除非物体是发射光子的光源，否则它无法返回比入射光所贡献的更多的能量。材质要做到能量守恒，离开表面的光子数量应小于或等于入射光子的数量。如果材质不是能量守恒，看起来会过于明亮，渲染时噪波也会增多，特别是在使用全局照明时。</p>
+<p>要使材质保持能量守恒，材质组件的权重和颜色绝不能超过 1。另外，必须注意确保所有组件合在一起是能量守恒的，这一点我们稍后会详细介绍。</p>
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Understanding_Physically_Based_Rendering_in_Arnold-image2015-12-17-12-30-26-3.png" alt=""></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+<h2 id="">材质</h2><p>从微观层面看，物体表面的细节是错综复杂的。在渲染时，我们不使用几何体来表现所有这些细节，而是使用统计模型，这类模型具有易于理解的参数。</p>
+<p>Arnold 的 <em>standard_surface</em> 着色器在为物体建模时会建立一个或两个镜面反射层，以及一个漫反射或透明内部。这种模型可以表示众多材质。下面我们来看一下各个组件。</p>
+<h2 id="">漫反射和次表面散射</h2><p>首先来看漫反射内部。入射的光子将进入物体，在内部四处散射，然后被吸收或在另一位置离开物体。</p>
+<p>如果光子散射很多次，我们会得到一个漫反射外观，这是因为光子从很多不同位置沿不同方向离开曲面。对于像皮肤这样的材质，光子可以在曲面之下散射得相对较远，因此呈现出非常柔和的外观，这种效果使用<em>次表面散射</em>来渲染。对于原木这样的材质，光子不会散射得很远，因此呈现出更坚硬的外观，这种效果使用<em>漫反射</em>进行渲染。对于像叶子这样的纤薄物体，光子可以一直散射到物体的另一面，这种效果以漫反射 <em>SSS</em>（启用 <em>thin_wall</em>）形式进行渲染。</p>
+<p>请注意，尽管我们在着色器中为所有这些类型的材质提供了单独的控制选项，但是从根本上讲，它们背后的物理机制是相同的。</p>
+<p>漫反射内部对材质整体颜色的影响通常也是最大的。每个光子都有一个关联的波长，并且根据材质的特性，某些波长的光子比其他光子更有可能被吸收。反过来就意味着，某些波长的光子更容易离开曲面，从而使曲面呈现彩色外观。</p>
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Understanding_Physically_Based_Rendering_in_Arnold-image2015-12-21-11-8-13-4.png" alt=""></td>
+</tr>
+<tr>
+<td>红色苹果的表皮主要反射红光。只有红色波长的光才会散射出苹果皮外面，其他的光则会被吸收。</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<h2 id="">能量守恒</h2><p>单个光子只能参与<em>漫反射<em>、</em>次表面散射<em>和</em>背面照明*这几个组件中的一个，为了实现物理上的正确性，我们不希望离开表面的光子比进入的光子多。对于 *standard_surface</em> 着色器，会自动确保这些组件的总和不高于 1。</p>
+<h2 id="">镜面反射散射</h2>
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Understanding_Physically_Based_Rendering_in_Arnold-spec-roughness-5.gif" alt=""></td>
+</tr>
+<tr>
+<td>_specular_roughness_：0 到 1</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<h2 id="roughness">粗糙度(Roughness)</h2><p>镜面反射层使用微面分布进行建模。我们假设曲面是由许多沿随机方向排列的微小的面构成。粗糙度低的曲面（如镜面）上各个微面之间几乎没有变化，因此呈现清晰锐利的反射。粗糙度高的曲面存在很多变化，因此呈现更柔和、富有光泽的反射。</p>
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Understanding_Physically_Based_Rendering_in_Arnold-image2015-12-21-11-35-51-6.png" alt=""></td>
+</tr>
+<tr>
+<td>苹果上可见强烈的<em>镜面反射_高光。注意，桌子的_镜面反射_宽泛而暗淡（因为 _specular_roughness</em> 值较高）。</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Understanding_Physically_Based_Rendering_in_Arnold-image2016-4-6-9-32-53-7.png" alt=""></td>
+</tr>
+<tr>
+<td>散射光线引起的粗糙反射</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+
+<div class="gallery center thumbnail-350">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/glossy-reflection-rays.jpg" alt=""></td>
+<td><img src="../images/glossy-roughness.jpg" alt=""></td>
+</tr>
+<tr>
+<td>光泽曲面。入射角和反射角相等。</td>
+<td>漫反射曲面。光线方向随机变化。</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<h2 id="">粗糙度贴图</h2><p>要查看曲面高光的变化，应将贴图连接到 _specular_roughness_。这不仅会影响高光的亮度，还会影响其大小和环境反射的清晰度。</p>
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/roughness-map-1.jpg" alt=""></td>
+<td><img src="../images/roughness-map-3.jpg" alt=""></td>
+</tr>
+<tr>
+<td>低 <em>specular_roughness</em></td>
+<td>高 <em>specular_roughness</em></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>“划痕”(Scratches)纹理 -&gt; <em>specular_roughness_（通过 _range</em> 着色器）</td>
+</tr>
+<tr>
+<td><img src="../images/am-Understanding_Physically_Based_Rendering_in_Arnold-image2016-4-6-9-33-58-12.png" alt=""></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+
+
+<h2 id="">透射</h2><p>光子不仅可以在曲面上发生反射，还可以透过曲面发生折射。光子将穿过镜面反射层，通常在离开该层的另一面时改变方向，具体取决于折射率 (IOR)。</p>
+<p>如果曲面的内部是透明的（如透明玻璃内部），光子将可以穿过物体并从另一面射出。如果为漫反射内部，光子可以在物体内部散射，然后被吸收或再次离开物体。镜面反射层的折射率越高，下面的漫反射内部越清晰可见。对于金属这样的材质，穿过镜面反射层发生折射的光子往往会立即被吸收，因此我们看不到漫反射内部。</p>
+<h2 id="">菲涅尔</h2><p>镜面反射层反射或折射的光子的百分比与视角有关。从正面观察曲面时，大多数光会发生折射；以一定掠射角观察曲面时，大多数光会发生反射。这种现象称为“菲涅尔效应”。折射率控制着此效应具体如何随视角发生变化。</p>
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Understanding_Physically_Based_Rendering_in_Arnold-pepe-reflectance-13.gif" alt=""></td>
+</tr>
+<tr>
+<td>镜面反射 BRDF 相对于视角方向发生的变化</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+<h2 id="">不透明度和透射</h2><p>对不透明度最好的理解是：不透明度是一种使用纹理为曲面几何体建模的方法。它不影响光子与曲面的相互作用，而是指示哪个位置不存在曲面几何体、光子可以直接通过。</p>
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Understanding_Physically_Based_Rendering_in_Arnold-image2016-3-1-10-35-42-14.png" alt=""></td>
+</tr>
+<tr>
+<td>渐变纹理 -&gt; <em>不透明度</em></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+<p>不透明度的一个典型用途是创建精灵类型的效果，比如使用一张多边形卡片裁切出树叶形状，或者使发束末端变得透明。但需要注意的是，包含许多不透明度精灵（例如树叶）的场景可能会使渲染速度显著下降。</p>
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Understanding_Physically_Based_Rendering_in_Arnold-opaque-off-15.jpg" alt=""></td>
+<td><img src="../images/am-Understanding_Physically_Based_Rendering_in_Arnold-opaque-on-16.jpg" alt=""></td>
+<td><img src="../images/am-Understanding_Physically_Based_Rendering_in_Arnold-leaf-opacity-17.jpg" alt=""></td>
+</tr>
+<tr>
+<td>叶_“不透明度”(Opacity)_：启用</td>
+<td>叶_“不透明度”(Opacity)_：禁用</td>
+<td>Alpha 贴图 -&gt; <em>不透明度</em></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<p>透射深度与此类似，但它控制的不是表面，而是物体内部的密度。体积密度越高，在光子通过内部时吸收的光子越多，因此物体越厚就越暗。</p>
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Understanding_Physically_Based_Rendering_in_Arnold-standard-transmittance-rubber-duck-white-18.jpg" alt=""></td>
+<td><img src="../images/am-Understanding_Physically_Based_Rendering_in_Arnold-standard-transmittance-rubber-duck-subtle-blue-19.jpg" alt=""></td>
+</tr>
+<tr>
+<td>_transmission_color_：白色</td>
+<td>_transmission_color_：浅蓝色</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+
+
+
+<p><img src="../images/am-Understanding_Physically_Based_Rendering_in_Arnold-image2016-4-20-14-1-18-20.png" alt=""></p>
+<p><sup><sub><em>由 Daniel M. Lara 制作的 Pepe 模型 <a class="external-link" href="http://pepeland.com/" rel="nofollow" target="_blank">(Pepeland)</a>。</em></sub></sup></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/arnold_for_maya_tutorials_html.html">教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

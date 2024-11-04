@@ -1,0 +1,167 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_operators_am_Old_Attic_Interior_USD_Scene_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_OLD_ATTIC_INTERIOR_USD_SCENE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 旧阁楼内部 USD 场景 - Arnold for Maya">
+
+<title>旧阁楼内部 USD 场景</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>旧阁楼内部 USD 场景</h1></div><p><img src="../images/am-Old_Attic_Interior_USD_Scene-image2020-4-27-11-29-1-1.png" alt=""></p>
+<p>本教程演示了如何使用 Arnold 打开来自 NVIDIA 的 <a href="https://developer.nvidia.com/usd" target="_blank">USD 场景</a>，修改其内容，然后对其进行渲染。可以使用 Arnold 轻松地打开 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shapes_ac_usd_html" target="_blank">USD</a> 文件，并使用<em>替代对象</em>（程序）对其进行渲染。我们将在<em>替代对象</em>中使用<em>运算符</em>来调整 USD 照明（来自 NVIDIA Omniverse）。我们还将使用运算符修改镜子对象和沙发材质。最后，我们将禁用 Omniverse 照明，并将其替换为 Arnold 灯光。</p>
+<p><strong>在<a href="https://developer.nvidia.com/usd" target="_blank">此处</a>下载 Attic_NVIDIA.zip 文件（需要登录）。</strong></p>
+<ul>
+<li>将文件 <strong>Attic_NVIDIA.zip</strong> 解压缩为如下所示的文件夹结构，以便 .usd 文件正确加载 <code>../atticwork/attic_v5/</code></li>
+</ul>
+<p><img src="../images/am-Old_Attic_Interior_USD_Scene-image2020-4-29-8-51-53-2.png" alt=""></p>
+<ul>
+<li>创建一个<em>替代对象（程序）</em>。选择<em>“路径”(Path)</em>旁边的文件夹，然后选择 <strong>Attic_NVIDIA.usd</strong> 文件。</li>
+<li>您将注意到阁楼几何体的方向是 Z 上方向而不是 Y 上方向。这是因为源自 Omniverse 的原始场景文件的方向是 Z 上方向。在 X 轴上将<em>替代对象</em>旋转 -90 度。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Old_Attic_Interior_USD_Scene-attic-1-3.jpg" alt=""></td>
+<td><img src="../images/am-Old_Attic_Interior_USD_Scene-attic-2-4.jpg" alt=""></td>
+</tr>
+<tr>
+<td>阁楼场景（替代对象）的方向为 Z 上方向</td>
+<td>在 X 轴上将替代对象旋转 -90 度</td>
+</tr>
+</tbody></table>
+<ul>
+<li>创建一个摄影机（将其重命名为 <em>RenderCam</em>），并将其放置在适当位置，使效果类似下图。</li>
+</ul>
+<p><img src="../images/am-Old_Attic_Interior_USD_Scene-image2020-4-28-15-35-49-5.png" alt=""></p>
+<p><sub><strong>RenderCam 视图。替代对象的<em>“视口绘制模式”(Viewport Draw Mode)</em>设置为<em>“多边形线”(Polywire)</em>。</strong></sub></p>
+<ul>
+<li>如果我们检查<em>替代对象</em>的<em>“文件内容”(File Contents)</em>，可以看到<em>“根”(Root)</em>下分组为<em>“外观”(Looks)、“灯光”(Lights)</em>和<em>“几何体”(Geometry)</em>。</li>
+<li>打开<em>“灯光”(Lights)</em>组。您应该会注意到有一些来自 Omniverse 的灯光。这些灯光会在内部进行转化，如下所示：</li>
+</ul>
+<p><img src="../images/am-Old_Attic_Interior_USD_Scene-image2021-11-18-9-45-12-6.png" alt=""></p>
+<p><sub><strong>BallLight = <em>point_light、</em>DistantLight = <em>directional_light</em> 和 DomeLight <em>= skydome_light</em>。</strong></sub></p>
+<h2 id="diagnostics-feature-overrides">诊断/功能覆盖(Diagnostics/Feature Overrides)</h2><p>为了更快地测试场景照明的渲染，可使用<em>“功能覆盖”(Feature Overrides)</em>（Arnold“渲染设置”(Render Settings)的<em>“诊断”(Diagnostics)</em>选项卡）。</p>
+<ul>
+<li>在<em>“功能覆盖”(Feature Overrides)*下启用 *ignore_textures</em> 和 <em>ignore_shaders</em>。</li>
+<li>渲染场景。您应该会看到 IPR 渲染场景并调整照明的速度明显加快</li>
+</ul>
+<p><img src="../images/am-Old_Attic_Interior_USD_Scene-image2020-4-29-9-41-45-7.png" alt="">  </p>
+<ul>
+<li>渲染场景。您应该会看到 Omniverse 照明太亮。我们可以使用<em>运算符</em>轻松地对其进行调整。  </li>
+</ul>
+<p><img src="../images/am-Old_Attic_Interior_USD_Scene-attic-default-8.jpg" alt=""></p>
+<p><sub><strong>默认的 Omniverse 照明太亮（启用了 ignore_textures/shaders）。</strong></sub></p>
+<div class="head-block"><h1>运算符</h1></div><p>我们可以使用运算符调整 USD 文件中 Omniverse 灯光的照明和方向。</p>
+<h2 id="add-assignment">使用“添加赋值”(Add Assignment)调整照明</h2><ul>
+<li>我们可以通过向 USD 中的 <em>Domelight</em> 添加 <em>intensity</em> 赋值对其进行调整（<em>set_parameter</em> 运算符）。</li>
+<li>在<em>替代对象</em>的<em>“文件内容”(File Contents)</em>中选择 <em>Domelight</em>。</li>
+<li>转到<em>“添加赋值 -&gt; skydome_light -&gt; intensity”(Add Assignment -&gt; skydome_light -&gt; intensity)</em>。</li>
+<li>将 <em>intensity</em> 减小到 0.1 左右。</li>
+</ul>
+<p><img src="../images/am-Old_Attic_Interior_USD_Scene-image2020-4-28-16-22-59-9.png" alt=""></p>
+<ul>
+<li>接下来，创建一个 <em>aiSetTransform</em> 运算符。我们将使用此运算符旋转 <em>DomeLight</em>。</li>
+<li>选择 <em>aiSetTransform</em>（双击），然后将 X 轴旋转角度更改为 90 度。这将旋转 <em>DomeLight</em>。</li>
+</ul>
+<p><img src="../images/am-Old_Attic_Interior_USD_Scene-image2020-4-28-16-13-37-10.png" alt=""></p>
+<ul>
+<li>渲染场景。您应该会看到 <em>DomeLight</em> 的强度和方向已发生变化。</li>
+</ul>
+<p><img src="../images/am-Old_Attic_Interior_USD_Scene-DomeLight-with-assignments-11.jpg" alt=""></p>
+<p><sub><strong>使用 <em>set_parameter</em> 和 <em>aiSetParameter</em> 运算符调整 USD Domelight 的强度和方向</strong></sub></p>
+<h2 id="set-parameter">使用“设置参数”(Set Parameter)将镜子设为双面</h2><p>镜子作为单面对象进行渲染（来自 Omniverse）。我们通过向镜子添加 <em>sidedness</em> 赋值将其设为双面（<em>set_parameter</em> 运算符）。</p>
+<ul>
+<li>在“文件内容”(File Contents)下选择镜子：<code>/Root/Geometry/mirror/mirror2</code></li>
+<li>转到<em>“添加赋值 -&gt; common -&gt; sidedness”(Add Assignment -&gt; common -&gt; sidedness)*。这会自动将 *set_parameter</em> 添加到 mirror2。现在，渲染场景时，房间应该在镜子的反射中可见。</li>
+</ul>
+<p><img src="../images/am-Old_Attic_Interior_USD_Scene-image2020-4-29-8-39-33-12.png" alt=""></p>
+<h2 id="change-couch-shader-using-shader-assignment">使用着色器指定更改沙发着色器(Change Couch Shader Using Shader Assignment)</h2><p>.usd 文件包含一些 <a href="https://www.nvidia.cn/design-visualization/technologies/material-definition-language/" target="_blank">MDL 材质</a>。我们将其中一个替换为 Arnold <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_node_ac_standard_surface_html" target="_blank">standard_surface</a></em> 着色器。</p>
+<ul>
+<li>选择<em>“文件内容”(File Contents)</em>下的“沙发”(couch) - <code>/Root/Geometry/couch/couch</code></li>
+<li>选择<em>“添加赋值”(Add Assignment)</em>，然后选择<em>“着色器”(Shader)</em>。</li>
+<li>选择<em>“着色器”(Shader)*右侧的 <img src="../images/am-Old_Attic_Interior_USD_Scene-image2020-4-29-8-30-27-13.png" alt=""> 图标，然后选择 *<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_node_ac_standard_surface_html" target="_blank">standard_surface</a></em> 着色器。现在，您应该会看到沙发使用此新的 <em>standard_surface</em> 着色器进行渲染。</li>
+</ul>
+<p><img src="../images/am-Old_Attic_Interior_USD_Scene-image2020-4-29-8-38-59-14.png" alt=""></p>
+<p><sub><strong>为沙发指定<em>着色器</em>赋值 <em>(standard_surface)</em></strong></sub></p>
+<h2 id="usd-disable-the-usd-lighting">禁用 USD 照明(Disable the USD Lighting)</h2><p>我们将 .usd 文件中的 Omniverse 灯光替换为 Arnold 灯光。这样可以更轻松地对场景进行照明，从而不必继续使用<em>运算符</em>。</p>
+<p>首先，我们必须使用 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_operators_ac_operators_disable_html" target="_blank">disable</a></em> 运算符禁用 USD 中的 Omniverse 灯光。</p>
+<ul>
+<li>在 USD 的<em>“文件内容”(File Contents)</em>中，选择<em>“灯光”(Lights)</em>组。</li>
+<li>选择<em>“添加运算符”(Add Operator)</em>按钮，然后选择 <em>aiDisable</em>。您应该会看到它显示在下面的<em>“运算符”(Operators)</em>列表中。</li>
+<li>渲染场景。由于灯光已被禁用，它应该会渲染为黑色。</li>
+</ul>
+<p><img src="../images/am-Old_Attic_Interior_USD_Scene-image2020-4-28-14-38-28-15.png" alt=""></p>
+<p><sub><strong>使用 <em>aiDisable</em> 运算符禁用灯光</strong></sub></p>
+<h2 id="arnold-add-arnold-lights">添加 Arnold 灯光(Add Arnold Lights)</h2><ul>
+<li>创建 <em>skydome</em>。</li>
+<li>创建一个 <em>physical_sky</em>，并将其连接到<em>天穹</em>灯光的<em>“颜色”(Color)</em>属性。确保将_方向轴_更改为“Z 上方向”(Z-up)。</li>
+<li>创建_灯光引导口_，并将其放置在阁楼窗户外面。它们有助于减少穿过小窗户的天穹灯光中的内部噪波。</li>
+</ul>
+<p><img src="../images/am-Old_Attic_Interior_USD_Scene-image2020-4-30-7-40-48-16.png" alt=""></p>
+<ul>
+<li>对照明满意后，在<em>“渲染设置 -&gt; 诊断 -&gt; 功能覆盖”(Render Settings -&gt; Diagnostics -&gt; Feature Overrides)*下禁用 *ignore_textures</em> 和 <em>ignore_shaders</em>。</li>
+</ul>
+<p><img src="../images/am-Old_Attic_Interior_USD_Scene-attic-arnold-17.jpg" alt=""></p>
+<p><sub><strong>使用 Arnold 灯光渲染的阁楼场景</strong></sub></p>
+<p>就是这样。为什么不尝试调整场景中其他对象的一些材质，或者尝试使用运算符进行其他的照明设置。</p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>选择<em>“显示图形”(Show Graph)</em>按钮可显示在“节点编辑器”(Node Editor)窗口中连接到替代对象的<em>运算符</em>。</p>
+
+</div></div>
+
+<p><img src="../images/am-Old_Attic_Interior_USD_Scene-image2021-11-18-10-6-8-18.png" alt=""></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Operator_Tutorials_html.html">运算符教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

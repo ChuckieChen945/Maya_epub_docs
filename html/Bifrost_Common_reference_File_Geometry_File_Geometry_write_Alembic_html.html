@@ -1,0 +1,73 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_File_Geometry_File_Geometry_write_Alembic_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>write_Alembic</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>write_Alembic</code></h1></div><p>将 Bifrost 点、股和网格写入 Alembic 文件。确保至少此节点的一个输出连接到图表顶层的 <code>output</code> 节点。</p>
+<h2 id="">输入</h2><h3 id="meshes"><code>meshes</code></h3><p>要写入的 Bifrost 网格。</p>
+<h3 id="points"><code>points</code></h3><p>要写入的 Bifrost 点。</p>
+<h3 id="strands"><code>strands</code></h3><p>要写入的 Bifrost 股。</p>
+<h3 id="enable"><code>enable</code></h3><p>如果为 true，则启用写入文件。否则，此节点只是将其输入传递到其输出。</p>
+<h3 id="filename"><code>filename</code></h3><p>文件名。</p>
+<h3 id="directory"><code>directory</code></h3><p>目录。</p>
+<h3 id="frame"><code>frame</code></h3><p>帧编号。</p>
+<h3 id="frame_rate"><code>frame_rate</code></h3><p>所需帧速率。</p>
+<h3 id="start_frame"><code>start_frame</code></h3><p>创建 Alembic 归档时的开始帧。</p>
+<h3 id="end_frame"><code>end_frame</code></h3><p>最终确定并写入 Alembic 归档时的结束帧。</p>
+<h3 id="overwrite"><code>overwrite</code></h3><p>如果为 true，将覆盖现有文件。</p>
+<h3 id="create_directories"><code>create_directories</code></h3><p>如果为 true，则创建输出目录层级（如果不存在）。</p>
+<h3 id="properties"><code>properties</code></h3><p>要写入的特性的列表（以空格分隔）。</p>
+<h3 id="write_single_file"><code>write_single_file</code></h3><p>如果启用，则将动画作为单个 Alembic 归档写入。请注意，仅当启用此模式时，<em>才</em>会考虑 <code>frame_rate</code>、<code>start_frame</code> 和 <code>end_frame</code>。</p>
+<h2 id="">输出</h2><h3 id="out_meshes"><code>out_meshes</code></h3><p>使输入 Bifrost 网格通过。</p>
+<h3 id="out_points"><code>out_points</code></h3><p>使输入 Bifrost 点通过。</p>
+<h3 id="out_strands"><code>out_strands</code></h3><p>使输入 Bifrost 股通过。</p>
+<h3 id="success"><code>success</code></h3><p>如果已成功写入文件，则为 true。</p>
+<h3 id="file_path"><code>file_path</code></h3><p>已写入文件的完整路径。</p>
+<h2 id="">局限</h2><ul>
+<li>如果在 start_frame 和 end_frame 之间的帧上停止图表解算，则将生成无效的 Alembic 归档（即，无法再读取的归档）。</li>
+<li>不支持写入没有指定目标的数据几何特性（可以使用观察点查看此信息）。</li>
+<li>不支持写入并随后读取以递归方式索引的特性。</li>
+<li>不支持写入特性的默认值。</li>
+<li>Bifrost 类型 uchar4 和 float4 作为类型为颜色的属性写入 Alembic。</li>
+<li>并非所有 Bifrost 类型都受 Alembic 本身支持，这些类型的特性当前不写入 Alembic 归档。这些类型包括：float3x2、float4x2、float4x3、float2x4、float3x4、double4、double3x2、double4x2、double4x3、double2x4、double3x4、char2、char3、char4、char2x2、char3x2、char4x2、char2x3、char3x3、char4x3、char2x4、char3x4、char4x4、short4、short3x2、short4x2、short3x3、short4x3、short2x4、short3x4、short4x4、int4、int3x2、int4x2、int3x3、int4x3、int2x4、int3x4、int4x4 long2、long3、long4、long2x2、long3x2、long4x2、long2x3、long3x3、long4x3、long2x4、long3x4、long4x4、uchar2、uchar2x2、uchar3x2、uchar4x2、uchar2x3、uchar3x3、uchar4x3、uchar2x4、uchar3x4、uchar4x4、ushort2、ushort3、ushort4、ushort2x2、ushort3x2、ushort4x2、ushort2x3、ushort3x3、ushort4x3、ushort2x4、ushort3x4、ushort4x4、uint2、uint3、uint4、uint2x2、uint3x2、uint4x2、uint2x3、uint3x3、uint4x3、uint2x4、uint3x4、uint4x4、ulong2、ulong3、ulong4、ulong2x2、ulong3x2、ulong4x2、ulong2x3、ulong3x3、ulong4x3、ulong2x4、ulong3x4、ulong4x4、bool2、bool3、bool4、bool2x2、bool3x2、bool4x2 bool2x3、bool3x3、bool4x3、bool2x4、bool3x4、bool4x4。</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/File/Bifrost_Common_reference_File_Geometry_html.html">Geometry</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

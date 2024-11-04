@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Bifrost">
+<meta name="created" content="30/7/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="Bifröst:分辨率">
+<meta name="indexterm" content="Bifröst:主体素大小">
+<meta name="indexterm" content="Bifröst:体素化">
+<meta name="indexterm" content="Bifröst:子步">
+<meta name="indexterm" content="Bifröst:粒子分布">
+<meta name="indexterm" content="Bifrost:分辨率">
+<meta name="indexterm" content="Bifrost:主体素大小">
+<meta name="indexterm" content="Bifrost:体素化">
+<meta name="indexterm" content="Bifrost:子步">
+<meta name="indexterm" content="Bifrost:粒子分布">
+<meta name="modified" content="17/04/2023">
+<meta name="topicid" content="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD">
+<meta name="language" content="CHS">
+<title>优化 Bifrost 模拟可提高精确度（而不是内存和计算速度）</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>优化 Bifrost 模拟可提高精确度（而不是内存和计算速度）</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-6D547A4F-BF74-431F-83A7-5B51799AB6CF">任何流体模拟的主要目标都是尽快生成漂亮的结果。这意味着，了解控制精确度和细节与内存大小和计算时间之间平衡的各种选项非常重要。
+	 </p>
+<div class="section" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__SECTION_85CBED7B3CC644419424CA271B06C5AA"><h2 class="title sectiontitle">分辨率、精确度和粒子速度</h2> 
+		 
+		<p class="p" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-D57AFBD9-5015-4AB5-BE14-38272C9B2781">主要特性中的<span class="ph uicontrol" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-75FEDBCB-99EE-47AE-8DB8-7C234CDF2A0D">“主体素大小”(Master Voxel Size)</span>是控制细节的主要设置，它还对精确度具有重大影响。调整模拟时，通常将较高的值用于快速但不太详细的预览，对总体效果感到满意后，将较小的值用于更详细但较慢的结果。有关更多详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-B474953C-6420-477D-A4D6-1C7B9B00A995.htm">Bifrost 分辨率属性</a>。
+		</p>
+ 
+		<p class="p" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-8D087F1B-959A-4802-81C8-77E344BC8E81">在给定的<span class="ph uicontrol" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-20FCAF5A-FC4C-41BD-9E31-B1B6B896977F">“主体素大小”(Master Voxel Size)</span>上，通过在需要时执行额外的计算，<span class="ph uicontrol" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-C20D8E19-9CBE-4B5D-8BE8-0010913B95D7">“传输”(Transport)</span>和<span class="ph uicontrol" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-ABA83F46-95BD-4D82-B4F3-3818160E27C1">“时间步”(Time Stepping)</span>属性可以提高模拟的精确度。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-C17149C6-5A7D-46EC-860E-9F6F47C38217.htm">Bifrost 自适应性属性</a>。
+		</p>
+ 
+		<p class="p" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-132AA1EE-BB73-4F9F-8F57-0B7F0C87F756"><span class="ph uicontrol" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-C95537FE-CFA1-4BB9-80CC-77830C8E49CC">“主体素大小”(Master Voxel Size)</span>和<span class="ph uicontrol" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-117DCBE5-0702-4CD5-99B6-5216C7C859A0">“自适应性”(Adaptivity)</span>设置相结合能否起到很好的作用，取决于粒子相对于场景建模比例的速度。例如，如果粒子速度很快，在一个时间步内即可从碰撞对象的一侧移动到另一侧，则会看起来好像未发生过碰撞。同样，如果这些粒子穿透碰撞对象太深，则可能会移动到错误的一侧。为帮助诊断问题，可以通过将速度通道显示为颜色渐变、向量或数值来了解粒子的速度，如<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-250FE4C5-F0F8-4973-989E-7DDE8A4D4BB2.htm">预览 Bifrost 模拟</a>中所述。
+		</p>
+ 
+		<p class="p" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-4AE292CD-4215-49ED-9FF0-55CF416A9B7B">对于极小的比例（如单个水滴的模拟），可能还需要增加场景的帧速率，因为相对于较短的距离和时间比例而言，速度很高。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__SECTION_97643EBBCA444D7CAB3BD3BB6EBDCB53"><h2 class="title sectiontitle">碰撞对象泄漏</h2> 
+		 
+		<p class="p" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-8989984E-1D9E-4EAA-898C-83D1B0261873">如果遇到碰撞对象泄漏，则首先要检查碰撞对象是否足够厚。特别是，如果碰撞对象没有其自己的厚度（如变形平面用作地面曲面的情况下），请确保在相应的碰撞对象特性中将<span class="ph uicontrol" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-CB958946-F3D0-4ABD-A0C1-DF09E9F75860">“转化</span><span class="ph uicontrol" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-B424590C-C5B6-42F0-96D3-B42991A1FE28">模式”(Conversion Mode)</span>设置为<span class="ph uicontrol" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-48DF11AD-3E01-4DCF-AE69-48251455DA0A">“壳”(Shell)</span>，并确保<span class="ph uicontrol" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-458094FF-9A76-4968-BF94-9ADE0B215167">“厚度”(Thickness)</span>为 1.0 或更高。
+		</p>
+ 
+		<p class="p" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-FB208156-EF94-4199-A9D9-36F10C32CCB0">如果仍遇到泄漏，请尝试增大<span class="ph uicontrol" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-1E647343-70F3-4CD0-9BA7-FEC8DEF64C86">“传输步长自适应性”(Transport Step Adaptivity)</span>。如果不起作用，则可能需要调整<span class="ph uicontrol" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-AAE150E9-DA40-474E-AF39-47D55CE3EC26">“时间步”(Time Stepping)</span>属性和<span class="ph uicontrol" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-6FB7D596-6EB2-48D8-BCB9-8729A369794F">“主体素大小”(Master Voxel Size)</span>的组合。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__SECTION_531A498AEBF647E8BEBE19C57339F25B"><h2 class="title sectiontitle">其他优化</h2> 
+		 
+		<p class="p" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-33C2C861-E890-4B67-A0D8-CFD86290DD9F">有一些其他设置和功能可能影响精确度和计算成本，具体取决于模拟类型。
+		</p>
+ 
+		<p class="p">对于任何模拟，可以在相应的网格特性中缩放用于体素化网格（如发射器、碰撞对象和网格）的大小。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-C6AFFC0B-AEDB-4B63-BC21-2A6DFFBCB6D6.htm">控制 Bifrost 模拟的体素分辨率</a>。
+		</p>
+ 
+		<div class="p" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-B59EE0E9-ED5A-49E9-A9DD-60AC0BC12D35">对于液体模拟：
+		<ul class="ul" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__UL_8B4604ED9A8F493BADAD008CAB60556C"><li class="li" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__LI_B7E44851851345D5A88E8FABB60CDDBC">通过在主容器的属性中设置相应的<span class="ph uicontrol" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-70A4A340-8747-40CC-A20F-794D204B2E2D">“体素比例”(Voxel Scale)</span>，可以相对于<span class="ph uicontrol" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-671CCD2A-810D-4FE6-BE60-30AE47446A1E">“主体素大小”(Master Voxel Size)</span>控制碰撞对象和其他网格对象的全局分辨率。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-C6AFFC0B-AEDB-4B63-BC21-2A6DFFBCB6D6.htm">控制 Bifrost 模拟的体素分辨率</a>。
+		  </li>
+<li class="li" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__LI_C41E285879E44DC392A296CED4661E6E">默认情况下，不需要细节的液体内部使用的粒子较少，而在进行渲染或生成网格的曲面上使用的粒子较多。如果需要，可以进一步控制粒子的密度和曲面层的深度。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-F7756120-0C0B-4FA6-8341-20F183A85758.htm">Bifrost 发射属性（仅限液体）</a>。
+		  </li>
+<li class="li" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__LI_CB02A4CC0294469384D7B1C2A0420C4F">可以在涉及飞溅的情况下使用水滴。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-A44F62A2-54DE-4F53-B9F6-7C13B7026EDE.htm">使用 Bifrost 水滴</a>。
+		  </li>
+<li class="li" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__LI_2A39F6F2B4034EB7B30D208DCE36C791">如果要模拟液体的曲面（例如对于海洋的快照），请考虑使用导向模拟。通过使用多边形网格或低分辨率模拟作为导向，可以同时降低空间的体积和需要计算的粒子数。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-27B3938C-B471-4585-92C3-AC3F36D09C36.htm">引导液体曲面的 Bifrost 模拟</a>。
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="p" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__GUID-EEE779EF-C765-4A17-8A6C-1CD3A4CF5758">对于 Aero 模拟：
+		<ul class="ul" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__UL_2B3505FD09A346CA9DFD83F1A774B5AA"><li class="li" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__LI_FE629982F54C4DCAB279B6DE1423FAA8">默认情况下，模拟较小数量的 FLIP 粒子，并将其用于平流传递较大数量的渲染粒子。如果需要，可以进一步调整用于 FLIP 和渲染粒子的相对分辨率和密度。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-B474953C-6420-477D-A4D6-1C7B9B00A995.htm">Bifrost 分辨率属性</a>和 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-99F241CE-1DB4-4B79-ADCD-386638B7F5CC.htm">Bifrost 粒子密度属性（仅限 Aero）</a>。
+		  </li>
+<li class="li" id="GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD__LI_958908CFE72F40C08BB52D1370DC2A24">可以使用自适应网格将高分辨率限制到特定的区域。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-82602400-E8C9-49FA-9B99-587F4E8FB8F6.htm">使用 Bifrost Aero 模拟中的自适应网格</a>。
+		  </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-43D655E2-45A3-4FD8-847C-6622AF22995C.htm">Bifrost 流体：概述和概念</a></div>
+</div>
+</div>
+
+</body>
+</html>

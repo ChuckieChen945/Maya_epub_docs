@@ -1,0 +1,251 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="20/07/2023">
+<meta name="topicid" content="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667">
+<meta name="language" content="CHS">
+<title>使用脚本修改属性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用脚本修改属性</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-CE49EC0E-7D64-4976-B50E-C5F0867D6642">若要同时修改多个属性，可以使用<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-01ED0D09-AC9E-47DC-933B-44B7E4E60C96">“属性总表”(Attribute Spreadsheet)</span>（<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-8A6DA87A-F9E2-43EB-AC74-5359F75BC14C">“窗口 &gt; 常规编辑器 &gt; 属性总表”(Window &gt; General Editors &gt; Attribute Spreadsheet)</span>）。 
+	 </p>
+<p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-F00822D1-29A9-4905-B5B9-92F74AEE9B3F">或者，可以通过脚本执行此操作。 
+	 </p>
+<p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-95C6BAC9-5ADE-426E-B001-30A0771FBEF8">以下示例演示如何研究和使用 MEL 脚本以禁用场景中所有选定对象的可见性。 
+	 </p>
+<ol class="ol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__OL_EE3A1407C43646209A1B4D54BF274F81"><li class="li" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__LI_CEE34559B30D406E935493C8E261C87C"> 
+		  <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-6E161430-BB0F-450B-B12D-BFCDBD2DFAA3">查询<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-930B2577-4BA5-49B4-9100-8D4663B53857">“可见性”(Visibility)</span>属性的名称。 
+		  </p>
+ 
+		  <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-AAB28AF7-5F74-468B-A5B1-4C5E3588188E">要修改属性，必须了解其准确的属性名称。 
+		  </p>
+ 
+		  <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-328F78C0-4817-40AD-9180-C052554DC162">选择对象。在其形状节点（例如 pPlaneShape1）中，展开<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-A57A93F7-6795-4F8F-91AA-EEF88664F85C">属性编辑器</span>的<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-AF0F310D-E5EB-4FDA-9CEB-DD60D01017FB">“对象显示”(Object Display)</span>部分，然后禁用<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-B50EAEC6-4F78-48A4-BFDD-19AF2FC73452">“可见性”(Visibility)</span>属性。 
+		  </p>
+ 
+		  <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-39842FBB-FF50-4F82-95AF-511ED5D27D4A">在<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-6C13FF1B-C48D-44E3-A859-CDDDD43871E0">脚本编辑器</span>的顶部窗格中将显示与您的操作关联的 MEL 命令；例如： 
+		  </p>
+ 
+		  <pre class="pre codeblock">setAttr "pPlaneShape1.visibility" 0;</pre>
+ 
+		  <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-CC0A696D-FB7B-4201-ADAA-6537F4BA7465">如果在脚本中包括此命令，则它将执行的操作与您刚才通过用户界面执行的完全相同。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__LI_CA4D567A9C4E49C9BE7BB799C4E689E1">在脚本中，列出场景中所有选定对象的变换节点。 
+		  <pre class="pre codeblock">string $nodes[] = `ls -selection`;</pre>
+ 
+		</li>
+<li class="li" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__LI_6E588B467EEC414998D45E72BF585B16">创建一个循环，然后从其变换节点中获取每个对象的形状节点。 
+		  <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-1D00EFFB-13F3-4520-A0F3-19A4F064142C">由于可见性属性是形状节点的一部分，因此必须首先从变换节点获取形状节点。使用 <samp class="ph codeph" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-F9369199-A322-45DE-86ED-E29E6A1AE008">listRelatives</samp> 命令。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-5050BF7A-76C4-4697-882C-3A33BFB62B37.htm">如何获取（选定）形状节点的名称</a>。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__LI_2C7D61E23A424A86A11F3C7FF149D7B6">使用 <samp class="ph codeph" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-402EF400-10B9-4FB3-819D-4BBD8794F9D0">setAttr</samp> 命令可将每个形状节点的可见性设置为 0。 
+		  <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-1C6EF14B-989E-42F0-93D7-77F6B6AE253D">最终脚本如下所示： 
+		  </p>
+ 
+		  <pre class="pre codeblock">{
+//Lists the transform nodes of all selected objects
+string $nodes[] = `ls -selection`;
+
+for ($node in $nodes)
+{
+//Loop through each object and obtain its shape node
+string $shapes[] = `listRelatives -shapes $node`;
+
+//Set the visibility attribute of each shape node to 0
+//The shape node is saved to the 1st (or 0th) element of the $shape array
+setAttr ($shapes[0] + ".visibility") (0);
+}
+}</pre>
+ 
+		</li>
+<li class="li" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__LI_5CB402218F6D4E9D8C3D1462DDFF9372">将自定义脚本保存到工具架。 
+		  <ol class="ol" type="a" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__OL_95BF8B2D8D114DFCBDC0E03D1ECAA037"><p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-388446C0-99E4-40D5-A19C-5A878B81FE66">如果计划经常运行自定义脚本，则可以将其保存到工具架。 
+		  </p>
+<li class="li" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__LI_2BC51E8F8642470F98DB8B608A26388F"> 
+		  <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-A14B7899-4C2F-4EF7-8F8A-0F9CB4DBA905">在<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-BF676789-BD05-4680-A357-4F3BB2FCC57D">脚本编辑器</span>中，选择要添加的脚本行，然后使用鼠标中键将选择拖动到工具架。 
+		  </p>
+ 
+		  <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-808EED9C-8211-47AF-B7AB-AB2BCA480315">将显示一个对话框，要求您选择脚本的语言。 
+		  </p>
+ 
+		  <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-CA2A421C-7784-4F67-BAAD-65F6FED13D39">选择语言后，表示您的自定义脚本的图标现在已添加到<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-CC45524A-F9E3-443A-A042-23F650A00998">“工具架”(Shelf)</span>。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__LI_09C1E001D12042C5BB81C5BC498F864B">右键单击该图标，然后选择<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-69C263B1-BE51-4472-9CB5-CBD6A7F32884">“编辑”(Edit)</span>以打开<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-F2B29608-D5E7-471D-915D-3BD52D57D83B">“工具架编辑器”(Shelf Editor)</span>窗口。 
+		  <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-5D5F1D65-4840-4FAA-8907-B2EE69028000">可以使用此编辑器自定义添加到<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-2E53F7BC-2679-4CE7-ABDC-7BCDBDC67093">“工具架”(Shelf)</span>的新项目。例如，在<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-C3DB2B6B-022E-4340-AB81-303E92F12A1A">“工具架”(Shelves)</span>选项卡中自定义图标，或者在<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-A7B613BD-BE11-41FE-B3F1-8A86B8FE0562">“命令”(Command)</span>选项卡中修改命令。 
+		  </p>
+ 
+		</li>
+</ol>
+ 
+	 </li>
+</ol>
+<div class="section" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__SECTION_EAE03D579D7D496587467D939DC1E6CF"><h2 class="title sectiontitle">查询属性的名称</h2> 
+		 
+		<p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-E236D452-CA97-46A6-8278-3391DB681DC0">除了通过 Maya 界面执行操作并检查在<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-46A783C8-754B-4C6C-B8C1-18AE7F4629D8">脚本编辑器</span>的顶部窗格中输出的结果外，还可以通过以下方式查询属性的名称： 
+		</p>
+ 
+		<ul class="ul" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__UL_8DF2283F295E4D96BADCF3C5D9A5410B"><li class="li" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__LI_81B60A720C04496097B23C9CBFA39711">使用 <samp class="ph codeph" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-4F582AE7-2F3F-4887-AC3E-49595EEBAF84">listAttr</samp> 命令。 
+			 <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-8B21CB7B-5289-49AA-96EB-D87E23EDDB59">例如，在<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-E2387FA4-79C0-465F-80A1-3F970D8BFE28">脚本编辑器</span>中输入以下内容： 
+			 </p>
+ 
+			 <pre class="pre codeblock">listAttr polySphere1</pre>
+ 
+			 <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-55073378-6CEE-4E78-95E2-1CC0384BD9F6">在顶部窗格中将输出以下结果： 
+			 </p>
+ 
+			 <pre class="pre codeblock">// Result: message caching isHistoricallyInteresting nodeState binMembership frozen output axis axisX axisY axisZ paramWarn uvSetName radius subdivisionsAxis subdivisionsHeight texture createUVs // </pre>
+ 
+			 <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-FDF211E0-C67F-4F9C-80F0-4860D52059D7"><samp class="ph codeph" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-419B710E-BF3F-4ACA-9F27-FD6FFD56CF92">polysphere1</samp> 是多边形的历史节点，<samp class="ph codeph" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-0A3210D1-2183-46BD-ACD6-2EFF6E982732">listAttr</samp> 返回用于创建球体的属性；例如：细分、半径等。 
+			 </p>
+ 
+			 <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-DAF7BE7E-6F7B-43F6-85F8-24D1D2673B44">以下命令将返回更多的属性，如 <samp class="ph codeph" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-6C8D0C26-D135-409B-9D93-50A8A06106F0">rotateX</samp>、<samp class="ph codeph" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-33F8641A-D720-488D-AE92-DCD09E32B2B5">scaleX</samp> 等： 
+			 </p>
+ 
+			 <pre class="pre codeblock">listAttr pSphere1 </pre>
+ 
+			 <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-3FD718AC-3AF1-4A5B-80A2-365764B0D9D3"><samp class="ph codeph" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-4914037E-B813-4422-A45E-2E5835F9A894">pSphere1</samp> 是多边形的变换节点。这是包含用于变换对象的属性的节点。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__LI_C8666E85B254442988A8EB11568ADC71">请参考节点文档。 
+			 <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-2945E595-BBD3-4527-8F60-EFA58E5B79D2">如果 <samp class="ph codeph" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-4FB9ABAD-1A7C-48A0-AC2F-45F725EC763B">listAttr</samp> 返回太多属性，使文本变得难以阅读，也可以在节点文档中查找属性。 
+			 </p>
+ 
+			 <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-30DBCC4B-4FE9-4AFE-BF68-8D406781C11F">在技术文档的“节点”部分中，导航到“变换”（例如）以访问变换节点文档，或者导航到 <em class="ph i" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-48222C7F-D40C-4144-8AC7-7A054C2471B1">geometryShape</em> 以访问图形节点文档。在此页面上，将找到可以在脚本中修改的属性的名称。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__LI_142DB745F32D43CFA735DB24E9798DEF">使用鼠标中键将属性从<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>拖放到<span class="ph uicontrol">“脚本编辑器”(Script Editor)</span>。 
+			 <p class="p"><samp class="ph codeph">node.attributeName</samp> 会直接添加到<span class="ph uicontrol">“脚本编辑器”(Script Editor)</span>中。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__LI_F3C96199DFB04645BFE191C712C6DE63"> 
+			 <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-5472D2A1-C0C5-4A70-927E-AACF8BBABE38">在<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-A96EA8D2-9056-46DF-87A2-4497F6DD21FC">“大纲视图”(Outliner)</span>中，启用<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-B0A63369-B5B4-4510-B399-931FF9A8ABBE">“显示 &gt; 形状”(Display &gt; Shapes)</span>和<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-B588245A-0DB1-49E8-B6F1-49B1F31CFCE8">“显示 &gt; 属性(通道)”(Display &gt; Attributes (Channels))</span>。选择属性时，将在<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-BB3145D6-DFA5-4CDE-A051-9B712F42D9F7">“脚本编辑器”(Script Editor)</span>中回显选择命令，以允许您找出属性名称。例如： 
+			 </p>
+ 
+			 <pre class="pre codeblock">select -r pSphereShape1.castsShadows ;</pre>
+ 
+			 <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-8AE807FA-EE66-4874-8E4F-DD6A0F25DE2B">右键单击<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-5BC384F5-30D8-41DF-B20A-0CE703D0DA68">“大纲视图”(Outliner)</span>，然后选择<span class="ph uicontrol" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-4D498ECE-2015-40EB-8316-96554452E2BE">“属性顺序 &gt; 按字母升序排列顺序”(Attribute Order &gt; Alphabetical, ascend)</span>以对属性进行排序，使其变得更易于查找。 
+			 </p>
+ 
+		  </li>
+</ul>
+ 
+	 </div>
+<div class="section" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__SECTION_0A574AD31B8746349E79494FEA2FA1C8"><h2 class="title sectiontitle">修改选定的节点</h2> 
+		 
+		<p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-AC56476E-A6BC-44B6-B856-850C5528B356">若要获取和设置属性，请使用 <samp class="ph codeph" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-D8FA5568-1FFE-4CC5-AFEF-77CF6F0FEA77">getAttr</samp> 和 <samp class="ph codeph" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-BF9BC257-E96F-4BD4-9C87-79C93B7B8D21">setAttr</samp> 命令。 
+		</p>
+ 
+		<p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-1AAA4279-540D-4F9A-9B96-9A9509A0133B">您可能希望更改选定节点、特定类型的所有节点或场景中所有节点的属性。 
+		</p>
+ 
+		<ul class="ul" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__UL_04EA3BE6DC5A4DDD97446C923634D2BB"><li class="li" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__LI_6B37AB9B1A2A42D6AD9387B46471D1A4"> 
+			 <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-0570D543-278E-4F26-99D7-E22F46DB22C7">使用 <samp class="ph codeph" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-3F688F8C-B0A0-4B2A-8389-D93E63E260EB">ls</samp> 命令及其关联的标志，可列出上述任何内容并将结果存储在数组中。 
+			 </p>
+ 
+			 <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-45000A03-4CF6-42D4-A6B1-4AD8AFFEF24F">例如，列出所有节点: 
+			 </p>
+ 
+			 <pre class="pre codeblock">ls</pre>
+ 
+		  </li>
+<li class="li" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__LI_F70844E2BC8E4DACBC3542A41683E81C"> 
+			 <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-51D3F7F9-7387-4D3A-8389-2DF136510A76">列出特定类型的节点，例如 <samp class="ph codeph" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-53B9EF24-41EF-46FE-825A-6F9B56DD8C5B">polySphere</samp>： 
+			 </p>
+ 
+			 <pre class="pre codeblock">ls -type polySphere</pre>
+ 
+			 <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-B6FF9339-BA68-48B2-B723-4E833AF46FD4">以下示例脚本列出了类型为 <samp class="ph codeph" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-F73F19E0-1C7F-481C-8F4C-2AB52F6B0CEE">polySphere</samp> 的所有节点，然后将每个球体的半径加 2。 
+			 </p>
+ 
+			 <pre class="pre codeblock">{
+string $nodes[] = `ls -type polySphere`;
+
+for ($node in $nodes)
+{
+    int $r = `getAttr ($node + ".radius")`;
+    setAttr ($node + ".radius") ($r + 2);
+}
+
+}</pre>
+ 
+		  </li>
+<li class="li" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__LI_5D1A7FE4327D45DF80929471CFFC1EE9"> 
+			 <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-C07FBC40-8D22-491E-9D5C-C8E0CD501A47">列出场景中所有选定对象的变换节点： 
+			 </p>
+ 
+			 <pre class="pre codeblock">ls -selection</pre>
+ 
+			 <p class="p" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__GUID-D55050E9-EDCC-4893-9C78-B483D3E96FAC">以下示例脚本按 2 缩放选择列表中的所有对象。 
+			 </p>
+ 
+			 <pre class="pre codeblock">{
+string $nodes[] = `ls -selection`;
+
+for ($node in $nodes)
+{
+    int $sX = `getAttr ($node + ".scaleX")`;
+    int $sY = `getAttr ($node + ".scaleY")`;
+    int $sZ = `getAttr ($node + ".scaleZ")`;
+    setAttr ($node + ".scaleX") ($sX * 2);
+    setAttr ($node + ".scaleY") ($sY * 2);
+    setAttr ($node + ".scaleZ") ($sZ * 2);
+}
+
+}</pre>
+ 
+		  </li>
+</ul>
+ 
+	 </div>
+<div class="section" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__SECTION_75595144C7D64B2493F0370E1B060E72"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__UL_97EC54E272FF4839B1F80DE5DE45D46F"><li class="li" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__LI_C8E3B694C42B4D06AA7E6E78D2B49838"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-5050BF7A-76C4-4697-882C-3A33BFB62B37.htm">如何获取选定形状节点的名称</a> 
+		  </li>
+<li class="li" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__LI_321BB1079E004EA09EBC1695B1D6B4CB"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9.htm">获取和设置属性</a> 
+		  </li>
+<li class="li" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__LI_C9181F3C89344E2A97E47B236CB9F49D"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B0E70A37-1585-4FA1-99EF-D680A9152E18.htm">查看或记录与操作相关联的 MEL 命令</a> 
+		  </li>
+<li class="li" id="GUID-5E79C4FD-4D33-4617-A17B-EA2EF27D2667__LI_2E5B3A7803EA49A3A7F9F7F4AE9FC182"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-BCB33B1D-21CB-4841-9C66-FA431792A3DB.htm">获取 MEL 命令帮助</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7.htm">开始编写 MEL 脚本：研究命令</a></div>
+</div>
+</div>
+
+</body>
+</html>

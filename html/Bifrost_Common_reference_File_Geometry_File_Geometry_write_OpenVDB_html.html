@@ -1,0 +1,65 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_File_Geometry_File_Geometry_write_OpenVDB_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>write_OpenVDB</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>write_OpenVDB</code></h1></div><p>此节点将 Bifrost 点对象和体积写入 OpenVDB 文件。</p>
+<h2 id="">输入</h2><h3 id="points"><code>points</code></h3><p>要写入的 Bifrost 点对象。 </p>
+<h3 id="volumes"><code>volumes</code></h3><p>要写入的 Bifrost 体积。 </p>
+<h3 id="enable"><code>enable</code></h3><p>如果为 true，则启用写入文件。否则，节点将以穿过方式工作。 </p>
+<h3 id="filename"><code>filename</code></h3><p>文件名。使用 <code>#</code> 包含输入 <code>frame</code> 编号。<code>#</code> 的出现次数确定填充量。例如，<code>file####.vdb</code> 解析为 <code>file0001.vdb</code>、<code>file0002.vdb</code> 等。</p>
+<h3 id="directory"><code>directory</code></h3><p>目录。 </p>
+<h3 id="frame"><code>frame</code></h3><p>帧编号。您可以将 <code>time</code> 节点的 <code>frame</code> 输出连接到 <code>to_long</code> 节点，然后在此处连接结果。</p>
+<h3 id="overwrite"><code>overwrite</code></h3><p>如果为 true，将覆盖现有文件。 </p>
+<h3 id="create_directories"><code>create_directories</code></h3><p>如果为 true，则创建输出目录层级（如果不存在）。</p>
+<h3 id="properties"><code>properties</code></h3><p>要写入的特性的列表（以空格分隔）。使用 <code>*</code>（星号）指定所有特性。另请参见下面的<strong>限制</strong>。</p>
+<h3 id="resolution_rounding"><code>resolution_rounding</code></h3><p>控制从 Bifrost 体积转化为 OpenVDB 栅格时使用的分辨率舍入。由于 Bifrost 在其自适应数据结构方面比 OpenVDB 栅格具有更多级别，因此无法在未转化的情况下存储体素特性。如果不匹配，可以选择将分辨率向上舍入并避免丢失分辨率，但代价是分辨率会较高，因此文件大小也会变大。您也可以选择向下舍入分辨率以节省空间，但代价是会丢失部分分辨率。作为折衷方法，您可以选择在 OpenVDB 中始终舍入到可能的最近分辨率。</p>
+<p>以 Bifrost 体积为例，假设其体素的宽度为 2。如果选择“向上舍入”，在 OpenVDB 栅格中这些体素将存储为 2x2x2 体素块。如果改为选择“向下舍入”，则将选择 OpenVDB 栅格中的下一级别，在这种情况下，体素的宽度将为 8，实际上您会将分辨率除以 4。最后，在“最近模式”下，体素宽度 2（仍）将“向上舍入”并存储为 2x2x2 块，而体素宽度 4 将改为“向下舍入”。</p>
+<h2 id="">输出</h2><h3 id="out_points"><code>out_points</code></h3><p>使输入点云穿过。 </p>
+<h3 id="out_volumes"><code>out_volumes</code></h3><p>使输入体积穿过。 </p>
+<h3 id="success"><code>success</code></h3><p>如果已成功写入文件，则为 true。 </p>
+<h3 id="file_path"><code>file_path</code></h3><p>已写入文件的完整路径。 </p>
+<h2 id="">限制</h2><p>对于体积，支持 OpenVDB 标准类型的以下子集：<code>float</code>、<code>double</code>、<code>int</code>、<code>long</code>、<code>int3</code>、<code>float3</code> 和 <code>double3</code>。不支持 <code>boolean</code> 和 <code>string</code> 类型。</p>
+<p>对于点对象，支持所有 OpenVDB 标准类型的逐点特性。这包括 <code>boolean</code>、<code>float</code>、<code>double</code>、<code>int</code>、<code>long</code>、<code>string</code>、<code>int3</code>、<code>float3</code> 和 <code>double3</code>。</p>
+<p>除点对象外，还支持全局特性 - 这些特性对整个对象使用单个数据值，而不是每点使用一个值。例如，这对于存储对象变换可能很有用。全局特性将作为元数据存储在 OpenVDB 栅格中。支持元数据的所有标准 OpenVDB 类型：<code>bool</code>、<code>float</code>、<code>double</code>、<code>int32</code>、<code>int64</code>、<code>string</code>、<code>int2</code>、<code>float2</code>、<code>double2</code>、<code>int3</code>、<code>float3</code>、<code>double3</code>、<code>float4x4</code> 和 <code>doubl4x4</code>。</p>
+<p>请注意，体积不支持全局特性。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/File/Bifrost_Common_reference_File_Geometry_html.html">Geometry</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

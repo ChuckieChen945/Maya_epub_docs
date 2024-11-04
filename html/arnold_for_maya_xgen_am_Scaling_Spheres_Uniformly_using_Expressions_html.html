@@ -1,0 +1,119 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_xgen_am_Scaling_Spheres_Uniformly_using_Expressions_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_SCALING_SPHERES_UNIFORMLY_USING_EXPRESSIONS">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用表达式均匀缩放球体 - Arnold for Maya">
+
+<title>使用表达式均匀缩放球体</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>使用表达式均匀缩放球体</h1></div><p><img src="../images/am-Scaling_Spheres_Uniformly_using_Expressions-image2014-4-24-17-6-42-1.png" alt=""></p>
+<p>在本简短教程中，您将学习如何使用表达式均匀地随机缩放球体基本体的大小。</p>
+<ul>
+<li>首先，创建一个用来指定 XGen 描述的多边形平面。将该平面在 <strong>X</strong>、<strong>Y</strong> 和 <strong>Z</strong> 方向上缩放到 <strong><em>10</em></strong>。将平面的以下两方面的<strong>细分数</strong>增加到 <strong><em>10</em></strong>：<strong>宽度</strong>和<strong>高度</strong>。</li>
+</ul>
+<p><img src="../images/am-Scaling_Spheres_Uniformly_using_Expressions-image2016-5-11-11-49-45-2.png" alt=""></p>
+<ul>
+<li>选择多边形平面后，转到<strong><em>“生成 &gt; 创建描述...”(Generate &gt; Create Description...)</em></strong>。</li>
+<li>将显示“创建 XGen 描述”(Create XGen Description)对话框，询问<strong><em>“此描述将生成什么类型的基本体？”(What kind of Primitives are made by this Description?)</em></strong>选择<strong>“球体”(Spheres)</strong>，然后在<strong>“生成基本体”(Generate the Primitives)<em>下选择“随机横跨曲面”(Randomly across the surface)</em></strong>。</li>
+</ul>
+<p><img src="../images/am-Scaling_Spheres_Uniformly_using_Expressions-image2016-5-11-15-4-39-3.png" alt=""></p>
+<ul>
+<li>将<strong>“密度”(Density)</strong>增加至 100 左右。您应该会看到平面上布满了球体，如下图所示。</li>
+</ul>
+<p><img src="../images/am-Scaling_Spheres_Uniformly_using_Expressions-image2014-4-24-10-9-37-4.png" alt=""></p>
+<p>如果您为<strong>“长度”(Length)</strong>、<strong>“宽度”(Width)</strong>和<strong>“深度”(Depth)</strong>属性添加了如下的典型随机表达式，会发现球体将在各个方向上不均匀地随机缩放：</p>
+<pre class="pre codeblock"><code class="prettyprint"> $a=rand(0.1,1); </code></pre><pre class="pre codeblock"><code class="prettyprint"> $a </code></pre><p><img src="../images/am-Scaling_Spheres_Uniformly_using_Expressions-image2016-5-11-15-6-51-5.png" alt=""></p>
+<p><img src="../images/am-Scaling_Spheres_Uniformly_using_Expressions-image2014-4-24-10-13-46-6.png" alt=""></p>
+<p><sub><strong>球体各自在长度、宽度和深度上随机缩放</strong></sub> </p>
+<p>一种能够在所有方向上均匀缩放球体的方法是在<strong>“表达式”(Expressions)</strong>选项卡下创建一个属性，供我们在<strong>“基本体属性”(Primitive Attributes)</strong>中进行调用。</p>
+<ul>
+<li>转到<strong>“表达式”(Expressions)</strong>选项卡，并在<strong>“名称”(Name)</strong>属性中输入 <strong><em>sphere_size</em></strong>。确保将它设置为<strong>“浮点”(float)</strong>，然后单击 <sub><span><img data-linked-resource-version="1" data-unresolved-comment-count="0" src="../images/image2014-4-24_10_23_39.png"></span></sub> 图标以创建属性。</li>
+</ul>
+<p><img src="../images/am-Scaling_Spheres_Uniformly_using_Expressions-image2016-5-11-15-7-44-8.png" alt=""></p>
+<p>您应该会看到新的浮点属性 <strong><em>sphere_size</em></strong> 已在下面创建完毕。</p>
+<ul>
+<li>在文本字段中输入以下表达式：</li>
+</ul>
+<pre class="pre codeblock"><code class="prettyprint"> rand(0.1,1) </code></pre><p>这些值将确定球体大小的全局范围。</p>
+<p><img src="../images/am-Scaling_Spheres_Uniformly_using_Expressions-image2016-5-11-15-8-26-9.png" alt=""></p>
+<ul>
+<li>现在，将<strong>“长度”(Length )</strong>、<strong>“宽度”(Width)</strong>和<strong>“深度”(Depth)</strong>属性中之前的表达式替换为以下内容：</li>
+</ul>
+<pre class="pre codeblock"><code class="prettyprint"> $a=sphere_size(); </code></pre><pre class="pre codeblock"><code class="prettyprint"> $a </code></pre><p><img src="../images/am-Scaling_Spheres_Uniformly_using_Expressions-image2016-5-11-15-8-54-10.png" alt=""></p>
+<p><img src="../images/am-Scaling_Spheres_Uniformly_using_Expressions-image2016-5-11-15-10-15-11.png" alt=""></p>
+<p>这时，您应该会看到球体在所有方向上随机均匀缩放：</p>
+<p><img src="../images/am-Scaling_Spheres_Uniformly_using_Expressions-image2014-4-24-11-19-3-12.png" alt=""></p>
+<p>有关如何使用表达式均匀缩放球体的简短教程到此结束。如果您想像示例图像中那样随机更改球体颜色，请阅读此教程 - <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_color_am_Assigning_Random_Colors_to_Primitives_html">为基本体指定随机颜色</a>。要了解如何为球体指定颜色纹理贴图，请阅读此教程 - <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_color_am_Assigning_Color_to_Primitive_Archives_html">为基本体归档指定颜色</a>。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Scaling_Spheres_Uniformly_using_Expressions-3-13.png" alt=""></td>
+<td><img src="../images/am-Scaling_Spheres_Uniformly_using_Expressions-2-14.png" alt=""></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>---</td>
+<td>---</td>
+</tr>
+<tr>
+<td><img src="../images/am-Scaling_Spheres_Uniformly_using_Expressions-4-15.png" alt=""></td>
+<td><img src="../images/am-Scaling_Spheres_Uniformly_using_Expressions-1-16.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>更多示例</strong></sub></p>
+<p><sup><em>感谢 <strong><a class="external-link" href="http://www.pedrofe.com" rel="nofollow" target="_blank">Pedro Fernando Gómez</a></strong> 在 XGen 方面提供的帮助。</em></sup></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_XGen_Tutorials_html.html">XGen 教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

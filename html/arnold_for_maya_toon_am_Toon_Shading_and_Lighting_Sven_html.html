@@ -1,0 +1,101 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_toon_am_Toon_Shading_and_Lighting_Sven_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_TOON_SHADING_AND_LIGHTING_SVEN">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 卡通着色和照明 Sven - Arnold for Maya">
+
+<title>卡通着色和照明 Sven</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>卡通着色和照明 Sven</h1></div><p><img src="../images/am-Toon_Shading_and_Lighting_Sven-image2022-4-6-12-57-26-1.png" alt=""></p>
+<p>在这个简短的制作教程中，我们将分步介绍如何使用<em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_toon_html" target="_blank">卡通</a></em> 着色器渲染上图。我们将介绍如何使用<em>卡通</em> 着色器的 <em>rim_lighting、</em> <em>base_tonemap、specular_tonemap</em> 和 <em>stylized_highlight</em> 属性为星际英雄 Sven 创建“美术”类型的肖像！</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>要下载本系列教程的原始 Maya 场景文件，请单击<a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Shading/am-Toon_Tutorials/arnold_for_maya_tutorials_am_Learning_Scenes_html">此处</a>。</p>
+
+</div></div>
+
+<h2 id="">指定卡通着色器</h2><ul>
+<li>首先，将<em>卡通</em>着色器指定给头部、头发、眼睛和太空服。将相关的漫反射贴图连接到每个<em>卡通</em>着色器的 <em>base_color</em>。</li>
+</ul>
+<p><img src="../images/am-Toon_Shading_and_Lighting_Sven-sven-1-2.jpeg" alt=""></p>
+<h2 id="">基础色调映射（渐变）</h2><ul>
+<li>创建类似如下的渐变并将其连接到已指定给 Sven 脸部的<em>卡通</em>着色器的 <em>base_tonemap</em>。</li>
+</ul>
+<p><img src="../images/image2022-4-6_12-53-3.png" alt=""></p>
+<p><sub><strong><em>rampRGB -&gt; base_tonemap</em></strong></sub></p>
+<h2 id="">镜面反射色调映射（渐变）</h2><ul>
+<li>将 <em>specular_weight</em> 减小到 0.1 左右，将 <em>specular_roughness</em> 增加到 0.7 左右。</li>
+<li>创建一个渐变，并将其连接到 <em>specular_tonemap</em>。</li>
+</ul>
+<p><img src="../images/am-Toon_Shading_and_Lighting_Sven-image2022-4-6-12-57-8-4.png" alt=""></p>
+<p><sub><strong><em>rampRGB -&gt; specular_tonemap</em></strong></sub></p>
+<h2 id="">边缘照明</h2><ul>
+<li>创建一个聚光灯，并将其放在从后面以某个角度照向 Sven 的位置。将其添加到<em>“边缘照明 -&gt; 灯光”(Rim Lighting -&gt; Light)</em>属性。</li>
+<li>创建一个 <em>rampRGB</em>，并将其连接到 <em>rim_lighting_color</em>。</li>
+</ul>
+<p><img src="../images/am-Toon_Shading_and_Lighting_Sven-image2022-4-6-12-58-15-5.png" alt=""></p>
+<p><sub><strong><em>灯光 -&gt; rim_lighting</em></strong></sub></p>
+<p><img src="../images/am-Toon_Shading_and_Lighting_Sven-image2018-3-14-8-5-45-6.png" alt=""></p>
+<p><sub><strong>脸部卡通着色网络</strong></sub></p>
+<h2 id="">风格化高光</h2><p>我们可以使用 <em>stylized_highlight</em> 在 Sven 眼睛上创建卡通风格高光。</p>
+<ul>
+<li>创建一个聚光灯，并使其照向 Sven 的眼睛。隐藏灯光，使其不照亮 Sven。</li>
+<li>将圆形渐变（类似如下）连接到眼睛着色器的 <em>stylized_highlight_color，</em> 然后将 <em>stylized _highlight_size</em> 增加到 0.8 左右。</li>
+</ul>
+<p><img src="../images/am-Toon_Shading_and_Lighting_Sven-image2022-4-6-12-58-42-7.png" alt=""></p>
+<p><sub><strong><em>stylised_highlight</em> （镜面反射）</strong></sub></p>
+<h2 id="">间接镜面反射</h2><p><em>Indirect_specular</em> （和 <em>indirect_diffuse</em> ）可以对<em>卡通<em>着色的外观产生精细效果。在本例中，</em>indirect _specular</em> 为 0 更适合眼睛着色器。</p>
+<p><img src="../images/am-Toon_Shading_and_Lighting_Sven-image2022-4-6-12-59-19-8.png" alt=""></p>
+<p><sub><strong><strong><em>indirect_specular：</em></strong>0</strong></sub></p>
+<p><img src="../images/am-Toon_Shading_and_Lighting_Sven-image2018-3-14-8-4-44-9.png" alt=""></p>
+<p><sub><strong>眼睛<em>卡通</em>着色网络</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Shading/arnold_for_maya_shading_am_Toon_Tutorials_html.html">卡通教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

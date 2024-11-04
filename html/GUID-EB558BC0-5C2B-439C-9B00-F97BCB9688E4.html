@@ -1,0 +1,183 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4">
+<meta name="language" content="CHS">
+<title>从命令行渲染</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>从命令行渲染</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE5291365"><p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F66F5"> 场景文件确定渲染单帧还是动画。可以从壳或命令行进行渲染。在渲染之前，您可能需要关闭所有应用程序（包括 <span class="ph msgph prodname" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span>），以便最大程度地提高可用于渲染的内存量。
+	 </p>
+<p class="p">如果尚未针对平台设置命令行渲染，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-47B076A4-7952-4794-9C5E-69E30C8783B0.htm">设置命令行渲染</a> 
+	 </p>
+<p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F66F7">在从命令行渲染时，可以设定覆盖一些<span class="ph uicontrol" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-5574579C-8127-407A-9DC5-5954DE94BD18">“渲染设置”(Render Settings)</span>的标志，以便在测试渲染器过程中节省时间。
+	 </p>
+<div class="note note" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-0F4F63D3-3195-4F78-93AE-C86A59EF8C0D"><span class="notetitle">注：</span>  
+		<p class="p">使用 Arnold for Maya 进行渲染时，可以交互方式渲染帧序列，而无需使用命令行渲染器。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-79387725-EE83-4383-90E2-4BAE28B4EA4C.htm">以交互方式渲染帧序列</a>。
+		</p>
+ 
+		<p class="p">如果使用 Arnold for Maya 执行命令行渲染，则图像在显示时将带有水印。要渲染图像而不显示水印，请购买 Arnold 批渲染节点；或使用首选的第三方渲染器。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__SECTION_253A31B32D354C03AE800A44BBD0ACF2"><h2 class="title sectiontitle">获取帮助</h2> 
+		 
+		<p class="li listintro" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F66FA">快速获取渲染器特定信息</p>
+<ol class="ol" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F66F9"><li class="li" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F66FB">键入：
+			 <p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487557109353211EEADCAF73-6A52"> 
+				<samp class="ph codeph" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-545E531C-5811-4713-A752-EC0631915E3E">Render -r rendername -help</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F66FC">其中 rendername 是渲染器的名称。
+			 </p>
+ 
+			 <p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F66FD">请使用以下选项：
+			 </p>
+ 
+			 <ul class="ul" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F66FE"><li class="li" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F6700"><samp class="ph codeph" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-D1F58302-FE40-4CB9-BCE4-BAB776BABC78">sw</samp> = 软件渲染器 
+				</li>
+<li class="li" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F6701"><samp class="ph codeph" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-D5BD6C85-857D-45EB-A521-9B678171D7DA">hw</samp> = 硬件渲染器 
+				</li>
+<li class="li" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F6702"><samp class="ph codeph" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-659BC66C-16A1-4A77-AA35-2B149566E4E7">vr</samp> = 矢量渲染器 
+				</li>
+<li class="li" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F48755-2231E4B3128F27EE5291369"><samp class="ph codeph" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-A7DAFD38-DC5B-4F89-A7A1-641FC748F1C7">hw2</samp> = 硬件 2.0 渲染器 
+				</li>
+<li class="li" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F6703"><samp class="ph codeph" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-77B63A90-AB66-4ADF-B19E-7E80A80240CF">file</samp> = 在其中指定渲染器的文件 
+				  <div class="note note" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F6704"><span class="notetitle">注：</span> 如果通过文件 (-r file -help) 获得帮助，将显示仅通用于所有渲染器，而不是特定渲染器的标志。如果需要渲染器特定信息，必须指定渲染器。
+				  </div>
+ 
+				</li>
+</ul>
+ 
+		  </li>
+</ol>
+ 
+		<div class="note note" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-E0E06DC5-FE6A-4655-8BEA-7EC5B5D9E856"><span class="notetitle">注：</span>  
+		  <p class="p">若要使用命令行渲染器，您必须将路径作为命令的一部分包含于其中；例如：<samp class="ph codeph">"C:\Program Files\Autodesk\Maya&lt;版本&gt;\bin\Render.exe" -r sw &lt;文件名&gt;</samp>。不能直接从命令行导航到 <samp class="ph codeph">\bin</samp> 目录并运行 <samp class="ph codeph">Render.exe -r sw &lt;文件名&gt;</samp>。在 Windows 上，通过设置 PATH 环境变量以包含 <samp class="ph codeph">\bin</samp> 目录的路径，可以避免每次键入路径。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-47B076A4-7952-4794-9C5E-69E30C8783B0.htm">设置命令行渲染</a>。
+		  </p>
+ 
+		</div>
+ 
+		<p class="li listintro" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F6709">从壳或命令行获取命令行渲染选项的完整列表 </p>
+<ol class="ol" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F6708"><li class="li" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F670A">键入：<samp class="ph codeph" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-85691F20-38E3-4D0B-B8D5-4F5F50807776">Render -help</samp> 
+		  </li>
+</ol>
+ 
+		<p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F6705">所有标志都有简短描述。每个标志都对应于<span class="ph uicontrol" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-8879701B-EBF6-46AB-9A09-9AD6632F8E30">“渲染设置”(Render Settings)</span>窗口的适当区域。有关每个选项的详细信息，请参见<span class="ph uicontrol" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-4FFE3834-C40B-4A5C-BF80-28DA34FFDCF1">“渲染设置”(Render Settings)</span>文档。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS1A9193826455F5FF-29C43AA6117B2403BCA23B"> 
+		<p class="li listintro" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS1A9193826455F5FF-29C43AA6117B2403BCA23E">从命令行渲染</p>
+<ol class="ol" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS1A9193826455F5FF-29C43AA6117B2403BCA23D"><li class="li" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS1A9193826455F5FF-29C43AA6117B2403BCA23F">执行下列操作之一：
+			 <p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS1A9193826455F5FF-29C43AA6117B2403BCA240">在命令提示、shell 或终端窗口中，键入：
+			 </p>
+ 
+			 <pre class="pre codeblock">
+Render -r &lt;renderer name&gt; &lt;options&gt; &lt;filename&gt;
+</pre>
+ 
+			 <p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS1A9193826455F5FF-29C43AA6117B2403BCA241">其中 <samp class="ph codeph" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-D960C2B9-34D8-4632-A507-0DEB3F85BCD2">&lt;渲染器名称&gt;</samp> 是用于获取帮助的渲染器名称（如上所示）。
+			 </p>
+ 
+			 <p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS1A9193826455F5FF-29C43AA6117B2403BCA248"> 其中 <samp class="ph codeph" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-0489DFC4-9DD3-4471-9C78-C81B93566D0C">&lt;文件名&gt;</samp>（通常）是 Maya ASCII 或 Maya 二进制文件，<samp class="ph codeph" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-616E77D0-454F-491A-AC87-FAB88C7DE33F">&lt;选项&gt;</samp> 是一个或多个选项或标志。
+			 </p>
+ 
+			 <p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS1A9193826455F5FF-29C43AA6117B2403BCA249">这样，将使用在命令行中指定的渲染器渲染图像或动画。
+			 </p>
+ 
+			 <div class="note note" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS1A9193826455F5FF-3859B43C1209703A8382F1F"><span class="notetitle">注：</span> 如果未明确指定渲染器，Maya 使用在场景文件中指定的渲染器。该行为不同于 Maya 2010。
+			 </div>
+ 
+		  </li>
+<li class="li" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS1A9193826455F5FF-29C43AA6117B2403BCA24A">在命令提示下，键入：<pre class="pre codeblock">
+Render &lt;options&gt; &lt;filename&gt;
+</pre>
+ 
+			 <p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS1A9193826455F5FF-29C43AA6117B2403BCA24C">它使用在文件中定义的渲染器渲染图像或动画。
+			 </p>
+ 
+		  </li>
+</ol>
+ 
+		<p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS1A9193826455F5FF-29C43AA6117B2403BCA24D">有关常用命令行渲染器标志的描述，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-0280AB86-8ABE-4F75-B1B9-D5B7DBB7E25A.htm">命令行渲染器的公用标志</a>。
+		</p>
+ 
+		<p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS1A9193826455F5FF-29C43AA6117B2403BCA24E">有关特定于渲染器的命令行渲染器标志的描述，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-D9461014-D153-4F7F-8825-729556126399.htm">命令行渲染器的渲染器特定标志</a>。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F6706"> 
+		<p class="li listintro" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F670C">若要从壳或命令行渲染特定于渲染器的场景</p>
+<ol class="ol" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F670B"><li class="li" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F670D"> 键入：<samp class="ph codeph" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-852614F9-6556-45DE-A6E5-CE97898FACD6">Render -r &lt;renderername&gt; &lt;options&gt; <em class="ph i" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-58C2724B-C547-4BBD-B2AD-08977A3D02B5">scene</em></samp> 
+			 <div class="note tip" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F670F"><span class="tiptitle">提示：</span> 发出渲染命令以指定场景文件位于何处，或者设定项目时，您可能需要提供 <samp class="ph codeph" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-9EFB0DDF-385E-41AB-9F35-CD5DD3962054">-proj</samp> 标志。例如，键入：
+				<p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F6710"> 
+				  <samp class="ph codeph" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-96B4166C-4165-410E-AE63-3C310D860649">Render &lt;options&gt; -proj &lt;proj path&gt; scene</samp> 
+				</p>
+ 
+				<p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487552C60378B128744DA99A-6C8D">示例如下：
+				</p>
+ 
+				<p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487552C60378B128744DA99A-6C8C"> 
+				  <samp class="ph codeph" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-9E295E49-A759-4215-AFCE-8A1D0E0E98F8">/Applications/Autodesk/maya&lt;version&gt;/Maya.app/Contents/bin/Render -r sw -v 5 -proj /Users/username/Documents/maya/projects/default /Users/username/Documents/maya/projects/default/myScene.ma</samp> 
+				</p>
+ 
+				<p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487552C60378B128744DA99A-6C8B">在该示例中，Maya 渲染到在 <samp class="ph codeph" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-1DD2EDD0-E12A-4D7D-97EE-C15B26F0192A">-proj 标志</samp>后指定的图像目录中。
+				</p>
+ 
+			 </div>
+ 
+		  </li>
+</ol>
+ 
+		<p class="li listintro" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F6712">若要从壳或命令行渲染具有文件中特定的渲染器的场景</p>
+<ol class="ol" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F6711"><li class="li" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F6713">在文件中指定的任何渲染器都可用于渲染场景。
+			 <p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F6714">键入：<samp class="ph codeph" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-2509DA78-BE75-493E-AD99-185398D3D82C">Render -r file</samp> 
+			 </p>
+ 
+		  </li>
+</ol>
+ 
+		<p class="li listintro" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F6716"> 使用用户定义的区域渲染进行批渲染</p>
+<ol class="ol" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F6715"><li class="li" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F6718">使用 <samp class="ph codeph" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-44104420-FAFE-4CFA-BD33-1B958B715A6C">-reg</samp> 标志。例如：
+			 <p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487557109353211EEADCAF73-6A4E"> 
+				<samp class="ph codeph" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-5B9BB88E-84B1-4EAE-8E3F-56B21AA1A381">render -r sw -reg 0 100 0 100 scene.ma</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F6719">其中 <samp class="ph codeph" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__GUID-F86CDB5D-304B-4A89-B5E8-A768E77AD508">-reg 0 100 0 100</samp> 表示要渲染区域的像素（左、右、底部和顶部）。
+			 </p>
+ 
+			 <p class="p" id="GUID-EB558BC0-5C2B-439C-9B00-F97BCB9688E4__WS73099CC142F487553B93539F117EA10CE8F671A">上述命令可渲染场景的左下 100 x100 像素区域。
+			 </p>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-C032F699-60F3-418A-8276-3B67E0C0CF5A.htm">命令行渲染器</a></div>
+</div>
+</div>
+
+</body>
+</html>

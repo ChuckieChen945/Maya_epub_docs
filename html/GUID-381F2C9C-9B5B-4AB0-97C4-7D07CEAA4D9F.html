@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="工作空间中的图像需要变换，以便在您工作时正确显示。如果您手动设置变换链来执行此操作，则需要定义显示器变换并应用视图变换。此外，应定期校准显示器。">
+<meta name="indexterm" content="颜色管理:显示图像">
+<meta name="modified" content="31/08/2022">
+<meta name="topicid" content="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F">
+<meta name="language" content="CHS">
+<title>管理显示图像的颜色</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>管理显示图像的颜色</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="shortdesc"> 工作空间中的图像需要变换，以便在您工作时正确显示。如果您手动设置变换链来执行此操作，则需要定义显示器变换并应用视图变换。此外，应定期校准显示器。
+  </p>
+<div class="section" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__SECTION_1B024C1490E84106A9E5AA6344930E33"><h2 class="title sectiontitle"> 定义显示器变换</h2> 
+		 
+		<p class="p" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__GUID-2E620B94-6FCA-407B-B8DA-39FFAD3FA72C">display/ 目录包含可设置为应用程序首选项中或 SynColor 配置文件中的 graphicsMonitor 别名（以及 broadcastMonitor 别名，如果适用）的变换。
+		</p>
+ 
+		<p class="p" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__GUID-4D1A33DF-8A2F-4C89-B8D7-7267A08884D4">作为该目录中变换的替代，您可以使用 ICC（国际色彩联盟）配置文件作为 graphicsMonitor 或 broadcastMonitor 别名。ICC 配置文件是计算机行业中管理显示器颜色的标准方法。这特别适用于 MacOS 和 Windows，其中该文件与操作系统集成<span class="ph">，但即使在 Linux 上，通常仍可以获取给定显示器的 ICC 配置文件。第三方显示器校准产品通常也会生成 ICC 配置文件</span>。
+		</p>
+ 
+		<p class="p" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__GUID-432FC5A8-02C4-4C6A-A069-2EDE3C2B5156">由于 ICC 配置文件十分常用，因此不仅可以方便地将其用作您的显示器变换，还提供了一种与其他使用 ICC 颜色管理的软件（如 Adobe 产品）进行互操作的简单方法。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__SECTION_91822997608041EEA0297DD0596E54C8"><h2 class="title sectiontitle"> 从工作空间进行转化</h2> 
+		 
+		<p class="p" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__GUID-F5B75009-9EBC-4EB7-B18B-A824C6745B57">定义 graphicsMonitor 和 broadcastMonitor 别名后，即可应用引用 currentMonitor 别名的查看变换。根据所绘制到的显示，currentMonitor 别名将使用 graphicsMonitor 或 broadcastMonitor。
+		</p>
+ 
+		<div class="p" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__GUID-EA3B989F-1446-4089-BB0D-139DC00BFC2F"> 以下变换可用：
+		<ul class="ul" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__UL_E69762BAD513404D862E597273CE7956"><li class="li" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__LI_05BC7071D0B84C3598ACEBB222C24A3E"> display/broadcast/HD-video_to_current-monitor 
+		  </li>
+<li class="li" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__LI_A7D67F8968F340CC84CC3665415644BA">display/CIE-XYZ_to_current-monitor 
+		  </li>
+<li class="li" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__LI_D713F4D39CDA4407B08A1F3FDF023341">film/ADX/ADX10_to_current-monitor 
+		  </li>
+<li class="li" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__LI_2DDF23CF37C4463299646F66F20BDF65">film/ADX/ADX16_to_current-monitor 
+		  </li>
+<li class="li" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__LI_1E1DF9F5CA064406A9166F8E5B8B1202">RRT+ODT/ACES_to_current-monitor 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="p" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__GUID-CA684305-21E7-486D-9C3A-9DE64C39BF43">如果图像不在上述变换之一的相应工作空间中，您可以导出执行所需转化的自定义 .ctf 文件：
+		<ul class="ul" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__UL_00B14DC42DBF4012A123E99A887206B2"><li class="li" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__LI_9697F2635B0D493EA86B9D8163668FB8">如果图像是场景线性但不在 ACES 中，可以转化为 ACES，然后再应用 ACES_to_current-monitor。例如，如果您正在使用场景线性 ProPhoto 值，请使用 primaries/ 目录中的 ProPhoto-RIMM_to_CIE-XYZ，后跟 CIE-XYZ_to_ACES，然后应用 ACES_to_current-monitor。
+		  </li>
+<li class="li" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__LI_3AF887C0AFD54BFE8BF05809F63FBF2F">如果图像在对数空间中，请应用 film/ 目录中的一个变换将其转化为场景线性，再如上所述将其从场景线性进行转化。
+		  </li>
+<li class="li" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__LI_7134975EE3F44FE7A2D4EBB8FC850DC8">如果图像已经过视频编码，请将其转化为 CIE XYZ，然后使用 display/CIE-XYZ_to_current-monitor 变换。
+		  </li>
+<li class="li" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__LI_7311A802AA1849459ED4F886E8B28F58">要查看 DCDM，请应用 display/DCDM 目录中的 DCI_to_CIE-XYZ，后跟 CIE-XYZ_to_current-monitor。请注意，如果对 DCDM 使用其他创造性白点，则您可能需要使用不同的变换，如 DCI-D60_to_CIE-XYZ。
+		  </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__SECTION_7E9BA7FFBD3049598F78D832182339E9"><h2 class="title sectiontitle">校准显示器</h2> 
+		 
+		<p class="p" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__GUID-CCFC5A4E-51B0-4E71-BF05-9A170934E2CA">若要确保显示的图像是所需颜色的准确表示，必须校准您的显示器。必须定期执行校准，因为显示器的响应随使用时间而变化。
+		</p>
+ 
+		<div class="p" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__GUID-07877759-3AA8-44C9-8C7B-B056C72A0CF0">至于校准，有两类计算机显示器：
+		<ul class="ul" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__UL_70483CCDD2DA45BBB905EC8E7261AB3B"><li class="li" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__LI_60A9803A83F54DD6878C4B23FE26ADEC">某些高端显示器具有内部校准回路。这些显示器可以被校准为模拟使用不同主颜色集的其他显示器。使用制造商的软件来调整这些显示器以达到您想要的目标。
+		  </li>
+<li class="li" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__LI_8C40B23DF78F410D8AF790C8F791D822">其他显示器必须在外部使用第三方产品进行校准以生成可用作显示器变换的 ICC 配置文件。
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="p" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__GUID-9B2D48AE-CC0C-43EC-A80A-1A3198C7BF3D">在宽色域显示器上的视频颜色空间中处理视频交付内容时，有两种获取最终输出的准确预览的方法：
+		<ul class="ul" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__UL_68D347B050814CB2A3CB176B363285B5"><li class="li" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__LI_832AA8311FAD45E0BC8B3736F440EA25">如果您的显示器具有内部校准回路，可以校准到某个视频目标。例如，对于 HD 视频，您可以将显示器校准到 Rec.709 主颜色、D65 白点和 2.4 Gamma。在这种情况下，您无需对显示应用任何颜色管理。
+		  </li>
+<li class="li" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__LI_9CCA3B99D2D144BD8A54722DC1239944">此外，还可将显示器校准到宽色域目标，并使用 display/broadcast/ 目录中的 HD-video_to_current-monitor 变换作为查看变换。
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__SECTION_FB6E1C97412F4CB88920FDDB39DDA870"><h3 class="title sectiontitle">校准 Autodesk 系统</h3> 
+		   
+		  <p class="p" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__GUID-C922AFE0-A343-4C19-8937-B17B39664FB3">对于 EIZO 显示器随附的 Autodesk 创意后期制作产品（例如，CG245、CG246 或 CG277），您可以使用制造商的软件进行校准。display/Eizo 目录中的显示器变换假设显示器已校准为出厂默认设置：本地主颜色、D65 白点和 2.2 Gamma。
+		  </p>
+ 
+		  <p class="p" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__GUID-B15B522A-AD39-43F9-8DB1-BCA5107830F9">但是，这些是宽色域显示器，有时需要校准到不同的目标。在这种情况下，如果该目标不同于工作空间，应该应用颜色变换，以便从工作空间转化为显示器的当前目标。
+		  </p>
+ 
+		  <p class="p" id="GUID-381F2C9C-9B5B-4AB0-97C4-7D07CEAA4D9F__GUID-11A7DD5F-E719-4577-B1A8-1D84DAF1B68C">早期 Autodesk 创意后期制作系统的显示器依赖于探针，使用过程如<a class="xref" href="http://images.autodesk.com/adsk/files/lustre_color_management_user_guide0.pdf" target="_blank">《Lustre 颜色管理用户指南》</a>中所述。这些显示器可能具有不同的默认设置。
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-B2CD60E0-C100-45A4-9595-84D2DF98B268.htm" title="尽管 Autodesk 颜色管理提供了适当的工具可自动应用所需的变换以便在颜色空间之间进行转化，但在某些特殊情况下，您必须更好地控制要应用的特定变换。本部分介绍如何将位于 Autodesk 颜色变换集合中的组件用作构建块以集合特定任务的自定义转化。">手动配置自定义颜色变换链的准则</a></div>
+</div>
+</div>
+
+</body>
+</html>

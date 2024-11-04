@@ -1,0 +1,137 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_volumes_am_Volume_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_VOLUME">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 体积 - Arnold for Maya">
+
+<title>体积</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>体积</h1></div>
+<div class="arnold-note">
+
+
+
+<table>
+<thead>
+<tr>
+<th>延伸阅读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有关 Arnold 体积的完整文档，请参见<strong>《Arnold 用户手册》</strong>中的<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shapes_ac_volumes_html" target="_blank">体积</a>。</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<p><img src="../images/mtoa_volumes_volume1.png" alt=""></p>
+<p>体积文件格式（例如 OpenVDB）允许存储更大的数据集，同时针对体积数据的随机访问进行优化，从而提高渲染效率。<a href="http://www.openvdb.org/" target="_blank">OpenVDB</a> 是一个开源 C++ 库，其中包含新颖的分层数据结构和一整套工具，可用于高效存储和操纵在三维栅格上离散化的稀疏体积数据。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关使用 Maya 体积流体的信息，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_volumes_am_Maya_Fluids_html">此处</a>。有关如何从 Houdini 将体积写入 OpenVDB 的教程，请单击<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_for_houdini_volumes_ah_writing_volumes_to_vdb_html" target="_blank">此处</a>。仅当 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Ray_Depth_html">volume_ray_depth</a></em> 大于 0 时，体积才能从其他放射性体积接收间接照明。</p>
+
+</div></div>
+
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>要减少体积中的噪波量，您必须确保场景中的任何灯光具有足够的 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_am_Lights_html">volume_samples</a><em>，或者您拥有足够的</em>摄影机 (AA)</em> 采样数。</p>
+
+</div></div>
+
+<p><img src="../images/mtoa_volumes_volume2.png" alt=""></p>
+<p><sub><strong>体积采样数(Volume Samples)：1。体积采样数(Volume Samples)：3</strong></sub></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>体积目前不支持自定义 AOV。</p>
+
+</div></div>
+
+<h3 id="filename">文件名(Filename)</h3><p>VDB 文件的位置。</p>
+<p>确保在更新文件时未运行 IPR，否则边界框不会以正确的大小显示在视口中。</p>
+<h3 id="grids">栅格(Grids)</h3><p>要在体积着色上下文中读取并作为通道提供的 OpenVDB 栅格的列表。栅格名称的示例包括密度、燃料、热量、温度或速度。</p>
+<h3 id="use-file-sequence">使用文件序列(Use File Sequence)</h3><p>读取 VDB 文件序列。</p>
+<h2 id="frame">帧(Frame)</h2><p>指定要渲染的序列的帧。</p>
+<p><img src="../images/mtoa_volumes_volume3.png" alt=""></p>
+<p><sub><strong>使用 VDB 序列时为“帧”(Frame)和“文件名”(Filename)中使用的哈希标记设置关键帧</strong></sub></p>
+<h3 id="automatic-step-size">自动步长(Automatic Step Size)</h3><p>将 VDB 中定义的最小体素大小设置为 step_size。</p>
+<ul>
+<li><p>有关体积 <em>step_size</em> 的详细信息，请单击<a href="https://help.autodesk.com/pages/viewpage.action?pageId=154766692">此处</a>。</p>
+</li>
+<li><p>如果您需要进一步编辑通道的读取结果，例如，对其进行颜色校正，可以使用 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Volume_Sample_RGB_html">volume_sample_RGB</a></em> 和 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Volume_Sample_Float_html">volume_sample_float</a></em> 着色器。</p>
+</li>
+</ul>
+<h2 id="type">类型(Type)</h2><p><img src="../images/mtoa_volumes_volume4.png" alt=""></p>
+<h3 id="implicit">隐式(Implicit)</h3><p>可以使用体积隐式节点加载 OpenVDB 文件，以分别用于渲染体积和隐式曲面。</p>
+<p><img src="../images/mtoa_volumes_volume5.png" alt=""></p>
+<p><sub><strong>隐式类型体积 .vdb 文件</strong></sub></p>
+<ul>
+<li><h2 id="">体积和大气体积</h2>目前，<em><a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Atmosphere+Volume&amp;linkCreation=true&amp;fromPageId=154770181">atmosphere_volume</a></em> 无法与体积很好地合成在一起。这是因为大气返回一个不透明度覆盖在任何颜色背景的像素之上的单一平面结果。</li>
+</ul>
+<p><img src="../images/mtoa_volumes_volume6a.gif" alt=""><img src="../images/mtoa_volumes_volume6b.gif" alt=""></p>
+<p><sub><strong>左侧：地板平面几何体隐藏。右侧：地板平面几何体可见。流体渲染错误。</strong></sub></p>
+<h2 id="aov">体积 AOV</h2><p><img src="../images/mtoa_volumes_volume7.png" alt=""></p>
+<p>与体积关联的可用 AOV 列表。每个选项均会为该组件创建一个单独的 AOV 渲染过程。</p>
+<ul>
+<li><strong>volume</strong>：包含体积的美景 AOV。</li>
+<li><strong>volume_albedo</strong>：体积反照率。</li>
+<li><strong>volume_direct</strong>：体积中的直接散射。</li>
+<li><strong>volume_indirect</strong>：体积中的间接散射。</li>
+<li><strong>volume_opacity</strong>：具有完整三通道不透明度的 RGB AOV。</li>
+</ul>
+<p><img src="../images/mtoa_volumes_volume8.png" alt=""></p>
+<p><sub><strong>beauty、albedo、volume_direct、volume_indirect、volume_opacity。</strong></sub></p>
+<link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shapes/arnold_for_maya_shapes_volumes_html.html">体积</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

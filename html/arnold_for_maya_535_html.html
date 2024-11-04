@@ -1,0 +1,330 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_535_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_535">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 5.3.5 - Arnold for Maya">
+
+<title>5.3.5</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+<div class="head-block"><h1>5.3.5</h1></div><p>13 December 2023</p>
+<p>MtoA 5.3.5 introduces Arnold 7.2.5.0.
+See also the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_530_html">MtoA 5.3.0 release notes</a>.</p>
+<h2 id="installation">Installation</h2><ul>
+<li><p>Download <a href="https://manage.autodesk.com/products/MAYA" target="_blank">Arnold for Maya</a> from your Autodesk Account.
+See Download Arnold for more information about downloading MtoA from your Autodesk Account.</p>
+</li>
+<li><p>Follow these installation instructions.</p>
+</li>
+</ul>
+<h2 id="enhancements">Enhancements</h2><ul>
+<li><strong>GPU renderer overhaul:</strong>  A large part of the GPU renderer was rewritten using NVIDIA OptiX 8. This allowed numerous improvements such as much faster startup times, lower GPU memory usage, better scaling on multiple GPUs, and faster renders overall. (ARNOLD-9882)</li>
+</ul>
+<table style="border: 2px solid darkgrey; cellspacing:0; cellpadding:0">
+    <tbody>
+        <tr style="border:none; background:none">
+            <td rowspan="3" style="width:60%; border:none; background:none"> <img src="../images/RobotSoldierMultiOptix8Overlay.png"> </td>
+            <td style="border:none; background:none"> <img src="../images/RobotSoldier9AOVsScalingFrameTime.png"> </td>
+        </tr>
+        <tr style="border:none; background:none">
+            <td style="border:none"> <img src="../images/RobotSoldierMemory_v2.png"> </td>
+        </tr>
+        <tr style="border:none; background:none">
+            <td style="border:none"> <img src="../images/RobotSoldierTimeToFirstPixel.png"> </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<table style="border: 2px solid darkgrey; cellspacing:0; cellpadding:0">
+    <tbody>
+        <tr style="border:none; background:none">
+            <td rowspan="3" style="width:60%; border:none; background:none"> <img src="../images/sima_multi_optix8_overlay.png"> </td>
+            <td style="border:none; background:none"> <img src="../images/SimaWarmCacheFrameTime.png"> </td>
+        </tr>
+        <tr style="border:none; background:none">
+            <td style="border:none"> <img src="../images/SimaMemory_v2.png"> </td>
+        </tr>
+        <tr style="border:none; background:none">
+            <td style="border:none"> <img src="../images/SimaColdVsWarmCacheTimeToFirstPixel.png"> </td>
+        </tr>
+    </tbody>
+</table>
+
+<ul>
+<li><strong>Global light sampling in volumes:</strong> Global light sampling is now supported in volumes. The render time speedup when using global light sampling in volumes depend on the number of lights, but even scenes with only a few lights are faster to render. (ARNOLD-13095)</li>
+</ul>
+<p>Below is an equal time render comparison of a scene containing 351 motion blurred mesh lights inside an <em>atmosphere_volume</em>.</p>
+
+<div class="gallery center">
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/kate_351-lights_gls_volumes-2.jpg" alt=""></td>
+<td><img src="../images/kate_351-lights_gls_volumes-0.jpg" alt=""></td>
+</tr>
+<tr>
+<td>With GLS</td>
+<td>Without GLS</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li><strong>Improved thick curves intersector:</strong> Curves in thick mode are on average 10% faster (in some cases, more than 100% faster) and they look better in closeups. (ARNOLD-2875, ARNOLD-8549 and ARNOLD-14391)</li>
+</ul>
+
+<div class="gallery center">
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/strands_bug_7.2.4.png" alt=""></td>
+<td><img src="../images/strands_bug_7.2.5.png" alt=""></td>
+</tr>
+<tr>
+<td>7.2.4</td>
+<td>7.2.5</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li><strong>Distance shader in reflections:</strong> The distance shader now properly handles secondary paths such as reflections. (ARNOLD-13883)</li>
+</ul>
+
+<div class="gallery center">
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/cube_5.3.4.jpg" alt=""></td>
+<td><img src="../images/cube_5.3.5.jpg" alt=""></td>
+</tr>
+<tr>
+<td>7.2.4</td>
+<td>7.2.5</td>
+</tr>
+<tr>
+<td><img src="../images/white_sphere_5.3.4.jpg" alt=""></td>
+<td><img src="../images/white_sphere_5.3.5.jpg" alt=""></td>
+</tr>
+<tr>
+<td>7.2.4</td>
+<td>7.2.5</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li><strong>Overlay imager:</strong> A new imager that allows you to decorate or tag your renders by printing text over the rendered images. Overlay text can use any of the system fonts (TrueType or PostScript), or custom fonts defined via the <code>OPENIMAGEIO_FONTS</code> environment variable. You can include scene and system information, and render statistics, with pre-defined tokens, such as <code>&lt;frame_time&gt;</code>, <code>&lt;samples&gt;</code>, and <code>&lt;camera&gt;</code>. See the Overlay Imager documentation for the full list of tokens. (ARNOLD-14188)</li>
+</ul>
+<p><img src="../images/OVERLAY-bifrost.jpg" alt=""></p>
+
+<div class="gallery center">
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/overlay_imager.jpg" alt=""></td>
+<td><img src="../images/overlay_imager_3.png" alt=""></td>
+</tr>
+<tr>
+<td>Overlay imager used to add text to the rendered image</td>
+<td>Using tokens with an overlay imager</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li><p><strong>GPU denoising in Intel Open Image Denoise:</strong> The Intel denoiser was upgraded from version 1.4.1 to 2.1.0, which brings real-time denoising through NVIDIA and Intel GPU support. (ARNOLD-12547)</p>
+</li>
+<li><p><strong>Toon light-group AOVs</strong>: The toon shader now outputs AOVs for direct lighting from lights that have a label in their <code>aov</code> parameter. The toon light-group AOVs are named with the toon <code>aov_prefix</code> parameter. For example, if a light has <code>aov = "keylight"</code> and a toon shader has <code>aov_prefix = "myprefix_"</code>, then the toon light-group AOV is named "myprefix_keylight". (ARNOLD-9602)</p>
+</li>
+<li><p><strong>Automatically create non-existent paths to tx file:</strong> Generating a .tx file (maketx, autotx, AiMakeTx) now works even if the paths to the output .tx file do not exist: Arnold now creates those paths. (ARNOLD-14703)</p>
+</li>
+<li><p><strong>Faster overlapping volumes:</strong> Arnold renders a few percent faster when there are many overlapping volumes. (ARNOLD-14353)</p>
+</li>
+<li><p><strong>Scene unit conversion for light intensity:</strong> Scene unit conversion is now supported for light intensity in nested procedurals. If a procedural contains a light and its scene units do not match the procedural units, the light intensity is scaled to match the procedural. Conversion is in place for Arnold ass file procedurals, but we do not yet support USD and arbitrary procedural formats. (ARNOLD-9205)</p>
+</li>
+<li><p><strong>Scene unit conversion for volume density and emission:</strong> Scene unit conversion is now supported for volume density and emission in nested procedurals. If a procedural contains a volume and its scene units do not match the procedural units, volume density and emission are scaled to match the procedural. Conversion is in place for Arnold ass file procedurals, but we do not yet support USD and arbitrary procedural formats. (ARNOLD-9206)</p>
+</li>
+<li><p><strong>Improved profiling:</strong> Procedural and volume intersection times are now listed separately, instead of being included with the parent BVH. Profiling has also been added in other areas, in particular multithreaded code where helper threads were not being accounted for. This should result in higher quality statistics. (ARNOLD-14443)</p>
+</li>
+<li><p><strong>GPU: Better compatibility with CPU rendering:</strong> The following CPU features have been ported over to the GPU.</p>
+<ul>
+<li><p>Multiple render sessions with GPU (ARNOLD-14145) </p>
+</li>
+<li><p>When rendering on GPU and using per-face displacement shaders, autobump will now match the displacement shader assigned to each face. Previously, autobump would use the first shader applied.  (ARNOLD-12796)</p>
+</li>
+<li><p>Motion blur on the implicit sphere primitive. (ARNOLD-12955)</p>
+</li>
+<li><p>Skydome_light.shader parameter. (ARNOLD-13641)</p>
+</li>
+<li><p>The "polygons" edge type in the wireframe. (ARNOLD-12804)</p>
+</li>
+<li><p>OSL LPE writing via debug closures. (ARNOLD-13907)</p>
+</li>
+<li><p>Image shader "file" wrap mode. (ARNOLD-12578)</p>
+</li>
+<li><p>ID mode in utility shader. (ARNOLD-14159)</p>
+</li>
+<li><p>edgelength mode in utility shader. (ARNOLD-14122)</p>
+</li>
+<li><p>The GPU renderers texture filtering logic has been improved such that there is a closer match to the CPU renderer. (ARNOLD-12578)</p>
+</li>
+<li><p>A number of fixes have been made to the GPU renderer's color management logic such that there is a closer match to the CPU renderer. (ARNOLD-12382)</p>
+</li>
+</ul>
+</li>
+<li><p><strong>Updated Autodesk Network License Manager:</strong>:  Autodesk Network License Manager (NLM) server version 11.19.4.1 is available and includes support for RHEL/Rocky Linux 9 operating systems. You can find the NLM installer in the license/installer folder, and from the Arnold License Manager. (ARNOLD-14429)</p>
+</li>
+</ul>
+<h2 id="usd-enhancements">USD Enhancements</h2><ul>
+<li><strong>USD for Maya export of custom Arnold nodes</strong> -  USD for Maya (with Plug-in Configuration set to Arnold) now exports custom Arnold procedural nodes (such as Yeti) to USD as ArnoldProceduralCustom primitives. <em>MTOA-1531</em></li>
+<li><strong>USDZ files supported as file format:</strong> You can render usdz files with kick, and load them with the <code>usd</code> procedural. <a href="https://github.com/Autodesk/arnold-usd/issues/1726" target="_blank">usd#1726</a>. </li>
+<li><strong>Orthographic cameras in Hydra:</strong> Orthographic Cameras are now supported in the Hydra render delegate. <a href="https://github.com/Autodesk/arnold-usd/issues/612" target="_blank">usd#612</a>. </li>
+<li><strong>Pixel Aspect Ratio in Hydra:</strong> The Arnold Render Delegate now supports the pixelAspectRatio parameter in RenderSetting primitives <a href="https://github.com/Autodesk/arnold-usd/issues/658" target="_blank">usd#658</a></li>
+</ul>
+<h2 id="api-changes">API changes</h2><ul>
+<li><strong>Multiple render sessions on GPU:</strong> The GPU can now render multiple render sessions at the same time. (ARNOLD-14145)</li>
+<li><strong>Font API:</strong> A new API <code>AiFontGetFamilies</code> and <code>AiFontGetStyles</code> returns the list of available system fonts (e.g. "Arial", "Times New Roman") and font styles (e.g. "Regular", "Bold", "Italic"). <code>AiFontGetFilename</code> returns the path of the file that defines a given font family and style. (ARNOLD-14395)</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible Changes</h2><ul>
+<li><strong>Minimum NVIDIA driver requirements for Arnold GPU:</strong>  Arnold GPU requires <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">535.104 or higher drivers</a> on Linux and <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">537.13 or higher</a> on Windows.</li>
+<li><strong>aiOptions.background parameter hidden</strong>  The legacy <code>background</code> is no longer available in the Render Settings interface. <em>MTOA-1610</em></li>
+<li><strong>GPU Cache pre-population removed</strong> Arnold GPU no longer requires a GPU cache pre-population. <em>MTOA-1568</em></li>
+</ul>
+<h2 id="bug-fixes">Bug Fixes</h2><ul>
+<li><p>MTOA-1454 - New shader assignment retains previous displacement shading</p>
+</li>
+<li><p>MTOA-1377 - AiSkyDomeLight shape node and connected node are not deleted when parent transform node is deleted</p>
+</li>
+<li><p>MTOA-1501 - Import Shaders breaks RGB to Float connections</p>
+</li>
+<li><p>MTOA-1060 - Imported shaders organized by classification in Hypershade</p>
+</li>
+<li><p>MTOA-1424 - TX Manager: UDIM token in texture path causes Python error when opening TX Manager</p>
+</li>
+<li><p>MTOA-1657 - TX Manager: cannot create tx files from target folders</p>
+</li>
+<li><p>MTOA-1632 - TX Manager: cannot create tx files from scene textures</p>
+</li>
+<li><p>MTOA-1565 - TX Manager: Python error preventing Tx Manager from listing textures</p>
+</li>
+<li><p>MTOA-1550 - RenderView: Camera List not updating on opening scene</p>
+</li>
+<li><p>MTOA-1513 - RenderView: Creating a new camera via Panels &gt; Perspective &gt; New results in incorrect camera name in camera selector, selecting cameras after causes crash.</p>
+</li>
+<li><p>MTOA-1543 - Lookdevx: Arnold does not render if a UV reader is connected to the Mtlx image node</p>
+</li>
+<li><p>MTOA-1584 - Remove Exporting Arnold Scene duplicated log messages from USD for Maya exports</p>
+</li>
+<li><p>MTOA-1531 - USD for Maya export does not export ArnoldProceduralCustom nodes</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1709" target="_blank">usd#1709</a> - Procedural failures if schemas are present</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1713" target="_blank">usd#1713</a> - Fix coding error "attempt to get string for GfVec4f"</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1732" target="_blank">usd#1732</a> - Force the color AOV to be interpreted as the Arnold beauty pass</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1735" target="_blank">usd#1735</a> - Fix usdskel geometry and motion blur interpolation outside the keyframe boundaries</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1524" target="_blank">usd#1524</a> - Fix material binding on instances under a SkelRoot</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1718" target="_blank">usd#1718</a> - Support primvars:arnold attributes in Arnold typed schemas</p>
+</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2><ul>
+<li>Maya 2022, 2023, or 2024</li>
+<li>Windows 10 or later, with the Visual Studio 2019 redistributable.</li>
+<li>Linux with at least glibc 2.17 and libstdc++ 4.8.5 (gcc 4.8.5). This is equivalent to RHEL/CentOS 7.</li>
+<li>x86-64 CPUs need to support the SSE4.1 instruction set. </li>
+<li>macOS 10.13 or later, macOS 11 and later for Maya 2024</li>
+<li>Apple Mac models with M series chips:<ul>
+<li>Natively supported by Arnold for Maya 2024</li>
+<li>Supported under Rosetta 2 mode for older versions of Maya</li>
+</ul>
+</li>
+<li>GPU rendering works on Windows and Linux only and requires an NVIDIA GPU of the Ada, Ampere, Turing, Volta, Pascal, or Maxwell architecture. We recommend using the <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">535.104.05 or higher drivers</a> on Linux and <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">537.13, or higher</a> on Windows. See  Arnold GPU for more information.</li>
+<li>Optix™ denoiser requires an NVidia GPU with <a href="https://developer.nvidia.com/cuda-gpus" target="_blank">CUDA™ Compute Capability 5.0</a> and above.</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_5x_html.html">MtoA 5.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-AF473904-B125-4534-828D-9D8589E6ECD0">
+<meta name="language" content="CHS">
+<title>设置在 Viewport 2.0 中绘制的透明度的融合</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1> 设置在 Viewport 2.0 中绘制的透明度的融合 </h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__GUID-0BD3CBF6-49D6-461D-BC83-C7D9C9A7EEB8"> 在 Viewport 2.0 中，分别为 RGB 通道和 Alpha 通道指定融合。该行为不同于默认渲染器和高质量渲染器的行为，其中 RGB 和 Alpha 共享一组融合参数。
+	 </p>
+<p class="p" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__GUID-CE221543-22AF-4008-9136-41F3943B42FD">编写插件时，使用 MHWRender::MBlendStateDesc 融合状态类指定您的融合。
+	 </p>
+<p class="p" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__GUID-458687FC-68D2-4AF4-8AB8-18566C5D90EB">设定源、目标融合和 Alpha 融合，并设定要添加的融合操作。融合因子应设定为 1、1、1、1。
+	 </p>
+<p class="p" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__GUID-1A6EF624-872D-4B0E-BFBE-DA1CD5D557B0">以下示例取自开发人员工具包中提供的 <samp class="ph codeph" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__GUID-17C14C79-46AD-4386-95C7-45658666B327">hwPhongShader</samp> 节点插件。
+	 </p>
+<p class="p" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__GUID-0D3EA95C-D56B-4561-8FCC-1913D840581B">开发人员工具包可从 <a class="xref" href="https://www.autodesk.com/developmaya" target="_blank">Autodesk 开发人员网络</a>获取。
+	 </p>
+<pre class="pre codeblock">MHWRender::MBlendStateDesc blendStateDesc;
+for(int i = 0; i &lt; (blendStateDesc.independentBlendEnable ? MHWRender::MBlendState::kMaxTargets : 1); ++i)
+{
+   blendStateDesc.targetBlends[i].blendEnable = true;
+   blendStateDesc.targetBlends[i].sourceBlend = MHWRender::MBlendState::kSourceAlpha;
+   blendStateDesc.targetBlends[i].destinationBlend = MHWRender::MBlendState::kInvSourceAlpha; 
+   blendStateDesc.targetBlends[i].blendOperation = MHWRender::MBlendState::kAdd;
+   blendStateDesc.targetBlends[i].alphaSourceBlend = MHWRender::MBlendState::kOne;
+   blendStateDesc.targetBlends[i].alphaDestinationBlend = MHWRender::MBlendState::kInvSourceAlpha;
+   blendStateDesc.targetBlends[i].alphaBlendOperation = MHWRender::MBlendState::kAdd;
+}
+
+blendStateDesc.blendFactor[0] = 1.0f;
+blendStateDesc.blendFactor[1] = 1.0f;
+blendStateDesc.blendFactor[2] = 1.0f;
+blendStateDesc.blendFactor[3] = 1.0f; </pre>
+<p class="p" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__GUID-B32783F4-6925-408E-9F32-CFEDAD2ED5F0">若要通过内置 cgfx 插件示例设置同一状态，请指定以下过程状态：
+	 </p>
+<pre class="pre codeblock">
+BlendFunc = int2( SrcAlpha, OneMinusSrcAlpha);
+BlendFuncSeparate = int4( SrcAlpha, OneMinusSrcAlpha, One, OneMinusSrcAlpha);
+BlendEquationSeparate = int2( Add, Add );
+BlendColor = float4(1.0f,1.0f,1.0f,1.0f);</pre>
+<p class="p" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__GUID-9460BC24-82E2-4A48-9F3E-45D4C088BAB0">其中：
+	 </p>
+<ul class="ul" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__UL_0710B490FB8449D38D893AF88911E803"><li class="li" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__LI_93D78CA4268C4A06A97042AEC6642B5B"><samp class="ph codeph" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__GUID-B9CC13D6-2224-484C-9E74-1440AD6499FF">BlendColor</samp> 对应于 <samp class="ph codeph" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__GUID-4C0A5C8A-90D6-4451-BD8C-B7EF578F0799">blendFactor</samp> 
+		</li>
+<li class="li" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__LI_B7875FBD920A449B926BA6C3B8314446"><samp class="ph codeph" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__GUID-3FC049DD-3CA1-4422-BF34-D9A6F73F6D43">BlendFuncSeperate</samp> 对应于 <samp class="ph codeph" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__GUID-CDCA2FEE-8A43-4A82-8838-3422DA503952">sourceBlend</samp>、<samp class="ph codeph" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__GUID-C9B6236D-4EA5-4DA8-9B85-F0C0A8CF83F0">destinationBlend</samp>、<samp class="ph codeph" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__GUID-6830E111-E958-42F4-9A5D-55C17DC69432">alphaSourceBlend</samp> 和 <samp class="ph codeph" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__GUID-75B04133-A4C5-4EC7-B8FE-47335CF24C22">alphaDestinationBlend</samp> 
+		</li>
+<li class="li" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__LI_8E6FDBF64E1F4ED285FF503527628725"><samp class="ph codeph" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__GUID-22CADC8D-CA96-4749-93E9-A1975F72B03C">BlendEquationSeparate</samp> 对应于 <samp class="ph codeph" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__GUID-D89FDD11-9C2E-4E16-B625-8D78125B76EC">blendOperation</samp> 和 <samp class="ph codeph" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__GUID-E955E73D-6CDC-4A74-9451-3DA539E4E88D">alphaBlendOperation</samp> 
+		</li>
+</ul>
+<p class="p" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__GUID-FC31E27A-B02B-468B-9C19-DDF7ED982772">在 MBlendStateDesc 结构中。
+	 </p>
+<p class="p" id="GUID-AF473904-B125-4534-828D-9D8589E6ECD0__GUID-D652C002-C9D1-4567-A5D5-F09D0592559C">用于绘制透明度的默认融合是 { source alpha, 1-source alpha }，如以下示例所示。
+	 </p>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-677E53F2-E63B-4078-8896-959B3B9BC3AB.htm">使用 Viewport 2.0</a></div>
+</div>
+</div>
+
+</body>
+</html>

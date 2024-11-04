@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="手动指定用于导入视频的颜色变换时，可以使用 gamma/ 目录下的变换来移除已应用的 Gamma。生成的颜色值是线性的，但是仍与输出相关，并且不应与场景相关的线性图像结合。">
+<meta name="indexterm" content="颜色管理:视频图像">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-8F04ECD0-9C56-46B3-8D1B-85938DC85063">
+<meta name="language" content="CHS">
+<title>管理视频片段的颜色</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-8F04ECD0-9C56-46B3-8D1B-85938DC85063">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>管理视频片段的颜色</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="shortdesc"> 手动指定用于导入视频的颜色变换时，可以使用 gamma/ 目录下的变换来移除已应用的 Gamma。生成的颜色值是线性的，但是仍与输出相关，并且不应与场景相关的线性图像结合。 
+  </p>
+<div class="p" id="GUID-8F04ECD0-9C56-46B3-8D1B-85938DC85063__GUID-5E848A29-F095-40AF-B171-BBF477FD1A15"> 存在一些备选方案可以用来将视频图像转化为场景相关的线性状态： 
+	 <ul class="ul" id="GUID-8F04ECD0-9C56-46B3-8D1B-85938DC85063__UL_FD2BB8950B26402CA149A9D3E4B6A1E5"><li class="li" id="GUID-8F04ECD0-9C56-46B3-8D1B-85938DC85063__LI_15D7D1F5356441AFBCC7E79200FA0D10">如果片段为 HD (Rec. 709)，可以应用 RRT+ODT 目录下的 HD-video_to_ACES。 
+		</li>
+<li class="li" id="GUID-8F04ECD0-9C56-46B3-8D1B-85938DC85063__LI_C033FCE5E7A6435CB4229FDDCC15E971">或者，也可以应用反向色调贴图，如 tone-map/inversePhotoMap_gamma_2.4。如果片段最初拍摄为视频或者使用不同的色调贴图转化，这会造成不精确。但在许多情况下，这是很好的近似值，不影响工作。 
+		</li>
+</ul>
+ 
+	 </div>
+<div class="section" id="GUID-8F04ECD0-9C56-46B3-8D1B-85938DC85063__SECTION_600791F54F1F438D9F3D84A67657BEBB"><h2 class="title sectiontitle">SMPTE 合法视频位准</h2> 
+		 
+		<p class="p" id="GUID-8F04ECD0-9C56-46B3-8D1B-85938DC85063__GUID-7C106E85-5F10-4B6F-9FFF-6E22D7CF5F24">数字视频标准使用整数像素编码，并且通常定义基黑位准和基白位准，因此有一些顶部空间和脚部空间留给超出这些位准的值，而不会被剪裁。例如，SMPTE 10 位数字视频在 64 放置基黑，在 940 放置基白。广播员通常要求提供的内容不得超过这些“合法”限制。（请注意，“合法”的精确定义因视频格式和广播员而异。） 
+		</p>
+ 
+		<p class="p" id="GUID-8F04ECD0-9C56-46B3-8D1B-85938DC85063__GUID-985C76AC-F9CF-4AC1-8885-0F73D6EDB309">使用整数像素编码的软件应用程序通常遵循不同的约定，在整数允许的最小和最大值位置放置黑色和白色（例如，对于 10 位的情况，黑色位于 0，白色位于 1023）。 
+		</p>
+ 
+		<p class="p" id="GUID-8F04ECD0-9C56-46B3-8D1B-85938DC85063__GUID-0D6D76F3-7328-42D0-B019-766E450AD989">在视频和计算机编码之间转化时，需要确定是否保留顶部空间和脚部空间（在此情况下，黑色和白色并不是处于计算机中期望的位置），或者确定是否丢弃顶部空间和脚部空间并将基准视频黑/白映射到计算机黑/白。 
+		</p>
+ 
+		<p class="p" id="GUID-8F04ECD0-9C56-46B3-8D1B-85938DC85063__GUID-9C4A2019-45AE-40CE-A359-EBF1A8D4169F">通常，在视频 I/O 进程中做出此选择，并且在视频硬件中应用。但是，额外提供一些可用的颜色变换有时是非常有用的，这样可以在工作流的其他位置中执行转化。 
+		</p>
+ 
+		<p class="p" id="GUID-8F04ECD0-9C56-46B3-8D1B-85938DC85063__GUID-255ACD39-9775-449D-BC0C-67ADC417C8FF">levels/ 目录下的 full-range_to_legal_10bit 变换可缩放、偏移和钳制计算机颜色值（即 0 至 1023），以便这些值的范围在用于广播的合法 SMPTE 视频范围内（即 64 和 940）。legal-range_to_full_10bit 变换可反转该操作。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-B2CD60E0-C100-45A4-9595-84D2DF98B268.htm" title="尽管 Autodesk 颜色管理提供了适当的工具可自动应用所需的变换以便在颜色空间之间进行转化，但在某些特殊情况下，您必须更好地控制要应用的特定变换。本部分介绍如何将位于 Autodesk 颜色变换集合中的组件用作构建块以集合特定任务的自定义转化。">手动配置自定义颜色变换链的准则</a></div>
+</div>
+</div>
+
+</body>
+</html>

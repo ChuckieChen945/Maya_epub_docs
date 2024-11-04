@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663">
+<meta name="language" content="CHS">
+<title>XGen 用户提示</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>XGen 用户提示</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__GUID-67D86A03-EC14-4556-93DB-E9A18C55DB37">以下部分包含您可以在 XGen 工作流中使用的提示。 </p>
+<div class="section" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__USER-TIPS_UV-COMPENSATION"><h2 class="title sectiontitle">UV 补偿</h2>
+
+<p class="p" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__GUID-68FCB5F0-5CE9-465F-838B-25309F2D27A9">当您使用属性补偿时，模型中的面有时会不能正确对齐。例如，可以设置<span class="ph uicontrol" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__GUID-8F00764B-B263-4949-8E75-F7FEEB4F6CD6">“倾斜 V = 1”(Tilt V = 1)</span>（在表达式中使用时 <samp class="ph codeph" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__GUID-DA281457-70F5-442B-A953-53D023831E9F">OffU</samp>），所有基本体将不会指向同一方向。不能对齐的原因是 XGen 使用派生于 CV 缠绕顺序的模型的内在参数化。 </p>
+
+<div class="p" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__GUID-D0329BEC-33C3-4414-B506-DE188919EE5C">您可以准备模型，使其内部的 UV 看起来像是从面到面任意排序的。大多数情况下，您也可以使用一些表达式来对此作出补偿。 <p class="li listintro" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__GUID-DF0D8DA2-5972-4364-8270-47C901CF71CD">要补偿不对齐的面，请执行下列操作：</p>
+<ol class="ol" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__OL_ED7D64FC004B43EC9E66DC47CFF9F3CF"><li class="li" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__LI_79E2E7824CD64AC6B05DB4AF3C79D3C0">输入以下三个表达式作为全局表达式（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-FE4C8CB8-E577-4BFC-A252-627CB32D3837.htm">表达式(Expressions)</a>）： <pre class="pre">
+float upOrDown: (abs(dot(norm($dPdv),[0,1,0]))&gt;0.6 || abs(dot(norm($dPdu),[0,1,0]))&gt;0.6)? 1 : 0
+float flipY:      (abs(dot(norm($dPdu),[0,1,0]))&gt;0.6)?90 : 0
+float flipZ:      (abs(dot(norm($dPdu),[0,0,1]))&gt;0.6)?90 : 0
+</pre>
+ </li>
+<li class="li" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__LI_6D61B48BE5E54875932982958817FDAE">在<span class="ph uicontrol" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__GUID-B323FA8D-9C11-40BF-9F40-933871531600">“扭曲属性”(Twist Attribute)</span>字段中输入以下内容： <pre class="pre">
+twist: upOrDown() ? flipY() :flipZ()
+</pre>
+ </li>
+</ol>
+ </div>
+
+</div>
+<div class="section" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__USER-TIPS_ROTATE-TO-CAMERA"><h2 class="title sectiontitle">旋转朝向摄影机</h2>
+
+<p class="p" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__GUID-7661CF3F-D378-49E8-A05F-1D5C5E1A6F27">要使基本体仅绕法线旋转，以朝向摄影机，请执行以下操作： </p>
+
+<p class="li listintro" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__GUID-29369A8E-1E5F-4BF7-9DE9-3E7B9A579E7B">要旋转基本体以朝向摄影机：</p>
+<ol class="ol" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__OL_6804D3E6D2FD43F8A9839C2078E1EB02"><li class="li" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__LI_6AF9CBB3AF2E4B35A8E57BF9DC74C38F">在<span class="ph uicontrol" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__GUID-6F7E1427-510F-4024-86E9-1539591E4ECE">“基本体”(Primitives)</span>选项卡的<span class="ph uicontrol" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__GUID-8656F8D3-B891-423B-A19F-ECB52860B450">“卡片”(Card)</span>属性中输入： <pre class="pre">
+length: 0.3
+width:  1.0
+offV:   1.0
+aboutN: $eye=norm($cam-$P);$ang=acosd(dot( $eye,[0,0,1])); $axis=cross([0,0,1],$eye); dot($axis,$N)&gt;0 ?$ang : -$ang
+</pre>
+ </li>
+<li class="li" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__LI_33E1DE96183740889011B9153E1A5C82">在<span class="ph uicontrol" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__GUID-7CD985A7-CC3F-4426-962E-3E1A65C97804">“样条线”(Spline)</span>属性中输入： <pre class="pre">
+length:   0.3
+width:    1.0
+bendV[0]: 1.0
+aboutN:   $eye=norm($cam-$P);$ang=acosd(dot( $eye,[0,0,1])); $axis=cross([0,0,1],$eye); dot($axis,$N)&gt;0 ?$ang : -$ang
+</pre>
+ </li>
+</ol>
+
+</div>
+<div class="section" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__USER-TIPS_GROOMING-GRASS"><h2 class="title sectiontitle">修饰草地</h2>
+
+<p class="p" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__GUID-B6BFF5FD-25BE-42CB-99E3-600AD3E11336"> 在修饰长满草的大型区域时，请将<span class="ph uicontrol" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__GUID-CCC5B413-FE67-4C6E-9154-A3CA73D8A5B1">“控制使用”(Control using)</span>设置为<span class="ph uicontrol" id="GUID-6E167483-334A-4C9F-AFC4-11F9FAAC1663__GUID-DE3FC879-DBE9-4DC2-AAF6-B271E29E9AD0">“属性”(Attribute)</span>，以控制基本体各个分段的噪波。可在无需创建导向的情况下创建属性驱动的描述：这样也可以设置默认的表达式，从而使其不需要导向。 </p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-463D1930-F3FC-4C65-8C16-5A2927EDE8A7.htm">XGen 疑难解答和常见问题解答</a></div>
+</div>
+</div>
+
+</body>
+</html>

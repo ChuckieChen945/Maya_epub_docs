@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0">
+<meta name="language" content="CHS">
+<title>给变量和属性指定值</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>给变量和属性指定值</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__WS73099CC142F48755-3D114B7511841AEFA9F-A8F"> 一旦已声明变量，则可以使用 = 运算符给其指定值。运算符右侧表达式的值指定 = 运算符左侧的变量。例如：</p>
+<pre class="pre codeblock">
+$x = $y * 10;
+</pre>
+<p class="p" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__WS73099CC142F48755-3D114B7511841AEFA9F-A8D">如果指定不匹配变量类型的值，MEL 解释器则将尝试将值转化为变量类型。</p>
+<p class="p" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__WS73099CC142F48755-3D114B7511841AEFA9F-A8C">例如：</p>
+<pre class="pre codeblock">
+// Declare the variables...
+float $foo;
+float $bar;
+int $baz;
+// Now assign values...
+$test = 5.4;
+// value of $test is 5.4
+$bar = $test + 2;
+// value of $bar is 7.4
+$baz = $bar;
+// the value of $baz is 7
+// MEL converted the value to an integer.
+</pre>
+<p class="p" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__WS73099CC142F48755-3D114B7511841AEFA9F-A8B">指定作为指定值求值。</p>
+<div class="note note" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__WS73099CC142F48755-3D114B7511841AEFA9F-A8A"><span class="notetitle">注：</span> MEL 不支持将字符串属性指定给诸如以下语句中的字符串：<p class="p" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__WS73099CC142F48755-3D114B7511841AEFA9F-A89">
+<samp class="ph codeph" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__GUID-BBF7388E-5C8C-43EF-86CF-A7167ADE36BC">string $str = foo.str</samp>
+</p>
+<p class="p" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__WS73099CC142F48755-3D114B7511841AEFA9F-A88">而使用：</p>
+<p class="p" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__WS73099CC142F48755-3D114B7511841AEFA9F-A87"><samp class="ph codeph" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__GUID-B7175020-7390-4A83-A67A-471BF79B2288">string $str = </samp>`<samp class="ph codeph" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__GUID-29EFF8DB-1619-41A6-8092-1849200103D5">getAttr foo.str</samp>`<samp class="ph codeph" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__GUID-78DACDC8-11F7-4D3B-8250-E26A7C91756F">; </samp></p>
+</div>
+<div class="section" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__WS73099CC142F48755-3D114B7511841AEFA9F-A86"><h2 class="title sectiontitle">结合声明和指定</h2>
+
+<p class="p" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__WS73099CC142F48755-3D114B7511841AEFA9F-A85"> 为了方便起见，在创建变量时可以给变量指定值。例如：</p>
+
+<pre class="pre codeblock">
+float $param = 1.5;
+int $counter = 10;
+string $name = "Alice";
+vector $position = &lt;&lt;1.5, 2.5, 3.5&gt;&gt;;
+</pre>
+
+<p class="p" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__WS73099CC142F48755-3D114B7511841AEFA9F-A83">如果变量的类型明显出自指定的值，可以省去类型关键字。例如：</p>
+
+<pre class="pre codeblock">
+$name = "Alice";
+$position = &lt;&lt;1.5, 2.5, 3.5&gt;&gt;;
+</pre>
+
+<p class="p" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__WS73099CC142F48755-3D114B7511841AEFA9F-A82">这称为隐式声明。但是，好的做法是始终使用类型关键字以使脚本更具备可读性。</p>
+
+</div>
+<div class="section" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__WS73099CC142F48755-3D114B7511841AEFA9F-A81"><h2 class="title sectiontitle">链接指定</h2>
+
+<p class="p" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__WS73099CC142F48755-3D114B7511841AEFA9F-A80"> 当给若干变量指定相同的值时，可以将指定链接在一起：</p>
+
+<pre class="pre codeblock">
+$x = $y = $z = 0;
+</pre>
+
+</div>
+<div class="section" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__WS73099CC142F48755-3D114B7511841AEFA9F-A7E"><h2 class="title sectiontitle">方便指定运算符</h2>
+
+<p class="p" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__WS73099CC142F48755-3D114B7511841AEFA9F-A7D"> 编程时常常出现以下类型的表达式：</p>
+
+<pre class="pre codeblock">
+$x = $x + 1;
+</pre>
+
+<p class="p" id="GUID-778BBD0D-6518-4CBD-86C9-D5F550C975D0__WS73099CC142F48755-3D114B7511841AEFA9F-A7B">这很常见，因此 MEL 提供了几种方便运算符以便使用较少键入来完成此操作。例如：</p>
+
+<pre class="pre codeblock">
+$x++ // adds 1 to the value of $x
+$x-- // subtracts 1 from the value of $x
+$x += 5 // adds 5 to the value of $x
+$x -= 3 // subtracts 3 from the value of $x
+</pre>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-1C145B8B-AB8F-4375-BBF3-3604803344FD.htm">值和变量</a></div>
+</div>
+</div>
+
+</body>
+</html>

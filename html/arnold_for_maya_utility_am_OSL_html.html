@@ -1,0 +1,105 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_utility_am_OSL_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="NODES-AIOSL">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" OSL - Arnold for Maya">
+
+<title>OSL</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>OSL</h1></div>
+<div class="arnold-note">
+
+
+
+<table>
+<thead>
+<tr>
+<th>延伸阅读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有关完整的着色器文档，请参见<strong>《Arnold 用户手册》</strong>中的<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shading_ac_utility_shaders_html" target="_blank">工具着色器</a>。</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<p><img src="../images/mtoa_osl.png" alt=""></p>
+<p>可以使用<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shading_ac_osl_shaders_html" target="_blank">开放式着色语言</a>创建自己的着色器。通过 OSL 着色器，我们可以使用闭包实现从简单纹理图案到完整材质在内的任何东西。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关使用 OSL 着色器的详细信息，请单击<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shading_ac_osl_shaders_html" target="_blank">此处</a>。要观看演示如何使用 OSL 着色器的视频，请单击<a href="https://www.youtube.com/watch?v=qC1ayMyo7pI&amp;t=5s" target="_blank">此处</a>。</p>
+
+</div></div>
+
+<table>
+<thead>
+<tr>
+<th>有关示例 .osl 着色器和 .mtd 文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/hda.zip" target="_blank">此处</a>。</th>
+</tr>
+</thead>
+</table>
+<h3 id="">限制</h3><ul>
+<li>着色器的名称必须唯一。如果名称与现有着色器冲突，将不会加载 OSL 着色器。在此情况下，您应该会在日志中看到警告。</li>
+<li>输出属性的名称不同于着色器代码。</li>
+<li>无法在 OSL 着色器代码中执行 #includes。</li>
+<li>不支持显示“数组”(Array)和“矩阵”(Matrix)类型的输入属性。</li>
+</ul>
+<h3 id="">多个输出</h3><p>着色器输出可以链接到 <a href="https://help.autodesk.com/display/AFHUG/Arnold+Scene+Source">.ass</a> 文件中其他着色器节点的输入，也可以通过 <em><a href="https://help.autodesk.com/api/arnold-6.2.1.1/group__ai__nodes.html#gae72e639812bd02840e606c7ff82c397d">AiNodeLinkOutput()</a></em> 函数以编程方式链接到其他着色器节点的输入（方法是（可选）指定链接时所需的输出）。如果未指定输出，则将选择节点的默认输出参数，从而保留 Arnold 的现有行为。指定多个 OSL 着色器输出时，将应用标准 OSL 语言规则。具有三个颜色输出的示例 OSL 着色器可能类似于以下代码段，并且每个输出可以单独连接：</p>
+<p><code>shader test_shader</code><br> <code>(</code><br> <code>output color result = color(</code> <code>1</code> <code>,</code> <code>1</code> <code>,</code> <code>1</code> <code>),</code><br> <code>output color good = color(</code> <code>0</code> <code>,</code> <code>0</code> <code>,</code> <code>1</code> <code>),</code><br> <code>output color bad = color(</code> <code>1</code> <code>,</code> <code>0</code> <code>,</code> <code>0</code> <code>)</code><br> <code>)</code><br> <code>{</code><br> <code>}</code></p>
+<p><img src="../images/mtoa_osl2.png" alt=""></p>
+<p><sub><strong>使用多个着色器输出的 OSL 着色器</strong></sub></p>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/mFJmnQ1_kP0?" frameborder="0" allowfullscreen=""></iframe>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shaders/arnold_for_maya_shaders_utility_html.html">工具着色器</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

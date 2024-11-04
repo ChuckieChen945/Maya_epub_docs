@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26">
+<meta name="language" content="CHS">
+<title>使用多个 UV 集在硬件渲染器中显示分层纹理</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用多个 UV 集在硬件渲染器中显示分层纹理</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-38A23F5C12A55EE7664-7EB0"><p class="p" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__WS73099CC142F48755-3D114B7511812357EFE-7987"> 可以在硬件渲染器中显示分层纹理并为每个不同的纹理创建多个 UV 集。这样可以根据需要在场景中定位纹理。 </p>
+<div class="section" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__WS73099CC142F48755-3D114B7511812357EFE-7984"><h2 class="title sectiontitle">在硬件渲染器中显示分层纹理</h2>
+
+<p class="p" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__WS73099CC142F48755-3D114B7511812357EFE-7983">该功能可与<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-F8910292-8DDD-400C-9D24-432AB1CC4315">“Blinn”</span>、<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-4A82F162-FFCC-4A55-A0AB-EFEBE039D961">“Lambert”</span><span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-8979B7FE-1F65-4938-AA4C-EE47DEBE4CF4">“Phong”</span>和<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-0BDE4A9B-D7DD-4CFE-B832-8DA6D8575306">“Phong E”</span>着色器结合使用，并可用于<em class="ph i" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-87A4E891-59A9-45C5-86FA-9183DF2AFA15">“最多两个层”(up to two layers)</em>（当分层纹理连接到着色器上的<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-DA530B7F-A51A-4A89-8296-2E5DE3CD71BA">“颜色”(Color)</span>属性时）。 </p>
+
+<p class="p" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__WS73099CC142F48755-3D114B7511812357EFE-7982">在分层纹理的每层中，可以选择应用任何 2D 纹理，或者<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-92D19515-22E9-45EB-9BE6-B4ED79047942">“环境球”(Env Ball)</span>纹理或<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-A31D15DC-6545-49AC-9C5D-AB34A6635100">“环境立方体”(Env cube)</span>纹理。该功能仅支持 2D<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-1D3CFD25-AA6F-4E7D-B04E-E8F07523A669">“法线”(Normal)</span>贴图方法。投影贴图和蒙板贴图方法不受支持。 </p>
+
+<p class="p" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__WS73099CC142F48755-3D114B7511812357EFE-7981">若要显示分层纹理，可以在多个融合模式中选择，例如，<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-A2949B18-E4E4-409E-B0DE-28707A9794DE">“覆盖”(Over)</span>、<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-E8712342-01A0-4136-A007-B10323289E92">“相加”(Add)</span>或<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-1B9343BD-67AA-45F7-B66F-C134780B09AC">“相乘”(Multiply)</span>。下拉列表中的所有融合模式均受支持。有关融合模式的详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-770E22B9-E32A-4E14-A4DC-23656D885AEE.htm#GUID-770E22B9-E32A-4E14-A4DC-23656D885AEE__WS17956D7ADBC6E73638876AF8117AE33FA94-7F39">融合模式</a>。 </p>
+
+<p class="p" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__WS73099CC142F48755-3D114B7511812357EFE-7980">使用 <span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-F9F246FD-7648-4464-824A-902AD399C220">“Alpha”</span> 属性可以调整两个层之间的 Alpha 融合。 </p>
+
+<p class="p" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__WS73099CC142F48755-3D114B7511812357EFE-797F"> <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-770E22B9-E32A-4E14-A4DC-23656D885AEE.htm#GUID-770E22B9-E32A-4E14-A4DC-23656D885AEE__WS73099CC142F48755-3D114B7511812357EFE-5FE7">该功能支持Alpha 为亮度</a>。启用该属性，以使 Alpha 为<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-2CE0C4C0-804D-4479-B876-850A7DB55C4D">“输出颜色”(Out Color)</span>的亮度。 </p>
+
+<div class="fig fignone" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__WS73099CC142F48755-3D114B7511812357EFE-797E"><img class="image" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__IMAGE_9981C6BD29774867A4E305FFEBA44472" width="348" height="396" src="../images/GUID-64280537-5AF8-4645-9370-0D049D9928EF.png"></div>
+
+<div class="fig fignone" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__WS73099CC142F48755-3D114B7511812357EFE-797D"><img class="image" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__IMAGE_5DB206A1D4C545468F3546491F971D30" width="344" height="441" src="../images/GUID-B73FCB37-8865-4760-A839-917BB996A096.png"></div>
+
+</div>
+<div class="section" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__WS73099CC142F48755-3D114B7511812357EFE-797C"><h2 class="title sectiontitle">支持不同纹理使用多个 UV 集</h2>
+
+<p class="p" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__WS73099CC142F48755-3D114B7511812357EFE-797B">现在，可以对场景中的不同纹理使用多个 UV 集。这允许每个纹理使用不同放置。可以使用各种 UV 编辑工具以及当前纹理节点移动纹理。 </p>
+
+</div>
+<div class="section" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__WS73099CC142F48755-3D114B7511812357EFE-797A"><h2 class="title sectiontitle">配置</h2>
+
+<p class="p" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__WS73099CC142F48755-3D114B7511812357EFE-7979"><span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-176648F0-9991-443C-8AF8-5491E271510E">“Maya 硬件”(Maya Hardware)</span>渲染器使用的<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-B8AA499B-6F0A-4AD2-A78C-4F71FC40EFB8">“环境立方体/环境球”(Env Cube/Env Ball)</span>贴图配置不同于<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-FEAED223-AB08-4E11-9636-E1F75F045FEB">“Maya 软件”(Maya Software)</span>渲染器。可以从<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-36AAB3D7-3E05-4B42-8BC2-D852B43CE47F">“渲染设置”(Render Settings)</span>:<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-4F0BE303-7D00-434F-BBA1-4E4ED5D1FDFA">“Maya 硬件”(Maya Hardware)</span>选项卡中的<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-896715AF-4506-49A6-8C39-00FFC9246118">“硬件环境查找”(Hardware Environment Lookup Attribute)</span>属性选择您喜欢的配置。 </p>
+
+<p class="p" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__WS73099CC142F48755-3D114B7511812357EFE-7978">此外，<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-9D40422B-D512-49E8-A5C2-7F36D09F0210">“环境立方体/环境球”(Env Cube/Env Ball)</span>贴图的解释也不同，具体取决于<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-94400EEA-BDE9-460C-8761-BC74A4F8F30E">“环境立方体/环境球”(Env Cube/Env Ball)</span>映射到<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-F5475154-3F7C-424E-93C4-43D7E29DE973">“颜色”(Color)</span>属性还是映射到<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-B4F060A2-13D3-4609-BC83-6065A4CEF476">“反射的颜色”(Reflected Color)</span>属性。大多数情况下，映射到<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-A2EAB2F0-F2DE-459A-978F-DC786253487C">“反射的颜色”(Reflected Color)</span>可创建有光泽的曲面，映射到<span class="ph uicontrol" id="GUID-05C5824B-59AF-44E7-A164-091A3B15DA26__GUID-06059DE7-1141-46E4-8A1D-0C0EE323037A">“颜色”(Color)</span>可查找信息（例如，光照贴图）。 </p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-45A50E53-E47A-44EB-8A66-9856A4AFDA17.htm">对纹理进行分层</a></div>
+</div>
+</div>
+
+</body>
+</html>

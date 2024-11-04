@@ -1,0 +1,107 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_operators_am_Introduction_to_Operators_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_INTRODUCTION_TO_OPERATORS">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 运算符简介 - Arnold for Maya">
+
+<title>运算符简介</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>运算符简介</h1></div><p><img src="../images/am-Introduction_to_Operators-image2022-4-6-10-42-40-1.png" alt=""></p>
+<p>本简短教程介绍如何使用 <em>set_parameter、collection</em> 和 <em>disable</em> 运算符来更改一些茶壶的灯光和自身阴影以及球体的着色。在场景中，两个灯光将阴影投射在三个茶壶和一个球体上，其中将一个简单的<em>工具</em>着色器指定给球体。</p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>使用<em>“诊断 &gt; 功能覆盖”(Diagnostics &gt; Feature Overrides)</em>中的<em>“忽略运算符”(Ignore Operators)</em>标志，以检查在没有任何<em>运算符</em>时渲染效果如何。</p>
+
+</div></div>
+
+<p><strong>要下载对应的场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa04/introduction-to-operators.zip" target="_blank">此处</a>。</strong></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关如何创建<em>运算符</em>以及在何处创建运算符的信息，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_am_Operators_html">此处</a>。</p>
+
+</div></div>
+
+<h2 id="collection">集合(Collection)</h2><p>我们将使用<em>“集合”(Collection)</em>运算符来引用选择。这可用于避免多次编写选择（在本例中可选）。</p>
+<ul>
+<li>创建包含两个茶壶的<em>“集合”(Collection)</em>运算符。在<em>“选择”(Selection)</em>下添加以下项（我们将应用仅影响这两个茶壶的<em>“设置参数”(Set Parameter)</em>）：</li>
+</ul>
+<p><code>Teapot001Shape or Teapot002Shape</code></p>
+<p><img src="../images/am-Introduction_to_Operators-image2018-11-5-9-43-57-2.png" alt=""></p>
+<p><sub><strong>茶壶<em>集合</em></strong></sub></p>
+<h2 id="set-parameter-self-shadow">设置参数(Set Parameter)（对茶壶禁用“自阴影”(Self Shadow)）</h2><ul>
+<li>创建一个<em>“设置参数”(Set Parameter)</em>。创建以下表达式：</li>
+</ul>
+<p><code>self_shadows=false</code></p>
+<p><img src="../images/am-Introduction_to_Operators-image2018-11-5-8-59-29-3.png" alt=""></p>
+<h2 id="disable-light">禁用灯光(Disable Light)</h2><p>可以使用<em>“禁用”(Disable)</em>运算符禁用其中一个灯光。</p>
+<ul>
+<li>创建<em>“禁用”(Disable)</em>运算符，然后在<em>“选择”(Selection)</em>下为以下 Arnold 灯光输入此运算符：</li>
+</ul>
+<p><img src="../images/am-Introduction_to_Operators-image2018-11-5-8-58-33-4.png" alt=""></p>
+<p><sub><strong>禁用 ArnoldLight001</strong></sub></p>
+<h2 id="set-parameter-sphere-utility-shader">设置参数(Set Parameter)：球体工具着色器(Sphere Utility Shader)</h2><p>现在，我们将更改球体<em>工具</em>着色器的 <em>overlay_mode</em>。</p>
+<ul>
+<li>将<em>工具</em>着色器指定给球体并将其重命名为 <em>the_utility</em>。</li>
+<li>创建另一个<em>“设置参数”(Set Parameter)</em>，然后在<em>“表达式”(Expression)</em>下输入以下内容：</li>
+</ul>
+<p><code>overlay_mode="wire"</code></p>
+<ul>
+<li>在<em>“选择”(Selection)</em>下输入以下内容：</li>
+</ul>
+<p><img src="../images/am-Introduction_to_Operators-image2018-11-5-9-2-43-5.png" alt=""></p>
+<p><sub><strong>使用<em>“设置参数”(Set Parameter)</em>更改工具着色器</strong></sub></p>
+<p><img src="../images/am-Introduction_to_Operators-image2018-11-5-9-3-19-6.png" alt=""></p>
+<p><sub><strong>最终<em>运算符图表</em>窗口设置</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Operator_Tutorials_html.html">运算符教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

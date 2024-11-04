@@ -1,0 +1,97 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_polygons_am_Motion_Vector_Source_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_MOTION_VECTOR_SOURCE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 运动向量源 - Arnold for Maya">
+
+<title>运动向量源</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>运动向量源</h1></div><p><img src="../images/mtoa_motion_vector_source1.png" alt=""></p>
+<p>默认情况下，MtoA 不会为具有变化拓扑的网格的 Alembic 缓存执行运动模糊处理。但是，MtoA 可以使用速度属性作为源，使用运动向量从含有变化拓扑的网格推导运动模糊数据。</p>
+<h3 id="">运动向量源</h3><p>使用此速度属性作为源来推导运动模糊数据。您必须使用速度作为逐点向量导出时的名称。MtoA 将使用顶点速度属性来计算运动模糊。例如，来自 Houdini 的点向量属性可能称为“v”。默认名称是“velocityPV”。</p>
+<h3 id="motion-vector-unit">运动向量单位(Motion Vector Unit)</h3><p>选择“逐帧”(Per Frame)或“每秒”(Per Second)。</p>
+<h3 id="motion-vector-scale">运动向量比例(Motion Vector Scale)</h3><p>用来生成时间缩放效果的浮动比例字段（默认值为 1）。</p>
+<h2 id="">运动模糊和具有变化拓扑的网格</h2><p>这个简短的教程将逐步说明以下过程：从 Houdini 导出运动数据存储在顶点颜色通道中的 Alembic 文件，并使用 MtoA 在 Maya 中对其进行渲染。我们将使用 <strong>velocityPV</strong> 属性转化逐顶点属性，借助这些属性，MtoA 可以将运动模糊应用于 Alembic 几何体。此几何体的拓扑在不同帧之间存在变化。</p>
+<h3 id="houdini">Houdini</h3><p>我们将使用来自 Houdini 的 Alembic 文件。它将 V 通道中的点速度转换为点颜色属性 <strong>velocityPV</strong>，用于在点编号处在运动中的网格上计算运动模糊，有关生成兼容 Alembic 文件的详细信息，请单击<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_for_houdini_shapes_ah_Create_Alembic_with_Velocity_data_html" target="_blank">此处</a>。</p>
+<h3 id="maya">Maya</h3><ul>
+<li><p>在 Maya 中打开 <a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/fluid_abc.zip" target="_blank">Alembic 文件 (.abc)</a>。</p>
+</li>
+<li><p>您不能使用菜单执行该操作，因为没有选项可用于导入缓存中的颜色数据，请改用以下 MEL 脚本，并更改 fluid.abc 文件的保存路径。</p>
+<p><strong>AbcImport 命令</strong></p>
+<pre class="pre codeblock"><code class="prettyprint"> AbcImport -mode "import" -rcs "C:/data/Tutorials/velocity_data_attribute/fluid.abc" </code></pre></li>
+</ul>
+<p><img src="../images/mtoa_motion_vector_source2.png" alt=""></p>
+<p><strong><sub><strong>在 Maya 中打开 Alembic 文件</strong></sub></strong></p>
+<ul>
+<li>拖动时间轴观看动画。在此示例中，动画范围从帧 1 到 100（场景为从帧 40 到 60）。</li>
+</ul>
+<p><img src="../images/mtoa_motion_vector_source3.gif" alt=""></p>
+<ul>
+<li>我们可以查看 Alembic 中的逐顶点颜色数据。选择网格，转到<strong><em>“颜色 &gt; 颜色集编辑器”(Color &gt; Color Set Editor)</em></strong>，然后选择 <strong><em>velocityPV(RGB)</em></strong> 属性。</li>
+</ul>
+<p><img src="../images/mtoa_motion_vector_source4.png" alt=""> <img src="../images/mtoa_motion_vector_source5.png" alt=""></p>
+<ul>
+<li>选择几何体并确保<strong>“运动向量源”(Motion Vector Source)</strong>字段设置为 <strong>velocityPV</strong></li>
+<li>确保<strong>“运动向量单位”(Motion Vector Unit)</strong>设置为<strong>“每秒”(Per Second)</strong></li>
+<li>最后，确保“导出顶点颜色”(Export Vertex Colors)<strong>已启用</strong>，否则，Arnold 中不会显示 <strong>velocityPV</strong> 属性</li>
+</ul>
+<p><img src="../images/mtoa_motion_vector_source6.png" alt=""></p>
+<ul>
+<li>打开 Arnold“渲染设置”(Render Settings)窗口。启用<strong><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Motion_Blur_html">运动模糊(Motion Blur)</a></strong>，然后渲染场景。现在应该可以看到系统正在使用运动模糊渲染网格。</li>
+</ul>
+<p>启用速度模糊时，转换器只会导出两个关键帧。</p>
+<h2 id="">颜色</h2><h3 id="userdatacolor">UserDataColor</h3><p>颜色信息也可以从 Houdini 导出到 Alembic 文件，提取后，在 Maya 中使用 MtoA 进行渲染。</p>
+<ul>
+<li><p>创建一个 <strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shapes/polygons/topicd=arnold_for_maya_shapes_am_Arnold_Common_Settings_html">Ai UserDataColor</a> 节点</strong>，并将其连接至一个<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html" target="_blank">标准曲面</a>着色器。将此着色器指定给几何体。</p>
+</li>
+<li><p>将 <strong><em>Cd</em></strong> 添加到 <strong>aiUserDataColor</strong> 节点的<strong>“颜色属性名称”(Color Attr Name)</strong>属性。</p>
+</li>
+</ul>
+<p><img src="../images/mtoa_motion_vector_source7.png" alt=""> <img src="../images/mtoa_motion_vector_source8.png" alt=""></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shapes/arnold_for_maya_shapes_polygons_html.html">多边形</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

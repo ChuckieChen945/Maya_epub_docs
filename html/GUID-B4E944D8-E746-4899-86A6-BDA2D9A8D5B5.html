@@ -1,0 +1,78 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="ENU">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Maya-USD">
+  <meta name="topicid" content="GUID-B4E944D8-E746-4899-86A6-BDA2D9A8D5B5">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>USD material support</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>USD material support</h1></div><p>This topic explains notes relating to current material support in Maya USD. Development is ongoing and hence, best practices are denoted on below.</p>
+<h2 id="import-export">Import/ Export</h2><h3 id="maya-materials">Maya Materials</h3><ul>
+<li><strong>Lambert</strong>: Color on import might not apply correctly. For better results on import, conver to Lambert shaders. Note that by default, Maya Lambert has one attribute for Color and one for Diffuse. Diffuse is set by default to a factor of 0.8. On USD export, the diffuse value is captured as 1.o. This signifies that on import it will display slightly brighter than the original. Lambert uses Transparency which is a 3-channel input and USD Preview Surface uses Opacity, which is a single channel input. Currently no translation exists for this.</li>
+<li><strong>Stingray_PBS</strong>: No Translation seems to exist. Exporting an object with textures can often import without them. Lambert1 can be assigned to objects instead of UsdPreviewSurface.</li>
+<li><strong>Standard Surface</strong>: Appears to have the best results. Displacement maps are supported.Caveats include no support for roughness color, coat color, sheen. Exporting Standard Surface to USD Preview Surface will be lossy.</li>
+</ul>
+<div class="note note:"><span class="notetitle">Note:</span> There is no support for node inputs (ie. if a multiply/divide node is attached, it will not be captured and imported back in)</div>
+<p><strong>Supported image file formats</strong>: The image reader for MayaUSD is facilitated through <em>OpenImageIO</em> (an open source library for image reading). MayaUSD should be able to open any image supported by <a href="https://openimageio.readthedocs.io/en/latest/builtinplugins.html" target="_blank">OpenImageIO</a>. MayaUSD also supports OpenEXR textures, 8, 16 and 32 bits, single channel, RGB and RGBA.</p>
+<h3 id="best-practice">Best practice</h3><p>For best results (in regard to achieving similar results to your original file), on import, convert to your original material used.</p>
+<div class="note note:"><span class="notetitle">Note:</span> <code>UsdPreviewSurface</code> round trips perfectly. However, some features are unsupported in VP2 render delegate and might not display. The file can be checked using USD View for metadata and inputs to verify that your data is being brought into Maya.</div>
+<div class="note important:"><span class="importanttitle">Important:</span> Recent versions of MtoA support USD Preview Surface rendering in Arnold.</div>
+<p><strong>Texture Support</strong>: MayaUsd supports OpenEXR textures, 8, 16 and 32 bits, single channel, RGB and RGBA.</p>
+<h3 id="extended-translation-framework">Extended translation framework</h3><p>Support integration is available for render context-specific translators such as Arnold (MtoA export integration), MaterialX and other common third party renderers. This enables a lossless interchange of materials when exporting StandardSurface to UsdPreviewSurface with MaterialX node definitions.</p>
+<p>Translation framework extensions allow the ability to register:</p>
+<ul>
+<li>translators for applied schema types</li>
+<li>translators for specific render settings nodes</li>
+<li>translator for a specific render context (and only use them when a render context export is selected)</li>
+<li>preserved applied schemas on import/export</li>
+</ul>
+<h4 id="how-it-works">How it works</h4><p>Schema adaptors are an excellent mechanism to provide a USD abstraction on top of Maya data. They currently work by adding dynamic attributes on Maya nodes to store the values of applied schemas. The list of applied schemas is retained as metadata on the Maya node itself.</p>
+<p>These capabilities have been expanded to allow an adaptor to work on static properties found in the scene as well. Here are some examples:</p>
+<ul>
+<li>If the Arnold specific properties of an aiSkyDomeLight are mapped to an Arnold-specific schema, then the export could be done via a plugin adaptor that applies the Arnold schema to a UsdLux light.</li>
+<li>A lot of Maya nodes and attributes found in a Bullet simulation can be exported to UsdPhysics schema directly as long as the plug-in adaptor can detect Bullet nodes and adapt them.</li>
+</ul>
+<p><em>This has been implemented with the following steps:</em></p>
+<ol>
+<li>A mechanism created to register a plugin adaptor for a registered USD schema applied to a Maya node.</li>
+<li>At any time the plugin will be able to detect if the Maya node or its environment can be adapted. This includes being able to Apply and Unapply the schema at will by modifying the Maya scene as necessary.</li>
+<li>Knowing which Maya attributes map to its USD counterpart and being able to provide the correct plug to a requested AttributeAdaptor.</li>
+</ol>
+<p><strong>Limitations:</strong> Adaptors currently map attributes and metadata. For completeness, they will also have to be able to map relationships, which requires either a postPostExport step or a chaser.</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>Parent page:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/GUID-2755A1ED-4857-4111-8571-5D658EE90FA0.html">Import and export USD data in Maya</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

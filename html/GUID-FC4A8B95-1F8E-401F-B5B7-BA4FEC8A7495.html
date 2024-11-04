@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-FC4A8B95-1F8E-401F-B5B7-BA4FEC8A7495">
+<meta name="language" content="CHS">
+<title>从文本文件中读取动画值</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-FC4A8B95-1F8E-401F-B5B7-BA4FEC8A7495">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>从文本文件中读取动画值</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-FC4A8B95-1F8E-401F-B5B7-BA4FEC8A7495__WS73099CC142F48755-3D114B7511841AEFA9F-14E0"> 作者：Luca Pataracchia，Autodesk（原 Alias）Toronto Support</p>
+<p class="p" id="GUID-FC4A8B95-1F8E-401F-B5B7-BA4FEC8A7495__WS73099CC142F48755-3D114B7511841AEFA9F-14DE">此程序将读取 ASCII 文件（使用显式路径），并为指定对象 (<samp class="ph codeph" id="GUID-FC4A8B95-1F8E-401F-B5B7-BA4FEC8A7495__GUID-20BC35FC-84E3-4A92-98E5-31AAA18661B8">$objectName</samp>) 设置转换值的关键帧。</p>
+<p class="p" id="GUID-FC4A8B95-1F8E-401F-B5B7-BA4FEC8A7495__WS73099CC142F48755-3D114B7511841AEFA9F-14DD">必须使用以下格式排布文件：</p>
+<pre class="pre codeblock">
+frameNumber Xtranslation Ytranslation Ztranslation
+</pre>
+<p class="p" id="GUID-FC4A8B95-1F8E-401F-B5B7-BA4FEC8A7495__WS73099CC142F48755-3D114B7511841AEFA9F-14DC">例如：</p>
+<pre class="pre codeblock">
+7 2 4 6
+10 3.7 3.6 9.3 
+20 7.4 5.7 3.9
+24 4.2 6.789 2.457
+32 16.2 3.45 9.75 
+</pre>
+<p class="p" id="GUID-FC4A8B95-1F8E-401F-B5B7-BA4FEC8A7495__WS73099CC142F48755-3D114B7511841AEFA9F-14DB">该脚本是如何从 ASCII 文件中导入动画的示例。该程序可根据需要导入的动画类型进行更改。您必须修改该脚本以适合 ASCII 文件的格式。</p>
+<pre class="pre codeblock">
+global proc getAnim(string $fileName, string $objectName)
+{
+ //open the file for reading
+ $fileId=`fopen $fileName "r"`;
+ 
+ //get the first line of text
+ string $nextLine = `fgetline $fileId`;
+ 
+ //while $nextline is not emtpy(end of file) do the following 
+ 
+ while ( size( $nextLine ) &gt; 0 ) {
+ 	
+ //tokenize(split) line into separate elements of an array 
+ 	string $rawAnimArray[];
+ tokenize ($nextLine, " ",$rawAnimArray);
+ //place each element of the array into separate variables 
+ print $rawAnimArray;
+ float $frame=$rawAnimArray[0];
+ float $x=$rawAnimArray[1];
+ float $y=$rawAnimArray[2];
+ float $z=$rawAnimArray[3];
+ 
+ //change the currentTime and set keys for tx, ty, tz
+ currentTime $frame ;
+ setAttr ($objectName+".tx") $x;
+ setKeyframe ($objectName+".tx");
+ setAttr ($objectName+".ty") $y;
+ setKeyframe ($objectName+".ty");
+ setAttr ($objectName+".tz") $z;
+ setKeyframe ($objectName+".tz");
+ //get the next line in the ascii file. 
+ $nextLine = `fgetline $fileId`;
+ }
+ //close file 
+ fclose $fileId;
+}
+</pre>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-EE07691C-D04C-4C22-8FFD-2E99B3489AE5.htm">示例脚本</a></div>
+</div>
+</div>
+
+</body>
+</html>

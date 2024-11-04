@@ -1,0 +1,77 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Rigging_Solver_Rigging_Solver_aim_matrix_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>aim_matrix</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>aim_matrix</code></h1></div><p>确定变换矩阵的方向，使其指定主轴和次轴指向指定的主要目标和次要目标。</p>
+<h2 id="">输入</h2><h3 id="transform"><code>transform</code></h3><p>要解算的 <code>double4x4</code> 变换矩阵。</p>
+<h3 id="enable"><code>enable</code></h3><p>如果启用此项，将处理此节点。否则，将跳过任何计算并按原样输出输入 <code>transforms</code>。</p>
+<h3 id="weight"><code>weight</code></h3><p>用于控制此节点对 <code>transform</code> 的影响的权重。 </p>
+<p>值为 <code>0.0</code> 时，将按原样传递 <code>transform</code>；值为 <code>1.0</code> 时，将完全应用节点的影响；值介于 <code>0.0</code> 和 <code>1.0</code> 之间时，将在输入和修改的 <code>transform</code> 之间混合。</p>
+<h3 id="primary_mode"><code>primary_mode</code></h3><p>处理输入变换的 <code>primary_input_axis</code> 的对准方向的方法。</p>
+<ul>
+<li><code>None</code>：按原样使用轴，不受目标影响。</li>
+<li><code>Aim</code>：使用目标的位置确定轴的方向。</li>
+<li><code>Align</code>：仅使用目标的方向确定轴的方向。必须设置 <code>primary_target_vector</code> 才能定义要对齐的目标轴。</li>
+</ul>
+<h3 id="primary_input_axis"><code>primary_input_axis</code></h3><p>要对准主要目标的输入 <code>transform</code> 的轴。</p>
+<h3 id="primary_target_vector"><code>primary_target_vector</code></h3><p>用于使输入 <code>transform</code> 的 <code>primary_input_axis</code> 朝向主要目标的主要目标向量（在 <code>primary_target_matrix</code> 的空间中）。对此向量的解释取决于选定的 <code>primary_mode</code>：</p>
+<ul>
+<li><code>Aim</code> 对 <code>primary_target_matrix</code> 应用位置偏移。它们共同定义 <code>primary_input_axis</code> 应指向的最终位置。</li>
+<li><code>Align</code> 指定 <code>primary_input_axis</code> 应与其对齐的 <code>primary_target_matrix</code> 的局部向量。</li>
+</ul>
+<h3 id="primary_target_matrix"><code>primary_target_matrix</code></h3><p>表示主要目标位置的变换矩阵。仅使用矩阵的平移部分推断目标向量。</p>
+<h3 id="secondary_mode"><code>secondary_mode</code></h3><p>处理输入变换的 <code>secondary_input_axis</code> 的对准方向的方法。</p>
+<ul>
+<li><code>None</code>：按原样使用轴，不受目标影响。</li>
+<li><code>Aim</code>：使用目标的位置确定轴的方向。</li>
+<li><code>Align</code>：使用目标的方向确定轴的方向。必须设置 <code>secondary_target_vector</code> 才能定义要对齐的目标轴。</li>
+</ul>
+<h3 id="secondary_input_axis"><code>secondary_input_axis</code></h3><p>要对准次要目标的输入 <code>transform</code> 的轴。</p>
+<h3 id="secondary_target_vector"><code>secondary_target_vector</code></h3><p>用于使输入 <code>transform</code> 的 <code>secondary_input_axis</code> 朝向次要目标的次要目标向量（在 <code>secondary_target_matrix</code> 的空间中）。对此向量的解释取决于选定的 <code>primary_mode</code>：</p>
+<ul>
+<li><code>Aim</code> 对 <code>secondary_target_matrix</code> 应用位置偏移。它们共同定义 <code>secondary_input_axis</code> 应指向的最终位置。</li>
+<li><code>Align</code> 指定 <code>secondary_input_axis</code> 应与其对齐的 <code>secondary_target_matrix</code> 的局部向量。</li>
+</ul>
+<h3 id="secondary_target_matrix"><code>secondary_target_matrix</code></h3><p>表示次要目标位置的变换矩阵。仅使用矩阵的平移部分推断目标向量。</p>
+<h2 id="">输出</h2><h3 id="out_transform"><code>out_transform</code></h3><p>解算的 <code>transform</code>。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Rigging/Bifrost_Common_reference_Rigging_Solver_html.html">Solver</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Modeling_Points_Modeling_Points_randomize_point_scale_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>randomize_point_scale</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>randomize_point_scale</code></h1></div><p>随机化 <code>point_scale</code> 特性。这将影响实例的大小以及点形状。但是，它不会影响整个几何对象的大小。</p>
+<h2 id="">输入</h2><h3 id="points"><code>points</code></h3><p>具有要缩放的点的几何体。</p>
+<h3 id="weights"><code>weights</code></h3><p>控制应用的随机化量。 </p>
+<ul>
+<li>权重为 0 时，不应用随机化。</li>
+<li>权重在 0 到 1 范围内时，按 <code>min</code> 和 <code>max</code> 之间的值的一部分进行随机化。</li>
+<li>权重为 1 时，完全按 <code>min</code> 和 <code>max</code> 之间的值进行随机化。</li>
+<li>权重大于 1 时，点移动的距离大于给定值。</li>
+<li>权重在 0 到 1 范围以外时，按 [<code>min</code>, <code>max</code>) 范围以外的量进行随机化。</li>
+</ul>
+<p>如果未连接任何对象，则所有点的默认权重为 1。这是一个<em>解释的自动端口</em>，其接受以下类型：</p>
+<ul>
+<li>单个 <code>float</code> 解释为应用于所有点的常量值。</li>
+<li><code>array&lt;float&gt;</code> 解释为每个点的值。可根据需要调整数组大小以匹配点数。</li>
+<li><code>array&lt;bool&gt;</code> 被解释为每点的 0 (false) 或 1 (true) 值。</li>
+<li><code>string</code> 解释为现有几何特性的名称，并使用其值。</li>
+<li><code>ScalarField</code> 将在几何体组件的每个位置处进行采样。</li>
+<li><code>array&lt;long&gt;</code> 指定要为其指定值 1 的索引。对于其他索引，则指定值 0。</li>
+</ul>
+<h2 id="">随机化</h2><h3 id="min-max"><code>min</code>、<code>max</code></h3><p>最小和最大缩放因子。例如，0.25 表示小 4 倍，4 表示大 4 倍。仅支持 <code>float</code> 值，但您可以使用 <code>axis_to_scale</code> 控制因子如何应用于轴。</p>
+<h3 id="seed"><code>seed</code></h3><p>随机数生成器的种子。</p>
+<h3 id="axis_to_scale"><code>axis_to_scale</code></h3><p>控制如何应用缩放因子：</p>
+<ul>
+<li><code>XYZUniform</code>：每个点将一个随机缩放因子应用于所有 3 个 XYZ 轴。</li>
+<li><code>XYZSeparately</code>：每个点将三个单独的随机缩放因子应用于 XYZ 轴。</li>
+<li><code>XOnly</code>：每个点将一个随机缩放因子应用于 X 轴。</li>
+<li><code>YOnly</code>：每个点将一个随机缩放因子应用于 Y 轴。</li>
+<li><code>ZOnly</code>：每个点将一个随机缩放因子应用于 Z 轴。</li>
+</ul>
+<h3 id="scale_existing_values"><code>scale_existing_values</code></h3><p>当此选项为 true 时，随机缩放因子将与任何现有 <code>point_scale</code> 值相乘。当此选项为 false 时，随机值将覆盖任何现有的缩放因子。</p>
+<h3 id="distribution"><code>distribution</code></h3><p>用于控制随机分布的 FCurve。使用默认形状时，在范围最小值附近生成较多点，而在范围最大值附近生成较少点。</p>
+<h2 id="">输出</h2><h3 id="out_points"><code>out_points</code></h3><p>具有已缩放点的几何体。</p>
+<h3 id="point_scale"><code>point_scale</code></h3><p>在几何体上设置的 <code>point_scale</code> 值。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Modeling/Bifrost_Common_reference_Modeling_Points_html.html">Points</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

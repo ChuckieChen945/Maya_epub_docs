@@ -1,0 +1,203 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E">
+<meta name="language" content="CHS">
+<title>面向程序员的 MEL</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>面向程序员的 MEL</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BE4">MEL 是来源于 UNIX 壳脚本的一种语言。因此，MEL 在很大程度上是依靠执行命令来完成操作（如执行 UNIX 壳中的命令），而不像其他语言那样操纵数据结构、调用函数或使用面向对象的方法。 </p>
+<p class="p" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BE3">用于控制 Maya 的大多数命令类似于 UNIX 命令行实用程序：通过许多选项来修改自身行为的独立小程序。 </p>
+<p class="p" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BE2">认识到 MEL 起源于壳脚本，有助于解其更加独特的功能。 </p>
+<div class="section" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BE1"><h2 class="title sectiontitle">快速概述</h2>
+
+<div class="section" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BE0"><h3 class="title sectiontitle">指定和值</h3>
+
+<p class="p" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BDF"> MEL 中的指定运算符是等号 (<samp class="ph codeph" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__GUID-6AFFC3CF-7A37-4AEE-9373-6C41CF530034">=</samp>)。MEL 还具有类似于 C 和 Java 语言的快捷指定运算符（<samp class="ph codeph" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__GUID-81A0D687-BDBC-4A62-8995-F647AC75635C">+=</samp>、<samp class="ph codeph" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__GUID-65C3F3F5-A2AD-4D01-A879-DFF2BE3CD7C9">-=</samp>、<samp class="ph codeph" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__GUID-D109DD29-0CC4-426D-9B22-630347A666CE">/=</samp>、<samp class="ph codeph" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__GUID-E903FF44-2330-4663-B882-653B4C0B0435">*=</samp>、<samp class="ph codeph" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__GUID-2134D41E-4B03-488F-9CAD-F92F0665E517">++</samp>、<samp class="ph codeph" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__GUID-99109FAD-71AF-42FA-A96B-1A7180627A19">--</samp>等）。 </p>
+
+<p class="p" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BDD">MEL 是一种强类型语言 (strongly typed language)，但在多数情况下允许隐式声明和键入。当声明一个变量时，便同时声明了其类型，并可以选择指定一个初始值。 </p>
+
+<p class="p" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BDC"> 变量名称以 $ 开头，后面带一个字母，然后是包含字母/数字/下划线的任意组合。与 PERL 不同的是，所有类型的变量（标量和复合）均以 $ 开始。 </p>
+
+<p class="p" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BDA">MEL 具有常用整数 (<samp class="ph codeph" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__GUID-F85D59D4-CCF1-4A3A-A022-367F55D426A7">Int</samp>)、浮点 (<samp class="ph codeph" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__GUID-BB2BD8FD-B9F0-43B0-8DD3-40D160C434C2">float</samp>) 和 <samp class="ph codeph" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__GUID-550F72A6-62EE-4B8A-9487-C4FC4286F88B">字符串</samp>数据类型。它还包含<samp class="ph codeph" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__GUID-501AAA04-8E65-43B4-B605-7A4DA1F0C745">向量</samp>数据类型，这是浮点的三元值（在处理 3D 数据时非常有用）、数组（变量大小的列表，其中所有元素都是同一类型）和矩阵（<samp class="ph codeph" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__GUID-0542A932-816D-4712-A589-E94920BEC173">矩阵</samp>是固定大小的浮点二维表）。数组中的所有项目必须是同一类型。 </p>
+
+<pre class="pre codeblock">
+int $a = 5;
+float $b = 3.456;
+vector $v = &lt;&lt;1.2, 3.4, 6.5&gt;&gt;;
+float $ar[] = {1.2, 3.4, 4.5}; // An array of floats
+matrix $mtx[3][2]; // A 3x2 matrix of floats
+</pre>
+
+<p class="p" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BD9"> 无法在 MEL 中创建数组的数组。 </p>
+
+<p class="p" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BD7">MEL 会尽可能自动转化类型。 </p>
+
+</div>
+
+<div class="section" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BD6"><h3 class="title sectiontitle">控制及循环语句和运算符</h3>
+
+<p class="p" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BD5"> MEL 的控制语句非常类似于 C 和 Java 语言。 </p>
+
+<pre class="pre codeblock">
+//Compare $a and $b, and perform different actions depending on the result
+if ( $a == $b) {
+	...
+} else if ($a &gt; $b) {
+	...
+} else {
+	...
+}
+
+//Compare $a with the result of whether $b is greater than 10. 
+//If true, then $c is used. 
+//If false, then $c is subtracted by 10.
+$a = ($b &gt; 10) ? $c : ($c - 10);
+
+//Switch statement is evaluated to select the block of code that should be executed
+switch ($color) {
+ case "blue":
+ ...
+ break;
+ case $c1:
+ ...
+ break;
+ default:
+ ...
+ break;
+}
+
+//While a condition is true, do as follows
+while ($a &lt; size($arry)) {
+	...
+}
+
+//Do the following while a condition is true
+do {
+	 ...
+} while ($a &gt; 0);
+
+//Basic for loop
+int $i;
+for ($i = 10; $i &gt; 0; $i--) {
+	print($i+"...\n");
+}
+print("Blastoff!!!");
+string $arry[3] = {"red","green","blue"};
+
+//Iterate through each k variable in arry
+for ($k in $arry) {
+	...
+}
+</pre>
+
+</div>
+
+<div class="section" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BD3"><h3 class="title sectiontitle">定义和调用步骤</h3>
+
+<p class="p" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BD2"> 可以使用以下语法创建用户定义的步骤： </p>
+
+<pre class="pre codeblock">
+global proc &lt;return type&gt; &lt;name&gt;(&lt;arg list&gt;) {
+	...
+	return &lt;exp&gt;;
+}
+global proc float squareAndAdd(float $x, float $y) {
+	return $x * $x + $y;
+}
+square(5.0, 2.0);
+27
+</pre>
+
+<p class="p" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BD0">如果省略全局关键字，该步骤仅在其已被定义的脚本文件中可用。 </p>
+
+<p class="p" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BCF">如果步骤不返回值，则省略返回类型关键字，且不包含 <samp class="ph codeph" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__GUID-1ED8F681-9F49-4750-A06C-03798EA89B89">return</samp> 语句。 </p>
+
+<pre class="pre codeblock">
+global proc msg() {
+	print("Hello world\n");
+}
+</pre>
+
+</div>
+
+</div>
+<div class="section" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BCE"><h2 class="title sectiontitle">注释</h2>
+
+<p class="p" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BCD"> MEL 使用前面带有 <samp class="ph codeph" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__GUID-3F50FBB0-5030-4CDC-AD11-6F5A3C4C8236">//</samp> 的 C++ 式 行 释，以及由 <samp class="ph codeph" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__GUID-AA15A625-AC35-4A26-8A9A-04C1ACBDC728">/*</samp> 和 <samp class="ph codeph" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__GUID-6277B13B-0696-4FDF-A258-B2675292DEBE">*/</samp> 包围的自由形式注释。 </p>
+
+</div>
+<div class="section" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BCB"><h2 class="title sectiontitle">MELisms</h2>
+
+<p class="p" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BCA">MEL 编程的一些特性会难倒经验丰富的程序员以及初学者。 </p>
+
+<p class="p" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BC9"> MEL 中的每个语句必须以分号 (;) 结束。 </p>
+
+<pre class="pre codeblock">
+if ($a &gt; $b) {print("Hello");};
+// Both semicolons are required!
+</pre>
+
+<p class="p" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BC6">与某些脚本语言/环境不同（但与 Logo 语言类似），声明一个可返回值的表达式并不会自动在 MEL 中打印值。这样做反倒会导致错误。 </p>
+
+<pre class="pre codeblock">
+3 + 5;
+// Error: 3 + 5; //
+// Error: Syntax error //
+print(3+5);
+8
+</pre>
+
+<p class="p" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BC5">在 MEL 中，经常会使用相同的命令来创建操作、编辑现有操作并查询有关现有操作的信息。在每种情况下，标志都会控制命令所要进行的操作（创建、编辑或查询）。 </p>
+
+<pre class="pre codeblock">
+// Create a sphere named "mySphere" with radius 5
+sphere -radius 5 -name "mySphere";
+// Edit the radius of mySphere
+sphere -edit -radius 3 "mySphere";
+// Print the radius of mySphere
+sphere -query -radius
+</pre>
+
+<p class="p" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BC4">在 MEL 中，可按照命令语法（类似于 UNIX 壳命令）和函数语法键入命令。使用命令语法，可以省略单字字符串周围的引号，并使用空格而不是逗号来分隔参数。 </p>
+
+<pre class="pre codeblock">
+setAttr("mySphere1.translateX",10); // Function syntax
+setAttr mySphere1.translateX 10; // Command syntax
+</pre>
+
+<p class="p" id="GUID-0F7C50D1-FF45-4868-8EBC-FE044F54B82E__WS73099CC142F48755-3D114B7511841AEFA9F-BC3">函数语法会自动返回值。若要使用命令语法获取返回值，必须将命令扩在反引号中。 </p>
+
+<pre class="pre codeblock">
+$a = getAttr("mySphere.translateX"); // Function syntax
+$b = `getAttr mySphere.translateY`; // Command syntax
+</pre>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-60178D44-9990-45B4-8B43-9429D54DF70E.htm">MEL 概述</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Animation">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646">
+<meta name="language" content="CHS">
+<title>烘焙时间编辑器片段</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>烘焙时间编辑器片段</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__GUID-6C37099A-A7B4-4578-A6F7-618E54481B5C">烘焙<span class="ph uicontrol">时间编辑器</span>片段，可将现有动画合并为单个动画曲线。由于这种方式可以将创建的关键帧数保持得尽可能小，因此对片段或组片段执行复杂的编辑和分层之后非常有用。 
+	 </p>
+<p class="p">下图显示了烘焙到片段之前<span class="ph uicontrol">时间编辑器</span>和<span class="ph uicontrol">曲线图编辑器</span>中的一系列动画片段。 
+	 </p>
+<div class="fig fignone" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__FIG_13044D0F26274F078462443E468B3C9A"><img class="image" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__IMAGE_DD4425F2BD744A50A9183568EFA13250" src="../images/GUID-F3546408-CF63-48AB-93AB-550C54A26A65.png"></div>
+<p class="p">下一幅图显示了在<span class="ph uicontrol">时间编辑器</span>中进行烘焙之后的同一系列动画片段。请注意，由于已忽略重复的关键帧，因此<span class="ph uicontrol">曲线图编辑器</span>中的动画曲线看起来显得更简洁。 
+	 </p>
+<div class="fig fignone" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__FIG_E7B427567B77486698CEB8DAEDE17CA2"><img class="image" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__IMAGE_FD81DA8EB3114E4A867057EB6D3C8251" src="../images/GUID-21A71B63-AAED-4649-BDAC-BC24DD814221.png"></div>
+<div class="section" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__SECTION_39BA2015483B4B4CA29BA278B5000671"><h2 class="title sectiontitle">合并片段</h2> 
+		 
+		<p class="p" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__GUID-C27E7138-EA5C-4342-9219-35772C0409C8">在对象上烘焙动画时，<span class="ph uicontrol">时间编辑器</span>将重用现有曲线，除了某些情况下，无法在区域中使用原始曲线。在这些情况下，<span class="ph uicontrol">时间编辑器</span>将对具有多条曲线影响同一属性的任何区域进行采样。
+		</p>
+ 
+		<div class="p">具有以下特点的片段将会发生采样：
+		<ul class="ul" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__UL_1EDFB19E79D94EE6BAD61084E291E18B"><li class="li" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__LI_253324F11D0E46229A96B447DFF4E66B">已 crossfade
+		  </li>
+<li class="li" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__LI_5893CA41A85D4E9893E50C4519DF5AAE">已插值（如果片段位于正在烘焙的组片段内的不同轨迹上）
+		  </li>
+<li class="li" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__LI_B98EEEF1A69047E9B1B3BAF425C682DE"> 已重定时（速度曲线和时间扭曲等应用于片段）
+		  </li>
+<li class="li" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__LI_79F89D4B3F7E4A10A43379364E6F34AE">具有受非曲线驱动的属性，如表达式或约束
+		  </li>
+<li class="li" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__LI_50B48EEE878E4F26802ABD8EE219C989"> 已设置动画权重
+		  </li>
+<li class="li" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__LI_1076CDCA0D4342A99A40EF6C6411A889"> 具有层
+		  </li>
+</ul>
+
+		</div>
+ 
+		<div class="p" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__GUID-70D4437A-93D7-4DFA-AF47-E649AAFC2B10">如果<span class="ph uicontrol" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__GUID-94EBA992-E099-4271-9F32-704933DF3853">时间编辑器</span>中某对象有两个动画片段已 crossfade，这会导致<span class="ph uicontrol">时间编辑器</span>对动画曲线求值，以创建最终关键帧值。在以下示例中，<span class="ph uicontrol">时间编辑器</span>和<span class="ph uicontrol">曲线图编辑器</span>中显示了两个融合片段。 
+		  <div class="fig fignone" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__FIG_DEA08D26DC8C47E4AC0FD488353B3B28"><img class="image" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__IMAGE_D9FF92E5EC5F43E29D3BB8BE77FE169B" src="../images/GUID-D5B45A70-108F-4F0C-9DEE-47CB7256D3E6.png"></div>
+ 
+		</div>
+ 
+		<div class="p">在下图中，这些片段已烘焙到一起。请注意如何组合片段重叠的关键帧。在此过程中，仅烘焙已 crossfade 区域中的动画曲线。仅在必要时添加已 crossfade 区域之外的关键帧。 
+		  <div class="fig fignone" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__FIG_855C6A8DC23447B3ADE555742CC68986"><img class="image" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__IMAGE_2DF8C6101E5348409D7796CDA506856D" src="../images/GUID-0A62B2F8-42FC-4545-B0AE-BD71ACA6CC28.png"></div>
+ 
+		</div>
+ 
+	 </div>
+<p class="li listintro">若要烘焙<span class="ph uicontrol">时间编辑器</span>片段，请执行以下操作：</p>
+<ol class="ol" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__OL_CD3761A1EFCB493BB9CBEEAEC30EAD56"><div class="p">在片段上单击鼠标右键，然后从<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-AD0AC3AC-EA7C-4B0F-A80E-53DD62ED628D.htm">时间编辑器“片段”(Clip)上下文菜单</a>中选择<span class="ph uicontrol">“烘焙到场景”(Bake to Scene)</span>或<span class="ph uicontrol">“烘焙到新片段”(Bake to New Clip)</span>。您可以使用<span class="ph uicontrol">“烘焙到新场景并删除”(Bake to New Scene and Delete)</span>和<span class="ph uicontrol">“烘焙到新片段并删除”(Bake to New Clip and Delete)</span>移除选定文件的原始版本。 
+		<div class="fig fignone" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__FIG_1417EB5DF6C34FE597FB054F84662BE4"><img class="image" id="GUID-099E2720-F9B6-4CCE-A6E2-204095FEC646__IMAGE_92A7F5F2A0DE455EA33E77FB46E0B82F" src="../images/GUID-CEF269A1-A26C-4FD6-893B-52C96B9F4CAD.gif"></div>
+ 
+	 </div>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-BDB2DFB1-F4FB-4475-AD04-C182ABC6B0CB.htm">在时间编辑器中进行烘焙和导出</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_lighting_am_Caustic_Effect_Using_Cell_Noise_3A_Shark_Scene_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_CAUSTIC_EFFECT_USING_CELL_NOISE_3A_SHARK_SCENE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用单元噪波创建焦散效果：鲨鱼场景 - Arnold for Maya">
+
+<title>使用单元噪波创建焦散效果：鲨鱼场景</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+<div class="head-block"><h1>使用单元噪波创建焦散效果：鲨鱼场景</h1></div><p><img src="../images/shark-cell_noise.gif" alt=""></p>
+<p><em>cell_noise</em> 着色器用途广泛，能够创建各种不同的着色效果。在本简短教程中，我们将介绍如何使用 <em>spot_light</em> 以及连接到 <em>gobo</em> 灯光过滤器的 <em>cell_noise</em> 着色器创建焦散效果。非常感谢 <a href="https://cgrenderdna.blogspot.com/" target="_blank">Slava Sych</a> 为本教程提供的帮助。</p>
+<p><strong>要下载对应的教程场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/caustic-user-guide.ma" target="_blank">此处</a></strong>。</p>
+<h2 id="gobo">Gobo -&gt; 聚光灯</h2><ul>
+<li>首先，创建一个平面。我们将使用 <em>spot_light</em> 通过 <em>gobo</em> 对 <em>cell_noise</em> 着色器进行投影。</li>
+<li>创建一个 <em>spot_light*，并使其朝向平面。增加 *spot_light</em> 的<em>“曝光”(exposure)</em>。</li>
+<li>将 <em>gobo</em> 灯光过滤器连接到 <em>spot_light</em>。</li>
+<li>将 <em>cell_noise</em> 着色器连接到 <em>gobo</em> 的<em>“混合”(Blend)</em>属性。</li>
+</ul>
+<h2 id="">单元噪波</h2><ul>
+<li>将 <em>cell_noise</em> <em>图案</em>更改为 <em>Worley 1</em>。</li>
+<li>增加 <em>cell_noise</em> <em>缩放比例</em>。在本例中，XYZ 中使用 20。</li>
+<li>将 <em>coord_space</em> 更改为 <em>UV</em>。这将使用对象的局部 UV 坐标，在本例中这看上去更能达到我们的预期效果。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/image2018-8-31-10_47_10.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong><em>cell_noise</em> 着色器使用 <em>Worley 1</em> 图案</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<h2 id="">范围着色器</h2><p>我们可以使用<em>范围*着色器以线性方式重映射 *cell_noise</em> 着色器的输出，以创建类似焦散效果的场景。</p>
+<ul>
+<li>在 <em>cell_noise</em> 着色器与 <em>gobo</em> 之间插入<em>范围</em>着色器。</li>
+<li>在<em>范围</em>着色器中启用 <em>smoothstep</em>。</li>
+<li>增大 <em>input_min</em> 属性，并注意其对 <em>cell_noise</em> 着色器的影响。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/image2018-8-31-10_46_52.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong><em>Input_min</em> 增加到 0.6</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li>将 <em>bias</em> 减小到 0.01 左右。您应该会注意到，它现在看起来更像焦散效果。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/image2018-8-31-10_55_3.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong><em>“偏差”(Bias)</em></strong><strong>减小到 0.01</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<ul>
+<li>返回到 <em>cell_noise</em> 着色器，并对<em>“时间”(time)</em>属性设置关键帧。这时应该会看到类似焦散图案的效果！</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/caustic-final.gif" alt=""></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/image2018-8-31-11_11_12.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>场景设置</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Lighting_html.html">照明</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

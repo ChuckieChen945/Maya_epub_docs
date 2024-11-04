@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-76020851-DBB2-40F3-8BDF-0561976D519A">
+<meta name="language" content="CHS">
+<title>与被动对象发生碰撞</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>与被动对象发生碰撞</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p">可以从场景中的任何多边形网格创建被动碰撞对象。创建被动碰撞对象时，您可以将碰撞对象指定给现有 Nucleus 解算器，使碰撞对象及其所含的其他 Nucleus 对象交互。如果场景中不存在 Nucleus 解算器，您可以在创建被动碰撞对象的同时创建一个 Nucleus 解算器。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-719CDD48-7C40-41C0-A29E-25628D83C83E.htm">为 Nucleus 对象创建被动碰撞对象</a>。
+	 </p>
+<p class="p"> 稍后，您可以将被动碰撞对象重新指定给其他 Nucleus 解算器，使其可与其所含的对象发生碰撞。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-E53F5D48-6CC5-4996-B393-AAEBD151A318">指定 Nucleus 解算器</a>。
+	 </p>
+<p class="p" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__WS1A9193826455F5FF6026605B1181C8F4F2E-1F2A"> 被动对象可以与其他 Nucleus 对象交互，但内部 Maya Nucleus 解算器特性和外力对其没有影响。创建被动对象时，被动对象控制柄显示在场景视图中的网格上，并且 nRigidShape 选项卡显示在<span class="ph uicontrol" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__GUID-1DD36210-918A-4D17-9063-A3FF28CAD991">“属性编辑器”(Attribute Editor)</span>中。可以使用被动对象控制柄来快速选择被动对象的 <samp class="ph codeph" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__GUID-1F3C9A0C-BEB0-41C0-B990-6386F6588004">nRigidShape</samp> 节点，该节点将成为<span class="ph uicontrol" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__GUID-96932FE1-97DD-4820-AE70-43AC8D7E49C7">“属性编辑器”(Attribute Editor)</span>中的当前选项卡选择。 
+	 </p>
+<p class="p" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__WS1A9193826455F5FF6026605B1181C8F4F2E-1F28">被动对象可帮助创建即将接触非布料对象的布料对象的逼真行为。例如，如果角色穿着一件 nCloth 衬衫，可以将角色的身体设定为被动对象。在动画期间，当角色在肘部弯曲其手臂时，nCloth 的行为方式将像已与角色的手臂接触一样。对于 nParticle，被动对象提供了一个曲面，该曲面偏转已发射粒子，如散射火花或泼墨液体。可以使用大量的 nParticle 填充建模的具有凹区域的被动对象。 
+	 </p>
+<p class="p" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__WS1A9193826455F5FF6026605B1181C8F4F2E-1F27">若要在被动对象和其他 Nucleus 对象之间发生碰撞，必须在其各自节点的<span class="ph uicontrol" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__GUID-9A01C2EA-0C71-4CC8-94E4-780424977070">“碰撞”(Collide)</span>特性中启用<span class="ph uicontrol" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__GUID-932CDE00-FAB4-4733-A4D9-BF4E9E33E0E6">“碰撞”(Collide)</span>属性。此外，可以设定要碰撞的 nCloth 和被动对象组件（顶点、边或面），方法是使用其各自节点的<span class="ph uicontrol" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__GUID-B4BAB342-AAB5-42AC-A8DE-54C8C56D944A">“碰撞”(Collisions)</span>区域中的<span class="ph uicontrol" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__GUID-BADB73C3-1B04-4D6B-8DE7-1E10A50668C4">“碰撞标志”(Collision Flag)</span>下拉菜单。 
+	 </p>
+<p class="p" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__WS1A9193826455F5FF6026605B1181C8F4F2E-1F26">如需对被动对象碰撞进行其他控制，可以使用<span class="ph uicontrol" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__GUID-F39B116C-FE74-4207-A99B-9138E9424E87">“禁用碰撞”(Disable Collision)</span>或“排除碰撞对”约束将组件包括在碰撞之内或将其排除在外<span class="ph uicontrol" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__GUID-F9DDD2F4-F66E-42C8-9AF3-19C0EC84B03E"></span>。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-17B84282-8A65-4359-B997-9D4BC0293FF2.htm">nConstraint 菜单</a>。也可以使用<span class="ph uicontrol" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__GUID-851FE108-AE8B-4B32-AD7E-D62E3C401C81">“向外推”(Push Out)</span>、<span class="ph uicontrol" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__GUID-33B4AD27-A1A0-447E-8F00-2AF2B64C25F0">“陷阱检查”(Trapped Check)</span>和<span class="ph uicontrol" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__GUID-106A213F-C53C-453B-ADB4-7B67554C5895">“交叉推力”(Crossover Push)</span><samp class="ph codeph" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__GUID-A1AA99A1-566F-4DB8-B8BF-81D85B11F4CF"> nClothShape</samp> 或 <samp class="ph codeph" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__GUID-0E25F684-8AF8-4647-AB66-6060A37F9A35">nRigidShape</samp> 属性解决被动对象穿透。 
+	 </p>
+<p class="p" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__WS1A9193826455F5FF6026605B1181C8F4F2E-1F25">有关碰撞创建的详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B">创建和编辑 nCloth 碰撞</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-1A80CC1B-8655-481B-96F4-25F9B3ED399D.htm">设定 nParticle 碰撞特性</a>。 
+	 </p>
+<div class="section" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__WS73099CC142F48755-63C0748611A1FA08F71-4A05"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__WS1A9193826455F5FF6026605B1181C8F4F2E-1F2E"><li class="li" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__WS1A9193826455F5FF6026605B1181C8F4F2E-1F2D"><a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-A918D392-681B-4174-A139-DEAEE1576A93"> nCloth 菜单</a>
+		  </li>
+<li class="li" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__WS73099CC142F48755-63C0748611A1FA08F71-4A04"> 
+			 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-59D6108B-1208-49AC-830C-74CCD71A2A7B">创建 nCloth 碰撞</a>
+		  </li>
+<li class="li" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__LI_E8E0E1B1E3194A5183AA599536AA715E"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-1A80CC1B-8655-481B-96F4-25F9B3ED399D.htm">使用 nParticle 碰撞</a>
+		  </li>
+<li class="li" id="GUID-76020851-DBB2-40F3-8BDF-0561976D519A__WS73099CC142F48755-63C0748611A1FA08F71-4A03"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-A63159CC-15B0-473C-83F5-F8FE2699A7B0.htm"> Nucleus 对象之间的碰撞</a>
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-BABBD1CE-C82C-4EDB-BBF6-4C0EBC854DAA.htm">nDynamic 碰撞</a></div>
+</div>
+</div>
+
+</body>
+</html>

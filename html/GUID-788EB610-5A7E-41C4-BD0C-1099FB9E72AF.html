@@ -1,0 +1,197 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF">
+<meta name="language" content="CHS">
+<title>使用 Backburner 进行网络渲染</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 Backburner 进行网络渲染</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF-56C0CD8012A8003217A-19AF"><p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS1A9193826455F5FF-3859B43C1209703A8382F92"> 在进行网络渲染时，可以结合使用 Autodesk<span name="glyph_span">®</span> Backburner<sup class="ph sup" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-3D5939C2-B328-4749-9D7D-CBDAB7AAFACD"> 
+		  <span class="ph" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-186F5B60-D1EC-40E7-9AF2-0FCEFCC9595F">TM</span> 
+		</sup> 和 Maya 来管理渲染作业和渲染节点。Autodesk Backburner 是一种背景渲染网络系统，允许同一网络上的许多计算机共同渲染动画场景。
+	 </p>
+<p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS1A9193826455F5FF-3859B43C1209703A8384412">有关详细信息，请参见 <a class="xref" href="https://www.autodesk.com/backburner-documentation-chs" target="_blank"><strong class="ph b" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-967871A0-5FC5-498E-87EF-3E7400B3D0F2">Backburner 用户手册</strong></a>。（该文件的大小约为 2 MB。） 
+	 </p>
+<div class="section" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS1A9193826455F5FF-3859B43C1209703A8384413"><h2 class="title sectiontitle">安装 Backburner</h2> 
+		 
+		<p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F487553A80943A1216E09FB59-4425">在安装 Backburner 之前，确保已禁用渲染节点上的防火墙或允许通过适当端口。
+		</p>
+ 
+		<p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS1A9193826455F5FF-3859B43C1209703A8384414">有关如何在独立工作站上设置背景渲染的信息，请参见 <a class="xref" href="https://www.autodesk.com/backburner-documentation-chs" target="_blank"><strong class="ph b" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-1FDA4F5D-E7D2-4087-B018-8C28A5088A58">Backburner 安装手册</strong></a>的<strong class="ph b" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-C9617835-C64D-48FD-8C1C-497A0EBD9A6C">“配置独立工作站”</strong>一章。（该文件的大小约为 2 MB。） 
+		</p>
+ 
+		<p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS1A9193826455F5FF-3859B43C1209703A8384415">有关如何设置渲染场中的 Backburner Manager 和 Backburner Server 的说明，请参见 <a class="xref" href="https://www.autodesk.com/backburner-documentation-chs" target="_blank"><strong class="ph b" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-3672538F-429A-4ABB-B27F-F40A783C7876">Backburner 安装手册</strong></a>的<strong class="ph b" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-48D72CBD-45AD-4401-AE89-18B803F9E2AB">“Backburner 组件 - Windows”</strong>一章。（该文件的大小约为 2 MB。） 
+		</p>
+ 
+		<p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F487553A80943A1216E09FB59-4424">下面介绍的安装和设置步骤可直接使用或进行修改以进行自定义集成。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F487553A80943A1216E09FB59-4423"><h2 class="title sectiontitle">在开始之前</h2> 
+		 
+		<p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F487553A80943A1216E09FB59-4422">在开始之前，必须确保以下事项：
+		</p>
+ 
+		<ul class="ul" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F487553A80943A1216E09FB59-4421"><li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F487553A80943A1216E09FB59-4420">将 Backburner 和 Maya 安装在每个渲染场节点上的同一文件夹位置。因此，不能将 <span class="ph">Windows render nodes with Linux render nodes or 
+			 </span>Windows 渲染节点与 Mac OS X 渲染节点混合使用，等等。
+		  </li>
+<li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F487553A80943A1216E09FB59-441F">项目必须可从 Backburner 设置中的所有渲染节点访问。
+			 <ul class="ul" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F487553A80943A1216E09FB59-441E"><li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F487553A80943A1216E09FB59-441D">(Windows) 映射到同一驱动器号或 UNC 路径。
+				</li>
+<li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F487553A80943A1216E09FB59-441C">(Linux) 装载到同一位置。
+				</li>
+<li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS1A9193826455F5FF453265C9125FAA23BBB-3DFA">(Mac OS X) 装载到同一位置。
+				</li>
+</ul>
+ 
+		  </li>
+<li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F487553A80943A1216E09FB59-441B">必须将项目设定为网络可访问路径。
+		  </li>
+<li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755-751DE995125FAA274EA2604">建议项目数据位于与渲染节点和渲染场管理器不同的文件服务器上。
+		  </li>
+<li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F487553A80943A1216E09FB59-441A">必须将场景保存到文件并可跨网络访问它。将忽略所有未保存的更改。
+		  </li>
+<li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F487553A80943A1216E09FB59-4417">拟保存渲染图像的项目 <samp class="ph codeph" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-118E6EE8-E2A2-4062-B4EC-EF04461CE655">..\images</samp> 目录位置必须是跨网络可写入的。
+		  </li>
+<li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F487553A80943A1216E09FB59-4416">日志文件将保存到的日志路径必须可写。
+		  </li>
+</ul>
+ 
+		<div class="note note" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755-385A98B012180D20F19-FF7"><span class="notetitle">注：</span>  
+		  <p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-DF4B3883-C217-4806-B0C5-748C330FBDEC">Backburner 为渲染动画提供了最佳性能改进。Backburner 只能将作业细分为至少一个帧长的任务。它无法将单个帧细分为多个任务以跨多台计算机进行分发。
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS1A9193826455F5FF-3859B43C1209703A8384416"><h2 class="title sectiontitle">结合使用 Maya 和 Backburner 进行网络渲染</h2> 
+		 
+		<p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755F2FC9DF120970276F73B84">按照以下步骤设置 Backburner 以与 Maya 结合使用。
+		</p>
+ 
+		<p class="li listintro" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755F2FC9DF120970276F73B86">设置 Backburner 以与 Windows 上的 Maya 结合使用</p>
+<ol class="ol" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755F2FC9DF120970276F73B85"><li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755F2FC9DF120970276F73B87">在所有渲染场节点上安装 Backburner 和 Maya。
+			 <p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755F2FC9DF120970276F73B88">必须将 Backburner 和 Maya 安装在每台计算机上的同一文件夹位置。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755F2FC9DF120970276F73B89">选择要用作渲染场管理器的计算机。在该计算机上，运行 Backburner Manager 并配置它以适合您的环境。
+		  </li>
+<li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755F2FC9DF120970276F73B8A">在要用于渲染的所有计算机上（如果需要，包括渲染场管理器），运行 Backburner Server 应用程序并使其指向选择作为 Backburner Manager 的计算机。
+			 <div class="note note" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755F2FC9DF120970276F73B8B"><span class="notetitle">注：</span>  
+				<p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-16670F3C-44C9-4BB6-A112-BCC09A8198BD">可以将 Backburner Manager 和 Server 作为 Windows 中的服务运行。有关详细信息，请参见<strong class="ph b" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-0533648B-2312-40D0-8369-7A9DE6C4481D">“Backburner 安装手册”</strong>。
+				</p>
+ 
+			 </div>
+ 
+			 <div class="note note" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755-751DE995125FAA274EA2605"><span class="notetitle">注：</span>  
+				<p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-6C2325D7-B1F8-4C1E-9DA2-3E27A09B918C">不建议将渲染场管理器用于渲染。
+				</p>
+ 
+			 </div>
+ 
+		  </li>
+</ol>
+ 
+		<p class="li listintro" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755F2FC9DF120970276F73B8D">设置 Backburner 以与 Linux 上的 Maya 结合使用</p>
+<ol class="ol" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755F2FC9DF120970276F73B8C"><li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755F2FC9DF120970276F73B8E">在所有渲染场节点上安装 Backburner 和 Maya。
+			 <p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755F2FC9DF120970276F73B8F">必须将 Backburner 和 Maya 安装在每台计算机上的同一文件夹位置。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755F2FC9DF120970276F73B90">选择要用作渲染场管理器的计算机。在该计算机上，以 root 身份运行 <samp class="ph codeph" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-C25D030D-A5D8-4F0D-AC57-BEB37577BC7B">/usr/discreet/backburnerConfig</samp> 并安装 Backburner Manager 服务。
+			 <div class="note note" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755F2FC9DF120970276F73B91"><span class="notetitle">注：</span>  
+				<p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-4E254430-517D-4219-A507-9A399522EF3A">设置 Backburner Server 服务是可选的。
+				</p>
+ 
+			 </div>
+ 
+		  </li>
+<li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755F2FC9DF120970276F73B92">在要用于渲染的所有计算机上（如果需要，包括渲染场管理器），以 root 身份运行 <samp class="ph codeph" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-C10D3B67-BEEC-4DA6-8813-93161B7B4A03">/usr/discreet/backburnerConfig</samp> 并将 Backburner Server 配置为指向选择作为 Backburner Manager 的计算机。
+			 <div class="note note" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755-751DE995125FAA274EA2606"><span class="notetitle">注：</span>  
+				<p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-151D45D2-D35E-4A59-B486-33F6EC9F5DCD">不建议将渲染场管理器用于渲染。
+				</p>
+ 
+			 </div>
+ 
+			 <div class="note note" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755F2FC9DF120970276F73B93"><span class="notetitle">注：</span>  
+				<p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-2EB0D432-3979-4C74-BC45-E46932B50602">有关详细信息，请参见<strong class="ph b" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-12872953-BAA5-4A67-A3F4-AA40C4C7D6A5">“Backburner 安装手册”</strong>。
+				</p>
+ 
+			 </div>
+ 
+		  </li>
+</ol>
+ 
+		<p class="li listintro" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS1A9193826455F5FF453265C9125FAA23BBB-3DF7">设置 Backburner 以与 Mac OS X 上的 Maya 结合使用</p>
+<ol class="ol" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS1A9193826455F5FF453265C9125FAA23BBB-3DF8"><li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS1A9193826455F5FF453265C9125FAA23BBB-3DF6">在所有渲染场节点上安装 Backburner 和 Maya。
+			 <p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS1A9193826455F5FF453265C9125FAA23BBB-3DF5">必须将 Backburner 和 Maya 安装在每台计算机上的同一文件夹位置。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS1A9193826455F5FF453265C9125FAA23BBB-3DF4">选择要用作渲染场管理器的计算机并在位于 <samp class="ph codeph" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-094212FA-1DBE-4E15-8F14-D739F38CB80A">/usr/discreet/backburner/cfg</samp> 的 <samp class="ph codeph" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-CA20BF03-B363-491E-8662-76E768305BA4">manager.host</samp> 文件中输入其名称。
+		  </li>
+<li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS1A9193826455F5FF453265C9125FAA23BBB-3DF3">重新启动 Backburner Server。
+			 <p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS1A9193826455F5FF453265C9125FAA23BBB-3DF2">或者，也可以重新启动计算机。
+			 </p>
+ 
+			 <div class="note note" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS1A9193826455F5FF453265C9125FAA23BBB-3DF1"><span class="notetitle">注：</span>  
+				<p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-1B48F157-1EF7-481A-92C3-8F37B8D286B7">有关详细信息，请参见<strong class="ph b" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-46F889BB-DBA3-4DD3-94C5-3F2DCE7B1C4E">“Backburner 安装手册”</strong>。
+				</p>
+ 
+			 </div>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755F2FC9DF120970276F73952"><h2 class="title sectiontitle">从 Maya 将作业提交到 Backburner</h2> 
+		 
+		<p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS1A9193826455F5FF-3859B43C1209703A8384417">若要创建渲染作业和管理渲染节点，请选择<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-F8AA23F0-41A2-45F6-A60D-E3312B198CDB.htm">渲染 &gt; 创建 Backburner 作业(Render &gt; Create Backburner Job)</a>。
+		</p>
+ 
+		 
+	 </div>
+<div class="section" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F487553A80943A1216E09FB59-4415"><h2 class="title sectiontitle">创建自定义集成</h2> 
+		 
+		<p class="p" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755-385A98B012180D20F19-298C">除了使用现成的 Backburner 集成外，还可以自定义自己的集成。为此，必须了解以下事项。
+		</p>
+ 
+		<ul class="ul" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755-385A98B012180D20F19-FF6"><li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755-385A98B012180D20F19-FF5">在选择<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-F8AA23F0-41A2-45F6-A60D-E3312B198CDB.htm">渲染 &gt; 创建 Backburner 作业(Render &gt; Create Backburner Job)</a>时，该脚本创建指示 Maya 渲染命令行工具和 Backburner cmdJob 工具的设置。
+		  </li>
+<li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755-385A98B012180D20F19-FF4">指示渲染命令工具使用当前投影路径和当前场景路径进行渲染。渲染目录也是项目图像目录。
+		  </li>
+<li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755-385A98B012180D20F19-FF3"><span class="ph uicontrol" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-E906EAE5-345A-4D25-821B-A48633E0C8BB">“开始帧”(Start Frame)</span>、<span class="ph uicontrol" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-E0A0087B-F15D-4837-996F-2D0693A50A19">“结束帧”(End Frame)</span>和<span class="ph uicontrol" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-6196C43D-9138-4B48-AEA2-33B9D9A4FC0E">“任务大小”(Task Size)</span>属性用于创建用于将帧分发到不同计算机的任务列表文件。例如，如果<span class="ph uicontrol" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-06B7FEEC-FA70-4EB9-BBB9-B78B68D51C1B">“开始帧”(Start Frame)</span>是 1，<span class="ph uicontrol" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-CD94D6CA-1B30-48A4-A65E-98AE8E7844F6">“结束帧”(End Frame)</span>是 30，<span class="ph uicontrol" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-ED5055E2-9111-4564-83D9-D201D7FA80C7">“任务大小”(Task Size)</span>是 6，则 Backburner 使用文件来指示渲染命令在每个渲染节点上渲染哪些帧。例如，渲染节点 1 渲染帧 1-6，渲染节点 2 渲染帧 7-12 等等。
+		  </li>
+<li class="li" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__WS73099CC142F48755-385A98B012180D20F19-FF2">若要查看如何生成 Maya 渲染命令行工具和 Backburner cmdJob 工具的参数，请选择<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-F8AA23F0-41A2-45F6-A60D-E3312B198CDB.htm">渲染 &gt; 创建 Backburner 作业(Render &gt; Create Backburner Job)</a>窗口中的<span class="ph uicontrol" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-9F0EB1C8-D1A3-4B1F-A295-A7EB5AAC8134">“使用自定义命令”(Use Custom Command)</span>并单击<span class="ph uicontrol" id="GUID-788EB610-5A7E-41C4-BD0C-1099FB9E72AF__GUID-0F70566B-6991-4905-BF25-F4BAF14DCB24">“填充命令”(Populate Command)</span>按钮。也可以根据需要自定义参数。
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-42BB2D18-5181-4A67-9E00-D34CCF97B67A.htm">网络渲染</a></div>
+</div>
+</div>
+
+</body>
+</html>

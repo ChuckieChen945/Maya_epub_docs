@@ -1,0 +1,60 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Core_Randomization_Core_Randomization_randomize_direction_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>randomize_direction</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>randomize_direction</code></h1></div><p>在球体曲面的某部分上随机旋转输入向量。这对于许多任务都很有用，例如，随机定向实例、在圆锥体中喷射粒子或在不影响速度的情况下抖动速度方向。</p>
+<h2 id="">输入</h2><h2 id="random-properties"><code>Random Properties</code></h2><h3 id="index"><code>index</code></h3><p>随机序列中输出的索引。如果在循环中迭代输入向量数组，则应将迭代索引连接到此端口，否则每个输出都将相同。同样，如果通过将数组连接到 <code>cone_axis</code> 来自动向量化此复合，则应将匹配的索引数组连接到此端口。</p>
+<h3 id="seed"><code>seed</code></h3><p>随机数生成器的种子。不同的种子会产生不同的随机值序列。</p>
+<h2 id="vector-properties"><code>Vector Properties</code></h2><h3 id="cone_axis"><code>cone_axis</code></h3><p>要旋转的向量。输出随机分布在以该向量为中心的球形封口上。</p>
+<h3 id="min_radians-max_radians"><code>min_radians</code>、<code>max_radians</code></h3><p>用于旋转向量的最小和最大角度（以弧度为单位）。例如：</p>
+<ul>
+<li>如果将最小值设置为 0，将最大值设置为 π，则可以得到整个球体的分布。</li>
+<li>如果将最小值设置为 0，将最大值设置为小于 π/2 的值，则可以得到以输入向量为中心的圆锥形分布。</li>
+<li>如果将最小值设置为小于 π/2 的值，将最大值设置为介于 π/2 和 π 之间的值，则可以得到环绕赤道的带状分布，其中输入向量是北极。</li>
+</ul>
+<h2 id="bias"><code>Bias</code></h2><h3 id="apply_bias"><code>apply_bias</code></h3><p>根据剖面曲线偏移分布。</p>
+<h3 id="distribution"><code>distribution</code></h3><p>编辑曲线以调整分布。低于对角线偏移的曲线值指向较低的角度，高于对角线偏移的曲线值指向较高的角度。在 [0, 1] 范围之外的曲线值可能会产生不直观的结果，因为这些值环绕着球体。</p>
+<h2 id="">输出</h2><h3 id="output_vector"><code>output_vector</code></h3><p>随机旋转的 <code>cone_axis</code> 向量。此向量与输入具有相同的长度，因此，例如，如果要在不改变速度的情况下抖动速度方向，可以使用此输出。</p>
+<h3 id="output_unit_vector"><code>output_unit_vector</code></h3><p>长度为 1（或非常接近 1）的向量，方向与 <code>output_vector</code> 输出相同。如果图表计算需要单位向量，则使用这些值可以避免归一化输出的开销。</p>
+<h3 id="output_quaternion"><code>output_quaternion</code></h3><p>表示将 <code>cone_axis</code> 变换为 <code>output_vector</code> 所需的旋转的四元数。在需要四元数的位置使用此输出，例如，在实例上设置随机方向或旋转点位置。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Core/Bifrost_Common_reference_Core_Randomization_html.html">Randomization</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

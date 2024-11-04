@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-D942701B-C9F8-4C0B-954F-38DC04F38FBD">
+<meta name="language" content="CHS">
+<title>将向量分量运算符与变量一起使用</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-D942701B-C9F8-4C0B-954F-38DC04F38FBD">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>将向量分量运算符与变量一起使用</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-D942701B-C9F8-4C0B-954F-38DC04F38FBD__WS73099CC142F48755-3D114B7511841AEFA9F-E4A"> 您可以使用向量分量运算符 (.)来读取向量变量或向量数组变量的分量。 </p>
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-D942701B-C9F8-4C0B-954F-38DC04F38FBD__WS73099CC142F48755-3D114B7511841AEFA9F-E48" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">格式</th>
+<th class="entry" valign="top" width="50%">含义</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">
+<p class="p" id="GUID-D942701B-C9F8-4C0B-954F-38DC04F38FBD__WS73099CC142F48755-3D114B7511841AEFA9F-E47">$variable.x</p>
+
+</td>
+<td class="entry" valign="top" width="50%">
+<p class="p" id="GUID-D942701B-C9F8-4C0B-954F-38DC04F38FBD__WS73099CC142F48755-3D114B7511841AEFA9F-E46">左侧分量</p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">
+<p class="p" id="GUID-D942701B-C9F8-4C0B-954F-38DC04F38FBD__WS73099CC142F48755-3D114B7511841AEFA9F-E45">$variable.y</p>
+
+</td>
+<td class="entry" valign="top" width="50%">
+<p class="p" id="GUID-D942701B-C9F8-4C0B-954F-38DC04F38FBD__WS73099CC142F48755-3D114B7511841AEFA9F-E44">中间分量</p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">
+<p class="p" id="GUID-D942701B-C9F8-4C0B-954F-38DC04F38FBD__WS73099CC142F48755-3D114B7511841AEFA9F-E43">$variable.z</p>
+
+</td>
+<td class="entry" valign="top" width="50%">
+<p class="p" id="GUID-D942701B-C9F8-4C0B-954F-38DC04F38FBD__WS73099CC142F48755-3D114B7511841AEFA9F-E42">右侧分量</p>
+
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="GUID-D942701B-C9F8-4C0B-954F-38DC04F38FBD__WS73099CC142F48755-3D114B7511841AEFA9F-E41"><h2 class="title sectiontitle">示例</h2>
+
+<pre class="pre codeblock">
+float $temp;
+vector $myvector = &lt;&lt;1,2,3&gt;&gt;;
+float $temp = $myvector.z;
+</pre>
+
+<p class="p" id="GUID-D942701B-C9F8-4C0B-954F-38DC04F38FBD__WS73099CC142F48755-3D114B7511841AEFA9F-E40">它将 $myvector 的右侧分量 3 指定给浮点变量 $temp。</p>
+
+<p class="p" id="GUID-D942701B-C9F8-4C0B-954F-38DC04F38FBD__WS73099CC142F48755-3D114B7511841AEFA9F-E3F">假设您具有进行了如下初始化的向量：</p>
+
+<pre class="pre codeblock">
+vector $myvector = &lt;&lt;1,2,3&gt;&gt;;
+</pre>
+
+<p class="p" id="GUID-D942701B-C9F8-4C0B-954F-38DC04F38FBD__WS73099CC142F48755-3D114B7511841AEFA9F-E3E">若要将 $myvector 的右侧分量 3 替换为新的值（如 7），请使用该技术来保留其他两个分量：</p>
+
+<pre class="pre codeblock">
+$myvector = &lt;&lt;$myvector.x,$myvector.y,7&gt;&gt;;
+</pre>
+
+<p class="p" id="GUID-D942701B-C9F8-4C0B-954F-38DC04F38FBD__WS73099CC142F48755-3D114B7511841AEFA9F-E3D">该语句不正确：</p>
+
+<pre class="pre codeblock">
+$myvector.z = 3;
+</pre>
+
+<p class="p" id="GUID-D942701B-C9F8-4C0B-954F-38DC04F38FBD__WS73099CC142F48755-3D114B7511841AEFA9F-E3C">发生错误。语句可以读取，但不能直接指定向量变量的分量。 </p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-D1D39AB5-8CF1-429C-92E0-FA84C16D82A2.htm">指定给向量和向量数组</a></div>
+</div>
+</div>
+
+</body>
+</html>

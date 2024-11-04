@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960">
+<meta name="language" content="CHS">
+<title>全局变量和局部变量</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>全局变量和局部变量</h1></div>
+</div>
+</div>
+
+<div class="body"><ul class="ul" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__WS73099CC142F48755-3D114B7511841AEFA9F-1083"><li class="li" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__WS73099CC142F48755-3D114B7511841AEFA9F-1082"> 对于所有其他顶级 MEL 代码而言，在程序外部定义的变量均是可见的（能够访问和更改）。
+		</li>
+<li class="li" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__WS73099CC142F48755-3D114B7511841AEFA9F-1080">在程序内部定义的变量仅在该程序内可见。这些变量称为局部变量。例如：<pre class="pre codeblock">
+float $counter
+</pre>
+ 
+		  <p class="p" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__WS73099CC142F48755-3D114B7511841AEFA9F-107F">程序的局部变量与全局变量分离，并与其他程序中的变量分离。局部变量将覆盖该程序内同名的全局变量。
+		  </p>
+ 
+		  <p class="p" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__WS73099CC142F48755-3D114B7511841AEFA9F-107E">所有这些变量均允许写入程序，且无需担心选择的变量名称是否会与 Maya 或其他程序冲突。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__WS73099CC142F48755-3D114B7511841AEFA9F-107D">使用<samp class="ph codeph" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__GUID-73FA125B-986E-4E58-844F-73D779CDC01C">全局</samp>关键字，可以使程序内的变量全局可见。
+		  <p class="p" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__WS73099CC142F48755-3D114B7511841AEFA9F-107C">如果要在某个程序中创建并保持变量，并且还在该程序的外部使用该变量，则可以将其声明为全局变量。例如：
+		  </p>
+ 
+		  <pre class="pre codeblock">
+global float $counter;
+</pre>
+ 
+		  <p class="p" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__WS73099CC142F48755-3D114B7511841AEFA9F-107B">$counter 变量可由顶级中的、以及其他将 $counter 声明为全局变量的程序中的任何 MEL 代码读取或更改。此外，如果全局 $counter 变量已存在，则该程序将使用它，而不是创建新变量。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__WS73099CC142F48755-1257E12111BF108800E5C7">eval 命令将在顶级 MEL 范围中执行。因此，它可识别全局变量，但不会识别在程序内部定义的变量（局部变量）。
+		</li>
+<li class="li" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__WS73099CC142F48755-3D114B7511841AEFA9F-107A">通常，这是一个很好的编程实践，可以尽量避免使用全局变量。这样，调用程序时，几乎不可能出现不需要的副作用。
+		</li>
+</ul>
+<div class="section" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__WS73099CC142F48755-3D114B7511841AEFA9F-1079"><h2 class="title sectiontitle">全局变量的使用示例</h2> 
+		 
+		<p class="p" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__WS73099CC142F48755-3D114B7511841AEFA9F-1078"> 以下是一些使用全局变量的代码示例。
+		</p>
+ 
+		<div class="section" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__WS73099CC142F48755-3D114B7511841AEFA9F-1076"><h3 class="title sectiontitle">示例 1</h3> 
+		   
+		  <p class="p" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__WS73099CC142F48755-3D114B7511841AEFA9F-1075">以下代码在 myProcedure 程序中使用 $globalText 全局变量。globalText 全局变量已在程序的外部定义：
+		  </p>
+ 
+		  <pre class="pre codeblock">
+global string $globalText;
+global proc myProcedure()
+{
+global string $globalText;
+print($globalText);
+} 
+</pre>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__WS73099CC142F48755-3D114B7511841AEFA9F-1074"><h3 class="title sectiontitle">示例 2</h3> 
+		   
+		  <p class="p" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__WS73099CC142F48755-3D114B7511841AEFA9F-1073">在该示例中，MEL 将生成一个可用来创建更多子窗口的窗口。$chosenOne 全局变量将跟踪用户选择的子窗口。在每个新创建的子窗口内，均有一个 chooseMe 按钮。单击该按钮，可以将该特定窗口设定为 $chosenOne。在主、父对象窗口中单击“删除选择的窗口”时，将删除 $chosenOne。
+		  </p>
+ 
+		  <p class="p" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__WS73099CC142F48755-3D114B7511841AEFA9F-1072">在以下图像中，window4 是 $chosenOne，它将在您单击“删除选择的窗口”时删除。
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__WS73099CC142F487551FEA285E1221E4F9FF8-5572"><img class="image" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__IMAGE_E141AE19BACA454D9C01D0ED7F19B352" width="266" height="283" src="../images/GUID-483B75F9-D616-441C-9795-5637336FEF9E.png"></div>
+ 
+		  <p class="p" id="GUID-5B492F70-86B5-4CE0-B102-6005E86F1960__WS73099CC142F48755-3D114B7511841AEFA9F-1070">代码如下所示：
+		  </p>
+ 
+		  <pre class="pre codeblock">
+global proc int pressMe(string $thisOne) { 
+	global string $chosenOne;
+	print ("was " + $chosenOne + "\n");
+	$chosenOne = $thisOne;
+	print ("nowIs " + $chosenOne + "\n");
+	return 1; 
+} ;
+global proc int satWindow(){
+	string $temp = `window -width 150`;
+	columnLayout -adjustableColumn 1;
+	button -label "Choose Me" -command ("pressMe " + $temp);
+	showWindow;
+	return 1;
+}
+global proc int baseWindow() { 
+	global string $chosenOne;
+	
+	window -width 150;
+	columnLayout -adjustableColumn true;
+	button -label "Make another Window" -command "satWindow";
+	button -label "Delete Chosen Window" -command "deleteUI -window $chosenOne";
+	
+	showWindow;
+	return 1; 
+} 
+baseWindow()
+</pre>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-55D02EF2-8B2E-4ED0-AD9B-20FB3FAE581B.htm">过程</a></div>
+</div>
+</div>
+
+</body>
+</html>

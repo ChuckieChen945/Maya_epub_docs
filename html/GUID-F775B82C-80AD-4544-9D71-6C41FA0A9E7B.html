@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="Bullet:模拟;模拟;Bullet">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-F775B82C-80AD-4544-9D71-6C41FA0A9E7B">
+<meta name="language" content="CHS">
+<title>运行模拟</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-F775B82C-80AD-4544-9D71-6C41FA0A9E7B">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>运行模拟</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-F775B82C-80AD-4544-9D71-6C41FA0A9E7B__GUID-882160F8-1E63-49DD-B5CB-A102DEB57287"> Bullet Physics 模拟受 Maya 时间轴驱动。若要运行模拟，请从解算器的开始帧播放动画，开始帧默认情况下为 Maya 时间轴中的第 1 帧。若要增加模拟的持续时间，请增加时间轴的长度。 </p>
+<div class="section" id="GUID-F775B82C-80AD-4544-9D71-6C41FA0A9E7B__SECTION_46AB928287C4433A9F3B7CEDCE9C8A2F"><h2 class="title sectiontitle"> 解算过程</h2>
+
+<div class="p" id="GUID-F775B82C-80AD-4544-9D71-6C41FA0A9E7B__GUID-9E37A37A-C168-4D4F-9A84-26A7C9CA0BCF">Bullet 按时间（秒）运行，并以固定速率执行模拟步。Bullet 解算器不使用帧作为时间单位。固定速率决定了模拟的分辨率，并由解算器的<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-680AC32F-7D42-4D1F-85C0-C31558E47F0D.htm#GUID-680AC32F-7D42-4D1F-85C0-C31558E47F0D__GUID-E3A35A1D-EDB5-47C6-9834-FBE888B60168">内部固定帧速率(Internal Fixed Frame Rate)</a>属性指定，默认情况下设置为每秒 60 步。 <div class="note note" id="GUID-F775B82C-80AD-4544-9D71-6C41FA0A9E7B__GUID-39DAB333-E59A-4BF6-9F01-11F9B644703E"><span class="notetitle">注：</span> 您可能想要将此值更改为 120 Hz，以获得更高的解算质量。（<span class="ph uicontrol" id="GUID-F775B82C-80AD-4544-9D71-6C41FA0A9E7B__GUID-66B39067-EFFE-4450-8830-918FF6D37545">“属性编辑器</span> &gt; <span class="ph uicontrol" id="GUID-F775B82C-80AD-4544-9D71-6C41FA0A9E7B__GUID-A28579F2-CB78-493A-B5F4-10C1B827AB51">内部固定帧速率”(Attribute Editor &gt; Internal Fixed Frame Rate)</span>） </div>
+ </div>
+
+<p class="p" id="GUID-F775B82C-80AD-4544-9D71-6C41FA0A9E7B__GUID-CDCC0FFE-3CA1-4F26-A338-BC102E719EA2">例如，如果 Maya 设置为以 30 fps 播放，则每帧将有 2 个 Bullet 子步。此设计和实现可以更好地支持实时游戏应用程序，在这类应用程序中，每帧的绘制和计算时间必须保持接近恒定。限制模拟步数会降低精确解算所需的绘制速度。 </p>
+
+<p class="p" id="GUID-F775B82C-80AD-4544-9D71-6C41FA0A9E7B__GUID-83EDCCD0-6985-446A-A525-70DA38AB0607"> 根据模拟情况，在得到所需解算效果之前，您可能需要附加迭代次数。使用解算器的<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-680AC32F-7D42-4D1F-85C0-C31558E47F0D.htm#GUID-680AC32F-7D42-4D1F-85C0-C31558E47F0D__GUID-7AC28C06-09A1-488E-9152-59FBEC3C341F">
+<span class="ph uicontrol" id="GUID-F775B82C-80AD-4544-9D71-6C41FA0A9E7B__GUID-25516FBD-33ED-444C-8536-541AD9979AEA">最大迭代次数(Max Num Iterations)</span>
+</a>选项，您可以设置解算的最大迭代次数，迭代该次数后，解算器将停止计算，并使用上一个近似解作为最终的“好”解算。设置最大迭代次数可限制处理模拟的时间。该方法可能无法提供像更为显式的解算器那样的准确结果，但是此精确度足以满足大多数应用程序的要求。 </p>
+
+</div>
+<p class="p" id="GUID-F775B82C-80AD-4544-9D71-6C41FA0A9E7B__GUID-A08EF384-FB62-4880-9EA5-EA8C55F2EC32">有关如何烘焙模拟的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-9C830A4E-5F77-4621-8530-3FED156AF853.htm">烘焙 Bullet 刚体模拟</a>。 </p>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-CC0BDE04-468D-4383-9553-14157E23D171.htm" title="通过 Bullet 物理引擎，可以创建大规模的、高度逼真的动力学和运动学模拟。除了设置游戏引擎和实时模拟之外，还可以使用 Bullet 为胶片和可视化创建渲染动画内容。">Bullet 刚体和柔体动力学</a></div>
+</div>
+</div>
+
+</body>
+</html>

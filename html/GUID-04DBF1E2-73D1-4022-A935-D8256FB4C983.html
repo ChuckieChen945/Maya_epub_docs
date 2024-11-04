@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-04DBF1E2-73D1-4022-A935-D8256FB4C983">
+<meta name="language" content="CHS">
+<title>简单的窗口</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-04DBF1E2-73D1-4022-A935-D8256FB4C983">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>简单的窗口</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-04DBF1E2-73D1-4022-A935-D8256FB4C983__WS73099CC142F48755-3D114B7511841AEFA9F-B5C">以下示例窗口展示提到的一些概念。</p>
+<div class="section" id="GUID-04DBF1E2-73D1-4022-A935-D8256FB4C983__WS73099CC142F48755-3D114B7511841AEFA9F-B5B"><h2 class="title sectiontitle">脚本 7. 简单的窗口</h2>
+
+<pre class="pre codeblock">
+// Create the window.
+//
+window -title "Test Window" ExampleWindow7;
+ columnLayout ColumnLayout;
+ frameLayout -labelVisible false -marginWidth 5 -marginHeight 5;
+ columnLayout;
+ text -label "Overall Intensity";
+ rowLayout -numberOfColumns 3;
+ string $radioButton1, $radioButton2, $radioButton3;
+ radioCollection;
+ $radioButton1 = `radioButton -label "Low"`;
+ $radioButton2 = `radioButton -label "Medium"`;
+ $radioButton3 = `radioButton -label "High"`;
+ setParent ..;
+ text -label "Light Switches";
+ rowColumnLayout -numberOfColumns 2 
+ -columnWidth 1 130 -columnWidth 2 130;
+ string $checkBox1, $checkBox2, $checkBox3, $checkBox4;
+ $checkBox1 = `checkBox -label "Front Spot"`;
+ $checkBox2 = `checkBox -label "Center Spot"`;
+ $checkBox3 = `checkBox -label "Near Flood"`;
+ $checkBox4 = `checkBox -label "Sunlight"`;
+ setParent ExampleWindow7|ColumnLayout;
+ textField -text "Ready" -editable false -width 278 StatusLine;
+ // Set initial state.
+ //
+ radioButton -edit -select $radioButton1;
+ checkBox -edit -value on $checkBox1;
+ checkBox -edit -value off $checkBox2;
+ checkBox -edit -value off $checkBox3;
+ checkBox -edit -value on $checkBox4;
+ // Add functionality.
+ //
+ radioButton -edit -onCommand "showStatus \"Low Intensity\"" $radioButton1;
+ radioButton -edit -onCommand "showStatus \"Med Intensity\"" $radioButton2;
+ radioButton -edit -onCommand "showStatus \"High Intensity\"" $radioButton3;
+ checkBox -edit
+ -changeCommand "showStatus \"Front Spot: #1\""
+ $checkBox1;
+ checkBox -edit
+ -changeCommand "showStatus \"Center Spot: #1\""
+ $checkBox2;
+ checkBox -edit
+ -onCommand "showStatus \"Near Flood On\"" 
+ -offCommand "showStatus \"Near Flood Off\"" 
+ $checkBox3;
+ checkBox -edit 
+ -onCommand "showStatus \"Sunlight On\""
+ -offCommand "showStatus \"Sunlight Off\"" 
+ $checkBox4;
+showWindow ExampleWindow7;
+// Procedure to update the status line.
+//
+global proc showStatus (string $newStatus) {
+ textField -edit -text $newStatus ExampleWindow7|ColumnLayout|StatusLine;
+}
+</pre>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B612C992-B8F8-41CA-9DB7-7EBBFD671F1A.htm">创建界面</a></div>
+</div>
+</div>
+
+</body>
+</html>

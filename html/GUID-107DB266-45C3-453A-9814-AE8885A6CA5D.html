@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="创建“在曲面上滑动”(Slide on Surface)约束来将 nParticle 对象附加到目标曲面（nCloth 曲面或被动碰撞对象），并允许受约束 nParticle 沿将其约束到的曲面移动或滑动。">
+<meta name="topicid" content="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D">
+<meta name="language" content="CHS">
+<title>创建 nParticle “在曲面上滑动”(Slide on Surface)约束</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>创建 nParticle “在曲面上滑动”(Slide on Surface)约束</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="shortdesc"> 创建<span class="ph uicontrol" id="GUID-10A1D581-BE30-47DF-95E1-CDD0240CE234">“在曲面上滑动”(Slide on Surface)</span>约束来将 nParticle 对象附加到目标曲面（nCloth 曲面或被动碰撞对象），并允许受约束 nParticle 沿将其约束到的曲面移动或滑动。 </p>
+<p class="p" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF5CF1D02511B1D000978-7B92">可以使用<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-5868A730-B5D2-401C-BD96-404BC9F31200">“在曲面上滑动”(Slide on Surface)</span>约束而不是碰撞，在大多数情况下，其运行速度比碰撞更快。例如，可以使用<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-83B47B18-4485-482A-98A4-29DC09065092">“在曲面上滑动”(Slide on Surface)</span>约束来将液体 nParticle 对象约束到被动对象集合的外部，以使粒子从集合边缘滴下。 </p>
+<div class="note note" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF6026605B1181C8F4F2E-257B"><span class="notetitle">注：</span> 
+<ul class="ul" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF6026605B1181C8F4F2E-257A"><li class="li" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF6026605B1181C8F4F2E-2579">如果使用<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-FFF9B09C-C758-4378-B85A-54CF58ACD084">“在曲面上滑动”(Slide on Surface)</span>约束代替 nParticle 对象的碰撞，请在 nParticle 的 nParticleShape<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-2AD503AE-B348-43C5-B801-EB81A46A82F3">“属性编辑器”(Attribute Editor)</span>选项卡中禁用<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-10B572E3-B90B-478D-8F4C-A5B8B6B4B95A">“碰撞”(Collide)</span>。否则，将同时计算碰撞和约束。 </li>
+<li class="li" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF6026605B1181C8F4F2E-2578">如果使用<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-2E0B70E6-389C-4CBF-A04E-5210527282ED">“在曲面上滑动”(Slide on Surface)</span>约束代替 nParticle 对象的碰撞，则不能有效地使用<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-D90D1662-332C-4A0D-87BC-E3DF6C50E3B7">“碰撞层”(Collision Layers)</span>来控制 Maya Nucleus 系统的哪些成员可与受约束 nParticle 对象碰撞。 </li>
+</ul>
+
+</div>
+<p class="li listintro" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF6026605B1181C8F4F2E-2576"> 创建 nParticle<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-A637F21A-8AA6-402C-87CC-7C368622D42A">“在曲面上滑动”(Slide on Surface)</span>约束</p>
+<ol class="ol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF6026605B1181C8F4F2E-2577"><li class="li" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF6026605B1181C8F4F2E-2574">在场景视图中，选择要约束的 nParticle 对象。 </li>
+<li class="li" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF6026605B1181C8F4F2E-2573">  <img class="image" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__IMAGE_E6A291DCDCBE42BE84CA9A2294CDCFA0" width="59" height="25" src="../images/GUID-08667A50-F943-4CA7-AF8B-4BF2A40E3297.png"> 键选择要将 nParticle 对象约束到的目标曲面。 <p class="p" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS73099CC142F48755602CAF04118F18E7A07-70B2">目标曲面可以是与 nParticle 对象属于同一 Nucleus 系统的 nCloth 或被动碰撞对象，也可以是非 Nucleus 对象。不能将其他 nParticle 对象作为<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-DF67D34E-E2D5-45D1-8767-F9047E51739D">“点到曲面”(Point to Surface)</span>约束的目标曲面。 </p>
+ <div class="note note" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF6026605B1181C8F4F2E-2572"><span class="notetitle">注：</span> 
+<p class="p" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-A72446B7-78D3-454F-B46C-430F2A3D3C3E">如果选择属于非 Nucleus 对象的目标曲面，该曲面将在创建约束时成为被动对象。 </p>
+
+</div>
+ </li>
+<li class="li" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF6026605B1181C8F4F2E-2571">在 <span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-7F030F75-DCE4-4B7C-84EF-61E0F99427BD">FX</span> 菜单集中，选择<span class="ph menucascade" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-0B44F9C7-39E0-4AAE-90D5-36F31CA9E025"><span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-433C74E5-8532-4CFF-BD91-8E051320B5F6">“nConstraint</span> &gt; <span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-837FB315-B59F-4B4F-A123-C0A22CD8C269">在曲面上滑动”(nConstraint &gt; Slide on Surface)</span> &gt; <span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-3D4D233C-5B17-4B26-8DA3-608CBB77EE51"></span></span> <img class="image" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__IMAGE_CF3B7490A3A54F7AB8FB40CD002BA8E2" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png">。 </li>
+<li class="li" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF6026605B1181C8F4F2E-256F">（可选）在<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-3A7FF3B3-E59C-49E1-B2F6-4561DE9BF5BD">“创建在曲面上滑动约束选项框”(Create Slide on Surface Constraint Options Box)</span>中，启用<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-CA684014-F0FC-4B47-83F1-2CCA4FC9EC11">“使用集”(Use Sets)</span>以将选定的目标曲面添加到动态约束选择集。 </li>
+<li class="li" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF6026605B1181C8F4F2E-256E">单击<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-464BC889-360F-443A-8DB7-A3953F9B7D59">“创建约束”(Create Constraint)</span>或<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-DEA492CA-6D2D-45F0-9034-7B0603D154BE">“应用”(Apply)</span>。 <p class="p" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF6026605B1181C8F4F2E-256D">nParticle 对象现在约束到目标曲面，并且它们均通过 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Nodes/dynamicConstraint.html" target="_blank">dynamicConstraint</a> 节点连接到 nParticle 对象的 Maya Nucleus 解算器。 </p>
+ <p class="p" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF-4855151011E3B702B95-3C2D"><samp class="ph codeph" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-F36F7746-3B03-4D16-9858-90FA71A7262B">dynamicConstraint</samp> 节点上的预设特性确定约束的类型（在这种情况下为<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-9A277819-6F53-4615-9067-5C8100C3E20C">“在曲面上滑动”(Slide on Surface)</span>约束）及其行为方式。例如，可以使用以下属性设置创建<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-EE778DD6-D3EF-4601-95E0-100252153B72">“在曲面上滑动”(Slide on Surface)</span>约束： </p>
+ <ul class="ul" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF-4855151011E3B702B95-3C2C"><li class="li" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF-4855151011E3B702B95-3C2B"><span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-AFEA28B9-C29E-47F0-B7A2-00C9BCA58577">“弹簧”(Spring)</span>作为<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-75DF51DA-4460-45B6-8C85-A11EE7C84CA1">“约束方法”(Constraint Method)</span> </li>
+<li class="li" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF-4855151011E3B702B95-3C2A"><span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-077DCD7F-77E9-48B7-9012-206268E6BB6A">“对象到对象”(Object to Object)</span>作为<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-5A661FB2-CE4A-4E4E-9A7B-4694AE65CAAD">“约束关系”(Constraint Relation)</span> </li>
+<li class="li" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF-4855151011E3B702B95-3C29"><span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-2261A3C9-B78F-4F01-9B1A-26786F42293B">“全部到第一个”(All to First)</span>作为<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-C02EFBF8-EABD-4E38-BAFD-91CEE96CAAF7">“组件关系”(Component Relation)</span> </li>
+<li class="li" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF-4855151011E3B702B95-3C28"><span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-6BEB9403-05B8-479B-A6E0-833EC265784C">“组件顺序”(Component Order)</span>作为<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-978B8DCA-75CC-44AB-8EA6-399402A90643">“连接方法”(Connection Method)</span> </li>
+<li class="li" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF-4855151011E3B702B95-3C27"><span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-FFCD39DA-FB2F-47F5-A3FC-065D6755D5B5">“逐帧”(Per Frame)</span>作为<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-3BADE415-D782-4D69-8C9E-5537055B9281">“连接更新”(Connection Update)</span> </li>
+<li class="li" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF-4855151011E3B702B95-3C26">启用<span class="ph uicontrol" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__GUID-60A5FBB4-E6AF-4A3F-8B9B-0CD5325C7AEF">“局部碰撞”(Local Collide)</span>特性 </li>
+</ul>
+ <p class="p" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__WS1A9193826455F5FF-4855151011E3B702B95-3C25"> 请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-1609C235-5031-4D06-A94C-82E8A76B8726.htm">dynamicConstraintShape</a>。 </p>
+ </li>
+</ol>
+<div class="section" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__SECTION_6C5ABA851F6F4715AA24CB8FAA0969ED"><h2 class="title sectiontitle">相关主题</h2>
+
+<ul class="ul" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__UL_882831CBD8C1415D9F48613F14AEBCE7"><li class="li" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__LI_7BA2EC3B533F4433ADF4EB57231C31DD">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-8FF39E4E-D183-4D93-8EC0-D841F0062400.htm" title="创建“组件到组件”(Component to Component)约束以将 nParticle 对象附加到其他 nParticle 对象或者附加到 nCloth 或被动对象组件。">创建 nParticle 组件到组件约束</a>
+</li>
+<li class="li" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__LI_89A2A79764EF4340B235476EAD605978">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-99946673-D103-4200-960B-8053B4F3E73A.htm" title="创建“点到曲面”(Point to Surface)约束以将 nParticle 对象附加到目标曲面（nCloth 曲面或被动碰撞对象）。">创建 nParticle 点到曲面约束</a>
+</li>
+<li class="li" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__LI_BE370A76F76745399356BA34F1C2C219">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-6A6E1CD7-6A09-48D9-AF63-0504ADDC02FE.htm" title="创建“变换”(Transform)约束以使 nParticle 对象保持原位或在 XYZ 空间中移动这些对象。">创建 nParticle 变换约束</a>
+</li>
+<li class="li" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__LI_6CE5D956E2534B67BB715223263B55DE">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-B70C84F4-04EE-445C-90DE-09C0602C12CD.htm" title="创建“力场”(Force Field)约束以在具有球形体积边界的径向场中推动 nParticle 对象远离约束的中心。">创建 nParticle 力场约束</a>
+</li>
+<li class="li" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__LI_1287BD24EFA745D38CA2FD1B8DB5B797">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-18755696-087A-4D02-B1B8-525D71381667.htm" title="为 nParticle 对象创建“禁用碰撞”(Disable Collision)约束，以防止其与所有其他 Nucleus 对象或 Nucleus 对象顶点碰撞。">创建 nParticle 禁用碰撞约束</a>
+</li>
+<li class="li" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__LI_753B5EB9927C4E62A8E0DBDCE2EE08DF">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-36594B27-B042-446E-872C-DA7E6C51C309.htm" title="为 nParticle 对象创建“排除碰撞对”(Exclude Collide Pairs)约束以防止它们与特定 nParticle、nCloth、被动对象或 Nucleus 对象的顶点发生碰撞。">创建 nParticle 排除碰撞对约束</a>
+</li>
+<li class="li" id="GUID-107DB266-45C3-453A-9814-AE8885A6CA5D__LI_0DA2EE8AD8CB40D4B5A1AC5516BB31FF">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-FAD8F763-5E3D-4872-8773-CE095E3BDFD6.htm">约束 Nucleus 对象</a>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-7378ACB5-691F-411D-BB42-297C7EBC1E71.htm">使用 nConstraint 控制 nParticle</a></div>
+</div>
+</div>
+
+</body>
+</html>

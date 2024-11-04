@@ -1,0 +1,170 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="05/03/2022">
+<meta name="topicid" content="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4">
+<meta name="language" content="CHS">
+<title>ilrLuaNode</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>ilrLuaNode</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> ilrLuaNode 通过使用 Lua 脚本允许自定义着色器。 
+	 </p>
+<p class="p">Lua 节点将使用语言 Lua 编写的脚本文件作为输入，并对每个片段执行该文件。有关编程语言 Lua 的参考，请访问 <a class="xref" href="http://www.lua.org" target="_blank">http://www.lua.org</a>。 
+	 </p>
+<p class="p">可以将 Lua 节点用作输出着色器。这可通过将 Lua 节点连接到 Turtle 渲染全局参数中的输出着色器来实现。然后，可以将“输出着色器”(Output Shader)后端节点连接到 Lua 输入之一。用法示例包括：延缓着色或调整输出图像的级别。请注意，如果 Lua 节点未连接到着色器，则没有灯光或片段信息等隐式数据（输入除外）可用。 
+	 </p>
+<div class="note note" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__GUID-50B46E9C-7F8D-4EA9-9091-4F9E3BFA5093"><span class="notetitle">注：</span> 在 Lua 中，数组和向量的索引从 1 开始。 
+	 </div>
+<div class="note important" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__GUID-DB6A3AFE-2513-474F-86A9-C2705E93D438"><span class="importanttitle">重要：</span> 运行 <span class="ph msgph prodname" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__d17e20">Maya</span> 时，不会自动加载 Turtle。若要使用 Turtle，请在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-2CF7D90B-EF10-40D1-9129-9D401CCAB952">插件管理器(Plug-in Manager)</a>中激活 <em class="ph i">Turtle.mll</em>。
+	 </div>
+<div class="section" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__SECTION_9A9F0F50F24F4F898C470C39E05FB0C4"><h2 class="title sectiontitle">LUA 属性</h2> 
+		<div class="section" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__GUID-7A70A847-C5DC-4A2E-9B68-61D8B9CEAFF1"><dl class="dl" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__GUID-7A70A847-C5DC-4A2E-9B68-61D8B9CEAFF1"><dt class="dt dlterm">脚本文件(Script File)</dt>
+<dd class="dd"> 
+		<p class="p">此字段指定 Lua 脚本的源文件。它可以带有前缀 nn，以便使其与项目相关。例如，nnturtlenscriptsnphong.lua 指定位于项目目录的 turtle 部分中的脚本。 
+		</p>
+</dd>
+<dt class="dt dlterm"><span class="ph uicontrol">输入 1-5 (Input 1-5)</span></dt>
+<dd class="dd"> 
+		<p class="p">这些是可以连接到其他着色节点的颜色输入。可以从 Lua 脚本访问它们。 
+		</p>
+</dd>
+<dt class="dt dlterm"><span class="ph uicontrol">输出 1 (output1)</span></dt>
+<dd class="dd"> 
+		<p class="p">Lua 脚本的结果。 
+		</p>
+</dd>
+</dl>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__SECTION_E40A88B476CA4C34BAB1BE2B10D7E1FA"><h2 class="title sectiontitle">对 Lua 的 Turtle 扩展</h2> 
+		 
+		<div class="p"> 
+		<p class="li listintro">数据类型：</p>
+<ul class="ul" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__UL_42C3A6753A154C2BBB42F53FE92DC0A3"><li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_88B04D6A111D48EBBF9FA792AC161602">vec3：三个浮点值的向量它可以通过函数 vec3(x,y,z) 构建。 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<p class="li listintro">用于检索隐式数据的函数：</p>
+<ul class="ul" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__UL_570D659570534C909BFA1A0A87C96836"><li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_99002C444F5045C7A33C466B3367CAA6">vec3 getPoint()：返回片段的世界空间相交点。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_EFC08C4AC6514F0FB5DDEF386A68DD00">vec3 getNormal()：返回片段的法线。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_BBA7B631EFAA4CA09A90249CFFAAB217">vec3 getTangentU()：返回片段的切线。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_1EDBB2F1B5F146A79E14061ACD97156F">vec3 getTangentV()：返回片段的双切线。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_FB7798FDF60C45EA91B1F5CB2E982716">vec3 getViewDir()：返回世界空间中从片段指向视点的向量。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_45211BAE65D44F3FA0AE1F00212C06CA">vec3 getUV()：返回片段的纹理坐标。使用 vec3 的前两个组件。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_9A00B42C2E004436A58D3CF4EB1EAA0F">vec3 getdTdX()：返回纹理空间中屏幕空间像素的 X 轴的投影。使用 vec3 的前两个组件。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_1FC5EF91573C49E8BC46A02D0F4CA78C">vec3 getdTdY()：返回纹理空间中屏幕空间像素的 Y 轴的投影。使用 vec3 的前两个组件。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_25C4F69A14904DEB942A3E845A2C37C5">float getT()：返回从光线原点到当前片段的距离。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_793518204ED34C36B5751534BB64574D">vec3 getInput(i)：从 Lua 节点返回第 i 个输入。其索引范围为 1 到 5。 
+		  </li>
+</ul>
+ 
+		<p class="li listintro">照明函数：</p>
+<ul class="ul" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__UL_05BAD821A5994506A6998CAA31BECA36"><li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_9DF501C398B74F9F8E6A7EDAE0E3AAB4">int getLights()：返回场景中的灯光数。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_1B6B3A7B64314221B16561408D7A59DB">bool getLightName(i)：返回灯光的名称。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_85AFEBDB19C84795AC95B15376C78A25">vec3 getLightDir(i)：返回世界空间中从第 i 个灯光到片段的方向。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_F514C58E4BBF410DB9ED64D465F11769">float getLightDist(i)：返回世界空间中从第 i 个灯光到片段的距离。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_BACE29CB025C4812A1011A4FDE37869F">vec3 getLightCol(i)：返回第 i 个灯光的颜色。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_2C738CBF24734F63BFB09F5834A318A2">vec3 getLightColUnshadowed(i)：返回第 i 个灯光的颜色，而不考虑阴影。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_F0FE7AD455B14B11AFF6DA32347232A4">bool getLightAmb(i)：如果灯光是环境光，则返回 true。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_87D14812789548FCA674527550F3CFF9">bool getLightCastShadows(i)：如果灯光投射阴影，则返回 true。 
+		  </li>
+</ul>
+ 
+		<p class="li listintro">光线跟踪函数：</p>
+<ul class="ul" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__UL_10F2DC0A7A4747809514C51B634C8D6B"><li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_37D7C322B50E436ABE77AE3C4F851A42">vec3 shootRay(vec3 o, vec3 d)：投射一条原点=o 和方向=d（带着色）的光线。返回交集的颜色。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_97C6AE20CE994B968197083951B35BB9">float shootOccRay(vec3 o, vec3 d, [float tmax])：投射一条原点 = o 和方向 = 无着色的光线。返回到最近交集的距离，如果未找到交集，则返回 -1.0f。如果需要，可以在 tmax 中指定到交集的最大距离。遮挡光线忽略遮光板的透明度。 
+		  </li>
+</ul>
+ 
+		<p class="li listintro">工具函数：</p>
+<ul class="ul" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__UL_3AD86833B93A464C9A14D110E776CE6F"><li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_7BB8BD23BE3344C19DB7E4DA8B5DE60A">float length(vec3)：返回向量的长度。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_1AAB888EFCCD4041858975931D76D4C0">float smoothstep(min, max, x)：返回 smoothstep 函数。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_163D46AD764042C294B813381BF5E788">float step(min, max, x)：返回 step 函数。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_563F0A90843047AEBECD4ECF15E60F09">float dot3(vec3 x, vec3 y)：返回标量积 x.y。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_56E0DB1447A24AC8B4264F1CCFC488AF">vec3 cross3(vec3 x, vec3 y)：返回叉积 x x y。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_6129049DA5404672BC7C693966D4CB97">float add3(vec3 x, y)：返回 x+y。y 可以是浮点数或 vec3。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_A2D5561789FC49AE9390E542AA9D168A">float sub3(vec3 x, y)：返回 x-y。y 可以是浮点数或 vec3。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_2029206C0C1547A4B344E4D04DA93C02">float neg3(vec3 x)：返回 -x。x 是 vec3。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_7256CF21813F4AC4B248AEC66A028EC4">float mul3(vec3 x, y)：返回 x*y。y 可以是浮点数或 vec3。如果 y 是 vec3，则乘法运算是元素智能式乘法运算。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_C8F0E9BA344A42769CE082398768FC6D">float div3(vec3 x, float y)：返回 x/y。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_8D21D55E963F4550A4BBC70EA76C033A">vec3 reflect(vec3 v, vec3 normal)：返回围绕法线反射的 v。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_9BCC2B9C0F054015B1C85AA178CDEBAD">vec3 refract(vec3 v, vec3 normal, float inIor, float outIor)：返回围绕法线折射的 v。inIor 是光线出射的材质的折射率，outIor 是光线入射的材质的折射率。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_E5B6F918ECE34C8BB071498D4DDC4300">vec3 normalize(vec3 v)：返回归一化 v。 
+		  </li>
+</ul>
+ 
+		<p class="li listintro">vec3 运算：</p>
+<ul class="ul" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__UL_67AD37151EA44E93946FD803E6C76D1F"><li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_144078FF6FB3409490F0B7DCF4167ED6">+：别名为 add3。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_1F649B63325F45FB8ED7EE137633ED7E">-（二进制）：别名为 sub3。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_6CEF2BDC10E04858A3D29087E550B5F3">-（一元)：别名为 neg3。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_B40A1FA988C84ED6B569E953E7A9CBE5">*：别名为 mul3。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_232935DA1564419192B4F2FD4B1AC980">/：别名为 div3。 
+		  </li>
+<li class="li" id="GUID-068B980F-83E0-4A74-A992-8D57A6D6E8C4__LI_56B4DB4EAF3E4C57A2C685459F17A1FC">[i]：返回 vec3 的第 i 个组件。 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-F3D0DE3A-9550-4F34-ACE0-7AF2C587C871.htm">Turtle 节点</a></div>
+</div>
+</div>
+
+</body>
+</html>

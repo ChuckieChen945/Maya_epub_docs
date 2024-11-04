@@ -1,0 +1,160 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="通过“材质查看器”(Material Viewer)，可以轻松地可视化子网络和未连接的网络，因此优化了合成和着色器开发工作流。">
+<meta name="indexterm" content="创建着色网络">
+<meta name="indexterm" content="连接着色器">
+<meta name="indexterm" content="样例渲染">
+<meta name="modified" content="31/08/2022">
+<meta name="topicid" content="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930">
+<meta name="language" content="CHS">
+<title>在 Hypershade 的“材质查看器”(Material Viewer)中实时渲染着色网络</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1> 
+	 在 Hypershade 的“材质查看器”(Material Viewer)中实时渲染着色网络 </h1></div>
+</div>
+</div>
+
+<div class="body"><p class="shortdesc"> 通过<span class="ph uicontrol" id="GUID-E4812832-08E8-4416-8E6F-65E330070B5B">“材质查看器”(Material Viewer)</span>，可以轻松地可视化子网络和未连接的网络，因此优化了合成和着色器开发工作流。
+  </p>
+<p class="p" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-C8A90F82-D323-4EA6-A0C4-D348F4B364EF"><span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-A38E2530-42A4-4C31-8ECC-22E47259D0A7">“材质查看器”(Material Viewer)</span>基于在 Hypershade 工作区中所绘制内容的上下文，显示任何着色网络（包括材质、纹理和工具）。<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-8460FF12-BB1F-48AE-9206-60E5DF62F4E6">“材质查看器”(Material Viewer)</span>中当前渲染的节点以红色边界亮显。
+	 </p>
+<p class="p" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-39A40949-2C72-41FC-A002-E62487A0E75B">调整着色网络时，<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-38D37E31-661D-4DD7-94B3-6D3722902DAE">“材质查看器”(Material Viewer)</span>会实时更新。
+	 </p>
+<p class="p" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-FC82E44C-E143-4546-898B-06F9328EA469">在使用 Maya 硬件 2.0 渲染器进行渲染或使用已注册的任何其他插件渲染器（如 Arnold for Maya）进行渲染之间做出选择。
+	 </p>
+<div class="note note" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-AC423CDF-6D9B-4B08-A52E-03BB16942300"><span class="notetitle">注：</span>  
+		<p class="p" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-B6C1AFD0-268C-4231-A024-833732EBAF98">可以使用 <samp class="ph codeph" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-32492DA4-2723-468E-926B-DF5416F62A57">MPxRenderer</samp> 类实现第三方渲染器，以便在<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-0E7B22AC-7B99-44EC-ABA3-4328D6BF8BA1">“材质查看器”(Material Viewer)</span>中进行渲染。详细信息请参见 Maya 开发人员帮助中的“C++ API 参考”。
+		</p>
+ 
+		 
+	 </div>
+<div class="section" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__SECTION_6B393CDEB92C4E9885ACBB965FEE8FA9"><h2 class="title sectiontitle">渲染着色器网络</h2> 
+		 
+		<p class="p" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-756966A1-22C4-4B20-99F1-B6F4DE0F750A">在此示例中，可以选择图表中的任何节点，以在<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-EA6A8C32-C4F0-4EF6-AA89-F5A25D38B8AD">“材质查看器”(Material Viewer)</span>中查看网络 (phong1) 的下游结果。在<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-9D39E32D-B24F-416B-BB54-11E551A7FC22">“材质查看器”(Material Viewer)</span>中渲染的节点以红色边界表示。
+		</p>
+ 
+		<div class="fig fignone" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__FIG_887279514FAB4F36900C86C8CEA6DD7E"><img class="image" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__IMAGE_F0847883930D428DB24F047A796D084F" src="../images/GUID-5854D328-B8A4-4737-9872-5ABD726AD7F8.png"></div>
+ 
+		<div class="note note" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-C627D545-6867-4122-A13F-6572E1C1983B"><span class="notetitle">注：</span> 在<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-3CE470A9-0C53-418D-9536-672CD29D4CF5">“材质查看器”(Material Viewer)</span>中使用硬件渲染器时，Maya 使用在<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-934C86AB-3937-4F64-AE7C-188452D69372">“渲染设置”(Render Settings)</span>窗口中<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-411931D4-E112-4E8E-AA72-8BD06562F3C7">“Maya 硬件 2.0”(Maya Hardware 2.0)</span>选项卡中选择的透明度算法。如果发现透明度结果与预期不符，则选择其他透明度算法。
+		</div>
+ 
+		<div class="section" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__SECTION_3B3761FF919D4EFCA99EC37C510E809D"><h3 class="title sectiontitle">在您的网络中渲染纹理</h3> 
+		   
+		  <p class="p" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-AF8BED08-7F58-4B4F-8372-24606471493D">若要查看特定的纹理，请单击文件节点上的 S 图标以单放节点。有关单放的详细信息，请参见关于<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-3E38FD79-D521-4C0E-AC53-A290770C492D.htm" title="通过使用单放预览特定节点输出属性的效果，优化您的合成和着色器开发工作流。在材质查看器和视口中预览单放结果。">单放</a>。也可以在<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-542D3307-DF68-4766-850F-4B70D4FB89E1">“浏览器”(Browser)</span>的<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-1298BE86-2E85-4F76-B09C-B4AF9FB25363">“纹理”(Textures)</span>选项卡中选择您的纹理，然后在<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-FC6DF202-F8BB-46CD-8513-EE04118B6406">“材质查看器”(Material Viewer)</span>中渲染它们。渲染纹理时，<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-B24050FC-443A-4EC9-832E-3594B2247BC2">“材质查看器”(Material Viewer)</span>样例将出现在平面视图中。
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__FIG_DAAA2ECD771441FABA0152D29A89026A"><img class="image" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__IMAGE_04A55DBED4234B6C8BAAF81E39D6398E" src="../images/GUID-FAF9A070-C563-47A1-B3B5-62F7774263BE.png"></div>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__SECTION_9B84EFAB147C48E582EF97F56E77EE94"><h2 class="title sectiontitle">渲染没有材质节点的网络</h2> 
+		 
+		<p class="p" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-85A5B22A-F199-4956-8228-6D2D7B12F3E0">可以渲染具有或没有材质节点的网络。这样就可以构建纹理网络，而无需将每个网络指定给材质。
+		</p>
+ 
+		<p class="p" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-47F5AB23-4267-46B2-B315-95A4ACEFF925">在此示例中，checker1 是在<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-31543F75-F6A4-4462-AC48-A4D53116B879">“材质查看器”(Material Viewer)</span>中渲染的。若要在<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-9720CA1C-08A6-474D-8F41-4377EF280322">“材质查看器”(Material Viewer)</span>中查看草参考纹理，请单放文件节点。
+		</p>
+ 
+		<div class="fig fignone" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__FIG_2B6A34BE971C4CB9AB111D4B2D974F77"><img class="image" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__IMAGE_807FCCD01A804E3F8386102E043E72B4" src="../images/GUID-CBAC26B5-A4AA-4127-AED6-AA8FC1C5DC6C.png"></div>
+ 
+		<p class="p" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-AF7D13CA-09F0-4B5B-8104-55313726296E">纹理由 www.cgtextures.com 提供。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__SECTION_6706555B72C04FE4A9CBE1AD79EC7AF1"><h2 class="title sectiontitle">渲染凹凸贴图</h2> 
+		 
+		<p class="p" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-9F63A4D5-582D-4525-96FA-6D01EBC8269F">可以在<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-799447B5-5C8A-48AD-B1D1-58C285FAEA28">“材质查看器”(Material Viewer)</span>中渲染凹凸贴图，它将显示为 3D 几何体样例，以允许您更好地检查照明影响下的凹凸。
+		</p>
+ 
+		<div class="fig fignone" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__FIG_037F64DE182442D393F64124CC1D1CC9"><img class="image" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__IMAGE_644DF3EBA4B2485D81176D8CCCBCEDA0" src="../images/GUID-20652A12-AA59-422F-9550-8733BBC70571.png"></div>
+ 
+	 </div>
+<div class="section" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__SECTION_EB35C2458E134C8AB5372A0A280AF79D"><h2 class="title sectiontitle">识别在<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-D9844BF2-A9AC-4A5C-B95B-F2E5560FD72D">“材质查看器”(Material Viewer)</span>中渲染的节点</h2> 
+		 
+		<p class="p" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-36E73720-D9EA-4E22-AC0A-06F1CB350834">通过 <span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-A1E793EE-0DFD-49D6-96A7-E4AAE34AEA9A">Hypershade</span> 工作区，可以同时绘制多个着色网络，每个着色网络在不同的选项卡中进行绘制。可以通过其红色边界识别正在渲染的节点。如果单放了某个节点，则它始终显示有红色边界，且已在<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-EE12489F-6505-4913-9819-83EB915076A1">“材质查看器”(Material Viewer)</span>中渲染。如果未单放节点，则在<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-0AE2624A-7BD3-4EF8-982E-114EB99A8A4F">“材质查看器”(Material Viewer)</span>中渲染的节点的轮廓为红色。在大多数情况下，这是上次选择的着色网络的下游结果。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__SECTION_9275A11115F94016AEDAF0ABF720E6D1"><h2 class="title sectiontitle">材质样例选项</h2> 
+		 
+		<p class="p" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-EB885BC8-1444-4905-891A-6DD5156AF39E">也可从多个样例形状中选择，例如：<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-6937473B-298D-43DA-AAA0-7F01D8872430">“球体”(Sphere)</span>、<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-1D8DF5A5-1943-4E01-8780-FC9C9FFAA4AA">“布料”(Cloth)</span>、<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-ED83BD4B-A770-4692-B479-137A43359948">“茶壶”(Teapot)</span>、<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-78EB0480-0B49-4B56-B79B-7F16D33D1F50">“玻璃飞溅”(Glass Splash)</span>等。
+		</p>
+ 
+		<div class="fig fignone" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__FIG_7097009235724C66B46836C2EDFB427C"><img class="image" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__IMAGE_AF3EBC01C53144E1953B67BCC063CB53" src="../images/GUID-947BA4BC-7287-4DF1-A386-8F608D9534FF.png"></div>
+ 
+	 </div>
+<div class="section" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__SECTION_E3A40C551D2545ADAD058BCBBF3787D8"><h2 class="title sectiontitle">添加环境照明</h2> 
+		 
+		<p class="p" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-40FB7D62-6C8E-4AE8-A713-B84157523A0E">也可以在预设或自定义环境背景中渲染材质。从预设环境列表中进行选择，或者添加自己的环境。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-35DC6688-1D1B-44BA-8DFD-9BB5C764A835.htm" title="在 Hypershade 材质查看器中，可以将基于图像的照明添加到渲染。从提供的预设 HDRI 环境中选择，或者添加您自己的环境。通过此功能可以查看对象如何在不同的环境中进行反射和折射。">在材质查看器中通过预设或自定义环境添加基于图像的照明</a>。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__SECTION_C1965E4F9C024C02904FF17FD106BCCC"><h2 class="title sectiontitle">移动和旋转摄影机</h2> 
+		 
+		<p class="p" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-C391506B-30BA-416A-BB41-76763369007E">您可以在<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-E858212C-4EBE-48BA-A768-B7C3DC09F353">“材质查看器”(Material Viewer)</span>中移动和旋转摄影机。在 3D 视图中，您可以像在视口中一样执行翻滚、平移和推拉等操作；而在 2D 平面视图中（例如，单放纹理时），您可以平移和缩放。
+		</p>
+ 
+		<p class="p" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-FD485EF8-3E12-4D53-B892-8DF9889B65E0">从 3D 视图切换至 2D 视图（例如，通过单放纹理切换）、然后再重新切换回至 3D 视图时，系统将保存 3D 摄影机的位置。另一方面，系统不会保存 2D 视图的摄影机位置。关闭并重新打开<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-786E22C9-B6D0-4BCB-9323-F585FBE5CA73">“材质查看器”(Material Viewer)</span>时，也会重置摄影机的设置。
+		</p>
+ 
+		<p class="p" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-3793D524-04CF-413A-8E58-96467166541D">单击<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-D88FE46A-FA91-44CE-928B-AC120EFD47F7">“材质查看器”(Material Viewer)</span>工具栏中的 <img class="image" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__IMAGE_1EB034154E814A48A4105E3E187753B5" src="../images/GUID-AF011479-C2C5-453B-9C00-0187A834306B.png">，可将摄影机重置到其原始位置。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__SECTION_35B489CAFD664581B93FA570F66DDF3C"><h2 class="title sectiontitle"><span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-EEF3D089-3292-4AB1-B9AB-4CAE9C0CCF60">Hypershade</span> 中的颜色管理</h2> 
+		 
+		<p class="p" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-5B82515E-3C7C-4362-8BB7-236719B13140">全局颜色管理设置（<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-01DB46B1-CF96-4F1D-BFBB-305F8D622E73">“首选项”(Preferences)</span>窗口中的<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-7041374E-FFDC-4CE3-B5DD-6C351B2B3EEF">“颜色管理”(Color Management)</span>首选项）适用于<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-D9382D01-17B6-4B55-9E0C-06630A287ECE">“材质查看器”(Material Viewer)</span>样例，以及<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-46ABE384-7DFC-4F46-90B4-86536DB89FBD">“浏览器”(Browser)</span>和工作区中的样例。
+		</p>
+ 
+		<p class="p" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-7147C339-D993-4E35-842B-B9CC68304BDB">此外，可以使用提供的控件调整<span class="ph uicontrol" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__GUID-C134A76F-440B-4023-B366-D7EAA68BCB69">“材质查看器”(Material Viewer)</span>的曝光和 Gamma，以及选择从显示的工作颜色空间转化颜色的视图变换。有关颜色管理控件的详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-83161023-275E-4E57-A0D8-9C9E255944AE">“渲染视图”(Render View)工具栏</a>。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__SECTION_FCEB12FA823D4D57959B1E3F2E638363"><h2 class="title sectiontitle">暂停材质查看器</h2> 
+		 
+		<p class="p">单击<span class="ph uicontrol">“材质查看器”(Material Viewer)</span>工具栏中的 <img class="image" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__IMAGE_95845559F2064A39AB894EDFBC56FE5C" src="../images/GUID-A856707B-0550-4DFA-AEB1-590B0FF7D219.png">，可暂停更新。如果<span class="ph uicontrol">“材质查看器”(Material Viewer)</span>设置为使用硬件渲染器，则所有使用 Viewport 2.0 渲染器的编辑器（例如，视口和 <span class="ph uicontrol">UV 编辑器</span>）也会暂停。暂停的编辑器以红色边界显示，且文本<span class="ph uicontrol">“暂停”(Paused)</span>指示其暂停状态。如果存在上次缓存渲染的图像，则<span class="ph uicontrol">“材质查看器”(Material Viewer)</span>将显示此图像来代替文本<span class="ph uicontrol">“暂停”(Paused)</span>。
+		</p>
+ 
+		<p class="p"> 这样，您就可以在场景中进行更改，而不必等待<span class="ph uicontrol">“材质查看器”(Material Viewer)</span>更新。这特别适用于复杂场景。
+		</p>
+ 
+		<p class="p">再次单击 <img class="image" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__IMAGE_F3A1359422B84A1EA2EB436B9D9DD1B6" src="../images/GUID-A856707B-0550-4DFA-AEB1-590B0FF7D219.png"> 可解除暂停，并且使用暂停期间进行所有更改更新<span class="ph uicontrol">“材质查看器”(Material Viewer)</span>。
+		</p>
+ 
+		<p class="p">请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-5326458C-E6AA-45F8-ACAF-D32FAAA613E3">在 Hypershade 中暂停 Viewport 2.0 和材质查看器</a>。
+		</p>
+ 
+		<div class="section" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__SECTION_C6121209A431475FB239993D603484A3"><h3 class="title sectiontitle">材质查看器的挂起</h3> 
+		   
+		  <p class="p">如果两个渲染同时出现（例如，<span class="ph uicontrol">“渲染视图”(Render View)</span>和<span class="ph uicontrol">“材质查看器”(Material Viewer)</span>），启动 IPR 渲染将挂起<span class="ph uicontrol">“材质查看器”(Material Viewer)</span>，且<span class="ph uicontrol">“材质查看器”(Material Viewer)</span>周围将出现红色边界，以指示其挂起状态。若要解除挂起，请停止 IPR 渲染，此时<span class="ph uicontrol">“材质查看器”(Material Viewer)</span>再次处于活动状态。但是，必须手动触发重新渲染（例如，通过更改属性值或摄影机角度手动触发）。此行为与单击 <img class="image" id="GUID-FAB13FA2-7068-4169-8D27-016B13E5C930__IMAGE_FAEEF0EA23CC405699F30176F77C0AA8" src="../images/GUID-A856707B-0550-4DFA-AEB1-590B0FF7D219.png"> 略有不同，后者在解除暂停后始终会重新渲染。
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-447C9ADA-A285-483E-A93D-6ED1B2792D5F.htm">使用 Hypershade 的外观开发</a></div>
+</div>
+</div>
+
+</body>
+</html>

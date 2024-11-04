@@ -1,0 +1,185 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_glass_am_Modeling_Glass_and_Liquid_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_MODELING_GLASS_AND_LIQUID">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 对玻璃和液体进行建模 - Arnold for Maya">
+
+<title>对玻璃和液体进行建模</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>对玻璃和液体进行建模</h1></div>
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>请确保准确建立有厚度的玻璃曲面模型。否则，玻璃将不能正确渲染。</p>
+
+</div></div>
+
+<p>要使用 Arnold 准确渲染折射曲面，重要的是模型要遵循一定的准则：</p>
+<ul>
+<li>空气到玻璃曲面（折射率为 1.5）的法线指向玻璃外面，覆盖空气与玻璃直接接触的区域。</li>
+<li>玻璃到液体曲面（折射率为 1.33）的法线指向液体外面，覆盖空气与液体直接接触的区域。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/bowl_1.jpg" alt=""></td>
+<td><img src="../images/bowl_2.jpg" alt=""></td>
+</tr>
+<tr>
+<td>玻璃碗法线方向</td>
+<td>液体法线方向</td>
+</tr>
+</tbody></table>
+<p>一条光线在空气（折射率为 1.0）中传播，进入玻璃，然后按玻璃的折射率 (1.5) 发生折射。光线在玻璃中传播后，离开玻璃并进入液体，即从一种折射率为 1.5 的介质传播到另一种折射率为 1.33 的介质中。</p>
+<h2 id="">玻璃曲面模型</h2><p>下面是一个简单的玻璃碗模型。可以看到在右图中，网格的法线都正确地指向外部。在使用 Arnold 渲染折射对象时，正确的法线方向非常重要。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/bowl_3.jpg" alt=""></td>
+<td><img src="../images/bowl_4.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>曲面法线指向外部</strong></sub></p>
+<h2 id="">对液体进行建模 - 重合曲面</h2><p>在下面的示例中，玻璃和液体的曲面彼此重叠，因此是重合的。渲染器无法分辨两个曲面，输出效果将为重叠的伪影。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/bowl_5.jpg" alt=""></td>
+<td><img src="../images/bowl_6.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>玻璃与液体曲面重合</strong></sub></p>
+<h2 id="">缩小液体</h2><p>在本例中，液体比例稍微有所下调。玻璃与液体之间的间隙很小。生成的渲染看起来不真实。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/bowl_7.jpg" alt=""></td>
+<td><img src="../images/bowl_8.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>液体比例下调（看起来不正常）</strong></sub></p>
+<h2 id="">放大液体</h2><p>下面液体的比例有所增大，从而与玻璃碗几何体发生重叠。这样看起来好得多，因为液体看起来是与玻璃接触的。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/bowl_9.jpg" alt=""></td>
+<td><img src="../images/bowl_10.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>液体比例增大</strong></sub></p>
+<p>注意，尽管这种建模方法“看起来”没错，但应注意这并不是基于物理的方法。一般来说，对象的建模应尽可能真实，以便在使用 Arnold 渲染时得到正确的结果。</p>
+<h2 id="-2">示例 2</h2><p>在下面的示例中，玻璃和液体的曲面彼此重叠，因此是重合的。您可以看到右图中存在错误，这是因为渲染器在分辨每个曲面时遇到问题。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/bowl_11.jpg" alt=""></td>
+<td><img src="../images/bowl_12.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>玻璃与液体曲面重合</strong></sub></p>
+<p>在本例中，液体比例稍微有所下调。玻璃与液体之间的间隙很小。生成的渲染看起来不真实。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/bowl_13.jpg" alt=""></td>
+<td><img src="../images/bowl_14.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>液体比例下调</strong></sub></p>
+<p>下面液体的比例有所增大，从而与玻璃几何体发生重叠。这样看起来好得多，因为液体看起来是与玻璃接触的。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/bowl_15.jpg" alt=""></td>
+<td><img src="../images/bowl_16.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>液体比例增大</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Rendering_Glass_Surfaces_with_Arnold_html.html">使用 Arnold 渲染玻璃曲面</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_522_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_522">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 5.2.2 - Arnold for Maya">
+
+<title>5.2.2</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>5.2.2</h1></div><p> 17Nov 2022</p>
+<p>MtoA 5.2.2 introduces Arnold 7.1.4.0 and is a minor feature release bringing improvements Render View log window, OSL editor and a new imager import/export workflow</p>
+<h2 id="installation">Installation</h2><ul>
+<li><a href="https://www.arnoldrenderer.com/download/#arnold-for-maya" target="_blank">Download</a> the Arnold for Maya plugin</li>
+<li>Follow these installation instructions.</li>
+</ul>
+<h2 id="maya-plugins-compatibility">Maya Plugins Compatibility</h2><p>MtoA 5.2.2 works with the following Maya plugins</p>
+<ul>
+<li><a href="https://area.autodesk.com/bifrost/downloads/" target="_blank">Bifrost Extension for Maya 2.4.0.0</a></li>
+<li><a href="https://github.com/Autodesk/maya-usd/releases/tag/v0.18.0" target="_blank">MayaUSD 0.18.0</a> (USD 21.11)</li>
+</ul>
+<h2 id="enhancements">Enhancements</h2><ul>
+<li><strong>Improved Log Window in Render View</strong>: The log window for Arnold Render view has been enhanced with a new search bar and color highlighting (ARNOLD-212)</li>
+</ul>
+<div align="center"><img src="../images/am-522-log_window.png" width="600"></div>
+
+<ul>
+<li><strong>Improved OSL Code Editor behaviour</strong>: the OSl editor for the aiOSL node has been improved to allow better felxibility when editing code. It no long re-compiles after each edit and will allow the user to save work-in-progress code. (MTOA-1152)</li>
+</ul>
+<div align="center"><img src="../images/am-522-osl-editor.png" width="400"></div>
+
+<ul>
+<li><strong>Add support for Export and Import of imager graphs</strong>: The imager editor in ARV and the Render Settings now support the import and export of imagers as .usd or .ass files for sharing with other scnes or other Arnold plugins. (MTOA-1167)</li>
+</ul>
+<div align="center"><img src="../images/am-522-export-import-imagers.png" width="400"></div>
+
+<ul>
+<li><p><strong>Metadata file mtoa.mtd moved to bin/arnold.mtd</strong> : the Arnold node metadata file have been relocated from <code>MTOA_ROOT/mtoa.mtd</code> to <code>MTOA_ROOT/bin/arnold.mtd</code> this means that arnold core will load the metadata directly and can be loaded by <code>kick</code> without addtional calls (MTOA-647)</p>
+</li>
+<li><p><strong>Automatic generation of TX files</strong>: Tx textures are now generated on demand, when the texture is first accessed during rendering, instead of generating all Tx files of the scene before the render starts. (MTOA-1184)</p>
+</li>
+<li><p><strong>Hair melanin and redness</strong>: The standard_hair shader's <code>melanin</code> and <code>melanin_redness</code> parameters as well as the <code>AidEonBSDF()</code> function's <code>absorption</code> parameter are now being referenced in a linear sRGB color space so that the direct lighting results match when switching to other rendering color spaces such as ACEScg. The <code>melanin_redness</code> parameter will also now produce a more correct-looking red tint in ACEScg. (ARNOLD-7585).</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="../images/enable_deprecated_hair_absorption_1.jpg" alt=""></td>
+<td align="center"><img src="../images/enable_deprecated_hair_absorption_0.jpg" alt=""></td>
+</tr>
+<tr>
+<td align="center"><sub><strong>Arnold 7.1.3.2</strong></sub></td>
+<td align="center"><sub><strong>Arnold 7.1.4.0</strong></sub></td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>Sharp textures through reflections and refractions</strong>: Textures seen through specular reflections and refractions, particularly when there is low roughness, such as with clear windows and mirrors should now look correctly sharper. This can result in higher resolution texture mipmap levels being loaded in memory, so scenes that were affected by this can see an increase in texture cache usage. (ARNOLD-5632)</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="../images/frame_7.1.3.2.jpg" alt=""></td>
+<td align="center"><img src="../images/frame_7.1.4.0.jpg" alt=""></td>
+</tr>
+<tr>
+<td align="center"><sub><strong>Arnold 7.1.3.2</strong></sub></td>
+<td align="center"><sub><strong>Arnold 7.1.4.0</strong></sub></td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>MaterialX 1.38.5</strong>: Arnold now ships with an updated MaterialX version, see the <a href="https://github.com/AcademySoftwareFoundation/MaterialX/releases/tag/v1.38.5" target="_blank">full release notes</a>.(ARNOLD-12448)</p>
+</li>
+<li><p><strong>Autodesk Analytics Program</strong>: A newer version of the Autodesk Analytics Program (ADP) has been integrated into Arnold. This brings stability and performance improvements, including in situations where Arnold is used without internet access. If Arnold can identify the user with their Autodesk account, opt-in settings will automatically download from the internet, simplifying usage across multiple machines. Otherwise a one-time dialog window will appear if the computer does not have preexisting Analytics opt-in information. No dialog window will appear when running <code>kick -dw</code>, making it safe to use on headless render nodes. </p>
+</li>
+<li><p><strong>Warn when adaptive sampling is enabled and there is no RGBA AOV</strong>: Adaptive sampling will only run on the RGBA (beauty) AOV. If there is no AOV with the name RGBA, then adaptive sampling is disabled. This can be particularly confusing when IPR has a display window and so adaptive sampling is used, but the batch render is done without display (<code>kick -dw</code> for instance) and adaptive sampling stopped working. We now emit a warning when this occurs so this issue can be easily detected. (ARNOLD-12521)</p>
+</li>
+<li><h2 id="usd-enhancements">USD Enhancements</h2></li>
+<li><p><strong>USD 22.08</strong> The arnold USD procedural now use USD 22.08. </p>
+</li>
+<li><p><strong>MaterialX support</strong>: MaterialX shaders are now supported, both in Hydra and in the usd procedural. <a href="https://github.com/Autodesk/arnold-usd/issues/1181" target="_blank">usd#1181</a></p>
+<p><img src="../images/chess_set_mtlx_a2.png" alt=""> </p>
+</li>
+<li><p><strong>Alembic support</strong>: Alembic references and payloads are now supported by the usd procedural. ARNOLD-12593</p>
+</li>
+<li><p><strong>Imager support</strong> Imagers can now be rendered in Hydra and the procedural through an imager node graph connected to the RenderSettings "imager" attribute. <a href="https://github.com/Autodesk/arnold-usd/issues/1305" target="_blank">usd#1305</a></p>
+</li>
+<li><p><strong>Skinning improvements</strong> UsdSkel Skinning can now support instances and was made more efficient. Motion blur is now correct in both hydra and the procedural. <a href="https://github.com/Autodesk/arnold-usd/issues/1291" target="_blank">usd#1291</a> <a href="https://github.com/Autodesk/arnold-usd/issues/1078" target="_blank">usd#1078</a></p>
+</li>
+<li><p><strong>Support shader connections to mesh lights</strong> It is now possible to connect shading graphs to a mesh light color. This can be done by connecting an ArnoldNodeGraph primitive to the mesh attribute primvars:arnold:light:shaders. <a href="https://github.com/Autodesk/arnold-usd/issues/1294" target="_blank">usd#1294</a></p>
+</li>
+<li><p><strong>Skinning improvements</strong> UsdSkel Skinning can now support instances and was made more efficient. Motion blur is now correct in both Hydra and the procedural. <a href="https://github.com/Autodesk/arnold-usd/issues/1291" target="_blank">usd#1291</a> <a href="https://github.com/Autodesk/arnold-usd/issues/1078" target="_blank">usd#1078</a></p>
+</li>
+<li><p><strong>Camera improvements</strong>: dataWindowNDC support has been improved for batch rendering. It now adds more pixels to the output image instead of simply adjusting the frustum, when using husk or kick  <a href="https://github.com/Autodesk/arnold-usd/issues/1271" target="_blank">usd#1271</a> The horizontal and vertical aperture offset attributes in the cameras are now supported, both in Hydra and in the procedural. This enables features like render region. <a href="https://github.com/Autodesk/arnold-usd/issues/1225" target="_blank">usd#1225</a></p>
+</li>
+<li><p><strong>Cylinder lights</strong>: Cylinder lights are now supported in the usd procedural. <a href="https://github.com/Autodesk/arnold-usd/issues/1231" target="_blank">usd#1231</a></p>
+</li>
+<li><p><strong>Render settings improvements</strong>: We can now set in the usd file which RenderSetting primitive will control the render by pointing the layer metadata attribute renderSettingsPrimPath to the RenderSetting primitive. <a href="https://github.com/Autodesk/arnold-usd/issues/1235" target="_blank">usd#1235</a> The aov_shader attribute of a RenderSettings primitive can now point to multiple ArnoldNodeGraph. They have to be separated by a space. <a href="https://github.com/Autodesk/arnold-usd/issues/1321" target="_blank">usd#1321</a> "Abort on error" is now declared as a Hydra render setting, and can be controlled in usd_view or mayaUSD. <a href="https://github.com/Autodesk/arnold-usd/issues/1259" target="_blank">usd#1259</a></p>
+</li>
+<li><p><strong>RenderVar improvements</strong> The attribute "arnold:filter" of the RenderVar primitive now defaults to box instead of closest_filter. <a href="https://github.com/Autodesk/arnold-usd/issues/1313" target="_blank">usd#1313</a> RenderVar aov name can be called "color" for the beauty, it was supported in the render delegate and is now supported in the procedural. <a href="https://github.com/Autodesk/arnold-usd/issues/1311" target="_blank">usd#1311</a></p>
+</li>
+<li><p><strong>Improved default sampling values in Hydra</strong>: The default sample values were inconsistent between interactive Hydra versus batch rendering (e.g. with husk). This was improved, and now matches the other Arnold plugins. This is an incompatible change for scenes where sampling values were left to default <a href="https://github.com/Autodesk/arnold-usd/issues/1006" target="_blank">usd#1006</a></p>
+</li>
+<li><p><strong>Shader outputs registered in Sdr</strong>: The output attributes for Arnold shaders are now registered, along with their type, in the Sdr registry. This allows for applications / plugins to expose shading trees with Arnold shaders with the correct types <a href="https://github.com/Autodesk/arnold-usd/issues/1221" target="_blank">usd#1211</a></p>
+</li>
+<li><p><strong>Environment variable to debug Hydra</strong>: In order to help debugging Hydra renders, an environment variable HDARNOLD_DEBUG_SCENE can now be set to a .ass scene filename, allowing the Arnold scene data to be saved out as the render starts usd#1266 </p>
+</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible changes</h2><ul>
+<li><p><strong>Hair melanin and redness in ACEScg</strong>: The changes to <code>standard_hair</code> shader's <code>melanin</code> and <code>melanin_redness</code> in ACEScg are potentially look-breaking. The <code>absorption</code> parameter for the <code>AidEonBSDF()</code> is now expected to be in a linear sRGB color space. Those changes can be reverted through the <code>enable_deprecated_hair_absorption</code> render option (ARNOLD-7585).</p>
+</li>
+<li><p><strong>Autodesk Analytics Program</strong>: The following API should no longer be used as Arnold will now create the opt-in dialog window. In many cases they have been marked deprecated and will be removed in a major Arnold release. All these functions can be replaced by <code>AiADPDisplayDialogWindow()</code> and <code>AiADPDisableDialogWindow()</code>:</p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint"> AI_API AI_DEPRECATED bool AiADPIntroWasShown();
+ AI_API AI_DEPRECATED void AiADPSetIntroShown();
+ AI_API AI_DEPRECATED void AiADPDialogStrings(AtParamValueMap&amp;, const char*);
+ AI_API void AiADPSetOptedIn(bool wants_optin);
+ AI_API bool AiADPIsOptedIn();</code></pre>
+</li>
+<li><p><strong>Autodesk network licensing</strong>: Autodesk Network License Manager (NLM) servers have to be updated to version 11.18, otherwise checking out a network license throws a <code>Generic license checkout error (22)</code>.</p>
+</li>
+</ul>
+<h2 id="bug-fixes">Bug Fixes</h2><ul>
+<li>MTOA-659 - MTOA always prints a startup log</li>
+<li>MTOA-313 - No log produced when using AVP and never opening ARV</li>
+<li>MTOA-1177 - Incorrect transform when using originOffset and curvecollector</li>
+<li>MTOA-1131 - ARV and Arnold Viewport do not refresh during GPU  render when using a denoiser</li>
+<li>ARNOLD-12647 - Log window should only show output of Render View or Viewport Renders</li>
+<li>MTOA-1152 - OSL recompiles automatically while being edited</li>
+<li>ARNOLD-12660 - Volume rendering performance regression in Arnold 7.1.3</li>
+<li>ARNOLD-11448 - Crash stacktrace is not always printed</li>
+<li>ARNOLD-12590 - [GPU] Single channel 8-bit textures are too bright</li>
+<li>ARNOLD-12675 - [Maketx] maketx tool doesn't recognize the --ignore-unassoc parameter</li>
+<li>ARNOLD-12619 - [MaterialX] Channel connections not exported when exporting MaterialX shading networks</li>
+<li>ARNOLD-12667 - [OCIO] Slow call to the OCIO color manager when reading raw textures in OSL</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1278" target="_blank">usd#1278</a> Support visibility overrides on instances in the render delegate</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1336" target="_blank">usd#1336</a> Fix empty ProductName rendering as .exr</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1331" target="_blank">usd#1331</a> Fix motion blur sampling on skinned instances</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1329" target="_blank">usd#1329</a> Fix inverted motion blur in the render delegate when using velocities</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1315" target="_blank">usd#1315</a> Fix interpretation of primvars arrays with constant interpolation </li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1309" target="_blank">usd#1309</a> Fix RenderVar's filter width not translated properly in the procedural</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1306" target="_blank">usd#1306</a> Allow to render deepexr RenderProduct with kick</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1282" target="_blank">usd#1282</a> Don't set UsdUvTexture uvset when st coordinates are used</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1281" target="_blank">usd#1281</a> Fix crash when a volume prim density field is invalid </li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1232" target="_blank">usd#1232</a> Set output to half precision for RenderVars with half types</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1214" target="_blank">usd#1214</a> Make Sdr node discovery results consistent across renderers</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2><ul>
+<li>Maya 2020, 2022 or 2023</li>
+<li>Windows 10 or later, with the Visual Studio 2019 redistributable.</li>
+<li>Linux with at least glibc 2.17 and libstdc++ 4.8.5 (gcc 4.8.5). This is equivalent to RHEL/CentOS 7.</li>
+<li>macOS 10.13 or later.</li>
+<li>CPUs need to support the SSE4.1 instruction set. Apple Mac models with M series chip are supported under Rosetta 2 mode.</li>
+<li>GPU rendering works on Windows and Linux only and requires an NVIDIA GPU of the Ampere, Turing, Volta, Pascal, or Maxwell architecture. We recommend using the <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">495.46 or higher drivers</a> on Linux and <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">511.09 (Quadro), 511.09 (GeForce), or higher</a> on Windows. See  Arnold GPU for more information.</li>
+<li>Optix™ denoiser requires an NVidia GPU with <a href="https://developer.nvidia.com/cuda-gpus" target="_blank">CUDA™ Compute Capability 5.0</a> and above.</li>
+</ul>
+<p><strong>The driver type must be set to DCH.</strong></p>
+<p><img src="../images/image2022-2-1_14-46-53.png" alt=""> </p>
+<p><sup><strong><span style="color: rgb(29,28,29);">In the driver page, select "Windows Driver Type:" DCH</span></strong></sup></p>
+<p>The cache will also need to be re-populated after installing a new Arnold version, <strong>updating to a new NVIDIA driver</strong> , or changing the hardware configuration of GPUs on the system. More information can be found here .</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_5x_html.html">MtoA 5.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_bifrost_am_Bifrost_Graph_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_BIFROST_GRAPH">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" Bifrost 图表 - Arnold for Maya">
+
+<title>Bifrost 图表</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+<div class="head-block"><h1>Bifrost 图表</h1></div><p><img src="../images/mtoa_bifrost_graph1.png" alt=""></p>
+<p><sub><strong>Arnold 的“可见性”(Visibility)属性位于 bifShape 节点下</strong></sub></p>
+<ul>
+<li>原生 Bifrost 体积当前不使用 GPU。但是，导出为 VDB 的体积数据应该可以使用。</li>
+<li>自定义特性名称可以是任何名称，只要您将相同名称传递给所使用材质网络中的 <em>aiUserDataColor</em> 节点即可。使用“my_color”就可以了。</li>
+<li><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_color_ac_color_jitter_html" target="_blank"><em>color_</em> <em>jitter</em></a> 着色器目前不适用于 Bifrost。</li>
+<li>此处使用的随机颜色目前不在视口中显示，仅在渲染时显示。</li>
+</ul>
+<p>覆盖某个着色器时（例如，在 Maya 中将某个着色器应用于 bifShape 或 bifrostGraphShape），它将应用于 arnold_bifrost 生成的所有 Arnold 形状。但是，如果要应用的着色器不是体积着色器，则不应将其应用于体积，以便仍然应用图形内体积着色器（或应用 <em>arnold_bifrost</em> 生成的默认通用体积着色器）。如果您创建自己的自定义体积着色器并将其直接指定给 bifShape 或 bifrostGraphShape，则 <em>arnold_bifrost</em> 将无法识别它。在这种情况下，解决方案是仅在图形中应用自定义着色器。</p>
+<h3 id="bifrost">Bifrost 曲线图编辑器</h3><p>以下 Arnold 节点位于<em>“Bifrost 曲线图编辑器”(Bifrost Graph Editor)</em>中。单击链接以转到相关 Arnold 属性。</p>
+<table>
+<thead>
+<tr>
+<th>Bifrost 节点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_common_settings_ac_visibility_html" target="_blank">Arnold_ray_bitmask</a></td>
+</tr>
+<tr>
+<td><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Arnold_Common_Settings_html">set_Arnold_geo_settings</a></td>
+</tr>
+<tr>
+<td><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_polygons_html">set_Arnold_mesh_settings</a></td>
+</tr>
+<tr>
+<td><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Particles_html">set_Arnold_points_settings</a></td>
+</tr>
+<tr>
+<td><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Curves_html">set_Arnold_strands_settings</a></td>
+</tr>
+<tr>
+<td><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_volumes_html">set_Arnold_volume_settings</a></td>
+</tr>
+</tbody></table>
+<h2 id="ass-kick">导出到 Ass/Kick 工作流</h2><p>导出到 .ass 文件以便与 kick 结合使用时，必须使用 -l 参数通过 Arnold-Bifrost 程序位置运行 kick，例如：</p>
+<pre class="pre codeblock"><code class="prettyprint"> C:\\solidangle\\mtoadeploy\\2018\\bin\\kick.exe volume_scene.ass -l "C:\\Program Files\\Autodesk\\Bifrost\\Maya2018\\2.0.1.0\\bifrost\\arnold-5.3.0.0" </code></pre><p><strong>请注意</strong>，当使用 Bifrost 图表体积导出 ass 和 kick 时，无需展开程序。在 MtoA 中，这意味着应禁用 .ass 导出选项中的<em>“展开程序”(Expand Procedurals)</em>。</p>
+<h2 id="">用户数据支持</h2><p>Arnold-Bifrost 会尝试将每个 Bifrost 特性转换为 Arnold。对于与已知 Arnold 内置参数相对应的内置特性，它们将按此类方式进行转换（而不是转换为用户数据）；但是，遇到的所有其他特性将转换为用户数据，以便着色器和运算符在合适时对其加以使用。</p>
+<p>Arnold 中用户数据的类型和范围取决于要渲染的对象类型，例如，<em>点</em>仅支持恒定和统一用户数据，而<em>多边形网格</em>支持恒定、统一、可变和索引用户数据。下表展示了哪些范围对于哪些对象类型受支持，以及哪些类型在整体范围内受到支持：</p>
+<table>
+<thead>
+<tr>
+<th align="left">对象类型</th>
+<th align="left">恒定</th>
+<th align="left">统一</th>
+<th align="left">可变</th>
+<th align="left">索引</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">点</td>
+<td align="left">是</td>
+<td align="left">是</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">曲线（Bifrost 股）</td>
+<td align="left">是</td>
+<td align="left">是</td>
+<td align="left">是（按分段，也从按控制点自动转化）</td>
+<td align="left">是（需要索引/范围特性）</td>
+</tr>
+<tr>
+<td align="left">多边形网格（Bifrost 网格）</td>
+<td align="left">是</td>
+<td align="left">是</td>
+<td align="left">是</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">实例</td>
+<td align="left">是</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">体积（Bifrost 多分辨率平铺树）</td>
+<td align="left">是</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">隐式（Bifrost 带符号距离场）</td>
+<td align="left">是</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p>以下列出了支持的 Bifrost 数据类型，以及在 Arnold 中转化的等效类型。请注意，在某些情况下，数据会被截断或损失一些精度以适合 Arnold 类型，例如 double 到 float 转化。</p>
+<table>
+<thead>
+<tr>
+<th align="left">Bifrost 类型</th>
+<th align="left">Arnold 组件类型</th>
+<th align="left">Arnold 类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">bool</td>
+<td align="left">bool</td>
+<td align="left">AI_TYPE_BOOLEAN</td>
+</tr>
+<tr>
+<td align="left">signed char、signed short int、signed int、signed long int</td>
+<td align="left">int32_t</td>
+<td align="left">AI_TYPE_INT</td>
+</tr>
+<tr>
+<td align="left">unsigned char</td>
+<td align="left">uint8_t</td>
+<td align="left">AI_TYPE_BYTE</td>
+</tr>
+<tr>
+<td align="left">unsigned short int、unsigned int、unsigned long int</td>
+<td align="left">uint32_t</td>
+<td align="left">AI_TYPE_UINT</td>
+</tr>
+<tr>
+<td align="left">float、double</td>
+<td align="left">float</td>
+<td align="left">AI_TYPE_FLOAT</td>
+</tr>
+<tr>
+<td align="left">string</td>
+<td align="left">AtString</td>
+<td align="left">AI_TYPE_STRING</td>
+</tr>
+<tr>
+<td align="left">char2、uchar2、short2、ushort2、int2、uint2、long2、ulong2、float2、double2</td>
+<td align="left">float</td>
+<td align="left">AI_TYPE_VECTOR2 (AtVector2)</td>
+</tr>
+<tr>
+<td align="left">char3、uchar3、short3、ushort3、int3、uint3、long3、ulong3、float3、double3</td>
+<td align="left">float</td>
+<td align="left">AI_TYPE_RGB (AtRGB)</td>
+</tr>
+<tr>
+<td align="left">char4、uchar4、short4、ushort4、int4、uint4、long4、ulong4、float4、double4</td>
+<td align="left">float</td>
+<td align="left">AI_TYPE_RGBA (AtRGBA)</td>
+</tr>
+<tr>
+<td align="left">char3x3、uchar3x3、short3x3、ushort3x3、int3x3、uint3x3、long3x3、ulong3x3、float3x3、double3x3</td>
+<td align="left">float</td>
+<td align="left">AI_TYPE_MATRIX (AtMatrix)</td>
+</tr>
+<tr>
+<td align="left">char4x4、uchar4x4、short4x4、ushort4x4、int4x4、uint4x4、long4x4、ulong4x4、float4x4、double4x4</td>
+<td align="left">float</td>
+<td align="left">AI_TYPE_MATRIX (AtMatrix)</td>
+</tr>
+</tbody></table>
+<ul>
+<li>某些 Bifrost 类型不受支持，例如，<em>类型</em> 2x2 或其他非方形矩阵变体。</li>
+<li>另请注意，仅 Arnold 中具有 <em>float</em> 组件的类型才能用于可变或索引用户数据。字符串、整型或布尔型数据不能插值，因此这些类型的数据只能与常量或统一用户数据一起使用。</li>
+</ul>
+<h2 id="">随机化粒子颜色工作流</h2><p>下面是如何随机化 Bifrost 粒子颜色的示例。</p>
+<table>
+<thead>
+<tr>
+<th>要下载场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Bifrost_randomize-particle-color.mb" target="_blank">此处</a>。</th>
+</tr>
+</thead>
+</table>
+<p><img src="../images/mtoa_bifrost_graph2.png" alt=""> <img src="../images/mtoa_bifrost_graph3.png" alt=""></p>
+<p><sub><strong>random_value_array -&gt; new set_geo_property (color)。颜色是 float3 或 float4 特性（RGB、RGBA）。</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shapes/arnold_for_maya_shapes_bifrost_html.html">Bifrost</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

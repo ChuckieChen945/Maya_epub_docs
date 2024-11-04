@@ -1,0 +1,63 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_create_instances_of_geometric_objects_select_shape_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>在多个实例几何体之间进行选择</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>在多个实例几何体之间进行选择</h1></div><p><code>selector_instance</code> 节点用于在多个形状之间进行选择，以便您可以根据多种不同的树创建森林，等等。您还可以将 <code>selector_instance</code> 节点呈菊花链状连接到一起，例如，根据一个标准在松树与枝叶茂密的树之间进行选择，然后根据其他标准在每种树的不同示例之间进行选择。<code>selector_instance</code> 的输出可以连接到 <code>set_instance_geometry</code> 节点或 <code>set_instance_shape</code> 节点。</p>
+<ol>
+<li><p>将 <code>selector_instance</code> 节点添加到图表中。</p>
+</li>
+<li><p>将一个或多个几何对象（例如网格）连接到 <code>instance_geometries</code> 端口。除了几何体外，还可以连接实例形状，例如以下项的输出：</p>
+<ul>
+<li><code>geo_instance</code>，如果要对不同的实例主形状使用不同的预览几何体。</li>
+<li><code>render_archive_instance</code>，用于实例化磁盘上的渲染归档文件。</li>
+<li><code>selector_instance</code>，以便在主几何体之间进行比较复杂的切换。</li>
+</ul>
+</li>
+<li><p>将自定义 <code>long</code> 特性的名称指定为 <code>instance_id_property</code> 输入。此操作假设您已使用 <code>set_geo_property</code> 等上游节点指定针对点对象的 <code>point_component</code> 的特性。该特性应指定要实例化的几何体，其中 0 表示连接到 <code>instance_geometries</code> 的第一个几何体，1 表示第二个，依此类推。</p>
+</li>
+<li><p>如果需要，将一个简单几何体连接到 <code>preview_geometry</code> 端口。此几何体用作替代对象以供在视口中预览。请注意，此几何体将用于所有实例，即使这些实例已定义预览几何体也是如此，例如，如果您已将 <code>geo_instance</code> 节点连接到 <code>instance_geometries</code> 端口，而不是直接连接几何体。</p>
+</li>
+<li><p>将 <code>selector_instance</code> 连接到 <code>set_instance_geometry</code> 节点或 <code>set_instance_shape</code> 节点。</p>
+</li>
+</ol>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/Bifrost_Common_create_instances_of_geometric_objects_html.html">创建几何对象的实例</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

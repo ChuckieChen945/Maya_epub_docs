@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="18/08/2022">
+<meta name="topicid" content="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4">
+<meta name="language" content="CHS">
+<title>编写 CgFX 着色器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>编写 CgFX 着色器</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS17956D7ADBC6E73638876AF8117AE33FA94-7FE7"><h2 class="title sectiontitle">编写<span class="ph uicontrol" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-B82174DA-96E2-4777-8ED3-09998D62B23C">“CgFX 着色器”(CgFX shader)</span></h2> 
+		 
+		<p class="p" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-6852"> Maya 支持 Cg 版本 3.0.015。
+		</p>
+ 
+		<p class="p" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-6850">CgFX 示例随 Maya 一起提供。您可以在以下位置找到这些示例：
+		</p>
+ 
+		 
+		<ul class="ul" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-684F"><li class="li" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-684E">(Windows) <samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-A0EBE71C-53F9-46F5-938E-A8A0A6FAD360">&lt;驱动器&gt;:\Program Files\Autodesk\&lt;<em class="ph i" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-1CEBA572-6805-4775-9243-C5C2D0237978">版本</em>&gt;\presets\CgFX\examples</samp> 
+		  </li>
+<li class="li" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-684D">(Mac OS X) <samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-B5CE09D6-AC8B-473C-9815-167134ED1DD9">/Applications/Autodesk/&lt;<em class="ph i" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-0CEB1D7D-D2DD-45DD-9A58-760195A72C72">版本</em>&gt;/Maya/Contents/presets</samp> 
+		  </li>
+<li class="li" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-684C">(Linux) <samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-CAB2EEE7-CF77-4508-AB0B-62F6FCA80EEE">/usr/autodesk/&lt;<em class="ph i" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-A3AA1449-EF62-402B-9B6B-C1780B9F9833">版本</em>&gt;/presets/CgFX/examples</samp> 
+		  </li>
+</ul>
+ 
+	 </div>
+<div class="fig fignone" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-385A98B0121D1BB015F-3528"><img class="image" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__IMAGE_503274D9A28245209BDA80F44CF50F52" width="483" height="432" src="../images/GUID-79F64816-09CA-4ECE-8007-89D9346372B8.png"></div>
+<div class="section" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-684B"><h2 class="title sectiontitle">变化参数填充</h2> 
+		 
+		<p class="p" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-684A">可以将多个网格输入填充到单个变化参数注册中。例如，可以将两组 UV 坐标填充到单个 float4 注册中。
+		</p>
+ 
+		<p class="p" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-6849">下列为示例工作流：
+		</p>
+ 
+		<ol class="ol" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-6848"><li class="li" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-6847">以下顶点着色器输入结构显示了需要在单个变化参数中包含两个 UV 集的填充 <samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-C7F64AAF-BE3A-4139-804A-4C8338575BC9">float4</samp>：<pre class="pre codeblock">
+struct appdata {     float3    Position: POSITION;     float4    UVs:      TEXCOORD0; };
+</pre>
+ 
+		  </li>
+<li class="li" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-6846">创建第二个结构，描述应填充至该输入中的元素。若要启用 Maya 来查找第二个结构，其名称必须与原始变化参数的名称（在本例中为 <samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-9ED09928-63B6-4DFD-9AA3-D1306D906FFC">UVs</samp>）匹配。
+			 <p class="p" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-6845">在本示例中，该辅助结构通知 Maya 应实时地从两个 <samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-E88D99AE-89C5-45C2-AB57-A9A6CE70C391">float2</samp> 输入汇编原始 <samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-63585DB9-5520-46D9-997D-0D98ABFEB318"> float4</samp> 参数：一个名为 <samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-ACC522D6-E7BD-49C6-98B7-4406B3287DE5">UV1</samp>，另一个名为 <samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-DB51EB36-3EC5-4CF5-BD64-9F491D54B85E">UV2</samp>。着色器本身未使用该结构 - 它仅告知 Maya 如何为该输入汇编数据。
+			 </p>
+ 
+			 <pre class="pre codeblock">
+struct UVs {     float2 UV1;     float2 UV2; };
+</pre>
+ 
+		  </li>
+<li class="li" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-6844">由于 Maya 知道这是填充输入，它向美工人员提供了基本数据（<samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-AE45C791-4131-434D-B2C9-EC248230E45B">UV1</samp> 和 <samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-EDB90FB3-B526-408A-9A79-9076602B9583">UV2</samp>），而非最终填充结构 (<samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-E5BA15FA-EDA1-476D-BD0A-C74C0887455A">UV</samp>) 的界面。现在可以优化及重新组织变化参数注册指定，而无需破坏场景中使用着色器的任何现有着色器绑定。
+			 <p class="p" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-6843">有关详细信息，请以 <samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-EC5F5C20-AE44-4C46-AC4E-9D280F4B5B25">UVPacking.cgfx</samp> 为例。
+			 </p>
+ 
+			 <div class="note note" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-6842"><span class="notetitle">注：</span>  
+				<p class="p" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-43841417-1F72-4837-B4ED-33B254F35435">如果对于指定的 Cg 数据类型而言，指定给结构元素的数据太大(例如，(X, Y, Z)坐标的位置变成 <samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-39443DFD-D5B1-44AF-AB57-BE6075295CDE">float2</samp> 值)，则前 n 个值将用于填充值，而将忽略任何后续元素(例如，X 和 Y 将获准进入，而 Z 将被忽略)。
+				</p>
+ 
+			 </div>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-6841"><h2 class="title sectiontitle">其他<span class="ph uicontrol" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-ACF970A2-6134-4879-89A5-BB2989E1098C">“CgFX 着色器”(CgFX shader)</span>功能</h2> 
+		 <div class="section" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-68F0-460"><dl class="dl" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-68F0-460"><dt class="dt dlterm"> 
+		<span class="ph uicontrol" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-AF250C9C-AA57-4051-90B8-47DDF04B61FF">时间语义</span> </dt>
+<dd class="dd" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS1A9193826455F5FF-4855151011E4FD543C6-3BE1"> 
+		<p class="p" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-683F">Maya 支持随时间变化的参数。有关随时间移动的着色器的示例，请参见 <samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-F24BA935-DA17-437A-B2DF-CF1432A802D2">MrWiggle.cgfx</samp>。
+		</p>
+ </dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-6D4E4CCC-8FD1-4F4F-A968-1A1C1103485C">矩阵语义</span> </dt>
+<dd class="dd" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS1A9193826455F5FF-4855151011E4FD543C6-3BE0"> 
+		<p class="p" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-683D">可以在<span class="ph uicontrol" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-C57BF997-CEAD-4B3B-BE16-9EC09DE770F0">“CgFX 着色器”(CgFX shader)</span>中指定矩阵。Maya 支持所有矩阵语义关键字。
+		</p>
+ </dd>
+<dt class="dt dlterm">透明 CgFX 着色器</dt>
+<dd class="dd" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS1A9193826455F5FF-4855151011E4FD543C6-3BDF"> 
+		<p class="p" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-683B">Maya 支持渲染透明 CgFX 着色器。Maya 检测在第一个过程中是否启用了融合状态。如果启用了融合，Maya 在场景视图中使用<span class="ph uicontrol" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-DEFEF7F1-41E7-460E-842A-2D2C45C06ACF">“对象透明度排序”(Object Transparency Sorting)</span>或<span class="ph uicontrol" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-827F8070-98DF-4C53-9EA0-882E8662F58E">“多边形透明度排序”(Polygon Transparency Sorting)</span>选项来正确渲染透明着色器。
+		</p>
+ </dd>
+<dt class="dt dlterm">Maya 着色器文件</dt>
+<dd class="dd" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS1A9193826455F5FF-4855151011E4FD543C6-3BDE"> 
+		<p class="p" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-6839">Maya 在以下目录中提供了开发人员可以合并到自己的 CgFX 着色器中的着色器文件：
+		</p>
+ 
+		<ul class="ul" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-6838"><li class="li" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-6837">(Windows) <samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-D8011D0C-6DB5-44E5-8715-EF968A5D66FA">&lt;<em class="ph i" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-3F79525A-451F-4661-91E8-B5CEAA1AC7B7">install_dir</em>&gt;\bin\cg</samp> 
+		  </li>
+<li class="li" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-6836">(Linux) <samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-8366D30B-FD7B-449B-990B-E840FF15D277">&lt;<em class="ph i" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-F67E7535-C8D8-4F08-91E9-1E253B69A43D">install_dir</em>&gt;/bin/cg</samp> 
+		  </li>
+<li class="li" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-6835">(Mac OS X) <samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-CCE96112-68E8-4192-BA59-C06AD216A7C8">&lt;<em class="ph i" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-0DF1EDDC-AC78-47B3-9A12-85E151D8D408">install_dir</em>&gt;/Maya.app/Contents/bin/cg</samp> 
+		  </li>
+<p class="p" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-F2C006B3-E906-4A3C-A640-B4C2830F2B4B">其中，<samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-BD31F459-5F24-4969-956A-07E188607E55">&lt;<em class="ph i" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-5CE669E9-B832-4B9D-80CB-3605972A67EF">install_dir</em>&gt;</samp> 是 Maya 的安装目录。
+		</p>
+</ul>
+ 
+		<p class="p" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__WS73099CC142F48755-3D114B7511812357EFE-6834">选择 Maya_ *.cgh 代码示例；例如，Maya 用于融合分层纹理的代码 <samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-328656CE-E580-4BA5-9EA0-A3DCF18839A3">maya_blends.cgh</samp>：
+		</p>
+ </dd>
+<dt class="dt dlterm">纹理坐标系的方向</dt>
+<dd class="dd" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-2F91F5DD-E8E6-4BE3-A0F9-22888990BADE">当 CgFx 插件编译 Cgfx 着色器时，它将编译宏 MAYA_TEXCOORD_ORIENTATION 设置为 OpenGL 或 DirectX，以指定用于纹理坐标系的方向。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-651CFFC4-80BC-4B20-933A-744F20021DA5.htm">CgFX 着色器的纹理坐标系的方向</a>。</dd>
+</dl>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__SECTION_C0574DB10701427AB8141802195E4446"><h2 class="title sectiontitle">自定义 CgFX 着色器</h2> 
+		 
+		<p class="p" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-076C056B-B385-4312-83A0-E27198A1F4C2"> 您可以使用 MAYA_CGFX 宏来自定义 CgFX 着色器，从而包括 Maya 特定属性注释，而不破坏与可能也使用相同 CgFX 着色器的其他应用程序的兼容性。
+		</p>
+ 
+		<p class="p" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-933315BF-515B-4FAC-8C8D-29BC9D934537">例如，可以使用以下代码来声明 Maya 和其他应用程序的平行光属性，且不会造成任何兼容性问题：
+		</p>
+ 
+		<pre class="pre codeblock">#if defined(MAYA_CGFX) || defined(XSI)
+// Declares the « dirlight0 » with attribute annotations for Maya or XSI
+float4 dirlight0 : Direction &lt;
+     string UIName =  "Distant Light 0 Direction";
+     string Object = "DirectionalLight";
+     string Space = "World";
+&gt; = {-1.0f, -1.0f, 0.3f, 0.0f};
+#else
+// Declares the « dirlight0 » with attribute annotations for another application:
+....
+#endif
+</pre>
+ 
+		<p class="p" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-8F233E64-3AEB-40D5-B715-E9240702328C"><samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-3B594BFD-687F-4646-8719-278BA897206B">#if defined(MAYA_CGFX) || defined(XSI)</samp> 和 <samp class="ph codeph" id="GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4__GUID-C1A199C3-7C62-409F-836A-97250A82B44C">#else</samp>之间的行只有在 Maya/XSI 加载时才会解析。
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA.htm">创建 CgFX 着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

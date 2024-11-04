@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-529E61AC-ED51-49F9-80B1-23D9E141DB6F">
+<meta name="language" content="CHS">
+<title>如何随机化关键帧？</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-529E61AC-ED51-49F9-80B1-23D9E141DB6F">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>如何随机化关键帧？</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-529E61AC-ED51-49F9-80B1-23D9E141DB6F__WS73099CC142F48755-3D114B7511841AEFA9F-1173"> 将关键帧命令和 <samp class="ph codeph" id="GUID-529E61AC-ED51-49F9-80B1-23D9E141DB6F__GUID-ADE6EDD2-444E-4B44-9D11-926708959A0F">-vc</samp> (valueChange) 选项结合使用，并将“rand MIN MAX”作为参数传递。例如，要随机化介于 1.5 和 3.2 之间的 sphere.tx：</p>
+<pre class="pre codeblock">
+float $random;
+ int $n=`keyframe -q -kc sphere.tx`; 
+	//total number of keyframes in tx
+ for($i=0;$i&lt;$n;$i++) {
+ $random=`rand 1.5 3.2`;
+ keyframe -e -at tx -in $i -vc $random sphere;
+ }
+</pre>
+<p class="p" id="GUID-529E61AC-ED51-49F9-80B1-23D9E141DB6F__WS73099CC142F48755-3D114B7511841AEFA9F-1171">若要随机化所有属性，可以写入上循环，从而更改要随机化的属性。</p>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-ED9B9E68-6A50-4B97-884B-A04AB49673B4.htm">动画、动力学和渲染</a></div>
+</div>
+</div>
+
+</body>
+</html>

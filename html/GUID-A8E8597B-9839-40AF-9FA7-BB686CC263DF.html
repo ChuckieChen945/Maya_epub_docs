@@ -1,0 +1,85 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="ENU">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Maya-USD">
+  <meta name="topicid" content="GUID-A8E8597B-9839-40AF-9FA7-BB686CC263DF">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>Lock layers in the USD Layer Editor</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>Lock layers in the USD Layer Editor</h1></div><p>When a layer is locked, you cannot target or add sublayers to it. If a locked layer has sublayers, the sublayers cannot have new parent layers added to them.
+You can lock the layers either <a href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/USD-Layer-Editor/GUID-A8E8597B-9839-40AF-9FA7-BB686CC263DF.html#lock-layers-through-the-ui">through the UI</a> or enforce <a href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/USD-Layer-Editor/GUID-A8E8597B-9839-40AF-9FA7-BB686CC263DF.html#system-lock">system-level locks</a>.</p>
+<h2 id="lock-layers-through-the-ui">Lock layers through the UI</h2><ul>
+<li>You can lock a layer by clicking the lock icon or selecting <strong>Lock</strong> from the context menu. </li>
+<li>When locking multiple layers, highlight the layers in the USD Layer Editor &gt; right click &gt; select <strong>Lock</strong> from the context menu. </li>
+<li>You can lock a layer together with its sublayers using the <strong>Lock Layer and Sublayers</strong> option in the context menu.</li>
+<li>An anonymous layer can be locked in the same manner as a layer saved on file. A locked anonymous layer can still be saved. It will remain locked after being saved.</li>
+<li>The lock state is saved as part of the Maya data, ensuring its persistence even after reopening the project.</li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>Note:</div>
+<div class="callout-body">
+
+<p> The sessionLayer will be automatically targeted in the following situations:</p>
+<ul>
+<li>When all the layers are locked or muted</li>
+<li>When a stage is created from a locked file</li>
+</ul>
+
+</div></div>
+
+<h2 id="system-lock">System lock</h2><p>Administrators can enforce system-level locks on layers, preventing standard users from unlocking them. This can be done via Mel or Python scripts, or by locking the USD file on disk. The system-locked layers are easily identifiable by the disabled lock icons. </p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>Note:</div>
+<div class="callout-body">
+
+<p> System locks are not saved as part of the Maya data.</p>
+
+</div></div>
+
+<p>Here is an example code for system-locking a layer using MEL scripts:</p>
+<pre class="pre codeblock"><code class="prettyprint">// Lock Type: 0 = Unlocked, 1 = Locked and 2 = System-Locked. 
+// Include Sublayers : 0 = Top Layer Only, 1 : Top and Sublayers
+// example: System-lock lighting_shot_1.usda
+
+mayaUsdLayerEditor -edit -lockLayer 2 0 "|shot_1|shot_1Shape" "d:/Assets/lighting_shot_1.usda"
+</code></pre>
+<p>See <a href="https://github.com/Autodesk/maya-usd/blob/48a4544ffcb5af5e9c7b479f889df7686ff54358/doc/LayerLocking.md#in-python-script-un-doable-1" target="_blank">Layer Locking</a> for more information.</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>Parent page:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/GUID-4FAD73CA-E775-4009-9DCB-3BC6792C465E.html">USD Layer Editor</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

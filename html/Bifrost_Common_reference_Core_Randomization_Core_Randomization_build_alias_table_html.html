@@ -1,0 +1,66 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Core_Randomization_Core_Randomization_build_alias_table_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>build_alias_table</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>build_alias_table</code></h1></div><p>构建别名表。别名表是用于有效计算加权选择的数据结构。此复合用于 <code>randomize_selection_by_probabilities</code>，并且要与 <code>sample_alias_table</code> 一起使用。 </p>
+<div class="note 注意："><span class="notetitle">注意：</span>别名方法是一种经过充分研究的算法，并且有许多资源介绍其工作方式。 </div>
+<p><code>[1,2,3]</code> 的权重值生成具有概率 <code>[1/6, 2/6, 3/6]</code> 或 <code>[1/6, 1/3, 1/2]</code> 的别名表。换句话说，一份 ID 0，两份 ID 1，三份 ID 2。 </p>
+<p>采样后，输出可能如下所示：<code>[1,2,2,1,2,2,0,1,2,2,2,1,2,0,1,2,1,2,2,1,1,0,2,0]</code>。ID 0 很少见，ID 1 的常见程度比 ID 0 加倍，ID 2 最常见。 </p>
+<h2 id="">编码</h2><p>别名表编码为 <code>array&lt;float2&gt;</code>，其中每个数组索引表示一个 ID，<code>float2</code> 包含 {probability, alias}。</p>
+<p>权重 {1,2,3} 表示每个 ID 具有以下概率。 </p>
+<pre class="pre codeblock"><code class="prettyprint">    ID 0: 1/6 (from weight = 1)
+    ID 1: 1/3 (from weight = 2)
+    ID 2: 1/2 (from weight = 3)</code></pre><p>下面是由这些权重生成的别名表。 </p>
+<pre class="pre codeblock"><code class="prettyprint">    ID 0: {Probability 0.5, Alias 2}
+    ID 1: {Probability 1.0}            (Unused alias not shown)
+    ID 2: {Probability 1.0}            (Unused alias not shown)</code></pre><p>采样时，我们首先选择一个随机条目，选择其中任何一个条目的概率相等。这意味着每个 ID 的概率相同。 </p>
+<pre class="pre codeblock"><code class="prettyprint">    ID 0: 1/3
+    ID 1: 1/3
+    ID 2: 1/3</code></pre><p>ID 0 应该只收到 1/6 的样本，但是它被选中的时间是 1/3。它自己的概率是 0.5，因此它为其“别名”提供一半的样本，即 ID 2。它自己保留另一半的样本，即 ID 0。因此，得到的概率修改如下： </p>
+<pre class="pre codeblock"><code class="prettyprint">    ID 0: -1/6 (give to ID 2)
+    ID 1: 
+    ID 2: +1/6</code></pre><p>结果为：</p>
+<pre class="pre codeblock"><code class="prettyprint">    ID 0: 1/6
+    ID 1: 1/3
+    ID 2: 1/2</code></pre><h2 id="">输入</h2><h3 id="weights"><code>weights</code></h3><p>权重是用于构造别名表的浮点值数组。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Core/Bifrost_Common_reference_Core_Randomization_html.html">Randomization</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

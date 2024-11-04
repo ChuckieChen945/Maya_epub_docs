@@ -1,0 +1,170 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_archives_am_Animating_Abstract_Patterns_in_XGen_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_ANIMATING_ABSTRACT_PATTERNS_IN_XGEN">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 在 XGen 中为抽象图案设置动画 - Arnold for Maya">
+
+<title>在 XGen 中为抽象图案设置动画</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>在 XGen 中为抽象图案设置动画</h1></div><p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2014-4-15-9-25-44-1.jpg" alt=""></p>
+<p><sub><strong>场景由 XGen“归档”立方体基本体构成。一个纹理贴图驱动“长度”(length)属性，一个表达式驱动“扭曲”(twist)属性。</strong></sub></p>
+<p>XGen 是一种功能强大的工具，提供了许多创意机会来定位任意数量的随机或均匀放置的基本体。您可以结合使用纹理贴图和 XGen 描述来指定基本体生成的位置和密度，以及控制若干基本体属性。</p>
+<p>本教程将介绍如何才能非常轻松地使用纹理贴图“驱动”XGen 基本体的长度。这些基本体可以是球体、样条线或如以下示例所示导出为归档的立方体几何体。然后，我们将使用 <strong>$frame</strong> 表达式为归档的长度设置动画。最后，我们将讨论如何使用 XGen 和 MtoA 来<a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-XGen_Tutorials/am-Archives/arnold_for_maya_archives_am_Animating_Abstract_Patterns_in_XGen_html.html#AnimatingAbstractPatternsinXGen-batchrender">批渲染</a>动画。</p>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2014-4-14-10-40-44-2.png" alt=""></p>
+<p><strong>要观看介绍此过程的视频教程，请单击<a href="https://www.youtube.com/watch?v=L7XZxffWork#t=579" target="_blank">此处</a>。</strong></p>
+<h2 id="">基本体归档</h2><ul>
+<li>首先，创建要用作 XGen 归档的多边形立方体。将立方体的比例保留为 1,1,1。稍后，我们将使用 XGen 的<strong>“大小”(Size)</strong>属性进行调整。</li>
+</ul>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2016-5-10-13-6-57-3.png" alt=""></p>
+<ul>
+<li>选择立方体后，转到<strong>*“生成</strong> <strong>&gt; 将当前选择项导出为归档...”(Generate &gt; Export Selection as Archive(s)...)*</strong></li>
+</ul>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2016-5-10-13-8-37-4.png" alt=""></p>
+<ul>
+<li>将<strong>“归档文件名”(Archive Name)</strong>重命名为 <strong><em>cube</em></strong>，然后选择归档文件的保存位置。</li>
+</ul>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2016-5-10-13-9-36-5.png" alt=""></p>
+<h2 id="xgen">XGen 描述</h2><ul>
+<li>创建一个多边形平面。我们将使用此平面指定 XGen 描述。如果您想让 XGen 基本体形成圆形构造，请确保将<strong><em>“细分宽度”(Subdivisions Width)</em></strong>和<strong><em>“高度细分数”(Subdivisions Height)</em></strong>设置为 <strong>1</strong>。如果要形成方形构造，则将<strong><em>“细分宽度”(Subdivisions Width)</em></strong>和<strong><em>“高度细分数”(Subdivisions Height)</em></strong>增加至 <strong>10</strong>。在此示例中，我们将它们设置为 <strong>1</strong>。</li>
+</ul>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2016-5-10-13-12-25-6.png" alt=""></p>
+<ul>
+<li>选择该多边形平面，然后转到<strong><em>“生成 &gt; 创建描述”(Generate &gt; Create Description)</em></strong>。此操作将打开下面的<strong>“创建 XGen 描述”(Create XGen Description)</strong>。</li>
+<li>选择<strong><em>“自定义几何体/</em></strong> <strong><em>归档文件”(Custom Geometry/Archives)。</em></strong> 保留其他默认设置不变，然后单击<strong><em>“创建”(Create)。</em></strong></li>
+</ul>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2016-5-10-13-14-12-7.png" alt=""></p>
+<ul>
+<li>建议先降低<strong>“预览/输出”(Preview/Output)</strong>选项卡中的<strong><em>“百分比”(Percent)</em></strong>值，然后再继续操作。如果<strong><em>“百分比”(Percent)</em></strong>的值过高，您可能会发现计算机会因生成大量的基本体而停止运行。</li>
+</ul>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2016-5-10-13-14-40-8.png" alt=""></p>
+<h2 id="">扭曲表达式</h2><ul>
+<li>在<strong>“基本体属性”(Primitive Attributes)</strong>下，单击<strong><em>“扭曲”(Twist)</em></strong>滑块控件右侧的向下箭头 <img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2015-9-24-14-7-25-9.png" alt="">。</li>
+</ul>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2016-5-10-13-15-16-10.png" alt=""></p>
+<ul>
+<li>从菜单中选择以下项：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>加载表达式 &gt; 示例 &gt; 几何体 &gt; flatten_Room(Load Expression &gt; samples &gt; Geometry &gt; flatten_Room)</th>
+</tr>
+</thead>
+</table>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2015-9-24-14-7-44-11.png" alt=""></p>
+<p>您应该会看到<strong><em>“宽度”(Width)</em></strong>和<strong><em>“深度”(Depth)</em></strong>属性出现在<strong>“扭曲”(Twist)</strong>下方。将<strong>“扭曲宽度”(Twist Width)</strong>增大到至少 200。</p>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2016-5-10-13-17-19-12.png" alt=""></p>
+<h2 id="density">密度(Density)</h2><p>根据表达式编辑器中使用的值，您可能需要更改<strong>“密度”(Density)</strong>值。如果立方体归档过于密集地聚在一起，您可以减小<strong>“密度”(Density)</strong>值。相反，如果立方体相距太远，则可能需要增大密度或减小最大<strong><em>宽度</em></strong>大小。下面的图像显示了增加“密度”(Density)对 XGen 创建的基本体数量的影响。</p>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2014-4-14-10-6-0-13.png" alt=""></p>
+<p><sub><strong>密度(Density)：35000.0</strong></sub></p>
+<ul>
+<li>将<strong>“密度”(Density)</strong>值倍增至 70000.0 时呈现的效果如下图所示。</li>
+</ul>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2014-4-11-16-17-52-14.png" alt=""></p>
+<p><sub><strong>密度(Density)：70000.0</strong></sub></p>
+<h2 id="">长度</h2><p>我们可以结合使用纹理贴图和表达式来控制立方体的长度（高度）。首先，创建一个纹理贴图来控制它们的长度。</p>
+<ul>
+<li>单击<strong>“长度”(Length)</strong>右侧的向下箭头 <img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2015-9-24-14-8-11-15.png" alt="">。选择<strong><em>“创建贴图...”(Create Map...)</em></strong>（请务必注意，仅当平面指定有 Maya 着色器时，该选项才有效）。</li>
+</ul>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2016-5-10-13-18-17-16.png" alt=""></p>
+<ul>
+<li><strong>“贴图名称”(Map Name)</strong>应为<strong><em>“length”</em></strong>。将<strong>“贴图分辨率”(Map Resolution)</strong>增加到 200 左右。这将按每个面的 Texel 数设置 PTEX 贴图的分辨率。使用高分辨率纹理时，请使用更大的“贴图分辨率”(Map Resolution)值。完成后，单击<strong>“创建”(Create)</strong>。</li>
+</ul>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2016-5-10-13-18-37-17.png" alt=""></p>
+<h2 id="">创建纹理贴图</h2><p>现在，我们要添加纹理贴图。单击滑块控件右侧的绘制图标 <img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2015-9-24-14-8-40-18.png" alt="">。这时应该会在“Hypershade”和“节点编辑器”(Node Editor)窗口中看到文件纹理已连接到平面。</p>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2016-5-10-13-20-1-19.png" alt=""></p>
+<ul>
+<li>选择该文件纹理，然后打开要用于驱动立方体基本体长度的纹理贴图。请确保选择的纹理贴图具有较高的对比度，即使尺寸较小也可识别其特征。如果图像中包含的意外细节过多，则将不会更好地传递到立方体。</li>
+</ul>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2014-4-14-13-14-45-20.png" alt=""></p>
+<p><sub><strong>使用黑白纹理驱动立方体归档的“长度”（贴图用于顶部页面图像）。</strong></sub></p>
+<ul>
+<li>在渲染场景之前，我们必须先告知 XGen 更新文件纹理。为此，单击每个长度、宽度和深度属性的 <img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2015-9-24-14-9-22-21.png" alt=""> 磁盘图标。创建一个灯光并渲染场景。</li>
+</ul>
+<p>更新用于定义基本体属性的文件纹理后，记得选择 <img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2015-9-24-14-9-44-22.png" alt=""> 磁盘图标。否则，XGen 将不会更新它，渲染将不会发生变化。</p>
+<h3 id="">长度表达式</h3><ul>
+<li>接下来，单击<strong><em>“长度”(Length)</em></strong>滑块控件右侧的<strong>表达式</strong>图标 <img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2015-9-24-14-10-5-23.png" alt="">。</li>
+</ul>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2016-5-10-13-20-33-24.png" alt=""></p>
+<ul>
+<li>在<strong>“表达式编辑器”(Expression Editor)</strong>中应该可以看到以下<strong><em>长度</em></strong>表达式文本。在<strong>表达式文本字段</strong>中，您应该会看到以下文本：</li>
+</ul>
+<pre class="pre codeblock"><code class="prettyprint"> $a=map('${DESC}/paintmaps/length');#3dpaint,200.0 </code></pre><p>此文本用于使用纹理贴图定义长度属性，这里的 200 是我们之前定义的“贴图分辨率”(Map Resolution)。</p>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2016-5-10-13-21-24-25.png" alt=""></p>
+<ul>
+<li>在<strong>“表达式编辑器”(Expression Editor)</strong>中添加以下行。</li>
+</ul>
+<pre class="pre codeblock"><code class="prettyprint"> $a=20*$a+1;  </code></pre><p>...其中，20 是立方体归档的最大长度，1 是最小大小。您的长度表达式编辑器应类似下图。复制表达式文本。完成后，单击“接受”(Accept)。</p>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-image2016-5-10-13-22-3-26.png" alt=""></p>
+<ul>
+<li>在此处粘贴用于<strong>长度</strong>的相同表达式。对<strong>“深度”(Depth)</strong>属性执行相同的操作。</li>
+</ul>
+<h2 id="">动画</h2><p>我们可以使用 <strong>$frame</strong> 表达式向 XGen 立方体归档的<strong>“长度”(Length)</strong>属性添加一些动画。</p>
+<ul>
+<li>打开长度属性的“表达式编辑器”(Expression Editor)，然后在编辑器窗口中添加以下内容：</li>
+</ul>
+<pre class="pre codeblock"><code class="prettyprint"> $a=map('${DESC}/paintmaps/length1');#3dpaint,200.0 </code></pre><pre class="pre codeblock"><code class="prettyprint"> $a=20*$a+$frame+1; </code></pre><pre class="pre codeblock"><code class="prettyprint"> $a  </code></pre><ul>
+<li>您可能想要将 <strong>20</strong> 增加至较高的值（如 <strong>40</strong>），以增加<strong>“长度”(Length)</strong>属性的大小。单击<strong>“接受”(Accept)</strong>。您应该看到已创建名为<strong>“帧”(Frame)</strong>的滑块。</li>
+<li>转到时间滑块上的第 1 帧。右键单击<strong>“帧”(Frame)</strong>，然后选择<strong><em>“设置关键帧”(Set Key)</em></strong>。您可能需要使用负值，以便立方体开始长度为零。</li>
+<li>转到结束帧（如 100），然后为<strong>“帧”(Frame)</strong>创建另一个关键帧（如 25）。移动时间滑块，观看动画。在动画期间，您应该会看到立方体的长度似乎在不断增加。</li>
+<li>此外，您也可以尝试对<strong>“扭曲宽度”(Twist Width)</strong>属性设置关键帧，以将立方体扭曲为有趣的构造。以下示例使用的值介于 200 到 600 之间。</li>
+</ul>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-length-27.gif" alt=""></p>
+<h2 id="">批渲染</h2><p>在进行批渲染前，记得执行以下步骤，否则 XGen 描述将不会渲染：</p>
+<ul>
+<li>保存场景。</li>
+<li>选择几何体和 XGen 描述之后，从 XGen 描述菜单中转到<strong>“文件 &gt; 导出面片以进行批渲染”</strong> <strong>(File &gt; Export Patches for Batch Render)</strong>。如果 XGen 描述包含动画，则启用该动画并选择<strong>“帧范围”(Frame Range)</strong>。确保在“插件管理器”(Plug-in Manager)中加载了 <strong>AbcExport.mll</strong>，否则将无法正确导出动画。</li>
+<li>保存场景。</li>
+<li>对动画效果满意后，就可以进行批渲染动画了。</li>
+</ul>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-XGen-animation-28.gif" alt=""></p>
+<h2 id="">总结</h2><p>有关通过纹理贴图和表达式为 XGen 基本体归档构造设置动画的教程到此结束。这款工具具有很多强大的功能，这只是其中一个示例。可尝试使用不同的纹理贴图和基本体类型（如样条线和球体）。下面是使用连接至<strong>“长度”(Length)</strong>属性的各种纹理的更多示例。</p>
+<p><img src="../images/am-Animating_Abstract_Patterns_in_XGen-super-hexagon-HD-29.jpg" alt=""></p>
+<p><sub><span style="color: rgb(51,51,51);"><sup><em>感谢 <strong><a class="external-link" href="http://www.pedrofe.com/" rel="nofollow" target="_blank">Pedro Fernando Gómez </a></strong> 在 XGen 方面提供的帮助。</em></sup></span></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-XGen_Tutorials/arnold_for_maya_xgen_am_Archives_html.html">归档</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

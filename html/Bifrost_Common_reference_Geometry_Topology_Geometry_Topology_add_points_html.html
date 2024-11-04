@@ -1,0 +1,70 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Geometry_Topology_Geometry_Topology_add_points_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>add_points</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>add_points</code></h1></div><p>将点添加到点对象（例如，粒子系统）。任何以 <code>point_component</code> 为目标的特性都会设置为新点的默认值，但您可以使用 <code>new_collection</code> 将其初始化为其他值。</p>
+<h2 id="">输入</h2><h3 id="geometry"><code>geometry</code></h3><p>点对象。</p>
+<h3 id="positions"><code>positions</code></h3><p>要添加点的位置数组。</p>
+<h3 id="new_collection"><code>new_collection</code></h3><p>要添加新点的点集合的名称。这是可选的。如果该集合已存在，则会将其替换。</p>
+<p>如果提供要用于集合的名称，则可以使用 <code>new_collection</code> 为新点的 <code>point_size</code> 等特性设置值：</p>
+<ol>
+<li><p>使用 <code>get_geo_property</code> 和此处输入的集合名称从输出几何体获取特性值。将布尔 <code>value</code> 节点插入到 <code>type</code> 端口。</p>
+</li>
+<li><p>将 <code>get_geo_property</code> 的 <code>data</code> 输出插入到 <code>if</code> 节点的 <code>condition</code> 端口。</p>
+</li>
+<li><p>使用另一个 <code>get_geo_property</code> 节点获取原始点对象上现有特性的值，并将其 <code>data</code> 值插入到 <code>if</code> 节点的 <code>false_case</code> 端口。</p>
+</li>
+<li><p>创建子图以计算要用于新点的值，并将其输出插入到 <code>if</code> 节点的 <code>true_case</code> 端口。</p>
+</li>
+<li><p>使用 <code>set_geo_property_data</code> 节点设置点对象上的结果值：</p>
+<ul>
+<li>将 <code>add_points</code> 的输出插入到 <code>set_geo_property_data</code> 的 <code>geometry</code> 端口。</li>
+<li>将 <code>property</code> 设置为现有特性的名称。</li>
+<li>将 <code>if</code> 节点的输出插入到 <code>data</code> 端口。</li>
+</ul>
+</li>
+<li><p>对要初始化的其他特性重复上述操作。</p>
+</li>
+</ol>
+<h2 id="">输出</h2><h3 id="out_geometry"><code>out_geometry</code></h3><p>添加了点的新点对象。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Geometry/Bifrost_Common_reference_Geometry_Topology_html.html">Topology</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

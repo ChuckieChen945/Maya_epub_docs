@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A">
+<meta name="language" content="CHS">
+<title>将顶点颜色添加到基于物理的 Stingray 着色器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>将顶点颜色添加到基于物理的 Stingray 着色器</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-586A13E3-F799-4D47-97A0-91B3031B595D">可以将顶点颜色通道添加到<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-EC043806-0F28-439A-8991-18FD237C835C">“Stingray PBS”</span>ShaderFX 网络，然后绘制顶点。 
+	 </p>
+<p class="p" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-B65F68BC-131F-408A-9D0E-F6E065B1B027">在此示例中，首先创建 <span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-D5D17E91-F000-4A8D-869E-8CF07C595DE1">Stingray PBS</span> 节点，然后使用 ShaderFX 编辑器将漫反射贴图和法线贴图连接到其着色器图表。有关这些任务的详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3.htm">创建基于物理的 Stingray 着色器</a>、<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9.htm">使用 ShaderFX 编辑器构建基于物理的 Stingray 着色器</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E.htm">将贴图连接到基于物理的 Stingray 着色器</a>。 
+	 </p>
+<div class="fig fignone" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__FIG_0A72C734CD0A4BE9AD540F0400841FAF"><img class="image" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__IMAGE_3F25513D0DB94615BF852D192FA34AD4" src="../images/GUID-F6780091-9081-41D9-B8FC-593DD72658BB.png"></div>
+<p class="li listintro" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-F0430819-2348-4254-ACA9-610A3C3FEA5A">将顶点颜色通道添加到<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-4CB47102-09E7-4C52-AD01-09036DF81327">“Stingray PBS”</span>网络</p>
+<ol class="ol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__OL_32D5ADC89D1B48C3A0C5B97456838BA8"><li class="li" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__LI_D6066A5B070444B9B8EDFBA7006F18C2">创建<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-0627E961-D9F7-45D5-A62F-508E2F3C2027">“顶点颜色 0”(Vertex Color 0)</span>节点（从<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-17EEC366-8385-4428-87E7-91FCFA219F32">节点浏览器</span>拖放到工作区），并将它连接到<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-8C02AE6D-8B2D-4A3A-9F8A-13A45DF0D3BC">“标准基础”(Standard Base)</span>节点的<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-A7BA919C-B5F7-4369-A9A4-B5B9DF3AF15F">“基础颜色”(Base Color)</span>属性。 
+		   
+		  <p class="p" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-277CC139-0017-4443-8761-CF3F0FC5812F">模型在视口中显示为黑色。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__LI_C6A7AA2F767B4EA68374711CAD6873DF">选择模型，然后选择<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-FE5C46EB-3C61-4147-B51A-3B60775BBCF4">“网格显示 &gt; 绘制顶点颜色工具”(Mesh Display &gt; Paint Vertex Color Tool)</span> &gt; <img class="image" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__IMAGE_47742FDEDD9242FC8C8A60BC1621B2D4" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">（在<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-FFF25213-3750-416C-B9AA-80DA95D62D66">“建模”(Modeling)</span>菜单集中）。 
+		</li>
+<li class="li" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__LI_CD376A4B06AE494EAA3BEC47DCAD8FBC">请确保<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-19C28280-B715-4834-A2EF-6E5A5DCAA7CF">“绘制顶点颜色工具”(Paint Vertex Color Tool)</span>设置中的<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-5D0C58A9-E005-4811-A2DA-78243A9264BC">“颜色值”(Color Value)</span>颜色缸为黑色。单击<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-7627F652-F70B-4942-A8DA-6D302DC0AA01">“整体应用”(Flood)</span>以确保所有顶点都从顶点颜色 0, 0, 0 开始。 
+		  <p class="p" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-84641A85-0E68-4DC7-BB74-1C87F9052B71">仅当在之前尚未应用顶点颜色的对象上绘制时，此步骤才是必需的。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__LI_43C2BD056B2640029390ACBBD4AC8543">从<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-0E23A508-FADB-492F-AD88-5598EC377859">“颜色值”(Color Value)</span>颜色缸中选择其他颜色，然后绘制。 
+		</li>
+<p class="p" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-9DE434CF-BC16-4B96-813E-899129DCEFCB">现在，可以在视口中看到模型上的已绘制区域。 
+	 </p>
+</ol>
+<div class="fig fignone" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__FIG_04F13E9C667647699BA421DA18AA6F94"><img class="image" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__IMAGE_F60C1C7B1DA644EB952F00B3A67DECEC" src="../images/GUID-33A81FF7-4E89-4A01-A698-E93106BFCCF1.png"></div>
+<p class="li listintro" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-18377E54-2F52-481A-8D09-4E8E176A7D40">添加带有基础颜色贴图的顶点颜色通道</p>
+<ol class="ol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__OL_52EED3F9A550429ABC3210C6E47EAA26"><li class="li" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__LI_3413BE5C30DA404B992E35E0671A6D3F">创建<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-2BEE3876-45D3-4433-A8EA-721C0B70485D">“添加”(Add)</span>节点。 
+		</li>
+<li class="li" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__LI_5237078884C5478FB1CED2AAB1111516">删除<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-B70D91B3-DFBE-47B2-BA72-9B01407E3845">“使用颜色贴图”(Use Color Map)</span>、<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-EDA6AC3B-DA76-4F75-A84F-0B3183732753">“颜色切换”(Color Switch)</span>和<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-6A2C0C5E-93B8-4661-8C10-BCFB2DE2A152">“颜色”(Color)</span>节点。 
+		</li>
+<li class="li" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__LI_1A6007C93BE0404DB398386A8CB04A07">将<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-B607FFEE-8C69-4156-9310-67FA1D0ADE8D">“颜色贴图”(Color Map)</span>的<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-40731D96-00B2-4CE2-A9CA-8ABD555C725D">“RGBA”</span>输出连接到<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-1D4EF450-1879-4DC4-A262-B98F969BB4D6">“添加”(Add)</span>的第一个输入。 
+		</li>
+<li class="li" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__LI_6E776A325DFD4B92988275E43A85D024">将<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-2935C279-8D19-4159-A951-893B1603740E">“顶点颜色 0”(Vertex Color 0)</span>的<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-199669EA-6112-4B58-9B4A-57FE99C2FE04">“RGBA”</span>输出连接到<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-7D6C3772-2636-477D-A1C4-B24A4CE1A693">“添加”(Add)</span>的第二个输入。 
+		</li>
+<li class="li" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__LI_F173FD3804704EAEBE5BD6C47FEF7ACF">将<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-8A36011C-B669-4330-B4AA-2C9CAA907A64">“添加”(Add)</span>的<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-DAA81377-F519-46FA-B974-2189EDE6A375">“结果”(Result)</span>输出添加到<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-F896FF30-E946-4A25-8E43-A7409A0676C1">“标准基础”(Standard Base)</span>的<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-EA92BD49-D957-4992-9DF9-43E5C03620A7">“基础颜色”(Base Color)</span>。 
+		</li>
+<p class="p" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-48FEBF59-D2DB-4D3F-ADE5-C141066E331D">“添加”(Add)操作将生成 float4 输出 (RGBA)，但是<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-B1EEF91B-F22E-4EF4-A6AD-95DDC3A4481D">“标准基础”(Standard Base)</span>节点的<span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-C831DA13-AFCB-43EF-8C62-BF4E64F2B05B">“基础颜色”(Base Color)</span>属性采用 float3 (xyz) 作为输入。float4 将自动转化为 float3。 
+	 </p>
+<p class="p" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-F0589420-DDD8-4BFC-A90D-0DFBF1E19748">现在，可以在 <span class="ph uicontrol" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__GUID-FCA33C38-962A-49B1-9B93-6F5DB3CF3DA6">Viewport 2.0</span> 中看到对象的颜色贴图和在模型上绘制的区域。 
+	 </p>
+</ol>
+<div class="fig fignone" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__FIG_B4B49C62FC514883939AB945CD52464E"><img class="image" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__IMAGE_9412D968DB2E4260B7C6CC888B16760D" src="../images/GUID-8D79081E-FD7B-4331-AE7C-7887B7B7B33E.png"></div>
+<div class="section" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__SECTION_DFE4CFF5346141FF8E34CE5CD6967F80"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__UL_3499FB4C46684D1C8D637BB89102012B"><li class="li" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__LI_F417B437FC7841168110C06D7E13C97C"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3.htm">创建基于物理的 Stingray 着色器</a> 
+		  </li>
+<li class="li" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__LI_507874EA14C74246ADC3C334B19A5981"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C.htm">示例工作流程：使用 Stingray 基于物理的着色器融合两个纹理</a> 
+		  </li>
+<li class="li" id="GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A__LI_B55D651EDB1D4EEDB682003E9069D454"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-3DB877CD-2BA7-4D5C-ABB6-5292955D4600.htm">基于物理的 Stingray 着色器的标准预设着色器图表</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-A24AA0AD-3487-4BDE-9BFC-B0AFE8391FFE.htm">使用“组件混合”(Component Swizzle)为 Stingray 基于物理的着色器输入提供不同的顶点颜色通道</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-64D77269-5402-4652-B13D-261F8757683E.htm">在基于物理的 Stingray 着色器中为 ShaderFX 节点创建新的默认值</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3.htm">创建基于物理的 Stingray 着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9">
+<meta name="language" content="CHS">
+<title>获取并设定属性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>获取并设定属性</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9__WS73099CC142F48755-3D114B7511841AEFA9F-89A"><h2 class="title sectiontitle">在 MEL 脚本中</h2> 
+		 
+		<p class="p" id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9__WS73099CC142F48755-3D114B7511841AEFA9F-899">在 MEL 脚本中，使用 <samp class="ph codeph" id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9__GUID-1C88147F-D488-447E-997F-4111ED51CA04">getAttr</samp> 和 <samp class="ph codeph" id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9__GUID-17D813C4-79DA-43CF-8ABE-D75F876739FF">setAttr</samp> 命令来获取并设定属性值： 
+		</p>
+ 
+		<pre class="pre codeblock">
+sphere -name "Brawl";
+print(getAttr("Brawl.scaleY"));
+float $ys = `getAttr Brawl.scaleY`;
+setAttr("Brawl.scaleY", $ys * 2);
+</pre>
+ 
+		<p class="p" id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9__WS73099CC142F48755-3D114B7511841AEFA9F-898"> 您可以使用 <samp class="ph codeph" id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9__GUID-9F717175-7A23-4469-A7CE-CF45967CBF7A">getParticleAttr</samp> 和 <samp class="ph codeph" id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9__GUID-3B8B49C8-D6A9-48E3-922A-13B5A4D1D216">setParticleAttr</samp> 命令获取或设置粒子向量或浮点数组的元素。 
+		</p>
+ 
+		<pre class="pre codeblock">
+float $Tmp[] = 
+ `getParticleAttr -at position FireShape.pt[0]`;
+vector $particlePosition = &lt;&lt;$Tmp[0], $Tmp[1], $Tmp[2]&gt;&gt;;
+setParticleAttr -at position -vv 0 0 7 FireShape.pt[0];
+</pre>
+ 
+	 </div>
+<div class="section" id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9__WS73099CC142F48755-3D114B7511841AEFA9F-896"><h2 class="title sectiontitle">在表达式中</h2> 
+		 
+		<p class="p" id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9__WS73099CC142F48755-3D114B7511841AEFA9F-895">在动画表达式中，不要使用 getAttr 和 setAttr 命令。只需在表达式中使用节点/属性名称： 
+		</p>
+ 
+		<pre class="pre codeblock">
+myCone.scaleY = mySphere.scaleX * 2
+</pre>
+ 
+	 </div>
+<div class="section" id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9__WS73099CC142F48755-3D114B7511841AEFA9F-894"><h2 class="title sectiontitle">到节点的路径</h2> 
+		 
+		<p class="p" id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9__WS73099CC142F48755-3D114B7511841AEFA9F-893"> 如果一个场景中的两个对象具有不同的父对象，它们就可以具有相同的名称。例如，如果一个球体有一个 GroupA 父对象，另一个球体没有父对象，那么一个场景中可以有两个名为 doughnutHole 的球体。 
+		</p>
+ 
+		<p class="p" id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9__WS73099CC142F48755-3D114B7511841AEFA9F-891">在这些情况下，不能只使用其名称来指定对象，因为 Maya 并不知道所指的是哪个对象。MEL 将返回错误，指示已跳过脚本中的该行，因为未提供足够的数据。 
+		</p>
+ 
+		<p class="p" id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9__WS73099CC142F48755-3D114B7511841AEFA9F-890">如果 Maya 无法自动判断所指的对象，就要指定该对象的唯一路径。 
+		</p>
+ 
+		<p class="p" id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9__WS73099CC142F48755-3D114B7511841AEFA9F-88F">路径将列出查找对象所需的各级层次，告诉 Maya 如何找到所指的对象。例如： 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9__WS73099CC142F48755-3D114B7511841AEFA9F-88E"><img class="image" id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9__IMAGE_1B3A2D41A2254E0092DE1C6654804AD5" width="147" height="101" src="../images/GUID-8187E2C0-E344-447A-A60B-B20704CE6B46.png"></div>
+ 
+		<p class="p" id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9__WS73099CC142F48755-3D114B7511841AEFA9F-88D">在本示例中，手部对象的完整路径是： 
+		</p>
+ 
+		<pre class="pre codeblock">
+|character|shoulder|arm|hand
+</pre>
+ 
+		<p class="p" id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9__WS73099CC142F48755-3D114B7511841AEFA9F-88C"> 竖杠字符 (|) 表示字符左侧的对象是其右侧对象的父对象： 
+		</p>
+ 
+		<pre class="pre codeblock">
+sphere -name doughnutHole;
+group -name GroupA;
+sphere -p 3 0 0 -name doughnutHole;
+setAttr doughnutHole.scaleY 3.3; // ERROR: Which one?
+setAttr GroupA|doughnutHole.scaleY 3.3;
+</pre>
+ 
+		<p class="p" id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9__WS73099CC142F48755-3D114B7511841AEFA9F-88A">若要指定一个没有父对象的对象，则在对象名称前键入一个竖杠： 
+		</p>
+ 
+		<pre class="pre codeblock">
+setAttr |doughnutHole.scaleY 0.3;
+</pre>
+ 
+		<p class="p" id="GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9__WS73099CC142F48755-3D114B7511841AEFA9F-889">可通过对象层次指定所有父对象的名称，从而指定对象的完整路径名。使用竖杠字符分隔每一个父对象。 
+		</p>
+ 
+		<pre class="pre codeblock">
+group -name GroupB GroupA;
+setAttr |GroupB|GroupA|doughnutHole.scaleY 1;
+</pre>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-A6DE9BA5-F66C-48E1-9BF8-56757AFC7203.htm">属性</a></div>
+</div>
+</div>
+
+</body>
+</html>

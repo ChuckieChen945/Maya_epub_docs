@@ -1,0 +1,89 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_install_am_Installing_Arnold_for_Maya_on_Linux_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_INSTALLING_ARNOLD_FOR_MAYA_ON_LINUX">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 在 Linux 上安装 Arnold for Maya - Arnold for Maya">
+
+<title>在 Linux 上安装 Arnold for Maya</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+<div class="head-block"><h1>在 Linux 上安装 Arnold for Maya</h1></div><p>如果尚未安装，则需要下载 Arnold for Maya (MtoA)。下载完成后，请按照以下简单的步骤进行操作。</p>
+<p>出于演示目的，本手册使用了 <strong>MtoA 1.0.0</strong> 和 <strong>Maya 2014</strong>，而您安装的版本的版本号和名称可能有所不同。需要在系统上安装 Python 2.6。</p>
+<ol>
+<li><p>下载完 .run 文件后，打开终端。导航到保存下载文件的位置，然后使用“sudo sh”运行该文件（这是一个 Shell 脚本）。必须执行 sudo，因为该安装程序需要 root 权限来为 Maya 配置 MtoA。</p>
+<pre class="pre codeblock"><code class="prettyprint"> sudo sh MtoA-1.0.0-linux-2014.run </code></pre><p><img src="../images/1_linux.png" alt=""></p>
+<p>如果收到“用户不在 sudoers 文件中。将报告此事件”(User is not in the sudoers file. This incident will be reported)消息，您需要将用户添加到 sudoers 列表中。有关详细信息，请<a href="http://stackoverflow.com/questions/11094826/how-to-give-a-linux-user-sudo-access" target="_blank">在 stack overflow 上查看此问题</a>。</p>
+</li>
+<li><p>现在将为您提供一个安装向导。使用空格键可以进行滚动。然后，键入“accpet”并按 Enter 键，表示接受最终用户许可协议。</p>
+<p><img src="../images/2_install_linux.png" alt=""></p>
+<p><img src="../images/3_install_linux.png" alt=""></p>
+</li>
+<li><p>选择安装方法。本手册建议使用“自动”(Automatic)(1) 模式。“提取软件包”(Extract the package)(2) 模式将只提取软件包文件，这时用户需要自行配置模块（请参见“手动配置”部分）</p>
+<p><img src="../images/4_install_linux.png" alt=""></p>
+</li>
+<li><p>现在，您需要选择安装目录；如果将安装目录留空，而直接按 Enter 键，Arnold 将安装至所示的默认目录。</p>
+<p><img src="../images/7_install_linux.png" alt="">  </p>
+</li>
+</ol>
+<ol start="5">
+<li><p>现在，您应该看到一条消息，提示您 Arnold 已成功安装。</p>
+<p><img src="../images/8_install_linux.png" alt=""></p>
+</li>
+<li><p>要在 Maya 中加载该插件，请转到“窗口”(Window)菜单，然后在“设置/首选项”(Settings/Preferences)下单击“插件管理器”(Plug-in Manager)。</p>
+<p>并加载 mtoa.so</p>
+<p><img src="../images/9_StettingsPreferences.png" alt=""></p>
+</li>
+</ol>
+<h2 id="">手动配置</h2><p>如果在安装程序中选择了“提取软件包”(Extract the package)选项，MtoA 模块将提取到指定路径。以下说明假定您在 Linux 上使用 Maya 2014，且此文件夹为：</p>
+<p><code>/opt/solidangle/MtoA-0.24.0/2014</code></p>
+<p>接下来，完成以下步骤：</p>
+<ol>
+<li>将环境变量 <code>MAYA_MODULE_PATH</code> 设置为指向 <code>/opt/solidangle/MtoA-0.24.0/2014</code> 文件夹（mtoa.mod 所在的文件夹）。</li>
+<li>将环境变量 <code>MAYA_RENDER_DESC_PATH</code> 设置为指向 <code>/ opt/solidangle/MtoA-0.24.0 /2014</code> 文件夹（arnoldRenderer.xml 所在的文件夹）。</li>
+<li>现在，运行 Maya。您应该看到“Arnold 渲染器”(Arnold Renderer)在“渲染 &gt; 使用以下渲染器渲染”(Render &gt; Render Using)菜单下列出。如果未列出该渲染器，请转到“窗口 &gt; 设置/首选项 &gt; 插件管理器”(Window &gt; Settings/Preferences &gt; Plug-in Manager)。如果其中也未列出 MtoA 插件，请单击“浏览”(Browse)按钮，找到 mtoa.mll 文件（在 /opt/solidangle/MtoA-0.24.0/2014/ plug-ins 下）。</li>
+</ol>
+<h2 id="">卸载</h2><p>MtoA 并没有自动卸载程序。但是，使用 Maya 2013 或更高版本时，您可以放心地移除 MtoA 安装文件夹。如果您使用的是 Maya 2012，则还需要编辑 maya.env 文件以移除对 MtoA 的引用。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/getting-started/arnold_for_maya_getting_started_am_Installation_html.html">安装</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

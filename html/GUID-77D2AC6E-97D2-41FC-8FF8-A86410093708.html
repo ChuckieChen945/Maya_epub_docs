@@ -1,0 +1,213 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="06/03/2024">
+<meta name="topicid" content="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708">
+<meta name="language" content="CHS">
+<title>显示二维叠加</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>显示二维叠加</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="fig fignone" id="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708__FIG_B27C3C8A42F94C1F8FF16F6EED9A7CD2"><img class="image" id="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708__IMAGE_06557BB485424CF6B7E7CB5A942B9C8C" src="../images/GUID-98124551-9746-40EB-86FB-1EA708A63F0A.png"></div>
+<div class="p"> 您可以使用 moverlay Python 模块在 Maya UI 上方显示二维叠加。在以下情况（但并非仅限于这些情况）下，这可能很有用：
+	 <ul class="ul" id="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708__UL_10C3A801C2984973A0D3E3D1B0CB3DCB"><li class="li" id="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708__LI_4F088750996D4BADA23B6425B3ACFC20">显示交互式教程的说明 
+		</li>
+<li class="li" id="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708__LI_608140034E06439BA61DE5B7C475A5DC">指向 UI 元素 
+		</li>
+<li class="li" id="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708__LI_EF2558C70BD2494B8EE5DD45FB1682C2">显示自定义工具的热键 
+		</li>
+</ul>
+ 
+	 </div>
+<div class="p">Maya 中的叠加是使用 Qt 构建的，支持大多数 HTML 标记，包括图像、动画 gif、样式和表。若要查看有关可用内容的更深入的交互式示例，请在 Python <span class="ph uicontrol">脚本编辑器</span>中运行以下代码：<pre class="pre codeblock">import moverlay
+moverlay.mayaDemo.demoOverlays()</pre>
+您可以在安装文件夹下的 Python/Lib/site-packages 中找到 moverlay。您还可以查看<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-113DD257-7995-4B35-BF2F-860ECD19B19D.htm">交互式教程演示或交互式基础知识教程</a>中包含的脚本，以查看更多有关二维叠加代码和用法的示例。
+	 </div>
+<div class="section" id="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708__SECTION_E7659A2F5B864579A8DD20B649B823BE"><h2 class="title sectiontitle">叠加示例</h2> 
+		 
+		<div class="p">有三种预制类型的二维叠加：
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708__WS73099CC142F48755-3D114B751181C40F14B2BE2" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="13.425954013225747%">叠加类型 
+				  </th>
+<th class="entry" valign="top" width="66.1894072680944%">Hello World 示例 
+				  </th>
+<th class="entry" valign="top" width="20.384638718679852%">结果 
+				  </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="13.425954013225747%"> 
+					 <p class="p" id="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708__WS73099CC142F48755-3D114B751181C40F14B2BE3">进度对话框：
+					 </p>
+ 
+					 <p class="p">设计为教程控制器的双按钮对话框窗口。
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="66.1894072680944%"> 
+					 <pre class="pre codeblock">import moverlay as mo
+from PySide6.QtCore import QPoint
+
+def pressNext():
+    print("Next was pressed")
+
+def pressReset():
+    print("Reset was pressed")
+    
+def pressClosed(dialog):
+    manager.controller.deleteLater()
+
+#create manager object and assign its controller
+manager = mo.maya.overlayManager()
+manager.controller = mo.progressDialog.ProgressDialog(manager.getMainWindow())
+
+#Assign title and body text
+manager.controller.setTitle("Example Dialog")
+manager.controller.setBodyText("Hello World")
+
+#Create buttons and attach them to appropriate procedures when clicked
+manager.controller.setupButton(0, "Reset", pressReset)
+manager.controller.setupButton(1, "Next", pressNext)
+manager.controller.setCloseCallback(pressClosed)
+
+#Create a progress bar with 10 steps
+manager.controller.progressBar().resetSteps(1, 10)
+
+#Re-size and position the controller
+manager.controller.theDialog().resize(mo.utils.DPIScale(180), mo.utils.DPIScale(250))
+manager.controller.theDialog().moveToScreenPos(QPoint(0, 0))
+
+#Display the controller
+manager.controller.showAndRaise()
+</pre>
+ 
+				  </td>
+<td class="entry" align="center" valign="middle" width="20.384638718679852%"> 
+					 <div class="fig fignone" id="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708__FIG_1B2D8C3EAFE24230B0F8493C034FA82B"><img class="image" id="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708__IMAGE_6B0DA88EB1AA48CCA510B44CFCC2A7EA" src="../images/GUID-91297AE3-E0CC-4D1A-A59F-AC2CFD2B0DA2.png"></div>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.425954013225747%"> 
+					 <p class="p">HIG 对话框：
+					 </p>
+ 
+					 <p class="p">设计为显示提示或图表的无按钮对话框窗口。 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="66.1894072680944%"> 
+					 <pre class="pre codeblock">import moverlay as mo
+from PySide6.QtCore import QPoint
+    
+def pressClosed(dialog):
+    dialog.deleteLater()
+
+#Create manager and dialog object
+manager = mo.maya.overlayManager()
+dialog = mo.higDialog.HIGDialog(manager.getMainWindow())
+
+#Assign body text
+label = dialog.setAsLabel('&lt;h1&gt;Example Dialog&lt;/h1&gt;&lt;p&gt;Hello World&lt;/p&gt;')
+
+#Assign close procedure
+dialog.setCloseCallback(pressClosed)
+
+#Re-size and position the dialog
+dialog.theDialog().resize(mo.utils.DPIScale(180), mo.utils.DPIScale(250))
+dialog.theDialog().moveToScreenPos(QPoint(0, 0))
+dialog.theDialog().setFixedWidth(250)
+
+dialog.showAndRaise()
+</pre>
+ 
+				  </td>
+<td class="entry" align="center" valign="middle" width="20.384638718679852%"> 
+					 <div class="fig fignone" id="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708__FIG_179524A6F9954749832789C086B4FF8A"><img class="image" id="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708__IMAGE_E724AECE531741C9A1415665F0C2D9D1" src="../images/GUID-85EF040C-C93D-452B-9745-299D6D3F4EDF.png"></div>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.425954013225747%"> 
+					 <p class="p">气泡：
+					 </p>
+ 
+					 <p class="p">在指定位置显示的不可交互文字气泡。
+					 </p>
+ 
+					 <div class="note note" id="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708__GUID-F5D84380-0BA7-442B-A59A-421AFCFC5D08"><span class="notetitle">注：</span> 若要移除叠加，可以调用 overlayManager 的 deleteAll() 过程。
+					 </div>
+ 
+				  </td>
+<td class="entry" valign="top" width="66.1894072680944%"> 
+					 <pre class="pre codeblock">import moverlay as mo
+from PySide6.QtCore import QPoint
+from PySide6.QtCore import QSize
+from PySide6.QtGui import QColor
+
+#Create manager and overlay definition
+manager = mo.maya.overlayManager()
+od = mo.overlayDef.OverlayDef(QSize(300, 100))
+
+#Position relative to screen center and apply the style and color
+od.style = mo.enums.OverlayStyle.SpeechBubble
+od.attachment = mo.enums.RelTo.Center
+od.bgColor = QColor(217, 217, 217, 255)
+
+#Create this overlay
+overlay = manager.createOverlay(od)
+
+#Assign body text
+label=overlay.setAsLabel("""&lt;h2&gt;Hello World&lt;/h2&gt;&lt;p style="color: #3C3C3C; font-size: 16pt; font-weight: normal; 
+font-style: normal; font-family: Artifakt Element"&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.&lt;/p&gt;""")
+
+#Add a word bubble tail
+overlay.addSpeechBubbleTail(mo.enums.Direction.Top, 0.25)
+
+#Display the overlay bubble
+manager.showAll()</pre>
+ 
+				  </td>
+<td class="entry" align="center" valign="middle" width="20.384638718679852%"> 
+					 <div class="fig fignone" id="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708__FIG_0601165A1BE44E9EAB648A7B892B6F14"><img class="image" id="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708__IMAGE_ADD858AFD42D42B99856E05BE55E5F2B" src="../images/GUID-02E8884E-B97F-466F-8C31-D44CD3BD819F.png"></div>
+ 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708__SECTION_8FB4D2C482A248ACB718BE94ED080A48"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708__UL_17ECFB7681F04BAF9BD42405209DC753"><li class="li" id="GUID-77D2AC6E-97D2-41FC-8FF8-A86410093708__LI_EA1F3FFD49B342B582D7A4850944A291"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-113DD257-7995-4B35-BF2F-860ECD19B19D.htm">状态机示例：交互式教程</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-703B18A2-89E5-48A8-988A-1ED815D5566F.htm">Python</a></div>
+</div>
+</div>
+
+</body>
+</html>

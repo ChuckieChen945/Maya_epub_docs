@@ -1,0 +1,95 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shading_am_Flakes_Example_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_FLAKES_EXAMPLE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 小亮片示例 - Arnold for Maya">
+
+<title>小亮片示例</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>小亮片示例</h1></div><p><img src="../images/am-Flakes_Example-image2017-5-24-8-56-32-1.png" alt=""></p>
+<p><em>小亮片<em>着色器的用法很多，本教程旨在解析其中一些用法。在本简短教程中，我们将演示如何使用</em>小亮片*着色器（结合使用 *standard_surface</em> 着色器）来创建一些小亮片装饰。</p>
+<h2 id="">镜面反射颜色</h2><ul>
+<li>首先，这里有一个默认的 <em>standard_surface</em> 着色器，其颜色纹理贴图连接到 <em>specular_color</em>。本例不需要 base_weight。</li>
+</ul>
+<p><img src="../images/am-Flakes_Example-image2017-5-17-13-0-55-2.png" alt=""></p>
+<h2 id="">法线</h2><ul>
+<li>如果我们想让小亮片反射的颜色有变化，需要让<em>小亮片</em>位于较低层<em>（法线 -</em>“几何体”(Geometry)<em>下面的</em>“凹凸贴图”(Bump Mapping)<em>）</em>。在金属汽车涂料等材质中，此效果非常明显。</li>
+</ul>
+<p><img src="../images/am-Flakes_Example-image2017-5-17-12-46-29-3.png" alt=""></p>
+<h2 id="">法线和涂层（默认为白色）</h2><ul>
+<li>如果增加 <em>coat_weight</em>，我们就获得白色 <em>coat_color</em>（默认设置）。对于汽车涂料或塑料，此效果很有用，但对于小亮片装饰，实际上看起来不合适。我们还必须将<em>小亮片</em>添加到 <em>coat_normal</em>。</li>
+</ul>
+<p><img src="../images/flakes-woman-coating.png" alt=""></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>为<em>涂层</em>指定的颜色将仅对较低的<em>基础</em>、<em>金属</em>和<em>镜面反射</em>层染色。<em>涂层</em>层是半透明绝缘类型层，该层将始终反射白色，而不管您为其指定的是什么颜色。<em>涂层</em>层的颜色将对下层<em>基础</em>和<em>镜面反射</em>层染色。例如，与直观感觉有些相反，染了绿色的玻璃没有绿色反射。它是染了绿色的玻璃下方物质的折射。彩色塑料的情况与此相同。</p>
+
+</div></div>
+
+<h2 id="">法线和涂层法线</h2><ul>
+<li>将<em>小亮片</em>连接到<strong><em>“法线”(Normal)</em></strong>属性和 <strong><em>coat_normal</em></strong> 可以得到我们所需的最终结果。最后，我们在以下两处使用了<em>法线</em>：<em>镜面反射</em>层和<em>涂层</em>层。此方法是可取的。但是，外观还取决于透明瓷釉/油/与装饰中的小亮片混合的任何物质的数量。</li>
+</ul>
+<p><img src="../images/am-Flakes_Example-flakes-title-5.jpg" alt=""></p>
+
+<div class="callout callout-important">
+<div class="callout-title"><i class="callout-icon fa fa-exclamation-triangle" aria-hidden="true"></i>重要信息：</div>
+<div class="callout-body">
+
+<p><strong></strong>确保<em>小亮片*着色器的 *output_space</em> 设置为<em>“世界”(World)</em>。</p>
+
+</div></div>
+
+<p>使用汽车涂料时，<em>涂层</em>层会很厚，从而达到易于重现的平滑抛光外观。但是，在此装饰示例中，<em>涂层</em>层会很薄，抛光效果较差。<em>涂层</em>层的<em>法线</em>混合了下层皮肤的凹凸、小亮片的方向、具有较厚和较薄面片的装饰本身的分布以及薄层液体的曲面张力实现了远优于任何粗糙曲面的平滑曲面。随着装饰干燥和面部活动，<em>涂层</em>层的曲面也可能会出现裂缝和变暗。</p>
+<p><strong>要下载场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/flakes-user-guide.ma" target="_blank">此处</a>。</strong></p>
+<p><img src="../images/am-Flakes_Example-image2020-1-24-11-58-38-6.png" alt=""></p>
+<p><sub><strong><em>小亮片</em>着色器连接到 <em>standard_surface</em> 的 <em>normal_camera</em>。<span>小亮片着色器 <em>coord_space</em><em>（对象）</em>和 <em>output_space</em><em>（世界）</em>。</span></strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Shading_html.html">着色</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

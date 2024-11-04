@@ -1,0 +1,195 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D">
+<meta name="language" content="CHS">
+<title>MEL 命令语法</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>MEL 命令语法</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B34"> MEL 包含使用 Maya 全部功能的各种命令。关于使用 MEL 命令的典型示例包括：快速创建对象、精确移动对象，以及更高效地使用对象等。 </p>
+<p class="p" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B32">例如，可以使用 MEL 命令创建一个名为 bigBoy 的、半径精确到 27.5 个单位的球体: </p>
+<pre class="pre codeblock">
+sphere -radius 27.5 -name "bigBoy";
+</pre>
+<p class="p" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B31">然后，可以输入该 MEL 命令，让 bigBoy 绕 Z 轴旋转 90 度： </p>
+<pre class="pre codeblock">
+rotate -relative 0 0 90 "bigBoy";
+</pre>
+<p class="p" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B30">另外，如果要创建带关节工具的关节，并希望该关节沿 X 轴方向移动 5 个单位，可以执行下列 MEL 命令，而无需中断关节创建： </p>
+<pre class="pre codeblock">
+move -relative 5 0 0;
+</pre>
+<p class="p" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B2F">按照惯例，在指定名称的情况下，大多数命令将在对象上操作，否则就会在当前选择上操作。 </p>
+<p class="p" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B2E">有两种方式来使用 MEL 命令：强制性语法和函数语法。 </p>
+<div class="section" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B2D"><h2 class="title sectiontitle">强制性语法</h2>
+
+<p class="p" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B2C"> 强制性命令语法类似于 UNIX 或 DOS 壳中的命令，在命令名称后可增加可选标志及参数： </p>
+
+<pre class="pre codeblock">
+sphere -name "martha" -radius 10;
+</pre>
+
+<p class="p" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B2A">强制性样式要求使用完整语句，应当以分号结尾。如果使用命令的强制性语法作为表达式的一部分，需要在命令外增加反引号。请参见下面的<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D.htm#GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS17956D7ADBC6E736399FC9B0117AE32A17B-7FFF">使用返回值：函数语法和反引号</a>。 </p>
+
+<div class="section" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B29"><h3 class="title sectiontitle">未加引号的字符串</h3>
+
+<p class="p" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B28"> 当使用该强制性命令语法时（与下面介绍的函数语法相反），可选择在单字字符串周围去掉引号。因此，可编写如下的球体命令： </p>
+
+<pre class="pre codeblock">
+sphere -name martha -radius 10;
+</pre>
+
+<p class="p" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B26">脚本中经常会出现这样的命令，特别是只有一个单词的节点和属性名称等字符串。但初学者可能希望避免使用该功能，因为这会减弱字符串与关键字和命令的区别。 </p>
+
+</div>
+
+</div>
+<div class="section" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS17956D7ADBC6E736399FC9B0117AE32A17B-8000"><h2 class="title sectiontitle">函数语法</h2>
+
+<p class="p" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B25"> 函数语法类似于计算机语言中的标准函数调用。 </p>
+
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B23" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">强制性语法 </th>
+<th class="entry" valign="top" width="50%">函数语法 </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">
+<pre class="pre codeblock">
+attributeExists visibility mySphere;
+</pre>
+
+</td>
+<td class="entry" valign="top" width="50%">
+<pre class="pre codeblock">
+attributeExists("visibility","mySphere");
+</pre>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">
+<pre class="pre codeblock">
+abs -50;
+</pre>
+
+</td>
+<td class="entry" valign="top" width="50%">
+<pre class="pre codeblock">
+abs(-50);
+</pre>
+
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="section" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B22"><h2 class="title sectiontitle">标志</h2>
+
+<p class="p" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B21"> 标志用于修改命令的工作方式。标志出现在命令名称后，前面是一个破折号 (-)，后面是一个参数。 </p>
+
+<pre class="pre codeblock">
+sphere -radius 5;
+</pre>
+
+<p class="p" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B1F">在本示例中，<samp class="ph codeph" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__GUID-A32E4CC9-8657-4DAE-A12D-C6F51B8A4F2F">radius</samp> 标志的参数是 5。 </p>
+
+</div>
+<div class="section" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B1E"><h2 class="title sectiontitle">创建、编辑和查询模式</h2>
+
+<p class="p" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B1D">许多命令都具有基于一对特殊标志（<samp class="ph codeph" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__GUID-0290B069-765B-48DE-BE7F-15A3C33D3B5A">-edit</samp> 和 <samp class="ph codeph" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__GUID-F26C1262-4EC4-45B4-BF9D-B0103A74A7DA">-query</samp>）的不同行为。 </p>
+
+<ul class="ul" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B1C"><li class="li" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B1B"> 如果未包含 -edit 或 -query 标志，将在创建模式中运行一个命令。在该模式中，命令将在场景图中创建命名对象/节点。 </li>
+</ul>
+
+<pre class="pre codeblock">
+sphere -name "george";
+</pre>
+
+<ul class="ul" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B19"><li class="li" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B18">如果命令中包含 <samp class="ph codeph" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__GUID-B8522DC4-CB4B-456F-B867-EAD9DF0B80B8">-edit</samp> 标志，该命令将改命名对象的一个或多个属性（由其他标志决定）。 </li>
+</ul>
+
+<pre class="pre codeblock">
+sphere -edit -radius 10 "george";
+</pre>
+
+<ul class="ul" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B17"><li class="li" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B16">如果命令中包含 <samp class="ph codeph" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__GUID-2BE94128-C8E2-421B-9DF4-8844F4FB34BA">-query</samp> 标志，该命令会返回命名对象的属性值（由另一个标志决定）。 </li>
+</ul>
+
+<pre class="pre codeblock">
+sphere -query -radius "george";
+// Result: 10 //
+</pre>
+
+<p class="p" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B15">每个命令的<span class="ph uicontrol" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__GUID-417A5A44-70C7-481C-9A15-794EC4E0BC79">“Maya 帮助”(Maya Help)</span>中均列出了可用于创建、编辑和查询模式的标志。 </p>
+
+</div>
+<div class="section" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS17956D7ADBC6E736399FC9B0117AE32A17B-7FFF"><h2 class="title sectiontitle">使用返回值：函数语法和反引号</h2>
+
+<p class="p" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B14"> 使用命令的函数语法时，该命令将返回一个值。使用强制性语法时，命令只将其返回值传送到<span class="ph uicontrol" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__GUID-0C77ACA0-EF64-4CA7-A53C-0FEDF4392E44">“脚本编辑器”(Script Editor)</span>，而不提供可用的返回值。在表达式中使用强制性语法将导致语法错误： </p>
+
+<pre class="pre codeblock">
+if (size($word)) print("Not empty.\n");
+// Function syntax of size returns a value.
+// This is OK.
+if (size $word) print("Not empty.\n");
+// Can't use imperative 
+// This is a syntax error.
+</pre>
+
+<p class="p" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B12">若要在表达式中使用强制性命令语法，必须在命令周围使用反引号： </p>
+
+<pre class="pre codeblock">
+if (`size $word`) print("Not empty.\n");
+</pre>
+
+<p class="p" id="GUID-579A6D9F-CB41-4CD9-B9D7-3DB1FD33735D__WS73099CC142F48755-3D114B7511841AEFA9F-B11">用户会经常通过反引号在表达式内的查询模式中使用命令的返回值： </p>
+
+<pre class="pre codeblock">
+if (`sphere -query -radius "mySphere"` == 5)
+	print("This sphere has a radius of 5!";
+</pre>
+
+</div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-20F702F9-8A4A-4961-83FC-F231841EF92B.htm">分隔符和空白</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-D2BE103B-A136-43B6-8142-BF5E68F246F8.htm">表达式、运算符和语句</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-1E51B379-CAC2-4FE4-9703-33B2F6A30B9D.htm">运算符优先级</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-F9008227-CE1E-4D09-B4AE-F2EB657780CA.htm">块</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-61DEC640-DD8F-42D0-8F27-8D760F673810.htm">注释</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-561C9799-A5AC-4E14-8531-2C9E5BD1097A.htm">表达式和 MEL 语法之间的区别</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-E151A15C-BA1D-4E60-8DB6-9D92C6202170.htm">MEL 和表达式</a></div>
+</div>
+</div>
+
+</body>
+</html>

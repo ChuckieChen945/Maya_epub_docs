@@ -1,0 +1,226 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_getting_started_am_Spaceship_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_SPACESHIP">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 太空船 - Arnold for Maya">
+
+<title>太空船</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>太空船</h1></div><p><img src="../images/spaceship-turntable.gif" alt=""></p>
+<p>在本教程中，我们将介绍如何使用 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html" target="_blank">standard_surface</a></em> <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html" target="_blank"></a>着色器创建逼真的材质（例如，玻璃和金属）。我们还将使用 <em>skydome_light</em> 结合 HDR 图像来替换现有场景的照明，以实现更有效的控制，并呈现更逼真的外观。最后，我们将组合使用以下两项将部分喷射推力添加到排气口：聚光灯和 *<a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Atmosphere+Volume&amp;linkCreation=true&amp;fromPageId=154764787">atmosphere_volume</a>*。</p>
+<p><strong>要下载对应的 Maya 场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Hyperspace_Madness/spaceship.zip" target="_blank">此处</a>。</strong></p>
+<h2 id="">着色</h2><p>将太空船模型导入场景中。它包含各种 Blinn 和 Phong 着色器。我们要将这些着色器转化为 MtoA 内<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_tutorials_am_Understanding_Physically_Based_Rendering_in_Arnold_html">物理上更精确的</a>着色器。幸运的是，我们可以使用“属性编辑器”(Attribute Editor)窗口中的着色器“类型”(Type)菜单来转化。我们主要使用多用途的 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html" target="_blank">standard_surface</a></em> 着色器。</p>
+<h3 id="">体</h3><ul>
+<li>首先将太空船的“体”(Body) Blinn 着色器转化为 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html" target="_blank">standard_surface</a></em> 着色器。将贴图 <strong><em>(ship_body_diffuse.tga)</em></strong> 连接到 <em>base_color</em> 和 <em>Bump map</em> connection <strong><em>(ship_body_normal.tga)</em></strong>。</li>
+<li>您还需要连接<em>“镜面反射”(Specular)*和 *emission_color</em> 贴图。</li>
+<li>将文件粗糙度贴图 <strong><em>(ship_body_roughness.tga)</em></strong> 连接到 <em>standard_surface</em> 着色器的 <em>pecular_roughness</em> 属性。您可以使用场景中的 Maya <strong><em>RemapValue</em></strong> 工具节点重映射 <em>specular_roughness</em> 值。</li>
+<li>白炽灯文件贴图 <strong><em>(ship_wings_emissive.tga)</em></strong> 应连接到 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html" target="_blank">standard_surface</a></em> 的 <em>emission_color*。将 *emission_scale</em> 增加到 1。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/1_emission-0.jpg" alt=""></td>
+<td><img src="../images/2_emission-1.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>_自发光(Emission)_：0</strong></sub></td>
+<td><sub><strong>_自发光(Emission)_：1</strong></sub></td>
+</tr>
+</tbody></table>
+<h3 id="">玻璃座舱</h3><p>我们为座舱玻璃指定一种玻璃材质。在此场景中，玻璃的建模没有厚度。这样将无法正确渲染，因为玻璃在现实世界中是有厚度的，而 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_getting_started_am_Arnold_html">Arnold</a> 是<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_tutorials_am_Understanding_Physically_Based_Rendering_in_Arnold_html">物理上</a><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_tutorials_am_Understanding_Physically_Based_Rendering_in_Arnold_html">精确</a>的<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_tutorials_am_Understanding_Physically_Based_Rendering_in_Arnold_html">渲染器</a>。选择玻璃对象并稍微挤出。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/thin_glass.jpg" alt=""></td>
+<td><img src="../images/thick_glass.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>薄曲面：玻璃作为实体对象错误折射。</strong></sub></td>
+<td><sub><strong>挤出的玻璃：座舱通过玻璃正确折射。</strong></sub></td>
+</tr>
+</tbody></table>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>确保法线朝向正确的方向。渲染逼真的玻璃时，这是必不可少的。</p>
+
+</div></div>
+
+<p><img src="../images/4_image2016-4-6_9_50_19.png" alt=""></p>
+<p><sub><strong>法线指向正确的方向（向外）</strong></sub>  </p>
+<ul>
+<li>为座舱玻璃指定一个 <em>standard_surface</em> 着色器，并将它重命名为“glass”。将 <em>base_weight</em> 减小为 0，将 <em>specular_roughness</em> 减小为 0。</li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关镜面反射菲涅尔的详细信息，请单击<a href="https://help.autodesk.com/pages/viewpage.action?pageId=6455758">此处</a>。</p>
+
+</div></div>
+
+<ul>
+<li>将 <em>transmission_weight</em> 增大为 1，使玻璃完全透明。将<em>“折射率”(IOR)*更改为玻璃的折射率 (1.5)。如果要为玻璃添加染色，请将 *transmission_color</em> 更改为灯光颜色。</li>
+</ul>
+<blockquote>
+<p>信息：有关渲染玻璃曲面的详细信息，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_rendering_am_Rendering_Glass_Surfaces_with_Arnold_html">此处</a>。</p>
+</blockquote>
+<h2 id="">照明</h2><h3 id="ai">Ai 天穹灯光</h3><ul>
+<li>创建一个 <a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Ai+Skydome+Light&amp;linkCreation=true&amp;fromPageId=154764787"><em>skydome_light</em></a>，并将一个 HDR 图像连接到它的<em>“颜色”(Color)</em>属性。在本例中，我们使用的 HDR 图像摘自此<a href="http://www.hdrlabs.com/sibl/archive.html" target="_blank">网站</a>。</li>
+<li>如果您对照明感到满意并准备好进行最终渲染，请将 <em>skydome_light</em> 中的<em>“采样数”(Samples)</em>增加到 3，以减少任何阴影噪波。否则，请在使用 IPR 测试渲染时将它保持为 1。</li>
+</ul>
+<h3 id="">推进器</h3><p>我们将使用 Maya 聚光灯来表示从排气口发射的喷射推力。</p>
+<h3 id="">聚光灯</h3><ul>
+<li>创建一个聚光灯并将其定位，使其指向推进器的外面，如下图所示。</li>
+</ul>
+<p><img src="../images/5_spaceship_spot.png" alt=""></p>
+<p><sub><strong><em>spot_light</em> 定位在排气口内</strong></sub></p>
+<ul>
+<li>将聚光灯的<em>“曝光”(Exposure)</em>增加到 15 左右。</li>
+<li>启用 <em>color_temperature</em>，并将<em>“温度”(Temperature)</em>更改为 3500 左右。这将为灯光提供暖色调。</li>
+</ul>
+<h3 id="">大气体积</h3><p>要在视觉上呈现推力效果，我们必须先启用 *<a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Atmosphere+Volume&amp;linkCreation=true&amp;fromPageId=154764787">atmosphere_volume</a>*。</p>
+<ul>
+<li><p>转到“渲染设置”(Render Settings)的<em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Environment_html">环境(Environment)</a>*选项卡。将 *<a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Atmosphere+Volume&amp;linkCreation=true&amp;fromPageId=154764787">atmosphere_volume</a></em> 连接到<em>“大气”(Atmosphere)</em>属性。</p>
+</li>
+<li><p>如果渲染场景，则不会看到任何结果。这是因为<em>“密度”(Density)</em>默认为 0。将其增加到 1，并使用 IPR 渲染场景。</p>
+</li>
+<li><p>默认情况下，聚光灯的圆锥体起点太窄。我们可以使用聚光灯的“Arnold”选项卡下的 <em>lens_radius</em> 属性来增加它。将其增加到 100 左右。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/lens-radius-0.jpg" alt=""></td>
+<td><img src="../images/lens-radius-1.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>_lens_radius_：0</strong></sub></td>
+<td><sub><strong>_lens_radius_：100</strong></sub></td>
+</tr>
+</tbody></table>
+<h3 id="">灯光衰退过滤器</h3><p>排气口推力显得过长。我们可以使用 <em>light_decay</em> 过滤器来限制聚光灯的灯光距离。</p>
+<ul>
+<li>在“灯光过滤器”(Light Filters)选项卡下，将 <em>light_decay</em> 过滤器添加到聚光灯。</li>
+<li>启用 <em>use_far_attenuation*，并将 *far_end</em> 增加到 600 左右。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/spaceship-filters.png" alt=""></td>
+<td><img src="../images/spaceship-light-decay.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong><em>light_decay</em> 过滤器添加到 spot_light</strong></sub></td>
+<td><sub><strong>_use_far_attenuation_：启用</strong></sub></td>
+</tr>
+</tbody></table>
+<p>在下图中，您可以看到添加 <em>light_decay</em> 过滤器对聚光灯衰减的影响：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/10_far-attenuation-0.jpg" alt=""></td>
+<td><img src="../images/11_far-attenuation-300.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>_far_end_：0</strong></sub></td>
+<td><sub><strong>_far_end_：600</strong></sub></td>
+</tr>
+</tbody></table>
+<h2 id="">渲染</h2><h3 id="">采样</h3><p>打开“渲染设置”(Render Settings)窗口中的<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Sampling_html">采样(Sampling)</a>。对于测试渲染，<em>“摄影机(AA)”(Camera (AA))</em>采样数设置为 3 已足够。但是，对于最终帧渲染，至少需要将它增加到 5。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关采样的简要手册，请单击<a href="https://help.autodesk.com/pages/viewpage.action?pageId=154766692">此处</a>。</p>
+
+</div></div>
+
+<h3 id="arnold">Arnold 日志</h3><p>使用 MtoA 渲染场景时，建议查看<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_system_am_Render_Settings_html">渲染设置(Render Settings)</a>窗口的*<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_render_settings_am_Diagnostics_html">诊断(Diagnostics)</a>*选项卡中的 Arnold 日志。此日志文件将显示出现的警告和统计信息，这些信息有助于对场景文件进行诊断。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关如何阅读渲染日志的手册，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_kick_am_How_to_Read_a_Render_Log_html">此处</a>。</p>
+
+</div></div>
+
+<p>就是这样。祝贺您已完成了本教程。现在我们要去探索新的渲染世界！</p>
+<p><img src="../images/image2016-4-6-10_48_27.png" alt=""></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/getting-started/arnold_for_maya_getting_started_am_Hyperspace_Madness_Production_html.html">Hyperspace Madness 制作</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

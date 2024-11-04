@@ -1,0 +1,149 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_rendering_am_Hair_Rendering_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_HAIR_RENDERING">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 头发渲染 - Arnold for Maya">
+
+<title>头发渲染</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>头发渲染</h1></div><p><img src="../images/am-Hair_Rendering-image2022-3-30-10-12-15-1.png" alt=""></p>
+<p>本节旨在帮助用户更好地了解如何在 Arnold 中高效地渲染头发。我们将通过渲染示例介绍和说明影响头发渲染速度的关键参数。另外还会介绍常规的优化提示和技巧。下面的教程将介绍与 Arnold <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Curves_html">曲线</a>形状节点和 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Hair_html">standard_hair</a> 着色器均相关的方面。</p>
+<h2 id="strong-a-href-hairrendering-hairrenderingmode-hair-rendering-mode-a-strong"><strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Hair_Rendering_html.html#HairRendering-Hairrenderingmode">头发渲染模式(Hair Rendering Mode)</a></strong></h2><p>MtoA 使用 Arnold 曲线基本体渲染头发。曲线可以用三种不同的模式来渲染：<strong><em>“带状”(Ribbon)</em></strong>、<strong><em>“有厚度”(Thick)</em></strong>和<strong><em>“定向”(Oriented)</em></strong>。下图说明了它们之间的不同。本文档将只使用<em>“带状”(Ribbon)</em>模式，因为这是渲染纤细头发/毛发的最佳模式（本教程的基础）。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Hair_Rendering-thick-2.jpg" alt=""></td>
+<td><img src="../images/am-Hair_Rendering-ribbon-3.jpg" alt=""></td>
+</tr>
+<tr>
+<td>“有厚度”(Thick)模式。“有厚度”(Thick)模式使头发看起来更像管状。</td>
+<td>“带状”(Ribbon)模式</td>
+</tr>
+</tbody></table>
+<p><img src="../images/am-Hair_Rendering-image2017-8-8-8-22-20-4.png" alt=""></p>
+<p><sub><strong>Arnold 属性中的头发渲染模式</strong></sub></p>
+<h2 id="strong-a-href-hairrendering-minpixelwidth-mpw-min-pixel-width-mpw-a-strong"><strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Hair_Rendering_html.html#HairRendering-MinPixelWidth(MPW)">最小像素宽度(Min Pixel Width)(MPW)</a></strong></h2><p>头发或毛发由许多极为纤细的发束组成，这是它的性质之一。通常，物体在屏幕空间中的尺寸越小，就需要越多的<em>摄影机 (AA)</em> 采样才能将它渲染得既平滑又无动画闪烁，这让渲染头发颇具挑战。为了使毛发渲染更容易采样，Arnold 引入了“最小像素宽度”(Min Pixel Width)(MPW)。</p>
+<p>MPW 的概念是使极细的发束在屏幕空间中自动变粗，同时将它们变得透明。这样有助于发束即使在抗锯齿设置较低的情况下，也能渲染得更平滑、动画闪烁更少。MPW 透明度只有当给定的头发在屏幕空间中比指定的 MPW 值更细时才会起作用；例如，当画面中的所有发束宽度都大于 1 像素，而 MPW 值设置为 0.5 时，根本不会使用透明度。如果摄影机从这一刻开始缩小镜头，让所有头发在屏幕空间中变得更细，当它们细至 0.5 像素以下时，MPW 系统将开始起作用，自动将头发宽度保持在 0.5 像素，同时随着它们逐渐变细/彼此远离，让它们变得越来越透明。</p>
+<p><img src="../images/am-Hair_Rendering-image2017-4-6-11-48-32-5.png" alt=""></p>
+<p><sub><strong>MPW 的精度很大程度上取决于自动透明度</strong></sub></p>
+<p>在下图中，我们使用的 MPW 值介于 0 和 0.5 之间。需要指出的是，当 <em>transparency_depth</em> 增大时，即使抗锯齿设置相同，头发的渲染效果也会比之前更平滑。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>即使 <em>transparency_depth</em> 设置为 0，头发厚度在屏幕空间中也始终至少为 0.5 像素，但是看起来并不透明。</p>
+
+</div></div>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Hair_Rendering-mpw-0-6.jpg" alt=""></td>
+<td><img src="../images/am-Hair_Rendering-mpw-0-25-7.jpg" alt=""></td>
+<td><img src="../images/am-Hair_Rendering-mpw-0-5-8.jpg" alt=""></td>
+</tr>
+<tr>
+<td>MPW：0</td>
+<td>MPW：0.2</td>
+<td>MPW：0.5</td>
+</tr>
+</tbody></table>
+<p><em>Min_pixel_width</em> 还适用于点基本体。但是，运动模糊半径会使其失去效果。</p>
+<h2 id="strong-a-href-hairrendering-transparencydepth-transparency-depth-a-strong"><strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Hair_Rendering_html.html#HairRendering-TransparencyDepth">透明深度(Transparency Depth)</a></strong></h2><p>渲染时将变得透明的发束层数取决于<em>“渲染设置”(Render Settings)</em> 中的 <em>transparency_depth</em> 设置。如下图所示，调整此值对渲染质量和渲染时间都有很大影响。将 <em>transparency_depth</em> 设置为 0 时，将始终对场景中的所有头发禁用 MPW。</p>
+<p><img src="../images/am-Hair_Rendering-image2017-4-6-11-49-41-9.png" alt=""></p>
+<p><sub><strong>“光线深度”(Ray Depth)设置中的 transparency_depth（“渲染设置”(Render Settings)）</strong></sub></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>MPW 仅适用于<em>“带状”(Ribbon)</em>模式下的头发。</p>
+
+</div></div>
+
+<p>下面的图像使用的 MPW 值为 0.1。可以看到，即使“透明深度”(Transparency Depth)值设置为 4，头发仍然相当地不平滑。使用这些值时，需要较高的抗锯齿设置才能生成平滑的效果：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Hair_Rendering-transparency-depth-0-10.jpg" alt=""></td>
+<td><img src="../images/am-Hair_Rendering-transparency-depth-4-11.jpg" alt=""></td>
+</tr>
+<tr>
+<td>透明深度(Transparency Depth)：0</td>
+<td>透明深度(Transparency Depth)：4</td>
+</tr>
+</tbody></table>
+<h2 id="strong-a-href-hairrendering-optimization-optimization-a-strong"><strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Hair_Rendering_html.html#HairRendering-Optimization">优化(Optimization)</a></strong></h2><p>将头发设为透明对渲染时间有很大影响。要获得最佳的渲染速度，非常重要的一点是使用合理的值。头发渲染的平滑程度/速度取决于三点：</p>
+<ul>
+<li>最小像素宽度</li>
+<li>透明深度</li>
+<li>镜面反射采样数</li>
+<li>摄影机 (AA) 采样数</li>
+</ul>
+<p>摄影机 (AA) 采样数越高，越不需要依靠 MPW 就能获得平滑的头发渲染效果。如果您的场景已经在使用 10 个摄影机 (AA) 采样来获得平滑的运动模糊和 DOF，您可以使用比仅使用 4 个摄影机 (AA) 采样时小得多的 MPW 值。</p>
+<p>上面提到，即使<em>“透明深度”(Transparency Depth)</em>设置为 0，MPW 也会起作用。因此，我们可以用它作为“限制”来控制头发即使不变得透明也允许达到的最细程度。考虑到上面的渲染时间，当<em>“透明深度”(Transparency Depth)</em>设置为 0 时，使用 MPW 增粗头发对渲染时间有积极作用。</p>
+<p>*<sub><span style="color: rgb(0,0,0);">非常感谢 </span><span style="color: rgb(0,0,0);"><strong><a class="external-link" href="http://www.jonathanpost.com/" rel="nofollow" target="_blank">Jonathan Post</a></strong></span><span style="color: rgb(0,0,0);"> 授权我们使用他们的狼模型。</span></sub>*</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Rendering_Tutorials_html.html">渲染教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="video-id" content="VqN2pmazosVlv-C_8Alw9n2i74xqmIip">
+<meta name="indexterm" content="Stingray PBS">
+<meta name="indexterm" content="Stingray">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9">
+<meta name="language" content="CHS">
+<title>在 ShaderFX 中进行烘焙</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>在 ShaderFX 中进行烘焙</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-9DDA4DC6-8943-470B-8120-D264A47D3F50">以下工作流同时适用于<span class="ph uicontrol" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-56FFED2D-825E-478A-8FAC-14AA0FDBB687">“Shaderfx 着色器”(Shaderfx Shader)</span>图表和 <span class="ph uicontrol" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-DA7AB6BC-BFAA-4714-B033-07791611B918">Stingray PBS</span> 图表。 
+	 </p>
+<p class="p" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-08F4C5FF-4D62-44FA-B4FA-494E14D4F16C"> 您可以将 ShaderFX 图形中的任何预览样例烘焙到平坦的 2Kx2K 纹理。此外，您还可以将几何体的展开 UV 烘焙到纹理。 
+	 </p>
+<p class="p" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-16B070E0-3BEB-44BC-9BA3-77CFA8A42D73"> <video data-video-id="VqN2pmazosVlv-C_8Alw9n2i74xqmIip" crossorigin="anonymous" controls="controls" poster="https://help.autodesk.com/videos/VqN2pmazosVlv-C_8Alw9n2i74xqmIip/poster"><source type="video/webm" src="https://help.autodesk.com/videos/VqN2pmazosVlv-C_8Alw9n2i74xqmIip/video.webm"></source><source type="video/mp4" src="https://help.autodesk.com/videos/VqN2pmazosVlv-C_8Alw9n2i74xqmIip/video.mp4"></source></video> 
+	 </p>
+<div class="section" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__SECTION_63035A5BDDBD451E895210CEF80EE4B3"><h2 class="title sectiontitle">将预览样例烘焙到纹理</h2> 
+		 
+		<p class="li listintro" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-9DFD7F3C-2652-43C7-B879-5BEAEC025635">将预览样例保存至平坦的方形 2kx2k 纹理</p>
+<ol class="ol" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__OL_3B84DB5A5058441494DDADC705E3394C"><li class="li" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__LI_12620B4E2E3E4664A3B7DF0E7F2835B4">选择包含要烘焙的预览样例的节点。 
+		  </li>
+<li class="li" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__LI_287DF6DC13474A2A965163C5373C4E89"> 单击鼠标右键，然后选择<span class="ph uicontrol" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-B0646529-3703-444A-8D27-CD012167F75C">“工具 &gt; 将选定样例保存至图像”(Tools &gt; Save Selected Swatches to Images)</span>。 
+		  </li>
+</ol>
+ 
+		<p class="p" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-C9DB2989-87EE-4E6F-91AB-6875F0F9D5BB">要烘焙到一个更大的样例，请结合使用 <samp class="ph codeph" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-6E79673B-3887-4F42-8AFA-3E137E315463">shaderfx</samp> MEL 命令与 <samp class="ph codeph" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-AD20690C-DC04-4C67-A0F4-00C04FB3E10B">-renderSwatchToDisk</samp> 标志。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__SECTION_A7F120C447884EC1A373DB6BABDC268E"><h2 class="title sectiontitle">将几何体渲染到 ShaderFX 样例中</h2> 
+		 
+		<p class="li listintro" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-E9C5540D-6BEB-441E-8A1F-C93A9F236D2A">在 ShaderFX 样例中可视化视口几何体 </p>
+<ol class="ol" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__OL_D15D976E81CC4084B9456B47836EA09D"><li class="li" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__LI_52C20AD15F82424897850AF314C8B639">在场景视图中选择几何体。 
+		  </li>
+<li class="li" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__LI_9948DC3A794543BD8997C01E583D6E84">单击鼠标右键 (<img class="image" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__IMAGE_882B0A70B06C4BE8A8F78B24FCC58A91" src="../images/GUID-C0C1B9D8-C98F-4091-9802-1D60B6077FED.png">)，然后选择<span class="ph uicontrol" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-7DF80DBA-B9EE-4FEC-83B2-DB906A45EB46">“工具 &gt; 设置样例几何体”(Tools &gt; Set Swatch Geometry)</span>。 
+		  </li>
+</ol>
+ 
+		<div class="fig fignone" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__FIG_4FA4CB038D2049AFBDAC70EC1C028EB1"><img class="image" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__IMAGE_DA1576C4FA294A458C2D5B8BC82997AF" src="../images/GUID-06BFDA05-05BA-4255-967E-2DC4F62F31C8.png"></div>
+ 
+		<p class="p" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-F0AAA49D-C9F5-4BC3-BB9B-29D5AAD0D643">如果旋转摄影机，则必须在面板菜单中选择<span class="ph uicontrol" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-C599ABB8-8C49-482F-B23D-9A998C90873F">“视图 &gt; 选择摄影机”(View &gt; Select Camera)</span>，然后在 ShaderFX 标记菜单中选择<span class="ph uicontrol" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-50F3F143-CF05-468E-ABF7-31BCE10868A6">“工具 &gt; 设置样例摄影机”(Tools &gt; Set Swatch Camera)</span>更新 ShaderFX 中的样例。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__SECTION_C505081983A041278145BE89F15E1B70"><h2 class="title sectiontitle">将 UV 展开图像烘焙到纹理</h2> 
+		 
+		<ol class="ol" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__OL_A41E51E0EEE243929BE8A214514FB380"><li class="li" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__LI_45D8A3695E924680954CEE4CA7C321A3">选择包含要烘焙的预览样例的节点。 
+		  </li>
+<li class="li" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__LI_D4C6AAE10ED347CC805ACDAEC6CD04C4"> 单击鼠标右键，然后选择<span class="ph uicontrol" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-5B7E379A-0998-4FA3-9C60-F806FA7566D4">“工具 &gt; 将选定样例保存至已展开 UV 的图像”(Tools &gt; Save Selected Swatches to UV-unwrapped Image)</span>。 
+			 <p class="p" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-6D51C937-4E33-44FE-A9C0-CB742C64D76D"> 选择<span class="ph uicontrol" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-3D7B64CE-2BCE-4040-B5B3-5AFAFE93967B">“工具 &gt; 将选定样例保存至已展开 UV 的图像”(Tools &gt; Save Selected Swatches to UV-unwrapped Image)</span>。 
+			 </p>
+ 
+			 <p class="p" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-8B14D7BD-419F-4556-A2BC-CE0F2C359F59"> 几何体的展开 UV 将烘焙到该文件。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-0C2D6A09-C1C0-4FCF-93A0-8AA0595DD23A"><span class="notetitle">注：</span> <span class="ph uicontrol" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-A8FBC815-A198-4B4B-B937-C8A766B133C6">“TraditionalGameSurfaceShader”</span>将会烘焙所有照明，因此未被照亮的面会在烘焙结果中显示为黑色。 
+			 </div>
+ 
+		  </li>
+</ol>
+ 
+		<div class="fig fignone" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__FIG_65B7E6B704424B7B934B2004B08DAB3C"><img class="image" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__IMAGE_BB35C4AF6C8648DFB4A7D5C7D757588D" src="../images/GUID-144FD6EA-FF69-4B2D-89AD-ECFE571D6FD4.png"></div>
+ 
+	 </div>
+<div class="section" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__SECTION_5462531D3FF34666A7677C62A135F64E"><h2 class="title sectiontitle">应用程序</h2> 
+		 
+		<p class="p" id="GUID-1D22726B-6C4B-4BC6-A1FE-5E6A6B161AC9__GUID-2A517036-EA64-475F-95E1-3D4E296E5E9D">您可以混合昂贵的噪波和图案，然后烘焙并将其导出到游戏引擎。通过 ShaderFX 可以缝合节点，在 Viewport 2.0 中实时预览它们，然后为对象烘焙基于 UV 的纹理。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-D1F9ED93-7CC5-4C34-B89D-1447A609AA56.htm">使用 ShaderFX 编辑器构建 ShaderFX 或 Stingray 基于物理的着色器网络</a></div>
+</div>
+</div>
+
+</body>
+</html>

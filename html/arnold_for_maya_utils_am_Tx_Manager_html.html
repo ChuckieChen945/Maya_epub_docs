@@ -1,0 +1,288 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_utils_am_Tx_Manager_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_TX_MANAGER">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" TX 管理器(TX Manager) - Arnold for Maya">
+
+<title>TX 管理器(TX Manager)</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>TX 管理器(TX Manager)</h1></div><p><img src="../images/mtoa_tx_manager1.png" alt=""></p>
+<p><sub><strong>“Tx 管理器”(Tx Manager)窗口可以为同一源文件生成多个具有不同颜色空间的 tx 文件。</strong></sub></p>
+<p>Tx 管理器可用于在 Maya 内自动执行将 Maya 纹理文件和 Ai 图像文件转化为 <a href="http://www.openimageio.org/" target="_blank">.tx</a> 文件格式的过程。它可以转化当前场景中的纹理或某个文件夹（及其子文件夹）中的所有纹理。此外，您还可以指定是否要转化特定纹理。Tx 管理器可从 Arnold 菜单和 MtoA 工具架中访问。  </p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关使用 .tx 的详细信息，请访问 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_textures_ac_textures_maketx_html" target="_blank">maketx</a> 页面。 </p>
+
+</div></div>
+
+<h3 id="refresh">刷新(Refresh)</h3><p>搜索当前场景中的可用纹理，且在“Tx 管理器”(Tx Manager)窗口中列出纹理路径。</p>
+<h3 id="select-all">全选(Select all)</h3><p>选择场景中所有可用的纹理文件。</p>
+<h3 id="select-untiled">选择未分片对象(Select Untiled)</h3><p>选择所有尚未处理为 .tx 文件的纹理。</p>
+<h3 id="select-missing">选择缺少对象(Select Missing)</h3><p>选择所有缺少文件的纹理。</p>
+<h3 id="relink">重新链接...(Relink...)</h3><p>用于将所有选定纹理替换为在选定文件夹及其子文件夹中找到的图像。此功能与原生<em>纹理管理器</em>的“重新链接”(Relink)功能相同。</p>
+<h2 id="options">选项(Options)</h2><h3 id="use-scene-textures">使用场景纹理(Use Scene Textures)</h3><p>这将显示当前 Maya 场景内存在的文件纹理。</p>
+<ul>
+<li><strong>hastx</strong> = 原始状态，存在 tx。</li>
+<li><strong>missing</strong> = 缺少纹理或路径不正确。</li>
+<li><strong>onlytx</strong> = 仅 .tx 文件可用。</li>
+</ul>
+<p><img src="../images/mtoa_tx_manager2.png" alt=""></p>
+<p><sub><strong>单击文件路径名可在属性编辑器中查看相应的纹理</strong></sub></p>
+<h3 id="use-folder-textures">使用文件夹纹理(Use Folder Textures)</h3><p>使用“纹理文件夹”(Textures Folder)内存在的纹理文件。</p>
+<h3 id="scene-options">场景选项(Scene Options)</h3><p>设置用于在当前 Maya 场景中查找纹理的选项。</p>
+<h3 id="scan-attributes">扫描属性(Scan attributes)</h3><p>要扫描文件纹理路径的节点类型和属性的列表。</p>
+<h3 id="add">添加(Add)</h3><p>添加要在场景中搜索的新节点类型和属性。</p>
+<h3 id="remove">删除(Remove)</h3><p>从列表中移除选定的属性。</p>
+<h3 id="tx-tx-options">TX 选项(TX Options)</h3><p>允许您向转化过程添加<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_textures_ac_textures_maketx_html" target="_blank">参数</a>。默认参数使用标志 -u（更新图像）和 --oiio (OpenImageIO)。</p>
+<h3 id="update">Update</h3><p>仅当存在输入纹理的新版本时更新 .tx 文件。</p>
+<h3 id="verbose">详细(Verbose)</h3><p>显示有关将纹理转化为 .tx 的信息。</p>
+<h3 id="nan-check-nans">检查 NaN(Check NaNs)</h3><p>检查源纹理中是否存在 NaN 值，如果存在，则将发出警告。</p>
+<h3 id="print-stats">打印统计信息(Print stats)</h3><p>打印有关输出 .tx 文件的统计信息。</p>
+<h3 id="unpremult">取消预乘(Unpremult)</h3><p>在转化之前对输入纹理取消预乘。</p>
+<h3 id="threads">线程数(Threads)</h3><p>用于转化的 CPU 线程数。</p>
+<h3 id="preset">预设(Preset)</h3><p>选择选项的预定义预设，Arnold 始终会向 maketx 选项添加 --oiio。</p>
+<h3 id="extra-args">附加参数(Extra args)</h3><p>添加 maketx 从 maketx 选项接受的任何自定义参数。</p>
+<p>可用的 maketx 选项</p>
+<table>
+<thead>
+<tr>
+<th>标志</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--help</code></td>
+<td>输出帮助消息</td>
+</tr>
+<tr>
+<td><code>-v</code></td>
+<td>详细状态消息</td>
+</tr>
+<tr>
+<td><code>-o %s</code></td>
+<td>输出文件名</td>
+</tr>
+<tr>
+<td><code>--threads %d</code></td>
+<td>线程数（默认值：#cores）</td>
+</tr>
+<tr>
+<td><code>-u</code></td>
+<td>更新模式</td>
+</tr>
+<tr>
+<td><code>--format %s</code></td>
+<td>指定输出文件格式（默认值：根据扩展名推测）</td>
+</tr>
+<tr>
+<td><code>--nchannels %d</code></td>
+<td>指定输出图像通道数。</td>
+</tr>
+<tr>
+<td><code>-d %s</code></td>
+<td>将输出数据格式设置为以下选项之一：uint8、sint8、uint16、sint16、half、float</td>
+</tr>
+<tr>
+<td><code>--tile %d %d</code></td>
+<td>指定分片大小</td>
+</tr>
+<tr>
+<td><code>--separate</code></td>
+<td>使用平面配置分隔（默认值：连续）</td>
+</tr>
+<tr>
+<td><code>--fov %f</code></td>
+<td>envcube/shadcube/twofish 的视野</td>
+</tr>
+<tr>
+<td><code>--fovcot %f</code></td>
+<td>覆盖帧宽高比。默认值为宽度/高度。</td>
+</tr>
+<tr>
+<td><code>--wrap %s</code></td>
+<td>指定包裹模式（黑色、区间限定、周期性、镜像）</td>
+</tr>
+<tr>
+<td><code>--swrap %s</code></td>
+<td>单独指定 s 包裹模式</td>
+</tr>
+<tr>
+<td><code>--twrap %s</code></td>
+<td>单独指定 t 包裹模式</td>
+</tr>
+<tr>
+<td><code>--resize</code></td>
+<td>将纹理大小调整为 2 的幂（默认值：否）</td>
+</tr>
+<tr>
+<td><code>--noresize</code></td>
+<td>不将纹理大小调整为 2 的幂（已弃用）</td>
+</tr>
+<tr>
+<td><code>--filter %s</code></td>
+<td>选择用于调整大小的过滤器（选项：长方体、三角形、高斯、catrom、blackman-harris、sinc、lanczos3、radial-lanczos3、Mitchell B 样条线、圆盘，默认值 = 长方体）</td>
+</tr>
+<tr>
+<td><code>--nomipmap</code></td>
+<td>请勿创建多个 Mipmap 级别</td>
+</tr>
+<tr>
+<td><code>--checknan</code></td>
+<td>检查 NaN/Inf 值（找到后中止）。</td>
+</tr>
+<tr>
+<td><code>--Mcamera %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f</code></td>
+<td>设置摄影机矩阵</td>
+</tr>
+<tr>
+<td><code>--Mscreen %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f</code></td>
+<td>设置摄影机矩阵</td>
+</tr>
+<tr>
+<td><code>--hash</code></td>
+<td>在标头中嵌入像素的 SHA-1 哈希（已弃用。始终计算哈希）。</td>
+</tr>
+<tr>
+<td><code>--prman-metadata</code></td>
+<td>添加 prman 特定的元数据</td>
+</tr>
+<tr>
+<td><code>--constant-color-detect</code></td>
+<td>从恒定颜色输入创建 1 分片纹理</td>
+</tr>
+<tr>
+<td><code>--monochrome-detect</code></td>
+<td>从单色输入创建 1 通道纹理</td>
+</tr>
+<tr>
+<td><code>--opaque-detect</code></td>
+<td>删除始终为 1.0 的 Alpha 通道</td>
+</tr>
+<tr>
+<td><code>--stats</code></td>
+<td>输出运行时统计信息</td>
+</tr>
+<tr>
+<td><code>--mipimage %s</code></td>
+<td>指定单个 MIP 级别</td>
+</tr>
+<tr>
+<td><strong>基本模式（默认值为单色纹理）</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>--shadow</code></td>
+<td>创建阴影贴图</td>
+</tr>
+<tr>
+<td><code>--envlatl</code></td>
+<td>创建纬度/经度环境贴图</td>
+</tr>
+<tr>
+<td><code>--envcube</code></td>
+<td>创建立方体环境贴图（文件顺序：px、nx、py、ny、pz、nz）(UNIMP)</td>
+</tr>
+<tr>
+<td><strong>颜色管理选项</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>`--colorconvert %s %s</td>
+<td>将颜色空间转化应用于图像。如果输出颜色空间的位深度与输入颜色空间不同，您需使用 -d 选项将数据格式设置为正确的位深度。（选择：线性、sRGB、Rec709）</td>
+</tr>
+<tr>
+<td>`--unpremult ```</td>
+<td>在转换颜色之前取消预乘，在转换颜色之后预乘。如果图像包含 Alpha 通道，您可能需要使用此标志。</td>
+</tr>
+<tr>
+<td><strong>配置预设</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>--oiio</code></td>
+<td>针对分片大小、平面配置、元数据和恒定颜色优化使用 OIIO 优化的设置。</td>
+</tr>
+<tr>
+<td><code>--prman</code></td>
+<td>针对分片大小、平面配置和元数据使用 PRMan 安全的设置。</td>
+</tr>
+</tbody></table>
+<h3 id="">预览</h3><p>预览当前选定的参数。</p>
+<h3 id="tx-default-options-auto-tx">默认选项(自动 TX)(Default Options (auto tx))</h3><p>选中此选项将通过 MtoA 的“自动 TX”(auto-tx)选项使用默认值。</p>
+<h2 id="">操作</h2><h3 id="tx-create-tx-for-selected">为选定对象创建 .tx(Create .tx for Selected)</h3><p>开始将纹理文件转化为 .tx 文件格式。如果取消，此过程将在当前文件处理之后结束。</p>
+<h3 id="tx-remove-tx-for-selected">为选定对象移除 .tx(Remove .tx for selected)</h3><p>删除与选定纹理关联的所有 .tx 纹理文件。</p>
+<ul>
+<li>仅当在 MtoA“渲染设置”(Render Settings)窗口中的<strong><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_textures_html" target="_blank">纹理(Textures)</a></strong>下启用“使用现有 .tx 纹理”(Use Existing .tx Textures)选项时，才会使用经过处理的纹理 (.tx)。</li>
+</ul>
+<p>Tx 管理器支持的文件格式与 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_textures_ac_textures_maketx_html" target="_blank">maketx</a> 支持的文件格式相同：</p>
+<ul>
+<li>BMP</li>
+<li>Cineon</li>
+<li>DDS</li>
+<li>DPX</li>
+<li>FITS</li>
+<li>HDR/RGBE</li>
+<li>ICO</li>
+<li>IFF</li>
+<li>JPEG</li>
+<li>OpenEXR</li>
+<li>PNG</li>
+<li>PNM</li>
+<li>PSD（展平）</li>
+<li>RLA</li>
+<li>SGI</li>
+<li>Softimage PIC</li>
+<li>Targa</li>
+<li>TIFF</li>
+<li>Zfile</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/arnold_for_maya_utils_html.html">工具</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

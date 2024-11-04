@@ -1,0 +1,80 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Modeling_Volume_Modeling_Volume_merge_volumes_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>merge_volumes</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>merge_volumes</code></h1></div><p>组合体积复合用于合并体积，同时提供选项来控制如何组合对象中的等值面、雾密度和其他数据信息。</p>
+<h3 id="volumes"><code>volumes</code></h3><p>输入对象串联输入端口。对象可以只包含雾或等值面，也可以包含两者。如果混合使用具有雾/等值面的对象，则应用此逻辑：如果 volA = 等值面 + 雾，volB = 等值面，volC = 雾，则组合这三者意味着输出是一个新体积，其等值面是 volA 和 volB 中的等值面的组合，同样雾是 volA 和 volC 中的雾的组合。</p>
+<h2 id="general"><code>General</code></h2><h3 id="enable"><code>enable</code></h3><p>如果为 false，则输出 <code>volumes</code> 中的第一个体积，如果不存在体积，则输出空对象。</p>
+<h3 id="invert_order"><code>invert_order</code></h3><p>操作顺序反转。</p>
+<h2 id="level-set"><code>Level Set</code></h2><h3 id="level_set_mode"><code>level_set_mode</code></h3><p>模式：</p>
+<ul>
+<li><code>Union</code>：生成等值面 A、B 和 C 等的并集（默认设置）。</li>
+<li><code>Difference</code>：等值面 A 减去等值面 B，然后用结果减去等值面 C，依此类推。</li>
+<li><code>Intersection</code>：生成等值面 A、B 和 C 等的交集。</li>
+</ul>
+<h2 id="fog-density"><code>Fog Density</code></h2><h3 id="fog_density_mode"><code>fog_density_mode</code></h3><p>模式：</p>
+<ul>
+<li><code>Add</code>：A + B（默认设置）</li>
+<li><code>Subtract</code>：A - B</li>
+<li><code>Divide</code>：A / B</li>
+<li><code>Multiply</code>：A x B</li>
+<li><code>Min</code>：使用 A 和 B 中每个相应值的最小值。</li>
+<li><code>Max</code>：使用 A 和 B 中每个相应值的最大值。</li>
+<li><code>Average</code>：(A + B) / 2</li>
+<li><code>SoftCut</code>：(1 - A) x B</li>
+<li><code>SoftCombine</code>：A + (1 - A) x B</li>
+<li><code>AlphaBlend</code>：(1 - alpha) x A + alpha x B</li>
+</ul>
+<h3 id="alpha"><code>alpha</code></h3><p>在 alpha 混合模式下使用的 alpha 值。</p>
+<h2 id="properties"><code>Properties</code></h2><h3 id="properties_mode"><code>properties_mode</code></h3><p>特性支持雾密度也可用的模式，此外还支持 <code>Automatic</code> 模式（默认设置）。在 <code>Automatic</code> 模式下，特性将基于等值面和雾密度操作进行合并。这意味着，组合雾密度时，无论为雾密度选择何种操作，也会对其他特性执行此操作。组合等值面时，同样的情况适用，即：使用 CSG 运算 <code>Union</code>、<code>Difference</code>、<code>Intersection</code> 组合等值面时，可以根据选择等值面体素的体积来组合特性。特别是，如果 CSG 运算是最小值或最大值运算，则将根据最小值和最大值从输入等值面 A 或输入等值面 B 中拾取一个体素。对于特性，这意味着，如果在输出等值面中选择了体积 A 的等值面体素，则对于所有特性，我们同样从该特定体素的体积 A 中拾取特性值作为输出，反之，如果选择了体积 B，则从体积 B 中拾取特性值作为输出。如果体积中没有雾密度或等值面，或者如果两者同时存在，则 <code>Automatic</code> 默认为 <code>Add</code>。</p>
+<p>当前仅支持具有浮点分量（标量、向量、矩阵）的类型。</p>
+<h2 id="resolution"><code>Resolution</code></h2><h3 id="optimized_adaptivity"><code>optimized_adaptivity</code></h3><p>如果启用，并且输入体积包含等值面，则仅在不优化引起的采样误差大于细节大小的 0.1 倍时才优化输出。</p>
+<h3 id="max_relative_error"><code>max_relative_error</code></h3><p>启用了 <code>optimized_adaptivity</code> 时，输出中允许的相对于细节大小和边界框（对于带符号距离场）的最大差异（与非自适应体积相比）。首先尝试默认值，然后根据结果上下调整。如果误差阈值太低，放大时可能会出现瑕疵，如果误差阈值设置得太高，将会减少内存并节省计算时间。</p>
+<h3 id="adaptive_voxel_scale"><code>adaptive_voxel_scale</code></h3><p>启用 <code>optimized_adaptivity</code> 后，缩放输出体积的细节大小。</p>
+<h3 id="volume_subdivision_structure"><code>volume_subdivision_structure</code></h3><p>Bifrost 体积的细分结构。</p>
+<ul>
+<li>在 <code>Automatic</code> 模式下，如果启用了 <code>adaptivity</code> 或任何输入体积为“Power2”，则此选项将使用 <code>Power2</code>。</li>
+<li>在 <code>Power2</code> 模式下，分辨率将随体积中的每个级别翻倍。</li>
+<li>在 <code>Power5</code> 模式下，分辨率将随体积中的每个级别提高五倍。</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Modeling/Bifrost_Common_reference_Modeling_Volume_html.html">Volume</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

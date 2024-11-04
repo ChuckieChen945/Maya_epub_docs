@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="21/08/2024">
+<meta name="topicid" content="GUID-C2885274-C439-40E9-88B5-9C28C1A18A01">
+<meta name="language" content="CHS">
+<title>安装 Python 库以训练 ML 变形器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-C2885274-C439-40E9-88B5-9C28C1A18A01">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>安装 Python 库以训练 ML 变形器</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-C2885274-C439-40E9-88B5-9C28C1A18A01__SECTION_F9F7A44F5D6542949EC44F75BE97EC96">在训练 <span class="ph uicontrol">ML 变形器</span>时，系统可能会提示您下载并安装外部 Python 模块。默认情况下，附加模块的安装路径为 <samp class="ph codeph">&lt;MAYA_APP_DIR&gt;/mlDeformer/0.1/Lib/site-packages</samp>。 
+		<p class="li listintro">以下说明介绍了如何手动下载这些模块和/或将其安装到自定义位置：</p>
+<ol class="ol" id="GUID-C2885274-C439-40E9-88B5-9C28C1A18A01__OL_21578B32AD8046D8B209AED0673D1CA6"><li class="li" id="GUID-C2885274-C439-40E9-88B5-9C28C1A18A01__LI_E70476E752984EBE84CC809A07E8F677">要自定义安装路径，请使用 MAYA_ML_DEFORMER_MODULES_PATH optionVar 或 MAYA_ML_DEFORMER_MODULES_PATH 环境变量来设置存放模块的位置。
+			 <div class="note note" id="GUID-C2885274-C439-40E9-88B5-9C28C1A18A01__GUID-5E24514B-6343-4B2C-AB65-414FEA5257BD"><span class="notetitle">注：</span> 请务必为后续的 Maya 启动保留此变量设置，以便在训练 <span class="ph uicontrol">ML 变形器</span>时，Maya 可以访问所需的模块。
+			 </div>
+ 
+		  </li>
+<li class="li" id="GUID-C2885274-C439-40E9-88B5-9C28C1A18A01__LI_74754233ADD946CF875D97300396D743">要手动安装必备项，请在命令提示符处或终端中输入：<pre class="pre codeblock">&lt;MAYA_LOCATION&gt;/bin/mayapy -c "import maya.standalone; maya.standalone.initialize(); import maya.plugin.mldeformer.mlDeformerInstallRequirements as mlDeformerInstallRequirements; 
+mlDeformerInstallRequirements.install(torch_platform='&lt;cpu/cu118/rocm5.4.2&gt;')"</pre>
+ 
+			 <p class="p">有关 Maya 位置变量的详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-228CCA33-4AFE-4380-8C3D-18D23F7EAC72">文件路径变量</a>。
+			 </p>
+ 
+		  </li>
+<div class="section" id="GUID-C2885274-C439-40E9-88B5-9C28C1A18A01__SECTION_AC5714CAC9194D9CA2ED6A11AE364054"><h3 class="title sectiontitle"><em class="ph i">torch_platform</em></h3> 
+			  
+			 <div class="p"> 根据您的系统，选择以下平台之一：
+			 <dl class="dl"><dt class="dt dlterm">'cpu' 
+				  </dt>
+<dd class="dd">仅 CPU 版本的 pytorch。下载文件最小且最普遍兼容，但不允许使用 GPU 来提高训练速度。
+					 <div class="note note" id="GUID-C2885274-C439-40E9-88B5-9C28C1A18A01__GUID-C50453BB-5BD4-4617-8B88-AD0B4DACF9F6"><span class="notetitle">注：</span> 这是当前唯一适用于 macOS 的选项。
+					 </div>
+ 
+				  </dd>
+<dt class="dt dlterm">'cu118' 
+				  </dt>
+<dd class="dd">CUDA 版本，支持使用 NVIDIA GPU 进行训练。在 Windows 和 Linux 上受支持。
+				  </dd>
+<dt class="dt dlterm">'rocm5.4.2' 
+				  </dt>
+<dd class="dd">支持使用 AMD GPU 进行训练。仅在 Linux 上受支持。
+				  </dd>
+</dl>
+ 
+			 </div>
+例如，要在 Windows 上安装适用于标准 Maya 安装、支持 NVIDIA GPU 的 CUDA 版本，上述命令应为：<pre class="pre codeblock">"C:\Program Files\Autodesk\Maya2025\bin\mayapy" -c "import maya.standalone; maya.standalone.initialize(); import maya.plugin.mldeformer.mlDeformerInstallRequirements as mlDeformerInstallRequirements; mlDeformerInstallRequirements.install(torch_platform='cu118')"</pre>
+ 
+			 <div class="p"> 将要安装的模块的完整列表列在 <em class="ph i">mldeformer_requirements.txt</em> 中。
+			 <ul class="ul" id="GUID-C2885274-C439-40E9-88B5-9C28C1A18A01__UL_D2DCE962E4AE4476B522651B92042D03"><li class="li" id="GUID-C2885274-C439-40E9-88B5-9C28C1A18A01__LI_70D22D46E612468990D7AE8FB657CF1E">在 Windows 和 Linux 上：此文件位于 &lt;<em class="ph i">MAYA_LOCATION</em>&gt;/bin/plug-ins/mldeformer_requirements.txt 
+				</li>
+<li class="li" id="GUID-C2885274-C439-40E9-88B5-9C28C1A18A01__LI_C1173F99BAC74FC78D2F851FE5D05C6F"> 在 macOS 上：此文件位于 &lt;<em class="ph i">MAYA_LOCATION</em>&gt;/macOS/plug-ins/mldeformer_requirements.txt 
+				</li>
+</ul>
+ 
+			 </div>
+ 
+		  </div>
+</ol>
+ 
+		<p class="p">有关如何创建 <span class="ph uicontrol">ML 变形器</span>的步骤，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C.htm">创建 <span class="ph uicontrol">ML 变形器</span></a>或<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-941296C2-B5DA-4D5A-A9EA-E73016E1EF06.htm">使用单独的目标几何体创建 <span class="ph uicontrol">ML 变形器</span></a>。
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71.htm">ML 变形器</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="video-id" content="85dGZnczqLNQVR7w9sZMS0i3OHNGg6BL">
+<meta name="indexterm" content="核心配置">
+<meta name="modified" content="31/08/2022">
+<meta name="topicid" content="GUID-F81B34C5-30B8-4784-8351-F252006C42D8">
+<meta name="language" content="CHS">
+<title>编写自定义 GLSL 着色器：纹理、透明度、照明和硬件选择示例</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>编写自定义 GLSL 着色器：纹理、透明度、照明和硬件选择示例</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-EBB0F8B7-3369-4BEC-A220-98FE8425CE5A">GLSL 着色语言规范不包含描述，该描述允许您将各种着色器片段及其关联的 UI 连接到单个<em class="ph i" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-C44268DF-8E34-4249-AF8B-FF79BCAE5265">效果</em>文件中，而使用 CgFX 或 HLSL 则可以。
+	 </p>
+<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-1F470E1E-8D97-44D4-ABEE-3611AD9DEDD4">因此，提供了包裹器文件格式，允许您为各个着色阶段指定 GLSL 片段，以处理灯光和纹理绑定，并确定如何在<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-B5B4641C-EB93-4C22-BA32-24C30704647D">“属性编辑器”(Attribute Editor)</span>中显示参数。下面将介绍文件格式 <samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-C21AAB36-8A78-40D3-80EE-536FFBBDF35E">.ogsfx</samp>。
+	 </p>
+<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-A868BDCC-0D9D-4F52-8348-20351065D616">若要编写自定义 GLSL 着色器，请将它另存为 <samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-BC7D2696-8D03-4894-9DFE-93EBC1285A05">.ogsfx</samp> 文件。有关如何编写 GLSL 着色器的示例，请参见 Maya 安装的 <samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-5671C0C1-179C-46E2-BC0F-0714091A239D">..\presets\GLSL\examples</samp> 文件夹中的 <samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-5B6E3423-2611-4D26-B8B3-6B0C357A43B5">WaterSimulation.ogsfx</samp> 效果文件。
+	 </p>
+<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-3141EC5B-F404-475D-8E99-FCE05316C95C">此示例演示以下内容：
+	 </p>
+<ul class="ul" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__UL_86839CFC7C3D4848835C978F54A83D37"><li class="li" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__LI_EBDCBF17B651452A993DF18EB4B2E4ED"> 
+		  <p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-E476D6A5-3537-4613-B379-2C95D821A6DF">纹理 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__LI_D86B59953F404816BF1257122339EB48"> 
+		  <p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-BB03A3AA-C735-41DB-B6D3-E9176ECD5E8F">透明度 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__LI_85E1ADAA141340D4A609F41ABCF220E0"> 
+		  <p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-428CB245-F3DA-4436-BC60-316E001B06DB">如何在 Maya 的<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-A068E4D3-5134-44E1-87D4-6BB7541D6BB2">“属性编辑器”(Attribute Editor)</span>中创建 UI 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__LI_464818E2FCD74C1BB2A7C7D97B275398"> 
+		  <p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-D0542430-DC41-4D1F-BCD4-D6F86B399EBB">如何将 Maya 灯光应用于着色器 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__LI_68474CDD7D0D4AA3B7359CB54DDC589D">如何对置换组件执行硬件选择 
+		</li>
+<li class="li" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__LI_4DCF3D2F75F94273AFFB6D0EEAA3C872">如何绘制置换组件 
+		</li>
+</ul>
+<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-76D574FD-7DCA-4E61-9C04-E66E80E1077D">要可视化此示例，请创建一个立方体，并通过 polyCube 节点<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-A2C25430-4E63-4F64-9E18-C05D19861FCC">“属性编辑器”(Attribute Editor)</span>将其<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-9397B89E-9C6B-4034-ACDD-40E3E9EBE187">“细分宽度”(Subdivisions Width)</span>和<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-B1D48F87-78AE-42EA-95CA-0E8B717A6E67">“细分深度”(Subdvisions Depth)</span>增至 100。对于着色的和带纹理的显示模式，按 6。
+	 </p>
+<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-9C0D6F74-E9EE-4AAF-92AD-51A0AB78DA5E">将 GLSL 着色器指定给立方体，并导航到 <samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-7B475265-F99D-4373-9705-AA992868BB3F">WaterSimulation.ogsfx</samp> 效果文件。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-41D74556-0699-4F4E-8382-F9E69FBFC158.htm">创建和可视化 GLSL 着色器</a>。
+	 </p>
+<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-B76DCD2C-90E2-48F8-8A47-4E57B2A5B17F">示例着色器将创建可能对场景中的一个 Maya 灯光起反应的动画波浪。它将连接到高度和法线贴图，且可以显示透明度。
+	 </p>
+<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-8356A0EB-2DB1-41B2-8854-7163DA33DAD2">有关此着色器示例中使用的语义和注释的详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D.htm">Viewport 2.0 中的 dx11Shader 和 glslShader 插件支持的语义和注释</a>以及 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-0939A615-81AC-455C-9B23-9ECEC5835F93">Viewport 2.0 支持的着色器语义</a>。
+	 </p>
+<div class="section" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__SECTION_07ADFB454BCB492BB5BFCAF99EBD12DF"><h2 class="title sectiontitle">指定纹理文件</h2> 
+		 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-3570585F-4AEA-4D58-8C92-D7AA68C90A4B">若要定义文件纹理，请按照以下示例执行操作：
+		</p>
+ 
+		<pre class="pre codeblock">uniform texture2D gHeightMap  &lt;
+    //Specify the texture file to be loaded by default
+    string ResourceName = "SeaHeightMap.jpg";
+
+    //Specify the type of texture
+    string ResourceType = "2D";
+    //Name of field in Attribute Editor
+    string UIName = "Sea Height Map";
+   
+    int mipmaplevels = 0;
+&gt;;
+uniform sampler2D gHeightMapSamp = sampler_state
+{
+    texture = &lt;gHeightMap&gt;;
+};</pre>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-5CF053D2-BEA4-45A1-89D7-5A94ACA3E12D">采样在 <samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-08D0483A-219F-4922-95FA-F442A1D35604">gHeightMapSamp</samp> 上执行，并且文件纹理加载到 <samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-C148498B-64EC-481E-B2DD-E2F4456C34B6">gHeightMap</samp> 中。<samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-761CE4EE-4199-4DFE-BA88-F8197AE4A523">sampler_state</samp> 允许将外部纹理关联到采样器。
+		</p>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-9D9B1F0B-913A-489A-ADC3-7B0976F24D15">使用 <samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-1E4CABD9-17D7-4B86-8E8F-0E5A98467E6C">ResourceName</samp> 注释，您可以在加载着色器时，自动连接和加载指定的纹理文件。例如，在本例中，<samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-E4F2C9D8-58D5-4D3C-96BC-87A86F7742A4">SeaHeightMap.jpg</samp> 文件已连接。否则，用户必须创建文件节点并将其连接到该属性。
+		</p>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-90A6C3F7-3E61-4A98-8037-E24ACA6F7DD0">在本例中，<samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-A6FCF10D-4465-42F0-841A-73D5569104ED">SeaHeightMap.jpg</samp> 文件与 <samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-72D951E7-A50E-4071-8287-BA40F568D708">WaterSimulation.ogsfx</samp> 文件位于同一目录中。如果纹理文件位于其他目录中，则必须指定其完整路径。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__SECTION_8D7337B949784DCB8652178353769B7D"><h2 class="title sectiontitle">在 Maya 属性编辑器中创建属性</h2> 
+		 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-74F6332B-3FB3-4EBD-8770-09A3F2046C9B">统一参数及其变量名称将自动显示在 Maya 的<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-2CB89441-CA6A-46C5-B01B-69095C199161">“属性编辑器”(Attribute Editor)</span>中。若要为统一参数提供用户友好的名称，请使用 UIName 注释。
+		</p>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-FFC397F2-2811-4F49-A841-C625AE5488F6">例如：
+		</p>
+ 
+		<pre class="pre codeblock">uniform texture2D gHeightMap  &lt;
+...
+... 
+  string UIName = "Sea Height Map";
+...
+&gt;;</pre>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-33130DE3-F780-4C98-B782-DC2D5FE99BE7"><span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-7ADCDA45-D1E5-4CEE-B596-7E508778E9BE">“海洋高度贴图”(Sea Height Map)</span>显示为 GLSLShader 节点<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-5ED75350-3ACE-4DDF-BA3B-F23874692428">“属性编辑器”(Attribute Editor)</span>中的一个属性，而不是显示为 gHeightMap。
+		</p>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-1BFB2306-45D8-434E-863A-901BF85443D0">如果不希望某个统一参数显示在<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-74972277-FD62-441A-83FA-285BEB6304BB">“属性编辑器”(Attribute Editor)</span>中，请使用以下注释：
+		</p>
+ 
+		<pre class="pre codeblock">string UIWidget = "None";</pre>
+ 
+	 </div>
+<div class="section" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__SECTION_967DC2BC464F4EBBAB536D0D0F4FF0AB"><h2 class="title sectiontitle">添加技术</h2> 
+		 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-4E30B43D-F37A-4D02-BD77-1887507B7AD1">一种可以包含一个或多个过程的技术，其中每个过程定义渲染对象的特定方式。如果具有多个顶点着色器和/或多个几何体着色器和/或像素着色器，则可以指定要用于每种技术/通道的着色器。
+		</p>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-23D73853-DCD3-4603-B6DC-41A18A06AAF1">在此示例中，<samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-881A3D8D-352B-4020-9C28-FF5F1FC28CCE">technique Main</samp> 包含一个通道，指定应该使用 PS_Wave 像素着色器。在 GLSLShader 节点属性编辑器中选择 Main 作为技术时，将在视口中渲染波浪。
+		</p>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-C2F7CB92-D111-4793-80C2-6D18FB14DC54"> <video data-video-id="85dGZnczqLNQVR7w9sZMS0i3OHNGg6BL" crossorigin="anonymous" controls="controls" width="400" height="225" poster="https://help.autodesk.com/videos/85dGZnczqLNQVR7w9sZMS0i3OHNGg6BL/poster"><source type="video/webm" src="https://help.autodesk.com/videos/85dGZnczqLNQVR7w9sZMS0i3OHNGg6BL/video.webm"></source><source type="video/mp4" src="https://help.autodesk.com/videos/85dGZnczqLNQVR7w9sZMS0i3OHNGg6BL/video.mp4"></source></video> 
+		</p>
+ 
+		 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-2F999883-1AB9-4380-9D77-6FFD9A9E19F4">同样，<samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-BD845359-ED87-4691-ADEA-26B77CA9F602">technique NormalView</samp> 包含一个通道，指定应该使用 PS_Normal 像素着色器。在属性编辑器中选择 NormalView 时，将在视口中显示波浪的法线贴图。
+		</p>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-57D1C052-94EE-47E1-8305-AFD2E4C2086F"><samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-C8893340-6F46-4984-84DB-C30B108141F0">NormalView_Selection</samp> 技术包括 7 个通道，每个通道使用不同的顶点、几何体和像素着色器。此技术示范硬件选择。有关详细信息，请参见下面的<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-F81B34C5-30B8-4784-8351-F252006C42D8.htm#GUID-F81B34C5-30B8-4784-8351-F252006C42D8__SECTION_CF1B47E32DF2456BAC7B85A7C38E9383">选择和绘制置换组件</a>。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__SECTION_6CEB8C42AC8146AC857563CBE8A3815A"><h2 class="title sectiontitle">显示透明度</h2> 
+		 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-25680F30-DAA7-45AD-AE39-137688A82E76">在指定技术时使用透明度技术注释，以便对象可以显示透明度。
+		</p>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-EE202424-FE54-4F72-9363-069F4045FE51">在 GLSLShader 的<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-D641ABFF-4BA9-470D-80D1-00A57C84FBAA">“属性编辑器”(Attribute Editor)</span>中选择“主”(Main)技术时，以下项允许对象显示为透明。
+		</p>
+ 
+		<pre class="pre codeblock">technique Main
+&lt;
+//tell Maya to support transparency for this technique
+string Transparency = "Transparent";
+&gt;</pre>
+ 
+	 </div>
+<div class="section" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__SECTION_2B072F90ED0A41B08163AFF49B010D29"><h2 class="title sectiontitle">将场景中的灯光指定给着色器</h2> 
+		 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-F89A4C3E-F6AF-4B5E-9A57-B37DF2F908CC">示例效果文件的 Light 0 Group 部分演示如何将场景中的一个灯光指定给 GLSL 着色器，以及灯光参数应该如何影响着色器。
+		</p>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-62002F9C-4EA1-457B-8300-2AE614DF5F9E">若要在着色器计算中包括多个灯光，请在效果着色器中创建其他的 Light 1、Light 2（依此类推）部分。您还将需要为灯光如何彼此交互制定计划。
+		</p>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-E53A503F-AC34-43C5-AA0F-02E7197A6BFB">有三种方法可以用于向着色器添加灯光。可以执行下列操作：
+		</p>
+ 
+		<ul class="ul" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__UL_7E67A94962164608A22683F36E77A78D"><li class="li" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__LI_508AEBC32DF246738301394286FDD4C6">通过从<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-C1CB85BA-1263-48DD-91C5-C17EC6E86B7A">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-BE4A7A4D-EA02-4DF9-87B4-460CDC45447C">“灯光绑定”(Light Binding)</span>区域中选择<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-45F4F17A-1EBD-4D4F-AE18-0F87A538B5BC">“自动绑定”(Automatic Bind)</span>选项，将场景中的任何灯光自动绑定到着色器 
+		  </li>
+<li class="li" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__LI_5BC121758DA34F3884254AFCB2571186">通过从<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-43D01FB0-F65D-490E-9CA3-754E2E285A9F">“灯光绑定”(Light Binding)</span>区域进行选择，手动选择场景中的特定灯光并将其绑定到着色器 
+		  </li>
+<li class="li" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__LI_B73D7996F00E48C4B9B0498BB34C4680">通过 GLSLShader 的<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-1A32A731-0C64-4C93-BB52-E6D5E1B2E5F4">“属性编辑器”(Attribute Editor)</span>调整灯光设置。必须选择<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-6BF0D8E7-043C-458B-83CE-42C00ECC28ED">“使用着色器设置”(Use Shader Settings)</span>选项，并且首先选择<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-DADC3BA7-6A87-46B0-9A6B-001489E8D317">“启用灯光 0”(Enable Light 0)</span>，然后设置才能生效。
+		  </li>
+</ul>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-0E766672-0BC1-4778-B192-F67EF650806B">如果您选择前两个选项之一，则在绑定灯光后无法在 GLSLShader 的<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-C96A4E55-F763-441B-9C92-A5064724C41E">“属性编辑器”(Attribute Editor)</span>中更改灯光参数。相反，您必须从<em class="ph i" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-17B7A773-0F53-427F-AAF5-32408CF97C1B">灯光</em>的<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-C75DFBD3-006E-42B3-999A-4E2D642222DA">“属性编辑器”(Attribute Editor)</span>进行更改。
+		</p>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-4C0A87A4-6118-4FBC-9D69-CCB978148B7A">若要查看场景灯光的效果，请在 Maya 视口面板菜单中选择<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-8D9723CF-BA59-4371-8F2D-6A51E2E7E5D1">“照明 &gt; 使用所有灯光”(Lighting &gt; Use All Lights)</span>。
+		</p>
+ 
+		<div class="note note" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-E49DF856-BDC5-4CE2-9BB9-6BE09FF6A665"><span class="notetitle">注：</span> 在此示例中，照明仅在 PS_Wave 像素着色器中定义，其仅在<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-E5D3AA1C-B502-42C5-94B0-4D7F0C92C6A2">“主”(Main)</span>技术中使用。因此，只有选择<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-ADA0D63F-6013-4D17-A333-F1B356E1A185">“主”(Main)</span>作为技术，才能在 <span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-855F558B-8D4D-48E3-A90E-59712101A69B">Viewport 2.0</span> 中查看照明效果。
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__SECTION_DD30EA7504EB482F99D80D47330146DA"><h2 class="title sectiontitle">禁用合并</h2> 
+		 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-954717B5-2BF6-4678-BAF5-7BE02BA0BF3E">将技术注释 handlesConsolidatedGeometry 设置为 false，可在要应用 GLSL 着色器的几何体上禁用<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-A4CE3457-D466-4BA6-89CD-BDA96B4596D3">“合并世界”(Consolidate World)</span>功能。
+		</p>
+ 
+		<pre class="pre codeblock">string handlesConsolidatedGeometry = "false";</pre>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-B651A871-4E5A-43EF-AC12-B8A5D6C17345">如果通过技术绘制其计算涉及对象的对象空间坐标（例如，使用世界变换矩阵）的置换，则此注释非常有用。由于<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-40010D24-A181-420C-B97E-AEC26B65BC27">“合并世界”(Consolidate World)</span>会将多个对象的顶点移到一个新的共享对象空间中，因此可能会导致插件着色器渲染错误。在这种情况下，您可能需要禁用<span class="ph uicontrol" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-24B13E25-5694-4A17-8A64-501108DF2D0E">“合并世界”(Consolidate World)</span>。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__SECTION_CF1B47E32DF2456BAC7B85A7C38E9383"><h2 class="title sectiontitle">选择和绘制置换组件</h2> 
+		 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-A6AD212E-1ADC-4ACB-9F5E-BC544420F858"><samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-79C0CA44-FE5F-477E-BB6A-1BAC77A66CB1">NormalView_Selection</samp> 技术演示了如何对置换组件执行硬件选择，以及在相应置换位置渲染非材质项目（例如线框和所选边/顶点）。
+		</p>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-DF2C23C6-F2F0-47A9-AB07-E608A8ECD1E7">硬件选择允许选择细分的几何体。此外，线框和组件在视口中绘图时使用同一轮廓作为着色材质。此技术有 7 个不同的通道。
+		</p>
+ 
+		<div class="fig fignone" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__FIG_A1F5EAD619CC413487F8FCCC2C7C3EC4"><img class="image" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__IMAGE_A05FBE0C2DE94996BF6E77CF818785BF" src="../images/GUID-770B0370-FACD-4202-8D05-FF75BDEE2711.png"></div>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-6F73DC44-0337-4100-A3AC-92F3D191521A">在定义技术之前，使用 <samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-DEBA706F-E95B-493E-A81B-7CC50992CD04">#include</samp> 指令加载四个着色器，如下所示。<samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-4F5CC31D-1828-4BF6-8219-870A0BDB33CA">#include</samp> 指令允许在不同的应用程序之间共享相同的 GLSL 片段，并保持单独的着色器代码文件，而不必将它们合并到一个 <samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-8EA83A04-ABE5-4E90-8CB8-300DB8E4FB50">.ogsfx</samp> 文件中。
+		</p>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-FA8EBD8E-E73E-4BC2-B2CA-0B9E14512B3D"><samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-71C06D73-300D-42F5-9CE8-C941DBAD603B">GS_FatLine.ogsfh</samp>：这是一个几何体着色器，可将线转化为矩形，因此允许将渲染线绘制得较大（例如，红色预先选择亮显边绘制得比休眠边大）。
+		</p>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-904706C6-47B1-4D1E-A515-BEA2A8C253B0"><samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-331527A7-356E-4667-9359-F3B0E1F61682">GS_FatPoint.ogsfh</samp>：这是一个几何体着色器，可将点转化为四边形，因此允许将渲染点绘制得较大（例如，将顶点渲染为方形，而不是单个像素）。
+		</p>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-12BD500F-2664-423A-B810-92BB9146A941"><samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-89AE0A89-C5EC-4DF4-8A6E-A9E4AD0413EA">PS_SolidColor.ogsfh</samp>：这是一个像素着色器，用于使用纯色进行绘制。
+		</p>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-2124D299-20D2-4C0B-BC89-B9B689A328BB"><samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-426C5ABB-3995-4C49-8385-85D8352BFED9">PS_HWSelection.ogsfh</samp>：这是一个像素着色器，用于在硬件选择过程中渲染组件，其中每个组件按照使用对象或组件 ID 计算的不同纯色进行渲染。
+		</p>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-7315FD2E-9276-48C0-AC02-9D4F7BD05B57">前 4 个通道用于在视口中绘制；因此使用了 PS_Normal 和 PS_SolidColor 像素着色器。
+		</p>
+ 
+		<ul class="ul" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__UL_255CF451486A4F0DAD29027C7B4597B9"><li class="li" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__LI_69A109DA91F549A885CB25A364D39D0A"><samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-724D7E19-D7AF-4E52-B6F6-47E0E8CEBED1">通道 pNormal</samp>：渲染纹理材质 
+		  </li>
+<li class="li" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__LI_4E4B82F896DE46809D7E7F245ADBBAC3"> 
+			 <p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-E7A56947-AE0F-4B48-8888-9D5B37DD10B6"><samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-72ACE9EC-0EFB-4BB9-A6F1-3C519BB2F60C">通道 pNonMaterialItems</samp>：渲染组件，例如线框和顶点。组件将使用纯色进行渲染，如蓝色用于休眠对象的边，而浅绿色用于活动对象的边。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__LI_3B63073548E344D89D08A4247DBC8913"> 
+			 <p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-4A10D619-8872-4896-8D61-AC28639B0107"><samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-330C13B0-1EB9-429F-8B8B-4E76FCB21FA0">通道 pNonMaterialItemsFatLine</samp>：使用 <samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-7C6554E2-7DF9-4D09-945A-95E0085FEFE0">GS_FatLine</samp> 几何体着色器渲染线。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__LI_9BDAEF2150F940F6AC993FE2A94E2EA9"> 
+			 <p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-302BE2D0-C7EF-40BC-87F9-7819F8F29A6B"><samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-65777B8A-229B-4B9D-96E8-BC72BC070C2D">通道 pNonMaterialItemsFatPoint</samp>：使用 <samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-A01F6A0E-8274-4BF0-A6FC-EABA43B09EA2">GS_Point</samp> 几何体着色器渲染点。
+			 </p>
+ 
+		  </li>
+</ul>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-B3CC7ABC-C80D-4D2D-93BA-EF943EEB3FF3">最后 3 个通道用于在硬件选择期间渲染组件，因此使用 <samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-52B74C1E-ADC1-4069-B807-0BD212AA48FB">PS_HWSelection</samp> 像素着色器。未使用 <samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-481E0AB0-3FC9-43EE-9F35-1E0CF7AA3898">PS_SolidColor</samp> 像素着色器，因为这些通道不用于在视口中进行绘制。
+		</p>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-E2932650-F7A9-4FF9-87E6-339BB9559A0F">基本体 ID（如顶点 ID）用于生成一种颜色来标识拾取的对象。屏幕外缓冲区用于存储这些计算的颜色，以便 Maya 知道鼠标拾取的内容。
+		</p>
+ 
+		<ul class="ul" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__UL_6B4D020B0AE84D19ADF04301885690CB"><li class="li" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__LI_168AF20FB457450A981C444EADA08F60"> 
+			 <p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-35B3BC72-F245-4274-AE9A-C69EE4861314"><samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-5D1929C9-8CB2-42C8-A5F6-82D0F9DDF308">通道 pNonMaterialItemsSelection</samp>：用于选择组件，例如线框和顶点。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__LI_29AFCD1B014342499065EB373865AB6B"> 
+			 <p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-AC7DF210-7E08-47EA-8A67-A41108EEF609"><samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-5C9EC20A-370F-49DF-925E-F1F61162546D">通道 pNonMaterialItemsSelectionFatLine</samp>：用于选择粗线 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__LI_0F7B7587E61B41AB9E94CABCFDDD0156"> 
+			 <p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-34BD60FC-9960-41A8-B281-098861F92AE6"><samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-0ACBE7CA-998E-4576-86A1-6168ED25AE2C">通道 pNonMaterialItemsSelectionFatPoint</samp>：用于选择粗点。
+			 </p>
+ 
+		  </li>
+</ul>
+ 
+		<div class="section" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__SECTION_2F20C428DF414EC1B392B479152578CD"><h3 class="title sectiontitle">技术和通道注释</h3> 
+		   
+		  <p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-F05A000B-1188-46D7-875B-827E6AF8972F">overridesNonMaterialItems 技术注释指定此技术可用于渲染非材质项目，例如线框以及边或顶点等组件。
+		  </p>
+ 
+		  <pre class="pre codeblock">string overridesNonMaterialItems = "true";</pre>
+ 
+		  <p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-75EA2356-7AD6-4D90-8BBE-BD755C55128A">通道注释用于告知插件将哪些通道用于哪些渲染项目。
+		  </p>
+ 
+		  <p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-12C40154-AEA0-4568-9246-632501101C8D">例如：
+		  </p>
+ 
+		  <pre class="pre codeblock">pass pNonMaterialItemsFatLine
+&lt;
+// This pass will be used to render non material items as fat lines
+string drawContext = "nonMaterialItemsPass";
+string primitiveFilter = "fatLine";
+&gt;
+</pre>
+ 
+		  <p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-94BB96C5-6237-46F6-858C-553A3E930643">因此，如果渲染项目属于非材质项目，而基本体类型属于粗线，则使用 <samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-53B22C3D-7DD1-444A-A1BA-89D8D04315FB">pNonMaterialItemsFatLine</samp> 通道。
+		  </p>
+ 
+		  <p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-AD712AB7-295D-48ED-A10B-3E0B6F27449E">有关这些通道注释的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D.htm#GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__SECTION_A918E2F899F4430F806D16FEEFCE82B2">支持的通道注释</a>。
+		  </p>
+ 
+		</div>
+ 
+		<p class="p" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-B66533CE-6ECC-4FB1-886B-A4EEDD1BDA36">有关 <samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-17E6D2AE-3DBD-4383-B7D7-33667781EB30">OverrideNonMaterialItems</samp> 的详细信息，请参见 <em class="ph i" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-2DA75600-6CCB-4E9E-B016-05908021B531">Maya 开发人员帮助</em>中的 <samp class="ph codeph" id="GUID-F81B34C5-30B8-4784-8351-F252006C42D8__GUID-1D2B29C1-F6C8-4FDF-9062-8233845A9AC3">MRenderItem::RenderItemType</samp>。
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-41D74556-0699-4F4E-8382-F9E69FBFC158.htm">创建和可视化 GLSL 着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

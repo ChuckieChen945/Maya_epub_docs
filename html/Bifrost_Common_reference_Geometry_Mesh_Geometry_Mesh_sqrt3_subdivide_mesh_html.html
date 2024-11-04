@@ -1,0 +1,56 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Geometry_Mesh_Geometry_Mesh_sqrt3_subdivide_mesh_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>sqrt3_subdivide_mesh</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>sqrt3_subdivide_mesh</code></h1></div><p>此节点使用 SIGGRAPH 2000 中 Leif Kobbelt 的 sqrt(3) 细分算法对网格进行细分。</p>
+<p>如果每个三角形沿 X、Y 或 Z 轴的任何边的范围超过 <code>detail_size</code> 的两倍，则将其细分。这样可以确保三角形的大小与从具有相同细节大小的体积转化的网格三角形大致相当。</p>
+<p>存储在输入网格上的点特性将插值到细分网格。面特性和面顶点特性（例如 UV 坐标）当前不受支持，将被放弃。</p>
+<p>请注意，具有边界的网格（例如壳）和非流形网格当前也不受支持，不会进行细分。</p>
+<h2 id="">输入</h2><h3 id="mesh"><code>mesh</code></h3><p>输入网格。</p>
+<h3 id="volume"><code>volume</code></h3><p>可选体积，包含 <code>VariedFromProperty</code> 模式下要用于自适应细分的细节大小特性。</p>
+<h3 id="detail_size_scale"><code>detail_size_scale</code></h3><p>与输入体积的细节大小相比，值小于 1 时会生成更多更小的三角形。值大于 1 时会生成更少更大的三角形。请注意，将在所有 <code>adaptivity</code> 模式下应用此比例。</p>
+<h3 id="adaptivity"><code>adaptivity</code></h3><p>在 <code>Off</code> 模式下，每个三角形都根据节点上指定的全局 <code>detail_size</code> 进行细分。在 <code>VariedFromProperty</code> 模式下，在输入 <code>volume</code> 中根据 <code>adaptivity_property</code> 对细节大小进行采样。这意味着可以在空间中改变三角形的大小。请注意，在每个三角形的质心处对细节大小进行采样。在 <code>Automatic</code> 模式下，如果找到 <code>adaptivity_property</code>，则节点的工作方式与 <code>VariedFromProperty</code> 模式类似；否则，其工作方式与 <code>Off</code> 模式类似。</p>
+<h3 id="detail_size"><code>detail_size</code></h3><p>在 <code>Off</code> 模式下使用的绝对细节大小。值将按 <code>detail_size_scale</code> 缩放。</p>
+<h3 id="adaptivity_property"><code>adaptivity_property</code></h3><p>包含在 <code>VariedFromProperty</code> 模式下使用的绝对细节大小的 <code>float</code> 体素特性的名称。值将按 <code>detail_size_scale</code> 缩放。请注意，为了防止由于输入体积中包含非常小的细节大小而导致挂起，体素值将以 <code>detail_size</code> 作为区间下限。</p>
+<h2 id="">输出</h2><h3 id="triangle_mesh"><code>triangle_mesh</code></h3><p>细分网格。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Geometry/Bifrost_Common_reference_Geometry_Mesh_html.html">Mesh</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

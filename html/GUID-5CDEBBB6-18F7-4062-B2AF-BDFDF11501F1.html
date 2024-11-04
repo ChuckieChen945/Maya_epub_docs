@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="05/03/2022">
+<meta name="topicid" content="GUID-5CDEBBB6-18F7-4062-B2AF-BDFDF11501F1">
+<meta name="language" content="CHS">
+<title>选择渲染空间</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-5CDEBBB6-18F7-4062-B2AF-BDFDF11501F1">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>选择渲染空间</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-5CDEBBB6-18F7-4062-B2AF-BDFDF11501F1__GUID-E6FBD723-DBE5-4104-A1A7-7B14E98CF001"> 渲染空间是在其中执行渲染计算的工作颜色空间。它也是渲染输出的颜色空间（除非应用输出变换）。启用颜色管理后，2D 纹理文件和其他图像将自动从其输入空间转化为渲染空间。可以在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-2D9BBB9D-49F0-44C6-8BFF-B237FD8ED746">颜色管理首选项</a>中设置场景的<span class="ph uicontrol" id="GUID-5CDEBBB6-18F7-4062-B2AF-BDFDF11501F1__GUID-E5D75ADA-EFD5-4F3E-BCE6-338413BD371E">“渲染空间”(Rendering Space)</span>。 
+	 </p>
+<p class="p">使用默认的 OCIO v2 颜色管理系统时，可用的渲染空间取决于场景使用的配置文件。只能使用在配置中定义的空间。一些配置可能会为<samp class="ph codeph">渲染</samp>角色指定特定空间，在这种情况下，这是唯一可以使用的渲染空间。 
+	 </p>
+<p class="p"> 即使未使用渲染角色，配置的作者也可以通过使用颜色空间的 <samp class="ph codeph">categories</samp> 属性来限制可供渲染选择的颜色空间。如果使用这些颜色空间，<span class="ph msgph prodname" id="GUID-5CDEBBB6-18F7-4062-B2AF-BDFDF11501F1__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 将包括所有类别为 <samp class="ph codeph">working-space</samp> 和编码为 <samp class="ph codeph">scene-linear</samp> 的颜色空间。
+	 </p>
+<p class="p">随 <span class="ph msgph prodname" id="GUID-5CDEBBB6-18F7-4062-B2AF-BDFDF11501F1__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 一起安装的配置文件名为 <span class="ph filepath">config.ocio</span>，这些文件位于安装位置中的 <span class="ph filepath">resources/OCIO-config/</span> 子目录中。它们都具有相同的渲染空间，这与旧版颜色管理系统（称为 SynColor）一样。但是，您的项目或工作室可能使用具有不同可用空间的不同配置。 
+	 </p>
+<p class="p" id="GUID-5CDEBBB6-18F7-4062-B2AF-BDFDF11501F1__GUID-CE9A513A-84A2-4FB5-AFF4-FCB2482F7CE4">始终建议在第一次启动项目或场景时选择渲染空间。由颜色控件定义的颜色值（包括纯色和渐变）被视为未变换的渲染空间值。如果以后更改渲染空间，生成的颜色将不同。这是因为由一组值表示的颜色取决于这些值所指的主颜色。例如，与 ACEScg 主颜色相比，使用 sRGB 主颜色时由 [0.2, 0.6, 0.4] 表示的颜色是不同的。 
+	 </p>
+<p class="p"> 照明和渲染数学假设颜色空间编码是线性的，因此最好选择线性渲染空间。随 <span class="ph msgph prodname" id="GUID-5CDEBBB6-18F7-4062-B2AF-BDFDF11501F1__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 一起安装的配置中提供的所有渲染空间都是线性的。
+	 </p>
+<div class="p">Maya 配置中可用的渲染空间包括： 
+	 <dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">ACEScg</span> 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p"> <span class="ph uicontrol">ACEScg</span> 颜色空间是 ACES 标准的一部分，设计为适合计算机图形操作，如合成和 3D 渲染。它同时包含一系列白点的 Rec-2020 色域和 DCI-P3 色域。 这是用于新场景的默认渲染空间。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">ACES2065-1</span> 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p"> 
+				<span class="ph uicontrol">ACES2065-1</span> 是色域极宽的颜色空间。其优点是，它可以表示任何可能的颜色。其缺点是，它很容易生成超出色域范围的颜色，而且使用起来也不直观。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">scene-linear Rec.709-sRGB</span> 
+		  </dt>
+<dd class="dd"><span class="ph uicontrol">scene-linear Rec.709-sRGB</span> 空间是许多线性工作流中使用的通用渲染空间。它使用与 sRGB 和 HDTV (Rec. 709) 相同的红色、绿色和蓝色主色度，但具有场景线性颜色值（即与场景中的亮度成线性比例的数值）。它的色域非常有限，这意味着与数字电影相比，它只能表示相对较小的颜色范围。因此，通常需要使用色域较广的渲染空间，尤其是在渲染将与数字摄影机或扫描的胶片板中的片段合成在一起的 3D 元素时。 这是在旧版 SynColor 模式下用于新场景的默认渲染空间。 
+		  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">scene-linear DCI-P3 D65</span> 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p"><span class="ph uicontrol">scene-linear DCI-P3 D65</span> 颜色空间使用与 DCI/SMPTE "P3" 参考投影仪相同的主颜色，但使用场景线性颜色值和 D65 白点。使用此颜色空间的优点是，它可以表示现代化投影仪上所有可用的颜色。此外，生成超出投影仪色域范围的颜色的风险很小，如果以后在色域更广的设备上查看内容，可能会发生令人不快的意外状况。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">scene-linear Rec.2020</span> 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p"><span class="ph uicontrol">scene-linear Rec.2020</span> 颜色空间与 <span class="ph uicontrol">scene-linear DCI-P3</span> 类似，但用于 UHDTV 或 HDR TV 而不是数字电影。HDR TV 的标准实际上是 Rec.2100，但使用相同的主颜色。请注意，由于 Rec.2020 主颜色位于光谱轨迹上，因此几乎所有的实际显示都无法准确地显示整个色域。
+			 </p>
+ 
+		  </dd>
+</dl>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-A5A2B5C8-7992-41E3-8482-9DD86EC89717.htm">配置颜色管理</a></div>
+</div>
+</div>
+
+</body>
+</html>

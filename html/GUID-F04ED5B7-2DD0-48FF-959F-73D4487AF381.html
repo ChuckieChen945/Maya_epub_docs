@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381">
+<meta name="language" content="CHS">
+<title>调用程序</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>调用程序</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__WS73099CC142F48755-3D114B7511841AEFA9F-1093"> 使用定义的 MEL 程序与使用任何其他 MEL 命令或函数一样。若要执行上述 MEL 程序 helloValue，请在脚本、<span class="ph uicontrol" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__GUID-7B76EA41-6D69-4EBB-B7C2-4CEEFAE47DC3">“脚本编辑器”(Script Editor)</span>或<span class="ph uicontrol" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__GUID-7523CB7E-55A2-4D54-BDF3-1212C7BB5924">“命令行”(Command Line)</span>中输入 MEL 程序的名称。 
+	 </p>
+<pre class="pre codeblock">
+helloValue( 1, "Jake" );
+// Result: Hello Jake, number 1 //
+</pre>
+<p class="p" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__WS73099CC142F48755-3D114B7511841AEFA9F-1091">为了成功调用，helloValue 程序必须包含整数和字符串参数。执行该程序的另一种方法是不使用圆括号或逗号。例如，若要按此方法执行 helloValue 程序，请输入以下内容： 
+	 </p>
+<pre class="pre codeblock">
+helloValue 7 "Torq";
+// Result: Hello Torq, number 7 //
+</pre>
+<div class="section" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__WS73099CC142F48755-3D114B7511841AEFA9F-1090"><h2 class="title sectiontitle">调用外部程序</h2> 
+		 
+		<p class="p" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__WS73099CC142F48755-3D114B7511841AEFA9F-108F"> 如果 Maya 遇到没有定义的命令，则将搜索与该命令相同的 MEL 脚本的脚本路径（在文件名中去掉<samp class="ph codeph" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__GUID-454D3B81-C0A3-4842-B1E9-5DD64448D3FA"> .mel </samp>扩展名）。 
+		</p>
+ 
+		<p class="p" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__WS73099CC142F48755-3D114B7511841AEFA9F-108D">如果找到该文件，将在该文件内声明所有的全局 MEL 程序，如果该文件内存在已调用的程序，则执行此程序。 
+		</p>
+ 
+		<p class="p" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__WS73099CC142F48755-3D114B7511841AEFA9F-108C">例如，用户在其中某个脚本文件夹中含有文件<samp class="ph codeph" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__GUID-AB487819-7F21-41CF-9660-60EB12441D0A"> sayWhat.mel</samp>，该文件内容如下： 
+		</p>
+ 
+		<pre class="pre codeblock">
+// This is a local procedure
+// that is only visible to the code in this file.
+proc red5() {print("red5 standing by...\n");}
+// This is a global procedure. When this file
+// is sourced, this procedure will become
+// available.
+global proc GoGo() {print("GoGo online\n");}
+// This procedure has the same name as this file
+// (without .mel on the end).
+global proc sayWhat() {print("sayWhat online\n");}
+</pre>
+ 
+		<p class="p" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__WS73099CC142F48755-3D114B7511841AEFA9F-108B">现在，如果尝试在命令行上调用函数 <samp class="ph codeph" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__GUID-31EA0AA0-E1BB-4B24-9CA8-4F75D35BDD85">sayWhat</samp>： 
+		</p>
+ 
+		<ol class="ol" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__WS73099CC142F48755-3D114B7511841AEFA9F-108A"><li class="li" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__WS73099CC142F48755-3D114B7511841AEFA9F-1089">由于没有内部命令 sayWhat，Maya 将搜索文件名为 sayWhat 或 sayWhat.mel 的文件的所有脚本路径。 
+		  </li>
+<li class="li" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__WS73099CC142F48755-3D114B7511841AEFA9F-1088">如果在其中某个脚本目录中找到文件 sayWhat.mel 脚本，Maya 将检查文件中是否存在尝试调用的程序。如果有，Maya 将调用该程序。在本示例中，文件中已存在名为 sayWhat 的程序，因此可以执行并打印： 
+		  </li>
+</ol>
+ 
+		<pre class="pre codeblock">
+sayWhat online
+</pre>
+ 
+		<ol class="ol" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__WS73099CC142F48755-3D114B7511841AEFA9F-1087"><li class="li" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__WS73099CC142F48755-3D114B7511841AEFA9F-1086">由于已声明 GoGo 全局程序，因此现在可以在<span class="ph uicontrol" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__GUID-BBB09E0C-878E-40C2-894C-0ED6D716EF13">“命令行”(Command Line)</span>或<span class="ph uicontrol" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__GUID-1B677BB5-BA83-49DD-AFC9-CDA96198EFC5">“脚本编辑器”(Script Editor)</span>中键入 <em class="ph i" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__GUID-A6EF36A1-C6BA-4B2D-8E4E-47258EE5BDF4">GoGo</em> 以执行该程序。 
+			 <div class="note note" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__WS73099CC142F48755-3D114B7511841AEFA9F-1085"><span class="notetitle">注：</span>  
+				<p class="p" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__GUID-979DD131-1A47-465A-B25F-6AC768C2970D">在创建和保存新的 MEL 脚本时，在外部调用新脚本中编码的程序之前必须获取其源脚本。这是因为 Maya 源脚本在启动时和执行命令行时调用，而不是尝试从<span class="ph uicontrol" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__GUID-0C21A9FF-7970-47B8-B215-E973B8E44FA3">“命令行”(Command Line)</span>或<span class="ph uicontrol" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__GUID-06A3DF74-AC0E-43F6-9904-4B3620924799">“脚本编辑器”(Script Editor)</span>中调用。若要获取源脚本，可以在<span class="ph uicontrol" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__GUID-DCFD68FC-37DC-4C29-8D7B-FBEAF03B93DE">“脚本编辑器”(Script Editor)</span>中使用<span class="ph uicontrol" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__GUID-4ED3B57E-6BA0-4335-A920-C8A1BE1BAACD">“File &gt; Source Script”</span>命令，或可以重新启动 Maya。 
+				</p>
+ 
+				<p class="p" id="GUID-F04ED5B7-2DD0-48FF-959F-73D4487AF381__GUID-BFBC7BC1-A903-4312-B21A-9E17C17FA8EB">有关源脚本的详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-FA813AD0-A947-45C4-9034-357E26C13D1C.htm">运行外部 MEL 脚本文件</a>。 
+				</p>
+ 
+			 </div>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-55D02EF2-8B2E-4ED0-AD9B-20FB3FAE581B.htm">过程</a></div>
+</div>
+</div>
+
+</body>
+</html>

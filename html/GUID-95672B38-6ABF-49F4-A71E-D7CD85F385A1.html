@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-95672B38-6ABF-49F4-A71E-D7CD85F385A1">
+<meta name="language" content="CHS">
+<title>限制</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-95672B38-6ABF-49F4-A71E-D7CD85F385A1">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>限制</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-95672B38-6ABF-49F4-A71E-D7CD85F385A1__WS73099CC142F48755-3D114B7511841AEFA9F-A29"><h2 class="title sectiontitle">整数除法截断</h2>
+
+<p class="p" id="GUID-95672B38-6ABF-49F4-A71E-D7CD85F385A1__WS73099CC142F48755-3D114B7511841AEFA9F-A28"> 对没有声明数据类型的常量和变量执行算术运算时，Maya 会根据存在的值推测数据类型。例如，在下面这个语句中：</p>
+
+<pre class="pre codeblock">
+float $where = 1/2; // Result: 0
+</pre>
+
+<p class="p" id="GUID-95672B38-6ABF-49F4-A71E-D7CD85F385A1__WS73099CC142F48755-3D114B7511841AEFA9F-A26">Maya 将 1 和 2 视为整数，因为它们没有小数点。表达式将整数 1 除以整数 2。整数结果为 0，并且有余数 1。Maya 会丢弃余数。</p>
+
+<p class="p" id="GUID-95672B38-6ABF-49F4-A71E-D7CD85F385A1__WS73099CC142F48755-3D114B7511841AEFA9F-A25">由于 where 是一个浮点变量，Maya 将整型值 0 转化为浮点值 0（是相同的值），然后将该值指定给 where。若要获得值的小数部分，则需要将整数运算数之一转化为浮点数：</p>
+
+<pre class="pre codeblock">
+float $there = 1/2.0; // Result: 0.5
+</pre>
+
+<p class="p" id="GUID-95672B38-6ABF-49F4-A71E-D7CD85F385A1__WS73099CC142F48755-3D114B7511841AEFA9F-A24">Maya 将 2.0 视为浮点数，因为它具有小数点。数字 1 转化为浮点数，并且发生浮点数除法，从而产生值 0.5，然后会将该值指定给 there。下面介绍了另一种保留除法小数部分的方法。</p>
+
+<pre class="pre codeblock">
+float $youGo = float(1)/2;
+</pre>
+
+<p class="p" id="GUID-95672B38-6ABF-49F4-A71E-D7CD85F385A1__WS73099CC142F48755-3D114B7511841AEFA9F-A23">此处的值 1 转化为浮点数，这会导致值 2 也转化为浮点数。这将创建浮点数除法，从而保留除法的小数部分。</p>
+
+</div>
+<div class="section" id="GUID-95672B38-6ABF-49F4-A71E-D7CD85F385A1__WS73099CC142F48755-3D114B7511841AEFA9F-A22"><h2 class="title sectiontitle">精度和最大数值大小</h2>
+
+<p class="p" id="GUID-95672B38-6ABF-49F4-A71E-D7CD85F385A1__WS73099CC142F48755-3D114B7511841AEFA9F-A21"> 对于字符串、矩阵或数组，最大大小仅取决于计算机上可用的内存量。但是，浮点数和整数在精度和最大大小方面有限制。</p>
+
+<p class="p" id="GUID-95672B38-6ABF-49F4-A71E-D7CD85F385A1__WS73099CC142F48755-3D114B7511841AEFA9F-A1F">整数的最大大小与 C 语言中的相同，并且与机器相关。在大多数计算机上，该范围是 -2,147,483,648 到 2,147,483,647。</p>
+
+<p class="p" id="GUID-95672B38-6ABF-49F4-A71E-D7CD85F385A1__WS73099CC142F48755-3D114B7511841AEFA9F-A1E">浮点数的最大精度和范围与 C 语言中的双精度数相同，并且与机器相关。浮点数精度有限，在长计算中会产生四舍五入误差。但是，由于浮点型的精度较高（大约十五位数字的精度），四舍五入误差通常不会成为问题。</p>
+
+</div>
+<div class="section" id="GUID-95672B38-6ABF-49F4-A71E-D7CD85F385A1__WS73099CC142F48755-3D114B7511841AEFA9F-A1D"><h2 class="title sectiontitle">范围折回</h2>
+
+<p class="p" id="GUID-95672B38-6ABF-49F4-A71E-D7CD85F385A1__WS73099CC142F48755-3D114B7511841AEFA9F-A1C"> 变量具有受限制的范围。超过这些范围时，会出现不需要的结果。</p>
+
+<pre class="pre codeblock">
+int $mighty = 2147483647 + 1; // Result: -2147483648
+int $radical = -2147483648 - 1; // Result: 2147483647
+int $buddy = 2147483648; // Result: -2147483648
+int $man = 2147483647 + 2; // Result: -2147483647
+</pre>
+
+<p class="p" id="GUID-95672B38-6ABF-49F4-A71E-D7CD85F385A1__WS73099CC142F48755-3D114B7511841AEFA9F-A1A">超出变量的最大范围时，变量的值折回到变量的最小范围。另外，超出变量的最小范围时，变量的值折回到变量的最大范围。</p>
+
+<pre class="pre codeblock">
+float $GG = 1.5 + 1000000000 * 3; // Result: -1294967294.5
+</pre>
+
+<p class="p" id="GUID-95672B38-6ABF-49F4-A71E-D7CD85F385A1__WS73099CC142F48755-3D114B7511841AEFA9F-A19">在该示例中，根据运算符优先性，会则会首先完成相乘。在两个整数上执行相乘，所以结果类型为一个整数。因为此次相乘的值超过整数的最大范围，所以值会折回。 </p>
+
+<p class="p" id="GUID-95672B38-6ABF-49F4-A71E-D7CD85F385A1__WS73099CC142F48755-3D114B7511841AEFA9F-A18">以下计算说明内部出现的情况：</p>
+
+<pre class="pre codeblock">
+$GG = 1.5 + 1000000000 * 3;
+$GG = 1.5 + 3000000000; // Maxumum int range exceded
+$GG = 1.5 + 3000000000 + (2147483648) - (2147483648.0);
+$GG = 1.5 + 3000000000 + (-2147483648) - (2147483648.0);
+$GG = 1.5 + 3000000000 - 4294967296;
+$GG = 1.5 + -1294967296;
+$GG = -1294967294.5;
+</pre>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-98FD268C-F0A1-4CA2-833F-AD3000DFB180.htm">高级 MEL 编程</a></div>
+</div>
+</div>
+
+</body>
+</html>

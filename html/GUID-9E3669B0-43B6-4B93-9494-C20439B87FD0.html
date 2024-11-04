@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0">
+<meta name="language" content="CHS">
+<title>表达式的执行频率</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>表达式的执行频率</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__WS73099CC142F48755-3D114B7511841AEFA9F-A08"> 在<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-5B08892D-A653-4278-8DE3-0A618A14CCF6">“表达式编辑器”(Expression Editor)</span>中键入表达式后，单击<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-61C99974-4798-440A-9107-604713469331">“创建”(Create)</span>或<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-BE0B6838-FA31-4128-B58E-AD08A492804B">“编辑”(Edit)</span>按钮以编译表达式。编译表达式时会检查表达式是否存在语法错误，并将表达式转化为一种 Maya 可在您回放或播放动画时执行的形式。编译后，系统会对当前帧执行该表达式。 
+	 </p>
+<p class="p" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__WS73099CC142F48755-3D114B7511841AEFA9F-A04">默认情况下，当前动画时间或帧发生更改，系统还会执行表达式。例如，回放或播放动画时，系统会执行表达式。每次动画帧或时间发生更改时，系统都会执行一次表达式。 要停止此默认求值，请在表达式编辑器中将表达式节点“求值”(Evaluation)模式设置为“按需”(On Demand)。
+	 </p>
+<p class="p" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__WS73099CC142F48755-3D114B7511841AEFA9F-A03">表达式中直接引用的属性更改值时，也会执行表达式。例如，当表达式将球体的<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-88E4827A-FB06-4591-B646-4076E99F3A6F">“translateX”</span>属性指定给另一个属性时，如果沿<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-2A21C882-4B20-4608-928A-8F34016D2BC2">“X 轴”(X-axis)</span>方向移动球体，系统将对球体的每个移动增量执行表达式。
+	 </p>
+<pre class="pre codeblock">pCube1.tx = pSphere1.tx * 3.0</pre>
+<div class="section" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__WS73099CC142F48755-3D114B7511841AEFA9F-A02"><h2 class="title sectiontitle">求值</h2> 
+		 
+		<p class="p" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__WS73099CC142F48755-3D114B7511841AEFA9F-A01"> 选择对象而不是粒子形状节点时，可以使用<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-E26275D9-51EA-42C7-9602-C994B4130103">“表达式编辑器”(Expression Editor)</span>中的<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-09604C35-E1C0-4BFB-B233-C5FADF6FAFF1">“求值”(Evaluation)</span>下拉菜单来设定表达式的执行时间。（如果选择粒子形状节点，<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-0DA45744-B89F-4F0A-BC1F-F6C96A088331">“表达式编辑器”(Expression Editor)</span>将灰显该菜单。有关粒子形状节点表达式的详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-F7BE65C4-CDA4-42DC-A0D8-72B9D984B3E1.htm">关于粒子表达式</a>。） 
+		</p>
+ 
+		<p class="p" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__WS73099CC142F48755-3D114B7511841AEFA9F-9FF">编写表达式时，可以直接访问对象属性或使用 MEL 进行访问（请参见下文的<strong class="ph b">注意</strong>）。 
+		</p>
+ 
+		<p class="p" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__WS73099CC142F48755-3D114B7511841AEFA9F-9FE">直接： 
+		</p>
+ 
+		<pre class="pre codeblock">
+pCube1.tx = pCube2.ty * 3.0
+</pre>
+ 
+		<p class="p" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__WS73099CC142F48755-3D114B7511841AEFA9F-9FD">MEL： 
+		</p>
+ 
+		<pre class="pre codeblock">
+setAttr pCube1.tx (`getAttr pCube2.ty`* 3.0)
+</pre>
+ 
+		<div class="p" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__WS73099CC142F48755-3D114B7511841AEFA9F-9FC">直接访问对象的属性后，Maya 将在节点间为这些属性建立连接。这意味着 Maya 的定向图求值过程会自动识别 pCube2.ty 值的更改，并将 pCube1.tx 标记为灰色（需要重新求值），不管<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-D3AAD712-047F-4ECB-A497-45D96533D55C">“求值”(Evaluation)</span>选项是否设置为<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-B5E6BF66-84CA-4000-B16F-BFA4514A6B1B">“始终”(Always)</span>。 
+		  <div class="note note" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-C636EB8A-23D9-497B-8230-26338F2A822B"><span class="notetitle">注：</span> 建议不要使用 MEL 脚本访问对象的属性。使用 MEL 脚本会导致出现问题，因为这样做会在求值图中遮挡节点之间的连接，而正常运行需要这些连接。例如，不会自动对与状态相关的表达式（如缓存文件的大小或当前时间）求值。由于这些事件不会受动画驱动，因此在您切换“已设置动画”(animated)属性之前，Maya 不会对其求值。（有时可以使用 MEL 脚本，因为在一些情况下，由于要为表达式的一个或多个输入属性设置动画，因此表达式在求值图中。）但是，我们建议使用直接方法（此处所述）获得一致的结果，而不是使用 MEL 脚本。 
+			  
+		  </div>
+ 
+		</div>
+ 
+		<p class="p" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__WS1A9193826455F5FF-12BA6B3A11A9C207460-5672">如果<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-48893E49-0F82-49D9-9AE2-385026BBE9AC">“求值”(Evaluation)</span>设置为<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-67570431-6936-4D1C-8863-EF7FBBA78D22">“按需”(On Demand)</span>，则仅表达式的输入连接发生更改（在上述示例中，当 pCube2.ty 的值发生更改时），或在<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-5B5BB973-3E95-4999-9F93-6ECCFBEE7E3B">“表达式编辑器”(Expression Editor)</span>中单击<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-04181B23-4B0B-452A-B563-16C613DC7E5D">“编辑”(Edit)</span>时，系统会计算表达式。如果<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-37B4ACB5-3274-44F5-BDEA-93452D77DE9F">“求值”(Evaluation)</span>设定为<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-324D352B-CE52-4D4A-9006-F65546DA4B65">“始终”(Always)</span>，即使场景中的内容没有发生更改，每帧更改也都将触发求值。 
+		</p>
+ 
+		<div class="note note" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__WS73099CC142F48755-3D114B7511841AEFA9F-9F9"><span class="notetitle">注：</span>  
+		  <p class="p" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-3A7C9612-8523-4A2E-B86A-78A1676DC54F">如果<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-B40E0B34-F471-407B-B117-5CD6C8E236F3">“求值”(Evaluation)</span>设置为<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-A6AFF221-3A54-4252-A556-B7FA9918B0CC">“始终”(Always)</span>，则仅时间发生更改时才会强制对表达式求值。因此，在场景视图中操纵对象时，使用包括 MEL 表达式并将<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-C428DD3A-D2B2-4AEE-B3C6-04AC126684F3">“求值”(Evaluation)</span>设置为<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-09A24415-EE35-491E-8B9C-1EF53B9464A2">“始终”(Always)</span>的解决方案不会求值，除非是在<span class="ph uicontrol" id="GUID-9E3669B0-43B6-4B93-9494-C20439B87FD0__GUID-88C81282-748E-48DA-BD0F-37233C187C99">“交互式播放”(Interactive Playback)</span>期间使用。 
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B0A92424-8666-4669-97D7-B16F718FA3FD.htm">高级动画表达式主题</a></div>
+</div>
+</div>
+
+</body>
+</html>

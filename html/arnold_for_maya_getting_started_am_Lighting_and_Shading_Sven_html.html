@@ -1,0 +1,200 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_getting_started_am_Lighting_and_Shading_Sven_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_LIGHTING_AND_SHADING_SVEN">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 为 Sven 进行照明和着色 - Arnold for Maya">
+
+<title>为 Sven 进行照明和着色</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+<div class="head-block"><h1>为 Sven 进行照明和着色</h1></div><p><img src="../images/image2016-3-18-13_29_1.png" alt=""></p>
+<p>在本教程中，我们将介绍如何使用 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html" target="_blank">standard_surface</a></em> 着色器创建逼真的材质（例如，玻璃和金属）。我们还将结合 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_texture_am_Physical_Sky_html">physical_sky</a></em> 着色器使用 <em>skydome_light</em> 灯光替换现有场景的照明，从而实现更有效的控制并呈现更逼真的外观。最后，我们将添加背景并渲染场景。</p>
+<p><strong>有关对应的 Maya 场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Hyperspace_Madness/Sven_rig.zip" target="_blank">此处</a>。</strong></p>
+<p><img src="../images/sven-turntable.gif" alt=""></p>
+<p><sub><strong>我们要使用 MtoA 对星际英雄“Sven”进行着色、照明和渲染</strong></sub></p>
+<h2 id="">照明</h2><ul>
+<li>创建一个 <em>skydome_light</em>，方法是单击<em>“Arnold &gt; 灯光 &gt; 天穹灯光”(Arnold &gt; Lights &gt; Skydome Light)</em>。</li>
+<li>将一个 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_texture_am_Physical_Sky_html">physical_sky</a></em> 着色器连接至 <em>skydome_light</em> 的<em>“颜色”(Color)</em>属性。</li>
+<li>照明看起来有点暗。尝试将 <em>skydome_light</em> 的<em>“曝光”(Exposure)</em>增大至 1<em>（F 制光圈）</em>左右。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/exposure-0.jpg" alt=""></td>
+<td><img src="../images/exposure-1.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>_曝光(Exposure)_：0</strong></sub></td>
+<td><sub><strong>_曝光(Exposure)_：1</strong></sub></td>
+</tr>
+</tbody></table>
+<ul>
+<li>如果您对照明感到满意并准备好进行最终渲染，请将 <em>skydome_light</em> 中的<em>“采样数”(Samples)</em>增加到 3，以减少任何阴影噪波。否则，请在使用 IPR 测试渲染时将它保持为 1。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/samples-1.jpg" alt=""></td>
+<td><img src="../images/samples-3.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>_light_samples_：1</strong></sub></td>
+<td><sub><strong>_light_samples_：3</strong></sub></td>
+</tr>
+</tbody></table>
+<h2 id="">着色</h2><p>该场景包含各种 Blinn 和 Phong 着色器。我们要将这些着色器转化为 MtoA 内<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_tutorials_am_Understanding_Physically_Based_Rendering_in_Arnold_html">物理上更精确的</a>着色器。幸运的是，我们可以使用“属性编辑器”(Attribute Editor)窗口中的着色器“类型”(Type)菜单来转化。我们主要使用多用途的 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html" target="_blank">standard_surface</a></em> 着色器。</p>
+<h2 id="">太空服</h2><p>Sven 的太空服由指定给其手臂、腿和躯干的若干 Blinn 着色器构成。</p>
+<ul>
+<li>选择一个着色器，将着色器<strong>“</strong>类型<strong>”</strong>(Type)从<em>“Blinn”</em>更改为 *<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html" target="_blank">standard_surface</a><em>。Maya 会自动将文件纹理连接到 *base_color</em>，这正是我们所需要的。</li>
+</ul>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>有关镜面反射菲涅尔的详细信息，请单击<a href="https://help.autodesk.com/pages/viewpage.action?pageId=154766502">此处</a>。</p>
+
+</div></div>
+
+<h2 id="">面部</h2><p>为了获得逼真的皮肤着色效果，我们将再次使用 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html" target="_blank">standard_surface</a> 着色器。该着色器有着逼真的<a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Subsurface&amp;linkCreation=true&amp;fromPageId=154764710"><em>“次表面散射”(Sub-Surface Scattering)</em></a>属性，与我们的单一颜色贴图非常匹配。</p>
+<ul>
+<li>将指定给头部的 <em>Blinn</em> 着色器转化为 <em>standard_surface</em> 着色器。</li>
+<li>将颜色贴图 <em>sven_diffuse_u1_v1.1k.jpg</em> 连接至 <em>subsurface_color</em> 属性。</li>
+<li>将 <em>subsurface.weight</em> 增加到 1 左右。</li>
+</ul>
+<h2 id="">头发</h2><p>对于头发，我们将创建一个简单的塑料外观着色器。</p>
+<ul>
+<li>为 Sven 的头发和眉毛指定 <em>standard_surface</em> 着色器。将文件纹理 <em>sven_diffuse_u1_v4</em> 连接到 <em>standard_surface</em> 着色器的 <em>base_color</em>。</li>
+</ul>
+<h2 id="">眼</h2><p>在此场景中，眼几何体由两个对象构成：“眼”和“角膜”。眼几何体位于角膜几何体内部。因此，眼颜色应指定给眼球。</p>
+<ul>
+<li>如下图所示，将 <em>standard_surface</em> 着色器指定给“眼”几何体。  </li>
+</ul>
+<p><img src="../images/image2016-3-16-11_7_33.png" alt=""></p>
+<ul>
+<li>眼球具有纹理 _Sven_Eye_Color_1k_jpg_。将它连接到 _subsurface_color_。</li>
+<li>将 <em>susbsurface.weight</em> 增加到不超过 0.3。</li>
+</ul>
+<h2 id="">角膜</h2><p><img src="../images/image2016-3-16-11_59_33.png" alt=""></p>
+<p><sub><strong>围绕眼几何体的角膜几何体</strong></sub></p>
+<ul>
+<li>角膜几何体需要通过湿润轻薄的胶片着色器环绕在眼球几何体四周。为其指定一个 <em>standard_surface</em> 着色器。将 <em>base_weight</em> 减小到 0。</li>
+<li>现在，我们需要使角膜着色器变得透明。将 <em>transmission_weight</em> 增加到 1。将<em>“折射率”(IOR)</em>更改为水的折射率 (1.33)。</li>
+</ul>
+<p>渲染后的眼球应如下图所示。</p>
+<p><img src="../images/image2016-3-18-13_33_58.png" alt=""></p>
+<h2 id="">头盔</h2><p>我们为头盔指定一种玻璃材质。头盔已使用厚度建模，且法线朝向正确的方向。使用 MtoA 渲染逼真的玻璃曲面时，这非常重要。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关渲染玻璃曲面的详细信息，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_rendering_am_Rendering_Glass_Surfaces_with_Arnold_html">此处</a>。  </p>
+
+</div></div>
+
+<ul>
+<li>为头盔指定一个 <em>standard_surface</em> 着色器，并将它重命名为“glass”。将 <em>base_weight</em> 减小到 0。</li>
+<li>将 <em>transmission_weight</em> 增大为 1，使玻璃完全透明。将<em>“折射率”(IOR)*更改为玻璃的折射率 (1.5)。如果要为玻璃添加染色，请将 *transmission_color</em> 更改为灯光颜色。  </li>
+</ul>
+<blockquote>
+<p>信息：默认情况下，<em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Ray_Depth_html">transmission_ray_depth</a></em> 已设置为 8。如果降低此值并渲染头盔玻璃，可以看到眼角膜（也属于折射材质）显示为黑色。这是因为光线的深度有限，因此无法穿透玻璃和眼角膜着色器。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/refraction-depth-2.jpg" alt=""></td>
+<td><img src="../images/refraction-depth-4.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>_transmission_ray_depth_：2（眼睛显示为黑色）</strong></sub></td>
+<td><sub><strong>_transmission_ray_depth_：4（透过玻璃可以看见眼睛）</strong></sub></td>
+</tr>
+</tbody></table>
+<h2 id="">头盔颈圈</h2><p>让我们更改 Sven 的颈圈（和氧气罐）上的着色器，以实现更有“金属感”的外观。</p>
+<ul>
+<li>将指定给“头盔颈圈”几何体的 Blinn 着色器更改为 <em>standard_surface</em> 着色器。</li>
+<li>降低 <em>base_weight</em>，比如降低为 0.4。</li>
+</ul>
+<h2 id="">渲染</h2><h2 id="">天穹灯光</h2><ul>
+<li>创建一个 <em>skydome_light*，并将 *<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_texture_am_Physical_Sky_html">physical_sky</a></em> 连接到其 <em>color</em> 属性。</li>
+</ul>
+<h2 id="">采样</h2><p>打开<a href="https://help.autodesk.com/display/AFMUGTMP/Arnold+Render+Settings">渲染设置(Render Settings)</a>窗口中的*<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Sampling_html">采样(Sampling)</a><em>。对于测试渲染，</em>“摄影机(AA)”(Camera (AA))*采样数设置为 3 已足够。但是，对于最终帧渲染，至少需要将它增加到 5。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关采样的简要手册，请单击<a href="https://help.autodesk.com/pages/viewpage.action?pageId=154766692">此处</a>。</p>
+
+</div></div>
+
+<h2 id="arnold">Arnold 日志</h2><p>使用 MtoA 渲染场景时，建议查看<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_system_am_Render_Settings_html">渲染设置(Render Settings)</a>窗口的*<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_render_settings_am_Diagnostics_html">诊断(Diagnostics)</a>*选项卡中的 Arnold 日志。此日志文件将显示出现的警告和统计信息，这些信息有助于对场景文件进行诊断。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关如何阅读渲染日志的手册，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_kick_am_How_to_Read_a_Render_Log_html">此处</a>。</p>
+
+</div></div>
+
+<p>就是这样。祝贺您已完成了本教程。现在我们要去探索新的渲染世界！</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/getting-started/arnold_for_maya_getting_started_am_Hyperspace_Madness_Production_html.html">Hyperspace Madness 制作</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

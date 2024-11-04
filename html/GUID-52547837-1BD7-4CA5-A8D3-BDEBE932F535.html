@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535">
+<meta name="language" content="CHS">
+<title>switch...case</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>switch...case</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__WS73099CC142F48755-3D114B7511841AEFA9F-834"><samp class="ph codeph" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__GUID-E808812F-9324-4C0E-8469-96BC95780B8D">switch</samp> 语句计算其控制表达式，然后跳到 <samp class="ph codeph" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__GUID-0F48AB8E-4F55-40C3-9673-C02CAC64F0E2">case</samp> 语句，其值匹配控制表达式：</p>
+<pre class="pre codeblock">
+switch (controlExp) {
+ case value1:
+ exp1;
+ break;
+ case value2:
+ exp2;
+ break;
+ case value3:
+ exp3;
+ break;
+ ...
+ default:
+ exp4;
+ break;
+}
+</pre>
+<p class="p" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__WS73099CC142F48755-3D114B7511841AEFA9F-833"> 如果所有 case 语句都不匹配控制值，将执行 <samp class="ph codeph" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__GUID-72D3D712-27A1-4862-9FBE-62BD58913BFB">default</samp> 语句。<samp class="ph codeph" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__GUID-C9C44386-D733-48AA-A7B9-C2D8C2D512C6">default</samp> 语句是可选的，同时可以放置在 <samp class="ph codeph" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__GUID-F6F987B6-DC55-4A3E-8E46-9B01741A135E">case</samp> 语句序列的任何地方。</p>
+<p class="p" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__WS73099CC142F48755-3D114B7511841AEFA9F-831">如果需要不止一个 <samp class="ph codeph" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__GUID-B8338A52-46A0-45F1-8E44-574B101E55C8">case</samp> 语句来执行相同的代码块，将 <samp class="ph codeph" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__GUID-BD04CBC6-8704-491D-8C5A-6EC02D142BFE">case</samp> 语句放在彼此的后面。例如，如果希望同时切换 "a" 和 "A"：</p>
+<pre class="pre codeblock">
+switch ($letter) {
+ case "a":
+ case "A":
+ print("Apple\n"); // Executed if "a" or "A"
+ break;
+ case "b":
+ case "B":
+ print("Banana\n"); // Executed if "b" or "B"
+ break;
+}
+</pre>
+<div class="section" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__WS73099CC142F48755-3D114B7511841AEFA9F-830"><h2 class="title sectiontitle">防止贯穿</h2>
+
+<p class="p" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__WS73099CC142F48755-3D114B7511841AEFA9F-82F">对于与其他语言的历史兼容性，MEL 的 switch 语句包含一点奇怪的行为：如果不在 case 语句下的表达式末尾添加一个 <samp class="ph codeph" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__GUID-C6EFC554-BBA4-4EE0-86E7-C7CB601E3427">break</samp> 语句，MEL 将继续评估 switch 块中的其他表达式，直到到达 break 语句或块的末尾。这被称为贯穿。</p>
+
+<p class="p" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__WS73099CC142F48755-3D114B7511841AEFA9F-82E"> 例如，考虑该 switch 语句：</p>
+
+<pre class="pre codeblock">
+switch ($color){
+	case "GREEN":
+	 do_green();
+	 break;
+	case "PINK":
+	 do_pink();
+	case "RED":
+	 do_red();
+	 break;
+	default:
+	 do_blue();
+	 break;
+}
+</pre>
+
+<p class="p" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__WS73099CC142F48755-3D114B7511841AEFA9F-82C">在该语句中，如果 <samp class="ph codeph" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__GUID-D0663C37-80F4-4FFC-8A06-29F075865AF1">$color</samp> 为 <samp class="ph codeph" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__GUID-54906CB1-4845-4908-BDC1-16A6920A7CDB">"PINK"</samp>，<samp class="ph codeph" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__GUID-0004DF90-3CB2-4D30-9A70-08637949BBCA">switch</samp> 语句将跳到 <samp class="ph codeph" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__GUID-25C1676B-48BC-4300-B9AB-A7F7B6C111E4">case "PINK":</samp>，并执行 <samp class="ph codeph" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__GUID-0C419D2F-08A0-4FFF-B0F0-6D80900A6A18">do_pink()</samp>。您未预计到的是，因为之后没有 break 语句，执行将贯穿并还会执行 <samp class="ph codeph" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__GUID-5E677587-8823-4189-B559-9DE8AF77A13D">do_red()</samp>！</p>
+
+<p class="p" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__WS73099CC142F48755-3D114B7511841AEFA9F-82B">贯穿容易产生误差，并且几乎没有任何用处。注意它。除非您熟悉其他语言的 switch 语句，通常使用 if...else if...else 语句会更好。</p>
+
+<pre class="pre codeblock">
+if ($color == "GREEN") {
+	do_green();
+} else if ($color == "PINK") {
+	do_pink();
+} else if ($color == "RED") {
+	do_red();
+} else {
+	do_blue();
+}
+</pre>
+
+<p class="p" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__WS73099CC142F48755-3D114B7511841AEFA9F-82A">如果您实际上希望使用贯穿作为一个功能，在注释中指出来将很有帮助，以便任何看到您的代码的人不会认为这是一个错误：</p>
+
+<pre class="pre codeblock">
+switch ($color){
+	case "GREEN":
+	 do_green();
+	 break;
+	case "PINK":
+	 do_pink();
+	 // FALL THROUGH
+	case "RED":
+	 do_red();
+...
+</pre>
+
+<p class="p" id="GUID-52547837-1BD7-4CA5-A8D3-BDEBE932F535__WS73099CC142F48755-3D114B7511841AEFA9F-829">尽管 switch 语句的最后一个 case 无需是 break 语句，因为 switch 在其末端，但是添加一个 break 语句还是很好的主意。如果添加了更多 case 到 switch 语句，break 语句已经在那里。</p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-493CA022-0F3C-46D1-BF19-457BC9E8129E.htm">控制脚本的流</a></div>
+</div>
+</div>
+
+</body>
+</html>

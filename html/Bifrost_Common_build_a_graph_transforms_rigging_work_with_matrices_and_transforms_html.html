@@ -1,0 +1,86 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_build_a_graph_transforms_rigging_work_with_matrices_and_transforms_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>矩阵和变换的基础知识</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>矩阵和变换的基础知识</h1></div><p>Bifrost 包括用于处理缩放、旋转和平移等变换的基本节点和数据类型。这包括 <code>float</code> 和 <code>double</code> 类型的向量、矩阵和四元数。</p>
+<ul>
+<li>三维向量通常用于表示位置、平移偏移和法线。它们还可用于表示非均匀缩放因子，以及其他三元值，如颜色值。</li>
+<li>矩阵是可以表示变换的数学结构。 <ul>
+<li>3×3 矩阵可以表示组合缩放和旋转</li>
+<li>4×4 矩阵可以使用齐次坐标表示缩放、旋转和平移。</li>
+</ul>
+</li>
+<li>四元数是四维向量，如果它们已归一化，则可以表示旋转。在 Bifrost 中，分量为 XYZW，实数分量 W 位于最后。 </li>
+</ul>
+<h2 id="">乘以矩阵和向量</h2><p>使用 <code>matrix_multiply</code> 节点可以乘以矩阵，也可以乘以矩阵和向量。将常规 <code>multiply</code> 节点与矩阵结合使用可生成元素积而不是矩阵积，类似于 Python NumPy 库。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>请确保矩阵的维度匹配得当，否则可能会出现意外结果。例如，如果乘以 4×4 和 3×3 矩阵，则 3×3 将自动升级为 4×3 矩阵，结果也是 4×3 矩阵。</p>
+
+</div></div>
+
+<p>Bifrost 使用列向量，这意味着要乘以矩阵和向量，需先乘以矩阵，再乘以向量（后乘）。如果 p 是相对于对象参考帧的位置，L 是对象的局部变换矩阵，W 是对象的父对象的世界变换矩阵，则世界坐标中的位置如以下公式所示：</p>
+<pre class="pre codeblock"><code class="lang-sh prettyprint">W × L × p</code></pre>
+<p><img src="../images/matrix_multiply.png" alt="matrix_multiply"></p>
+<p>当从使用行向量的源调整公式时，您需要反转相乘的顺序。您可能还需要转置矩阵（如果尚未转置）- 如有必要，系统会自动转置进出主场景的矩阵输入和输出。</p>
+<h2 id="">组合和分解矩阵</h2><p>使用 <code>SRT_to_matrix</code> 复合可以基于以下要素创建矩阵：</p>
+<ul>
+<li>在 XYZ 方向上可能非均匀缩放因子的三维向量（浮点或双精度）。如果要强制进行均匀缩放，请连接一个升级为三维向量的值。</li>
+<li>表示旋转的四元数（四维向量）。系统会自动归一化输入以在三维环境中表示旋转。</li>
+<li>表示平移的三维向量。</li>
+</ul>
+<p><code>SRT_to_matrix</code> 的输出为 4×4 矩阵，适用于在齐次坐标中乘以向量。要将三维向量转化为齐次坐标并将齐次坐标转化回三维向量，请使用 <code>vector3_to_vector4</code> 和 <code>vector4_to_vector3</code> - 将输入 <code>w</code> 设置为 1 以变换为位置，或者设置为 0 以仅变换为长度和方向。</p>
+<p>或者，如果您需要 3×3 矩阵，请分解 <code>SRT_to_matrix</code> 并使用 <code>matrix_multiply</code> 节点的输出。 </p>
+<p>操作顺序为先缩放，再旋转，最后平移。如果这些操作用单独的矩阵 S、R 和 T 表示，那么操作的数学顺序为：</p>
+<pre class="pre codeblock"><code class="lang-sh prettyprint">T × R × S × p</code></pre>
+<p>要转化为其他方式，请使用 <code>matrix_to_SRT</code> 将矩阵分解为缩放、旋转和平移这三个组成部分。<code>transform</code> 输入为 4×4 矩阵，但您仍可以连接 3×3 矩阵（在这种情况下，平移输出始终为零向量）。请注意，不考虑斜切和透视 - 如果矩阵中存在斜切和透视，则结果将不正确。</p>
+<h2 id="">构造和解构矩阵</h2><p>使用 <code>value</code> 节点可以根据各个列和值构造或解构矩阵。</p>
+<p><img src="../images/value_node_matrix_expanded.png" alt="矩阵 value 节点"></p>
+<ol>
+<li>在参数编辑器中，单击“更多”(More) (...)，然后选择一个矩阵类型。</li>
+<li>使用端口上的 +/- 图标访问其元素。</li>
+</ol>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_transforms_rigging_html.html">变换和绑定</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

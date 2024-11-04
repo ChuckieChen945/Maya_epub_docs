@@ -1,0 +1,116 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shaders_displacement_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="DISPLACEMENT">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 置换 - Arnold for Maya">
+
+<title>置换</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>置换</h1></div><p><img src="../images/mtoa_displacement1.png" alt=""> </p>
+<p><sub><strong>左侧：砖纹理 -&gt; 置换 -&gt; standard_surface 着色器的着色组。右侧：aiImage -&gt; 置换（“输出颜色 R”(Out Color R)）。</strong></sub></p>
+<p>置换贴图工具非常适合添加曲面细节，相比于常规的建模方法能够节省大量时间。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关在 MtoA 中使用置换的场景示例，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/displacement_checker_user-guide.ma" target="_blank">此处</a>。</p>
+
+</div></div>
+
+<p>对于指定给需要置换的网格的材质，<em>置换</em>节点必须连接到其着色组的置换属性。</p>
+<p><img src="../images/mtoa_displacement2.png" alt="">    </p>
+<p>请始终确保将最高质量的纹理贴图用于置换贴图。Arnold 适用于分辨率非常高的贴图，前提是这些贴图已使用 maketx 工具进行预处理。Arnold 会将这些贴图转化为 .tx 文件（经过平铺和 mipmap 处理的文件）。请参见有关 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_textures_ac_textures_maketx_html" target="_blank">maketx</a> 工具和 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_textures_html">.tx</a> 文件的页面。</p>
+
+<div class="callout callout-important">
+<div class="callout-title"><i class="callout-icon fa fa-exclamation-triangle" aria-hidden="true"></i>重要信息：</div>
+<div class="callout-body">
+
+<p><strong></strong>在 Maya (2017) 中使用颜色管理时，应将置换贴图设置为<strong>“未经处理”(RAW)</strong>。有关详细信息，请单击<a href="https://help.autodesk.com/display/AFMUGTMP/Maya+2017">此处</a>。</p>
+
+</div></div>
+
+<p>可以基于每个面或每个对象设定置换设置。但是，在置换节点的 Arnold 属性中输入的任何值将覆盖这些设置。如果在每个对象上使用多个置换着色器，由于一个对象只能有一个 <em>bounds_padding</em> 值，因此 Arnold 会使用所有值中的最大值。<em>自动凹凸</em>会导致与填充相同的问题，因此只有在至少有一个置换着色器启用了它时，Arnold 才会启用它。</p>
+<h2 id="mtoa">每个对象的 MtoA 置换属性</h2><p><img src="../images/mtoa_displacement3.png" alt=""></p>
+<p>与<em>置换</em>着色器相同，MtoA 也有基于每个对象的置换选项。这意味着，对网格上所执行置换的任何更改将修改默认的置换着色器属性。如果某个场景中包含的两个对象具有同一着色器，但需要不同形状的置换值，那么这可能会非常有用。另一个示例是，某个对象具有多个着色器，但需要两个不同的<em>“高度”(Height)</em>值，如以下示例中所示：</p>
+<p><img src="../images/mtoa_displacement4.png" alt=""></p>
+<p>将同一置换着色器指定给两个网格，但是，右侧网格的每个对象高度为 2</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>调整这些<em>基于每个对象的</em>属性时，您必须刷新 IPR（调整<em>置换着色器</em>属性时，无需执行此操作）。</p>
+
+</div></div>
+
+<p>每个对象的 MtoA 置换属性分为以下几组：</p>
+<h2 id="">高度/边界填充</h2><p>左侧网格的边界填充值为 0.5，右侧网格的边界填充值为 1（基于每个对象的设置）。</p>
+<p><img src="../images/mtoa_displacement5.png" alt="">  </p>
+<h2 id="">着色器置换和基于每个对象的置换</h2><p>同时使用这两个属性时，应小心谨慎。置换着色器和基于每个对象的网格置换之间的关系在渲染时会有所不同。这些区别如下所示：</p>
+<p><strong>高度(Height)</strong></p>
+<p>如果设置了一定的置换比例，在增加基于每个对象的“高度”(Height)值时，将对置换产生增强效果。例如，如果在着色器中将<em>“置换比例”(Displacement Scale)</em>设置为 0.1，将每个对象的<em>“高度”(Height)</em>从 1 增加到 2，则<em>“置换比例”(Displacement Scale)</em>将翻倍，变成 0.2：</p>
+<p><img src="../images/mtoa_displacement6.png" alt=""> <img src="../images/mtoa_displacement7.png" alt=""></p>
+<p>将网格<em>“置换高度”(Displacement Height)</em>设定为 2 时，<em>“置换比例”(Displacement Scale)</em>的效果将从 0.1 翻倍成 0.2。</p>
+<p><strong>边界填充(Bounds Padding)</strong></p>
+<p>渲染时将使用最高属性值。</p>
+<p><img src="../images/mtoa_displacement8.png" alt=""></p>
+<p><strong>标量零值(Scalar Zero Value)</strong></p>
+<p>如果设置了一定的<em>置换比例</em>，在增加基于每个对象的<em>“标量零值”(Scalar Zero Value)</em>时，将对置换产生附加效果。例如，如果在着色器中将<em>“标量零值”(Scalar Zero Value)</em>设置为 0.2，将每个对象的<em>“标量零值”(Scalar Zero Value)</em>设置为 0.2，则<em>“标量零值”(Scalar Zero Value)</em>将翻倍成 0.4：</p>
+<p><img src="../images/mtoa_displacement9.png" alt=""> <img src="../images/mtoa_displacement10.png" alt=""></p>
+<p><strong>自动凹凸(Auto Bump)</strong></p>
+<p>如果启用置换着色器中的“自动凹凸”(Auto Bump)，则此项将始终启用。如果禁用置换着色器中的“自动凹凸”(Auto Bump)，则 MtoA 将读取 shape autobump 属性并将其导出。</p>
+
+  <div class="related-links">
+      <div class="relinfo relchildren">
+        <strong>此部分中的页面</strong>
+        <ul class="ullinks">
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shaders/displacement/arnold_for_maya_displacement_am_Vector_Displacement_html.html">向量置换</a>
+          </li>
+        </ul>
+      </div>
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/arnold_for_maya_shaders_html.html">着色器</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Basics">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-F4AEB748-8159-439F-8571-CD7DFB7E77EB">
+<meta name="language" content="CHS">
+<title>使用回调时避免不必要地弄脏场景</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-F4AEB748-8159-439F-8571-CD7DFB7E77EB">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用回调时避免不必要地弄脏场景</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p">有时，回调可能很有用，例如，在执行“文件 &gt; 新建”(File &gt; New)、“保存”(Save)或“加载”(Load)后，可以使用回调来自动执行重复任务或设置工作环境。例如，这种应用包括在执行“文件 &gt; 新建”(File &gt; New)后设置节点监察员或回调以从文件加载设置，或创建模板环境。但是，这些操作可能会导致场景不必要地变脏，这可能会使用户产生混淆，在不需要保存场景时认为需要保存场景。 
+	 </p>
+<p class="p">若要解决此问题，可以使用 <samp class="ph codeph">` file -modified “true”|”false” `</samp> 命令和标志重置场景的脏状况。 
+	 </p>
+<p class="p">例如，请参考 Maya 安装目录中的 <samp class="ph codeph">$MAYA_LOCATION/scripts/others/supportRenderers.mel</samp> 文件。 
+	 </p>
+<p class="p">加载新场景时，Maya 会检查当前渲染器是否可用，如果不可用，Maya 会将当前渲染器设置为首选渲染器。此 setAttr 操作会导致场景变脏。如果只是打开了文件而未进行其他修改，则不必弄脏场景。 
+	 </p>
+<p class="p">以下代码段执行下列操作： 
+	 </p>
+<ul class="ul" id="GUID-F4AEB748-8159-439F-8571-CD7DFB7E77EB__UL_15B85CE45E2A43AB8BCF1E02946790EE"><li class="li" id="GUID-F4AEB748-8159-439F-8571-CD7DFB7E77EB__LI_DA3796FB123942A18A0D11232BF9CF7D">查询在将当前渲染器设置为首选渲染器之前是否修改过文件 
+		</li>
+<li class="li" id="GUID-F4AEB748-8159-439F-8571-CD7DFB7E77EB__LI_B39024268F0E48C0B333891626F18750">如果除了设置当前渲染器之外，没有因为任何其他原因而修改过文件，则通过将 file -modified 设置为 false 来重置场景的脏状况 
+		</li>
+</ul>
+<pre class="pre codeblock">{
+    int $wasModified = `file -query -modified`;
+    setAttr
+        "defaultRenderGlobals.currentRenderer"
+        -type "string"
+        $preferredRenderer;
+    // If the scene wasn't dirtied prior to setting the current renderer,
+    // we want to set the scene as not modified to avoid dirtying the scene.
+    if (!$wasModified)
+    {
+        file -modified false;
+    }
+}</pre>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-1BB52D1E-AA28-438E-A008-A0F4173D20FD.htm">在属性编辑器模板中使用回调</a></div>
+</div>
+</div>
+
+</body>
+</html>

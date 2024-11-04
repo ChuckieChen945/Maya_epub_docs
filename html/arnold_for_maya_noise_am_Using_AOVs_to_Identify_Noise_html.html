@@ -1,0 +1,169 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_noise_am_Using_AOVs_to_Identify_Noise_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_USING_AOVS_TO_IDENTIFY_NOISE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用 AOV 识别噪波 - Arnold for Maya">
+
+<title>使用 AOV 识别噪波</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>使用 AOV 识别噪波</h1></div><p><img src="../images/am-Using_AOVs_to_Identify_Noise-Lego-kitchen-1k-1.jpg" alt="">  </p>
+<p>在场景中识别噪波来源的一种有用方法是渲染到 AOV。通过查看 AOV，用户可以准确地了解需要进行调整的采样。这可以节省渲染时间，因为不会增加不必要的错误采样值。 </p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>请注意，下面使用的值是 Arnold 中用于 IPR 渲染的默认采样值。 </p>
+
+</div></div>
+
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>识别噪波来源的另一种方法是将所有采样设置为 1 并增大特定采样，一次一个。</p>
+
+</div></div>
+
+<h2 id="aov-aa">美景 AOV（摄影机 (AA) 采样数）</h2><p>增加此值有助于改进图像的总体质量，但仍然存在由于其他位置的采样不足造成的噪波。建议查看特定的 AOV，因为<em>美景 (RGBA)</em> 中的噪波可能来自直接或间接灯光，也可能来自漫反射或镜面反射灯光。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Using_AOVs_to_Identify_Noise-beauty-3aa-2.jpg" alt=""></td>
+<td><img src="../images/am-Using_AOVs_to_Identify_Noise-beauty-5aa-3.jpg" alt=""></td>
+</tr>
+<tr>
+<td>摄影机 (AA) 采样数：3（默认值）</td>
+<td>5</td>
+</tr>
+</tbody></table>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>增加<em>摄影机 (AA)</em> 采样数还有助于改善运动模糊和景深，也就是说，如果您发现 Alpha 通道中出现噪波，增加<em>摄影机 (AA)</em> 采样数将会有所帮助。</p>
+
+</div></div>
+
+<h2 id="aov">间接 AOV（漫反射采样数）</h2><p>正如在<em>间接</em> AOV 中看到的，此场景中的大量噪波都是由 <em>indirect_diffuse</em> (GI) 噪波造成的。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Using_AOVs_to_Identify_Noise-indirect-2-diffuse-4.jpg" alt=""></td>
+<td><img src="../images/am-Using_AOVs_to_Identify_Noise-indirect-10-diffuse-5.jpg" alt=""></td>
+</tr>
+<tr>
+<td>diffuse_samples：2（默认值）</td>
+<td>diffuse_samples：10</td>
+</tr>
+</tbody></table>
+<h2 id="aov">镜面反射 AOV（镜面反射采样数）</h2><p>请注意，使用 <em>specular_roughness</em> 的玻璃着色器和砖块上具有少量噪波。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Using_AOVs_to_Identify_Noise-specular-2-6.jpg" alt=""></td>
+<td><img src="../images/am-Using_AOVs_to_Identify_Noise-specular-3-7.jpg" alt=""></td>
+</tr>
+<tr>
+<td>specular_samples：2（默认值）</td>
+<td>specular_samples：3</td>
+</tr>
+</tbody></table>
+<h2 id="aov">透射 AOV（透射采样数）</h2><p>请注意使用 <em>transmission_roughness</em> 时玻璃着色器上的效果。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Using_AOVs_to_Identify_Noise-transmission-2-8.jpg" alt=""></td>
+<td><img src="../images/am-Using_AOVs_to_Identify_Noise-transmission-5-9.jpg" alt=""></td>
+</tr>
+<tr>
+<td>transmission_samples：2（默认值）</td>
+<td>transmission_samples：5</td>
+</tr>
+</tbody></table>
+<h2 id="sss-aov-sss">SSS AOV（SSS 采样数）</h2><p>少量 <em>sss_samples</em> 是导致此场景中出现大量噪波的原因（所有砖块均具有 <em>sss*）。增加 *sss_ssamples</em> 数会减少此特定场景中的大量噪波。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Using_AOVs_to_Identify_Noise-sss-2-10.jpg" alt=""></td>
+<td><img src="../images/am-Using_AOVs_to_Identify_Noise-sss-6-11.jpg" alt=""></td>
+</tr>
+<tr>
+<td>sss_samples：2（默认值）</td>
+<td>sss_samples：6</td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Removing_Noise_html.html">去除噪波</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

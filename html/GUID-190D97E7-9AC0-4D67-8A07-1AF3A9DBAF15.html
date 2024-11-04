@@ -1,0 +1,116 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Customizing">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="EM 并行;并行 Maya 白皮书">
+<meta name="modified" content="06/03/2024"><meta name="grid-item" content="card">
+
+<meta name="topicid" content="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15">
+<meta name="language" content="CHS">
+<title>使用解算管理器提高性能</title>
+<link rel="stylesheet" type="text/css" href="../style/client.css">
+<script type="text/javascript" src="../scripts/client.js" xml:space="preserve"><!--filler--></script></head><body>
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用解算管理器提高性能</h1></div>
+</div>
+</div>
+
+<div class="body"><ul class="ul" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__UL_F30D222165E04C62999935882EB8E428"><li class="li" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__LI_374490F59FDA475E9FFD107D9DC74348">在“首选项”(Preferences)窗口<span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__GUID-F7E158D7-2E2C-4E33-93BA-5ACE3A62E26B">（“编辑器 &gt; 设置/首选项 &gt; 首选项 &gt; 动画”(Editors &gt; Settings/Preferences &gt; Preferences &gt; Animation)</span> &gt; <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-0817C74B-C95C-4E5F-BCFA-26DEE1D7747F.htm#GUID-0817C74B-C95C-4E5F-BCFA-26DEE1D7747F__SECTION_8E9506543AFA46AE870961C6143FEA52" shape="rect">解算(Evaluation)</a>）中切换解算模式。
+		</li></ul>
+<p class="p" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__GUID-DBD8855C-78EF-443A-BF38-B26626C31ECB">解算管理器 (EM) 确定如何对场景解算，在可用的 CPU 和 GPU 计算资源之间分配工作以加快性能。它在后台工作，使用现有的脏传播机制将场景的定向图 (DG) 表示转化为正向解算图 (FG)。构建 FG 后，就会禁用脏传播并构建解算计划 (ES)。ES 按正确的顺序对场景节点解算；这样，场景就会生成与基于定向图的“经典”解算相同的结果。
+	 </p>
+<p class="p">您可以在<a target="_blank" class="xref" href="https://www.youtube.com/watch?v=KKC7A9bbUuk" shape="rect">此处</a>观看有关解算管理器的作用的视频。有关解算管理器的更深入技术说明，请阅读<a target="_blank" class="xref" href="https://www.autodesk.com/using-parallel-maya" shape="rect">并行 Maya 白皮书</a>。
+	 </p>
+<p class="p" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__GUID-712C8749-18DA-4FC5-ADAF-F0A94793A753">FG 确定场景元素之间的依存关系；如果场景中的两个节点是独立的，则对于在不同处理器上的并行解算，它们是良好的候选。
+	 </p>
+<div class="note note" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__GUID-F703401D-E0D9-4786-9247-FF0B47AD1E5D"><span class="notetitle">注：</span> 虽然场景中的节点是独立的，但是有时这些节点无法在并行模式下解算，这是由于节点的实现所致。在这些情况下，会按照其不同的“线程安全”级别对节点进行分类。
+	 </div>
+<div class="note note" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__GUID-BB93FA8B-D853-4820-A7D1-F6A7E9D152CC"><span class="notetitle">注：</span> 使用 FBIK 的动画将还原为串行解算，因为 FBIK 将在解算管理器中创建缺少的依存关系。由于 FBIK 已弃用，请将 HIK 用于整体反向运动学和重新设定目标。
+	 </div>
+<div class="section" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__SECTION_266CCAA11262405585730192FEDCE0B3"><h2 class="title sectiontitle">解算模式</h2> 
+		 
+		<div class="p" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__GUID-9945A144-6D9D-4274-8979-E0A214330694">从<span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__GUID-7BCE42B7-8FE9-48E4-974E-1930546D53FA">“编辑器 &gt; 设置/首选项 &gt; 首选项 &gt; 动画”(Editors &gt; Settings/Preferences &gt; Preferences &gt; Animation)</span> &gt; <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-0817C74B-C95C-4E5F-BCFA-26DEE1D7747F.htm#GUID-0817C74B-C95C-4E5F-BCFA-26DEE1D7747F__SECTION_8E9506543AFA46AE870961C6143FEA52" shape="rect">解算(Evaluation)</a>部分中选择适当的解算模式：
+		<dl class="dl" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__GUID-6CC5C8FB-A5D8-46A5-952F-29B4D0A9D7D5"><dt class="dt dlterm" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e51"> 
+				<span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e53">DG</span> 
+			 </dt><dd class="dd" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e56">对您的场景使用基于依存关系图的解算模式。（另请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-51096BC4-32B7-4391-BE39-21641B374745" shape="rect">依存关系图</a>。）<span class="ph">在 Maya 2016 之前，这是默认的解算模式。</span> 
+			 </dd><dt class="dt dlterm" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e65"> 
+				<span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e67">串行(Serial)</span> 
+			 </dt><dd class="dd" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e70">使用解算管理器，但是将解算限制到单个核心（<em class="ph i" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e72">串行</em>解算）。使用<span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e75">“串行”(Serial)</span>可排除场景故障，因为它使场景保真度优先于性能，以便您可以找出解算错误。
+				<div class="note note" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e78"><span class="notetitle">注：</span>  与<span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e80">“DG”</span>模式相比，有时场景在<span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e83">“串行”(Serial)</span>解算模式下运行得更慢。这是因为与<span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e86">“DG”</span>模式相比，<span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e89">“串行”(Serial)</span>模式对更多的节点解算。由于此详细解算，如果场景在<span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e92">“串行”(Serial)</span>模式下看起来不正确，则它不大可能在<span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e96">“并行”(Parallel)</span>模式下正常工作。
+				  <p class="p" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e99"> 有时<span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e101">“串行”(Serial)</span>模式下的不正确解算是由自定义插件导致的。
+				  </p>
+ 
+				</div>
+ 
+			 </dd><dt class="dt dlterm" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e107"> 
+				<span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e109">并行(Parallel)</span> 
+			 </dt><dd class="dd" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e112"> 并行解算并使用所有可用的核心对场景解算。如果此模式导致场景问题，则禁用它并返回到上一标准：DG 解算模式。
+				<p class="p" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e114">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-66E4D9A3-2050-4CDF-B6A4-8C5645BFFBB8.htm" shape="rect">分析场景以提高性能</a>。
+				</p>
+ 此模式在默认情况下处于活动状态。
+			 </dd><dt class="dt dlterm" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e121"><span class="ph uicontrol">GPU 覆盖(GPU Override)</span> 
+			 </dt><dd class="dd">与解算管理器一起在<span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e127">“串行”(Serial)</span>或<span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e130">“并行”(Parallel)</span>解算模式下加速变形。如果场景具有标准 <span class="ph msgph prodname" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e133">Maya</span> 变形器并且网格几何体是密集的，则这可以提高性能。结果将基于场景中的变形器和网格密度而变化。
+				<div class="note note" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e136"><span class="notetitle">注：</span> <span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__d30e137">“GPU 覆盖”(GPU override)</span>仅适用于 Viewport 2.0，对 OSX 上的 Quadro 4000 显卡不起作用。
+				</div>
+ 
+			 </dd><dd class="dd">有关“GPU 覆盖”(GPU override)的技术说明，请参见<a target="_blank" class="xref" href="http://www.autodesk.com/using-parallel-maya" shape="rect">使用并行 Maya</a>。
+			 </dd><dt class="dt dlterm"><span class="ph uicontrol">在解算图中包括控制器(Include Controllers in Evaluation Graph)</span> 
+			 </dt><dd class="dd">构建时在解算管理器中激活/禁用预填充控制器机制。
+			 </dd></dl>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__SECTION_75A2518EADBD4FAEB9E29A3315BD2DB7"><h2 class="title sectiontitle">解算模式之间的差异</h2> 
+		 
+		<p class="p" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__GUID-E7AD6315-39F3-446E-B2FC-518A93B2AA70">在<span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__GUID-A673A202-D215-4A2E-AA90-0F5E7C90BF05">“DG”</span>、<span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__GUID-C3774E0E-FCCE-4922-9141-6CCA7D53EB23">“串行”(Serial)</span>和<span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__GUID-DC52E86F-AEA2-4393-A50E-04259BBF2615">“并行”(Parallel)</span>模式下，占用大量资源的任务需要大致相同的时间。例如，如果使用需要 0.5 秒使网格变形的变形器，则在<span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__GUID-41B7FEEA-F6A1-4AEE-A41F-BE3E0FBB117A">“并行”(Parallel)</span>模式下对此变形器解算不会对性能产生任何更改。
+		</p>
+ 
+		<p class="p" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__GUID-F1752ED5-4D0C-458D-A7C1-99B34D078C1B">如果所有的 EM/DG 模式显示相同的瓶颈，则解决此问题将提高性能增益。使用<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-3423BE20-0F03-422D-A05A-A1757C7B0A70.htm" shape="rect">分析器(Profiler)</a>在图表中演示每个进程消耗的时间量。
+		</p>
+ 
+		<p class="p" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__GUID-73409836-D1C0-45A3-BDA3-7AE7FBB12A80">但是，如果遇到的问题仅在<span class="ph uicontrol" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__GUID-DA09C584-A83B-4163-9CEE-31CEB50C962F">“并行”(Parallel)</span>模式下出现，则这可能指示您的场景中有线程争用问题，其中多个线程正尝试立即工作，同时争相控制共享资源。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__SECTION_EC92F25B9FA6489699115631E89936A4"><h2 class="title sectiontitle">限制 </h2> 
+		 
+		<div class="p">在使用解算管理器时，某些 Maya 功能（如<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-D2F57DBE-7546-477D-9DB9-42A2EA03EB97" shape="rect">缓存播放(Cached Playback)</a>）会产生错误的结果。这包括诸如启用 Viewport 2.0 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-9BBB6035-2A02-41BB-AF2D-99D9BEE580F1#GUID-9BBB6035-2A02-41BB-AF2D-99D9BEE580F1__SECTION_710D3B4D053F4CB9817B39AD86606DD7" shape="rect">运动模糊(motion blur)</a>或者场景包含特定<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-8A3373A4-7480-43AF-9A45-FD0E8AA3590B" shape="rect">经典动力学(classic dynamics)</a>（例如，粒子、布料、刚体）时的情况。
+		  <div class="note tip" id="GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15__GUID-DAEDD620-62FE-4D2A-92B4-F47C6C3C0CAF"><span class="tiptitle">提示：</span> 您可以运行脚本来返回导致解算管理器出现问题的动力学节点的列表。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-CBBA46E9-5BBB-4D67-AE05-91A7E9C7A293.htm" shape="rect">识别制约性能的动力学节点(Identify dynamics nodes that inhibit performance)</a>。
+		  </div>
+ 
+		</div>
+ 
+		<p class="p">如果执行大量的 Python 命令，这些命令可能会出现性能问题。如果发生这种情况，请在环境中定义 MAYA_RETAIN_PYTHON_GIL。（MAYA_RELEASE_PYTHON_GIL 已弃用。它默认为 true，并且可被 MAYA_RETAIN_PYTHON_GIL 覆盖。） 
+		</p>
+ 
+		<p class="p">此外，使用自定义 Python 节点对其他线程解算时，也有可能会出现 Python 性能问题。
+		</p>
+ 
+		<p class="p">有关已知限制的完整列表，请参考发行说明。
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks"><li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-4EDEF082-0EAC-493B-9256-647A8F6BD039.htm" shape="rect">使用求值模式测试性能</a><br>
+</li><li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-CBBA46E9-5BBB-4D67-AE05-91A7E9C7A293.htm" shape="rect">标识会降低性能的动力学节点</a><br>
+</li><li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-53EB563C-47DC-4101-A69D-C46F567A4BDF.htm" shape="rect">在求值管理器中启用动力学支持</a><br>
+</li><li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-E22B253D-914B-4056-93F5-755702A6C998.htm" shape="rect">解算工具包(Evaluation Toolkit)</a><br>
+</li></ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-235ED36C-EAE1-41BB-91B8-D79EE7659E66.htm" shape="rect">性能提高技巧</a></div>
+</div>
+</div>
+
+</body></html>

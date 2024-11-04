@@ -1,0 +1,660 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="nParticle 碰撞属性;碰撞:nParticle">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53">
+<meta name="language" content="CHS">
+<title>nParticle 碰撞属性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>nParticle 碰撞属性</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-8506B1BF-9592-49E1-BA86-FB35603425B6">默认情况下，nParticle 与被动碰撞、nCloth、nHair、其他 nParticle 对象以及自身（自碰撞）碰撞。若要在 nParticle 和其他 Nucleus 对象之间发生碰撞，必须将对象指定给同一 Nucleus 解算器，并且必须启用其各自节点上的<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-E14AB05F-6C57-4371-91DA-E9C25BBF8E86">“碰撞”(Collide)</span>属性。 </p>
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-12BA6B3A11A9C207460-636F"> 默认情况下，nParticle 对象可与 nCloth 对象、被动碰撞对象及其他 nParticle 对象碰撞，也可与其自身碰撞（自碰撞）。若要在 nParticle 和其他 Nucleus 对象之间发生碰撞，必须将对象指定给同一 Nucleus 解算器，并且必须启用其各自节点上的<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-90F5816B-587D-41C0-BAFD-EEDEC608DC07">“碰撞”(Collide)</span>属性。 </p>
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-12BA6B3A11A9C207460-636E"> <span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-EC278A94-1766-4C28-AAF7-05D51D455095">“碰撞”(Collisions)</span>和<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-BFD2E196-BC1E-4F17-953F-7377772BC832">“动力学特性”(Dynamic Properties)</span>是基于 Nucleus 的属性，用于确定 nParticle 在与 Nucleus 对象碰撞时的行为以及 nParticle 对基于 Nucleus 的力如何反应。虽然其他属性（例如<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-5080CB57-5631-4077-87D0-07B090BE0101">“力场生成”(Force Field Generation)</span>属性）也可能会影响 nParticle 与其他 Nucleus 对象的交互方式，但<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-F66D2E42-A429-41D5-A7F6-ECBEA96E341A">“碰撞”(Collisions)</span>和<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-01092450-2A7E-47CB-A7FB-B1532EC2AD5D">“动力学特性”(Dynamic Properties)</span>属性与 Nucleus 解算器计算模拟中的碰撞数据的方式相关。 </p>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1414"><dl class="dl" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1414"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-2BB27EA2-CFEF-4197-94B5-6556BD8FC92E">碰撞(Collide)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F487551A80AE1B11DF600637E2DE8">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-29C43AA6117B26F372E4B01"> 启用该选项时，当前的 nParticle 对象将与共用同一 Maya Nucleus 解算器的被动对象、nCloth 对象和其他 nParticle 对象发生碰撞。禁用该选项时，当前的 nParticle 对象将不与共用同一 Maya Nucleus 解算器的被动对象、nCloth 对象或其他 nParticle 对象发生碰撞。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-C52A3F3A-1118-4D16-A104-A6E4CE27395C">自碰撞(Self Collide)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F487551A80AE1B11DF600637E2DE9">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-29C43AA6117B26F372E4B05"> 启用该选项时，nParticle 对象生成的粒子将互相碰撞。禁用该选项时，这些粒子将不互相碰撞。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-420DD3BF-785D-443A-8BA6-89B885D2B420">碰撞强度(Collide Strength)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF2566FFD511FDE75E6567966">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF2566FFD511FDE75E6567968"> 指定 nParticle 与其他 Nucleus 对象之间的碰撞强度。使用默认值 1 时，nParticle 相互并与其他 Nucleus 对象发生完全碰撞。<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-039915D0-C3D7-4036-8EF5-41D93215D1F9">“碰撞强度”(Collide Strength)</span>值介于 0 和 1 时，将减弱完全碰撞，值为 0 时将关闭 nParticle 碰撞（相当于关闭对象的<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-72796BBA-ED93-4BA2-A807-D8FDD0392365">“碰撞”(Collide)</span>属性）。将<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-0B3468F1-3120-4683-B54B-642232E9A00C">“碰撞强度”(Collide Strength)</span>设定为大于 1 的值将增加碰撞力，而小于 0 的值将在对象之间产生微弱的排斥力。 </p>
+
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF2566FFD511FDE75E6567969">您可以使用<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-7930F8F7-2F4D-401B-AC68-249B26DC4F08">“碰撞强度比例”(Collide Strength Scale)</span>渐变按每个粒子设定<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-F9391AF5-36DE-4CE3-83C4-5E327EAA7028">“碰撞强度”(Collide Strength)</span>。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-BD43D93C-1721-4E68-AE12-A0C1F2FD3142">碰撞层(Collision Layer)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F487551A80AE1B11DF600637E2DEA">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-29C43AA6117B26F372E4B08"> 将当前的 nParticle 对象指定给特定的碰撞层。<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-7A7DF7E8-0EAD-4BF3-A8F5-B9AFE4099E7D">“碰撞层”(Collision Layers)</span>决定了共用同一 Maya Nucleus 解算器的 nParticle、nCloth 和被动对象如何进行交互。 </p>
+
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-441A">同一碰撞层上的 nParticle 对象以正常方式碰撞。但是，当 nParticle 对象位于不同层时，层值较低的粒子将优先于层值较高的例子。因此，碰撞层 0.0 上的 nParticle 对象将推动碰撞层 1.0 上的 nCloth 对象或其他 nParticle 对象，并依次推动碰撞层 2.0 上的 nCloth 的对象或其他 nParticle 对象。该碰撞优先级在由 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-8BB10228-74E2-49A6-864C-03110C7FBB45.htm">Nucleus</a> 节点上的<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-96876AEB-1CDF-4782-AFDD-605AEC1D8294">“碰撞层范围”(Collision Layer Range)</span>属性设定的范围内发生。 </p>
+
+<div class="note note" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-4417"><span class="notetitle">注：</span> 
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-D090283D-DA98-475A-8AEF-9EDD003ACFB4">碰撞层中的 nCloth 和被动对象仅与位于同一碰撞层或层值更高的碰撞层中的其他 nParticle 对象碰撞。 </p>
+
+</div>
+
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F487552A50A53111913E7C26F-7210">有关碰撞层的信息，请参见 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-8DAA5827-3DAE-4AE6-90AE-4AD30A14BDB4">nCloth 碰撞属性</a>。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-4863E208-E79E-4046-ACF1-D9FB15237919">碰撞宽度比例(Collide Width Scale)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F487551A80AE1B11DF600637E2DEB">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-2ADE9D9118A20D4F81-D2C"> 指定相对于 nParticle“半径”(Radius)值的碰撞厚度。 </p>
+
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-638909E1-33E0-4A1F-821C-66AC8B0DFCF9">当设置为 1.0 时，碰撞宽度等于<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-FD073B74-8EEF-485C-96C5-5BB05B7F2150">“半径”(Radius)</span>值。当设置为 0.5 时，碰撞宽度是<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-DD479E9D-BAD3-44CE-826D-38D1FB4CC3F2">“半径”(Radius)</span>的一半。值小于 1.0 会导致穿透碰撞曲面并与其他 nParticle 对象重叠。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-9A5827C1-EE10-45E3-9FA3-20EF9A9002ED">自碰撞宽度比例(Self Collide Width Scale)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F487551A80AE1B11DF600637E2DEC">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-2ADE9D9118A20D4F81-D2A"> 指定相对于 nParticle<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-97B7FC5C-C686-4670-B4C1-54A1680B765A">“半径”(Radius)</span>值的自碰撞厚度。 </p>
+
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-361CF358-7A18-4A02-BD47-AFA28DC81896"> 设定<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-1D405E5A-260A-4CF6-920A-C035D4FEFC4B">“自碰撞宽度比例”(Self Collide Width Scale)</span>可以提高发射自碰撞粒子的粒子发射平滑度，并加速模拟。<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-69E91978-CBFB-43B6-866B-19B0274DED0C">“自碰撞宽度比例”(Self Collide Width Scale)</span>的默认值为 1.0。 </p>
+
+</dd>
+</dl>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-2ADE9D9118A20D4F81-D27"><h3 class="title sectiontitle">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-639D4CB5-CAE0-402C-9D4F-6FBEC5675B33">解算器显示(Solver Display)</span>
+</h3><p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-29C43AA6117B26F372E4B33"> 指定场景视图中将显示当前 nParticle 对象的哪些 Maya Nucleus 解算器信息。使用<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-A6913034-9EC7-4339-B505-027DAB501B61">“解算器显示”(Solver Display)</span>帮助您诊断和解决使用 nParticle 时可能遇到的所有问题。 </p>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1476"><dl class="dl" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1476"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-056E9DCA-ABC9-46F1-8456-DC22ECF6C2F8">禁用(Off)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F487551A80AE1B11DF600637E2DED">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-29C43AA6117B26F372E4B38">场景视图中不显示任何 Maya Nucleus 解算器信息。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-ED056620-9C81-4AA2-AE49-51792E723B8D">碰撞厚度(Collision Thickness)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F487551A80AE1B11DF600637E2DEE">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-29C43AA6117B26F372E4B3A"> 显示当前 nParticle 对象的碰撞体积。在调整 nParticle 与其他 nParticle 对象或 nCloth 和被动对象的碰撞时，使用<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-1998CED9-3A84-497C-B163-CAF27BEABB44">“碰撞厚度”(Collision Thickness)</span>可视化发生碰撞的 nParticle 的厚度。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-8B8451A3-CBB6-442C-9915-168A9EDCAD24">自碰撞厚度(Self Collision Thickness)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F487551A80AE1B11DF600637E2DEF">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-29C43AA6117B26F372E4B40"> 显示当前 nParticle 对象的自碰撞体积。在调整发生自碰撞的 nParticle 时，使用<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-496DC7C0-7F16-4442-B783-6DD8A3D14EA8">“自碰撞厚度”(Self Collision Thickness)</span>可视化 nParticle 自碰撞厚度。 </p>
+
+</dd>
+</dl>
+</div>
+</div>
+<dl class="dl" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1414"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-D88B9329-1505-4CEE-BBF5-1192B6DF2E03">显示颜色(Display Color)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F487551A80AE1B11DF600637E2DF0">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-29C43AA6117B26F372E4B4E"> 指定碰撞体积的显示颜色。仅当将场景视图显示模式设定为<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-A1F497B1-292D-4153-872B-760F129C692D">“着色 &gt; 对选定项目进行平滑着色处理”(Shading &gt; Smooth Shade Selected Items)</span>或<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-A52AE810-FD2F-48BE-AB2C-634A07DCFA1E">“着色 &gt; 对选定项目进行平面着色”(Shading &gt; Flat Shade Selected Items)</span>时，<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-F3077F8D-6F0A-4BDE-9AA8-5A2C80F46DA0">“显示颜色”(Display Color)</span>才可见。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-4756A660-A1CD-4A22-9867-6379EE09A7E0">反弹(Bounce)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F487551A80AE1B11DF600637E2DF1">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-29C43AA6117B26F372E4B51"> <span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-930A7929-A7A1-4943-B192-7DFBAB185E64">“反弹”(Bounce)</span>指定 nParticle 在进行自碰撞或与共用同一 Maya Nucleus 解算器的被动对象、nCloth 或其他 nParticle 对象发生碰撞时的偏转量或反弹量。 </p>
+
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-29C43AA6117B26F372E4B53">一个 nParticle 对象应有的<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-A26AAF5C-358D-4301-97F4-CDE4A6738AA7">“反弹”(Bounce)</span>量取决于 nParticle 效果的类型。例如，<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-D7125FA3-46BF-4A7D-84C9-644861051FD4">“反弹”(Bounce)</span>值为 0.0 的 nParticle 将没有弹性（如钢铁），<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-8EEA3DA8-ACA6-4AF9-AA07-2386F65D19F7">“反弹”(Bounce)</span>值为 0.9 的 nParticle 将非常有弹性（如橡胶）。<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-5A6AD531-035D-43D4-8120-D8D8F091C9E3">“反弹”(Bounce)</span>值默认为 0.0。 </p>
+
+<div class="note note" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F48755-3D114B751181C40F14B1104"><span class="notetitle">注：</span> 
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-5AA52826-ADD8-49A1-9CCC-69026F98EDD1"> <span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-CC397D81-01F2-4FFD-997D-7D986DB4076C">“反弹”(Bounce)</span>值大于 1.0 会导致不稳定性，因此应当尽可能避免。 </p>
+
+</div>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-A4A142DC-1DEB-4BF7-9003-B08AB2EE3688">摩擦力(Friction)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F487551A80AE1B11DF600637E2DF2">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-29C43AA6117B26F372E4B61"> <span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-51D05BF4-EF61-4E8E-8C5A-FCA28A60A061">“摩擦力”(Friction)</span>指定 nParticle 在进行自碰撞或与共用同一 Maya Nucleus 解算器的被动对象、nCloth 和其他 nParticle 对象发生碰撞时的相对运动阻力程度。 </p>
+
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F48755-3D114B751181C40F14B1106">碰撞中使用的<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-4CA4A8DA-1AB8-4E62-B810-ACA66AAE6666">“摩擦力”(Friction)</span>总量是两个碰撞对象的<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-EC9B136E-7529-471D-B53E-3D177E4108E1">“摩擦力”(Friction)</span>值之和。<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-82616F1F-AE79-42DC-AD7F-5586A44B5A64">“摩擦力”(Friction)</span>的影响受 nParticle 对象的<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-C6D57ECF-2664-4DAB-BCF7-81F24769CC7E">“粘滞”(Stickiness)</span>值的影响。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-B5F01EB8-F5F1-4424-B0CD-220E33A09F9D">粘滞(Stickiness)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F487551A80AE1B11DF600637E2DF3">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F48755602CAF04118F18E7A07-62C6"> <span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-48E56DFE-104F-4FD7-A5B9-8C6E4F435752">“粘滞”(Stickiness)</span>指定了当 nCloth、nParticle 和被动对象发生碰撞时，nParticle 对象粘贴到其他 Nucleus 对象的倾向。 </p>
+
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F48755602CAF04118F18E7A07-62C5"> <span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-C5F2797C-6B4B-4106-B6D1-A7661C2704DB">“粘滞”(Stickiness)</span>和<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-F85B7D97-4DE0-4DDB-9C60-7D0678881B57">“摩擦力”(Friction)</span>是两个类似的属性，具体表现在<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-C709C36B-4BD1-417B-AB25-DB62408AB352">“粘滞”(Stickiness)</span>是法线方向上的粘合力，而<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-53BE2899-0CE3-4217-B7EF-5CD922FD3279">“摩擦力”(Friction)</span>是作用在切线方向上的力。与<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-A47F2B71-6A4D-4C46-9BC2-4115436A981E">“摩擦力”(Friction)</span>一样，碰撞中使用的<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-696BF787-A746-4464-B9D4-F163C33370C6">“粘滞”(Stickiness)</span>值是两个碰撞对象的合力。因此，对于完全粘滞，碰撞对象中的<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-C4ABA182-E7EC-4238-AD9A-31769256BFF8">“摩擦力”(Friction)</span>和<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-9D2370FE-C5BD-47E3-9396-627CB793FEA4">“粘滞”(Stickiness)</span>均应为 1.0。请注意，如果对象中的<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-09043E5A-EBF4-498C-B1F9-8FA818FB6A96">“粘滞”(Stickiness)</span>和<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-4E858A8C-6A7E-488F-94A6-E6F7EFA0BE2E">“摩擦力”(Friction)</span>均设定为 2，则该对象将粘到<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-88537A60-F8B2-4AF2-BF8D-B41BDC4F1D55">“粘滞”(Stickiness)</span>设定为 0 的其他 Nucleus 对象中。 </p>
+
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F487552A50A53111913E7C26F-720E">为使同一 nParticle 对象中的粒子彼此粘滞，必须启用<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-45D53F39-684E-4A0B-B81D-E96D5F1440A0">“自碰撞”(Self Collide)</span>。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-FC826CC8-094E-489D-832F-A4A0BED592B9">最大自碰撞迭代次数(Max Self Collide Iterations)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F487551A80AE1B11DF600637E2DF4">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-2ADE9D9118A20D4F81-D1E"> 指定当前 nParticle 对象的动力学自碰撞的每模拟步最大迭代次数。<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-CD9EA0B1-32C6-4821-8E8D-A0C9CCF103FE">“最大自碰撞迭代次数”(Max Self Collide Iterations)</span>钳制迭代的次数，以防止高级别属性值或大量模拟步锁定 nParticle 对象。 </p>
+
+</dd>
+</dl>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F48755-381799D411F6FB5AF15-1F2E"><h3 class="title sectiontitle">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-F7BBBC8C-E4B6-40B2-8EF4-D6FE0575136B">碰撞渐变(Collision Ramps)</span>
+</h3><div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1562"><div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF2566FFD511FDE75E656796A"><h5 class="title sectiontitle">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-C5804461-49D5-48E4-8D85-6091C0247CF6">碰撞强度比例(Collide Strength Scale)</span>
+</h5><p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF2566FFD511FDE75E656796B"> <span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-2EA9B118-53AA-466B-BF34-7D5FC1DD2A6E">“碰撞强度比例”(Collide Strength Scale)</span>渐变用于设定每粒子的碰撞强度比例值。这些比例值将应用于<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-13781A8D-EB7C-45E4-89B8-FF86D1B53AFB">“碰撞强度”(Collide Strength)</span>属性，以计算每粒子碰撞强度。垂直分量表示<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-1F3550E3-9021-4B97-A8D2-C30A4078E6C7">“碰撞强度比例”(Collide Strength Scale)</span>值从 0（无碰撞强度）到 1（等于<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-676A3741-6137-4B1B-B671-F490409981D9">“碰撞强度”(Collide Strength)</span>属性值）。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-6C102F00-86AC-4EA6-9357-A0C13A4BBB3B">使用渐变设置属性</a>。 </p>
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF2566FFD511FDE75E656796D">如果<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-86A2857C-EDA5-4D3B-8D2B-69A143535B73">“碰撞强度比例输入”(Collide Strength Scale Input)</span>设定为<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-352E7F77-8B26-4540-A1E5-09BFE857D847">“禁用”(Off)</span>，每粒子属性将被删除。如果设定为其他任何值，则将创建碰撞强度的每粒子属性（如果属性尚不存在）。 </p>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1579"><dl class="dl" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1579"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e13">选定位置(Selected Position)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e16">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e18">表示选定值在渐变上的位置（介于左侧的 0 和右侧的 1 之间）。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e24">选定值(Selected Value)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e27">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e29"> 表示渐变上的选定位置的每粒子属性值。 </p>
+
+</dd>
+</dl>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-AB5AF74A-F048-481E-B516-3580159ACD14"><h6 class="title sectiontitle">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e35">插值(Interpolation)</span>
+</h6><p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e38">控制每粒子属性值在渐变上的每个位置之间的融合方式。默认设置为<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e40">“线性”(Linear)</span>。 </p>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e43"><dl class="dl" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e44"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e48">无(None)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e51">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e53">曲线在各点之间是平坦的。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e59">线性(Linear)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e62">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e64">每粒子属性值使用线性曲线进行插补。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e70">平滑(Smooth)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e73">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e75">每粒子属性值沿钟形曲线进行插补，从而渐变上的每个值都决定其周围的区域，然后快速融合到下一个值。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e81">样条线(Spline)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e84">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e86">通过样条曲线对每粒子属性值插值，将相邻的索引考虑在内以提高平滑度。 </p>
+
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF2566FFD511FDE75E6567988"><h6 class="title sectiontitle">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-53ECDD51-D058-40C6-B7F6-DDC69AB28BE6">碰撞强度比例输入(Collide Strength Scale Input)</span>
+</h6><p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF2566FFD511FDE75E6567989"> 指定哪个属性用于映射<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-0F09AAED-66F4-4A2A-A70A-DF3F0B0F4BA5">“碰撞强度比例”(Collide Strength Scale)</span>渐变值。 </p>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1635"><dl class="dl" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1635"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e93">禁用(Off)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e96">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e98">禁用此选项时，每粒子属性将被删除。如果要使用带有每粒子属性的表达式，则需要手动重新添加它们。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA.htm">关于 nParticle 内部渐变和每粒子属性</a>。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e107">年龄(Age)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e110">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e112">每粒子属性值取决于 nParticle 的年龄，而该年龄基于粒子的<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e114">“寿命模式”(Lifespan mode)</span>。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-BDD9899F-17B5-498B-81A0-851BEA780F7A.htm">nParticle 寿命属性</a>。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e124">归一化的年龄(Normalized Age)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e127">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e129">每粒子属性值将取决于 nParticle 的归一化的年龄。若要使用<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e131">“归一化的年龄”(Normalized Age)</span>，nParticle 对象必须已经定义了寿命。例如，nParticle 对象的<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e134">“寿命模式”(Lifespan Mode)</span>属性必须设定为<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e137">“恒定”(Constant)</span>或<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e140">“随机范围”(Random range)</span>。 </p>
+
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e144">使用<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e146">“归一化的年龄”(Normalized Age)</span>时，每粒子属性值映射在 nParticle 对象的寿命范围内。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e153">速度(Speed)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e156">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e158">每粒子属性值将取决于 nParticle 的速度。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e164">加速度(Acceleration)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e167">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e169">每粒子属性值将取决于 nParticle 的加速度。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e175">粒子 ID (Particle ID)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e178">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e180">每粒子属性值将取决于 nParticle 的 ID。粒子 ID 是在粒子寿命开始时生成的唯一 ID。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e186">随机化 ID (Randomizing ID)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e189">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e191">每粒子属性值将取决于随机化的 nParticle ID。 </p>
+
+</dd>
+</dl>
+</div>
+</div>
+<dl class="dl" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1579"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e197">输入最大值(Input Max)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e200">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e202"> 设置渐变使用的范围的最大值。 </p>
+
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F48755-381799D411F6FB5AF15-1F2D"><h5 class="title sectiontitle">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-92A0F7A8-1C3F-4B00-A86D-32BD41B541BF">反弹比例(Bounce Scale)</span>
+</h5><p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F48755-381799D411F6FB5AF15-1F2C"> <span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-8EF08973-9BFE-413A-944A-5E6F57107AE3">“反弹比例”(Bounce Scale)</span>渐变用于设定每粒子的反弹比例值。这些比例值将应用于<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-2B2EA000-4A60-4AD8-8475-F8B697F14010">“反弹”(Bounce)</span>属性，以计算每粒子反弹。垂直分量表示<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-682DB77E-3028-4490-B059-CF93374F12CA">“反弹比例”(Bounce Scale)</span>值从 0（无反弹）到 1（等于<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-9FB8D565-5D29-44C5-ABE3-068F522334CA">“反弹”(Bounce)</span>属性值）。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-6C102F00-86AC-4EA6-9357-A0C13A4BBB3B">使用渐变设置属性</a>。 </p>
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F48755-381799D411F6FB5AF15-1F2A">如果<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-69323D1E-48BE-4F86-91CC-69CE35F7A9AA">“反弹比例输入”(Bounce Scale Input)</span>设定为<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-988F3BE5-E5A6-46F9-BE9F-41DF27EA73A3">“禁用”(Off)</span>，每粒子属性将被删除。如果设定为其他任何值，则将创建反弹的每粒子属性（如果属性尚不存在）。 </p>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1708"><dl class="dl" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1708"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e13">选定位置(Selected Position)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e16">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e18">表示选定值在渐变上的位置（介于左侧的 0 和右侧的 1 之间）。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e24">选定值(Selected Value)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e27">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e29"> 表示渐变上的选定位置的每粒子属性值。 </p>
+
+</dd>
+</dl>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-D38D8C9B-6DE3-4C84-9A91-D6E764DB2B6C"><h6 class="title sectiontitle">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e35">插值(Interpolation)</span>
+</h6><p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e38">控制每粒子属性值在渐变上的每个位置之间的融合方式。默认设置为<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e40">“线性”(Linear)</span>。 </p>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e43"><dl class="dl" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e44"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e48">无(None)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e51">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e53">曲线在各点之间是平坦的。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e59">线性(Linear)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e62">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e64">每粒子属性值使用线性曲线进行插补。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e70">平滑(Smooth)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e73">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e75">每粒子属性值沿钟形曲线进行插补，从而渐变上的每个值都决定其周围的区域，然后快速融合到下一个值。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e81">样条线(Spline)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e84">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e86">通过样条曲线对每粒子属性值插值，将相邻的索引考虑在内以提高平滑度。 </p>
+
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F487557BFAA8DA122EC01152F4366"><h6 class="title sectiontitle">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-9F2081CD-BD9C-4FCF-B191-678CFF0DF364">反弹比例输入(Bounce Scale Input)</span>
+</h6><p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F487557BFAA8DA122EC01152F4367"> 指定哪个属性用于映射<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-1C5A9042-CE6A-433B-BBE7-7B9A353EA50B">“反弹比例”(Bounce Scale)</span>渐变值。 </p>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1764"><dl class="dl" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1764"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e93">禁用(Off)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e96">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e98">禁用此选项时，每粒子属性将被删除。如果要使用带有每粒子属性的表达式，则需要手动重新添加它们。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA.htm">关于 nParticle 内部渐变和每粒子属性</a>。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e107">年龄(Age)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e110">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e112">每粒子属性值取决于 nParticle 的年龄，而该年龄基于粒子的<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e114">“寿命模式”(Lifespan mode)</span>。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-BDD9899F-17B5-498B-81A0-851BEA780F7A.htm">nParticle 寿命属性</a>。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e124">归一化的年龄(Normalized Age)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e127">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e129">每粒子属性值将取决于 nParticle 的归一化的年龄。若要使用<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e131">“归一化的年龄”(Normalized Age)</span>，nParticle 对象必须已经定义了寿命。例如，nParticle 对象的<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e134">“寿命模式”(Lifespan Mode)</span>属性必须设定为<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e137">“恒定”(Constant)</span>或<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e140">“随机范围”(Random range)</span>。 </p>
+
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e144">使用<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e146">“归一化的年龄”(Normalized Age)</span>时，每粒子属性值映射在 nParticle 对象的寿命范围内。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e153">速度(Speed)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e156">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e158">每粒子属性值将取决于 nParticle 的速度。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e164">加速度(Acceleration)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e167">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e169">每粒子属性值将取决于 nParticle 的加速度。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e175">粒子 ID (Particle ID)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e178">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e180">每粒子属性值将取决于 nParticle 的 ID。粒子 ID 是在粒子寿命开始时生成的唯一 ID。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e186">随机化 ID (Randomizing ID)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e189">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e191">每粒子属性值将取决于随机化的 nParticle ID。 </p>
+
+</dd>
+</dl>
+</div>
+</div>
+<dl class="dl" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1708"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e197">输入最大值(Input Max)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e200">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e202"> 设置渐变使用的范围的最大值。 </p>
+
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1821"><div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F48755-381799D411F6FB5AF15-1EEA"><h5 class="title sectiontitle">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-B8D47EDC-21B3-40AB-A71D-208F126CA153">摩擦力比例(Friction Scale)</span>
+</h5><p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F48755-381799D411F6FB5AF15-1EE9"> <span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-D04D7543-7130-465E-AE7D-96E87B8EA7C8">“摩擦力比例”(Friction Scale)</span>渐变用于设定每粒子的摩擦力比例值。这些比例值将应用于<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-95C2BDA9-A975-4AB0-8D72-040AC6FAFA4E">“摩擦力”(Friction)</span>属性，以计算每粒子摩擦力。垂直分量表示<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-598C47DE-2FD2-4F88-A767-A131AD5D87EB">“摩擦力比例”(Friction Scale)</span>值从 0（无摩擦力）到 1（等于<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-19AD0DD5-013D-4728-8667-AEE2066D26BB">“摩擦力”(Friction)</span>属性值）。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-6C102F00-86AC-4EA6-9357-A0C13A4BBB3B">使用渐变设置属性</a>。 </p>
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F48755-381799D411F6FB5AF15-1EE7">如果<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-256FB652-BED3-45AE-8729-2F12C8DE4674">“摩擦力比例输入”(Friction Scale Input)</span>设定为<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-CBB490EF-A4C9-4B42-811D-9C96DA878073">“禁用”(Off)</span>，每粒子属性将被删除。如果设定为其他任何值，则将创建摩擦力的每粒子属性（如果属性尚不存在）。 </p>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1838"><dl class="dl" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1838"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e13">选定位置(Selected Position)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e16">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e18">表示选定值在渐变上的位置（介于左侧的 0 和右侧的 1 之间）。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e24">选定值(Selected Value)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e27">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e29"> 表示渐变上的选定位置的每粒子属性值。 </p>
+
+</dd>
+</dl>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-017CF26D-32BB-4F6A-9C19-F9C933BA513C"><h6 class="title sectiontitle">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e35">插值(Interpolation)</span>
+</h6><p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e38">控制每粒子属性值在渐变上的每个位置之间的融合方式。默认设置为<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e40">“线性”(Linear)</span>。 </p>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e43"><dl class="dl" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e44"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e48">无(None)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e51">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e53">曲线在各点之间是平坦的。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e59">线性(Linear)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e62">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e64">每粒子属性值使用线性曲线进行插补。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e70">平滑(Smooth)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e73">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e75">每粒子属性值沿钟形曲线进行插补，从而渐变上的每个值都决定其周围的区域，然后快速融合到下一个值。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e81">样条线(Spline)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e84">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e86">通过样条曲线对每粒子属性值插值，将相邻的索引考虑在内以提高平滑度。 </p>
+
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-6AB24494123382A9C4B-6993"><h6 class="title sectiontitle">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-6E0574A8-4278-42E4-ABB2-D05915617CA0">摩擦力比例输入(Friction Scale Input)</span>
+</h6><p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-6AB24494123382A9C4B-6992"> 指定哪个属性用于映射<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-A0DB017E-E16E-441B-B674-86CB473A81A7">“摩擦力比例”(Friction Scale)</span>渐变值。 </p>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1894"><dl class="dl" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1894"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e93">禁用(Off)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e96">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e98">禁用此选项时，每粒子属性将被删除。如果要使用带有每粒子属性的表达式，则需要手动重新添加它们。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA.htm">关于 nParticle 内部渐变和每粒子属性</a>。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e107">年龄(Age)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e110">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e112">每粒子属性值取决于 nParticle 的年龄，而该年龄基于粒子的<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e114">“寿命模式”(Lifespan mode)</span>。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-BDD9899F-17B5-498B-81A0-851BEA780F7A.htm">nParticle 寿命属性</a>。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e124">归一化的年龄(Normalized Age)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e127">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e129">每粒子属性值将取决于 nParticle 的归一化的年龄。若要使用<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e131">“归一化的年龄”(Normalized Age)</span>，nParticle 对象必须已经定义了寿命。例如，nParticle 对象的<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e134">“寿命模式”(Lifespan Mode)</span>属性必须设定为<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e137">“恒定”(Constant)</span>或<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e140">“随机范围”(Random range)</span>。 </p>
+
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e144">使用<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e146">“归一化的年龄”(Normalized Age)</span>时，每粒子属性值映射在 nParticle 对象的寿命范围内。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e153">速度(Speed)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e156">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e158">每粒子属性值将取决于 nParticle 的速度。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e164">加速度(Acceleration)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e167">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e169">每粒子属性值将取决于 nParticle 的加速度。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e175">粒子 ID (Particle ID)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e178">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e180">每粒子属性值将取决于 nParticle 的 ID。粒子 ID 是在粒子寿命开始时生成的唯一 ID。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e186">随机化 ID (Randomizing ID)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e189">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e191">每粒子属性值将取决于随机化的 nParticle ID。 </p>
+
+</dd>
+</dl>
+</div>
+</div>
+<dl class="dl" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1838"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e197">输入最大值(Input Max)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e200">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e202"> 设置渐变使用的范围的最大值。 </p>
+
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F48755-381799D411F6FB5AF15-1EA7"><h5 class="title sectiontitle">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-8231A147-9BF4-4F2C-B08A-795FF5F6493B">粘滞比例(Stickiness Scale)</span>
+</h5><p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F48755-381799D411F6FB5AF15-1EA6"> <span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-BDA6EA3C-DE2A-476A-9942-75777E3F39DA">“粘滞比例”(Stickiness Scale)</span>渐变用于设定每粒子的粘滞比例值。这些比例值将应用于<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-5CAFB053-001D-4CC8-865A-4A1056B35A47">“粘滞”(Stickiness)</span>属性，以计算每粒子粘滞。垂直组分表示<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-F497C11F-FA3C-4814-A033-C2B57365A2DF">“粘滞比例”(Stickiness Scale)</span>值从 0（无粘滞）到 1（等于<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-DDD317B7-44EE-4EC6-9923-74CF44A69DC0">“粘滞”(Stickiness)</span>属性值）。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-6C102F00-86AC-4EA6-9357-A0C13A4BBB3B">使用渐变设置属性</a>。 </p>
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS73099CC142F48755-381799D411F6FB5AF15-1EA4">如果<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-EB0E4A46-37F5-42EE-B83C-F950DE447B1D">“粘滞比例输入”(Stickiness Scale Input)</span>设定为<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-A4209454-A46A-46FE-B48D-AD43003545BB">“禁用”(Off)</span>，每粒子属性将被删除。如果设定为其他任何值，则将创建粘滞的每粒子属性（如果属性尚不存在）。 </p>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1967"><dl class="dl" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1967"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e13">选定位置(Selected Position)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e16">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e18">表示选定值在渐变上的位置（介于左侧的 0 和右侧的 1 之间）。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e24">选定值(Selected Value)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e27">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e29"> 表示渐变上的选定位置的每粒子属性值。 </p>
+
+</dd>
+</dl>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-CE6C6948-EA1C-40FB-9FB7-A1C48A51D776"><h6 class="title sectiontitle">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e35">插值(Interpolation)</span>
+</h6><p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e38">控制每粒子属性值在渐变上的每个位置之间的融合方式。默认设置为<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e40">“线性”(Linear)</span>。 </p>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e43"><dl class="dl" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e44"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e48">无(None)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e51">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e53">曲线在各点之间是平坦的。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e59">线性(Linear)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e62">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e64">每粒子属性值使用线性曲线进行插补。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e70">平滑(Smooth)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e73">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e75">每粒子属性值沿钟形曲线进行插补，从而渐变上的每个值都决定其周围的区域，然后快速融合到下一个值。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e81">样条线(Spline)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e84">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e86">通过样条曲线对每粒子属性值插值，将相邻的索引考虑在内以提高平滑度。 </p>
+
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-6AB24494123382A9C4B-6956"><h6 class="title sectiontitle">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-FC9E5156-C197-4470-B703-E39C9DE8C0B6">粘滞比例输入(Stickiness Scale Input)</span>
+</h6><p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF-6AB24494123382A9C4B-6955"> 指定哪个属性用于映射<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__GUID-84F33943-086E-489C-B63A-281B755988DE">“粘滞比例”(Stickiness Scale)</span>渐变值。 </p>
+<div class="section" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-2023"><dl class="dl" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-2023"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e93">禁用(Off)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e96">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e98">禁用此选项时，每粒子属性将被删除。如果要使用带有每粒子属性的表达式，则需要手动重新添加它们。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-E4EC2C6E-F5F1-4929-BB04-22A9A59423EA.htm">关于 nParticle 内部渐变和每粒子属性</a>。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e107">年龄(Age)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e110">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e112">每粒子属性值取决于 nParticle 的年龄，而该年龄基于粒子的<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e114">“寿命模式”(Lifespan mode)</span>。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-BDD9899F-17B5-498B-81A0-851BEA780F7A.htm">nParticle 寿命属性</a>。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e124">归一化的年龄(Normalized Age)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e127">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e129">每粒子属性值将取决于 nParticle 的归一化的年龄。若要使用<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e131">“归一化的年龄”(Normalized Age)</span>，nParticle 对象必须已经定义了寿命。例如，nParticle 对象的<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e134">“寿命模式”(Lifespan Mode)</span>属性必须设定为<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e137">“恒定”(Constant)</span>或<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e140">“随机范围”(Random range)</span>。 </p>
+
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e144">使用<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e146">“归一化的年龄”(Normalized Age)</span>时，每粒子属性值映射在 nParticle 对象的寿命范围内。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e153">速度(Speed)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e156">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e158">每粒子属性值将取决于 nParticle 的速度。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e164">加速度(Acceleration)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e167">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e169">每粒子属性值将取决于 nParticle 的加速度。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e175">粒子 ID (Particle ID)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e178">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e180">每粒子属性值将取决于 nParticle 的 ID。粒子 ID 是在粒子寿命开始时生成的唯一 ID。 </p>
+
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e186">随机化 ID (Randomizing ID)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e189">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e191">每粒子属性值将取决于随机化的 nParticle ID。 </p>
+
+</dd>
+</dl>
+</div>
+</div>
+<dl class="dl" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__WS1A9193826455F5FF6026605B1181C8F4F2E-2C7B-1967"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e197">输入最大值(Input Max)</span>
+</dt>
+<dd class="dd" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e200">
+<p class="p" id="GUID-4B24720C-CF5B-4E93-B729-56DCD3AD5F53__d131e202"> 设置渐变使用的范围的最大值。 </p>
+
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-3130B434-C0D5-4FF7-94A4-7F056ADF712A.htm">nParticleShape 节点</a></div>
+</div>
+</div>
+
+</body>
+</html>

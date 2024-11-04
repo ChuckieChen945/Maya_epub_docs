@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-ManagingScenes">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F">
+<meta name="language" content="CHS">
+<title>示例：在非匹配层次上复制动画</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>示例：在非匹配层次上复制动画</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-2654"><div class="fig fignone" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-2ADE9D911885E83460-7495"><img class="image" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__IMAGE_837D67CE6C7A4C4DA8E7D2E510E42A7F" width="409" height="351" src="../images/GUID-814F0509-B126-4496-A95B-88C5577A2000.png"></div>
+<p class="p" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-2ADE9D911885E83460-7494"> 使用资产，还可以在由不同组件类型和不同配置组成的模型之间传递属性。在下面的示例中，骨架的步行循环传递到了不含关节的机器人模型中。 </p>
+<p class="p" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-2ADE9D911885E83460-7493">骨架和机器人的组件分别位于各自的资产中。 </p>
+<div class="fig fignone" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-150B16DA11960D83164-3072"><img class="image" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__IMAGE_E876C4F5498545FD8CFEAF7A73BD7A76" width="210" height="292" src="../images/GUID-010576DA-2654-480E-9DF4-14C46BA2EEA8.png"></div>
+<p class="p" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-150B16DA11960D83164-3071">但是，机器人的枢轴点与骨架的关节并不是完全匹配。例如，机器人肘部由三个部分组成，而其中每一部分都仅可向一个方向旋转。骨架的肘部是可向三个方向旋转的单一关节。 </p>
+<div class="fig fignone" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-2ADE9D911885E83460-7492"><img class="image" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__IMAGE_75283D6D8903445395BE43A9612B475B" width="433" height="274" src="../images/GUID-BAD18482-4DB5-450F-BAA2-6923873F105F.png"></div>
+<p class="p" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-2ADE9D911885E83460-7491">若要确保机器人正确地模仿骨架，必须将每个独立的肘部旋转都作为资产肘部旋转的一个轴进行发布。 </p>
+<p class="p" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-2ADE9D911885E83460-7490">但是，仅轴对轴地发布旋转也无法获得理想的效果。这是因为每个肘部部位的轴与骨架肘部关节相应的轴不一致。 </p>
+<p class="p" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-2ADE9D911885E83460-748F">例如，机器人肘部的 Y 轴实际映射到骨架肘部的 X 轴。 </p>
+<p class="p" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-2ADE9D911885E83460-748E">若要解决此问题，必须在发布时对属性进行重命名。通过将骨架肘部的 rotateX 作为机器人资产的 rotateY 发布，可以确保机器人肘部的移动与骨架肘部的移动相匹配。 </p>
+<p class="li listintro" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-2ADE9D911885E83460-748C">将三个肘部部位作为单个肘部进行发布</p>
+<ol class="ol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-2ADE9D911885E83460-748D"><li class="li" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-2ADE9D911885E83460-748B">在<span class="ph uicontrol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-9BD899BC-7011-4287-BB82-AB5F0E800178">“大纲视图”(Outliner)</span>中，选择机器人左侧的 elbow1 节点。 </li>
+<li class="li" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-2ADE9D911885E83460-748A">在<span class="ph uicontrol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-76466826-9211-4951-813F-CAB502DBD7EE">“通道盒”(Channel Box)</span>中选择 elbow1 的 rotateX 属性。 </li>
+<li class="li" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-2ADE9D911885E83460-7489">选择<span class="ph menucascade" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-E01FA8BB-D58E-41CE-8212-4FA73BEB5035"><span class="ph uicontrol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-BE42227A-0538-42B3-A022-1025A63B851B">“资产</span> &gt; <span class="ph uicontrol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-8F23F3BA-848B-4328-B18B-AEC540416D02">发布属性”(Assets &gt; Publish Attributes)</span> &gt; <span class="ph uicontrol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-326EB33F-D86A-4AA1-BB98-EA133B905157">
+<img class="image" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__IMAGE_60D9B003F15C46BF8E1848F74C1977A1" width="15" height="17" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">
+</span></span>，以设置<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-189F611F-5D52-491D-B7AD-2E9CD66535A5">
+<span class="ph uicontrol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-547B1C8A-7E36-44F5-BB4B-34979F57E1E6">发布属性选项(Publish Attribute Options)</span>
+</a>。 </li>
+<li class="li" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-2ADE9D911885E83460-7487">将<span class="ph uicontrol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-037E9F80-68F2-4B88-B0F6-6EE04D731115">“发布”(Publish)</span>设置为<span class="ph uicontrol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-40AAF24A-1DD4-4CD4-B618-A511086B2E9B">“选定通道盒属性”(Selected channel box attributes)</span>。 </li>
+<li class="li" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-2ADE9D911885E83460-7486">将<span class="ph uicontrol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-E355139B-F057-4B8A-B89C-3BEB774543F6">“属性名称”(Attribute name)</span>设置为<span class="ph uicontrol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-EE66CC72-D3B4-4F39-8C1C-B4E1C0A3810C">“自定义名称”(Custom name)</span>。 </li>
+<li class="li" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-2ADE9D911885E83460-7485">将<span class="ph uicontrol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-25F46B71-4AEF-4128-89CC-2B8E3E2B2A38">“自定义字符串”(Custom string)</span>设置为 lelbow.rotateY。 </li>
+</ol>
+<p class="p" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-150B16DA11960D83164-3070">重复上述步骤，将 elbow2 的 rotateY 映射到资产的 rotateZ，并将 elbow3 的 rotateZ 映射到资产的 rotateX。 </p>
+<div class="fig fignone" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-2ADE9D911885E83460-7483"><img class="image" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__IMAGE_6E1A1E7857A44B27BA23149A51CD0164" width="433" height="434" src="../images/GUID-0DD51FE4-4A01-4EF2-B93D-A44286BE64FD.png"></div>
+<p class="p" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-2ADE9D911885E83460-7482">发布这些属性后，即可将值从骨架资产传递到机器人资产。 </p>
+<p class="li listintro" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-156C9AA7119D8906FDE-7900">将步行循环传递到另一个角色</p>
+<ol class="ol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-156C9AA7119D8906FDE-7901"><li class="li" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-156C9AA7119D8906FDE-78FF">在<span class="ph uicontrol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-F58463F1-71D3-4353-8A9E-AEB181D792D1">“大纲视图”(Outliner)</span>中，选择 PersonA_AST。 </li>
+<li class="li" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-156C9AA7119D8906FDE-78FE"> 按住 Shift 键并在 robot_AST 上单击鼠标左键。 </li>
+<li class="li" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-156C9AA7119D8906FDE-78FD">选择<span class="ph menucascade" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-13DD7B70-B817-49F9-B7AD-B344650791DF"><span class="ph uicontrol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-C9707FF9-6E67-4D08-A86E-B059FB8C8C42">“编辑</span> &gt; <span class="ph uicontrol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-C81F6A0F-5F6C-475D-B34A-824B8E1CF47C">传递属性值”(Edit &gt; Transfer Attribute Values)</span> &gt; <span class="ph uicontrol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-A8DC5F7C-9B5D-4DB0-8940-8A1E69FE87B6">
+<img class="image" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__IMAGE_975EFC1DAFC0401A86F0AF41C4CC5167" width="20" height="20" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">
+</span></span>，以设置<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-DB5835DD-C3D4-48A6-855D-3A0A673EB4D3">
+<span class="ph uicontrol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-57FCAC57-EAF8-40A6-BD33-045A983CA868">传递属性值选项(Transfer Attribute Values Options)</span>
+</a>。 </li>
+<li class="li" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__LI_258D57B6608C40B59E320637DC00A833">启用<span class="ph uicontrol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-4A9DA17B-CBBC-4C32-AE6A-3705E7DCDA5B">“值”(Values)</span>。 </li>
+<li class="li" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-156C9AA7119D8906FDE-78FB">将<span class="ph uicontrol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-E1ED8500-32EC-479A-B246-656B7214F220">“输入连接”(In connections)</span>设置为<span class="ph uicontrol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-6AB5CAAA-2281-4312-97DB-632726F7559F">“与源共享”(Share with source)</span>。 </li>
+<li class="li" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-156C9AA7119D8906FDE-78FA">单击<span class="ph uicontrol" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__GUID-98EAB93B-49C6-4EB9-B672-1B5B3474E587">“应用并关闭”(Apply and Close)</span>。 <p class="p" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-156C9AA7119D8906FDE-78F9">为了与 Person A 相匹配，机器人会更改位置。 </p>
+ </li>
+<li class="li" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-156C9AA7119D8906FDE-78F8">播放动画以查看 Person A 的步行循环是否已复制到机器人。 </li>
+</ol>
+<p class="p" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-156C9AA7119D8906FDE-78F7">之所以能够将步行循环从骨架复制到机器人，是因为在资产级别上这两个对象的显示相同，而不用考虑二者的内部组件。 </p>
+<div class="fig fignone" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__WS1A9193826455F5FF-2ADE9D911885E83460-7481"><img class="image" id="GUID-7173BC52-86A0-44D0-BBB4-124BE579344F__IMAGE_17B82F65DB12469AA4251E9C83D7BE98" width="388" height="255" src="../images/GUID-944B90AE-5E60-44B1-AA2B-AE283BB6EBA2.png"></div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-80D25BE8-F4F7-4719-BF3A-08BB2AB63566.htm">编辑资产</a></div>
+</div>
+</div>
+
+</body>
+</html>

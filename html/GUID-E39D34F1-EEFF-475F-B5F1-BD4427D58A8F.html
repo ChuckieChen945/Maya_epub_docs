@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="接近度包裹: 缩放">
+<meta name="modified" content="26/04/2023">
+<meta name="topicid" content="GUID-E39D34F1-EEFF-475F-B5F1-BD4427D58A8F">
+<meta name="language" content="CHS">
+<title>使用接近度包裹变形器进行全局缩放</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-E39D34F1-EEFF-475F-B5F1-BD4427D58A8F">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用接近度包裹变形器进行全局缩放</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="fig fignone" id="GUID-E39D34F1-EEFF-475F-B5F1-BD4427D58A8F__FIG_CEC7546C282546AFBDD35C5337FA28F8"><img class="image" id="GUID-E39D34F1-EEFF-475F-B5F1-BD4427D58A8F__IMAGE_D7105FF7DE73497C91A04C56B69BC003" src="../images/GUID-B6BF9C6B-A56A-4497-82CE-2DD362F66469.png" alt=""></div>
+<p class="p"> 
+		 本主题介绍如何控制接近度包裹驱动者的<em class="ph i">位置</em>影响 proximityWrap 的 inputGeometry 的变形的方式。
+	 </p>
+<div class="p">可以通过以下两种方式移动驱动者顶点：
+	 <ul class="ul" id="GUID-E39D34F1-EEFF-475F-B5F1-BD4427D58A8F__UL_102F02143C0B4C459EF08AF25D10511B"><li class="li" id="GUID-E39D34F1-EEFF-475F-B5F1-BD4427D58A8F__LI_AA612B6CCEF3443B90DB622576D4D042">驱动者几何体变形 
+		</li>
+<li class="li" id="GUID-E39D34F1-EEFF-475F-B5F1-BD4427D58A8F__LI_CA50B4AAAC8141A781709E0BD2869F50">驱动者变换 
+		</li>
+</ul>
+ 
+	 </div>
+<p class="p"> 
+		<img class="image" id="GUID-E39D34F1-EEFF-475F-B5F1-BD4427D58A8F__IMAGE_ED027AB3B20D47DA945AF9D5687EB1DC" src="../images/GUID-81AF706B-5A34-4703-8F71-7C6D656302E5.gif" alt=""> 
+	 </p>
+<p class="p">在上面的示例中，蓝色平面是驱动者，影响绿色圆环。蓝色平面的顶点由变形变形器和簇变形器变形。
+	 </p>
+<p class="p">变形变形器会在平面中创建弯曲，但不会缩放或旋转它。簇变形器通过移动顶点在视觉上“缩放”几何体，但请注意，驱动者不知道这实际上表示缩放。驱动者的变换添加了另一个级别的缩放和转换。
+	 </p>
+<div class="p"> 
+		<div class="fig fignone" id="GUID-E39D34F1-EEFF-475F-B5F1-BD4427D58A8F__FIG_BD734BB39F25491F8E655C1AA70B0717"><img class="image" id="GUID-E39D34F1-EEFF-475F-B5F1-BD4427D58A8F__IMAGE_D0363F81DD524EABB839C391B03E6A44" src="../images/GUID-FCE8DBF3-A094-42FD-93E5-4448B3E62A6C.gif" alt=""><p class="figcap">当仅使用移动的顶点时，圆环似乎变平了</p></div>
+ 
+	 </div>
+<p class="p"> 当驱动者仅使用移动的顶点时，圆环看起来会变得扁平，因为它随平面拉伸，但会保持其原始高度。这是因为<span class="ph uicontrol">“接近度包裹”(Proximity Wrap)</span>不使用任何实际变换信息，仅使用移动的驱动者顶点。
+	 </p>
+<p class="p">如果希望驱动者将“变换”(Transform)考虑在内，请在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-67A58D31-4722-4769-B3E6-1A35B5B53BED">属性编辑器(Attribute Editor)</a>“接近度包裹”(Proximity Wrap)设置的“驱动者”(Driver)区域中取消激活<strong class="ph b"><span class="ph uicontrol">“使用变换作为变形”(Use Transform As Deformation)</span></strong>选项。（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-A5B4553F-8135-4BF5-B2F1-14CAD47A8D31.htm">接近度包裹选项(Proximity Wrap options)</a>中的<strong class="ph b"><span class="ph uicontrol">“驱动者属性”(Driver Attributes)</span></strong>。）
+	 </p>
+<div class="p"> 如果在上例中禁用<strong class="ph b"><span class="ph uicontrol">“使用变换作为变形”(Use Transform As Deformation)</span></strong>，则圆环会随驱动者一起缩放。但是，圆环不会对由簇变形器添加的“缩放”做出反应。
+		<div class="fig fignone" id="GUID-E39D34F1-EEFF-475F-B5F1-BD4427D58A8F__FIG_E18AF79D231F464381FC39463D054E35"><img class="image" id="GUID-E39D34F1-EEFF-475F-B5F1-BD4427D58A8F__IMAGE_5B30F9901CA34DF3A9895631C8DFDE8F" src="../images/GUID-07FB2B7A-7BA6-409C-BB1B-9C6440500F03.png" alt=""><p class="figcap"> 禁用<strong class="ph b"><span class="ph uicontrol">“使用变换作为变形”(Use Transform As Deformation)</span></strong>后，圆环会随驱动者一起缩放，而不会随簇变形器进行缩放</p></div>
+ 
+	 </div>
+<div class="p"> 若要解决此问题，可以为“接近度包裹”(Proximity Wrap)提供其他信息。可以通过两种方法（或结合使用这两种方法）执行此操作。
+	 <dl class="dl"><dt class="dt dlterm">方法 1
+		  </dt>
+<dd class="dd">
+			 <div class="p">第一种方法包括提供隐含变换的矩阵。在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-23277302-6665-465F-8579-9BC734228F69">节点编辑器(Node Editor)</a>中，将簇控制柄<strong class="ph b"><span class="ph uicontrol">“世界矩阵”(World Matrix)</span></strong>属性连接到“接近度包裹”(Proximity Wrap)的<strong class="ph b"><span class="ph uicontrol">“驱动者簇矩阵”(Driver Cluster Matrix)</span></strong>属性，以提供有关隐含变换的信息。
+				<div class="note note" id="GUID-E39D34F1-EEFF-475F-B5F1-BD4427D58A8F__GUID-47124EA8-91BF-42D3-A92E-37412F9B2380"><span class="notetitle">注：</span> 可以将矩阵连接到属性，以提供要从其开始移动的位置。<strong class="ph b"><span class="ph uicontrol">“驱动者簇静止矩阵”(Driver Cluster Rest Matrix)</span></strong>属性提供静止变换，<strong class="ph b"><span class="ph uicontrol">“驱动者簇矩阵”(Driver Cluster Matrix)</span></strong>提供当前变换。它们之间的相对运动将用作 proximityWrap 的隐含变换。
+				</div>
+
+			 </div>
+
+		  </dd>
+<dt class="dt dlterm">方法 2
+		  </dt>
+<dd class="dd">
+			 <p class="p">第二种方法包括提供简单的均匀缩放值。如果驱动者的隐含缩放为 2.5，则可以在 proximityWrap 变形器上使用<strong class="ph b"><span class="ph uicontrol">“缩放补偿”(Scale Compensation)</span></strong>属性设置此值。这可以在 proximityWrap 变形器的全局级别上设置，以便它应用于所有驱动者，或者可以分别为每个驱动者设置它。
+			 </p>
+
+		  </dd>
+</dl>
+
+	 </div>
+<div class="fig fignone" id="GUID-E39D34F1-EEFF-475F-B5F1-BD4427D58A8F__FIG_4FA11DBE82EF4519B3D567296C4A5F6B"><img class="image" id="GUID-E39D34F1-EEFF-475F-B5F1-BD4427D58A8F__IMAGE_4546CE3431EC441DB66EF1C888ACED6D" src="../images/GUID-DF1C245D-83C0-445C-9FBB-555EF1E0B89E.png" alt=""><p class="figcap"> 左：仅使用移动的顶点，右：使用所有变换。</p></div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-0D7E6B72-6021-4C66-9262-089D10246C3F.htm">接近度包裹变形器</a></div>
+</div>
+</div>
+
+</body>
+</html>

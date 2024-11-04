@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC">
+<meta name="language" content="CHS">
+<title>Maya Nucleus 解算器特性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>Maya Nucleus 解算器特性</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-2369"><p class="p" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__WS1A9193826455F5FF6026605B1181C8F4F2E-1F3F"> Maya Nucleus 解算器特性控制内部力，这些内部力影响属于特定解算器系统的所有节点。在 Maya 中，可以在 Nucleus 对象上使用<span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-CAD05734-2C7B-4D6A-BDA0-E7BCAFDBAE30">“重力和风”(Gravity and Wind)</span>力来增强对象的移动和行为，从而能够设置 Nucleus 对象所在的环境和大气。Nucleus 力与 Maya 场生成的力不同，区别在于前者是 Nucleus 系统的内部力，且仅影响 nCloth、nParticle、nHair 和被动碰撞对象。 </p>
+<p class="p" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__WS1A9193826455F5FF6026605B1181C8F4F2E-1F3D">例如，<samp class="ph codeph" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-B5973699-35DE-46CF-B7F8-6D18D0BB0E5F">Nucleus</samp> 节点上的<span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-3022F51B-989F-48A8-817D-20A01EFD42B2">“重力”(Gravity)</span>和<span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-0FB388E7-0F84-4F4E-99FE-427140457F73">“空气密度”(Air Density)</span>属性，会影响 nCloth 如何基于场景中行星隐式大气层的重力拉动以及环境的干燥度或湿度而下落穿过空气。基于<span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-1740DCDD-9B1B-4C5A-B14A-2173409EA711">“风速”(Wind Speed)</span>和<span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-16A303CF-99CB-494B-B9FA-C4B662B53779">“风向”(Wind Direction)</span>属性设置，风力也会影响 nCloth 的翻滚、涟漪、波浪或流动等效果。 </p>
+<div class="section" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__WS1A9193826455F5FF68908C3E11A1FA06A23-66A8"><h2 class="title sectiontitle">设定<span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-D7FC957F-6484-4F16-B162-E14847E91354">“空间比例”(Space Scale)</span></h2>
+
+<p class="p" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__WS1A9193826455F5FF68908C3E11A1FA06A23-66A7"> 为了确保在模拟过程中适当地将重力应用于 Nucleus 对象，设置 Nucleus 系统的<span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-9BB739EA-791B-4B53-8766-499ABEF714BF">“空间比例”(Space Scale)</span>是很重要的。Nucleus 解算器将厘米解释为米，因此，可能需要调整对象的 Maya Nucleus 解算器的<span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-987EC244-B192-4B4F-9ADE-D0058F27D8E5">“空间比例”(Space Scale)</span>。否则，场景中的大型 nCloth、nParticle 或 nHair 对象可能不会具有需要的行为。例如，<span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-3440E9A4-6601-48E1-B1CB-BAAC1F47AABF">“空间比例”(Space Scale)</span>为 1.0（默认值）时，重力会将 100 厘米宽的 nCloth 对象视为 100 米宽。若要改善大尺寸 nCloth 对象的行为，请减小<span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-225E5D5F-95E6-4F04-BAE2-D9F6EB5F2B9A">“空间比例”(Space Scale)</span>值。如果进行建模时一个单位等于一厘米，则<span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-602EB7FE-894D-43BE-BECA-DA4D38359667">“空间比例”(Space Scale)</span>值应设置为 0.01。也可以试用<span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-327FF167-3092-4FFA-8981-4F4137AC7781">“空间比例”(Space Scale)</span>值以生成不同类型的模拟结果，例如夸大重力和风对 nCloth 和 nParticle 对象的影响。例如，如果在场景的中间地面中有一个 nCloth 对象，那么可以调整<span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-30971662-2488-4086-8145-960C03C0244F">“空间比例”(Space Scale)</span>以保持对象在场景中的正确比例。 </p>
+
+<p class="p" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__WS1A9193826455F5FF-4FDFBFFB11A5310C890-64B4">请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-8A37908F-592E-4C4E-846F-D2E2BB0A7FC1">处理大型 nCloth 对象</a>。 </p>
+
+<div class="note note" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__WS1A9193826455F5FF73C538A911AF8B6901A-65FF"><span class="notetitle">注：</span> 
+<p class="p" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-2732EB8B-52C3-4952-BE1C-DDE92F8D4519">调整<span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-FBA03F8C-7A43-450B-A16B-CD6FFBEB1900">“空间比例”(Space Scale)</span>不会影响外部动力（如 Maya 场）的幅值。 </p>
+
+</div>
+
+</div>
+<div class="section" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__WS1A9193826455F5FF68908C3E11A1FA06A23-66A5"><h2 class="title sectiontitle">使用<span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-2342F1F9-787A-4B72-A35C-3C47AD5CF44C">“交互式播放”(Interactive Playback)</span></h2>
+
+<p class="p" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__WS1A9193826455F5FF68908C3E11A1FA06A23-66A4"> 在播放期间，您可以使用<span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-867B4C16-3571-40AF-BFD1-A8BA0DBE3719">“交互式播放”(Interactive Playback)</span>与场景中的对象交互。例如，使用<span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-81E4537E-D3B9-499F-B73B-61D4C3C8F0B3">“交互式播放”(Interactive Playback)</span>，可以通过<span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-D915E367-8395-4869-A105-3DA12987DDF1">“选择工具”(Select Tool)</span>来选择，然后移动被动对象，使其与 nCloth 对象碰撞。这样可以观察碰撞是如何影响 nCloth 的。然后，可以对碰撞或动态属性进行任何所需的调整，再设置对象的动画或缓存模拟。 </p>
+
+<p class="p" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__WS1A9193826455F5FF68908C3E11A1FA06A23-66A3">通过选择<span class="ph menucascade" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-7B742417-DFFD-41A3-8DAD-5AF15572B984"><span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-8C489D6C-BED3-401B-B01F-303B3EA83B24">“字段/解算器</span> &gt; <span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-AF2F1796-C2E5-468E-A6FD-5A22B70EE6B5">交互式播放”(Fields/Solvers &gt; Interactive Playback)</span></span>，访问<span class="ph uicontrol" id="GUID-02DD202C-C4C8-4A03-A664-2DA4D26F47CC__GUID-D2D3EB57-9C4A-4212-AEAF-7872F054017E">“交互式播放”(Interactive Playback)</span>。 </p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-E1498F66-BD9D-4DB9-9BB7-EA123ABEB9E7.htm">nDynamics 概述和概念</a></div>
+</div>
+</div>
+
+</body>
+</html>

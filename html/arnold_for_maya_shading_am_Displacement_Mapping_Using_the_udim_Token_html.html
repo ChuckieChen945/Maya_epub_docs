@@ -1,0 +1,120 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shading_am_Displacement_Mapping_Using_the_udim_Token_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_DISPLACEMENT_MAPPING_USING_THE_UDIM_TOKEN">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用 标记的置换贴图 - Arnold for Maya">
+
+<title>使用  标记的置换贴图</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>使用 <udim> 标记的置换贴图</udim></h1></div><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/no-displacement.jpg" alt=""></td>
+<td><img src="../images/troll-displacement-udim.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>未使用置换</strong></sub></td>
+<td><sub><strong>使用置换</strong></sub></td>
+</tr>
+</tbody></table>
+<p>本简单教程旨在介绍如何在 Arnold 中使用正确的置换工作流渲染从 Mari 中导出的纹理贴图。本示例使用一个精灵模型和一些置换贴图（感谢 <a href="http://metamesh.blogspot.com.es/" target="_blank">Alex Huguet</a> 提供）。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关 UDIM 纹理标记的详细信息，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_textures_html">此处</a>。</p>
+
+</div></div>
+
+<h2 id="uv-udim">UV 平铺 - UDIM</h2><p>UDIM 值是一种表示纹理整数坐标的方式，整数坐标源自纹理左下角在 UV 空间中的坐标。通过这种方式，可以使用多个纹理来覆盖一个模型，而不是使用单个较大的纹理。</p>
+<p>这是 Mari 导出其 UV 纹理空间时使用的约定。它从 1001 (0,0) 开始，并在 U 方向上继续移动 10 个偏移量。然后前进到 V 的下一行，这意味着在 U 方向每移动 10，则在 V 方向移动 1。</p>
+<p>1021 1022 1023 1024 1025 1026 1027 1028 1029 1030</p>
+<p>1011 1012 1013 1014 1015 1016 1017 1018 1019 1020</p>
+<p>1001 1002 1003 1004 1005 1006 1007 1008 1009 1010</p>
+<p>下面的 UV 偏移栅格更好地说明了这种关系（本示例显示的范围仅为五个，因为精灵模型要使用五个置换贴图）：</p>
+<p><img src="../images/UV_offset_grid.jpg" alt="">  </p>
+<p>在 UV 纹理编辑器中，您可以看到各个 UV 已放置在 UV 空间中，从 1001 (0,0) 到 1005 (5,0)，并且置换纹理文件也已相应进行命名：</p>
+<p><img src="../images/uv-texture-editor.jpg" alt=""></p>
+<h2 id="">纹理路径</h2><p>  打开置换文件纹理时，Arnold 会使用“相对”文件路径命名约定。如果您在渲染纹理时遇到问题，请将文件路径名更改为“绝对”路径（更改项目目录会自动将路径名更改为“绝对”路径）。</p>
+<p>要在文件输入中使用此方法，请在文件名中使用 <udim> 标记，该标记随后会替换为适当的数字：</udim></p>
+<p>相对文件路径 - <strong><code>Textures\displacement. &lt;udim&gt;.tif</code></strong></p>
+<p>绝对文件路径 - <strong><code>C:\Users\Documents\Project\Textures\displacement.&lt;udim&gt;.tif</code></strong></p>
+<p><img src="../images/file_paths.png" alt=""></p>
+<p>另一种选择是禁用“绝对纹理路径”(Absolute Texture Paths)。此选项位于“渲染设置”(Render Settings)窗口的“系统 &gt; 搜索路径”(System &gt; Search Paths)下。</p>
+<p><img src="../images/paths-render-settings.png" alt=""></p>
+<p><sub><strong>“绝对纹理路径”(Absolute Texture Paths)位于“渲染设置”(Render Settings)窗口的“系统 &gt; 搜索路径”(System &gt; Search Paths)下</strong></sub></p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>您也可以将文件 2D 纹理节点连接到着色网络，并在属性编辑器中将第一个 UV 平铺加载到“图像名称”(Image Name)属性中。</p>
+
+</div></div>
+
+<p>选择“UDIM (Mari)”以作为“UV 平铺模式”(UV Tiling Mode) - 如果 UV 坐标使用公式 1000+(u+1+v*10) 表示为四位数，请选择此选项。</p>
+<p><img src="../images/udim-file-attributes.png" alt=""></p>
+<p><sub><strong>“UV 平铺模式”(UV Tiling Mode)设置为“UDIM (Mari)”</strong></sub></p>
+<h2 id="">置换属性</h2><p>  文件纹理（使用 <code>C:\Users\Documents\projects\Displacement-troll\source../images\displacement.&lt;udim&gt;.tif</code> 的绝对路径名）连接到置换节点，该节点连接到指定给精灵的着色器。</p>
+<p>“向量空间”(Vector Space)已设置为“世界”(World)空间，比例已设置为 0.75。“边界填充”(Bounds Padding)已设置为 1，“标量零值”(Scalar Zero Value)已设置为 0.25（这些值只起大致的指导作用，您需要根据置换贴图的生成方式和位置更改这些值）。</p>
+<p><img src="../images/displacement-shader-troll.png" alt=""></p>
+<p><sub><strong>置换着色器网络</strong></sub></p>
+<p><img src="../images/displacement-attributes-troll.png" alt=""></p>
+<p><sub><strong>本示例中使用的置换属性</strong></sub></p>
+<h2 id="">细分</h2><p>  要想看到置换贴图的细节，需要增大模型的细分设置。在本例中，细分类型已设置为 Catclark，迭代次数增大到 2。</p>
+<p>有关使用 <udim> 标记渲染 Mari 保存的置换贴图的教程到此结束。</udim></p>
+<p><img src="../images/troll-final.png" alt=""></p>
+<p><sub><strong>最终渲染（减去一个渲染块）</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Shading/arnold_for_maya_shading_am_Displacement_Tutorials_html.html">置换教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

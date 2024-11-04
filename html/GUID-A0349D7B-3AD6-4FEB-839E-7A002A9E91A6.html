@@ -1,0 +1,81 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="ENU">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Maya-USD">
+  <meta name="topicid" content="GUID-A0349D7B-3AD6-4FEB-839E-7A002A9E91A6">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>Change target layer temporarily with edit routing</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>Change target layer temporarily with edit routing</h1></div><h2 id="what-is-edit-routing">What is edit routing</h2><p>When modifying USD data, the modifications are written to the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-4FAD73CA-E775-4009-9DCB-3BC6792C465E">target layer</a> by default. If you need to write some edits on a different layer and then return to the target layer, you can use <a href="https://github.com/Autodesk/maya-usd/blob/e5811448ce8564a8a49eea46176b261a1f3adb48/doc/EditRouting.md" target="_blank"><strong>Edit routing</strong></a>. <strong>Edit routing</strong> is a mechanism that allows you to temporarily change the location where your edits are written, without having to change the actual target layer in the USD Layer Editor. With edit routing, when edits are about to happen, you can specify which layer will receive the edits, and the Maya USD plug-in can temporarily change the target layer to the specified layer.</p>
+<p>This mechanism allows advanced users to write code (scripts or plug-ins) to handle the routing. The script receives information about which USD prim is about to be changed and the name of the operation that is about to modify that prim. In the case of attribute changes, the name of the attribute is also provided. Given this information, the script can choose a specific layer among the available layers. It returns the layer it wants to target. Edit routing is divided in two categories: commands and attributes. Visit <a href="https://github.com/Autodesk/maya-usd/blob/e5811448ce8564a8a49eea46176b261a1f3adb48/doc/EditRouting.md" target="_blank">Maya USD GitHub</a> for more information.</p>
+<h3 id="enable-edit-routing">Enable edit routing</h3><p>To work with edit routing and learn more about usage, see <a href="https://github.com/Autodesk/maya-usd/blob/e5811448ce8564a8a49eea46176b261a1f3adb48/doc/EditRouting.md" target="_blank">Github documentation topic</a> and <a href="https://github.com/Autodesk/maya-usd/blob/e5811448ce8564a8a49eea46176b261a1f3adb48/lib/mayaUsd/utils/editRouter.cpp" target="_blank">code from the Github repository</a>.</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>Note:</div>
+<div class="callout-body">
+
+<p> The edit routing toggle will persist across Maya sessions.</p>
+
+</div></div>
+
+<h3 id="edit-routing-use-cases">Edit routing use cases</h3><p>As a pipeline TD or advanced user, you can use edit routing to:</p>
+<ul>
+<li>Set up your own Edit Router by knowing the command, source layer, and routed layer.</li>
+<li>Set up your own Edit Router by knowing the command and source layer, and knowing when you want edits to be prevented for a specific soure layer.</li>
+</ul>
+<p>When Routing Edits is enabled for the <strong>visibility command</strong> (ie. after enabling the edit routing via script, setting the visibility attribute for a prim), you will now have visibility opinions in the session layer. Now you can work in this target layer (ie. layout.usd) and be able to rename/reparent/regroup the prim without being restricted by MayaUSD Default Restrictions. After the rename/reparent/regroup, the visibility opinions will still apply to the newly edited prim and you can continue working.</p>
+
+<div class="callout callout-important">
+<div class="callout-title"><i class="callout-icon fa fa-exclamation-triangle" aria-hidden="true"></i>Important:</div>
+<div class="callout-body">
+
+<p> Your session layer will stay in sync when removing, reparenting, or grouping prims when edit routing is enabled. When the session layer has an opinion of a prim and that prim gets removed/reparented/regrouped, the result will also happen in the session layer. </p>
+
+</div></div>
+
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>Note:</div>
+<div class="callout-body">
+
+<p> Within the edit router, the Maya SDK, UFE and MayaUsd callbacks are accessible. If the edit router needs more information, it can retrieve it by calling the provided SDK.</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>Parent page:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/GUID-4FAD73CA-E775-4009-9DCB-3BC6792C465E.html">USD Layer Editor</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

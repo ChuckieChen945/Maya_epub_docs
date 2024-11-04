@@ -1,0 +1,169 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_utils_am_Arnold_Denoiser_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_ARNOLD_DENOISER">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" Arnold 降噪器(Arnold Denoiser) - Arnold for Maya">
+
+<title>Arnold 降噪器(Arnold Denoiser)</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>Arnold 降噪器(Arnold Denoiser)</h1></div>
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>渲染单帧时，请使用 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_post_processing_html" target="_blank"><em>imager_denoiser_noice</em></a>。</p>
+
+</div></div>
+
+<p><img src="../images/mtoa_arnold_denoiser1.png" alt=""></p>
+<p><em>Arnold 降噪器</em>是独立的程序后处理降噪器可执行文件。它可处理具有多个层（合并）的 EXR 文件，并输出含有降噪层的 EXR 文件。它会考虑多个帧和多个灯光 AOV。与大多数降噪器相同的是，Arnold 降噪器考虑当前像素的相邻面片，并查找给定搜索区域内的类似相邻面片以便混合在一起。要使用 <em>Arnold 降噪器</em>，您需要通过 Arnold EXR 驱动程序渲染图像。</p>
+<ul>
+<li>Noice 可以使用 <em>gaussian_filter</em> 或 <em>box_filter</em>，并设置可能需要的任何其他过滤器。</li>
+<li>有关降噪教程，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_noise_am_Denoising_a_Room_Interior_html">此处</a>。</li>
+</ul>
+<p><strong>要下载演示（使用灯光组 AOV）降噪的场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/denoise_test.zip" target="_blank">此处</a>。</strong></p>
+<p><em>Arnold 降噪器</em>要求在“渲染设置”(Render Settings)的“AOV”(AOVs)选项卡中启用参数“输出方差 AOV”(Output Variance AOVs)（<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_render_settings_aovs_html">输出降噪 AOV(Output Denoising AOVs)</a>）。</p>
+<p>工作流如下所示：</p>
+<ol>
+<li>转到 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_render_settings_aovs_html">AOV(AOVs)</a>选项卡，并在<em>“降噪器 &gt; Arnold 降噪器”(Denoiser &gt; Arnold Denoiser)<em>下选择</em>“输出降噪 AOV”(Output Denoising AOVs)<em>。这将自动生成 Arnold 降噪器所需的</em>法线、深度<em>和</em>反照率</em> AOV。</li>
+<li>在 Arnold <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_system_am_Render_Settings_html">渲染设置(Render Settings)</a>的<a href="https://help.autodesk.com/pages/viewpage.action?pageId=154768410">“公用”(Common)选项卡</a>中启用“合并 AOV”(Merge AOVs)，并确保渲染为 EXR。</li>
+<li><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_rendering_am_Batch_Rendering_html">批渲染</a>场景或使用“渲染序列”(Render Sequence)窗口渲染出 EXR 文件（从 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_rendering_am_Arnold_RenderView_Window_html">Arnold 渲染视图</a>窗口保存将不起作用）。您应该会在项目的 Images 文件夹中看到相应文件。</li>
+<li>转到<em>“Arnold &gt; 工具 &gt;</em> <em>Arnold 降噪器 (noice)”(Arnold &gt; Utilities &gt; Arnold Denoiser (noice))</em> 以打开降噪窗口。</li>
+<li>在<em>“输入”(Input)</em>中选择渲染的 EXR 图像。然后，它会自动添加带有“_denoised”后缀的<em>“输出”(Output)</em>路径。</li>
+<li>选择是要对单个帧还是帧序列进行降噪，然后选择“降噪”(Denoise)。系统将根据您选择的设置开始降噪处理过程。  </li>
+</ol>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>您可以在脚本编辑器窗口中查看任何“noice”日志消息。</p>
+
+</div></div>
+
+<h3 id="input">输入(Input)</h3><p>要降噪的图像或图像序列的路径。  </p>
+<h3 id="output">输出(Output)</h3><p>设置降噪输出文件路径。输出文件将包含与原始层同名的降噪层。对于每个文件，将保存一个新文件，后缀为<em>“_denoised”</em>（降噪图像）。</p>
+<p>请注意，文件输出大小不同于输入文件，因为只保存了主 RGBA 层（没有保存辅助 AOV）。</p>
+<h3 id="frame-range">帧范围(Frame Range)</h3><p>选择渲染完整序列、单个帧或帧范围（例如 1 到 10）。</p>
+<ul>
+<li><p>完整序列(Complete Sequence)：对给定图像序列的所有帧进行降噪。</p>
+</li>
+<li><p>单个帧(Single Frame)：仅对图像序列的单个帧（在<em>“开始帧”(Start Frame)</em>中指定）进行降噪。</p>
+</li>
+<li><p>开始/结束帧范围(Start/End Frame Range)：对<em>“开始帧”(Start Frame)</em>和<em>“结束帧”(End Frame)</em>中指定的给定帧范围进行降噪。</p>
+</li>
+</ul>
+<h3 id="start-frame">开始帧(Start Frame)</h3><p>设置序列起始值。</p>
+<h3 id="end-frame">结束帧(End Frame)</h3><p>设置序列结束值。</p>
+<h3 id="temporal-stability-frames">时间稳定性帧(Temporal Stability Frames)</h3><p>用于时间稳定性的额外图像的数量。可以指定多个附加帧来提高时间稳定性（例如 <code>render001.exr, render002.exr, render003.exr</code>）。</p>
+<h3 id="variance">方差(Variance)</h3><p>过滤器的强度取决于方差参数，方差值越大，降噪效果越好。对于方差，可以设置为最小值 0.25、默认值 0.5、最大值 0.75。<strong><code>noice</code></strong> 在去除噪波时的积极程度可以通过使用命令行参数 <code>-variance</code> (<code>-v</code>) 设置方差阈值进行控制。默认值为 0.5，值越高，会认为类似相邻面片的颜色差异越大，从而使降噪更为积极。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/mtoa_arnold_denoiser2.jpg" alt=""></td>
+<td><img src="../images/mtoa_arnold_denoiser3.jpg" alt=""></td>
+<td><img src="../images/mtoa_arnold_denoiser4.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用降噪</td>
+<td>0.25</td>
+<td>0.5（默认值）</td>
+</tr>
+</tbody></table>
+<h3 id="">像素搜索半径</h3><p>这是可以找到类似相邻面片的区域。值越高越好，但会增加降噪成本。对于每个像素，<strong><code>noice</code></strong> 将按照使用命令行参数 <code>-searchradius</code> (<code>-sr</code>) 设置的半径搜索方形区域。此区域越大，降噪稳定性越强，找到类似相邻面片的机会也越大。默认值为 9，将提供 19x19 方形相邻面片。如果将其设置为 21（42x42 的搜索窗口），将看到相当于加载 5 个帧的像素区域。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/mtoa_arnold_denoiser5.jpg" alt=""></td>
+<td><img src="../images/mtoa_arnold_denoiser6.jpg" alt=""></td>
+<td><img src="../images/mtoa_arnold_denoiser7.jpg" alt=""></td>
+</tr>
+<tr>
+<td>6</td>
+<td>9（默认值）</td>
+<td>18</td>
+</tr>
+</tbody></table>
+<h3 id="pixel-patch-radius">像素面片半径(Pixel Patch Radius)</h3><p>这将提高降噪的柔和度（同时始终保留要素）。默认值为 3（在较大的一侧），但也可以使用较低值 0 或 1、中间值 3 以及较高值 5。</p>
+<p>对于每个像素，<strong><code>noice</code></strong> 将考虑其相邻面片并查找具有类似相邻面片的其他像素。此相邻面片的半径可以由 <code>-patchradius</code>（或 <code>-pr</code>）命令行参数控制。默认值设置为 3，将提供 7x7 方形相邻面片。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/mtoa_arnold_denoiser8.jpg" alt=""></td>
+<td><img src="../images/mtoa_arnold_denoiser9.jpg" alt=""></td>
+<td><img src="../images/mtoa_arnold_denoiser10.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用降噪</td>
+<td>1</td>
+<td>3（默认值）</td>
+</tr>
+</tbody></table>
+<h3 id="aov-light-group-aovs">灯光组 AOV(Light Group AOVs)</h3><p>可以指定要共同降噪的附加灯光 AOV。</p>
+<h3 id="autodetect-threads">自动检测线程(Autodetect Threads)</h3><p>定义要使用的线程数量。默认情况下，保持一个线程可用，以便在降噪时不会使您的计算机“冻结”。</p>
+<h3 id="denoise">降噪(Denoise)</h3><p>设置降噪的最后一步。在日志区域中，您会注意到为所选范围内的所有文件调用了 <em>noice.exe</em>。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/arnold_for_maya_utils_html.html">工具</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

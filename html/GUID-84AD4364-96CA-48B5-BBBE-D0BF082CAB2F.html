@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Modeling">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F">
+<meta name="language" content="CHS">
+<title>基于 NURBS 的数学表示法</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>基于 NURBS 的数学表示法</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B2187"><h2 class="title sectiontitle">多项式方程式</h2> 
+		 
+		<p class="p" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B2188"> 在最简单的数学方程式中，我们可以用 <em class="ph i" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-5FCFDD93-00FB-4D83-A9CD-260596E647A8">y = 2x</em> 等方程式表示二维直线。该类型的方程式的广义形式是 ax + by = c。等号左边的表达式称为多项式，因为它包含多个项。 
+		</p>
+ 
+		<p class="p" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B218C">在更为复杂的表达式中，变量可以乘以本身，从而生成包含指数的多项式，例如，二次方程式 <em class="ph i" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-63A85A97-B245-40E9-8B71-DCBD21707A3A">y</em> =<em class="ph i" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-30382204-4898-4059-BB78-60A497FD3012"> ax</em><sup class="ph sup" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-7830293E-B895-46BA-8AB4-DEAEF1075884"> 
+			 <span class="ph" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-0D3AEBBA-050A-4647-B988-9EF52A141B42">2</span> 
+		  </sup> + <em class="ph i" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-2D5AE639-3BCB-471D-973B-A284D3B0F3A3">bx</em> +<em class="ph i" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-CAB1C202-13A5-4E6D-BC6D-F25AC4C54ED6"> c</em>。第一次出现的 <em class="ph i" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-D62F921A-9DD2-4D76-8709-0925763B1362">x</em> 的指数 2 表示该函数的图形是曲线而不是直线。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS17956D7ADBC6E73629BB7D5D117AE32BD12-7FFE"><h2 class="title sectiontitle">阶数</h2> 
+		 
+		<p class="p" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B218D"> 多项式方程式的次数由方程式中的最大指数确定： 
+		</p>
+ 
+		<ul class="ul" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B218F"><li class="li" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B2190">线性方程式的次数是 1（无指数）。 
+		  </li>
+<li class="li" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B2191">包含项 x<sup class="ph sup" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-1B1C2BA3-FDF4-4251-B336-7F0EF0C9D4A9"> 
+				<span class="ph" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-51993A87-5692-49F6-9D64-997FD9E59B65">2</span> 
+			 </sup> 的二次方程式的次数为 2。 
+		  </li>
+<li class="li" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B2192">包含项 x<sup class="ph sup" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-49F292C3-08FB-4E88-A10F-ED562FE93CE0"> 
+				<span class="ph" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-F72D8C52-B257-4883-BEE2-3B39F7954C55">3</span> 
+			 </sup> 的三次方程式的次数为 3，依此类推。 
+		  </li>
+</ul>
+ 
+	 </div>
+<div class="section" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B2193"><h2 class="title sectiontitle">参数表示法</h2> 
+		 
+		<p class="p" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B2194"> 可以通过两种常见方法编写曲线的表达式。隐式表示法将每个变量组合在一个较长的非线性方程式中，例如：ax<sup class="ph sup" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-86979856-3018-4295-863E-702BBC632F7C"> 
+			 <span class="ph" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-2C7745C8-4C85-4604-8CF6-07F0DAA2C2EE">3</span> 
+		  </sup> + by<sup class="ph sup" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-726A527E-BE4F-4655-B455-ADC72B54D368"> 
+			 <span class="ph" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-FDDEB2B2-B9E3-4EED-8FAF-D8296AA92E31">2</span> 
+		  </sup> + 2cxy + 2dx +2ey + f = 0。 
+		</p>
+ 
+		<p class="p" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B2198">在该表示法中，只有计算出 x 值和 y 值才能在图形上绘制这些值，因此您必须对整个非线性方程式求解。 
+		</p>
+ 
+		<p class="p" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B2199">参数表示法将该方程式改写为容易求解的短方程式，即将一个变量转换为其他变量的值：x = a + bt + ct<sup class="ph sup" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-F6808689-05C5-4384-90F1-8A1F49E535BA"> 
+			 <span class="ph" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-38EA01A1-54DA-4F96-A80F-768119A54871">2 </span> 
+		  </sup>+ dt<sup class="ph sup" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-7AED97E4-9D87-4F98-9295-C1264FB12DD6"> 
+			 <span class="ph" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-321997E4-DF48-49AA-86C4-377B0FBD41CB">3</span> 
+		  </sup> + ... y = g + ht + jt<sup class="ph sup" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-8F4DA58F-0991-4C24-8A70-C5C2436DD319"> 
+			 <span class="ph" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-48DE6A87-1633-4776-9756-718CFA7BBEE2">2</span> 
+		  </sup> + kt<sup class="ph sup" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-EC697795-3C50-4407-9CE5-F6B99A4F6EB0"> 
+			 <span class="ph" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-687E79B8-962C-4B0F-B7E3-1B6FFF989356">3</span> 
+		  </sup> + ... 
+		</p>
+ 
+		<p class="p" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B219A">使用该表示法后，x 和 y 的方程式就显得非常简单。我们只需 <em class="ph i" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-04BF0082-DF3F-49C9-9A42-2E9B7697627E">t</em> 的值，即沿着我们要计算其 x 和 y 值的曲线的点。 
+		</p>
+ 
+		<p class="p" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B219B">可以可视化参数化曲线，就像通过将点通过空间所绘制的效果一样。只要提供 <em class="ph i" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-68E8EBA3-32A5-4A6B-BF96-9BD0191EC2DA">t</em>，我们就可以计算移动点的 <em class="ph i" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-406C1627-3194-405A-A24A-1A7631E88297">x</em> 和 <em class="ph i" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__GUID-C6E6C19C-DABC-497F-9DA7-C1F713F96751">y</em> 值。 
+		</p>
+ 
+		<p class="p" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B219C"> 
+		  这一点非常重要，因为许多工具都使用将参数与线上的每个点相关联的概念。这相当于曲线的 U 向标注。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B219E"><h2 class="title sectiontitle">复杂的曲线类型与 NURBS</h2> 
+		 
+		<p class="p" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B219F">曲线方程式的阶数越低，描述曲线则越简单。要表示复杂曲线该怎么办？简单的方法是增加曲线的阶数，但这一方法的效率并不太高。曲线的阶数越高，所需的计算越多。此外，阶数高于 7 的曲线易受其形状中的大范围振幅影响，导致它们不适合进行交互式建模。 
+		</p>
+ 
+		<p class="p" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B21A0">正确方法是将阶数相对较低（1 到 7）的曲线方程式组合在一起，形成更大、更复杂的复合曲线分段。曲线分段或跨度连接在一起的点称为编辑点。 
+		</p>
+ 
+		<p class="p" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B21A1">但是也不应完全忽略阶数较高的曲线。次数为 5 和 7 的曲线具有某些优点，例如曲率更加平滑并且“张力”更大。此类曲线经常用在汽车设计中。 
+		</p>
+ 
+		<div class="section" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B21A2"><h3 class="title sectiontitle">平滑结合点</h3> 
+		   
+		  <p class="p" id="GUID-84AD4364-96CA-48B5-BBBE-D0BF082CAB2F__WS73099CC142F48755-3D114B751181C40F14B21A3"> 曲线的阶数决定跨度之间的结合点的平滑度。阶数是 1（线性）的曲线在结合点处提供位置连续性。阶数是 2（二次）的曲线提供切线连续性。阶数是 3（三次）的曲线提供曲率连续性。 
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-5EC05798-3F28-4AD2-8154-36BC444A4DC9.htm">NURBS 概述</a></div>
+</div>
+</div>
+
+</body>
+</html>

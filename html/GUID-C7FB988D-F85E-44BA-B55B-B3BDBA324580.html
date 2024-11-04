@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Basics">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="06/03/2024">
+<meta name="topicid" content="GUID-C7FB988D-F85E-44BA-B55B-B3BDBA324580">
+<meta name="language" content="CHS">
+<title>使用 parentmatrix 节点将对象更改为其父对象</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-C7FB988D-F85E-44BA-B55B-B3BDBA324580">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 parentmatrix 节点将对象更改为其父对象</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p">可以使用 parentMatrix 节点将对象更改为其“父对象”，方法是将原始输入矩阵与多个加权父对象矩阵输入组合在一起。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-F97A982A-1903-469D-AD99-284ADF11BA9D.htm">变换数学节点</a>中的“parentMatrix”。
+	 </p>
+<p class="p">多个加权父对象矩阵输入合并后会产生一个输出矩阵，该矩阵可用作对象的父对象矩阵，通常与对象的 offsetParentMatrix 属性相连。可以设置权重动画，例如，在任何时候只有一个权重具有完整效果，或者该权重可以是输入的归一化组合。
+	 </p>
+<p class="p">例如，假设将对象 <strong class="ph b">A</strong> 放置在两个其他对象（<strong class="ph b">P1</strong> 和 <strong class="ph b">P2</strong>）之间。我们可能希望对象 A 随 P1 一起移动，也可能希望它随 P2 一起移动，或者可能希望它同时随两者一起移动。由于 A 到 P1 的相对位置与 A 到 P2 的相对位置不同，我们不能使用 P1 和 P2 的世界矩阵。因此，parentMatrix 节点将捕获每个目标的 offsetMatrix 以表示这些相对位置。
+	 </p>
+<div class="p">可以使用<strong class="ph b"><span class="ph uicontrol">“管理目标”(Manage Targets)</span></strong>菜单中的选项来初始化和捕捉目标的 offsetMatrix：
+		<div class="fig fignone" id="GUID-C7FB988D-F85E-44BA-B55B-B3BDBA324580__FIG_7CDDA7A24A0E4C4A80FE9FE53FBBDBE6"><img class="image" id="GUID-C7FB988D-F85E-44BA-B55B-B3BDBA324580__IMAGE_3B932D7A39CD45F9AAF8A0EFBB702E83" src="../images/GUID-A857235C-2EA4-44E3-89AC-B6552EB40B2D.png" alt=""><p class="figcap"></p></div>
+ 
+	 <ul class="ul" id="GUID-C7FB988D-F85E-44BA-B55B-B3BDBA324580__UL_F9394755FEE74368876EE5058E6F177C"><li class="li" id="GUID-C7FB988D-F85E-44BA-B55B-B3BDBA324580__LI_3747EC3F5694478EB0737B39C9CFA96E"><strong class="ph b"><span class="ph uicontrol">初始化(Initialize)</span></strong>：初始化目标是指计算 offsetMatrix，以便当目标成为唯一的影响因素时（目标的权重为 1.0，而所有其他对象的权重为 0.0），对象与 inputMatrix 保持在同一位置。
+		</li>
+</ul>
+ 
+	 <ul class="ul" id="GUID-C7FB988D-F85E-44BA-B55B-B3BDBA324580__UL_E31BDC2646DF4FFBA42971173106AAE6"><li class="li" id="GUID-C7FB988D-F85E-44BA-B55B-B3BDBA324580__LI_18BEEB8E64F2445D8C94D41308D8F970"><strong class="ph b"><span class="ph uicontrol">捕捉(Snap)</span></strong>：捕捉目标是指计算 offsetMatrix，以便当目标成为唯一的影响因素时（目标的权重为 1.0，而所有其他对象的权重为 0.0），对象不会移离当前位置。
+		</li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-D53B9E3D-E6E3-4CC3-A38F-3AA3A09205E5.htm">节点和属性</a></div>
+</div>
+</div>
+
+</body>
+</html>

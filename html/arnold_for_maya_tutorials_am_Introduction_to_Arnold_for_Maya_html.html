@@ -1,0 +1,140 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_tutorials_am_Introduction_to_Arnold_for_Maya_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_INTRODUCTION_TO_ARNOLD_FOR_MAYA">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" Arnold for Maya 简介 - Arnold for Maya">
+
+<title>Arnold for Maya 简介</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+<div class="head-block"><h1>Arnold for Maya 简介</h1></div><p><img src="../images/am-Introduction_to_Arnold_for_Maya-image2015-7-8-16-11-53-1.png" alt=""></p>
+<p>Arnold 是一款高级 Monte Carlo 光线跟踪渲染器，专为满足长篇动画和视觉特效电影的需求而构建。本新手教程将为您介绍 MtoA，这是一款允许在 Autodesk Maya 中直接使用 Arnold 渲染器的插件。在本教程中，我们将介绍如何构建一个可为各种物体进行照明和渲染的简单摄影照明工作室设置。我们将分步介绍如何使用 Arnold 渲染器为玩具机器人模型进行照明、着色和渲染。我们将使用 Arnold 的专有灯光来实现物理上精确、具有照片级真实度的照明设置。除了使用 Arnold 灯光以外，您还可以在通过 Arnold 进行渲染时使用标准 Maya 灯光。如果选择灯光后检查 Maya 属性编辑器及常规灯光属性，还会看到一组新的 Arnold 灯光属性，可以从中访问 Arnold 使用的附加设置。</p>
+<p>我们将使用 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Surface_html">standard_surface</a></em> 着色器对机器人进行着色并赋予其金属磨光效果。<em>standard_surface</em> 着色器是一种多用途着色器，能够生成各种类型的材质（从简单的塑料到汽车涂料或皮肤）。<em>standard_surface</em> 着色器的功能非常强大，可以创建大量不同种类的材质，但起初可能有点令人生畏。由于控件数量较多，<em>standard_surface</em> 着色器分为若干个组，如<em>“漫反射”(Diffuse)、“镜面反射”(Specular)、“次表面散射”(Sub-Surface Scattering)</em>等。我们需要调整<em>“漫反射”(Diffuse)</em>属性和<em>“镜面反射”(Specular)</em>属性才能获得逼真的拉丝金属效果。</p>
+<p>我们还将介绍 Arnold 的一些摄影机镜头选项，以生成物理上精确的真实景深。最后，我们将了解如何优化渲染设置并消除渲染中可能出现的任何噪波。请注意，尽管本教程中使用了 Maya 和 MtoA，但实际上大部分都是 Arnold 的常规内容，因此同样适用于其他 Arnold 工具（如 3ds Max to Arnold (MAXtoA) 和 Houdini to Arnold (HtoA)）的用户。</p>
+<p>预计完成本教程所需的时间应该不会超过 30 分钟。</p>
+<h2 id="">场景设置</h2><ul>
+<li>首先，打开 <strong><a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Arnold-robot-start.ma" target="_blank">Arnold-robot.ma</a></strong> 场景。在此场景中，您可以看到机器人模型（位于 Maya 栅格 0,0,0 位置）和一个简单的工作室背景模型。</li>
+</ul>
+<p><img src="../images/am-Introduction_to_Arnold_for_Maya-image2014-1-20-16-56-20-2.png" alt=""></p>
+<ul>
+<li>现在，我们要为工作室场景提供照明。首先，创建三个_区域_光。要执行此操作，请单击 Arnold 工具架上的灯光图标，或通过 Arnold 菜单<em>（“Arnold -&gt; 灯光 -&gt; 区域光”(Arnold -&gt; Lights -&gt; Area Light)）</em>进行选择。</li>
+</ul>
+<p><img src="../images/am-Introduction_to_Arnold_for_Maya-image2017-4-4-17-12-3-3.png" alt=""></p>
+<ul>
+<li>在两侧分别放置一个灯光，在中心放置另一个灯光，位于机器人上方。旋转灯光，使其向内指向机器人，如下图所示。</li>
+</ul>
+<p><img src="../images/am-Introduction_to_Arnold_for_Maya-image2019-2-15-10-6-28-4.png" alt=""></p>
+<h2 id="">灯光设置</h2><ul>
+<li><p>渲染时，场景可能会较暗。因此，我们需要增加灯光的<em>曝光</em>。在 Arnold 属性下，将每个灯光的<em>“曝光”(Exposure)</em>增加到 8 左右。</p>
+</li>
+<li><p>我们可以通过启用<em>“色温”(Color Temperature)</em>更改灯光的颜色。选择右侧的灯光并在其 Arnold 属性中启用<em>“色温”(Color Temperature)</em>。将其保留为默认温度值 6500。这将使灯光呈现冷蓝色效果。选择左侧的灯光并执行相同的操作，但将<em>“色温”(Color Temperature)</em>更改为暖色，例如 4000。</p>
+</li>
+</ul>
+<p><img src="../images/am-Introduction_to_Arnold_for_Maya-image2019-2-7-10-2-32-5.png" alt=""></p>
+<h2 id="">灯光采样数</h2><ul>
+<li>您可能会注意到，Ai 区域光的阴影中出现了一些噪波。这是因为灯光“采样数”(Samples)默认设置为 1。要减少噪波，请尝试将灯光采样数增加到 3。此设置位于每个灯光的 Arnold 属性中。灯光采样数控制软阴影和直接镜面反射高光中的噪波质量。采样数越多，噪波越少，但渲染时间也越长。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Introduction_to_Arnold_for_Maya-samples1-6.jpg" alt=""></td>
+<td><img src="../images/am-Introduction_to_Arnold_for_Maya-samples3-7.jpg" alt=""></td>
+</tr>
+<tr>
+<td>1</td>
+<td>3</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<h2 id="">着色</h2><ul>
+<li>为机器人指定 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Surface_html">standard_surface</a></em> 着色器。为了将其转换为拉丝金属材质，我们将更改以下设置。将 <em>metalness</em> 增大到 1 左右，将 <em>base_color</em> 更改为中等灰色，并将 <em>specular_weight</em> 减小到 0。<em>specular_roughness</em> 控制镜面反射的光泽度。值越小，反射越清晰。将其增大到 0.5 左右。</li>
+</ul>
+<p><img src="../images/am-Introduction_to_Arnold_for_Maya-image2017-4-4-17-16-1-8.png" alt=""></p>
+<h2 id="">摄影机景深</h2><ul>
+<li>我们可以通过 Maya 的原生摄影机使用景深渲染场景。选择渲染摄影机，然后在属性编辑器中打开其 Arnold 属性。单击<strong>“启用 DOF”(Enable DOF)</strong>。除非增加 <strong>aperture_size</strong>，否则您不会注意到渲染中存在任何差异。但是，您需要先将摄影机聚焦于某处。选择机器人的头部，然后转到<strong>“显示 &gt; 提示显示 &gt; 对象详细信息”(Display &gt; Heads up display &gt; Object Details)</strong>。这将显示头部模型与摄影机的距离。在<strong>“聚焦距离”(Focus Distance)</strong>属性中键入该值。现在，增加<strong>“光圈大小”(Aperture Size)</strong>时，您应该会看到机器人的头部位于摄影机的焦点。尝试使用较低的值，例如 <strong>0.05</strong>（该值取决于场景比例）。</li>
+</ul>
+<p><img src="../images/am-Introduction_to_Arnold_for_Maya-image2016-5-3-10-24-48-9.png" alt=""></p>
+<h2 id="">渲染</h2><ul>
+<li>对于测试渲染，渲染场景时使用默认<em>“摄影机(AA)”(Camera (AA))</em>设置 3 已足够。但是，对于最终渲染，您需要将此值至少增加到 5 或以上，具体取决于场景中设置的景深量。</li>
+<li>机器人曲面上可能会出现一些明显的镜面反射噪波，这是由于机器人着色器的间接镜面反射组件的采样质量低下造成的。将<em>镜面反射</em>采样数增加到 2 或 3，这有助于消除这种噪波并创建更清晰的渲染。</li>
+</ul>
+<p><img src="../images/am-Introduction_to_Arnold_for_Maya-image2019-2-7-10-0-0-10.png" alt=""></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>采样和噪波大多是由于采样不足而导致的，但增加错误光线的采样不但会延长渲染时间，而且对去除噪波毫无作用。目的是尽量高效地分配光线，从而以最高效的方式将噪波降至最低。因此，如果必须增加摄影机采样数才能去除 DOF 噪波，为了方便管理渲染时间，必须降低其他设置。但是，如果 DOF 或运动模糊不是关注的重点，则增加摄影机采样数可以修复其他类型的所有噪波，但是也会因不必要的光线而增加渲染时间。</p>
+
+</div></div>
+
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>本教程刊载于《3D Artist》杂志的<a href="https://www.imagineshop.co.uk/magazines/3dartist/3d-artist-issue-66.html" target="_blank">四月刊</a>上。</p>
+
+</div></div>
+
+<p><strong>要下载最终场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Arnold-robot-finish.ma" target="_blank">此处</a>。</strong></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/arnold_for_maya_tutorials_html.html">教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_3x_am_320_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_320">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 3.2.0 - Arnold for Maya">
+
+<title>3.2.0</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>3.2.0</h1></div><h2 id="release-date">Release Date</h2><p>March 20, 2019</p>
+<p>This version uses the Arnold <a href="https://help.autodesk.com/display/arnug/5.3.0.0">5.3.0.0</a> core and includes the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_am_Getting_Started_with_Arnold_GPU_html">beta version of Arnold GPU</a></p>
+<p>Important information about Arnold GPU (beta)</p>
+<ul>
+<li>Check the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_am_Getting_Started_with_Arnold_GPU_html#GettingStartedwithArnoldGPU-gpu_system_requirements">system requirements</a> before using Arnold GPU. If you don't have a supported card or the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_am_Getting_Started_with_Arnold_GPU_html#GettingStartedwithArnoldGPU-gpu_system_requirements">required drivers</a>, GPU rendering will not work.</li>
+<li>Review the list of supported features and known limitations before you start using Arnold GPU.</li>
+<li>If you have any technical problems, questions, or feedback on Arnold GPU, use the beta forum on <a href="https://answers.arnoldrenderer.com/spaces/31/arnold-gpu-beta.html" target="_blank">Arnold Answers</a></li>
+</ul>
+<h2 id="downloads">Downloads</h2><p>Download MtoA for Maya 2017, Maya 2018 and Maya 2019 here: <a href="http://www.arnoldrenderer.com/arnold/download/" target="_blank">www.arnoldrenderer.com/arnold/download/</a></p>
+<p>MtoA 3.2.0 is a major feature release, which is binary compatible with 3.1.* versions.</p>
+<p>It includes the following improvements:</p>
+<h2 id="gpu-rendering-beta">GPU Rendering (BETA)</h2><p>You can now switch between CPU and GPU render devices interactively and expect visually similar results. NVIDIA  ®  GPUs from Turing™ to Maxwell™ architectures are supported, and Arnold will take advantage of multiple GPUs, NVLink™ and NVIDIA  ®  RTX™ hardware accelerated raytracing if available. Note that due to beta status of GPU rendering, a number of features are missing, performance is not final, and use in production is not advised. We plan to gradually improve this in subsequent releases and would appreciate your feedback. For a complete description of requirements, features and caveats, see <strong><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_am_Getting_Started_with_Arnold_GPU_html">Arnold GPU</a></strong> .</p>
+<h2 id="improved-sampling">Improved Sampling</h2><ul>
+<li><strong>Improved adaptive sampling:</strong> Adaptive sampling is now much more effective and predictable than before.</li>
+<li><strong>Improved skydome sampling:</strong> Skydome light's sampling has been improved, in particular in darker areas. Note that existing scenes which were adjusted with previous versions of Arnold will now need to lower down the number of light samples for an equivalent result.</li>
+<li><strong>Faster sample generation:</strong> Scenes with a high number of AA and light samples could take a very long time to start rendering. This is now much faster (some use cases went from 11 minutes to a fraction of a second, before the render starts).</li>
+</ul>
+<h2 id="improved-shading">Improved Shading</h2><ul>
+<li><strong>Microfacet multiple scattering:</strong> The GGX microfacet BSDF used in the standard_surface shader has been improved to account for multiple scattering between the microfacets, which is more physically correct and reduces energy loss on reflection, especially at higher roughness settings. The reflection from rough metals , in particular, will be significantly brighter and more saturated as a result.</li>
+</ul>
+<p>*<em><img src="../images/am-320-shaderballs-gold-multiscatter-off-1.png" alt=""><br>*</em></p>
+<p><sup><sub><strong>Without microfacet multiple scattering</strong></sub></sup></p>
+<p><strong><img src="../images/am-320-shaderballs-gold-multiscatter-on-720-2.png" alt=""></strong></p>
+<p><sup><sub><strong><strong>With microfacet multiple scattering</strong></strong></sub></sup></p>
+<ul>
+<li><p><strong>Improved randomwalk SSS:</strong> A new SSS mode <a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/am-3x/(topicid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html)#standard_surface-subsurface_type">randomwalk_v2</a> has been added that scatters more accurately and deeply through highly-transparent/optically-thin objects, which produces SSS with more saturated colors around fine surface detail and heavily backlit regions of an object</p>
+<p><img src="../images/am-320-image-one-column-3.jpg" alt=""></p>
+</li>
+<li><p><strong>Smart opaque:</strong> When using builtin shaders, Arnold will now automatically set the opaque parameter in the shapes. Setting transparency only in the shaders will now be enough (exceptions are curves / points using min_pixel_width). Custom shaders can support this feature by setting metadatas opacity_term and transparency_term in the shaders.</p>
+</li>
+<li><p><strong>Improved bump and normal_mapping:</strong> bump and normal mapping now correct for non-physical shading normals (eg. extreme values) while preserving detail.</p>
+</li>
+<li><p>Anisotropy controls for coat in aiStandardSurface</p>
+</li>
+<li><p>Support for negative "Transmission Extra Roughness" in aiStandardSurface</p>
+</li>
+<li><p>New aiUvProjection shader allows to do spherical/cubic/ etc.. projections on a surface</p>
+</li>
+<li><p>Exposing Arnold shaders aiCameraProjection , aiRampRgb, aiRampFloat, aiRgbaToFloat</p>
+</li>
+</ul>
+<h2 id="visible-lights">Visible Lights</h2><ul>
+<li><p><strong>Area Lights</strong> and <strong>point lights</strong> can now be made <strong><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_am_Lights_html#Lights-Visibility">visible to camera and transmission</a></strong> rays by increasing parameters camera and transmission.</p>
+<p><img src="../images/am-320-area-light-visible-1-4.jpg" alt=""></p>
+</li>
+</ul>
+<h2 id="standins-amp-gpucache-workflow-improvements">StandIns &amp; gpuCache workflow improvements</h2><ul>
+<li><p>New <strong>UI for shader assignments and overrides using Arnold operators:</strong> A new UI in <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Stand_ins_html#Stand-ins-FileContents">Stand-ins</a> and <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Alembic_html">gpuCache</a> allows to introspect nodes, assign shaders to specific elements, override parameters, etc... in a user-friendly way. It will allow to create and edit operators attached to the Stand-in, that will, therefore, be portable across scene references. Check the <a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Content-Override-Operators.mp4" target="_blank">video</a> showing how to use Operators and assignments with alembic files.</p>
+<p><img src="../images/am-320-standin-ui-5.jpg" alt=""></p>
+</li>
+<li><p><strong>Standins</strong> can now load <strong>alembic</strong> files</p>
+</li>
+<li><p>Show selected item in the viewport: While introspecting a Stand-in content, selecting items will highlight them in the viewport. Picking in the Arnold RenderView will also select the corresponding item.</p>
+</li>
+<li><p>New workflow for Standin's <strong>proxy geometries in the viewport:</strong> A new parameter ignoreGroupNodes will skip all the nodes below the Stand-in hierarchy for rendering. The desired proxy geometries just need to be parented to the Stand-in, and they will only appear in the viewport when this parameter is enabled.</p>
+</li>
+<li><p>Subdivision creases supported in Alembic</p>
+</li>
+</ul>
+<h2 id="export-shading-trees-as-materialx-files">Export Shading trees as MaterialX files</h2><p>New menu <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_utils_am_Export_Selection_to_Material_X_html">Export Selection to MaterialX</a> allows exporting the selected shading trees to a materialx document. It's also possible to append several looks to a single mtlx file and then to switch between both in the materialx operator. Geometrie's properties (subdivision settings, etc...) can also be baked to the file.</p>
+<h2 id="operators">Operators</h2><ul>
+<li>Added option to <a href="https://help.autodesk.com/pages/viewpage.action?pageId=154773628"><strong>Export/Import operator graphs:</strong></a> New menu Export Operator Graph allows to export an operator graph to a .ass file (either the selection or the scene's graph). It's then possible to import it back to Maya, or even to another DCC.</li>
+<li>New <strong><a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Include+Graph&amp;linkCreation=true&amp;fromPageId=154764338">include_graph</a></strong> operator: Includes an operator graph that was previously exported to .ass.</li>
+</ul>
+<h2 id="other">Other</h2><ul>
+<li><p>Improved workflow for <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_aovs_am_Motion_Vector_AOV_html">motion vectors AOV</a> : new attribute <strong>Instantaneous Shutter</strong> in the motion blur settings allows getting correct motion vectors AOV while rendering a still image. The shutter range will now be taken into account in the AOV.</p>
+</li>
+<li><p><strong>Faster .ass file writing:</strong> Writing to .ass, especially over Windows networks, can be dramatically faster (up to 51x reported)</p>
+</li>
+<li><p>Faster OSL UDIM texture reads: Reading UDIM textures in OSL is now much faster (up to 10x reported)</p>
+</li>
+<li><p>Disabled Swatch rendering by default, to avoid non-necessary excessive slowdowns</p>
+</li>
+<li><p>Exposing "<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/displacement_brick_autobump_on_closeup.jpg" target="_blank">autobump visibility</a>" in meshes to solve artifacts for objects appearing through sharp reflections/refractions.</p>
+</li>
+<li><p>Updated to OIIO 2.1.0</p>
+</li>
+</ul>
+<h2 id="bugfixes">Bugfixes</h2><ul>
+<li>Fixes on triplanar used for displacement.</li>
+<li>Adaptive sampling was being reset to OFF during IPR updates.</li>
+<li>Interactivity optimizations when IPR is stopped.</li>
+<li>Texture repeat wasn't working with custom UV sets.</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible Changes</h2><ul>
+<li><strong>Default specular_roughness</strong> in aiStandardSurface is now <strong>0.2</strong> . Existing scenes that had left this parameter to its default value might now look different.</li>
+<li>Changes in skydome sampling require to <strong>lower down the skydome samples on existing scenes</strong> for an equivalent result and render times. For the same settings as before, the result will be less noisy but up to 30% longer.</li>
+<li>Removed support for NVIDIA Kepler GPUs.</li>
+<li>Specular AOV: The sheen component has been removed from the specular AOVs.</li>
+<li>Removed SSS on curves.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Ticket</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>#3702</td>
+<td>User data on xgen_procedural node is not used when you render Maya scene file</td>
+</tr>
+<tr>
+<td>#3722</td>
+<td>texture repeat not working with file node and custom UV set</td>
+</tr>
+<tr>
+<td>#3504</td>
+<td>another uvSet is rendered if UV Shell was deleted</td>
+</tr>
+<tr>
+<td>#3672</td>
+<td>Remove warning about "maya" driver not found</td>
+</tr>
+<tr>
+<td>#3678</td>
+<td>Update MFnDependencyNode::findPlug signature</td>
+</tr>
+<tr>
+<td>#3685</td>
+<td>Normal map is incorrect with flipped UVs</td>
+</tr>
+<tr>
+<td>#3687</td>
+<td>MayaShadingEngine exported with pxfHair</td>
+</tr>
+<tr>
+<td>#3690</td>
+<td>Crash with custom set nodes</td>
+</tr>
+<tr>
+<td>#3694</td>
+<td>No uint in AOV type list</td>
+</tr>
+<tr>
+<td>#3705</td>
+<td>Xgen Splines (interactive) doesn't export matrix during interactive sessions</td>
+</tr>
+<tr>
+<td>#3731</td>
+<td>[ARV] adaptive sampling reset during IPR iterations</td>
+</tr>
+<tr>
+<td>#3732</td>
+<td>Small interactivity optimizations when IPR is stopped</td>
+</tr>
+<tr>
+<td>#3303</td>
+<td>Disable render swatches by default</td>
+</tr>
+<tr>
+<td>#3677</td>
+<td>add curve basis override to gpuCache interface</td>
+</tr>
+<tr>
+<td>#3526</td>
+<td>Improve overrides for gpuCache and standins</td>
+</tr>
+<tr>
+<td>#3601</td>
+<td>Export shading trees as materialx document</td>
+</tr>
+<tr>
+<td>#3659</td>
+<td>Scene assembly representation not rendering in Batch / Ass Export</td>
+</tr>
+<tr>
+<td>#3676</td>
+<td>Expose include_graph operator</td>
+</tr>
+<tr>
+<td>#3681</td>
+<td>Allow exporting selected operator graph</td>
+</tr>
+<tr>
+<td>#3696</td>
+<td>Allow Stand-ins to load alembic files</td>
+</tr>
+<tr>
+<td>#3698</td>
+<td>Show Stand-in selected item in the viewport</td>
+</tr>
+<tr>
+<td>#3709</td>
+<td>Expose pre-populate GPU cache</td>
+</tr>
+<tr>
+<td>#3728</td>
+<td>Disable shaders motion blur by default</td>
+</tr>
+<tr>
+<td>#3729</td>
+<td>Expose new option to render with an instantaneous shutter</td>
+</tr>
+<tr>
+<td>#3736</td>
+<td>Expose ramp_rgb and ramp_float</td>
+</tr>
+<tr>
+<td>#3739</td>
+<td>Expose and Export render_device_fallback</td>
+</tr>
+<tr>
+<td>#3742</td>
+<td>Allow hiding geometry below the hierarchy of a Stand-in</td>
+</tr>
+<tr>
+<td>#3743</td>
+<td>Expose autobump visibility</td>
+</tr>
+<tr>
+<td>#3509</td>
+<td>Export Maya's Projection shader as Arnold native shaders</td>
+</tr>
+<tr>
+<td>#3621</td>
+<td>Export lookdevkit as Arnold native shaders - Part 2</td>
+</tr>
+<tr>
+<td>#3674</td>
+<td>Switch operators input in procedurals to rely on the core parameter</td>
+</tr>
+<tr>
+<td>#3691</td>
+<td>Convert MayaGammaConvert shader</td>
+</tr>
+<tr>
+<td>#3703</td>
+<td>Convert MayaSamplerInfo Shaders to Arnold Native Shaders</td>
+</tr>
+<tr>
+<td>#3708</td>
+<td>Convert Maya's ramp as Arnold ramp_rgb</td>
+</tr>
+<tr>
+<td>#3710</td>
+<td>Convert Maya Contrast as Arnold shaders</td>
+</tr>
+<tr>
+<td>#3711</td>
+<td>Remove Maya displacement shaders from MtoA</td>
+</tr>
+<tr>
+<td>#3714</td>
+<td>Remove MtoA's Anim shaders</td>
+</tr>
+<tr>
+<td>#3715</td>
+<td>Remove MtoA's write AOV shaders</td>
+</tr>
+<tr>
+<td>#3716</td>
+<td>Convert Maya remap shader to Arnold native shaders</td>
+</tr>
+<tr>
+<td>#3720</td>
+<td>Convert RenderSetup shader to Arnold native shaders</td>
+</tr>
+<tr>
+<td>#3721</td>
+<td>Export MayaImagePlane using Arnold native shaders</td>
+</tr>
+<tr>
+<td>#3725</td>
+<td>Convert HairPhysical shaders to use Arnold core shaders</td>
+</tr>
+<tr>
+<td>#3733</td>
+<td>Label GPU supported things using metadata</td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_3x_html.html">MtoA 3.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

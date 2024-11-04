@@ -1,0 +1,603 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Animation">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576">
+<meta name="language" content="CHS">
+<title>ATOM 格式描述</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>ATOM 格式描述</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-B84E60B2-77F5-44A2-8B10-0EA688BC6965"> .atom 文件格式类似于 .anim 格式，并使用相同的模式保存动画曲线。但该格式还包含其他数据，例如未设置动画的静态值、烘焙值、动画层以及嵌入式导出编辑文件，这些文件中包含有关重新构造约束的信息并设置受驱动关键帧。（请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-A3FB51ED-3023-4E1E-AF20-4D38E2E2FEBD.htm">ATOM 文件格式</a>。） 
+	 </p>
+<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-1947B092-20DF-4653-B78D-5EA07A19D357">导出 .atom 文件（<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-20FBCA56-2CD7-46F2-B851-682817961430.htm">导出 .atom 动画</a>）之后，即可使用您选择的任意文本编辑器查看和编辑该文件。为了描述该格式，本主题将文件分为以下部分： 
+	 </p>
+<ul class="ul" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__UL_1E84319DCE7B4FB881FBA528A228229F"><li class="li" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__LI_0A6F564DD2654466A25C986B5DFE6872"> 
+		  <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576.htm#GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__SECTION_AB0A6D0D59D94241B94C2FAB2D8C0011">标头部分</a> 
+		</li>
+<li class="li" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__LI_8548F062E6F34EA7AEB609BC7CEE9599"> 
+		  <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576.htm#GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__SECTION_1115D14D00AB4210A954F6F9F450A9FD">动画层部分</a> 
+		</li>
+<li class="li" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__LI_EF0E19D6569643E391025324CE1039A6"> 
+		  <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576.htm#GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__SECTION_B4254F15AC99417889B337FB844BE7AF">主体（对象）部分</a> 
+		</li>
+<li class="li" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__LI_661F366F2E294CD7B3CC49702053FCBA"> 
+		  <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576.htm#GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__SECTION_48E231CD50E541FEA9C32514D19FA390">嵌入的脱机编辑文件 (.editMA)</a> 
+		</li>
+</ul>
+<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-4E27BF00-CC89-4EC4-B408-D3242F6E01A7">若要查看不含描述的完整 .atom 文件，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-074E8890-08F5-4872-9AA6-45932DC5A1B2.htm">示例 .atom 文件</a>。 
+	 </p>
+<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-DD6DC6C3-D9AD-48B3-9EBE-830D05E771DB">有关 .atom 语法的其他介绍性说明： 
+	 </p>
+<ul class="ul" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__UL_4572A232DDED4D718BE4160BE905668D"><li class="li" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__LI_DED82439BF024EB8AA3AA4EE7033559B"><samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-9B6EEBAC-3C49-4BFE-BC4A-C6DAE35ECFA0">#</samp> 是有效的注释字符。请注意，// 不是有效的注释字符，这一点与 .anim 文件不同。 
+		  <pre class="pre codeblock">#Atom File Format Description</pre>
+ 
+		</li>
+<li class="li" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__LI_2701626BCE0940AA8763A43D1220730B">文件中不包含大括号 { 或 } 的任何行都必须以分号 (;) 结尾。从分号 (;) 后另起一行。 
+		</li>
+<li class="li" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__LI_EF8C0C95111F495F9E0CC14A4C65A4E3">关键字和数据以空格分隔。 
+		</li>
+</ul>
+<div class="section" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__SECTION_AB0A6D0D59D94241B94C2FAB2D8C0011"><h2 class="title sectiontitle">标头部分</h2> 
+		 
+		<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-0451CDD0-B649-4E41-884A-A41071381A5E">.atom 文件的标头部分可以包括以下内容。 
+		</p>
+ 
+		<pre class="pre codeblock">atomVersion 1.0;
+mayaVersion ;
+mayaSceneFile string
+timeUnit [game|film|pal|ntsc|show|palf|ntscf|hour|min|sec|millisec]
+linearUnit [mm|cm|m|km|in|ft|yd|mi]
+angularUnit [rad|deg|min|sec]
+startTime [float] 
+endTime [float]
+startUnitless [float] 
+endUnitless [float]
+offlineFile [string:optional]</pre>
+ 
+		<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-A81F4C95-B1E5-4E45-8D93-EDB0330E94CF">例如： 
+		</p>
+ 
+		<pre class="pre codeblock">atomVersion 1.0;
+mayaVersion ;
+mayaSceneFile C:/Users/user/Documents/maya/projects/default/scenes/test.ma;
+timeUnit film;
+linearUnit cm;
+angularUnit deg;
+startTime 1;
+endTime 8;
+offlineFile ;</pre>
+ 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__TABLE_AA84FC9672F4434A96FC5661EECE87CF" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="13.966480446927374%"> 
+					 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-EFEB32EE-45D5-4256-92DE-71E93827173D">atomVersion</samp> 
+				  </td>
+<td class="entry" valign="top" width="86.03351955307262%"> 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-E8649247-E36D-49D2-B16D-D629A5041C8A">该文件格式的版本号。此行是必需的。 
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.966480446927374%"> 
+					 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-9C655D59-1E2D-4C12-AF93-DC22C1E2FE20">mayaVersion </samp> 
+				  </td>
+<td class="entry" valign="top" width="86.03351955307262%"> 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-83ED9CB4-8BFE-4A67-A586-FFA016341C5F">Maya 的版本。此字符串是 MGlobal::mayaVersion() mayaVersion 字符串的值。 
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.966480446927374%"> 
+					 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-A2E8FAD5-AF2F-417A-95AF-3F6E1F99A3B3">mayaSceneFile </samp> 
+				  </td>
+<td class="entry" valign="top" width="86.03351955307262%"> 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-49D0CD21-1539-4199-89ED-3BBE0DB5E8C6">（可选）从中保存 .atom 文件的场景文件的名称。 
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.966480446927374%"> 
+					 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-C9FB775F-747D-47FC-9BF8-BB9B99194ADD">timeUnit </samp> 
+				  </td>
+<td class="entry" rowspan="3" valign="top" width="86.03351955307262%"> 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-9F5E51EA-D545-4990-9D0A-F760042BD85B"> 这些关键字用于设置文件的单位。每条动画曲线以及每个静态值和烘焙值都可以有自己的单位，但这些单位在未指定动画曲线单位时为默认单位（请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576.htm#GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-C77FCA51-5B77-4F26-85C9-9A2348AD83B1">animData</a>）。如果未指定这些单位，则使用 UI 单位。 
+					 </p>
+ 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-094F40C2-5C8E-47C6-A445-3836075A454E"><strong class="ph b" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-88FAB6F4-48A0-44DF-B1C7-D625C8648CBD">只能</strong>包含在文件的标头部分。 
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.966480446927374%"> 
+					 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-56F6A583-4AE1-4036-9C38-AF97511BADBF">linearUnit </samp> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.966480446927374%"> 
+					 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-51B7070A-3C94-4A5B-B27D-FA7A2416EB7D">angularUnit </samp> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.966480446927374%"> 
+					 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-445FDBFF-BA7B-4A5A-A610-F3A06033F6D1">startTime </samp> 
+				  </td>
+<td class="entry" rowspan="2" valign="top" width="86.03351955307262%"> 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-02424B3B-1C0A-4FA3-9B98-41CFD30F817C">剪贴板的开始帧和剪贴板的结束帧。这些行由具有时间输入的动画曲线以及烘焙值使用。 
+					 </p>
+ 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-AC0E9109-37F5-4983-9907-3751F4B8F0F3">如果文件中不包含烘焙值，则这些行是可选的。如果文件中不包含烘焙值，则剪贴板将设置为剪贴板中所含动画曲线定义的范围。 
+					 </p>
+ 
+					 <div class="note note" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-2CCC6486-F466-4C80-8304-61E46F378E2D"><span class="notetitle">注：</span> 如果文件中包含烘焙值，则这些值是必需的，因为它们可以确定烘焙值的开始时间和结束时间。 
+					 </div>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.966480446927374%"> 
+					 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-9AD0E918-BC53-49E2-BFC6-3B1A2937A513">endTime </samp> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.966480446927374%"> 
+					 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-5BDE627A-8610-4996-BE8B-0AA7BE9D7541">startUnitless </samp> 
+				  </td>
+<td class="entry" rowspan="2" valign="top" width="86.03351955307262%"> 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-53099D23-D1AD-4E8A-8725-D860B02C3A1E">剪贴板的开始值和剪贴板的结束值。这些值由没有时间输入的动画曲线使用。 
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.966480446927374%"> 
+					 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-725C57B9-C07F-4AE1-8165-8C6D4101AEEC">endUnitless </samp> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.966480446927374%"> 
+					 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-D7A93CF1-2017-4CCA-88AF-0D6952E7030C">offlineFile </samp> 
+				  </td>
+<td class="entry" valign="top" width="86.03351955307262%"> 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-79D2E15A-D520-45F8-BA7B-1C971BAF02FA">此关键字是可选的，在文件包含导出编辑时指定。默认行为是在 .atom 文件结束之时嵌入导出编辑。如果在 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-3E645F5A-9C49-4D4A-822A-3F56B8AEFC01">offlineFile</samp> 关键字后指定文件名，则该文件用作脱机编辑文件。 
+					 </p>
+ 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-653B7973-FC4C-4F53-A0A2-5E4384142750">.atom 格式使用脱机编辑来存储约束和设置受驱动关键帧动画。 
+					 </p>
+ 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-B552D02B-BF93-4C2F-8F79-1F4FFD8C1F8A"><strong class="ph b" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-25716ED6-47B1-4733-8C9F-34CAC2A36055">只能</strong>包含在文件的标头部分。 
+					 </p>
+ 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-EF05A562-4F6D-4F43-AD55-D5BF98623E11">另请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576.htm#GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__SECTION_48E231CD50E541FEA9C32514D19FA390">嵌入的脱机编辑文件 (.editMA)</a>。 
+					 </p>
+ 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__SECTION_1115D14D00AB4210A954F6F9F450A9FD"><h2 class="title sectiontitle">动画层部分（可选）</h2> 
+		 
+		<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-18814046-DFA7-4A38-B2E9-6F4505A038E1">动画层部分的起始行包含此文件中对象上显示的所有动画层的名称。 
+		</p>
+ 
+		<pre class="pre codeblock">animLayers {string string ...}</pre>
+ 
+		<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-68617DF9-94F1-4BA6-B865-6477405D9C24">此行后跟每个动画层的一系列属性。 
+		</p>
+ 
+		<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-59C6FEFD-1CB5-4BA5-9E47-8E469C26FC3B">该信息用于执行导入操作以检查目标场景中是否缺少任何指定的动画层，如果确实缺少，则创建缺少的动画层。 
+		</p>
+ 
+		<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-C9E57B79-06BA-478C-B4A1-59579B93E151">例如： 
+		</p>
+ 
+		<pre class="pre codeblock">animLayers {   BaseAnimation  AnimLayer1 }
+animLayer {
+  BaseAnimation 0 0;
+  static mute mute 0;
+  { 0 }
+  static lock lock 1;
+  { 0 }
+  static solo solo 2;
+  { 0 }
+  static override override 3;
+  { 1 }
+  static passthrough passthrough 4;
+  { 1 }
+  static preferred preferred 5;
+  { 0 }
+  static weight weight 6;
+  { 1 }
+  static rotationAccumulationMode rotationAccumulationMode 7;
+  { 0 }
+  static scaleAccumulationMode scaleAccumulationMode 8;
+  { 1 }
+}
+animLayer {
+  AnimLayer1 0 0;
+  static mute mute 0;</pre>
+ 
+	 </div>
+<div class="section" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__SECTION_B4254F15AC99417889B337FB844BE7AF"><h2 class="title sectiontitle">主体（对象）部分</h2> 
+		 
+		<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-D2767CFC-7F37-43D9-87B2-597F92A3C96C">文件主体列出了已在 .atom 文件中保存的每个节点。受支持的节点类型包括 DAG 节点（<samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-67480C3F-8897-418E-B59F-D10B66270614">dagNode</samp> 关键字）和形状节点（<samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-F4B1A918-90A3-4560-A5B8-14E42E661980">shape</samp> 关键字）。对于其他类型的节点是否受支持，取决于节点（<samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-7C4F073B-53BC-4771-A442-82037DCFD5F5">node</samp> 关键字）是否列出。 
+		</p>
+ 
+		<div class="note important" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-24A82341-DF5F-4BA8-AF3B-7E6379E126E7"><span class="importanttitle">重要：</span> 与 .anim 文件不同，.atom 文件中的 DAG 和形状节点按照特定的顺序进行排序，以与它们在 Maya 场景中的显示方式匹配。例如，在 .atom 文件中，DAG 节点的子形状节点紧随父 DAG 节点列出。请注意，编辑 .atom 文件来更改此顺序可能会导致某些操作无法正常执行。 
+		</div>
+ 
+		<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-B9921A39-0C46-4A4F-9E61-E542D57648AD">该文件中包含的每个对象的第一行指定了节点名称、深度和子节点数。 
+		</p>
+ 
+		<pre class="pre codeblock">dagNode {
+pSphere1 1 1;</pre>
+ 
+		<div class="note note" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-398CC893-E945-4575-89A1-5D916B81E1E2"><span class="notetitle">注：</span> 对于 DAG 节点之外的其他所有节点，这些值均为零。对于 DAG 节点，深度是指该对象所含父节点的数量，包括根节点（因此默认值为 1），子节点计数可标识其同级项顺序编号（默认值为 1）。这些值用于在导入时执行层次匹配。 
+		</div>
+ 
+		<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-5EFAE991-6D6E-44C9-BA0F-FE1E313A5C2A">每个节点标识符后面都有一个开括号和闭括号对 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-F6618B96-143F-4E4C-B559-9EB0300423DB">{ }</samp>，其中包含每个属性的信息。ATOM 文件支持静态值（单个非动画值）、烘焙值（一个逐帧值列表）或动画曲线值。 
+		</p>
+ 
+		<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-F6B65517-680D-4CD5-AD66-C3906C5A1D02"> 这是 .anim 和 .atom 文件之间的主要区别之一。.anim 文件只包含一个简单的属性列表（属性列表中列出了关联的对象），而 .atom 文件则在每个属性所属的对象下面列出了该属性，从而使得 .atom 文件更易于查看，并提高了导入时完成的匹配操作。 
+		</p>
+ 
+		<pre class="pre codeblock">dagNode {
+pSphere1 1 1;
+}
+static string string int string|optional
+cached int|float|double int|float|double int|float|double ... 
+anim string string int string|optional </pre>
+ 
+		<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-3EB54508-E1FA-4094-9E1F-47F209631D23">例如： 
+		</p>
+ 
+		<pre class="pre codeblock">dagNode {
+  pSphere1 1 1;
+  anim translate.translateY translateY 0;
+  animData {
+    input time;
+    output linear;
+    weighted 0;
+    preInfinity constant;
+    postInfinity constant;
+    keys {
+      1 0 auto auto 1 1 0;
+      10 -0.48952813 auto auto 1 1 0;
+    }</pre>
+ 
+		<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-F699CB2E-0880-4151-BD55-5CA5568E64D1"> 每个属性的导出方式都是相同的，即 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-4E2353B8-F58F-43ED-B214-5DF26D55D875">static</samp>、<samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-68862643-43D7-47F9-B3AF-4E96D191D000">cached</samp>（对于烘焙值）或 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-ACD1CBFE-9A18-42E2-AEFE-7B9CA0C45253">anim</samp>（对于动画曲线）标识符后跟属性的长名称、短名称、属性编号和可选的动画层名称。 
+		</p>
+ 
+		<pre class="pre codeblock">dagNode {
+  pSphere1 1 1;
+  <strong class="ph b" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-09F721C7-E29E-46CE-BF19-3CC82673DCD6">anim</strong> translate.translateY translateY 0;
+  animData {
+    input time;
+    output linear;
+    weighted 0;
+    preInfinity constant;
+    postInfinity constant;
+    keys {
+      1 0 auto auto 1 1 0;
+      10 -0.48952813 auto auto 1 1 0;
+    }
+  }
+  <strong class="ph b" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-41B9A3A8-793B-4CAF-8A5F-B4B0618DE21D">cached</strong> translate.translateX translateX 0;
+  { -5.2988979 -4.7870473 -3.4152877 -1.4293071 0.92520503 3.4025622 5.4610407 0.70032059  }
+}
+dagNode {
+  pPlane1 1 2;
+  <strong class="ph b" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-3E2276D5-6F13-4603-8260-8F687B0A344B">static</strong> rotate.rotateX rotateX 0;
+  { 0 }
+  static rotate.rotateY rotateY 1;
+  { 0 }
+  static rotate.rotateZ rotateZ 2;
+  { 0 }
+  static scale.scaleX scaleX 3;
+  { 1 }
+  static scale.scaleY scaleY 4;
+  { 1 }
+  static scale.scaleZ scaleZ 5;
+  { 1 }
+  static visibility visibility 9;
+  { 1 }
+}
+
+</pre>
+ 
+		<div class="note note" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-3F75F8AE-9AED-486D-B45C-749F1F00B6A3"><span class="notetitle">注：</span> 如果动画层名称存在，则指定的数据位于该节点上以及指定的该动画层的属性上，因此属性名称将显示多次，针对属性所属的每个动画层显示一次。 
+		</div>
+ 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__TABLE_049C1CEB8981435EAE423C0338AEC754" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="9.46073793755913%"> 
+					 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-F800B905-71A2-412F-9DC7-231F5B1BAFE9">static</samp> 
+				  </td>
+<td class="entry" valign="top" width="90.53926206244087%"> 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-F58A9E01-FC1A-406B-9532-4DD94A3FED4B"><samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-40CA9F85-1022-4825-A88E-386A6EA46EDF">static</samp> 标识符是一个指定未设置动画的属性值的值，在括号对内列出。 
+					 </p>
+ 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-65ECEA62-4B48-41A6-9237-91B045E36DBF"> 此值可以为整数、浮点数、双精度、字符串或枚举。 
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="9.46073793755913%"> 
+					 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-FFB5A175-3E1D-4A89-9444-DF130D91B8E5">cached</samp> 
+				  </td>
+<td class="entry" valign="top" width="90.53926206244087%"> 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-47FEFC99-F4EE-4146-9426-A9460761FB2C"> 烘焙值类似于静态值，不过烘焙值表示开始时间和结束时间指定的时间范围内每帧的值。如果在导出时启用了<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-DFC34004-6E79-42A5-A3CD-7B9A4072D7CF#GUID-DFC34004-6E79-42A5-A3CD-7B9A4072D7CF__GUID-3A18A2A8-5CAA-4B3C-A970-3816F3BEA524">已烘焙动画(Baked Animation)</a>选项，则对值进行烘焙。 
+					 </p>
+ 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-3966D14F-6195-4FA0-96A8-31275DFF6742"> 如果导出的属性不受简单的动画曲线驱动，也没有导出为动画层、约束或设置受驱动关键帧。 
+					 </p>
+ 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-0E967583-8E3D-4090-A38E-84BAE446B772">因此对于烘焙值，我们采用一个开括号和闭括号对，后跟一组值，表示指定的开始时间和结束时间之间的帧数。 
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="9.46073793755913%"> 
+					 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-A5628B5E-8790-4157-93ED-652E8D72DA38">anim</samp> 
+				  </td>
+<td class="entry" valign="top" width="90.53926206244087%"> 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-4A4F25E4-0701-4BEC-9288-96800BCA2D0E"> 保存的属性可以受动画曲线驱动，就像在 .anim 文件中一样。 
+					 </p>
+ 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-04520770-9090-46B7-980A-FDD0D9393B68"> 就像在前面讲过的，<samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-EEA72F56-517E-40BE-8569-4743A84FDC31">anim</samp> 关键字后跟属性的长名称、短名称和属性编号。 
+					 </p>
+ 
+					 <div class="note attention" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-B6C91492-B237-4E47-A733-9D790237D414"><span class="attentiontitle">注意：</span> 这一点不同于 .anim 文件，在 .anim 文件中，保存属性编号之前还要保存行（深度）和子编号，因此在将 .anim 数据导入 .atom 文件时务必要小心，因为这些多余的编号需要删除。 
+					 </div>
+ 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-FF937900-87AF-4E7B-9860-6E6E3F6FFE54">（请参见以下内容。） 
+					 </p>
+ 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-0C5F4B0C-BD36-47AF-8AB4-23B3E4D02A1B">如果属性受动画曲线驱动，则 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-B857A30C-BC16-424E-96D1-F47704A34F58">anim</samp> 行后跟用于指定关键帧数据的 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-42C2F77F-9424-4D4D-B56E-07E88A41467B">animData</samp> 块。 
+		</p>
+ 
+		<pre class="pre codeblock">animData  {
+  input [time|unitless]
+  output [time|linear|angular|unitless]
+  weighted [1|0]
+  inputUnit [game|film|pal|ntsc|show|palf|ntscf|hour|min|sec|millisec]
+	 outputUnit [game|film|pal|ntsc|show|palf|ntscf|hour|min|sec|millisec]
+  outputUnit [mm|cm|m|km|in|ft|yd|mi]
+  outputUnit [rad|deg|min|sec]
+  tangentAngleUnit [rad|deg|min|sec]
+  preInfinity [constant|linear|cycle|cycleRelative|oscillate]
+  postInfinity [constant|linear|cycle|cycleRelative|oscillate] </pre>
+ 
+		<div class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-10E6699C-05E5-4F27-B6FC-FB76CA800988">例如： 
+		  <pre class="pre codeblock">anim rotate.rotateY rotateY 5 AnimLayer1;
+  animData {
+    input time;
+    output angular;
+    weighted 0;
+    preInfinity constant;
+    postInfinity constant;
+    keys {
+      1 0 auto auto 1 1 0;
+      8 0 flat auto 1 1 0;</pre>
+ 
+		  
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__TABLE_D80B38A207124EBCB3F4BFABA990F7F5" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="13.986013986013985%"> 
+						<samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-C77FCA51-5B77-4F26-85C9-9A2348AD83B1">animData</samp> 
+					 </td>
+<td class="entry" valign="top" width="86.01398601398601%"> 
+						<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-DDE4BC45-1F18-46FC-BE57-4EF986BBE9BE">指示动画曲线的关键帧数据的开始，包括以下定义： 
+						</p>
+ 
+					 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.986013986013985%"> 
+						<samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-5FA88B63-12C1-46E8-87B8-4FDC4432B85A">input</samp> 
+					 </td>
+<td class="entry" valign="top" width="86.01398601398601%"> 
+						<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-604A84DE-B621-404A-8984-BF9E72C85FD4">动画曲线的输入类型。默认设置为 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-0C4E64CD-A43F-4B95-B5D5-C502AB17DD26">time</samp>。 
+						</p>
+ 
+					 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.986013986013985%"> 
+						<samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-1E97C03C-2DC2-4FC9-BA9C-DBD55AE84D2D">output</samp> 
+					 </td>
+<td class="entry" valign="top" width="86.01398601398601%"> 
+						<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-111106EA-BCB6-4CA3-AEB9-F3918D5AF3FB">动画曲线的输出类型。默认设置为 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-D31C2957-AF6B-426B-AF5C-36E0A419D07A">linear</samp>。 
+						</p>
+ 
+					 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.986013986013985%"> 
+						<samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-AB1ECC7E-AAAB-4405-BCBB-3624B1A14F07">weighted</samp> 
+					 </td>
+<td class="entry" valign="top" width="86.01398601398601%"> 
+						<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-8B7F53AF-547F-46B8-A014-E3B0256FD94A">指定曲线是否具有加权切线。默认设置为 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-E2EFD855-09BC-44CF-97F1-40F75A1611E9">false</samp>。 
+						</p>
+ 
+					 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.986013986013985%"> 
+						<samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-E0C70671-47A8-4476-ADFA-289DBF689503">inputUnit</samp> 
+					 </td>
+<td class="entry" valign="top" width="86.01398601398601%"> 
+						<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-80864CEC-04F8-4333-994E-1B12D36BB512">动画曲线输入的单位（如果是时间输入）。默认设置为在文件标头部分指定的时间单位。 
+						</p>
+ 
+					 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.986013986013985%"> 
+						<samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-B684EC5F-0856-4EBC-BCB0-1B5F8371ABC3">outputUnit</samp> 
+					 </td>
+<td class="entry" valign="top" width="86.01398601398601%"> 
+						<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-AE38229C-E3D0-4DAB-8AA9-7F77D06E1FC1">动画曲线输出的单位。输出单位应与曲线的输出类型相匹配。默认设置为在标头中指定的单位。 
+						</p>
+ 
+					 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.986013986013985%"> 
+						<samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-56738F83-BAA4-44D2-9A46-72D5DC65C66F">tangentAngleUnit</samp> 
+					 </td>
+<td class="entry" valign="top" width="86.01398601398601%"> 
+						<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-D0470BD4-A8CF-4EEE-B628-8AEB48ACC076">切线角度的单位（如果有任何固定切线）。默认设置为在文件标头中指定的角度单位。 
+						</p>
+ 
+					 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.986013986013985%"> 
+						<samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-95CC7205-8662-4A43-868F-D9A2843D721D">preInfinity</samp> 
+					 </td>
+<td class="entry" valign="top" width="86.01398601398601%"> 
+						<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-83624831-C6A1-4168-A7AD-FD7F9915429E">前方无限类型。默认设置为 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-004CBCAF-1658-455E-9099-43E1A6B6F136">constant</samp>。 
+						</p>
+ 
+					 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.986013986013985%"> 
+						<samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-491104A5-1D28-459A-BA05-6D8C73894518">postInfinity</samp> 
+					 </td>
+<td class="entry" valign="top" width="86.01398601398601%"> 
+						<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-90B028F0-DE3B-4734-AB89-0EC49844A89D">后方无限类型。默认设置为<samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-22246DDC-0DEE-4CA9-B679-5E591E9C2C55">constant</samp> 
+						</p>
+ 
+					 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="13.986013986013985%"> 
+						<samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-57C5AD38-50CD-411C-A864-631501031ECE">keys</samp> 
+					 </td>
+<td class="entry" valign="top" width="86.01398601398601%"> 
+						<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-586F2F68-299A-499B-AEA2-44BE655DA950">（请参见以下内容。） 
+						</p>
+ 
+					 </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		</div>
+ 
+		<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-01F49B08-39D2-4D05-BF09-A3396EA6AAB9">每个块中的最终行包含实际的关键帧数据。每个关键帧在大括号括起的部分中都自成一行。 
+		</p>
+ 
+		<pre class="pre codeblock"> keys {
+ [float] [float] [in tan] [out tan] [tan locked] [weight locked][breakdown]</pre>
+ 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__TABLE_3A98939E6B9B418384C9E70486B9E2FB" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="20.040080160320638%"> 
+					 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-037D3BEF-9260-40A8-AB68-DA443AFC17D2">float</samp> 
+				  </td>
+<td class="entry" valign="top" width="79.95991983967936%"> 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-4320453C-BCA8-418F-97CE-501AE48DC3D3">前两个值是采用由 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-2B48292B-E196-4991-9594-A0B856EFFE78">inputUnit</samp> 和 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-59E6AE11-B4C7-4CE6-816D-39618EAC80BC">outputUnit</samp> 关键字定义的单位表示的输入和输出值。 
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="20.040080160320638%"> 
+					 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-27FF8A59-2BC4-4394-BE90-721BBF422B8F">in tan </samp> 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-FCBA3003-A142-4FEB-B85B-665388D7BAF2"> 
+						<samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-F5385310-1561-4B72-ABC2-793F4EDDE8F5">out tan</samp> 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="79.95991983967936%"> 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-D534872D-7998-47D3-9D72-00BB1430A52D">入切线和出切线类型。应为有效的切线类型。 
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="20.040080160320638%"> 
+					 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-69DBCC8A-1229-4BA9-8152-BEC8730C95FF">tan locked</samp> 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-7E7EC35E-1148-42BA-A4EF-1D264DC4F988"> 
+						<samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-9324E2E7-82E3-4B36-9CB1-425C0B7DCD0B">weight locked</samp> 
+					 </p>
+ 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-82698E51-5EEB-4011-834D-C512029C559A"> 
+						<samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-C417BE3C-E1AF-460F-A72C-A08642E1CAF1">breakdown</samp> 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="79.95991983967936%"> 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-D22855B9-BCA6-4DED-AAE0-E10F3E59E926">用于切线锁定、权重锁定和受控关键点标志的整数值。如果这些值为 0、未锁定或不是受控关键点，否则这些值将被锁定。 
+					 </p>
+ 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-034F7619-6235-4D57-AB2F-51FF8832BA57">如果切线是入切线和/或出切线，或者切线是固定的，则需要更多信息：切线的角度和权重。 
+					 </p>
+ 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-70C1A913-49C2-49CC-81B2-7521D1EABA27">每条固定曲线的这两个值会添加在该行的末尾。 
+					 </p>
+ 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-2780EC26-59D9-4260-AC3C-225B81B5C32D">例如，62.345 是第一条切线的切线角度，切线权重为 0.04： 
+					 </p>
+ 
+					 <pre class="pre codeblock">1.0 2.0 fixed linear 1 1 0 62.345
+0.04;</pre>
+ 
+					 <p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-E56BC73B-93BA-4750-A5C0-696D6948AFB4">两条固定切线的示例： 
+					 </p>
+ 
+					 <pre class="pre codeblock">1.0 2.0 fixed fixed 1 1 0 62.345
+0.04 45.3 0.023;</pre>
+ 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__SECTION_48E231CD50E541FEA9C32514D19FA390"><h2 class="title sectiontitle">嵌入的脱机编辑文件 (.editMA)</h2> 
+		 
+		<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-FE7CDCBC-70EF-40CE-9C87-B94AAE24D98A">如果 <samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-CE8CDF70-95B3-4626-8133-FEBEA2A00D98">offlineFile</samp> 标识符出现在标头中，则 .atom 文件可以包含嵌入的脱机编辑文件（.editma 文件）。 
+		</p>
+ 
+		<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-A838CF32-68DD-4964-BC2F-F58B9566BC52">例如： 
+		</p>
+ 
+		<pre class="pre codeblock">offlineFileData //Maya ASCII 2013ff03 scene
+//Name: test.editMA</pre>
+ 
+		<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-A63D8A11-9508-4CDB-8DB3-05C1FD085887"><samp class="ph codeph" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-452F7024-33D9-4152-985E-8860395074E9">offlineFileData</samp> 标识符后，将出现一串数据，其中包含嵌入的 .editMA 文件。此数据必须位于文件结尾处。 
+		</p>
+ 
+		<div class="note important" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-DC702AE1-E166-4414-949D-38C0B6D20C49"><span class="importanttitle">重要：</span> 请勿修改此数据。 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__SECTION_3AEAEFE1911342E893FA1DECBA5196C5"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-1E04EF2A-0EE2-420A-8B62-36699F2FED9F"> 
+		  <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-A3FB51ED-3023-4E1E-AF20-4D38E2E2FEBD.htm">ATOM 动画文件格式</a> 
+		</p>
+ 
+		<p class="p" id="GUID-9FA7198C-6BC9-4CB7-AA86-74C3C0A47576__GUID-AEE15433-6D85-49F4-98F8-DC999901D858"> 
+		  <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-20FBCA56-2CD7-46F2-B851-682817961430.htm">导出 .atom 动画</a> 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-A3FB51ED-3023-4E1E-AF20-4D38E2E2FEBD.htm">ATOM 文件格式</a></div>
+</div>
+</div>
+
+</body>
+</html>

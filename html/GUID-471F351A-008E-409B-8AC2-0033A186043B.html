@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="扫描胶片中的图像通常作为 Cineon 类型对数编码的 DPX 文件提供。但是，Cineon 编码从未完全标准化，各个供应商使用的实现略有不同。 如果手动设置颜色变换以导入扫描的胶片板，有多种方法可供选择。">
+<meta name="indexterm" content="颜色管理:扫描胶片">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-471F351A-008E-409B-8AC2-0033A186043B">
+<meta name="language" content="CHS">
+<title>管理扫描胶片中的图像的颜色</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-471F351A-008E-409B-8AC2-0033A186043B">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>管理扫描胶片中的图像的颜色</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="shortdesc"> 扫描胶片中的图像通常作为 Cineon 类型对数编码的 DPX 文件提供。但是，Cineon 编码从未完全标准化，各个供应商使用的实现略有不同。 如果手动设置颜色变换以导入扫描的胶片板，有多种方法可供选择。 
+  </p>
+<p class="p" id="GUID-471F351A-008E-409B-8AC2-0033A186043B__GUID-798F58AE-42E1-4068-9579-73D6DB9D5682">Academy Density Exchange (ADX) 是 AMPAS 制定的标准，用于避免混淆并对单个实现进行标准化处理。ADX 是 ACES 系统的一部分，并包含在 SMPTE 2065 文档集中。 
+	 </p>
+<div class="p" id="GUID-471F351A-008E-409B-8AC2-0033A186043B__GUID-4F6BFE0F-5154-4B5D-9D7B-5F89A378778A">有多个变换可用于作为场景线性值导入 ADX 编码图像。如果要从正确校准的 ADX 扫描仪导入 DPX 文件，请使用以下变换之一： 
+	 <ul class="ul" id="GUID-471F351A-008E-409B-8AC2-0033A186043B__UL_EBA1365D2461463FAF954C42BF3D9190"><li class="li" id="GUID-471F351A-008E-409B-8AC2-0033A186043B__LI_F00581598BDF4044A21EF5BD22D82EB3">film/ADX/ADX10_to_ACES.ctf（适用于 10 位整数文件） 
+		</li>
+<li class="li" id="GUID-471F351A-008E-409B-8AC2-0033A186043B__LI_8934B495A6FD48DBB3A4CB4C1FC48474">film/ADX/ADX16_to_ACES.ctf（适用于 16 位整数文件） 
+		</li>
+</ul>
+ 
+	 </div>
+<p class="p" id="GUID-471F351A-008E-409B-8AC2-0033A186043B__GUID-95D5C822-43DA-458F-800E-0DD09963F067">如果图像不是来自 ADX 扫描仪，请仍然尝试首先使用一个 ADX 变换将其导入。如果您对结果不满意，则可以尝试使用 film/LogLin/ 目录中的一个 Log_to_Lin 变换。但是，请注意，这些变换分别修改每个颜色通道（类似于 1D LUT），请勿尝试在胶片中考虑通道串扰（如 ADX_to_ACES 变换那样）。 
+	 </p>
+<p class="p" id="GUID-471F351A-008E-409B-8AC2-0033A186043B__GUID-7A7ED4A1-169B-442B-9C45-3266B5359D58">或者，也可以尝试使用 Lustre 颜色集合中的一个印刷用胶片模拟 LUT（如果可用）。这些变换是随 Autodesk 创意后期制作产品以及 Autodesk Composite 一起安装的。变换是以传统的 .3dl 格式提供的，可以通过 Autodesk 颜色管理导入。有关该集合中的变换的详细信息，请参见<a class="xref" href="http://images.autodesk.com/adsk/files/lustre_color_management_user_guide0.pdf" target="_blank">《Lustre 颜色管理用户指南》</a>。 
+	 </p>
+<div class="note note" id="GUID-471F351A-008E-409B-8AC2-0033A186043B__GUID-DB7436E5-A562-4104-9E9E-7082E8022671"><span class="notetitle">注：</span> DPX 文件可能包含 Cineon 类型对数编码颜色以外的其他值。例如，可能包含视频颜色。通常，使用 DPX 文件时，您需要了解使用的特定颜色编码。文件中可能存在可用的元数据，但即使存在元数据，也有可能不正确或不明确。 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-B2CD60E0-C100-45A4-9595-84D2DF98B268.htm" title="尽管 Autodesk 颜色管理提供了适当的工具可自动应用所需的变换以便在颜色空间之间进行转化，但在某些特殊情况下，您必须更好地控制要应用的特定变换。本部分介绍如何将位于 Autodesk 颜色变换集合中的组件用作构建块以集合特定任务的自定义转化。">手动配置自定义颜色变换链的准则</a></div>
+</div>
+</div>
+
+</body>
+</html>

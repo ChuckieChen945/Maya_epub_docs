@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-624BBA79-5CCC-41D0-BC7F-7657FA9D200B">
+<meta name="language" content="CHS">
+<title>变形曲面上的游移纹理疑难解答</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-624BBA79-5CCC-41D0-BC7F-7657FA9D200B">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>变形曲面上的游移纹理疑难解答</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-38A23F5C12A55EE7664-7E89"><p class="p" id="GUID-624BBA79-5CCC-41D0-BC7F-7657FA9D200B__WS73099CC142F48755-3D114B7511812357EFE-7721"> 如果程序纹理非常杂乱且看似在移动，请尝试增加<span class="ph uicontrol" id="GUID-624BBA79-5CCC-41D0-BC7F-7657FA9D200B__GUID-2477FE02-4A62-40F4-BE45-B7B4C1B9A3B9">“过滤器”(Filter)</span>和/或<span class="ph uicontrol" id="GUID-624BBA79-5CCC-41D0-BC7F-7657FA9D200B__GUID-FB783AA3-2225-4A70-A1A5-4669B80ACB74">“过滤器偏移”(Filter Offset)</span>，以尽力获得稍微模糊的效果，并减少导致游移的锐度。也可以尝试增加着色采样作为最后的方法。 
+	 </p>
+<p class="p" id="GUID-624BBA79-5CCC-41D0-BC7F-7657FA9D200B__WS73099CC142F48755-3D114B7511812357EFE-771E">如果纹理不会连杆到变形曲面，可以使用以下几种选项，每个选项有优点也有缺点。查看下表以找出最适合特定情况的选项。 
+	 </p>
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-624BBA79-5CCC-41D0-BC7F-7657FA9D200B__WS73099CC142F48755-3D114B7511812357EFE-771D" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="17.57209926224011%">选项 
+				</th>
+<th class="entry" valign="top" width="36.440867426782916%">优点 
+				</th>
+<th class="entry" valign="top" width="45.98703331097697%">缺点 
+				</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="17.57209926224011%">在 3D 纹理或投影上启用“局部”。 
+				</td>
+<td class="entry" valign="top" width="36.440867426782916%">简单而快速，使用极少内存，并适用于多个对象。例如，纹理将与多个小行星中的每一个一起正确移动，即使小行星沿着不同的方向移动也是如此。无需与对象分组。也可以对纹理设置动画。 
+				</td>
+<td class="entry" valign="top" width="45.98703331097697%">无法自定义不同对象的放置。只有在首先对对象执行零变换的情况下，才会无缝显示复杂对象层次。但是，它会随子对象（如机器人的手臂）上的变换移动。放置节点不会反映纹理的实际位置，该实际位置还会被变换为每个对象的位置（渲染时）。该方法不会处理变形曲面。 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="17.57209926224011%">转化为文件纹理 
+				</td>
+<td class="entry" valign="top" width="36.440867426782916%">很好地处理变形曲面（CV 动画）。作为文件纹理渲染，速度更快且支持模糊处理。可以导出到游戏引擎，且复杂纹理网络可以收拢为一个更佳的文件纹理。处理多个具有不同变换和实例的对象。 
+				</td>
+<td class="entry" valign="top" width="45.98703331097697%">可能会特别模糊，除非生成的分辨率较高。对于复杂对象，该方法会生成多个使用切换节点的纹理。这是一个更复杂的工作流程，会占用大量内存；需要花费时间来执行转化操作。将忽略 3D 纹理上的任何动画。 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="17.57209926224011%">创建引用对象 
+				</td>
+<td class="entry" valign="top" width="36.440867426782916%">很好地处理变形曲面（CV 动画）。在纹理上显示动画，并且不进行模糊处理（与转化为文件纹理不同）。对于简单对象而言，内存使用量可能远小于转化为文件纹理时使用的内存量。 
+				</td>
+<td class="entry" valign="top" width="45.98703331097697%">可能难于安装和管理，并且它可能会影响渲染时间和内存，尤其是较大的复杂对象。 
+				</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="note tip" id="GUID-624BBA79-5CCC-41D0-BC7F-7657FA9D200B__WS73099CC142F487553B93539F117EA10CE8F6450"><span class="tiptitle">提示：</span>  
+		<ul class="ul" id="GUID-624BBA79-5CCC-41D0-BC7F-7657FA9D200B__WS73099CC142F487553B93539F117EA10CE8F6451"><li class="li" id="GUID-624BBA79-5CCC-41D0-BC7F-7657FA9D200B__WS73099CC142F487553B93539F117EA10CE8F6452">大多数情况下，应在过滤时在<span class="ph uicontrol" id="GUID-624BBA79-5CCC-41D0-BC7F-7657FA9D200B__GUID-64DF81BD-8E06-4FBF-831E-4D5C9EB5E492">“渲染视图”(Render View)</span>中测试渲染文件纹理，因为您可能无法在该视图或<span class="ph uicontrol" id="GUID-624BBA79-5CCC-41D0-BC7F-7657FA9D200B__GUID-B2001F17-9054-4427-948B-CE49CC228772">“属性编辑器”(Attribute Editor)</span>样例中看到结果。 
+		  </li>
+<li class="li" id="GUID-624BBA79-5CCC-41D0-BC7F-7657FA9D200B__WS73099CC142F487553B93539F117EA10CE8F6453">凹凸贴图时，请将<span class="ph uicontrol" id="GUID-624BBA79-5CCC-41D0-BC7F-7657FA9D200B__GUID-1E4D68D9-961E-4A24-80C6-704CCC2995E5">“过滤器”(Filter)</span>设定为较低值（低于 0.1）。过滤器主要用于抗锯齿纹理，远距离的曲面通常比较模糊。这可能会导致凹凸贴图在距离较远时变得更平滑。如果要凹凸变得平滑，请为恒定模糊使用小的<span class="ph uicontrol" id="GUID-624BBA79-5CCC-41D0-BC7F-7657FA9D200B__GUID-E40F5635-89AF-4F4A-A9CD-0D8958A427E4">“过滤器偏移”(Filter Offset)</span>值。 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-A1803564-B9B5-4CE1-99C7-9BD0424C14F3.htm">与 Maya 材质和纹理有关的疑难解答</a></div>
+</div>
+</div>
+
+</body>
+</html>

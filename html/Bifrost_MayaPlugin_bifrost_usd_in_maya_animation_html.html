@@ -1,0 +1,83 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-MayaPlugin">
+  <meta name="topicid" content="Bifrost_MayaPlugin_bifrost_usd_in_maya_animation_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>在 Bifrost-USD 中添加动画元素</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>在 Bifrost-USD 中添加动画元素</h1></div><p>要在 USD 后台文件中存储动画（如变化属性或变形形状），必须将 <code>time</code> 节点的 <code>frame</code> 输出连接到对应的 Bifrost-USD 定义节点，并使用反馈循环中的 <code>add_to_stage</code> 节点逐帧累加后台文件中的数据。播放完所有帧后，将后台文件保存到文件。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>使用 USD 格式的动画时，请确保禁用 Maya 中的“缓存播放”(Cached Playback)。</p>
+
+</div></div>
+
+<p><code>frame</code> 输入在 <code>define_usd_mesh</code> 和 <code>define_usd_attribute</code> 节点上可用。 </p>
+<ul>
+<li>如果要设置特定属性而不是整个基本体的动画，请将 <code>time</code> 连接到 <code>define_usd_attribute</code>。</li>
+<li>要设置形状的动画，请将 <code>time</code> 连接到 <code>define_usd_mesh</code>。</li>
+<li>如果要设置动画的属性值连接到已为动画设置的 <code>define_usd_mesh</code> 节点的 <code>attribute_definitions</code> 端口，则无需分别将 <code>time</code> 连接到 <code>define_usd_attribute</code> 节点。</li>
+</ul>
+<p>您可以编辑现有复合或构建自己的复合，以设置其他基本体类型或特定属性的动画。</p>
+<ol>
+<li><p>在 <code>define_usd_mesh</code> 或 <code>define_usd_attribute</code> 节点的参数中，启用 <code>use_frame</code>。</p>
+</li>
+<li><p>将 <code>time</code> 节点的 <code>frame</code> 输出连接到 <code>frame</code> 输入。在以下示例中，显示颜色属性也将设置动画，因为网格本身已设置动画。</p>
+<p><img src="../images/animated_mesh.png" alt="动画网格基本体定义"></p>
+</li>
+<li><p>选择下游 <code>add_to_stage</code> 复合，然后按 Ctrl+G 组合键创建复合。</p>
+<p><img src="../images/compound_add_to_stage.png" alt="复合包含`add_to_stage`"></p>
+</li>
+<li><p>双击复合以进入。</p>
+</li>
+<li><p>在 <code>input</code> 节点的 <code>stage</code> 端口上单击鼠标右键，选择<strong>“设置端口反馈 &gt; out_stage”(Set Port Feedback &gt; out_stage)</strong>。端口现在链接为反馈端口。</p>
+<p><img src="../images/anim_stage_feedback.png" alt="后台文件端口的反馈端口"></p>
+</li>
+<li><p>退出复合并播放场景，在后台文件累积动画数据。</p>
+</li>
+<li><p>播放完后，可以将后台文件保存或导出到文件。</p>
+<p>如果需要，可以创建在最后一帧自动保存的条件。</p>
+<p><img src="../images/condition_to_save_on_frame.png" alt="在 240 帧保存的条件"></p>
+</li>
+</ol>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-MayaPlugin/files/Bifrost_MayaPlugin_bifrost_usd_in_maya_html.html">Maya 中的 Bifrost-USD</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

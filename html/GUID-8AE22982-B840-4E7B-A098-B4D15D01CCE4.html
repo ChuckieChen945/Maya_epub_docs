@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Basics">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="06/03/2024">
+<meta name="topicid" content="GUID-8AE22982-B840-4E7B-A098-B4D15D01CCE4">
+<meta name="language" content="CHS">
+<title>变换偏移父对象矩阵(Transform Offset Parent Matrix)</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-8AE22982-B840-4E7B-A098-B4D15D01CCE4">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>变换偏移父对象矩阵(Transform Offset Parent Matrix)</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="li listintro">访问<span class="ph uicontrol">“变换偏移父对象矩阵”(Transform Offset Parent Matrix)</span></p>
+<ul class="ul" id="GUID-8AE22982-B840-4E7B-A098-B4D15D01CCE4__UL_AC464F570DEB4D288F8CB7244107FE36"><li class="li" id="GUID-8AE22982-B840-4E7B-A098-B4D15D01CCE4__LI_C00435C6BD484BBE8DCF0E30D79B8DBA">在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-67A58D31-4722-4769-B3E6-1A35B5B53BED.htm">属性编辑器(Attribute Editor)</a>中选择节点选项卡，找到<span class="ph uicontrol">“变换属性”(Transform Attributes)</span>，然后展开<span class="ph uicontrol">“变换偏移父对象矩阵”(Transform Offset Parent Matrix)</span>下拉菜单。
+		</li>
+</ul>
+<p class="p"> <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-67A58D31-4722-4769-B3E6-1A35B5B53BED.htm">属性编辑器(Attribute Editor)</a>中的<span class="ph uicontrol">“变换偏移父对象矩阵”(Transform Offset Parent Matrix)</span>构件可用于将矩阵放入节点，以便您可以编辑值。您还可以在单独的选项卡中查看和编辑其合成。它是绑定动画中适应性较强的新范例，可为您提供更清晰的绑定和更高的性能。另请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-4BEE4922-0137-4319-8AD9-0EBCD51CC62C.htm">编辑“变换偏移父对象矩阵”(Transform Offset Parent Matrix)属性</a>。
+	 </p>
+<div class="p">矩阵是 4 x 3（“合成”(Composition)选项卡）或 4 x 4（“矩阵”(Matrix)选项卡）的浮点数组，表示变换节点的平移、旋转、缩放和斜切。它将自身插入到其父对象和本地计算之间，以便在移动父对象时，子对象也会移动。
+		<div class="fig fignone" id="GUID-8AE22982-B840-4E7B-A098-B4D15D01CCE4__FIG_8BA4FA9B9C77491DB46C4ACEB158DE0A"><img class="image" id="GUID-8AE22982-B840-4E7B-A098-B4D15D01CCE4__IMAGE_33BBBF1CB6144F43A14CD6621A1DE2D6" src="../images/GUID-CB82703E-FC21-46A8-B5B5-E5DA899A5DCA.png"><p class="figcap">“属性编辑器”(Attribute Editor)中的“变换父对象矩阵”(Transform Parent Matrix)选项卡：<strong class="ph b">A</strong>.合成(Composition) <strong class="ph b">B</strong>.矩阵(Matrix)</p></div>
+ 
+	 </div>
+<p class="p"><span class="ph uicontrol">“合成”(Composition)</span>和<span class="ph uicontrol">“矩阵”(Matrix)</span>选项卡中的值是链接的，因为它们表示相同的变换，但采用两种不同的方式。如果更改<span class="ph uicontrol">“合成”(Composition)</span>选项卡中的值，则会影响<span class="ph uicontrol">“矩阵”(Matrix)</span>选项卡中的值，反之亦然。
+	 </p>
+<div class="p"> 
+		<div class="note note" id="GUID-8AE22982-B840-4E7B-A098-B4D15D01CCE4__GUID-D1098312-81BB-46C9-83D9-B904F51C34D8"><span class="notetitle">注：</span> 单位矩阵是表示世界或场景中心的中性矩阵。它包含 16 个值：值 1 对应于对角线，但所有项（平移、旋转和缩放）均设置为 0，因此它可以分解为 0 值平移和旋转，1 值缩放和 0 值斜切。
+		</div>
+ 
+	 <dl class="dl"><dt class="dt dlterm">“合成”(Composition)选项卡 
+		  </dt>
+<dd class="dd">修改<span class="ph uicontrol">“缩放”(Scale)</span>、<span class="ph uicontrol">“平移”(Translate)</span>、<span class="ph uicontrol">“旋转”(Rotate)</span>、<span class="ph uicontrol">“斜切”(Shear)</span>组件。“合成”(Composition)矩阵是 4 x 3 表。
+		  </dd>
+<dd class="dd">在构件中的任何可编辑字段上单击鼠标右键，将矩阵设置为“身份”(Identity)、“反转”(Invert)或“锁定”(Locked)。有关状态颜色，请参考下面的<strong class="ph b"><span class="ph uicontrol">“变换偏移父对象矩阵”(Transform Offset Parent Matrix)</span>状态</strong>。“合成”(Composition)选项卡可用于查看和编辑矩阵属性。
+		  </dd>
+<dt class="dt dlterm">“矩阵”(Matrix)选项卡 
+		  </dt>
+<dd class="dd">在构件中的任何可编辑字段上单击鼠标右键，将矩阵设置为“身份”(Identity)、“反转”(Invert)或“锁定”(Locked)。“矩阵”(Matrix)是 4 x 4 单位矩阵。
+		  </dd>
+<dd class="dd">有关状态颜色，请参考下面的<strong class="ph b"><span class="ph uicontrol">“变换偏移父对象矩阵”(Transform Offset Parent Matrix)</span>状态</strong>。
+		  </dd>
+</dl>
+ 
+	 </div>
+<p class="p">有关将矩阵运算链接在一起的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319.htm">矩阵工具节点</a>。
+	 </p>
+<div class="section" id="GUID-8AE22982-B840-4E7B-A098-B4D15D01CCE4__SECTION_8A4413CCD9BA42529DB5E4EF449D46A7"><h2 class="title sectiontitle"><span class="ph uicontrol">“变换偏移父对象矩阵”(Transform Offset Parent Matrix)</span>状态</h2> 
+		 
+		<div class="p"><span class="ph uicontrol">“变换偏移父对象矩阵”(Transform Offset Parent Matrix)</span>值字段显示彩色字段，以直观地反馈属性状态：
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-8AE22982-B840-4E7B-A098-B4D15D01CCE4__TABLE_E6D151964B084EAC912320A96B9F7D68" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">背景色 
+				  </th>
+<th class="entry" valign="top" width="50%">含义 
+				  </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">黄色 
+				  </td>
+<td class="entry" valign="top" width="50%"> 属性已连接，这意味着属性由另一个属性控制。
+					 <p class="p"> 若要编辑<span class="ph uicontrol">“合成”(Composition)</span>和<span class="ph uicontrol">“矩阵”(Matrix)</span>选项卡，它们不能处于“已连接”（黄色）状态。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">灰色 
+				  </td>
+<td class="entry" valign="top" width="50%">属性已锁定 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">黑色 
+				  </td>
+<td class="entry" valign="top" width="50%">属性未连接 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" colspan="2" valign="top"> 
+					 <div class="note note" id="GUID-8AE22982-B840-4E7B-A098-B4D15D01CCE4__GUID-7BF166AF-6532-4A82-880A-3D09609FA117"><span class="notetitle">注：</span> 已连接或已锁定的字段无法编辑。若要解除锁定属性或断开属性连接，请在相应字段上单击鼠标右键，然后选择<strong class="ph b"><span class="ph uicontrol">“解除锁定”(Unlock)</span>。</strong>有关上下文菜单的说明，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-4BEE4922-0137-4319-8AD9-0EBCD51CC62C.htm">编辑“变换偏移父对象矩阵”(Transform Offset Parent Matrix)</a>。
+					 </div>
+ 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-4BEE4922-0137-4319-8AD9-0EBCD51CC62C.htm">编辑“变换偏移父对象矩阵”(Transform Offset Parent Matrix)属性</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319.htm">矩阵工具节点</a></div>
+</div>
+</div>
+
+</body>
+</html>

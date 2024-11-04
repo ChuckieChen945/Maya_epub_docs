@@ -1,0 +1,101 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_build_a_graph_diagnose_and_debug_graphs_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>诊断和调试图表</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>诊断和调试图表</h1></div><p>使用复杂图表时，您可能会遇到需要诊断和调试的问题。有一些基本工具可以帮助您完成此任务。</p>
+<h2 id="">诊断节点颜色</h2><p>有问题的节点以不同颜色亮显。如果亮显的节点为复合，请进入以查看哪些内部节点有问题。</p>
+<p><img src="../images/graph_error_warning.png" alt="错误和警告"></p>
+<ul>
+<li>具有错误的节点以红色亮显。错误意味着无法编译和执行图表。</li>
+<li>具有警告的节点以橙色亮显。警告意味着存在问题，但仍可以编译和执行图表。</li>
+</ul>
+<p>将指针悬停在节点上以在信息栏中查看完整消息。</p>
+<h2 id="">观察点</h2><p>通过观察点，您可以查看流经连接的那些值的相关信息。 </p>
+<p>若要添加观察点，请右键单击连接并选择<strong>“设置观察点”(Set Watchpoint)</strong>。可以通过单击眼睛图标来隐藏或显示数据。</p>
+<p><img src="../images/watchpoint-detached.png" alt="拆离的观察点"></p>
+<p>可以通过将观察点的眼睛图标或表标题拖动到图表视图中的任意位置，将观察点与其连线分离。表将连接到连线，以显示要显示哪些数据。 </p>
+<p>若要将观察点返回到连线，请双击眼睛图标。也可以通过按住 Alt+Shift 并拖过虚线来移除观察点本身。或者，在眼睛图标上单击鼠标右键，然后选择一个选项。</p>
+<p>添加观察点后，图表仍是空的，直到再次执行图表。您可以通过更改输入或在模拟情况下推进帧来强制执行图表。</p>
+<p>仅当数据流经连接时，观察点才会更新。如果观察点位于不会引出图表输出的连接上，或者如果因 <code>if</code> 节点而未对观察点进行解算，则不会更新观察点。</p>
+<p>观察点显示的信息具体取决于数据类型：</p>
+<ul>
+<li>对于单一值，观察点显示上次执行的值，以及当前会话中遇到的最小值和最大值。</li>
+<li>对于数组，观察点显示数组大小以及上次执行的最小值和最大值。</li>
+<li>对于对象，观察点显示已定义特性的相关信息。</li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>在 Maya 中使用缓存播放时，观察点不会更新。</p>
+
+</div></div>
+
+<h2 id="">数据浏览器</h2><p>数据浏览器提供了比观察点更详细的关于沿连接流动的值的信息。它们甚至可以显示数组中包含的对象的各个特性值。</p>
+<p><img src="../images/databrowser.png" alt="数据浏览器"></p>
+<p>在数据浏览器中查看值：</p>
+<ol>
+<li><p>在连接或现有观察点上单击鼠标右键，然后选择<strong>“在数据浏览器中打开”(Open in Data Browser)</strong>。如果已打开一个或多个数据浏览器，则可以在新数据浏览器中打开数据或重用现有数据浏览器。</p>
+<p>请注意，如果连接上没有观察点，则会创建一个观察点。</p>
+</li>
+<li><p>使用左侧窗格选择要在右侧窗格中查看的数据。如果需要，可以：</p>
+<ul>
+<li>按住 Ctrl 键并单击以切换选择多个项目，以并排比较数据。</li>
+<li>拖动或按住 Shift 键并单击以选择连续的项目范围。</li>
+</ul>
+</li>
+</ol>
+<p>如果在图表中工作时不需要查看更新的值，可以通过禁用<strong>“同步数据”(Sync Data)</strong>来加快交互速度。当您需要再次查看当前值时，只需将其重新启用。</p>
+<p>数据浏览器窗口可以拖动并停靠在工作区中任何合适的位置。</p>
+<h2 id="">将对象数据转储到文本文件</h2><p>当数据浏览器中的信息过多而无法搜索或扫描时，可以将对象信息输出到文本文件。</p>
+<ol>
+<li>将 <code>dump_object</code> 节点添加到图表中。</li>
+<li>指定 <code>filename</code>。</li>
+<li>将 <code>sample_size</code> 设置为要从数组中包含的最大项数。这样可以避免来自大型对象的大文件。</li>
+<li>将要输出到文本的对象连接到 <code>object</code> 输入。</li>
+<li>将 <code>out_object</code> 输出连接为图表的输出。通常，您只需从上游节点替换原始连接即可。</li>
+</ol>
+<p><img src="../images/dump_object.png" alt="转储对象"></p>
+<p><code>dump_object</code> 的至少一个输出必须引出图表输出，否则将不会执行节点。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/Bifrost_Common_build_a_graph_html.html">构建和修改图表</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

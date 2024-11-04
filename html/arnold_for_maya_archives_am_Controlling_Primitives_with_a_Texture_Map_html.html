@@ -1,0 +1,167 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_archives_am_Controlling_Primitives_with_a_Texture_Map_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_CONTROLLING_PRIMITIVES_WITH_A_TEXTURE_MAP">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用纹理贴图控制基本体 - Arnold for Maya">
+
+<title>使用纹理贴图控制基本体</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>使用纹理贴图控制基本体</h1></div><p><img src="../images/xgen-mona-lisa.jpg" alt=""></p>
+<p><sub><strong>由纹理贴图驱动的 XGen“归档”立方体基本体所形成的场景</strong></sub>  </p>
+<p>XGen 是一种功能强大的工具，提供了许多创意机会来定位任意数量的随机或均匀放置的基本体。您可以结合使用纹理文件和 XGen 描述来指定基本体生成的位置和密度，以及控制若干基本体属性。本教程将介绍如何才能非常轻松地使用纹理贴图“驱动”XGen 基本体的长度、宽度和深度。这些基本体可以是球体、样条线或如以下示例所示导出为归档的几何体。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Controlling_Primitives_with_a_Texture_Map-pyramids-render-2.jpg" alt=""></td>
+<td><img src="../images/am-Controlling_Primitives_with_a_Texture_Map-pyramids-maya-3.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>纹理贴图驱动的“棱锥形状”归档分布</strong></sub></p>
+<p>使用此方法几乎可以实现您能够想象到的任何效果。本教程的用途包括使用贴图来驱动风景中一些树的位置，在本例中是用于创建怪异的人脸：</p>
+<ul>
+<li>首先，创建一个多边形平面，然后将其<em>“细分宽度”(Subdivisions Width)</em>和<em>“高度细分数”(Subdivisions Height)</em>增加到 10。我们将使用此平面指定 XGen 描述。</li>
+</ul>
+<p><img src="../images/am-Controlling_Primitives_with_a_Texture_Map-image2016-5-10-15-22-12-4.png" alt=""></p>
+<ul>
+<li>选择该多边形平面，然后转到<strong><em>“生成 &gt; 创建描述”(Generate &gt; Create Description)</em></strong>。此操作将打开下面的<strong>“创建 XGen 描述”(Create XGen Description)</strong>。</li>
+<li>选择<strong><em>“球体”(Spheres)</em></strong>基本体。保留其他默认设置不变，然后选择<strong><em>“创建”(Create)</em></strong>。</li>
+</ul>
+<p><img src="../images/am-Controlling_Primitives_with_a_Texture_Map-image2016-5-10-15-25-14-5.png" alt=""></p>
+<ul>
+<li>建议先降低<strong>“预览/输出”(Preview/Output)</strong>选项卡中的<strong><em>“百分比”(Percent)</em></strong>值，然后再继续操作。如果<strong><em>“百分比”(Percent)</em></strong>的值过高，您可能会发现计算机会因生成大量的基本体而停止运行。</li>
+</ul>
+<p><img src="../images/am-Controlling_Primitives_with_a_Texture_Map-image2016-5-10-15-25-50-6.png" alt=""></p>
+<ul>
+<li>单击<strong>“长度”(Length)</strong>右侧的向下箭头 <sub><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" data-base-url="https://docs.arnoldrenderer.com" data-image-src="/download/attachments/154767640/arrow.png?version=1&amp;modificationDate=1645657504000&amp;api=v2" data-linked-resource-container-id="154767640" data-linked-resource-container-version="4" data-linked-resource-content-type="image/png" data-linked-resource-default-alias="arrow.png" data-linked-resource-id="154767711" data-linked-resource-type="attachment" data-linked-resource-version="1" data-unresolved-comment-count="0" src="../images/am-Controlling_Primitives_with_a_Texture_Map-arrow-7.png"></span></sub>。选择<strong><em>“创建贴图...”(Create Map...)</em></strong></li>
+</ul>
+<p>请确保将原始 Maya 着色器指定给 XGen 描述。否则，此步骤将不起作用！创建贴图后，可以将其转化为一个不同的着色器。</p>
+<p><img src="../images/am-Controlling_Primitives_with_a_Texture_Map-image2016-5-10-15-26-44-8.png" alt=""></p>
+<ul>
+<li><strong>“贴图名称”(Map Name)</strong>应为<strong><em>“length”</em></strong>。将<strong>“贴图分辨率”(Map Resolution)</strong>增加到 200 左右。这将按每个面的 Texel 数设置 PTEX 贴图的分辨率。使用高分辨率纹理时，请使用更大的“贴图分辨率”(Map Resolution)值。完成后，单击<strong>“创建”(Create)</strong>。</li>
+</ul>
+<p><img src="../images/am-Controlling_Primitives_with_a_Texture_Map-image2016-5-10-15-27-4-9.png" alt="">  </p>
+<h2 id="">表达式</h2><ul>
+<li>接下来，单击<strong><em>“长度”(Length)</em></strong>滑块控件右侧的<strong>表达式</strong>图标 <img src="../images/am-Controlling_Primitives_with_a_Texture_Map-image2016-5-10-15-27-26-10.png" alt="">。</li>
+</ul>
+<p><img src="../images/am-Controlling_Primitives_with_a_Texture_Map-image2016-5-10-15-28-7-11.png" alt=""></p>
+<ul>
+<li>在<strong>“表达式编辑器”(Expression Editor)</strong>中应该可以看到以下<strong><em>长度</em></strong>表达式文本。在<strong>表达式文本字段</strong>中，您应该会看到以下文本：</li>
+</ul>
+<pre class="pre codeblock"><code class="prettyprint"> $a=map('${DESC}/paintmaps/length');#3dpaint,200.0 </code></pre><p>此文本用于使用纹理贴图定义长度属性，这里的 200 是我们之前定义的“贴图分辨率”(Map Resolution)。</p>
+<p><img src="../images/am-Controlling_Primitives_with_a_Texture_Map-image2016-5-10-15-28-36-12.png" alt=""></p>
+<ul>
+<li>在<strong>“表达式编辑器”(Expression Editor)</strong>中添加以下行。</li>
+</ul>
+<pre class="pre codeblock"><code class="prettyprint"> $a=0.3*$a+0.02; </code></pre><pre class="pre codeblock"><code class="prettyprint"> $a  </code></pre><p>其中，0.5 (0.3 + 0.2) 是球体的最大长度，0.02 是最小大小。您的长度表达式编辑器应类似下图。复制表达式文本。我们将相同的表达式用于球体基本体的“宽度”(Width)和“深度”(Depth)设置。完成后，单击“接受”(Accept)。</p>
+<p><img src="../images/am-Controlling_Primitives_with_a_Texture_Map-image2016-5-10-15-29-15-13.png" alt=""></p>
+<ul>
+<li>接下来，单击<strong><em>“宽度”(Width)</em></strong>滑块控件右侧的<strong>表达式</strong>图标 <img src="../images/am-Controlling_Primitives_with_a_Texture_Map-image2016-5-10-15-29-39-14.png" alt="">，以便在“XGen 表达式编辑器”(XGen Expression Editor)中查看由 PTEX 贴图创建的表达式。</li>
+<li>在此处粘贴用于<strong>长度</strong>的相同表达式。对<strong>“深度”(Depth)</strong>属性执行相同的操作。</li>
+</ul>
+<h2 id="">创建纹理贴图</h2><p>现在，我们要添加纹理贴图。单击滑块控件右侧的绘制图标 <img src="../images/am-Controlling_Primitives_with_a_Texture_Map-image2016-5-10-15-30-1-15.png" alt="">。这时应该会在“Hypershade”和“节点编辑器”(Node Editor)窗口中看到文件纹理已连接到平面。</p>
+<p><img src="../images/am-Controlling_Primitives_with_a_Texture_Map-image2016-5-10-15-31-33-16.png" alt=""></p>
+<ul>
+<li>选择该文件纹理，然后打开要用于驱动球体基本体的比例的纹理贴图。请确保选择的纹理贴图具有较高的对比度，即使尺寸较小也可识别其特征。如果图像中包含的意外细节过多，则将不会更好地传递到球体。您可以在下面的示例中看到灰度渐变对球体基本体的长度、宽度和深度比例的影响：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/xgen-ramp.jpg" alt=""></td>
+<td><img src="../images/xgen-ramp-xgen.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>基于灰度渐变的球体分布</strong></sub>  </p>
+<ul>
+<li>在渲染场景之前，我们必须先告知 XGen 更新文件纹理。为此，单击每个长度、宽度和深度属性的 <img src="../images/am-Controlling_Primitives_with_a_Texture_Map-image2016-5-10-15-31-53-17.png" alt=""> 磁盘图标。创建一个灯光并渲染场景。</li>
+</ul>
+<p>更新用于定义基本体属性的文件纹理后，记得选择 <img src="../images/am-Controlling_Primitives_with_a_Texture_Map-image2016-5-10-15-31-57-18.png" alt=""> 磁盘图标。否则，XGen 将不会更新它，渲染将不会发生变化。</p>
+<p><img src="../images/am-Controlling_Primitives_with_a_Texture_Map-image2016-5-10-15-32-51-19.png" alt=""></p>
+<p><img src="../images/am-Controlling_Primitives_with_a_Texture_Map-face-no-texture-20.jpg" alt=""></p>
+<p><sub><strong>未使用纹理贴图渲染的球体基本体</strong></sub></p>
+<h2 id="">纹理</h2><ul>
+<li><p>下一步是添加颜色纹理文件。为 XGen 集合指定一个<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Surface_html">标准曲面</a>着色器。为<strong>“漫反射颜色”(Diffuse Color)</strong>属性指定颜色文件纹理。确保它是一个投影文件纹理贴图，以便我们可以将其与多边形平面对齐。选择 <strong>place3dTexture</strong> 节点，然后选择<strong><em>“适配到组边界框”(Fit to Group BBox)</em></strong>。place3dTexture 应该会捕捉至多边形平面的大小。</p>
+<p><img src="../images/am-Controlling_Primitives_with_a_Texture_Map-image2016-5-10-15-37-5-21.png" alt=""><img src="../images/am-Controlling_Primitives_with_a_Texture_Map-image2014-2-6-10-11-30-22.png" alt=""></p>
+</li>
+</ul>
+<p><sub><strong>面部图像使用 <span style="color: rgb(0,0,0);">3D 投影</span>纹理贴图</strong></sub></p>
+<h2 id="density">密度(Density)</h2><ul>
+<li>根据表达式编辑器中使用的值，您可能需要更改<strong>“密度”(Density)</strong>值。如果球体过于密集地聚在一起，您可能需要减小<strong>“密度”(Density)</strong>值。相反，如果球体之间过于松散，则可能需要增加密度或在<strong>“表达式编辑器”(Expression Editor)</strong>中增加<strong><em>最大长度大小</em></strong>。下面的图像显示了增加“密度”(Density)对 XGen 创建的基本体数量的影响。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Controlling_Primitives_with_a_Texture_Map-0-3-0-02-density-20-23.jpg" alt=""></td>
+<td><img src="../images/am-Controlling_Primitives_with_a_Texture_Map-0-3-0-02-density-40-24.jpg" alt=""></td>
+<td><img src="../images/am-Controlling_Primitives_with_a_Texture_Map-0-3-0-02-density-80-25.jpg" alt=""></td>
+</tr>
+<tr>
+<td>20</td>
+<td>40</td>
+<td>80</td>
+</tr>
+</tbody></table>
+<p>有关使用纹理贴图控制 XGen 基本体的教程到此结束。这款工具具有很多强大的功能，这只是其中一个示例。可尝试使用不同的纹理贴图和基本体类型（例如样条线和归档）。</p>
+<p><sub><sup><em>感谢 <strong><a class="external-link" href="http://www.pedrofe.com/" rel="nofollow" target="_blank">Pedro Fernando Gómez</a></strong> 在 XGen 方面提供的帮助。</em></sup></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-XGen_Tutorials/arnold_for_maya_xgen_am_Archives_html.html">归档</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="ENU">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Maya-USD">
+  <meta name="topicid" content="GUID-97358ED4-179F-4568-9382-7409E3F8E70A">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>USD data in the Outliner</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>USD data in the Outliner</h1></div><h2 id="usd-data-branches-in-the-outliner">USD Data Branches in the Outliner</h2><p><strong>The mixed data model</strong>: to distinguish intrinsic Maya data from USD data in the Outliner hierarchy tree, USD data features a unique default data branch color of aqua.  </p>
+<div class="note tip:"><span class="tiptitle">Tip:</span> If you have a prim selected in the Viewport and you want the Outliner to focus on it, hover your mouse over the Outliner and press F.</div>
+<p><img src="../images/usd_outliner_datatree_aqua.png" alt="">  </p>
+<div class="note note:"><span class="notetitle">Note:</span> The default aqua color preference can be adjusted. To change this color, navigate to <strong>Windows &gt; Settings / Preferences &gt; Color Settings</strong> and choose your color preference under <strong>Non-Native Data Branches</strong>. Color changes in this settings window will be reflected in the Outliner.</div>
+<h2 id="usd-stage-proxyshape-display-in-the-outliner">USD Stage (proxyShape) display in the Outliner</h2><p>After creating a stage, Maya creates a <em>transform node</em> and a <em>proxyShape node</em>. The proxyShape node points to the USD file and appears in the Outliner.  In the following example, <code>stage1</code> is the transform node and <code>stageShape1</code> points to the newly created USD stage or proxyShape node. </p>
+<p>To set the Outliner text color for a USD prim, select the prim, then navigate to the Attribute Editor and set the color under Object Display.</p>
+<p><img src="../images/gif_usd_outliner_newStage.gif" alt="">  </p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>Tip:</div>
+<div class="callout-body">
+
+<p> If your Maya scene contains multiple stages, you can work to select a stage as you do in the Attribute Editor. You can either pin a current view, or by default, the focus of your USD stage in the USD Layer Editor changes depending on your selection in the Outliner. Thus, if you select prim in the Outliner, the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-4FAD73CA-E775-4009-9DCB-3BC6792C465E">USD Layer Editor</a> will auto-focus to the stage of your selection, so long as there is no pinned stage. See <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-902DA013-943E-44B1-990B-9545655ADD14">Work with the USD Layer Editor</a> for more information on pinning your stage.</p>
+
+</div></div>
+
+<h2 id="usdeditasmaya-set-in-the-outliner"><code>usdEditasMaya</code> set in the Outliner</h2><p>You can work with Maya and USD data interchangeably in Maya. When you pull a USD prim into Maya data or <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-C1C08BA5-24EA-44FF-9497-71E0A6843744">Edit as Maya</a>, a new set appears in the Outliner called <code>usdEditasMaya</code>. Tip: this can help you keep track of the pulled Maya nodes even if your USD hierarchy undergoes changes. The Outliner contextual menu for this set of nodes contains the same two options as the pulled prim (Merge Maya Edits to USD and Discard Maya Edits). </p>
+<div class="note important:"><span class="importanttitle">Important:</span> if you have an orphaned Maya object (if a USD ancestor is deactivated/ deleted, switched through a variant or unloaded from your scene through payloads), there will be limited options for your <code>usdEditAsMaya</code> set. You will only be able to <strong>Discard Maya Edits</strong> in this case. Orphaned data appears greyed out and with a red x icon on the pulled prim in your <code>usdEditAsMaya</code> set.</div>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>Tip:</div>
+<div class="callout-body">
+
+<p> if you have multiple pulled nodes from multiple stages at once, you can have a visual indication of what stage each node is pulled from. You can hover over the pulled Maya nodes in the <code>usdEditAsMaya</code> set for a tooltip on which stage each node belongs to. In this tooltip, you can also view other details of the node such as <em>Node name, Type, Stage and Locked Node (if applicable)</em>.</p>
+
+</div></div>
+
+<h3 id="locked-nodes">Locked Nodes</h3><p>When a node is locked using this <a href="https://download.autodesk.com/us/maya/2009help/commands/lockNode.html" target="_blank">MEL command</a>, the existing tooltip on the node has a line added to it that says: <strong>Locked Node</strong>. When unlocked, the status disappears.</p>
+<ul>
+<li>All pulled Maya objects have nodes locked.</li>
+<li>All <code>usdEditAsMaya</code> data sets have their nodes locked.</li>
+</ul>
+<hr>
+<p><span style="color: purple;"><strong>Related Concepts:</strong></span> For more information on what a stage is, see <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-899873C6-7696-4D7B-BBDA-7859AECA5AFB">Create a USD stage</a>.</p>
+
+  <div class="related-links">
+      <div class="relinfo relchildren">
+        <strong>Pages in this section</strong>
+        <ul class="ullinks">
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/USD-in-the-Maya-Interface/USD-data-in-the-Outliner/GUID-C27A9992-10DD-4F4C-8D34-B7D176336039.html">Work with prims in the Outliner</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/USD-in-the-Maya-Interface/USD-data-in-the-Outliner/GUID-C010A7DF-0EE4-4A3F-B159-9FF6A0173CF2.html">USD prim types in the Outliner</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/USD-in-the-Maya-Interface/USD-data-in-the-Outliner/GUID-9FD37B6B-7559-4F9D-B393-3AAD9AB4F24B.html">USD contextual menu in the Outliner</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/USD-in-the-Maya-Interface/USD-data-in-the-Outliner/GUID-EDC40BE3-2112-46D5-9E31-B620C08C8DDE.html">Add a reference in the Outliner</a>
+          </li>
+        </ul>
+      </div>
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>Parent page:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/GUID-2FFFAB8A-022B-42BF-9068-F5BAD45238A9.html">USD in the Maya Interface</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

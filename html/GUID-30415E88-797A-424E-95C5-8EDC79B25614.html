@@ -1,0 +1,135 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-30415E88-797A-424E-95C5-8EDC79B25614">
+<meta name="language" content="CHS">
+<title>刚性蒙皮</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-30415E88-797A-424E-95C5-8EDC79B25614">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>刚性蒙皮</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__WS73099CC142F48755-7B21313411809411AE9-4BD4"> 刚性蒙皮使得关节可以影响可变形对象点集，从而提供关节连接的变形效果。
+	 </p>
+<p class="p" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__P_31F3C558E1864D8086E718EDD4798624">刚性蒙皮通常用于需要刚性或机械移动的对象或角色，例如机器人或车辆。它还可用于角色的某些部分（例如铠甲），以便在网格和骨架之间保持固定关系。
+	 </p>
+<p class="p" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__P_B42FE7C0640A4F78856E667372962816">若要查看示例，请单击<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-8A7E6415-7988-4BB3-8C70-A2DDD43A2C12.htm#GUID-8A7E6415-7988-4BB3-8C70-A2DDD43A2C12__WS17956D7ADBC6E736-5D7D28FA117AE30DDFF-7F9C">示例：通过刚性蒙皮对圆柱体进行蒙皮</a>。
+	 </p>
+<div class="fig fignone" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__WS73099CC142F48755-7B21313411809411AE9-4BD2"><img class="image" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__IMAGE_097D9210AE924D76827D5102164BEBCB" width="281" height="254" src="../images/GUID-E5FE7400-E3DE-44FB-A811-0F9DFCD327A6.png"></div>
+<div class="p" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__WS73099CC142F48755-7B21313411809411AE9-4BCF"> 使用刚性蒙皮时，只有一个关节可以影响每个 CV、顶点或晶格点。这就提供了刚性变形效果，可以通过使用晶格变形器、簇变形器或屈肌来平滑这些变形效果。
+		<div class="fig fignone" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__WS1A9193826455F5FF-5187222B11EEADCDC61-754C"><img class="image" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__IMAGE_233A78D514044D31AEBCEE2A4F534D3B" width="215" height="136" src="../images/GUID-38DF2E9C-1D4B-47B2-A9E6-62EC8E9BDF2F.png"></div>
+ 
+	 </div>
+<div class="note note" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__GUID-B9053531-3F81-4376-806D-FCF42A5DD078"><span class="notetitle">注：</span>  已从 Maya 中删除了刚性绑定菜单选项，以简化其他工作流。使用脚本命令时，刚性绑定功能仍然存在。您还可以使用每个顶点 1 个影响的平滑蒙皮获得刚性绑定。
+	 </div>
+<div class="note note" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__GUID-5D8737FF-BCDA-412C-BF62-0DC94689524E"><span class="notetitle">注：</span> 已从 Maya 用户界面中删除了刚性绑定菜单选项，以简化工作流。使用这些脚本命令时，刚性绑定功能仍然存在：
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__TABLE_8AAA6EF29CA14C7E8B9A49C83CFD1F91" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">菜单项 
+				  </th>
+<th class="entry" valign="top" width="50%">命令 
+				  </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%"> 蒙皮 &gt; 刚性绑定(Skin &gt; Rigid Bind) 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <samp class="ph codeph" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__GUID-C4D9E4A5-4F60-4933-B8F2-5BDECFC571B8">RigidBindSkin</samp> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%"> 蒙皮 &gt; 刚性绑定 &gt; 选项(Skin &gt; Rigid Bind &gt; Opts) 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <samp class="ph codeph" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__GUID-A81D3FDE-6302-4188-93D6-5E6A8E03D5D7">RigidBindSkinOptions</samp> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%"> 蒙皮 &gt; 编辑刚性绑定 &gt; 创建屈肌...(Skin &gt; Edit Rigid Bind &gt; Create Flexor...) 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <samp class="ph codeph" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__GUID-46D73988-469A-4AA0-A3C3-9508F96FA3AC">CreateFlexorWindow</samp> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%"> 蒙皮 &gt; 编辑刚性绑定 &gt; 复制屈肌(Skin &gt; Edit Rigid Bind &gt; Copy Flexor) 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <samp class="ph codeph" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__GUID-B2510F96-5471-4346-B208-087694F6D4E8">CopyFlexor</samp> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%"> 蒙皮 &gt; 编辑刚性绑定 &gt; 重新指定骨骼晶格关节(Skin &gt; Edit Rigid Bind &gt; Reassign Bone Lattice Joint) 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <samp class="ph codeph" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__GUID-4F676CEB-3048-46BB-86AF-ACC0832C216F">ReassignBoneLatticeJoint</samp> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%"> 蒙皮 &gt; 编辑刚性绑定 &gt; 保留蒙皮组 &gt; 分离骨架(Skin &gt; Edit Rigid Bind &gt; Preserve Skin Groups &gt; Detach Skeleton) 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <samp class="ph codeph" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__GUID-46EDAB21-1999-4FB6-BF5A-CB68CE338F08">DetachSkeleton</samp> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%"> 蒙皮 &gt; 编辑刚性绑定 &gt; 保留蒙皮组 &gt; 分离选定关节(Skin &gt; Edit Rigid Bind &gt; Preserve Skin Groups &gt; Detach Selected Joints) 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <samp class="ph codeph" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__GUID-DE465E00-C234-490B-A9A6-6DF33D0095EA">DetachSkeletonJoints</samp> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%"> 蒙皮 &gt; 编辑刚性绑定 &gt; 保留蒙皮组 &gt; 重新附加骨架(Skin &gt; Edit Rigid Bind &gt; Preserve Skin Groups &gt; Reattach Skeleton) 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <samp class="ph codeph" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__GUID-232886E7-1201-4AF8-8109-B8A60A50A86C">ReattachSkeleton</samp> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%"> 蒙皮 &gt; 编辑刚性绑定 &gt; 保留蒙皮组 &gt; 重新附加选定关节(Skin &gt; Edit Rigid Bind &gt; Preserve Skin Groups &gt; Reattach Selected Joints) 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <samp class="ph codeph" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__GUID-CC055D96-EE12-42F6-86A9-6F25922970E2">ReattachSkeletonJoints</samp> 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+	 </div>
+<div class="note note" id="GUID-30415E88-797A-424E-95C5-8EDC79B25614__GUID-3C2BC5C6-8529-4748-9428-91B52332CE1C"><span class="notetitle">注：</span> 您还可以使用每个顶点 1 个影响的平滑蒙皮获得刚性绑定。
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-18E9F8FD-196E-48E0-8FE0-03226FE96BF0.htm">刚性蒙皮对象和点</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-23E96CA6-6434-4F05-989E-8A4F993F359C.htm">刚性蒙皮点集</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-CAD7F9C7-6639-495A-8DA6-C8A4E0FD68FE.htm">屈肌</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-25477F6C-8D7F-4A26-815D-56AB383548DC.htm">检查绑定</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-DE7377CB-D04D-4913-8285-3814560B4E15.htm">调整刚性蒙皮行为</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-4833029B-95C7-4C90-8AC7-864297E1FA92.htm">设置刚性蒙皮</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-790B4171-D523-4D40-A567-0130F9C091FC.htm">编辑刚性蒙皮</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-EFE68C08-9ADA-4355-8203-5D1D109DCC82.htm">对角色进行蒙皮</a></div>
+</div>
+</div>
+
+</body>
+</html>

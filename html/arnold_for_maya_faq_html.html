@@ -1,0 +1,91 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_faq_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="FAQ_MAIN">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 常见问题解答 - Arnold for Maya">
+
+<title>常见问题解答</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>常见问题解答</h1></div><h3 id="arnold">我看不到形状节点的 Arnold 属性</h3><p>Maya 必须先加载 MtoA 插件，然后才能在 UI 中打开任何对象。这是 Maya 工作方式的一个特点（评估 AE 模板后，不会对其进行刷新）。最佳做法是确保将 MtoA 设置为自动加载，这样就可以避免出现此问题。</p>
+<h3 id="aov">文件名前缀无法与 AOV 结合使用</h3><p>渲染出 AOV 时，如果“公用”(Common)选项卡的“文件输出”(File Output)部分中含有“文件名前缀”(File name prefix)，例如“awesome_render”，那么系统不会渲染任何 AOV 通道，而不论它们是否启用。这是 Maya 中存在的一个问题。原因是，如果显式设置了“文件名前缀”(File name prefix)，Maya 在计算实际文件名时会忽略部分参数。尝试在文件名中使用 <renderpass> 标记。这是 Maya 中与 AOV 最相近的功能，该标记会被 AOV 名称替代。</renderpass></p>
+<h3 id="">我在我的自定义着色器中看不到渲染样例</h3><p>您需要设置渲染样例的类别，以便让 Maya 知道它应该将样例与 Arnold 结合使用。样例类别可在元数据中通过源代码设置：</p>
+<pre class="pre codeblock"><code class="prettyprint">AiMetaDataSetInt(mds, NULL, "maya.id", 0x00115H09);
+AiMetaDataSetStr(mds, NULL, "maya.classification", "shader/surface"); </code></pre><p>也可以在着色器库内的 .mtd 文件中设置。它应该与 .so/dll 具有相同名称和位置。例如：</p>
+<pre class="pre codeblock"><code class="prettyprint"> [node FB_skin] 
+    desc                     STRING "Skin Shader." 
+    maya.id                 INT 0x00115H09 
+    maya.name                 STRING "aiFbSkin" 
+    maya.classification     STRING "shader/surface" </code></pre><h3 id="arnold">自定义 Arnold 灯光未出现在灯光链接窗口中</h3><p>当前，天穹灯光和区域光等 Arnold 自定义灯光不会出现在灯光链接窗口中。</p>
+<p>解决方法是使用 defaultLightSet 更改 Arnold 灯光的灯光链接选项（确保在灯光链接窗口中进行更改后刷新 IPR）。</p>
+<ul>
+<li>要观看演示此过程的视频，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/lightlinking-arnold-lights.mp4" target="_blank">此处</a>。</li>
+</ul>
+<p><img src="../images/mtoa_faq1.png" alt=""></p>
+<p><sub><strong>灯光链接窗口中的 Arnold 替代对象</strong></sub></p>
+<h3 id="nurbs">NURBS 细分</h3><p>MtoA 依靠 Maya 来细分 NURBS，然后再将其作为多边形网格发送到 Arnold。MtoA 不支持简单的“简单细分选项”(Simple Tessellation Options)，但支持“高级细分”(Advanced Tessellation)下的“主细分属性”(Primary Tesselation Attributes)（请参见下图）：</p>
+<p><img src="../images/mtoa_faq2.png" alt=""></p>
+<p><sub><strong>每个跨度的等参线数 - UV</strong></sub></p>
+<p><img src="../images/mtoa_faq3.png" alt=""></p>
+<p><sub><strong>(1,3,6,9)</strong></sub></p>
+<h3 id="ai">使用天空和 Ai 天穹灯光的硬件纹理</h3><p>仅当将 Maya 文件纹理与<em>天空</em> 着色器或 <em>skydome_light</em> 结合使用时，Maya 视口中的硬件纹理才会起作用。例如，使用<em>图像</em> 着色器会在视口中返回黑色。</p>
+<h3 id="ai-uv">Ai 天空 UV 映射反转</h3><p>连接至<em>天空</em> 着色器时，设置为 U 方向的渐变纹理将无法正确渲染。要校正此问题，可在 Z 方向缩放<em>天空</em> 着色器 -1 并将<em>“朝向”(Facing)</em> 设置为<em>“后”(back)。</em></p>
+<p><img src="../images/mtoa_faq4a.png" alt=""></p>
+<p><sub><strong>U 向渐变渲染错误。</strong></sub></p>
+<p><img src="../images/mtoa_faq4b.png" alt=""></p>
+<p><sub><strong>在 Z 方向缩放天空 -1 并将<em>“朝向”(Facing)</em> 设置为<em>“后”(back)</em> 可修复此问题。</strong></sub></p>
+<h3 id="tx-viewport-2-0">Tx 文件和 Viewport 2.0</h3><p>请注意，读取 .tx 文件时，MtoA 使用 1024 纹理分辨率。如果需要更大的分辨率，则需在 Viewport 2.0 设置中启用“最大纹理分辨率区间限定”(Maximum Texture Resolution Clamping)，并调整“最大纹理分辨率”(Max Texture Resolution)。</p>
+<h3 id="">如何渲染皮肤</h3><p>以下着色设置可用于重新创建皮肤材质。</p>
+<p><img src="../images/mtoa_faq5.png" alt=""></p>
+<h3 id="sss_setname">如何使用 sss_setname</h3><p>以下示例显示如何在对象之间共享 <em>sss。</em></p>
+<p><img src="../images/mtoa_faq6.png" alt=""></p>
+<p><sub><strong>将同一个 <em>sss_setname</em> 用于对象之间需要 <em>sss</em> 的所有对象</strong></sub></p>
+<h3 id="em-specular_roughness-em">如何将纹理连接到 <em>specular_roughness</em></h3><p>以下设置显示如何将纹理贴图连接到 <em>specular_roughness</em>。</p>
+<p><img src="../images/mtoa_faq7.png" alt=""></p>
+<p><sub><strong>文件纹理的输出颜色 R -&gt; <em>standard_surface.specular_roughness</em></strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/arnold_for_maya_am_Arnold_for_Maya_User_Guide_html.html">Arnold for Maya 用户手册</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

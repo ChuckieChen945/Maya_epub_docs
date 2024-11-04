@@ -1,0 +1,83 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-EECC80A5-45AF-4A95-923C-F4F397C4F5CC">
+<meta name="language" content="CHS">
+<title>向量</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-EECC80A5-45AF-4A95-923C-F4F397C4F5CC">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>向量</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-EECC80A5-45AF-4A95-923C-F4F397C4F5CC__WS73099CC142F48755-3D114B7511841AEFA9F-8E9"> 向量是三个浮点数（通常表示 X、Y 和 Z）。MEL 中有三浮点数据类型将非常方便，因为 3D 中的许多操作都涉及操纵 X、Y 和 Z 值。</p>
+<p class="p" id="GUID-EECC80A5-45AF-4A95-923C-F4F397C4F5CC__WS73099CC142F48755-3D114B7511841AEFA9F-8E7">若要声明向量，请使用 <samp class="ph codeph" id="GUID-EECC80A5-45AF-4A95-923C-F4F397C4F5CC__GUID-2ABC7BB3-1ECB-4E81-B58E-77D2A82A617B">vector</samp> 关键字：</p>
+<pre class="pre codeblock">
+vector $victor;
+</pre>
+<div class="section" id="GUID-EECC80A5-45AF-4A95-923C-F4F397C4F5CC__WS73099CC142F48755-3D114B7511841AEFA9F-8E6"><h2 class="title sectiontitle">文字表示</h2>
+
+<p class="p" id="GUID-EECC80A5-45AF-4A95-923C-F4F397C4F5CC__WS73099CC142F48755-3D114B7511841AEFA9F-8E5"> 向量的文字表示是三个浮点数，以逗号分隔，并由 &lt;&lt; 和 &gt;&gt; 包围。例如：</p>
+
+<pre class="pre codeblock">
+vector $roger = &lt;&lt;3.0, 7.7, 9.1&gt;&gt;;
+vector $more = &lt;&lt;4.5, 6.789, 9.12356&gt;&gt;;
+</pre>
+
+</div>
+<div class="section" id="GUID-EECC80A5-45AF-4A95-923C-F4F397C4F5CC__WS73099CC142F48755-3D114B7511841AEFA9F-8E3"><h2 class="title sectiontitle">获取和设定向量值</h2>
+
+<p class="p" id="GUID-EECC80A5-45AF-4A95-923C-F4F397C4F5CC__WS73099CC142F48755-3D114B7511841AEFA9F-8E2"> 可以使用 .x、.y 和 .z 取值函数从向量变量中读取单个数字。必须用括号包围变量和取值函数：</p>
+
+<pre class="pre codeblock">
+vector $test = &lt;&lt;3.0, 7.7, 9.1&gt;&gt;;
+print($test.x) // 3.0
+print($test.y) // 7.7
+print($test.z) // 9.1
+</pre>
+
+<p class="p" id="GUID-EECC80A5-45AF-4A95-923C-F4F397C4F5CC__WS73099CC142F48755-3D114B7511841AEFA9F-8E0">不能使用取值函数设定向量的单个部分：</p>
+
+<pre class="pre codeblock">
+vector $test = &lt;&lt;3.0, 7.7, 9.1&gt;&gt;;
+($test.y) = 5.5 // ERROR
+</pre>
+
+<p class="p" id="GUID-EECC80A5-45AF-4A95-923C-F4F397C4F5CC__WS73099CC142F48755-3D114B7511841AEFA9F-8DF">但是，可以使用以下技巧设定单个值：</p>
+
+<pre class="pre codeblock">
+// Assign a vector to variable $test:
+vector $test = &lt;&lt;3.0, 7.7, 9.1&gt;&gt;;
+$test = &lt;&lt;$test.x, 5.5, $test.z&gt;&gt;
+// $test is now &lt;&lt;3.0, 5.5, 9.1&gt;&gt;
+</pre>
+
+<div class="note note" id="GUID-EECC80A5-45AF-4A95-923C-F4F397C4F5CC__WS73099CC142F48755-3D114B7511841AEFA9F-8DE"><span class="notetitle">注：</span> 
+<p class="p" id="GUID-EECC80A5-45AF-4A95-923C-F4F397C4F5CC__GUID-66F9F4EC-F9D0-4767-B670-ADC3EF822879">科学家经常使用“向量”这个词表示幅值和方向。在 Maya 中，向量只是三个浮点数的相关组。</p>
+
+</div>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-9ACB35ED-BC02-4E58-B171-4FF64741E22E.htm">数组、向量和矩阵</a></div>
+</div>
+</div>
+
+</body>
+</html>

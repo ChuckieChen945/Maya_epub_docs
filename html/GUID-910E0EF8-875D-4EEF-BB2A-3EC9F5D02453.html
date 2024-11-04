@@ -1,0 +1,103 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453">
+<meta name="language" content="CHS">
+<title>创建烟</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>
+创建烟
+</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF11D4ED1B128F2317A0818FB"><p class="p" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-2A55"> 烟效果会从工作区中某个位置，或从选定粒子对象或几何体对象发射烟。该效果会使用随 Maya 软件提供的一系列烟图像（精灵）。可以选择使用自己的图像。必须对生成的烟进行硬件渲染。 </p>
+<div class="section" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-2A00"><h2 class="title sectiontitle">准备使用烟效果</h2>
+
+<p class="p" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29FF">使用烟效果之前，应清楚以下问题： </p>
+
+<ul class="ul" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29FE"><li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29FD">一次最多只能对一个对象使用烟效果。 <p class="p" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29FC">若要对一组 NURBS 曲面应用烟，请首先将每个曲面转化为多边形，然后组合这些曲面。从<span class="ph uicontrol" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-E240C6CA-3FF5-43B8-9177-5234504860B3">“多边形”(Polygons)</span>菜单集中，选择<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-DC38BD08-A411-4403-8C59-104337673266">修改 &gt; 转化 &gt; NURBS 到多边形(Modify &gt; Convert &gt; NURBS to Polygons)</a>，然后选择<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-37FE06C7-0681-4F77-B6C6-B47DE6386178">网格 &gt; 组合(Mesh &gt; Combine)</a>。 </p>
+ <p class="p" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29FB">若要对一组多边形曲面应用烟，只需通过<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-37FE06C7-0681-4F77-B6C6-B47DE6386178">网格 &gt; 组合(Mesh &gt; Combine)</a>将这些曲面组合在一起。 </p>
+ </li>
+<li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29FA">如果从 NURBS 或多边形对象发射，则对象的大小和形状会影响烟的质量。您将需要使用足够大的对象才能生成足够的烟区域。如果从曲线发射烟，避免使用方向陡然变化的曲线。 </li>
+<li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29F9">对同一几何体多次使用烟效果通常非常有用。通过在每次使用烟效果时设定不同的选项，可以创建使用一次难以实现的复杂外观。例如，通过使用两个发射速率和精灵顺序不同的发射器，用户可以创建燃烧雾和蒸汽雾的组合。 </li>
+<li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29F8">如果需要为工作区四周的烟移动设置动画，请考虑对粒子对象使用烟效果。您可以对粒子对象使用每粒子表达式，因此您就可以更灵活地改变烟的运动。 </li>
+<li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29F7">将经常需要从对象的一部分而非其整个几何体发射烟。在一些情况下，对象中需要烟的一部分不存在几何体。在这种情况下，常见方法是从该区域中一个不可见的几何对象发射。 <p class="p" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29F6">例如，假设要从中空的排气管末端吹出烟，但管道没有可以方便地发射烟的对象。可以创建正确大小和形状的磁盘，将其放置在管道中，然后对磁盘应用发射器。通过选择<span class="ph uicontrol" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-F50D470E-6BC3-4A9E-8062-8B1C2CDE88D6">“显示 &gt; 隐藏 &gt; 隐藏当前选择”(Display &gt; Hide &gt; Hide Selection)</span>使磁盘不可见。 </p>
+ </li>
+<li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29F5">如果创建自己的烟图像（例如，使用如 VizPaint 或 StudioPaint 的绘制软件），请记住在创建图像时要保存 Alpha 通道（透明度数据）。 </li>
+</ul>
+
+<p class="li listintro" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29F3">使用烟效果</p>
+<ol class="ol" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29F4"><li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29F2">将您的图像置于当前项目的 <samp class="ph codeph" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-39FEFC6E-F43C-46AC-9FD5-E485EC0FD270">/sourceimages</samp> 目录中。 </li>
+<li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29F0">执行下列操作之一： <ul class="ul" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29EF"><li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29EE">选择对象或 CV，编辑要发射烟的点、顶点或粒子。 </li>
+<li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29ED">若要创建位置发射器，请取消选择所有对象。 </li>
+</ul>
+ </li>
+<li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29EC">选择<span class="ph menucascade" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-FCF8C073-8D75-453D-BF50-85A9B5892CEA"><span class="ph uicontrol" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-38CBF2F4-6C38-48D1-A460-38BB9F49FC60">“效果</span> &gt; <span class="ph uicontrol" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-155CDC37-2CE1-4701-8C13-2488FD0B0302">烟”(Effects &gt; Smoke)</span></span> &gt; <img class="image" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__IMAGE_68C17BF21C0E461E9A719E3BB26988CE" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png">。 </li>
+<li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29EB"> 在<span class="ph uicontrol" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-E627A2D4-2111-476D-A5A6-55CADB587503">“创建烟效果选项”(Create Smoke Effect Options)</span>窗口中设置属性（请参见下面的“编辑烟效果的属性”）并单击“创建”(Create)。 <p class="p" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29E9">烟效果可创建发射器、发射粒子对象、表达式、湍流场及创建烟所需的其他场。 </p>
+ </li>
+<li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29E8">播放动画。 <p class="p" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29E7">发射粒子在工作区中显示为方形，因为粒子显示为精灵渲染类型。 </p>
+ <p class="p" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29E6">下面是一个<span class="ph uicontrol" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-A5E2C5CA-131C-4E1D-B985-15942BF952CC">着色 &gt; 对所有项目进行平滑着色处理(Shading &gt; Smooth Shade All)</span>处于启用状态的示例。 </p>
+ <div class="fig fignone" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29E5"><img class="image" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__IMAGE_22D83192518D44F9B1B3701D6E020681" width="155" height="159" src="../images/GUID-2E51F4FE-34FD-4624-A39C-87C97D7C9C78.png"></div>
+ </li>
+<li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29E4">对场景执行硬件渲染以查看烟。 <p class="p" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29E3">有关详细信息，请参见“渲染”。 </p>
+ </li>
+</ol>
+
+</div>
+<div class="section" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS17956D7ADBC6E736512CD048117AE311422-7FF7"><h2 class="title sectiontitle">编辑烟效果的属性</h2>
+
+<p class="p" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29E2">以下各主题将介绍用于调整烟效果的属性。烟效果可在它创建的发射粒子对象中创建多个自定义属性。自定义属性可控制场和发射器属性的组合，以减少未了调整烟而需要另外进行的设置。 </p>
+
+<div class="section" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS17956D7ADBC6E736512CD048117AE311422-7FF6"><h3 class="title sectiontitle"><span class="ph uicontrol" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-6556C129-7E36-4396-A2F6-2C427B3493B7">“创建烟效果选项”(Create Smoke Effect Options)</span>窗口中的属性</h3>
+
+<p class="p" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29E1"> 选择<span class="ph menucascade" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-FE961CA3-FC05-4500-8167-86E44FD62107"><span class="ph uicontrol" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-283E7FC4-0B57-4A0C-A0D3-AC646360D4B8">“效果</span> &gt; <span class="ph uicontrol" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-CD5DB92C-5406-482E-8280-EB02DDDBF94C">烟”(Effects &gt; Smoke)</span></span> &gt; <img class="image" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__IMAGE_2F327AE36C64447A9F8B81202FDE7C07" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png"> 时，以下属性将显示在<span class="ph uicontrol" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-0009AD8A-7679-4147-AFD2-096B1D3E9572">“创建烟效果选项”(Create Smoke Effect Options)</span>窗口中。您对选项窗口所做的更改会影响您在更改之后创建的烟。 </p>
+
+<p class="p" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29DE">您在使用烟效果之后，通过选择发射粒子对象并打开<span class="ph uicontrol" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-71BDAF8F-DA08-42BE-8844-2E9131E84F25">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-DA5B7516-B223-4698-9581-8056AD759227">“附加属性”(Extra Attributes)</span>区域，可以编辑其中的大部分属性。 </p>
+
+<ul class="ul" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29DD"><li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29DC">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-3AB3B0D6-1E14-4F78-8181-5AF801230908.htm">烟选项</a>
+</li>
+</ul>
+
+</div>
+
+<div class="section" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29DB"><h3 class="title sectiontitle">其他提示</h3>
+
+<p class="p" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29DA">可以执行以下附加步骤来调整烟的外观： </p>
+
+<ul class="ul" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29D9"><li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29D8">通过更改发射粒子对象的<span class="ph uicontrol" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-E54296E0-F91D-44D5-AB61-B8AAB7D1B14F">“缩放”(Scale)</span>和<span class="ph uicontrol" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-BAE65E72-70D2-4B70-B3F5-F5ACC9FBF67F">“旋转”(Rotate)</span>值来更改烟的大小和方向。 </li>
+<li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29D7">对<span class="ph uicontrol" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-DB9255B8-68AC-4913-9F27-7CB97EAFE80F">“缩放 Y”(Scale Y)</span>值中的更改设置关键帧以便使粒子移动得更快或更慢。 </li>
+<li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29D6">编辑精灵的属性。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-9F876311-B16C-4794-9F49-9225315364FE.htm">使用 nParticle 精灵</a>。 </li>
+<li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29D5">编辑烟效果创建的任何表达式。若要了解烟效果创建的表达式，请将烟应用到其他空场景中的对象。使用<span class="ph uicontrol" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-87241236-8E0A-4E2E-8FD8-4C46E4F2E786">“表达式编辑器”(Expression Editor)</span>查看增加的内容。 </li>
+<li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29D4">通过使用<span class="ph uicontrol" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-1CE43153-CF61-4738-8204-B9B024A5641D">“动力学关系”(Dynamics Relationship)</span>编辑器断开<span class="ph uicontrol" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__GUID-E4B744F1-FAB1-45BB-83A9-E5D9442F0824">“湍流”(turbulence)</span>场将其禁用。 </li>
+<li class="li" id="GUID-910E0EF8-875D-4EEF-BB2A-3EC9F5D02453__WS1A9193826455F5FF-6D855556117FACF922E-29D3">为发射器设置动画以便移动场景中的烟。 </li>
+</ul>
+
+</div>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-3B540876-C61D-4B4E-BF0D-C011EDE25D6C.htm" title="Maya 效果是内置程序，便于用户轻松地创建复杂的动画效果，例如烟雾和火焰。每个 Maya 效果都提供了许多用于优化结果的选项和属性。">Maya“效果”(Effects)</a></div>
+</div>
+</div>
+
+</body>
+</html>

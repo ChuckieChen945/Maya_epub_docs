@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465">
+<meta name="language" content="CHS">
+<title>显示高动态范围图像</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>显示高动态范围图像</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-38A23F5C12A55EE7664-7E90"><p class="p" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-7759"> 可以将浮点图像作为文件纹理加载到 Maya 中，并控制其曝光以用于预览。支持的格式包括 OpenEXR、TIFF 和 DDS。高动态范围图像现在可以显示在场景视图、材质样例或渲染图像中。为显示预览，浮点图像将被缩小为固定点精度。</p>
+<p class="p" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-7757">最终渲染（包括硬件着色器）期间，使用原始图像的完整动态范围。</p>
+<p class="p" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-7756">若要使用此功能，必须通过插件将高动态范围图像加载到 Maya，并将它们转化为固定点。Maya 提供了以下样例 API 插件：</p>
+<ul class="ul" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-7755"><li class="li" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-7754"> <samp class="ph codeph" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__GUID-33AB7B1C-F490-4314-9D8A-C1E6CB7B2591">OpenEXR.mll</samp> - 读取 <samp class="ph codeph" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__GUID-248ED8EC-638B-4DD8-B1BC-986C332EB84B">.exr</samp> 图像。OpenEXR 是高动态范围 (HDR) 文件格式，由 Industrial Light and Magic <span name="glyph_span">®</span> 公司开发</li>
+<li class="li" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-7753"> <samp class="ph codeph" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__GUID-0FE63049-544E-4D5E-A263-49E3BA1A844A">ddsFloatReader.mll</samp> - 读取半浮点（16 位）或 IEEE 32 位浮点 <samp class="ph codeph" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__GUID-1D1E9C2B-D4C1-4D2C-ACB7-B70197A3B6E4">.dds</samp> 图像</li>
+<li class="li" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-7752"> <samp class="ph codeph" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__GUID-A88BB730-81E5-4D05-8240-9993CE71F092">tiffFloatReader.mll</samp> - 读取 IEEE-32 位浮点 <samp class="ph codeph" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__GUID-95769395-BD1A-448A-AD0C-C2D1F6A859C0">.tif</samp> 图像</li>
+</ul>
+<p class="p" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-7751">对于所有 <samp class="ph codeph" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__GUID-CEF35DA2-08B0-4146-BF4D-B0FBF7240953">.tif</samp>、<samp class="ph codeph" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__GUID-4623D575-11F2-4FA7-B117-9EC091DAA973">.dds</samp> 和 <samp class="ph codeph" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__GUID-E3D8AE23-D68F-45DE-82A4-96167AED2EFA">.exr</samp> 文件，仅支持单个 2D 图像。也就是说，不支持链接或多嵌入图像（包括立方体贴图和 3D 纹理）。这相当于目前基于 IMF 的插件的支持规范。此外，这些插件不支持压缩，因为所有的 <samp class="ph codeph" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__GUID-A8C82792-3FEA-4F8D-97F5-3F4673D27522">.tif</samp>、<samp class="ph codeph" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__GUID-8996CA79-32FB-4E5B-903C-A79769FFC9FE">.dds</samp> 和 <samp class="ph codeph" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__GUID-A6E301C1-32EA-40DF-A5FD-0C6526DA46EE">.exr</samp> 目前还不支持浮点压缩。 </p>
+<p class="li listintro" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-774F">若要显示 OpenEXR 图像并控制其曝光：</p>
+<ol class="ol" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-7750"><li class="li" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-774E">使用<span class="ph uicontrol" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__GUID-65421661-F773-4519-B227-A77D4ED12303">“插件管理器”(Plug-in Manager)</span>加载所需格式的插件（<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-2CF7D90B-EF10-40D1-9129-9D401CCAB952">“窗口 &gt; 设置/首选项 &gt; 插件管理器”(Window &gt; Settings/Preferences &gt; Plug-in Manager)</a>），例如，<samp class="ph codeph" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__GUID-9AA3DA0E-1156-4735-B875-EB29C666939A">OpenEXR.mll</samp>。</li>
+<li class="li" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-774D">在文件纹理节点中，展开<span class="ph uicontrol" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__GUID-3C0743EB-3FE6-465F-B1AB-2CBA41651431">“高动态范围图像预览选项”(High Dynamic Range Image Preview Options)</span>区域。通过<span class="ph uicontrol" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__GUID-5645D8D7-13A4-4886-A394-CB86F32C60C2">“浮点到固定点”(Float to Fixed Point)</span>属性选择所需转化。有三种可用的转化类型：<ul class="ul" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-774C"><li class="li" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-774B">
+<span class="ph uicontrol" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__GUID-5220F4B7-5AC8-47C4-A53F-3E6D750BB562">钳制(Clamp)</span>
+</li>
+</ul>
+<p class="p" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-774A">图像中 0 到 1 范围之外的所有颜色值将被钳制。大于 1 的值将被钳制为 1，小于 0 的值将被钳制为 0。</p>
+<ul class="ul" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-7749"><li class="li" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-7748">
+<span class="ph uicontrol" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__GUID-98BC1473-584F-41D5-837D-AE388F67ADC6">线性(Linear)</span>
+</li>
+</ul>
+<p class="p" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-7747">将图像中的颜色值归一化到 0 和 1 之间。</p>
+<ul class="ul" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-7746"><li class="li" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-7745">
+<span class="ph uicontrol" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__GUID-16DB1E07-177D-4A59-AF2C-838A5364BB54">指数(Exponential)</span>
+</li>
+</ul>
+<p class="p" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-7744">保持最小和最大颜色值，并确保其余颜色值具有合理的对比度。</p>
+</li>
+<li class="li" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__WS73099CC142F48755-3D114B7511812357EFE-7743">必要时，使用滑块栏调整曝光级别（仅适用于选择<span class="ph uicontrol" id="GUID-4B91A24F-1921-4DB2-89EE-E2B90232E465__GUID-C717E2DA-BAB4-4741-A192-87F960FB4966">“指数”(Exponential)</span>作为转化方法的情况）。</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-D43C875E-DFF1-4AB6-877B-AE2D3E7632B9.htm">关于着色和纹理曲面</a></div>
+</div>
+</div>
+
+</body>
+</html>

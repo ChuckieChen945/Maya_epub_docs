@@ -1,0 +1,243 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_4x_am_422_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_422">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 4.2.2 - Arnold for Maya">
+
+<title>4.2.2</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>4.2.2</h1></div><p>22 Apr 2021</p>
+<p>MtoA 4.2.2 introduces Arnold 6.2.1.0 and is a performance release bringing important optimizations on GPU, toon shading, and imagers.</p>
+<h2 id="installation">Installation</h2><ul>
+<li><a href="https://manage.autodesk.com/products/MAYA" target="_blank">Download</a> the Arnold for Maya plugin</li>
+<li>Follow these installation instructions .</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2><ul>
+<li><p>Maya  2019, 2020 or 2022</p>
+</li>
+<li><p>Windows 10 or later, with the Visual Studio 2019 redistributable.</p>
+</li>
+<li><p>Linux with at least glibc 2.17 and libstdc++ 4.8.5 (gcc 4.8.5). This is equivalent to RHEL/CentOS 7.</p>
+</li>
+<li><p>macOS 10.13 or later</p>
+</li>
+<li><p>CPUs need to support the SSE4.1 instruction set.</p>
+</li>
+<li><p>GPU rendering works on Windows and Linux only and requires an NVIDIA GPU of the Ampere, Turing, Volta, Pascal, or Maxwell architecture. We recommend using the <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">460.39</a> or higher drivers on Linux and <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">461.40 (Quadro), 461.40 (GeForce)</a> , or higher on Windows. See Arnold GPU for more information.</p>
+</li>
+<li><p>Optix™ denoiser requires an NVidia GPU with <a href="https://developer.nvidia.com/cuda-gpus" target="_blank">CUDA™ Compute Capability 5.0</a> and above.</p>
+</li>
+</ul>
+<h2 id="maya-plugins-compatibility">Maya Plugins Compatibility</h2><p>MtoA 4.2.2 works with the following Maya plugins</p>
+<ul>
+<li><a href="https://area.autodesk.com/bifrost/downloads/" target="_blank">Bifrost Extension for Maya 2.2.1.1</a></li>
+<li><a href="https://github.com/Autodesk/maya-usd/releases/tag/v0.8.0" target="_blank">MayaUSD 0.8.0</a></li>
+</ul>
+<h2 id="enhancements">Enhancements</h2><ul>
+<li><p><strong>Toon shader (contour_filter) optimizations:</strong> The toon shader has been optimized, especially for Windows machines with many cores and many small buckets, wherein in some situations we've seen over a 4x speedup (core#10414, #10242).</p>
+</li>
+<li><p><strong>Faster renders using progressive rendering with adaptive sampling on CPU:</strong> When using progressive rendering with adaptive sampling on the CPU, Arnold will now more quickly end the render when there is no more work left to do. For high AA_max renders this can result in noticeably faster renders (core#9022).</p>
+</li>
+<li><p><strong>Faster imagers:</strong> Imagers are faster, especially on many-core Windows machines where we have seen up to a 1.7x speedup with the imager_denoiser_noice. (core#10284, 10341, 10384).</p>
+</li>
+<li><p><strong>Improved output memory usage:</strong> The memory usage of outputs has been improved in a variety of cases. If a single output is sent to multiple drivers the memory is now shared, rather than duplicated (see the first graph below). The memory gains are even more substantial when imagers chains are shared between drivers. Again previously this would lead to much-duplicated memory that is now shared (see second graph below). (core#10214)</p>
+<p><img src="../images/am-422-DuplicateOutputBenchmarks-1.png" alt=""><img src="../images/am-422-DuplicateOutputImagerBenchmarks-2.png" alt=""></p>
+</li>
+<li><p><strong>Better progress status updates for progressive renders:</strong> Progressive mode renders, which are always enabled on GPU and on CPU are enabled with options.enable_progressive_render, now have more accurate progress reports when doing adaptive sampling. They will also now report to the log an estimated time before the render completes (core#10406).</p>
+</li>
+<li><p><strong>OpenImageIO upgraded:</strong> OIIO has been upgraded to version <a href="https://github.com/OpenImageIO/oiio/blob/master/CHANGES.md" target="_blank">2.3.2</a> (core#9705, #9481).</p>
+</li>
+<li><p>Adding new imagers that don't rely on dynamic AOV creation will non longer restart the render (arv#494)</p>
+</li>
+</ul>
+<h2 id="gpu-enhancements">GPU Enhancements</h2><ul>
+<li><p><strong>Sparse volumes on GPU</strong> : VDB volumes are now loaded on GPU in a sparse form using NVIDIA's NanoVDB library. This can lead to a very significant reduction in GPU memory usage in scenes with volumes, depending on the volume sparsity, compared to the previous dense grid implementation, as shown in the table below. This also produced a speedup due to the faster skipping of empty space possible with NanoVDB. (core#9626, core#10333).<br> <img src="../images/am-422-image2021-4-20-15-56-50-3.png" alt=""><img src="../images/am-422-image2021-4-20-15-57-58-4.png" alt=""> <img src="../images/am-422-nanovdb-stats-5.png" alt=""></p>
+</li>
+<li><p><strong>Faster SSS on GPU</strong> : This overall GPU optimization is most beneficial to scenes with lots for subsurface scattering, where we have observed up to 1.2x speedups (core#9917).</p>
+</li>
+</ul>
+<p><img src="../images/am-422-image2021-4-20-17-2-14-6.png" alt=""></p>
+<ul>
+<li><strong>Reduced VRAM use for polymeshes</strong> : The amount of VRAM used by polymesh is significantly lower in this version. Scenes with heavy subdivisions will use around 33% less GPU memory for geometry (core#10462).</li>
+</ul>
+<p><strong><img src="../images/am-422-image2021-4-20-17-55-19-7.png" alt=""></strong></p>
+<ul>
+<li><strong>Faster GPU render passes:</strong> Each render iteration on the GPU has some CPU overhead which has been reduced. This will result in an overall GPU render time reduction up to 1.7x in fast to render scenes. In particular, when the resolution is low or adaptive sampling has reduced the amount of work left to do (core#10405).</li>
+<li><strong>PRef AOV:</strong> The PRef AOV is now available when rendering on GPU (core#10444)).</li>
+</ul>
+<h2 id="usd-enhancements">USD Enhancements</h2><ul>
+<li><strong>Light and Shadow linking:</strong> The render delegate now supports light and shadow linking. ( <a href="https://github.com/Autodesk/arnold-usd/issues/412" target="_blank">usd#412</a> )</li>
+<li><strong>Motion blur for the Point Instancer:</strong> The render delegate now calculates motion blur when using the point instancer. ( <a href="https://github.com/Autodesk/arnold-usd/issues/653" target="_blank">usd#653</a> )</li>
+<li><strong>Half and Double precision:</strong> Storing data using half or double precision is now supported in both the render delegate and procedural. ( <a href="https://github.com/Autodesk/arnold-usd/issues/669" target="_blank">usd#669</a> )</li>
+<li><strong>Pause and Resume:</strong> Pausing and resuming renders are now supported in the render delegate. ( <a href="https://github.com/Autodesk/arnold-usd/issues/595" target="_blank">usd#595</a> )</li>
+<li><strong>NodeGraph schemas:</strong> The procedural now supports using the NodeGraph schema for shader networks. ( <a href="https://github.com/Autodesk/arnold-usd/issues/678" target="_blank">usd#678</a> )</li>
+<li><strong>Crease Sets:</strong> The procedural now supports crease sets on polymesh. ( <a href="https://github.com/Autodesk/arnold-usd/issues/694" target="_blank">usd#694</a> )</li>
+<li><strong>Purpose:</strong> Usd Purpose is now supported in the procedural. ( <a href="https://github.com/Autodesk/arnold-usd/issues/188" target="_blank">usd#698</a> )</li>
+<li><strong>Transform2D:</strong> The procedural now supports remapping UsdTransform2D to built-in Arnold nodes. ( <a href="https://github.com/Autodesk/arnold-usd/issues/517" target="_blank">usd#517</a> )</li>
+<li><strong>Write with default values</strong> : The scene format now supports optionally writing parameters with default values. ( <a href="https://github.com/Autodesk/arnold-usd/issues/720" target="_blank">usd#720</a> )</li>
+<li><strong>Velocity blur</strong> : The procedural now uses the velocity attribute to create motion keys for point-based shapes, when there are no position keys or the topology changes between frames. ( <a href="https://github.com/Autodesk/arnold-usd/issues/221" target="_blank">usd#221</a> )</li>
+<li><strong>Multi-Threading</strong> : The procedural now uses USD's WorkDispatcher which improves the performance of multi-threaded expansion in many cases. <a href="https://github.com/Autodesk/arnold-usd/pull/709#issuecomment-799833707" target="_blank">Examples of the performance improvements</a> . ( <a href="https://github.com/Autodesk/arnold-usd/issues/690" target="_blank">usd#690</a> )</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible Changes</h2><ul>
+<li><p>By default, Arnold licenses are now checked out using the <strong>host computer name</strong> . In previous Arnold versions, licenses were checked out with the name <strong>arnold.user</strong></p>
+<p>This means that Arnold 6.2.1.0 and an older Arnold, like 6.2.0.1, won't share a license if you render with both versions on the same time on the same machine.</p>
+<p>To make Arnold 6.2.1 share a license with an older Arnold, set the environment variable <strong>ARNOLD</strong> <strong>_LICENSE_CLM_USERNAME</strong> to <strong>a</strong> <strong>rnold .user</strong></p>
+</li>
+</ul>
+<pre class="pre codeblock"><code class="prettyprint">**ARNOLD** **_LICENSE_CLM_USERNAME** supports the tokens **&lt;username&gt;** and **&lt;hostname&gt;** , so with Arnold 6.2.1 and later you can customize the name used to check out the license.
+
+It could be just **&lt;username&gt;** , which would expand to to something like "blairs"
+
+Or it could be something like **arnold .&lt;username&gt;.&lt;hostname&gt;** , which would expand to something like " arnold .blairs.NOVMJ07M9WM"</code></pre><h2 id="bug-fixes">Bug Fixes</h2><ul>
+<li><p>mtoa#549 - Triplanar rotations are in radians instead of degrees</p>
+</li>
+<li><p>mtoa#550 - Don't Add MtoA Product metadata at plugin launch</p>
+</li>
+<li><p>mtoa#552 - Procedural viewport display should expand nested procs</p>
+</li>
+<li><p>mtoa#560 - ArnoldBifrost shape should update when the Bifrost graph is modified</p>
+</li>
+<li><p>mtoa#574 - Hidden procedurals trigger geometry computation for the viewport</p>
+</li>
+<li><p>mtoa#575 - Stand-ins stay in viewport after being hidden in Maya 2022</p>
+</li>
+<li><p>mtoa#576 - Crash when expanding the Arnold section of the GPUCache node</p>
+</li>
+<li><p>mtoa#582 - OSL code editor broken in Maya 2022</p>
+</li>
+<li><p>arv#408 - Upgrade OIIO in Arnold RenderView</p>
+</li>
+<li><p>arv#540 - Scenes with disabled imagers and multiple cameras render black on startup</p>
+</li>
+<li><p>arv#348 - Framing 1:1 in Arnold RenderView on MacOS centers the image incorrectly on HiDPI monitors</p>
+</li>
+<li><p>core#10385 [Alembic] The transform_type parameter on the alembic procedural is not applied to child nodes</p>
+</li>
+<li><p>core#10459 Crash in AiProceduralViewport with curves inside procedurals in bounding box mode</p>
+</li>
+<li><p>core#10410 Crash when rendering EXR files in append mode at high resolution using many AOVs</p>
+</li>
+<li><p>core#10386 Crash with single sided implicit objects</p>
+</li>
+<li><p>core#7562 [GPU] Crash when destroying some procedurals</p>
+</li>
+<li><p>core#10390 [GPU] Crash when loading empty points through a procedural</p>
+</li>
+<li><p>core#10422 [GPU] Crash when switching shader presets in Bifrost Graph scene</p>
+</li>
+<li><p>core#10478 [GPU] Crash with non-Nvidia GPUs with an old Nvidia driver installed</p>
+</li>
+<li><p>core#9682 [GPU] Error during render when reaching the memory limit on one GPU with NVLink</p>
+</li>
+<li><p>core#10431 [GPU] Incorrect result and crashes with motion blur on curves when not using the default shutter</p>
+</li>
+<li><p>core#10352 [GPU] Incorrect Z AOV on background</p>
+</li>
+<li><p>core#10328 [GPU] Overscan region is empty</p>
+</li>
+<li><p>core#10419 [GPU] Texture behind glass is blurred</p>
+</li>
+<li><p>core#10389 [GPU] Transforming procedurals in IPR does not update geometry position</p>
+</li>
+<li><p>core#9751 [GPU] Wrong texture mipmap selected after ray goes through a transparent object</p>
+</li>
+<li><p>core#10445 [Imagers] Artifacts with small filmic_shoulder_length value in imager_tonemap</p>
+</li>
+<li><p>core#10461 [Imagers] imager_denoiser_noice does not write alpha when using output_suffix</p>
+</li>
+<li><p>core#10253 [Imagers] Random crashes when interactively editing the light_mixer channels</p>
+</li>
+<li><p>core#10382 [Imagers] Random crash in imager_denoiser_noice when feature buffers are not of type RGB</p>
+</li>
+<li><p>core#10409 [MaterialX] Material assignments not working when using <surface_material> in the document</surface_material></p>
+</li>
+<li><p>core#3642 Minor memory leak (464 bytes) when starting a new render session</p>
+</li>
+<li><p>core#10432 [OCIO] Unable to determine chromaticities using an aces_1.2 config without an sRGB curve</p>
+</li>
+<li><p>core#10279 [OpenVDB] Block artifacts when VDB volumes overlap standard surface interiors</p>
+</li>
+<li><p>core#10106 [OSL] Incorrect results when connecting G and B components of an OSL node to another OSL node</p>
+</li>
+<li><p>core#10452 Rare hang with C4DToA on Linux</p>
+</li>
+<li><p>core#10350 Render progress is not reset after AiRenderBegin</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/667" target="_blank">usd#668</a> The render delegate does not convert HdInterpolationVarying primvars</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/651" target="_blank">usd#651</a> Error rendering Usd file with samples in productName</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/615" target="_blank">usd#615</a> Usd Writer crashes when node name contains a hyphen character</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/683" target="_blank">usd#683</a> Don't apply skinning if the Usd stage comes from the cache</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/508" target="_blank">usd#508</a> Nested procedurals ignore matrix in the viewport API</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/687" target="_blank">usd#687</a> Crash with empty primvar arrays</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/679" target="_blank">usd#679</a> Attribute subdiv_type should have priority over Usd subdivisionScheme</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/282" target="_blank">usd#282</a> Primvars are not inherited from ancestor primitives</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/579" target="_blank">usd#579</a> Subdivision settings not being passed to Usd procedural</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/660" target="_blank">usd#660</a> Crease Sets and Subdivision scheme is not imported correctly</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/215" target="_blank">usd#215</a> Issue with instanced primitives' visibility (procedural)</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/244" target="_blank">usd#244</a> Curves with vertex interpolation on width (procedural)</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/718" target="_blank">usd#718</a> Inactive render vars are still rendered when using the scene format</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/727" target="_blank">usd#727</a> Arnold does not use wrapS and wrapT values on UsdUVTexture shader node when rendering UsdPreviewSurface</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/724" target="_blank">usd#724</a> ID not passed to the shapes generated in the procedural</p>
+</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_4x_html.html">MtoA 4.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

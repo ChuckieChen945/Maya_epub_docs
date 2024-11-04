@@ -1,0 +1,193 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shading_am_Rendering_an_Ocean_with_Displacement_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_RENDERING_AN_OCEAN_WITH_DISPLACEMENT">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用置换渲染海洋 - Arnold for Maya">
+
+<title>使用置换渲染海洋</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">                                                                        
+
+
+
+<div class="head-block"><h1>使用置换渲染海洋</h1></div><img src="../images/am-Rendering_an_Ocean_with_Displacement-sea-1k-1.jpg" width="400px">
+
+
+<p>本教程介绍如何只使用一个多边形平面和一个连接到 <em>skydome_light</em> 的 HDR 图像渲染海洋场景。海洋着色器的细节来自一张向量置换贴图。使用置换贴图功能时，要设置一系列属性。但是，使用正确的设置，要设置和获得逼真的效果就变得非常简单。</p>
+<p><strong>有关场景文件和向量置换贴图，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_tutorials_am_Learning_Scenes_html">此处</a>。</strong></p>
+<ul>
+<li>首先，创建一个可以用作海面的多边形平面：</li>
+</ul>
+<p><img src="../images/am-Rendering_an_Ocean_with_Displacement-image2015-8-13-15-2-24-2.png" alt=""></p>
+<h2 id="strong-strong"><strong>海洋材质</strong></h2><ul>
+<li>创建一个 <em>standard_surface</em> 着色器，并将其指定给多边形平面。将 <em>base_weight</em> 设置为 0。将 <em>specular_weight</em> 增加到 1 左右。将 <em>transmission_weight</em> 增加到 1（这将使水变得透明）。最后，将 <em>specular_IOR</em> 设置为水的 IOR (1.33)。</li>
+</ul>
+<h2 id="strong-a-href-renderinganoceanwithdisplacement-vectordisplacementmap-a-strong"><strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Shading/am-Displacement_Tutorials/arnold_for_maya_shading_am_Rendering_an_Ocean_with_Displacement_html.html#RenderinganOceanwithDisplacement-Vectordisplacementmap">向量置换贴图</a></strong></h2><p>这里使用的向量置换贴图是 32 位 EXR 图像。这意味着该贴图能够保留最高质量的向量置换效果。为获得更加逼真的波浪效果，我们将使用向量置换贴图来置换海浪。与仅在一个方向置换几何体的传统置换贴图不同，向量置换将围绕不同于法线的方向置换海洋几何体。</p>
+<p><a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/oceanshape_0000.zip" target="_blank"><img src="../images/ax-ocean-displacement-vector-map-3.png" alt=""></a></p>
+<p><sub><strong>使用对象空间向量贴图创建海洋置换</strong></sub></p>
+<p>如果海浪的效果看起来太锐利，您可以尝试模糊处理向量置换贴图来获得更平滑的海浪。</p>
+<ul>
+<li>将向量贴图连接到 Maya 置换节点，应由连接到 Maya 置换节点（该节点连接到海洋材质的着色组节点）的向量置换贴图组成。</li>
+</ul>
+<h2 id="strong-ai-strong"><strong>Ai 天穹灯光</strong></h2><p>创建一个 <em>skydome_light</em> 并将一个 HDR 贴图连接到它的 <em>color</em> 属性。</p>
+<h2 id="strong-strong"><strong>细分设置</strong></h2><ul>
+<li>渲染场景。竟然没有发生置换！这是因为我们的海洋平面几何体中没有足够的细分。</li>
+</ul>
+<p><img src="../images/am-Rendering_an_Ocean_with_Displacement-sea-no-subdivisions-4.jpg" alt=""></p>
+<ul>
+<li>选择海洋平面，然后在 Arnold 属性下，将 <em>subdivision_type</em> 更改为 <em>catclark</em>，并增加<em>迭代</em>次数。从较小的值开始，例如 3：</li>
+</ul>
+<p><img src="../images/am-Rendering_an_Ocean_with_Displacement-subdivs-3-5.jpg" alt=""></p>
+<p><sub><strong><em>subdivision_type</em>：<em>catclark</em>、<em>subdivision_iterations</em>：3。</strong></sub>  </p>
+<ul>
+<li>现在海面看起来不错，但其实还需要更多细节。将 <em>subdivision_iterations</em> 增加到 8。注意不要过分增大此值，因为每增加一次迭代，内存使用量和渲染时间会随之显著增加（每次迭代会使几何体变为原来的四倍）。</li>
+</ul>
+<p><img src="../images/am-Rendering_an_Ocean_with_Displacement-subdiv-8-6.jpg" alt=""></p>
+<p><sub><strong><em>subdivision_iterations</em>：8。海浪中可以看到更丰富的细节。</strong></sub></p>
+<h2 id="">照明</h2><ul>
+<li>最后，向场景中添加一个平行光。我们可以使用它加强阳光照在海面上的效果，从而突出海面上的高光。</li>
+</ul>
+<p><img src="../images/am-Rendering_an_Ocean_with_Displacement-directional-light-7.jpg" alt=""></p>
+<p><sub><strong>使用带方向性的灯光进行渲染</strong></sub></p>
+<ul>
+<li>增大带方向性的灯光的<strong>“角度”(Angle)</strong>属性将会增大灯光的角大小，从而在海面上形成更大的镜面反射。</li>
+</ul>
+<p><img src="../images/am-Rendering_an_Ocean_with_Displacement-angle-5-8.jpg" alt=""></p>
+<p><strong><sub>角度 5</sub></strong></p>
+<h2 id="">透射</h2><p>由于光线在空气中的传播速度比在水中快，因此透射入海面的光会发生“折射”。当光进入水中时，会被海洋中的粒子散射或吸收。随着海洋的深度增加（密度更高），水会降低光穿透的深度。使用 <em>standard_surface</em> 着色器的<em>透射</em> 属性，很容易就能重现这种效果。当我们将一个物体放在海面内部时，可以看到这种效果。我们可以看到，光在网格内传播的距离越长，受蓝色 <em>transmission_color</em> 的影响越大。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_an_Ocean_with_Displacement-transmission-color-white-9.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_an_Ocean_with_Displacement-transmission-color-blue-10.jpg" alt=""></td>
+</tr>
+<tr>
+<td><em>transmission_color：</em> 白色</td>
+<td><em>transmission_color：</em> 蓝色</td>
+</tr>
+</tbody></table>
+<p>当应用于海洋着色器时，我们可以从下图中看到 <em>transmission_color</em> 和 <em>transmission_depth</em> 对封闭的海面内的白色圆柱体产生的影响：</p>
+<p><img src="../images/ci-Rendering-an-Ocean-with-Displacement-image2014-10-8-10-13-45-10.png" alt=""></p>
+<h2 id="">暗斑</h2><p>海洋着色器并不是完全透明的。这意味着非掠射光线不会发生反射，而是折射和穿过水中（像现实世界中那样），但是因为它不是透明的，所以我们改为终止光线并得到黑色。</p>
+<p>当着色法线背向光线时，尽管几何法线指向光线，着色法线也可能会造成问题。在本例中，着色（自动凹凸）法线光线照射的是水的背面，并应该向下反射，而现实生活中的光线照射的是水面网格的顶部。</p>
+<p>在掠射角度，真实的水几乎是 100% 反射的，但即便如此，光也可能需要经过几次反弹才能离开波峰后面的波谷，甚至在经过几次反弹后，倒映出的地平线上的物体会比周围的水倒映出的物体更高。</p>
+<p>更真实的外观是使水变得透明，然后在水下放置一个具有海水颜色的平面。在下面的示例图像中，海洋平面的 <em>standard_surface</em> 着色器的 <em>emission_scale</em> 为 1，<em>emission_color</em> 为蓝色/绿色。增加 <em>subdivision_iterations</em> 也有助于减少置换的海浪上的暗斑数量。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_an_Ocean_with_Displacement-plane-3-subdivs-12.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_an_Ocean_with_Displacement-emissive-plane-8-subdivs-13.jpg" alt=""></td>
+</tr>
+<tr>
+<td><em>subdivision_iterations：</em> 3。暗斑可见</td>
+<td>将 <em>subdivision_iterations</em> 增加到 8 可使问题得到缓解</td>
+</tr>
+</tbody></table>
+<p>波峰后面的暗斑（自身的倒影）也可以通过增大渲染设置中的 <em>specular_ray_depth</em> 得到改善。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_an_Ocean_with_Displacement-1-glossy-rays-1-14.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_an_Ocean_with_Displacement-3-glossy-ray-depth-2-15.jpg" alt=""></td>
+</tr>
+<tr>
+<td><em>specular_ray_depth：</em> 1</td>
+<td><em>specular_ray_depth：</em> 2</td>
+</tr>
+</tbody></table>
+<h2 id="">总结</h2><p>有关如何创建逼真可信的海洋场景的教程到此结束。使用正确的置换设置，结合高质量的 32 位向量置换贴图和正确的标准着色器设置，您应该能得到逼真的外观。您可以尝试添加景深，或将摄影机镜头改为鱼眼镜头之类的效果，为场景增添更多的视觉乐趣。</p>
+<p>下面您可以看到，使用向量置换贴图营造海浪效果所能实现的细节要比使用常规几何体丰富多少：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_an_Ocean_with_Displacement-sunset-geometry-16.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_an_Ocean_with_Displacement-sunset-displacement-17.jpg" alt=""></td>
+</tr>
+<tr>
+<td>使用多边形几何体的海浪</td>
+<td>相较于使用几何体，向量置换贴图可以实现更多细节</td>
+</tr>
+</tbody></table>
+<p><img src="../images/am-Rendering_an_Ocean_with_Displacement-sea-vector-displacement-300-18.gif" alt=""></p>
+<p><sub><strong>置换值的动画</strong></sub>  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_an_Ocean_with_Displacement-sea-6-19.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_an_Ocean_with_Displacement-5-20.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_an_Ocean_with_Displacement-1-21.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_an_Ocean_with_Displacement-2-22.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_an_Ocean_with_Displacement-4-23.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_an_Ocean_with_Displacement-3-24.jpg" alt=""></td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Shading/arnold_for_maya_shading_am_Displacement_Tutorials_html.html">置换教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

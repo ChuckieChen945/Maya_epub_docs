@@ -1,0 +1,66 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-MayaPlugin">
+  <meta name="topicid" content="Bifrost_MayaPlugin_bifrost_usd_in_maya_add_attribute_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>在 Bifrost-USD 中将属性添加到基本体</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>在 Bifrost-USD 中将属性添加到基本体</h1></div><p>可以使用 <code>define_usd_attribute</code> 节点或专门用于特定预定义属性的类似节点将属性添加到基本体。这些节点可以连接到 <code>define_usd_port</code> 节点的 <code>attribute_definitions</code> 端口 - 这可以是最初定义基本体的 <code>define_usd_port</code> 节点，也可以是指向相同路径的另一个节点。</p>
+<ol>
+<li><p>在 <code>define_usd_port</code> 节点的 <code>attribute_definitions</code> 端口上单击鼠标右键，然后从<strong>“创建节点”(Create Node)</strong>菜单中选择一个选项。</p>
+<ul>
+<li><strong>Usd::Attribute::define_usd_transform</strong> 用于快速缩放、旋转和平移基本体。</li>
+<li><strong>Usd::Attribute::define_usd_display_color</strong> 用于快速设置要在视口中显示的颜色。</li>
+<li><strong>Usd::Attribute::define_usd_display_color</strong> 用于设置所有属性。</li>
+</ul>
+</li>
+<li><p>在 <code>define_usd_transform</code> 的情况下，需要指定属性的详细信息。</p>
+<ul>
+<li>输入属性的 <code>name</code>。</li>
+<li>设置 <code>custom</code> 复选框以声明属性是否由用户定义。</li>
+<li>从 <code>type</code> 下拉框中选择 USD 数据的类型。此外，请注意，<code>value</code> 端口的数据类型为 <code>auto</code>，但默认为 <code>float</code> - 必须在端口上单击鼠标右键，然后将其更改为与选定 USD 数据类型兼容的 Bifrost 数据类型，例如，<code>float3</code> 用于 <code>Normal3f</code> 或 <code>Color3f</code>，<code>string</code> 用于 <code>Token</code> 或 <code>Asset</code>，以此类推。</li>
+<li>如果还要将属性设置为特定值（而不是简单地定义属性是否存在），请选中 <code>enable_value</code> 框，然后输入或连接 <code>value</code> 进行设置。</li>
+<li>若要将属性连接到另一个基本体的属性，请选中 <code>enable_connection</code> 框并设置 <code>connection_mode</code>、<code>target_prim</code> 和 <code>target_attribute</code>。</li>
+<li>向渲染器声明该属性与几何基本体相关联，可随曲面或体积而变化，请选中 <code>enable_primvar</code> 框并设置 <code>interpolation_method</code>。</li>
+<li>要将值设为特定的帧，请选中 <code>use_frame</code> 框并输入要使用的 <code>frame</code>。对于已设置动画的属性，可以连接 <code>time</code> 节点的 <code>frame</code> 输出。</li>
+</ul>
+</li>
+</ol>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-MayaPlugin/files/Bifrost_MayaPlugin_bifrost_usd_in_maya_html.html">Maya 中的 Bifrost-USD</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

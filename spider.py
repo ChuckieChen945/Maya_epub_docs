@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-爬取Maya 2025手册，生成pdf
+爬取Maya 2025手册
 '''
 
 import datetime
@@ -8,8 +8,9 @@ import json
 import ssl
 import time
 import warnings
+import msvcrt
 
-import pdfkit
+# import pdfkit
 import requests
 import os, re
 from urllib.parse import urljoin
@@ -20,6 +21,22 @@ from pyquery import PyQuery as pq
 ssl._create_default_https_context = ssl._create_unverified_context
 warnings.filterwarnings("ignore")
 
+def get_input_in_one_second(timeout=0.5):
+    """
+    获取一秒钟内的用户输入。只在windows Terminal中有效，在pyCharm Terminal中无效
+    """
+    start_time = time.time()
+    input = ''
+    while True:
+        if msvcrt.kbhit():
+            char = msvcrt.getch().decode('utf-8')
+            if char == '\r':  # 如果输入回车键，结束输入
+                break
+            else:
+                input += char
+        if (time.time() - start_time) > timeout:
+            break
+    return input
 
 
 def write_log(log_file, content, with_time=True, mode='a+', print_line=True):
@@ -138,30 +155,41 @@ class DzSpider(object):
         for item in html.get('books'):
             self.get_content(item)
 
+            # # 一秒内输入‘p’则暂停程序.不能用q来判断，q会和ffmpeg的退出命令重合
+            # keyboard_input = get_input_in_one_second()
+            # if 'l' in keyboard_input:
+            #     user_input = input("输入任意内容并按回车继续：")
+            # continue
+
+
     def get_content(self, item):
-        title = item.get('ttl')
+        guid = item.get('id')
         item_link = item.get('ln')
         # 如果链接不为空，说明有内容，则下载html
-        if item_link != '':
+        if item_link != '' and item_link is not None:
             item_link = urljoin(self.req_url, item_link)
             print(f'========================================\n'
                   f'第{self.spider_num}条\n'
-                  f'{title}\n'
+                  f'{guid}\n'
                   f'{item_link}\n'
                   f'========================================\n')
-            self.download_pdf(title, item_link)
+            self.download_html(guid, item_link)
             self.spider_num += 1
         # 如果有子节点，继续获取内容
         if item.get('children'):
             for c in item.get('children'):
                 self.get_content(c)
 
-    def download_pdf(self, title, link):
-        title = clean_filename(title)
-        output = fr'{self.folder}{os.path.sep}pdf{os.path.sep}{title}.pdf'
-        if os.path.exists(output):
-            print('已存在')
-            return
+    def download_html(self, file_name, link):
+        # file_name = clean_filename(file_name)
+        html_folder = fr'{self.folder}{os.path.sep}html'
+        # if os.path.exists(fr'{html_folder}{os.path.sep}{file_name}.html'):
+        #     print('页面已存在')
+        #     return
+        # output = fr'{self.folder}{os.path.sep}pdf{os.path.sep}{file_name}.pdf'
+        # if os.path.exists(output):
+        #     print('已存在')
+        #     return
         headers = {
             "accept": "*/*",
             "accept-language": "zh-CN,zh;q=0.9",
@@ -187,71 +215,63 @@ class DzSpider(object):
             html = requests.get(link, headers=headers, cookies=cookies,timeout=10).text
         except:
             time.sleep(2)
-            self.download_pdf(title,link)
+            self.download_html(file_name,link)
             return
         # 处理转换过程中的特殊字符
         html = html.replace('<?xml version="1.0" encoding="UTF-8"?>', '<!DOCTYPE html>')
-        html = self.make_urls_absolute(html, link)
+        html = self.correct_urls(html, link)
         html = html.replace('<html xml:lang="zh-cn" lang="zh-cn">', '<html lang="en">')
         html = '<!DOCTYPE html>' + html
 
-        html_folder = fr'{self.folder}{os.path.sep}html'
-        pdf_folder = fr'{self.folder}{os.path.sep}pdf'
-        if not os.path.exists(html_folder):
-            os.makedirs(html_folder)
-        if not os.path.exists(pdf_folder):
-            os.makedirs(pdf_folder)
+        # if not os.path.exists(html_folder):
+        #     os.makedirs(html_folder)
 
-        if not os.path.exists(fr'{html_folder}{os.path.sep}{title}.html'):
-            write_log(fr'{html_folder}{os.path.sep}{title}.html', html, with_time=False, print_line=False)
-        if not os.path.exists(output):
-            # html转换成pdf
-            # configuration = pdfkit.configuration(wkhtmltopdf=r'D:\Programs\wkhtmltopdf\bin\wkhtmltopdf.exe')
-            configuration = pdfkit.configuration(wkhtmltopdf=r'C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
-            try:
-                pdfkit.from_file(fr'{html_folder}{os.path.sep}{title}.html', output_path=output, configuration=configuration,
-                                 options={'encoding': 'utf-8', "enable-local-file-access": True,
-                                          'disable-smart-shrinking': ''})
-            except Exception as e:
-                # print('--->',e)
-                write_log(fr'{self.folder}{os.path.sep}log.log', f'{output}\n', with_time=False, print_line=False)
+        if not os.path.exists(fr'{html_folder}{os.path.sep}{file_name}.html'):
+            write_log(fr'{html_folder}{os.path.sep}{file_name}.html', html, with_time=False, print_line=False)
 
-    def make_urls_absolute(self, html, base_url):
+    def correct_urls(self, html, base_url):
         # 处理html页面中的链接及图片信息
         doc = pq(html)
         doc('meta[name="helpsystempath"]').remove()
+
         for a in doc('a').items():
             href = a.attr('href')
             if href and not href.startswith('http'):
                 a.attr('href', urljoin(base_url, href))
+
+        # TODO:将下载到的文件按原链接的目录结构存放在硬盘上
         for a in doc('img').items():
             href = a.attr('src')
-            if href and not href.startswith('http'):
-                img_url = urljoin(base_url, href)
-                img_name = img_url[img_url.rfind('/') + 1:]
-                save_name = fr'{self.folder}{os.path.sep}images{os.path.sep}{img_name}'
-                download_file(save_name, img_url)
-                local_path = f'{self.folder}/images'.replace('\\', '/')
-                a.attr('src', f'file://{local_path}/{img_name}')
-            if href and href.startswith('http'):
-                img_url = urljoin(base_url, href)
-                img_name = img_url[img_url.rfind('/') + 1:]
-                save_name = fr'{self.folder}{os.path.sep}images{os.path.sep}{img_name}'
-                download_file(save_name, img_url)
-                local_path = f'{self.folder}/images'.replace('\\', '/')
-                a.attr('src', f'file://{local_path}/{img_name}')
+            if href:
+                img_name = self.replace_url_and_download_file(href,base_url,'images')
+                a.attr('src', f'../images/{img_name}')
 
+        # FiXME:download link 和 script
         for a in doc('link').items():
             href = a.attr('href')
-            if href and not href.startswith('http'):
-                a.attr('href', urljoin(base_url, href))
+            if href:
+                style_name = self.replace_url_and_download_file(href,base_url,'style')
+                a.attr('href', f'../style/{style_name}')
+
         for a in doc('script').items():
             href = a.attr('src')
-            if href and not href.startswith('http'):
-                a.attr('src', urljoin(base_url, href))
+            if href:
+                script_name = self.replace_url_and_download_file(href,base_url,'scripts')
+                a.attr('src',f'../scripts/{script_name}')
 
         return doc.outer_html()
 
+    def replace_url_and_download_file(self, raw_url, base_url, path):
+
+        if not raw_url.startswith('http'):
+            download_url = urljoin(base_url, raw_url)
+        elif raw_url.startswith('http'):
+            download_url = raw_url
+
+        file_name = download_url[download_url.rfind('/')+1:]
+        save_name = fr'{self.folder}{os.path.sep}{path}{os.path.sep}{file_name}'
+        download_file(save_name,download_url)
+        return file_name
 
 if __name__ == '__main__':
     spider = DzSpider()
@@ -260,9 +280,7 @@ if __name__ == '__main__':
 
 '''
 安装python以下模块：
-pdfkit
 requests
 pyquery
-从https://wkhtmltopdf.org/ 网站下载最新版本的，安装到本机，然后替换上面代码中的wkhtmltopdf.exe绝对路径
 '''
 

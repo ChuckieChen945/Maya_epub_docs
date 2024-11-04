@@ -1,0 +1,68 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_build_a_graph_work_with_arrays_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>使用数组</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>使用数组</h1></div><p>数组是已创建索引的值列表。例如，网格的 <code>point_position</code> 特性的 <code>data</code> 是 <code>float3</code> 值的数组，它根据顶点数量创建索引。</p>
+<p>您可以通过指定索引来获取或设置数组中的单一值。Bifrost 中的数组使用从零开始的索引**。这意味着在大小为 5 的数组中，第一个值的索引是 0 而不是 1，最后一个值的索引是 4。</p>
+<p>尽管负数不能表示有效的数组索引，但索引类型为有符号整数 (<code>long</code>)。</p>
+<h2 id="">数组端口</h2><p>当端口的类型为数组时，它的形状在接触节点的地方更宽，类似于其侧面的顶帽。</p>
+<p><img src="../images/port_array_float.png" alt="数组端口"></p>
+<p>某些数组端口允许串联<em>输入</em>连接。这意味您可以连接单个元素或数组的多个连接。所有连接的输入将自动连接为单个输入数组，这类似于使用 <code>build_array</code> 节点。</p>
+<ul>
+<li>将连接拖到主端口图标上以添加新的输入。</li>
+<li>展开端口以查看单个连接。例如，这可以让您断开特定输入。</li>
+</ul>
+<p><img src="../images/fan-in_collapsed.png" alt="串联输入，已收拢"></p>
+<p><img src="../images/fan-in_expanded.png" alt="串联输入，已展开"></p>
+<p>要在您自己的图表和复合创建串联输入端口，请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/create-and-edit-compounds/Bifrost_Common_build_a_graph_create_and_edit_compounds_create_fan_in_ports_for_arrays_html.html">为数组创建串联输入端口</a></p>
+<h2 id="">用于使用数组的节点</h2><p>在 <code>Core::Array</code> 名称空间中有许多用于使用数组的节点。此外，<code>for-each</code> 和 <code>iterate</code> 复合可用于遍历数组的值。</p>
+<h2 id="">自动循环</h2><p>大多数情况下，您不需要遍历数组来处理其值。这是因为大多数节点会在需要时自动循环处理数组的元素。</p>
+<p>例如：</p>
+<ul>
+<li>如果将两个单一值作为输入连接到 <code>add</code> 节点，则会获得单一值作为输出。在这种情况下不需要自动循环。</li>
+<li>如果将一个单一值和一个数组连接到 <code>add</code> 节点 则会自动将该单一值添加到数组中的每个值。输出则是包含总和的另一个数组。</li>
+<li>如果将两个数组连接到 <code>add</code> 节点，则会将相应的数组值相加，而输出仍是一个数组。如果数组具有不同的大小，则输出数组将截断为较小输入的大小。</li>
+</ul>
+<p>发生自动循环时，它在受影响的端口上以特殊图标表示：</p>
+<p><img src="../images/icon_autoloop.png" alt="自动循环"></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/Bifrost_Common_build_a_graph_html.html">构建和修改图表</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

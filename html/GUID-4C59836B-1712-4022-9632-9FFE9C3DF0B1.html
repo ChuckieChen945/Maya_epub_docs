@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1">
+<meta name="language" content="CHS">
+<title>linstep</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>linstep</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-1283"> 返回 0 到 1 之间的值，该值表示参数在最小值和最大值之间的比例值。利用该函数可以在某个时间范围内将属性（例如<span class="ph uicontrol" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__GUID-39F299F1-FBDC-4694-BBF5-B09C6F950199">“不透明度”(Opacity)</span>）从 0 线性增加到 1。 </p>
+<p class="p" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-1280">float linstep(float start, float end, float parameter) </p>
+<p class="p" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-127F"> start 和 end 用于指定最小值和最大值。 </p>
+<p class="p" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-127E">parameter 是要用于生成比例数的值。 </p>
+<p class="p" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-127D">如果 parameter 小于 start，linstep 会返回 0。 </p>
+<p class="p" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-127C">如果 parameter 大于 end，linstep 会返回 1。 </p>
+<div class="section" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-127B"><h2 class="title sectiontitle">示例</h2>
+
+<p class="p" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-127A">假设已使用<span class="ph uicontrol" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__GUID-7956DDDF-BFF3-497D-A37C-C243355DF132">“粒子工具”(Particle Tool)</span>创建了名为<span class="ph uicontrol" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__GUID-713E2C11-17BF-4AF9-A237-7B700542AD0D">“云”(Cloud)</span>的粒子集合： </p>
+
+<div class="fig fignone" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-1279"><img class="image" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__IMAGE_A4425EE132D54B738C7F76405DBBC274" width="118" height="120" src="../images/GUID-B97DDF18-E87B-45C0-9010-E6C3F5464890.png"></div>
+
+<p class="p" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-1278">进一步假设，已将动态每对象属性<span class="ph uicontrol" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__GUID-C8A59308-4AEA-4508-9C95-36DF50064102">“不透明度”(Opacity)</span>添加到<span class="ph uicontrol" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__GUID-1BB60BDE-25B8-4A05-AC9F-B06EC3F5ABEF">“云”(Cloud)</span>中（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-5738B999-A151-4501-9970-F46AF1AD77E5.htm">使用粒子属性</a>）。然后为云的粒子形状节点编写以下运行时表达式： </p>
+
+<pre class="pre codeblock">
+CloudShape.opacity = linstep(0,5,age);
+</pre>
+
+<p class="p" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-1277">该表达式会在对象存在的前 5 秒内将<span class="ph uicontrol" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__GUID-AEC19BD0-2729-4372-8EB1-3DC22925B821">“CloudShape”</span>的每对象属性<span class="ph uicontrol" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__GUID-4D5135AD-D1DF-4A82-B4CC-5C105905EFA7">“不透明度”(Opacity)</span>均等地从 0 增加到 1。由于已使用<span class="ph uicontrol" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__GUID-BE61467B-5F12-492F-A9BC-5D3B0E54AD33">“粒子工具”(Particle Tool)</span>创建了对象，因此粒子将从动画的第一帧开始存在。 </p>
+
+<p class="p" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-1276">对象中的所有粒子会在动画的前 5 秒内从透明淡入不透明。 </p>
+
+<p class="p" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-1275">在播放的第一帧中，粒子年龄为 0，因此，linstep 函数会针对<span class="ph uicontrol" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__GUID-46B0E6D6-2690-4FAC-BF95-BD36EBFB2D93">“不透明度”(Opacity)</span>返回 0。值为 0 的<span class="ph uicontrol" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__GUID-1D1F3FB4-8390-4868-A78B-46340D595939">“不透明度”(Opacity)</span>表示是透明的。 </p>
+
+<p class="p" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-1274"> 在后续的每个帧中，linstep 函数会返回一个按比例增大的不透明度值。当对象年龄达到 5 时，linstep 函数会针对不透明度返回 1。值为 1 的不透明度表示 100% 不透明。 </p>
+
+<p class="p" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-1272">当年龄超过 5 时，linstep 函数将返回 1。不透明度将保持在 100% 不透明状态。以下是针对对象的不透明度返回的一些值： </p>
+
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-1271" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">年龄 </th>
+<th class="entry" valign="top" width="50%">不透明度 </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">0.0417 </td>
+<td class="entry" valign="top" width="50%">0.0083 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">0.0833 </td>
+<td class="entry" valign="top" width="50%">0.0166 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">0.125 </td>
+<td class="entry" valign="top" width="50%">0.025 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">0.1667 </td>
+<td class="entry" valign="top" width="50%">0.0333 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">0.2083 </td>
+<td class="entry" valign="top" width="50%">0.0417 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">2.5 </td>
+<td class="entry" valign="top" width="50%">0.5 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">1.0 </td>
+<td class="entry" valign="top" width="50%">0.2 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">3.75 </td>
+<td class="entry" valign="top" width="50%">0.75 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">5 </td>
+<td class="entry" valign="top" width="50%">1 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">5.041 </td>
+<td class="entry" valign="top" width="50%">1 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">5.083 </td>
+<td class="entry" valign="top" width="50%">1 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">10 </td>
+<td class="entry" valign="top" width="50%">1 </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p class="p" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-1270">如下表所示，不透明度在对象年龄的前 5 秒中以线性增量增加。在指定的 0 到 5 秒年龄范围内的中点处，不透明度为 0.5。在 0 和 5 秒的 3/4 处，不透明度为 0.75。在对象年龄的 5 秒处，不透明度为 1。5 秒后，不透明度将保持为 1。 </p>
+
+<div class="fig fignone" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-126F"><img class="image" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__IMAGE_559F8B104CA348F78E534860F75EA25F" width="310" height="164" src="../images/GUID-54F671EB-05D2-49BD-BFAF-42EFBF7DA484.png"></div>
+
+<p class="p" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-126E">假设对运行时表达式进行如下编辑： </p>
+
+<pre class="pre codeblock">
+CloudShape.opacity = linstep(5,10,age);
+</pre>
+
+<p class="p" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-126D">这会在对象年龄从 5 秒增加到 10 时将<span class="ph uicontrol" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__GUID-F33F4F23-F78E-4AD2-8828-21C182E12A9A">“不透明度”(Opacity)</span>属性从 0 线性增加到 1。 </p>
+
+<div class="fig fignone" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-126C"><img class="image" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__IMAGE_01FC8C832AA0437481DA782283AFD099" width="417" height="162" src="../images/GUID-2EBC8DBB-EA88-4BAC-8B30-B9DB1C30DD0C.png"></div>
+
+<p class="p" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-126B">假设对运行时表达式进行如下编辑： </p>
+
+<pre class="pre codeblock">
+particleShape1.opacity = 1-linstep(0,5,age);
+</pre>
+
+<p class="p" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-126A">这会在对象年龄的前 5 秒内将<span class="ph uicontrol" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__GUID-E137B3C6-9124-4908-97C4-5A6AD633222D">“不透明度”(Opacity)</span>属性从 1 线性减少到 0。从 1 中减去 linstep (0,5,age) 会导致不透明度淡出而不是淡入。 </p>
+
+<div class="fig fignone" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__WS73099CC142F48755-3D114B7511841AEFA9F-1269"><img class="image" id="GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1__IMAGE_6BB7C80DD89A42EDA1ED8E28D39183C8" width="384" height="161" src="../images/GUID-5A05A77E-1733-40D0-A68F-B7D5A9FA9799.png"></div>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-768BD5F3-DDB3-4F47-9A84-FB5BA6346E1E.htm">曲线函数</a></div>
+</div>
+</div>
+
+</body>
+</html>

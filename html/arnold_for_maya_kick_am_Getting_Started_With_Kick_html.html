@@ -1,0 +1,146 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_kick_am_Getting_Started_With_Kick_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_GETTING_STARTED_WITH_KICK">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" Kick 快速入门 - Arnold for Maya">
+
+<title>Kick 快速入门</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>Kick 快速入门</h1></div><h2 id="">简介</h2><p>Arnold 的命令行渲染器称为 kick。此渲染器读取 <a href="https://help.autodesk.com/pages/viewpage.action?pageId=36110427">.ass</a> 和 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shapes_ac_usd_html" target="_blank">.usd</a> 文件，使用 Arnold 渲染场景并输出图像文件。kick 也可用于查询 Arnold 节点的参数和默认值。此外，还可用于场景调试。</p>
+<p>Kick 包含在插件下载中。安装后，您可以在 Arnold 分发版本的 bin 子目录中找到它。</p>
+<h2 id="kick">运行 Kick</h2><p>要运行 kick，请先打开 Shell（终端）。下面是 Windows 操作系统上的一个示例。</p>
+<p>kick 始终从当前目录加载着色器和程序，因此请不要在有许多其他 DLL/SO/DYLIB 的文件夹中运行 kick。kick 会尝试加载每个 DLL/SO/DYLIB，检查其中是否包含着色器或程序。</p>
+<pre class="pre codeblock"><code class="prettyprint">$ set ARNOLD_BIN_PATH=C:\solidangle\Arnold-5.0.0.0\bin
+$ %ARNOLD_BIN_PATH%\kick
+Arnold 5.0.0.0 [2cfbe09c] linux clang-3.9.1 oiio-1.7.12 osl-1.8.2 vdb-4.0.0 rlm-12.2.2 2017/04/10 16:48:44
+No arguments. Try kick --help for a command summary </code></pre><h2 id="">有用的命令</h2><p>要尝试使用以下命令，请从 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_scene_source_ac_ass_examples_html" target="_blank">ass 文件示例</a>页面下载一个文件，例如 <a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/cornell.ass" target="_blank">cornell.ass</a>。</p>
+<p>其中一个最有用的命令是“-h”或“--help”。该命令将显示 kick 中所有可用选项的列表：</p>
+<pre class="pre codeblock"><code class="prettyprint">kick -h </code></pre><p>使用“-i”选项可读取 .ass 文件并对其进行渲染：</p>
+<pre class="pre codeblock"><code class="prettyprint">kick -i path/to/cornell.ass </code></pre>
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>“-i”选项非必选项，kick 会自动识别以 .ass 结尾的参数，因此以下命令也是有效的：</p>
+
+</div></div>
+
+<pre class="pre codeblock"><code class="prettyprint">kick path/to/cornell.ass </code></pre><p>默认情况下，渲染图像时，将弹出一个显示该图像的窗口。您可以使用“-dw”选项关闭该显示窗口：</p>
+<pre class="pre codeblock"><code class="prettyprint">kick cornell.ass -dw </code></pre><p>如果几何体显示为粉红色，可能是因为需要提供着色器的路径。可以使用“-l”标志添加此路径：</p>
+<pre class="pre codeblock"><code class="prettyprint">kick cornell.ass -l /path/to/plugin/shaders/ </code></pre><p>日志信息会发送到标准输出。您可以使用“-v <n>”选项提高或降低日志详细级别（默认的详细级别为 1）。详细级别最高的选项是“-v 6”：</n></p>
+<pre class="pre codeblock"><code class="prettyprint">kick cornell.ass -v 2 </code></pre><p>使用“-v 0”将关闭日志输出：</p>
+<pre class="pre codeblock"><code class="prettyprint">kick cornell.ass -v 0 </code></pre><p>要在输出文件中保存渲染的图像，请使用“-o”标志：</p>
+<pre class="pre codeblock"><code class="prettyprint">kick cornell.ass -o cornell.exr </code></pre><p>使用“-r <width> <height>”选项可以更改渲染显示大小：</height></width></p>
+<pre class="pre codeblock"><code class="prettyprint">kick cornell.ass -r 1024 720 </code></pre><p>输出 Arnold 版本号或整个版本字符串：</p>
+<pre class="pre codeblock"><code class="prettyprint">kick -av
+kick --version </code></pre><p>输出有关许可服务器的诊断信息并列出已安装许可中的可用许可和正在使用的许可：</p>
+<pre class="pre codeblock"><code class="prettyprint">kick -licensecheck </code></pre><p>覆盖抗锯齿采样：</p>
+<pre class="pre codeblock"><code class="prettyprint">kick cornell.ass -as 3 </code></pre><p>覆盖漫反射 GI 采样：</p>
+<pre class="pre codeblock"><code class="prettyprint">kick cornell.ass -ds 3 </code></pre><p>禁用逐步精细化模式：</p>
+<pre class="pre codeblock"><code class="prettyprint">kick cornell.ass -dp  </code></pre><p>出于调试目的，您可以在全局范围内禁用纹理、灯光和着色器、运动模糊、细分曲面、置换或 SSS 等几项功能：</p>
+<pre class="pre codeblock"><code class="prettyprint">kick cornell.ass -it 
+kick cornell.ass -il 
+kick cornell.ass -is
+kick cornell.ass -imb -isd -idisp -isss </code></pre><p>您可以使用以下命令从动态库（.dll 或 .so）加载自定义 Arnold 节点进行安装：</p>
+<pre class="pre codeblock"><code class="prettyprint"> kick cornell.ass -l path\to\plugin -l path\to\more\\plugins </code></pre><p>也可以使用以下命令获取所有已安装节点（内置节点和动态加载的节点）的列表：</p>
+<pre class="pre codeblock"><code class="prettyprint">kick -nodes
+kick -l path\to\plugins -nodes </code></pre><p>您可以使用“-info”检查节点：</p>
+<pre class="pre codeblock"><code class="prettyprint">kick -info polymesh 
+kick -info options
+kick -l path\to\plugins -info custom_plugin_node </code></pre><p>也可以获取有关给定参数的更多信息：</p>
+<pre class="pre codeblock"><code class="prettyprint">kick -info polymesh.sidedness
+kick -info options.bucket_scanning </code></pre><p>使用“-set”命令可覆盖任何节点的任何参数：</p>
+<pre class="pre codeblock"><code class="prettyprint">kick cornell.ass -set options.AA_samples 3 </code></pre><p>覆盖特定类型的所有节点的任何参数：</p>
+<pre class="pre codeblock"><code class="prettyprint">kick cornell.ass -set curves.mode thick </code></pre><p>如果未找到有效的许可，则使 kick 中止渲染，而不是使用水印进行渲染：</p>
+<pre class="pre codeblock"><code class="prettyprint">kick cornell.ass -set options.abort_on_license_fail true </code></pre><p>覆盖多个参数：</p>
+<pre class="pre codeblock"><code class="prettyprint">kick first.ass -set options.AA_samples 3 -set options.bucket_size 16 </code></pre><h2 id="">交互模式</h2><p>要在交互模式下进行渲染，请使用“-ipr q”选项。这样，可以粗略地导航场景，并切换到不同的调试着色模式，如平面/平滑法线、UV、线框等：</p>
+<pre class="pre codeblock"><code class="prettyprint">kick cornell.ass -ipr q </code></pre><ul>
+<li>在选定的交互模式下导航（平移/缩放）：“q”表示 Quake 控件 (WASD)，“m”表示 Maya 控件（Alt + 鼠标键）。</li>
+<li>使用“[”和“]”键增加或减少图像曝光。</li>
+<li>在渲染窗口中单击并按小写字母“i”可忽略任何现有着色器。您可以按大写字母“I”还原场景着色器。</li>
+<li><strong>macOS 和 Linux</strong>：使用数字键（0、1、2、3、4、5、6、7、8、9）可在不同的调试着色模式之间切换。  </li>
+</ul>
+<h2 id="">输出所有可用的颜色空间</h2><pre class="pre codeblock"><code class="prettyprint">$ kick -lcs scene.ass
+Available color spaces from color manager "defaultColorMgtGlobals" of type "color_manager_syncolor:
+   ARRI LogC
+   camera Rec 709
+   Sony SLog2
+   Log film scan (ADX)
+   Log-to-Lin (cineon)
+   Log-to-Lin (jzp)
+   Raw
+   ACES2065-1
+   ACEScg
+   scene-linear CIE XYZ
+   scene-linear DCI-P3
+   scene-linear Rec 2020
+   scene-linear Rec 709/sRGB
+   gamma 1.8 Rec 709
+   gamma 2.2 Rec 709
+   gamma 2.4 Rec 709 (video)
+   sRGB
+   ACES RRT v0.7
+   ACES RRT v1.0
+   Log
+   1.8 gamma
+   2.2 gamma
+   Rec 709 gamma
+   sRGB gamma
+   Raw
+   Stingray tone-map </code></pre><h2 id="kick-srgb-gamma">如何将特定颜色空间输出到 Kick 显示窗口（默认情况下为 sRGB Gamma）</h2><pre class="pre codeblock"><code class="prettyprint">$ kick -ocs "Log" scene.ass </code></pre><p>集成“颜色管理”(Color Management)后，.ass 文件现在依赖于对 Autodesk 颜色管理目录的访问权限（启用“颜色管理”(Color Management)时）。该路径存在于 color_manager_syncolor 节点中。但是，为了提高灵活性，可以使用环境变量 SYNCOLOR 来覆盖该路径。</p>
+<pre class="pre codeblock"><code class="prettyprint">$ export SYNCOLOR=/path/to/synColorConfig.xml </code></pre>
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>您可以在 Maya 首选项文件夹中找到有关配置文件的示例。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Kick_html.html">Kick</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

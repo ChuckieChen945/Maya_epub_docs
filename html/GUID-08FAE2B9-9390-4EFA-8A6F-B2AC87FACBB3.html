@@ -1,0 +1,294 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="video-id" content="J5bWhwazo8tHL9ZGGXieYLhphigpHrBx">
+<meta name="video-id" content="Bsbmhwazrs1zoc9zA9JASc4nMUo2zC29">
+<meta name="video-id" content="xybmhwazps0mJRzjbJ458TiTDOIFa1FO">
+<meta name="video-id" content="h4bmhwazqxSR8go7Op2cVEve-nEIDBNr">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3">
+<meta name="language" content="CHS">
+<title>ShaderFX 自定义代码高级示例</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>ShaderFX 自定义代码高级示例</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-69A4E072-C17F-4C78-9F5D-C6D9087F6E41"> 此示例演示了如何获取现有的着色器代码并在 Maya 中为 GLSL/CgFX 环境对其进行自定义，以便可以在 OpenGL 模式下将它与 ShaderFX 一起使用。然后，该示例演示了如何为 HLSL 环境自定义代码，以便也可以在 Maya 中在 DirectX 11 模式下使用。 </p>
+<p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-448255EC-C08D-4BD5-B23E-C8D22389916B">本例中所用的着色器代码取自 <a class="xref" href="https://www.shadertoy.com/view/ldB3zc" target="_blank">https://www.shadertoy.com/view/ldB3zc</a>，由 Iñigo Quilez 提供。您可以访问此站点，以获得以下示例代码并对其进行修改以在 Maya 中使用。 </p>
+<p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-4C9BBF6C-7BEE-4E3D-8A6B-069FBCE1B1D0"><img class="image" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__IMAGE_FE182216EA3046958F72521A0FCFF885" src="../images/GUID-03430D01-DE17-4A95-936F-1C9085FDCF84.png"> 以下工作流的视频演示现已可用。有关详细信息，请参见下面的<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3.htm#GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__SECTION_0FA074BABD304CF9825F958D924DE0E1">视频教程</a>。 </p>
+<pre class="pre codeblock">float hash1( float n ) { return fract(sin(n)*43758.5453); }
+vec2  hash2( vec2  p ) { p = vec2( dot(p,vec2(127.1,311.7)), dot(p,vec2(269.5,183.3)) ); return fract(sin(p)*43758.5453); }
+
+vec4 voronoi( in vec2 x, float w )
+{
+    vec2 n = floor( x );
+    vec2 f = fract( x );
+
+    vec4 m = vec4( 8.0, 0.0, 0.0, 0.0 );
+    for( int j=-2; j&lt;=2; j++ )
+    for( int i=-2; i&lt;=2; i++ )
+    {
+        vec2 g = vec2( float(i),float(j) );
+        vec2 o = hash2( n + g );
+        // animate
+        o = 0.5 + 0.5*sin( iGlobalTime + 6.2831*o );
+
+        // distance to cell
+        float d = length(g - f + o);
+
+        // do the smooth min for colors and distances
+ 
+        vec3 col = 0.5 + 0.5*sin( hash1(dot(n+g,vec2(7.0,113.0)))*2.5 + 3.5 + vec3(2.0,3.0,0.0));
+        float h = smoothstep( 0.0, 1.0, 0.5 + 0.5*(m.x-d)/w );
+        m.x   = mix( m.x,     d, h ) - h*(1.0-h)*w/(1.0+3.0*w); // distance
+        m.yzw = mix( m.yzw, col, h ) - h*(1.0-h)*w/(1.0+3.0*w); // cioloe
+    }
+    return m;
+}
+
+void main( void )
+{
+    vec2 p = gl_FragCoord.xy/iResolution.yy;
+    float k = 2.0 + 70.0 * pow( 0.5 + 0.5*sin(0.25*6.2831*iGlobalTime), 4.0 );
+    k = 0.5 - 0.5*cos(0.25*6.2831*iGlobalTime);
+    vec4 c = voronoi( 6.0*p, k );
+
+    vec3 col = c.yzw;
+    col *= 1.0 - 0.8*c.x*step(p.y,0.33);
+    col *= mix(c.x,1.0,step(p.y,0.66));
+    col *= smoothstep( 0.005, 0.007, abs(p.y-0.33) );
+    col *= smoothstep( 0.005, 0.007, abs(p.y-0.66) );
+    gl_FragColor = vec4( col, 1.0 );
+}
+</pre>
+<div class="section" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__SECTION_99393DE8D6BD4698AB8EFDF515890489"><h2 class="title sectiontitle">在 GLSL/CgFX 模式下工作</h2>
+
+<p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-CD704562-9C33-42BC-B576-1884510CFE38">若要修改此代码，使其与 SFX_GLSL_*/SFX_CGFX_3 兼容，以便可以在 Maya 中在 OpenGL 模式下与 ShaderFX 一起使用，请执行以下操作： </p>
+
+<ol class="ol" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__OL_D447046224E044FF998A413053E8D2B1"><li class="li" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__LI_AE990257F4164D58A68931FF3077BC27">将 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-F25297B1-BB1C-402E-A5BD-A4C0025115E4">vec2</samp>、<samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-B82084DC-13F6-4B20-8432-18895038BB49">vec3</samp>、<samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-4242B174-973B-4AEB-8129-4E9DB2A78580">vec4</samp> 分别更改为 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-6CE5F1BF-A581-4116-9657-132D25BED4B0">float2</samp>、<samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-6AF16588-CA72-433C-91A7-E444A92E758F">float3</samp>、<samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-64D2F9C9-4DF4-4642-BE96-4ABE4E00A230">float4</samp>。 </li>
+<li class="li" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__LI_3700A6DABFE146309EC2FBE2548CECB7">将 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-D24864E6-61A9-4BBD-8F9A-231A6ABEE5A3">gl_FragCoord.xy</samp> 更改为 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-FD7A88EA-4E02-429F-94AA-04ACF719CEAB">UV</samp>。 <p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-079064BF-4DCF-45E4-B6A4-EDDAD052ABC3"><samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-FFACB9FA-1F3B-44F9-BD5C-111854B2BB0F">gl_FragCoord.xy</samp> 是 GLSL 中所用的一个全局变量，用于获得纹理坐标。在 Maya 中，您使用 UV 集来获得纹理坐标。 </p>
+ </li>
+<li class="li" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__LI_0DDF18FC09D14AA4BDA9FCB94CDA3A89">移除用于定义视口分辨率的 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-E2FE5395-B2FD-4B7F-BB32-FECE26E2583F">iResolution</samp>。.在 Maya 中不需要执行此操作。 </li>
+<li class="li" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__LI_273BF57552D44AC5A4BC001B6B1D0FC5">使用函数定义而非定义 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-01BE2464-2B53-4023-97D8-E5222758CDFC">main</samp>。 <p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-ADDF4D67-4D85-4C4A-A884-1EF73197DE9E">将 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-79613B85-6588-4E02-97DA-8A09BF302287">main (void)</samp> 更改为函数定义，使其与<span class="ph uicontrol" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-D3719C2F-2D1E-4D5D-9CA2-9A7D3E48BD8E">“自定义代码”(Custom Code)</span>节点默认提供的函数定义类似： </p>
+ <pre class="pre codeblock">CustomCode1178Output CustomCode1178Func( float2 UV )</pre>
+ </li>
+<li class="li" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__LI_EB6860A75FE14136B531171349107DAD">添加 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-B8CC5121-A125-4C66-9602-4CC90AA21B48">struct</samp> 来为节点提供输出。 <pre class="pre codeblock">struct CustomCode1178Output 
+{ 
+    float3 color; 
+};</pre>
+ </li>
+<li class="li" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__LI_8EBAE6C4A8B845E7866F7E7836B83617">不使用 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-A5A6F037-54AF-4B82-9507-294405B3EEF9">iGlobalTime</samp>，而改为使用 Maya 中的<span class="ph uicontrol" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-12BCAD0D-F524-41D9-99E3-7E1C7C0C3651">“时间”(Time)</span>节点作为输入。 <p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-B2204E38-BC2A-4F6A-BAE5-A6DA75A3054D">将 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-B27CD178-FC09-4A48-AE06-33D360F609B4">iGlobalTime</samp> 替换为 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-87926593-D134-48C0-B19B-D119346E4264">time</samp>。 </p>
+ <p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-CB1D6844-299A-40BF-9E59-BC1249EBBE0E">将 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-AF7CE944-9B5B-4C85-9E07-8DC55371792D">float time</samp> 作为输入参数添加到函数定义中。 </p>
+ <p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-A10C8D85-4A50-4CA4-A41E-121612983B72">将 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-B4CEB859-8ABC-446D-A595-391D3C81D077">float time</samp> 作为输入参数添加到 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-404446D1-83FD-487E-B753-B86C2CC3988A">voronoi</samp> 函数定义中。 </p>
+ <p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-54ECB29C-7341-4437-BE89-7AEFAFD8BC3C">添加 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-B53CF01E-33BB-40A6-BC2C-426CB85E7DF3">time</samp> 作为名为 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-CDC784E7-22A6-4202-84DD-56E8B2A7B1D3">voronoi</samp> 的输入参数。 </p>
+ </li>
+<li class="li" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__LI_FAD78F1E35C44122980AF44D64283EA4"><samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-388A45C8-8883-4F8A-A1EA-6754AF2826DE">原始代码中的 gl_FragColor</samp> 定义着色器的最终输出。将其更改为 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-60FAA839-0AD8-4D73-ABF2-51FAA06A35FE">OUT.color</samp> 并将输出按如下所示返回： <pre class="pre codeblock">CustomCode1178Output OUT; 
+OUT.color = col;
+return OUT; </pre>
+ </li>
+<li class="li" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__LI_2B80BB4780D24A3EA962DDB3DA749E20">（可选）为了避免与其他节点冲突，您也可以通过以下操作自定义函数名称： <ol class="ol" type="a" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__OL_F61BBC138AD241D380D14709E4EAC597"><li class="li" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__LI_F1621E058378490B80276AEE763F1A48">将此函数命名为 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-4C7747FD-B9A7-4E08-A6C5-1D0E1294423E">VoronoiSmooth</samp>，而不是通用名称 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-1188FD52-2A81-4782-A1EA-5E9836465079">CustomCodexxxx</samp>。 <div class="note note" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-C75A6A7B-4F1E-4E2B-89B6-0CD0B1A96052"><span class="notetitle">注：</span> 所有函数都应具有唯一名称。请注意，不要让两个<span class="ph uicontrol" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-0AFF35A9-7A91-4B04-AEDB-771421876490">“自定义代码”(Custom Code)</span>节点具有相同的函数名称。 </div>
+ </li>
+<li class="li" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__LI_342DCF63C332412CAE0584D0886302E7">将 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-A998750C-51C0-408F-816E-B494C7316B11">VoronoiSmooth_</samp> 作为前缀添加到其他函数，例如 hash1 和 hash2，然后将函数 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-E89F7243-3B99-4D25-8C71-37001FE80615">voronoi</samp> 重命名为 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-46EA122A-5C37-4EA8-9F3A-A70E56A0AFCD">VoronoiSmooth</samp>。 </li>
+<li class="li" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__LI_C120608ABD714851851AFE1304D92052">在<span class="ph uicontrol" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-C24FE493-17AE-45FD-B74C-67BEF4E809EB">“属性编辑器”(Attribute Editor)</span>中将<span class="ph uicontrol" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-0A6CF0C6-65AA-4DE5-BA19-95744F36E5C0">“函数名称”(Function Name)</span>更改为 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-59EF25BF-73F4-477F-8739-391D932E0711">VoronoiSmooth</samp>。 <div class="fig fignone" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__FIG_2CFC36024B0A46CF9BA3E52D5F1722E3"><img class="image" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__IMAGE_6BAC5626A4C24D4DAC897D2B5C50027C" src="../images/GUID-F6A72F1B-94D5-4CB5-BAE6-45A46F9C011F.png"></div>
+ </li>
+</ol>
+ </li>
+<div class="note note" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-D71DE2B8-768E-4833-9B75-6B0663FEDCD6"><span class="notetitle">注：</span> 默认情况下，<span class="ph uicontrol" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-4D1CB792-3616-45CD-B9EE-F2DDBC4B15F3">“TraditionalGameSurfaceShader”</span>的<span class="ph uicontrol" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-7F9E7192-0A5E-4588-AA39-05D17C5424B4">“漫反射颜色”(Diffuse Color)</span>端口接受 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-1105F13F-A123-404D-B362-D95BFF24BD0F">float3</samp> 输入。例如，如果您选择改为从<span class="ph uicontrol" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-2164D971-9525-4F98-882E-EAEC334456A4">“自定义代码”(Custom Code)</span>节点输出 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-C855AEF6-4EF2-4C5C-9E86-3FC128C15103">float4</samp>，可以使用（<span class="ph uicontrol" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-AD662FDF-C820-465C-B700-DBCA59B36D74">“硬件着色器节点 &gt; 值 &gt; 向量分量”(Hw Shader Nodes &gt; Values &gt; Vector Component)</span>）节点将输出从 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-21C689CA-35AE-4AF2-A56E-C85D477F364A">float4</samp> 转化为 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-AF4F44E2-59B8-466C-AA1E-801B81FE0DD1">float3</samp>。 </div>
+</ol>
+
+<p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-536223D3-A683-4BAD-B933-B44759A59263">修改后的代码如下所示： </p>
+
+
+<pre class="pre codeblock">float VoronoiSmooth_hash1( float n ) { return fract(sin(n)*43758.5453); }
+float2 VoronoiSmooth_hash2( float2 p ) { p = float2( dot(p,float2(127.1,311.7)), dot(p,float2(269.5,183.3)) ); return fract(sin(p)*43758.5453); }
+
+float4 VoronoiSmooth( in float2 x, float w, float time )
+{
+	   float2 n = floor( x );
+	   float2 f = fract( x );
+
+	   float4 m = float4( 8.0, 0.0, 0.0, 0.0 );
+	   for( int j=-2; j&lt;=2; j++ )
+	   for( int i=-2; i&lt;=2; i++ )
+	   {
+		     float2 g = float2( float(i),float(j) );
+		     float2 o = VoronoiSmooth_hash2( n + g );
+		     // animate
+		     o = 0.5 + 0.5*sin( time + 6.2831*o );
+
+		    // distance to cell 
+		    float d = length(g - f + o);
+
+		    // do the smooth min for colors and distances 
+		    float3 col = 0.5 + 0.5*sin( VoronoiSmooth_hash1(dot(n+g,float2(7.0,113.0)))*2.5 + 3.5 + float3(2.0,3.0,0.0));
+		    float h = smoothstep( 0.0, 1.0, 0.5 + 0.5*(m.x-d)/w );
+		    m.x = mix( m.x, d, h ) - h*(1.0-h)*w/(1.0+3.0*w); // distanec
+		    m.yzw = mix( m.yzw, col, h ) - h*(1.0-h)*w/(1.0+3.0*w); // cioloe
+	   }
+	   return m;
+ }
+
+struct VoronoiSmoothOutput 
+{ 
+	   float3 color; 
+}; 
+
+VoronoiSmoothOutput VoronoiSmoothFunc( float2 UV, float time ) 
+{ 
+	   float2 p = UV;
+	   float k = 2.0 + 70.0 * pow( 0.5 + 0.5*sin(0.25*6.2831*time), 4.0 );
+	   k = 0.5 - 0.5*cos(0.25*6.2831*time);
+	   float4 c = VoronoiSmooth( 6.0*p, k, time );
+
+	   float3 col = c.yzw;
+	   col *= 1.0 - 0.8*c.x*step(p.y,0.33);
+	   col *= mix(c.x,1.0,step(p.y,0.66));
+	   col *= smoothstep( 0.005, 0.007, abs(p.y-0.33) );
+	   col *= smoothstep( 0.005, 0.007, abs(p.y-0.66) );
+
+	   VoronoiSmoothOutput OUT; 
+	   OUT.color = col;
+	   return OUT; 
+} 
+</pre>
+
+<p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-8F952B46-738B-4F0A-BBBC-A08E4844DE2B">现在，可以为您的自定义代码节点使用此代码。将其按如下所示进行连接，在 <span class="ph uicontrol" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-A9E68334-4385-4AC6-AED1-93A14C2E39DB">ShaderFX</span> 编辑器中和 <span class="ph uicontrol" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-E656EF6E-65DE-4D34-B7C6-A325060D3198">Viewport 2.0</span> OpenGL 模式下证明其动画。 </p>
+
+<div class="fig fignone" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__FIG_D6EF7640F11249C191D18DBD50C7D098"><img class="image" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__IMAGE_6635724C653C409E90D92248BBC0A823" src="../images/GUID-BA117062-D634-4888-9B82-2D12CD2D79E9.png"></div>
+
+</div>
+<div class="section" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__SECTION_F8E892CD52CB4576A9485F9833A37B12"><h2 class="title sectiontitle">在 DirectX 11 模式下工作</h2>
+
+<p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-943988C6-75AF-4D81-B26E-5B863E481ED9">如果在 DirectX 11 模式下创建相同的 <span class="ph uicontrol" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-B5F8D4C8-CB55-4934-8826-1E46DC275C73">ShaderFX</span> 网络，然后尝试执行样例渲染，则无法编译着色器样例。为帮助调试，请选择<span class="ph uicontrol" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-86D0674B-6A1C-4950-B905-09FE6041E44D">“设置 &gt; 显示样例编译错误”(Settings &gt; Show Swatch Compile Errors)</span>并检查出现的错误。 </p>
+
+<p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-CE17AB53-DC51-4633-8812-34E6B953F95A">若要修改此代码，使其与 SFX_HLSL_3/SFX_HLSL_5 兼容，以便可以在 Maya 中在 DirectX 11 模式下与 ShaderFX 一起使用，请执行以下操作： </p>
+
+<ol class="ol" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__OL_577DC18FF923406B9C907C0A7A0ECE39"><li class="li" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__LI_F81819590558406C9DC050F6EBEFA74F">在代码开头添加以下 <samp class="ph codeph" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-FAC58724-2545-4B41-9C3C-3F8BC087BD81">if/endif</samp> 语句： <pre class="pre codeblock">#if ( defined(SFX_HLSL_3) || defined( SFX_HLSL_5) )
+#define fract frac
+#define mix lerp
+#endif</pre>
+ </li>
+</ol>
+
+</div>
+<p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-43A36BF4-1955-443E-9AFC-99B663C57FAE">修改后的代码如下所示： </p>
+<pre class="pre codeblock">#if ( defined(SFX_HLSL_3) || defined( SFX_HLSL_5) )
+#define fract frac
+#define mix lerp
+#endif
+
+float VoronoiSmooth_hash1( float n ) { return fract(sin(n)*43758.5453); }
+float2 VoronoiSmooth_hash2( float2 p ) { p = float2( dot(p,float2(127.1,311.7)), dot(p,float2(269.5,183.3)) ); return fract(sin(p)*43758.5453); }
+
+float4 VoronoiSmooth( in float2 x, float w, float time )
+{
+	   float2 n = floor( x );
+	   float2 f = fract( x );
+
+	   float4 m = float4( 8.0, 0.0, 0.0, 0.0 );
+	   for( int j=-2; j&lt;=2; j++ )
+	   for( int i=-2; i&lt;=2; i++ )
+	   {
+		     float2 g = float2( float(i),float(j) );
+		     float2 o = VoronoiSmooth_hash2( n + g );
+		     // animate
+		     o = 0.5 + 0.5*sin( time + 6.2831*o );
+
+		    // distance to cell 
+		    float d = length(g - f + o);
+
+		    // do the smooth min for colors and distances 
+		    float3 col = 0.5 + 0.5*sin( VoronoiSmooth_hash1(dot(n+g,float2(7.0,113.0)))*2.5 + 3.5 + float3(2.0,3.0,0.0));
+		    float h = smoothstep( 0.0, 1.0, 0.5 + 0.5*(m.x-d)/w );
+		    m.x = mix( m.x, d, h ) - h*(1.0-h)*w/(1.0+3.0*w); // distanec
+		    m.yzw = mix( m.yzw, col, h ) - h*(1.0-h)*w/(1.0+3.0*w); // cioloe
+	   }
+	   return m;
+ }
+
+struct VoronoiSmoothOutput 
+{ 
+	   float3 color; 
+}; 
+
+VoronoiSmoothOutput VoronoiSmoothFunc( float2 UV, float time ) 
+{ 
+	   float2 p = UV;
+	   float k = 2.0 + 70.0 * pow( 0.5 + 0.5*sin(0.25*6.2831*time), 4.0 );
+	   k = 0.5 - 0.5*cos(0.25*6.2831*time);
+	   float4 c = VoronoiSmooth( 6.0*p, k, time );
+
+	   float3 col = c.yzw;
+	   col *= 1.0 - 0.8*c.x*step(p.y,0.33);
+	   col *= mix(c.x,1.0,step(p.y,0.66));
+	   col *= smoothstep( 0.005, 0.007, abs(p.y-0.33) );
+	   col *= smoothstep( 0.005, 0.007, abs(p.y-0.66) );
+
+	   VoronoiSmoothOutput OUT; 
+	   OUT.color = col;
+	   return OUT; 
+} 
+</pre>
+<div class="section" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__SECTION_FA71A62105B743EE9330FDB41289A68E"><h2 class="title sectiontitle">使用<span class="ph uicontrol" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-34CF5B48-12FE-4214-BEAA-BE8FD3A5089D">“自定义代码”(Custom Code)</span>节点创建一个 ShaderFX 图形</h2>
+
+<p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-C0D67646-A0D5-43B2-807B-309A556B1323">使用上述代码创建<span class="ph uicontrol" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-BD462EAE-4C9B-4F31-A6B3-8DE363A64C72">“自定义代码”(Custom Code)</span>之后，即可创建网络，例如下面这种网络。 </p>
+
+<div class="fig fignone" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__FIG_CA82D4AEF1E348998AE72843DB5B5622"><img class="image" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__IMAGE_B900284CBE21473483FB7858613CD1F2" src="../images/GUID-722FA454-D999-4D52-89FC-A177F8903224.png"></div>
+
+<p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-49C1A351-13ED-4594-AC58-C7E7B08C7BBB">有关创建组并使用<span class="ph uicontrol" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-0963901A-6A89-415D-B607-07FB9B697F97">“默认值”(Default Value)</span>节点的更多详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-6C1AB067-6F28-4DED-B8D1-74BD6B0FC028.htm">为组节点提供其他输入并标记组节点端口</a>。 </p>
+
+<p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-25744EDE-F4EE-4B39-9F35-818D9F7F1F4C">在此示例中，我们提供了一个默认的 UV 集和默认的时间节点，同时允许用户提供其他 UV 集。 </p>
+
+<div class="fig fignone" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__FIG_3577AC5CB8C04721BD285D6A4BF6C359"><img class="image" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__IMAGE_0C8D760784854D738B93F2CE6BF44D3E" src="../images/GUID-E76C7F42-D3A1-4544-8688-17F59DF24880.png"></div>
+
+</div>
+<div class="section" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__SECTION_0FA074BABD304CF9825F958D924DE0E1"><h2 class="title sectiontitle">视频教程</h2>
+
+<p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-A6CF9AFF-2395-4B4E-B10B-090BD21E9D61">观看以下形象地演示上述工作流示例的视频： </p>
+
+<p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-16B070E0-3BEB-44BC-9BA3-77CFA8A42D73">
+<video data-video-id="J5bWhwazo8tHL9ZGGXieYLhphigpHrBx" crossorigin="anonymous" controls="controls" width="640" height="360" poster="https://help.autodesk.com/videos/J5bWhwazo8tHL9ZGGXieYLhphigpHrBx/poster"><source type="video/webm" src="https://help.autodesk.com/videos/J5bWhwazo8tHL9ZGGXieYLhphigpHrBx/video.webm"></source><source type="video/mp4" src="https://help.autodesk.com/videos/J5bWhwazo8tHL9ZGGXieYLhphigpHrBx/video.mp4"></source></video>
+</p>
+
+
+<p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-DAA7FA1D-A9EB-4F51-9E64-37233978B417">
+<video data-video-id="Bsbmhwazrs1zoc9zA9JASc4nMUo2zC29" crossorigin="anonymous" controls="controls" width="640" height="360" poster="https://help.autodesk.com/videos/Bsbmhwazrs1zoc9zA9JASc4nMUo2zC29/poster"><source type="video/webm" src="https://help.autodesk.com/videos/Bsbmhwazrs1zoc9zA9JASc4nMUo2zC29/video.webm"></source><source type="video/mp4" src="https://help.autodesk.com/videos/Bsbmhwazrs1zoc9zA9JASc4nMUo2zC29/video.mp4"></source></video>
+</p>
+
+
+<p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-A36141BA-A945-4624-9D15-6120893B8245">
+<video data-video-id="xybmhwazps0mJRzjbJ458TiTDOIFa1FO" crossorigin="anonymous" controls="controls" width="640" height="360" poster="https://help.autodesk.com/videos/xybmhwazps0mJRzjbJ458TiTDOIFa1FO/poster"><source type="video/webm" src="https://help.autodesk.com/videos/xybmhwazps0mJRzjbJ458TiTDOIFa1FO/video.webm"></source><source type="video/mp4" src="https://help.autodesk.com/videos/xybmhwazps0mJRzjbJ458TiTDOIFa1FO/video.mp4"></source></video>
+</p>
+
+
+<p class="p" id="GUID-08FAE2B9-9390-4EFA-8A6F-B2AC87FACBB3__GUID-03A45054-780C-4274-A811-AF275983007E">
+<video data-video-id="h4bmhwazqxSR8go7Op2cVEve-nEIDBNr" crossorigin="anonymous" controls="controls" width="640" height="360" poster="https://help.autodesk.com/videos/h4bmhwazqxSR8go7Op2cVEve-nEIDBNr/poster"><source type="video/webm" src="https://help.autodesk.com/videos/h4bmhwazqxSR8go7Op2cVEve-nEIDBNr/video.webm"></source><source type="video/mp4" src="https://help.autodesk.com/videos/h4bmhwazqxSR8go7Op2cVEve-nEIDBNr/video.mp4"></source></video>
+</p>
+
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-355DCB0C-D9A6-4B59-8AFB-CBA7E1067D60.htm">公用 ShaderFX 节点和应用程序</a></div>
+</div>
+</div>
+
+</body>
+</html>

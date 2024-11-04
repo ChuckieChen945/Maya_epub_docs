@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Basics">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="有向非循环图">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-5029CF89-D420-4236-A7CF-884610828B70">
+<meta name="language" content="CHS">
+<title>DAG 层次</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-5029CF89-D420-4236-A7CF-884610828B70">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>DAG 层次</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-5029CF89-D420-4236-A7CF-884610828B70__GUID-BDDAAE5C-5098-4C4E-BABC-113D54B12D0D"> DAG 层次（也称为对象层次）是指组成对象的所有节点的父子关系。DAG 代表有向非循环图。从本质上讲，DAG 是关于如何通过一个几何体构建对象的实例的受控关键点。 
+	 </p>
+<p class="p" id="GUID-5029CF89-D420-4236-A7CF-884610828B70__GUID-E54EC090-3EB8-4426-BD3C-35B20D7EB771"> 对象的 DAG 层次始终包括两种类型的节点：变换和形状。 
+	 </p>
+<div class="p" id="GUID-5029CF89-D420-4236-A7CF-884610828B70__GUID-1AADFF4D-A249-468F-9474-6178A3E9CCF2"> 例如，在创建多边形球体时，可以在“属性编辑器”(Attribute Editor)中看到它包括一个形状节点和一个变换节点。形状节点具有用于定义几何体的属性，而变换节点包含控制球体的位置、缩放或旋转的属性。形状节点是变换节点的子对象。 
+		<div class="note note" id="GUID-5029CF89-D420-4236-A7CF-884610828B70__GUID-FB8318AD-F3D4-412A-B70F-79710DE356F6"><span class="notetitle">注：</span>  在 Maya API 中，将 DAG 层次节点与依存关系图 (DG) 节点进行比较。这些是相关但不同的系统，用途不同。依存关系图节点与 DAG 节点不同，可以循环，这意味着它们可以双向传递信息。 
+		</div>
+还可以通过 Hypergraph 窗口以层次形式查看 DAG 信息。 
+	 </div>
+<div class="fig fignone" id="GUID-5029CF89-D420-4236-A7CF-884610828B70__FIG_5A76BCBC57E9420FA6C1AE01FDDF0D7C"><img class="image" id="GUID-5029CF89-D420-4236-A7CF-884610828B70__IMAGE_CFB847A2104245229390D5EBAA5144CE" src="../images/GUID-33AB063A-7432-4387-A1E2-76F29BF9AA61.png"></div>
+<div class="section" id="GUID-5029CF89-D420-4236-A7CF-884610828B70__GUID-60BEF96A-5448-4D15-8B28-74E320B5DE0B"><dl class="dl" id="GUID-5029CF89-D420-4236-A7CF-884610828B70__GUID-60BEF96A-5448-4D15-8B28-74E320B5DE0B"><dt class="dt dlterm">变换节点</dt>
+<dd class="dd" id="GUID-5029CF89-D420-4236-A7CF-884610828B70__GUID-64F3B8DA-08C5-45B0-B293-94486DD54983"> 变换节点包含变换信息（平移、旋转、缩放）以及建立父子关系信息。变换节点下面具有多个分组的子节点。节点分组允许在多个 DAG 路径中共享同一形状。（DAG 路径表示节点之间的层次链接，定义从层次的开始向下到最远的节点的方向。） 
+	 <div class="p" id="GUID-5029CF89-D420-4236-A7CF-884610828B70__GUID-95E73823-E30E-4191-BA93-36D58BBFF45C"> 例如，如果构建手的模型并要应用单个变换以旋转手掌和手指（而非各个单独旋转），可以对手掌和手指使用公用父变换节点。 
+		<div class="fig fignone" id="GUID-5029CF89-D420-4236-A7CF-884610828B70__FIG_FBE85ACCA18C4676B96685131128A759"><img class="image" id="GUID-5029CF89-D420-4236-A7CF-884610828B70__IMAGE_E865A3EEF3474A4F88EF94D25FB4CAAD" src="../images/GUID-4DF34593-E4E9-416D-BD11-B908333AB3D2.png"></div>
+ 
+	 </div>
+ </dd>
+<dt class="dt dlterm">形状节点</dt>
+<dd class="dd" id="GUID-5029CF89-D420-4236-A7CF-884610828B70__GUID-15F53C12-C638-4E7D-82A6-CD73C9ACA3E1"> 形状节点描述几何体，不包含建立父子关系或变换信息。几何体不能在变换节点之下。这意味着任意一个几何体都需要有两个 DAG 节点在其上方，一个形状节点在其正上方，以及一个变换节点在形状节点上方。</dd>
+</dl>
+</div>
+<div class="p" id="GUID-5029CF89-D420-4236-A7CF-884610828B70__GUID-0488BD29-09BE-48B6-B707-53B8572C51AE">还可以在打开<span class="ph uicontrol" id="GUID-5029CF89-D420-4236-A7CF-884610828B70__GUID-ADC191FC-88EF-424A-915B-01884054087C">“大纲视图”(Outliner)</span>窗口并选择<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-2EDE871D-ECA9-4D9F-90DF-FCA1FFF492F8.htm#GUID-2EDE871D-ECA9-4D9F-90DF-FCA1FFF492F8__WS1A9193826455F5FF-4F542F6211C79DEA861-1D29"> 
+		  <span class="ph uicontrol" id="GUID-5029CF89-D420-4236-A7CF-884610828B70__GUID-C47EF7D1-911B-4209-AFD0-14C0BF4469CA">仅 DAG 对象(DAG Objects Only)</span> 
+		</a>时，查看运行中的 DAG 层次 
+		<div class="fig fignone" id="GUID-5029CF89-D420-4236-A7CF-884610828B70__FIG_2A732C910EF340F9B6511E370FC2463B"><img class="image" id="GUID-5029CF89-D420-4236-A7CF-884610828B70__IMAGE_76C68C66A0FD4A35ACF54186AC41A36A" src="../images/GUID-178B8CE3-D628-4738-A147-CF4F2EFBE085.png"></div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-D53B9E3D-E6E3-4CC3-A38F-3AA3A09205E5.htm">节点和属性</a></div>
+</div>
+</div>
+
+</body>
+</html>

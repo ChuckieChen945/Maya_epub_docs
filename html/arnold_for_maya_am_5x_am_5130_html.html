@@ -1,0 +1,153 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_5x_am_5130_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_5130">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 5.1.3 - Arnold for Maya">
+
+<title>5.1.3</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>5.1.3</h1></div><p>25 May 2022</p>
+<p>MtoA 5.1.3 introduces Arnold <a href="https://help.autodesk.com/display/A5ARP/7.1.2.0">7.1.2.0</a> and is a minor feature release bringing several USD improvements, as well as other bug fixes.</p>
+<h2 id="installation">Installation</h2><ul>
+<li><a href="https://manage.autodesk.com/products/MAYA" target="_blank">Download</a> the Arnold for Maya plugin</li>
+<li>Follow these <a href="https://help.autodesk.com/display/A5AFMUG/Installation">installation instructions</a> .</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2><ul>
+<li><p>Maya  2020, 2022 or 2023</p>
+</li>
+<li><p>Windows 10 or later, with the Visual Studio 2019 redistributable.</p>
+</li>
+<li><p>Linux with at least glibc 2.17 and libstdc++ 4.8.5 (gcc 4.8.5). This is equivalent to RHEL/CentOS 7.</p>
+</li>
+<li><p>macOS 10.13 or later .</p>
+</li>
+<li><p>CPUs need to support the SSE4.1 instruction set. Apple Mac models with M series chips are supported under Rosetta 2 mode.</p>
+</li>
+<li><p>GPU rendering works on Windows and Linux only and requires an NVIDIA GPU of the Ampere, Turing, Volta, Pascal, or Maxwell architecture.</p>
+</li>
+<li><p>Optix™ denoiser requires an NVidia GPU with <a href="https://developer.nvidia.com/cuda-gpus" target="_blank">CUDA™ Compute Capability 5.0</a> and above.</p>
+</li>
+<li><p>We recommend using the <strong><a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">511.09 (Quadro), 511.09 (GeForce)</a></strong> , or higher on <strong>Windows</strong> and <strong><a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">495.46</a></strong> or higher drivers on <strong>Linux</strong> . See <a href="https://docs.arnoldrenderer.com/display/A5ARP/Getting+Started+With+Arnold+GPU#GettingStartedWithArnoldGPU-gpu_system_requirements" target="_blank">Arnold GPU</a> for more information.</p>
+</li>
+<li><h3 id="strong-the-driver-type-must-be-set-to-dch-strong"><strong>The driver type must be set to DCH.</strong></h3></li>
+</ul>
+<p><img src="../images/am-5130-image2022-2-1-14-46-53-1.png" alt=""></p>
+<h2 id="sup-strong-i-span-style-color-rgb-29-28-29-n-the-driver-page-select-quot-windows-driver-type-quot-dch-span-strong-sup"><sup><strong>I <span style="color: rgb(29,28,29);">n the driver page select "Windows Driver Type:" DCH</span></strong></sup></h2><p>The cache will also need to be re-populated after installing a new Arnold version, <strong>updating to a new NVIDIA driver</strong> , or changing the hardware configuration of GPUs on the system. More information can be found <a href="https://docs.arnoldrenderer.com/display/A5ARP/Getting+Started+With+Arnold+GPU" target="_blank">here</a> .</p>
+<h2 id="maya-plugins-compatibility">Maya Plugins Compatibility</h2><p>MtoA 5.1.2 works with the following Maya plugins</p>
+<ul>
+<li><a href="https://area.autodesk.com/bifrost/downloads/" target="_blank">Bifrost Extension for Maya 2.4.0.0</a></li>
+<li><a href="https://github.com/Autodesk/maya-usd/releases/tag/v0.18.0" target="_blank">MayaUSD 0.18.0</a> (USD 21.11)</li>
+</ul>
+<h2 id="enhancements">Enhancements</h2><ul>
+<li>Render Swatches are now enabled by default (MTOA-1077)</li>
+</ul>
+<h2 id="usd-enhancements">USD Enhancements</h2><ul>
+<li><strong>Mesh Lights</strong> : Geometry lights are now supported in the render delegate ( <a href="https://github.com/Autodesk/arnold-usd/issues/1080" target="_blank">usd#1080</a> )</li>
+<li><strong>Color Management</strong> : When a usd file is loaded, the color manager node is set based on render settings parameters ( <a href="https://github.com/Autodesk/arnold-usd/issues/946" target="_blank">usd#946</a> <a href="https://github.com/Autodesk/arnold-usd/issues/1042" target="_blank">usd#1042</a> )</li>
+<li><strong>Motion Blur from Render Settings</strong> : A usd scene with Render Settings primitive can be rendered with motion blur ( <a href="https://github.com/Autodesk/arnold-usd/issues/1089" target="_blank">usd#1089</a> )</li>
+<li><strong>Varying topologies and motion blur</strong> : Support velocity motion blur on geometries with varying topologies (mesh, curves, points) on both the procedural and the render delegate ( <a href="https://github.com/Autodesk/arnold-usd/issues/1090" target="_blank">usd#1090</a> )</li>
+<li><strong>Support arnold primvars in instances</strong> : When an instancer has a primvar for an arnold builtin attribute (e.g. matte), we now propagate it to its instances ( <a href="https://github.com/Autodesk/arnold-usd/issues/1100" target="_blank">usd#1100</a> )</li>
+<li><strong>Support UsdPreviewSurface displacement output</strong> : scenes where UsdPreviewSurface is used as a displacement shader, through its attribute displacement are now supported. This is needed to render the Alab scenes ( <a href="https://github.com/Autodesk/arnold-usd/pull/1130" target="_blank">usd#1130</a> )</li>
+<li><strong>Support light linking on instances</strong> : We can now support setting a point instancer, or an instanceable prim, in light linking ( <a href="https://github.com/Autodesk/arnold-usd/pull/1128" target="_blank">usd#1128</a> )</li>
+<li><strong>Optimize nested instances in the render delegate</strong> : The memory consumption for nested instances (point instancer having another point instancer as a prototype) has reduced dramatically in Hydra ( <a href="https://github.com/Autodesk/arnold-usd/issues/1124" target="_blank">usd#1124</a> )</li>
+<li><strong>Render NurbsCurves as UsdGeomCurves:</strong> Usd Nurbs Curves were previously ignored by Arnold. They are now rendered as basic UsdGeomCurves ( <a href="https://github.com/Autodesk/arnold-usd/issues/1120" target="_blank">usd#1120</a> )</li>
+<li><strong>Support instanceable prims with variant overrides:</strong> It is now possible to render an instanceable prim referencing another primitive, and override its variants ( <a href="https://github.com/Autodesk/arnold-usd/pull/1127" target="_blank">usd#1127</a> )</li>
+<li><strong>Support per-instance velocity blur</strong> : The Arnold render delegate now supports point instancers with varying amount of instances, where it's the velocity blur that drives motion blur  ( <a href="https://github.com/Autodesk/arnold-usd/issues/1092" target="_blank">usd#1092</a> )</li>
+<li><strong>Usd Writer reuses eventual existing material primitives</strong> : This is needed for MayaUsd exports, so that the original mayaUsd material is kept, and Arnold shaders are assigned in the "arnold" context ( <a href="https://github.com/Autodesk/arnold-usd/issues/1139" target="_blank">usd#1139</a> )</li>
+<li><strong>Support shader connections to lights in Hydra</strong> : Using an ArnoldNodeGraph primitive, the Arnold render delegate now supports connecting arbitrary shading trees to light's colors ( <a href="https://github.com/Autodesk/arnold-usd/issues/1141" target="_blank">usd#1141</a> )</li>
+<li><strong>Support lights filters in Hydra</strong> : Similarly to shader connections, arnold light filters (gobo, etc...) can now be assigned to lights, through an ArnoldNodeGraph primitive ( <a href="https://github.com/Autodesk/arnold-usd/issues/1141" target="_blank">usd#1141</a> )</li>
+<li><strong>Improve shader dependency graph in the render delegate</strong> : The tracking of shader connections (for materials, lights, light filters, etc...) is now more robust, and fixes crashes when disconnecting or reconnecting shaders  ( <a href="https://github.com/Autodesk/arnold-usd/issues/1158" target="_blank">usd#1158</a> )</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible Changes</h2><ul>
+<li><strong>Connection priority in MaterialX document:</strong> Setting both a value and a connection as input of a node is undefined behavior in MaterialX. Arnold will now prioritize the connection over the value when both are defined. (ARNOLD-11198).</li>
+</ul>
+<h2 id="bug-fixes">Bug Fixes</h2><ul>
+<li><p>MTOA-617 - Tweaking "Enable Swatch Render" in the Render Settings is now refreshing all swatches automatically</p>
+</li>
+<li><p>ARNOLD-12299 - Crash when writing .ass file expanding procs without a render session</p>
+</li>
+<li><p>ARNOLD-12232 - Memory leak when rendering deep EXR layers</p>
+</li>
+<li><p>ARNOLD-11809 - Random crash when rendering multiple scenes in parallel</p>
+</li>
+<li><p>ARNOLD-12211 - [GPU] Optix denoiser memory leak when creating and destroying render sessions successively</p>
+</li>
+<li><p>ARNOLD-12177 - [GPU] Crash with ramp shader after aborting due to an error</p>
+</li>
+<li><p>ARNOLD-12166 - [GPU] Texture memory leak when creating and destroying render sessions successively</p>
+</li>
+<li><p>ARNOLD-12165 - [GPU] Incorrect volume bounds</p>
+</li>
+<li><p>ARNOLD-357     - [Licensing] Licensing error "[clm.v1] product key not found</p>
+</li>
+<li><p>ARNOLD-12144 - [maketx] Unwanted log messages</p>
+</li>
+<li><p>ARNOLD-12171 - [MaterialX] Crash when exporting a volume shader to MaterialX</p>
+</li>
+<li><p>ARNOLD-11198 - [MaterialX] Connection is ignored when a node input also has a defined value</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1073" target="_blank">usd#1073</a> Resolve node attributes from referenced files</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1093" target="_blank">usd#1093</a> Fix instanceable references in the same USD file</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1104" target="_blank">usd#1104</a> Compute visibility until the eventual root prim</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/pull/1129" target="_blank">usd#1129</a> Support UsdUvTexture relative paths with udims</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1133" target="_blank">usd#1133</a> Set outputs layer names only if required</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/1136" target="_blank">usd#1136</a> Fix uninitialized UV coords with leftHanded meshes</p>
+</li>
+</ul>
+<p><a href="https://help.autodesk.com/users/profile/editmyprofilepicture.action" title="Add a picture of yourself"></a></p>
+<p>Write a comment...</p>
+<p><a href="https://help.autodesk.com/display/A5AFMUG/5.1.3?showComments=true&amp;showCommentArea=true#addcomment">Add Comment</a></p>
+<p><a href="javascript:;">Privacy settings</a> / <a href="javascript:;">Do not sell my personal information</a> / <a href="https://www.autodesk.com/company/legal-notices-trademarks/privacy-statement" target="_blank">Privacy/Cookies</a>  </p>
+<p>null</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_5x_html.html">MtoA 5.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

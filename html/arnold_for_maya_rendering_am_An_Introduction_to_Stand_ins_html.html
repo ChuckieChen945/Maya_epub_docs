@@ -1,0 +1,171 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_rendering_am_An_Introduction_to_Stand_ins_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_AN_INTRODUCTION_TO_STAND_INS">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 替代对象简介 - Arnold for Maya">
+
+<title>替代对象简介</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>替代对象简介</h1></div><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/standins2.jpg" alt=""></td>
+<td><img src="../images/standins1.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p>利用*<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Stand_ins_html">替代对象</a>*，您可以将几何体数据的加载延缓到渲染时进行，从而保持工作场景轻巧且适宜（交互）工作。您可以毫不费力地为场景增添层次极多的复杂性。在此简介教程中，我们将为您介绍使用替代对象设置复杂场景所需的简单步骤。</p>
+<p><strong>要下载对应的场景，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_tutorials_am_Learning_Scenes_html">此处</a>。</strong></p>
+<p>以下步骤介绍了几个有关使用替代对象的实用技巧（您可以使用自己合适的模型尝试这些技巧）。请注意，本教程只是对替代对象这个强大工具进行简单介绍。</p>
+<ul>
+<li>使用 Arnold 的替代对象节点打开要复制的模型。确保在导出模型前已完成建模和着色处理，因为导出模型后，您将无法再对其进行修改。要导出模型，请选择模型并转到<em>“Arnold &gt; 替代对象 &gt; 导出”(Arnold &gt; StandIn &gt; Export)</em>菜单选项。或者，也可以通过<em>“文件 &gt; 导出全部”(File &gt; Export All)</em>选项将模型导出为替代对象。</li>
+</ul>
+<p><img src="../images/standins3.png" alt=""></p>
+<p><sub><strong>从 Arnold 菜单将模型导出为<em>替代对象</em></strong></sub></p>
+<h2 id="">导出替代对象</h2><ul>
+<li>选择要用作替代对象的模型的导出位置，然后单击“确定”(OK)。Arnold 会将网格导出为 .ass 文件，其中包含渲染网格所需的一切。如果您的模型文件很大，可以选择对其进行压缩，方法是选择<em>“压缩”(Compressed)</em>。如果模型包含动画，则单击<em>“序列”(Sequence)</em>并选择要导出的帧范围（创建替代对象后，记得在其帧属性中写入 <code>'=frame'</code>）。</li>
+</ul>
+<p><img src="../images/standins4.png" alt=""></p>
+<p><sub><strong>Ass 导出选项</strong></sub></p>
+<h2 id="">创建替代对象</h2><ul>
+<li>创建一个新场景。创建一个新的替代对象（转到<em>“Arnold &gt; 替代对象 &gt; 创建”(Arnold &gt; Stand-in &gt; Create)</em>）。您应该会看到替代对象表示为一个边界框。</li>
+</ul>
+<p><img src="../images/standins5.png" alt=""></p>
+<p><sub><strong>替代对象在 Maya 视口中显示为边界框</strong></sub>  </p>
+<ul>
+<li>选择该替代对象并打开属性编辑器。在“路径”(Path)中，选择已导出为<em>替代对象</em>模型的 .ass 文件。</li>
+</ul>
+<p><img src="../images/standins6.png" alt=""></p>
+<p><sub><strong>加载替代对象的 ass 文件</strong></sub></p>
+<ul>
+<li>您应该会注意到替代对象边界框的形状变得与原始模型的形状一致。将它放置在栅格的中心。将枢轴放置在替代对象的底部。这将帮助我们确定实例化的替代对象模型的位置。</li>
+</ul>
+<p><img src="../images/standins7.png" alt=""></p>
+<h2 id="">照明</h2><ul>
+<li>创建平行光。将灯光指向替代对象并进行渲染。您应该会看到原始模型及其原始着色器的指定情况。如果您需要更改着色器，必须重新导出替代对象并重复上述步骤，或者为其指定一个新的着色器。</li>
+</ul>
+<p><img src="../images/standins8.png" alt="">  </p>
+<ul>
+<li>下面我们将平行光替换为 HDR 照明。打开 Hypershade 窗口，然后创建一个 <em>Ai SkyDomeLight</em>。为<em>“颜色”(Color)</em>指定一个文件纹理，然后选择一个合适的 HDR 贴图。</li>
+</ul>
+<p><img src="../images/standins9.png" alt="">  </p>
+<p>渲染结果应该类似下图。</p>
+<p><img src="../images/standins10.png" alt=""></p>
+<p><sub><strong>替代对象使用 <em>Ai 天穹灯光</em>进行照明</strong></sub>  </p>
+<ul>
+<li>创建一个多边形平面，然后将其放大到足够大，以用作替代对象的地板平面。为其指定一个 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Surface_html">standard_surface</a> 着色器，并为 <em>base_color、specular_color</em> 和<em>“凹凸贴图”(Bump map)*窗口指定一个木质地板纹理。将 *specular_weight</em> 增加到 0.3 左右，并将 <em>specular_roughness</em> 减小到 0.2。</li>
+</ul>
+<p><img src="../images/standins11.png" alt=""></p>
+<p><sub><strong>使用 <em>standard_surface</em> 着色器创建一个木质地板</strong></sub>  </p>
+<p>现在，有了一个替代对象几何体的实例后，结果应该类似下图。</p>
+<p><img src="../images/standins12.png" alt=""></p>
+<h2 id="">实例化替代对象</h2><ul>
+<li>现在开始进行有趣的操作。我们要开始对替代对象进行实例化。我们将使用 Maya 的<em>“特殊复制选项”(Duplicate Special Options)</em>将替代对象复制成一个环形。首先，必须正确设置枢轴点。将替代对象从中心移开几个单位，然后将其枢轴放置在栅格的中心 0,0,0 位置。</li>
+</ul>
+<p><img src="../images/standins13.jpg" alt=""></p>
+<p><sub><strong>将替代对象从中心移开但将其枢轴移到 0 0 0</strong></sub>  </p>
+<ul>
+<li>选择替代对象，然后转到<em>“特殊复制选项”(Duplicate Special Options)</em>。确保选中<em>“实例”(Instance)</em>。这一点非常重要，因为这可以节省内存，让您的场景渲染速度更快。将 Y 旋转更改为 10，并将副本数增加到 36。您可能需要根据模型的大小更改旋转值。否则，实例化的替代对象可能会彼此穿透。请确保删除原始的替代对象。否则，您得到的将是重复的几何体。</li>
+</ul>
+<p><img src="../images/standins14.png" alt=""></p>
+<p><sub><strong>替代对象实例化为一个环形</strong></sub>  </p>
+<p>操作的结果应该类似下图。</p>
+<p><img src="../images/standins15.png" alt="">  </p>
+<ul>
+<li>复制其中一个<em>替代对象</em>，将其移出到一侧，然后将其枢轴放置在栅格的中心 0,0,0 位置。</li>
+</ul>
+<p><img src="../images/standins16.png" alt="">  </p>
+<ul>
+<li>使用上述步骤复制各个<em>替代对象</em>。记得对这些对象进行实例化。</li>
+</ul>
+<p><img src="../images/standins17.png" alt=""></p>
+<p><sub><strong>对第二排士兵重复此过程</strong></sub>  </p>
+<p>现在，您应该有两排替代对象模型。使用相同的方法，我们为站姿士兵创建了另一个替代对象。但是，副本数量增加到了 72 个，以弥补更大周长造成的空缺。</p>
+<p><img src="../images/standins18.png" alt=""></p>
+<p><sub><strong>创建并复制站姿士兵替代对象</strong></sub></p>
+<p>另外还要注意，站姿士兵替代对象与蹲姿士兵替代对象发生了相交。在本例中，相交也没有关系，因为只是站姿士兵的枪悬在蹲姿士兵的头顶而已。</p>
+<p><img src="../images/am-An_Introduction_to_Stand-ins-image2016-5-9-12-30-53-18.png" alt=""></p>
+<p>替代对象可以多次实例化，并且渲染开销很小（原始模型有大约 20,000 个多边形，如果不使用替代对象进行实例化，下面这个包含数百名士兵的场景将会非常大）。当然，Arnold 渲染该场景也没问题。</p>
+<p><img src="../images/standins19.png" alt=""></p>
+<h2 id="">总结</h2><p>这里需要指出的是，此介绍性教程仅介绍了使用替代对象的基础知识。例如，除了使用 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_rendering_am_Arnold_Scene_Source_html">.ass 归档文件</a>外，替代对象还可与预编译的自定义程序式程序一起使用，您可以采取动态库的形式提供这类程序，以便使用参数化的程序几何体。替代对象也可以循环出现，您可以将程序几何体加载推迟到渲染过程中需要时再进行（即，几何体先不加载，也不占用内存，直到光线进入物体的边界框再加载）。通过这些方法，您将能够以模块化的方式组合场景。</p>
+<p>由此可见，替代对象可以为您带来巨大的创意潜力。尽情体会<em>替代对象</em>的乐趣吧！</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/standins21.jpg" alt=""></td>
+<td><img src="../images/standins22.jpg" alt=""></td>
+<td><img src="../images/standins23.jpg" alt=""></td>
+<td><img src="../images/standins24.jpg" alt=""></td>
+<td><img src="../images/standins25.jpg" alt=""></td>
+<td><img src="../images/standins26.jpg" alt=""></td>
+</tr>
+</tbody></table>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关 MtoA 中的替代对象的详细信息，请参见主要的 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Stand_ins_html">MtoA 替代对象描述</a>。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Rendering_Tutorials_html.html">渲染教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

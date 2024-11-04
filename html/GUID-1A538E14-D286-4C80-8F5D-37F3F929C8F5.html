@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Customizing">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5">
+<meta name="language" content="CHS">
+<title>在 Linux 上优化 Maya 热盒和标记菜单</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>在 Linux 上优化 Maya 热盒和标记菜单</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-01B57E3F-EDE4-439E-B770-DC1C8AF8DC02">建议修改操作系统和窗口管理器设置，以便在 Linux 系统上优化 Maya 热盒和标记菜单的性能。 </p>
+<p class="p" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-957E4264-2C05-49A8-B296-B38D79965132">热盒和标记菜单可以使用以下三种显示方法：RGB 叠加、X 合成和内部软件合成。 </p>
+<p class="p" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-6997692E-ED0A-46AA-9C3A-6A5E30FFE578">通常，会尝试使用 RGB 叠加和 X 合成来查看哪种方法在实践中效果最佳。内部软件合成方法是速度最慢的方法，应尽可能避免使用该方法。 </p>
+<p class="p" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-01B7C899-7BF2-4352-82ED-183A6D989824">某些限制因素可能会确定您可以使用哪种方法： </p>
+<ul class="ul" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__UL_5014D3F4AB4844828B304F7A87B95725"><li class="li" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__LI_759FA2E7E56A4066B9341186F1D0E910">
+<strong class="ph b" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-7C5C76FF-D898-4900-9A81-0C8308B32740">RGB 叠加</strong>
+<p class="p" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-3169C8A7-F33C-49AE-8BC2-C08A00979FDF">如果要在 Maya 中使用立体功能，请使用此方法。请不要将此方法与 AMD 显卡结合使用。 </p>
+
+</li>
+<li class="li" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__LI_4FA3433D9F7E4C55AE3CE82DC3AA1F0D">
+<strong class="ph b" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-F2C4BF1D-E43A-41EB-B87D-4C9D5CC31BF3">X 合成</strong>
+<p class="p" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-29A63422-BF1F-41FB-BDD6-C870AF3A5823">此方法与 AMD 显卡结合使用（具有 AMD 显卡的 Linux 驱动程序不支持 RGB 叠加）。 </p>
+
+</li>
+<li class="li" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__LI_5E44594EC1204BADAF93EC7D09CEB45C">
+<strong class="ph b" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-A99B7C16-DD93-4DAC-9EED-49C04B012A44">内部软件合成</strong>
+<p class="p" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-92752BA6-7578-4751-8894-F74FFB1FA7AA">如果 RGB 叠加和 X 合成模式都不适用，则只能使用此方法。这是 Maya 的默认设置。 </p>
+
+</li>
+</ul>
+<div class="section" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__SECTION_897D9275097C4C91BE81267C7FC0783B"><h2 class="title sectiontitle">使用 RGB 叠加</h2>
+
+<p class="p" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-E5ED8E6A-18E4-4CE5-9ABB-A8C765935E40">RGB 叠加方法使用硬件 RGB 叠加显示热盒和标记菜单。此方法可去除使用内部软件合成方法时出现的闪烁。 </p>
+
+<p class="li listintro" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-0461D938-2088-4B72-AC12-79B85E39070C">启用 RGB 叠加</p>
+<ol class="ol" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__OL_B2E12EA72AA2476CA1901F9544A232FE"><li class="li" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__LI_2CE7F6A11742436F897EB2CBB5450BC2">打开 <samp class="ph codeph" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-86C30B50-32F0-4BA7-8DE6-CC7A7EED5AE0">/etc/X11/xorg.conf</samp> 文件。 </li>
+<li class="li" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__LI_6734FBEE087D49BD9D6B2067CDD2CFC9"> 替换“CIOverlay”选项（颜色索引叠加），如下所示： <pre class="pre codeblock">Section "Device"
+   Option "Overlay" "on"
+EndSection
+
+OR
+Section "Screen"
+   Option "Overlay" "on"
+EndSection</pre>
+ </li>
+<li class="li" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__LI_64426E4337A24D5E940AD0F7C83DF8A9">禁用 X 合成，如下所示： <pre class="pre codeblock">Section "Extensions"
+    Option "Composite" "false"
+EndSection</pre>
+ </li>
+<li class="li" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__LI_FEB4D578040441B9936882E17977E004">保存 <samp class="ph codeph" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-142EE0D1-73C7-4A8F-8810-9C7910AEED12">xorg.conf</samp> 文件。 </li>
+</ol>
+
+</div>
+<div class="section" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__SECTION_4AB54F9B07BA4EAE9C96472B539E042F"><h2 class="title sectiontitle">使用 X 合成</h2>
+
+<p class="p" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-DD32534C-6011-4192-ADC0-4350FA6EA386">要使用 X 合成方法，X 合成扩展必须处于启用状态，并且窗口管理器必须启用合成。此方法可去除使用内部软件合成方法时出现的闪烁。 </p>
+
+<p class="li listintro" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-4C464C4F-3F87-4E9B-808B-A04CF4C33BCC">启用 X 合成</p>
+<ol class="ol" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__OL_E468F5237F1C49F08B2582E5131BC88F"><div class="note note" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-8716270E-473E-45F9-B987-15B7C66B3E35"><span class="notetitle">注：</span> 默认情况下，在 Red Hat 6 和 Fedora 14 系统上 X 合成处于启用状态，因此无需修改 <samp class="ph codeph" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-FABF3777-C804-4047-B652-F0098F02F690">xorg.conf</samp> 文件。 </div>
+<li class="li" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__LI_6C4A39B3929E4F6697BAB532ED99A080">打开 <samp class="ph codeph" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-3C7BC227-1BD9-41D3-BCAA-186F0915FDD5">/etc/X11/xorg.conf</samp> 文件。 </li>
+<li class="li" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__LI_24712045A2544E8080E6B5D452D3C76B">启用 X 合成，如下所示： <pre class="pre codeblock">Section "Extensions"
+    Option "Composite" "true"
+EndSection</pre>
+ </li>
+<li class="li" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__LI_0116DA0CBCE943758D9D0160C90DE2A8">保存 <samp class="ph codeph" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-65E2D3DA-7593-438B-9F16-18077545E9C7">xorg.conf</samp> 文件。 </li>
+</ol>
+
+<p class="li listintro" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-04111379-E65C-4E36-8A4D-E68E853CB056">启用窗口管理器合成</p>
+<ol class="ol" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__OL_6073A3BCAE6B4DAD9305674E4C648C69"><p class="p" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-C3813AD8-33F7-490F-A8D2-E01D33FCF770">下表概述了如何启用窗口管理器合成。 </p>
+</ol>
+
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__TABLE_5F23A3ED0CAD4EC58C8C0073EB5F5969" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">窗口管理器 </th>
+<th class="entry" valign="top" width="50%">启用合成的步骤… </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">KDE </td>
+<td class="entry" valign="top" width="50%">选择“系统设置”&gt;“桌面效果”，然后在“激活”下，启用“启动时启用桌面效果”<span class="ph uicontrol" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-BF721B21-6502-4038-B992-87999DB132DF"></span><span class="ph uicontrol" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-931FBA21-2473-44A1-A54E-11D62F9A8E1F"></span><span class="ph uicontrol" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-BA431A09-FC52-4227-BF6D-39D111FCEC3B"></span>。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">Metacity </td>
+<td class="entry" valign="top" width="50%">
+<p class="p" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-3D760C1A-EEEC-4F57-8591-7EEC2C9ED35F"> 打开“配置编辑器”，然后转到“Metacity”&gt;“常规”，并启用“合成管理器”<span class="ph uicontrol" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-ADCDA293-BA9C-4943-8AD9-AA7EF9273357"></span><span class="ph uicontrol" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-F76ECA77-E8A2-4774-A85E-79E9F4328198"></span><span class="ph uicontrol" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-C6F5CA36-F320-454E-8501-D72AAA7C3817"></span>。 </p>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">其他 </td>
+<td class="entry" valign="top" width="50%">
+<p class="p" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-B37E6009-2188-4FF7-B454-9DA6CD88325C"> 请查看窗口管理器的帮助以获取信息。 </p>
+
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="section" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__SECTION_10FB05DCE5994874AF75B2EAFBD6E483"><h2 class="title sectiontitle">使用内部软件合成</h2>
+
+<p class="p" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-A84C184B-C42A-4E99-A919-D459BC5A5FB8">内部软件合成抓取屏幕快照并在该图像之上绘制热盒和标记菜单，以便模拟透明度。 </p>
+
+<p class="p" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-0AD8267A-EC7B-4703-8EDA-597926C4B0A5">这是一个备用方法，只能在 RGB 叠加和 X 合成方法不适用时才使用。您可能会发现此方法的速度很慢，并且可能会在热盒或标记菜单从屏幕中消失时引起闪烁。 </p>
+
+</div>
+<div class="section" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__SECTION_7E3583A52A8547D3B0494CE6B7B59E83"><h2 class="title sectiontitle">其他建议的设置</h2>
+
+<div class="section" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__SECTION_62F49A1BAC5E43959676217FD89967AB"><h3 class="title sectiontitle">聚焦设置 </h3>
+
+<p class="p" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-F0348837-55D1-4D77-9CE0-B1E9963E1D36">要在 Maya 中进一步提高与热盒和标记菜单的交互，请对所使用的窗口管理器使用以下聚焦策略设置。 </p>
+
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__TABLE_D2C228671EBE43E3BCEF85E6ED997E74" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">窗口管理器 </th>
+<th class="entry" valign="top" width="50%">建议的设置 </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">KDE </td>
+<td class="entry" valign="top" width="50%">
+<ul class="ul" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__UL_519B072BF6FA48398C2D5D08F13CE675"><li class="li" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__LI_32BE36B8C10C4E8D9C1022E8642BA2EB">使用“焦点跟随鼠标指针”策略。 </li>
+<li class="li" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__LI_3D0967A9BC8F4A3FAD199AEAE6950DFA">禁用“单击前置活动窗口”。 </li>
+<li class="li" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__LI_F4D74668B53E447FA91D56C2DE55110F">对于非活动内部窗口，对鼠标左键、鼠标中键和鼠标右键设置“激活并传递单击”。 </li>
+</ul>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">Metacity（包含 Gnome） </td>
+<td class="entry" valign="top" width="50%">
+<ul class="ul" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__UL_F5C7F9C1A5F04F7C9CD9BED023315ED9"><li class="li" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__LI_05B2732ACD21416BAC5C6D98A48BCE34">将 focus_mode 设置为 sloppy。 </li>
+<li class="li" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__LI_B45A3203038E41728C1B70351029F924">将 raise_on_click 设置为 false。 </li>
+</ul>
+
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+<div class="section" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__SECTION_9CF8BCF8EDEF4EFB84438563A8F48545"><h2 class="title sectiontitle">环境变量</h2>
+
+<p class="p" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-B7F4D527-1655-48FE-A0D9-54E30BEAFE4D">还建议对 Maya 环境变量进行以下调整，以便提高与热盒的交互。 </p>
+
+<p class="p" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-712BE9DE-C8F2-4CE1-A196-DDA56FB7857D">在 Maya.env 文件中，请进行以下设置： </p>
+
+<ul class="ul" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__UL_2F2697B9AB224B579F9B4A185552549C"><li class="li" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__LI_99FD1903EEC14396A32152FBF4FE8153">MAYA_SET_PARENT_HINT=0 <p class="p" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-B492AD96-CF73-46AB-9979-997AB16100A6">控制自动建立窗口的父子关系，其中，将其设置为 0 会禁用默认建立父子关系。（此行为类似于 Linux 系统上的 Maya 2010。） </p>
+ </li>
+<li class="li" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__LI_C4ECC2CDCAB249548A300E38273299DF">MAYA_HBFreeFocus=1 <p class="p" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-EC693BD0-0BC0-41AC-B287-E56A6E48F69E">设置为 1 时，不会强制焦点返回到在屏幕上显示的热盒之前获得焦点的窗口。（在 Linux 系统上设置 MAYA_SET_PARENT_HINT=0 时，这是一个附加控制。） </p>
+ </li>
+<li class="li" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__LI_CE986A57ABEC46109C5745C9369BE1D4">MAYA_HBFreeRaise=1 <p class="p" id="GUID-1A538E14-D286-4C80-8F5D-37F3F929C8F5__GUID-921D70D6-5BF0-43D7-9D25-699A154C97C0">设置为 1 时，不会在热盒从屏幕中消失时强制前置先前聚焦的窗口。（在 Linux 系统上设置 MAYA_SET_PARENT_HINT=0 时，这是一个附加控制。） </p>
+ </li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-235ED36C-EAE1-41BB-91B8-D79EE7659E66.htm">性能提高技巧</a></div>
+</div>
+</div>
+
+</body>
+</html>

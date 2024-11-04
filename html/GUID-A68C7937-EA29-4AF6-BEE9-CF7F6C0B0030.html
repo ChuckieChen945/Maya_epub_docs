@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-A68C7937-EA29-4AF6-BEE9-CF7F6C0B0030">
+<meta name="language" content="CHS">
+<title>在运行时表达式中使用创建表达式值</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-A68C7937-EA29-4AF6-BEE9-CF7F6C0B0030">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>在运行时表达式中使用创建表达式值</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-A68C7937-EA29-4AF6-BEE9-CF7F6C0B0030__WS73099CC142F48755-3D114B7511841AEFA9F-F20"> 运行时表达式无法读取您在创建表达式中定义的变量，除非您将该变量定义为全局变量。但是，您可以创建自定义属性，在创建表达式中为其赋值，然后在运行时表达式中读取或写入其值。</p>
+<p class="p" id="GUID-A68C7937-EA29-4AF6-BEE9-CF7F6C0B0030__WS73099CC142F48755-3D114B7511841AEFA9F-F1E">例如，假定您将粒子对象的位置指定给创建表达式中名为 $oldposition 的变量：</p>
+<pre class="pre codeblock">
+vector $oldposition = particleShape1.position;
+</pre>
+<p class="p" id="GUID-A68C7937-EA29-4AF6-BEE9-CF7F6C0B0030__WS73099CC142F48755-3D114B7511841AEFA9F-F1D">然而，同一<span class="ph uicontrol" id="GUID-A68C7937-EA29-4AF6-BEE9-CF7F6C0B0030__GUID-531C60D0-CEF0-4A67-ABAA-86D0CA8896FE">“粒子形状”(particle shape)</span>节点的运行时表达式无法读取 $oldposition 变量的内容。要解决此问题，您可以为该对象创建一个属性，在创建表达式中为其赋值，然后在运行时表达式中使用该属性值。 </p>
+<p class="p" id="GUID-A68C7937-EA29-4AF6-BEE9-CF7F6C0B0030__WS73099CC142F48755-3D114B7511841AEFA9F-F1C">例如，假定您创建一个名为 oldpos 的属性，并在创建表达式中为其指定以下位置：</p>
+<pre class="pre codeblock">
+particleShape1.oldpos = particleShape1.position;
+</pre>
+<p class="p" id="GUID-A68C7937-EA29-4AF6-BEE9-CF7F6C0B0030__WS73099CC142F48755-3D114B7511841AEFA9F-F1B">您可以在运行时表达式中读取 particleShape1.oldpos 的值。</p>
+<p class="p" id="GUID-A68C7937-EA29-4AF6-BEE9-CF7F6C0B0030__WS73099CC142F48755-3D114B7511841AEFA9F-F1A">您无需创建一个属性来保留对象的初始位置。初始位置已存在于其名为 position0 的初始状态属性中。此属性不会显示在<span class="ph uicontrol" id="GUID-A68C7937-EA29-4AF6-BEE9-CF7F6C0B0030__GUID-20E3E217-D44A-4AA2-AA44-3BEC9356576E">“表达式编辑器”(Expression Editor)</span>的<span class="ph uicontrol" id="GUID-A68C7937-EA29-4AF6-BEE9-CF7F6C0B0030__GUID-E85B0260-945D-40DF-8DC7-221B904CDFD8">“属性”(Attributes)</span>列表中。 </p>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-F7BE65C4-CDA4-42DC-A0D8-72B9D984B3E1.htm">关于粒子表达式</a></div>
+</div>
+</div>
+
+</body>
+</html>

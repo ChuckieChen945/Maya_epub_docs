@@ -1,0 +1,148 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_1x_am_1240_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_1240">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 1.2.4.0 - Arnold for Maya">
+
+<title>1.2.4.0</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>1.2.4.0</h1></div><h2 id="release-date">Release Date</h2><p>September 10, 2015</p>
+<p>This version uses the Arnold <a href="https://help.autodesk.com/display/arnug/4.2.9.0">4.2.9.0</a> core</p>
+<h2 id="downloads">DOWNLOADS</h2><ul>
+<li><a href="https://manage.autodesk.com/products/](https://manage.autodesk.com/products/)" target="_blank">https://manage.autodesk.com/products/](https://manage.autodesk.com/products/)</a></li>
+</ul>
+<h2 id="highlighted-new-features">HIGHLIGHTED NEW FEATURES</h2><ul>
+<li>Initial Bifrost Support on Maya 2016 for Windows and Linux (OSX version coming soon). Foam nodes are rendered as particles (supporting motion blur), and Aero nodes are rendered as Arnold volume primitives. Both are shaded with Bifrost native materials, which containing several ramps based on the particle / volume attributes. Bifrost Liquids have to be converted to meshes and can be rendered with any shader.</li>
+<li>Refractive dispersion: The standard shader now supports chromatic dispersion through refraction. The new parameter dispersion_abbe specifies the Abbe number of the material, which describes how much the index of refraction varies across wavelengths. For glass and diamonds this is typically in the range 10 to 70, with lower numbers giving more dispersion. The default value is 0, which turns off dispersion. The chromatic noise can be reduced by either increasing the global AA samples, or the refraction samples.</li>
+<li>Volumetric scattering AOVs: Direct and indirect scattering in volumes can now be rendered separately using the new volume_direct and volume_indirect AOVs.</li>
+<li>New AOVs in Standard Shader : Direct and indirect SSS results are now saved separately in the new "direct_sss" and "indirect_sss" AOVs.</li>
+<li>Perspective OpenVDB volumes: The accompanying OpenVDB volume DSO provided with our DCC plugins has now been optimized to render perspective grids, also known as frustum buffers. The speedup depends on the specific perspective transformation, but we have seen 4x-6x faster rendering in tests.</li>
+<li>Faster opacity: The arnold core shaders (lambert, standard, etc...) now have significant speedups when shading with partial opacity, or when using opacity-mapped tree leaves. This optimization is controlled by the options attribute enable_fast_opacity enabled by default.</li>
+<li>Faster subdivision: Several optimizations were added to the Catmull-Clark subdivision engine. Adaptive subdivision mode is now 4% faster, and smooth derivatives (as needed by anisotropic surface shading) are 27% faster while using 8% less memory.</li>
+<li>Faster curves: Curves in thick mode now render 2-20% faster. Curves with non-zero "Min Pixel Width" now render up to 2x faster.</li>
+<li>.tx files support: .tx files will be visible on the Maya viewport as native textures in Maya 2014 and Maya 2015 (Maya 2016 already supports them natively).</li>
+</ul>
+<h2 id="notes">NOTES</h2><ul>
+<li>Added a "shader" parameter to the LightBlocker node.</li>
+<li>Added "Offset U" and "Offset V" attributes to the image node.</li>
+<li>Created a maya.connectable metadata so that attributes can be animated in maya without having to be declared as "linkable" for Arnold.</li>
+<li>MtoA now allows hardware shading implementation for custom shaders</li>
+<li>Opacity in utility shader: utility shaders with opacity will now render less transparent than before, previously it was incorrectly rendering too transparent. The new opacity behaviour better matches other shaders like standard and lambert.</li>
+<li>Bump and object scale: The bump2d, bump3d shaders now take into account object scale by default. Previously the bump displacement height would not scale along with the object, which was inconsistent with displacement and autobump. The new global options.bump_space is set to object by default, but can be set to world for backwards compatibility. This new global option will likely be removed in the next API-breaking major release.</li>
+<li>Driver time stats: Output driver time is now reported in the render time section of the log file stats. This can be used to detect bottlenecks related to deep image output, excessive number of AOVs or networking issues.</li>
+<li>Faster volumes: Volume lookups with multiple channels render 5% faster in various tests.</li>
+<li>Faster deep EXR: The driver_deepexr node has been optimized, resulting in up to 25% faster rendering, most notably when using volumes.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Ticket</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>#2118</td>
+<td></td>
+</tr>
+</tbody></table>
+<p> | </p>
+<p>Volume scattering turns AOVs black</p>
+<p> |
+| </p>
+<p>#2123</p>
+<p> | </p>
+<p>MtoA does not allow hardware shading implementation for custom shaders</p>
+<p> |
+| </p>
+<p>#2124</p>
+<p> | </p>
+<p>Stop duplicating vertices in Bake Geometry</p>
+<p> |
+| </p>
+<p> | </p>
+<p>Bake Geometry can't export files &gt; 8 Gb</p>
+<p> |
+| </p>
+<p>#2126</p>
+<p> | </p>
+<p>Create a maya.connectable metadata</p>
+<p> |
+| </p>
+<p>#2127</p>
+<p> | </p>
+<p>Creating AOV alias error on references</p>
+<p> |
+| </p>
+<p>#2130</p>
+<p> | </p>
+<p>Bounds Padding attribute missing from Volume</p>
+<p> |
+| </p>
+<p>#2143</p>
+<p> | </p>
+<p>Add "shader" parameter to lightBlocker node</p>
+<p> |
+| </p>
+<p>#2154</p>
+<p> | </p>
+<p>Render To Texture crashes in batch</p>
+<p> |
+| #129 | Make .tx file readable for Maya |
+| #2057 | Add Support for Bifrost in Maya 2016 |
+| #2151 | New AOVs / optimizations in Skin shader |
+| #2147 | Add soffset and toffset attributes to image node |
+| #2148 | Add subdiv_adaptive_error and subdiv_adaptive_space to polymesh node |
+| #2149 | Rename light_blocker.ramp_axis to axis |
+| #2150 | Add new Arnold 4.2.9.0 AOVs |
+| #2152 | Expose parameter dispersion_abbe in the standard shader |</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/am-1x/arnold_for_maya_am_1x_am_12_html.html">1.2</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

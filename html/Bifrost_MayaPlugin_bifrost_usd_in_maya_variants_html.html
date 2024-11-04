@@ -1,0 +1,64 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-MayaPlugin">
+  <meta name="topicid" content="Bifrost_MayaPlugin_bifrost_usd_in_maya_variants_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>在 Bifrost-USD 中使用变量</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>在 Bifrost-USD 中使用变量</h1></div><p>变量是基本体的若干变体之一，例如用于填充群组的任意一组角色。基本体可以有多个变量集，例如，基础网格的一个变量集、服装的另一个变量集等。在每个变量集中，变量是可供选择的命名选择。</p>
+<h2 id="">创建变量集并使用变量填充</h2><ol>
+<li><p>将 <code>define_usd_prim</code> 节点添加到图表，并将其输出直接连接到 <code>add_to_stage</code> 节点或另一个 <code>define_usd_prim</code> 节点的 <code>children</code> 端口。</p>
+<p>此基本体将用作已解析变量的容器。您可以将 <code>type</code> 保留为“Xform”，以便轻松移动已解析的变量。</p>
+</li>
+<li><p>在 <code>variant_set_definitions</code> 端口上单击鼠标右键，然后选择 <strong>Usd::VariantSet::define_usd_variant_set</strong>。</p>
+</li>
+<li><p>在 <code>define_usd_variant_set</code> 节点中，将 <code>variant_set_name</code> 设置为要用于变量集的名称，例如“shape”。</p>
+</li>
+<li><p>将 <code>selection</code> 设置为集内要用作默认变量的变量名称。（请注意，您尚未创建具有此名称的变量。）</p>
+</li>
+<li><p>在 <code>children</code> 上单击鼠标右键，然后从 <code>Create Node</code> 菜单中选择一个选项，为集中的每个变量创建基本体定义。在子基本体定义节点中，将 <code>variant_set_name</code> 设置为所创建变量集的名称，将 <code>variant_name</code> 设置为子基本体表示的单个变量的名称。单个变量名称之一应是您设置为默认变量的名称。</p>
+</li>
+<li><p>要创建其他变量集，请将其他 <code>define_usd_variant_set</code> 节点添加到容器基本体定义的 <code>variant_set_definitions</code> 端口，并将其他基本体定义添加为子项。</p>
+</li>
+</ol>
+<h2 id="">在变量之间切换</h2><p>要按程序选择变量，请使用 <code>set_variant_selection</code> 节点。指定受影响基本体的路径、变量集名称以及要选择的变量的名称。</p>
+<p>也可以在主场景中实时选择变量。在 Maya 大纲视图中的变量容器上单击鼠标右键（其图标具有覆盖标记，以显示其具有变量），然后从<strong>“变量集”(Variant Set)</strong>菜单中选择选项。与在 Maya 中进行的任何其他更改一样，这不会存储在图表的后台文件输出中。</p>
+<p><img src="../images/variant_set_menu_in_outliner.png" alt="在 Maya 的大纲视图中选择变量"></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-MayaPlugin/files/Bifrost_MayaPlugin_bifrost_usd_in_maya_html.html">Maya 中的 Bifrost-USD</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

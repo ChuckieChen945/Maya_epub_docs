@@ -1,0 +1,497 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_designviz_am_Camera_Product_Visualization_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_CAMERA_PRODUCT_VISUALIZATION">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 摄影机产品可视化 - Arnold for Maya">
+
+<title>摄影机产品可视化</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>摄影机产品可视化</h1></div><p><img src="../images/camera-title.png" alt=""></p>
+<p>本教程将介绍如何对 DSLR 摄影机的 CAD 模型进行照明、着色和渲染。我们介绍了包括产品画面在内的各种风格以及可在产品小册子中使用的说明性风格。这些样式包括<em>线框</em>、<em>facing_ratio</em>（x 射线）和<em>卡通</em>边。我们还将介绍如何使用<em>工具</em>着色器创建渲染过程以在合成软件包中使用，以及如何将其用于调试场景。</p>
+<p><strong>要下载 DSLR 摄影机模型，请单击<a href="https://grabcad.com/library/nikon-d3100-1" target="_blank">此处</a>。</strong></p>
+<h2 id="cad">导入 CAD 数据</h2><ul>
+<li>首先，下载 CAD 模型（上面的链接）。</li>
+<li>您应该会在 .zip 文件中看到以下各部分。将数据解压缩到硬盘。</li>
+</ul>
+<p><img src="../images/camera2.png" alt=""></p>
+<ul>
+<li><p>选择文件，然后将其从文件资源管理器拖动到 Maya 视口中。Maya 随后会为您转化 CAD 几何体。您应该会看到模型显示在 Maya 场景中（请参见下文）。</p>
+</li>
+<li><p>确保在插件管理器中加载了 <strong>ATFPlugin.mll</strong> 插件，否则摄影机几何体将无法导入。</p>
+</li>
+<li><p>该模型源自一个采用 Z 上方向轴的 CAD 软件包，而 Maya 默认采用 Y 上方向轴。转到<em>“首选项 -&gt; 设置 -&gt; 世界坐标系”(Preferences -&gt; Settings -&gt; World Coordinate System)</em>，然后将其更改为 Z。</p>
+</li>
+</ul>
+<p><img src="../images/camera3.png" alt=""></p>
+<p><sub><strong>在 Maya 中导入的 CAD 文件。世界坐标系：Z</strong></sub></p>
+<h2 id="">照明</h2><p>场景简单地使用连接到 <em>skydome_light.color</em> 的工作室 HDRI 进行照明。</p>
+<ul>
+<li>在<em>“创建”(Create)</em>选项卡下选择“Arnold”，然后单击<em>“Arnold 灯光”(Arnold Light)</em>。在视口中单击以创建 <em>skydome_light</em>。</li>
+<li>在 X 轴上将 <em>skydome_light</em> 旋转 90 度（这是因为场景的方向设置为 Z 上方向）。</li>
+<li>将 <em>skydome_light</em> 的摄影机可见性减少到 0。我们稍后将添加一个单独的白色背景。</li>
+<li>将文件纹理连接到 <em>skydome_light</em> 的“颜色”(Color)属性，然后选择一个合适的 HDRI。要下载可用于此场景的工作室 HDRI 示例，请单击<a href="https://hdrihaven.com/hdris/category/?c=studio" target="_blank">此处</a>。</li>
+</ul>
+<p><img src="../images/camera4.png" alt=""></p>
+<p><sub><strong>为 skydome_light 的“纹理”(Texture)选择位图 (HDRI)</strong></sub></p>
+<p>为了测试照明，我们可以快速为摄影机指定 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_node_ac_standard_surface_html" target="_blank">standard_surface</a></em> 着色器。</p>
+<ul>
+<li>在 Hypershade 窗口中，创建一个 <em>standard_surface</em> 着色器并将其指定给摄影机。</li>
+<li>将其 <em>base_color</em> 更改为黑色。</li>
+</ul>
+<p><img src="../images/camera4a.png" alt=""></p>
+<ul>
+<li>使用默认的 Arnold 采样设置渲染场景。这些设置适用于使用 IPR 对场景进行测试渲染。目前，不必担心场景中的任何噪波。我们在制作结束时对照明和着色满意后，将更改采样设置。    </li>
+</ul>
+<p><img src="../images/camera5.png" alt="">  </p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>功能覆盖(Feature Overrides)：此开关组可用来禁用一系列重要的渲染功能。通过有选择地禁用某些功能，您可以了解到渲染器将大多数时间花在哪里，从而有助于优化场景。例如，启用 ignore_textures 或 ignore_shaders 可以加快照明或外观开发速度。这也有助于在调试时隔离错误和瑕疵。请注意，这些选项并非都是交互式选项，部分选项可能需要刷新/导出整个场景。</p>
+
+</div></div>
+
+<p><img src="../images/camera6.png" alt=""></p>
+<p><sub><strong>渲染设置 -&gt; 诊断 -&gt; 功能覆盖(Render Settings -&gt; Diagnostics -&gt; Feature Overrides)</strong></sub>  </p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>调试着色(Debug Shading)：此选项使用各种调试着色模式临时替换应用于所有对象的着色。此选项仅用于交互式渲染，不会更改 Maya 场景中的任何内容。</p>
+
+</div></div>
+
+<p><img src="../images/camera7.png" alt=""></p>
+<p><sub><strong>“调试着色”(Debug shading)：“线框”(wireframe)</strong></sub>  </p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>要下载对应的工作室照明场景，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_tutorials_am_Learning_Scenes_html">此处</a>。</p>
+
+</div></div>
+
+<h2 id="background">背景(Background)</h2><p>接下来，我们需要将背景环境颜色更改为白色。</p>
+<ul>
+<li>转到<em>“渲染设置 <strong><em>-&gt;</em></strong> <em>环境*</em> <strong><em>-&gt;</em></strong> *背景”(Render Settings -&gt; Environment -&gt; Background)，</em> 然后创建一个 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Ray_Switch_html">ray_switch</a></em> 着色器。</li>
+<li>将<em>“摄影机光线类型”(Camera Ray Type)</em>更改为白色。</li>
+</ul>
+<p><img src="../images/camera8.png" alt=""></p>
+<p><sub><strong>“环境 -&gt; 背景 -&gt; ray_switch.camera”(Environment -&gt; Background -&gt; ray_switch.camera)：白色</strong></sub></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/camera9.jpg" alt=""></td>
+<td><img src="../images/camera10.jpg" alt=""></td>
+</tr>
+<tr>
+<td>背景：颜色：黑色（默认值）</td>
+<td>背景：颜色：白色</td>
+</tr>
+</tbody></table>
+<h2 id="">逼真着色</h2><p>我们要创建一个可进行复制并用于主机身、皮质的手柄和镜头的塑料着色器。我们还将为转接环创建各向异性金属着色器，并为镜头和闪光灯创建玻璃着色器。</p>
+<h2 id="">机身</h2><p>创建一个 <em>standand_surface</em> 着色器，并将其指定给摄影机的主机身和镜头。更改以下参数：</p>
+<ul>
+<li><em>base_color</em>：黑色。</li>
+<li><em>specular_roughness</em>：0.467。</li>
+<li><em>specular_IOR</em>：1.55（塑料）。</li>
+<li><em>coat_weight</em>：0.1</li>
+<li><em>coat_roughness</em>：0.3</li>
+<li><em>coat_IOR</em>：1.55（塑料）。</li>
+</ul>
+<p><img src="../images/camera11.png" alt=""></p>
+<h2 id="">皮革样式凹凸</h2><p>我们可以使用 <em>cell_noise</em> 着色器为摄影机的夹点着色器创建逼真的皮革纹理。</p>
+<ul>
+<li>复制塑料着色器并将其指定给皮革夹点对象。</li>
+<li>将 <em>bump3d</em> 连接到 <em>standard_surface</em> 的 <em>normal</em> 参数。</li>
+<li>将 <em>cell_noise</em> 连接到 <em>bump3d</em> 的 <em>bump_map</em> 参数。使用 <em>bump 3d</em> 而不是 <em>bump 2d</em>，这意味着我们不必考虑模型的 UV，因为它将在 3D 对象空间中进行渲染。</li>
+<li>将 <em>cell_noise</em> 的 <em>pattern</em> 更改为 <em>alligator</em>。这将呈现皮革样式外观。</li>
+<li>将 <em>octaves</em> 的数量增加到 8。</li>
+<li>您可能需要根据摄影机模型的大小增加 <em>scale</em>。在本例中，使用的值为 6。</li>
+<li>将 <em>density</em> 减小到 0.5 左右。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/camera12.jpg" alt=""></td>
+<td><img src="../images/camera13.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用凹凸</td>
+<td>cell_noise -&gt; bump3d</td>
+</tr>
+</tbody></table>
+<p><img src="../images/camera14.png" alt=""></p>
+<p><sub><strong><em>cell_noise -&gt; bump3d -&gt; standard_surface</em></strong></sub></p>
+<h2 id="">摄影机镜头转接环</h2><p>我们将创建一个可用于摄影机转接环的各向异性金属材质。</p>
+<ul>
+<li>指定另一个 <em>standard_surface</em> 着色器。将其指定给摄影机机身上的金属转接环，并将其重命名为“Metal Ring”。</li>
+<li>将 <em>base_color</em> 更改为中灰色。</li>
+<li>将 <em>metalness</em> 增加到 1。</li>
+<li>将 <em>specular_roughness</em> 增加到 0.7 左右。数量越低，外观越有光泽。</li>
+</ul>
+<p>为了创建各向异性金属效果，我们将使用 <em>ramp_rgb -&gt; specular_</em> <em>anisotropy。</em> 我们将使用 <em>uv_projection</em> 着色器对其进行投影，以避免 CAD 几何体出现任何 UV 问题。</p>
+<ul>
+<li><p>创建一个 <em>ramp_RGB</em> 着色器，并将 <em>type</em> 更改为 <em>radial。</em> 插入大约 5 个黑色结和 4 个白色结。确保将其 <em>interpolation</em> 设置为 <em>catmull-rom</em> (smooth)。</p>
+</li>
+<li><p>将其连接到 <em>uv_projection</em> 着色器。这可将 <em>ramp_rgb</em> 平面投影到金属环上。</p>
+</li>
+<li><p>将 <em>uv_projection</em> 连接到 <em>standard_surface</em> 着色器的 <em>specular_anisotropy</em>。</p>
+<p>您可能会注意到，使用 <em>specular_anisotropy</em> 时高光部分会出现分面现象。通过启用“平滑细分切线”(Smooth Subdivision Tangents)（使用 Arnold <em>subdiv_smooth_derivs</em> 参数），可以去除面状外观。请注意，这至少要求多边形网格中有一次细分迭代。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/camera15.jpg" alt=""></td>
+<td><img src="../images/camera16.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用各向异性</td>
+<td>ramp_RGB -&gt; anisotropy</td>
+</tr>
+</tbody></table>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p><em>anisotropic_rotation</em> 可用于更改 <em>specular_anisotropy</em> 高光的位置。</p>
+
+</div></div>
+
+<p><img src="../images/camera17.png" alt=""></p>
+<p><sub><strong>ramp_rgb -&gt; uv_projection -&gt; standard_surface</strong></sub></p>
+<h2 id="">玻璃镜头</h2><ul>
+<li>为了显示镜头，应先隐藏镜头盖（在<em>“场景资源管理器”(Scene Explorer)</em>窗口中，为 <em>cache.1、cache2.1 和 cache2.1.1 的对称部分</em>）。</li>
+<li>将另一个 <em>standard_surface</em> 着色器指定给玻璃镜头几何体 (Body.8)，并将其命名为“Lens Glass”。</li>
+<li>将 <em>specular_roughness</em> 减小到 0。</li>
+<li>将 <em>specular_IOR</em> 更改为 1.5（玻璃）。</li>
+<li>将 <em>transmission</em> 增加到 1。</li>
+<li>在 <em>thin_film</em> 下，将 <em>thickness</em> 增加到 450 左右，将 <em>thin_film.ior</em> 增加到 1.28 左右。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/camera18.jpg" alt=""></td>
+<td><img src="../images/camera19.jpg" alt=""></td>
+</tr>
+<tr>
+<td>thin_film.thickness：0（默认值）</td>
+<td>thin_film.thickness：454</td>
+</tr>
+</tbody></table>
+<h2 id="">风格化着色</h2><p>现在，我们将介绍用于创建风格化渲染效果的各种着色方法，如线框、正交线状图 <em>(toon)、</em> x 射线 <em>(facing_ratio)</em> 和切除渲染 <em>(clip_geo)</em>。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/camera20.jpg" alt=""></td>
+<td><img src="../images/camera21.jpg" alt=""></td>
+<td><img src="../images/camera22.jpg" alt=""></td>
+<td><img src="../images/camera23.jpg" alt=""></td>
+<td><img src="../images/camera24.jpg" alt=""></td>
+</tr>
+<tr>
+<td>wireframe -&gt; opacity</td>
+<td>toon</td>
+<td>facing_ratio -&gt; opacity</td>
+<td>utility -&gt; toon_edge</td>
+<td>clip_geo</td>
+</tr>
+</tbody></table>
+<h2 id="">线框着色器</h2><ul>
+<li>为了创建线框/半着色外观，我们可以使用连接到之前创建的黑色塑料着色器的 <em>opacity</em> 的<em>线框</em>着色器。</li>
+<li>将 <em>edge_type</em> 更改为 <em>polygons。</em> 将 <em>line_width</em> 调整为较低的值。在本例中，使用的值为 0.02。</li>
+</ul>
+<p><img src="../images/camera25.png" alt=""></p>
+<p><sub><strong><em>线框 -&gt; standard_surface 的“不透明度”(Opacity)</em></strong></sub></p>
+<h2 id="">卡通着色器</h2><ul>
+<li><p>将<em>卡通</em>着色器指定给所有摄影机几何体。更改以下参数：</p>
+</li>
+<li><p>将 <em>angle_threshold</em> 减小到 10 左右。这将在几何体周围提供更详细的边。</p>
+</li>
+<li><p>将 <em>base_weight</em> 减小到 0。我们将仅使用 <em>emission</em>。</p>
+</li>
+<li><p>确保 <em>specular_weight</em> 为 0。</p>
+</li>
+<li><p>将 <em>emission_weight</em> 增大到 1。</p>
+</li>
+<li><p><em>卡通</em>着色器目前无法与 GPU 结合使用。此问题计划在未来版本中修复。</p>
+</li>
+<li><p>要查看 <em>toon edge，</em> 必须将<strong><em>“过滤器类型”(filter type)</em></strong> （采样设置）更改为<strong><em>“轮廓”(C</em></strong> <strong><em>ontour)</em></strong> <em>。</em>请注意，增加<em>轮廓*</em>过滤器的*<em>“宽度”(width)</em>（采样设置）值将会增加渲染时间。</p>
+</li>
+<li><p>另一个变体是将<em>工具（color_mode：geometric_normal (ng)<em>）着色器连接到</em>卡通<em>着色器的 <em>edge_color</em></em>（emission_weight：0）。</em></p>
+</li>
+</ul>
+<p><img src="../images/camera26.png" alt=""></p>
+<p><sub><strong>utility -&gt; toon.edge_color</strong></sub></p>
+<h2 id="">正面比着色器</h2><p>我们可以使用 <em>facing_ratio</em> 着色器创建 X 射线着色效果。</p>
+<ul>
+<li>指定 <em>standard_surface</em> 着色器，并将所有 <em>weight</em> 减小到 0。</li>
+<li>创建一个 <em>facing_ratio</em> 着色器，并将其连接到 <em>standard_surface</em> 着色器的 <em>opacity</em>。</li>
+<li>将 <em>bias</em> 减小到 0.1 左右。</li>
+<li>为了进一步优化效果，在 <em>facing_ratio</em> 和 <em>standand_surface</em> 着色器之间连接一个 <em>color_correct</em> 着色器。</li>
+</ul>
+<p><img src="../images/camera27.png" alt=""></p>
+<p><sub><strong>facing_ratio -&gt; color_correct -&gt; standard_surface</strong></sub></p>
+<h2 id="">剪裁几何体着色器</h2><p>我们可以使用 clip_geo 着色器在摄影机模型中创建切除着色效果。</p>
+<ul>
+<li>创建一个<em>长方体</em>（要用于剪裁的几何体），并将其放置到要剪裁几何体的位置（在本例中，它切入到镜头中）。</li>
+<li>将 <em>clip_geo</em> 着色器指定给长方体。</li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p><em>clip_geo</em> 当前无法与 GPU 结合使用。此问题计划在未来版本中修复。</p>
+
+</div></div>
+
+<h2 id="aov">AOV</h2><p>AOV 是 Arnold 中对渲染过程进行渲染的方法。它们提供了一种将任意着色网络组件渲染到不同图像的方法。例如，美工人员可能会发现，使用 AOV 可以很方便地将直接照明和间接照明贡献分开，随后在合成期间再将它们重新合并到一起。Arnold 提供了用于输出深度、位置和运动向量的内置 AOV。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>合成美景 AOV：我们可以将 RGBA 美景 AOV 分割成多个较小的 AOV，每个 AOV 包含部分照明。在合成过程中，可以单独修改这些 AOV，然后将它们加在一起，得到完整的美景 AOV。AOV 越多越可以更好地控制合成，但也需要处理额外工作，它们会占用更多内存和磁盘空间，特别是与灯光组相结合时更是如此。</p>
+
+</div></div>
+
+<p>以下是一些将 AOV 添加在一起以获得完整美景 AOV 的示例：</p>
+<ul>
+<li>direct、indirect、emission、background。</li>
+<li>diffuse、specular、coat、transmission、sss、volume、emission、background。</li>
+<li>diffuse_direct、diffuse_indirect、specular_direct、specular_indirect、coat、transmission、sss、volume、emission、background。</li>
+</ul>
+<p>只需将此类 AOV 添加在一起便可获得美景 AOV。重建美景 AOV 不需要反照率 AOV，但在有些情况下可能需要使用反照率 AOV，例如，通过将 diffuse 除以 diffuse_albedo 以便只获取没有曲面纹理的照明时，或者仅对照明降噪而保持纹理细节不变时。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/camera28.jpg" alt=""></td>
+<td><img src="../images/camera29.jpg" alt=""></td>
+<td><img src="../images/camera30.jpg" alt=""></td>
+</tr>
+<tr>
+<td>RGB AOV</td>
+<td>背景 AOV</td>
+<td>漫反射 AOV</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/camera31.jpg" alt=""></td>
+<td><img src="../images/camera32.jpg" alt=""></td>
+<td><img src="../images/camera33.jpg" alt=""></td>
+</tr>
+<tr>
+<td>镜面反射 AOV</td>
+<td>specular_indirect AOV</td>
+<td>透射 AOV</td>
+</tr>
+</tbody></table>
+<ul>
+<li>要访问 AOV，请转到 Arnold <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_system_am_Render_Settings_html">渲染设置(Render Settings)</a></em> 窗口中的“AOV”(AOVs)选项卡。</li>
+</ul>
+<p><img src="../images/camera34.png" alt=""></p>
+<p><sub><strong><em>任意输出变量 (AOV) 管理器。</em>创建<em>漫反射、镜面反射、specular_indirect、透射</em>和<em>背景</em> AOV。</strong></sub></p>
+<ul>
+<li>选择文件<em>类型</em>。通常建议使用默认的 <em>EXR</em>，但是，在此示例中，我们将使用 <em>Png</em>，因为我们将在 Photoshop 中直接重建 RGBA 美景。</li>
+<li>从<em>“渲染视图”(Render View)</em>窗口或通过<em>“渲染 -&gt; 批渲染”(Render -&gt; Batch Render)</em>渲染 AOV 并将其输出到磁盘。</li>
+</ul>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>Cryptomatte：<em>Cryptomatte</em> AOV 也可用于创建 ID 蒙版，供以后进行合成。凭借对运动模糊、透明度和景深的支持，<em>Cryptomatte</em> 可以自动创建 ID 蒙版。可以使用名称、对象名称空间和材质名称组织场景中的 ID 蒙版。</p>
+
+</div></div>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/camera35.jpg" alt=""></td>
+<td><img src="../images/camera36.jpg" alt=""></td>
+<td><img src="../images/camera37.jpg" alt=""></td>
+</tr>
+<tr>
+<td>crypto_asset</td>
+<td>crypto_object</td>
+<td>crypto_material</td>
+</tr>
+</tbody></table>
+<h2 id="photoshop">在 Photoshop 中合成</h2><ul>
+<li>在 Photoshop 中打开已保存到磁盘的 AOV。</li>
+<li>将每个 <em>Png</em> 中的层拖放到<em>“背景”(Background)</em>图像层中，如下图所示。</li>
+<li>对于每个层，将混合层模式更改为<em>“线性减淡(添加)”(Linear Dodge (Add))</em>。您应该会看到最终美景层。</li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>要为 <em>RGBA 美景</em> AOV 创建正确的重建，必须在合成中使用<em>添加/相加</em>操作。如果使用<em>滤色</em>或<em>相乘</em>，将得到错误的结果。</p>
+
+</div></div>
+
+<p><img src="../images/camera38.jpg" alt=""></p>
+<p><sub><strong>在 Photoshop 中打开 AOV 并使用<em>“线性减淡(添加)”(Linear Dodge (Add))</em>一起进行分层</strong></sub></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>工具颜色模式：<em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_utility_shaders_ac_utility_utility_html" target="_blank">工具</a><em>着色器是常规“通用”工具节点着色器，也可用来创建供合成软件包使用的过程。它还可以用来调试场景。例如，</em>geometric_normal</em> 位置可用于在后期制作中对模型重新照明。</p>
+
+</div></div>
+
+<p><img src="../images/camera39.jpg" alt=""></p>
+<p> <sub><strong>工具着色器使用的各种颜色模式</strong></sub></p>
+<h2 id="">最终渲染设置</h2><p>在进行最终帧渲染时，我们需要增加一些采样设置。</p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>如果您不确定噪波来自何处，请记得检查 AOV。</p>
+
+</div></div>
+
+<ul>
+<li>选择<em>天穹</em>灯光，并将采样数增加到 3 或 4。这应该会清除阴影中的大量噪波。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/light_samples_1.jpg" alt=""></td>
+<td><img src="../images/light_samples_4.jpg" alt=""></td>
+</tr>
+<tr>
+<td>天穹灯光采样数：1（默认值）</td>
+<td>天穹灯光采样数：4</td>
+</tr>
+</tbody></table>
+<ul>
+<li>将<em>“摄影机(AA)”(Camera(AA))</em>值增加到 5 左右。这将提高常规图像质量。</li>
+<li>即使我们增加了<em>“摄影机(AA)”(Camera(AA))</em>采样数，镜头上仍存在一些噪波（在镜面反射 AOV 中可见）。我们可以通过将<em>镜面反射</em>采样数增加到 4，进一步减少噪波。请注意，增加此值后，渲染时间将增加。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/specular-2-default.jpg" alt=""></td>
+<td><img src="../images/specular-4.jpg" alt=""></td>
+</tr>
+<tr>
+<td>镜面反射采样数：2（默认值）。镜面反射噪波在镜头上可见。</td>
+<td>镜面反射采样数：4。噪波已得到改善。</td>
+</tr>
+</tbody></table>
+<p>就是这样。您已看完本教程。做得不错！</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Design_Visualization_Tutorials_html.html">设计可视化教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

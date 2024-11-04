@@ -1,0 +1,76 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-MayaPlugin">
+  <meta name="topicid" content="Bifrost_MayaPlugin_install_bifrost_for_maya_load_from_custom_location_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>在自定义或网络位置设置 Bifrost</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>在自定义或网络位置设置 Bifrost</h1></div><p>要从自定义位置（例如网络上）安装并运行适用于 Maya 的 Bifrost，请设置 MAYA_MODULE_PATH 环境变量。如果并行安装了多个版本，也可以使用 MAYA_MODULE_PATH 指定要使用的 Bifrost 插件的本地版本。</p>
+<ol>
+<li><p>将安装目录（例如 <code>../Bifrost/Maya2023/2.7.0.1</code>）复制到自定义位置（例如 <code>/my/shared_path/Maya2023/2.7.0.1</code>），路径不能包含下列任何字符：</p>
+<pre class="pre codeblock"><code class="nocode">: * ? " &lt; &gt; |</code></pre>
+</li>
+<li><p>将 MAYA_MODULE_PATH 环境变量设置为包含该目录（在本示例中为 <code>/my/shared_path/Maya2023/2.7.1.0</code>）。注意：</p>
+<ul>
+<li>变量应指向包含 .mod 文件的文件夹，而不是指向 .mod 文件本身。.mod 文件使用相对路径，无需修改。</li>
+<li>在 Linux 和 MacOS 上，格式 <code>//*<mountpoint><em>/...</em></mountpoint></code> 不起作用。请改为使用 <code>/<mountpoint><em>/...</em></mountpoint></code> 或 <code>/.//<mountpoint>*/...</mountpoint></code>。</li>
+<li>将使用在 MAYA_MODULE_PATH 中找到的第一个 Bifrost 版本。</li>
+</ul>
+</li>
+<li><p>启动 Maya。</p>
+</li>
+</ol>
+<p>通常，您应该将 Bifrost 安装到 Maya 安装目录之外的位置。请勿将 Bifrost 安装到 Maya 安装的插件目录内的某个位置。否则，您可能会遇到以下错误：<code>getFullyQualifiedNameEv</code>、<code>Amino11NamedEntity7getNameEv</code> 和 <code>AminoNamedEntity</code>。此外，以下是您可能在 Linux 上看到的错误示例： </p>
+<pre class="pre codeblock"><code class="lang-sh prettyprint">../lib/libBifrostBoardExec_1_0.so: undefined symbol: _ZNK5Amino11NamedEntity7getNameEv (bifrostGraph) // 
+
+../scripts/others/pluginWin.mel line 290: Unable to dynamically load : .../bifrost/plug-ins/bifrostshellnode.so
+
+../lib/libbifrostmayaconversion_1_0.so: undefined symbol: _ZNK5Amino11NamedEntity21getFullyQualifiedNameEv (bifrostshellnode) // 
+</code></pre>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>不支持从自定义位置卸载。您需要手动移除安装目录中的文件。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-MayaPlugin/files/Bifrost_MayaPlugin_install_bifrost_for_maya_html.html">下载并安装适用于 Maya 的 Bifrost</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_rendering_am_Fake_Caustic_Effect_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_FAKE_CAUSTIC_EFFECT">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 伪焦散效果 - Arnold for Maya">
+
+<title>伪焦散效果</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>伪焦散效果</h1></div><p><img src="../images/whisky-glass.gif" alt=""></p>
+<p><sub><strong>地板平面上的玻璃透射伪焦散 <em>(shadow_matte)</em></strong></sub></p>
+<p>Arnold 是单向路径跟踪器，因此渲染逼真焦散的成本很高。这是因为焦散效果会创建大量噪波，并需要非常高的采样值，这可能会导致渲染时间很长。本教程介绍如何创建渲染成本低得多但看起来仍逼真的伪焦散效果。本教程中组合使用 <em>ray_switch<em>、</em>standard_surface</em> 和 <em>facing_ratio</em> 着色器，并将其指定到发射焦散的对象。然后将 <em>shadow_matte</em> 着色器指定给地板 <em>standard_surface.emission</em> 属性，用于产生焦散效果。</p>
+<p>应注意，本教程中的方法在物理上不正确，因此演示的结果不是物理上正确的焦散效果。但是，在大多数情况下，渲染的结果看上去应足以达到以假乱真的效果。非常感谢 <a href="https://cgrenderdna.blogspot.com/" target="_blank">Slava Sych</a> 为本教程提供的帮助。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/image14.png" alt=""></td>
+<td><img src="../images/image15.png" alt=""></td>
+<td><img src="../images/image13.png" alt=""></td>
+<td><img src="../images/image16.png" alt=""></td>
+</tr>
+</tbody></table>
+<p><strong>要下载对应的着色器，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/glass_mat-user-guide.mb" target="_blank">此处</a>。</strong></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关渲染真实焦散的信息，请单击<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_standard_surface_ac_standard_advanced_html" target="_blank">此处</a>。</p>
+
+</div></div>
+
+<h2 id="">场景设置和照明</h2><ul>
+<li><p>将要从其发射焦散的对象放在场景中。创建一个摄影机并设置所需的位置。创建一个地板平面并将其放在对象下方。</p>
+</li>
+<li><p>创建 <em>distant_light</em>（带方向性）。将其<em>“曝光”(Exposure)</em>、<em>“角度”(Angle)</em>和<em>“采样数”(Samples)</em>都增加到 3。</p>
+</li>
+</ul>
+<p><img src="../images/image2019-1-29_14_39_31.png" alt=""></p>
+<p><sub><strong><em>distant_light</em>（带方向性）</strong></sub></p>
+<h2 id="">摄影机玻璃着色器</h2><ul>
+<li>接下来，创建一个 <em>standard_surface</em> 着色器。将其重命名为类似于 <em>CamGlass</em> 的名称，并指定给对象。这将是对摄影机光线可见的着色器。更改以下参数：</li>
+</ul>
+<h2 id="em-specular_roughness-em-0-070"><em>specular_roughness</em>：0.070</h2><p><em>specular_IOR</em>：1.550<br> <em>transmission_weight</em>：1.0<br> <em>coat_weight</em>：1.0<br> <em>coat_roughness</em>：0.1<br> <em>coat_IOR</em>：1.550</p>
+<p> 启用 <em>transmit_aov</em>，以便可以渲染出单独的焦散 AOV。</p>
+<h2 id="">阴影玻璃着色器</h2><ul>
+<li>接下来，创建一个新的 <em>standard_surface</em> 着色器，并将其重命名为 <em>ShadowGlass</em>。更改以下参数：</li>
+</ul>
+<h2 id="em-specular_roughness-em-0-1"><em>specular_roughness</em>：0.1</h2><p><em>transmission_weight*：1.0<br> 启用 *transmit_aov</em></p>
+<h2 id="">正面比</h2><p>创建一个 <em>facing_ratio</em> 着色器，并将其输出连接到 <em>ShadowGlass</em> 着色器的 <em>transmission_weight</em>。</p>
+<p>使用的 <em>facing_ratio</em> 参数将取决于要使用的特定对象，因此可能需要进行调整。</p>
+<h2 id="em-bias-em-0-136"><em>偏差(Bias)</em>：0.136</h2><p><em>增益(Gain)<em>：0.619<br>启用</em>“线性”(Linear)</em><br>启用<em>“反转”(Invert)</em></p>
+<p><img src="../images/image6.png" alt=""></p>
+<p><sub><strong><em>facing_ratio </em>-&gt; <em>standard_surface </em>(ShadowGlass)</strong></sub></p>
+<h2 id="">光线切换着色器</h2><p>接下来，创建一个 <em>ray_switch</em> 着色器并将其指定给对象。将其重命名为 <em>GlassMat</em>。这将用于向 Arnold 告知渲染玻璃对象时要使用的光线。</p>
+<ul>
+<li><p>将 <strong>CamGlass</strong> 着色器输出连接到 <strong>GlassMat</strong>（光线切换）着色器的 <em>camera、diffuse_reflection、diffuse_transmission、specular_reflection</em> 和 <em>transmission</em> 参数。</p>
+</li>
+<li><p>将 <strong>ShadowGlass</strong> 着色器输出连接到 <strong>GlassMat</strong> 着色器的 <em>shadow</em> 参数。</p>
+</li>
+</ul>
+<p><img src="../images/image7.png" alt=""></p>
+<p><sub><strong><em>光线切换</em>着色器</strong></sub></p>
+<h2 id="">地板平面着色器</h2><ul>
+<li>创建另一个 <em>standard_surface</em> 着色器并将其重命名为 <em>FloorMat</em>。将其指定给地板平面几何体。更改以下参数：</li>
+</ul>
+<h2 id="em-base-weight-em-0-3"><em>基础权重(Base Weight)</em>：0.3</h2><p><em>镜面反射粗糙度(Specular Roughness)</em>：0.2</p>
+<h2 id="em-emission-em-1"><em>自发光(Emission)</em>：1</h2><h2 id="">阴影蒙版 -&gt; 范围 -&gt; 颜色校正 -&gt; 标准曲面</h2><ul>
+<li>创建 <em>shadow_matte<em>、</em>范围*和 *color_correct</em> 着色器。</li>
+<li>将 <em>shadow_matte</em> 输出连接到<em>范围<em>输入。将</em>范围*输出连接到 *color_correct</em> 的输入，并将 <em>color_correct</em> 输出连接到</li>
+</ul>
+<p>FloorMat 着色器的 <em>emission_color</em>。</p>
+<p><strong>阴影蒙版(Shadow Matte)</strong>：</p>
+<h2 id="em-background-em-em-background-color-em">将<em>“背景”(Background)</em>设置为<em>“背景色”(Background Color)</em>。</h2><p><em>背景色<em>：0.0 0.0 0.0<br> *阴影颜色</em>：1.0 1.0 1.0<br> <em>阴影不透明度</em>：1.0<br><em>背面照明</em>：0.0<br>启用：*Alpha 遮罩</em><br><em>漫反射强度</em>：0.0</p>
+<p><strong>范围：</strong></p>
+<h2 id="em-smoothstep-em">启用<em>“平滑步长”(Smoothstep)</em></h2><p><strong>颜色校正：</strong></p>
+<h2 id="em-gamma-em-0-6"><em>Gamma</em>：0.6</h2><p><img src="../images/image8.png" alt=""></p>
+<p><sub><strong><em>shadow_matte </em>-&gt; <em>范围 </em>-&gt; <em>color_correct </em>-&gt; FloorMat <em>(standard_surface)</em></strong></sub></p>
+<h2 id="">天穹灯光</h2><p>使用 <em>skydome_light</em> 时，为了不破坏焦散效果，需要执行一些步骤。</p>
+<ul>
+<li>创建一个 <em>skydome_light</em>，将 HDR 贴图连接到其<em>“颜色”(Color)</em>参数，并设置以下参数：</li>
+</ul>
+<h2 id="em-samples-em-3"><em>采样数(Samples)</em>：3</h2><h2 id="em-visibility-em-em-transmission-em-em-specular-em">在<em>“可见性”(Visibility)</em>中禁用<em>“透射”(Transmission)</em>和<em>“镜面反射”(Specular)</em>以外的所有参数。</h2>
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>此灯光将用于为玻璃材质本身照明，焦散效果<strong>不</strong>需要此灯光。您可能需要断开 <em>skydome_light</em> 与地板平面之间的灯光链接，否则可能无法正常显示焦散效果。如果您需要使用 HDRI 从<em>背景</em>照明，请尝试创建另一个 <em>skydome_light</em>，并断开其与玻璃对象的灯光链接。</p>
+
+</div></div>
+
+<p><img src="../images/image9.png" alt=""></p>
+<p><sub><strong>设置了 <em>skydome_light</em> 的场景。玻璃对象的照明效果更明显。</strong></sub></p>
+<h2 id="">用于合成的渲染层</h2><p>现在，可以对场景设置渲染层以便进行 AOV 合成。它们可以用于微调焦散、增加色散效果等。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/image10.png" alt=""></td>
+<td><img src="../images/image11.png" alt=""></td>
+<td><img src="../images/image12.png" alt=""></td>
+</tr>
+<tr>
+<td>焦散层</td>
+<td>玻璃层</td>
+<td>预合成版本</td>
+</tr>
+</tbody></table>
+<p>增加 <em>specular_ray_depth</em> 可在玻璃对象中创建更多反射反弹，并产生更加逼真的效果。请注意，增加此值会增加渲染时间。</p>
+<p> <img src="../images/image2019-1-30_13_36_21.png" alt=""><img src="../images/image2019-1-30_13_34_24.png" alt=""></p>
+<p><sub><strong>玻璃着色器（左）。地板着色器（右）。</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Rendering_Tutorials_html.html">渲染教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

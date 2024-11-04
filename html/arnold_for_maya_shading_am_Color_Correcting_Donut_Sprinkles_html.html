@@ -1,0 +1,102 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shading_am_Color_Correcting_Donut_Sprinkles_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_COLOR_CORRECTING_DONUT_SPRINKLES">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 对甜甜圈巧克力糖粉进行颜色校正 - Arnold for Maya">
+
+<title>对甜甜圈巧克力糖粉进行颜色校正</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>对甜甜圈巧克力糖粉进行颜色校正</h1></div><p><img src="../images/am-Color_Correcting_Donut_Sprinkles-image2016-11-3-9-53-50-1.png" alt="">  </p>
+<p>在本教程中，我们将使用多功能的*<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_utility_shaders_ac_utility_utility_html" target="_blank">工具</a>*着色器为甜甜圈上的巧克力糖粉生成随机颜色。然后，我们将使用各种<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shaders_node_ac_color_shaders_html" target="_blank">颜色着色器</a>来进一步调整巧克力糖粉的颜色。</p>
+<p><strong>要下载简化的场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Donut.zip" target="_blank">此处</a>。</strong></p>
+<h2 id="">标准曲面</h2><ul>
+<li>首先，创建一个 <em>standard_surface</em> 着色器，然后将着色器重命名为“Sprinkles”。将其指定给巧克力糖粉几何体。</li>
+</ul>
+<h2 id="">工具着色器 - 颜色模式</h2><ul>
+<li>创建一个<em>工具*着色器，并将其连接到 *standard_surface</em> 着色器的 <em>base_color</em> 参数。我们将使用<em>工具</em>着色器的<em>对象模式</em>将随机颜色添加到巧克力糖粉。此模式使用形状的名称计算颜色。</li>
+<li>我们不需要<em>工具<em>着色器的任何着色，因为我们已经在使用 *standard_surface</em>，因此，将 *shade_mode</em> 更改为<em>“平面”(Flat)</em>。在“平面”(Flat)模式下，模型将渲染为水平照射的单一纯色着色。</li>
+</ul>
+<p><img src="../images/am-Color_Correcting_Donut_Sprinkles-image2018-1-31-12-53-15-2.png" alt=""></p>
+<p><sub><strong><em>Utility -&gt; standard_surface.base_color</em></strong></sub></p>
+<h2 id="">随机 - 种子</h2><p>我们可以使用<em>随机</em>着色器为我们的巧克力糖粉创建各种颜色。</p>
+<ul>
+<li><p>创建一个<em>随机*着色器，并将其连接到 *standard_surface</em> 着色器的 <em>base_color</em>。将<em>工具</em>着色器连接到<em>随机</em>着色器的 <em>input_color</em>。</p>
+</li>
+<li><p>更改 <em>seed</em> 参数数值。您应该会注意到巧克力糖粉的颜色会随机变化。</p>
+</li>
+</ul>
+<p><img src="../images/am-Color_Correcting_Donut_Sprinkles-seed-4.gif" alt=""></p>
+<p><sub><strong>随机的种子参数动画演示（工具着色器设置为“对象”(Object)模式）</strong></sub></p>
+<p><img src="../images/am-Color_Correcting_Donut_Sprinkles-image2018-1-31-12-54-32-5.png" alt=""></p>
+<h2 id="">合成</h2><p>我们还可以使用_合成_着色器在混合模式下混合其他颜色。</p>
+<ul>
+<li>删除<em>随机<em>着色器，并创建一个</em>合成*着色器。将其连接到 *standard_surface</em> 着色器的 <em>diffuse_color</em> 参数。将<em>工具</em>着色器连接到<em>合成</em>着色器的<em>输入 A</em>。</li>
+<li>将<em>合成*着色器的 *operation</em> 参数更改为<em>“相乘”(multiply)<em>，并将</em>输入 B</em> 的颜色更改为橙色。您应该会看到巧克力糖粉的颜色现在染色为橙色。</li>
+</ul>
+<p><img src="../images/am-Color_Correcting_Donut_Sprinkles-image2016-11-3-12-10-27-6.png" alt=""></p>
+<p><sub><strong>巧克力糖粉颜色使用<em>合成</em>着色器的<em>“相乘”(multiply)</em>运算染色为橙色</strong></sub></p>
+<p><img src="../images/am-Color_Correcting_Donut_Sprinkles-image2018-1-31-12-55-55-7.png" alt=""></p>
+<p><sub><strong>将 B 颜色更改为橙色并将运算更改为“相乘”</strong></sub></p>
+<h2 id="">颜色转化</h2><p>另一种更改巧克力糖粉颜色的方法是使用 <em>color_convert</em> 着色器。</p>
+<ul>
+<li>删除<em>合成*着色器，并创建一个 *color_convert</em> 着色器。将其连接到 <em>standard_surface</em> 着色器的 <em>diffuse_color</em> 参数。将<em>工具<em>着色器连接到</em>合成*着色器的 *input</em> 参数。</li>
+<li>尝试更改颜色空间以查看其对巧克力糖粉颜色的影响。在本例中，它已更改为 xyY。</li>
+</ul>
+<p><img src="../images/am-Color_Correcting_Donut_Sprinkles-image2016-11-3-12-14-37-8.png" alt=""></p>
+<p><sub><strong>颜色空间转化为 xyY</strong></sub></p>
+<p><img src="../images/am-Color_Correcting_Donut_Sprinkles-image2018-1-31-12-57-16-9.png" alt=""></p>
+<h2 id="">颜色校正</h2><p>对巧克力糖粉的总体颜色感到满意后，便可使用 <em>color_correct</em> 着色器进一步微调其外观。</p>
+<ul>
+<li>创建一个 <em>color_correct</em> 着色器，并将其连接到 <em>standard_surface</em> 着色器的 <em>diffuse_color</em> 参数。将<em>工具*着色器连接到 *color_correct</em> 着色器的 <em>input</em> 参数。您可以调整<em>“曝光”(Exposure)</em>和<em>“相乘”(Multiply)</em>参数，以添加更多不同的颜色值。</li>
+</ul>
+<p><img src="../images/am-Color_Correcting_Donut_Sprinkles-image2016-11-3-12-33-38-10.png" alt=""></p>
+<p><sub><strong>使用 <em>color_correct</em> 着色器微调颜色</strong></sub></p>
+<p><img src="../images/am-Color_Correcting_Donut_Sprinkles-image2018-1-31-13-2-14-11.png" alt=""></p>
+<p>本教程到此结束。可尝试使用其他一些颜色校正着色器来创建一些不同的颜色变化。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Shading_html.html">着色</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

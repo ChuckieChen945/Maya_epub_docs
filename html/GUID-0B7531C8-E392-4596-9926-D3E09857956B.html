@@ -1,0 +1,181 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="创建并导出主设置，然后导入并重用它来从序列中构建镜头。以 .json 文件格式导出渲染设置（渲染层、集合和覆盖）。将此设置导入到另一个场景中，并在多个合并选项之间进行选择。">
+<meta name="modified" content="23/10/2022">
+<meta name="topicid" content="GUID-0B7531C8-E392-4596-9926-D3E09857956B">
+<meta name="language" content="CHS">
+<title>将渲染设定导入和导出为模板</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-0B7531C8-E392-4596-9926-D3E09857956B">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>将渲染设定导入和导出为模板</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="shortdesc">创建并导出主设置，然后导入并重用它来从序列中构建镜头。以 <samp class="ph codeph">.json</samp> 文件格式导出渲染设置（渲染层、集合和覆盖）。将此设置导入到另一个场景中，并在多个合并选项之间进行选择。
+  </p>
+<p class="p">导出序列设置中的 <samp class="ph codeph">.json</samp> 模板并将此模板应用于其他快照，以避免分别设置每个快照。
+	 </p>
+<p class="p">模板是表示整个（所有渲染设置节点）或部分渲染设置（例如，集合的子集或渲染层及其集合）的 <samp class="ph codeph">.json</samp> 文件。
+	 </p>
+<p class="p">您还可以在导出时添加注释，这些注释将在您导入 <samp class="ph codeph">.json</samp> 文件时显示。对于高级用户，也可以选择在任意编辑器中编辑 <samp class="ph codeph">.json</samp> 文件，所做的更改将在导入时反映。通过 <samp class="ph codeph">.json</samp> 导出的优点是，易于读取且易于通过脚本生成 <samp class="ph codeph">.json</samp> 文件。
+	 </p>
+<div class="note note" id="GUID-0B7531C8-E392-4596-9926-D3E09857956B__GUID-BA425137-4937-419D-B197-EA960D8B4D15"><span class="notetitle">注：</span>  
+		<p class="p">由表达式或动画曲线上的关键帧驱动的覆盖属性不能与渲染设置一起导出。
+		</p>
+ 
+		<p class="p">场景内容不会作为 <samp class="ph codeph">.json</samp> 文件的一部分导出，只有渲染设置（层、集合、覆盖）才会作为其一部分导出。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-0B7531C8-E392-4596-9926-D3E09857956B__SECTION_610E92E3481D410280ADE1CFC6F1278C"><h2 class="title sectiontitle">导出完整的渲染设置</h2> 
+		 
+		<p class="p">在<span class="ph uicontrol">“渲染设置”(Render Setup)</span>编辑器中选择<span class="ph uicontrol">“文件 &gt; 导出全部”(File &gt; Export All)</span>，以 <samp class="ph codeph">.json</samp> 文件格式导出渲染设置。
+		</p>
+ 
+		<p class="p">此外，还可以向<span class="ph uicontrol">“注释”(Notes)</span>字段添加注释；例如，有关上次更改内容的详细信息或渲染设置的描述。注释持续存留在场景中并与 <samp class="ph codeph">.json</samp> 文件一起保存。
+		</p>
+ 
+		 
+		<p class="p">默认情况下，<span class="ph uicontrol">“渲染设定”(Render Setup)节点</span>以及场景的<span class="ph uicontrol">“渲染设置”(Render Settings)</span>和<span class="ph uicontrol">“AOV”(AOVs)</span>将与 <samp class="ph codeph">.json</samp> 一起导出。在导入时，会导入渲染设定节点、<samp class="ph codeph">.json</samp> 文件中的 AOV，所有场景渲染设置也会被 <samp class="ph codeph">.json</samp> 文件中保存的设置覆盖。若要<strong class="ph b">仅导出“渲染设定”(Render Setup)节点</strong>，请在<span class="ph uicontrol">“文件 &gt; 导出全部”(File &gt; Export All)</span>窗口中<strong class="ph b">禁用</strong><strong class="ph b"><span class="ph uicontrol">“导出渲染设置和 AOV”(Export Render Settings and AOVs)</span></strong>选项。这样，您可以导入模板以使用其渲染设定节点，而无需修改要向其中导入的场景中的<span class="ph uicontrol">“渲染设置”(Render Settings)</span>或<span class="ph uicontrol">“AOV”(AOVs)</span>。 
+		</p>
+ 
+		<p class="p">此设置将与首选项一起保存，并在重新启动 Maya 时保留。您还可以将环境变量 MAYA_RENDER_SETUP_DISABLE_RENDER_SETTINGS_AOVS_EXPORT 设置为 1 以始终禁用此选项，或者设置为 0 以启用此选项。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-0B7531C8-E392-4596-9926-D3E09857956B__SECTION_1D7E22C6C348421E899AB62537D8046C"><h2 class="title sectiontitle">将渲染设置导入到场景中</h2> 
+		 
+		<p class="p">从<span class="ph uicontrol">“渲染设置”(Render Setup)</span>编辑器中选择<span class="ph uicontrol">“文件 &gt; 全部导入”(File &gt; Import All)</span>，导航到要导入的 <samp class="ph codeph">.json</samp> 文件，然后从以下导入选项中进行选择。 
+		</p>
+ 
+		<div class="note note" id="GUID-0B7531C8-E392-4596-9926-D3E09857956B__GUID-E4251787-2BE5-4A31-9445-0DC58B25EE0D"><span class="notetitle">注：</span> <span class="ph uicontrol">“全部导入”(Import All)</span>选项只能用于导入完整的渲染设置。若要导入通过<span class="ph uicontrol">“导出选定对象”(Export Selected)</span>快捷菜单导出的 <samp class="ph codeph">.json</samp>（例如，仅包含一个集合或覆盖的 <samp class="ph codeph">.json</samp>），则必须导入模板。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-31DDF1EC-A434-46E3-81D3-C05EDF823CBE.htm">导入和导出渲染设置的子集</a>。
+		</div>
+ 
+		<dl class="dl"><dt class="dt dlterm">覆盖(Overwrite) 
+			 </dt>
+<dd class="dd">使用导入的渲染设置完全覆盖现有的渲染设置。当前所有的渲染设置内容将替换为导入的内容。
+			 </dd>
+<dt class="dt dlterm">合并(Merge) 
+			 </dt>
+<dd class="dd">如果节点相同（即，具有相同的名称），则将现有的渲染设置内容与导入的内容合并。当前渲染设置中不存在的内容将按原样导入，不加修改。
+			 </dd>
+<dt class="dt dlterm">重命名(Rename) 
+			 </dt>
+<dd class="dd">当前渲染设置中存在的内容不会修改，<samp class="ph codeph">.json</samp> 文件中的所有渲染设置内容将会导入并使用前缀重命名。在<span class="ph uicontrol">“附加文本”(Append Text)</span>字段中，输入要添加到这些导入节点的前缀。
+			 </dd>
+</dl>
+ 
+		<p class="p"> 导出时在<span class="ph uicontrol">“注释”(Notes)</span>字段中输入的注释，或者已添加到 <samp class="ph codeph">renderSetup</samp> 节点的 <samp class="ph codeph">notes</samp> 动态属性的注释，均会在<span class="ph uicontrol">“导入”(Import)</span>窗口的<span class="ph uicontrol">“注释”(Notes)</span>字段中显示。有关更多详细信息，请参见下文中的<em class="ph i">附加其他注释</em>。
+		</p>
+ 
+		<p class="p"><span class="ph uicontrol">“预览”(Preview)</span>窗口显示要导入的 <samp class="ph codeph">.json</samp> 文件的内容。
+		</p>
+ 
+		<div class="note note" id="GUID-0B7531C8-E392-4596-9926-D3E09857956B__GUID-E952C916-AD7A-4B00-92AE-071343802278"><span class="notetitle">注：</span> 导入渲染设置之后，层可见性图标 <img class="image" id="GUID-0B7531C8-E392-4596-9926-D3E09857956B__IMAGE_C16FF7326998408F8726EAC3DE4AC7C3" src="../images/GUID-7BFB60FC-AB73-409C-8460-0D2945F5E997.png"> 周围将显示红色边界；单击此图标可刷新层并查看更新的结果。
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-0B7531C8-E392-4596-9926-D3E09857956B__SECTION_1DAC91890C7B4828950775DAC515A4B3"><h2 class="title sectiontitle">附加其他注释</h2> 
+		 
+		<p class="p">注释内容可以包括多行，并保存在 <samp class="ph codeph">renderSetup</samp> 节点的 <samp class="ph codeph">notes</samp> 动态属性中。
+		</p>
+ 
+		<p class="p">可以在命令行中输入 <samp class="ph codeph">select renderSetup</samp> 来选择 <samp class="ph codeph">renderSetup</samp> 节点，然后在<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>底部的<span class="ph uicontrol">“注释”(Notes)</span>字段中附加其他注释。
+		</p>
+ 
+		<p class="p">如果导出文件时 <samp class="ph codeph">renderSetup</samp> 节点上存在注释（例如，如果导入的 <samp class="ph codeph">.json</samp> 文件包含注释），或者如果将注释附加到 <samp class="ph codeph">renderSetup</samp> 节点，则注释内容将显示在<span class="ph uicontrol">“导出”(Export)</span>窗口的<span class="ph uicontrol">“注释”(Notes)</span>字段中。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-0B7531C8-E392-4596-9926-D3E09857956B__SECTION_E14133007B0F4844867B09BAA0D5172F"><h2 class="title sectiontitle">全局模板和用户模板</h2> 
+		 
+		<p class="p">可以将模板保存到可全局访问的网络位置以供用户共享，或者保存到仅供您访问的本地文件夹。请参见下文中的<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-0B7531C8-E392-4596-9926-D3E09857956B.htm#GUID-0B7531C8-E392-4596-9926-D3E09857956B__SECTION_3B6D5BF53ABC46BAB58859C5326B224A">模板文件的位置</a>。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-0B7531C8-E392-4596-9926-D3E09857956B__SECTION_3B6D5BF53ABC46BAB58859C5326B224A"><h2 class="title sectiontitle">模板文件的位置</h2> 
+		 
+		<p class="p">通过设置环境变量 MAYA_RENDER_SETUP_GLOBAL_TEMPLATE_PATH，可以设置全局模板的位置。启动后，Maya 会自动在此文件夹中搜索全局模板。可以通过<span class="ph uicontrol">“首选项”(Preferences)</span>窗口修改此路径。这样，您不必重新启动 Maya 来修改此路径。
+		</p>
+ 
+		<div class="note note" id="GUID-0B7531C8-E392-4596-9926-D3E09857956B__GUID-F12E2123-99B0-4445-A77D-6E6A1D30C235"><span class="notetitle">注：</span>  
+		  <p class="p">将全局模板路径设置为访问速度缓慢的远程服务器，这可能会导致加载导入模板菜单（通过 <img class="image" id="GUID-0B7531C8-E392-4596-9926-D3E09857956B__IMAGE_2067D1933D9F43619FE4F367EF4807CE" src="../images/GUID-FFDFFE03-750D-4B77-A96A-15BF3683B135.png"> 或者通过层/集合快捷菜单）时减速。
+		  </p>
+ 
+		  <p class="p">建议改为将全局模板存储到本地服务器。
+		  </p>
+ 
+		  <p class="p">同样，如果局部或全局模板路径是由许多文件或子文件夹组成的文件夹，在访问快捷菜单时可能会减慢速度。如果出现这种情况，您可能要选择其他文件夹作为模板路径。
+		  </p>
+ 
+		</div>
+ 
+		<p class="p">在<span class="ph uicontrol">“首选项”(Preferences)</span>窗口（<span class="ph uicontrol">“窗口 &gt; 设置/首选项 &gt; 首选项 &gt; 渲染”(Windows &gt; Settings/Preferences &gt; Preferences &gt; Rendering)</span>）中为全局模板和用户模板设置位置。
+		</p>
+ 
+		<div class="note tip" id="GUID-0B7531C8-E392-4596-9926-D3E09857956B__GUID-9248BE00-B4DF-4B7E-9387-D3A2E6ADBDF3"><span class="tiptitle">提示：</span> 从<span class="ph uicontrol">“渲染设置”(Render Setup)</span>编辑器菜单中选择<span class="ph uicontrol">“首选项 &gt; 渲染首选项”(Preferences &gt; Rendering Preferences)</span>以直接访问<span class="ph uicontrol">“渲染”(Rendering)</span>首选项。 
+		</div>
+ 
+		<p class="p">也可使用以下选项变量设置模板位置：
+		</p>
+ 
+		<ul class="ul" id="GUID-0B7531C8-E392-4596-9926-D3E09857956B__UL_4DD2E37843B74404A8CD2304BF54D6E2"><li class="li" id="GUID-0B7531C8-E392-4596-9926-D3E09857956B__LI_585BE4FE089B4AAA83960432C54695C4">全局模板：<samp class="ph codeph">renderSetup_globalTemplateDirectory</samp> 
+		  </li>
+<li class="li" id="GUID-0B7531C8-E392-4596-9926-D3E09857956B__LI_5FAEC585405B48A5AA4B7E14D9AFC4BD">用户模板：<samp class="ph codeph">renderSetup_userTemplateDirectory</samp> 
+			 <p class="p"> 默认情况下，此变量设置为 <samp class="ph codeph">&lt;Documents&gt;\maya\RSTemplates</samp>。
+			 </p>
+ 
+			 <div class="note note" id="GUID-0B7531C8-E392-4596-9926-D3E09857956B__GUID-83AA8D98-D48E-4238-BC12-7E5AF7DDD373"><span class="notetitle">注：</span>  
+				<p class="p">以前，在 Maya 2016 Extension 2 中，此变量设置为 <samp class="ph codeph">&lt;Documents&gt;\maya\Templates</samp>。
+				</p>
+ 
+			 </div>
+ 
+		  </li>
+</ul>
+ 
+		<p class="p">若要查询其中任一目录，请执行下列操作：
+		</p>
+ 
+		<pre class="pre codeblock">optionVar -q "renderSetup_userTemplateDirectory";</pre>
+ 
+		<p class="p">若要更改目录，请按如下所示替换选项变量的值：
+		</p>
+ 
+		<pre class="pre codeblock">optionVar -sv "renderSetup_userTemplateDirectory" "C:\myTemplates";</pre>
+ 
+		<p class="p">Maya 会自动在这些目录中搜索可用的模板。
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-31DDF1EC-A434-46E3-81D3-C05EDF823CBE.htm">导入和导出渲染设置的子集</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-FD1C4EEB-FD45-41F4-919F-0AF8DBDA4CFB.htm">Maya 附带的渲染设置模板文件</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-646154F9-E4D2-4A3E-A0D9-B2F062960A4E.htm">Maya 渲染设置</a></div>
+</div>
+</div>
+
+</body>
+</html>

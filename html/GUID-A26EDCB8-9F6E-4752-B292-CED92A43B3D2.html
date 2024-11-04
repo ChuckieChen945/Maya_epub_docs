@@ -1,0 +1,265 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2">
+<meta name="language" content="CHS">
+<title>“Paint Effects”疑难解答</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>“Paint Effects”疑难解答</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-22FF"><p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E8C"> 以下是使用<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-25D9CB5B-27AA-4174-8805-271ACC956519">“Paint Effects”</span>时可能遇到的问题的解决方法。这些问题包括： </p>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E8A"><h2 class="title sectiontitle">笔划未绘制，且显示错误消息</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E89">如果笔刷非常厚重，且在笔刷笔划中分段或多边形面的数量超过 1000000，则会显示一条消息，并且不会绘制笔刷笔划。这样可避免显示被锁定，并可防止笔划质量受到影响。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E88">若要解决该问题，请简化笔刷。或者，如果内存不是问题，请增大隐藏的 maxDrawSegments 属性的值（其默认值为 1000000）。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E87">若要将 maxDrawSegments 更改为更大的值（例如，5000000），请发出以下 MEL 命令： </p>
+
+<pre class="pre codeblock">
+setAttr strokeShape1.maxDrawSegments 5000000
+</pre>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E86">其中 <samp class="ph codeph" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-E7AF34ED-213A-475A-A4D3-4DCB98310823">strokeShape1</samp> 是笔划、pfxHair 或 pfxToon 节点的名称。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E85">若要设定它，使其不存在任何限制，请执行下列操作： </p>
+
+<pre class="pre codeblock">
+setAttr strokeShape1.maxDrawSegments 0
+</pre>
+
+<div class="note tip" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E84"><span class="tiptitle">提示：</span> 降低笔划的<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-338660E3-FEF5-494B-BAE2-628C05370ADE">“显示质量”(Display Quality)</span>将简化笔划显示并避免触及该警告，尽管笔划的形状也可能会改变。通过禁用<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-E571CFDC-73B4-43C5-B4CF-DFECF9B42BF5">“绘制为网格”(Draw As Mesh)</span>也可以使笔划的更多部分显示出来，尽管它将处于某个简单的线框中。 <p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E83">若要减少三角形计数，请降低<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-F7997A10-64A9-4A38-9C93-FA5FDA001ACB">“管分段”(Tube Sections)</span>值（<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-91E77479-9056-4CC6-BCB6-895B7A1D829B">“生成 &gt; 网格质量属性”(Generate &gt; Mesh Quality Attributes)</span>）。 </p>
+ </div>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FFF"><h2 class="title sectiontitle">绘制的笔划看起来太暗</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E82">执行下列操作之一： </p>
+
+<ul class="ul" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E81"><li class="li" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E80">向场景中添加灯光。 </li>
+<li class="li" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E7F">在笔刷<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-A86635C7-D76C-4267-8B01-A4E10926D563">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-0064B405-BD5E-4494-A537-FDC5CBB5ACBB">“照明”(Illumination)</span>区域中，禁用<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-BDCD7951-9EFD-4E99-A8D7-669D09A9A9EC">“真实灯光”(Real Lights)</span>。 </li>
+<li class="li" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E7E">如果笔刷颜色带有纹理，请检查该笔划<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-1A69DD48-9BB2-4FEA-8400-7B111AEA5E61">“Color1”</span>值是否不是黑色；如果纹理是文件纹理，请检查是否可以找到图像文件。 </li>
+</ul>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FFE"><h2 class="title sectiontitle">在场景中管状体看起来太小</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E7D">为笔刷增大<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-CE0C0BD9-D4AE-4471-B316-045E663C3456">“全局比例”(Global Scale)</span>，或者增大<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-F8668EA5-F1F3-4E5E-8B32-BF8C8BA728E9">“场景比例”(Scene Scale)</span>。 </p>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FFD"><h2 class="title sectiontitle">渲染的笔划由圆形构成</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E7C">以很小的增量增大笔刷的<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-5E2B57D6-30B7-41DC-B46D-4616C7EE714B">“图章密度”(Stamp Density)</span>以避免将该值设置得过大。 </p>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FFC"><h2 class="title sectiontitle">管状体看起来在曲线型截面上有锯齿或有分段</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E7B">为笔刷增大管状体分段的数量（<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-EE906DD1-F3E9-4487-9D10-0743381E0B17">“管 &gt; 创建”(Tubes &gt; Creation)</span>）。 </p>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FFB"><h2 class="title sectiontitle">反馈不反映渲染的图像</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E7A">提高<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-86DD825E-409F-4193-AF6D-144B9649E08E">“显示质量”(Display Quality)</span>或确保处于场景绘制视图中。 </p>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FFA"><h2 class="title sectiontitle">画布会清除为黑色，即使更改了画布的颜色</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E79">可以查看 Alpha 平面。选择<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-2AFDE120-0FED-4D74-91D2-1BD44552B541">“显示 &gt; 所有通道”(Display &gt; All Channels)</span>并再次清除。 </p>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FF9"><h2 class="title sectiontitle">笔刷笔划看起来通过曲面的接合边漏出</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E78">在单个曲面的接合边上绘制（例如，通过复制面的一半并将其附加到第一半上而创建的面上的中心线），且笔刷笔划看起来通过接合处漏出，并跳到头部的背面。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E77">确保曲面在 U 方向和 V 方向上是周期性的。 </p>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FF8"><h2 class="title sectiontitle"><span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-F2DE220B-0172-4731-ACCC-EC6C527D0734">“全局比例”(Global Scale)</span>笔刷设置看起来会被忽略</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E76">检查<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-A2C497B9-6164-484B-846E-F773C6B91F59">“Paint Effects 全局参数”(Paint Effects Globals)</span>。会将所选择的下一个笔刷预设的<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-328E9810-A724-4AA4-9E87-E98B79246569">“全局比例”(Global Scale)</span>与<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-7B65BDDF-7387-4B30-9091-E277E6661B28">“画布比例”(Canvas Scale)</span>或<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-AD5EA5DC-2E5D-48B2-A23A-781323F69FD3">“场景比例”(Scene Scale)</span>值相乘，具体取决于绘制所在的位置。 </p>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FF7"><h2 class="title sectiontitle">尝试共享笔刷，但共享了错误的笔刷</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E75">选择<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-53CD8DC6-C0DF-4306-84AE-8977D16E1EFE">“生成 &gt; 共享一个笔刷”(Generate &gt; Share One Brush)</span>时，选定的笔划会共享最后选择的笔划（称为主要选择对象，默认情况下该对象会亮显为绿色）的笔刷。 </p>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FF6"><h2 class="title sectiontitle">笔划纹理颜色与为纹理设定的颜色不匹配</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E74">将纹理映射到笔刷颜色，但是当绘制笔划时，这些纹理颜色与为纹理设定的颜色不匹配。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E73">如果将纹理映射到笔刷颜色，则会将纹理颜色值（<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-CD3C956C-E314-4BF8-94F5-E59DCF6A14CC">“Tex Color1”</span>和<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-3E13E557-D464-48CF-AC65-950352BC8984">“Tex Color2”</span>）与笔刷颜色值（<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-86D3A447-72A3-4B70-8FD2-2299147F1BF7">“Color1”</span>）相乘。若要确保绘制的纹理颜色与为笔刷设定的纹理颜色匹配，请将笔刷颜色设定为白色（值 1）。 </p>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FF5"><h2 class="title sectiontitle">Wacom 光笔和绘图板没有压力敏感度</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E72">在 Linux 上的<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-E1D8638E-8EE3-4091-8C81-BB556E40A854">“Paint Effects”</span>中绘制笔划时，Wacom 光笔和绘图板没有压力敏感度。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E71">选择<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-EA1CD4ED-6F79-4DCA-81E3-0DA084C80262">“Artisan”</span>工具（例如，<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-4B51AB65-6B9F-4604-B4D2-EF08934D2039">“绘制选择工具”(Paint Selection Tool)</span>），然后打开<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-E61E0FB3-CEE3-4D61-BCC7-F157D9AC4166">“工具设置”(Tool Settings)</span>编辑器。展开<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-84D83B24-257A-450E-BD38-33228648546F">“光笔压力”(Stylus Pressure)</span>区域。如果已灰显<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-633F40E3-2198-4E4F-841B-C896E6BA0697">“光笔压力”(Stylus Pressure)</span>选项，那么 Maya 将找不到 Wacom 绘图板。绘图板可能会安装在通用名称“tablet”下面。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E70">若要在 Linux 上解决该问题，请转到 Wacom 网站 (<a class="xref" href="https://www.wacom.com/zh-cn" target="_blank">https://www.wacom.com/zh-cn</a>) 并阅读适用于 Linux 的产品支持信息。 </p>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FF4"><h2 class="title sectiontitle">安装了新的绘图板但<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-C6D8E8D7-216A-4AF6-BA06-9907653D7855">“Paint Effects”</span>无法识别它</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E6F">安装了新的绘图板，但现在压力敏感度在<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-6202A33B-AB99-4CE8-929E-AF81727BF021">“Paint Effects”</span>中不起作用。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E6E">若要解决该问题，请重置笔刷（<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-CA07EFF9-709E-441C-8093-E181A844E743">“生成 &gt; 重置模板笔刷”(Generate &gt; Reset Template Brush)</span>）。 </p>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FF3"><h2 class="title sectiontitle">绘制的笔划看起来与选定笔刷预设一点也不像</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E6D">选择了一个笔刷预设，然后绘制一个笔划，但产生的笔划没有使用为笔刷预设定义的值。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E6C">可能会打开<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-236F3B8A-3288-4D53-9A79-31D3F2288736">“笔刷预设融合”(Brush Preset Blend)</span>窗口。当该窗口打开时，每次选择一个笔刷预设，就会根据融合设置将选定笔刷预设的着色和形状值与模板笔刷中的值相融合。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E6B">若要避免再次发生这种情况，请为融合（<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-CA2ED80A-25C1-4C64-AED7-10102BA08C4A">“BrushPresetBlend”</span>、<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-B86B9D4A-129A-45CD-BD1D-EC53A555178C">“BrushPresetBlendShape”</span>、<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-CA7E60D5-5232-4763-96DD-55B31901040F">“BrushPresetBlendShading”</span>）设定热键。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E6A">若要融合，请在<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-82D9D4A4-ECBF-4E04-A2C0-6BAE16441900">“笔刷预设融合”(Brush Preset Blend)</span>窗口中设置着色和形状比例，然后关闭该窗口。选择第一个笔刷，按住融合热键，然后选择要融合的笔刷预设。按下热键时，每次单击某个预设，就会将这些值与模板笔刷值融合。释放热键可停止融合。 </p>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FF2"><h2 class="title sectiontitle">管状体生长和纹理流出现不同步</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E69">同时设置管状体生长和纹理流的动画（例如，带纹理的树的生长），而纹理的流动速度看起来比树的生长速度要快。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E68">若要解决该问题，请选择笔划，然后在<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-D0CAFFA6-60DD-4992-A658-CA8313E38B6E">“Paint Effects 笔刷设置”(Paint Effects Brush Settings)</span>窗口的<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-21407C23-5496-4F67-A5DD-EC61D54B2562">“流动画”(Flow Animation)</span>区域中启用<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-16B7A265-2244-433C-AAB7-20D4933619E3">“纹理流”(Texture Flow)</span>。 </p>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FF1"><h2 class="title sectiontitle">为流动画设定了<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-3CE3F626-32F6-4295-BA9C-83C7B359EE6D">“开始时间”(Start Time)</span>，但不显示管状体</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E67">开始时间和结束时间是以秒为单位进行度量的，因此，举例来说，如果将<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-CC2353F5-B108-42C0-91D7-9F32090CCF96">“开始时间(秒)”(Start time (seconds))</span>框设置为 60，并且<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-0316C2B0-0619-495F-948B-99E3BAA47752">“时间”(Time)</span>单位为 24 fps（选择<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-F286F1AC-3F79-4F8F-AAFB-99B5F5850BF3">“窗口 &gt; 设置/首选项&gt; 首选项”(Windows &gt; Settings/Preferences &gt; Preferences)</span>，然后单击<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-5342C4AB-8CDB-40D8-89D7-BE7F4F7AC54B">“设置”(Settings)</span>类别），那么直到第 1440 帧动画才会开始。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E66">如果知道需要管状体显示在哪一帧上，请将该帧的编号除以由<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-135ED75A-0BF1-4245-AEE6-51B17F1CCA2D">“时间”(Time)</span>单位定义的每秒帧数，以确定要在<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-9F318342-737C-465B-B44A-DC4ADBBA3E91">“开始时间(秒)”(Start time (seconds))</span>框中输入哪个值。例如，如果需要管状体显示在第 60 帧上，且<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-73BF868C-1BD2-44AD-BB5A-FEADEA2DAAC9">“时间”(Time)</span>单位设定为<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-2CDEEE96-4E31-462B-ACBA-5EAC15DD87CD">“NTSC(30fps)”(NTSC (30 fps))</span>，请将 60 帧除以每秒 30 帧，得到开始时间为 2 秒。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E65">可以通过在字段中创建表达式来执行该计算。键入等号 (=)，后面跟着计算。在上一个示例中，可键入： </p>
+
+<pre class="pre codeblock">
+=60.0/30 
+</pre>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E64">请注意，时间必须有一个浮点小数。 </p>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FF0"><h2 class="title sectiontitle">在几何体周围它与笔划重叠的位置会显示锯齿</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E63">请参见 <span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-53AB2441-D3B6-4B79-A1BB-88FD8EEE05DE">Paint Effects 笔划相对于场景中的其他对象以错误的顺序渲染</span>部分。 </p>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FEF"><h2 class="title sectiontitle">可以修改应用到曲面的纹理，但曲面不会更新</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E62">在画布上，确保启用了<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-7A7562F2-2F9F-41FF-8B2A-5E899E1F96D5">“自动保存”(Auto Save)</span>。如果使用的是 Windows，可能还必须将<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-3DAD31A5-C240-48D4-9507-41D097E292D5">“硬件纹理分辨率”(Hardware Texture resolution)</span>（在着色器<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-0630491F-287E-492F-B89A-B5A7D2EB4D64">“属性编辑器”(Attribute Editor)</span>中）更改为除<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-276258A4-8CEF-4589-A5C2-7D0737095CD0">“默认”(Default)</span>值”之外的其他值。 </p>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FEE"><h2 class="title sectiontitle">场景绘制视图的 Alpha 平面显示为白色</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E61">场景绘制视图的 Alpha 平面完全是白色的。若要查看场景绘制视图的 Alpha，请渲染场景（<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-0D9F8617-C26C-4F1C-BD01-9C9F6A61BACE">“渲染 &gt; 渲染当前帧”(Render &gt; Render Current Frame)</span>），然后在<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-C1819161-0724-476A-BF0C-B68863E83DA9">“渲染视图”(Render View)</span>中，选择<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-7467A000-9864-42DB-9009-6C96A2865B06">“显示 &gt; Alpha 通道”(Display &gt; Alpha Channel)</span>。 </p>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FED"><h2 class="title sectiontitle">尝试在曲面上绘制，但笔划绘制在视图平面上</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E60">禁用<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-880F4F9C-BC0F-4C2A-B44E-CBF1BF32FD86">“在深度模式下绘制”(Paint At Depth)</span>（<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-914D2430-7CA2-4CAA-866B-22D293DCC013.htm">“Paint Effects &gt; Paint Effects 工具”(Paint Effects &gt; Paint Effects Tool)</a> &gt; <img class="image" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__IMAGE_53540EBF9C2F4EC58332CA2E340916EE" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png">）。 </p>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FEC"><h2 class="title sectiontitle">笔划会花费很长的时间进行渲染</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E5F">有一个场景，其中包含使用相同笔刷创建的许多笔划（例如，一片玉米田），并且需要花费很长时间进行渲染。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E5E">请尝试通过减少<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-B44BDA03-CE08-4911-A5E6-B46CEDD553F1">“分段”(Segments)</span>、<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-67BEF9EC-2562-41AC-B261-0DB53FCBF10A">“叶分段”(Leaf Segments)</span>和<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-FE20F892-4AFB-4A2E-83A1-9A25449EBEA8">“花瓣分段”(Petal Segments)</span>的数量来简化笔刷。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E5D">也可以尝试在笔刷上使用纹理，以提供细节，而不是管状体。例如，如果要绘制一片玉米田，请渲染只适配单个管状体的单个玉米秸秆的长细条状图像（包含以黑色为背景的 Alpha），并将该图像用作包含单个管状体的笔刷上的纹理。（有关该技术的示例，请查看 pineTextured 笔刷。）可以将该方法用于不在特写镜头中的秸秆。使管状体的摆动随机化，以使秸秆看起来不相同。为了变化，也可以使用具有不同纹理的不同笔刷。 </p>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS17956D7ADBC6E7361802F9C2117AE32FC5D-7FEB"><h2 class="title sectiontitle"> <span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-9C655B5F-1631-4FB7-B292-C2ECA38AB065">Paint Effects</span> 笔划相对于场景中的其他对象以错误的顺序渲染</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E5C"> <span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-1F8883DC-30E7-4265-87D8-BEFC64912ACF">“Paint Effects”</span>使用由扫描线渲染器生成的深度缓冲区来确定遮挡。对于多个曲面在单个像素内可见的渲染效果（如透明度、抗锯齿边缘、运动模糊、灯光雾和体积密度），这样做会产生问题，因为存在一个深度值和一个每像素颜色用于将绘制效果合成进去。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E5B">可以影响渲染器决定以下事项的方式：如何使用摄影机<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-BF4A2388-A455-44D4-8546-B1FF7E0AC2C9">“深度类型”(Depth Type)</span>将一个像素内可见的多个深度值减少到单个输出深度值（在<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-5691BCE0-254F-4350-B2FA-58CB7897E2D5">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-9C52C5B8-9F42-465E-B63F-31766BEE85C9">“输出设置”(Output Settings)</span>区域中）。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E5A">借助<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-E1129DD0-086D-46CA-928D-32E411C808EE">“最远可见深度”(Furthest Visible Depth)</span>，位于这些元素后面的<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-17C47E50-070E-4FD5-8B96-E29CB8A09713">“Paint Effects”</span>笔划将穿通，就好像它们完全在前面一样。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E59"> <span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-90E24DD7-0A5B-4F46-BB0B-35C503A3A51B">“最近可见深度”(Closest Visible Depth)</span>拾取像素内离摄影机最近的曲面。这样，透明曲面或运动模糊条纹将完全遮挡它们后面的所有<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-25882638-A7D7-406C-851E-30CABFF92F95">“Paint Effects”</span>笔划。<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-352C2ED9-D520-4276-8DFD-DDE50A4840C8">“阈值”(Threshold)</span>值确定透明度，在该透明度下，曲面将不会显示在深度缓冲区中。 </p>
+
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E58"><h3 class="title sectiontitle">透明度、透明度贴图</h3>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E57">在渲染摄影机的<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-5E46317D-A147-4A16-8E4A-F830ED8CDB6C">“输出设置”(Output Settings)</span>中，请将<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-FF19ECD9-09E8-4252-AA40-4D32089BD1A8">“深度类型”(Depth Type)</span>属性设定为<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-F5593EDB-51CA-4CA5-8E0A-1EE8461927E5">“最近可见深度”(Closest Visible Depth)</span>，然后调整<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-CD026AA1-49F5-450F-896C-557D07DC28C8">“阈值”(Threshold)</span>。 </p>
+
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E56"><h4 class="title sectiontitle">抗锯齿边缘</h4>
+
+<ul class="ul" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E55"><li class="li" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E54">在渲染摄影机的<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-FCC36364-8CBF-4059-990F-3A0F40F03F88">“输出设置”(Output Settings)</span>中，启用<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-B371B9CE-565B-4C85-9133-950D424CFDA0">“深度”(Depth)</span>，然后将<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-A397FF1D-F0C9-4627-83D1-6821157D6C02">“深度类型”(Depth Type)</span>设定为<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-8B6F6867-07C1-42CC-B9BB-B9F05C20130A">“最远可见深度”(Furthest Visible Depth)</span>。 </li>
+<li class="li" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E53">为对象禁用抗锯齿，以较大的大小渲染对象和<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-1D3C91AD-A783-4C32-8BCB-2C47FCF4D57B">“Paint Effects”</span>笔划，然后使用第三方软件产品来减小渲染的大小，并对其重新采样。 </li>
+</ul>
+
+</div>
+
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E52"><h4 class="title sectiontitle">透明度、透明度贴图和抗锯齿边缘</h4>
+
+<ul class="ul" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E51"><li class="li" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E50">单独地渲染<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-F71A4AB6-6355-443D-A36B-24B2D1F0441F">“Paint Effects”</span>笔划并合成。 </li>
+<li class="li" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E4F">将<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-E6DBF7D3-3713-4739-B9FE-A98394FD4E7D">“Paint Effects”</span>笔划转化为多边形。 </li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E4E"><h2 class="title sectiontitle">阶梯状网格笔刷</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E4D">网格笔刷将具有阶梯状（锯齿）边，除非启用了<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-ED758008-6439-4D98-808E-4848D62ADDDC">“Paint Effects”</span><span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-64CEC509-680D-4792-8412-D615CECE3337">“过采样”(Oversample)</span>（<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-6231F2AA-2842-405B-8200-A064268F6E2D">“渲染设置”(Render Settings)</span>窗口的<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-E43FF8BF-A9B6-4EA9-A51B-31F9E2E49A71">“Maya 软件”(Maya Software)</span>选项卡的<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-EB859656-E1E8-4483-880C-5AFEFF55D2BD">“Paint Effects 渲染选项”(Paint Effects Rendering Options)</span>区域）。 </p>
+
+</div>
+<div class="section" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E46"><h2 class="title sectiontitle">笔划看上去未完成，例如，树没有完成绘制</h2>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E45">Maya 将在场景视图中绘制的分段或多边形面的最大数量默认为 1000000。该值由一个称为 maxDrawSegments 的隐藏属性控制。使用 maxDrawSegments 属性，在达到最大值时，笔划就会停止绘制；笔划不会改变形状，它只是不完整（但是，批渲染将完成）。在笔划上将 maxDrawSegments 设定为零会使笔划变成无限大，也就是说，Maya 将一直绘制，直到完成笔划或内存不足为止。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E44">设定该值可防止非常厚重的笔刷锁定交互式显示。如果超出该限制，将显示一条警告消息： </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-5187222B11EEADCDC61-5F24">
+<samp class="ph codeph" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-800B786A-A00B-41AC-BBB4-C77BF30A3715">仅部分绘制了 &lt;strokeName&gt;。有关详细信息，请参见 Maya 帮助中的“maxDrawSegments”。</samp>
+</p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E43">如果希望显示完整的笔划，且有可用内存，那么请在笔划的 maxDrawSegments 属性上执行 <samp class="ph codeph" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-699AB3B6-0604-4ECE-8EA0-C93770360594">setAttr</samp>。例如： </p>
+
+<pre class="pre codeblock">
+setAttr strokeShape1.maxDrawSegments 10000000
+</pre>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E42">若要设定它，使其不存在任何限制，请执行下列操作： </p>
+
+<pre class="pre codeblock">
+setAttr strokeShape1.maxDrawSegments 0
+</pre>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E41">其中 <samp class="ph codeph" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-E3DC9D4E-53AA-4781-AF04-042E3E09B2D9">strokeShape1</samp> 是笔划、pfxHair 或 pfxToon 节点的名称。 </p>
+
+<p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E40">执行该 <samp class="ph codeph" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-5A8B4A64-547D-4C9B-8444-6068E6452CA8">setAttr</samp> 的唯一意义在于，如果需要以交互方式在单个笔划上显示多于默认的 1000000 个多边形。 </p>
+
+<div class="note tip" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E3F"><span class="tiptitle">提示：</span> 降低笔划的<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-DDA0DFF8-559A-4615-AC41-34F296147A20">“显示质量”(Display Quality)</span>将简化笔划显示并避免触及该警告，尽管笔划的形状也可能会改变。通过禁用<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-44A0025B-66DF-48DE-8EE2-D56BCA184723">“绘制为网格”(Draw As Mesh)</span>也可以使笔划的更多部分显示出来，尽管它将处于某个简单的线框中。 <p class="p" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__WS1A9193826455F5FF-6381D1FC11809382DB8-7E3E">若要减少三角形计数，请降低<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-DBE0DD42-B79F-4E23-86FF-7E4A481CCD76">“管分段”(Tube Sections)</span>值。（<span class="ph uicontrol" id="GUID-A26EDCB8-9F6E-4752-B292-CED92A43B3D2__GUID-CC9B088D-A54D-44F0-9B56-70BC83A3F10F">“生成 &gt; 网格质量属性”(Generate &gt; Mesh Quality Attributes)</span>） </p>
+ </div>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-890E22CA-74F9-4608-AC35-E1E0B1768168.htm" title="“Paint Effects”是唯一支持您在 2D 画布上绘制笔划以创建 2D 图像或纹理、或在场景中绘制笔划以创建 3D 空间中的绘制效果的绘制技术。">Maya Paint Effects</a></div>
+</div>
+</div>
+
+</body>
+</html>

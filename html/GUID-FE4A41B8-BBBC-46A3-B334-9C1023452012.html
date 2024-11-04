@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012">
+<meta name="language" content="CHS">
+<title>使属性可绘制</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使属性可绘制</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF-6D855556117FACF922E-2750"> “可绘制属性”是一个节点属性，该属性已通过 <span class="ph msgph prodname" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 中的 <samp class="ph codeph" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__GUID-134593F0-1987-409E-97BE-5F5DF57CF3DA">makePaintable</samp> 命令注册为可绘制。您注册一个属性后，它将存储在用户首选项中并在 <span class="ph msgph prodname" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 会话之间和<span class="ph uicontrol" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__GUID-C4A4CCF5-B42E-43ED-8916-B7F8B6DD6D01">“绘制属性工具”(Paint Attributes Tool)</span>的各个单独用途之间保持可绘制。将某个属性注册为可绘制属性的操作仅需您执行一次。使一个属性可绘制之后，<span class="ph uicontrol" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__GUID-3A69A33F-E1F6-444B-A3FB-1FCF0C66D608">“绘制属性工具”(Paint Attributes Tool)</span>将在选定的曲面上自动查找该属性。 
+	 </p>
+<p class="p" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF-6D855556117FACF922E-274E">绘制属性应添加到“形状”节点 (pPlaneShape1)，而不是“变换”节点 (pPlane1)。 
+	 </p>
+<p class="p" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF-6D855556117FACF922E-274D">例如： 
+	 </p>
+<pre class="pre codeblock">
+// Add an attribute to paint
+select pPlaneShape1; 
+addAttr -ln "paintAttr" -dataType "doubleArray"; 
+</pre>
+<pre class="pre codeblock">
+// Make it paintable 
+makePaintable "mesh" "paintAttr"; 
+</pre>
+<div class="section" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS17956D7ADBC6E736-62CE6BCB117AE308D9C-7FF7"><h2 class="title sectiontitle">注册可绘制属性</h2> 
+		 
+		<p class="p" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF-6D855556117FACF922E-274A">使用以下命令将一个属性注册为可绘制属性： 
+		</p>
+ 
+		<pre class="pre codeblock">
+makePaintable [flags] &lt;nodeType&gt; &lt;attrName&gt;
+</pre>
+ <div class="section" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF-6D855556117FACF922E-2779-153"><dl class="dl" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF-6D855556117FACF922E-2779-153"><dt class="dt dlterm"> 
+		<samp class="ph codeph" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__GUID-20696EED-F3B1-48E4-AE3C-BDE3E7FB495C">nodeType</samp> </dt>
+<dd class="dd" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-486A"> 
+		<p class="p" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF-6D855556117FACF922E-2748">节点类型的名称，包含要使其成为可绘制属性的属性。 
+		</p>
+ </dd>
+<dt class="dt dlterm"> 
+		<samp class="ph codeph" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__GUID-DE502AA4-1DA8-4585-B4EA-2AEC516EFF79">attrName</samp> </dt>
+<dd class="dd" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-4869"> 
+		<p class="p" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF-6D855556117FACF922E-2746">要使其成为可绘制属性的属性的名称。 
+		</p>
+ </dd>
+</dl>
+</div>
+ 
+		<div class="section" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF-6D855556117FACF922E-2745"><h3 class="title sectiontitle">标志</h3> 
+		   <div class="section" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF-6D855556117FACF922E-2779-166"><dl class="dl" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF-6D855556117FACF922E-2779-166"><dt class="dt dlterm"> 
+		  <samp class="ph codeph" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__GUID-9DEFBDA0-0A70-4712-AC0B-7F7C3B7DDB62">-sm/shapeMode string</samp> </dt>
+<dd class="dd" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-4868"> 
+		  <p class="p" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF-6D855556117FACF922E-2743">该标志定义一个函数，当可绘制节点之间的匹配取决于绘制的形状时调用该函数。它用于类型 multi 的属性，其中第一个 multi 与形状索引（例如，簇节点）相对应。当前仅支持一个函数：变形器。默认情况下，该标志为空，这表示对于图形上的顶点，存在可绘制属性的直接索引。 
+		  </p>
+ </dd>
+<dt class="dt dlterm"> 
+		  <samp class="ph codeph" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__GUID-D847D502-ADA7-44F6-98DD-7C736008ED01">-aa/altAttribute string</samp> </dt>
+<dd class="dd" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-4867"> 
+		  <p class="p" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF-6D855556117FACF922E-2741">定义接收相同值的交替属性。您可以多次使用该标志。 
+		  </p>
+ </dd>
+<dt class="dt dlterm"> 
+		  <samp class="ph codeph" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__GUID-A8EC3E5B-BEE8-467E-9351-61AA82C40298">-ui/uiName string</samp> </dt>
+<dd class="dd" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-4866"> 
+		  <p class="p" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF-6D855556117FACF922E-273F">定义将显示在<span class="ph uicontrol" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__GUID-2E403779-2F47-4164-B54F-7DEE0C81D6F3">“绘制属性工具”(Paint Attributes Tool)</span>设置编辑器和快捷菜单上的新可绘制属性的名称。默认值是属性名称。 
+		  </p>
+ </dd>
+<dt class="dt dlterm"> 
+		  <samp class="ph codeph" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__GUID-826F8749-E735-4CD2-9853-8006C31B0F18">-at/attrType string</samp> </dt>
+<dd class="dd" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-4865"> 
+		  <p class="p" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF-6D855556117FACF922E-273D">定义可绘制属性类型。支持的类型包括：intArray、doubleArray、vectorArray、multiInteger、multiFloat、multiDouble 和 multiVector。 
+		  </p>
+ </dd>
+</dl>
+</div>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF-6D855556117FACF922E-273C"><h3 class="title sectiontitle">示例</h3> 
+		   
+		  <ul class="ul" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF-6D855556117FACF922E-273B"><li class="li" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF-6D855556117FACF922E-273A">使 particle.mass 可绘制。 
+				<pre class="pre codeblock">
+makePaintable -attrType "doubleArray" "particle" "mass";
+</pre>
+ 
+			 </li>
+<li class="li" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF-6D855556117FACF922E-2739">使包含 myGoalPP 的用户界面名称的 particle.goalPP 可绘制。同时使 goalPP0 属性可绘制。 
+				<pre class="pre codeblock">
+makePaintable -ui "myGoalPP" -altAttribute "goalPP0" -attrType "doubleArray" "particle" "goalPP";
+</pre>
+ 
+			 </li>
+<li class="li" id="GUID-FE4A41B8-BBBC-46A3-B334-9C1023452012__WS1A9193826455F5FF-6D855556117FACF922E-2738">使 weightGeometryFilter.weights 可绘制。将 weightGeometryFilter 定义为变形器节点。 
+				<pre class="pre codeblock">
+makePaintable -sm "deformer" "weightGeometryFilter" "weights";
+</pre>
+ 
+			 </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-EE522A09-CE1E-4F24-987F-89DB522A45DA.htm">绘制属性值</a></div>
+</div>
+</div>
+
+</body>
+</html>

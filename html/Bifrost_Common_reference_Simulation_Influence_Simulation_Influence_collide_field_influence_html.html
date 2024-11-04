@@ -1,0 +1,58 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_Influence_Simulation_Influence_collide_field_influence_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>collide_field_influence</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>collide_field_influence</code></h1></div><p>允许模拟（如粒子、mpm 或 aero）与带符号距离场 (SDF) 碰撞，如 <code>plane_field</code> 或 <code>sphere_field</code> 的输出。连接距离场，并将 <code>out_influence</code> 连接到模拟节点（如 <code>simulate_aero</code>、<code>simulate_particles</code> 或 <code>simulate_mpm</code>）的 <code>influences</code> 输入。</p>
+<p>SDF 定义空间中任意点到某个对象的距离。在曲面上，距离为零，而在曲面内部，距离为负。SDF 允许与对象（如没有有限边界的无限平面）发生碰撞，而无需使用无限内存。</p>
+<h2 id="">输入</h2><h3 id="influence"><code>influence</code></h3><p>（可选）连接其他影响物节点（如 <code>mask_influence</code> 或 <code>modulate_influence</code>）的 <code>out_influence</code> 端口，以创建复杂效果。可以按任意顺序对任意数量的影响物呈菊花链状连接到一起。</p>
+<h3 id="distance_field"><code>distance_field</code></h3><p>将表示带符号距离的 <code>ScalarField</code> 连接到对象，例如 <code>plane_field</code> 或 <code>sphere_field</code> 的输出。</p>
+<h2 id="">碰撞场特性</h2><h3 id="enabled"><code>enabled</code></h3><p>关闭此项可禁用效果。请注意，禁用此项后，连接到 <code>influence</code> 输入端口的任何其他影响物场仍将处于活动状态。</p>
+<h3 id="distance_field_velocity"><code>distance_field_velocity</code></h3><p>当距离场表示的对象移动时，可以选择连接相应的速度值（<code>float3</code> 或 <code>VectorField</code>）。与使用从移动场自动计算的速度相比，这可以给出更好的碰撞行为。</p>
+<h3 id="bounciness"><code>bounciness</code></h3><p>粒子在碰撞时反弹的量。可以使用单个 <code>float</code> 值或连接 <code>ScalarField</code>。值为 1.0 时，粒子完全反弹，而不会损失能量。超出 0—1 范围的值在物理上是不可能的，但可以用于效果。反弹度不会影响 Aero 模拟。</p>
+<h3 id="friction"><code>friction</code></h3><p>粒子抵抗沿曲面滑动的量。可以使用单个 <code>float</code> 值或连接 <code>ScalarField</code>。值为 1.0 表示粒子不会滑动的完全摩擦状态。摩擦力不会影响 Aero 模拟。</p>
+<h3 id="pushout"><code>pushout</code></h3><p>如果粒子或 Aero 密度值在平面的内侧发射，则将它们推送到带符号距离场的外侧。可以使用单个 <code>float</code> 值或连接 <code>ScalarField</code>。</p>
+<p>请谨慎使用此选项。对于法向碰撞，值为 0 时效果通常更好，但在需要避免轻微重叠时，可以使用更大的值。值 1 将在一步内完全推出，并可防止粒子沉降。使用 <code>pushout</code> 时，MPM 和自碰撞粒子模拟可能会压缩，在这种情况下，使用 <code>pushout_velocity</code> 可能会更好。</p>
+<h3 id="pushout_velocity"><code>pushout_velocity</code></h3><p>缩放速度以将粒子推出距离场。对于 MPM 碰撞或堆叠的自碰撞粒子，这可以比 <code>pushout</code> 产生更好的结果，但这会在碰撞上增加反弹效果，因此在 <code>pushout</code> 不足时应谨慎使用。</p>
+<h3 id="offset"><code>offset</code></h3><p>偏移距离场碰撞对象的“曲面”（0 等值面）。可以使用单个 <code>float</code> 值或连接 <code>ScalarField</code>。正值会将其向外推，负值会使其收缩。</p>
+<h2 id="">输出</h2><h3 id="out_influence"><code>out_influence</code></h3><p>将其连接到模拟节点的 <code>influences</code> 端口或其他影响物节点。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_Influence_html.html">Influence</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

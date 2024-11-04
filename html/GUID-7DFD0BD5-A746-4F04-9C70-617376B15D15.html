@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-7DFD0BD5-A746-4F04-9C70-617376B15D15">
+<meta name="language" content="CHS">
+<title>粒子碰撞边界</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-7DFD0BD5-A746-4F04-9C70-617376B15D15">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>粒子碰撞边界</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-7DFD0BD5-A746-4F04-9C70-617376B15D15__WS73099CC142F48755-3D114B7511841AEFA9F-14D9">本文是由 Autodesk（以前名为 Alias）圣巴巴拉开发中心的 Bret A. Hughes 撰写的。</p>
+<p class="p" id="GUID-7DFD0BD5-A746-4F04-9C70-617376B15D15__WS73099CC142F48755-3D114B7511841AEFA9F-14D8"> 脚本 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-7DFD0BD5-A746-4F04-9C70-617376B15D15.htm#GUID-7DFD0BD5-A746-4F04-9C70-617376B15D15__WS17956D7ADBC6E736-40D2EEAA117AE328894-8000">dynFuncBoundary.mel</a> 将测试网格平面的粒子碰撞边界。该脚本将在平面上方的球体上方创建一个发射器。当发射的粒子在球体和平面上弹回时，会受到重力的影响。</p>
+<div class="section" id="GUID-7DFD0BD5-A746-4F04-9C70-617376B15D15__WS17956D7ADBC6E736-40D2EEAA117AE328894-8000"><h2 class="title sectiontitle">dynFuncBoundary.mel</h2>
+
+<pre class="pre codeblock">
+// dynFuncBoundary.mel
+//
+// Alias Script File
+// MODIFY THIS AT YOUR OWN RISK
+//
+// Creation Date: 09 September 1996; Modified 08 January 2000
+// Author: bah
+//
+// Procedure Name:
+// dynFuncBoundary
+//
+// Description:
+// Creates scene to test the particle collision boundary for a mesh
+// plane.
+//
+// Input Arguments:
+// None.
+//
+// Return Value:
+// None.
+//
+//
+// ========== dynFuncBoundary ==========
+//
+// SYNOPSIS
+// Creates scene to test the particle collision boundary for 
+// a mesh plane.
+//
+global proc dynFuncBoundary() 
+{
+ // Clear the scene and reset the timeline.
+ //
+ file -f -new;
+ currentTime -e 1;
+ // Display information to the user about what to expect from this
+ // subtest and give some time for the user to read this information.
+ // 
+ print( "\nParticles fall and collide with ball and plane.\n" );
+ system( "sleep 1" );
+ // Create the bottom plane.
+ // 
+ nurbsPlane -name plane;
+ scale 7.01291 7.01291 7.01291;
+ rotate 0rad 0rad -1.5708rad;
+ move 0 0.2 0;
+ // Create the ball above the plane.
+ // 
+ polySphere -name ball;
+ scale 1.20479 1.20479 1.20479;
+ move 0 2.7 0;
+ // Create the emitter above the ball and plane. Make the particles 
+ // affected by gravity and have them bounce off the ball and the 
+ // bottom plane.
+ // 
+ emitter -type omni -r 100 -mnd 0 -mxd 0.7 -spd 1 -pos 0 5 0 -name emitter;
+ particle -name particles;
+ connectDynamic -em emitter particles;
+ gravity -dx 0 -dy -1 -dz 0 -m 9.8 -pos 10 10 0 -name gravity;
+ connectDynamic -f gravity particles;
+ collision -r 0.50 -f 0.14 plane;
+ collision -r 0.50 -f 0.14 ball;
+ connectDynamic -c plane -c ball particles;
+ // Make the picture a pretty one and play the test.
+ //
+ select -r particles;
+ selectMode -component;
+ hide plane ball;
+ // Set up the playback options.
+ //
+ float $frames = 150;
+ playbackOptions -min 1 -max $frames -loop once;
+ // Time how long it takes to play the scene and then determine the 
+ // playback frame rate. Make sure when getting the frame rate
+ // that no values are divided by zero.
+ //
+ float $startTime = `timerX`;
+ play -wait;
+ float $elapsed = `timerX -st $startTime`;
+ float $fps = ($elapsed == 0.0 ? 0.0 : $frames/$elapsed);
+ // Print the frames per second (fps) of the subtest in the form X.X.
+ //
+ print("dynFuncBoundary: Done. (");
+ print( (int)($fps * 10)/10.0 + " fps)\n" );
+} // dynFuncBoundary //
+</pre>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-EE07691C-D04C-4C22-8FFD-2E99B3489AE5.htm">示例脚本</a></div>
+</div>
+</div>
+
+</body>
+</html>

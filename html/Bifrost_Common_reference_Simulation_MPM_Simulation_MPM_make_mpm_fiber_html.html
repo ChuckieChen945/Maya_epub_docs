@@ -1,0 +1,80 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_MPM_Simulation_MPM_make_mpm_fiber_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>make_mpm_fiber</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>make_mpm_fiber</code></h1></div><p>指定 <code>simulate_mpm</code> 应创建纤维的位置。</p>
+<p>此复合的 <code>fiber_source</code> 输出应连接到 <code>simulate_mpm</code> 的 <code>sources</code> 输入。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>这是一个实验节点，可能在将来发生变化。使用它的复合和图表可能无法在更高版本的 Bifrost 中正常使用。</p>
+
+</div></div>
+
+<h2 id="">输入</h2><h3 id="geometry"><code>geometry</code></h3><p>用于定义纤维创建位置的股。网格的面不应少于三个顶点。应避免使用角度较小的面。</p>
+<h2 id="general"><code>General</code></h2><h3 id="enable"><code>enable</code></h3><p>是否应使用此源。未选中时，此源将被忽略，因此不会生成纤维。</p>
+<h3 id="start_frame"><code>start_frame</code></h3><p>应开始模拟纤维时的帧。如果对 <code>mpm_solver_settings</code> 复合选中了 <code>use_master_start_frame</code>，则将覆盖此选项。</p>
+<h2 id="fiber-properties"><code>Fiber Properties</code></h2><h3 id="mass_density"><code>mass_density</code></h3><p>以千克/立方米为单位的质量。值越大，纤维越重，将能够推动较轻的材质。</p>
+<h3 id="viscosity"><code>viscosity</code></h3><p>邻近点的运动被平均化的量。这是运动粘度，以平方米/秒为单位。</p>
+<h3 id="vibration_speed"><code>vibration_speed</code></h3><p>振动穿过纤维的速度，以米/秒为单位。该值应为正值。值越大，刚度越高。这是声音在纤维中传播的速度，也是压力波的自然速度。通常，值越大，计算时间越长，因此应使用可获得漂亮结果的最小值。如果纤维不应明显反弹，则振动速度应足够大，以便振动可以在一帧内穿过纤维。</p>
+<h3 id="collision_max_speed"><code>collision_max_speed</code></h3><p>碰撞力的幅值，以米/秒为单位。该值应为正值。值越大，刚度越高。与 <code>vibration_speed</code> 类似，值越大，计算时间越长。如果无法穿透，可增加此值。</p>
+<h3 id="thickness"><code>thickness</code></h3><p>纤维的厚度，以米为单位。与 <code>mass_density</code> 和分段的长度一起使用，可设置每个点的质量。</p>
+<h3 id="initial_speed"><code>initial_speed</code></h3><p>点的初始速度。此项与 <code>direction</code> 相乘，并与来自 <code>inherit_velocity</code> 特性的速度相加。值以米/秒为单位。</p>
+<h3 id="direction"><code>direction</code></h3><p>点的初始速度方向。此项与 <code>initial_speed</code> 相乘，并与来自 <code>inherit_velocity</code> 特性的速度相加。</p>
+<h3 id="inherit_velocity"><code>inherit_velocity</code></h3><p>与点初始速度相加的 <code>geometry</code> 输入的速度比例。</p>
+<h3 id="reference_point_position"><code>reference_point_position</code></h3><p>定义纤维的静止状态。附加一组位置，以定义纤维未拉伸和未压缩时的状态。如果希望纤维最初处于拉伸状态，则使用此项。</p>
+<h2 id="tearing"><code>Tearing</code></h2><h3 id="enable_tearing"><code>enable_tearing</code></h3><p>拉伸超过 <code>tearing_threshold</code> 的边是否应撕裂开。</p>
+<h3 id="tearing_threshold"><code>tearing_threshold</code></h3><p>导致边断开时参照边长与当前边长的比率。</p>
+<h3 id="additional_properties"><code>additional_properties</code></h3><p>连接 <code>set_property</code> 节点以在模拟的粒子上定义和初始化其他特性。可以在模拟过程中使用 <code>influences</code> 修改这些特性。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>如果它是存储在 <code>float4</code> 中的四元数，则解算器将会更新 <code>point_orientation</code>。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_MPM_html.html">MPM</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_override_sets_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="OVERRIDE_SETS_MAIN">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 覆盖集 - Arnold for Maya">
+
+<title>覆盖集</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>覆盖集</h1></div><p>Maya 中的集指的是对象或组件（例如几何体对象或灯光）的集合。将对象分组成多个集，可以一次对多个对象执行特定更改。</p>
+<p>MtoA 可以使用 Maya 集来将 Arnold 渲染覆盖应用于集内对象。这样，您就可以覆盖集成员对象的任何属性，也意味着您可以影响大量对象，而不必逐个更改特性。</p>
+<p>MtoA 不支持多个<em>覆盖集</em>使用同一节点获得不同结果。您应该避免这种情况，否则最终可能会出现不可预测的结果。</p>
+<h3 id="">工作流示例</h3><p>假设要创建一个只含汽车阴影的 <em>ambient_occlusion</em> 渲染层。使用覆盖集时，您只需要：</p>
+<ol>
+<li>选择要隐藏的所有汽车几何体。</li>
+<li>创建一个覆盖集，并将几何体的 <em>primary_visibility</em> 禁用。</li>
+<li>为地板指定 <em><a href="https://help-staging.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_ambient_occlusion_html" target="_blank">ambient_occlusion</a></em> 着色器。</li>
+</ol>
+<p><img src="../images/1_override_sets.png" alt=""></p>
+<p><sub><strong><em>primary_visibility</em> 覆盖应用于其集的汽车模型（左）。汽车的阴影通过地板几何体上的 <em>ambient_occlusion</em> 着色器捕捉（右）。</strong></sub></p>
+<p>要使用覆盖集，请在 Maya 中创建一个集作为对象集合，然后在“大纲视图”(Outliner)中选择该集：</p>
+<p><img src="../images/2_override_sets.png" alt="">  </p>
+<p>然后，打开属性编辑器，打开“Arnold”选项卡，确保已启用<em>“Ai 覆盖”(Ai Override)</em>，然后单击“添加”(Add)。</p>
+<p><img src="../images/override_sets_set.png" alt=""></p>
+<p>随后将看到一个窗口，其中列出了一长串可覆盖的属性。</p>
+<p>请注意，如果集中包括许多对象，<em>“添加覆盖属性”(Add Override Attribute)</em> 窗口的调用速度可能较慢。在某些情况下，覆盖属性窗口可能要花一分钟左右才能显示。这是因为它需要对照选定的对象检查数百个属性。因此，选定的对象越多，速度会变得越慢。</p>
+<p>一个建议的解决方法是：</p>
+<ol>
+<li>创建一个只含一个对象的集。</li>
+<li>使用<em>“添加覆盖属性”(Add Override Attribute)</em>向其中添加所需的属性。</li>
+<li>将其余对象添加到该集。</li>
+</ol>
+<p><img src="../images/3_override_sets.png" alt=""></p>
+<p><sub><strong>搜索字段可用来过滤属性</strong></sub></p>
+<p>可供选择的属性有很多，请选择需要的属性（如果愿意，可以选择多个属性），然后单击“添加”(Add)。</p>
+<p>窗口顶部有一个文本字段，可用来过滤所需的属性。它支持所有正则表达式功能（使用 Re Python 库）。</p>
+<p>例如，如果在查询前希望过滤器忽略大写类型 (?i)：</p>
+<p><img src="../images/4_override_sets.png" alt=""></p>
+<p><sub><strong>默认情况下，文本字段返回的内容与键入内容精确匹配（左）。在文本前添加 (?i) 会显示所有匹配项（右）。</strong></sub></p>
+<p>您还可以单击属性编辑器上的“移除”(Remove)按钮，从覆盖集中移除相关属性。</p>
+<p>集中还可以嵌套其他集。覆盖集将覆盖它所含的任何集中的属性，进而覆盖子集所含内容的属性。这是一个非常有用的功能，可让您根据需要打开和关闭不同子集中的各种功能。</p>
+<p>以下两个子主题介绍了使用覆盖集的两个示例：</p>
+<pre class="pre codeblock"><code class="prettyprint">*   [Example One](topicid=arnold_for_maya_override_sets_am_Example_One___Nested_groups_html) : Changing the render properties of multiple geometry objects.
+*   [Example Two](topicid=arnold_for_maya_override_sets_am_Example_Two___Out_Matte_Opacity_html) : Changing the behavior of different shaders by assigning their attributes to override sets.</code></pre>
+  <div class="related-links">
+      <div class="relinfo relchildren">
+        <strong>此部分中的页面</strong>
+        <ul class="ullinks">
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/override-sets/arnold_for_maya_override_sets_am_Example_One___Nested_groups_html.html">示例 1 - 嵌套组</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/override-sets/arnold_for_maya_override_sets_am_Example_Two___Out_Matte_Opacity_html.html">示例 2 - 输出蒙版不透明度</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/override-sets/arnold_for_maya_override_sets_am_Example_Three___Render_curves_html.html">示例 3 - 渲染曲线</a>
+          </li>
+        </ul>
+      </div>
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/arnold_for_maya_am_Arnold_for_Maya_User_Guide_html.html">Arnold for Maya 用户手册</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

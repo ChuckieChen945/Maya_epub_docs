@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6">
+<meta name="language" content="CHS">
+<title>获取变换、形状和历史节点</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>获取变换、形状和历史节点</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__GUID-0D0CCB1C-3467-46F7-B16B-0B5012BDBCC8">创建对象时，会创建变换节点、形状节点和历史节点等。选择对象，您将看到横跨<span class="ph uicontrol" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__GUID-5B965DB6-5966-47DA-85C5-C380E98DCA4D">“属性编辑器”(Attribute Editor)</span>顶部的选项卡显示这些节点。 </p>
+<ul class="ul" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__UL_9A8D66C1ADEB4156BA644E32C9D1C1E3"><li class="li" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__LI_3C0D03FFEF7140B885981D1997E82D79">
+<p class="p" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__GUID-DD127A5B-D772-4412-B784-504BBD63CDB2">变换节点具有可用于变换对象（例如移动、缩放或旋转）的属性。 </p>
+
+</li>
+<li class="li" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__LI_EEA5CA64465544BDA9DBBD4F0141B30F">
+<p class="p" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__GUID-CB7AA378-7A6A-43C2-BD1F-7FA68B1F95FE">历史节点具有用于创建对象（例如细分、半径等）的属性。 </p>
+
+</li>
+<li class="li" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__LI_6AB3E2299AFB41B1AA347D4FDE955D6D">
+<p class="p" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__GUID-6FDFFB1A-C176-427F-8974-27FD4A77EF76">形状节点具有用于控制网格的细分属性、对象的可见性等的属性。 </p>
+
+</li>
+</ul>
+<p class="p" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__GUID-AA870A0A-D7D8-4353-8B49-3EA7E7C81F6B">如果使用 MEL 创建对象；例如： </p>
+<pre class="pre codeblock">string $plane[] = `polyPlane`;</pre>
+<p class="p" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__GUID-99522A8F-FF86-426A-BDF8-C2BD208D0A67"><span class="ph uicontrol" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__GUID-B36902DB-CAB1-470F-B229-0EA2AB448F76">脚本编辑器</span>的顶部选项卡将显示以下结果： </p>
+<pre class="pre codeblock">// Result: pPlane1 polyPlane1 // </pre>
+<p class="p" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__GUID-D2CC8AD5-C6BF-4472-9069-D7B59EB7C6B4">换句话说，<samp class="ph codeph" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__GUID-1C12E5F0-0E9A-4526-AE58-C7B2C9009067">$plane[0]</samp> 指向 <samp class="ph codeph" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__GUID-C18DC47E-2BAC-4B26-AC0C-92BDFB98C0FD">pPlane1</samp>（变换节点），<samp class="ph codeph" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__GUID-028ADBED-37E7-46B4-A992-212184DEE332">$plane[1]</samp> 指向 <samp class="ph codeph" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__GUID-B16F6A8D-5B6A-48E8-9DB2-EBAC0030EB16">polyPlane1</samp>（历史节点）。 </p>
+<p class="p" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__GUID-F75F684D-CC80-4FD6-8548-3BCA767DEF44">形状节点是变换节点的子节点。在这种情况下，形状节点将是 <samp class="ph codeph" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__GUID-64EFCC7F-1E19-48B2-8347-267EFD42403A">pPlaneShape1</samp>。 </p>
+<p class="p" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__GUID-E58E2380-A454-4B39-88E6-A4FFB91B992D">若要从其变换节点获取形状节点，请使用 <samp class="ph codeph" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__GUID-628D3AA2-8DED-4591-879F-9C75DCA47106">listRelatives</samp> 命令： </p>
+<pre class="pre codeblock">{
+//Lists the transform nodes of all selected objects in the scene
+string $nodes[] = `ls -selection`;
+
+for ($node in $nodes)
+{
+//From each transform node, obtain its shape node and print its name
+string $shapes[] = `listRelatives -shapes $node`;
+print $shapes;
+}
+}
+</pre>
+<div class="section" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__SECTION_75595144C7D64B2493F0370E1B060E72"><h2 class="title sectiontitle">相关主题</h2>
+
+<ul class="ul" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__UL_97EC54E272FF4839B1F80DE5DE45D46F"><li class="li" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__LI_C8E3B694C42B4D06AA7E6E78D2B49838">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-5050BF7A-76C4-4697-882C-3A33BFB62B37.htm">如何获取（选定）形状节点的名称</a>
+</li>
+<li class="li" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__LI_321BB1079E004EA09EBC1695B1D6B4CB">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-6E89488D-6CAA-46AB-B6E4-EAFD351C88C9.htm">获取和设置属性</a>
+</li>
+<li class="li" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__LI_C9181F3C89344E2A97E47B236CB9F49D">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B0E70A37-1585-4FA1-99EF-D680A9152E18.htm">查看或记录与操作相关联的 MEL 命令</a>
+</li>
+<li class="li" id="GUID-399C2DE0-B888-4091-A6E5-FC83AF2139F6__LI_2E5B3A7803EA49A3A7F9F7F4AE9FC182">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-BCB33B1D-21CB-4841-9C66-FA431792A3DB.htm">获取 MEL 命令帮助</a>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7.htm">开始编写 MEL 脚本：研究命令</a></div>
+</div>
+</div>
+
+</body>
+</html>

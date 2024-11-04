@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-2E36EC1C-9672-4307-96AD-6DB538AF8FE1">
+<meta name="language" content="CHS">
+<title>贴图表达式示例</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-2E36EC1C-9672-4307-96AD-6DB538AF8FE1">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>贴图表达式示例 </h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-2E36EC1C-9672-4307-96AD-6DB538AF8FE1__SECTION_A35D2ABF6ADD46BE8B878005E9E3A6C6"><h2 class="title sectiontitle">控制指定区域中的成束幅值</h2> 
+		 
+		<p class="p" id="GUID-2E36EC1C-9672-4307-96AD-6DB538AF8FE1__GUID-B8098B47-C11F-4E27-8771-7F5100882B76"> 此表达式使用贴图值沿每条样条线长度方向应用成束幅值。最小和最大值指定 <samp class="ph codeph" id="GUID-2E36EC1C-9672-4307-96AD-6DB538AF8FE1__GUID-750308A2-9D59-43EA-B0BD-0B766BD3900E">$t</samp> 的输入值范围。此全局变量 (<samp class="ph codeph" id="GUID-2E36EC1C-9672-4307-96AD-6DB538AF8FE1__GUID-B1B21BEC-BB42-47F5-B471-F277DE5C57C8">$t</samp>) 沿每条样条线长度方向应用值。它不受所有属性和修改器支持。 
+		</p>
+ 
+		<pre class="pre codeblock">#map painted for the Clumping attribute.
+$a=map('${DESC}/paintmaps/clumping1_alongLength');#3dpaint,30.0   
+
+#Declare local values for the expanded range of the $t global variable.
+$min=0.0000;#0.00,0.5
+$max=2.0000;#0.50,5.00
+
+#$t applies the clumping values. The fit() expands the input range for $t, taking it from 0 and 1 to 0 and 5.
+$t^($a-&gt;fit(0,1,$min,$max))
+</pre>
+ 
+	 </div>
+<div class="section" id="GUID-2E36EC1C-9672-4307-96AD-6DB538AF8FE1__SECTION_71AB86C99E224F03A695C46345D62F95"><h2 class="title sectiontitle">使用贴图向指定区域添加噪波</h2> 
+		 
+		<p class="p" id="GUID-2E36EC1C-9672-4307-96AD-6DB538AF8FE1__GUID-25594C83-CB8E-4F8B-8ED3-FCBCA65215B6">此表达式使用贴图控制应用噪波的位置并设置噪波幅值。 
+		</p>
+ 
+		<pre class="pre codeblock">#Painted map.
+$a=map('${DESC}/paintmaps/mask_NoiseMap');#3dpaint,30.0
+
+#Declare local variables for input values for noise functions.
+hi =1.000;
+$lo =0.192;
+$contrast =0.973;
+$freq =25.0000; #.1,30
+
+#Multiple noise layers calculated.
+$a*smoothstep(noise($P*$freq), $lo, $hi) -&gt; contrast($contrast)</pre>
+ 
+	 </div>
+<div class="section" id="GUID-2E36EC1C-9672-4307-96AD-6DB538AF8FE1__SECTION_C4664F7D227946469D86734AF3049988"><h2 class="title sectiontitle">在多个密度遮罩中进行选择</h2> 
+		 
+		<p class="p" id="GUID-2E36EC1C-9672-4307-96AD-6DB538AF8FE1__GUID-F460B68A-DD59-4F04-8931-37BD16C3D6F6">您可以为密度遮罩创建多个贴图并使用滑块控件轻松在它们之间进行选择。 
+		</p>
+ 
+		<pre class="pre codeblock">#Create mulitple Density masks.
+$a=map('${DESC}/paintmaps/Density_mask');#3dpaint,20.0
+$b=map('${DESC}/paintmaps/Density_Mask1');#3dpaint,20.0
+$c=map('${DESC}/paintmaps/Density_Mask2');#3dpaint,20.0
+$d=map('${DESC}/paintmaps/Density_Mask3');#3dpaint,20.0
+
+#Declare local variable for map selection. Slider control set for 1-4 for four maps.
+$select=4;#1,4
+
+#Sets selection range. 
+$fit=expand($select,1,4);
+
+#choose() functon chooses a selection choice based on the range.
+choose($fit,$a,$b,$c,$d)</pre>
+ 
+	 </div>
+<div class="section" id="GUID-2E36EC1C-9672-4307-96AD-6DB538AF8FE1__SECTION_76F74761A3C4420DBCB46730DC375A65"><h2 class="title sectiontitle">修改绘制贴图的色调、饱和度和强度</h2> 
+		 
+		<pre class="pre codeblock">$Hue=152;#0,360;
+$Saturation=1.0000;#0.00,2.00;
+$Intensity=1.0000;#0.00,2.00;
+$a=map('${DESC}/groom/region/');#3dpaint,20.0
+$a-&gt;hsi($Hue, $Saturation, $Intensity)</pre>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-EF55C3B5-D09B-4B6A-BB80-574A0311EE0F.htm" title="本部分提供了大量 seExpr 表达式示例，可供您用于修饰和景观场景。提供面向所有用户级别的示例，包括面向新用户的基本表达式。">XGen 表达式示例</a></div>
+</div>
+</div>
+
+</body>
+</html>

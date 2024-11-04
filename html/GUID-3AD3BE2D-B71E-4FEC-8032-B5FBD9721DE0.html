@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0">
+<meta name="language" content="CHS">
+<title>对抖动动画使用磁盘缓存</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>对抖动动画使用磁盘缓存</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F4875515A699EE12A80087827-4995"><p class="p" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__WS1A9193826455F5FF6026605B1181C8F4F2E-3E0A">在为场景创建抖动磁盘缓存时，Maya 会在磁盘上存储抖动动画的逐帧处理。在使用运动模糊渲染抖动动画之前，必须创建抖动磁盘缓存。 </p>
+<p class="p" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__WS1A9193826455F5FF6026605B1181C8F4F2E-3E09">更具体地说，如果在<span class="ph uicontrol" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__GUID-015319FF-E960-4EC0-92F9-81F9B804698B">“渲染设置”(Render Settings)</span>中启用了<span class="ph uicontrol" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__GUID-EC23A893-60A2-4AB0-9756-BD866496FFE9">“运动模糊”(Motion Blur)</span>选项，则必须在渲染动画之前创建抖动磁盘缓存。否则，渲染的动画序列会错误地显示动画。抖动对象的<span class="ph uicontrol" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__GUID-BD20F2F4-8597-4540-8878-4B89070D9450">“运动模糊”(Motion Blur)</span>选项设置与此问题无关。 </p>
+<p class="p" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__WS1A9193826455F5FF6026605B1181C8F4F2E-3E08">创建缓存对于因其复杂性而播放缓慢的场景也有好处。如果创建缓存，可以直接转到时间滑块中的任何帧并查看精确的抖动动画。如果不使用缓存，您将需要等待动画从时间滑块的开头播放到当前帧。 </p>
+<p class="p" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__WS1A9193826455F5FF6026605B1181C8F4F2E-3E07">抖动处理很有效，不会显著降低场景速度，除非场景因其复杂性而播放异常缓慢。您将需要创建磁盘缓存，仅将其作为使用运动模糊进行渲染的开始。 </p>
+<div class="section" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__WS17956D7ADBC6E736-7E6F7549117AE30EBAB-7FFB"><h2 class="title sectiontitle">创建抖动磁盘缓存</h2>
+
+<p class="p" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__WS1A9193826455F5FF6026605B1181C8F4F2E-3E06">在创建抖动磁盘缓存时，可以设定创建选项，然后创建缓存，也可以使用当前创建选项立即创建缓存。 </p>
+
+<p class="p" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__WS1A9193826455F5FF6026605B1181C8F4F2E-3E05">通常，您不需要知道文件的位置。但是，如果将场景移动到其他项目，也必须将抖动缓存文件移动到该项目的相应数据文件夹，以便场景使用缓存播放或渲染。 </p>
+
+<p class="p" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__WS1A9193826455F5FF6026605B1181C8F4F2E-3E04">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-76E1987D-CF05-4E84-9D50-CD651A1E1F8B.htm#GUID-76E1987D-CF05-4E84-9D50-CD651A1E1F8B__WS1A9193826455F5FF6026605B1181C8F4F2E-3DD3">为抖动变形器创建磁盘缓存</a>。 </p>
+
+<div class="note note" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__WS1A9193826455F5FF6026605B1181C8F4F2E-3E03"><span class="notetitle">注：</span> 
+<ul class="ul" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__WS1A9193826455F5FF6026605B1181C8F4F2E-3E02"><li class="li" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__WS1A9193826455F5FF6026605B1181C8F4F2E-3E01">默认情况下，如果将现有场景另存为一个新名称，Maya 会生成抖动缓存文件的副本，并为其提供一个与新场景名称对应的名称。为了节省磁盘空间，可以通过以下方法避免创建该副本：在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-049E009D-34FE-4767-B9B2-047FFB3142E8">场景另存为选项(Save Scene As Options)</a>（<span class="ph uicontrol" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__GUID-E48F74DD-1BEE-4F91-B4EC-7DBCB4B1C5E9">“文件 &gt; 场景另存为”(File &gt; Save Scene As)</span> &gt; <img class="image" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__IMAGE_5420178D6276438E9D0172D69BEE88C0" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png">）中，将<span class="ph uicontrol" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__GUID-95B471F4-BCC8-4385-B911-CB353C841593">“复制抖动文件”(Copy jiggle files)</span>设定为<span class="ph uicontrol" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__GUID-D1EB52CA-5294-449B-9432-8327F423DAED">“从不”(Never)</span>。 </li>
+<li class="li" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__WS1A9193826455F5FF6026605B1181C8F4F2E-3E00">如果以前从未保存过场景（场景无标题），Maya 仅在您保存场景后才会创建抖动缓存文件。 </li>
+</ul>
+
+</div>
+
+</div>
+<div class="section" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__WS17956D7ADBC6E736-7E6F7549117AE30EBAB-7FFA"><h2 class="title sectiontitle">在缓存后禁用或删除抖动动画</h2>
+
+<p class="p" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__WS1A9193826455F5FF6026605B1181C8F4F2E-3DFF"> 如果要在缓存后修改抖动动画（例如，通过更改刚度），则必须禁用或删除缓存以使场景播放修改的内容。在再次渲染之前，必须再次创建缓存。如果需要释放磁盘空间，删除缓存也非常有用。 </p>
+
+<p class="p" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__WS1A9193826455F5FF6026605B1181C8F4F2E-3DFD">请注意，如果禁用抖动变形器（而不是缓存），也会禁用抖动缓存的播放，并且无法创建抖动缓存。 </p>
+
+<ul class="ul" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__WS1A9193826455F5FF6026605B1181C8F4F2E-3DFC"><li class="li" id="GUID-3AD3BE2D-B71E-4FEC-8032-B5FBD9721DE0__WS1A9193826455F5FF6026605B1181C8F4F2E-3DFB">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-3C232531-D5D7-4418-9A35-033679EB86DE.htm">编辑抖动变形器</a>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-EE9CA51E-F618-4EE4-8D9F-6D6470EBF89E.htm">抖动变形器</a></div>
+</div>
+</div>
+
+</body>
+</html>

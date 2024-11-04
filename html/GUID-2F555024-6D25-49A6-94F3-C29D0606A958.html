@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-2F555024-6D25-49A6-94F3-C29D0606A958">
+<meta name="language" content="CHS">
+<title>= 和 == 之间的差异</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-2F555024-6D25-49A6-94F3-C29D0606A958">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>= 和 == 之间的差异</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-2F555024-6D25-49A6-94F3-C29D0606A958__WS73099CC142F48755-3D114B7511841AEFA9F-7FB">写入 MEL 代码时，经常会混淆两个外观非常相似、但事实上截然不同的运算符：</p>
+<ul class="ul" id="GUID-2F555024-6D25-49A6-94F3-C29D0606A958__WS73099CC142F48755-3D114B7511841AEFA9F-7FA"><li class="li" id="GUID-2F555024-6D25-49A6-94F3-C29D0606A958__WS73099CC142F48755-3D114B7511841AEFA9F-7F9"> =（单个等号）运算符将值指定给变量。例如，<samp class="ph codeph" id="GUID-2F555024-6D25-49A6-94F3-C29D0606A958__GUID-7B77F2DA-BAC9-41D0-9334-4AF76384481D">$a = 10</samp> 会将值 <samp class="ph codeph" id="GUID-2F555024-6D25-49A6-94F3-C29D0606A958__GUID-F61B1F47-4255-4DF0-B6D1-5DA888C57BC0">10</samp> 指定给变量 <samp class="ph codeph" id="GUID-2F555024-6D25-49A6-94F3-C29D0606A958__GUID-9B357B9D-F041-494C-B257-1A039FE0A44C">$a</samp>。</li>
+<li class="li" id="GUID-2F555024-6D25-49A6-94F3-C29D0606A958__WS73099CC142F48755-3D114B7511841AEFA9F-7F7">==（两个等号）运算符将测试两个值是否相等。例如，<samp class="ph codeph" id="GUID-2F555024-6D25-49A6-94F3-C29D0606A958__GUID-93869BB5-CEB6-44F0-8924-7E138A8A7110">($a == 10) </samp> 将测试 <samp class="ph codeph" id="GUID-2F555024-6D25-49A6-94F3-C29D0606A958__GUID-76DDDD0C-88E0-494C-9462-6A081A5425A9">$a</samp> 的值是否等于 <samp class="ph codeph" id="GUID-2F555024-6D25-49A6-94F3-C29D0606A958__GUID-01D1C8A5-0444-4B06-A266-6165BAB7FFCA">10</samp>。</li>
+</ul>
+<p class="p" id="GUID-2F555024-6D25-49A6-94F3-C29D0606A958__WS73099CC142F48755-3D114B7511841AEFA9F-7F6">如果混淆这两个运算符，则可能会导致很难找到 MEL 脚本中的错误。</p>
+<p class="p" id="GUID-2F555024-6D25-49A6-94F3-C29D0606A958__WS73099CC142F48755-3D114B7511841AEFA9F-7F5">假设变量 $a 的值等于 10，且您需要打印消息。如果尝试使用下列代码：</p>
+<pre class="pre codeblock">
+if ($a = 10) {
+	print "equal to 10!";
+}
+</pre>
+<p class="p" id="GUID-2F555024-6D25-49A6-94F3-C29D0606A958__WS73099CC142F48755-3D114B7511841AEFA9F-7F4">您会发现，无论如何，该脚本始终会打印“equal to 10!”。这是因为该脚本错误地使用了单个等号（即：指定运算符），因此“测试”实际上是将 10 指定给 $a。该指定将对指定的值（在本例中为 10）进行求值。任何非零值均被认为是 true，因此该条件始终为 true！</p>
+<p class="p" id="GUID-2F555024-6D25-49A6-94F3-C29D0606A958__WS73099CC142F48755-3D114B7511841AEFA9F-7F3">在这种情况下，正确的代码是：</p>
+<pre class="pre codeblock">
+if ($a == 10) {
+	print "equal to 10!";
+}
+</pre>
+<p class="p" id="GUID-2F555024-6D25-49A6-94F3-C29D0606A958__WS73099CC142F48755-3D114B7511841AEFA9F-7F2">（请注意，使用 ==，而不是 =。）</p>
+<p class="p" id="GUID-2F555024-6D25-49A6-94F3-C29D0606A958__WS73099CC142F48755-3D114B7511841AEFA9F-7F1">在某些情况下，在条件中使用指定确实是一种有用的快捷方式，但初学者应始终避免混淆 = 和 ==。</p>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-493CA022-0F3C-46D1-BF19-457BC9E8129E.htm">控制脚本的流</a></div>
+</div>
+</div>
+
+</body>
+</html>

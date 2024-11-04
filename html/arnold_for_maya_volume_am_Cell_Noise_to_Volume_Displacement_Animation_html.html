@@ -1,0 +1,123 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_volume_am_Cell_Noise_to_Volume_Displacement_Animation_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_CELL_NOISE_TO_VOLUME_DISPLACEMENT_ANIMATION">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 将单元噪波连接到体积置换的动画效果 - Arnold for Maya">
+
+<title>将单元噪波连接到体积置换的动画效果</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>将单元噪波连接到体积置换的动画效果</h1></div><p><img src="../images/am-Cell_Noise_to_Volume_Displacement_Animation-tim-cell-noise-300-1.gif" alt=""></p>
+<p>我们可以将多边形网格对象渲染为体积。这提供了许多创意机会，以各种各样有趣的方式渲染实体对象。这个简短的制作教程介绍了如何使用 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_volume_shaders_ac_standard_volume_html" target="_blank"><em>standard_volume</em></a> 着色器的<em>“置换”(Displacement)*属性，将一个多边形网格和一个体积的着色合并在一起，以实现组合它们的效果。此外，我们还将介绍如何使用连接到 *<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_volume_shaders_ac_standard_volume_html" target="_blank">standard_volume</a></em> 着色器的 <em>volume_displacement</em> 的 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_texture_node_ac_cell_noise_html" target="_blank">cell_noise</a>、<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_imagers_node_ac_color_correct_html" target="_blank">color_correct</a>、<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_ramp_shaders_ac_ramp_rgb_html" target="_blank">ramp_rgb</a> 和 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_math_shaders_ac_math_range_html" target="_blank">range</a></em> 着色器来重现上述动画效果。 </p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>多边形网格应闭合且没有任何自交，否则体积可能无法正确渲染。</p>
+
+</div></div>
+
+<h2 id="step-size">步长(Step Size)</h2><ul>
+<li>首先，我们需要将头部网格转化为体积。选择网格，然后在它的 Arnold 属性中，将<em>“步长”(Step Size)</em>增大到 0.1。当<em>“步长”(Step Size)</em>为正值时，会将多边形网格渲染为体积，其值将用作光线行进体积时的基准步长。</li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关体积 <em>step_size</em> 的详细信息，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_polygons_am_Volume_Attributes_html">此处</a>。</p>
+
+</div></div>
+
+<p><strong>有关对应的基本场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/cell_noise_tutorial.ma" target="_blank">此处</a>。</strong></p>
+<h2 id="">标准体积</h2><ul>
+<li>为多边形网格指定 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_volume_shaders_ac_standard_volume_html" target="_blank">standard_volume</a></em> 着色器，并将<em>“密度”(Density)*增大到 *4000</em> 左右的一个较高值。这将确保<em>置换</em>纹理稍后看起来更明确。</li>
+</ul>
+<p><img src="../images/am-Cell_Noise_to_Volume_Displacement_Animation-image2019-10-31-13-4-48-2.png" alt=""></p>
+<p><sub><strong>将头部网格渲染为体积</strong></sub></p>
+<h2 id="">范围</h2><ul>
+<li>将<em>范围*着色器连接到 *<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_volume_shaders_ac_standard_volume_html" target="_blank">standard_volume</a></em> 着色器的 <em>volume_displacement</em>。</li>
+<li>将其 <em>output_max</em> 值增加到 30 左右。将 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_texture_node_ac_cell_noise_html" target="_blank">cell_noise</a></em> 着色器连接到 <em>volume_displacement</em> 后，这将增强 volume_displacement 的效果。</li>
+</ul>
+<h2 id="">摄影机投影</h2><p>为了从上到下设置效果的动画，我们将通过 V 方向投影渐变。</p>
+<ul>
+<li><p>创建一个 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_utility_shaders_ac_camera_projection_html" target="_blank">camera_projection</a></em> 着色器，并将其连接到<em>范围</em>着色器的<em>输入</em>。</p>
+</li>
+<li><p>请记得选择要用于 <em>camera_projection</em> 的渲染摄影机。</p>
+</li>
+</ul>
+<h2 id="rgb">渐变 RGB</h2><ul>
+<li>创建一个 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_ramp_shaders_ac_ramp_rgb_html" target="_blank">ramp_rgb</a></em> 着色器，并将其连接到 <em>camera_projection</em> 着色器的 <em>projection_color</em>。</li>
+</ul>
+<p><img src="../images/am-Cell_Noise_to_Volume_Displacement_Animation-image2019-11-6-11-28-17-3.png" alt=""></p>
+<h2 id="">颜色校正</h2><ul>
+<li>连接 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_imagers_node_ac_color_correct_html" target="_blank">color_correct</a></em> 着色器，并将其连接到 <em>ramp_rgb</em> 着色器的<em>输入*。可以使用此着色器微调 *cell_noise</em> 着色效果。</li>
+</ul>
+<h2 id="">单元噪波</h2><ul>
+<li>创建一个 <em>cell_noise</em> 着色器。</li>
+<li>将<em>图案</em>更改为 <em>cell1</em>。</li>
+<li>禁用<em>“相加”(additive)</em>。</li>
+<li>确保将 <em>coord_space</em> 设置为<em>“对象”(Object)</em>。</li>
+<li>您需要根据场景大小来调整<em>“缩放”(scale)*。在本例中，由于 Y 和 Z 小于 X，因此 *cell_noise</em> 较细。</li>
+<li>将<em>“密度”(density)</em>增加到 1，并将<em>“随机度”(randomness)</em>设置为 0.2 左右，以添加一些不规则形状。</li>
+</ul>
+<p><img src="../images/am-Cell_Noise_to_Volume_Displacement_Animation-image2019-11-6-11-30-50-4.png" alt=""></p>
+<p><sub><strong>最终 <em>cell_noise</em> 设置</strong></sub></p>
+<p><img src="../images/am-Cell_Noise_to_Volume_Displacement_Animation-image2019-11-4-11-34-32-5.png" alt=""></p>
+<h2 id="">动画</h2><ul>
+<li>基于时间从左向右对 <em>ramp_rgb</em> 的黑色设置关键帧，以查看在头部体积中从下到上移动的效果。</li>
+<li>对 <em>cell_noise</em> 着色器的<em>“时间”(time)*属性设置关键帧，以设置 *cell_noise</em> 效果的动画。</li>
+</ul>
+<h2 id="">总结</h2><p>就是这样。请记得在渲染最终动画时，为场景中的任何灯光增加 <em>volume_samples</em>。</p>
+<p><img src="../images/am-Cell_Noise_to_Volume_Displacement_Animation-image2019-10-31-16-16-42-6.png" alt=""></p>
+<p><sub><strong>沿 Y 轴缩放 <em>cell_noise</em> 的更多示例</strong></sub></p>
+<p><img src="../images/am-Cell_Noise_to_Volume_Displacement_Animation-image2019-11-6-11-22-6-7.png" alt=""></p>
+<p><sub><strong>最终的着色网络</strong></sub></p>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/bDweVNgbI1c&amp;t=2s?" frameborder="0" allowfullscreen=""></iframe>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Volume_Tutorials_html.html">体积教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

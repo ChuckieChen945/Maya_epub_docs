@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9">
+<meta name="language" content="CHS">
+<title>smoothstep</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>smoothstep</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__WS73099CC142F48755-3D114B7511841AEFA9F-1268"> 将返回一个 0 到 1 的值，该值表示参数在最小值和最大值之间的成比例距离。smoothstep 函数将用于在一段时间范围内逐渐但非线性地增加属性，例如，<span class="ph uicontrol" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__GUID-DFCB8880-DAE9-4501-A9B9-E74734E5A928">“不透明度”(Opacity)</span>从 0 增加到 1。 </p>
+<p class="p" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__WS73099CC142F48755-3D114B7511841AEFA9F-1266">smoothstep 函数与 linstep 函数的工作方式类似，不过其将在最小值和最大值之间的中间值附近更快地增加值。该函数使用最小值和最大值之间的 hermite 插值。 </p>
+<p class="p" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__WS73099CC142F48755-3D114B7511841AEFA9F-1265">float smoothstep(float start, float end, float parameter) </p>
+<p class="p" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__WS73099CC142F48755-3D114B7511841AEFA9F-1264"> 起点和终点将指定最小值和最大值。 </p>
+<p class="p" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__WS73099CC142F48755-3D114B7511841AEFA9F-1263">参数为要用于生成 smoothstep 数的值。 </p>
+<p class="p" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__WS73099CC142F48755-3D114B7511841AEFA9F-1262">如果参数小于起点，linstep 将返回 0。 </p>
+<p class="p" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__WS73099CC142F48755-3D114B7511841AEFA9F-1261">如果参数大于终点，linstep 将返回 1。 </p>
+<p class="p" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__WS73099CC142F48755-3D114B7511841AEFA9F-1260"> 下图将根据时间顺序比较 smoothstep 和 linstep 返回的值: </p>
+<div class="fig fignone" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__WS73099CC142F48755-3D114B7511841AEFA9F-125E"><img class="image" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__IMAGE_3AA0FA5679C24561B46DAF022808D5D7" width="299" height="244" src="../images/GUID-E806537D-C74D-4B50-BD36-13F2A4DEB1EC.png"></div>
+<div class="section" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__WS73099CC142F48755-3D114B7511841AEFA9F-125D"><h2 class="title sectiontitle">示例</h2>
+
+<p class="p" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__WS73099CC142F48755-3D114B7511841AEFA9F-125C">假设已使用<span class="ph uicontrol" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__GUID-3B2A156A-9AD1-4D2B-A8BD-9425B8181332">“粒子工具”(Particle Tool)</span>来创建名为<span class="ph uicontrol" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__GUID-45D94644-9DF3-4CB7-9E07-9FD9CE5819BD">“云”(Cloud)</span>的粒子的集合： </p>
+
+<div class="fig fignone" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__WS73099CC142F48755-3D114B7511841AEFA9F-125B"><img class="image" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__IMAGE_052C3C2EBD0C48858FF9D182A6EF1D97" width="118" height="120" src="../images/GUID-B97DDF18-E87B-45C0-9010-E6C3F5464890.png"></div>
+
+<p class="p" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__WS73099CC142F48755-3D114B7511841AEFA9F-125A">假设也已逐对象为<span class="ph uicontrol" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__GUID-1371C9D5-6455-40A2-9112-387438FAFB69">“云”(Cloud)</span>添加动态<span class="ph uicontrol" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__GUID-66126826-4C4B-42B1-A704-02B58EDD1880">“不透明度”(Opacity)</span>属性（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-5738B999-A151-4501-9970-F46AF1AD77E5.htm">使用粒子属性</a>）。然后，可以为云的粒子形状节点写入该运行时表达式： </p>
+
+<pre class="pre codeblock">
+CloudShape.opacity = smoothstep(0,5,age);
+</pre>
+
+<p class="p" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__WS73099CC142F48755-3D114B7511841AEFA9F-1259">对于对象年龄的前 5 秒，这将在 0 到 1 的步骤中增加<span class="ph uicontrol" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__GUID-F066A743-3AED-4E79-ADB1-76B0C5AC438F">“CloudShape”</span>的<span class="ph uicontrol" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__GUID-11056215-F880-49C5-8D9E-49E8871E7A1F">“不透明度”(Opacity)</span>属性。这将使对象从透明淡入到不透明。在 2.5（0 与 5 的中点）附近,不透明度的淡入和淡出发生得更快。 </p>
+
+<div class="fig fignone" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__WS73099CC142F48755-3D114B7511841AEFA9F-1258"><img class="image" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__IMAGE_3D7EC08F1A2F463B93F6CA9FEDE95A6F" width="303" height="165" src="../images/GUID-45C48E23-1208-42F8-9E71-EF844B2072B4.png"></div>
+
+<p class="p" id="GUID-37BFD5F5-CEF6-4C05-89AB-678624CC0AF9__WS73099CC142F48755-3D114B7511841AEFA9F-1257">有关类似示例的详细信息，请参见 linstep 函数。 </p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-768BD5F3-DDB3-4F47-9A84-FB5BA6346E1E.htm">曲线函数</a></div>
+</div>
+</div>
+
+</body>
+</html>

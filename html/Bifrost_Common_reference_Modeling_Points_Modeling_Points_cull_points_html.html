@@ -1,0 +1,71 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Modeling_Points_Modeling_Points_cull_points_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>cull_points</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>cull_points</code></h1></div><p>基于加权概率，随机删除点对象（例如粒子系统）上的点。如果是实例对象，可以改为禁用点，即禁止在不删除某个点的情况下让某个实例化几何体显示在该点处。</p>
+<h2 id="">输入</h2><h3 id="points"><code>points</code></h3><p>点对象或实例对象。</p>
+<h3 id="weights"><code>weights</code></h3><p><code>probability</code> 端口上的倍增。 </p>
+<ul>
+<li>小于等于 0 的值表示点永不消隐。</li>
+<li>0 到 1 范围内的值表示修改点被消隐的几率。例如，0.5 表示某个点被消隐的概率是 50% × <code>probability</code>。</li>
+<li>1 表示点被消隐的几率正好为 <code>probability</code>。</li>
+<li>大于 1 的值表示点被消隐的几率大于 <code>probability</code>。</li>
+</ul>
+<p>如果未连接任何对象，则所有点的默认权重为 1。这是一个<em>解释的自动端口</em>，其接受以下类型：</p>
+<ul>
+<li>单个 <code>float</code> 解释为应用于所有点的常量值。</li>
+<li><code>array&lt;float&gt;</code> 解释为每个点的值。可根据需要调整数组大小以匹配点数。</li>
+<li><code>array&lt;bool&gt;</code> 被解释为每点的 0 (false) 或 1 (true) 值。</li>
+<li><code>string</code> 解释为现有几何特性的名称，并使用其值。</li>
+<li><code>ScalarField</code> 将在几何体组件的每个位置处进行采样。</li>
+<li><code>array&lt;long&gt;</code> 指定要为其指定值 1 的索引。对于其他索引，则指定值 0。</li>
+</ul>
+<h3 id="probability"><code>probability</code></h3><p>点被消隐的基本几率。</p>
+<h3 id="seed"><code>seed</code></h3><p>随机数生成器的种子。</p>
+<h3 id="disable_by_selection"><code>disable_by_selection</code></h3><p>如果选中此项，则将禁用实例，而不是删除实例。对于禁用的点，这会将 <code>instance_property</code> 的值从 x 设置为 - x - 1。例如，如果选择了实例 2，这会将特性设置为 -3。这将禁止在相应点处显示实例化几何体，但允许您恢复之前实例化的几何体的索引。</p>
+<h3 id="instance_property"><code>instance_property</code></h3><p>要修改以便禁用实例的特性。</p>
+<h2 id="">输出</h2><h3 id="remaining_points"><code>remaining_points</code></h3><p>修改后的几何体，不包含已删除的点。已禁用（而非已删除）的点包含在此对象中。</p>
+<h3 id="deleted_points"><code>deleted_points</code></h3><p>包含已删除的点的几何体，以防您要将其用于其他情况。</p>
+<h3 id="remaining_indices"><code>remaining_indices</code></h3><p>未删除的点的旧索引。</p>
+<h3 id="deleted_indices"><code>deleted_indices</code></h3><p>已删除的索引。如果您有需要同步的单独数据，可以使用此项。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Modeling/Bifrost_Common_reference_Modeling_Points_html.html">Points</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

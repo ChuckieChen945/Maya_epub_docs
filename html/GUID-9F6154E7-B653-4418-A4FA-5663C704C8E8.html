@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-9F6154E7-B653-4418-A4FA-5663C704C8E8">
+<meta name="language" content="CHS">
+<title>UI 命令模板</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-9F6154E7-B653-4418-A4FA-5663C704C8E8">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>UI 命令模板</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-9F6154E7-B653-4418-A4FA-5663C704C8E8__WS73099CC142F48755-3D114B7511841AEFA9F-B76"> 命令模板是一种为 ELF 命令指定默认参数的方法。这些模板旨在为应用程序用户界面外观的一致性提供支持。通过指定默认的文字对齐、边框样式、缩进等参数，应用程序将具有更一致的外观。通过修改命令模板中的默认参数，可以在一个位置修改应用程序的外观。 
+	 </p>
+<p class="p" id="GUID-9F6154E7-B653-4418-A4FA-5663C704C8E8__WS73099CC142F48755-3D114B7511841AEFA9F-B74">单个模板可以保留任意数量的 ELF 命令的默认值。多个模板可以保留不同的默认参数集。在执行期间，默认参数将透明地添加到属于当前模板一部分的命令的参数列表中。参数列表中明示指定的任何参数将覆盖模板中的默认参数。默认值仅在创建模板时解析一次，随后将保持已解析状态，以供以后使用。 
+	 </p>
+<p class="p" id="GUID-9F6154E7-B653-4418-A4FA-5663C704C8E8__WS73099CC142F48755-3D114B7511841AEFA9F-B73">使用 <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/uiTemplate.html" target="_blank">uiTemplate</a></samp> 命令可以创建新的空白命令模板。每个命令都可以使用 <samp class="ph codeph">-defineTemplate</samp> 标志将其默认值添加到一个模板，连同其指定的特定模板和要作为默认值的参数。使用 <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/setUITemplate.html" target="_blank">setUITemplate</a></samp> 命令可以将模板指定为当前模板。 
+	 </p>
+<p class="p" id="GUID-9F6154E7-B653-4418-A4FA-5663C704C8E8__WS73099CC142F48755-3D114B7511841AEFA9F-B71">每个模板都有自己的名称，并且可以推入和弹出，以更改脚本某些部分的当前模板。通常，脚本编写器将在过程开始时“推入”所需的命令模板，并在过程结束时“弹出”模板，以恢复之前模板的设定。如果没有需要的模板，则谨慎的做法是将当前模板设定为“无”（该关键字表示无当前模板）。无论何时创建了新窗口，命令模板堆栈都将清空，因此必须在创建窗口以后推入模板才能生效。命令还可以通过使用 <samp class="ph codeph">-useTemplate</samp> 标志，在不更改当前模板的情况下利用任何现有模板。 
+	 </p>
+<div class="section" id="GUID-9F6154E7-B653-4418-A4FA-5663C704C8E8__WS73099CC142F48755-3D114B7511841AEFA9F-B70"><h2 class="title sectiontitle">脚本 4. 命令模板</h2> 
+		 
+		<pre class="pre codeblock">
+// Create a new template object.
+//
+if (!`uiTemplate -exists TestTemplate`) {
+ uiTemplate TestTemplate;
+}
+// Add the command default parameters to the template.
+//
+frameLayout -defineTemplate TestTemplate 
+ -borderVisible true -labelVisible true -labelAlign "center"
+ -marginWidth 5 -marginHeight 5;
+button -defineTemplate TestTemplate -width 150 -label "Default Text";
+// Now make a window.
+//
+window -title "Test Window" ExampleWindow4;
+ // Make our template current
+ //
+ setUITemplate -pushTemplate TestTemplate;
+ frameLayout -label "Buttons" TestFrameLayout;
+ columnLayout TestColumnLayout;
+ button;
+ button -label "Not Default Text";
+ button;
+ // Restore previous, if any template to clean up.
+ //
+ setUITemplate -popTemplate;
+showWindow ExampleWindow4;
+</pre>
+ 
+		<div class="fig fignone" id="GUID-9F6154E7-B653-4418-A4FA-5663C704C8E8__WS1A9193826455F5FF3CBC1E051237AC78BEC-7D65"><img class="image" id="GUID-9F6154E7-B653-4418-A4FA-5663C704C8E8__IMAGE_E3971F3A618140EBB16D6100ED64679D" width="126" height="98" src="../images/GUID-55FC4BCB-9EFA-4507-8B14-6A157E3316C5.png"></div>
+ 
+		<div class="fig fignone" id="GUID-9F6154E7-B653-4418-A4FA-5663C704C8E8__WS1A9193826455F5FF3CBC1E051237AC78BEC-7D64"></div>
+ 
+		<p class="p" id="GUID-9F6154E7-B653-4418-A4FA-5663C704C8E8__WS73099CC142F48755-3D114B7511841AEFA9F-B6E">该窗口显示脚本的结果。请注意为模板定义的默认参数添加到后续命令的方式。例如，我们添加了标签文本“默认文字”作为按钮命令的默认参数，则第一个和第三个按钮无需明示指定，便采用该参数作为默认参数。但是第二个按钮的默认参数过多，因为它为标签文本标志指定了自己的参数“非默认文字”。 
+		</p>
+ 
+		<p class="p" id="GUID-9F6154E7-B653-4418-A4FA-5663C704C8E8__WS73099CC142F48755-3D114B7511841AEFA9F-B6D">命令的默认参数可以随时更改，只需使用指定模板的 <samp class="ph codeph">-defineTemplate</samp> 标志重新执行命令即可。尝试更改上述模板中按钮命令的默认标签字符串，然后重新执行上述示例的窗口创建部分。 
+		</p>
+ 
+		<pre class="pre codeblock">
+button -defineTemplate TestTemplate -label "New Default Text";
+</pre>
+ 
+		<p class="p" id="GUID-9F6154E7-B653-4418-A4FA-5663C704C8E8__WS73099CC142F48755-3D114B7511841AEFA9F-B6C">为了防止意外使用仍然处于活动状态的模板，在创建窗口时 <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/window.html" target="_blank">window</a></samp> 命令将清除当前模板。请在 <samp class="ph codeph">window</samp> 命令之后使用 <samp class="ph codeph">setUITemplate</samp> 命令，否则该命令将没有效果。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B612C992-B8F8-41CA-9DB7-7EBBFD671F1A.htm">创建界面</a></div>
+</div>
+</div>
+
+</body>
+</html>

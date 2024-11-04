@@ -1,0 +1,630 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Interoperability">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="31/08/2022">
+<meta name="topicid" content="GUID-699CDF74-3D64-44B0-967E-7427DF800290">
+<meta name="language" content="CHS">
+<title>FBX 导入 MEL 命令</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-699CDF74-3D64-44B0-967E-7427DF800290">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>FBX 导入 MEL 命令</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-5DEFAF3A-A404-473C-8B29-E66FFECE84B9"> 以下 MEL 命令用于模拟 FBX 导入器用户界面中的导入选项。
+	 </p>
+<div class="note tip" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-0B4F5E69-2C00-4707-A40F-D7E988C2750E"><span class="tiptitle">提示：</span>  
+		<p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF453265C9125FAA23BBB-6B60"> 如果您正编写脚本且想要防止 FBX UI 在每次导入文件时都出现，请使用以下命令来在导入时隐藏 FBX UI：
+		</p>
+ 
+		<pre class="pre codeblock">
+FBXImport -file "c:/myfile.fbx";
+</pre>
+ 
+	 </div>
+<dl class="dl" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-EA0CFE44-416D-43FA-AE77-6698FFD2256F"><dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-50AFD147-F4CA-41A8-8F6A-E969C88337B5">FBXImport 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-D65B5FB3-81B2-4862-9F06-E291D1889778"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67FF"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-31EEE9B3-6673-431B-AF68-E7C1B8823871">FBXImport -f [filename] -t [take index]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-54F556CA1166AC9EE9E-97D">导入 [filename] 中指定的文件和 [take index] 中指定的镜头。
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-54F556CA1166AC9EE9E-97C">导入的文件是在执行命令后镜头查询可访问的文件。
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-54F556CA1166AC9EE9E-97B">指定适当的镜头编号以加载相应的镜头。如果指定 0，则插件将不导入动画。（这相当于从 Maya FBX 插件用户界面的菜单中选择<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-0DD81156-0CF5-4034-B18B-53117271176C">“无动画”(No Animation)</span>。） 
+			 </p>
+ 
+			 <div class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-54F556CA1166AC9EE9E-97A">如果指定 -1，插件将检索镜头阵列中的最后一个镜头。插件将大于文件中所含镜头数的镜头数或小于 -1 的任何负值视为无效。如果发生这种情况，将显示<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-9090E4FE-8598-45C6-BC4B-D4AD7347ECAC">“无此镜头”(No such take)</span>错误。
+				<div class="note note" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-6241D56F-E3B3-4DEE-A25B-036DE731321F"><span class="notetitle">注：</span> FBXImport 命令可用于指定镜头。如果 FBX 文件中<em class="ph i">不</em>包含镜头，则可以使用 <strong class="ph b">Python File(...)</strong> 命令。
+				</div>
+ 
+			 </div>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-74B95F37-D9D1-4329-878F-6890AF6F2D86">FBXImportAxisConversionEnable 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-DAF9C57A-8EAE-453A-9282-096F1309B6DF"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67FE"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-B00A4115-A482-4AA3-A165-2B1A2FE80995">FBXImportAxisConversionEnable -v [true|false]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67FD"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-A225AF63-F093-49CE-ABB9-8C7D13EC7110">FBXImportAxisConversionEnable -q;</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF1DBC298511635BEA875460">该命令是<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-46DAA91A-2927-448F-926E-756DC5322ECD">“FBX 导入器”(FBX Importer)</span>中<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-0279F2DE-4939-4D3B-B256-6CBA5A377DD1">“轴转化”(Axis conversion)</span>选项的脚本版本。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>主题中的<span class="ph uicontrol">“轴转化”(Axis conversion)</span>。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-D0E979B1-D60B-4691-91A1-5F0791AB19D0">FBXImportCacheFile 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-D3B6347C-385B-4453-8428-802151F81943"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF1DBC298511635BEA87546B"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-102962EF-E84C-4612-AC09-DC29581767B8">FBXImportCacheFile -v [true|false]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67FC"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-7545C0D6-55E0-4BF9-90B9-9DE4F60124D8">FBXImportCacheFile -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67FB">该命令是<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-E3C71BCB-B96A-4F4C-B00C-1F6CF0AD9416">“FBX 导入器”(FBX Importer)</span>中<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-46575DC4-4E89-4A8D-9FBA-B024DAE89E52">“导入几何体缓存文件”(Import geometry Cache file(s))</span>选项的脚本版本。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>主题中的“几何体缓存文件”(Geometry cache file(s))。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-066072C5-6D5B-4DB3-9439-B5CC0244FCDE">FBXImportCameras 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-371FB205-985E-4D69-9D67-DE533702FC82"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67FA"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-EDC15B20-C8D9-4DAF-810C-6523D78A04EA">FBXImportCameras -v [true|false]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67F9"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-3A94CA6F-B84A-471C-9AD2-C0F943912C68">FBXImportCameras -q;</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-150B16DA11960D83164-67C5">使用此脚本可导入或排除 FBX 文件中的摄影机。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>主题中的<span class="ph uicontrol">“摄影机”(Cameras)</span>。
+			 </p>
+ 
+			 <div class="note note" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-150B16DA11960D83164-31E1"><span class="notetitle">注：</span>  默认情况下，此函数处于启用状态。
+			 </div>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-3D1FE414-AB69-4DB8-9988-1948AEBBF2A4">FBXImportConstraints 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-666C6D05-3BCE-4E4A-B1C4-ABA30D0F506F"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67F6"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-00FBEFA6-9942-4973-B655-0F9610C03E9E">FBXImportConstraints -v [true|false]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67F5"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-865EBFCF-91B3-4C05-8E0E-9DA3CEC4C895">FBXImportConstraints -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF1DBC298511635BEA87547B">使导入进程忽略 FBX 文件中定义的所有约束，并从 Maya 场景中排除此类约束。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>主题中的<span class="ph uicontrol">“约束”(Constraints)</span>。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-E3820C63-40C9-40A7-A4E2-B9845AA2A6D5">FBXImportConvertDeformingNullsToJoint 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-94F7C420-D19E-43E3-8A5C-DF0D2AB900FC"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67F4"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-EFC9BBE9-C033-44B3-8069-9E40D20A1B60">FBXImportConvertDeformingNullsToJoint -v [true|false]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67F3"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-2F7790DB-4F8B-4BD5-91EE-51CC93E343F0">FBXImportConvertDeformingNullsToJoint -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF1DBC298511635BEA875487">将变形元素转化为 Maya 关节。
+			 </p>
+ 
+			 <dl class="dl" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-F7624266-BBDB-445F-8AEE-9DDBC4CDE1F9"><dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-A5176058-B10E-40A3-86BA-312D6062F002">True 
+				  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-6E20C14A-84F5-4F30-9CF6-84E864EF9CBC">将所有变形元素变换为关节节点。
+					 <div class="note note" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF1DBC298511635BEA87548A"><span class="notetitle">注：</span>  最初提供该选项的原因是 Maya 不在骨骼层次内支持定位器元素（即，变换不是关节的节点）。虽然 Maya 现在支持此功能，但在某些情况下该选项会改进蒙皮行为。
+					 </div>
+ 
+					 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-5F02F21611D6C557ADA-46C1">有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>主题中的<span class="ph uicontrol">“将元素变形为关节”(Deforming elements to joints)</span>。
+					 </p>
+ 
+				  </dd>
+</dl>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-67F6AB1B-E8C7-4DF0-9388-F1D969FBF644">FBXImportConvertUnitString 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-3E07F249-FF0D-417C-8770-3FC832532833"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-899652E1-7CA7-497C-92EF-BEB9D2379E39"> 
+				 <samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-41C77123-FD67-4308-9E7D-0AE3BB95335F">FBXImportConvertUnitString [mm|dm|cm|m|km|In|ft|yd|mi]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-C4B3958A-B6E6-4A84-9643-7F815273A00D"> 该命令返回用于将一厘米转化为指定单位所需的比例因子，并且是 FBX 导出器和导入器窗口中“文件单位转化为”菜单的脚本版本。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>主题中的<span class="ph uicontrol">“文件单位转化为”(File units converted to)</span>。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-125C8AA4-1296-41C7-A7FD-82D1F1AF737E">FBXImportDxfWeldVertice 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-2C16FDED-6C5C-469D-B994-0830D507FA8C"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67F2"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-3C0C74AB-02B7-401B-A13F-648D547CFE9C">FBXImportDxfWeldVertice [true|false]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67F1"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-F696BCE5-6262-4E5F-9855-543851BF08BD">FBXImportDxfWeldVertice -q; </samp> 
+			 </p>
+ 
+			 <div class="note note" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-6507591011913E8F4B8-47A6"><span class="notetitle">注：</span>  此命令仅适用于<span class="ph"> Macintosh 和 Linux 平台</span>。
+			 </div>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-5EC229D0-A0B9-4618-B3DD-BFA77BAF4301">FBXImportDxfReferenceNode 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-F327BB39-866D-4953-9DAF-A0A4B7F69A91"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67F0"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-4BB0946A-4EDC-4143-961F-046A836D6D10">FBXImportDxfReferenceNode [true|false]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67EF"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-DB76DBFE-051D-48BC-A119-D5402986953E">FBXImportDxfReferenceNode -q; </samp> 
+			 </p>
+ 
+			 <div class="note note" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-6507591011913E8F4B8-47A2"><span class="notetitle">注：</span>  此命令仅适用于<span class="ph"> Macintosh 和 Linux 平台</span>。
+			 </div>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-4FCD6872-508F-4D9C-961E-E7785FF471AC">FBXImportDxfObjectDerivation 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-3D292FD1-03B5-4004-A505-B22C06DC1595"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67EE"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-29279400-A453-4DE9-8E3D-8389E0033656">FBXImportDxfObjectDerivation [layer|entity|block];</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67ED"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-EB050DDE-8382-4ACA-B1FC-048B186949B7">FBXImportDxfObjectDerivation -q; </samp> 
+			 </p>
+ 
+			 <div class="note note" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-6507591011913E8F4B8-479E"><span class="notetitle">注：</span>  此命令仅适用于<span class="ph"> Macintosh 和 Linux 平台</span>。
+			 </div>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-C5509A0D-F94E-44AB-BEDE-53A1F9B19014">FBXImportFillTimeline 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-E8000988-44E6-4FAD-9334-474A4C626CC6"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67EA"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-12FB13D5-520C-48B2-8E5A-FA163D06C89C">FBXImportFillTimeline -v [true|false]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS73099CC142F487553E2D9C8311FBC15C932-74F5"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-583AD336-E273-4916-A20C-03487BD0A0E6">FBXImportFillTimeline -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS73099CC142F48755-1EB804411AF8B41570-7DB2">在导入时填充场景时间轴（而不使用 Maya 默认设置）。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-E44F230E-47FF-4EC6-BBE1-792368A1D77E">FBXImportForcedFileAxis 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-447F634F-1AB4-49D3-A27E-C480EFC657FF"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-FA9F948C-3B58-45A2-B2CF-7FBBC8746F89"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-12A9E192-26B0-4193-884C-278EA25490DE"> FBXImportForcedFileAxis [y|z];</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-10D23446-96E0-4016-BC3C-4A4CBFDEECD9"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-55F40FB9-F8AB-4367-822E-B18D7D96115D">FBXImportForcedFileAxis -q;</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-91206D6A-D5EF-4889-8090-94418EBDED36"> 使用该命令可“强制”FBX 插件认为文件中的数据是通过用户指定的轴在本地生成的。FBXImportForcedFileAxis 命令没有等效 UI，且可以生成异常结果，因为该命令只更改全局设置中的传入文件轴。
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-96A16710-5880-4B2E-8301-F48706437F1F"> 例如，在 3ds Max 的 Z 轴向上世界中创建的平面具有以下顶点坐标：(0,0,0) - (1,0,0) - (1,0,1) - (0,0,1)。（此平面看起来像表上的一张图纸，该表位于 XY 平面上且 Z = 0 标高。） 在导入 Maya 时使用 FBXImportUpAxis 选项，该平面将旋转，这样它在 Maya 中的位置与在 3ds Max 中位置看起来将相同。因此，在 Maya 中，平面位于 XZ 平面上且 Y = 0 标高。（假设 Maya 设置为默认的“Y 轴向上”轴）。 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-777A08A4-6E1B-4A0A-87C5-49D349CA28D3"> 如果使用 FBXImportForcedFileAxis 强制轴在导入时为“Y 轴向上”，Maya 插件不会对轴应用任何转换。这是因为，使用此命令时，插件会将文件和系统轴<em class="ph i" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-068B4A53-CFB2-4C7D-AE36-02E286546056">都</em>视为“Y 轴向上”，使平面与 XY 平面上且 Z = 0 深度的表<em class="ph i" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-02941387-EC43-4CDF-9149-AFC85DDA0458">垂直</em>。
+			 </p>
+ 
+			 <div class="note note" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-B3AFB5AB-24D4-42BD-BD34-2332DCA23FD3"><span class="notetitle">注：</span>  如果已将 Maya 配置为“Z 轴向上”轴，而“强制”轴为“Y 轴向上”，FBX 插件仍会执行从“Y 轴向上”（在传入 FBX 文件中设置）到“Z 轴向上”（导入到 Maya 中）的转换。
+			 </div>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-1C94DABF-B900-4E0B-9452-E4C95F8A5AB6">FBXImportGenerateLog 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-9C228BAE-7638-425B-8DFD-3B214BDBF2F1"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67E9"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-6E2311B0-3FFA-4FAE-A0BA-AE9B45B13A1A">FBXImportGenerateLog -v [true|false]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS73099CC142F487553E2D9C8311FBC15C932-74F4"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-24344E85-BF32-4540-B8CB-E9D7F9686556">FBXImportGenerateLog -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-7C08E89711EC57B47A8-59CE">使用此命令可在导出时生成日志文件。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>主题中的<span class="ph uicontrol">“生成日志数据”(Generate Log Data)</span>。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-0FA6D5C7-6E79-4403-9B12-321F6D5ACA95">FBXImportHardEdges 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-CB3E2BB7-E2A1-42BA-AF01-24A28655E127"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67E8"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-4D236AA2-AA01-442F-A1F0-5E4C9117B9F0">FBXImportHardEdges -v [true|false]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67E7"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-D7B111FB-767F-4B49-AFAF-19575BF2041D">FBXImportHardEdges -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF1DBC298511635BEA875477">将位于完全相同位置的所有顶点合并回一个唯一顶点。然后，Maya FBX 插件根据连接到每个顶点的边的法线确定相应边是硬边还是平滑边。
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF1DBC298511635BEA875478">在导出时，如果 FBXExportHardEdges 设置为 <span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-468367BE-F8B0-458C-97D9-953ED8AEA084">True</span>，则使用此函数。
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF1DBC298511635BEA875479">该命令是<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-7D229A02-3F76-4226-876A-D1882BB2161C">“FBX 导入器”(FBX Importer)</span>中<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-F1517B6C-18AB-4664-ADCF-7E055875D46C">“逐顶点合并法线”(Combine per-vertex Normals)</span>选项的脚本版本。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>主题中的<span class="ph uicontrol">“逐顶点合并法线”(Combine per-vertex Normals)</span>。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-1610FBCD-9478-46B8-B9A2-ECEA6D237C1D">FBXImportLights 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-8FA13722-47BC-4B88-A609-2DCE4DED7520"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67E6"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-666D9D95-1358-41D1-A2A1-249218382E50">FBXImportLights -v [true|false]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67E5"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-75A54874-DDC5-4EA8-8774-AF1AF10302CB">FBXImportLights -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-150B16DA11960D83164-67C2">使用该函数可以在导入过程中包含或排除灯光。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>主题中的<span class="ph uicontrol">“灯光”(Lights)</span>。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-9C55E540-D242-4323-B4D3-26AED997ABE1">FBXImportMergeBackNullPivots 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-7D4AA337-6115-4525-9A21-3D82BC4E3D38"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67E4"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-9B43913F-95AE-4C6C-AF22-0E1DF001C3A6">FBXImportMergeBackNullPivots -v [true|false]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67E3"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-BC80DB04-C8C9-415F-9CB8-83BE59984D6C">FBXImportMergeBackNullPivots -q; </samp> 
+			 </p>
+ 
+			 <dl class="dl" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-E22A0D4B-FA7D-4517-A600-BA4D94514025"><dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-D1742E98-4D86-4C2F-A207-CAD7DD75F07F">True 
+				  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-958777C5-74E0-4595-B739-A2D11E50EEDD">将层次中用作前期旋转和后期旋转的 null（或关节）元素的旋转变换指定为原始节点的关节方向和旋转轴。
+					 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF1DBC298511635BEA875481">之后，删除前期旋转和后期旋转节点。
+					 </p>
+ 
+					 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF1DBC298511635BEA875482">将按名称完成查找，因为前期旋转节点的名称包含 “__Pre_”后缀，而后期旋转节点的名称包含“__Post_”后缀。
+					 </p>
+ 
+					 <div class="note note" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF1DBC298511635BEA875484"><span class="notetitle">注：</span>  当导入模式设置为<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-E6FB85C3-5CA2-444A-98BF-BC6D6331D26D">“更新动画”(Update animation)</span>或<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-FACC52D9-4DAD-4418-ABE9-0F4B776F35C5">“添加和更新动画”(Add and Update animation)</span>时，此选项将自动设置为 <span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-D230C224-9F83-4205-929B-65D52C8B720B">True</span>。
+					 </div>
+ 
+				  </dd>
+</dl>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-A1418693-EE95-471E-A428-72009188AC99">FBXImportMergeAnimationLayers 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-25C2F75B-CCDA-4B32-B50A-69BF279616F9"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67E2"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-5D814709-0C23-4460-A039-DC7684E0ADE5">FBXImportMergeAnimationLayers -v [true|false]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67E1"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-7A9A0206-62BE-477B-B888-119025475D48">FBXImportMergeAnimationLayers -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-150B16DA11960D83164-67BF">激活<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-78B8131C-88A1-4CDB-B0C9-742B5077C476">“烘焙动画层”(Bake animation layers)</span>可以烘焙（或绘制）传入文件中包含的动画层。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-5DB2AF4E-B293-441F-BA8C-7336EDAEDE1B">FBXImportMode 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-9F268DC5-FD7F-4620-8B33-205FF920E4FC"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67E0"> 
+				 <samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-E0AA803B-7EED-4746-A362-C15C741AA6CE">FBXImportMode -v [exmerge|add|merge;] </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67DF"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-A06C72AB-CAED-4E0F-AED3-01618BEB41DB">FBXImportMode -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF1DBC298511635BEA87548D">此命令有三种可能的状态：
+			 </p>
+ 
+			 <dl class="dl" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-B1D0006B-9BD5-49A0-B629-DD1530D44787"><dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-1EBA4141-54E2-44F2-8DA6-116D7D67A301">Exmerge 
+				  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-364ACD57-E5C6-49BB-B2F5-B265817892F7">采用以下方式，将导入的 FBX 文件合并到当前场景中：
+					 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF1DBC298511635BEA875490">具有相同名称和性质的节点只能替换自己的动画曲线。不创建新节点。此命令与插件 UI 中<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-9CF300C2-50F2-47F2-95A4-ADD36CF87FE5">“更新动画”(Update animation)</span>选项的功能相同。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>主题中的<span class="ph uicontrol">“更新动画”(Update Animation)</span>。
+					 </p>
+ 
+				  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-2D64D3EB-80F8-4176-A421-2465C91EC3F0">相加(Add) 
+				  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-8E448E3E-06BF-42A4-A61C-226643CEB8DA">将内容添加到当前场景内容。此命令与插件 UI 中<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-388D2F05-A40A-4FDE-9933-6F82A56CDDB0">“添加”(Add)</span>选项的功能相同。
+				  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-98F9043B-16B5-482D-B04D-FF27CA909F91">合并(Merge) 
+				  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-E51DBD73-ADCE-4FF1-8B14-7665BAD68DD0">采用以下方式，将导入的 FBX 文件合并到当前场景中：创建场景中无等效节点的任何节点。替换名称相同但性质（如球体和骨骼）不同的节点。名称和特性都相同的节点只能替换自己的动画。此命令与 UI 中<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-D6792F91-7B7B-4A27-9920-C9DA0B2950F1">“添加并更新动画”(Add and Update animation)</span>的功能相同。
+				  </dd>
+</dl>
+ 
+			 <div class="note note" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-27034882-A479-4769-9ACB-BC5531289F16"><span class="notetitle">注：</span> 若要在 UI 中查看这些信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>主题中的<span class="ph uicontrol">“文件内容”(File Content)</span>。
+			 </div>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-8D135A67-8697-411B-B225-C7F850C5F1C3">FBXImportProtectDrivenKeys 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-CC0A86AD-B671-451D-AB08-72653BEA0349"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67DC"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-3E426623-CB6B-4980-8398-6F035BE1726F">FBXImportProtectDrivenKeys -v [true|false]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67DB"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-C000B69E-758A-4300-828B-D8797D836CE0">FBXImportProtectDrivenKeys -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-150B16DA11960D83164-67BC">使用该脚本可防止任何传入动画覆盖具有受驱动关键帧的通道。
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-150B16DA11960D83164-67BA">如果设置为 <span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-9CFD2877-572A-4937-8A14-032BB07442D3">True</span>，受驱动关键帧将受到保护，且不会将传入动画应用于受驱动通道。
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-150B16DA11960D83164-67B9">如果设置为 <span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-B1041951-A24B-4D05-8476-D66D0E303F58">False</span>，则丢弃受驱动关键帧，并将传入动画应用于受驱动通道。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>主题中的<span class="ph uicontrol">“保护受驱动关键帧”(Protect Driven Keys)</span>。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-6FE039F1-196F-4C72-8402-8357A15B4FA8">FBXImportQuaternion 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-E66D0D53-7428-472F-A4C1-072C73A8F5B2"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67DA"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-FB8C1AC8-A927-43E5-A361-6BD09943732B">FBXImportQuaternion -v [quaternion|euler|resample] ; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67D9"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-CB735F5E-1B7A-43E7-92E0-330FD48CB680">FBXImportQuaternion -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF1DBC298511635BEA875498">可用于指定在导入到 Maya 的过程中应该如何处理四元数旋转。该选项可修正 Maya 和 MotionBuilder 四元数之间的差异。该命令相当于四元数插值模式设置。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>主题中的<span class="ph uicontrol">“四元数插值模式”(Quaternion interpolation mode)</span>。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-FD420740-064B-4184-A6A0-5AB1A0CFE7F7">FBXImportResamplingRateSource 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-E9DAB857-ED31-496E-8896-5AC964A82C34"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67D6"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-AC90BA7B-B940-46D9-BCB7-715CA60523F6">FBXImportResamplingRateSource -v [Scene|File|Custom]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67D5"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-6B05E1E0-EB80-4051-89A4-1B65FBE05753">FBXImportResamplingRateSource -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF1DBC298511635BEA87549A"> 该命令可用于设置<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-209FCE39-7E19-44C3-9175-72C485E09518">“FBX 导入器”(FBX Importer)</span>在需要重新对数据采样时生成关键帧所用的速率。通过 <em class="ph i" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-3C9737F0-65B5-4478-9691-D7F41211E6A7">Scene</em> 使用 Maya 的当前工作单位（请参见<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-AB58E637-39C2-4719-8ADD-10C5C83A2B4B">“首选项”(Preferences)</span>窗口的<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-2CE1E231-F957-4421-BC5E-89515E87C850">“设置”(Settings)</span>区域中的<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-4D653DC9-57AA-4D8B-987A-5B7A9735CAF0#GUID-4D653DC9-57AA-4D8B-987A-5B7A9735CAF0__WS17956D7ADBC6E736-4CE538CA117AE30C631-7FC5">“工作单位”(Working Units)</a>），通过 <em class="ph i" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-5925E057-413E-4EBF-A46B-65E5BDB8B19F">File</em> 使用 FBX 文件定义的采样率，或者通过 <em class="ph i" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-FE22DAF3-F738-4201-ADB2-BD04668BC08C">Custom</em> 指定自定义值。
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-6507591011913E8F4B8-634C">当 Maya 中的动画曲线的插值不能由 MotionBuilder 中的曲线精确表示时，将需要进行重采样。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-EC8211DE-DAF8-4382-A793-78C017BD0B87">FBXImportScaleFactorEnable 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-7898AD79-4283-43F8-A31C-130666A381AC"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67D4"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-78DC8927-41EA-4437-900E-7FDE30757F85">FBXImportScaleFactorEnable [true|false];</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67D3"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-70743AA5-9EAE-4FE5-864F-67621D994BED">FBXImportScaleFactorEnable -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF1DBC298511635BEA875462">该命令是<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-40A1A892-9D0E-4542-8354-B8D6E1BAEB3A">“FBX 导入器”(FBX Importer)</span>中<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-A9F8226A-9B7A-4658-85FB-07101957E818">“比例因子”(Scale Factor)</span>选项的脚本版本。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>主题中的<span class="ph uicontrol">“比例因子”(Scale factor)</span>。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-690ECA42-AAFC-429E-B7D1-C24793483B07">FBXImportScaleFactor 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-163E934B-FB34-4415-93E7-D20915A90B15"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67D2"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-0AD6E5ED-B0BC-4A09-9B7F-9424CA687799">FBXImportScaleFactor [float]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67D1"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-4177B108-6CBE-4A78-B4D5-82602FD03E71">FBXImportScaleFactor -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF1DBC298511635BEA875464">该命令是<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-02EE2170-7813-4F38-92F6-51EA7135357F">“FBX 导入器”(FBX Importer)</span>中<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-62D8F8B5-09BE-4C45-A0DC-3557328983EC">“比例因子”(Scale Factor)</span>菜单的脚本版本。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>主题中的<span class="ph uicontrol">“比例因子”(Scale factor)</span>。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-FDE41CE7-B731-41AB-B5CE-F11543F6EF99">FBXImportSetMayaFrameRate 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-EA105027-D18C-4882-9E2B-69DC902A36A2"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67D0"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-59290B25-3EB9-4249-8E3B-CE51F39F1B95">FBXImportSetMayaFrameRate -v [true|false];</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67CF"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-7FF120EF-C5E9-4342-8CEB-2ACF91FBCFCC">FBXImportSetMayaFrameRate -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF1DBC298511635BEA87549C">此命令可从 FBX 文件中导入帧速率。将会覆盖 Maya 中使用的速率。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-7FF29748-7ADB-495B-9A3D-333CF0574A1D">FBXImportSetLockedAttribute 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-E409D605-FEB2-46EB-904A-79C317DC54EB"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67CE"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-70BF6060-06DB-44D8-95CE-C39D2C451017">FBXImportSetLockedAttribute -v [true|false]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67CD"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-6B52D6C8-D993-4C50-95D6-13B0DDD011A0">FBXImportSetLockedAttribute -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS73099CC142F48755602CAF04118F18E7A07-63DE">此命令是功能相当于 UI 对话框中<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-D4AA384D-9C32-4134-928F-2BADD3C2983F">“全部保持锁定状态”(Keep all locked)</span>或<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-2BA1A46A-CB54-4D7E-901D-ADA2340E1298">“全部解除锁定”(unlock all)</span>选项的脚本。在将包含动画的 FBX 文件导入已锁定通道的对象时，请使用此命令。
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-6507591011913E8F4B8-6D0C">如果使用 UI，Maya FBX 插件会提示您将所有通道保持锁定状态或对锁定的通道解除锁定，这样才能正确导入动画。对于在不使用 UI 的情况下已尝试执行此操作的用户，会产生问题。
+			 </p>
+ 
+			 <dl class="dl" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-AF822D70-156F-4EC1-A948-1886E4AA6E5A"><dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-263D9170-26FD-4F23-B59A-ED94F59016B4">False 
+				  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-4C7B117A-92AD-48A9-9060-F062FB33C388">解除锁定所有通道。
+				  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-128EBC86-5D50-4DF7-B176-B8545A1825F5">True 
+				  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-75E8CA0F-CE93-41E9-AA8A-0D86DA98992C">通道保持锁定状态。
+				  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-802AEABA-C5BA-4802-9911-FB69956104DF">示例代码 
+				  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-738FC4D6-4F74-4CFF-A932-505AAB3D5EEF"> 
+					 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-6B815DC5-F244-45F9-8B2D-2AA22EB089FD"> 
+						<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-F8711144-374C-49EE-8C11-7CE7E3C26317">FBXImportSetLockedAttribute -v False;</samp> 
+					 </p>
+ 
+					 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-839B4585-BEC2-4FDA-B6A8-474E1B5578AB"> 
+						<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-3387D281-30FA-4207-B247-5B98B5F5A0BA">FBXImport -f "C:/myFile.fbx";</samp> 
+					 </p>
+ 
+				  </dd>
+</dl>
+ 
+		  </dd>
+<dt class="dt dlterm">FBXImportSetTake 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p"><samp class="ph codeph">FBXImportSetTake -takeIndex [take index]</samp> 
+			 </p>
+ 
+			 <p class="p"><samp class="ph codeph"> FBXImportSetTake -ti [take index] </samp> 
+			 </p>
+ 
+		  </dd>
+<dd class="dd">如果 FBX 文件包含多个 Take，使用此命令可指定要导入的 Take。导入 [take index] 中指定的 Take。
+			 <p class="p"> 指定适当的镜头编号以加载相应的镜头。如果指定 0，则插件将不导入动画。如果指定 -1，插件将检索镜头阵列中的最后一个镜头。插件将大于文件中所含镜头数的镜头数或小于 -1 的任何负值视为无效。如果发生这种情况，将显示<samp class="ph codeph">“无此镜头”(No such take)</samp>错误。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-A45AC71D-D825-43A1-B6F5-6432A204526A">FBXImportShapes 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-BE499E42-D8BB-4FD2-8F19-F059C25E977A"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67CC"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-4ADBE6EA-B6EF-454F-81E1-0D64EE70B987">FBXImportShapes -v [true|false];</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67CB"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-6E2F414D-5777-4AF6-A524-19522B78C0F1">FBXImportShapes -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-150B16DA11960D83164-67B7">使用此脚本可在 FBX 文件中导入或排除图形。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>主题中的<span class="ph uicontrol">“变形模型”(Deformed models)</span>。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-1B3ACFBE-1A67-4BD9-9AE4-66B5F8FFB12A"> FBXImportSkeletonType 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-697600F0-16D6-4165-ADD4-AD9DF218CCE0"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-D781C190-E438-43A9-98CC-4217EAEAD5A3"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-2D7207A0-D5D7-4050-A9F7-18D8426356C5"> FBXImportSkeletonType -v [none|fbik|humanik]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-11D31A81-77F2-4B4E-91E5-D37C2AD88E14"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-2CEFA49B-B2B3-46BC-A410-58CD77039F12">FBXImportSkeletonType -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-AC835736-077A-46C2-8C7A-76EA054A5DE0">使用该函数可以导入或排除 FBX 文件中的骨架定义。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>主题中的<span class="ph uicontrol">“骨架定义”(Skeleton Definitions)</span>。
+			 </p>
+ 
+			 <div class="note note" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-D062C070-9885-439D-A920-FA3642A9A312"><span class="notetitle">注：</span> 此命令与 FBXImportCharacterType 命令相同，后者已不赞成使用。
+			 </div>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-9C200248-9C05-41F3-92E8-9A84F7C1860D">FBXImportSkins 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-5200C83B-27DE-485E-9E10-C0A825BD144B"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67CA"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-EF2FCAE5-73EA-46C6-8B5D-24EB61411D74">FBXImportSkins -v [true|false]; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67C9"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-EB3946C8-F5B9-405F-AC9B-3F3ECF6E5075">FBXImportSkins -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-150B16DA11960D83164-67B4">使用该函数可在 FBX 文件中导入或排除蒙皮变形。有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>主题中的<span class="ph uicontrol">“变形模型”(Deformed models)</span>。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-A53BC5F6-086E-4797-9FC8-E0A3EB708E12">FBXImportUnlockNormals 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-1CDEA263-DB2B-4698-B991-1ED9EA90850A"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-40CEFF981229D6A8D2C-66DD"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-5A2243F3-C166-4064-ABC0-329271821051">FBXImportUnlockNormals -v true|false;</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF-40CEFF981229D6A8D2C-66DB"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-8387C61A-2526-4470-B19D-B5175565EC6B">FBXImportUnlockNormals -q; </samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF1DBC298511635BEA875495">覆盖法线的默认 Maya 锁定状态。
+			 </p>
+ 
+			 <dl class="dl" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-EC8CAA01-4955-4F2F-B80D-7A2573654447"><dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-8427DF64-C8BA-4692-9D44-0C591A2604EC">True 
+				  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-B1A59A29-8DFA-4271-B377-B6F1CC252574">使用 Maya 内部算法重新计算对象上的法线。
+				  </dd>
+</dl>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-30AA9B01-5223-4060-A2BA-0610C13CF23D">FBXImportUpAxis 
+		  </dt>
+<dd class="dd" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-34C77431-8876-4952-9897-E31152C64D0F"> 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67C8"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-92410EC7-873E-4DF5-8DA3-7F7A8C74973A">FBXImportUpAxis [y|z];</samp> 
+			 </p>
+ 
+			 <p class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-67C7"> 
+				<samp class="ph codeph" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-25BBA2ED-8843-4C6A-B39F-917A347D63BD">FBXImportUpAxis -q; </samp> 
+			 </p>
+ 
+			 <div class="p" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__WS1A9193826455F5FF1DBC298511635BEA875467">此命令是<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-BE1F92E9-5061-491A-BDC6-182E347F234D">“FBX 导入器(FBX Importer)”</span>中<span class="ph uicontrol" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-E6E9BB50-27C3-4633-879F-B0D1B615C150">“轴转化”(Axis conversion)</span>选项的脚本版本，但在插件 UI 中不可用。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>主题中的<span class="ph uicontrol">“轴转化”(Axis conversion)</span>。
+				<div class="note note" id="GUID-699CDF74-3D64-44B0-967E-7427DF800290__GUID-70BABA1F-8248-480A-8E8E-82D906FD2134"><span class="notetitle">注：</span>  FBXImportUpAxis 命令向场景对象添加预旋转，使对象从一个产品的世界轴转到另一个产品的世界轴。如果这不是您所希望的，请尝试使用 FBXImportForcedFileAxis 命令，但先阅读 FBXImportForcedFileAxis 命令的描述，因为该命令会更改对传入数据的解释。
+				</div>
+ 
+			 </div>
+ 
+		  </dd>
+</dl>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-312D8520-EFDF-4C07-B89B-376090B86979.htm">编制导入模式的脚本以合并已设置关键帧的变换</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-F48E3B78-3E56-4869-9914-CE0FAB6E3116.htm">FBX MEL 脚本</a></div>
+</div>
+</div>
+
+</body>
+</html>

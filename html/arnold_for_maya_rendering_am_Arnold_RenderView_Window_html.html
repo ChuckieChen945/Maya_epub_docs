@@ -1,0 +1,378 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_rendering_am_Arnold_RenderView_Window_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_ARNOLD_RENDERVIEW_WINDOW">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" Arnold 渲染视图窗口 - Arnold for Maya">
+
+<title>Arnold 渲染视图窗口</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+<div class="head-block"><h1>Arnold 渲染视图窗口</h1></div><p><img src="../images/mtoa_renderview_1.png" alt=""></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>要观看演示部分渲染视图功能的视频，请单击<a href="https://www.youtube.com/watch?v=HS7ov7NmdBA" target="_blank">此处</a>。</p>
+
+</div></div>
+
+<p><em>Arnold 渲染视图</em>窗口是一个交互式渲染 (IPR) 工具，旨在针对场景中发生的更改提供实时反馈，同时解决 DCC 原生渲染视图存在的一些限制。渲染视图中增加了很多方便美工人员使用的功能，可帮助他们处理着色、照明和外观开发过程，从而改善交互性并减少转换/场景刷新时间。例如：</p>
+<ul>
+<li>拖动鼠标的过程中（而不是松开鼠标时）渲染即会更新，而且更新过程非常流畅、延迟很低。</li>
+<li>用户可随时选择不同的摄影机、AOV 和着色模式，而无需重新导出场景。</li>
+<li>使用鼠标拾取一个对象时即会在视口中选择该对象，同时在渲染视图中亮显该对象。</li>
+<li>隔离对象、灯光、材质甚至是各个着色器节点，从而更便于调试着色树。</li>
+<li>基本颜色校正。</li>
+<li>状态栏可提供有关正在进行的渲染及光标下像素的全面信息。</li>
+<li>原生 3D 摄影机操纵，包括框显选择对象和框显全部。</li>
+<li>为常用操作和显示模式提供键盘快捷方式。</li>
+<li>存储图像快照，以便于比较。</li>
+</ul>
+<p>Arnold 渲染视图窗口可在 Arnold 工具架和 Maya Arnold 菜单中找到。</p>
+<p><img src="../images/mtoa_renderview_2.png" alt=""></p>
+<h2 id="">使用渲染视图</h2><p>默认情况下，渲染视图的作用类似于 IPR 会话，即从负 AA 采样开始，以一定的步数为增量，对场景进行渐进渲染。在场景中所做的每个更改都会自动触发渲染更新。此行为可通过更改以下渲染视图选项进行修改：</p>
+<ul>
+<li><strong>“场景更新”(Scene Updates)</strong>可以禁用。这可以防止每次更改场景时都自动更新。用户随后可通过调用<strong>“渲染”(Render)</strong>来手动触发新渲染。</li>
+<li><strong>“逐步精细化”(Progressive refinement)</strong>可以禁用。这时会跳过中间步骤，直接以“最终”AA 质量渲染图像。</li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>禁用这两个选项后的行为与 Maya 的“渲染”(Render)命令相同。</p>
+
+</div></div>
+
+<h2 id="">操纵</h2><p>默认情况下，显示在渲染视图窗口中的图像可使用 Alt 键进行 2D 操纵（平移和缩放）：</p>
+<ul>
+<li>Alt + 鼠标左键可平移图像（使用鼠标中键也可平移）。</li>
+<li>Alt + 鼠标右键可放大/缩小。</li>
+</ul>
+<p>如果启用了<strong>“3D 操纵”(3D Manipulation)</strong>选项，则可使用 Alt 键在 3D 空间中移动渲染摄影机：</p>
+<ul>
+<li>Alt + 鼠标左键可旋转摄影机。</li>
+<li>Alt + 鼠标中键可平移摄影机。</li>
+<li>Alt + 鼠标右键可缩小/放大摄影机。</li>
+</ul>
+<h2 id="">区域渲染</h2><p>您可以使用<em>“裁剪区域”(Crop Region)</em>工具仅渲染特定区域。要启用此功能，可以访问菜单<em>“渲染 &gt; 裁剪区域”(Render &gt; Crop Region)</em>、按图标 <img src="../images/am-Arnold_RenderView_Window-image2019-11-22-14-5-10-2.png" alt="">，或者在按住 SHIFT 键的同时拖动区域。</p>
+<p><img src="../images/mtoa_renderview_3.png" alt=""></p>
+<p>选择相关区域后，“裁剪”选项处于禁用状态，这时在图像上点击会被视为“拾取”（请参见下面的部分）。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>要清除“裁剪区域”并渲染整个图像，请在“裁剪区域”(Crop Region)选项处于活动状态时单击窗口中的任意位置。您也可以单击裁剪区域旁边的小十字标记来清除该区域。</p>
+
+</div></div>
+
+<h2 id="">拾取</h2><p>您可以在渲染视图中“拾取”对象，这会在视口中选择可见几何体。执行此操作时，选定的几何体会在按下鼠标按钮期间在渲染视图中暂时亮显。</p>
+<p><img src="../images/mtoa_renderview_4.png" alt=""></p>
+<p><sub><strong>拾取几何体（面）将亮显它</strong></sub></p>
+<h2 id="">状态栏</h2><p>状态栏位于渲染缓冲区正下方，提供有关正在进行的渲染的信息。显示以前存储的快照时，则会显示有关相应以前渲染的信息。</p>
+<p><img src="../images/mtoa_renderview_5.png" alt=""></p>
+<ul>
+<li>如果使用<strong>“调试着色”(Debug shading)</strong>模式，将会显示调试模式（OCCLUSION、UV、NORMAL 等）。</li>
+<li>如果使用<strong>“隔离选定对象”(Isolate Selected)</strong>模式，则会显示选定节点的名称。“锁定选择”(lock selection) <img src="../images/am-Arnold_RenderView_Window-image2016-11-23-16-17-40-6.png" alt=""> 选项可用于隔离选定对象，该选项会忽略选定对象的更改。</li>
+<li>正在执行渲染时会显示<em>“正在渲染...”</em>(Rendering...)。</li>
+<li>渲染完成后会显示<strong>渲染时间</strong>。请注意，此渲染时间对应于最后一个 AA 步，即大致对应于在批处理模式下执行此渲染所需的渲染时间。</li>
+<li><strong>分辨率(Resolution)</strong>：宽度 x 高度。</li>
+<li><strong>缩放因子(Zoom factor)</strong>：50%、1:1、200% 等。</li>
+<li><strong>摄影机名称(Camera name)：</strong>显示正在渲染的摄影机的名称。</li>
+<li><strong>设备(Device)：</strong>使用 GPU 进行渲染时，显示“GPU”。使用 CPU 进行渲染时，不会显示任何内容（默认情况下）。</li>
+<li><strong>采样信息(Sampling info)</strong>：AA 采样数/GI 漫反射采样数/GI 镜面反射采样数/GI 透射采样数/GI SSS 采样数/GI 体积采样数。</li>
+<li><strong>内存使用量(Memory usage)</strong>：显示当前渲染使用的内存。  </li>
+</ul>
+<p>启用<strong>“显示像素信息”(Show Pixel Information)</strong>时，会显示以下相对于鼠标光标的附加字段信息：</p>
+<ul>
+<li><strong>像素“XY”</strong>对应于渲染图像中鼠标位置的坐标。</li>
+<li><strong>像素“RGBA”</strong>：Arnold 返回的鼠标光标下方的像素 RGBA 值。</li>
+<li><strong>亮度(Luminance)</strong>：Arnold 返回的鼠标光标下方的亮度值。</li>
+<li><strong>EV</strong>：Arnold 返回的鼠标光标下方的 EV 曝光值。</li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>禁用<em>“窗口 &gt; 状态栏 &gt; 显示状态栏”(Window &gt; Status Bar &gt; Show Status Bar)</em>可隐藏状态栏。</p>
+
+</div></div>
+
+<div class="head-block"><h1>菜单</h1></div><h2 id="file-a-href-arnoldrenderviewwindow-window-window-a-a-href-arnoldrenderviewwindow-view-view-a-a-href-arnoldrenderviewwindow-render-render-a">文件(File)<a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/rendering/ArnoldRenderViewWindow-Window">窗口(Window)</a> <a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/rendering/ArnoldRenderViewWindow-View">视图(View)</a> <a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/rendering/ArnoldRenderViewWindow-Render">渲染(Render)</a></h2><h2 id="file">文件(File)</h2><h2 id="save-image">保存图像(Save Image)</h2><p>将当前显示的图像保存到磁盘。根据格式，对图像进行颜色管理。例如，JPEG 是 sRGB，EXR 是线性。</p>
+<h2 id="exr-save-multi-layer-exr">保存多层 EXR(Save Multi-Layer EXR)</h2><p>将当前显示的图像连同多层 EXR 中的所有 AOV 保存到磁盘。</p>
+<h2 id="save-image-options">保存图像选项(Save Image Options)</h2><p>选择使用颜色管理和视图变换设置保存图像。</p>
+<h2 id="load-snapshot-image">加载快照图像(Load Snapshot Image)</h2><p>可以在快照库中加载已有图像以进行比较。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>如果未设置文件扩展名，则会将图像保存为 JPEG 格式。</p>
+
+</div></div>
+
+<h2 id="save-final-images">保存最终图像(Save Final Images)</h2><p>启用后，输出图像（包括 AOV）会在渐进渲染的每个最终步自动转储到文件。这些图像会根据渲染设置中的定义保存到相应文件夹。</p>
+<h2 id="arnold">导出 Arnold 场景</h2><p>导出当前场景的 .ass 文件。</p>
+<h2 id="window">窗口(Window)</h2><h2 id="display-settings">显示设置(Display Settings)</h2><p>在渲染视图窗口右侧的“显示设置”(Display Settings)面板中显示颜色校正设置。</p>
+<h2 id="pixel-information">像素信息(Pixel Information)</h2><p>显示有关鼠标光标下像素的信息。包括 XY 像素坐标以及渲染器（在应用颜色管理前）返回的 RGBA 输出值。</p>
+<h2 id="status-bar-show-status-bar">状态栏 &gt; 显示状态栏(Status Bar &gt; Show Status Bar)</h2><p>在渲染视图底部显示状态栏。此状态栏会显示一些有用的值，例如渲染时间、分辨率、采样值和内存使用量。</p>
+<h2 id="status-bar-display-pixel-information">状态栏 &gt; 显示像素信息(Status Bar &gt; Display Pixel Information)</h2><p>在状态栏中显示鼠标光标下方像素的信息。</p>
+<h2 id="frame-all">框选全部(Frame All)</h2><p>默认情况下，用户按 Alt 键可以在 2D 模式下操纵渲染视图（使用鼠标左键平移 2D 图像，使用鼠标右键或鼠标滚轮放大/缩小）。在此模式中，“框显全部”(Frame All)可调整显示的缓冲区，使其适应查看器大小。如果启用了“3D 操纵”(3D Manipulation)，用户执行的操纵将不再影响 2D 图像，而是在 3D 空间内移动摄影机。在此模式下，“框显全部”(Frame All)会移动摄影机，框显整个场景几何体，就像在视口执行此操作一样。</p>
+<h2 id="strong-frame-selection-strong"><strong>框显当前选择(Frame Selection)</strong></h2><p>默认情况下，用户按 Alt 键可以在 2D 模式下操纵渲染视图（使用鼠标左键平移 2D 图像，使用鼠标右键或鼠标滚轮放大/缩小）。在此模式中，“框显当前选择”(Frame Selection)可调整最终的“裁剪区域”(Crop Region)，使其适合查看器大小。如果没有裁剪区域处于活动状态，则此选项的行为与“框显全部”(Frame All)完全相同。如果启用了“3D 操纵”(3D Manipulation)，用户执行的操纵将不再影响 2D 图像，而是在 3D 空间内移动摄影机。在此模式下，“框显当前选择”(Frame Selection)会移动摄影机，框显所选的几何体，就像在视口执行此操作一样。</p>
+<h2 id="real-size">实际大小(Real Size)</h2><p>如果禁用了“3D 操纵”(3D Manipulation)（默认行为），“实际大小”(Real Size)会按照原始大小调整显示的缓冲区，而不考虑查看器大小。还可以使用工具栏中的“1:1”图标 <img src="../images/am-Arnold_RenderView_Window-image2016-11-23-16-45-28-7.png" alt="">。</p>
+<h2 id="d-3d-manipulation--3">3D 操纵(3D Manipulation)</h2><p>默认情况下，用户按 Alt 键可以在 2D 模式下操纵渲染视图（使用鼠标左键平移 2D 图像，使用鼠标右键或鼠标滚轮放大/缩小）。如果启用了“3D 操纵”(3D Manipulation)，用户执行的鼠标操纵将不再影响 2D 图像，而是在 3D 空间内移动摄影机。使用 Alt + 鼠标左键可旋转摄影机，使用 Alt + 鼠标中键可平移摄影机，而使用 Alt + 鼠标右键可进行放大和缩小（类似于视口）。</p>
+<h2 id="strong-toolbar-icons-strong"><strong>工具栏图标(Toolbar Icons)</strong></h2><p>用于选择在工具栏上显示哪些图标。</p>
+<p><img src="../images/mtoa_renderview_6.png" alt=""></p>
+<p><strong>使外部区域变暗(Darken Out-Of-Region)</strong></p>
+<p>使渲染区域以外的区域变暗。</p>
+<h2 id="show-render-tiles">显示渲染分片(Show Render Tiles)</h2><p>渲染时显示渲染分片的可见边。</p>
+<h2 id="mouse-centered-zoom">鼠标居中缩放(Mouse-centered Zoom)</h2><p>选择是否以鼠标光标为中心进行缩放（默认已启用）。</p>
+<h2 id="shape-picking">形状拾取(Shape Picking)</h2><p>选择单击查看器时是否选中形状（默认已启用）。</p>
+<h2 id="view">视图(View)</h2><h2 id="aov-enable-aovs">启用 AOV(Enable AOVs)</h2><p>渲染在“渲染设置”(Render Settings)中定义的任何 AOV。这些可以在渲染期间显示（请参见下文）。禁用此选项时无法在渲染视图窗口中拾取几何体。</p>
+<h2 id="aov">AOV</h2><p>“渲染设置”(Render Settings)中定义的 AOV 列表。此列表也会作为下拉菜单显示在工具栏中。您甚至可以在渲染期间更改显示的 AOV。</p>
+<h2 id="all-channels-red-green-blue-alpha-luma">所有通道(All Channels)、红色(Red)、绿色(Green)、蓝色(Blue)、Alpha、亮度(Luma)</h2><p>在渲染视图中显示所选的颜色通道。您可以使用工具栏图标在它们之间切换。还可以通过快捷菜单执行此操作。</p>
+<p><img src="../images/mtoa_renderview_7.png" alt=""></p>
+<h2 id="test-resolution">测试分辨率(Test Resolution)</h2><p>使用<em>“布满窗口”(Fit Window Size)</em>选项时，系统会根据窗口大小动态调整渲染分辨率，从而始终实现 1:1 显示比率。</p>
+<h2 id="store-snapshot">存储快照(Store Snapshot)</h2><p>将显示的图像存储在内存中。存储一个或多个快照后，工具栏上会显示一个滑块，供用户在这些快照之间导航。</p>
+<h2 id="previous-snapshot">上一个快照(Previous Snapshot)</h2><p>在之前存储的快照之间导航。“上一个”指的是之前的旧快照。</p>
+<h2 id="next-snapshot">下一个快照(Next Snapshot)</h2><p>在之前存储的快照之间导航。“下一个”指的是之后的快照。</p>
+<h2 id="delete-snapshot-del">删除快照(Delete Snapshot)(Del)</h2><p>删除当前快照。</p>
+<p><strong>快照文件夹(Snapshots Folder)</strong></p>
+<p>在磁盘上保存快照的快照文件夹。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>在 Arnold 渲染视图中按 S 热键，可以保存快照。按左右箭头键可在快照之间导航，按上下箭头键可在快照显示和实时渲染之间切换。 </p>
+
+</div></div>
+
+<p><img src="../images/mtoa_renderview_8.png" alt=""></p>
+<p><sub><strong>快照库，使用缩略图显示每个已存储快照。您还可以添加名称和注释。</strong></sub></p>
+<h2 id="">日志</h2><p>打开 <em>Arnold 渲染日志</em>窗口，您可在其中查看易读版本的 Arnold <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_render_settings_am_Diagnostics_html">日志</a>。</p>
+<h2 id="ipr-ipr-log-frequency">IPR 日志频率(IPR Log Frequency)</h2><p>允许您控制 IPR 会话期间<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_render_settings_am_Diagnostics_html">日志</a>的详细级别。默认情况下，<em>最后一个渐进式步</em>只会为最终步恢复场景详细级别。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关如何读取日志文件的信息，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_kick_am_How_to_Read_a_Render_Log_html">此处</a>。</p>
+
+</div></div>
+
+<p><img src="../images/mtoa_renderview_9.png" alt=""></p>
+<h2 id="">加速</h2><p>名为<em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Imagers_html">成像器</a></em> 的后期处理节点在输出驱动程序之前对像素进行操作。<em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Imagers_html">成像器</a></em> 可以链接在一起。</p>
+<p><img src="../images/mtoa_renderview_10.png" alt=""></p>
+<h2 id="display-settings">显示设置(Display Settings)</h2><p><img src="../images/mtoa_renderview_11.png" alt=""></p>
+<p>打开渲染视图窗口右侧的颜色校正面板，从中可使用各种选项来调整显示的像素颜色。</p>
+<ul>
+<li><p><strong>Gamma</strong>：使用简单的 Gamma 曲线调整显示的颜色。</p>
+</li>
+<li><p><strong>曝光(Exposure)</strong>：使用 F 制光圈调高或调低显示的图像的曝光度。</p>
+</li>
+<li><p><strong>视图变换(View Transform)</strong>：选择要在渲染视图中查看图像时应用的默认颜色变换。</p>
+</li>
+</ul>
+<p>以下内部场景窗户附近的过度曝光区域特别受益于色调映射。 </p>
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/mtoa_renderview_12.png" alt=""></td>
+<td><img src="../images/mtoa_renderview_13.png" alt=""></td>
+</tr>
+<tr>
+<td><em>无色调映射 (sRGB)</em> 视图变换</td>
+<td><em>Unity</em> 中性色调映射视图变换</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<p>渲染视图会根据 Maya 的“颜色管理”(Color Management)设置（包括默认使用的 SynColor 原生视图变换）来更新“视图变换”(View Transform)。但是，与其他 Maya 查看器一样，您仍可仅覆盖 ARV 中的视图变换。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>建议您使用 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_rendering_am_ACES_Workflow_html">ACES</a> 颜色管理。</p>
+
+</div></div>
+
+<h2 id="">背景</h2><p>有时可用来更改显示的渲染中背景像素的颜色。</p>
+<ul>
+<li><p><strong>背景颜色(BG Color)</strong>：应用纯色背景颜色。</p>
+</li>
+<li><p><strong>背景图像(BG Image)</strong>：显示背景图像或纹理。</p>
+</li>
+<li><p><strong>背景棋盘格(BG Checker)</strong>：显示棋盘格图案作为背景。</p>
+</li>
+<li><p><strong>颜色(Color)</strong>：应用纯色背景颜色。</p>
+</li>
+<li><p><strong>应用颜色管理(Apply Color Management)</strong>：将颜色管理设置应用于背景。</p>
+</li>
+</ul>
+<h2 id="foreground">前景(Foreground)</h2><p>在渲染视图窗口中应用前景图像。</p>
+<ul>
+<li><p><strong>启用前景(Enable FG)</strong>：显示/不显示前景图像。</p>
+</li>
+<li><p><strong>图像(Image)</strong>：前景图像的文件路径。</p>
+</li>
+<li><p><strong>缩放(Scale)</strong>：缩放前景图像。</p>
+</li>
+<li><p><strong>偏移(Offset)</strong>：为前景图像添加 2D 位置偏移。</p>
+</li>
+<li><p><strong>应用颜色管理(Apply Color Management)</strong>：将颜色管理设置应用于前景。</p>
+</li>
+</ul>
+<h2 id="pixel-information">像素信息(Pixel Information)</h2><p>在所有 AOV 上，显示鼠标光标下方像素的详细值。</p>
+<ul>
+<li><strong>像素“XY”</strong>：对应于渲染图像中鼠标位置的坐标。</li>
+<li><strong>形状(Shape)</strong>：鼠标光标下方形状的名称。</li>
+<li><strong>平均像素(Average Pixels)</strong>：周围像素的平均像素值。</li>
+<li><strong>RGBA</strong>：Arnold 返回的鼠标光标下方的 RGBA 值。</li>
+<li><strong>亮度(Luminance)</strong>：Arnold 返回的鼠标光标下方的亮度值。</li>
+<li><strong>HSV</strong>：Arnold 返回的鼠标光标下方的 HSV 值。</li>
+<li><strong>显示(Display)</strong>：鼠标光标下方的颜色校正值。</li>
+</ul>
+<p><img src="../images/mtoa_renderview_14.png" alt=""></p>
+<p><sub><strong>像素信息值</strong></sub></p>
+<h2 id="a-b">A B 比较工具</h2><p>允许您使用擦拭工具选择两个要比较的快照。选择单个快照时会将该快照与当前渲染进行比较。</p>
+<p><img src="../images/mtoa_renderview_15.png" alt=""></p>
+<p><sub><strong>A/B 比较工具（右键单击快照）</strong></sub></p>
+<h2 id="">渲染</h2><h2 id="ipr-run-ipr-space">运行 IPR (空格键)(Run IPR (Space))</h2><p>停止/启动渲染。</p>
+<h2 id="scene-updates">场景更新(Scene Updates)</h2><p>启用后，场景中发生任何更改时都会自动实时刷新渲染。如果禁用该选项，在场景中发生的更改将不会中断渲染，但仍可按“渲染”(Render)进行手动刷新。</p>
+<h2 id="refresh-render-f5">刷新渲染(Refresh Render)(F5)</h2><p>重新启动渲染。</p>
+<h2 id="abort-render-esc">中止渲染(Abort Render)(Esc)</h2><p>停止正在进行的渲染。</p>
+<h2 id="progressive-refinement">逐步精细化(Progressive Refinement)</h2><p>启用后，系统将从负 AA 采样开始逐步对场景进行采样，从而迅速获得反馈。如果禁用该选项，则只会渲染最终 AA 过程。</p>
+<h2 id="crop-region">裁剪区域(Crop Region)</h2><p>该选项允许您在渲染视图中拖动某个区域来执行区域渲染。启用该选项后，在渲染视图中选择几何体将不起作用。在渲染视图窗口中单击会清除裁剪区域。</p>
+<p>您也可以按住 SHIFT 键的同时在渲染视图中拖动选择某个区域，执行临时区域渲染。</p>
+<h2 id="update-full-scene">更新整个场景(Update Full Scene)</h2><p>允许您清除并重新生成整个 Arnold 场景。这可避免关闭并重新打开渲染视图。</p>
+<h2 id="ipr">IPR 停止时清除场景</h2><p>IPR 停止时清除整个 Arnold 会话。IPR 重新启动时，将从头开始转化整个场景（与<em>“更新整个场景”(Update Full Scene)</em>一样）。</p>
+<h2 id="camera">摄影机(Camera)</h2><p>显示场景中的摄影机列表（包括 Maya USD 摄影机），从而便于选择要用于渲染的摄影机。此列表也会作为下拉菜单显示在工具栏中。</p>
+<h2 id="ui-save-ui-threads">保存 UI 线程(Save UI Threads)</h2><p>允许您保存一个或多个线程，以免影响 UI 速度，从而改善交互体验。</p>
+<h2 id="debug-shading">调试着色(Debug Shading)</h2><p>使用各种调试着色模式临时替换应用于所有对象的着色。该选项仅用于交互式渲染，不会更改场景中的任何内容。</p>
+<ul>
+<li><p>禁用(Disabled)：使用在场景中指定的真实着色器进行渲染。</p>
+</li>
+<li><p>基本(Basic)：禁用场景中的所有着色器，并切换为灰色<em>“ndoteye”</em>着色器（一种快速着色模式）。</p>
+</li>
+<li><p>照明(Lighting)：使用白色的 Lambert 着色器渲染场景。</p>
+</li>
+<li><p>遮挡(Occlusion)：使用环境光遮挡着色。</p>
+</li>
+<li><p>线框(Wireframe)：将几何体显示为线框。</p>
+</li>
+<li><p>法线(Normal)：可视化法线向量（介于 0 和 1 之间，在切线空间中）。</p>
+</li>
+<li><p>UV：显示主 UV 集的坐标（红色=U，绿色=V）。</p>
+</li>
+<li><p>基本体 ID(Primitive ID)：根据每个基本体（三角形、曲线）索引显示随机颜色。</p>
+</li>
+<li><p>质心(Barycentric)：显示基本体内部的参数化坐标（三角形的质心、曲线段的参数化长度和宽度）。</p>
+</li>
+<li><p>对象(Object)：根据每个对象 ID 显示随机颜色。</p>
+</li>
+<li><p>隔离选定对象(Isolate Selected)：隔离渲染中的选定节点。您可以选择以下节点：</p>
+</li>
+</ul>
+<ul>
+<li><p>几何体(Geometry)：仅渲染选定的几何体；所有其他几何体都渲染为黑色蒙版。</p>
+</li>
+<li><p>材质(Materials)：仅渲染选定的材质；所有其他材质都渲染为黑色蒙版。</p>
+</li>
+<li><p>着色器：可以隔离着色器树中的任意单个着色器（工具、纹理、混合等）部分，并在渲染中显示最终输出。着色树不含隔离的着色器的任何几何体都会渲染为黑色蒙版。</p>
+</li>
+<li><p>灯光(Light)：隔离灯光意味着禁用所有其他灯光，让场景只被所选灯光照亮。</p>
+</li>
+</ul>
+<h2 id="mel">使用 MEL 脚本编辑渲染视图选项</h2><p>可在 Maya 中使用 MEL 脚本设置渲染视图选项。例如，<em>arnoldRenderView -opt "3D Manipulation" "1"。</em> 也可以编写以下脚本打开查看器而不触发渲染：<em>arnoldRenderView -mode open。</em></p>
+<p>“开-关”选项中可接受的值为“True”、“False”、“0”、“1”、“On”和“Off”。<br>对于不可检查的操作（例如渲染、中止等），任何值都会触发该操作。</p>
+<p>MEL 中的示例： </p>
+<pre class="pre codeblock"><code class="prettyprint">arnoldRenderView -opt "3D Manipulation" "1"
+arnoldRenderView -opt "AOVs" "indirect_diffuse"
+arnoldRenderView -opt "Camera" "perspShape"
+arnoldRenderView -opt "Run IPR" "False"
+arnoldRenderView -opt "Frame All" "1" // -&gt;the second argument doesn't matter
+arnoldRenderView -opt "Save Image (original)" "C:/tmp/happy.exr"
+arnoldRenderView -opt "Display Pixel Information" "True"
+arnoldRenderView -opt "Test Resolution" "50%"
+arnoldRenderView -opt "Debug Shading" "Occlusion"
+arnoldRenderView -opt "Show Debug Shading icon" "1"
+arnoldRenderView -opt "Crop Region" " 50 50 200 200" // minx miny maxx maxy </code></pre><p>对于“显示设置”(Display Settings)，要编辑在“颜色管理”(Color Management)组中找到的参数，必须添加<br>前缀“Color Management”。而对于在“背景”(Background)组中找到的参数，应添加前缀“Background”。 因此：</p>
+<pre class="pre codeblock"><code class="prettyprint">arnoldRenderView -opt "Color Management.gamma" "2.2"
+arnoldRenderView -opt "Color Management.Tonemap" "OCIO"
+arnoldRenderView -opt "Color Management.OCIO File" "/tmp/config.ocio"
+arnoldRenderView -opt "Background.BG" "BG Image"
+arnoldRenderView -opt "Background.Color" "0.1 0.2 0.4"
+arnoldRenderView -opt "Background.Image" "/tmp/image.###.jpg"
+arnoldRenderView -opt "Background.Scale" "1.5 1.2"
+</code></pre>
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>这些函数可以在打开渲染视图<strong>之前</strong>调用，而且会在之后自动应用。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/arnold_for_maya_rendering_html.html">渲染</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF">
+<meta name="language" content="CHS">
+<title>在 nCloth 曲面上创建头发</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>在 nCloth 曲面上创建头发 </h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__GUID-E044A3DA-C221-4975-AA9A-56C3FB521FA3">您可以组合使用 nHair 和 nCloth 对象以创建 hair-on-nCloth 模拟。可以使用网格的曲面 UV 集（<span class="ph uicontrol" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__GUID-8803FA19-F4C5-4F04-A80C-4B0A575C377A">“栅格”(Grid)</span>）或组件（<span class="ph uicontrol" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__GUID-820AED2C-8376-4892-8361-9CFF3E865178">“在选定点/面处”(At Selected Points/Faces)</span>）在变形 nCloth 网格的曲面上生成头发系统。头发系统输出可以是 NURBS 曲线、Paint Effects 或两者。 </p>
+<p class="p" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__GUID-2D294535-78FB-42D2-A22B-615F177AB8F8">为获得最佳效果，在 nCloth 曲面上创建 nHair 之前，将几何体转化为 nCloth 对象。Maya 会自动将 nHair 系统分配给与 nCloth 相同的 Nucleus 解算器，从而允许在对象之间进行双向交互。例如，这些交互可能是 nHair 曲线顺着 nCloth 曲面推动，而 nCloth 网格面和顶点逆着曲线推动，从而出现双向碰撞。 </p>
+<div class="fig fignone" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__FIG_5EB484388D2E41EA9C809DDB35EEC37A"><img class="image" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__IMAGE_35A340FD84184D30B3916B375F2252E2" src="../images/GUID-2D5FDA16-3F5B-4BD6-B95B-E799F0054E66.png"></div>
+<p class="p" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__GUID-FDFF2388-973F-4B9A-B4EA-44625F674F29">在 nCloth 对象上创建 nHair 时，Maya 会生成一个开始位置输出网格。头发系统毛囊将附加到该网格且其起始位置将通过 Nucleus 解算器计算得出，该解算器在模拟过程中会持续对毛囊位置进行求值。 </p>
+<div class="section" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__SECTION_2FA2CC428A1140EE86D3796CF01AB819"><h2 class="title sectiontitle">重要说明</h2>
+
+<p class="p" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__GUID-D6994EB1-6FDE-47B9-8047-6B0E021818B3">当您创建头发 nCloth 模拟时，请考虑以下事项： </p>
+
+<ul class="ul" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__UL_4D093C7E2A504E5BA1B3D186A2C37A34"><li class="li" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__LI_7D43C09D644A41868D7D6F286EEDB803">仅可将一个 nHair 系统添加到 nCloth 对象。 </li>
+<li class="li" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__LI_E7FAC576F5FC4D55A559E3E861EB57A9">当缓存模拟时，在 <span class="ph uicontrol" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__GUID-EFD60B81-0129-469B-A4CA-2EB044C3C2F7">hairSystemShape</span> 节点<span class="ph uicontrol" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__GUID-9535DDA7-407F-4E14-A47B-7FB2C6129DCA">“属性编辑器”(Attribute Editor)</span>中将<span class="ph uicontrol" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__GUID-2A21E436-0167-4814-980B-D0FF74079294">可缓存的属性(Cacheable Attributes)</span>设置为<span class="ph uicontrol" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__GUID-8CB5F45B-695B-4B22-9D02-D4BF4539C128">动力学状态(Dynamic State)</span>。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-CA11BEC0-9F81-4601-9589-B74A4433B729.htm">nHair 缓存属性</a>。 </li>
+<li class="li" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__LI_A4A0701F34F249CB93B93F8B38DF4D26"> 可通过选择<span class="ph uicontrol" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__GUID-E793EBB9-AF8F-4E66-8D93-81BDCD695B20">“创建 nCache 选项”(Create nCache Options)</span>窗口中的<span class="ph uicontrol" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__GUID-F197B558-1BFF-4060-B4DC-11798BE2E2FF">“每个对象一个文件”(One file per object)</span>将 nHair 和 nCloth 对象保存到单独的 nCache 文件中。 </li>
+<li class="li" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__LI_8A147FB903454606A062E3D7D34ECCB3">若要提高模拟结果，请增大 nCloth 对象的<span class="ph uicontrol" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__GUID-E6DDDC15-94FD-4BE5-AFC3-4FCB1BD22E8D">“质量”(Mass)</span>，使其大于 nHair 对象的<span class="ph uicontrol" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__GUID-062B441F-789B-44C2-A6C5-B30EDE770DF8">“质量”(Mass)</span>。 </li>
+</ul>
+
+</div>
+<div class="section" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__SECTION_3BEFAD903181402E8355C193E52A80E0"><h2 class="title sectiontitle">相关主题</h2>
+
+<ul class="ul" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__UL_7E0C9933847B43008A4920C2980C21FF"><li class="li" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__LI_A52A83F8A006498D9E3EC0F0FEBCB4C7">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-82804E62-708B-4AD9-BF44-83F528428CEB.htm">在曲面上创建 nHair</a>
+</li>
+<li class="li" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__LI_14085095BB194933B6C34D706D79DDB8">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-03659DBA-9BFC-477E-87A6-E2FB0DC79225.htm">使用 UV 集创建 nHair</a>
+</li>
+<li class="li" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__LI_D98447A30F474EDFA7B0B16C13A27422">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-1D3C2FAF-AE00-462B-AE87-80346336DADF.htm">在组件上创建 nHair</a>
+</li>
+<li class="li" id="GUID-C66EE4E7-2373-4EE5-972E-0D2539118CBF__LI_4CF64924A24141E98AFA9970430854F9">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-2C98E899-E94B-4EAD-81D7-C6C8BBAC68B1.htm">hairSystemShape</a>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-AB32EA9E-90CE-4272-B523-D326864E9638.htm">创建 nHair</a></div>
+</div>
+</div>
+
+</body>
+</html>

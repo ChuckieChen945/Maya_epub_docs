@@ -1,0 +1,116 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="核心配置">
+<meta name="modified" content="31/08/2022">
+<meta name="topicid" content="GUID-1565820B-A688-4063-B09B-BF3A320E58B3">
+<meta name="language" content="CHS">
+<title>编写自定义 GLSL 着色器：细分示例</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>编写自定义 GLSL 着色器：细分示例</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-F81BCCC5-A64E-4638-BA19-F16919829A06">若要编写自定义 GLSL 着色器，请将它另存为 <samp class="ph codeph" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-78E85EA3-4FE4-4E6D-B0E6-A3BA559E2081">.ogsfx</samp> 文件。有关如何编写 GLSL 着色器的示例，请参见 Maya 安装的 <samp class="ph codeph" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-BF8F8BDC-7745-4968-8A71-2EAE3D7D2AC8">..\presets\GLSL\examples</samp> 文件夹中的 <samp class="ph codeph" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-EFD6C057-5DD3-4C7B-9E58-46C6A82725F9">TessellationExample.ogsfx</samp> 文件。该示例演示了如何编写图形流水线中的细分控制着色器、细分求值着色器和几何体着色器。
+	 </p>
+<p class="p" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-6A7938ED-5F24-411D-93C0-E503B329F388">在此着色器中，定义了以下两种技术：主技术（它显示着色的视图）和线框技术（它显示说明细分的线框）。若要设置细分的内部级别和外部级别，可以在 <span class="ph uicontrol" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-F837C311-E4DB-4F54-8D1B-6CBB44000424">Viewport 2.0</span> 中调整 <span class="ph uicontrol" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-E9422377-4BF4-405B-BE98-77F757658862">“内部级别/100*100 像素”(Inner levels/100*100 pix)</span>（100 x 100 像素区域中的内部级别数）和<span class="ph uicontrol" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-33B55D52-74DD-47ED-AFE0-EF3B3C32CBE8">“外部级别/30 像素”(Outer levels/30 pix)</span>（每 30 像素分段的级别数）设置并查看效果。
+	 </p>
+<div class="section" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__SECTION_D696C8D67F3240A990C66D6C16FC425D"><h2 class="title sectiontitle">图形流水线的阶段</h2> 
+		 
+		<p class="p" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-6F030C58-0194-4196-978A-57EC4A0F557F">线框技术定义包括图形流水线的五个阶段，其顺序如下：
+		</p>
+ 
+		<ul class="ul" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__UL_C27B2003569C4798825AA907D411459A"><li class="li" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__LI_83EF764D7E2240CBA656B28ABA18F7BA">顶点着色器 
+		  </li>
+<li class="li" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__LI_4D23B9782B374C468F875209F69E54C2">细分控制着色器 
+		  </li>
+<li class="li" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__LI_FBF7F86A4FFD4026A475D68A45276B24">细分求值着色器 
+		  </li>
+<li class="li" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__LI_72D31BFB4B60432FAD38F560AEF1E928">几何体着色器 
+		  </li>
+<li class="li" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__LI_26D212CE098949E6B372495B95C39273">像素着色器 
+		  </li>
+</ul>
+ 
+	 </div>
+<div class="section" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__SECTION_F03F51085F26465FBF2078462482069E"><h2 class="title sectiontitle">细分着色器 </h2> 
+		 
+		<p class="p" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-59E0FEC2-5E5D-4BFF-991A-F3762671FC17">有关如何创建细分控制着色器（它通过操纵控制点 (cp) 生成输出面片，并计算细分级别）的示例，请参见 <samp class="ph codeph" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-B04DEF79-337C-4ECF-8759-7C2AA717A6CF">.ogsfx</samp> 文件中的 <samp class="ph codeph" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-37AC1B1A-428E-4E2E-A698-C26ED678DD4C">GLSLShader ShaderTessControl</samp> 部分。
+		</p>
+ 
+		<p class="p" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-DBB09887-B93E-46BE-A280-8C0EA09F4864">有关如何计算由基本体生成器生成的对应域的顶点的示例，请参见 <samp class="ph codeph" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-6791E458-8E09-4C95-A0DC-5195A1F427A9">.ogsfx</samp> 文件中的 <samp class="ph codeph" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-261DBA09-0C7B-4962-A107-241E2D03D166">GLSLShader ShaderTessEval</samp> 部分。
+		</p>
+ 
+		<p class="p" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-AEF4788C-A8BD-4527-AA5E-8D7BC1485430">在 Maya 中执行细分时，细分控制着色器和细分求值着色器要求输入采用 PNAEN18 格式。PNAEN18（使用相邻边法线的点-法线三角形）为具有如下数据的每个三角形创建索引：三角形的顶点索引以及三角形的相邻边和主要边的顶点索引。它为索引数组创建步幅 18。
+		</p>
+ 
+		<p class="p" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-D2F9C9BD-9D8B-4BCB-BB63-BFA251D957D2">有关 PNAEN 的详细信息，请参见<strong class="ph b" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-ABA10464-60B6-4310-9CCE-DCA7C50ABB9C"> Maya 开发人员帮助</strong>的<em class="ph i" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-50D98BEE-3AB0-4395-B778-834640CD616F">“Viewport 2.0 API”</em>部分中的<em class="ph i" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-9C90F676-FDAC-4EA4-AB4E-D6FEBD0605BA">“自定义着色器的几何数据”</em>。
+		</p>
+ 
+		<p class="p" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-519683FF-1410-4C3B-B360-347ABAAF8536">必须在技术定义中将输入缓冲区类型指定为 PNAEN18：
+		</p>
+ 
+		<pre class="pre codeblock">string index_buffer_type = "GLSL_PNAEN18";</pre>
+ 
+	 </div>
+<div class="section" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__SECTION_58A8F3CF3CEC4149A6E2972F2954CBE3"><h2 class="title sectiontitle">几何体着色器</h2> 
+		 
+		<p class="p" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-72B7C444-5B7C-4CDA-9CB3-E3A5BAE3E7F6">需要有几何体着色器，才能支持线框和细分。细分着色器所创建的新基本体由几何体着色器重新组合到三角形中，像素着色器随后将绘制这些三角形。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__SECTION_193F8E47A35248FAB4F148B0F45CE677"><h2 class="title sectiontitle">用于在您的技术中定义着色器的关键字</h2> 
+		 
+		<p class="p" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-B23EFE81-5E16-48F6-8D1B-881883CBF1D3">使用以下关键字可定义着色器：
+		</p>
+ 
+		<ul class="ul" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__UL_E8C55E28D24E463E8DAB98D9B7591879"><li class="li" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__LI_EFBF317682EE4E4C86A3065710ADE658">VertexShader 
+		  </li>
+<li class="li" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__LI_29917646418E45E7958C325A1FE4694C">TessControlShader 
+		  </li>
+<li class="li" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__LI_24B6D107F2634D5F908029428EB48675">TessEvaluationShader 
+		  </li>
+<li class="li" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__LI_73DD3CDE216E4DB1ABE3214183953979">GeometryShader 
+		  </li>
+<li class="li" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__LI_3BF61D6F65714EF98C5D313B5861C7EB">PixelShader 
+		  </li>
+</ul>
+ 
+		<p class="p" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-F6B94C58-8646-4232-B5A7-928B61FBC4E2">对于每个关键字，提供您的输入和输出参数并将关键字设置为着色器的名称，例如，如下所示：
+		</p>
+ 
+		<pre class="pre codeblock">VertexShader (in APPDATA, out SHADERDATA VS_OUT) = VS;
+TessControlShader (in SHADERDATA TCS_IN, out TCSDATA TCS_OUT) = ShaderTessControl;
+TessEvaluationShader (in TCSDATA TES_IN, out SHADERDATA2 TES_OUT) = ShaderTessEval;
+GeometryShader ( in SHADERDATA2 GEO_IN , out SHADERDATA2 GEO_OUT ) = GS_Wireframe;
+PixelShader (in SHADERDATA2 PS_IN, out pixelOut) = PS_Wireframe;</pre>
+ 
+		<p class="p" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-FD033264-A41C-4A12-8698-F0515EAEAE66">输入和输出参数可以是您在 <samp class="ph codeph" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__GUID-A03EA62B-2F77-4B9A-8D93-13CE14D27E52">.ogsfx</samp> 文件中定义的任何数据类型。
+		</p>
+ 
+	 </div>
+<div class="fig fignone" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__FIG_6FC686974CED4F62925593A346D56392"><img class="image" id="GUID-1565820B-A688-4063-B09B-BF3A320E58B3__IMAGE_D04AE82BC0B44C43AE337EA96396A3A0" src="../images/GUID-B6888C5A-42FC-455A-9BD8-8B3E4C5375F5.png"></div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-41D74556-0699-4F4E-8382-F9E69FBFC158.htm">创建和可视化 GLSL 着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

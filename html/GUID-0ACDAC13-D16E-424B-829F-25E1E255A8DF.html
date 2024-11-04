@@ -1,0 +1,350 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Interoperability">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF">
+<meta name="language" content="CHS">
+<title>FBX 转化支持</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>FBX 转化支持</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__WS1A9193826455F5FF6026605B1181237E9466F6C"> 以下部分将介绍 Maya FBX 插件如何转化 Maya 对象及其属性。 
+	 </p>
+<p class="p" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__WS73099CC142F48755141942F8122CDB42A51-771C">有关本版本转化支持的详细报告，请参见 <a class="xref" href="https://knowledge.autodesk.com/support/maya/learn-explore/caas/simplecontent/content/fbx-compatibility-charts.html" target="_blank">Maya 兼容性图</a>。FBX 兼容性图说明了从 Maya 导出并导入到 3ds Max、Mudbox 或 MotionBuilder 时，提供什么支持以及支持级别。 
+	 </p>
+<dl class="dl" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-9910EBEC-A6A0-409D-AEC3-8A7B2855F38F"><dt class="dt dlterm" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-2004D8C2-C81B-4301-A993-EB2A7A237A30">文件纹理、程序和贴图通道 
+		  </dt>
+<dd class="dd" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-3E78252A-90CE-4D74-82E5-F0CA2DC86CD1"> Maya FBX 插件支持几乎任何标准材质通道的纹理文件。只要映射到“颜色”、“凹凸贴图”和其他通道中的贴图不是程序贴图，则都可以平移到 FBX。 
+			 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__WS1A9193826455F5FF-2ADE9D9118A20D4F81-368" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">贴图通道 
+						</th>
+<th class="entry" valign="top" width="50%">支持 
+						</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">颜色 
+						</td>
+<td class="entry" valign="top" width="50%">受支持 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">透明度 
+						</td>
+<td class="entry" valign="top" width="50%">受支持 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">环境色 
+						</td>
+<td class="entry" valign="top" width="50%">受支持 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">白炽度 
+						</td>
+<td class="entry" valign="top" width="50%">受支持 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">凹凸 
+						</td>
+<td class="entry" valign="top" width="50%">受支持 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">漫反射 
+						</td>
+<td class="entry" valign="top" width="50%">受支持 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">余弦幂 
+						</td>
+<td class="entry" valign="top" width="50%">受支持 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">镜面反射颜色 
+						</td>
+<td class="entry" valign="top" width="50%">受支持 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">反射率 
+						</td>
+<td class="entry" valign="top" width="50%">受支持 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">反射的颜色 
+						</td>
+<td class="entry" valign="top" width="50%">受支持 
+						</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+			 <p class="p" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__WS1A9193826455F5FF-68BF0692116121B4410-74EB">Maya FBX 插件支持文件纹理贴图。如果使用的是 2D 或 3D 程序纹理，会先将其转化为文件纹理。 
+			 </p>
+ 
+			 <div class="note note" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__WS1A9193826455F5FF-68BF0692116121B4410-74E7"><span class="notetitle">注：</span>  导出时，Maya FBX 插件会忽略所有应用于不支持通道的贴图。 
+			 </div>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-58195483-95D7-4013-A565-AD1DBB0440CF">摄影机支持 
+		  </dt>
+<dd class="dd" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-8E7771CF-F87C-4651-A882-660AE48214C7"> 下表指明 Maya 和 FBX 文件格式处理摄影机的方式。 
+			 <dl class="dl" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-04149C55-15B5-4642-AE61-885E248A6845"><dt class="dt dlterm" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-79448ECF-405D-4CD7-9E70-AB1327B1595D">摄影机导出 
+				  </dt>
+<dd class="dd" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-B2FFD624-C1E5-440D-BA3C-59A874FE5B2A"> 下表列出了 Maya 摄影机，以及 FBX 文件格式在导出时处理它们的方式。 
+					 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__WS73099CC142F48755-3D114B751181C40F14B128D" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">在 Maya 中 
+								</th>
+<th class="entry" valign="top" width="50%">在 FBX 中的变化 
+								</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">摄影机 
+								</td>
+<td class="entry" valign="top" width="50%">不受关注的摄影机。 
+								</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">摄影机和目标 
+								</td>
+<td class="entry" valign="top" width="50%">受关注的摄影机。 
+								</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">摄影机、目标和上方向 
+								</td>
+<td class="entry" valign="top" width="50%">受关注的摄影机和上方向向量。 
+								</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">视角 
+								</td>
+<td class="entry" valign="top" width="50%">视野 FCurve。即使在将 FBX 文件导入到 3ds Max 中时更改了焦距值，视图也是一致的。 
+								</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">近/远剪裁平面 
+								</td>
+<td class="entry" valign="top" width="50%">支持近和远剪裁平面值，但不支持动画。 
+								</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">立体摄影机 
+								</td>
+<td class="entry" valign="top" width="50%">立体摄影机 
+								</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+					 <div class="note note" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__WS1A9193826455F5FF1DBC298511635BEA875-92A"><span class="notetitle">注：</span>  任何应用于 Maya 摄影机的<span class="ph uicontrol" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-FB9E0509-1D35-4FE6-9FD9-446BFD1F10D9">“上方向”(Up)</span>节点的动画将在导入到 3ds Max 中时烘焙到摄影机的旋转。 
+					 </div>
+ 
+				  </dd>
+<dt class="dt dlterm" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-62D69352-D951-4545-B22D-3B965FC5CB69">自定义摄影机导出 
+				  </dt>
+<dd class="dd" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-63BA61AA-ED5E-498A-9698-607A59F9C39F"> 
+					 <p class="p" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__WS73099CC142F48755-13B8418F12724676A532066"> 当 Maya FBX 插件导出自定义摄影机时，导出器将设置所有摄影机的<span class="ph uicontrol" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-B60175AD-9850-4745-9F4A-0794FE7CFBA4">“渲染图像大小”(Render Image Size)</span>和<span class="ph uicontrol" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-D4876D3E-8C3F-4E82-8A79-8EBF14CE8DFB">“像素纵横比”(Pixel Aspect Ratio)</span>。如果不存在自定义摄影机，则不会导出<span class="ph uicontrol" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-73DD3DAD-219A-491B-988E-8D43F3B1F4B7">“渲染图像大小”(Render Image Size)</span>和<span class="ph uicontrol" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-10C8D462-3C70-43B4-8866-E629775B13C0">“像素纵横比”(Pixel Aspect Ratio)</span>的值。 
+					 </p>
+ 
+					 <div class="note note" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__WS73099CC142F48755-13B8418F12724676A532068"><span class="notetitle">注：</span>  在导出到 FBX 中时，请确保您的自定义摄影机是场景中的当前摄影机，以便正确传送摄影机的<span class="ph uicontrol" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-566575B1-3252-483C-9E02-7656F3410D41">“渲染图像大小”(Render image Size)</span>和<span class="ph uicontrol" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-2048A298-FCD6-4A13-96DC-FE2B709D865C">“像素纵横比”(Pixel Aspect Ratio)</span>。 
+					 </div>
+ 
+				  </dd>
+<dt class="dt dlterm" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-A6AD789E-13DA-4D24-91BD-0FF3E3BB1898">摄影机导入 
+				  </dt>
+<dd class="dd" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-FB8EC055-ED78-4109-BDA5-7EE1AA7337B1"> 下表列出了 Maya 在导入时处理 MotionBuilder 摄影机的方式： 
+					 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__WS73099CC142F487551051018113CCCDB767-4AF2" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">在 FBX 中 
+								</th>
+<th class="entry" valign="top" width="50%">在 Maya 中的变化 
+								</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">自由摄影机 
+								</td>
+<td class="entry" valign="top" width="50%">摄影机 
+								</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">摄影机（具有关注的目标/对象） 
+								</td>
+<td class="entry" valign="top" width="50%">摄影机和目标 
+								</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">正交摄影机 
+								</td>
+<td class="entry" valign="top" width="50%">具有正交设置的摄影机。 
+								</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+				  </dd>
+<dt class="dt dlterm" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-E4DE3E5A-1489-461A-B7FB-1EE15FC46E2D">自定义摄影机导入 
+				  </dt>
+<dd class="dd" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-959B8432-A517-478D-9B22-849BF01FCFCB"> 当 Maya FBX 插件导入 Maya 和 3ds Max 的自定义摄影机时，应用于场景的<span class="ph uicontrol" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-AA138712-A472-47A6-A94A-DC09A053EBA5">“渲染图像大小”(Render Image Size)</span>和<span class="ph uicontrol" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-AF073D32-7AE5-4EBA-BDA4-370A5060882F">“像素纵横比”(Pixel Aspect Ratio)</span>由当前摄影机设置。即，其他摄影机的<span class="ph uicontrol" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-AE734673-71B8-4934-8FEE-ED212113CD64">“渲染图像大小”(Render Image Size)</span>和<span class="ph uicontrol" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-39FF5832-6796-42B7-934E-29BD447B5590">“像素纵横比”(Pixel Aspect Ratio)</span>会被忽略。如果当前摄影机不是自定义摄影机，则不会导入<span class="ph uicontrol" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-22C5DD8A-1431-460A-B296-B5F0B139C248">“渲染图像大小”(Render Image Size)</span>和<span class="ph uicontrol" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-EE524407-F3A1-46F7-9AAB-7E058A4159B4">“像素纵横比”(Pixel Aspect Ratio)</span>的值。 
+				  </dd>
+</dl>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-B15A6954-DEE3-49FB-9B70-5CF363A925DA">灯光支持 
+		  </dt>
+<dd class="dd" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-0134D58C-5FE6-4D2F-BAA8-0F7E3F65C7D3"> 下表列出了 Maya 的灯光，以及在将这些灯光导出为 FBX 文件格式并重新导入到 Maya 时，插件对其处理的方式： 
+			 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__WS73099CC142F48755-3D114B751181C40F14B1291" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">在 Maya 中 
+						</th>
+<th class="entry" valign="top" width="50%">重新导入回 Maya 中时 
+						</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">环境光 
+						</td>
+<td class="entry" valign="top" width="50%">点光源 
+						  <div class="note note" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-EB2835F2-51B3-4907-B3A7-DF214D3570CE"><span class="notetitle">注：</span> 将“可见性”(Visibility)值设置为禁用时，FBX 插件会将环境光导出为非活动的点光源。 
+						  </div>
+ 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">平行光 
+						</td>
+<td class="entry" valign="top" width="50%">平行光 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">聚光灯 
+						</td>
+<td class="entry" valign="top" width="50%">聚光灯 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">区域光 
+						</td>
+<td class="entry" valign="top" width="50%">区域光 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">体积光 
+						</td>
+<td class="entry" valign="top" width="50%">体积光 
+						  <div class="note note" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-9F3D00DD-6E36-47D4-B7D4-FAEB6002DBD2"><span class="notetitle">注：</span> Maya FBX 插件对体积光具有有限支持，可能会出现错误。 
+						  </div>
+ 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">点光源 
+						</td>
+<td class="entry" valign="top" width="50%">点光源 
+						</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		  </dd>
+<dt class="dt dlterm" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-CE5D9232-966E-4B6B-AB64-B1788CDF90E2">自定义属性 
+		  </dt>
+<dd class="dd" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-757FA67E-3164-4170-A526-51FD2160C9A9"> 由于在 FBX 文件中存在类型限制，因此将应用以下转化。 
+			 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__WS73099CC142F48755-3D114B751181C40F14B1294" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">从 Maya 导出 
+						</th>
+<th class="entry" valign="top" width="50%">在 FBX 中的变化 
+						</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">向量 
+						</td>
+<td class="entry" valign="top" width="50%">向量 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">布尔 
+						</td>
+<td class="entry" valign="top" width="50%">布尔 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">整数 
+						</td>
+<td class="entry" valign="top" width="50%">整数 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">字符串 
+						</td>
+<td class="entry" valign="top" width="50%">字符串 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">枚举 
+						</td>
+<td class="entry" valign="top" width="50%">枚举 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">浮点 
+						</td>
+<td class="entry" valign="top" width="50%">实数 
+						</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+			 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__WS73099CC142F48755-3D114B751181C40F14B1295" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">导入的 FBX 
+						</th>
+<th class="entry" valign="top" width="50%">在 Maya 中的变化 
+						</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">实数 
+						</td>
+<td class="entry" valign="top" width="50%">浮点 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">布尔 
+						</td>
+<td class="entry" valign="top" width="50%">布尔 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">整数 
+						</td>
+<td class="entry" valign="top" width="50%">整数 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">字符串 
+						</td>
+<td class="entry" valign="top" width="50%">字符串 
+						</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">向量 
+						</td>
+<td class="entry" valign="top" width="50%">向量 
+						</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+			 Maya FBX 插件支持应用于“材质”和“变换”节点的“附加属性”（或自定义属性）。 
+		  </dd>
+<dt class="dt dlterm" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-01FDBCE0-8A39-406C-A952-5C378F4A7047">“细节级别”组节点 
+		  </dt>
+<dd class="dd" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-74C6BC78-B603-4D62-BC59-3ADFC09BF208"> Maya FBX 插件支持 LOD（细节级别）组节点。详细信息请参见关于 LOD 组节点的 Maya 文档。 
+		  </dd>
+<dt class="dt dlterm" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-F8BF6EB7-9E23-44DC-A83D-7DA4D5110C1B">关节方向 
+		  </dt>
+<dd class="dd" id="GUID-0ACDAC13-D16E-424B-829F-25E1E255A8DF__GUID-149F4FAC-AC04-44EE-8C3D-AA1E76C937BB"> Maya FBX 插件在导出时将 Maya 关节方向转化为前期旋转。 
+		  </dd>
+</dl>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-8B49D591-3B68-4D6C-8ABA-10C19C8E51DC.htm">FBX 疑难解答和限制</a></div>
+</div>
+</div>
+
+</body>
+</html>

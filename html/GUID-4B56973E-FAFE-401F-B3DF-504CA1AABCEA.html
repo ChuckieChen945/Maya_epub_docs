@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA">
+<meta name="language" content="CHS">
+<title>创建 CgFX 着色器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>创建 CgFX 着色器</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-38A23F5C12A55EE7664-7E98"><p class="p">Cgfx 着色器基于传统技术，因此不再建议使用。请改用 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-BD177012-56E1-43D0-B7A5-F4B1A70EA846.htm">GLSL 着色器</a>。 
+	 </p>
+<p class="p">CgFX 着色器仅在<span class="ph uicontrol">“OpenGL - 旧版”(OpenGL - Legacy)</span>和<span class="ph uicontrol">“OpenGL - 核心配置(兼容性)”(OpenGL - Core Profile (Compatibility))</span>显示模式下受支持。请参见 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-BF017019-B89A-47F0-8AB5-106C058AB854#GUID-BF017019-B89A-47F0-8AB5-106C058AB854__SECTION_B04F0E5A1332417DA2CD3FE483F186D4">Viewport 2.0 渲染引擎</a>。 
+	 </p>
+<p class="li listintro" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511812357EFE-77CA">加载 CgFX 插件</p>
+<ol class="ol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511812357EFE-77CB"><li class="li" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511812357EFE-77C9">选择<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-B71F6288-53B1-4CF8-8D1E-5BD22163C22F">窗口 &gt; 设置/首选项 &gt; 插件管理器(Window &gt; Settings/Preferences &gt; Plug-in Manager)</span>。 
+		</li>
+<li class="li" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511812357EFE-77C7">在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-2CF7D90B-EF10-40D1-9129-9D401CCAB952">插件管理器(Plug-in Manager)</a>中加载该插件，然后单击 <span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-534A63FE-429F-4517-BA0A-EBFE8980072D">“关闭”(Close)</span>。 
+		</li>
+</ol>
+<p class="li listintro" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511812357EFE-77C3">创建<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-70B047E0-55E1-4524-8F1A-24696898EFD5">“CgFX 着色器”(CgFX Shader)</span>材质</p>
+<ol class="ol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511812357EFE-77C4"><li class="li" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511812357EFE-77C2">在<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-04D921B7-2735-498E-A9EB-74B99076E1CF">“Hypershade”</span>中，从<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-F9599E49-CD76-4655-94DB-4D7FA6B2CA6C">“Maya &gt; 表面”(Maya &gt; Surface)</span>列表中选择<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-5D8FA861-A0C4-401D-9CDD-DF761FF79A57">“CgFX 着色器”(CgFX Shader)</span>材质。 
+		  <p class="p" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511812357EFE-77C1"><span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-ED6A6B5C-3BA3-4736-AB11-C8BA41BF1EFA">“Hypershade”</span>中将出现新的着色材质，并且<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-C629EDFD-9749-4F5B-BE5E-7C3337E6A6DD">“属性编辑器”(Attribute Editor)</span>中将出现<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-A1B4031B-C859-46A8-8A95-4DAF83BE622C">“CgFXShader”</span>材质节点。 
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__FIG_AEF280E3E744452CB6D00D68EB94A058"><img class="image" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__IMAGE_DD8EFFC793BD44F59F49C4A2C892E65B" src="../images/GUID-14BCABC1-983B-4039-AE58-1596845E3FD2.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511812357EFE-77BF">在<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-B872488E-91F5-4658-AD61-3BA7281A39F7">“CgFX 着色器”(CgFX Shader)</span>部分中，键入需要使用的 <samp class="ph codeph" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-0985797D-E240-40EB-8B95-A35E2990570D">.cgfx</samp> 文件的路径，或浏览到 <samp class="ph codeph" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-463CAE49-193A-44AE-9BD5-C541B03527F4">.cgfx</samp> 文件。 
+		  <p class="p" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511812357EFE-77BE">一旦 <samp class="ph codeph" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-C73B6890-5D8E-4060-86D0-D4A658685215">.cgfx</samp> 文件连接到 CgFXShader 节点，插件会自动将属性（如果存在）加载至<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-77184088-EFD5-4DBB-AC78-B2BDAC9F30EC">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-FCF19B1F-ECB8-4040-A45D-8988A6FA13DC">“附加属性”(Extra Attributes)</span>部分中。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511812357EFE-77BD">打开<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-ABC761BE-3FE5-43FE-9B57-74EBE6DBE217">“附加属性”(Extra Attributes)</span>部分，然后根据需要调整任何属性。 
+		</li>
+<li class="li" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511812357EFE-77BC">将新的<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-9E6B741D-5057-4260-A304-A3C061F7851D">“CgFX 着色器”(CgFX Shader)</span>材质指定给场景中的对象。详细信息请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-D41AF807-F7CB-447E-BACC-7F0867C14E8D.htm">将现有材质指定给曲面</a>。 
+		</li>
+<li class="li" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511812357EFE-77BB">在场景视图中，打开<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-C6188583-EA9E-4880-AAE7-8D895FD94DD6">面板：“着色”(Shading)菜单</a>中的<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-1FA70FF0-BCBA-4D7E-BB00-AD2D6EECDCAC">“硬件纹理”(Hardware Texturing)</span>。 
+		</li>
+</ol>
+<div class="section" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511812357EFE-77BA"><h2 class="title sectiontitle">将放置添加到 CGFX 着色器</h2> 
+		 
+		<p class="p" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511812357EFE-77B9">由于 Cgfx 是一个使用可编程着色语言的节点，因此，Cgfx 着色器不会自动支持在 Maya（place2DTexture 节点或 place3DTexture 节点）内找到的纹理放置。使用此语言意味着无法从外部设定纹理变换。相反，它必须明确编码至着色器中。如果这类参数仅次于着色器中，则自动 UI 生成功能将创建 UI 元素。然后，您应将适当的属性从纹理放置节点连接到着色器内的属性。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS17956D7ADBC6E736-437B043A117AE33199A-7F64"><h2 class="title sectiontitle">重新加载、编辑并查看 CgFX 文件</h2> 
+		 
+		<p class="p" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511841AEFA9F11E1">在<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-5E12BEA4-8D90-4084-B252-918FC4BBE896">“cgfxShader”</span>节点的<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-3A4A9BD7-65D6-42F2-9046-08BA27E8E819">“属性编辑器”(Attribute Editor)</span>中，可以使用<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-C55A7A2E-D134-4D95-A3BD-49C11CE831C1">“重新加载”(Reload)</span>、<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-0207B6DA-5A9B-400D-A665-7199FE911A53">“编辑”(Edit)</span>和<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-160DD87C-D68B-48F1-9C4F-9450CEC2798A">“打开”(Open)</span>按钮来使用指定的 FX 文件。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__FIG_9C116784E7E74367A54EBF3124FA214D"><img class="image" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__IMAGE_C141D3B66DF34C1C96E240B009210236" src="../images/GUID-7CEC47E3-5052-43E4-BEC4-0F2EB0FFD6A1.png"></div>
+ <div class="section" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511812357EFE-7DDF-3781"><dl class="dl" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511812357EFE-7DDF-3781"><dt class="dt dlterm"> 
+		<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-FF772FC2-AC6A-4E18-8E24-68F7818EA47D">重新加载(Reload)</span> </dt>
+<dd class="dd" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-381799D411F6FB5AF159"> 
+		<p class="p" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511841AEFA9F11E4">从磁盘中重新加载指定的 CgFx 文件。 
+		</p>
+ </dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-3D5F6716-50DE-4BA0-A59F-C209EB9562B2">编辑(Edit)</span> </dt>
+<dd class="dd" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-381799D411F6FB5AF15A"> 
+		<p class="p" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511841AEFA9F11E6">在 Windows 的 Microsoft<span name="glyph_span">®</span> 记事本以及 Linux 的<samp class="ph codeph" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-EF0BCBB7-B463-423B-87FE-58ABD85DB980">vi</samp> 中，打开指定的 CgFx 文件进行编辑。根据需要编辑并保存文件。Maya 将自动重新加载 CgFx 文件。 
+		</p>
+ 
+		 </dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-D117A3CF-BDE9-495E-BB6F-53B7CAC01CC8">打开(Open)</span> </dt>
+<dd class="dd" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-381799D411F6FB5AF15B"> 
+		<p class="p" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__WS73099CC142F48755-3D114B7511841AEFA9F11E9">在 Windows 的记事本以及 Linux 的 <samp class="ph codeph" id="GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA__GUID-FD10087F-8C51-41E8-A632-A38A22E7EE92">vi</samp> 中，以只读格式打开指定的 CgFx 文件。 
+		</p>
+ 
+		 </dd>
+</dl>
+</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-47EBAC18-ADCA-42CF-AFA6-A4C571AA29A4.htm">编写 CgFX 着色器</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-BD4A13F2-C4C3-40D7-9C01-45BABEBE929B.htm">CgFX 着色器限制</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-651CFFC4-80BC-4B20-933A-744F20021DA5.htm">CgFX 着色器的纹理坐标系的方向</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31.htm">CgFX 着色器疑难解答</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5.htm">创建和渲染硬件着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

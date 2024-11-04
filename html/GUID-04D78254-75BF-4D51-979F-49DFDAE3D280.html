@@ -1,0 +1,175 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Basics">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280">
+<meta name="language" content="CHS">
+<title>使用脚本可视化元数据</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用脚本可视化元数据</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-819B1724-8D16-4EAA-9A3D-8ACDD0E362C1">在 <span class="ph uicontrol" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-9109368B-A74B-4DB8-973D-2770D10E8D80">Viewport 2.0</span> 中，可以可视化指定给多边形上的顶点、边、面和顶点面的元数据。另请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-80F3722D-2E2D-49CE-B8B3-854A8B76C6EF.htm">在 Viewport 2.0 中可视化元数据</a>。 
+	 </p>
+<p class="p" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-45D9E406-203E-4A0E-B9D1-82E2E169D5C2">按照这些准则，将元数据添加到对象的组件（在这种情况下为顶点），并使用 <samp class="ph codeph" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-E7D1C6D7-14FC-410D-8534-ADD3B8E4BFC9">showMetadata</samp> 命令可视化元数据。 
+	 </p>
+<p class="p" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-FF6A10E4-8A39-4398-8BFF-6437AD1FB344">使用 <samp class="ph codeph" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-03DE8EA8-17B3-42EE-8DDF-61D9431D0159">showMetadata</samp> 命令可视化元数据时，可以查看不同对象上的不同流/成员组合，但是每个对象上只有一个流/成员。例如，可以同时可视化 Object1 上的 StreamOne 和 Object2 上的 StreamTwo，但是无法同时可视化 Object1 上的 StreamOne 和 StreamTwo。 
+	 </p>
+<ol class="ol" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__OL_F56EDDF8F54A4744AF67CC52EF7BB969"><li class="li" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__LI_6C9806AFBDFD4BA2820917ED0B190D39"> 
+		  <p class="p" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-94075360-89FB-4F07-84FF-72650F39DCD5">若要将元数据添加到对象，请首先使用 <samp class="ph codeph" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-946A1EBA-3ED1-49D3-AC4E-756DF7638BB8">dataStructure</samp> 命令定义数据结构，使用 <samp class="ph codeph" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-706A2ACE-C7A4-424E-AE08-F52507246CE5">addMetadata</samp> 命令创建数据流并将它们附加到对象；例如，如下所示： 
+		  </p>
+ 
+		  <pre class="pre codeblock">// Define the data structure and create a data stream called StreamOne 
+dataStructure -format "raw" -asString "name=ColorStruct:float[3]=Color"; 
+addMetadata -streamName "StreamOne" -channelName "vertex" -structure "ColorStruct" smcPlaneShape smcPlane1Shape; </pre>
+ 
+		  <div class="note note" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-74460743-2835-46E9-BB3F-02AB27B81A37"><span class="notetitle">注：</span>  
+			 <p class="p" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-F479B003-F349-4630-862E-520F0D79E00E">不应将元数据添加到变形网格。 
+			 </p>
+ 
+			 <p class="p" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-8E4D9E96-6D2C-4BEB-8B6E-1E6CB2ADC91C">通常，更改 polyShape 的 inMesh 属性（即，polyShape 节点的输入属性）的拓扑的任何操作（例如，硬边修改）不会以相同方式修改传入的元数据，并且可能会导致意外的结果。 
+			 </p>
+ 
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__LI_CA806BEAA2F74B74AD5D7521E40B7801"> 
+		  <p class="p" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-50F0BD87-052A-4774-A271-A44F117A7E6A">使用 <samp class="ph codeph" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-B0C6E69A-0B1A-40EB-9D72-CF220EEA0472">editMetadata</samp> 命令将值指定给指定组件的元数据流。使用 <samp class="ph codeph" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-937DAB84-EF3A-40A4-8450-4C6934DA12DB">-value</samp> 标志定义流中的元数据值，并使用 <samp class="ph codeph" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-FD450E3B-7A93-48A9-A032-28EA12E98132">-index</samp> 标志指示要向其应用元数据的一个或多个顶点。 
+		  </p>
+ 
+		  <pre class="pre codeblock">// Set StreamOne values and assign StreamOne to specified vertices on smcPlaneShape
+editMetadata -streamName "StreamOne" -value 2 -value 0.5 -value 1 -index 1 smcPlaneShape; </pre>
+ 
+		  <div class="note note" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-5D946535-4FE9-4AC5-ADDD-80B998909122"><span class="notetitle">注：</span>  
+			 <p class="p" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-A7CC94E2-99BD-4CC8-99D1-804C7459E376">或者，也可以通过首先选择顶点，在顶点上指定元数据： 
+			 </p>
+ 
+			 <pre class="pre codeblock">select -r smcPlane.vtx[2:3];
+editMetadata -streamName "StreamOne" -value 2 -value 0.5 -value 1;</pre>
+ 
+			 <p class="p" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-65BE80FB-EDD9-4E33-90F4-E2E669B4CB1B">上述操作等效于: 
+			 </p>
+ 
+			 <pre class="pre codeblock">editMetadata -streamName "StreamOne" -value 2 -value 0.5 -value 1 -index 2 -index 3 smcPlaneShape;</pre>
+ 
+			 <samp class="ph codeph" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-6415E72C-65B3-40E6-B227-36611BA30E70"></samp> 
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__LI_A6D91A1C14744601B7D788108C0B1BA7">若要可视化元数据，请使用 <samp class="ph codeph" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-1007E840-5506-42F6-886E-7DB3B41E4F93">showMetadata</samp> 命令，并指示要显示的流、成员和成员的数据类型，使用 <samp class="ph codeph" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-799C7DFC-FD81-4512-B155-C2BABD2D7511">-Method</samp> 标志指示要用于显示元数据的模式。如果不指定模式，则使用颜色模式。 
+		  <pre class="pre codeblock">// Visualize StreamOne on smcPlaneShape
+showMetadata -stream "StreamOne" -member "Color" -dataType "float[3]" -method "string" smcPlaneShape;</pre>
+ 
+		</li>
+<li class="li" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__LI_85EF8D4075A04978B445DE1C8D019C3F">若要禁用可视化，请指定流名称并使用禁用标志。 
+		  <p class="p" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-980F3B15-0591-4B9D-8B1A-4FEAD913AA50">可以指定对象名称以仅在该对象上禁用可视化。如果不指定对象名称且在场景中未选择对象，则在指定流和成员的所有对象上都将禁用可视化。 
+		  </p>
+ 
+		  <pre class="pre codeblock">showMetadata -stream "StreamOne" -off -member "Color" -dataType "float[3]" smcPlaneShape;   </pre>
+ 
+		</li>
+</ol>
+<p class="p" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-5F9AF545-F6C7-419E-8DEA-E3374361F7AD">在下面提供的示例演示了如何将元数据的两个流（StreamOne 和 StreamTwo）附加到两个对象（smcPlane 和 smcPlane1）上的顶点，以及如何在 <span class="ph uicontrol" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-8C29B8C0-AEA2-4B58-A3ED-C1842936D0B6">Viewport 2.0</span> 中逐个可视化数据流。它以禁用可视化结束。 
+	 </p>
+<pre class="pre codeblock">// Start a new scene and create two cubes 
+file -new -f; 
+polyCube -n smcPlane -ch off; 
+pickWalk -d down; 
+move -r 1.5 0 0 ; 
+polyCube -n smcPlane1 -ch off; 
+pickWalk -d down; 
+
+
+// Define the data structure and create and attach the data streams to the two shapes 
+dataStructure -format "raw" -asString "name=ColorStruct:float[3]=Color"; 
+addMetadata -streamName "StreamOne" -channelName "vertex" -structure "ColorStruct" smcPlaneShape smcPlane1Shape; 
+addMetadata -streamName "StreamTwo" -channelName "vertex" -structure "ColorStruct" smcPlaneShape smcPlane1Shape; 
+
+
+// Assign metadata values to the two streams 
+editMetadata -streamName "StreamOne" -value 0.25 -value 1.25 -value 2 -index 1 smcPlaneShape; 
+editMetadata -streamName "StreamTwo" -value -2 -value -0.5 -value 2.5 -index 2 smcPlaneShape; 
+editMetadata -streamName "StreamTwo" -value -4 -value -0.5 -value 2.5 -index 3 smcPlaneShape; 
+editMetadata -streamName "StreamTwo" -value -1.25 -value -0.75 -value 3 -index 4 smcPlane1Shape; 
+editMetadata -streamName "StreamOne" -value 6 -value 2 -value 3.5 -index 5 smcPlane1Shape; 
+editMetadata -streamName "StreamOne" -value 2 -value 0.5 -value 1 -index 6 smcPlane1Shape; 
+
+
+// NOTE: By default, all streams are hidden. 
+// Activate visualization of "StreamOne" for one cube. Use color mode. 
+showMetadata -stream "StreamOne" -member "Color" -dataType "float[3]" -method "color" smcPlane1Shape;  
+
+// Metadata is now visible. 
+// Auto remap the data range of the values in the stream.
+showMetadata -stream "StreamOne" -member "Color" -dataType "float[3]" -method "color" -auto smcPlane1Shape;
+
+// Enable color interpolation to extrapolate color to the faces surrounding the vertices
+showMetadata -stream "StreamOne" -member "Color" -dataType "float[3]" -method "color" -interpolation true smcPlane1Shape;  
+
+// Activate visualization of "StreamOne" for the other cube. Use string mode.
+showMetadata -stream "StreamOne" -member "Color" -dataType "float[3]" -method "string" smcPlaneShape;  
+
+// Metadata is now visible on both cubes. 
+// Now, activate visualization of "StreamTwo" for the second cube. Use ray mode.
+showMetadata -stream "StreamTwo" -member "Color" -dataType "float[3]" -method "ray" smcPlaneShape; 
+
+// The rays appear too long. 
+// Scale the length using the rayscale flag.
+showMetadata -stream "StreamTwo" -member "Color" -dataType "float[3]" -method "ray" -rayScale 0.3 smcPlaneShape; 
+
+// The visible metadata has now changed, and you have now used all three methods of display. 
+// Deactivate the stream.  To turn off visualization on an object, specify the stream name and use the off flag. 
+showMetadata -stream "StreamTwo" -member "Color" -dataType "float[3]" -off smcPlaneShape;   
+
+// Now metadata is no longer visible on the second cube (smcPlaneShape)</pre>
+<p class="p" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-A1193D10-F1F1-490C-AD64-EABCA0E9CA67">在此示例中，在 smcPlaneShape 上以光线模式可视化 StreamTwo，其中<span class="ph uicontrol" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-7ED35252-3E1D-4A04-AFDC-79CB8301EC22">“光线长度比例”(Ray length scale)</span>设置为 0.3，而在 smcPlane1Shape 上以颜色模式可视化 StreamOne，其中数据范围自动重映射且颜色插值已启用。 
+	 </p>
+<div class="fig fignone" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__FIG_1A21E87A29474B5A954EE925799E5E3C"><img class="image" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__IMAGE_4A633A8960084251A0018AE71E070253" src="../images/GUID-B13FF740-389B-4682-9788-E6A586CC9EE5.png"></div>
+<p class="p" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-8480D530-B6B0-4CB1-8EB2-E4F915BEB091">有关可用于 <samp class="ph codeph" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-71FB7821-AD24-49C4-A7B7-DE7C91E2681A">showMetadata</samp> 命令的标志的详细信息，请参见技术文档的“MEL 命令和 Python 命令”部分。 
+	 </p>
+<p class="p" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-2D58F660-89FB-4507-86F2-5F0B5BB7F47F">使用此脚本方法，而不使用标记菜单或<span class="ph uicontrol" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__GUID-A0EBC437-E058-40E7-B44F-89B88533A5CF">“元数据可视化选项”(Metadata Visualization Options)</span>，只能同时可视化两个流。 
+	 </p>
+<div class="section" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__SECTION_E592244101134E45B8FCEBF388027D4A"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__UL_E9FDAAC0B8FB4903844A6932CF485CB6"><li class="li" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__LI_64F37D48FD9E4C83A032E5BC63C9079C"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-80F3722D-2E2D-49CE-B8B3-854A8B76C6EF.htm">在 Viewport 2.0 中可视化元数据</a> 
+		  </li>
+<li class="li" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__LI_5D4A2676E1554EE1B07B386C51AE0AEC"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05.htm">使用 MEL 脚本将元数据添加到网格</a> 
+		  </li>
+<li class="li" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__LI_D695F2EAD62B425783E3F2CE922DFEEE"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-006B5435-8732-4E1C-B014-AD6B2ECBA755.htm">在可视化元数据时将顶点颜色外推到面</a> 
+		  </li>
+<li class="li" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__LI_BAA1D26C7B834750ABF9B68DF8A1E1DD"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-E01081B5-72D1-453D-92CA-B1D01F753E94.htm">在可视化元数据时重新映射颜色范围</a> 
+		  </li>
+<li class="li" id="GUID-04D78254-75BF-4D51-979F-49DFDAE3D280__LI_276745A581B54FE8A5BC74881C7A7339"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-897320C1-8F40-4125-9C43-CBBDA1867447.htm">元数据可视化选项</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-8FE69AF2-B71A-4325-B391-C88E38D8DF02.htm">可视化元数据</a></div>
+</div>
+</div>
+
+</body>
+</html>

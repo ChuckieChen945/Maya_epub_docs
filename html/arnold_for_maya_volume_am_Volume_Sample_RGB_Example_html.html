@@ -1,0 +1,183 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_volume_am_Volume_Sample_RGB_Example_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_VOLUME_SAMPLE_RGB_EXAMPLE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 体积采样 RGB 示例 - Arnold for Maya">
+
+<title>体积采样 RGB 示例</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>体积采样 RGB 示例</h1></div><p><img src="../images/am-Volume_Sample_RGB_Example-anisotropy-minus0o5-700-1.jpg" alt=""></p>
+<p>在本教程中，我们将介绍如何使用体积采样 RGB 着色器彻底改变体积的外观，制作出具有浓厚油状烟雾外观的体积。此着色器与 <em>volume_sample_float</em> 着色器都具有后期制作样式属性，如<em>“对比度”(contrast)</em>和<em>“Gamma”</em>。这些属性对于“微调”体积外观非常有用。在此示例中，使用了体积采样 RGB 着色器将一个典型的火焰体积转化为看起来更像浓烟的体积。我们将使用 Houdini 的 Pyro FX 工具架中的一个默认火焰模拟，该模拟已作为体积 VDB 写入磁盘。</p>
+<p><strong>要下载对应的 VDB 文件，请单击</strong><a href="https://www.openvdb.org/download/" target="_blank">此处</a><strong>。</strong></p>
+<p><img src="../images/am-Volume_Sample_RGB_Example-volume-anim-2.gif" alt=""></p>
+<h2 id="">体积</h2><ul>
+<li>首先，创建一个体积 -<strong><em>“Arnold &gt; 体积”(Arnold &gt; Volume)</em></strong>。</li>
+<li>在体积的<strong>“文件名”(Filename)</strong>中，打开 VDB 文件。</li>
+<li>确保有一个“栅格”(Grids)字段，键入<strong><em>“density”</em></strong>。这是用来保存体积 VDB 的动态字段组的名称。</li>
+</ul>
+<h2 id="a-href-topicid-arnold_for_maya_volume_am_volume_sample_rgb_example_html-a"><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_volume_am_Volume_Sample_RGB_Example_html">标准体积</a></h2><ul>
+<li>创建一个<strong>标准体积</strong>着色器，并将其指定给该体积。将<strong><em>“散射颜色”(Scattering Color)</em></strong>更改为<strong>蓝色</strong>，并将<strong><em>“透明度颜色”(Transparency Color)</em></strong>更改为<strong>橙色</strong>。您可能要调整<strong><em>“散射强度”(Scattering Intensity)</em></strong>， 具体取决于场景照明。</li>
+<li>创建一个 <strong>VolumeSampleRGB</strong> 着色器，并将 <strong>VolumeSampleRGB</strong> 着色器的<strong>*“输出”(output)</strong>（MtoA 中的 R）<em>属性连接到 <em>standard_volume</em> 的**</em>“密度”(Density)***属性。</li>
+</ul>
+<p><strong>体积采样 RGB</strong></p>
+<ul>
+<li>现在，我们抛开技术上的细节，下面来体会使用体积采样 RGB 着色器的各种属性的乐趣。但是在继续操作前，必须确保在体积采样 RGB 着色器的“通道”(Channel)属性中输入单词<strong>“density”</strong>，否则在我们的体积中将看不到密度通道。</li>
+</ul>
+<p><img src="../images/am-Volume_Sample_RGB_Example-image2016-5-10-13-2-28-3.png" alt=""></p>
+<p><sub><strong>在“通道”(Channel)属性中输入“density”</strong></sub></p>
+<p>下面是其他一些更改 <em>volume_sample_RGB</em> 着色器属性的示例：</p>
+<h2 id="contrast">对比度(Contrast)</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/contrast_1.jpeg" alt=""></td>
+<td><img src="../images/contrast_2.jpeg" alt=""></td>
+<td><img src="../images/contrast_10.jpeg" alt=""></td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>10</td>
+</tr>
+</tbody></table>
+<h2 id="exposure">曝光(Exposure)</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/exposure_0.jpeg" alt=""></td>
+<td><img src="../images/exposure_1.jpeg" alt=""></td>
+<td><img src="../images/exposure_8.jpeg" alt=""></td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>8</td>
+</tr>
+</tbody></table>
+<h2 id="multiply">相乘(Multiply)</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/multiply_1_exposure_0.jpeg" alt=""></td>
+<td><img src="../images/multiply_10.jpeg" alt=""></td>
+<td><img src="../images/multiply_10.jpeg" alt=""></td>
+</tr>
+<tr>
+<td>1</td>
+<td>10</td>
+<td>25</td>
+</tr>
+</tbody></table>
+<h2 id="add">相加(Add)</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/add_minus5.jpeg" alt=""></td>
+<td><img src="../images/add_0.jpeg" alt=""></td>
+<td><img src="../images/add_5.jpeg" alt=""></td>
+</tr>
+<tr>
+<td>-5</td>
+<td>0</td>
+<td>5</td>
+</tr>
+</tbody></table>
+<p>此示例中使用的最终校正包括按下图所示调整<em>“Gamma”、“曝光”(Exposure)、“相乘”(Multiply)</em>和<em>“相加”(Add)</em>属性：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Volume_Sample_RGB_Example-image2016-5-10-13-3-2-16.png" alt=""></td>
+<td><img src="../images/am-Volume_Sample_RGB_Example-anisotropy-minus0o5-700-17.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong><em>volume_sample_rgb</em> 的最终属性</strong></sub></p>
+<h2 id="">体积光线深度</h2><p>增大 <em>volume_ray_depth</em> 也会极大影响体积外观。记得增大 <em>volume_samples</em> 数，以抵消产生的任何噪波。此示例中使用的 <em>volume_samples</em> 数为 6。</p>
+<p>增大 <em>volume_ray_depth</em> 时，可能需要降低场景照明的曝光，以抵消体积中因照明而额外产生的多次散射。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/volume-ray-depth-0.jpg" alt=""></td>
+<td><img src="../images/volume_indirect_6.jpg" alt=""></td>
+</tr>
+<tr>
+<td>0</td>
+<td>6</td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Volume_Tutorials_html.html">体积教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

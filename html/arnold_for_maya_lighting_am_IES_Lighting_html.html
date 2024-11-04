@@ -1,0 +1,303 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_lighting_am_IES_Lighting_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_IES_LIGHTING">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" IES 照明 - Arnold for Maya">
+
+<title>IES 照明</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+<div class="head-block"><h1>IES 照明</h1></div>
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/ies-lighting.jpg" alt=""></td>
+<td><img src="../images/wire.jpg" alt=""></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<p>本教程介绍如何准确地复制一家<a href="http://www.astrolighting.co.uk" target="_blank">灯具公司</a>的一款真实灯具（使用光度学灯光）。这款特定的灯具由顶部和底部 LED 板中的 24 个点光源 (14w LED) 组成。</p>
+<p><strong>要下载对应的场景文件和 IES 文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/IES_RIO_light.zip" target="_blank">此处</a>。请注意，您必须为每个光度学灯光打开 IES 文件。</strong></p>
+<h2 id="strong-ies-strong"><strong>IES 文件</strong></h2><p>可以使用光度学灯光查看器（例如 <a href="http://www.visual-3d.com/tools/photometricviewer/" target="_blank">http://www.visual-3d.com</a> 上提供的查看器）来查看上面链接中提供的 IES 文件。它会以图表的形式显示 IES 文件，使之更易于理解：</p>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/ies-profile-iso.jpg" alt=""></td>
+<td><img src="../images/isolux.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><sub><strong>使用 MtoaA 渲染 IES 灯光剖面（左）以及使用光度学灯光查看器查看 IES 文件（右）。</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li>首先，创建一个光度学灯光，并将其放置在 LCD 板上方最左边的 LCD 孔上面。</li>
+<li>复制灯光，从而使一行中有 24 个灯光。复制整行灯光并旋转，使它们朝向下方，如下图所示。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/light-board-lights.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>每行 24 个光度学灯光</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<h2 id="strong-strong"><strong>色温</strong></h2><p>灯具颜色的一个方面是它的颜色外观，也就是它的灯光看起来是“暖色调”还是“冷色调”，这是通过相关色温 (CCT) 来衡量的。暖色调灯具的 CCT 为 2700-3000 K，通常视为更适合家用。4000 K 或更高 CCT 的灯具会被视为“冷色调”，更适合于办公室和某些零售应用。这款特定灯具的色温按灯具制造商所标注为 4500 K。</p>
+<ul>
+<li>使用“属性总表”(Attribute Spread Sheet)窗口同时更改所有灯光的 MtoA 属性。请务必选择形状节点来查看 MtoA 属性（使用向下键 (pickWalkDown) 选择形状节点）。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-IES_Lighting-image2013-7-16-17-31-22-6.png" alt=""></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<h2 id="">照明</h2><p>我们可以通过光源来更改灯光的曝光。但是，如果场景渲染为 32 位 EXR 图像，使用后期处理软件调整曝光会更简单。</p>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-IES_Lighting-exposure-master-8.gif" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>在后期处理软件中修改灯光的曝光</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<p>通过对图像进行色调映射，可以进一步减少墙上过度曝光的区域。此举也有助于减少墙上明亮区域中的噪波。</p>
+<ul>
+<li>将场景渲染为 32 位 EXR。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-IES_Lighting-before-tone-mapping-9.png" alt=""></td>
+<td><img src="../images/am-IES_Lighting-after-tone-mapping-10.png" alt=""></td>
+</tr>
+<tr>
+<td>色调映射之前</td>
+<td>色调映射之后</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<h2 id="">间接照明</h2><p>减少光度学灯光的间接照明量是减轻噪波、缩短渲染时间的一种方法。但是，如下图所示，这样做会减少场景中的反弹光，从而导致丢失一些细微的细节。</p>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-IES_Lighting-indirect-0-11.jpg" alt=""></td>
+<td><img src="../images/am-IES_Lighting-indirect-1-12.jpg" alt=""></td>
+</tr>
+<tr>
+<td>间接(Indirect)：0</td>
+<td>间接(Indirect)：1</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<h2 id="">漫反射采样数</h2><p>光度学灯光距离灯具和墙体都非常近，可以看到在明亮区域中存在一些噪波。增加光度学灯光的采样数并不能减少噪波。增加 GI 漫反射采样数可以减少噪波，但会增加渲染时间。</p>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-IES_Lighting-gi-diffuse-4-13.jpg" alt=""></td>
+<td><img src="../images/am-IES_Lighting-gi-diffuse-2-14.jpg" alt=""></td>
+</tr>
+<tr>
+<td>4</td>
+<td>2</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<p>有关对光度学灯光使用 IES 文件的教程到此结束。您还可以尝试使用其他灯具制造商（例如 <a href="http://www.erco.com/products/download/others/downloaddaten-3992/en/dltut-1.php?aktion=nop&amp;sprache=en&amp;dir=40_planning_luminaire/25_ies/00005_complete" target="_blank">Erco</a>、<a href="http://www.lamp.es/en/catalog" target="_blank">Lamp</a>、<a href="http://www.osram.com/osram_com/tools-and-services/tools/dialux-and-relux/index.jsp" target="_blank">Osram</a> 和 Philips）的 IES 文件进行测试。</p>
+
+<div class="tablenobordernocolor gallery thumbnail-500">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-IES_Lighting-ies-2k-15.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>更多示例</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+
+
+
+<p><sup><sub><em><span style="color: rgb(68,68,68);"><span style="color: rgb(0,0,0);">非常感谢 </span><a class="external-link" href="http://www.astrolighting.co.uk/" rel="nofollow" target="_blank">Astro Lighting </a><span style="color: rgb(0,0,0);"> 提供 IES 文件和 RIO 灯光模型。</span></span><span style="color: rgb(68,68,68);"></span></em></sub></sup></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Lighting_html.html">照明</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-674F6836-1A54-45CB-B670-65E81748971E">
+<meta name="language" content="CHS">
+<title>使用基于物理的 Stingray 着色器创建双面材质</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-674F6836-1A54-45CB-B670-65E81748971E">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用基于物理的 Stingray 着色器创建双面材质</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__GUID-F67A5884-D636-46DB-A4D5-31823371AA5B"> 使用 <span class="ph uicontrol" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__GUID-C32B833F-4BA5-45D9-A135-93B7E552D0E9">Stingray PBS</span> 创建双面材质时，必须同时在对象的形状节点上和 <span class="ph uicontrol" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__GUID-8ECA52BF-AB2F-4A10-B282-C6AD5FA760F1">Stingray PBS</span> 的<span class="ph uicontrol" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__GUID-D800A3E4-6028-4F34-B217-65C523295051">“标准基础”(Standard Base)</span>节点上启用<span class="ph uicontrol" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__GUID-ADDADB44-96B0-4099-AEF6-8A6A50F2A4D2">“双面”(Double Sided)</span>属性。这样可确保对象使用 Maya 中的正确照明进行渲染。如果只启用前者，则照明对着色器可能不正确。 
+	 </p>
+<p class="p" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__GUID-0CE43AB9-FD35-46FB-AF9A-CFE53E23C848">将 <span class="ph uicontrol" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__GUID-DFD603C7-10FF-4567-8655-737F49FFFF43">Stingray PBS</span> 材质指定给对象后，执行以下操作： 
+	 </p>
+<ol class="ol" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__OL_A2E9FDBBC48F4D188B3915CB4E63DC46"><li class="li" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__LI_E2118424703645259DC139C8DC573414">选择对象。在<span class="ph uicontrol" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__GUID-B7BAD969-CC39-407F-ACC4-9F8B1A5074EF">属性编辑器</span>中，选择对象的形状节点，并确保已启用<span class="ph uicontrol" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__GUID-7D7D823E-05C1-4C2B-B0DC-66142EABB2B3">“双面”(Double Sided)</span>。 
+		</li>
+<li class="li" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__LI_FF1C914FDF0F4255994E717244FAC7AF">在 <span class="ph uicontrol" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__GUID-53D593C3-9A17-4367-A4F7-C4C689152D5D">Stingray PBS</span> 节点<span class="ph uicontrol" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__GUID-2FA8228D-4B95-4F80-BAA4-DC9463FEFFBC">属性编辑器</span>中，单击<span class="ph uicontrol" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__GUID-217F73B8-E3B8-4565-86A7-BA9044B3E6A9">“打开 ShaderFX”(Open ShaderFX)</span>以打开 ShaderFX 编辑器。 
+		</li>
+<li class="li" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__LI_2BC59BDCF82547888B3C1FA64214ABAC">选择<span class="ph uicontrol" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__GUID-4727EF9B-DB4C-423D-95FD-F17408BB995D">“标准基础”(Standard Base)</span>节点。 
+		  <p class="p" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__GUID-04609D4B-1DF1-4B36-BE9F-210DCD498C4B">在<span class="ph uicontrol" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__GUID-EF63C742-F7C6-43F7-AACE-FC24B73087F5">属性编辑器</span>中，选择<span class="ph uicontrol" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__GUID-C641415A-630C-47B2-9D7D-E4400DEE73D5">“双面”(Double Sided)</span>。 
+		  </p>
+ 
+		   
+		</li>
+</ol>
+<div class="fig fignone" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__FIG_7F5C7A1739C64C15B2DF9225F3245575"><img class="image" id="GUID-674F6836-1A54-45CB-B670-65E81748971E__IMAGE_A4A9510594F94F48A1334A88426DBBEB" src="../images/GUID-429BD3A1-115E-4592-83F2-73535CAF2DCC.png"></div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3.htm">创建基于物理的 Stingray 着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

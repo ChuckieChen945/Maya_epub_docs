@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31">
+<meta name="language" content="CHS">
+<title>获取和设定多值属性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>获取和设定多值属性</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__WS73099CC142F48755-3D114B7511841AEFA9F-888"> 某些节点具有包含多个值的属性。Maya 存储值的方式并不与 MEL 数据类型相对应。</p>
+<p class="p" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__WS73099CC142F48755-3D114B7511841AEFA9F-884">例如：</p>
+<ul class="ul" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__WS73099CC142F48755-3D114B7511841AEFA9F-883"><li class="li" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__WS73099CC142F48755-3D114B7511841AEFA9F-882"> 曲线形状节点具有 <samp class="ph codeph" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__GUID-CB1C0F69-1474-4C5D-9621-F0BD1562DB3C">cv</samp> 属性，该属性包含多个代表 CV 位置的多值。</li>
+<li class="li" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__WS73099CC142F48755-3D114B7511841AEFA9F-880"> 曲面形状节点具有 <samp class="ph codeph" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__GUID-DEEC9175-9827-44DD-B501-0040B1810829">cv</samp> 属性，该属性包含两个维度的多值，代表沿 U 和 V 方向的 CV 位置。</li>
+<li class="li" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__WS73099CC142F48755-3D114B7511841AEFA9F-87E"> 变换节点具有 <samp class="ph codeph" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__GUID-59DE08FE-C63F-40D9-818A-D1CAB378C45A">translate</samp> 属性，该属性包含 X、Y 和 Z 的多个值（镜像 <samp class="ph codeph" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__GUID-34ABA62E-1AB9-47CD-B27A-CCD865F0F3B3">translateX</samp>、<samp class="ph codeph" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__GUID-C0AE472A-8F88-444E-9B93-85DF63F4575A">translateY</samp> 和 <samp class="ph codeph" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__GUID-5C27F73F-052C-4590-9F6A-C5C3155DBC37">translateZ</samp> 属性）。</li>
+</ul>
+<p class="p" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__WS73099CC142F48755-3D114B7511841AEFA9F-87C">在联机节点文档中，会将这些属性的类型作为类似于 <samp class="ph codeph" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__GUID-A276A2A1-7974-4AC9-9F8F-CC94D59FB3D6">3float</samp> 的内容列出，指示该属性存储 3 个浮点值。</p>
+<div class="section" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__WS73099CC142F48755-3D114B7511841AEFA9F-87B"><h2 class="title sectiontitle">获取多值</h2>
+
+<p class="p" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__WS73099CC142F48755-3D114B7511841AEFA9F-87A">与从数组获取单个元素的方式类似，可以使用索引从多值属性获取单个值：</p>
+
+<pre class="pre codeblock">
+getAttr nurbsSphere2.translate[1];
+getAttr nurbsSphereShape2.cv[0][2];
+</pre>
+
+<p class="p" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__WS73099CC142F48755-3D114B7511841AEFA9F-879">也可以将多个值指定给数组：</p>
+
+<pre class="pre codeblock">
+// Put the three values in the translate
+// attribute in an array:
+float $trans[] = getAttr("nurbsSphere2.translate");
+// Result: -2.76977 0 0 //
+// Put the X, Y, and Z positions of cv #1 of curveShape1
+// in an array:
+float $cvXYZ[] = getAttr("curveShape1.cv[1]");
+// Result: -2.367282 0 2.491355 //
+// Put the X, Y, and Z positions of cv U=1,V=2
+// of nurbsSphereShape2 in an array:
+float $cvXYZ_2[] = getAttr("nurbsSphereShape2.cv[1][2]");
+// Result: -2.367282 0 2.491355 //
+</pre>
+
+</div>
+<div class="section" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__WS73099CC142F48755-3D114B7511841AEFA9F-878"><h2 class="title sectiontitle">设定多值</h2>
+
+<p class="p" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__WS73099CC142F48755-3D114B7511841AEFA9F-877">如上所示，虽然可以作为一个数组一次获取所有多值，但是反过来则行不通：不能将数组指定给多值属性：</p>
+
+<pre class="pre codeblock">
+setAttr("nurbsSphere2.translate",{1.0, 1.2, 3.4});
+// ERROR
+</pre>
+
+<p class="p" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__WS73099CC142F48755-3D114B7511841AEFA9F-876">可以改为将多个参数传递给 setAttr：</p>
+
+<pre class="pre codeblock">
+setAttr("nurbsSphere1.translate", 1.0, 1.2, 3.4);
+setAttr("curveShape1.cv[1]", 1.0, 1.2, 3.4);
+setAttr("nurbsSphereShape1.cv[1][2]", 5.5, -2.3, 0);
+</pre>
+
+<p class="p" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__WS73099CC142F48755-3D114B7511841AEFA9F-875">若要仅更改一个多值的一部分，可以将多值放到一个数组中，然后修改数组的内容，并将这些内容放回到多值属性中：</p>
+
+<pre class="pre codeblock">
+// Change only the second part of the translate multi-value
+float $trans = getAttr("nurbsSphere.translate");
+$trans[1] += 2;
+setAttr("nurbsSphere.translate",$trans[0],$trans[1],$trans[2]);
+</pre>
+
+<p class="p" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__WS73099CC142F48755-3D114B7511841AEFA9F-874">但是，实际不会出现这种情形，因为多值属性具有单一等效项（如 <samp class="ph codeph" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__GUID-942A48C0-5197-4589-A650-42784D46FED1">translate</samp> 以及 <samp class="ph codeph" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__GUID-8857773C-7D0C-4032-9206-045A87733C98">translateX</samp>、<samp class="ph codeph" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__GUID-3D7101B0-985B-457D-8389-44D5BDE456B8">translateY</samp> 和 <samp class="ph codeph" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__GUID-E2FF8F64-C265-4687-980A-C2FEDE31C360">translateZ</samp>）以及一个简单的等效命令，在这种情况下：</p>
+
+<pre class="pre codeblock">
+move -relative 0 2 0 "nurbsSphere1";
+</pre>
+
+</div>
+<div class="section" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__WS73099CC142F48755-3D114B7511841AEFA9F-873"><h2 class="title sectiontitle">通配符</h2>
+
+<p class="p" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__WS73099CC142F48755-3D114B7511841AEFA9F-872"> 可以在多值属性上的索引中使用字符串“*”来代表每个值。</p>
+
+<p class="p" id="GUID-EB7F691F-152C-4DFD-B991-5738A8308E31__WS73099CC142F48755-3D114B7511841AEFA9F-870">例如：</p>
+
+<pre class="pre codeblock">
+// Get the translation of every CV along U=1
+getAttr nurbsPlaneShape1.cv[1]["*"];
+// Result: 0 0 0 0 0.456295 0 0 0.456295 0 0 0 0 //
+// Get the translation of every CV.
+getAttr nurbsPlaneShape1.cv["*"]["*"];
+// Result: 0 -0.520965 0 0 0 0 0 0 0 0 -0.520965 0 0 0 0 0 0.456295 0 0 0.456295 0 0 0 0 0 0 0 0 0.456295 0 0 0.456295 0 0 0 0 0 -0.520965 0 0 0 0 0 0 0 0 0.702647 0 //
+// Select every CV of a surface:
+select -r nurbsSphere1.cv["*"]["*"];
+// Select every CV of a curve:
+select -r curve1.cv["*"] ;
+</pre>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-A6DE9BA5-F66C-48E1-9BF8-56757AFC7203.htm">属性</a></div>
+</div>
+</div>
+
+</body>
+</html>

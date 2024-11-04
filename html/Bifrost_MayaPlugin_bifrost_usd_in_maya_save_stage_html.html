@@ -1,0 +1,61 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-MayaPlugin">
+  <meta name="topicid" content="Bifrost_MayaPlugin_bifrost_usd_in_maya_save_stage_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>将 Bifrost-USD 后台文件保存到文件中</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>将 Bifrost-USD 后台文件保存到文件中</h1></div><p>使用 <code>save_usd_stage</code> 节点可将 Bifrost 后台文件的所有修改层保存到 USD 文件中，包括根层和任何子层。</p>
+<ol>
+<li>将 <code>save_usd_stage</code> 节点添加到图表。通常，应当在修改后台文件的最后一个节点和位于图表顶层的 <code>output</code> 节点之间连接，除非您有意要保存来自更上游的后台文件版本。<ul>
+<li>连接后台文件，以保存到 <code>stage</code> 输入。</li>
+<li>将 <code>out_stage</code> 端口连接到图表顶层的 <code>output</code> 节点，或连接到其下游的任何其他节点。</li>
+</ul>
+</li>
+<li>如果需要，在 <code>file</code> 中输入文件位置和名称，以覆盖后台文件的文件路径。如果为空，则使用 <code>create_usd_stage</code> 节点的 <code>layer</code> 参数或 <code>open_usd_stage</code> 节点的 <code>save_file</code> 参数中的路径和文件名保存后台文件。</li>
+<li>建议启用 <code>relative_path</code>。这会将对后台文件子层的引用存储为相对于根层文件位置的路径，从而更容易将所有层文件一起移动或复制。</li>
+<li>此外，建议取消选中 <code>enable</code>，以避免在修改图表时持续重新保存，除非您要执行简单测试并希望在外部文本编辑器中实时查看更新。 <ul>
+<li>准备好保存层之后，请打开 <code>Enable</code>，然后再次关闭。</li>
+<li>或者，可以连接图表中的 <code>enable</code> 端口，以便在满足特定条件时自动保存。</li>
+</ul>
+</li>
+</ol>
+<p>作为 <code>save_usd_stage</code> 的替代方案，您还可以使用 <code>export_stage_to_file</code>。此节点可以展平组合的后台文件。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-MayaPlugin/files/Bifrost_MayaPlugin_bifrost_usd_in_maya_html.html">Maya 中的 Bifrost-USD</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

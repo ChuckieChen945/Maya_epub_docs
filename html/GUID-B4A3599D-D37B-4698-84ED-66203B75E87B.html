@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-B4A3599D-D37B-4698-84ED-66203B75E87B">
+<meta name="language" content="CHS">
+<title>噪波表达式示例</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-B4A3599D-D37B-4698-84ED-66203B75E87B">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>噪波表达式示例</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p">除了在此处提供的表达式示例，您还可以加载在<span class="ph uicontrol">“XGen 表达式编辑器”(XGen Expressions Editor)</span>中预定义的噪波表达式。单击<span class="ph uicontrol">“示例”(Samples)</span>选项卡，然后浏览至<span class="ph uicontrol">“全局”&gt;“颜色”&gt;“程序”&gt;“噪波”(Global &gt; Color &gt; Procedural &gt; Noise)</span>。 
+	 </p>
+<div class="section" id="GUID-B4A3599D-D37B-4698-84ED-66203B75E87B__SECTION_5C27DBBC556F4D0FAB50C75357F4F366"><h2 class="title sectiontitle">在噪波表达式中使用两个 Ptex 贴图 </h2> 
+		 
+		<p class="p" id="GUID-B4A3599D-D37B-4698-84ED-66203B75E87B__GUID-993082EB-D3EE-4A21-BF40-F0A1E96C8397">在此示例中，会合并两个 Ptex 贴图的输出值，然后在噪波表达式中进行修改。 
+		</p>
+ 
+		<pre class="pre codeblock">#Two Ptex maps to be combined.
+$a=map('${DESC}/paintmaps/color');#3dpaint,5.0
+$b=map('${DESC}/paintmaps/color1');#3dpaint,5.0
+
+#Declare local variables to control noise functions.
+$freq_fine =0.653; #0.00,1.00
+$freq_coarse =22.000; # 0,100
+$X = 1.000; #0.00,10.00
+$Y = 1; #0.00,10.00
+$Z = 1; #0.00,10.00
+
+
+$frequency = ($freq_fine+$freq_coarse) * [$X,$Y,$Z];
+
+$Strength=1.000;
+$Contrast =0.793;
+$Color =1.000; #0,1
+ 
+$Cnew = ($Color ? noise($P*$frequency) : noise($P*$frequency))-&gt; contrast($Contrast);
+mix($Cs,$Cnew,$Strength)*($a/$b)
+</pre>
+ 
+	 </div>
+<div class="section" id="GUID-B4A3599D-D37B-4698-84ED-66203B75E87B__SECTION_C607996E84BB439FBB539120B9E53F41"><h2 class="title sectiontitle">创建噪波的多个层：简单</h2> 
+		 
+		<p class="p">此噪波表达式可使用柏林噪波函数和三个数学函数生成噪波的多个层。 
+		</p>
+ 
+		<pre class="pre codeblock">#Declare local variables to control noise and math functions.
+$hi =1; #0.00,1.00 #slider created, range is 0 to 1.
+$lo =0; #-1.00,0.00 #slider created, range is -1.0 to 0.
+$contrast =0.59155;
+$freq =10.4176; #0.1,30 #slider created, range is 0.1 to 30.0.
+
+#Noise calculation: smoothstep() uses inputs and creates a noise field. This result is modified by the contrast setting.
+smoothstep(noise($Pref*$freq), $lo, $hi) -&gt; contrast($contrast)
+</pre>
+ 
+	 </div>
+<div class="section" id="GUID-B4A3599D-D37B-4698-84ED-66203B75E87B__SECTION_344197B5946E4FA6AC373D01488C41F0"><h2 class="title sectiontitle">创建噪波的多个层：复杂 </h2> 
+		 
+		<p class="p">此复杂噪波表达式可使用柏林噪波函数和多个数学函数生成噪波的多个层。 
+		</p>
+ 
+		<pre class="pre codeblock">#Decalare local variables for input values to noise functions.
+$Offset =0.1750;  
+$liquidScale =7.3150;#0,100.0
+$zitsLo =0.2600; 
+$zitsHi =1.0000; 
+$allLo =0.1450; 
+$allHi =0.8850; 
+
+#Declare local variables to control noise functions.
+$noiseScaleFine =3.1350;#0,300.0 #slider created, range is 0 to 300.
+$noiseScaleLarge =4.5300;#0,100.0 #slider is created, range is 0 to 100.
+
+#Using Pref and Offset, noise and scale in a variable to move the noise.
+$PP = ($Pref + $Offset) + noise($Pref*$liquidScale);
+
+#Nosie being modified with the $nBuf local variable. Fbm() is a type of noise function.
+$nBuf = (fbm($PP * $noiseScaleFine)+ fbm($PP * $noiseScaleLarge)) / 2; 
+
+#Declare local variable for taking and applying a smoothstep to the Lo, Hi and Noise values.
+$zitsBuf = smoothstep($nBuf, $zitsLo, $zitsHi);
+
+#Declare local variable for taking and applying a smoothstep to create another layer of noise.
+$liquidSkin =(smoothstep($zitsBuf + $nBuf,$allLo,$allHi));
+
+#Invert multiplies the computed value by -1. -1 x -1 =1, 1 x -1=-1. You can also use ~ rather than $invert
+$Invert=1;# 0,1
+
+#$C is a local variable, $Cs is the evaluated color at the primitives location on the surface. The color is being modified by the local variable $Cnew.
+#$E is a math function for Euler’s Number (an irrational constant). 
+
+$C=($Cs*$Cnew)+(1-$Cs);
+$E=(((1-$Cs)*$Cnew)+($Cs))
+
+#Conditional statement. If $Invert is less than 0.5 then use $C else use $E.
+($Invert &lt; .5) ? $C : $E</pre>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-EF55C3B5-D09B-4B6A-BB80-574A0311EE0F.htm" title="本部分提供了大量 seExpr 表达式示例，可供您用于修饰和景观场景。提供面向所有用户级别的示例，包括面向新用户的基本表达式。">XGen 表达式示例</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="ENU">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Maya-USD">
+  <meta name="topicid" content="GUID-532E99C9-F638-49E3-9483-800FDB9B65D7">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>Select USD data in the Viewport</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>Select USD data in the Viewport</h1></div><p>When working with a USD set in Maya, clicking in the Viewport selects an exact prim. This often results in the partial selection of a model. If you want to manipulate an entire model or set, you need to manually select it in the Outliner. You can override this behavior with the optionVar <code>UsdSelectionKind</code> and <code>UsdPointInstancesPickMode</code>. Choose a selection mode to reflect changes when you select prims in the Viewport and Outliner. Note: Default fallback selection mode is by prim.</p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>Tip:</div>
+<div class="callout-body">
+
+<p> You can move prims in the Viewport using <code>ALT + arrow keys</code>. This keyboard function will move USD data, just as it does Maya data.</p>
+
+</div></div>
+
+<h2 id="right-click-context-menu">Right-Click Context Menu</h2><p>When you right-click a USD object in the Viewport, a contextual marking menu appears to help you select the exact object(s) you want to modify. </p>
+<p><img src="../images/usd_maya_rightclick_viewport_contextmenu.png" alt=""></p>
+<h2 id="about-selection-by-kind-and-point-instancers">About Selection by Kind and Point Instancers</h2><p><em><strong>Kind</strong></em> is a type of metadata that is used to classify prims in USD. It is an extensible system that is based on a Kind hierarchy that has pre-loaded string values. These string values determine the selection behavior in the Viewport. You can also define custom strings that are unique to your production pipelines.</p>
+<div class="note note:"><span class="notetitle">Note:</span> Kind is a type of metadata that needs to be authored. Not every USD file includes kind metadata. If no kind metadata exists, clicking in the Viewport selects an exact prim.</div>
+<div class="note important:"><span class="importanttitle">Important:</span> Set kind values to prims to activate selection by kind. Set the classification value from the dropdown in the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-5355AFE8-D39C-4950-A7BB-19407D59C626">Attribute Editor</a> to assign a kind category to a prim. Once a kind value is set to a prim, you can activate selection by kind. </div>
+<p><em>The Kind Hierarchy:</em></p>
+<ul>
+<li>(none): Selection mode for prims that have no kind set.</li>
+<li>Model: Selection mode for prims in the model hierarchy (including prims set to group, assembly and component kind).<ul>
+<li>Group: Selection mode for prims set to group kind (including prims set to assembly kind). Tip: Set group kind in the Attribute Editor &gt; Metadata to prims that are grouped. <ul>
+<li>Assembly: Selection mode for prims set to assembly kind. Tip: Set assembly kind in the Attribute Editor &gt; Metadata  to prims that are part of an important group.</li>
+</ul>
+</li>
+<li>Component: Selection mode for prims set to component kind. Tip: Set component kind in the Attribute Editor &gt; Metadata to prims that are a collection of assets.</li>
+</ul>
+</li>
+<li>Subcomponent: Selection mode for prims set to subcomponent kind. Tip: Set subcomponent kind in the Attribute Editor &gt; Metadata to prims that are an individual asset.
+{Custom}: Selection mode for prims set to {custom name} kind.</li>
+</ul>
+<p><em><strong>PointInstancer</strong></em> is a "multi instancer", as it allows multiple prototypes to be scattered among its "points". The PointInstancer schema is designed to scale to billions of instances, which motivates the choice to split the per-instance transformation into position, (quaternion) orientation, and scales.</p>
+<ul>
+<li>Note: Primvars authored on a PointInstancer prim should always be applied to each instance with constant interpolation at the root of the instance.</li>
+</ul>
+<h2 id="universal-manipulator-on-usd-objects">Universal Manipulator on USD objects</h2><p>You can use the Universal Manipulator <img src="../images/universal_manipulator.jpg" alt=""> to move, rotate and scale prims. To access the Universal Manipulator, go to Modify &gt; Transformation Tools &gt; Universal Manipulator or use the shortcut Ctrl+T. This functionality is only available in Maya 2025.</p>
+<h2 id="activate-selection-modes">Activate Selection Modes</h2><h3 id="using-the-interface-in-maya">Using the interface in Maya</h3><p>Using Maya interface, you can choose your USD selection mode in the <strong>Viewport</strong>. </p>
+<ul>
+<li>Click <strong>Select</strong> &gt; Under Universal Scene Description, <strong>USD Selection Mode</strong> and choose from the options for Kind and Point Instancers.</li>
+</ul>
+<div class="note important:"><span class="importanttitle">Important:</span> If you choose from the Point Instances selection menu, your selection in the Kinds menu will automatically revert to <strong>(none)</strong>.</div>
+<h3 id="using-the-command-line-for-selection-by-kind">Using the Command Line for Selection by Kind</h3><ol>
+<li>Selection by Kind has the following modes:<ul>
+<li><code>optionVar -sv "UsdSelectionKind" "model" ;</code> Selects the nearest ancestor that is a model or its subcategory.</li>
+<li><code>optionVar -sv "UsdSelectionKind" "group" ;</code> Selects the nearest ancestor that is a group or its subcategory.</li>
+<li><code>optionVar -sv "UsdSelectionKind" "user-defined" ;</code> Selects the nearest ancestor that is a user-defined kind or its subcategory.</li>
+<li><code>optionVar -sv "UsdSelectionKind" "" ;</code> Selects the exact prim that is picked in the viewport. This returns Viewport selection to its default behavior.</li>
+</ul>
+</li>
+</ol>
+<p>In the following example, we override the default Viewport selection behavior to select entire models in the USD set:</p>
+<p><img src="../images/gif_usd_ViewportSelection_bykind.gif" alt=""></p>
+<h3 id="using-the-command-line-for-usd-point-instance-selection">Using the Command line for USD Point Instance Selection</h3><p>You can also use the <code>optionVar</code> (that was previously <code>UsdPickMode</code>) which is now <code>UsdPointInstancesPickMode</code> with the possible values of: <code>pointInstancer</code>, <code>instances</code>, or <code>prototypes</code>. </p>
+<ol>
+<li>Point Instance Selection has the following modes: <ul>
+<li><code>optionVar -sv "UsdPointInstancesPickMode" "PointInstancer" ;</code> Selection mode that is the equivalent of being unset. Selecting an instance would return the instancer prim.</li>
+<li><code>optionVar -sv "UsdPointInstancesPickMode" "Instances" ;</code> Clicking an instance would return the specifc instance.</li>
+<li><code>optionVar -sv "UsdPointInstancesPickMode" "Prototype" ;</code> Selects the original prototype prim in the Viewport. </li>
+<li><code>optionVar -sv "UsdPointInstancesPickMode" "" ;</code> Selects all individual instances of the same prototype.</li>
+</ul>
+</li>
+</ol>
+<h3 id="combination-selection-modes">Combination Selection Modes</h3><p>If the object picked in the viewport is a point instance, this optionVar controls what that pick resolves to the PointInstancer prim (a specific point instance scene item, or the prototype prim being instanced, respectively). This results in a more flexible way to use both the point instances pick mode and the selection kind in combinations. </p>
+<div class="note tip:"><span class="tiptitle">Tip:</span> If you don't have anything set for <code>UsdSelectionKind</code>, then the <code>kind</code> and <code>prototypes</code> pick modes are exactly the same. </div>
+<p>A UsdView style selection menu can be implemented as follows:</p>
+<ol>
+<li>For Prims: UsdSelectionKind = '', UsdPointInstanceSelection = '[Anything]'</li>
+<li>For Models: UsdSelectionKind='model', UsdPointInstanceSelection = '[Anything]'</li>
+<li>For Instances: UsdSelectionKind='[Anything]', UsdPointInstanceSelection='instances'</li>
+<li>For Prototypes: UsdSelectionKind = '', UsdPointInstanceSelection = 'prototypes'</li>
+</ol>
+<div class="note note:"> <span class="notetitle">Note:</span> These combinations can be both ones that <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-C452B331-7C4D-4B58-A1BA-D03775F266A8">UsdView</a> doesn't support while still allowing you to express the pick modes that UsdView already does support.</div>
+<h3 id="isolate-select-support">Isolate Select Support</h3><p><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-C885C0EA-A412-4528-B387-11BF093A45CC">Isolate the display</a> of USD prims in the viewport. Use the isolate Select command in the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-455539A6-3506-458C-92DA-14F171C14553">view panel</a> displayed above the scene view to show only certain objects or components in your USD scene.</p>
+<hr>
+<p><span style="color: purple;"><strong>Related Concepts:</strong></span> For more information, see <a href="https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-Kind" target="_blank">kind</a> and <a href="https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-Metadata" target="_blank">metadata</a> in the Pixar USD Glossary and <a href="https://graphics.pixar.com/usd/docs/api/kind_page_front.html" target="_blank">Kind: Extensible Categorization</a>.</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>Parent page:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/USD-in-the-Maya-Interface/GUID-BF7327E1-B80D-4FAD-AFB0-2BAE3F7B0693.html">USD objects in the Viewport</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

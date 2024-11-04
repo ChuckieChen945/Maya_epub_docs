@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-35CB941E-BF15-456B-B3B1-18A0FF73C4CD">
+<meta name="language" content="CHS">
+<title>?: 运算符</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-35CB941E-BF15-456B-B3B1-18A0FF73C4CD">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>?: 运算符</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-35CB941E-BF15-456B-B3B1-18A0FF73C4CD__WS73099CC142F48755-3D114B7511841AEFA9F-83D"> 使用 ?: 运算符可以在一个语句中编写简写的 if-else 语句。</p>
+<p class="p" id="GUID-35CB941E-BF15-456B-B3B1-18A0FF73C4CD__WS73099CC142F48755-3D114B7511841AEFA9F-83B">运算符的格式为：</p>
+<pre class="pre codeblock">
+condition ? exp1 : exp2;
+</pre>
+<p class="p" id="GUID-35CB941E-BF15-456B-B3B1-18A0FF73C4CD__WS73099CC142F48755-3D114B7511841AEFA9F-83A">如果条件为真，则运算符返回 exp1 的值。如果条件为假，则运算符将返回 exp2 的值。</p>
+<pre class="pre codeblock">
+// If $y &gt; 20, $x is set to 10,
+// otherwise $x is set to the value of $y.
+$x = ($y &gt; 20) ? 10 : $y;
+// If $x &gt; 10, print "Greater than", otherwise
+// print "Less than or equal".
+print(($x &gt; 10) ? "Greater than" : "Less than or equal");
+</pre>
+<div class="section" id="GUID-35CB941E-BF15-456B-B3B1-18A0FF73C4CD__WS73099CC142F48755-3D114B7511841AEFA9F-839"><h2 class="title sectiontitle">可读性</h2>
+
+<p class="p" id="GUID-35CB941E-BF15-456B-B3B1-18A0FF73C4CD__WS73099CC142F48755-3D114B7511841AEFA9F-838">以下语句将 Balloon 的 <samp class="ph codeph" id="GUID-35CB941E-BF15-456B-B3B1-18A0FF73C4CD__GUID-A3A2B296-0AC3-41D5-997A-13E78532137A">ScaleY</samp> 属性设定为 <samp class="ph codeph" id="GUID-35CB941E-BF15-456B-B3B1-18A0FF73C4CD__GUID-39A2B42F-BD23-4F87-880C-3E0F26958A8D">time</samp> 除以 2（如果 time 小于 2），和 <samp class="ph codeph" id="GUID-35CB941E-BF15-456B-B3B1-18A0FF73C4CD__GUID-02B7FCB5-4B55-4224-98BB-08867FED78E6">time</samp> 乘以 2（如果 <samp class="ph codeph" id="GUID-35CB941E-BF15-456B-B3B1-18A0FF73C4CD__GUID-20BBF7E2-C39F-4332-AC57-4246D777A5A9">time</samp> 大于等于 2）。（这会使 ScaleY 属性在前两秒的增加速度比两秒之后的速度慢。）</p>
+
+<pre class="pre codeblock">
+Balloon.scaleY = (time &lt; 2) ? time / 2 : time * 2;
+</pre>
+
+<p class="p" id="GUID-35CB941E-BF15-456B-B3B1-18A0FF73C4CD__WS73099CC142F48755-3D114B7511841AEFA9F-837">这与以下 if-else 语句相同：</p>
+
+<pre class="pre codeblock">
+if (time &lt; 2)
+	Balloon.scaleY = time / 2;
+else 
+	Balloon.scaleY = time * 2;
+</pre>
+
+<p class="p" id="GUID-35CB941E-BF15-456B-B3B1-18A0FF73C4CD__WS73099CC142F48755-3D114B7511841AEFA9F-836">尽管 <samp class="ph codeph" id="GUID-35CB941E-BF15-456B-B3B1-18A0FF73C4CD__GUID-E6A8310D-F781-4162-AC0D-115F79634E95">?;</samp> 运算符可节省空间和减少键入的内容，但 <samp class="ph codeph" id="GUID-35CB941E-BF15-456B-B3B1-18A0FF73C4CD__GUID-9B6398F0-16DA-461E-9720-0E7EBF53CB0E">if...else</samp> 形式显然更易于阅读。为此，许多编程人员都避免在复杂表达式中使用 <samp class="ph codeph" id="GUID-35CB941E-BF15-456B-B3B1-18A0FF73C4CD__GUID-18C69EEE-990B-4A1C-8D1F-1EE7558631D9">?;</samp> 运算符。</p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-493CA022-0F3C-46D1-BF19-457BC9E8129E.htm">控制脚本的流</a></div>
+</div>
+</div>
+
+</body>
+</html>

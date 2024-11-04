@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-D22E9489-AE9D-48D6-9D98-4F9A67C9ACE8">
+<meta name="language" content="CHS">
+<title>查询工具的名称</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-D22E9489-AE9D-48D6-9D98-4F9A67C9ACE8">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>查询工具的名称</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-D22E9489-AE9D-48D6-9D98-4F9A67C9ACE8__GUID-BDE2057F-39AA-41D3-93A1-F8F54D9F2398">可能需要在脚本中选择和使用特定的工具。最简单的方法是在用户界面中选择工具，然后执行以下命令来查询当前上下文。 </p>
+<pre class="pre codeblock">currentCtx</pre>
+<p class="p" id="GUID-D22E9489-AE9D-48D6-9D98-4F9A67C9ACE8__GUID-508D795E-3B79-4D51-8384-4FDA302C3795">您获得的结果将类似于以下内容： </p>
+<pre class="pre codeblock">// Result: moveSuperContext // </pre>
+<p class="p" id="GUID-D22E9489-AE9D-48D6-9D98-4F9A67C9ACE8__GUID-C8FD9472-33DB-4FF4-82DE-4DCF196A992C">然后可以在脚本中包含以下行： </p>
+<pre class="pre codeblock">setToolTo moveSuperContext</pre>
+<p class="p" id="GUID-D22E9489-AE9D-48D6-9D98-4F9A67C9ACE8__GUID-32692803-D0D8-455D-A16C-3DDCCA558E17">第二种简单的方法是选择<span class="ph uicontrol" id="GUID-D22E9489-AE9D-48D6-9D98-4F9A67C9ACE8__GUID-333250DA-67C2-4534-829D-628D02A87190">“窗口 &gt; 设置/首选项 &gt; 热键编辑器”(Windows &gt; Settings/Preferences &gt; Hotkey Editor)</span>以打开<span class="ph uicontrol" id="GUID-D22E9489-AE9D-48D6-9D98-4F9A67C9ACE8__GUID-1B8BD192-BF22-4B9A-8378-12374F4A4DB7">“热键编辑器”(Hotkey Editor)</span>。此编辑器中列出了每个菜单项和编辑器的相应运行时命令。 </p>
+<div class="section" id="GUID-D22E9489-AE9D-48D6-9D98-4F9A67C9ACE8__SECTION_49530686013A4E54A5B5BF682EF0414E"><h2 class="title sectiontitle">探索可用工具</h2>
+
+<p class="p" id="GUID-D22E9489-AE9D-48D6-9D98-4F9A67C9ACE8__GUID-4BDF0269-0D6B-48C7-8AFA-F643E7BDEF0C">打开 <samp class="ph codeph" id="GUID-D22E9489-AE9D-48D6-9D98-4F9A67C9ACE8__GUID-D2C1B030-35B0-4E1F-A84E-7B347EF09D84">defaultRunTimeCommands.mel</samp> 文件（位于安装目录的 <samp class="ph codeph" id="GUID-D22E9489-AE9D-48D6-9D98-4F9A67C9ACE8__GUID-B35A3F12-F909-4C0D-823C-A5464B610D12">scripts\startup</samp> 文件夹中）并搜索 <samp class="ph codeph" id="GUID-D22E9489-AE9D-48D6-9D98-4F9A67C9ACE8__GUID-D3BA2741-80EF-4028-9F19-C1E8D79CC4A4">SetToolto</samp>。 </p>
+
+<p class="p" id="GUID-D22E9489-AE9D-48D6-9D98-4F9A67C9ACE8__GUID-D8DDCC0E-1E75-42C8-8040-8EEA5148D9FB">此文件中会列出所有可用的工具，并且您获得类似如下的结果： </p>
+
+<pre class="pre codeblock">runTimeCommand -default true
+    -annotation (uiRes("m_defaultRunTimeCommands.kInsertEdgeLoopToolOptionsAnnot"))
+    -category   ("Other items.Edit Mesh")
+    -command    ("polySelectEditCtx -e -mode 1 polySelectEditContext; setToolTo polySelectEditContext; toolPropertyWindow")
+    -showInHotkeyEditor false
+    InsertEdgeLoopToolOptions;</pre>
+
+<div class="note tip" id="GUID-D22E9489-AE9D-48D6-9D98-4F9A67C9ACE8__GUID-066AC203-5BC9-4732-B586-17C8234559C0"><span class="tiptitle">提示：</span> 在脚本中选择此工具，调用运行时命令 <samp class="ph codeph" id="GUID-D22E9489-AE9D-48D6-9D98-4F9A67C9ACE8__GUID-746FF32F-7A55-4878-AA7C-C4185C82EF6D">InsertEdgeLoopToolOptions</samp>，此时将执行包含在以上 <samp class="ph codeph" id="GUID-D22E9489-AE9D-48D6-9D98-4F9A67C9ACE8__GUID-8733C830-649C-467D-BE5D-2F3D120FDDF9">-command</samp> 标记中的所有命令。 </div>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-3CC75458-42A5-4703-B001-6A7B53F6CAD7.htm">开始编写 MEL 脚本：研究命令</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Rigging_Solver_Rigging_Solver_ik_fk_solver_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>ik_fk_solver</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>ik_fk_solver</code></h1></div><p>在变换矩阵链上执行双骨骼反向运动学。</p>
+<h2 id="">输入</h2><h3 id="transforms"><code>transforms</code></h3><p>要解算的变换的 <code>array&lt;double4x4&gt;</code>，解释为从头至尾的连续链。</p>
+<p>变换链被视为虚拟双骨骼肢体，上骨骼和下骨骼通过铰接连接。</p>
+<p>该链应至少包含 3 个变换：一个用于基础，一个用于铰链，一个用于末端效应器。当 has_double_hinge 设置为 true 时，它应至少包含一个附加变换。</p>
+<p>在基础变换与铰链变换之间以及铰链变换之前给定的任何附加变换都被视为上骨骼上的扭曲变换。</p>
+<p>在（双）铰链变换之后和末端效应器变换之前给定的任何附加变换都被视为下骨骼上的扭曲变换。</p>
+<h3 id="target"><code>target</code></h3><p>定义末端效应器（链中的最后一个变换）的 IK 目标的 <code>double4x4</code> 变换矩阵。</p>
+<h3 id="pole_target"><code>pole_target</code></h3><p>定义 IK 极目标的 <code>double4x4</code> 变换矩阵。它将导致在末端效应器和基础（极向量）之间肢体围绕轴旋转，从而使铰链离 <code>pole_target</code> 最近。</p>
+<h3 id="ik_weight"><code>ik_weight</code></h3><p>用于控制此节点对 <code>transforms</code> 的影响的权重。 </p>
+<p>值为 <code>0.0</code> 时，将按原样传递 <code>transforms</code>；值为 <code>1.0</code> 时，将完全应用节点的影响；值介于 <code>0.0</code> 和 <code>1.0</code> 之间时，将在输入和修改的 <code>transforms</code> 之间混合。</p>
+<h3 id="has_double_hinge"><code>has_double_hinge</code></h3><p>如果启用此项，解算器将在计算 IK 时使用两个铰链，从而在它们之间分布单个虚拟铰链的结果。</p>
+<p>用作第二个铰链的变换的索引由 <code>hinge_index + 1</code> 定义。</p>
+<h3 id="hinge_index"><code>hinge_index</code></h3><p>用作主铰链的变换的索引，定义伸缩位置。此变换将视为上骨骼一部分的变换与视为下骨骼一部分的变换分开。</p>
+<h3 id="min_rotate_hinge"><code>min_rotate_hinge</code></h3><p>铰链能够打开所允许的最小角度。如果为 <code>0.0</code>，则肢体可能会拉伸为一条直线，这会使铰链轴难以确定。因此，建议至少使用一个较小的值。</p>
+<h3 id="max_rotate_hinge"><code>max_rotate_hinge</code></h3><p>铰链能够合上所允许的最大角度。如果为 <code>180.0</code>，肢体可能完全折叠到自身上。</p>
+<h3 id="use_pole_target"><code>use_pole_target</code></h3><p>如果启用此项，则使用输入 <code>pole_target</code> 计算 IK。</p>
+<h3 id="pole_target_weight"><code>pole_target_weight</code></h3><p>用于控制 <code>pole_target</code> 对 IK 计算的影响的权重。 </p>
+<h3 id="target_orient_weight"><code>target_orient_weight</code></h3><p>用于控制在链中的最后一个变换（末端效应器）中应用输入 <code>target</code> 方向的程度的权重。如果为 <code>0.0</code>，则仅使用目标的位置。</p>
+<h3 id="roll"><code>roll</code></h3><p>围绕极向量进行额外旋转的角度（以度为单位）。</p>
+<h3 id="twist_weight"><code>twist_weight</code></h3><p>用于控制将在上骨骼和下骨骼扭曲变换中使用扭曲分布的程度的权重。</p>
+<h3 id="joint_scaling"><code>joint_scaling</code></h3><p>用于缩放骨骼长度的倍增。这会使上骨骼和下骨骼同时变长或变短。</p>
+<h3 id="upper_joint_scaling"><code>upper_joint_scaling</code></h3><p>用于缩放上骨骼长度的倍增。这不影响下骨骼的长度。</p>
+<h3 id="lower_joint_scaling"><code>lower_joint_scaling</code></h3><p>用于缩放下骨骼长度的倍增。这不影响上骨骼的长度。</p>
+<h3 id="pin_scale_weight"><code>pin_scale_weight</code></h3><p>用于控制将铰链固定到 <code>pole_target</code> 的程度的权重。如果为 <code>1.0</code>，则将拉伸或缩短上骨骼和下骨骼，使铰链位于 <code>pole_target</code> 的位置。</p>
+<h3 id="min_pin_scale"><code>min_pin_scale</code></h3><p>在需要缩短骨骼以将铰链固定到 <code>pole_target</code> 时，可以应用的最小缩放量。例如，当此项设置为 <code>0.5</code> 时，骨骼的缩放比例不会低于一半。</p>
+<h3 id="max_pin_scale"><code>max_pin_scale</code></h3><p>在需要拉长骨骼以将铰链固定到 <code>pole_target</code> 时，可以应用于骨骼的最大缩放量。例如，当此项设置为 <code>2.0</code> 时，骨骼的缩放比例不会超过两倍。</p>
+<h3 id="auto_scale_weight"><code>auto_scale_weight</code></h3><p>用于控制为了末端效应器到达目标可以应用自动缩放的程度的权重。当此项设置为 <code>1.0</code> 时，骨骼将缩短或拉长，以便能够到达目标。</p>
+<h3 id="min_auto_scale"><code>min_auto_scale</code></h3><p>由于自动缩放而可应用的最小缩放量。例如，当此项设置为 <code>0.5</code> 时，骨骼的缩放比例不会低于一半。</p>
+<h3 id="max_auto_scale"><code>max_auto_scale</code></h3><p>由于自动缩放而可应用的最大缩放量。例如，当此项设置为 <code>2.0</code> 时，骨骼的缩放比例不会超过两倍。</p>
+<h2 id="">输出</h2><h3 id="out_transforms"><code>out_transforms</code></h3><p>解算的 <code>transforms</code>。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Rigging/Bifrost_Common_reference_Rigging_Solver_html.html">Solver</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

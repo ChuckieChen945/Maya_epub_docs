@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-ManagingScenes">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC">
+<meta name="language" content="CHS">
+<title>编写表示渲染脚本</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>编写表示渲染脚本</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC__GUID-AD67C4BB-9701-4574-95DA-B552C6C2CBAC">可以使用 MEL 或 Python 脚本指定要在渲染时激活的表示。可以使用回调集合分析场景中的“场景集合”层次，确定要渲染的场景表示以及渲染时间。 
+	 </p>
+<p class="p" id="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC__GUID-5F1025FE-BA69-4614-9302-2BE8793C6185">例如，您可以编写一个 Python 脚本，在场景表示处于摄影机视图中时加载高分辨率场景表示进行渲染，而在场景表示位于摄像机视图后面时卸载这些场景表示。可以针对快照的每个帧调用编写的这一自定义遍历集，最大程度地减少 Maya 使用的内存。 
+	 </p>
+<p class="p" id="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC__GUID-50B98065-C16D-4D69-B23E-EA566325E00D">遍历集可以通过插件添加，也可以作为 MEL 或 Python 脚本执行。通常，应在遍历集回调中指定，在将场景发送到渲染之前执行遍历集。 
+	 </p>
+<p class="p" id="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC__GUID-FAD9AB11-11A5-4E6B-8431-780C4A842745">通过此脚本化工作流，可以使用一个遍历集来设置采用轻量表示的照明进行测试渲染。对照明设置满意后，可以运行此脚本，使 <span class="ph msgph prodname" id="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 使用不同遍历机制激活高分辨率场景表示来完成最终渲染。 
+	 </p>
+<p class="p" id="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC__GUID-82558604-E822-46A6-94C2-115C1FBE4498">如需 Python 脚本示例，请参考 <samp class="ph codeph" id="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC__GUID-CDFC0A82-3A3A-46C4-8592-EB73377C7473">adskPrepareRender.py</samp>，该脚本位于 <span class="ph msgph prodname" id="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 安装目录下的 <samp class="ph codeph" id="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC__GUID-72A1641F-CDBF-4446-9A95-5A2629AAF95D">sceneAssembly</samp> 文件夹中。例如： 
+	 </p>
+<p class="p" id="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC__GUID-49933772-72A6-47C0-A86D-575AED3F2636"><samp class="ph codeph" id="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC__GUID-F120EB42-1CED-4B26-8F8A-827157868F30">C:\Program Files\Autodesk\Maya&lt;版本&gt;\Python\Lib\site-packages\maya\app\sceneAssembly</samp>。 
+	 </p>
+<p class="p" id="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC__GUID-531CC2EB-1E2E-415E-9F55-8A9C86169485"> 有关创建遍历集进行集合表示渲染的详细信息，请参见 <span class="ph msgph prodname" id="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 技术文档中的 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/prepareRender.html" target="_blank">prepareRender</a> 命令。 
+	 </p>
+<div class="section" id="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC__SECTION_78601D4A6E164A93A906390A8FED0E5C"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC__UL_410B34E8B3E849898654F5A46A2C57FD"><li class="li" id="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC__LI_A73E03546DC649C88A9449280F1C19D2"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-1C55AFF4-588D-4560-9420-801BD01E78F3.htm">指定要渲染的集合表示</a> 
+		  </li>
+<li class="li" id="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC__LI_8575B899003146B991B0810EBD3C057D"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-6E9D29E2-A527-4C9E-A411-EFB2634FE757.htm">使用正则表达式指定要渲染的表示</a> 
+		  </li>
+<li class="li" id="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC__LI_22CD72F87A2E44C9A8D2E3E273E2C4F4"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-93C7EB8F-13EB-4438-9CDE-AC3A0A2C862D.htm">创建过滤器来指定要渲染的表示</a> 
+		  </li>
+<li class="li" id="GUID-086DEC5B-D9B0-49E0-B476-EAA6B8190FAC__LI_A559F5B7692E46C895CE1EB5AF39E3A6"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-4D5955E2-4C09-40C5-A65A-1BE26052FFB6.htm">渲染集合表示</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-4D5955E2-4C09-40C5-A65A-1BE26052FFB6.htm">渲染集合表示</a></div>
+</div>
+</div>
+
+</body>
+</html>

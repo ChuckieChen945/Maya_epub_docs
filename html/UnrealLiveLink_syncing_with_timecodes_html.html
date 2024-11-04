@@ -1,0 +1,93 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="product-feature" content="Unreal Live Link for Maya">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="UnrealLiveLink">
+  <meta name="topicid" content="UnrealLiveLink_syncing_with_timecodes_html">
+  
+<meta name="video-id" content="a4d19dd0-58f7-11ec-bd06-8f0f3710449b">
+  <meta name="generatedby" content="CLC">
+  <meta name="applies-to" content="MAYAUL=2022"><meta name="applies-to" content="MAYAUL=2023"><meta name="applies-to" content="MAYAUL=2024">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>使用时间码在 Maya 和 Unreal 之间同步动画</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>使用时间码在 Maya 和 Unreal 之间同步动画</h1></div><p>当处理来自以不同速度（24fps、30fps、60fps 等）运行的不同源的数据时，在 Maya 和 Unreal 之间同步动画可能会很棘手。为避免手动对齐这些分散的源，可以创建时间码作为要同步到的源的中心单位。</p>
+<p>要启用时间码，请执行以下操作：</p>
+<ol>
+<li><p>确保 Maya 和 Unreal <a href="https://help.autodesk.com/cloudhelp/2025/CHS/UnrealLiveLink/files/UnrealLiveLink_getting_started_html.html">已链接</a>。</p>
+</li>
+<li><p><strong>在 Unreal 中</strong>，确保已安装以下插件：</p>
+<ul>
+<li>媒体框架</li>
+<li>媒体框架 IO</li>
+</ul>
+</li>
+<li><p>在<em>“关卡编辑器”(Level Editor)工具栏</em>中，选择<em>“媒体配置 &gt; 新建空媒体配置”(Media Profile &gt; New Empty Media Profile)</em>。</p>
+</li>
+<li><p>在显示的<em>“拾取媒体配置类”(Pick Media Profile Class)</em>窗口中，选择<em>“MediaProfile”</em>，然后单击“选择”(Select)。</p>
+</li>
+<li><p>输入路径名（如 LiveLink_Timecode），然后单击<em>“保存”(Save)</em>。</p>
+</li>
+<li><p>在显示的<em>“详细信息”(Details)面板</em>中，设置以下选项，然后单击<em>“保存”(Save)</em>：</p>
+<ul>
+<li><em>覆盖项目设置(Override Project Settings)</em>：启用</li>
+<li><em>时间码提供者(Timecode Provider)</em>：实时链接时间码提供者</li>
+<li><em>时间码提供者 &gt; 时间码 &gt; 主题关键帧(Timecode Provider &gt; Timecode &gt; Subject Key)</em>：到任意 Maya 实时链接源（如果存在多个源，则可以选择其中任一源）</li>
+<li><em>时间码提供者 &gt; 时间码 &gt; 求值(Timecode Provider &gt; Timecode &gt; Evaluation)</em>：最新</li>
+</ul>
+</li>
+</ol>
+<p>现在，如果打开<em>“时间码提供者”(Timecode Provider)</em>（<em>“窗口 &gt; 开发人员工具 &gt; 时间码提供者”(Window &gt; Developer Tools &gt; Timecode Provider)</em>），您应该会看到在 <strong>Maya</strong> 中拖动时间滑块时更新的时间码。  </p>
+<p>要使 Unreal 的<em>“序列器”(Sequencer)</em>兼容，需要执行一些额外的步骤。</p>
+<p>要使用时间码同步 <em>Unreal 序列器</em>，请执行以下操作：</p>
+<ol>
+<li><p><strong>在 Unreal 中</strong>，打开<em>“序列器”(Sequencer)</em>（<em>“窗口 &gt; 电影 &gt; 序列器”(Window &gt; Cinematics &gt; Sequencer)</em>）。</p>
+</li>
+<li><p>将<em>“FPS”</em>设置为<em>“时钟源 &gt; 时间码”(Clock Source &gt; Timecode)</em>。</p>
+</li>
+<li><p>单击<em>“播放”(Play)按钮</em>以启用播放模式。</p>
+</li>
+</ol>
+<p>现在，如果在 <strong>Maya</strong> 中播放场景，Unreal 将保持与其同步。</p>
+<p><video data-video-id="a4d19dd0-58f7-11ec-bd06-8f0f3710449b" crossorigin="anonymous" controls="controls" width="640" height="480" poster="https://help.autodesk.com/videos/a4d19dd0-58f7-11ec-bd06-8f0f3710449b/poster"><source type="video/mp4" src="https://help.autodesk.com/videos/a4d19dd0-58f7-11ec-bd06-8f0f3710449b/video.mp4"><source type="video/webm" src="https://help.autodesk.com/videos/a4d19dd0-58f7-11ec-bd06-8f0f3710449b/video.webm"></source></source></video></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>视频中的机器人是使用 create3dcharacters.com 创建的。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

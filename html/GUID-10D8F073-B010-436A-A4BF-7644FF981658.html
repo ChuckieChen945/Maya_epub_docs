@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-10D8F073-B010-436A-A4BF-7644FF981658">
+<meta name="language" content="CHS">
+<title>重用深度贴图</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-10D8F073-B010-436A-A4BF-7644FF981658">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>重用深度贴图</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF-56C0CD8012A8003217A-1E5C"><p class="p" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__WS1A9193826455F5FF-29C43AA6117B26F372E2119"> 如果使用深度贴图阴影，默认情况下，Maya 会为每个深度贴图启用光源和渲染过程中动画的每个帧计算出至少一个深度贴图。 </p>
+<p class="p" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__WS1A9193826455F5FF-29C43AA6117B26F372E211B">在某些情况下，通过保存和重复使用灯光的深度贴图可以缩短渲染次数。请参见下表以确定重用深度贴图是否对您的特定情况有利。 </p>
+<p class="p" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__WS1A9193826455F5FF-29C43AA6117B26F372E211C">默认情况下，Maya 将把深度贴图文件保存在当前项目的 <samp class="ph codeph" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-529A18FA-0EB7-4341-A492-BA3633925DE0">renderData/depth</samp> 目录中。 </p>
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__WS1A9193826455F5FF-29C43AA6117B26F372E211D" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">目标 </th>
+<th class="entry" valign="top" width="50%">操作 </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">
+<p class="p" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__WS1A9193826455F5FF-29C43AA6117B26F372E211E">对单个帧进行多次渲染时，每次都会调整对象或灯光特性，但不移动灯光或对象。 </p>
+
+<p class="p" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-7DDA3FF0-7354-4B87-A115-E28B01695D70">（深度贴图不会更改并可以重用。） </p>
+
+</td>
+<td class="entry" valign="top" width="50%">
+<ol class="ol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__OL_3DEE61388E4C4AEFA2B987FC9E93C2D7"><li class="li" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__LI_EDF0243BE47A4035941BE764D5550AB9">选择光源。 </li>
+<li class="li" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__LI_45BD8C632120429386AB90DDD3094A39">在<span class="ph uicontrol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-C3DD9586-D58D-4D2A-9AFC-12C6BA09D3C4">“属性编辑器”(Attribute Editor)</span>中，将<span class="ph uicontrol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-D67C62B4-3C0E-4D9D-91AC-7ABDA286D057">“基于磁盘的深度贴图”(Disk Based Dmaps)</span>设置为<span class="ph uicontrol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-40063020-6F88-43F8-9F05-A7C764320FA1">“重用现有深度贴图”(Reuse Existing Dmap(s))</span>。 <p class="p" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__WS1A9193826455F5FF-29C43AA6117B26F372E211F"> Maya 会在第一次渲染时计算并保存深度贴图，然后在后续的每一次渲染中从磁盘读取深度贴图。 </p>
+ </li>
+</ol>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">
+<p class="p" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__WS1A9193826455F5FF-29C43AA6117B26F372E2121">渲染灯光或灯光照明对象不移动的动画（例如，摄影机飞越）。 </p>
+
+<p class="p" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-BAB82858-A1F5-4E01-A6E4-F245B89CB299">（深度贴图不会逐帧更改，并且可以重用。） </p>
+
+</td>
+<td class="entry" valign="top" width="50%">
+<ol class="ol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__OL_67DBCB68ECA64976B7689A59CB794BCF"><li class="li" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__LI_F2D71C3EAC5749218ADC1652FB5B1713"> 将<span class="ph uicontrol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-80DBE431-B321-479E-B2A3-279F969FA00C">“基于磁盘的深度贴图”(Disk Based Dmaps)</span>设定为<span class="ph uicontrol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-6D9C9E40-83F4-4B40-8A33-674C7CB5039B">“重用现有深度贴图”(Reuse Existing Dmap(s))</span>。 </li>
+<li class="li" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__LI_0CFD9F14C9AD4125AA74754836239F12">禁用 <span class="ph uicontrol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-8DF75F7F-62B4-4FCB-A5C4-9AC44C9B0660">“添加帧扩展名”(Add Frame Ext)</span>。 <p class="p" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__WS1A9193826455F5FF-29C43AA6117B26F372E2122">对第一个帧进行渲染时，Maya 会计算并保存深度贴图。在随后的每一次帧渲染中，Maya 将从磁盘中读取深度贴图。 </p>
+ </li>
+</ol>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">在灯光和/或灯光照明对象发生移动的动画渲染中，深度贴图将会逐帧更改。 <p class="p" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-9FA03E60-6262-4E36-A3D4-73179CBBA5D3">若要对整个动画多次渲染，每次对对象或灯光特性进行调整，但不更改灯光或对象的移动方式，每个帧的深度贴图与初始渲染时的相同，可以重用。 </p>
+ </td>
+<td class="entry" valign="top" width="50%">
+<ol class="ol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__OL_4B85E1F0A2DF44B7BFB8291306D26974"><li class="li" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__LI_96226ACE5098401C9EB262A628C8EF83">将<span class="ph uicontrol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-E81EAE73-E647-4518-9C8E-D5A815FF8BAE">“基于磁盘的深度贴图”(Disk Based Dmaps)</span>设定为<span class="ph uicontrol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-9B6B6047-416D-45D5-A684-0E3B68CFA4F4">“重用现有深度贴图”(Reuse Existing Dmap(s))</span>。 </li>
+<li class="li" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__LI_8E4CC3A959B94994AF68D5315B015045">启用 <span class="ph uicontrol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-D92F11FB-C542-4654-BF73-6991F4B43480">“添加帧扩展名”(Add Frame Ext)</span>。 <p class="p" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-CD786D0C-5F34-4408-B37D-694D001CF56B">Maya 会在第一次进行渲染时计算并保存每个帧的深度贴图，并在后续渲染过程中从磁盘读取这些贴图。 </p>
+ </li>
+</ol>
+
+</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">
+<p class="p" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-195D1A06-04EB-4864-A348-6208853767C6">对单个帧或动画进行渲染时，之前已经在磁盘中保存了深度贴图，且灯光和/或灯光照明对象发生了移动。 </p>
+
+<p class="p" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-9D5CC488-128F-4BFF-A223-2A14AB3B4673">现在的深度贴图与之前不同，且不能重用磁盘上的深度贴图。 </p>
+
+</td>
+<td class="entry" valign="top" width="50%">
+<ol class="ol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__OL_33227D31AC7348CB8DB6F94AA869C3F4"><li class="li" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__LI_91BA6670B18C440C863E7AFE94FC026E">将<span class="ph uicontrol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-961CA2C3-B499-4C1D-8B63-39D02E88BBA7">“基于磁盘的深度贴图”(Disk Based Dmaps)</span>设定为<span class="ph uicontrol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-CE8937EB-D2C8-4E71-95D8-C7253BDA9FC6">“覆盖现有深度贴图”(Overwrite Existing Dmap(s))</span>。 </li>
+<li class="li" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__LI_F9D09998CF3D438A832747047F4C5E65">仅对帧或动画进行一次渲染。 <p class="p" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-ACFC6628-527E-49AA-A8B8-F470A6EE22E2">Maya 会计算并保存深度贴图，并覆盖任何已存在的深度贴图。 </p>
+ </li>
+<li class="li" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__LI_EC30283541E545E191839881A2CCDE56">（可选）如果打算继续调整对象或灯光特性，但不移动灯光或对象，则可以将<span class="ph uicontrol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-6EE0BC78-43D9-434C-A6A2-50D1A629D3AB">“基于磁盘的深度贴图”(Disk Based Dmaps)</span>设置回<span class="ph uicontrol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-EDED7751-549D-48D1-8379-DA2948DDF8EC">“重用现有深度贴图”(Reuse Existing Dmap(s))</span>。 </li>
+</ol>
+
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="note important" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-D85B236F-8479-4E3F-91CA-707905592B3B"><span class="importanttitle">重要：</span> 如果不想再使用保存到磁盘的深度贴图，请将<span class="ph uicontrol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-E54ED4CF-4D91-4590-81C0-FB30129D4C86">“基于磁盘的深度贴图”(Disk Based Dmaps)</span>设置为<span class="ph uicontrol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-FC4E26AD-3C93-4BBB-8F71-755655E438AD">“禁用”(Off)</span>，以便 Maya 在每次进行渲染时再次开始计算深度贴图。（当<span class="ph uicontrol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-B1005AD6-C610-439C-9C51-B2BF6F88591F">“基于磁盘的深度贴图”(Disk Based Dmaps)</span>处于<span class="ph uicontrol" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__GUID-4F449099-39A2-40B9-94A5-358299082A59">“禁用”(Off)</span>状态时，Maya 不会读取深度贴图或将且写入到磁盘。） </div>
+<div class="section" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__WS1A9193826455F5FF-29C43AA6117B26F372E2125"><h2 class="title sectiontitle">相关主题</h2>
+
+<ul class="ul" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__WS1A9193826455F5FF-29C43AA6117B26F372E2126"><li class="li" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__WS1A9193826455F5FF-29C43AA6117B26F372E2127">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771.htm">Maya 中的阴影</a>
+</li>
+<li class="li" id="GUID-10D8F073-B010-436A-A4BF-7644FF981658__WS1A9193826455F5FF-29C43AA6117B26F372E2128">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-BC9C9AFE-D90E-4B54-8A2E-22ED1C89A06C.htm#GUID-BC9C9AFE-D90E-4B54-8A2E-22ED1C89A06C__WS17956D7ADBC6E73650E6F747117AE324699-7FF0">深度贴图阴影</a>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-BC9C9AFE-D90E-4B54-8A2E-22ED1C89A06C.htm">深度贴图和光线跟踪阴影</a></div>
+</div>
+</div>
+
+</body>
+</html>

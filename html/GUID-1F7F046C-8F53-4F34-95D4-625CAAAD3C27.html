@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27">
+<meta name="language" content="CHS">
+<title>减少内存使用量</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>减少内存使用量</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF-56C0CD8012A8003217A-1D6C"><p class="p" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__WS73099CC142F487553B93539F117EA10CE8F605D">若要减少渲染器的内存使用量，请执行以下预渲染优化以生成更小且更高效的文件。
+	 </p>
+<div class="section" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__SECTION_6116C9082322418F857626D66DA076E0"><h2 class="title sectiontitle">使用 BOT（块有序纹理）缓存纹理分片</h2> 
+		 
+		<p class="p" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__WS73099CC142F487553B93539F117EA10CE8F6062"> 仅适用于 Maya 软件渲染。
+		</p>
+ 
+		<p class="p" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__WS73099CC142F487553B93539F117EA10CE8F6064">有关文件纹理的详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-92234087-2E79-412E-8174-CBAAE0463CD6">文件纹理</a>。
+		</p>
+ 
+		<p class="p" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__WS73099CC142F487553B93539F117EA10CE8F6065">渲染时，会将脚本、场景、纹理等加载到 RAM 中。如果所有可用的 RAM 都在使用中，计算机可能会挂起或遇到交换问题。若要在渲染时降低 RAM 上的负载，可以将纹理转化为块有序纹理 (BOT)（实际上是分片）。（有关可分片图像的详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-92234087-2E79-412E-8174-CBAAE0463CD6">文件纹理</a>）。使用 BOT 文件，将只在 RAM 中保存少量的纹理分片缓存；如果 Maya 在渲染时需要更多的缓存，它会在磁盘中进行查找。
+		</p>
+ 
+		<p class="p" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__WS73099CC142F487553B93539F117EA10CE8F6066">BOT 缓存在 RAM 中的固定大小约为 250 KB，可以有效地缓存纹理。
+		</p>
+ 
+		<p class="p" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__WS73099CC142F487553B93539F117EA10CE8F6067">建议不要对所有纹理文件都使用 BOT，但在渲染高分辨率纹理时，请注意速度的差异。
+		</p>
+ 
+		<div class="section" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__WS73099CC142F487553B93539F117EA10CE8F606A"><h3 class="title sectiontitle">使用 BOT 预渲染设置</h3> 
+		   
+		  <p class="p" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__WS73099CC142F487553B93539F117EA10CE8F606B">在使用 BOT 预渲染设置时，将生成优化的新场景文件并可供渲染器使用。
+		  </p>
+ 
+		  <p class="p" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__WS73099CC142F487553B93539F117EA10CE8F606C">有关详细信息，请键入以下命令：
+		  </p>
+ 
+		  <p class="p" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__WS73099CC142F487553B93539F117EA10CE8F606D"> 
+			 <samp class="ph codeph" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__GUID-7CE54235-6E24-495E-8A52-06962893BF43">maya -optimizeRender -help</samp> 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+maya -optimizeRender [options] <pre class="pre codeblock">
+<em class="ph i" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__GUID-4C437339-77BA-49F7-B17E-6183851727B1">mayaFile</em></pre>
+ 
+		  <pre class="pre codeblock">
+<em class="ph i" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__GUID-7E6C822A-D3AE-4AED-A0FD-A056CF591E49">optimizedMayaFile</em></pre>
+ 
+		</pre>
+ 
+		<p class="p" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__WS73099CC142F487553B93539F117EA10CE8F606E">其中，<em class="ph i" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__GUID-1CDE747D-A743-4C4D-9BCF-22BF0FF32989">mayaFile</em> 是要优化的 Maya 文件，<em class="ph i" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__GUID-D910264C-4157-47D5-B377-82873950EE02">optimizedMayaFile</em> 是优化的 Maya 文件的名称。
+		</p>
+ 
+		<p class="p" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__WS73099CC142F487553B93539F117EA10CE8F606F">请使用以下选项：
+		</p>
+ 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__WS73099CC142F487553B93539F117EA10CE8F6070" class="table" width="100%" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">-botRes ‘int’ 
+				  </td>
+<td class="entry" valign="top" width="50%">生成 BOT 文件的分辨率。如果不使用该标志，将使用默认的 botRes 512x512。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">-botLoca ‘name’ 
+				  </td>
+<td class="entry" valign="top" width="50%">BOT 文件所在的目录（默认情况下，与原始文件位于同一目录中）。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">-help 
+				  </td>
+<td class="entry" valign="top" width="50%">打印帮助消息。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">-noBOT 
+				  </td>
+<td class="entry" valign="top" width="50%">避免创建 BOT。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">-noCleanup 
+				  </td>
+<td class="entry" valign="top" width="50%">避免清理与非渲染相关的数据。
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+	 </div>
+ 
+  </div>
+<div class="section" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__SECTION_310B6D1D5C324C13BF53F127576D9992"><h2 class="title sectiontitle">删除与渲染器无关的信息</h2> 
+	  
+	 <p class="p" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__WS73099CC142F487553B93539F117EA10CE8F6071">可以通过删除 Maya 文件中与渲染器无关的信息减少内存。有时额外信息仅在编辑场景时需要，或者它包含当前不使用的、保存以供将来使用的项目。
+	 </p>
+ 
+	 <div class="section" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__SECTION_42352FE6BB1048E8BAF82D4CFCAC2E0A"><h3 class="title sectiontitle">删除传统渲染层</h3> 
+		 
+		<p class="p" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__P_2F074DFFC70644349C5A5AB9134C7A64"> 先前版本的 Maya 中的场景可能包含传统渲染层。若要删除它们，请打开“渲染设置”(Render Setup)窗口，单击“选项”(Options)，然后在编辑器中单击“显示渲染设置”(Display Render Setup)节点。传统渲染层现在将显示在“渲染设置”(Render Setup)窗口中，供您删除。
+		</p>
+ 
+	 </div>
+ 
+  </div>
+<div class="section" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__SECTION_3170F80230094D6C89F3AD15AF0E471D"><h2 class="title sectiontitle">单独渲染场景中的各个部分</h2> 
+	  
+	 <p class="p" id="GUID-1F7F046C-8F53-4F34-95D4-625CAAAD3C27__WS73099CC142F487553B93539F117EA10CE8F6072">可以单独渲染场景中的各个部分，并合成渲染图像。有关在合成的层中进行渲染的详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-646154F9-E4D2-4A3E-A0D9-B2F062960A4E.htm">Maya 渲染设置</a>。
+	 </p>
+ 
+  </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-E3844A77-8EC6-445A-A0C9-A6B17C9593E1.htm">提高整体渲染速度</a></div>
+</div>
+</div>
+
+</body>
+</html>

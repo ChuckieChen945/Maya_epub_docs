@@ -1,0 +1,57 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_File_Geometry_File_Geometry_read_OpenVDB_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>read_OpenVDB</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>read_OpenVDB</code></h1></div><p>从 OpenVDB 文件读取 Bifrost 点云和体积。请注意，某些 VDB 文件可能包含多个具有不同分辨率和特性的体积，例如，一个体积具有温度，另一个体积具有密度。在这种情况下，输出是一组体积 - 您可以使用 merge_volumes 将它们合并为单个体积。</p>
+<h2 id="">输入</h2><h3 id="filename"><code>filename</code></h3><p>文件名。使用 <code>#</code> 包含输入 <code>frame</code> 编号。<code>#</code> 的出现次数确定填充量。例如，<code>file####.vdb</code> 解析为 <code>file0001.vdb</code>、<code>file0002.vdb</code> 等。 </p>
+<h3 id="directory"><code>directory</code></h3><p>目录。 </p>
+<h3 id="frame"><code>frame</code></h3><p>帧编号。您可以将 <code>time</code> 节点的 <code>frame</code> 输出连接到 <code>to_long</code> 节点，然后在此处连接结果。 </p>
+<h3 id="properties"><code>properties</code></h3><p>要读取的特性的列表（以空格分隔）。使用 <code>*</code>（星号）指定所有特性。 </p>
+<h3 id="volume_subdivision_structure"><code>volume_subdivision_structure</code></h3><p>输出 Bifrost 体积的体积细分结构。 </p>
+<h3 id="adaptivity"><code>adaptivity</code></h3><p>选择 <code>Optimized</code> 时，将粗化 read_OpenVDB 栅格以减少体素数。请注意，当前这仅适用于等值面。选择 <code>Off</code> 时，至少以与文件中的分辨率一样精细的分辨率读取 OpenVDB 栅格。当前，<code>VariedFromProperty</code> 与 <code>Off</code> 效果相同。 </p>
+<h3 id="max_relative_error"><code>max_relative_error</code></h3><p>当 <code>adaptivity</code> 设置为 <code>Optimized</code> 时，输出中允许的相对于体素大小和边界框（对于带符号距离体积）的最大差异（与输入 VDB 体积相比）。首先尝试默认值，然后根据结果上下调整。如果误差阈值太低，放大时可能会出现瑕疵，如果误差阈值设置得太高，将会减少内存并节省计算时间。</p>
+<h3 id="rename_properties"><code>rename_properties</code></h3><p>按照 Bifrost 命名标准重命名特性。请注意，这仅适用于非 Bifrost OpenVDB 体积。 </p>
+<h2 id="">输出</h2><h3 id="points"><code>points</code></h3><p>输出 Bifrost 点云。 </p>
+<h3 id="volumes"><code>volumes</code></h3><p>输出 Bifrost 体积。 </p>
+<h3 id="success"><code>success</code></h3><p>指示操作是否成功的布尔值。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/File/Bifrost_Common_reference_File_Geometry_html.html">Geometry</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

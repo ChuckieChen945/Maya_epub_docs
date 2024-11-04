@@ -1,0 +1,61 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-ManagingScenes">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4">
+<meta name="language" content="CHS">
+<title>示例：在场景中引用和交换汽车</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>示例：在场景中引用和交换汽车</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-2640"><p class="p" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-5EF0"> 该示例显示了如何组合使用资产和文件引用，快速替换场景中的对象而不会丢失任何行为。</p>
+<p class="p" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-5EEE">考虑将一辆低多边形的汽车引用到城市场景，然后缩放和设置动画。</p>
+<div class="fig fignone" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-5EED"><img class="image" width="442" height="253" src="../images/GUID-5ABBCE21-BB74-4F03-AB10-193CA0009D59.png"></div>
+<p class="p" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-5EEC">在其源文件 (Car_low_poly.ma) 中，汽车模型组织在名 Car_AST 的资产下。该资产的已发布属性包括汽车的“平移”和“旋转”值，以及其车轮的自旋和前车轮的向左和向右转向。在父场景中，通过修改这些已发布属性来实现动画。这些称为引用编辑，存储在父文件 (City.mb) 中。</p>
+<p class="p" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-530F">您可以通过从<span class="ph uicontrol" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__GUID-45C0E279-AD6F-41A3-A799-5AD692636AE5">“引用编辑器”(Reference Editor)</span>选择<span class="ph uicontrol" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__GUID-24A5F02E-5183-4D7C-84F1-72987343ACB9">“文件 &gt; 列出引用编辑”(File &gt; List Reference Edits)</span>来查看引用编辑。</p>
+<div class="fig fignone" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-530E"><img class="image" width="290" height="266" src="../images/GUID-AAE5E9C4-9FC0-4311-8919-2F38A6485492.png"></div>
+<p class="p" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-5EEB">现在考虑用第二个汽车模型替换旧的汽车模型。该新汽车位于其自己的文件 (Car_high_poly.ma) 中。</p>
+<div class="fig fignone" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-5EEA"><img class="image" width="430" height="138" src="../images/GUID-4CA0AD11-A3DF-4335-9871-FFA8ED818F39.png"></div>
+<p class="p" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-530D">与原始模型相比，在诸如方向盘、车窗、侧门和车身等附加细节方面，第二个模型具有不同的结构和额外的节点。</p>
+<p class="p" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-5EE9">更重要的是，第二个模型组织在与原始汽车具有相同名称 (Car_AST) 和相同已发布属性的资产下。这一点至关重要，因为父文件的引用编辑按已发布名称存储。还可以选择使其具有其他已发布属性，用来控制车门状态、车窗状态和旧汽车上不存在的其他细节。</p>
+<p class="p" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-5EE8">现在可以通过使用对新汽车的引用替换现有引用来替换城市场景中的旧汽车。 </p>
+<p class="li listintro" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-5EE7">替换城市引用的汽车</p>
+<ol class="ol" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS1A9193826455F5FF-2ADE9D9118A20D4F81-35C"><li class="li" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-5EE6">在父文件中，选择<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-8D8E0D4A-DE37-4C63-9F59-8D71F00E3367.htm">文件 &gt; 引用编辑器(File &gt; Reference Editor)</a>。<p class="p" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-530C"><span class="ph uicontrol" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__GUID-E273A9F8-BCFF-40A0-A740-0FB5E22411E2">“引用编辑器”(Reference Editor)</span>出现。</p>
+</li>
+<li class="li" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-530B">在<span class="ph uicontrol" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__GUID-1AED9A2A-8C7E-458E-BF96-227A7B3A4D69">“引用编辑器”(Reference Editor)</span>中，选择汽车引用。</li>
+<li class="li" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-530A">选择<span class="ph uicontrol" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__GUID-17ED0B9F-67ED-474F-A768-846DB5EEDE1E">“引用 &gt; 替换引用”(Reference &gt; Replace Reference)</span>。<p class="p" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-5309">将显示文件浏览器。</p>
+</li>
+<li class="li" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-5308">选择新汽车的文件 (Car_high_poly.ma) 并单击<span class="ph uicontrol" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__GUID-563AE972-8A84-40B1-883A-2ABBA22D4A41">“引用”(Reference)</span>。</li>
+</ol>
+<p class="p" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-5EDD">旧的汽车将替换为新的汽车并进行适当的缩放。如果播放场景，新汽车的动画效果与旧汽车相同。 </p>
+<p class="p" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-5307">由于引用编辑根据资产的已发布名称存储在父场景中，因此可以用任何具有相同名称和已发布属性的引用资产来替换汽车。这使您可以在场景中灵活地尝试不同的选项而不用断开它。</p>
+<div class="fig fignone" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-5EDC"><img class="image" width="428" height="230" src="../images/GUID-BA8E8263-0CC0-4AE9-B74A-39C7AF45D3BF.png"></div>
+<div class="note note" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__WS73099CC142F48755558158A8119D88FB23C-5306"><span class="notetitle">注：</span> 
+<p class="p" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__GUID-D290F23C-BBFB-42DB-BFD7-1171CA4C5469">此示例使用<span class="ph uicontrol" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__GUID-E12E2CB8-D4C6-4780-9A5D-5A6F5960F4ED">“引用编辑器”(Reference Editor)</span>和<span class="ph uicontrol" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__GUID-8CE8021A-CD93-4720-81C1-A7CBA0CE188B">“替换引用”(Replace Reference)</span>命令。但是，也可以使用<span class="ph uicontrol" id="GUID-BA2B3C70-7158-4E3E-BB48-4748EF2FF0A4__GUID-76DEA3A4-2635-4C38-9A3F-32AF2C010F38">“传递属性值”(Transfer Attribute Values)</span>命令来获得相同的结果。要执行此操作，应将两个汽车放置在同一个文件中，并将原始汽车的属性传递给新汽车。有关这种工作流的示例，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-474FD853-407F-4D79-880E-F869A69F4386.htm">示例：交换机器人的手臂</a>。</p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-AAEBE412-C752-4588-B5C6-2ECC8918F58A.htm">资产和文件引用</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_5x_am_500_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_500">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 5.0.0 - Arnold for Maya">
+
+<title>5.0.0</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>5.0.0</h1></div><p>18 Oct 2021</p>
+<p>MtoA 5.0.0 introduces Arnold 7.0.0.0 and is a major feature release bringing parallel preview renders on the CPU, multiple outputs for OSL and custom shaders, brand new imagers, and many other enhancements and bug fixes.</p>
+<h2 id="installation">Installation</h2><ul>
+<li><a href="https://manage.autodesk.com/products/MAYA" target="_blank">Download</a> the Arnold for Maya plugin</li>
+<li>Follow these installation instructions.</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2><ul>
+<li><p>Maya 2019, 2020 or 2022</p>
+</li>
+<li><p>Windows 10 or later, with the Visual Studio 2019 redistributable.</p>
+</li>
+<li><p>Linux with at least glibc 2.17 and libstdc++ 4.8.5 (gcc 4.8.5). This is equivalent to RHEL/CentOS 7.</p>
+</li>
+<li><p>macOS 10.13 or later .</p>
+</li>
+<li><p>CPUs need to support the SSE4.1 instruction set. Apple Mac models with M series chip are supported under Rosetta 2 mode.</p>
+</li>
+<li><p>GPU rendering works on Windows and Linux only and requires an NVIDIA GPU of the Ampere, Turing, Volta, Pascal, or Maxwell architecture. We recommend using the <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">470.74</a> or higher drivers on Linux and <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">472.12 (Quadro), 472.12 (GeForce)</a> , or higher on Windows. See Arnold GPU for more information.</p>
+</li>
+<li><p>Optix™ denoiser requires an NVidia GPU with <a href="https://developer.nvidia.com/cuda-gpus" target="_blank">CUDA™ Compute Capability 5.0</a> and above.</p>
+</li>
+</ul>
+<h2 id="maya-plugins-compatibility">Maya Plugins Compatibility</h2><p>MtoA 5.0.0 works with the following Maya plugins:</p>
+<ul>
+<li><a href="https://area.autodesk.com/bifrost/downloads/" target="_blank">Bifrost Extension for Maya 2.3.1.0</a></li>
+<li><a href="https://github.com/Autodesk/maya-usd/releases/tag/v0.12.0" target="_blank">MayaUSD 0.12.0</a></li>
+</ul>
+<h2 id="enhancements">Enhancements</h2><ul>
+<li><p><strong>**Parallel preview renders on the CPU</strong> :** MtoA can render the Material Viewer and the swatch in parallel with the primary render in Arnold Render View or Arnold Viewport. Users can also perform file operations like export to scene, render to texture in parallel to rendering.</p>
+</li>
+<li><p><strong>Scene Units</strong> : When exporting scenes to Arnold, the scene units defined in the Render Settings ( <a href="https://help.autodesk.com/display/AFMUGTMP/System">System</a> ) are now stored in the .ass file header. This allows loading the file in a scene having different scene units, with consistent results. A Standin loading a .ass file will now appear with a different scale if the current scene units are different from the ones used during export. By default, MtoA uses the scene units defined in the Maya Preferences.</p>
+</li>
+<li><p><strong>Open Image Denoise imager:</strong> Intel   ®  's <a href="https://www.openimagedenoise.org/" target="_blank">Open Image Denoise</a> (OIDN) is a fast, AI-accelerated denoiser that runs on CPU that has been integrated into Arnold as the <code>[imager_denoiser_oidn](topicid=arnold_user_guide_ac_denoising_ac_denoiser_oidn_html)</code> imager as an additional denoising option. (ARNOLD-8677).</p>
+</li>
+</ul>
+<pre class="pre codeblock"><code class="prettyprint">*   **Higher quality AI denoising:** The OptiX and OIDN denoisers now use the newly introduced *denoise_albedo_noisy* AOV as the albedo feature AOV provided to the denoiser. This adds specular reflections and refractions to the albedo, which can improve denoiser quality. Below are comparisons between undenoised and Optix denoised with the old and new albedo AOV (ARNOLD-10812).
+
+|  |  |  |
+| --- | --- | --- |
+| ![](../../../images/am-500-sima-as3-albedoD-optix-4.jpg) | ![](../../../images/am-500-sima-as3-albedoS7-denoise-optix-5.jpg) | ![](../../../images/am-500-sima-as3-undenoised-6.jpg) |
+| 
+ | 
+
+ | 
+
+ |
+
+|  |  |  |
+| --- | --- | --- |
+| ![](../../../images/am-500-1-archinteriors-kitchen-as3-albedoS7-undenoised-7.png) | ![](../../../images/am-500-2-archinteriors-kitchen-as3-albedoD-optix-8.png) | ![](../../../images/am-500-3-rchinteriors-kitchen-as3-albedoS7-optix-9.png) |
+| 
+ | 
+
+ | 
+
+ |
+
+&lt;sup&gt;&lt;strong&gt;Undenoised (left), Optix diffuse albedo (center), Optix diffuse+specular albedo (right).&lt;/strong&gt;&lt;/sup&gt;</code></pre><ul>
+<li><p><strong>LUT based tone mapping:</strong> <code>[imager_tonemap](topicid=arnold_user_guide_ac_imagers_node_ac_imager_tonemap_html)</code> now supports a <code>lut</code> mode to apply LUT files in all the formats supported by OCIOv2 ( <code>cube, look,</code> <code>3dl,</code> <code>clf</code> among others). <code>imager_tonemap.lut_filename</code> specifies the file to load. Note that some LUTs assume a non-linear color space. To help with this, it is possible to specify a working color space in <code>imager_tonemap.lut_working_color_space</code> to convert to the specified space, apply the lut, and convert to linear or rendering color space again (ARNOLD-11084).</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-500-no-lut-cube-10.jpg" alt=""></td>
+<td><img src="../images/am-500-lut-cube-11.jpg" alt=""></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p> |</p>
+</li>
+<li><p><strong>Automatic selection of box filtering with OIDN and OptiX denoisers:</strong> The OptiX and OIDN denoisers do not perform well with CPU rendering filters that span across multiple pixels. Arnold on CPU will now automatically force a box filter on outputs with filters with known issues when either of the denoisers are used (ARNOLD-10812).</p>
+</li>
+<li><p><strong>Imager_color_curves :</strong> A new imager to control brightness and color curves has been added. Separate curves can be authored for each R, G, or B component, along with the main curve to control the overall luminance response. Curve interpolation and working color space can also be set as needed (ARNOLD-11161).</p>
+<p><img src="../images/am-500-emily-color-curves2-12.gif" alt=""></p>
+<h2 id="sup-span-style-color-rgb-0-0-0-strong-style-text-align-center-rgb-colors-edited-in-real-time-using-em-imager_color_curves-em-strong-span-sup"><sup><span style="color: rgb(0,0,0);"><strong style="text-align: center;">RGB colors edited in real-time using <em>imager_color_curves</em></strong></span></sup></h2></li>
+</ul>
+<ul>
+<li><p><strong>imager_tonemap.mix:</strong> imager_tonemap now has an additional mix parameter. 0 preserves the input untouched and 1 applies the full node effect (ARNOLD-11172).</p>
+</li>
+<li><p><strong>Ignore imagers option:</strong> The global option <code>ignore_imagers</code> has been added to allow users to disable imager post-processing in a scene. This can be useful for debugging and can also be enabled via kick with the <code>-ii</code> flag. (ARNOLD-10720).</p>
+</li>
+<li><p><strong>Improved support for imagers shared by multiple drivers:</strong> All imagers, including the denoisers, can now be shared by drivers with different AOV inputs (ARNOLD-11087).</p>
+</li>
+<li><p><strong>Improved imagers refresh rate in IPR:</strong> Fullframe imagers will now be updated during rendering so that the imager chain result can be previewed before the entire image has been rendered. This replaces the previous behavior where in some cases we would have to delay the result until after the full frame had finished (ARNOLD-11203).</p>
+</li>
+<li><p><strong>Improved filter performance in progressive rendering:</strong> The performance of several filters, including the Triangle, Sinc, Blackman-Harris, Catmull-Rom, and Mitnet filters have been improved when rendering in progressive mode. In some cases, we have seen a 48% improvement in performance and a 20x improvement in memory usage (ARNOLD-10651).</p>
+</li>
+<li><p><strong>Added support for multiple parallel render sessions on CPU:</strong> Any Arnold universe can now be rendered using its own render session (only one render session per universe). Those render sessions can be executed in any order, even in parallel.</p>
+<p><img src="../images/am-500-multiple-render-sessions-13.gif" alt=""></p>
+</li>
+</ul>
+<pre class="pre codeblock"><code class="prettyprint">The existing API ( `AiBegin` ) creates a default universe and render session, which can be used or ignored. Additional universes can be created and destroyed as usual with their API, but there is a new API that allows creating/destroying and using render sessions:
+
+```
+ AtUniverse* universe = AiUniverse();
+AtRenderSession* rs = AiRenderSession(universe);
+AiRenderBegin(rs);
+. . .
+AiRenderEnd(rs);
+AiRenderSessionDestroy(rs);
+AiUniverseDestroy(universe);
+
+```</code></pre><ul>
+<li><p><strong>Multiple outputs for shaders:</strong> Arnold now supports having multiple outputs for shader nodes. Shader outputs can be linked to inputs of other shader nodes in a .ass file or programmatically via the <em>AiNodeLinkOutput()</em> function by optionally specifying which output is desired when linking. When no output is specified, the node's default output parameter will be chosen, preserving Arnold's existing behavior.</p>
+<p>Standard OSL language rules apply when specifying multiple OSL shader outputs. An example OSL shader with three color outputs could look like the following snippet and each output could be connected separately :</p>
+<pre class="pre codeblock"><code class="prettyprint"> shader test_shader (output color result = color(1, 1, 1),
+                    output color good   = color(0, 0, 1),
+                    output color bad    = color(1, 0, 0))
+{ ... } </code></pre></li>
+<li><p><strong>Visible lights now transparent:</strong> The visible lights are now transparent, which matches the behavior of indirectly seen lights. This also has the benefit of allowing black parts of textured lights to be masked away. This is a look-breaking change to fix previously incorrect visible light behavior (ARNOLD-9070).</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-500-transparent-light-old-14.jpg" alt=""></td>
+<td><img src="../images/am-500-transparent-light-new-15.jpg" alt=""></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p> |</p>
+<h2 id="sup-strong-visible-lights-transparency-now-matches-the-reflection-strong-sup"><sup><strong>Visible lights transparency now matches the reflection</strong></sup></h2></li>
+<li><p><strong>kick ascii render mode:</strong> <code>kick -ascii</code> allows rendering directly into the terminal. This requires a 24-bit terminal with UTF-8 support. The windows terminal, most Linux terminals, and iTerm support this; Apple's Terminal does not. This will change the resolution of the render to fit within the console, so any images written to disk will likely be very small. Because it is so low res, telling kick to use a small bucket size is recommended, for instance by passing <code>-bs 16</code> to kick. This can be useful for checking if a render on a remote machine is working (ARNOLD-11146).</p>
+</li>
+<li><p><strong>Render in ACEScg by default:</strong> Arnold will now use an OCIO color manager by default. This color manager will use the default OCIO configuration file. Arnold will render in the <a href="https://acescentral.com/knowledge-base-2/aces-working-spaces/" target="_blank">ACEScg</a> color space by default.  (ARNOLD-11246):</p>
+<ul>
+<li>The rendering color space in Arnold 6 and older is <em>scene-linear Rec.709-sRGB,</em> it is possible to override the default OCIO color manager to revert back to the previous default color space. For example, you must pass the following argument to kick :</li>
+</ul>
+<pre class="pre codeblock"><code class="prettyprint"> \-set ai_default_color_manager_ocio.color_space_linear "scene-linear Rec.709-sRGB" </code></pre><ul>
+<li>Arnold assumes tx files are in the rendering space, it is recommended to regenerate tx files when changing the rendering color space</li>
+</ul>
+</li>
+<li><p><strong>Standard OCIO configuration:</strong> Arnold now ships with a standard OCIO configuration exposing common color spaces used for rendering, such as <em>ACEScg</em> and <em>scene-linear</em> Rec.709-sRGB as well as the <em>ACES 1.0 SDR-video</em> ACES output transform for standard dynamic range video <em>.</em> This configuration is compatible with the default Maya 2022 OCIO configuration. (ARNOLD-11333):</p>
+</li>
+<li><p><strong>Multi-part EXR:</strong> The EXR driver can now render AOVs as separate images (parts) in a multi-part EXR file (merged AOVs, in contrast, renders AOVs as layers in a single-part EXR).<br>Multi-part works with either scanline or tiled EXRs and is enabled with the <strong>driver_exr.multipart</strong> boolean parameter.</p>
+<ul>
+<li>Noice does not work with multi-part EXRs.</li>
+</ul>
+</li>
+<li><p><strong>Write AOVs to multiple formats:</strong> It is now possible to output a single AOV in multiple different formats, for example, the following output string will now output the correct result (ARNOLD-11079).</p>
+<pre class="pre codeblock"><code class="prettyprint"> outputs 2 1 STRING "RGBA FLOAT filter testrender" "RGBA RGB filter testrender2" </code></pre></li>
+<li><p><strong>OSL UDIMs:</strong> OSL now uses the same code as Arnold's image node for resolving texture tags, such as UDIMs. This can make OSL texture lookups faster and increase the types of texture tags that can be used from OSL. (ARNOLD-9276).</p>
+</li>
+<li><p><strong>SSS setnames with randomwalk:</strong> The <em>sss_setname</em> feature that allows subsurface effects to spread between distinct objects is now supported in the <em>randomwalk</em> mode on CPU (ARNOLD-8140).</p>
+<p><img src="../images/am-500-cylinders-shareSSS-0-16.jpg" alt=""> <img src="../images/am-500-cylinders-shareSSS-1-17.jpg" alt=""> <img src="../images/am-500-teeth-shareSSS-0-300-18.jpg" alt=""> <img src="../images/am-500-teeth-shareSSS-1-300-19.jpg" alt=""></p>
+<h2 id="sup-rollover-images-to-view-with-em-sss_setname-em-sup"><sup>Rollover images to view with <em>sss_setname</em></sup></h2></li>
+<li><p><strong>Use Existing TX:</strong> When <code>options.texture_use_existing_tx</code> is set to true, which is the default, Arnold will attempt to use the .tx version of a texture when available. The .tx file must be located in the same directory as the requested source texture and have the same name with the exception of the file extension. For instance, if "foo/bar/floor.png" is requested and "foo/bar/floor.tx" exists then "floor.tx" will be used. Arnold will ignore any requested colorspace conversions when the .tx file is used since we assume the .tx will have the colorspace transform baked in (ARNOLD-4107).</p>
+</li>
+<li><p><strong>Support for MaterialX v1.38:</strong> Arnold extends its MaterialX support to v1.38. As a part of this upgrade, looks and materials exported from Arnold will now be expressed as a combination of Nodes and Inputs departing from the previous standard of ShaderRefs and Params. Arnold will still be able to render MaterialX documents exported with earlier versions of Arnold however this may cause a look-breaking change.</p>
+</li>
+<li><p><strong>Cryptomatte 1.1.2:</strong> Cryptomatte has been updated to version 1.1.2 (ARNOLD-11270).</p>
+</li>
+<li><p><strong>Multiple outputs for OSL and custom C++ shaders</strong> : User created OSL and C++ shaders now supports multiple outputs.</p>
+</li>
+</ul>
+<h2 id="gpu-enhancements">GPU Enhancements</h2><ul>
+<li><strong>Reduced VRAM use for polymeshes</strong> : The amount of VRAM used by polymeshes is significantly lower in this version. Scenes with heavy subdivision will use around 33% less GPU memory for geometry (ARNOLD-8524).</li>
+</ul>
+<p><img src="../images/am-500-gpu-scalability-polymeshes-20.jpg" alt=""></p>
+<ul>
+<li><strong>Reduced VRAM use for GPU volumes</strong> : In 6.2.1 we started to use NVIDIA's NanoVDB system for rendering OpenVDB volumes on GPU, which greatly reduced the GPU memory required for OpenVDB volumes. In 7.0, compression of NanoVDB volumes has been further improved, so that we see roughly a further 50-60% reduction in GPU memory in typical volumetric scenes. GPU volumes now consume less VRAM than the equivalent CPU volumes consume RAM (note, the red line shows the RAM usage in a separate CPU render) . (ARNOLD-11229) <img src="../images/am-500-gpu-scalability-volumes-21.jpg" alt=""></li>
+<li><strong>Matte support</strong> : Support for matte has been added to the GPU integrator. This means the matte closure, matte shader, and matte shape flag are all now supported (ARNOLD-7924).</li>
+</ul>
+<h2 id="usd-enhancements">USD Enhancements</h2><ul>
+<li><strong>USD 21.08</strong> : The procedural included in the core SDK is now built using USD 21.08.</li>
+<li><strong>UsdImaging adapters</strong> : Arnold-USD now includes a set of UsdImaging adapters for Arnold specific schemas, that allows direct use of procedurals and Arnold shapes in Hydra. ( <a href="https://github.com/Autodesk/arnold-usd/issues/185" target="_blank">usd#185</a> <a href="https://github.com/Autodesk/arnold-usd/issues/741" target="_blank">usd#741</a> )</li>
+<li><strong>Deep rendering</strong> : The render delegate now supports rendering of deep AOVs via <a href="https://www.sidefx.com/docs/hdk/_h_d_k__u_s_d_hydra.html#HDK_USDHydraHusk" target="_blank">DelegateRenderProducts</a> . ( <a href="https://github.com/Autodesk/arnold-usd/issues/650" target="_blank">usd#650</a> )</li>
+<li><strong>Multiple frames in a single file</strong> : The USD writer is now able to append multiple frames to a single USD file. ( <a href="https://github.com/Autodesk/arnold-usd/issues/777" target="_blank">usd#777</a> )</li>
+<li><strong>Hydra scene delegate</strong> : Arnold-USD now includes an experimental scene delegate for Hydra. ( <a href="https://github.com/Autodesk/arnold-usd/issues/764" target="_blank">usd#764</a> )</li>
+<li><strong>Progressive disabled when using Husk</strong> : Progressive rendering is now disabled when rendering via husk. ( <a href="https://github.com/Autodesk/arnold-usd/issues/797" target="_blank">usd#755</a> )</li>
+<li><strong>Procedural Path Mapping</strong> : The procedural now supports Arnold Path Mapping when loading USD files. ( <a href="https://github.com/Autodesk/arnold-usd/issues/818" target="_blank">usd#818</a> )</li>
+<li><strong>Custom PrimID Hydra Buffer</strong> : The render delegate now uses a dedicated primId AOV to support selections in Hydra viewports. This improves support for render-time procedurals and leaves the built-in id parameter unchanged on shapes. ( <a href="https://github.com/Autodesk/arnold-usd/issues/812" target="_blank">usd#812</a> )</li>
+<li><strong>DoubleSided in the Render Delegate</strong> : The render delegate now supports the built-in doubleSided parameter on USD primitives and correctly supports overrides via Arnold-specific primvars. ( <a href="https://github.com/Autodesk/arnold-usd/issues/805" target="_blank">usd#805</a> )</li>
+<li><strong>Motion Blur using Velocity and Acceleration</strong> : The render delegate now extrapolates point positions if velocity or acceleration primvars exist and there are no multiple samples for the position. ( <a href="https://github.com/Autodesk/arnold-usd/issues/673" target="_blank">usd#673</a> )</li>
+<li><strong>Light Linking</strong> : The procedural now supports light linking. ( <a href="https://github.com/Autodesk/arnold-usd/issues/787" target="_blank">usd#787</a> )</li>
+<li><strong>Fast camera updates</strong> : The render delegate now handles camera-only updates more efficiently, improving the first time to pixel. ( <a href="https://github.com/Autodesk/arnold-usd/issues/869" target="_blank">usd#869</a> )</li>
+<li><strong>Standard Surface Fallback</strong> : The render delegate now uses a standard surface as a fallback, when no materials are assigned to a prim. ( <a href="https://github.com/Autodesk/arnold-usd/issues/861" target="_blank">usd#861</a> )</li>
+<li><strong>String array parameters</strong> : String array primvars are now converted to built-in parameters. ( <a href="https://github.com/Autodesk/arnold-usd/issues/808" target="_blank">usd#808</a> )</li>
+<li><strong>Multiple hydra sessions</strong> : The render delegate now uses the multiple render session API. ( <a href="https://github.com/Autodesk/arnold-usd/issues/783" target="_blank">usd#783</a> )</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible Changes</h2><ul>
+<li><p><strong>flipR and flipG in Maya's bump2d disabled by default</strong> - this is different from the previous behavior to keep compatible with Mental Ray (MTOA-301)</p>
+</li>
+<li><p><strong>Removed denoise_optix_filter:</strong> With the introduction of the imager_denoiser_optix node, the old denoise_optix_filter code path has become redundant and therefore removed. (ARNOLD-11204)</p>
+</li>
+<li><p><strong>imager_denoiser_optix clamp disabled by default:</strong> The default of the imager_denoiser_optix's clamp parameter has now been set to disabled. (ARNOLD-11187)</p>
+</li>
+<li><p><strong>Support for MaterialX v1.38 :</strong> There's a look-breaking change that affects certain materialX documents. If your document contains a connection to a MaterialX nodeGraph without explicitly specifying the output of the nodegraph the node is connecting to, we used to be returning a NULL meaning so the connection was not applied. In this version, if this scenario exists we return the first output to the nodegraph.</p>
+</li>
+<li><p><strong>Multiple render sessions</strong> : For the API updated as described above, the old API was maintained as deprecated and is implicitly using the default universe/render session. This will work fine when using the default universe and render session, but any code expected to work on an arbitrary universe/render session will have to be updated with the new API passing an explicit universe or render session.</p>
+</li>
+<li><p><strong>options.pin_threads:</strong> <code>pin_threads</code> has been removed from the <code>options</code> node. Threads are now never pinned. (ARNOLD-11073)</p>
+</li>
+<li><p><strong>AiOutputIteratorGetNext</strong> : <code>AiOutputIteratorGetNext</code> switched from taking a <code>const char** output_name</code> to the more efficient <code>AtString* output_name</code> . (ARNOLD-11357)</p>
+</li>
+<li><p><strong>Removed source code info from API functions</strong> : <code>AiMalloc_func(), AiFree_func(), AiRealloc_func(), AiArrayGet*Func()</code> , and <code>AiArraySet*Func()</code> all took source code info (filename and line number). These functions have been removed and their previous macros ( <code>AiMalloc(), AiFree(), AiRealloc(), AiArrayGet*()</code> , and <code>AiArraySet()</code> ) which were setting the source code info are now proper functions. If you were using the macros you should not need to modify any code. (ARNOLD-5785, ARNOLD-10754).</p>
+</li>
+<li><p><strong>options.scene_units_in_meters</strong> : The <code>scene_units_in_meters</code> option and metadata have been renamed to <code>meters_per_unit</code> , putting them more in line with their equivalents in the USD standard. Note that these values now have an inverse interpretation to what they had before, so implementations must now provide values such that: <code>new_scene_units_value = 1 / old_scene_units_value</code> (ARNOLD-11176)</p>
+</li>
+<li><p><strong>Renamed AiUniverseIsActive to AiArnoldIsActive</strong> : The <code>AiUniverseIsActive</code> API function is now renamed to <code>AiArnoldIsActive</code> (ARNOLD-11120)</p>
+</li>
+<li><p><strong>Autodesk Network Licensing version</strong> : Arnold 7 switches to <code>ARNOL_2022</code> licensing.</p>
+<ul>
+<li>Single-user subscriptions will work with Arnold 7. The plugin installers automatically register the new version. If you do not use a plugin, then after you download Arnold, open the Arnold License Manager and click <em>Register</em> .</li>
+<li>Existing network licenses will not work with Arnold 7. Log on to your Autodesk account to generate your new <code>ARNOL_2022</code> licenses.</li>
+</ul>
+</li>
+</ul>
+<h2 id="bug-fixes">Bug Fixes</h2><ul>
+<li><p><em>[MTOA-90]</em> - Unloading Arnold on Mac or Linux crashes Maya</p>
+</li>
+<li><p><em>[MTOA-780]</em> - Imager properties UI in ARV refreshes even when it's the same node</p>
+</li>
+<li><p><em>[MTOA-698]</em> - Error exporting looks (name 'unicode' is not defined)</p>
+</li>
+<li><p><em>[MTOA-684]</em> - MtoA automatically injects ai_translator attrs in scenes on save</p>
+</li>
+<li><p><em>[MTOA-661]</em> - IPR: Creating a camera bookmark triggers re-render</p>
+</li>
+<li><p><em>[MTOA-384]</em> - Error when you export scene</p>
+</li>
+<li><p><em>[MTOA-285]</em> - Qt test examples fail</p>
+</li>
+<li><p><em>[MTOA-840]</em> - OSL shaders with INT ouputs not loading</p>
+</li>
+<li><p>ARNOLD-3573 - Incorrect log color in Windows consoles when using multiple threads</p>
+</li>
+<li><p>ARNOLD-11625 - Empty backtrace when using <code>printBackTrace()</code> outside a crash on Windows</p>
+</li>
+<li><p>ARNOLD-11230 - Low transmission_depth values causes dielectrics to be too dark</p>
+</li>
+<li><p>ARNOLD-11421 - Progressive render IPR can get stuck at final AA level</p>
+</li>
+<li><p>ARNOLD-11178 - Unexpected normal smoothing behavior</p>
+</li>
+<li><p>ARNOLD-11228 - Using ray/shader switches to lower transmission depth causes dielectrics to be too dark</p>
+</li>
+<li><p>ARNOLD-11562 - [Alembic] UV data in curves not interpolated correctly when overriding curve.basis</p>
+</li>
+<li><p>ARNOLD-11361 - [Alembic] user data on curves is interpolated incorrectly</p>
+</li>
+<li><p>ARNOLD-8934 - [GPU] Arnold "Render Section to Texture" crashes Maya</p>
+</li>
+<li><p>ARNOLD-11687 - [GPU] 8-bit RGBA sRGB textures render incorrectly in ACEScg</p>
+</li>
+<li><p>ARNOLD-10996 - [GPU] Crash or artifacts when multiple image nodes point to the same texture</p>
+</li>
+<li><p>ARNOLD-11515 - [GPU] Crash when destroying procedurals interactively using 470 Nvidia drivers</p>
+</li>
+<li><p>ARNOLD-11621 - [GPU] Discrepancy with SSS closures in OSL</p>
+</li>
+<li><p>ARNOLD-11241 - [GPU] Missing alpha channel in RGBA-typed LPE AOVs</p>
+</li>
+<li><p>ARNOLD-11466 - [GPU] denoise_albedo is black on SSS</p>
+</li>
+<li><p>ARNOLD-11444 - [Imagers] Crash after an imager_denoiser_optix error</p>
+</li>
+<li><p>ARNOLD-11087 - [Imagers] Incorrect result when multiple drivers with different AOVs share a single imager</p>
+</li>
+<li><p>ARNOLD-11071 - [MaterialX] Crash when multiple objects share the same material</p>
+</li>
+<li><p>ARNOLD-11089 - [OCIO] <code>OCIOColorManagerGetKnownChromaticities()</code> not working with <code>OCIO</code> environment variable</p>
+</li>
+<li><p>ARNOLD-11538 - [OCIO] Random crashes when using the color API from multiple threads</p>
+</li>
+<li><p>ARNOLD-8521 - [OSL] UDIM textures through OSL do not have their color transform applied</p>
+</li>
+<li><p>ARNOLD-9190 - [Noice] Crash when using a small data window</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/751" target="_blank">usd#751</a> Render delegate crashes when changing material terminals interactively</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/797" target="_blank">usd#797</a> Warning messages when <code>HdArnoldRenderPass</code> is deleted</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/847" target="_blank">usd#847</a> Procedural should check the camera of the proper universe for motion blur settings</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/858" target="_blank">usd#858</a> Can't hide/unhide lights in Hydra</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/853" target="_blank">usd#853</a> Missing indices for facevarying primvars in Hydra abort renders</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/871" target="_blank">usd#871</a> Enforce writing multiple frames when no default is authored</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/802" target="_blank">usd#802</a> B-spline curves not using radius in procedural</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/798" target="_blank">usd#798</a> SdfMetadata clashing with another NdrDiscovery plugin</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/816" target="_blank">usd#816</a> The procedural does not use "driver:parameters:aov:name"</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/880" target="_blank">usd#880</a> Scenes using pre-21.02 light parameters are not rendering correctly</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/884" target="_blank">usd#884</a> Render delegate shouldn't call AiBegin/AiEnd if Arnold is already active</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/843" target="_blank">usd#843</a> Disabling render purposes does not hide geometries in Hydra</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/887" target="_blank">usd#887</a> Int parameters are not converted to unsigned int shader parameters in the render delegate</p>
+</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_5x_html.html">MtoA 5.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

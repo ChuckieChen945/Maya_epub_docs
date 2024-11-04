@@ -1,0 +1,138 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Customizing">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-436E4642-8436-4FAB-A799-63971FA54DF2">
+<meta name="language" content="CHS">
+<title>创建自定义“优化场景大小”(Optimize Scene Size)操作</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>创建自定义“优化场景大小”(Optimize Scene Size)操作</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3C23"> 您可以编辑 MEL 脚本，该脚本是由<span class="ph uicontrol" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__GUID-FA2EFF8D-78C0-47B5-9F2B-8A1B0B08E689">“文件 &gt; 优化场景大小”(File &gt; Optimize Scene Size)</span>命令为将清理操作添加到<span class="ph uicontrol" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__GUID-C898363B-1BFB-45AA-8178-DD67E30E858E">“优化场景大小选项”(Optimize Scene Size Options)</span>（<span class="ph uicontrol" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__GUID-491FF144-A2AD-42CA-A9BF-3975A96F7131">“文件 &gt; 优化场景大小”(File &gt; Optimize Scene Size)</span> &gt; <img class="image" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__IMAGE_65900B3DCB6D4B15966713C393AE0FE1" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">）而调用的。该脚本称为 <samp class="ph codeph" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__GUID-B7556AA8-FF17-46F0-9142-44F6427852E2">cleanUpScene.mel</samp>，可以在 <samp class="ph codeph" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__GUID-73E7B3F6-B19B-4163-8E47-0DD3E672A58E">/scripts/startup</samp> 目录中找到该脚本。 
+	 </p>
+<p class="p" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3C25">打开脚本时，您会看到在脚本的末尾附近定义了一组函数，这些函数可帮助您添加和管理场景清理操作。 
+	 </p>
+<div class="section" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3C26"><h2 class="title sectiontitle">注册新的清理操作</h2> 
+		 <div class="section" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3B2F-626"><dl class="dl" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3B2F-626"><dt class="dt dlterm">cleanUp_AddUserCleanUp()</dt>
+<dd class="dd" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487551A80AE1B11E21F4DA0C-49B8"> 
+		<p class="p" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3C28">此函数将注册一个新的您定义的清理操作。该例程实际上可以在 <samp class="ph codeph" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__GUID-137D9E92-5087-4860-89F6-EF16555683ED">userCleanUp_AddUserCleanUp.mel</samp> 脚本中找到，而该脚本可以在 <samp class="ph codeph" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__GUID-A8B89672-5BE2-4319-9FF5-3F8892BB8E27">/scripts/startup</samp> 目录中找到。 
+		</p>
+ </dd>
+</dl>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3C29"><h2 class="title sectiontitle">配置清理操作</h2> 
+		 <div class="section" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3B2F-635"><dl class="dl" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3B2F-635"><dt class="dt dlterm">userCleanUp_CreateUI()</dt>
+<dd class="dd" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487551A80AE1B11E21F4DA0C-49B7"> 
+		<p class="p" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3C2B">调用此函数可以为您定义的清理操作创建 UI 。每个操作的 UI 都由一个可以启用和禁用此操作的复选框以及一个仅可用于执行该操作的<span class="ph uicontrol" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__GUID-34B2492D-869E-497A-800B-2AA3E177371B">“立即优化”(Optimize Now)</span>按钮 组成。 
+		</p>
+ </dd>
+<dt class="dt dlterm">userCleanUp_SetOptionVars( int $forceFactorySettings )</dt>
+<dd class="dd" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487551A80AE1B11E21F4DA0C-49B6"> 
+		<p class="p" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3C2D">当清理操作的选项变量初始化到起始位置（启动时）或重置为出厂设置时，调用此函数。可以获取适当的默认值，并设置相应的选项变量。 
+		</p>
+ </dd>
+<dt class="dt dlterm">userCleanUp_CleanUpSceneSetup( string $parent, string $forceFactorySettings )</dt>
+<dd class="dd" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487551A80AE1B11E21F4DA0C-49B5"> 
+		<p class="p" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3C2F">创建完<span class="ph uicontrol" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__GUID-32CD6775-5F5D-4231-8EA8-6680097E14B4">“优化场景大小选项”(Optimize Scene Size Options)</span>对话框后，调用此函数以使用相应的 optionVar 中的值来同步对话框中的复选框。 
+		</p>
+ </dd>
+<dt class="dt dlterm">userCleanUp_CleanUpSceneCallback( string $parent, string $doIt )</dt>
+<dd class="dd" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487551A80AE1B11E21F4DA0C-49B4"> 
+		<p class="p" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3C31">当需要将<span class="ph uicontrol" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__GUID-D4318FC0-3CAA-4CE8-ADEC-7494BBA4379C">“优化场景大小选项”(Optimize Scene Size Options)</span>对话框中复选框的当前状态作为选项变量进行保存时，调用此函数。 
+		</p>
+ </dd>
+</dl>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3C32"><h2 class="title sectiontitle">查看清理操作的属性</h2> 
+		 <div class="section" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3B2F-657"><dl class="dl" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3B2F-657"><dt class="dt dlterm">userCleanUp_GetNumCleanUps()</dt>
+<dd class="dd" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487551A80AE1B11E21F4DA0C-49B3"> 
+		<p class="p" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3C34">返回已注册的您定义清理操作的数量。其为 0 到 n-1 之间的数字。 
+		</p>
+ </dd>
+<dt class="dt dlterm">userCleanUp_GetOptionVarName( int $cleanUpNum )</dt>
+<dd class="dd" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487551A80AE1B11E21F4DA0C-49B2"> 
+		<p class="p" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3C36">返回与指定的您清理操作相关联的选项变量。此变量值指示下次调用<span class="ph uicontrol" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__GUID-A4989E42-94BF-4BAE-9D42-5A835E3F3E82">“优化场景大小”(Optimize Scene Size)</span>操作时是否会执行特定操作。 
+		</p>
+ </dd>
+<dt class="dt dlterm">userCleanUp_GetDefaultValue( int $cleanUpNum )</dt>
+<dd class="dd" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487551A80AE1B11E21F4DA0C-49B1"> 
+		<p class="p" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3C38">返回指定的您定义清理操作的默认值（启用或关闭）。 
+		</p>
+ </dd>
+<dt class="dt dlterm">string userCleanUp_GetControlName( int $cleanUpNum )</dt>
+<dd class="dd" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487551A80AE1B11E21F4DA0C-49B0"> 
+		<p class="p" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3C3A">返回<span class="ph uicontrol" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__GUID-21F419E6-E7AB-4BD9-8001-EA146E4C302A">“优化场景大小选项”(Optimize Scene Size Options)</span>对话框中复选框控制组的名称，该对话框与指定的您清理操作相关联。当已创建或已破坏对话框，则系统会同步复选框状态以及相应的选项变量（请参见<samp class="ph codeph" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__GUID-4854483A-0BCD-4291-B420-11BE944A32D5">userCleanUp_GetOptionVarName()</samp>）。 
+		</p>
+ </dd>
+<dt class="dt dlterm">userCleanUp_GetLabel( int $cleanUpNum )</dt>
+<dd class="dd" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487551A80AE1B11E21F4DA0C-49AF"> 
+		<p class="p" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3C3C">返回应用于标记<span class="ph uicontrol" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__GUID-2065C061-6231-4715-A3D2-668FBA063BF9">“优化场景大小选项”(Optimize Scene Size Options)</span>对话框中指定的您定义清理操作的文本。 
+		</p>
+ </dd>
+<dt class="dt dlterm">userCleanUp_GetCommand( int $cleanUpNum )</dt>
+<dd class="dd" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487551A80AE1B11E21F4DA0C-49AE"> 
+		<p class="p" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3C3E">返回应用于执行指定的您定义清理操作的命令字符串。 
+		</p>
+ </dd>
+<dt class="dt dlterm">userCleanUp_ListCleanUps()</dt>
+<dd class="dd" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487551A80AE1B11E21F4DA0C-49AD"> 
+		<p class="p" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3C40">打印包括所有已注册的您定义清理操作的列表。 
+		</p>
+ </dd>
+<dt class="dt dlterm">userCleanUp_GetOptionVars()</dt>
+<dd class="dd" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487551A80AE1B11E21F4DA0C-49AC"> 
+		<p class="p" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3C42">返回所有与您定义清理操作相关联的选项变量。 
+		</p>
+ </dd>
+</dl>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3C43"><h2 class="title sectiontitle">运行您的自定义清理操作</h2> 
+		 <div class="section" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3B2F-696"><dl class="dl" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3B2F-696"><dt class="dt dlterm">userCleanUp_PerformCleanUpScene()</dt>
+<dd class="dd" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487551A80AE1B11E21F4DA0C-49AB"> 
+		<p class="p" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__WS73099CC142F487553B93539F117EA10CE8F3C45">执行目前已通过 optionVar 启用的自定义优化场景操作。返回调用该操作时发生的错误数（如果有）。 
+		</p>
+ </dd>
+</dl>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__SECTION_978F84BF90D349A8B90CB527ADF5DD2F"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__UL_350B14B4E8F3498DA8302264E3F8DBDD"><li class="li" id="GUID-436E4642-8436-4FAB-A799-63971FA54DF2__LI_92762C3AA9F04CC6AAC83E5DEE87592D"> 
+			 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-6798B37D-0FF0-4ED3-A151-5CC648BB8CED">优化场景大小选项(Optimize Scene Size Options)</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-37E02448-88B4-4722-8B8A-1BA607E5D1CC.htm">高级自定义</a></div>
+</div>
+</div>
+
+</body>
+</html>

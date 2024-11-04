@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Modeling">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-909B2D5F-D031-4372-B2D7-7D8BCCBE3183">
+<meta name="language" content="CHS">
+<title>OpenSubdiv 概述</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-909B2D5F-D031-4372-B2D7-7D8BCCBE3183">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>OpenSubdiv 概述</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-909B2D5F-D031-4372-B2D7-7D8BCCBE3183__GUID-A98E1067-4D15-4641-BB4F-52965C95D885"></p>
+<p class="p" id="GUID-909B2D5F-D031-4372-B2D7-7D8BCCBE3183__GUID-D58A2021-5B03-4F47-A1C9-2EB08BD4DEEA"> OpenSubdiv 是由 Pixar 开发的开源细分方法，通过此方法，您可以在保证高精度和高速度的情况下使用高保真模型表示。OpenSubdiv 作为动画行业的专业标准，已在各种软件包中实施，由于在应用程序之间传递模型时可产生相同的结果，从而提高了互操作性。<span class="ph" id="GUID-909B2D5F-D031-4372-B2D7-7D8BCCBE3183__GUID-698B03E6-C60E-4D50-9D13-D8D99CEBA093">在 Maya 中，预览平滑网格、使用<span class="ph uicontrol" id="GUID-909B2D5F-D031-4372-B2D7-7D8BCCBE3183__GUID-F8403539-9765-427E-9FDD-97726518F17F">“网格 &gt; 平滑”(Mesh &gt; Smooth)</span>平滑网格或创建细分曲面代理时，OpenSubdiv 是默认的细分方法。</span> 
+	 </p>
+<p class="p" id="GUID-909B2D5F-D031-4372-B2D7-7D8BCCBE3183__GUID-9F30B6BF-36DB-4224-AA51-EAC7EE23583E">OpenSubdiv 是替代旧版 <span class="ph uicontrol" id="GUID-909B2D5F-D031-4372-B2D7-7D8BCCBE3183__GUID-E5ADC2C6-8D47-4658-ABC1-C9307C0F60E8">Maya Catmull-Clark</span> 细分方法的改进方法。例如，OpenSubidv 利用并行 GPU 和 CPU 结构，通过较高的细分级别提高了网格的视口性能。此外，在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-FF35F773-1FC0-4EBA-A64C-6199375F489A.htm#GUID-FF35F773-1FC0-4EBA-A64C-6199375F489A__GUID-2EA84CBD-5246-4233-9349-A20EB450DF66">平滑网格(Smooth Mesh)</a>属性中，可以启用<span class="ph uicontrol">“置换预览”(Displacement Preview)</span>，从而以交互方式可视化置换贴图，而无需进行渲染（请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-50A6338F-ACBE-472C-9C81-D1820CD61048">在视口中预览置换结果</a>）。
+	 </p>
+<div class="p" id="GUID-909B2D5F-D031-4372-B2D7-7D8BCCBE3183__GUID-DE6C3A5D-1324-47DC-B67A-8F75A106B338">您可以选择以下 OpenSubdiv 细分方法之一：
+	 <ul class="ul" id="GUID-909B2D5F-D031-4372-B2D7-7D8BCCBE3183__UL_2962EDD883884A5ABF9AA57B7BB459C1"><li class="li" id="GUID-909B2D5F-D031-4372-B2D7-7D8BCCBE3183__LI_35DC348B1AC04268A04218844EFE7A84"><span class="ph uicontrol" id="GUID-909B2D5F-D031-4372-B2D7-7D8BCCBE3183__GUID-E4C4962B-7218-4D33-A872-159B9DE9B024">OpenSubdiv Catmull-Clark 一致(OpenSubdiv Catmull-Clark Uniform)</span>：对网格面应用统一的细化方案。整个网格会采用相同级别的细分。
+		</li>
+<li class="li" id="GUID-909B2D5F-D031-4372-B2D7-7D8BCCBE3183__LI_C74329B482FE47D9933EABB766228A7F"> 
+		  <span class="ph uicontrol" id="GUID-909B2D5F-D031-4372-B2D7-7D8BCCBE3183__GUID-EB7F7EAB-B8EF-4216-94CC-4D0EEDB0FA20">OpenSubdiv Catmull-Clark 自适应(OpenSubdiv Catmull-Clark Adaptive)</span>：对不规则的网格部分应用逐步细化方案。自适应细分仅细化需要额外细节的网格拓扑。细化级别由网格拓扑和摄影机视图决定。例如，接近摄影机的网格拓扑比同一网格上较远的拓扑更精细。在当前实现中，自适应细分可以提高网格的平滑度，而无需增加其细分级别。在 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-FF35F773-1FC0-4EBA-A64C-6199375F489A.htm#GUID-FF35F773-1FC0-4EBA-A64C-6199375F489A__SECTION_AEC2592F09DA47ACBB9901F1310E01E9">OpenSubdiv 控件(OpenSubdiv Controls)</a>中将<span class="ph uicontrol" id="GUID-909B2D5F-D031-4372-B2D7-7D8BCCBE3183__GUID-D6FD5C0B-7C11-4820-A910-0524648E444D">“自适应细分级别”(Adaptive Tessellation Level)</span>设置为一个较高的值以查看结果，而不影响场景的性能。
+		  <div class="note note" id="GUID-909B2D5F-D031-4372-B2D7-7D8BCCBE3183__GUID-5F0A2270-C7DB-4C3F-9F03-DADAE60A655E"><span class="notetitle">注：</span> 仅 OpenGL 4 和 DirectX11 兼容显卡支持<span class="ph uicontrol" id="GUID-909B2D5F-D031-4372-B2D7-7D8BCCBE3183__GUID-9719ED4F-6C28-4D93-A3F8-99DE250C36BC">“OpenSubdiv Catmull-Clark 自适应”(OpenSubdiv Catmull-Clark Adaptive)</span>。
+		  </div>
+ 
+		</li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-B2DD900C-ACD4-4498-8F35-0D7E4E1CA123.htm">使用 OpenSubdiv 预览平滑网格</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-FD9DCF96-6914-4BB4-A665-A817A4DE2521.htm">使用 OpenSubdiv 平滑网格</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-F82707B9-C878-43D7-A5C2-CFECD2D9ADE2.htm">OpenSubdiv 限制</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-8A5D0FF0-9BA1-435F-A4CA-53183311B819.htm">平滑多边形</a></div>
+</div>
+</div>
+
+</body>
+</html>

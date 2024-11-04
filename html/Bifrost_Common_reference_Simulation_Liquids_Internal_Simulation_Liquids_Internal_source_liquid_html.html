@@ -1,0 +1,125 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_Liquids_Internal_Simulation_Liquids_Internal_source_liquid_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>source_liquid</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>source_liquid</code></h1></div><p>指定将特性发射到液体模拟中的源的参数。</p>
+<h2 id="">输入</h2><h3 id="geometry"><code>geometry</code></h3><p>一组用于定义源几何体的输入网格、点和体积。</p>
+<h2 id="general"><code>General</code></h2><h3 id="enable_liquid_source"><code>enable_liquid_source</code></h3><p>启用源。</p>
+<h3 id="start_frame"><code>start_frame</code></h3><p>开始从源发射的帧。</p>
+<h3 id="use_end_frame"><code>use_end_frame</code></h3><p>启用该项以在特定帧处停止发射。否则，将在模拟持续时间内继续发射。</p>
+<h3 id="end_frame"><code>end_frame</code></h3><p>停止从源发射的帧。</p>
+<h3 id="resolution_mode"><code>resolution_mode</code></h3><p>如何确定网格发射器的体素大小。</p>
+<ul>
+<li><code>Absolute</code>：发射器体素的大小是采用世界空间单位的 <code>fluid_detail_size</code> 值。</li>
+<li><code>Relative</code>：<code>fluid_detail_size</code> 与源轴对齐边界框的最大尺寸成比例。因此，在 <code>Relative</code> 模式下，大小为 20 个单位的立方体的世界空间体素大小比指定的 <code>fluid_detail_size</code> 值大 20 倍。对于源，开始帧处源网格的边界用于确定完整动画的 <code>fluid_detail_size</code> 和 <code>geo_detail_size</code>，即使为源大小设置动画也是如此。</li>
+</ul>
+<h2 id="geometry-volume-conversion"><code>Geometry Volume Conversion</code></h2><h3 id="geo_volume_mode"><code>geo_volume_mode</code></h3><p>定义输入网格的体素化方式。</p>
+<ul>
+<li><code>Solid</code>：在此模式下，将多边形网格体素化为实体，如果网格是密闭网格，效果最好。</li>
+<li><code>Shell</code>：在此模式下，将网格体素化为薄壳，不要求网格是防水网格。</li>
+</ul>
+<h3 id="use_fluid_detail_size"><code>use_fluid_detail_size</code></h3><p>使用 <code>fluid_detail_size</code> 体素化源，而不是使用 <code>geo_detail_size</code>。</p>
+<h3 id="geo_detail_size"><code>geo_detail_size</code></h3><p>体素化发射器中最小可解析细节的大小。从高度细化的网格发射时，有时可以通过将此值设置为大于 <code>fluid_detail_size</code> 的值来提高性能，而不牺牲模拟中的可见细节。</p>
+<h3 id="geo_volume_offset"><code>geo_volume_offset</code></h3><p>从网格或点发射时体素化体积的偏移量。正值会扩大体积，负值会缩小体积。</p>
+<h3 id="min_hole_radius"><code>min_hole_radius</code></h3><p>使用 <code>Solid</code> 模式从网格发射时，填充半径小于此值的间隙和孔。</p>
+<h3 id="optimal_adaptivity"><code>optimal_adaptivity</code></h3><p>在平面和平滑区域中使用较粗糙的体素。这样可以通过减少体素数来提高性能。</p>
+<h3 id="display_diagnostic"><code>display_diagnostic</code></h3><p>是否显示源。</p>
+<h2 id="liquid-properties"><code>Liquid Properties</code></h2><h3 id="fluid_detail_size"><code>fluid_detail_size</code></h3><p>从此源发射的液体或其他特性中的最小可解析细节的大小。如果存在多个具有任意 <code>fluid_detail_size</code> 的源，特定源的 <code>fluid_detail_size</code> 可能不精确。更具体地说，模拟中最精细的分辨率级别将由所有输入源的最精细 <code>fluid_detail_size</code> 确定。对于其他源，源的分辨率级别映射到自适应栅格结构中最接近的离散级别。这意味着 <code>fluid_detail_size</code> 中的微小差异可能不会产生任何可见的变化。</p>
+<h3 id="mass_density"><code>mass_density</code></h3><p>使用 <code>mass_density_mode</code> 指定的模式发射的液体的质量密度。</p>
+<ul>
+<li>可连接 <code>float</code> 以使用常量值。</li>
+<li>可连接标量场以根据位置改变值。</li>
+<li>可将字符串与源几何体上某个特性的名称连接，以在发射位置处使用该特性的值。</li>
+<li>可连接大小与几何体中的点数或体素数匹配的数组，作为使用预先存在的特性的替代方法。</li>
+</ul>
+<h3 id="mass_density_mode"><code>mass_density_mode</code></h3><p><code>mass_density</code> 的发射方式。</p>
+<ul>
+<li><code>set</code>：将源设置为特性（请注意，如果输入中边是硬边，则输出中也是如此）。</li>
+<li><code>rate</code>：将源作为时间相关速率混合并添加到特性中。</li>
+<li><code>add</code>：将源混合并添加到特性中。</li>
+<li><code>subtract</code>：在特性中混合并减去源。</li>
+<li><code>over</code>：将源混合到特性中。</li>
+<li><code>min</code>：根据源和特性的最小值进行混合。</li>
+<li><code>max</code>：根据源和特性的最大值进行混合。</li>
+<li><code>multiply</code>：根据源和特性的乘积进行混合。</li>
+</ul>
+<h3 id="expansion_rate"><code>expansion_rate</code></h3><p>展开或收拢发射器内的液体。正值会将点从所有方向推出发射器，而负值则会将点拉入发射器，值为 0.0 则既不推出也不拉入。例如，若要从底部填充容器，可以使用正的 <code>expansion_rate</code> 将点推出发射器，以在发射器变空时重新填充。</p>
+<p>从数学角度来说，此值定义液体解算器尝试在发射器速度场的每个体素中保持的散度。值为 0.0 对应于不可压缩的流体。</p>
+<h3 id="expansion_rate_mode"><code>expansion_rate_mode</code></h3><p>与 <code>mass_density_mode</code> 的选项相同。</p>
+<h3 id="stickiness_strength"><code>stickiness_strength</code></h3><p>此发射器中的流体黏着到附近碰撞对象的量。</p>
+<h3 id="stickiness_strength_mode"><code>stickiness_strength_mode</code></h3><p>与 <code>mass_density_mode</code> 的选项相同。</p>
+<h3 id="stickiness_bandwidth"><code>stickiness_bandwidth</code></h3><p>发射器中的流体需要以多大的粘合度粘合到碰撞对象，粘滞才能影响它（以世界空间单位表示）。</p>
+<h3 id="stickiness_bandwidth_mode"><code>stickiness_bandwidth_mode</code></h3><p>与 <code>mass_density_mode</code> 的选项相同。</p>
+<h3 id="initial_speed"><code>initial_speed</code></h3><p>发射的特性的初始速度（速度幅值）。</p>
+<ul>
+<li>可连接 <code>float</code> 以使用常量值。</li>
+<li>可连接标量场以根据位置改变值。</li>
+<li>可将字符串与源几何体上某个特性的名称连接，以在发射位置处使用该特性的值。</li>
+<li>可连接大小与几何体中的点数或体素数匹配的数组，作为使用预先存在的特性的替代方法。</li>
+</ul>
+<h3 id="initial_speed_direction"><code>initial_speed_direction</code></h3><p>发射的特性的初始速度方向。</p>
+<ul>
+<li>可连接 <code>float3</code> 以使用常量值。</li>
+<li>可连接标量场以根据位置改变值。</li>
+<li>可将字符串与源几何体上某个特性的名称连接，以在发射位置处使用该特性的值。</li>
+<li>可连接大小与几何体中的点数或体素数匹配的数组，作为使用预先存在的特性的替代方法。</li>
+</ul>
+<h3 id="speed_mode"><code>speed_mode</code></h3><p><code>initial_speed</code>、<code>initial_speed_direction</code> 和 <code>inherit_velocity</code> 的发射方式。其选项与用于 <code>fog_density_mode</code> 的选项相同。</p>
+<h3 id="inherit_velocity"><code>inherit_velocity</code></h3><p>添加到源发射的特性速度的源几何体速度所占的比例。</p>
+<ul>
+<li>可连接 <code>float</code> 以使用常量值。</li>
+<li>可连接标量场以根据位置改变值。</li>
+<li>可将字符串与源几何体上某个特性的名称连接，以在发射位置处使用该特性的值。</li>
+<li>可连接大小与几何体中的点数或体素数匹配的数组，作为使用预先存在的特性的替代方法。</li>
+</ul>
+<p>当使用 <code>vary_source_property</code> 节点随机化 <code>inherit_velocity</code> 时，<code>inherit_velocity</code> 的值必须设置为随机化中使用的最小数字，以便在 <code>inherit_velocity</code> 值为负时获得平滑的轨迹。</p>
+<h3 id="trail_smoothness"><code>trail_smoothness</code></h3><p>在使用较高源速度时发射的液体的平滑度。如果液体的发射轨迹中存在过多噪波或明显的洞，则可以以 1 为增量增加 <code>trail_smoothness</code> 以减少此类瑕疵。</p>
+<p>在 <code>source_liquid</code> 内的 <code>iterate</code> 复合中，有一些额外的控制参数，可以使用它们来确保在存在较大速度和/或较大 <code>inherit_velocity</code> 负值或正值的情况下实现平滑发射：</p>
+<ul>
+<li><code>source_time_shift</code> 按时间步的指定比例在时间上将发射向前或向后移动。在使用较大 <code>inherit_velocity</code> 正值或负值时，这可用于防止发射出现在快速移动的发射器之前或之后。此值可以持续变化。值为 0 时，在当前时间步中移动的范围内发射；值为 -1 时，在上一个时间步中移动的范围内发射；值为 1 时，在下一个时间步中移动的范围内发射。</li>
+<li><code>source_time_stretch</code> 是一个系数，在使用较大 <code>inherit_velocity</code> 负值的情况下，当液体与发射器存在间隙或滞后于发射器时，该系数可用于拉伸源移动和发射到的空间区域。</li>
+<li>您可以在 <code>compute_time_shift_and_stretch</code> 子节点上使用 <code>scale</code> 来同时调整 <code>source_time_shift</code> 和 <code>source_time_stretch</code>。<code>scale</code> 值为 1 适用于直线火箭轨迹等对象，但接近 0 的值会阻止沿高曲率路径出现条纹。您可以为此设置随时间变化的动画，以根据曲率的变化进行调整。</li>
+</ul>
+<h2 id="additional-properties"><code>Additional Properties</code></h2><h3 id="additional_properties"><code>additional_properties</code></h3><p>可连接 <code>set_property</code> 节点以定义和初始化沿流传输的其他特性。可以在模拟过程中使用 <code>influences</code> 修改这些特性。</p>
+<h2 id="">输出</h2><h3 id="liquid_source"><code>liquid_source</code></h3><p>输出是一个对象，其中包含液体解算器的源相关输入集合，应连接到 <code>simulate_liquid</code> 节点上的 <code>sources</code> 端口。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Liquids/Bifrost_Common_reference_Simulation_Liquids_Internal_html.html">Internal</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

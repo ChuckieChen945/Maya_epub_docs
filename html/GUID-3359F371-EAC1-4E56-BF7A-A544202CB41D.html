@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D">
+<meta name="language" content="CHS">
+<title>RenderMan DSO</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>RenderMan DSO</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-434BD055-6D8D-47DA-97D4-3AC54FC584A0">本主题介绍 XGen RenderMan DSO 的操作以及其所有参数。文中介绍了相关的程序，以使您能实现让 XGen 渲染其本身的自定义方法。 </p>
+<div class="section" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__RENDERMAN-DSO_OPERATION"><h2 class="title sectiontitle">操作</h2>
+
+<p class="p" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-4D786E0E-37A2-4C18-AB34-E9DE0C0E626C">有两种形式的 XGen RenderMan 程序：面片和面。Rib 生成器负责将面片级别的程序调用置入 rib。当面片程序裂开时，XGen 将那些面片程序扩展到面程序。仅当面程序裂开时才会生成基本体，并且才会开始真正的渲染。面片程序可使用后面列出的所有标志。您必须为面片程序指定边界框。边界框必须绑定要渲染的所有面和所有基本体。如果边界框太小，则会执行剪裁。如果边界框太大，程序裂缝会打开得太快并且会浪费内存。边界框应绑定该面片的所有运动采样。 </p>
+
+<p class="p" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-C6363783-15A0-48EE-9563-538CFAB5C4E4">当面片程序裂开时，它将会分析参数。如果判断为这是首次遇到指定的选项板，它会加载选项板文件，读取运动采样对应的几何体，并将其缓存。然后对已命名面片上的所有面发射面程序。如果选项板已被缓存，则不会读取该文件，而是跳过该操作并开始发射已命名面片的面程序。 </p>
+
+<p class="p" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-87F2DBF3-626D-4805-930C-AB5CF79E7423">选项板基于其名称（包括名称空间的名称）来缓存。这可实现多次使用相同的 <samp class="ph codeph" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-1B3F3346-BABB-438B-9BB6-1977A560C539">.xgen</samp> 文件来填充森林或树丛。但是，您必须为每个实例指定唯一名称，以使它们不会意外最终共享几何体。 </p>
+
+<p class="p" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-233A763A-8999-4352-B354-56A950C70C05">将几何体文件单独缓存于选项板文件之外可实现更好的共享。例如，即便是在相同的选项板内，也经常会多次使用相同的几何体。这样您的森林中的一些树会是相同的。通过允许共享可节约内存。XGen 选项板不可共享，但基本几何体可以共享。 </p>
+
+</div>
+<div class="section" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__RENDERMAN-DSO_ARGUMENTS"><h2 class="title sectiontitle">参数</h2>
+
+<p class="p" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-D86CB261-79E3-41A2-A54A-9B71FCEA0FFB">程序提供一些参数作为标志。以下列举的每一项都附带简要说明以及表示是否可选的指示。 </p>
+
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__TABLE_A37868850577472E89019180DCB268AD" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="25%">-debug </td>
+<td class="entry" valign="top" width="75%">设置调试消息的级别（可选）。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">-stats </td>
+<td class="entry" valign="top" width="75%">设置统计消息的级别（可选）。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">-warning </td>
+<td class="entry" valign="top" width="75%">设置警告消息的级别（可选）。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">-quitOnError </td>
+<td class="entry" valign="top" width="75%">告知 XGen 在遇到任何错误时即退出（可选）。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">-nameSpace </td>
+<td class="entry" valign="top" width="75%">如果存在选项板的名称空间，使用此标志进行传递。请勿将名称空间附加到选项板名称上。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">-palette </td>
+<td class="entry" valign="top" width="75%">要渲染的选项板名称。此名称必须与使用 -file 标志传递的 <samp class="ph codeph" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-72EDEC50-D1D0-4838-AE27-905461F8F9B2">.xgen</samp> 文件中的名称一致。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">-description </td>
+<td class="entry" valign="top" width="75%">要渲染的已命名选项板中的描述的名称。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">-patch </td>
+<td class="entry" valign="top" width="75%">属于描述和要渲染的选项板的面片（几何体）名称。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">-frame </td>
+<td class="entry" valign="top" width="75%">设置选项板要用作基础选项板帧的帧。指定的话，将由 -motionSamplesLookup 的值调整。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">-motionSamplesLookup </td>
+<td class="entry" valign="top" width="75%">用于加载几何体的运动采样偏移值列表。这些值被添加到通过 -frame 传入的值，以指定每个运动采样的帧值。但这并非添加到运动块的值，后者是通过 -motionSamplesPlacement 标志指定的。将这两者分离可实现对运动模糊效果的控制。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">-motionSamplesPlacement </td>
+<td class="entry" valign="top" width="75%">运动块值的列表。这些值直接用作 RenderMan 运动块调用中的值。通常此值与通过 -motionSamplesLookup 指定的间距一致，但如果需要运动模糊效果（如 strobbing），则此值不是必需的。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">-file </td>
+<td class="entry" valign="top" width="75%">此特定选项板/描述/面片的选项板 <samp class="ph codeph" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-B1C28071-157E-4852-9C00-ED2C25A6B8F1">.xgen</samp> 文件。此文件只读入一次并为特定元素（名称空间）缓存。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">-delta </td>
+<td class="entry" valign="top" width="75%">以空格分隔的要应用到指定选项板文件的增量文件列表。它们按其查找到的顺序应用到选项板。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">-geom </td>
+<td class="entry" valign="top" width="75%">调色板的几何体缓存文件。它所包含的几何体可以超过选项板所需，另外还可以包含其他数据。XGen 会忽略自身不使用的数据。所需的是 XGen 所绑定的所有几何体的采样帧、静态拓扑和首选项对应的数据。为了获得最佳性能，几何体应位于对象空间中。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">-fps </td>
+<td class="entry" valign="top" width="75%">设置调色板的帧速率。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">-world </td>
+<td class="entry" valign="top" width="75%">设置应用于调色板的世界变换矩阵。 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">-interpolation </td>
+<td class="entry" valign="top" width="75%">设置几何体缓存数据的插值方法。如果请求的帧不在缓存文件中，则使用它。支持的插值方法如下： <ul class="ul" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__UL_8C772069C31B43DEBA1F97A4C11F8AF9"><li class="li" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__LI_043A4FF73D874607B2569F08AF17EA1A"><samp class="ph codeph" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-0BB7E7D9-D90F-4DDC-B632-DF1E9DDD2016">none</samp> - 未指定插值方法。使用之前请求的帧。 </li>
+<li class="li" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__LI_9E8FCE6FE71648858DDA57E11136AD18"><samp class="ph codeph" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-CAB5E032-2587-453D-85AF-4D3857EABEE2">linear</samp> - 使用上一帧和下一帧。 </li>
+<li class="li" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__LI_D7265063A7CB4B2BA94C1170A6EAB855"><samp class="ph codeph" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-080C9BAB-D37F-4837-979C-2E8ACA48234A">quadratic</samp> - 使用三个帧。 </li>
+<li class="li" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__LI_0B4BFEADDAD74B71BBA83E3CA1E39CA4"><samp class="ph codeph" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-ED04B450-61FA-4B85-A1CE-4907429DF002">cubic</samp> - 使用四个帧。 </li>
+</ul>
+ </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="note note" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-25E0DCAF-583B-4CB7-B5A0-2F0A06B03D9B"><span class="notetitle">注：</span>  文件名和其他名称不应置于引号内。运动采样值为浮点数。-quitOnError 标志不带参数。 </div>
+
+</div>
+<div class="section" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__RENDERMAN-DSO_RENDERMAN-SETTINGS"><h2 class="title sectiontitle">RenderMan 设置</h2>
+
+<p class="p" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-E3321972-F678-4EAC-9651-397342604037">在 <samp class="ph codeph" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-FD581E20-A805-4C9E-8C53-53736E9D011A">rib</samp> 文件中必需的设置的集合。这些设置不适合 <samp class="ph codeph" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-D2CD64D9-E22F-4919-8F06-CBD72AF73128">xgen</samp> 文件，它会使文件特定于帧、摄影机或渲染相位（颜色对阴影）。它通常用于烘焙出包含风循环等元素的 <samp class="ph codeph" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-DD86B104-760A-421E-969D-869B887556A4">rib</samp>，然后创建贯穿整个场景的 <samp class="ph codeph" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-19832132-E750-4AFA-AA78-760D69C6B183">rib</samp> 实例。这些 RenderMan 设置允许在每个元素仍在渲染时实现这一点，如同元素在该位置渲染一样（即，朝向摄影机、消隐、细节级别仍然有效）。 </p>
+
+<pre class="pre">
+# directory for writing temp files
+Option "user" "string irCacheDir" ["/disk1/tmp/renderPipeTemp12766"]
+
+# the current render phase
+Option "user" "uniform string phase" ["Shadow"]
+Option "user" "uniform string generator" ["key_dir"]
+
+# the 'current camera/generator' (once in rib)
+Attribute "user" "string irCurrentCam" ["true, -0.633307, -0.591462, -0.499094"]
+Attribute "user" "string irCurrentCamFOV" ["90, 90"]
+Attribute "user" "string irCurrentCamXform" ["0.773158, 0.0338928, 0.633307, 0, -0.511791, 0.623091, 0.591462, 0, -0.374562, -0.781414, 0.499094, 0, 0, 0, 0, 1"]
+Attribute "user" "string irCurrentCamRatio" ["1"]
+
+# tell xgen the 'render camera' (once in rib)
+Attribute "user" "string irRenderCam" ["false, 5.33365, 7.04902, 14.19"]
+Attribute "user" "string irRenderCamFOV" ["54.4321, 54.4321"]
+Attribute "user" "string irRenderCamXform" ["0.93606, -0.148352, 0.319037, 0, 0, 0.906762, 0.421643, 0, -0.351842, -0.394683, 0.848783, 0, 0, 0, -16.718, 1"]
+Attribute "user" "string irRenderCamRatio" ["1.94445"]
+</pre>
+
+<p class="p" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-8561C75D-4FDB-4636-81C2-32123EB38E5F">当使用 DAR 渲染方法时，<samp class="ph codeph" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-52562CFF-5A5E-4151-B060-678F2F632783">irCacheDir</samp> 用于写出 <samp class="ph codeph" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-6BEFBF47-6AE2-4488-95E1-581335D4C9B6">dra</samp> 文件。有一种假设：在渲染阴影过程时，目录比在渲染颜色过程时深一个级别。相位表示渲染的类型：颜色或阴影。此假设为所有阴影渲染发生在颜色渲染之前。如果相位是阴影，则阴影生成器的名称随生成器选项一起指定。 </p>
+
+<p class="p" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-60E7A621-E5BC-4AB4-8FE6-C4C93810A8EB">接下来的两组值表示正在使用的摄影机。第一个是 <samp class="ph codeph" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-D662ED97-2116-41A2-B3F5-2F2F8116EEE0">irCurrentCam</samp>，表示当前摄影机或阴影生成器。所示示例是一个阴影渲染，因此当前摄影机为阴影生成器（即灯光）。第一个值是 <samp class="ph codeph" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-8CB01DB9-7C56-45BC-BD6E-B2A76A42E860">bool</samp>，表示摄影机是否为正交，后面三个值为位置（当摄影机为透视时）或方向（当摄影机为正交时）。<samp class="ph codeph" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-37635CBC-A73F-4EDC-B1D4-51BAFD440596">irCurrenCamFOV</samp> 是摄影机的视野（如示例所示，正交的值为 90,90）。<samp class="ph codeph" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-2BF9D159-B642-40B4-96B8-1CD6C1147ACD">irCurrentCamXform</samp> 是反向摄影机变换。最后，<samp class="ph codeph" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-5B7ECA09-964E-440C-90CD-E0011A07A455">irCurrentCamRatio</samp> 是摄影机在 2K 的比率，用于随机细节级别。最终的属性按如下方法计算 <cite class="cite">2.0*focalLength/25.4044/horizontalFilmAperture</cite>. </p>
+
+<p class="p" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-DC3A02CD-FDB1-4B14-ACEB-3F588A2E2A23">下一组值为 <samp class="ph codeph" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-9A95399C-61B5-4C78-BD75-82860BCBDEB1">irRenderCam</samp>，表示颜色过程的摄影机。如果可能，请为所有渲染都提供这两组值。如果无法生成这两组值，可仅提供当前摄影机的值，然后将这些值传递到这两组属性。 </p>
+
+</div>
+<div class="section" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__RENDERMAN-DSO_CONFIG-VARIABLES"><h2 class="title sectiontitle">配置变量</h2>
+
+<p class="p" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-83877F2C-793E-4551-ADD1-6B594775F9B0">另外，还有若干可用于控制渲染器的配置变量。这些变量中的一部分是 DSO 特有的，一部分是通用的，但由于它们都会影响到处理，因此包含在此作为引用。如果设置了这些变量，它们会覆盖上文所列的任何标志值。 </p>
+
+<div class="section" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__RENDERMAN-DSO_FLIPPARAM"><h3 class="title sectiontitle">FlipParam</h3>
+
+<p class="p" id="GUID-3359F371-EAC1-4E56-BF7A-A544202CB41D__GUID-E4C32988-A568-462A-847B-4498514D9C88">此变量会对样条线基本体的参数化进行翻转，即在底部时为 1，在顶部时为 0。 </p>
+
+</div>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-F911C29C-A97C-4A75-9B9D-5A005133759A.htm">XGen 技术文档</a></div>
+</div>
+</div>
+
+</body>
+</html>

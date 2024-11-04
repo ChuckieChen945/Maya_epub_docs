@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="24/09/2024">
+<meta name="topicid" content="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C">
+<meta name="language" content="CHS">
+<title>创建 ML 变形器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>创建 ML 变形器</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="note important" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__GUID-07C36057-254C-4474-8DBF-17A45A58C08A"><span class="importanttitle">重要：</span> 在您训练 <span class="ph uicontrol">ML 变形器</span>时，系统可能会提示您下载并安装外部 Python 模块。默认情况下，附加模块的安装路径为 <samp class="ph codeph">&lt;MAYA_APP_DIR&gt;/mlDeformer/&lt;ml_deformer_version&gt;/Lib/site-packages</samp>。如果需要手动下载这些模块和/或将其安装到自定义位置，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-C2885274-C439-40E9-88B5-9C28C1A18A01.htm">安装 Python 库以训练 ML 变形器</a>。
+	 </div>
+<p class="p"> 本主题提供了一个示例，说明 <span class="ph uicontrol">ML 变形器</span>如何模拟一个变形对象在另一个对象上的变形动画，并使用<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-08A2A603-926F-41A9-90CC-EF2F21486053.htm">变形器属性构件</a>（变形器堆栈）创建 <span class="ph uicontrol">ML 变形器</span>。
+	 </p>
+<p class="p">如果已设置绑定，这种创建 <span class="ph uicontrol">ML 变形器</span>的方法非常有用，因为它可避免传递变形目标网格的步骤。有关不同的工作流，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-941296C2-B5DA-4D5A-A9EA-E73016E1EF06.htm">使用单独的目标几何体创建 ML 变形器</a>，您可以在其中指定要在设置期间使用的动画控件。
+	 </p>
+<div class="note tip" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__GUID-D7C9AABC-68BF-4C24-B1BC-D3C51515FFD0"><span class="tiptitle">提示：</span> 可以在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-9221B2E8-7E68-4ECB-94DC-ABEB21E956BF">内容浏览器</a>中测试和试验 <span class="ph uicontrol">ML 变形器</span>示例文件（“窗口 &gt; 内容浏览器 &gt; 示例 &gt; 动画 &gt; <span class="ph uicontrol">ML 变形器</span>”(Windows &gt; Content Browser &gt; Examples &gt; Animation &gt; ML Deformer)）。
+		<div class="fig fignone" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__d22e67"><img class="image" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__d22e73" src="../images/GUID-82F8D146-8CE2-411D-98FC-CA9A5C23238E.gif" alt=""><img class="image" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__d22e76" src="../images/GUID-EE065FF1-170F-4334-B018-16B15D779961.gif" alt=""><p class="figcap">在内容浏览器中对 <span class="ph uicontrol">ML 变形器</span>动画进行采样</p></div>
+ 
+	 </div>
+<div class="p"> 
+	 <p class="li listintro">以下示例显示了使用变形器构件创建 <span class="ph uicontrol">ML 变形器</span>的工作流</p>
+<ol class="ol" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__OL_9BD76B920B6C4BFD8E151F17B8210DE8"><li class="li" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__LI_1B71242890524DA89014FC1572CF5F19"> 在此示例中，目标网格是一个附加了<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-9B0AF995-5A5B-4334-99EA-DA72081FCA48.htm">正弦变形器</a>的球体，我们将使用它来表示复杂绑定。
+		  <div class="fig fignone" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__FIG_F39A24E0AD984B7CA6C431972D9B9DC9"><img class="image" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__IMAGE_301C812B77874F78A28C547F8998C104" src="../images/GUID-52E6B23D-427C-41CA-93C4-F735B376523F.gif" alt=""><p class="figcap">具有正弦变形器的球体</p></div>
+ 
+		</li>
+<li class="li" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__LI_D89B36EB861745EE96BC09FE37066724">选择球体，然后在<span class="ph uicontrol">“动画”(Animation)</span>(<strong class="ph b">F4</strong>)、<span class="ph uicontrol">“绑定”(Rigging)</span>(<strong class="ph b">F3</strong>) 或<span class="ph uicontrol">“建模”(Modeling)</span>(<strong class="ph b">F2</strong>) <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-D90A2BDB-FD05-4528-8A95-C33A02D15129">菜单集</a>中选择“<span class="ph uicontrol">变形</span> &gt; <strong class="ph b"><span class="ph uicontrol">ML 变形器</span></strong>”(Deform &gt; ML Deformer)，以向其添加 <span class="ph uicontrol">ML 变形器</span>。
+		</li>
+<li class="li" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__LI_D5FAD5B3B17A463BBEFEC8925393C04A">在球体仍处于选中状态时，转到 <strong class="ph b">pSphereShape1</strong><span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>选项卡。使用<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-08A2A603-926F-41A9-90CC-EF2F21486053.htm">变形器属性构件</a>上箭头 <img class="image" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__IMAGE_60A0172E09F341D2B70586AC897C4271" src="../images/GUID-16CD6EC8-E66D-482B-9365-246FDDCB7022.png" alt="">，在变形堆栈中选择 <span class="ph uicontrol">ML 变形器</span>，然后将其移至正弦变形器的<em class="ph i">上方</em>。在变形堆栈中，任何高于 <span class="ph uicontrol">ML 变形器</span>的对象都不会近似。
+		  <div class="fig fignone" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__FIG_08015C9944E348F4A7274690BD6DAAAD"><img class="image" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__IMAGE_76CEE034D59745B6A902FE47814882E5" src="../images/GUID-C162C00E-37DB-4EBE-B9C1-D0AF0E5F83E5.gif" alt=""><p class="figcap">使用变形堆栈中的上箭头更改变形器评级</p></div>
+ 
+		</li>
+<li class="li" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__LI_9B607C28ED834511B613FFB0241AA132">返回到<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中的<span class="ph uicontrol">“ML 变形器”(ML Deformer)</span>选项卡。在<span class="ph uicontrol">“目标几何体”(Target Geometry)</span>列上单击鼠标右键，然后选择<strong class="ph b"><span class="ph uicontrol">“为变形器创建目标后期 ML 变形器”(Create Target for Deformers Post ML Deformer)</span></strong>。
+		  <div class="p">球体将添加到目标几何体。这将设置目标形状，默认情况下处于隐藏状态。可以在<span class="ph uicontrol">“大纲视图”(Outliner)</span> (<strong class="ph b">Shift</strong>+<strong class="ph b">H</strong>/<strong class="ph b">Ctrl</strong>+<strong class="ph b">H</strong>) 中将其取消隐藏以调整属性。这样，您就可以看到它处理的是目标变形器，而不是原始形状。
+			 <div class="fig fignone" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__FIG_F6145D77E48C4C02A17C68AC194E66AD"><img class="image" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__IMAGE_D06FEEDC5C114EC0A0032CE31461B104" src="../images/GUID-FDFDD7DB-3A09-4BA9-AEBF-58B5AD6BC9F8.gif" alt=""><p class="figcap">显示原始正弦变形</p></div>
+ 
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__LI_55C45C1D249B4950A20C6555C4DD86A2"> 选择球体并切换到<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>的<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-BFC12A5E-E8F1-4C8A-84B8-9B75381DA70C.htm"><strong class="ph b"><span class="ph uicontrol">“控件收集器”(Control Collector)</span></strong>选项卡</a>，然后展开<strong class="ph b"><span class="ph uicontrol">“添加控件”(Add Controls)</span></strong>表。单击鼠标右键，然后选择<strong class="ph b"><span class="ph uicontrol">“添加选定对象”(Add Selected)</span></strong>或<strong class="ph b"><span class="ph uicontrol">“全部添加”(Add All)</span></strong>，以选择要在<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>的<strong class="ph b"><span class="ph uicontrol">“添加控件”(Add Controls)</span></strong>列表中控制变形的属性。（请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-BFC12A5E-E8F1-4C8A-84B8-9B75381DA70C.htm"><span class="ph uicontrol">ML 变形器</span>控件收集器属性</a>主题。）
+		  <div class="note note" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__GUID-8DAC3E07-0062-4C19-B8CF-7E01B1653D95"><span class="notetitle">注：</span> 您也可以单击列表右上角的<strong class="ph b">“添加”(Add)</strong> (<img class="image" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__IMAGE_909CBB6195FA401185FEE6D6F93AB079" src="../images/GUID-D5DE8227-DB08-40D1-81CC-6041BB7FCB7C.png" alt="">) 按钮。
+		  </div>
+ 
+		  <div class="fig fignone" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__FIG_714202883E8D4386B2923EA21DA3574B"><img class="image" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__IMAGE_B5030AAC6F964B9B92EA73E1565EE199" src="../images/GUID-F176C79A-9AEC-4153-9537-E7C5A06F3561.gif" alt=""><p class="figcap">添加控件</p></div>
+ 
+		  <p class="p"> 这些属性将添加到<strong class="ph b"><span class="ph uicontrol">“连接的控件”(Connected Controls)</span></strong>列表（位于<strong class="ph b"><span class="ph uicontrol">“添加控件”(Add Controls)</span></strong>列表下方）中。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__LI_990BD146D026477B805ADE132F3BFC55">为变形训练设置<span class="ph uicontrol">“连接的控件”(Connected Controls)</span>列表的<strong class="ph b"><span class="ph uicontrol">“最小值”(Min)</span></strong>和<strong class="ph b"><span class="ph uicontrol">“最大值”(Max)</span></strong>。
+		  <div class="note tip" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__GUID-B7B7FFC6-D075-476B-9FAE-DD9659743586"><span class="tiptitle">提示：</span> 您可能需要拉伸<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>窗口，才能查看<span class="ph uicontrol">“最小值”(Min)</span>和<span class="ph uicontrol">“最大值”(Max)</span>列。
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__LI_7B8E17DCC7DD4B3D90FEE16D6DE17E1B">返回到<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol">“ML 变形器”(ML Deformer)</span>选项卡，然后单击“导出训练数据”(Export Training Data) <img class="image" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__IMAGE_4BFA70F988C34ADBBB537D546E874688" src="../images/GUID-98E10E65-C3AF-4A6F-9EB8-A163583645F1.png" alt=""> 以打开<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-DB744421-DE81-42EA-910D-AD7F32C915DC.htm">ML 变形器“导出训练数据”(Export Training Data)窗口</a>，并进行以下设置：
+		  <div class="fig fignone" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__FIG_9FD2743B1D2C4B81AFF5F9087C067978"><img class="image" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__IMAGE_F7EECCDE1EA9417485B4C45461A719E4" src="../images/GUID-69BE0343-A27B-4533-BF6F-3A72598D412D.png" alt=""></div>
+ 
+		  <ul class="ul" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__UL_EA4A8B919A134B418C6114A88F166D82"><li class="li" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__LI_95BE72E8E95348BD9D4A41366FC10425"> 
+				<strong class="ph b"><span class="ph uicontrol">训练数据位置(Training Data Location)</span></strong>：浏览到要保存训练数据的位置并为其创建文件夹。
+			 </li>
+<li class="li" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__LI_03156A2169C045D1AC29900E2E6EF3A1"> 
+				<strong class="ph b"><span class="ph uicontrol">导出开始帧(Export Start Frame)/导出结束帧(Export End Frame)</span></strong>：设置要从目标几何体变形捕获的帧范围。
+			 </li>
+<li class="li" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__LI_70FCF506EE704A4A8DC4D5DDC2903040"> 
+				<strong class="ph b"><span class="ph uicontrol">训练数据名称(Training Data Name)</span></strong>：选择数据的名称。
+			 </li>
+<div class="p"> 单击<strong class="ph b"><span class="ph uicontrol">“导出”(Export)</span></strong>。动画将导出为训练数据。有关此窗口中每个设置的详细说明，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-DB744421-DE81-42EA-910D-AD7F32C915DC.htm">ML 变形器“导出训练数据”(Export Training Data)窗口</a>。
+			 <div class="fig fignone" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__FIG_8BC116313C6C4D0EAEC6C22D762FFAD6"><img class="image" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__IMAGE_27ADC104D1E44E9E95CD0BA65CF07D84" src="../images/GUID-BC6A9745-AA8F-4AEF-A2E9-D904CCBA5CDB.png" alt=""></div>
+ 
+		  </div>
+</ul>
+ 
+		</li>
+<li class="li" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__LI_56CD224922FC489E9D61DB3CFF53E638"> 导出过程完成后，在<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol">“ML 变形器”(ML Deformer)</span>选项卡中，单击<strong class="ph b"><span class="ph uicontrol">“训练模型...”(Training the Model...)</span></strong> <img class="image" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__IMAGE_41A245860CF24C179A584012F61B7211" src="../images/GUID-82A04A9D-D155-4E06-BA9D-F416AC88C0E3.png" alt=""> 以打开<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-2D7AF32F-814C-43FB-A93B-A8FBD95265A6.htm"><span class="ph uicontrol">训练 ML 变形器(Training ML Deformer)</span></a>窗口，使用捕获的数据来训练变形。
+		</li>
+<li class="li" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__LI_00CC1710A61049BF97076472CBE873E4"> <strong class="ph b"><span class="ph uicontrol">“训练数据位置”(Training Data Location)</span></strong>字段显示训练数据和模型的位置。
+		  <p class="p">（您也可以在<span class="ph uicontrol">“ML 变形器属性”(ML Deformer Attributes)</span>列表中的<strong class="ph b"><span class="ph uicontrol">“ML 模型”(ML Model)</span></strong>单元上单击鼠标右键，然后从上下文菜单中选择<strong class="ph b"><span class="ph uicontrol">“训练模型...”(Train Model...)</span></strong>。）
+		  </p>
+ 
+		  <p class="p">有关此窗口中每个设置的详细说明，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-2D7AF32F-814C-43FB-A93B-A8FBD95265A6.htm">ML 变形器训练设置</a>。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__LI_EEEC9B109C7F4C2497B2C69233636157">在显示的<span class="ph uicontrol">“训练 ML 变形器”(Training ML Deformer)</span>窗口中，设置以下内容：
+		  <ul class="ul" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__UL_01FAE5AF515340CC827D041D4731A576"><li class="li" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__LI_E6141EA580A9479AB00D84C6FE82B1CF"><strong class="ph b"><span class="ph uicontrol">输出 ML 模型名称(Output ML Model Name)</span></strong>：为经过训练的模型选择名称。
+			 </li>
+<li class="li" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__LI_CEEACC06873D434D900452962B084F6C"> 激活<strong class="ph b"><span class="ph uicontrol">“预加载数据”(Preload Data)</span></strong>：加快训练速度（会增加内存使用）。
+				<div class="fig fignone" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__FIG_C905C3FE71A346D4A28646CFBAC3635A"><img class="image" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__IMAGE_3C150ED95319451AA06A375675EC2D9D" src="../images/GUID-D6C84979-2427-4BFA-925D-0B16823ED2D6.png" alt=""><p class="figcap">ML 变形器训练窗口</p></div>
+ 
+			 </li>
+</ul>
+ 
+		</li>
+<li class="li" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__LI_3959B0F9537A47E5868345ABE79243C7"> 
+		  <div class="p"> 单击<strong class="ph b"><span class="ph uicontrol">“训练”(Train)</span></strong>。将显示两个 Python 窗口。您可以在 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-546BC66C-2DDC-4A30-A580-FC5383988F22.htm">ML 变形器作业监视器</a> <img class="image" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__IMAGE_F00A685791D64C31A29E7836CC3EA692" src="../images/GUID-DDEF1D58-85EE-4640-BC83-0F972A4744D9.png" alt=""> 中跟踪此训练和任何其他 ML 训练的进度。在 Python 窗口中看到 <samp class="ph codeph">[ML Deformer] Training complete</samp> 消息时，训练已经完成。
+			 <div class="fig fignone" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__FIG_4F0BADD3C5FF4C2BB4C729B16B14F924"><img class="image" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__IMAGE_EBBEEC69600D4598838EA1BE878295B1" src="../images/GUID-64D008C8-984D-41FD-9D50-F0D724292E18.png" alt=""></div>
+ 
+		  </div>
+ 
+		  <div class="note important" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__NOTE_119758B05BBE4A7CAD7F65EC52BEFC72"><span class="importanttitle">重要：</span> 单击<span class="ph uicontrol">“训练”(Train)</span>后，系统可能会提示您下载并安装外部 Python 模块。默认情况下，附加模块的安装路径为 <samp class="ph codeph">&lt;MAYA_APP_DIR&gt;/mlDeformer/&lt;ml_deformer_version&gt;/Lib/site-packages</samp>。如果需要手动下载这些模块和/或将其安装到自定义位置，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-C2885274-C439-40E9-88B5-9C28C1A18A01.htm">安装 Python 库以训练 ML 变形器</a>。
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__LI_EFC50B22A8FE48F98968B2982620BEA4">在<span class="ph uicontrol">“ML 变形器”(ML Deformer)</span>列表中打开<span class="ph uicontrol">“已启用”(Enabled)</span>，以便 <span class="ph uicontrol">ML 变形器</span>应用所学习的变形。
+		  <div class="fig fignone" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__FIG_6263D0DDD46B4EA6A51E2B37C915BE3F"><img class="image" id="GUID-13051D83-FF77-4A8C-BB4B-D6CA4D9CC82C__IMAGE_32CA7D0BC59D47739192C46A3A5ED8C3" src="../images/GUID-99CACE85-8BC2-4B3E-9ABC-0B4342C32F44.gif" alt=""><p class="figcap">“目标变形”(Target Morph)在“目标”(Target)和“ML 变形”(ML Deformation)之间切换</p></div>
+ 
+		  <p class="p">与其他变形器一样，可以调整<span class="ph uicontrol">“封套”(Envelope)</span>设置以降低“ML 变形”(ML Deformation)的效果。
+		  </p>
+ 
+		</li>
+</ol>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-F386DC20-6C66-40D7-AD40-2C1B66937A71.htm">ML 变形器</a></div>
+</div>
+</div>
+
+</body>
+</html>

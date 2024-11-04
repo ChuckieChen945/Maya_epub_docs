@@ -1,0 +1,71 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_build_a_graph_file_io_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>从文件输入和输出数据</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>从文件输入和输出数据</h1></div><p>除了从主场景输入和输出几何体之外，还可以输入和输出文件。这可用于在场中进行缓存或渲染等。除了 Bifrost 的对象格式之外，还针对多种标准格式提供了 <code>read_*</code> 和 <code>write_*</code> 节点。</p>
+<p>要使用的格式取决于几何体的类型：</p>
+<ul>
+<li>将 Bifrost 二进制对象格式 (.bob) 用于 Bifrost 中任何类型的几何体。但是，仅 Bifrost 图表可读取此格式。</li>
+<li>将 Alembic (.abc) 用于网格几何体。 </li>
+<li>将 OpenVDB (.vdb) 用于体积或点。</li>
+<li>将 Field3d (.f3d) 用于体积。</li>
+<li>将 PDC (.pdc) 用于点。</li>
+</ul>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>您也可以尝试使用 <code>file_cache</code> 节点。这是一个实验节点，可基于扩展名读取和写入 .bob、.abc 或 .vdb。</p>
+
+</div></div>
+
+<div class="note 注意："><span class="notetitle">注意：</span></div>
+<ul>
+<li>至少有一个文件节点的输出必须直接或间接连接到图表顶层级的 <code>output</code>。</li>
+<li>您可以使用来自 <code>time</code> 节点的输出连接到 <code>frame</code> 输入。在某些情况下，可能需要使用 <code>to_int</code> 将帧值从 <code>float</code> 转化为 <code>int</code>，或者使用 <code>one_over</code> 将 <code>frame_step</code> 转化为帧速率。</li>
+<li>要在文件名中包含帧编号，请使用标记 <code>#</code>。使用多个字符进行帧填充，例如，使用 <code>####</code> 填充 <code>0001</code>、<code>0002</code> 等。您也可以使用 <code>@</code> 而不是 <code>#</code>。</li>
+<li>指定要包含的特性时，可以将它们明确列出或输入 <code>*</code> 以指定全部。</li>
+<li>目录必须已存在。</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/Bifrost_Common_build_a_graph_html.html">构建和修改图表</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

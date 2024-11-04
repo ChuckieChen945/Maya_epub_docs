@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Modeling">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="06/03/2024">
+<meta name="topicid" content="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991">
+<meta name="language" content="CHS">
+<title>保留重新拓扑网格的区域</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>保留重新拓扑网格的区域</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 
+		 
+	 </p>
+<div class="p">可以通过三种不同的方法保留重新拓扑网格的区域，例如曲面交集、角点或硬边：
+	 <ul class="ul" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__UL_067FF75B40D14B5DBADD958105AA599E"><li class="li" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__LI_C0EFA8185150413DBCAB2DA0258AC99A">硬边(Hard Edges)：显式定义的边是硬边，保留这种边并使其保持硬边状态以保留原始网格的大体形状和流 
+		</li>
+<li class="li" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__LI_7D71E9BDDE014E28A355E547B2431580">按角度保留边(Edges by Angle)：根据指定的角度容差保留边。如果相邻面之间的角度超过指定的角度容差，将保留面之间的边。
+		</li>
+<li class="li" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__LI_1847EBC6C2BB42279E6B577860CBECF0">组件标记(Component Tags)：polyRetopo 节点在输入网格上搜索指定的边组件标记，并在结果网格上将它们用作影响物。
+		</li>
+</ul>
+ 
+	 </div>
+<p class="p">可以在运行重新拓扑之前在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-8B176ACA-FBEA-4756-B55E-130AD3E75BA9.htm">重新拓扑选项(Retopologize Options)</a>窗口中启用<span class="ph uicontrol">“特征保留”(Feature Preservation)</span>选项，也可以在运行重新拓扑之后在<span class="ph uicontrol">“属性编辑器 &gt; polyretopo”(Attribute Editor &gt; polyretopo)</span>节点中进行调整。
+	 </p>
+<p class="li listintro">使用硬边保留网格区域</p>
+<ol class="ol" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__OL_4823FB455D024CBAAF460C379F5DF5A0"><div class="p">以下示例显示了重新拓扑的简单布尔网格。在运行<span class="ph uicontrol">重新拓扑</span>之前，已在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-8B176ACA-FBEA-4756-B55E-130AD3E75BA9.htm">重新拓扑选项(Retopologize Options)</a>中启用<span class="ph uicontrol">“保持原始”(Keep Original)</span>，因此任何更新都会实时反映在网格上。
+		<div class="fig fignone" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__FIG_4EEB0DC5D35A4D1FBE95EAD6B083A878"><img class="image" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__IMAGE_5E1AA111B74D465E94E862A29935D560" src="../images/GUID-39AD0B02-FA04-4345-BB4D-617979D16063.png" alt=""></div>
+ 
+	 </div>
+<li class="li" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__LI_6BA2D4F25A174380A885EA8B77267184">确保要保留的任何边都标记为硬边。
+	 <div class="p">在以下示例中，球体中间附近的循环边已硬化。
+		<div class="fig fignone" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__FIG_C38BDA4A6DC0459C9770BC6677107A05"><img class="image" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__IMAGE_F772EBAA168B4C4CBCE80606996F499A" src="../images/GUID-1C105365-6D4B-4912-A517-E66E98A6CA3C.png" alt=""></div>
+ 
+	 </div>
+ 
+  </li>
+<li class="li" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__LI_BFC216C4D69340A2B3B5710F842741B4">选择重新拓扑的网格（结果网格），然后在 <span class="ph uicontrol">polyRetopo</span> 节点中启用“硬边”(Hard Edges)（<span class="ph uicontrol">“设置 &gt; 特征保留”(Settings &gt; Feature Preservation)</span>）。
+	 <div class="fig fignone" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__FIG_F4280F97DFB8436D80F2017698372849"><img class="image" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__IMAGE_2EEF46E1B92743ABBC7CA834671D81F5" src="../images/GUID-B02BF604-6946-4A92-98FA-61DC04976712.png" alt=""><p class="figcap"></p></div>
+ 
+	 <div class="p">在视口中，硬边保持不变，重新拓扑的网格将自动更新，从而动态更新网格的边流。
+		<div class="fig fignone" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__FIG_CB81CCB9DD2C4F5AADE189FFCC14F40E"><img class="image" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__IMAGE_E3DDAE4397134BD88DF8B37A020612F4" src="../images/GUID-E70A4CFF-7603-49C8-B2E3-FA5D04E028B3.gif" alt=""></div>
+ 
+	 </div>
+ 
+  </li>
+</ol>
+<p class="li listintro">使用“按角度保留边”(Edges by Angle)保留网格区域</p>
+<ol class="ol" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__OL_07F7A8E6CF92410D8F1B5DB579A344BA"><div class="p">“按角度保留边”(Edges by Angle)保留根据指定的阈值判断为硬边或软边的对象。以下示例显示了重新拓扑的简单布尔网格。在运行<span class="ph uicontrol">“重新拓扑”(Retopologize)</span>之前，启用了<span class="ph uicontrol">“保持原始”(Keep Original)</span>，这样，任何更新都会动态反映在结果网格上。
+	 <div class="fig fignone" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__FIG_E03EE622F0A1432980F496D964E6D6A2"><img class="image" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__IMAGE_C540246A9FE1474A9C58B0D6F535875F" src="../images/GUID-39AD0B02-FA04-4345-BB4D-617979D16063.png" alt=""></div>
+ 
+  </div>
+<li class="li" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__LI_ADB43D4925C44E308A1A9CD27CFEDC8C">选择重新拓扑的网格（结果网格），然后在 <span class="ph uicontrol">polyRetopo</span> 节点中启用“按角度保留边”(Edges by Angle)（<span class="ph uicontrol">“设置 &gt; 特征保留”(Settings &gt; Feature Preservation)</span>）。
+	 <div class="fig fignone" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__FIG_264614B95CB641539AAE15562C4C259B"><img class="image" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__IMAGE_C16EDD1F6D364B1BBE71C5A47EBE2298" src="../images/GUID-B5082FE3-3E71-4BDA-8D33-9741D2F4633E.png" alt=""></div>
+ 
+	 <p class="p">重新拓扑的网格的（结果网格）边流将基于<span class="ph uicontrol">“按角度保留边”(Edges By Angle)</span>值自动更新。
+	 </p>
+ 
+	 <div class="note important" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__GUID-D4146A33-75F6-4B29-91BC-237418B92194"><span class="importanttitle">重要：</span> “按角度保留边”(Edges By Angle)特征保留方法会忽略在指定角度容差范围内标记为硬边的任何边。
+	 </div>
+ 
+	 <div class="p">在以下示例中，使用“网格显示 &gt; 硬边”(Mesh Display &gt; Hard) (1) 将输入网格的所有边标记为硬边。重新拓扑化网格 (2) 后，启用<span class="ph uicontrol">“按角度保留边”(Edges by Angle)</span> (3) 时，结果网格中不会保留任何显式定义的硬边。
+		<div class="fig fignone" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__FIG_F86965A20C0941CDAD1621B5F2784A76"><img class="image" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__IMAGE_1CBA53FEBE764B70B168C0C9BC26D607" src="../images/GUID-61140C76-2BA9-411D-B28C-35357C4F0663.gif" alt=""></div>
+ 
+	 </div>
+ 
+  </li>
+</ol>
+<div class="section" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__SECTION_08D8187CD26A43F589084E0EFB9F355D"><h2 class="title sectiontitle">相关主题</h2> 
+	  
+	 <ul class="ul" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__UL_45468F00D76A4338A78AA0121CC72FEF"><li class="li" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__LI_AC864C4820424FCAB940249FC860032F"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-076E5928-5204-4E35-AF17-F4B3FFCEC3C6.htm">使用组件标记保留重新拓扑网格的区域</a> 
+		</li>
+<li class="li" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__LI_0D099F3B0FED4260AC2537752F9D4513"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-130672A1-657D-4864-B995-2E10855CF162.htm">重新拓扑问题疑难解答</a> 
+		</li>
+<li class="li" id="GUID-81A6AA42-4AD7-4AEE-9625-26742ED45991__LI_26C1B72F2DF6434B91B343F0F1C53F79"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-A76DE7BA-D2E8-4902-A6C3-BD6B9ED3330E.htm">使用对称重新拓扑网格</a> 
+		</li>
+</ul>
+ 
+  </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-083D2387-5553-4C03-BCB1-9231293626AD.htm">自动重新拓扑网格</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_BOSS_Simulation_BOSS_create_geo_wave_map_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>create_geo_wave_map</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>create_geo_wave_map</code></h1></div><p>此节点可用于将源几何体转换为 wave_map，以用于动态波模拟。它使用 XZ 方向上的边界（可以连接到 simulate_dynamics_waves 节点上的源输入，例如 height_source 或 obstruction）计算二维像素贴图。此贴图基于几何体低于水高度的位置。</p>
+<h2 id="">输入</h2><h3 id="geometry"><code>geometry</code></h3><p>这是要从其创建贴图的几何体。通过沿 Y 轴进行光线跟踪以查找对象的交点来确定贴图。</p>
+<h2 id="wave-map-properties"><code>Wave Map Properties</code></h2><h3 id="enable"><code>enable</code></h3><p>此项用于切换是否创建此贴图并在此贴图连接到的模拟中使用它。</p>
+<h3 id="output_depth-map_value"><code>output_depth</code>、<code>map_value</code></h3><p>这是对象与平面（由对象低于 <code>water_height</code> 值的位置定义）相交时使用的值。在其他位置，贴图为零。如果启用了 <code>output_depth</code>，则忽略此项，在这种情况下，该值为水下面的穿透深度。</p>
+<h3 id="resolution_xz"><code>resolution_xz</code></h3><p>贴图的分辨率。这是相对于由边界设置确定的贴图边界的值。</p>
+<h3 id="water_height"><code>water_height</code></h3><p>模拟中水在 Y 方向上的高度，通常为零。在输入几何体低于此值的位置生成贴图。</p>
+<h2 id="map-process"><code>Map Process</code></h2><p>这些是对通过跟踪操作创建的贴图的图像处理操作。系统将基于这些特性自动增加像素填充，使贴图的边框像素应始终为零。</p>
+<h3 id="expand"><code>expand</code></h3><p>此项用于将非零贴图值增大定义的像素数。值为负时将向内缩小贴图。</p>
+<h3 id="offset_xz"><code>offset_xz</code></h3><p>此项用于平移贴图的位置（像素）</p>
+<h3 id="smooth"><code>smooth</code></h3><p>这是对图像应用平滑过滤器的迭代次数。</p>
+<h2 id="bounds"><code>Bounds</code></h2><p>边界确定贴图在 X 和 Z 方向上的尺寸。 </p>
+<h3 id="geo_bounds_padding"><code>geo_bounds_padding</code></h3><p>这是用于扩展边界（和分辨率）的像素数，这有助于避免因跟踪非常接近 XZ 方向上的对象边界而产生的问题。</p>
+<h3 id="bounds_method"><code>bounds_method</code></h3><p>此项确定如何为贴图定义边界。值为 <code>From_Geometry</code> 时，将创建适合所跟踪对象的 xz 边界的图像，但通过减少沿较小轴的像素在这些边界内保持方形像素（如果需要）。其他方法专门用于边界来自模拟节点的情况，如果这些边界与对象不重叠，则将不跟踪像素。在所有情况下，都仅在对象与水相交的位置创建贴图。使用除 <code>From_Geometry</code> 外的边界方法时，应将分辨率设置为定义的边界所需的分辨率，并且输出贴图将是与对象重叠的边界的子集，如果对象相对于边界较小，则这可能只是几个像素。</p>
+<ul>
+<li><p><code>Min_Max</code>：边界由特性 <code>min_bound</code> 和 <code>max_bounds</code> 确定</p>
+</li>
+<li><p><code>Size_Center</code>：边界由特性 <code>size</code> 和 <code>center</code> 确定</p>
+</li>
+<li><p><code>From_Geometry</code>：边界由连接到所跟踪的 <code>geometry</code> 的输入几何体确定。</p>
+</li>
+</ul>
+<h3 id="min_bound"><code>min_bound</code></h3><p>贴图在 X 和 Z 方向上的最小范围。（当 <code>bounds_method</code> 为 <code>Min_Max</code> 时）</p>
+<h3 id="max_bound"><code>max_bound</code></h3><p>贴图在 X 和 Z 方向上的最大范围。（当 <code>bounds_method</code> 为 <code>Min_Max</code> 时）</p>
+<h3 id="size"><code>size</code></h3><p>贴图在 X 和 Z 方向上的总体大小（当 <code>bounds_method</code> 为 <code>Size_Center</code> 时）</p>
+<h3 id="center"><code>center</code></h3><p>贴图边界在 X 和 Z 方向上的中心位置（当 <code>bounds_method</code> 为 <code>Size_Center</code> 时）</p>
+<h2 id="">输出</h2><h3 id="out_wave_map"><code>out_wave_map</code></h3><p>这是输出波贴图对象，它具有名为“map”的像素数组特性以及 min_bound 和 max_bound 特性。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_BOSS_html.html">BOSS</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

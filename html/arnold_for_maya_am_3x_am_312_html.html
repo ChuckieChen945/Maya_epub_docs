@@ -1,0 +1,190 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_3x_am_312_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_312">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 3.1.2 - Arnold for Maya">
+
+<title>3.1.2</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>3.1.2</h1></div><h2 id="release-date">Release Date</h2><p>December 13, 2018</p>
+<p>This version uses the Arnold <a href="https://help.autodesk.com/display/arnug/5.2.2.0">5.2.2.0</a> core.</p>
+<h2 id="downloads">DOWNLOADS</h2><p><a href="https://manage.autodesk.com/products/" target="_blank">https://manage.autodesk.com/products/</a></p>
+<p>MtoA 3.1.2 is a feature release, including the following improvements:</p>
+<h2 id="shaders">Shaders</h2><ul>
+<li>New aiOsl shader, that allows to write inline osl code and use it in a shading tree.</li>
+<li>Added Sheen parameter in aiToon and in the list of AOVs.</li>
+<li>Added "<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Hair_html">Azimuthal Roughness</a>" to aiStandardHair.</li>
+<li>Added Velvet preset for aiStandardSurface.</li>
+<li>Fixed crash when assigning a shader to a custom shape procedural.</li>
+</ul>
+<h2 id="renderview-ipr">RenderView / IPR</h2><ul>
+<li>Always add default persp camera to the list of available cameras in ARV.</li>
+<li>Fixed error "Arnold RenderView is not unique" that could prevent from using ARV when opening an existing scene.</li>
+<li>Removing objects inside Render Setup collections wasn't refreshed in IPR.</li>
+<li>Enabling / disabling collections from Render Setup wasn't refreshed in IPR.</li>
+<li>Deleting an assignment in aiSetParameter wasn't refreshed in IPR.</li>
+</ul>
+<h2 id="other">Other</h2><ul>
+<li><p>Added arguments to Maya batch render to output Stats and Profile info.</p>
+</li>
+<li><p>Set Overrides were not working on Standins.</p>
+</li>
+<li><p>Upgraded Cryptomatte to 1.1.0 which contains the fix: "Preview AOVs are now always displayed in display drivers, even when preview_in_exr is disabled".</p>
+</li>
+<li><p>Upgraded OIIO (2.0.1) and OSL (1.10.1).</p>
+</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible Changes</h2><ul>
+<li>Curves first segment wasn't rendered with the right amount of CVs. This was mostly visible for low samples and is now fixed. Existing scenes might, therefore, render differently.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Ticket</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>#3637</td>
+<td>incorrect sampling of curves at low sample rate</td>
+</tr>
+<tr>
+<td>#3656</td>
+<td>Deleting assignment expressions in set_parameter doesn't trigger an update</td>
+</tr>
+<tr>
+<td>#3144</td>
+<td>IPR doesn't react when disabling/enabling collections in Render Setup</td>
+</tr>
+<tr>
+<td>#3350</td>
+<td>Removing objects inside Render Setup does not refresh the ARV</td>
+</tr>
+<tr>
+<td>#3560</td>
+<td>xgen_procedural: inconsistent evaluation of parameters</td>
+</tr>
+<tr>
+<td>#3616</td>
+<td>Crash when applying shaders to custom shape procedural node</td>
+</tr>
+<tr>
+<td>#3624</td>
+<td>delta flag not being set for the xgen_procedural</td>
+</tr>
+<tr>
+<td>#2812</td>
+<td>Include date and hash in MtoA daily builds</td>
+</tr>
+<tr>
+<td>#2841</td>
+<td>Support OSL node</td>
+</tr>
+<tr>
+<td>#3297</td>
+<td>AOV shaders cause AOV UI re-populating issue</td>
+</tr>
+<tr>
+<td>#3591</td>
+<td>Set override on AiStandin not working</td>
+</tr>
+<tr>
+<td>#3623</td>
+<td>Hide Subdiv Iterations when subdivision is disabled</td>
+</tr>
+<tr>
+<td>#3626</td>
+<td>add sheen AOVs to the main aov list</td>
+</tr>
+<tr>
+<td>#3633</td>
+<td>traslate order of instanced reference objects inconsistent</td>
+</tr>
+<tr>
+<td>#3634</td>
+<td>aiStandardSurface node missing Specular Weight input connection.</td>
+</tr>
+<tr>
+<td>#3636</td>
+<td>[AVP] Ignore Test Resolution</td>
+</tr>
+<tr>
+<td>#3639</td>
+<td>mtoa_constant_ does not work on aiStandIn instances when rendered in ARV</td>
+</tr>
+<tr>
+<td>#3644</td>
+<td>aiMixShader isn't showing textures in VP2</td>
+</tr>
+<tr>
+<td>#3645</td>
+<td>[ARV] "Arnold RenderView is not unique" error</td>
+</tr>
+<tr>
+<td>#3655</td>
+<td>persp camera not available in ARV if it's non-renderable</td>
+</tr>
+<tr>
+<td>#3657</td>
+<td>Add Velvet preset for aiStandardSurface</td>
+</tr>
+<tr>
+<td>#3622</td>
+<td>Add Stats and Profile file output to the Batch Render flags</td>
+</tr>
+<tr>
+<td>#3651</td>
+<td>Expose azimuthal roughness in standard_hair</td>
+</tr>
+<tr>
+<td>#3630</td>
+<td>Add sheen parameters to Toon shader UI</td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_3x_html.html">MtoA 3.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

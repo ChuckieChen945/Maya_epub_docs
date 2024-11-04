@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D">
+<meta name="language" content="CHS">
+<title>旋转平面 IK 解算器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>旋转平面 IK 解算器</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F48755-7B21313411809411AE9-56AF">旋转平面解算器非常适用于对要保持在同一平面上的关节链设定姿势（例如手臂和腿）。例如，由旋转平面 IK 控制柄驱动的手臂的肩部、肘部和腕部关节都保持在与肘部旋转相同的平面内。该平面本身可以通过极向量从肩部关节进行旋转。 
+	 </p>
+<div class="fig fignone" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F48755-7B21313411809411AE9-56B2"><img class="image" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__IMAGE_4ED1EF8733504F50BB521E22AB5DC170" width="451" height="332" src="../images/GUID-4ED0E266-585F-499E-ACCB-DE5793A84A47.png"></div>
+<p class="p" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F48755-7B21313411809411AE9-56B0">旋转平面 IK 控制柄使用旋转平面解算器来计算其 IK 链中所有关节的旋转，但不会计算关节链的整体方向。相反，旋转平面 IK 控制柄可以通过极向量和扭曲圆盘直接控制关节链的方向，而不是通过 IK 解算器计算方向。单链解算器和旋转平面解算器之间的区别就在于此。另请参见主题 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-952FC4B3-19A6-4055-B034-3A7D15EC66D6.htm">IK 解算器</a>中的“单链和旋转平面 IK 控制柄之间的差异”。 
+	 </p>
+<div class="fig fignone" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F48755-7B21313411809411AE9-56B1"><img class="image" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__IMAGE_60BF76EED0B44A7BB641A434C9391962" width="376" height="332" src="../images/GUID-E7B94792-9B2A-4C98-9545-A502EF3C7470.png"></div>
+<p class="p" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__GUID-885BE427-1BAC-436E-93A5-17EE2CA51DA0">另请参见下面的<span class="ph uicontrol" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__GUID-BEFFE152-BA2F-47C5-9C45-F35F4F8BE7D1">“极向量”(Pole vector)</span>和<span class="ph uicontrol" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__GUID-32B81D29-DE1C-4D1D-A457-00F028A0D5AE">“扭曲圆盘”(Twist disc)</span>描述。 
+	 </p>
+<div class="section" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS17956D7ADBC6E736-185AC66B117AE30DA36-7FE5"><h2 class="title sectiontitle">旋转平面 IK 控制柄组件</h2> 
+		 <div class="section" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS17956D7ADBC6E736-185AC66B117AE30DA36-7FE4"><dl class="dl" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS17956D7ADBC6E736-185AC66B117AE30DA36-7FE4"><dt class="dt dlterm">扭曲圆盘</dt>
+<dd class="dd" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F487551A80AE1B11E21F4DA0C2008"> 
+		<p class="p" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F48755-7B21313411809411AE9-56AD">扭曲圆盘是一种操纵器，可以用来扭曲或旋转关节链。扭曲圆盘位于 IK 链的末关节处。 
+		</p>
+ 
+		<p class="p" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F48755-7B21313411809411AE9-56AC">平移极向量通常会使 IK 链指向错误方向。在移动极向量以防止翻转后，可以使用扭曲盘来重新定向平面。 
+		</p>
+ </dd>
+<dt class="dt dlterm">关节链平面</dt>
+<dd class="dd" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F487551A80AE1B11E21F4DA0C2009"> 
+		<p class="p" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F48755-7B21313411809411AE9-56AA">关节链平面是一个平面，它包含了关节链中所有关节并通过轴来设定姿势。关节链平面围绕控制柄向量旋转。操纵极向量时，关节链平面将围绕控制柄向量旋转。 
+		</p>
+ </dd>
+<dt class="dt dlterm">参照平面</dt>
+<dd class="dd" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F487551A80AE1B11E21F4DA0C200A"> 
+		<p class="p" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F48755-7B21313411809411AE9-56A8">要使关节链平面旋转和扭曲关节链，必须相对于某些其他平面旋转平面以便测量扭曲的角度。关节链平面进行相对旋转的平面是参照平面。 
+		</p>
+ </dd>
+<dt class="dt dlterm">极向量</dt>
+<dd class="dd" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F487551A80AE1B11E21F4DA0C200B"> 
+		<p class="p" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F48755-7B21313411809411AE9-56A6"> 极向量是一种操纵器，用于更改 IK 链的方向。此外，极向量还用于控制翻转。 
+		</p>
+ 
+		<p class="p" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F48755-7B21313411809411AE9-56A4">由于移动极向量可以更改参照平面的方向，因此移动极向量还可以直接更改关节链的方向，正如操纵扭曲盘可以更改关节链的方向一样。这是因为已将关节链的方向或扭曲角度，定义为参照平面和关节链平面之间方向的差异。 
+		</p>
+ 
+		<div class="note important" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F48755-7B21313411809411AE9-56A3"><span class="importanttitle">重要：</span> 定位 IK 控制柄时，如果控制柄向量和极向量互相交叉或指向完全相反的方向，则关节链可能突然翻转。可以通过移动极向量避免此翻转，以使控制柄向量不与之相交或指向其相反方向。 
+		</div>
+ </dd>
+</dl>
+<div class="section" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS1A9193826455F5FF-2ADE9D91186553C74E-7E81"><h4 class="title sectiontitle">旋转圆盘</h4><p class="p" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F48755-7B21313411809411AE9-56A2">旋转圆盘是一种指示器，用于显示扭曲盘旋转 IK 链的程度。旋转圆盘位于 IK 链的始关节处。 
+		</p>
+<div class="section" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F48755-7B21313411809411AE9-5794-603"><dl class="dl" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F48755-7B21313411809411AE9-5794-603"><dt class="dt dlterm">参照平面指示器</dt>
+<dd class="dd" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F487551A80AE1B11E21F4DA0C200C"> 
+		<p class="p" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F48755-7B21313411809411AE9-56A0">参照平面指示器是旋转盘上的绿色点，可以通过移动来反映极向量的移动。 
+		</p>
+ </dd>
+<dt class="dt dlterm">扭曲指示器</dt>
+<dd class="dd" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F487551A80AE1B11E21F4DA0C200D"> 
+		<p class="p" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F48755-7B21313411809411AE9-569E">扭曲指示器是参照平面指示器和旋转盘上的关节链平面指示器之间的绿色曲线。扭曲指示器可显示关节链相对于参照平面的方向。 
+		</p>
+ </dd>
+<dt class="dt dlterm">关节链平面指示器</dt>
+<dd class="dd" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F487551A80AE1B11E21F4DA0C200E"> 
+		<p class="p" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F48755-7B21313411809411AE9-569C">关节链平面指示器可显示关节链平面相对于参照平面的方向。关节链平面指示器出现在旋转圆盘中。 
+		</p>
+ </dd>
+</dl>
+</div>
+</div>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F48755-7B21313411809411AE9-5679"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F48755-7B21313411809411AE9-5678"><li class="li" id="GUID-9942FFB5-65C2-46E2-B5A3-297667A9FB5D__WS73099CC142F48755-7B21313411809411AE9-5676"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-3E27BA31-12AE-4D20-81C9-E0C0640DA111.htm">创建旋转平面 IK 控制柄</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-3B0E735B-38B1-42AE-89E7-98906893F051.htm">使用旋转平面 IK</a></div>
+</div>
+</div>
+
+</body>
+</html>

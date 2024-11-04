@@ -1,0 +1,56 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Geometry_Query_Geometry_Query_sample_points_by_radius_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>sample_points_by_radius</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>sample_points_by_radius</code></h1></div><p>按半径对点进行采样，将对点 <code>property</code> 进行加权平均。</p>
+<p>此节点结合了 <code>get_points_in_radius</code> 和 <code>sample_property</code> 的功能，可给出所找到点的加权平均值。对于每个位置输入，它将在半径范围内搜索另一个几何体的点，并返回某些特性的加权平均值。</p>
+<p>若要使用它，请插入要搜索的目标 <code>geometry</code>、<code>positions</code> 和要使用的特性。</p>
+<h2 id="property">特性(Property)</h2><p>在此处，以与 <code>sample_property</code> 相同的方式指定要采样的特性，并使用 <code>default_and_type</code> 的值和类型调整指定类型和默认值。</p>
+<h2 id="search">搜索(Search)</h2><p><code>max_radius</code>、<code>enable_max_number</code> 和 <code>max_number</code> 控制考虑的点数。这些设置控制搜索，与 <code>get_points_in_radius</code> 相同。</p>
+<h2 id="weights">权重(Weights)</h2><p>对找到的点进行加权，以便距离较远的点比邻近的点具有较少的效果。</p>
+<p><code>exponent</code> 控制 <code>falloff_fcurve</code>。 </p>
+<p>启用 <code>use_inverse_distance</code> 后，距离较近的点的影响将远远超过距离较远的点，衰减类似于平方反比定律。公式为 (1 / 距离) ^ 指数。<code>max_radius</code> 无效果。这会产生更清晰的结果。</p>
+<p>启用 <code>use_inverse_distance</code> 后，衰减从 0 到max_distance 呈线性形式，并应用指数。这意味着，接近的点往往都具有相似的权重，从而产生“更模糊”的结果。</p>
+<h2 id="distance-falloff">距离衰减(Distance Falloff)</h2><p>启用距离衰减 F 曲线 (<code>use_fcurve</code>) 后，值本身会随着距离的增加而变弱，由 <code>falloff_fcurve</code> 控制。随着找到的采样越来越远，值会柔和地混合到零。例如，如果在搜索半径的边上仅找到一个位置值，则返回的值可能几乎为零。这样做的结果是软衰减（由 F 曲线控制）到默认值，此时，点离得更远。</p>
+<p>启用距离衰减曲线 (<code>use_fcurve</code>) 后，值是纯加权平均值。如果在搜索半径内的任意位置找到单个采样，则会精确地返回该值。这样做的结果是完整的值，但当超过半径时，这些值会急剧变为零。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Geometry/Bifrost_Common_reference_Geometry_Query_html.html">Query</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

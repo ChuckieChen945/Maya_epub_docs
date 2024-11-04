@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-5A769F5C-F140-46A1-80CD-343772C5939D">
+<meta name="language" content="CHS">
+<title>用户 MEL 脚本笔刷设置</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>用户 MEL 脚本笔刷设置</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p">对于任何笔刷节点，以下选项将在<span class="ph uicontrol">“Paint Effects 笔刷设置”(Paint Effects Brush Settings)</span>窗口和<span class="ph uicontrol">属性编辑器</span>中显示为<span class="ph uicontrol">“管”(Tubes)</span>部分的子集。 
+	 </p>
+<p class="p" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7728">可以编写 MEL 脚本，这些脚本会在笔刷的生长模拟过程中应用效果。有两种类型的脚本：创建脚本和运行时脚本。 
+	 </p>
+<p class="p" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7727">通常，您需要修改 Maya 脚本目录中提供的样例脚本，如下所示： 
+	 </p>
+<ol class="ol" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7726"><li class="li" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7725">从 Maya 脚本目录复制所需函数的 MEL 文件： 
+		  <p class="p" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7724">（Windows 和 Linux）<samp class="ph codeph" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-5A427F83-A25A-4593-8D08-F0734469D7BE">mayapath/scripts/paintEffects</samp> 
+		  </p>
+ 
+		  <p class="p" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7723">(Mac OS X) <samp class="ph codeph" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-12EF39B5-3129-467C-9758-3445CB12AAE5">mayapath/Maya/Contents/scripts/paintEffects</samp> 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7722">将文件粘贴到本地脚本目录中，然后重命名它。 
+		</li>
+<li class="li" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7721">修改该函数。更改函数名称以与文件名前缀（例如 leafDroop）匹配。请勿修改函数的声明（其输入参数列表）。 
+		</li>
+</ol>
+<div class="section" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7E3D-3078"><dl class="dl" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7E3D-3078"><dt class="dt dlterm"> 
+	 <span class="ph uicontrol" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-A3161639-A24A-4BB5-8A3E-26431E97D336">创建脚本(Creation Script)</span> </dt>
+<dd class="dd" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-4E46"> 
+	 <p class="p" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-771F">创建脚本将覆盖普通的管创建例程，从而覆盖许多控件。在 Maya 脚本目录中提供了以下样例创建脚本： 
+	 </p>
+ 
+	 <ul class="ul" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-771E"><li class="li" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-771D"> 
+		  <samp class="ph codeph" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-1EE017F8-8FBE-4757-9788-570E4013A612">paintCreateFunc.mel</samp> – 模拟普通的管创建。 
+		</li>
+</ul>
+</dd>
+<dt class="dt dlterm"> 
+	 <span class="ph uicontrol" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-21C3D507-B5CB-4FA8-A9FE-36BBEDF80D7D">运行时脚本(Runtime Script)</span> </dt>
+<dd class="dd" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF47B7AA4B11FBE75ECF1-4E45"> 
+	 <p class="p" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-771B">每次将新分段添加到管时，都会调用运行时脚本。通常，需要做的大多数事项会使用运行时脚本。Maya 脚本目录中提供了以下样例运行时脚本： 
+	 </p>
+ 
+	 <ul class="ul" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7718"><li class="li" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7717"> 
+		  <samp class="ph codeph" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-46D22846-CCA9-4228-B711-99273FF5B541">paintRuntimeFunc.mel</samp> – 在管的底部创建两片叶，并应用随机摆动。 
+		</li>
+<li class="li" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7716"> 
+		  <samp class="ph codeph" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-6204F8B7-085A-4AD8-A3C3-25E8BE5B08DE">paintCollideFunc.mel</samp> – 使管与一个两单位球体碰撞，该球体位于 0, 1, 0。可以使用该函数来创建一个新函数，后者将球体的位置绑定到场景中的某个对象。 
+		</li>
+<li class="li" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7715"> 
+		  <samp class="ph codeph" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-55752E9A-0F0C-4E18-914C-1ACCCCD20325">leafDroop.mel</samp> – 使所有叶向下垂落。可以使树上的重力为负值，这样树会始终向上生长，但使叶向下生长（如果不生成次分支，该函数就是可用作新函数的模板的最简单函数）。 
+		</li>
+<li class="li" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7714"> 
+		  <samp class="ph codeph" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-66827D4D-E027-4B1F-B14F-93763BB26D04">widthNoise.mel</samp> - 使宽度沿着管以随机的方式变化。它仅影响基础管和细枝，而不影响叶或花。 
+		  <div class="note note" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7713"><span class="notetitle">注：</span> 创建脚本不能用作运行时脚本，反之亦然。 
+			 <p class="p" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7712">使用运行时函数时，复杂对象的线框重画速度可能较慢，因为会为每个管分段调用该函数。 
+			 </p>
+ 
+		  </div>
+ 
+		</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS17956D7ADBC6E736-217FA273117AE32DD2D-7FDB"><h2 class="title sectiontitle">运行时回调</h2> 
+		 
+		<p class="p" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7710"> 可以使用笔划或笔刷的名称，以基于该名称定制运行时过程。 
+		</p>
+ 
+		<p class="p" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-770E">使用回调函数的自定义<span class="ph uicontrol" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-6A6F1FF3-E7BF-46FA-878E-470C6FD46FEB">“Paint Effects”</span>笔刷必须在所有回调过程定义的结尾有两个参数：笔刷名称和笔划名称。通过这些参数可以知道笔刷的名称以及触发回调的笔划的名称。 
+		</p>
+ 
+		<p class="p" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-770D">这些回调参数显示在示例脚本中（例如 <samp class="ph codeph" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-3762B9D0-B7A4-403E-86FC-19BF99F07A4A">&lt;maya_home&gt;/scripts/paintEffects/leafDroop.mel</samp>）。 
+		</p>
+ 
+		<p class="p" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-770C">为了练习运行时回调，可以执行下列操作： 
+		</p>
+ 
+		<ol class="ol" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-770B"><li class="li" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-770A">将 <samp class="ph codeph" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-92420B4E-539B-4292-87C8-766D706DA2F7">&lt;maya_home&gt;/scripts/paintEffects/leafDroop.mel</samp> 复制到 <samp class="ph codeph" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-C15F7AC0-73D2-444E-9F09-F98CDF10B4AE">&lt;maya_home&gt;/scripts/startup</samp>。 
+		  </li>
+<li class="li" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7709">在 <samp class="ph codeph" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-2A0C97BE-847A-4B71-9067-0AC7D062E74A">leafDroop.mel</samp> 中回调内部的某个位置添加 <samp class="ph codeph" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-603127A5-B688-4164-A359-93AFC762B718">print ("brushName="+$brushName+"\n") ;</samp> 语句。 
+		  </li>
+<li class="li" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7708">在 Maya<span class="ph uicontrol" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-96A1A22F-C6EB-4100-A228-6B6C15BA9D7B">“建模”(Modeling)</span>菜单集中，选择<span class="ph menucascade"><span class="ph uicontrol">“生成</span> &gt; <span class="ph uicontrol">Paint Effects 工具”(Generate &gt; Paint Effects Tool)</span></span>，然后选择<span class="ph menucascade"><span class="ph uicontrol">“生成</span> &gt; <span class="ph uicontrol">模板笔刷设置”(Generate &gt; Template Brush Settings)</span></span>。 
+		  </li>
+<li class="li" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7707">在<span class="ph uicontrol">“Paint Effects 笔刷设置”(Paint Effects Brush Settings)</span>窗口中，单击<span class="ph uicontrol" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-40424203-B60A-474B-B237-73C1B7F0592D">“管”(Tubes)</span>。 
+		  </li>
+<li class="li" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7706">选中<span class="ph uicontrol" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-4AB9FF27-B5D6-4F90-B83C-3E7ABF059C1A">“管”(Tubes)</span>复选框。 
+		  </li>
+<li class="li" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7705">单击<span class="ph uicontrol" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-3117260E-BDE9-4451-B558-BBBFF68F4255">“用户 MEL 脚本”(User MEL scripts)</span>。 
+		  </li>
+<li class="li" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7704">在<span class="ph uicontrol" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-86DD26FC-B275-46A1-92C5-BCE2F33830A6">“运行时脚本”(Runtime Script)</span>文本区域中，键入 <samp class="ph codeph" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-C02979F8-A224-4B70-808A-856C4FC22CD5">leafDroop</samp>。 
+		  </li>
+<li class="li" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__WS1A9193826455F5FF-6381D1FC11809382DB8-7703">在 Maya 场景视图中，绘制一些<span class="ph uicontrol" id="GUID-5A769F5C-F140-46A1-80CD-343772C5939D__GUID-369C3204-F43C-4A68-AF4A-18A560049615">“Paint Effects”</span>笔划，然后应该看到已调用 leafDroop 过程。 
+		  </li>
+</ol>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-E41F3594-B494-4D1E-BE50-1245A8309768.htm">管笔刷设置</a></div>
+</div>
+</div>
+
+</body>
+</html>

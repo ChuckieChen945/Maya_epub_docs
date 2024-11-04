@@ -1,0 +1,280 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Customizing">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="分析器:示例;分析器:演示">
+<meta name="modified" content="03/11/2022">
+<meta name="topicid" content="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC">
+<meta name="language" content="CHS">
+<title>分析器解释示例</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>分析器解释示例</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 以下示例显示如何根据图表颜色和类别解释分析，以及 Maya 中的每个性能优化如何影响场景性能。所有这些示例均来自 Maya <span class="ph">2019</span> 中的同一简单 FK 角色播放。
+	 </p>
+<div class="section" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__SECTION_FF9CD4282D5241B7A6DA72CC2F595C95"><h2 class="title sectiontitle">DG 解算(DG Evaluation)</h2> 
+		 
+		<div class="p"> 
+		  <div class="fig fignone" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__FIG_AC2A4EE56BB240009B59F04111171440"><img class="image" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__IMAGE_9913FF7E55734CEB90A0F84D72F11812" src="../images/GUID-15EC35D2-60B4-42A2-BCA2-DBA1386A8B46.png"></div>
+ 
+		  此“DG 解算”(DG Evaluation)分析显示多种类型的事件：
+		<ol class="ol" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__OL_076082776D4B4DF9A1CD24278B693098"><li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_9E4B07CC106F4EB28D8267292D21444A">“脏传播”(Dirty Propagation)类别中的粉红色和紫色“脏传播”(Dirty Propagation)事件。
+		  </li>
+<li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_7FD5A0FC9CD54F749DD1D5D85340B7D5">“解算”(Evaluation)类别中的深绿色“拉力解算”(Pull Evaluation)事件。
+		  </li>
+<li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_C02192365DB84AC699921AF474866453">“VP2 解算”(VP2 Evaluation)类别中的蓝色“VP2 拉力平移”(VP2 Pull Translation)事件和浅蓝色“VP2 渲染”(VP2 Rendering)事件。
+		  </li>
+<li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_9F7507922B884387B87BE5AFFE5B3DDD">“VP2 解算”(VP2 Evaluation)类别中的黄色事件显示 VP2 等待依存关系图节点中的数据所花费的时间。
+		  </li>
+</ol>
+ 
+		</div>
+ 
+		<p class="p">在此示例中，每帧的大部分时间都花在“脏传播”(Dirty Propagation)上，您可以使用<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15.htm">解算管理器(Evaluation Manager)</a>解决此问题。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__SECTION_DD9718DE4084449BBBC5E8E72150E3A2"><h2 class="title sectiontitle"> EM 并行解算(EM Parallel Evaluation)</h2> 
+		 
+		 
+		<div class="p"> 
+		  <div class="fig fignone" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__FIG_159EAC7AB302474A8A8536DB62BC19AD"><img class="image" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__IMAGE_CA8021F8FBE94E4AAB3346697F8403F4" src="../images/GUID-192A1BA5-8299-44D7-BE83-20CE7AA87D98.png"></div>
+ 在此“EM 并行解算”(EM Parallel Evaluation)分析中，所有紫色和粉红色“脏传播”(Dirty Propagation)事件都会消失。相反我们会看到：
+		<ol class="ol" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__OL_640FA3FFD4964678A57DE30DFDFBC337"><li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_6F12EA72ECD64E659DA6AEDB4982F823">FK 彩色绑定的桃红色、褐色和棕色“EM 并行解算”(EM Parallel Evaluation)事件。高堆栈的事件表示正在并行发生一些解算。
+		  </li>
+<li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_E89E0C3E683B49138FC3AD64C8FE7A23">Maya 对蒙皮簇进行解算以计算变形网格时发生的褐色和棕色“EM 并行解算”(EM Parallel Evaluation)事件。由于依存关系图没有并行性，这些事件将相继发生。
+		  </li>
+<li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_7EE09EAD552A4FBDAE5100C6250057D9">深蓝色和蓝色“VP2 定向更新”(VP2 Direct Update)事件将数据转换为可进行 VP2 渲染的格式。
+		  </li>
+<li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_AA34C8E9DBDA4BDCA1E58BF2965E6FA1">“主要”(Main)类别中的黄色事件和“VP2 解算”(VP2 Evaluation)类别中的浅蓝色事件均为“VP2 渲染”(VP2 Rendering)事件。
+		  </li>
+</ol>
+ 
+		</div>
+ 
+		<p class="p">在此示例中，在 Vp2SceneRender (4) 上花费的时间少很多。这是因为读取依存关系节点中的数据所花费的时间已从渲染转移至“EM 并行解算”(EM Parallel Evaluation)（1 和 2）。DG 解算使用数据拉模型，EM 解算则使用数据推模型。此外，某些几何体转换 (3) 也已从渲染转移至解算。我们将解算过程中的几何体转换称为“VP2 定向更新”(VP2 Direct Update)。
+		</p>
+ 
+		<p class="p">每帧的大部分时间都花在变形和转换几何体数据上，您可以使用“GPU 覆盖”(GPU Override)解决此问题。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-190D97E7-9AC0-4D67-8A07-1AF3A9DBAF15.htm">使用解算管理器提高性能(Increase performance with the Evaluation Manager)</a>中的<strong class="ph b">“GPU 覆盖”(GPU Override)</strong>。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__SECTION_238EBE0F40A4465ABEBB2F5CAE881165"><h2 class="title sectiontitle"> 使用 GPU 覆盖进行 EM 并行解算(EM Parallel Evaluation with GPU Override)</h2> 
+		 
+		<div class="p"> 
+		  <div class="fig fignone" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__FIG_0D008381598F410799C15F54E1853660"><img class="image" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__IMAGE_86E5752175464C7FBAEC1E72A01EB3AA" src="../images/GUID-A1526A51-60E4-43E4-9793-852EE024D75D.png"></div>
+ 
+		  此“EM 并行解算”(EM Parallel Evaluation with GPU Override)分析与上一个“EM 并行解算”(EM Parallel Evaluation)分析存在重大区别：
+		<ol class="ol" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__OL_12412FCBD98C461CB1A9D1D4C91B5384"><li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_51F7BE4A41A04A6EB4235A8AA33C5984">浅黄色和深黄色“GPU 覆盖”(GPU Override)事件已取代“EM 并行解算”(EM Parallel Evaluation)分析的长串行中心部分（“EM 并行解算”(EM Parallel Evaluation)中的 2 和 3）。这些“GPU 覆盖”(GPU Override)事件表示 CPU 处理数据和启动 GPU 计算所花费的时间。
+		  </li>
+<li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_7B8212445F464D6786BB41FC6BDEC6DE">桃红色、褐色和棕色“使用 GPU 覆盖进行 EM 并行解算”(EM Parallel Evaluation with GPU Override)事件的持续时间与“EM 并行解算”(EM Parallel Evaluation)大致相同，尽管使用“GPU 覆盖”(GPU Override)的绑定解算事件的相对大小更大。此大小差异是由于此分析的比例不同于上一个分析，分别为 5 毫秒和 12 毫秒。
+		  </li>
+<li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_B5589918D59041B6B0017D993A362BBD">浅蓝色“VP2 渲染”(VP2 Render)事件出现过类似的相对拉伸 (2)。
+		  </li>
+</ol>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__SECTION_1901B67667BB46448AEC3772C206737F"><h2 class="title sectiontitle">EM 解算缓存播放(EM Evaluation Cached Playback)</h2> 
+		 
+		<div class="p"> 
+		  <div class="fig fignone" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__FIG_635C0F56B83F424D9EACAC07BD860A8A"><img class="image" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__IMAGE_169888E36C1D4EA0ADF2BAE329FBF31A" src="../images/GUID-D0CE1B89-F8EF-4F57-B96A-30F14EF620A8.png"></div>
+ 
+		  在此“EM 解算缓存播放”(EM Evaluation Cached Playback)分析中，有多种新的事件类型：
+		<ol class="ol" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__OL_550839BA739140A39535AD8A7F3DA52A"><li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_D50065AAAFA34F2780F8FDA712CCFB41">黄色“恢复缓存”(Restore Cache)事件记录更新每个已缓存数据的 FK 绑定节点所需的时间。棕色“VP2 定向更新”(VP2 Direct Update)事件跟踪数据的 VP2 表示的更新。
+		  </li>
+<li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_36102335230940599A149FBEF0E74B2E">变形网格的黄色“恢复缓存”(Restore Cache)事件。这表示将数据恢复到 Maya 节点以及将数据转换为 VP2 以使用“VP2 定向更新”(VP2 Direct Update)进行绘制所花费的时间。
+		  </li>
+</ol>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__SECTION_CAD4A410B5074C0FA1FD32DA9F629AA5"><h2 class="title sectiontitle"> EM VP2 硬件缓存播放(EM VP2 Hardware Cached Playback)</h2> 
+		 
+		<div class="p"> 
+		  <div class="fig fignone" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__FIG_662785EAA0B849D9A2559AB1A0E704ED"><img class="image" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__IMAGE_3EE62118A94A460CA5E61A9C1D45B76F" src="../images/GUID-FCBBB83D-940D-493F-9D5D-3526A1D8FA62.png"></div>
+ 
+		   
+		<ol class="ol" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__OL_1A8021D2352E4A96939DCC5984EBEEDC"><li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_05061888379C4F89B30E2A58FF48F4EA">深蓝色“VP2 硬件缓存恢复”(VP2 Hardware Cache Restore)事件取代了长串行“缓存恢复”(Cache Restore)事件（上一个“EM 解算缓存播放”(EM Evaluation Cached Playback)部分中的 2）。恢复 VP2 硬件缓存的速度快很多，因为数据为可渲染格式且存储在 GPU 上。
+		  </li>
+<li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_2125A1AC60D0463BBEF17EFF3E0BEC7A">灰色“缓存跳过”(Cache Skipped)事件显示依存关系节点中的数据未更新。
+		  </li>
+</ol>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__SECTION_35AA0175143A4BE29999DAF7B9E9CE99"><h2 class="title sectiontitle"> 解算受限性能(Evaluation-Bound Performance)</h2> 
+		 
+		<p class="p">当场景中的主要瓶颈是解算时，场景将被视为<em class="ph i">“解算受限”</em>。有几个问题可能会导致解算受限性能。
+		</p>
+ 
+		<dl class="dl"><dt class="dt dlterm"> 锁定争用(Lock Contention) 
+			 </dt>
+<dd class="dd"> 当多个线程尝试访问共享资源时，由于锁定管理开销，会发生“锁定争用”(Lock Contention)。如果无论您使用哪种解算模式，解算的持续时间大致相同，则可以断定发生了此事件。发生“锁定争用”(Lock Contention)时，线程必须等到其他线程使用完共享资源后才能继续。
+			 </dd>
+<dd class="dd"> 
+				<div class="fig fignone" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__FIG_2D88B05DFB054BC6879402CA74010070"><img class="image" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__IMAGE_BE3391FB50AE47FFA0113DA555D89EBD" src="../images/GUID-1E437251-92F5-4FF9-B63D-E8BA606531AF.png"></div>
+ 
+				 
+			 </dd>
+<dd class="dd">上图显示许多相同的任务几乎同时在不同线程上开始，在不同时间结束。此类型的分析显示可能存在多个线程需要同时访问的共享资源。
+			 </dd>
+<dd class="dd">下面是显示类似问题的其他图像：
+				<div class="fig fignone" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__FIG_930F14B5C5344194991B2F839893E3C7"><img class="image" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__IMAGE_AC9104CEC59041D98238E8DC0ED76CC6" src="../images/GUID-30F1297D-1E04-4716-9855-D24CF988CFBF.png"></div>
+ 
+				 
+			 </dd>
+<dd class="dd">在这种情况下，由于多个线程正在执行 Python 代码，它们必须等待全局解释器锁定 (GIL) 变为可用状态。如果并发性级别较高（例如当您的计算机有多个内核时），争用问题导致的瓶颈和性能损失可能会更明显。
+				<div class="p">如果您遇到争用问题，请尝试修复受影响的代码。在上面的示例中，通过更改节点调度可将上面的分析示例转换为下面的示例，从中可以看出性能增益。因此，默认情况下，Python 插件被安排为“全局序列化”，这意味着它们将<em class="ph i">依次</em>安排，并且不会阻止多个线程等待 GIL。
+				  <div class="fig fignone" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__FIG_3502D1D8657546EAB5EB2504EA6BC210"><img class="image" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__IMAGE_930BE35B4487421CBEFCC9DB596AAFC2" src="../images/GUID-881A9A7E-F562-4AA0-83EE-D396BD03DD5B.png"></div>
+ 
+				   
+				</div>
+ 
+			 </dd>
+<dt class="dt dlterm"> 簇 
+			 </dt>
+<dd class="dd">如果“解算图”(Evaluation Graph)包含节点级别的循环依存关系，这些节点将分组到表示将串行安排的单个工作单位的<em class="ph i">“簇”</em>。
+			 </dd>
+<dd class="dd">虽然多个簇可以同时解算，但<em class="ph i">大型</em>簇会限制可同时执行的工作量。可以使用 <em class="ph i">opaqueTaskEvaluation</em> 标签在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-3423BE20-0F03-422D-A05A-A1757C7B0A70.htm">分析器(Profiler)</a>中将簇标识为栏，如下图所示：
+			 </dd>
+<dd class="dd"> 
+				<div class="fig fignone" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__FIG_8E9A39971C514EB5A275FF822E370F5D"><img class="image" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__IMAGE_ABE46099524A48ECBC8073E14BA67462" src="../images/GUID-C3771CD2-6D23-41BD-B6BF-55A7279CAFCC.png"></div>
+ 
+				 
+			 </dd>
+<dd class="dd">如果您的场景中包含簇，请分析绑定结构以找到任何圆形。理想情况下，请移除绑定零件之间的联接，以便独立解算各个绑定部分（例如，头部、身体等）。
+				<div class="note tip" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__GUID-DED1A954-DB93-4229-AEDF-D066592D382C"><span class="tiptitle">提示：</span>  对场景性能问题进行疑难解答时，使用解算工具包中每个节点的“冻结”属性禁用成本高昂的节点。这样可以从解算图中暂时移除特定节点，让您轻松了解是否已找到场景中的正确瓶颈。
+				</div>
+ 
+			 </dd>
+</dl>
+ 
+	 </div>
+<div class="section" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__SECTION_5DB6152EFE744E06BCB7DFFAC3CDE3D2"><h2 class="title sectiontitle">渲染受限性能(Render-Bound Performance)</h2> 
+		 
+		<p class="p">当场景中的主要瓶颈是渲染时，场景将被视为<em class="ph i">“渲染受限”</em>。以下<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-3423BE20-0F03-422D-A05A-A1757C7B0A70.htm">分析器(Profiler)</a>示例已扩展为从具有许多动画网格的大型场景中获取的单个帧。由于对象数量、不同材质和几何体数量，该场景的渲染成本极高。
+		</p>
+ 
+		<div class="p"> 
+		  <div class="fig fignone" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__FIG_56E4C0DB190E453A9ECFE6B5A6C3450D"><img class="image" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__IMAGE_D9E358ED777C424A8588B2F9C76E136F" src="../images/GUID-D76A2FF1-651E-4F3D-B039-72FD3D3109EA.png"></div>
+ 
+		   
+		</div>
+ 
+		<div class="p">上面的分析示例有四个主要区域：
+		<ol class="ol" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__OL_B522F15509A64310A5ABF22E6065824F"><li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_2DAA977E62364423940E49C227E80B04"> 
+			 <ol class="ol" type="a" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__OL_D21A14E7C07F4FBB9D1C7B269F4EAADD"><li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_9C73E3584745434099A50A3B2C400215"> 解算 
+				</li>
+<li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_16B392AEBFB249B1B87474886B8778AC"> GPUOverridePostEval 
+				</li>
+<li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_86913A6293D24A7B81E08A1CE421C08E">Vp2BuildRenderLists 
+				</li>
+<li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_E5D3BFB73BDB4A9FB6AF60E384240653">Vp2Draw3dBeautyPass 
+				</li>
+</ol>
+ 
+		  </li>
+</ol>
+ 
+		</div>
+ 
+		<p class="p">在此场景中，很多网格都使用“GPU 覆盖”(GPU Override)进行解算，因此某些<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-3423BE20-0F03-422D-A05A-A1757C7B0A70.htm">分析器(Profiler)</a>块的显示方式与原本有所不同。
+		</p>
+ 
+		<dl class="dl"><dt class="dt dlterm">解算 
+			 </dt>
+<dd class="dd"> 区域 A 显示计算 Maya 场景状态所花费的时间，在这种情况下，该时间将适度并行化。橙色和绿色着色块表示 DG 节点的软件解算。黄色块是通过“GPU 覆盖”(GPU Override)启动网格解算的任务。GPU 上的网格解算从黄色块开始，并与 CPU 上的其他工作同时继续。
+			 </dd>
+<dd class="dd">场景解算中的并行瓶颈示例出现在解算部分中心的间隙中。右侧的大量“GPU 覆盖”(GPU Override)块依赖于场景的某个部分，必须等待其完成。
+			 </dd>
+<dd class="dd">区域 A2（在区域 A 上方）为蓝色任务块，显示 VP2 与场景解算并行执行的工作。在此场景中，大部分网格工作均由“GPU 覆盖”(GPU Override)处理，因此它大部分为空。对软件网格进行解算时，此部分显示几何体缓冲区的渲染<em class="ph i">准备</em>。
+			 </dd>
+<dt class="dt dlterm"> GPUOverridePostEval 
+			 </dt>
+<dd class="dd"> “GPU 覆盖”(GPU Override)在区域 B 中完成某些工作。在此块中所花费的时间因 GPU 与驱动程序组合不同而有所不同。在某些时候，如果 GPU 负载过多，需等待 GPU 完成其解算。此时间可能会显示在此处，也可能表示在 <em class="ph i">Vp2BuildRenderLists</em> 部分中花费的额外时间。
+			 </dd>
+<dt class="dt dlterm">Vp2BuildRenderLists 
+			 </dt>
+<dd class="dd">区域 C。一旦对场景进行解算，VP2 将生成要渲染的对象列表。此部分中的时间与场景中的对象数量成正比。
+			 </dd>
+<dt class="dt dlterm"> Vp2PrepareToUpdate 
+			 </dt>
+<dd class="dd">此分析中的区域 C2 非常小。VP2 可保留内部副本并使用它来确定要在视口中绘制的内容。如果要渲染场景，我们必须确保 VP2 数据库中的对象已进行修改，以反映 Maya 场景中所做的更改。例如，对象变为可见还是隐藏、其位置或拓扑更改，等等。此操作由 <em class="ph i">VP2 Vp2PrepareToUpdate</em> 完成。
+			 </dd>
+<dd class="dd">只要出现形状拓扑、材质或对象可见性更改，Vp2PrepareToUpdate 速度将减缓。在此示例中，由于场景对象很少需要额外处理，Vp2PrepareToUpdate 几乎不可见。
+			 </dd>
+<dd class="dd"><em class="ph i">Vp2ParallelEvaluationTask</em> 是可能会出现在此区域中的另一个<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-3423BE20-0F03-422D-A05A-A1757C7B0A70.htm">分析器(Profiler)</a>块。如果将时间花在此处，对象解算将从解算管理器的主要解算区域（区域 A）推迟，以便稍后进行解算。此部分中的解算使用传统的 DG 解算。
+			 </dd>
+<dd class="dd">在并行解算过程中减缓 Vp2BuildRenderLists 或 Vp2PrepareToUpdate 的常见情况包括：
+				<ul class="ul" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__UL_57116ED991574227A326E16ECC40CAE9"><li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_6F440E54F35043DEB6782BD1CC4C384C">大量渲染对象（如该示例中所示） 
+				  </li>
+<li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_9B90D1C7BFCD4A5186B290655CBFEA6E">网格拓扑更改 
+				  </li>
+<li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_B554AD8E9C62464F9F91A2B1FF1D0C96">在渲染之前需要旧版解算的对象类型（如图像平面） 
+				  </li>
+<li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_CCF201584E154243AE304B23DE513E20">触发 API 回调的第三方插件 
+				  </li>
+</ul>
+ 
+			 </dd>
+<dt class="dt dlterm">Vp2Draw3dBeautyPass 
+			 </dt>
+<dd class="dd">区域 D。所有数据准备就绪后，将会渲染场景。此时会发生 OpenGL 或 DirectX 渲染。此区域被分成多个子区域，具体取决于视口效果，例如，深度剥离、透明度模式和屏幕空间抗锯齿。
+			 </dd>
+<dd class="dd">如果您的场景存在以下情况，<em class="ph i">Vp2Draw3dBeautyPass</em> 的速度可能会减缓：
+				<ul class="ul" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__UL_74DBFA793F694D69A7118C959B94E666"><li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_28174896D039499FAE708A19870A729C"><strong class="ph b">要渲染很多对象</strong>（如本示例中所示）。
+				  </li>
+<li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_5894D74EF37E48108A4DA4BBAF9B3700"><strong class="ph b">使用透明度</strong>：默认透明度算法降低了场景合并的效率，因此如果拥有大量透明对象，可能会导致速度很慢。对于超大量透明对象，将“透明度算法”(Transparency Algorithm)（在 VP2 设置中）设置为“深度剥离”(Depth Peeling)而非“对象排序”(Object Sorting)可能速度更快。您也可以切换到未上纹理模式以绕过此问题。
+				  </li>
+<li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_F7E75642374F481C94AA2E1C0EF0C184"><strong class="ph b">使用多个材质</strong>：在 VP2 中，对象在渲染之前按材质进行排序，因此如果具有很多不同材质，可能会使此过程耗时较长。
+				  </li>
+<li class="li" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__LI_B550D8A520B84264BEE55858227CDE6C"><strong class="ph b">使用视口效果</strong>：很多效果需要额外处理，例如 SSAO（“屏幕空间环境光遮挡”(Screen Space Ambient Occlusion)）、“景深”(Depth of Field)、“运动模糊”(Motion Blur)、“阴影贴图”(Shadow Maps)或“深度剥离”(Depth Peeling)。
+				  </li>
+</ul>
+ 
+			 </dd>
+<dt class="dt dlterm"> 其他考虑事项 
+			 </dt>
+<dd class="dd">尽管上述关键阶段适用于所有场景，但您的场景可能具有不同的性能特性。
+			 </dd>
+<dd class="dd">对于动画有限的静态场景，或者对于非变形动画对象，请使用合并来提高性能。通过合并可以对共享相同材质的对象进行分组，并减少 Vp2BuildRenderLists 和 Vp2Draw3dBeatyPass 中所花费的时间，因为要渲染的对象较少。
+			 </dd>
+</dl>
+ 
+	 </div>
+<div class="section" id="GUID-0FF1BA78-0493-463F-8E66-8014FB0F47BC__SECTION_601224237AF84DF09DCD9C4E1ADDAC75"><h2 class="title sectiontitle"> 保存和恢复分析</h2> 
+		 
+		<p class="p">分析数据可以随时保存以供日后分析，方法是使用<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-3423BE20-0F03-422D-A05A-A1757C7B0A70.htm">“分析器”(Profiler)</a>窗口中的<span class="ph menucascade"><span class="ph uicontrol">“编辑</span> &gt; <span class="ph uicontrol">保存录制...”(Edit &gt; Save Recording...)</span></span>或<span class="ph menucascade"><span class="ph uicontrol">“编辑</span> &gt; <span class="ph uicontrol">保存录制的选定事件...”</span></span>(Edit &gt; Save Recording of Selected Events...)。所有内容均保存为纯文本字符串数据，以便您可以从任何场景加载分析数据，方法是使用<span class="ph menucascade"><span class="ph uicontrol">“编辑</span> &gt; <span class="ph uicontrol">加载录制...”</span></span>(Edit &gt; Load Recording...)，而无需加载已分析的场景。
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-66E4D9A3-2050-4CDF-B6A4-8C5645BFFBB8.htm">分析场景以提高性能</a></div>
+</div>
+</div>
+
+</body>
+</html>

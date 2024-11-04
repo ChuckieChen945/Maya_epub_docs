@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426">
+<meta name="language" content="CHS">
+<title>nParticle 弹簧疑难解答</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>nParticle 弹簧疑难解答</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-2617"><p class="p" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BBB"> 本节说明了使用弹簧时可能遇到的一些问题的解决方法。 </p>
+<div class="section" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS17956D7ADBC6E7364F884DD8117AE312D19-7FD0"><h2 class="title sectiontitle">弹簧过度展开和收缩</h2>
+
+<p class="p" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BB9"> 通常可以通过增加动力学计算的过采样来解决弹簧展开或收缩过度的问题。增加过采样会减慢播放速度，但会提高弹簧的稳定性。 </p>
+
+<p class="li listintro" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BB6">执行以下步骤以增加过采样：</p>
+<ol class="ol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BB7"><li class="li" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BB5">在“Fx”菜单集中，选择<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-B9AA9AC1-01D8-46BD-BD3D-828875477159">“字段/解算器 &gt; 编辑过采样或缓存设置”(Fields/Solvers &gt; Edit Oversampling or Cache Settings)</span>。 <p class="p" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BB4">显示<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-62EB90C7-8E75-4837-AE7C-24DF295C9686">“属性编辑器”(Attribute Editor)</span>。 </p>
+ </li>
+<li class="li" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BB2"> 为<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-E076EC48-145F-4A43-B4C7-58DA1150A5EE">“过采样”(Over Samples)</span>输入一个值。 <div class="note tip" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BB0"><span class="tiptitle">提示：</span> 增加过采样可以增强目标的吸引力。如果在包含目标的场景中增加过采样，则在必要时可以通过降低目标权重进行补偿。 <p class="p" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BAF">某些情况下，Maya 所使用的过采样率大于输入的值。这对于内部计算来说是必要的。 </p>
+ </div>
+ </li>
+</ol>
+
+</div>
+<div class="section" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BAE"><h2 class="title sectiontitle">弹簧不会移动粒子，CV、顶点或点</h2>
+
+<p class="p" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BAD"> 粒子上未施加任何作用力，或“逐弹簧静止长度”已打开但未设定任何值。默认情况下，每根弹簧的静止长度均等于其原始长度。除非对其施加外力，否则它不会移动。 </p>
+
+<div class="fig fignone" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BAB"><img class="image" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__IMAGE_4B604F62107D4B1385B598D16749BC94" width="373" height="292" src="../images/GUID-C172964A-E84D-4979-B805-5A048A5B1CC6.png"></div>
+
+<p class="li listintro" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BA9">若要使弹簧生效，请执行相应的操作，如下所示：</p>
+<ol class="ol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BAA"><li class="li" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BA8">例如，通过场为对象设定动画。 </li>
+<li class="li" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BA7">使用<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-C49A36F3-C028-4C20-B2A3-CBE7E7F12AE2">“组件编辑器”(Component Editor)</span>改变<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-C79FFB24-2038-4779-846D-0CBE9C4E00D8">“逐弹簧静止长度”(Per-spring restLength)</span>。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-78F08033-903D-4CE5-BA57-8E5284202A2A.htm">编辑逐弹簧静止长度、刚度和阻尼</a>。 </li>
+<li class="li" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BA6">改为逐对象静止长度。 </li>
+<li class="li" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BA5">如果弹簧在粒子上，且时间和粒子形状节点<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-2ED44360-27C9-4890-8883-A51A08203495">“当前时间”(Current Time)</span>属性的默认连接已断开，则请重新将输入连接至<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-6497895F-BD21-4B15-BB65-9B0FA3CA6005">“当前时间”(Current Time)</span>。有一种简单的方法可以重新连接时间输入，即，选择粒子对象、选择<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-8C2414BB-99A2-495F-AA88-D5050BF70C7F">“通道盒”(Channel Box)</span>中的<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-D37EEA37-3131-4770-A850-F95F95B5C9EC">“当前时间”(Current Time)</span>属性，然后选择<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-14696CC0-6957-44EC-92EF-B46C2D6388FB">“nParticle &gt; 连接到时间”(nParticles &gt; Connect to Time)</span>。 </li>
+</ol>
+
+</div>
+<div class="section" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BA4"><h2 class="title sectiontitle">缓慢播放含多根弹簧的动画</h2>
+
+<p class="p" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BA3"> 如果任意或所有粒子的年龄超出了寿命，则 Maya 会从对象中将这些粒子移除。为方便起见，我们将此类粒子描述为即将消亡的粒子。如果场景中包含一个粒子对象（该粒子对象中包含多根弹簧）但不包含即将消亡的粒子，则由于复杂的计算，所以无需缓慢播放动画。可以关闭<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-7BAE27F6-08AC-4D70-86BE-2DAC58C68DB3">“管理粒子消亡”(Manage Particle Death)</span>属性，以排除计算并增强播放效率。 </p>
+
+<div class="fig fignone" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2BA0"><img class="image" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__IMAGE_E30DF654EC924DBBA6838C282430C7FF" width="449" height="261" src="../images/GUID-BCAE940B-6571-42D3-BE97-4A40667238E5.png"></div>
+
+<p class="p" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B9F">简而言之，如果这些粒子未消亡，则这有助于关闭与以下对象相关的弹簧对象的<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-7DD48ACA-9ABF-407E-A9B4-DFD373BE3CA8">“管理粒子消亡”(Manage Particle Death)</span>： </p>
+
+<ul class="ul" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B9E"><li class="li" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B9D">柔体 </li>
+<li class="li" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B9C"><span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-1ED572D4-6800-4714-855A-416916AD87A5">“粒子工具”(Particle Tool)</span>制成的对象 </li>
+<li class="li" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B9B">发射的粒子 </li>
+</ul>
+
+<p class="p" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B9A">若对象中的所有粒子均已消亡，则请勿关闭<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-702E8D9F-510B-4052-B0EE-BE3FBA6F832A">“管理粒子消亡”(Manage Particle Death)</span>。<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-C1776104-3E21-4D38-B1E9-77F58B567E49">附加在粒子上的“弹簧”(Springs)</span>不会正确运作。如果对象中存在曾今消亡的粒子，则会发生上述情况。如果在不再产生消亡粒子的那点上设定初始状态操作粒子的当前属性值，您仍然不得关闭<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-50ADC622-35AC-4913-BC31-DD82E0F6F7F1">“管理粒子消亡”(Manage Particle Death)</span>。 </p>
+
+<p class="p" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B99">若要关闭<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-A543A0F9-9425-47AE-884D-7BFBB1AFB037">“管理粒子消亡”(Manage Particle Death)</span>，请选择弹簧对象并显示<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-3FA22F83-49E0-474C-9956-5A7519A22C2C">“属性编辑器”(Attribute Editor)</span>。关闭<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-FF84D96A-E76E-4ABA-8AB6-3F9F534AD982">“弹簧属性”(Spring Attributes)</span>区域中的<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-B738EC5E-825F-4B7B-87DD-0241DEA2175E">“管理粒子消亡”(Manage Particle Death)</span>属性。 </p>
+
+</div>
+<div class="section" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B98"><h2 class="title sectiontitle">您可以编辑逐弹簧属性，但并不能产生效果</h2>
+
+<p class="p" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B97">您可能已经关闭<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-53890946-D34E-4A2D-B547-DE4830730DBB">“逐弹簧刚度”(Per-spring Stiffness)</span>、<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-C41511B9-B8CF-4B20-B649-8D6834D0BE9D">“逐弹簧阻尼”(Per-spring Damping)</span>或<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-442C93C2-5BE2-4755-A1BD-75D612F18F38">“逐弹簧静止长度”(Per-spring Rest Length)</span>，这意表示 Maya 已改用逐对象对应属性。打开相应的<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-BD4DF196-DE5B-4799-94BB-6F6CEF3A76C7">“使用”(Use)</span>属性。 </p>
+
+</div>
+<div class="section" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS17956D7ADBC6E7364F884DD8117AE312D19-7FCF"><h2 class="title sectiontitle">包含弹簧的多边形或 NURBS 柔体会降低播放速度，并产生不真实的弹簧运作。</h2>
+
+<p class="p" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B96"> 若将弹簧放置在包含多个顶点（和粒子）的多边形柔体或 NURBS 柔体上，则动画播放速度会变慢，且弹簧的展开和收缩可能会不真实。 </p>
+
+<p class="li listintro" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B93">若要避免出现此类问题，请将弹簧放置在对象的低分辨率副本上，如下所示：</p>
+<ol class="ol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B94"><li class="li" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B92">在采用默认选项的情况下，复制多边形（或 NURBS 对象）。 <p class="p" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B91">请注意，整段动画的副本都必须位于原始位置。 </p>
+ </li>
+<li class="li" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B90">将对象的曲面分辨率大致降低至其原始分辨率的 10-50%。 <p class="p" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B8F">减少多边形对象的<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-EC3D7877-5306-417A-965A-9169F0FACCDD">“X 向细分数”(Subdivisions X)</span>和 Y 值。减少 NURBS 对象的<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-62F0E25D-FF4C-42F0-9457-ECE477AC637D">“跨度数”(Spans)</span>和<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-84E2F43E-AB4E-4E6B-A7A8-02CFC354DDDF">“分段数”(Sections)</span>值。 </p>
+ <p class="p" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B8E">剩余步骤中，原始对象称为低分辨率对象，副本称为高辨率对象。 </p>
+ </li>
+<li class="li" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B8D">在采用默认选项的情况下，使低分辨率对象成为柔体。 </li>
+<li class="li" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B8C">选择柔体粒子，并将其连接到所需的动力学中。 <p class="p" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B8B">例如，将粒子连接到重力，并使其与其他对象碰撞。 </p>
+ </li>
+<li class="li" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B8A">在采用默认选项的情况下，在柔体粒子上创建弹簧。 </li>
+<li class="li" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B89">调整柔体动画外观。 <p class="p" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B88">您可能需要将弹簧<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-72D80EC6-934D-4A7D-BE2A-7A300E845325">“刚度”(Stiffness)</span>设定为 100 以上。您还可能需要选择<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-D9733EAE-EA8F-47AD-857D-9030C2727822">“字段/解算器 &gt; 编辑过采样或缓存设置”(Fields/Solvers &gt; Edit Oversampling or Cache Settings)</span>，并将<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-1151EB5F-2988-4572-9042-45B0A50A234C">“过采样”(Over Samples)</span>设定在 2 和 4 之间。使用可给出所需柔体变形外观的最小值。 </p>
+ </li>
+<li class="li" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B87"> 使用<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-E2C976D2-C302-4E08-BF58-541F7648B8BD">“大纲视图”(Outliner)</span>选择高分辨率对象的变换节点，然后按住 Ctrl 键（Linux 和 Windows）或按住 Command 键 (Mac OS X) 并选择低分辨率对象。 </li>
+<li class="li" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B85">从<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-DF9B3213-CD15-4B0D-B359-F08AC9914A9F">“动画”(Animation)</span>菜单集中，选择<span class="ph uicontrol" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__GUID-9674BD55-24B8-44AA-96D8-1C525C66395F">“动画变形 &gt; 打开完整的变形菜单 &gt; 包裹”(Anim Deform &gt; Open Full Deform Menu &gt; Wrap)</span>。 <p class="p" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B84">播放动画时，这样可以强制使高分辨率对象的变形与低分辨率对象的变形相同。 </p>
+ </li>
+<li class="li" id="GUID-DF7AA107-674D-4A24-80A6-B2392B7B9426__WS1A9193826455F5FF-6D855556117FACF922E-2B83">隐藏低分辨率对象。 </li>
+</ol>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-5A7EB668-90CB-4744-AC9E-00F5C9A0CB16.htm">使用弹簧控制 nParticle</a></div>
+</div>
+</div>
+
+</body>
+</html>

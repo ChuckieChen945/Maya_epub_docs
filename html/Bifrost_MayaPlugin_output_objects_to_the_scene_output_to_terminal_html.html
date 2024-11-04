@@ -1,0 +1,98 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-MayaPlugin">
+  <meta name="topicid" content="Bifrost_MayaPlugin_output_objects_to_the_scene_output_to_terminal_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>使用终端输出几何体</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>使用终端输出几何体</h1></div><p>终端可替代用于创建可渲染几何体的输出节点。它们可用于嵌套复合，而不仅仅是图表的顶层。</p>
+<p>终端有多种输出类型：“最终”(Final)（表示最终可渲染结果）、“代理”(Proxy)（表示快速视口表示）和“诊断”(Diagnostic)（表示诊断结果查看）。默认情况下，最终渲染中仅包含“最终”(Final)，但可以单独打开和关闭每种类型。在具有嵌套终端的复合上有一些标志，可让您在图表的任意级别上切换输出。</p>
+<h2 id="">添加和连接终端</h2><ol>
+<li><p>将 <code>terminal</code> 节点添加到图表中。 </p>
+</li>
+<li><p>将一个或多个可渲染几何体连接到其任何或所有输入：</p>
+<ul>
+<li><code>final</code> 用于最终脱机渲染。通常，这是对象的最高分辨率版本。默认情况下，这些对象不会显示在视口中。</li>
+<li><code>proxy</code> 用于视口显示。通常，这是您为了提供最终结果的有用预览而创建的低分辨率几何体，同时仍允许在编辑场景时进行快速交互。默认情况下，这些设置不包含在脱机渲染中。</li>
+<li><code>diagnostic</code> 用于可能已针对特定用途创建的特殊几何体，例如，用于将特性值可视化为颜色。默认情况下，这些设置会显示在视口中，但不会包含在脱机渲染中。</li>
+</ul>
+</li>
+</ol>
+<p><img src="../images/terminal-node.png" alt="终端节点"></p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>根据是否正在解算 <code>final</code> 子图，使用 <code>final_mode_switch</code> 返回不同的值。例如，与在视口中显示代理或诊断结果时相比，渲染时可以发射更多粒子。</p>
+<p>您也可以使用 <code>final_mode</code> 创建自己的条件复合，当解算 <code>final</code> 子图时，它将返回 <code>true</code>。</p>
+
+</div></div>
+
+<h2 id="">控制终端的输出和显示</h2><p>以下两项控制哪些 Bifrost 几何体显示在场景中：</p>
+<ul>
+<li>终端节点上的标志确定对哪些几何体进行解算，以及哪些几何体在场景中可用。</li>
+<li>Maya 的“属性编辑器”(Attribute Editor)中 bifrostGraphShape 的“终端”(Terminals)选项确定哪些几何体显示在视口中，以及哪些几何体以脱机方式渲染。</li>
+</ul>
+<h3 id="">终端节点标志</h3><p><strong>F</strong>、<strong>P</strong> 和 <strong>D</strong> 标志显示在终端节点以及在任意嵌套深度包含终端节点的复合下方的半圆中。单击标志以将 <code>final</code>、<code>proxy</code> 和 <code>diagnostic</code> 几何体的解算切换为禁用（深灰色）或启用（白色）。</p>
+<p>更改父复合上的标志不会更改内部终端节点上的标志。而父标志的作用类似于内部终端节点的过滤器。例如，假设复合包含两个终端节点，一个节点启用诊断输出，另一个禁用诊断输出。 </p>
+<ul>
+<li>如果父复合已启用诊断输出，则第一个终端节点的诊断输出可显示在场景中。但是，第二个终端的诊断输出不可用，因为它已直接禁用。 </li>
+<li>如果父复合已禁用诊断输出，则无论标志如何单独设置，都无法显示内部的任何诊断输出。</li>
+</ul>
+<h3 id="bifrostgraphshape">bifrostGraphShape 属性</h3><p>Maya 中 bifrostGraphShape 节点的属性确定图表中的哪些可用几何体将显示在视口和脱机渲染中。Maya 的“属性编辑器”(Attribute Editor)中的 bifrostGraphShape 的<strong>“终端”(Terminals)</strong>组中提供这些属性。</p>
+<p><img src="../images/maya-ae-terminals.png" alt="终端属性"></p>
+<p><strong>“视口”(Viewport)</strong>列中的复选框控制是否在 Maya 的视口中显示相应的几何体，<strong>“渲染”(Render)</strong>列中的复选框控制是否在脱机渲染器（如 Arnold）的图像中显示相应的几何体。</p>
+<ul>
+<li><strong>“最终”(Final)</strong>控制图表中所有活动的最终几何体（即，启用 <strong>F</strong> 标志的终端或复合的最终输出）。</li>
+<li><strong>“代理”(Proxy)</strong>控制所有活动的代理几何体。</li>
+<li><strong>“诊断”(Diagnostic)</strong>控制所有活动的诊断几何体。</li>
+<li><strong>“图表输出”(Graph Outputs)</strong>控制直接连接到图表顶层的 <code>output</code> 节点的几何体，而不是连接到终端节点的几何体。这包括输出节点上的 <code>Object</code> 和 <code>array&lt;Object&gt;</code> 端口。 </li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>在 2022 之前的 Maya 版本中，除非在 Maya 的“动画”(Animation)首选项中选择<strong>“DG 解算模式”(DG Evaluation mode)</strong>，否则可能会解算渲染子图（但不会显示在视口中）。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-MayaPlugin/files/Bifrost_MayaPlugin_output_objects_to_the_scene_html.html">将几何对象输出到场景中</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

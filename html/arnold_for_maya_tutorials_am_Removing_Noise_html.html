@@ -1,0 +1,440 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_tutorials_am_Removing_Noise_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_REMOVING_NOISE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 去除噪波 - Arnold for Maya">
+
+<title>去除噪波</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>去除噪波</h1></div><h2 id="">噪波类型</h2><p>要从渲染中去除噪波，首先要确定噪波的来源。导致噪波的原因包括：</p>
+<h2 id="">采样不足：</h2><h4 id="">运动模糊</h4><h4 id="">景深</h4><h4 id="">漫反射</h4><h4 id="">镜面反射</h4><h4 id="">阴影</h4><h4 id="">间接镜面反射</h4><h4 id="">透射</h4><h4 id="sss">SSS</h4><h4 id="">大气体积</h4><h2 id="">其他：</h2><h4 id="">高亮杂点</h4><h4 id="">不遵守能量守恒定律的着色器、网络或设置</h4><p>噪波大多是由于采样不足而导致的，但增加错误光线的采样不但会延长渲染时间，而且对去除噪波毫无作用。美工人员通常根据渲染时间限制或光线数量开展工作，其目的是尽量高效地分配这些光线，从而以最高效的方式将噪波降至最低。因此，如果必须增加<em>摄影机 (AA)</em> 采样数才能去除 DOF 噪波，为了方便管理渲染时间，必须降低其他设置。但是，如果 DOF 或运动模糊不是关注的重点，则增加<em>摄影机 (AA)</em> 采样数可以修复其他类型的所有噪波，但是也会因不必要的光线而增加渲染时间。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关去除噪波的操作步骤，请参考<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_noise_am_Removing_Noise_Workflow_html">去除噪波工作流</a>示意图。</p>
+
+</div></div>
+
+<p>以下场景噪波过多，所有采样均设置为 1。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Removing_Noise-1-sample-1.jpeg" alt=""></td>
+<td><img src="../images/title-10-samples.jpeg" alt=""></td>
+</tr>
+<tr>
+<td>所有采样数：1</td>
+<td>最终采样设置</td>
+</tr>
+</tbody></table>
+<h4 id="em-aa-em-1"><em>摄影机 (AA)</em> 采样数：1</h4><h4 id="em-em-1"><em>漫反射</em>采样数：1</h4><h4 id="em-em-1"><em>镜面反射</em>采样数：1</h4><h4 id="em-em-1"><em>透射</em>采样数：1</h4><h4 id="em-sss-em-1"><em>SSS</em> 采样数：1</h4><h4 id="-1">灯光采样数：1</h4><p>识别噪波最有效的方法是渲染 AOV。这有助于减少不必要的设置调整，从而节省时间。</p>
+<h2 id="aov">AOV</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/diffuse_direct.jpeg" alt=""></td>
+<td><img src="../images/diffuse_indirect.jpeg" alt=""></td>
+<td><img src="../images/specular_direct.jpeg" alt=""></td>
+</tr>
+<tr>
+<td>diffuse_direct</td>
+<td>diffuse_indirect</td>
+<td>specular_direct</td>
+</tr>
+<tr>
+<td><img src="../images/specular_indirect.jpeg" alt=""></td>
+<td><img src="../images/sss.jpeg" alt=""></td>
+<td><img src="../images/transmission.jpeg" alt=""></td>
+</tr>
+<tr>
+<td>specular_indirect</td>
+<td>sss</td>
+<td>transmission</td>
+</tr>
+</tbody></table>
+<p>在下面的示例中，采样数为 10 的选项显示的效果更平滑。<strong>这是一个非常高的值</strong>且仅在此处使用，原因在于：为了演示噪波区域和平滑区域的对比效果，<em>摄影机 (AA)</em> 采样数以及其他所有采样数均被设置为 <strong>1</strong>。通常，<em>摄影机 (AA)</em> 采样数介于 4-8 之间，因为它充当倍增，所以其他采样数也需要类似的值。</p>
+<h2 id="">运动模糊和景深噪波</h2><p>运动模糊噪波出现在移动几何体的轨迹中，而 DOF 噪波则出现在焦点外的区域中。</p>
+<h2 id="">运动模糊</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Removing_Noise-motion-blur-aa-01-9.jpg" alt=""></td>
+<td><img src="../images/am-Removing_Noise-motion-blur-aa-10-10.jpg" alt=""></td>
+</tr>
+<tr>
+<td>所有采样数：1</td>
+<td>摄影机 (AA) 采样数：10</td>
+</tr>
+</tbody></table>
+<h2 id="strong-strong"><strong>景深</strong></h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Removing_Noise-DOF-AA-01-EE-10-11.jpg" alt=""></td>
+<td><img src="../images/am-Removing_Noise-DOF-AA-10-EE-01-12.jpg" alt=""></td>
+</tr>
+<tr>
+<td>摄影机 (AA) 采样数：1</td>
+<td>摄影机 (AA) 采样数：10</td>
+</tr>
+</tbody></table>
+<p>通过查看 Alpha 通道是否存在噪波可以同时确认景深和运动模糊。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Removing_Noise-motion-blur-alpha-13.jpg" alt=""></td>
+<td><img src="../images/am-Removing_Noise-DOF-alpha-14.jpg" alt=""></td>
+</tr>
+<tr>
+<td>运动模糊 Alpha</td>
+<td>景深 Alpha</td>
+</tr>
+</tbody></table>
+<p>运动模糊和景深噪波是由于摄影机光线不足而导致的，因此只能通过增加<em>摄影机 (AA)</em> 采样数来解决。实际<em>摄影机 (AA)</em> 采样数是这一数字的平方。如果<em>摄影机 (AA)</em> 采样数为 4，则投射的光线数为 16。请注意，增加<em>摄影机 (AA)</em> 采样数也会增加其他采样数，这意味着应减少这些采样数予以补偿。</p>
+<p>增加<em>摄影机 (AA)</em> 采样数会对渲染时间产生显著的影响。如果运动模糊或 DOF 不是问题所在，则在修复其他噪波类型时应最后考虑<em>摄影机 (AA)</em> 采样数。</p>
+<h2 id="">漫反射噪波</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Removing_Noise-IndirectDiffuse-01-15.jpg" alt=""></td>
+<td><img src="../images/am-Removing_Noise-IndirectDiffuse-10-16.jpg" alt=""></td>
+</tr>
+<tr>
+<td>所有采样数：1</td>
+<td>漫反射采样数：10。</td>
+</tr>
+</tbody></table>
+<p>间接<em>漫反射</em>噪波是一种常见的噪波。确认是否为此类噪波最简单的方法是检查间接漫反射 AOV。另一种方法是将<em>漫反射</em>采样数设置为 0，这会禁用间接漫反射。如果噪波消失，则表示噪波是由间接漫反射造成的。</p>
+<p>当<em>漫反射</em>采样数大于 0 时，与漫反射曲面相交的摄影机光线会发射间接漫反射光线。这些光线在半球形扩散范围内沿着随机方向发射。如果光线数量不足，则无法解算环境中的值范围，从而导致出现噪波。通过增加<em>漫反射</em>采样数即可去除该噪波。</p>
+<h2 id="">镜面反射噪波</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Removing_Noise-GlossySpecular-01--17.jpg" alt=""></td>
+<td><img src="../images/am-Removing_Noise-GlossySpecular-10-18.jpg" alt=""></td>
+</tr>
+<tr>
+<td>所有采样数：1</td>
+<td>镜面反射采样数：10</td>
+</tr>
+</tbody></table>
+<p>当 <em>specular_roughness</em> 参数 &gt; 0 时，会出现间接镜面反射噪波。确认是否为此类噪波最简单的方法是检查间接镜面反射 AOV。另一种方法是将<em>镜面反射</em>采样数设置为 0，这会消除模糊反射。如果噪波消失，则表示噪波是由间接镜面反射造成的。</p>
+<p>间接镜面反射噪波是由于<em>镜面反射<em>采样数不足造成的。这些采样数控制在计算按镜面反射 BRDF 加权的半球上累计的反射间接辐射时发射的光线数。精确的光线数是此值的平方。增加此值可减少间接镜面反射噪波。请记住，采样操作针对每个</em>摄影机 (AA)</em> 采样执行，因此，<em>摄影机 (AA)</em> 采样数和<em>镜面反射采样数</em>的值都较高时，往往会降低渲染速度。</p>
+<h2 id="">透射噪波</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Removing_Noise-1-sample-transmission-19.jpg" alt=""></td>
+<td><img src="../images/am-Removing_Noise-10-sample-transmission-20.jpg" alt=""></td>
+</tr>
+<tr>
+<td>所有采样数：1</td>
+<td>透射采样数：10。所有其他采样数：1。</td>
+</tr>
+</tbody></table>
+<p>在 <em>specular_roughness</em> &gt; 0 的透明对象的模糊折射中，<em>透射<em>噪波非常明显。对此进行确认最简单的方法是检查</em>透射</em> AOV。另一种方法是将<em>透射</em>采样数设置为 0，这会消除模糊折射。如果噪波消失，则表示噪波是由<em>透射</em>造成的。</p>
+<p><em>透射</em>噪波是由于<em>透射</em>采样数不足造成的。<em>透射</em>采样数控制用于模拟基于微面的光泽折射求值的采样数。精确的光线数是此值的平方。增加此值可减少使用<em>透射</em>的着色器中的噪波。</p>
+<h2 id="sss">SSS 噪波</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Removing_Noise-1-sample-sss-21.jpg" alt=""></td>
+<td><img src="../images/am-Removing_Noise-10-sample-sss-22.jpg" alt=""></td>
+</tr>
+<tr>
+<td>所有采样数：1</td>
+<td>SSS 采样数：10</td>
+</tr>
+</tbody></table>
+<p><em>次表面散射</em> (SSS) 噪波将出现在使用已启用 SSS 的 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_node_ac_standard_surface_html" target="_blank">standard_surface</a></em> 着色器的曲面上。要进行确认，请检查 SSS AOV。可以通过增加 <em>SSS</em> 采样数去除 SSS 噪波。</p>
+<h2 id="">直接镜面反射和阴影噪波</h2><p>直接镜面反射和阴影中的噪波是由于灯光采样数不足造成的。通常，去除直接镜面反射噪波需要少量的采样数，而去除阴影噪波则可能需要更多的采样数。光源的半径越大，阴影就会越柔和，因此去除阴影噪波所需的采样数也就越多。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Removing_Noise-light-samples-1-23.jpg" alt=""></td>
+<td><img src="../images/am-Removing_Noise-light-samples-10-24.jpg" alt=""></td>
+</tr>
+<tr>
+<td>灯光采样数：1</td>
+<td>灯光采样数：10</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Removing_Noise-shadows-light-samples-1-25.jpg" alt=""></td>
+<td><img src="../images/am-Removing_Noise-shadows-light-samples-10-26.jpg" alt=""></td>
+</tr>
+<tr>
+<td>灯光采样数：1</td>
+<td>灯光采样数：10</td>
+</tr>
+</tbody></table>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>3-4 之间的灯光采样数足以满足大多数场景的需要。</p>
+
+</div></div>
+
+<p>阴影噪波通常混杂着间接漫反射噪波，特别是对于半径较大的灯光，因为其阴影会更柔和。观察 <em>direct_diffuse</em> AOV，看看阴影是否出现噪波。或者将<em>漫反射</em>采样数和<em>镜面反射</em>采样数设置为 0。这会消除全局照明 (GI)，使您可以挑出直接照明的贡献。识别直接镜面反射噪波并非易事，因为它可能会被误认为是间接镜面反射噪波。直接镜面反射是灯光本身在曲面上的反射。这应当有助于根据颜色和强度将其与周围对象的反射区分开。</p>
+<p>噪波也可能出现在薄几何体的镜面反射高光上，这些高光使用 <em>specular_weight</em> 值较大的着色器。增加<em>摄影机 (AA)</em> 采样数有助于将此效果缩小到一个点。但是，即便<em>摄影机 (AA)</em> 采样数较高，也有可能会出现抗锯齿瑕疵。增加 <em>specular_roughness</em> 值有助于减少这类噪波。在这些情况下，增加灯光大小并降低灯光强度也会有所帮助。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Removing_Noise-specular-roughness-0-2-27.jpg" alt=""></td>
+<td><img src="../images/am-Removing_Noise-specular-roughness-0-5-28.jpg" alt=""></td>
+</tr>
+<tr>
+<td>镜面反射粗糙度：0.2</td>
+<td>镜面反射粗糙度：0.5</td>
+</tr>
+</tbody></table>
+<h2 id="">大气散射噪波</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Removing_Noise-scattering-01-29.jpg" alt=""></td>
+<td><img src="../images/am-Removing_Noise-scattering-10-30.jpg" alt=""></td>
+</tr>
+<tr>
+<td>所有采样数：1</td>
+<td>大气体积采样数：10</td>
+</tr>
+</tbody></table>
+<p>一束光的阴影区域中会出现 <em>atmosphere_volume</em> 噪波。此噪波是由于 <em>atmosphere_volume</em> 着色器中的采样数不足造成的。采样根据体积密度进行分布。提高采样数可以优化解决方案的质量。</p>
+<h2 id="">高亮杂点和火花</h2><p>高亮杂点（明亮的“尖峰型”噪波）通常是由强光在闪耀的低粗糙度光泽曲面上反射而生成的。通常，一个最终像素颜色会有数百个采样参与其中。如果其中一个采样是值较高的镜面反射光线（来自于强光的反射），那么将会有许多具有较低值的采样和一个具有异常高值（达数千）的采样。这一采样会使整个像素变为白色（“高亮杂点”）。</p>
+<h2 id="">区间限定</h2><p>采样区间限定有助于消除这种噪波。如果您对高采样值进行区间限定，单个偏离采样这时将会稀释，并且不会对最终颜色产生太大影响。但是，这将影响渲染的最终动态范围。请谨慎使用。</p>
+<h2 id="">灯光衰退过滤器</h2><p>从非常明亮的聚光区提供的间接漫反射照明也可能会导致高亮杂点，尤其是当光源非常接近（甚至接触）邻近几何体（如灯箱或灯罩）时。灯光中的平方反比衰退会使那些邻近曲面极其明亮。解决方法是添加<strong><em>近距开始</em></strong>值非常低的<strong>灯光衰退过滤器</strong>，从而避免采样过分接近灯光。同样，这应谨慎使用。</p>
+<h2 id="">其他注意事项</h2><ul>
+<li>噪波可能来自渲染中不可见的因素（在摄影机的后面）。</li>
+<li>不遵守能量守恒定律的着色器、网络或设置可能会导致/加剧噪波。</li>
+<li>减少噪波的另一种方法是消除噪因并使用特殊灯光进行虚设。例如，某个仅由反弹光照亮其面部的角色：添加特定的反弹光会明显减少噪波。</li>
+<li>如果知道灯光所在的位置，Arnold 可以直接对灯光采样，从而轻松去除噪波。但是，如果没有将某些明亮的“带方向性的”面片标记为可对场景照明产生显著影响的灯光，将会产生问题。</li>
+</ul>
+<h2 id="">清晰渲染</h2><h2 id="strong-dof-strong"><strong>未使用 DOF</strong></h2><p><img src="../images/am-Removing_Noise-image2018-2-19-9-54-23-31.png" alt=""></p>
+<p><sub><strong><em>摄影机 (AA)</em> 采样数：7，<em>漫反射<em>采样数：3，</em>镜面反射<em>采样数：2，</em>透射<em>采样数：6，</em>sss</em> 采样数：4，<em>灯光</em>采样数：3。</strong></sub></p>
+<h2 id="strong-dof-strong"><strong>使用 DOF</strong></h2><p><img src="../images/am-Removing_Noise-image2018-2-19-10-2-7-32.png" alt=""></p>
+<p><sub><strong><em>摄影机 (AA)</em> 采样数：15，<em>漫反射<em>采样数：1，</em>镜面反射<em>采样数：1，</em>透射<em>采样数：4，</em>sss</em> 采样数：3，<em>灯光</em>采样数：3。</strong></sub></p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>尝试在渲染中识别噪波时，渲染和查看 AOV 会很有用。这样，您可以隔离噪波类型并调整相关采样数。下表中提供了用于识别常见噪波类型并确定其优先顺序的一般性指导。请注意，这是一般性指导，每个场景各不相同。</p>
+
+</div></div>
+
+<table>
+<thead>
+<tr>
+<th>噪波在以下各项中可见</th>
+<th>要调整的采样数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Alpha 通道</td>
+<td><em>摄影机 (AA)</em> 采样数</td>
+</tr>
+<tr>
+<td>间接漫反射</td>
+<td><em>漫反射</em>采样数</td>
+</tr>
+<tr>
+<td>直接镜面反射（镜面反射噪波）</td>
+<td>灯光采样数</td>
+</tr>
+<tr>
+<td>直接漫反射（阴影噪波）</td>
+<td>灯光采样数</td>
+</tr>
+<tr>
+<td>间接镜面反射</td>
+<td><em>镜面反射</em>采样数</td>
+</tr>
+<tr>
+<td>透射</td>
+<td><em>透射</em>采样数</td>
+</tr>
+<tr>
+<td>SSS（直接和间接）</td>
+<td><em>SSS</em>（直接和间接）采样数</td>
+</tr>
+<tr>
+<td>体积</td>
+<td><em>体积</em>采样数（请注意，灯光中也存在体积采样数）</td>
+</tr>
+</tbody></table>
+<h2 id="">噪波和采样</h2><p>如果场景由一种简单的颜色组成，且您想了解照片的平均颜色，则通过使用少量采样并对结果求平均值，可以轻松查看任一点的颜色。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Removing_Noise-1-33.jpg" alt=""></td>
+<td><img src="../images/am-Removing_Noise-2-34.jpg" alt=""></td>
+</tr>
+<tr>
+<td>如果场景只有一种颜色，则只需少量采样即可获得正确的平均值</td>
+<td>如果场景的两个部分为不同颜色，提高采样数仍可提供理想的平均值</td>
+</tr>
+</tbody></table>
+<p>但是，如果您有一个更复杂的场景（例如，包含角色）且仅使用少量采样，有时其中一半采样为黄色，而另一半为蓝色。有时，所有采样都是一种颜色。有时，尽管只有场景的一部分是黄色角色，但所有采样正好全部属于黄色角色。优化平均值的方法之一是增加摄影机 (AA) 采样数。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Removing_Noise-4-35.jpg" alt=""></td>
+<td><img src="../images/am-Removing_Noise-5-36.jpg" alt=""></td>
+<td><img src="../images/am-Removing_Noise-6-37.jpg" alt=""></td>
+</tr>
+<tr>
+<td>3 个摄影机 (AA) 采样。低质量。</td>
+<td>4 个摄影机 (AA) 采样。中等质量。</td>
+<td>5 个摄影机 (AA) 采样。更高质量。</td>
+</tr>
+</tbody></table>
+<p>增加摄影机 (AA) 采样数可消除噪波并提高图像质量。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关采样的详细信息，请单击<a href="https://help.autodesk.com/pages/viewpage.action?pageId=154766692">此处</a>和<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Sampling_html">此处</a>。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+      <div class="relinfo relchildren">
+        <strong>此部分中的页面</strong>
+        <ul class="ullinks">
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Removing_Noise/arnold_for_maya_noise_am_What_Is_Sampling_html.html">什么是采样？</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Removing_Noise/arnold_for_maya_noise_am_Removing_Noise_Workflow_html.html">去除噪波工作流</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Removing_Noise/arnold_for_maya_noise_am_Denoising_a_Room_Interior_html.html">对房间内部进行降噪</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Removing_Noise/arnold_for_maya_noise_am_Fireflies___Boat_Scene_html.html">高亮杂点 - 船场景</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Removing_Noise/arnold_for_maya_noise_am_Using_AOVs_to_Identify_Noise_html.html">使用 AOV 识别噪波</a>
+          </li>
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Removing_Noise/arnold_for_maya_noise_am_Volumes___UFO_scene_html.html">体积 - UFO 场景</a>
+          </li>
+        </ul>
+      </div>
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/arnold_for_maya_tutorials_html.html">教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

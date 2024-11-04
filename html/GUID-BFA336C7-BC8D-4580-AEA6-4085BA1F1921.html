@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="开始使用表达式">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921">
+<meta name="language" content="CHS">
+<title>XGen 表达式基础知识</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>XGen 表达式基础知识</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-E1FA38C8-2B1C-4F8E-A50D-9BE5EDEEB7BB">表达式是生成结果值的变量、运算符、函数和常量值的组合。您可以使用表达式的结果设置基本体属性值，改变 XGen 修改器的效果、控制 Ptex 贴图如何应用于描述，等等。您可以使用<span class="ph uicontrol" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-2071F5D9-C939-4887-91FE-5F0BF9B3EC9F">“XGen 表达式编辑器”(Expression Editor)</span>创建新的表达式或加载预生成的表达式。 
+	 </p>
+<div class="section" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__SECTION_F3B3E6539AED430696D7A071AD91A692"><h2 class="title sectiontitle">表达式的各个部分</h2> 
+		 
+		<p class="p" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-A50CF5BA-B015-4A48-B254-59721A342AE5">下面的表达式包含变量、函数、参数定义、注释和运算符。以下部分介绍了其中的每个组件。 
+		</p>
+ 
+		<div class="p" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-A22AF970-2B01-4832-B52C-41B9F4C4B51E"> 
+		  <pre class="pre codeblock">$minLength = 1.0; # 0, 2
+$maxLength = 5.0; # 0,10
+rand($minLength, $maxLength)* $Pref  #randomizes the min and max values.
+</pre>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__SECTION_1B24FB446AD044CFA5CC4BC5936C50EE"><h3 class="title sectiontitle">变量</h3> 
+		   
+		  <p class="p" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-59E34797-ACE7-4C1D-B31C-A43B6A3AE1CC">在表达式中，变量是代表值的名称。这些值用于计算（例如在函数中），或用于设置属性值。您需要了解的关于变量的信息包括： 
+		  </p>
+ 
+		  <ul class="ul" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__UL_1C25C6E501E444D88C5413925FEE3D8B"><li class="li" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__LI_9E2CD55DA6674A7998A0663B99DDEE67">变量可以是局部变量（即用户定义的变量），或全局变量（表示由 XGen 设定的固定值）。 
+			 </li>
+<li class="li" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__LI_B2FF1CA131744D9996A674783B734669"> 局部和全局变量名称由美元符号 (<samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-2304EF22-3E1B-4001-A275-780CF36A71C6">$</samp>) 后跟一个唯一的名称组成。 
+				<p class="p" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-1581BA2E-D95D-4F19-9139-7D70F5F09C94">在上面的表达式中，<samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-3A8A9248-4DC3-44EC-BD48-4BCEB776BB9A">$minLength</samp> 和 <samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-4C867D51-D8E2-4589-B8EB-CBCC41781C89">$maxLength</samp> 是局部变量名称，而 <samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-5FFE0989-CB32-4266-A75E-588DA3752F77">$Pref</samp> 是一个全局变量，用于表示绑定网格上的点。 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__LI_FF5DBE73D11B4B93BAD9FDACC03D552F">局部变量必须在以分号 (<samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-D80A9FD3-2267-41E0-A7CF-C96E895683C9">;</samp>) 结尾的语句中声明，如在 <samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-4F60B15B-61E7-4536-8387-68C0CEBA0129">$minLength = 1.0;</samp> 和 <samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-E0CE9686-86CD-4EF6-BD42-965E7320A1D5">$maxLength=5.0;</samp> 中。 
+				<p class="p" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-052A656C-9E4C-4EBC-9ED6-A8C56375E334"> 局部变量可以具有任何名称，但为全局变量保留的名称除外。全局变量不需要声明。随着表达式变得越来越复杂，它们通常包含大量局部变量声明。 
+				</p>
+ 
+			 </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__SECTION_2336980175FF449D812F07D0A1D2F1D4"><h3 class="title sectiontitle">函数</h3> 
+		   
+		  <p class="p" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-BA592A02-97D6-4A62-9324-7A11EA51C1E6">函数会为特定任务执行计算。函数执行计算所依据的输入值称为参数，这些参数可以为变量、常量或两者的组合。函数的参数括在括号 () 中，用逗号分隔每个输入值。 
+		  </p>
+ 
+		  <p class="p" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-C1D4C25B-62A6-4060-8C3B-1371343E14CC"> 在上面的表达式中，<samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-4926CD99-825E-43C7-9DF2-B266C2501543">rand ()</samp> 随机函数使用 <samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-59BFDC48-67AA-4756-8562-39C70034740E">$minLength</samp> 和 <samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-96B53E0E-BB13-4004-A704-38F4E771567C">$maxLength</samp> 变量生成随机值变量作为输入。 
+		  </p>
+ 
+		  <p class="p" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-210A9993-3B31-4E34-A81B-A808FECDB3EF">其他一些常用的函数包括 <samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-065D8A6F-5E07-404D-9AEC-0878FC066C6F">noise()</samp> 和 <samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-087A679D-BF8D-4A4E-A349-1C13CA879976">map()</samp>。表达式不始终包括函数。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__SECTION_6C8C25058E3246CBA435460B73C6924D"><h3 class="title sectiontitle">参数定义和注释</h3> 
+		   
+		  <p class="p" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-1502CE65-5BDC-44CF-BDD9-C96B79B27CE0">参数定义和注释以英磅符号 (<samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-72F5EB5C-8628-428B-9342-107637C6C0B3">#</samp>) 开头，后跟数字和文字。在 XGen 表达式中，典型的参数定义可用于设定局部变量的值范围或 Ptex 贴图文件的 Texel 分辨率。在上面的示例中，<samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-36A88261-3910-4818-AC2F-A68AB2C41E3E"># 0, 2</samp> 和 <samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-7023B8EC-7C5D-46B4-A0D6-8A85CFB5188B">#0, 10</samp> 显示在局部变量声明后，用来定义变量的值范围（0 到 2 之间和 0 到 10 之间）。 
+		  </p>
+ 
+		  <p class="p" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-96017570-8652-4BEE-B266-C8A3FC216281">注释可以包含任何文字，用于提供有关表达式的信息，使其更易于理解。例如，您可以添加注释来解释局部变量或函数计算的原因。在上面的示例中，注释 <samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-F2A8655C-308B-4C42-B2C7-919BB7440128">#randomizes the min and max values</samp> 描述了 <samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-8C09B3BE-35AF-4E44-85A1-4C33E109830D">rand()</samp> 函数计算。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__SECTION_99592C96E4C84AE3841E0C1BF607CEDB"><h3 class="title sectiontitle">运算符</h3> 
+		   
+		  <p class="p" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-5BE42E41-C098-494B-BDF2-D22F2BF180D0">运算符是一个符号，表示计算或计算顺序。运算符通常执行算术计算、比较和条件，如加法 (<samp class="ph codeph">+</samp>)、乘法 (<samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-50BE65DA-FCCD-4372-AAE6-CFD16ABDD65B">*</samp>)、小于 (<samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-6699A4D3-1847-4838-8B51-082D2AA46F63">&lt;</samp>) 和大于 (<samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-F365A28D-016E-4B4C-92C7-C70D5678DD73">&gt;</samp>) 或等于 (<samp class="ph codeph" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__GUID-32E5AA0A-DABD-4CDF-9EE3-2AA910FEE029">=</samp>)。 
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+<p class="p">若要开始在头发和毛发修饰以及景观场景中使用表达式，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-72119439-1CDA-4094-BB94-03BECF23DF3A.htm">基本表达式示例</a>。 
+	 </p>
+<div class="section" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__SECTION_9E8D6C9E06644F65B33B29455BA13E5C"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__UL_F083408C9E6042A29074906663C76B7D"><li class="li" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__LI_96F09929A7344F968D20189281B4440E"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-C64E02E2-0225-4EF5-90FC-FC5C2447B0A7.htm" title="使用表达式为基本体属性和 XGen 修改器生成值。例如，您可以创建表达式来随机化基本体长度的值，或者为“成束”(Clumping)修改器值添加噪波。">使用表达式控制基本体</a> 
+		  </li>
+<li class="li" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__LI_D5DD3EAF6E634E5F9A0B397016607E08"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-BA150C17-65E0-4688-91F4-73C4F857689E.htm">XGen 表达式编辑器</a> 
+		  </li>
+<li class="li" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__LI_1749ADC5DEFF45258E6DFA947829A2FF"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-EF55C3B5-D09B-4B6A-BB80-574A0311EE0F.htm" title="本部分提供了大量 seExpr 表达式示例，可供您用于修饰和景观场景。提供面向所有用户级别的示例，包括面向新用户的基本表达式。">XGen 表达式示例</a> 
+		  </li>
+<li class="li" id="GUID-BFA336C7-BC8D-4580-AEA6-4085BA1F1921__LI_2F1698FA202643638968A38DC7DD1AE4"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-AFB8F7F3-DCCC-414A-9EC3-83B97FCC8C30.htm" title="该部分提供关于您可以在 XGen 表达式中使用的受支持全局变量、函数和运算符的参考信息。">XGen 表达式参考</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-47644337-40F0-4766-BD3B-4104F9F9B7E2.htm">XGen 概念</a></div>
+</div>
+</div>
+
+</body>
+</html>

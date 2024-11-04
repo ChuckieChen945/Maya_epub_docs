@@ -1,0 +1,130 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_simulate_dynamic_effects_create_mpm_simulations_set_up_a_granular_simulation_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>设置颗粒模拟</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>设置颗粒模拟</h1></div><p>颗粒模拟包括固体材质的颗粒可以流动的场景。除了沙子和雪，颗粒框架还用于凝胶和橡胶。</p>
+<ul>
+<li>沙子使用的方法更简单、更快捷。它可用于模拟湿沙或干沙以及其他材质。</li>
+<li>雪使用的方法允许材质挤压在一起，从而变得更加密实。此外，它也可以用于雪以外的其他材质。</li>
+<li>凝胶可用于流动且成束的高粘度材质，例如糖霜、牙膏、番茄酱、融化的巧克力和泡沫。</li>
+<li>橡胶不仅可用于橡胶本身，而且还可用于其他纯弹性材质。与屈服应力极高的凝胶相比，橡胶更易于使用且性能更好，而且在变形较大的情况下，橡胶也更加逼真。</li>
+</ul>
+<p><img src="../images/mpm_sand_zen_garden.png" alt="MPM 沙子"></p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>  可查看 Bifrost 浏览器中提供的示例图表，而不是从头开始构建 MPM 模拟图表。如果其中一个图表与您要实现的效果类似，可以导入该图表，然后根据需要对其进行调整，或者直接研究其工作方式。 </p>
+<p>  对于沙子和雪，另一种替代方法是添加 <code>basic_mpm_sand_graph</code> 或 <code>basic_mpm_snow_graph</code> 节点，然后将其炸开以获取已完成一些基本连接和设置的图表。</p>
+
+</div></div>
+
+<p>设置颗粒模拟：</p>
+<ol>
+<li><p>准备要用作适用于颗粒材质的发射器的网格，以及要用作碰撞对象的网格（包括用于容纳材质的容器（如果需要））。这些网格可以从场景中输入，也可以在图表中创建。为了获得最佳的结果，请执行以下操作：</p>
+<ul>
+<li>网格应尽可能规则，例如，由不带任何长条的三角形或四边形组成。</li>
+<li>边长应反映模拟中所需的细节大小。</li>
+<li>如果使用场景中的发射器网格，您可能希望隐藏它们。</li>
+</ul>
+</li>
+<li><p>将以下节点之一添加到图表，设置其参数，并将发射器网格的输出连接到其 <code>geometry</code> 输入。</p>
+<ul>
+<li><code>source_mpm_sand</code></li>
+<li><code>source_mpm_snow</code></li>
+<li><code>source_mpm_gel</code></li>
+<li><code>source_mpm_rubber</code></li>
+</ul>
+<p>请注意，默认情况下，源节点设置为在第 1 帧创建一次性发射，这适用于雪堆或沙滩等对象。如果您希望改为连续发射，请在源节点上禁用 <code>use_end_frame</code>。</p>
+</li>
+<li><p>对其他发射器重复上一步。可以在同一模拟中组合不同的材质。</p>
+<ul>
+<li>如果希望不同的网格使用不同的特性发射，请使用单独的源节点。</li>
+<li>如果希望多个网格使用相同的方式发射，请将它们连接到同一节点以提高效率。或者，可以预先将这些网格合并为单个网格。</li>
+<li>可以在同一模拟中组合不同的材质，例如沙子和雪。</li>
+</ul>
+</li>
+<li><p>将源节点的输出连接到 <code>simulate_mpm</code> 节点的 <code>sources</code> 端口。</p>
+</li>
+<li><p>将 <code>mpm_solver_settings</code> 节点的输出连接到 <code>simulate_mpm</code> 节点的 <code>settings</code> 端口，然后设置其特性。</p>
+</li>
+<li><p>将要用作障碍的网格连接到 <code>collider</code> 节点。与源一样，可以将多个几何体连接到单个 <code>collider</code> 节点，将多个 <code>colliders</code> 节点连接到 <code>simulate_mpm</code> 节点。例如，要生成足迹，地面上需要防止雪或沙子滑走的碰撞对象，行走的人也需要碰撞对象。</p>
+</li>
+<li><p>将 <code>collider</code> 节点的输出连接到 <code>simulate_mpm</code> 节点的 <code>colliders</code> 输入。</p>
+</li>
+<li><p>（可选）将影响节点（例如 <code>wind_influence</code>、<code>turbulence_influence</code> 或 <code>ground_plane_influence</code>）连接到 <code>simulate_mpm</code> 节点的 <code>influences</code> 输入。</p>
+</li>
+<li><p>此时，可以通过切换 <code>simulate_mpm</code> 节点上的 <strong>P</strong>（代理）或 <strong>D</strong>（诊断）标志，并从第一帧开始播放，来预览粒子流。根据需要调整模拟参数。</p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>  如果遇到碰撞问题（例如粒子在穿过碰撞对象时泄漏或碰撞发生偏移），请尝试将 <code>collider</code> 节点上的 <code>method</code> 设置为 <code>Volume</code>。这更加精确，但计算时间更长。您也可以尝试在 <code>lag_colliders</code> 节点上启用 <code>mpm_solver_settings</code>。 </p>
+
+</div></div>
+
+</li>
+<li><p>对于最终渲染，建议将粒子缓存到磁盘上的文件。渲染所需时间通常比模拟长，并且可以轻松恢复（与模拟不同）。有多种缓存方法，但下面提供了一些建议：</p>
+<ul>
+<li>（可选）在缓存之前，可以通过移除渲染不需要的点特性来减小缓存文件的大小。由于 <code>simulate_mpm</code> 的 <code>granular_particles</code> 输出是一个数组（每种材质类型一个点对象），因此先将其连接到 <code>split_points_by_material</code>。将所需的每个输出（例如 <code>sand_particles</code>）连接到 <code>erase_component_properties</code> 节点，然后将其连接到图表顶层的 <code>output</code> 节点或连接到 <code>terminal</code> 节点。在这些最终连接上添加观察点以查看特性列表，并在 <code>erase_component_properties</code> 的 <code>properties</code> 参数中输入不希望缓存的任何特性。 </li>
+<li>对于缓存本身，将 <code>erase_component_properties</code> 的输出（如果不使用 <code>erase_component_properties</code>，则为 <code>simulate_mpm</code> 的 <code>granular_particles</code> 输出）连接到 <code>file_cache</code> 节点，并将其输出连接到图表顶层的 <code>output</code> 节点或连接到 <code>terminal</code> 节点。输入文件名和位置，将 <code>file_cache</code> 节点的 <code>mode</code> 设置为 <code>Write Mode</code>，然后从开始帧播放完整模拟。完成后，别忘了将 <code>file_cache</code> 节点的 <code>mode</code> 设置为 <code>Read Mode</code>。</li>
+</ul>
+</li>
+<li><p>在某些情况下，尤其是进行凝胶或橡胶模拟时，您可能需要对输出划分网格。 </p>
+<ul>
+<li>先使用 <code>points_to_volume</code>，接着使用 <code>volume_to_mesh</code>。 </li>
+<li>若要调整网格输出，可以在 <code>points_to_volume</code> 之前使用 <code>set_geo_property</code> 调整 <code>point_size</code>。</li>
+<li>也可以在之后使用 <code>smooth_voxel_property</code> 调整体积特性 - 详细信息取决于您尝试模拟的内容以及所需的外观。</li>
+</ul>
+</li>
+</ol>
+<h2 id="">调整沙子和雪</h2><p>下面介绍一些通过使用源节点上的参数模拟不同沙子和雪条件的技巧：</p>
+<ul>
+<li><code>cohesion</code> 控制颗粒粘在一起的强度，因此，要获得较湿的沙子或雪，可使用较高的值。</li>
+<li>如果雪或沙子太湿，以致其行为开始类似于液体，应降低 <code>friction</code>。</li>
+<li>对于雪，<code>initial_firmness</code> 控制其挤压程度。使用较低的值可获得轻盈、蓬松的雪。</li>
+</ul>
+<h2 id="">调整凝胶</h2><p><code>source_mpm_gel</code> 节点上的 <code>yield_stress</code> 特性控制总体行为 - 值越大，凝胶将成束在一起并抵抗在剪切力作用下屈服的强度越大。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/Bifrost_Common_simulate_dynamic_effects_create_mpm_simulations_html.html">创建 MPM 模拟</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

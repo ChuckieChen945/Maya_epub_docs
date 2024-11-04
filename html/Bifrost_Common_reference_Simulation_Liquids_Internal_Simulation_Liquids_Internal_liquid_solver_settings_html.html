@@ -1,0 +1,91 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_Liquids_Internal_Simulation_Liquids_Internal_liquid_solver_settings_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>liquid_solver_settings</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>liquid_solver_settings</code></h1></div><p>设置液体模拟选项。此节点的输出应连接到 <code>simulate_liquid</code> 节点的 <code>settings</code> 输入。</p>
+<h2 id="">输入</h2><h2 id="general"><code>General</code></h2><h3 id="enable_solver"><code>enable_solver</code></h3><p>打开或关闭液体解算器。</p>
+<h3 id="use_master_start_frame"><code>use_master_start_frame</code></h3><p>使用 <code>liquid_solver_settings</code> 上的 <code>master_start_frame</code> 覆盖所有单个发射器和碰撞对象上的帧。</p>
+<h3 id="master_start_frame"><code>master_start_frame</code></h3><p>如果启用了 <code>use_master_start_frame</code>，则 <code>master_start_frame</code> 将用作所有发射器和碰撞对象的全局开始帧。</p>
+<h3 id="store_mass_density"><code>store_mass_density</code></h3><p>允许计算存储在液体对象的 <code>voxel_mass_density</code> 特性中的流质量密度。</p>
+<h2 id="liquid-solver-globals"><code>Liquid Solver Globals</code></h2><h3 id="style"><code>style</code></h3><p>在时间方向上向前传输流体特性时，解算器使用的空间插值方案。插值方案按其视觉特性命名，定义如下：</p>
+<ul>
+<li><code>smooth</code>：线性插值</li>
+<li><code>fluffy</code>：立方插值，体素之间具有 C0 连续性</li>
+<li><code>busy</code>：立方插值，体素之间具有 C1 连续性 (Catmull-Rom)</li>
+<li><code>wispy</code>：单调立方插值，体素之间具有 C1 连续性</li>
+</ul>
+<h3 id="simulation_speed"><code>simulation_speed</code></h3><p>应用于模拟的感知视觉速度的比例。值大于 1 时会加快模拟速度，值小于 1 时会降低模拟速度。</p>
+<h3 id="enable_buoyancy"><code>enable_buoyancy</code></h3><p>启用或禁用浮力。</p>
+<h3 id="buoyancy"><code>buoyancy</code></h3><p>定义浮力加速的方向和幅值。</p>
+<h3 id="kinematic_viscosity"><code>kinematic_viscosity</code></h3><p>定义流体在流动时抵抗变形的程度。用于衡量流体在不受外力（重力除外）作用时的固有流动阻力。单位为平方米/秒。</p>
+<h3 id="scene_units_in_meters"><code>scene_units_in_meters</code></h3><p>场景单位的大小（以米为单位）。此项可以补偿场景中几何体（源、碰撞对象等）建模的比例。这一点很重要，因为许多流体现象在采用不同的比例时看上去差异很大。例如，如果场景中的所有几何体都按 10 倍缩放（相对于其真实物理大小），要按正确比例进行模拟，应将 <code>scene_units_in_meters</code> 设置为 0.1。</p>
+<h2 id="emission"><code>Emission</code></h2><h2 id="droplet"><code>Droplet</code></h2><h3 id="droplet_threshold"><code>droplet_threshold</code></h3><p>点转换为水滴时的阈值。如果点的水滴“得分”（基于周围的点数）超过此值，则点将变为水滴。</p>
+<h3 id="droplet_mergeback_depth"><code>droplet_mergeback_depth</code></h3><p>在重新加入主液体实体并参与流体动力学计算之前，水滴必须达到的液体表面内深度（以体素宽度为单位）。</p>
+<h2 id="point-distribution"><code>Point Distribution</code></h2><h3 id="surface_bandwidth"><code>surface_bandwidth</code></h3><p>液体表面的宽度（以体素为单位）。“曲面点密度”(Surface Point Density)应用于此带宽内，“内部点密度”(Interior Point Density)应用于其他位置。</p>
+<h3 id="interior_point_density"><code>interior_point_density</code></h3><p>液体整个内部体积中的点密度。每个体素的点计数是此值的立方。</p>
+<h3 id="surface_point_density"><code>surface_point_density</code></h3><p>液体表面上的点密度。此值可用于在液体表面实现密度较大的点分布并呈现更多细节，而对细节没有要求的内部无需提供额外点。每个体素的点计数是此值的立方。</p>
+<h2 id="vorticity"><code>Vorticity</code></h2><h3 id="enable_vorticity"><code>enable_vorticity</code></h3><p>启用漩涡特性（<code>point_vorticity</code> 和 <code>voxel_vorticity</code>）的计算，即体素中旋转幅值（速度场卷曲）的累积。</p>
+<h3 id="vorticity_decay"><code>vorticity_decay</code></h3><p>从每一帧累积漩涡中减去的值。</p>
+<h3 id="vorticity_multiplier"><code>vorticity_multiplier</code></h3><p>当前帧卷曲幅值在与累积漩涡相加之前的倍增。</p>
+<h3 id="vorticity_maximum"><code>vorticity_maximum</code></h3><p>总漩涡的钳制值。</p>
+<h2 id="erosion"><code>Erosion</code></h2><h3 id="erosion_factor"><code>erosion_factor</code></h3><p>控制流体表面的腐蚀量。值为 0.0 时无腐蚀，值为 1.0 时将腐蚀整个点半径。</p>
+<h3 id="erosion_factor_near_solids"><code>erosion_factor_near_solids</code></h3><p>确定流体表面是否基于碰撞对象曲面的法线，在接近碰撞对象的区域中腐蚀。请注意，无论该表面在何处腐蚀，它始终以完整因子数量腐蚀。</p>
+<h2 id="optional-properties"><code>Optional Properties</code></h2><h3 id="enable_curvature"><code>enable_curvature</code></h3><p>启用曲率特性（<code>point_curvature</code> 和 <code>voxel_curvature</code>，即液体表面上的弯曲形状，例如通过波浪翻滚和成峰生成的形状）的计算。使用 Bifrost 泡沫。</p>
+<h3 id="enable_churn"><code>enable_churn</code></h3><p>启用翻腾特性（<code>point_churn</code> 和 <code>voxel_churn</code>，指液体中的角动量）的计算。使用 Bifrost 泡沫。</p>
+<h3 id="enable_age"><code>enable_age</code></h3><p>启用年龄特性（<code>point_age</code> 和 <code>voxel_age</code>）的计算。</p>
+<h2 id="accuracy"><code>Accuracy</code></h2><h3 id="time_step_size"><code>time_step_size</code></h3><p>定义允许流体块在一个时间步中移动的最大体素数，超过此数后将触发其他子步。这也称为 Courant-Friedrichs-Lewy (CFL) 条件。通常，值为 10 时效果很好，但要与碰撞对象进行非常详细的交互，可能需要降低此值，例如降低到 1 甚至 0.1。存在快速移动的流时，可通过增加 <code>time_step_size</code> 来缩短模拟时间，因为这将减少子步。</p>
+<h3 id="min_steps"><code>min_steps</code></h3><p>确保每一帧至少执行 <code>min_steps</code> 个子步。</p>
+<h3 id="max_steps"><code>max_steps</code></h3><p>确保每一帧最多执行 <code>max_steps</code> 个子步。</p>
+<h2 id="adaptivity"><code>Adaptivity</code></h2><h3 id="enable_spatial_adaptivity"><code>enable_spatial_adaptivity</code></h3><p>对于液体模拟，此选项允许在通常不需要细节的流体中心使用较低分辨率的体素。</p>
+<h3 id="delete_exceeding_points"><code>delete_exceeding_points</code></h3><p>低分辨率区域中的每体素点数超过阈值时，移除一些点。如果在空间自适应模拟和非自适应模拟之间遇到体积丢失或其他大的差异，则禁用此选项。</p>
+<h2 id="additional-settings"><code>Additional Settings</code></h2><h3 id="additional_settings"><code>additional_settings</code></h3><p>若要向模拟添加额外的控件和选项，请连接一个或多个节点。</p>
+<h3 id="simulation_bounds"><code>simulation_bounds</code></h3><p>将模拟限制在某个空间区域。Bifrost 液体解算器允许进行没有边界的稀疏和空间自适应模拟，但在某些情况下，这并不方便。例如，如果目标仅是空间的某个特定区域，则无需在此区域之外进行模拟。<code>simulation_bounds</code> 端口接受网格，此网格的世界空间轴对齐边界框用于确定目标区域。在目标区域之外，会对模拟栅格进行粗化，实际上不会在那里进行模拟。</p>
+<h2 id="diagnostics"><code>Diagnostics</code></h2><h3 id="display_flowlines"><code>display_flowlines</code></h3><p>此项在视口中启用/禁用流线。流线默认基于 point_velocity，且不可更改。流线是从平铺树中每个体素平铺的中心生成的。提高或降低体积分辨率将相应地减少或增加流线。</p>
+<h3 id="flowline_length"><code>flowline_length</code></h3><p>此参数控制视口中显示的流线长度。长度由点在定义的秒数内移动的距离确定。</p>
+<h3 id="display_fraction"><code>display_fraction</code></h3><p>此项控制绘制的流线数。值介于 0.0 和 1.0 之间，值为 1.0 时，每个体素绘制一个股。值为 0.0 时，将使用适用于大多数情况的自动级别。使用较小的非零值（例如 0.001）时，细节可能会减少。</p>
+<h3 id="numeric_property"><code>numeric_property</code></h3><p>此项可以设置为要在视口中显示的液体特性的名称（例如 <code>voxel_signed_distance</code>）。将该字符串清空可禁用数值显示。</p>
+<h3 id="tile_tree_levels"><code>tile_tree_levels</code></h3><p>参数 <code>tile_tree_levels</code> 支持多分辨率体积层级的可视化。将显示最深的 n 个级别 (visible_levels)。这些可视化由框和股轮廓组成。值为 0 时，将禁用平铺树显示。</p>
+<h3 id="probe_geometry"><code>probe_geometry</code></h3><p>体积中要查询的位置可以在此处以基于点的几何体（网格、点、股、实例）的形式提供。将使用几何体点的位置 (<code>point_position</code>)。如果未提供探测几何体，则会自动构建采样点的 3D 栅格。</p>
+<h3 id="probe_property"><code>probe_property</code></h3><p>此参数应与探测几何体结合使用。连接了探测几何体时，用户可以输入特性名称以在探测几何体上以颜色形式显示特性。</p>
+<h2 id="">输出</h2><h3 id="solver_settings"><code>solver_settings</code></h3><p>输出是一个对象，其中包含液体解算器的液体相关输入集合，应连接到 <code>simulate_liquid</code> 节点上的 <code>settings</code> 端口。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Liquids/Bifrost_Common_reference_Simulation_Liquids_Internal_html.html">Internal</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

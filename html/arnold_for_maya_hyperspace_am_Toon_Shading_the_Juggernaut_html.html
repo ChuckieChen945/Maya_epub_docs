@@ -1,0 +1,163 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_hyperspace_am_Toon_Shading_the_Juggernaut_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_TOON_SHADING_THE_JUGGERNAUT">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 为 Juggernaut 进行卡通着色 - Arnold for Maya">
+
+<title>为 Juggernaut 进行卡通着色</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>为 Juggernaut 进行卡通着色</h1></div>
+<div class="callout callout-important">
+<div class="callout-title"><i class="callout-icon fa fa-exclamation-triangle" aria-hidden="true"></i>重要信息：</div>
+<div class="callout-body">
+
+<p><strong></strong>本教程现在是多余的。您应该改用<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_toon_html" target="_blank"><em>卡通</em></a>着色器。</p>
+
+</div></div>
+
+<p><img src="../images/juggernaut.gif" alt=""></p>
+<p>本教程介绍如何使用 Arnold 创建“样式化”卡通着色效果。我们将 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_utility_shaders_ac_facing_ratio_html" target="_blank">facing_ratio</a></em> 着色器与其他各种<em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shaders_node_ac_utility_shaders_html" target="_blank">工具</a>*和</em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shaders_node_ac_color_shaders_html" target="_blank">颜色</a>*着色器结合使用以精细调整效果。</p>
+<p><strong>要下载本教程中使用的着色器，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/toon-shader.ma" target="_blank">此处</a>。</strong></p>
+<p><strong>要下载对应的 Maya 场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Hyperspace_Madness/Juggernaut.zip" target="_blank">此处</a>。</strong></p>
+<div class="head-block"><h1>工作流</h1></div><h2 id="">标准曲面</h2><ul>
+<li>创建一个 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_node_ac_standard_surface_html" target="_blank">standard_surface</a></em> 着色器，并将其指定给几何体。在本例中，已经为 Juggernaut 模型指定了两个 <em>standard_surface</em> 着色器（灰色和蓝色）。</li>
+<li>创建一个渐变着色器。为渐变创建四个颜色：黑色（用于轮廓）、深灰色、浅灰色和白色。我们稍后将使用一个 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_imagers_node_ac_color_correct_html" target="_blank">color_correct</a></em> 着色器向模型的灰色和蓝色部分添加单个颜色。这样，只需在场景中设置一个渐变，即可控制所有卡通着色。</li>
+</ul>
+<p><img src="../images/image2017-7-27_10_42_59.png" alt=""></p>
+<p>在本例中，使用了一个 <em>standard_surface</em> 着色器。或者，也可以使用<em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_utility_shaders_ac_utility_utility_html" target="_blank">工具</a>*着色器并将 *shade_mode</em> 设置为<em>“平面”(Flat)</em>。</p>
+<ul>
+<li>创建一个 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_imagers_node_ac_color_correct_html" target="_blank">color_correct</a></em> 着色器，并将其连接到 <em>standard_surface</em> 着色器的 emission_color。将 <em>emission</em> 增加到 1。将 <em>base</em> 和 <em>specular_weight</em> 减小到 0，因为我们的卡通着色不需要这些属性。将渐变连接到 <em>color_correct</em> 的 <em>input</em>。</li>
+</ul>
+<h2 id="">正面比</h2><ul>
+<li>删除渐变的 2D 纹理并将 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_utility_shaders_ac_facing_ratio_html" target="_blank">facing_ratio</a></em> 着色器连接到渐变中 UV 坐标的 <em>U 参数</em>（还要确保<em>“渐变类型”(Ramp Type)</em>设置为 U）。</li>
+</ul>
+<p><img src="../images/image2017-7-27_12_4_8.png" alt=""></p>
+<p><sub><strong>渐变的输出值连接到渐变的 U 坐标</strong></sub></p>
+<h2 id="">工具着色器</h2><p>使用<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_utility_shaders_ac_utility_utility_html" target="_blank"><em>工具</em></a>着色器（<em>shade_mode</em> 设置为 <em>nodoteye<em>）连接到渐变，也可以创造出相似的正面比效果。您也可以尝试使用该着色器的一些</em>颜色<em>模式来生成不同的卡通着色效果。请注意，</em>ndoteye</em> 着色不会出现在镜面反射中。</p>
+<h2 id="">颜色校正</h2><ul>
+<li>我们将使用 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_imagers_node_ac_color_correct_html" target="_blank">color_correct</a></em> 着色器向渐变添加颜色，还可以使用它精细调整卡通着色效果。</li>
+<li>将 <em>multiply</em> 颜色更改为需要的着色颜色（本例中为蓝色）。</li>
+</ul>
+<p><img src="../images/image2017-7-27_13_43_6.png" alt=""></p>
+<p><sub><strong>蓝色添加到 <em>color_correct</em> 着色器的 <em>multiply</em></strong></sub>  </p>
+<ul>
+<li>对场景中的所有着色器重复此过程。</li>
+</ul>
+<p><img src="../images/image2017-7-27_13_35_9.png" alt=""></p>
+<p><sub><strong>多个着色器连接到同一个渐变和 <em>facing_ratio </em>着色器</strong></sub>  </p>
+<p>可以使用 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_utility_shaders_ac_facing_ratio_html" target="_blank"><em>facing_ratio</em></a> 着色器对卡通着色效果的外观添加更多控制。下面是调整<em>“偏差”(Bias)</em>和<em>“增益”(Gain)</em>属性时的结果。</p>
+<h2 id="bias">偏差(Bias)</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/facing-ratio_Bias_0.25.png" alt=""></td>
+<td><img src="../images/facing-ratio_Bias_0.5.png" alt=""></td>
+<td><img src="../images/facing-ratio_Bias_0.75.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>0.25</strong></sub></td>
+<td><sub><strong>0.5</strong></sub></td>
+<td><sub><strong>0.75</strong></sub></td>
+</tr>
+</tbody></table>
+<h2 id="gain">增益(Gain)</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/facing-ratio_Bias_0.75.png" alt=""></td>
+<td><img src="../images/facing-ratio_Gain_0.5.png" alt=""></td>
+<td><img src="../images/facing-ratio_Gain_0.9.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>0.1</strong></sub></td>
+<td><sub><strong>0.5（默认值）</strong></sub></td>
+<td><sub><strong>0.9</strong></sub></td>
+</tr>
+</tbody></table>
+<p>也可以使用*<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_math_shaders_ac_math_range_html" target="_blank">范围</a>*着色器通过重映射渐变的输入值来精细调整卡通着色效果。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/no-range.png" alt=""></td>
+<td><img src="../images/range.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>未使用<em>范围_着色器 -&gt; _emission_color</em></strong></sub></td>
+<td><sub><strong>使用_范围_着色器</strong></sub></td>
+</tr>
+</tbody></table>
+<p>此卡通着色教程到此结束。您可以尝试使用 Autodesk 的 <strong><em><a href="http://area.autodesk.com/hyperspacemadness" target="_blank">Hyperspace Madness</a></em></strong> 制作免费提供的一些模型实践这些着色技术。</p>
+<p><img src="../images/image2017-7-27_3_50_50.png" alt="">  </p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/getting-started/am-Hyperspace_Madness_Production/ToonShadingtheJuggernaut-SurfaceLuminance">曲面亮度</a> 您可以使用此节点基于环境中的任何灯光来更改着色。在下面的示例中，使用了曲面亮度着色器来驱动一个渐变的 V 坐标，该渐变连接到一个 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html" target="_blank">standard_surface</a></em> 着色器的 *<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_standard_surface_ac_standard_base_html" target="_blank">base_color</a>*。</p>
+
+</div></div>
+
+<p><img src="../images/image2017-9-19_13_36_23.png" alt=""></p>
+<p><sub><strong><em>曲面亮度_着色器 -&gt; _渐变的</em> <em>v</em>coord_</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/getting-started/arnold_for_maya_getting_started_am_Hyperspace_Madness_Production_html.html">Hyperspace Madness 制作</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

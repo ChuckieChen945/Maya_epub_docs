@@ -1,0 +1,132 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_hyperspace_am_Displacement_Killamari_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_DISPLACEMENT_KILLAMARI">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 置换：Killamari - Arnold for Maya">
+
+<title>置换：Killamari</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>置换：Killamari</h1></div><p><img src="../images/kallamari-render.gif" alt=""></p>
+<p>在本教程中，我们将介绍如何在 Killamari 角色的腿部和触角上使用<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_displacement_am_Vector_Displacement_html">向量置换</a>。还将介绍<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_override_sets_html">覆盖集</a>如何添加细分来创建平滑的网格。</p>
+<p><strong>要下载对应的 Maya 场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Hyperspace_Madness/killamari.zip" target="_blank">此处</a>。</strong></p>
+<p>本教程涵盖以下主题：</p>
+<p><a href="Displacement:Killamari-Subdivision">细分</a></p>
+<p><a href="Displacement:Killamari-OverrideSets">覆盖集</a></p>
+<p><a href="Displacement:Killamari-VectorDisplacement">向量</a><a href="Displacement:Killamari-VectorDisplacement">置换</a></p>
+<h2 id="">细分</h2><ul>
+<li>首先在 Maya 中打开 <em>Killamari</em> 模型。您会发现它是一个低多边形模型。我们可以通过使用 Arnold 的细分设置增加 <em>subdivision_iterations</em> 次数来添加几何体细节。在向腿部模型和触角模型添加<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shaders_displacement_html">置换</a>时，我们还需要向其添加细分。</li>
+</ul>
+<p><img src="../images/killamari-wire.gif" alt=""></p>
+<h2 id="">覆盖集</h2><p>我们可以向 Maya 集添加任何更改并<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_override_sets_html">覆盖</a>该集，而不必更改每个模型的 subdivision_iterations 次数。</p>
+<ul>
+<li>选择<em>身体</em>（而非触角）几何体，并为其创建 Maya <em>集</em>。</li>
+<li>选择该集，然后转到<em>“Arnold”</em>选项卡。单击<em>“添加”(Add)</em>打开<em>“添加覆盖属性”(Add Override Attribute)</em>窗口。</li>
+<li>我们要为模型创建平滑曲面，因此添加<em>“Ai 细分类型”(Ai Subdiv Type)</em>并将其更改为 <em>catclark</em>。</li>
+<li>我们还要添加一些细分迭代以使模型变得平滑。向该集添加<em>“Ai 细分迭代”(Ai Subdiv Iterations)</em>，并将其增加到 2。</li>
+</ul>
+<p><img src="../images/subdivision_overrides_body_set.jpg" alt=""></p>
+<p><sub><strong>为身体集指定细分覆盖</strong></sub></p>
+<p>请记住，每次细分迭代都会使多边形的数量翻四倍。如果为对象设置了 2 个级别的细分迭代，并在 Arnold 中设置了 4 次附加迭代，则总共有 6 次细分迭代，因此有 426936 * 4^6 = 426936 * 4096 = 17 亿个多边形。</p>
+<p>增加 Arnold 的细分迭代次数并使用 Maya 的<em>平滑网格预览功能（可以按键盘上的 3 进行访问）</em>时，应格外小心。Arnold 还会在最终图像中渲染此平滑状态的预览。这可能会导致细分网格中的多边形数量远远超过所需的数量，从而延长导出/渲染时间。</p>
+<h2 id="">向量置换</h2><p>我们可以使用 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_displacement_am_Vector_Displacement_html">vector_displacement</a> 贴图向腿部模型和触角模型添加更多细节。</p>
+<ul>
+<li>通过向腿部和触角几何体添加另一个覆盖集来重复上述步骤。但是，这次我们将<em>“Ai 细分迭代”(Ai Subdiv Iterations)</em>的次数增加到 6。我们需要通过这些额外的细分从置换贴图获得精细细节级别。</li>
+</ul>
+<p><img src="../images/image2016-4-29_15_29_8.png" alt=""></p>
+<p><sub><strong>腿部和触角几何体的覆盖集</strong></sub></p>
+<ul>
+<li>为 Killamari 指定一个 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html" target="_blank"><em>standard_surface</em></a> 着色器，并将其重命名为 <em>Killamari_body</em>。</li>
+<li>为该着色器选择<em>着色引擎，</em> 并将置换着色器连接到<em>[*向量</em> <em>置换(Vector Displacement)</em>](topicid=arnold_for_maya_displacement_am_Vector_Displacement_html)*属性。</li>
+<li>选择置换着色器，并将 <em>killamari_merged_appendages_vdm</em> 向量置换贴图连接到<em>向量置换</em>。</li>
+<li>将 <em>vector_space</em> 更改为<em>“世界”(World)</em>。这是应用向量的坐标空间。</li>
+</ul>
+<p><img src="../images/image2016-4-29_16_33_7.png" alt=""></p>
+<p><sub><strong>置换纹理连接到身体着色器的着色组</strong></sub></p>
+<ul>
+<li>渲染场景。向量置换效果应如下图所示。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/with-displacement.jpg" alt=""></td>
+<td><img src="../images/without-displacement.jpg" alt=""></td>
+<td></td>
+</tr>
+<tr>
+<td><sub><strong>有置换</strong></sub></td>
+<td><sub><strong>无置换</strong></sub></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_utility_am_Utility_html">工具 着色器</a>可用于在渲染置换贴图时诊断问题。该着色器具有<em>多边形线</em>模式，可用于测试渲染置换和细分。腿部和触角显示为黑色，因为它们的 <em>subdivision_iterations</em> 次数较高（6 次），而身体其余部位的细分迭代次数仅为 2。</p>
+<p>如果需要在场景中禁用置换渲染，还可以使用<a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Feature+Overrides&amp;linkCreation=true&amp;fromPageId=154764977"><em>功能覆盖</em></a>（在进行场景诊断时很有用）。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/utility-no-subdivision.jpg" alt=""></td>
+<td><img src="../images/utility.jpg" alt=""></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><sub><strong><em>工具</em> 着色器。<em>Shade_mode</em> 设置为<em>“ndoteye”，</em> 而禁用细分（_“功能覆盖”(Feature Override)_）。</strong></sub></p>
+<p>就是这样。祝贺您已完成了本教程。现在我们要去探索新的渲染世界！</p>
+<p><img src="../images/am-Displacement_A_Killamari-image2016-4-29-16-48-26-9.png" alt=""></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/getting-started/arnold_for_maya_getting_started_am_Hyperspace_Madness_Production_html.html">Hyperspace Madness 制作</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

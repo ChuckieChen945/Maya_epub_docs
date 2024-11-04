@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347">
+<meta name="language" content="CHS">
+<title>使用 Python 命令导出和导入 XGen 文件</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 Python 命令导出和导入 XGen 文件 </h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-26770C40-E6A2-47EB-8981-AB2E0EEFD28C">您可以使用 Python 命令保存和加载 XGen 集合、描述、增量和修改器文件。可以在 Maya 中或通过 Python 会话执行 Python 命令。 </p>
+<p class="p" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-69695120-3DC3-4BEB-ADA1-F5AC2DB39A1E">若要使用 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-9C71DA79-2C5F-482A-BDD8-B2D7AB990DE1.htm">XGen 编辑器</a>菜单选项保存和加载 XGen 文件，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-14DB912A-88AD-4657-9028-2228B481157D.htm">保存和加载 XGen 文件</a>。 </p>
+<p class="p" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-D60DBA6F-4634-4325-8846-12AF3EE55F6F">另请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F.htm">管理 XGen 文件和目录</a>。 </p>
+<div class="section" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__IMPORT-EXPORT-FILES_PALETTE-FILE"><h2 class="title sectiontitle">集合文件</h2>
+
+<p class="p" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-F4FFF98E-A2E2-488D-97FD-07A3C502B1CD">在 XGen Python API 中，集合称为选项板。 </p>
+
+<p class="p" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-47721740-4535-4AA0-B469-6B0E09A2C6EF">使用 <samp class="ph codeph" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-9C8536D8-6033-4325-83F9-CCEBD02173A6">exportPalette</samp> 创建集合 (<samp class="ph codeph" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-877A7CEF-166B-4EF8-A15E-90974CCCCD04">.xgen</samp>) 文件。 </p>
+
+<pre class="pre">
+xg.eportPalette(string palette, string fileName) 
+
+palette - 要导出的选项板文件的名称 
+fileName - 要创建的 .xgen 文件的名称
+</pre>
+
+<p class="p" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-62BE6E7F-DDE7-45EB-8E5C-5D75D7867380">使用 <samp class="ph codeph" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-660C866A-1A60-4FBF-B564-97D19B013B04">importPalette</samp> 导入集合文件。 </p>
+
+<pre class="pre">
+xg.importPalette(string palette, string deltas[], string nameSpace="") 
+
+palette - 要导入的选项板文件的名称 
+deltas - 也要在导入过程中应用的可选增量文件的列表 
+nameSpace - 要应用于导入的选项板的可选名称空间
+</pre>
+
+</div>
+<div class="section" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__IMPORT-EXPORT-FILES_DELTA-FILE"><h2 class="title sectiontitle">增量文件</h2>
+
+<p class="p" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-354AFA49-9DF1-417D-8996-83362C6FA246">若要创建增量 (<samp class="ph codeph" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-B0A2BD38-6FDD-4468-979E-FAEDC2F56407">.xgd</samp>) 文件，请使用 <samp class="ph codeph" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-E9890290-4474-47A1-BD59-80A25FBF2105">createDelta</samp>。 </p>
+
+<pre class="pre">
+xg.createDelta(string palette, string newDelta)
+palette - 要为其创建增量的选项板的名称
+newDelta - 增量文件的名称
+</pre>
+
+<p class="p" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-36ADA116-6D3A-4D80-B832-68C4F75E697E">您可以在导入集合的同时应用增量文件，但也可以单独应用增量文件。若要仅应用增量文件，请使用 <samp class="ph codeph" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-8B610C43-872C-41C4-AE5C-7724F372D468">applyDelta</samp> 命令。 </p>
+
+<pre class="pre">
+xg.applyDelta(string palette, string delta)
+
+palette - 要对其应用增量文件的选项板的名称
+delta - 增量文件的名称
+</pre>
+
+<div class="section" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__SECTION_90D26666782145E9A0AF028CDF4E254C"><h3 class="title sectiontitle">描述文件</h3>
+
+<p class="p" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-51346157-5EC4-412C-9F6B-4C094BD763C3">若要创建描述 (<samp class="ph codeph" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-FB405108-42D6-4BF4-AD97-DB8A83EAF9AB">.xdsc</samp>) 文件，请使用 <samp class="ph codeph" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-D7233CA5-9372-45FB-B957-DBD08165423C">exportDescription</samp>。 </p>
+
+<pre class="pre">
+xg.exportDescription(string palette, string description, string fileName, bool guides=false)
+ 
+palette - 包含描述的选项板的名称 
+description - 要导出的描述的名称 
+fileName - 要创建导向的描述文件的名称 
+flag - 将来用于信号导向传递（未使用）
+</pre>
+
+</div>
+
+<p class="p" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-E2D5516B-CE52-4173-8A0B-B67BF5D4EAAF">导入描述之前，必须已经具有集合。若要导入描述，请使用 <samp class="ph codeph" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-440E0D66-2D65-429B-A29E-FA6F3CB57C90">importDescription</samp>。 </p>
+
+<pre class="pre">
+xg.importDescription(string palette, string fileName) 
+
+palette - 要向其中导入描述的选项板的名称 
+fileName - 要导入的描述文件的名称
+</pre>
+
+</div>
+<div class="section" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__IMPORT-EXPORT-FILES_FX-MODULE-FILE"><h2 class="title sectiontitle">修改器文件</h2>
+
+<p class="p" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-C826733C-2A7F-4560-9D01-AD48B5138A50">在 XGen Python API 中，修改器称为 FX 模块。 </p>
+
+<p class="p" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-F8FABEC4-4E0C-4F62-BB5B-E22FFDFC95EC"> 若要保存修改器 (<samp class="ph codeph" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-DE062F8F-2E0B-4AA9-A1A1-F87DAF4BFAF4">.xgfx</samp>) 文件，请使用 Python <samp class="ph codeph" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-FCE8E4C2-49D3-47DC-B69C-8FD9637EEB19">exportFXModule</samp> 命令： </p>
+
+<pre class="pre">
+xg.exportFXModule(string palette, string description, string name, string fileName) 
+
+palette - 保存 fx 模块的选项板的名称 
+description - 保存 fx 模块的描述的名称 
+name - 要导出的 fx 模块的名称 
+fileName - 要创建的 fx 模块文件的名称
+</pre>
+
+<p class="p" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-16904FA2-D48C-4957-A08B-9CD8FA06864E">若要导入修改器文件，请使用 <samp class="ph codeph" id="GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347__GUID-8117A7A0-4AFB-489A-83E7-453176539823">importFXModule</samp> Python 命令： </p>
+
+<pre class="pre">
+xg.importFXModule(string palette, string description, string fileName) 
+
+palette - 要向其中导入的选项板的名称 
+description - 要向其中导入 fx 模块的描述的名称 
+fileName - 要导入的 fx 模块文件的名称
+</pre>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-C6324505-BD4F-4FD2-B340-CF99158D4819.htm" title="XGen 是以任意数量的随机或均匀放置的基本体填充多边形网格曲面的几何体实例化器。XGen 能够以程序方式创建和设计角色的头发、毛发和羽毛。就布景而言，XGen 可实现快速填充大规模环境，包括草原、森林、岩石地形和碎屑轨迹。">XGen 几何体实例化器</a></div>
+</div>
+</div>
+
+</body>
+</html>

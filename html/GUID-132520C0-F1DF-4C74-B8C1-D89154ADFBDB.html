@@ -1,0 +1,178 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB">
+<meta name="language" content="CHS">
+<title>通过单个纹理节点加载多个平铺 UV 纹理</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>通过单个纹理节点加载多个平铺 UV 纹理</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-C3953B06-2AA4-40D8-A8A4-E55048A15DDF"><span class="ph" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-60E48779-738D-484F-AA9E-C29F6C86BC9D"> UV 平铺功能允许您使用单个<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-9B3CFCC2-0E66-4553-8028-6BA3398B9DC5">“文件”(File)</span>纹理节点加载、预览和渲染包含对应于 UV 布局中栅格平铺的多个图像的纹理。</span> 这意味着您可以打开和显示通过 3D 绘制应用程序（如 Mudbox）制作的超高分辨率纹理，以及提供使用 UV 集的更有效替代方法。 
+	 </p>
+<p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-2371756D-D2DC-426C-A6E5-D8965B63F252">使用 UV 平铺时，纹理将作为平铺显示在 UV 空间中。在 UV 空间中，每个平铺的宽度和高度为单位宽，即 (1x1)。但是，它并非仅限于 0 到 1 的 UV 值。相反，平铺在 U 向维度和 V 向维度中的跨度可以为 0 到 1、3 到 4 或者 10 到 11。 
+	 </p>
+<p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-DC6E770F-6C06-4487-AA4C-7BDD1AC00FC2">请参见 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-F7699459-D36A-4443-BA7E-883C241DE5E9">UV 平铺</a>。 
+	 </p>
+<div class="note tip" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-815FAA14-7785-49C9-BB44-1F31136BA827"><span class="tiptitle">提示：</span> 您可以在 <span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-120BF0A9-DD9A-4D46-9462-D91D0FDA761E">Viewport 2.0</span> 中可视化 UV 平铺。 
+	 </div>
+<p class="li listintro" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-0C6A67FA-E635-474E-AF9D-2995F4AB005B">加载和显示多平铺 UV 纹理</p>
+<ol class="ol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__OL_06775404CC1C4E19A4450DAC9EEA94AC"><li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_528581A77BD84346907D7AAEC4A9B0EC">将<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-309A77DA-F5ED-4474-8413-317D7AB241E6.htm">文件纹理节点</a>连接到着色网络。 
+		</li>
+<li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_57EAC5D8440448B7A104AA74AADAB562">在<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-AF3E4BFA-82B6-4511-A2B8-90DF1B3B14EB">“文件”(File)</span>节点的<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-3C9CFE1C-103C-4EA7-ACC0-E1BDCCE94BB3">“图像名称”(Image Name)</span>属性中加载第一个 UV 平铺。 
+		  <p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-581BFAE1-7348-4D7E-B5D2-181E5470A1E3">可以使用<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-379F5137-6379-4A26-8B83-1AD721681ECE">属性编辑器</span>或者使用 <span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-521BB3DF-C60B-433C-9CCE-CD0EDE7FBCED">Hypershade</span> 中的<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-287E51C4-AAD5-4B74-9854-CC98ED9D7944">特性编辑器</span>执行此操作。（另请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-51DFC2E3-7D78-41C7-BE9A-489C181D8DF5.htm" title="在特性编辑器的模板视图（为每个着色节点提供最常用属性的优化布局）中查看着色节点属性。">在 Hypershade 特性编辑器中查看属性</a>）。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_A72DC08A6B524D35A9B34D4F9AF3D15A"> 选择下列<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-9DE4009C-CD2D-4BF0-B0FE-AFB088FD8858">“UV 平铺模式”(UV Tiling)</span>之一： 
+		  <ul class="ul" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__UL_1E444A9A06884A529968B442E78898CB"><li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_D07B951B5A0C48C3900C6C7E8D40436F"><span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-C465BD2B-0E3C-42B6-B2E1-71A18D4822AB">“0 型 (Zbrush)”(0-based (Zbrush))</span> - 如果 UV 坐标起点为 0，请选择此选项 
+				<p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-FAC5EC8E-F465-41B3-AEA2-39AFF101BBFE">某些应用程序（例如，Zbrush）使用左下角 UV 坐标对 UV 平铺进行编号。即，UV 平铺 [0,0]x(1,1) 将在其文件名中使用 u0_v0。 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_F71865384EFF4C14BC2128365E65D47A"><span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-0119DB5D-9BFB-40E8-BFD5-1780A92BD39D">“1 型 (Mudbox)”(1-based (Mudbox))</span> - 如果 UV 坐标起点为 1，请选择此选项 
+				<p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-BE23F230-C0EA-498A-BF4B-1EB950A3F888">某些应用程序（例如，Mudbox）使用右上角 UV 坐标对 UV 平铺进行编号。即，UV 平铺 [0,0]x(1,1) 将在其文件名中使用 u1_v1。 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_9FEA5C2D15054C8587A8E9FBB669A615"><span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-754F069D-1876-4E27-9970-7C19B41C82E3">UDIM (Mari)</span> - 如果 UV 坐标使用公式 1000+(u+1+v*10) 表示为四位数，请选择此选项 
+			 </li>
+<li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_7259E4ED060745D2B70E59C8A4938CD7"><span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-5A709805-AD3B-421F-8B72-48B4353F765F">“显式平铺”(Explicit Tiles)</span> - 选择此选项可分别加载每个平铺并显式输入 U 值和 V 值。对于每个平铺，输入与纹理相对应的左下角 UV 坐标的值。 
+			 </li>
+</ul>
+ 
+		  <div class="note note" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-C1F2F783-E3B2-4084-B7C6-571C050C9B8D"><span class="notetitle">注：</span> 上面列出的命名约定为每个应用程序的默认设置。可以使用其他约定。 
+		  </div>
+ 
+		  <p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-684B6305-6D45-41D6-8A7D-99DC346A78F6"><span class="ph msgph prodname" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 在文件路径中使用标记来解析每个纹理的 UV 坐标。 
+		  </p>
+ 
+		  <div class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-093A4998-7032-419D-B018-1C66D022496C">在选择<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-91552BD6-2AE4-4C35-AC06-B21369B0E08A">“UV 平铺模式”(UV Tiling Mode)</span>后，<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-7D1621BD-2548-420E-AA99-45564B7F2E71">“图像名称”(Image Name)</span>字段将使用标记进行更新，这些标记指示 <span class="ph msgph prodname" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 如何解析文件名： 
+		  <ul class="ul" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__UL_F5D93A92723C49CA8D70B87D7DC667E1"><li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_860827188B864CD2ADB2A233621122DB"><span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-7CEFBCA4-A5BB-46BE-9B2B-4AB6F98A553A">“0 型 (Zbrush)”(0-based (Zbrush))</span> - u&lt;u&gt;_v&lt;v&gt; 
+			 </li>
+<li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_EAB8DBE044B146019B5BE773E0DADF66"><span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-A33603C5-C162-4C20-928F-D6DFC3A2B629">“1 型(Mudbox)”(1-based (Mudbox))</span> - u&lt;U&gt;_v&lt;V&gt; 
+			 </li>
+<li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_4A0E192AABD642FEA36C85916DF8F311"><span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-6C36FBD7-7173-4BCC-AEF9-F3B7BA6DEDF6">“UDIM (Mari)”</span> - &lt;UDIM&gt; 
+			 </li>
+<p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-3D35E12A-3045-47CF-878E-F00083ACC2E2">解析 UV 坐标后，<span class="ph msgph prodname" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 指示在指定路径中找到的 UV 平铺数量。 
+		  </p>
+<div class="note tip" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-8D297CE9-EDE0-4C15-B69F-75E491AF933B"><span class="tiptitle">提示：</span> 如果将鼠标悬停在指示发现的 UV 平铺数量的文本上，则显示工具提示，指示涉及的 UV 范围。 
+		  </div>
+</ul>
+ 
+		  </div>
+ 
+		  <p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-1E469C17-824E-4A2D-92A3-4D7EC5E7BA06">如果您当前位于纹理模式，或此时切换到纹理模式，则 <span class="ph msgph prodname" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 不会在 <span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-481F190C-7880-4B0E-B173-E567E2A9FAD0">Viewport 2.0</span> 中自动预览 UV 平铺纹理。若要执行此操作，您必须手动生成纹理预览。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_2AABD4221D1A4C04BB63E4A31BA8B2E0">从下拉列表中选择一种<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-1095B005-2F7C-4086-A2E3-5D6193178155">“预览质量”(Preview Quality)</span>。 
+		  <p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-898FE332-AB16-435D-8690-759CC9AF26D8">如果您有一个较大的纹理集，则您可能想要选择较低质量预览以减少纹理内存的使用。如果您使用的是非常大的纹理集，或者，如果出于任何其他原因，您不希望预览纹理，则可以选择<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-BA26E44B-F240-4486-B697-42AF48719D14">“禁用预览”(Disable Preview)</span>。 
+		  </p>
+ 
+		  <div class="note note" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-0039C9CC-9F68-47E9-A7BE-8410AEA40703"><span class="notetitle">注：</span>  在<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-570743DE-75A1-40D5-9FCC-5340E2135EB8">“Viewport 2.0”</span>中，UV 平铺纹理将烘焙到单个纹理以用于预览。此纹理的分辨率取决于您选择的<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-DE5A5F6B-F06E-491B-9DF8-0CE27D7A25C1">“预览质量”(Preview Quality)</span>： 
+			 <ul class="ul" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__UL_13D0E463CEF6429B861C81B0CC52C15B"><li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_59ED6C86088642C584AFB9A20FEDAB07"><span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-3155D4EC-1A94-48FA-B628-65B584469C41">高质量(High Quality)</span>：4K 
+				</li>
+<li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_636901A9AB3B438D821FED46030AD6F7"><span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-B0D6907C-0940-4663-9280-105C32C43389">中等质量(Medium Quality)</span>：2K 
+				</li>
+<li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_2DAA3AECAD604C4C816F3A7606EA908E"><span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-97028C67-422F-4144-AFF6-DAC1613E9577">低质量(Low Quality)</span>：1K 
+				</li>
+</ul>
+ 
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_CA64507C2A1E4E7FA577C01D7DA14476">单击<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-F6B0F84E-09AF-4FB5-950E-6C79A47F9A31">“生成预览”(Generate Preview)</span>并按 6 以使用纹理模式可视化平铺（如果尚未处于纹理模式）。 
+		  <p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-4BB5FF4F-FFEF-4EB7-BA26-71794544358F"><span class="ph" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-53756EFD-0F85-4A41-A55B-69162A28BE18">如果在场景中有多个 UV 平铺集，可以通过选择<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-9E703EC4-0F97-4370-A9FF-4F6EFBA81842">“渲染器 &gt; Viewport 2.0”(Renderer &gt; Viewport 2.0)</span> &gt; <img class="image" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__IMAGE_56D7C2801A1F4053BCCC9D1B99382ADB" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">，然后单击<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-3278FCEC-055D-44E7-8B04-A4AFABB79514">“重新生成所有 UV 平铺预览纹理”(Regenerate All UV Tile Preview Textures)</span>生成所有 UV 平铺集的预览。</span>此全局设置将遵循为每个文件节点保存的<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-CF156006-59E4-4118-89C6-BFDC22E85F17">“预览质量”(Preview Quality)</span>设置。 
+		  </p>
+ 
+		  <p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-AF6A2EC1-D297-4F62-A8FF-3DB5EC396C14">如果自上次您单击<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-C28702E9-BA53-44F7-BAA6-35732CBD1A33">“生成预览”(Generate Preview)</span>后您的纹理已更改（例如，已重新加载纹理），则按钮将指示<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-23E7BE8C-5275-4609-9980-F098D6E506B6">“生成预览*”(Generate Preview*)</span>（红色）提示您重新生成预览。此功能使您在等待新纹理预览前，可以多次更改纹理设置。 
+		  </p>
+ 
+		</li>
+</ol>
+<p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-29E517AD-86CB-405B-AC8D-C205828D4D3C">默认情况下，第一次打开场景时，<span class="ph msgph prodname" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 不会在 <span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-FADE0A99-14C3-4591-8111-3D941DAC7C1C">Viewport 2.0</span> 中加载 UV 平铺纹理。您可以选择在场景加载时在<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-1C1F40DF-2110-49D2-B374-CADCAE438B46">“Viewport 2.0”</span>中预览 UV 平铺，方法是：选择<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-CF440A34-6C30-4E71-B001-DCE7C861AEA3">“窗口 &gt; 设置/首选项 &gt; 首选项”(Windows &gt; Settings/Preferences &gt; Preferences)</span>打开<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-ED12D613-02A0-4AA2-ABC9-FCF7D03038CE">“首选项”(Preferences)</span>窗口，并在<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-15BA8E16-0D82-4FDF-885E-0EE1A5F56160">“显示”(Display)</span>部分中启用<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-D7926AD5-F0B7-4355-992A-B30412EDFBB6">“场景加载时生成 UV 平铺预览”(Generate UV tile previews on scene load)</span>。如果不修改 UV 平铺，您可以始终在场景加载时自动预览纹理。但是，如果修改 UV 平铺，您必须通过单击<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-23D57287-7E08-4CE1-94ED-1C2964C34F81">“生成预览*”(Generate Preview*)</span>再次手动重新生成预览。 
+	 </p>
+<p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-6B32B46C-066C-48DF-ADD1-C71AC57C90E1">您在<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-59C967FD-6023-4B9D-B2EC-A1D76B093DF7">“不支持的纹理类型的烘焙分辨率”(Bake Resolution for Unsupported Texture Types)</span>（位于<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-F1A57C2F-1B64-4996-8735-2BFA57A03110">“渲染设置”(Render Settings)</span>窗口）中的设置不会对显示分辨率有任何影响。 
+	 </p>
+<p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-85C50353-8D41-41D0-B2A0-8D9B28A71071">在选择<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-EC324C5A-9F19-422C-B015-D54448852DDA">“预览质量”(Preview Quality)</span>设置后，基于<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-F23F3DE6-A89E-40EF-AC90-6E65B52DF1A5">“最大纹理分辨率”(Max Texture Resolution)</span>设置（位于<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-B0E5F712-EF2B-431D-B622-E86527BD1A61">“Viewport 2.0 选项”(Viewport 2.0 Options)</span>中）应用硬钳制。但是，如果平铺数据不是方形（即，分块线的行列比率小于 0.5 或大于 2），将忽略钳制。 
+	 </p>
+<div class="section" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__SECTION_6B8A9E8188424A579AB07AF6D55E6783"><h2 class="title sectiontitle">自定义图像文件格式</h2> 
+		 
+		<p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-451F0908-12BF-4F35-9D9A-FBC22887EB83">如果图像文件名的自定义格式与可用的<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-8B013793-4E27-4E11-88BF-94261B982ECF">“UV 平铺模式”(UV Tiling Mode)</span>不匹配，则您可以手动编辑标记，这样 <span class="ph msgph prodname" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 就可以正确识别 UV 平铺序列。 
+		</p>
+ 
+		<ol class="ol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__OL_989AF1B252B94DE0B8C1B66322A6D649"><li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_807C0954B47C454DAAABD4DCBB10D405">使用<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-EE39D4EA-ED23-4C38-8CA1-DB3AA3713D58">“图像名称”(Image Name)</span>属性旁边的“浏览”(Browse)按钮加载第一个 UV 平铺。 
+		  </li>
+<li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_DE14B454C4994FB18C8C7560F9291405">选择<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-7FF4901A-A416-43F0-86B6-DBC93D959206">“0 型 (Zbrush)”(0-based (Zbrush))</span>或<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-C2C10D65-3212-49F6-B11D-1ECCBB3E10CB">“1 型 (Mudbox)”(1-based (Mudbox))</span> 
+			 <span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-ABDF4C2B-BA51-4247-94A0-9C4831D9AC42"> UV 平铺模式</span>，然后编辑标记（如有需要）。 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__SECTION_50632F31FA4B49928F0021BC214605A0"><h2 class="title sectiontitle">将单独的图像加载为 UV 平铺</h2> 
+		 
+		<p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-4628AD71-545D-4404-8F09-23B06635A7C1">您可以分别加载图像，并分别指定每个图像的 U 坐标和 V 坐标。 
+		</p>
+ 
+		<ol class="ol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__OL_79C9FA2FB3E04CBAAA24F29346FA8D7E"><li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_ECF0F19E32244504A23D30A62CDA55A4">选择<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-ADE871AB-F8A7-4EEC-BD23-8E924A83A03C">“文件”(File)</span>节点。 
+		  </li>
+<li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_7DDC0155259745A5802A9140ADA76646">在<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-021FAECF-7B02-4040-9C10-8DCD55FC4259">“属性编辑器”(Attribute Editor)</span>中，使用<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-3F8DA489-B0AC-457D-9A7B-CFFC632EE9B0">“图像名称”(Image Name)</span>属性加载第一个 UV 平铺。 
+		  </li>
+<li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_76C6267462B24F409934219449B6AC50">将<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-B308E2DF-051E-41A5-94F2-E21AFF018392">“UV 平铺模式”(UV Tiling Mode)</span>设置为<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-427B6CD9-C53C-47DC-8AD7-573E36AE820D">“显式平铺”(Explicit Tiles)</span>。 
+		  </li>
+<li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_12754C1D9A4C4AFDBEABB693B97CDE9D">输入加载的第一个纹理的 <span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-9D9EE485-40D1-41AF-9E26-DCCE57700E45">U</span> 坐标和 <span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-26248389-9468-4CEA-8C07-9493E10945DC">V</span> 坐标。 
+			 <p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-658DCE0E-FFAB-43EF-8905-79958308C794">输入与纹理相对应的左下角 UV 坐标的值。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_9E4B65EBE30C409386C748D0C29E0BDF">单击<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-6E608DC1-B550-41F5-8414-CE47D8EABF36">“添加显式分片”(Add Explicit Tile)</span>添加下一个纹理并输入其对应的 UV 坐标。 
+		  </li>
+<li class="li" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__LI_E6D82C92FA384532A36B5279CE2B856E">根据需要为剩余的纹理重复上述步骤。 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__SECTION_10227A649BAD441FAABF1747EFB12DFE"><h2 class="title sectiontitle">将图像序列与 UV 平铺结合使用</h2> 
+		 
+		<p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-A324F2A0-DAFC-47FF-969A-18E5054F802E">当您选择<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-564F00CA-55FB-4CEB-B11D-36390E4C3679">“使用图像序列”(Use Image Sequence)</span>选项时，<span class="ph msgph prodname" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 会在<span class="ph uicontrol" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-71116BBE-6891-4320-AAD8-A1D0F3E1C5CA">“图像名称”(Image Name)</span>下通过标记指明将文件名的哪一部分解释为帧编号。例如： 
+		</p>
+ 
+		<p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-760B7A8A-DC0F-4400-BB5D-A42AF782E606"> 
+		  <samp class="ph codeph" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-0EC79F6A-656A-4AF3-9307-AEE344164448">文件名.u&lt;u&gt;_v&lt;v&gt;_&lt;f&gt;.tif</samp> 
+		</p>
+ 
+		<p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-E7661EE5-CEEF-4E45-BB56-EF2A2F0E2668">在此示例中，第一个标记代表 U 值，第二个标记代表 V 值，第三个标记 
+		  <samp class="ph codeph" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-E44B884A-14A5-47B5-9967-FE5EC679C5E1"> &lt;f&gt;</samp> 代表<em class="ph i" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-91F4A25F-F4CF-4278-8CBA-755728CA3CF2">帧编号</em>。 
+		</p>
+ 
+		<p class="p" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-2DC41E5C-E85D-45C5-90A3-8830D8F180F1">对于每个帧，<span class="ph msgph prodname" id="GUID-132520C0-F1DF-4C74-B8C1-D89154ADFBDB__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 都会指明其在指定路径找到的 UV 平铺数量。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-DC60577E-1A09-4D51-BD6E-6400F4F5EFD7.htm">纹理映射</a></div>
+</div>
+</div>
+
+</body>
+</html>

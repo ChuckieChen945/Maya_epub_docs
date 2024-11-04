@@ -1,0 +1,95 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_maketx_am_Part_2_Render_Conversion_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_PART_2_RENDER_CONVERSION">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 第 2 部分 - 渲染和转化 - Arnold for Maya">
+
+<title>第 2 部分 - 渲染和转化</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>第 2 部分 - 渲染和转化</h1></div><p>如果您想从这里开始学习本教程，需要在这里下载前一部分的纹理和结果。</p>
+<h2 id="">使用未处理的纹理进行渲染</h2><p>现在场景已完成，您可以开始渲染了。</p>
+<p>使用了纹理时，日志会显示 OpenImageIO ImageCache 的统计信息。</p>
+<p><img src="../images/woodenfloor_06B_log.png" alt=""></p>
+<p>您的统计信息将与此不同，这取决于您的计算机的性能。记下这些统计信息，以便稍后进行比较。</p>
+<p>渲染时间 - 00:00:43</p>
+<p>文件 I/O 时间：4 分 10.4 秒</p>
+<p>峰值缓存内存：394.9 MB</p>
+<h2 id="mipmap">自动 MipMap</h2><p>您会注意到，渲染开始之前存在明显的延迟。这是因为默认启用了<strong><em>“自动 Mipmap”(Auto-mipmap)</em></strong>。当纹理贴图文件未在本地进行 Mipmap 处理时（像我们当前使用的文件一样），启用此选项将会自动生成 Mipmap，该 Mipmap 在渲染期间将存储在内存中。只有最近使用过的分片才会通过默认大小为 1024 MB 的纹理缓存保留在内存中。生成此 Mipmap 会增加渲染时间，对于具有许多高分辨率纹理的场景尤其如此。</p>
+<ul>
+<li>再次渲染，然后重新查看日志。</li>
+</ul>
+<p><img src="../images/woodenfloor_07B_log.png" alt=""></p>
+<ul>
+<li>渲染时间 - 00:00:36</li>
+<li>文件 I/O 时间：1 分 47.1 秒</li>
+<li>峰值缓存内存：173.5 MB</li>
+</ul>
+<p>现在速度有所加快，但是我们来看看转化纹理将有何影响。</p>
+<h2 id="maketx">使用 MakeTX 转化纹理</h2><p>我们将使用 OpenImage IO 的命令行工具 <em>maketx</em> 来转化纹理。</p>
+<ul>
+<li>在 Linux 中，打开终端并导航到纹理所在的位置，然后运行以下命令：</li>
+</ul>
+<p><strong><code>maketx -v --oiio wood-flooring-041_d.jpg -o wood-flooring-041_d.tx</code></strong></p>
+<p>标志 <strong><code>-v</code></strong> 表示详细模式，将输出状态消息。标志 <strong><code>--oiio</code></strong> 将生成为 Arnold 优化的 .tx 文件，它可以通过强制使用对 OpenImageIO 最佳的分片大小 (64x64)，加快渲染速度。此外，它还会交错存储通道 (RGBARGBA...)（从而提高它们的读取速度），并支持恒定颜色检测：当图像是恒定颜色时，会将其转化为一个很小的单色 .tx 文件。<strong><code>-o</code></strong> 必须出现在输出文件之前。</p>
+<p><img src="../images/woodenfloor_08A_maketx.png" alt="">  </p>
+<ul>
+<li>以相同方式转化其他纹理。</li>
+</ul>
+<h2 id="">交换纹理</h2><p>尽管我们可以逐个处理所有图像节点并更新纹理，但是还有一种更快的方法。打开<strong>“渲染设置”(Render Settings)</strong>窗口，在<strong>“纹理”(Textures)</strong>下面启用<strong><em>“使用现有 .tx 纹理”(Use Existing .tx Textures)</em></strong>。</p>
+<p>尽管着色器中指定的仍是未处理的纹理，但是启用此参数后，Arnold 将搜索文件名相同、但扩展名为 .tx 的文件。</p>
+<p>再次渲染，可以明显发现渲染速度加快很多。查看日志中的统计信息。</p>
+<p><img src="../images/woodenfloor_09B_log.png" alt=""></p>
+<ul>
+<li>渲染时间 - 00:00:20</li>
+<li>文件 I/O 时间：0.6 秒</li>
+<li>峰值缓存内存：34.5 MB</li>
+</ul>
+<p>与原来的渲染相比，现在的渲染时间不到一半。文件 I/O 几乎可以忽略不计，使用的缓存内存也只有之前的 9%。由此可见，在开始时多花点时间转化纹理是值得的，因为这将节省大量的渲染时间。</p>
+<p><sup><em><sub>非常感谢 <strong><a class="external-link" href="http://www.arroway-textures.com/" rel="nofollow" target="_blank">Arroway Textures</a></strong> 授权我们使用他们的纹理贴图。</sub></em></sup></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_MakeTX_A_Wooden_Floor_html.html">MakeTX：木质地板</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

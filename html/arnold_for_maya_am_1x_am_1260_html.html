@@ -1,0 +1,208 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_1x_am_1260_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_1260">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 1.2.6.0 - Arnold for Maya">
+
+<title>1.2.6.0</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>1.2.6.0</h1></div><h2 id="release-date">Release Date</h2><p>January 14, 2016</p>
+<p>This version uses the Arnold <a href="https://help.autodesk.com/display/arnug/4.2.12.0">4.2.12.2</a> core</p>
+<h2 id="downloads">DOWNLOADS</h2><ul>
+<li><a href="https://manage.autodesk.com/products/](https://manage.autodesk.com/products/)" target="_blank">https://manage.autodesk.com/products/](https://manage.autodesk.com/products/)</a></li>
+</ul>
+<h2 id="improvements-in-the-new-arnold-renderview">IMPROVEMENTS IN THE NEW ARNOLD RENDERVIEW</h2><p>The following video](<a href="https://safeshare.solidangle.com/index.php/s/Z755Dlzr69VTs6e" target="_blank">https://safeshare.solidangle.com/index.php/s/Z755Dlzr69VTs6e</a>) illustrates the last features in this version :</p>
+<ul>
+<li><strong>New snapshots library</strong> , with thumbnails for each of the stored snapshots, allowing you to give them a name as well as a comment.</li>
+<li><strong>Added "Test Resolution" menu</strong> . This menu works just like in the Maya native Render View, but also includes a new mode "Fit Window Size" that dynamically adjusts the render resolution to the windows size, in order to always have a 1:1 display ratio.</li>
+<li>Support for <strong>multiple selections in "Isolate Selected"</strong> debug shading.</li>
+<li>Simplified status bar information.</li>
+<li>"Save Image" can either take into account the LUT / Color Corrections, or ignore them.</li>
+<li>Added menu "Window -&gt; Toolbar Icons", which allows you to <strong>choose which icons are displayed</strong> in the toolbar.</li>
+<li>Added <strong>new (optional) toolbar icons</strong> : exposure slider, 3D manipulation, list of debug shading modes.</li>
+<li>Only for Windows in this release: <strong>Support for EXR files</strong> , both for background images or to save rendered images. Support for Linux and OSX will come in a future update.</li>
+<li>LUT settings are no longer lost when the RenderView is closed.</li>
+<li>Support for <strong>animated background images</strong> , where frame padding is specified any number of # characters (e.g. "bkg###.jpg").</li>
+<li>A bug was fixed where the render camera could change unexpectedly when modifying the Render Settings.</li>
+<li>Removed Maya lib dependencies from RenderView (first step towards an app-agnostic RenderView).</li>
+</ul>
+<h2 id="mtoa-highlights">MTOA HIGHLIGHTS</h2><ul>
+<li>Upgraded the <strong>Shave &amp; Haircut procedural to version 9v46</strong> .</li>
+<li>Nref is now exported as face-vertex indexed data instead of varying.</li>
+<li>XGen assigns the object ID attribute to the nodes it generated.</li>
+</ul>
+<h2 id="arnold-enhancements">ARNOLD ENHANCEMENTS</h2><ul>
+<li><p><strong>Memory savings for vertex normals</strong> : The storage of polymesh vertex normals has been optimized, reducing memory use by 50% in typical production scenes.</p>
+</li>
+<li><p><strong>Improved Russian Roulette</strong> : The standard shader now uses more aggressive Russian roulette termination. This reduces render time but increases noise, so to get renders with similar noise levels as before either AA_samples or GI_diffuse_samples, GI_glossy_samples and GI_refraction_samples can be increased. For interior scenes with high GI depth, this is a big win and we have found 2x to 3x faster renders for similar noise levels.</p>
+</li>
+<li><p><strong>Empirical SSS profile</strong> : A more physically accurate subsurface scattering profile is now available. With a single layer, it can capture both surface detail and deep scattering. In the standard shader it can be used by setting the new parameter sss_profile to empirical. A new AiBSSRDFEmpirical API function has been made available to shader writers.</p>
+</li>
+<li><p><strong>GGX Microfacet</strong> : A new specular_distribution was added to the standard shader, with options to use the existing Beckmann distribution, and a new GGX distribution. The GGX distribution has a sharp highlight with a long soft tail, which better matches many real world materials. Using GGX also enables more accurate per-microfacet Fresnel. New microfacet BSDF functions are available in the shader API, see below.</p>
+</li>
+<li><p><strong>Per-light AOVs for volumetrics</strong> : This feature allows modifications to the intensity and color of different lights in compositing, without having to re-render. The new aov string parameter on lights writes out the light contribution to a separate AOV with a corresponding name. For example, all lights with parameter aov "fill" will contribute to the RGBA.fill and volume.fill AOVs, which then contain a subset of the light from the RGBA and volume AOVs respectively. Emission from other sources and lights that have not been assigned an aov name will contribute to the RGBA.default and volume.default AOVs. All light AOVs can be output to a single EXR driver using output syntax like RGBA.* RGBA filter driver. For the time being, light AOVs are only supported for volumes, and lighting from surfaces and the atmosphere will end up in the default light AOV. A maximum of 8 different light AOVs are supported, although a given AOV can contain a bundle of any number of lights.</p>
+</li>
+<li><p><strong><tile> and <attr> tags in image shader</attr></tile></strong> : The built-in image shader node now supports the <tile> tag, and will do Mudbox-style tag replacement of the tag with _uC_vR where C and R are the column and row of the tile, respectively. The attribute tag is also supported in the form &lt;attr:name index:name default:value&gt;. The tag will look for the named user data (as a string). The index and default tokens are optional; if the index is used, the UINT user data is found first, and the main attribute then must be an array of strings it indexes into. Among other techniques, this allows e.g. facesets, where you can list the faceset names once each in a constant array, and then have a uniform UINT assigned to each face specifying which faceset the face is a member of. Finally, the default, if present, is substituted if the user data cannot be found for any reason.</tile></p>
+</li>
+<li><p><strong>Multiple tags in image shader</strong> : The image shader node now also supports replacing up to five dynamic tags. Combinations of multiple attribute, tile or UDIM tags are allowed. It generally makes sense to only have one tile or UDIM tag, but if there are multiple tile/UDIM tags the last one generates the final UV coordinates into the texture.</p>
+</li>
+<li><p><strong>Adaptive subdiv for non-linear cameras</strong> : Adaptive subdivision is now supported for all built-in cameras, even non-perspective ones (cylindrical, spherical, etc). Adaptive subdiv is not yet supported for non-perspective custom cameras, but a reasonable workaround is to use subdiv_dicing_camera with the built-in camera that better matches the custom camera.</p>
+</li>
+<li><p><strong>Negative thread counts</strong> : Negative numbers in options.threads are now allowed. If specifying 0 threads means use all cores on a machine, then negative numbers can mean use all but that many cores. For example, threads=-2 means use all but 2 cores, while threads=2 means only use 2 cores. This is useful when you want to leave one or two cores for other tasks. One example of this is so that Maya can be more responsive while Arnold is rendering in the RenderView.</p>
+</li>
+<li><p><strong>Render bounds in EXR metadata</strong> : Non-zero image extents are now available in EXR metadata in all configurations (deep/flat, tiled/scanline). The smaller processing area will speed up 2D compositing operations accordingly. These bounds can be queried in Nuke to set up a Crop or DeepCrop node using the expressions below.</p>
+<pre class="pre codeblock"><code class="prettyprint">   crop.box.x : metadata exr/arnold/bounds_min_x]
+  crop.box.y : height - metadata exr/arnold/bounds_max_y]
+  crop.box.r : metadata exr/arnold/bounds_max_x] + 1
+  crop.box.t : height - metadata exr/arnold/bounds_min_y] + 1
+</code></pre></li>
+<li><p><strong>Shadow terminator fix</strong> : The technique used to mitigate shadow terminator artifacts in low-poly objects has been improved when dealing with concave, transparent or translucent surfaces. The obscure global option shadow_terminator_fix has been removed, since it no longer makes a difference in those cases.</p>
+<table>
+<thead>
+<tr>
+<th>Ticket</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>#2221</td>
+<td>Incorrectly build libai_renderview.a for linux</td>
+</tr>
+<tr>
+<td>#2222</td>
+<td>Nref should be exported as face-vertex indexed data</td>
+</tr>
+<tr>
+<td>#2200</td>
+<td>Assign ID to XGen childrens</td>
+</tr>
+<tr>
+<td>#2202</td>
+<td>Simplify RV Status Bar</td>
+</tr>
+<tr>
+<td>#2209</td>
+<td>Improve the hash method used to give "id" values to nodes</td>
+</tr>
+<tr>
+<td>#2218</td>
+<td>Settings get lost when the LUT window is closed</td>
+</tr>
+<tr>
+<td>#2219</td>
+<td>Support for animated background images in RV</td>
+</tr>
+<tr>
+<td>#2223</td>
+<td>RV changes the render camera when tweaking the render settings</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Ticket</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>#657</td>
+<td>procedurals and extensions</td>
+</tr>
+<tr>
+<td>#2056</td>
+<td>exr2.2 support</td>
+</tr>
+<tr>
+<td>#2203</td>
+<td>Add snapshot library with thumbnails in RV</td>
+</tr>
+<tr>
+<td>#2210</td>
+<td>Extract The RenderView from MtoA</td>
+</tr>
+<tr>
+<td>#2211</td>
+<td>Support "Isolate Selected" in RV with multiple selections</td>
+</tr>
+<tr>
+<td>#2212</td>
+<td>Choose which icons are displayed in the Toolbar</td>
+</tr>
+<tr>
+<td>#2217</td>
+<td>Support "Test Resolution" in the RenderView</td>
+</tr>
+<tr>
+<td>#2224</td>
+<td>Add sss_profile attribute to standard interface</td>
+</tr>
+<tr>
+<td>#2225</td>
+<td>Add specular_distribution attribute to standar interface</td>
+</tr>
+<tr>
+<td>#2226</td>
+<td>Add aov attribute to lights interface</td>
+</tr>
+<tr>
+<td>#2227</td>
+<td>Change the min value of threads number</td>
+</tr>
+<tr>
+<td>#213</td>
+<td>add default color to AtTextureParams and AiTextureAccess</td>
+</tr>
+<tr>
+<td>#652</td>
+<td>straggler buckets drive up render time</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/am-1x/arnold_for_maya_am_1x_am_12_html.html">1.2</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

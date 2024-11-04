@@ -1,0 +1,262 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_5x_am_510_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_510">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 5.1.0 - Arnold for Maya">
+
+<title>5.1.0</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>5.1.0</h1></div><p>18 Oct 2021</p>
+<p>MtoA 5.1.0 introduces Arnold <a href="https://help.autodesk.com/display/arnug/7.1.0.0">7.1.0.0</a> and is a major feature release bringing parallel preview renders on the CPU, multiple outputs for OSL and custom shaders, brand new imagers along with many other enhancements and bug fixes.</p>
+<h2 id="installation">Installation</h2><ul>
+<li><a href="https://manage.autodesk.com/products/MAYA" target="_blank">Download</a> the Arnold for Maya plugin</li>
+<li>Follow these installation instructions .</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2><ul>
+<li><p>Maya  2020, 2022 or 2023</p>
+</li>
+<li><p>Windows 10 or later, with the Visual Studio 2019 redistributable.</p>
+</li>
+<li><p>Linux with at least glibc 2.17 and libstdc++ 4.8.5 (gcc 4.8.5). This is equivalent to RHEL/CentOS 7.</p>
+</li>
+<li><p>macOS 10.13 or later .</p>
+</li>
+<li><p>CPUs need to support the SSE4.1 instruction set. Apple Mac models with M series chips are supported under Rosetta 2 mode.</p>
+</li>
+<li><p>GPU rendering works on Windows and Linux only and requires an NVIDIA GPU of the Ampere, Turing, Volta, Pascal, or Maxwell architecture.</p>
+</li>
+<li><p>Optix™ denoiser requires an NVidia GPU with <a href="https://developer.nvidia.com/cuda-gpus" target="_blank">CUDA™ Compute Capability 5.0</a> and above.</p>
+</li>
+<li><p>We recommend using the <strong><a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">511.09 (Quadro), 511.09 (GeForce)</a></strong> , or higher on <strong>Windows</strong> and <strong><a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">495.46</a></strong> or higher drivers on <strong>Linux</strong> . See Arnold GPU for more information.</p>
+</li>
+<li><h3 id="strong-the-driver-type-must-be-set-to-dch-strong"><strong>The driver type must be set to DCH.</strong></h3></li>
+</ul>
+<h2 id="sup-strong-i-span-style-color-rgb-29-28-29-n-the-driver-page-select-quot-windows-driver-type-quot-dch-span-strong-sup"><sup><strong>I <span style="color: rgb(29,28,29);">n the driver page select "Windows Driver Type:" DCH</span></strong></sup></h2><p>The cache will also need to be re-populated after installing a new Arnold version, <strong>updating to a new NVIDIA driver</strong> , or changing the hardware configuration of GPUs on the system. More information can be found here .</p>
+<h2 id="maya-plugins-compatibility">Maya Plugins Compatibility</h2><p>MtoA 5.1.0 works with the following Maya plugins</p>
+<ul>
+<li><a href="https://area.autodesk.com/bifrost/downloads/" target="_blank">Bifrost Extension for Maya 2.3.1.0</a></li>
+<li><a href="https://github.com/Autodesk/maya-usd/releases/tag/v0.16.0" target="_blank">MayaUSD 0.16.0</a> (USD 21.11)</li>
+</ul>
+<h2 id="enhancements">Enhancements</h2><ul>
+<li><strong>Improved IPR interactivity:</strong> GPU and CPU interactivity is improved. ARNOLD-11981, ARNOLD-12007</li>
+<li><strong>Stability improvements:</strong> We've improved the stability of Arnold, especially when using multiple render sessions.</li>
+<li><strong>Per axis texture in triplanar:</strong> The triplanar shader can now optionally use different textures for each axis. ARNOLD-11708.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-510-input-per-axis-0-1.jpg" alt=""></td>
+<td><img src="../images/am-510-input-per-axis-1-2.jpg" alt=""></td>
+</tr>
+<tr>
+<td>input_per_axis: disabled (default)</td>
+<td>input_per_axis: enabled</td>
+</tr>
+</tbody></table>
+<p>A wide range of shading effects such as snow, dust, sand, and moss, can be achieved using <em>input_per_axis (Y).</em></p>
+<p><img src="../images/am-510-car-snow-300-3.jpg" alt=""> <img src="../images/am-510-car-no-snow-300-4.jpg" alt=""> <img src="../images/am-510-cake-Y-5.jpg" alt=""> <img src="../images/am-510-cake-6.jpg" alt=""></p>
+<p><img src="../images/am-510-hatching-input-per-axis-1-7.jpg" alt=""> <img src="../images/am-510-hatching-input-per-axis-0-8.jpg" alt=""> <img src="../images/am-510-village-no-snow-300-9.jpg" alt=""> <img src="../images/am-510-village-snow-300-10.jpg" alt=""></p>
+<h2 id="sup-rollover-images-to-view-with-and-without-em-triplanar-input_per_axis-y-em-sup"><sup>Rollover images to view with and without <em>triplanar.input_per_axis (Y)</em></sup></h2><p>A video that shows how to use the <em>input_per_axis</em> can be found <a href="https://youtu.be/khFbtnOBlz8" target="_blank">here</a> .</p>
+<ul>
+<li><strong>Flip_on_opposite_direction in triplanar:</strong> A new parameter called <em>flip_on_opposite_direction</em> can also be used to control the behavior of the shader on faces facing the corresponding negative axis. ARNOLD-11615.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-510-flip-on-opposite-direction-1-default-11.jpg" alt=""></td>
+<td><img src="../images/am-510-flip-on-opposite-direction-0-12.jpg" alt=""></td>
+</tr>
+<tr>
+<td>flip_on_opposite_direction: enabled (default)</td>
+<td>flip_on_opposite_direction: disabled</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p><strong>Reduced overhead of running Imagers in IPR:</strong> Imagers will no longer always run after every progressive pass or bucket update. This can give a substantial speedup with expensive to run imagers. ARNOLD-11760</p>
+</li>
+<li><p><strong>Better startup and update times with atmosphere shader:</strong> Starting renders and updating parameters when using a high number of AA samples with a volume_scatter atmosphere shader should now be much faster. ARNOLD-5503</p>
+<p>Render times of a simple scene with volume_scatter.samples=30:</p>
+</li>
+</ul>
+<pre class="pre codeblock"><code class="prettyprint">| AA | AA_max | Arnold 7.0 | Arnold 7.1 |
+| --- | --- | --- | --- |
+| 4 | 50 | 5:28min (node update: 5:20min) | 8 sec (node update: 0 sec) |</code></pre><ul>
+<li><p><strong>Case insensitive output image file extension:</strong> <code>AiFindDriverType()</code> is now case insensitive, so asking, for instance, for a "png", "PNG", or "Png" will all return the png driver. This can be observed with <code>kick -o</code> , which will now work for different case types. ARNOLD-11934</p>
+</li>
+<li><p><strong>Updated MaterialX to 1.38.3:</strong> We now use MaterialX 1.38.3. Surface materials defined in a nodegraph are now supported. ARNOLD-10534, ARNOLD-11903</p>
+</li>
+<li><p><strong>Updated Alembic to 1.8.3:</strong> The alembic procedural has been upgraded to use version 1.8.3 of the alembic library. ARNOLD-11973</p>
+</li>
+<li><p><strong>Faster TextureResolveUseExistingTx:</strong> The <code>TextureResolveUseExistingTx</code> stage is now much faster when many threads are trying to open textures for the first time with the use existing tx option enabled. On a 128-core machine we saw about an 8x speedup. ARNOLD-11689</p>
+</li>
+<li><p><strong>Faster per-pixel imagers:</strong> We removed overhead in imagers that can execute independently on each pixel. The exposure and tonemap imagers, for instance, are now significantly faster. This likely will be most noticed when interacting in IPR with small buckets. Note that bloom and denoising imagers require access to all pixels and so will not benefit from this optimization. ARNOLD-12011</p>
+</li>
+<li><p><strong>Faster bloom imager:</strong> The bloom imager has been optimized. In one test we saw a 10% performance improvement. ARNOLD-11568</p>
+</li>
+<li><p><strong>AOV denoising with the OptiX denoiser:</strong> Upgraded from the Optix 6 to Optix 7 denoiser. This newer denoiser supports denoising AOVs in a way that allows the denoised result to be compositable. Prevoius OptiX denoisers had no guarantees that the denoised results would combine correctly. ARNOLD-11726</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-510-1-GTCRobot-beauty-noisy-13.png" alt=""></td>
+<td><img src="../images/am-510-2-GTCRobot-beauty-denoised-14.png" alt=""></td>
+<td><img src="../images/am-510-3-GTCRobot-diffuse-denoised-15.png" alt=""></td>
+<td><img src="../images/am-510-4-GTCRobot-specular-denoised-16.png" alt=""></td>
+<td><img src="../images/am-510-5-GTCRobot-combined-denoised-AOVs-17.png" alt=""></td>
+</tr>
+<tr>
+<td>Original beauty</td>
+<td>Denoised beauty</td>
+<td>Denoised diffuse AOV</td>
+<td>Denoised specular AOV</td>
+<td>Denoised diffuse + denoised specular</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>Upgraded OIIO to 2.4.0:</strong> This allowed for fixing several defects listed in the Bug Fixes section. ARNOLD-11651, ARNOLD-11785, ARNOLD-11790</p>
+</li>
+<li><p><strong>Invert view and display transform for textures using OCIO:</strong> When using an explicit OCIO or the default color manager, it is possible to specify both a display and view transform when writing outputs, using the <em>View ( Display</em> <em>)</em> syntax. It is now possible to use the same syntax for input color transforms as well. For example, reading a texture using the <em>ACES 1.0 SDR-video ( sRGB</em> <em>)</em> color space will correctly invert a file with a view transform baked in. (ARNOLD-11961).</p>
+</li>
+</ul>
+<h2 id="gpu-enhancements">GPU Enhancements</h2><ul>
+<li><strong>Improved GPU IPR interactivity:</strong> GPU IPR rendering is now more interactive. ARNOLD-11981</li>
+</ul>
+<h2 id="usd-enhancements">USD Enhancements</h2><ul>
+<li><strong>Point Instancer improvements</strong> : Per-instance primvars and nested instancers are now handled both in the procedural usd#944 as well as the render delegate <a href="https://github.com/Autodesk/arnold-usd/issues/482" target="_blank">usd#482</a> .</li>
+<li><strong>Mesh builtin normals :</strong> The procedural now reads the builtin USD description for mesh normals <a href="https://github.com/Autodesk/arnold-usd/issues/962" target="_blank">usd#962</a> <a href="https://github.com/Autodesk/arnold-usd/issues/986" target="_blank">usd#986</a></li>
+<li><strong>Curves UVs :</strong> The procedural now supports UVs on curves, for per-strand primvars <a href="https://github.com/Autodesk/arnold-usd/issues/975" target="_blank">usd#975</a></li>
+<li><strong>Light-linking :</strong> ignoreRoots wasn't supported correctly for light / shadow links in the procedural <a href="https://github.com/Autodesk/arnold-usd/issues/987" target="_blank">usd#987</a></li>
+<li><strong>Shadow parameters :</strong> The procedural now reads shadow parameters (enable, color) from USD lights <a href="https://github.com/Autodesk/arnold-usd/issues/945" target="_blank">usd#945</a></li>
+<li><strong>Shader connections to array attributes :</strong> The render delegate now supports rendering shader connection to an array attribute. This is needed e.g. to have shader connections on ramps <a href="https://github.com/Autodesk/arnold-usd/issues/970" target="_blank">usd#970</a></li>
+<li><strong>Render tags :</strong> Render tags are now taken into account by the render delegate <a href="https://github.com/Autodesk/arnold-usd/issues/883" target="_blank">usd#883</a></li>
+<li><strong>Procedural search path :</strong> USD is now properly considering the options procedural_search_path when loading nested procedurals <a href="https://github.com/Autodesk/arnold-usd/issues/942" target="_blank">#usd942</a></li>
+<li><strong>Motion blur with UsdSkel :</strong> the procedural now extends the interval used to bake the skinning, so that it includes surrounding integer frames <a href="https://github.com/Autodesk/arnold-usd/issues/951" target="_blank">usd#951</a></li>
+</ul>
+<h2 id="maya-usd-export">Maya USD Export</h2><p>With a version of MayaUSD 0.15 or higher, an export option called <em>Plug-in Configuration</em> is available. Switching this option to <em>Arnold</em> will let mayaUSD export all of the necessary Arnold data on top of MayaUSD exports. It will then be possible to render the scene in standalone by running <code>kick scene.usd.</code> Also, loading this file with mayausd as a proxy shape or through an <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Stand_ins_html">aiStandIn</a> will allow to render it on top of another scene.</p>
+<p>Known limitations:</p>
+<ul>
+<li><p>Importing such a usd file to maya won't import all the arnold data back to Maya</p>
+</li>
+<li><p>In order to kick the export usd file, it is necessary to create a camera so that MayaUSD exports it. The default "persp" camera will be ignored by mayaUSD.</p>
+</li>
+</ul>
+<p>Note that if you don't see the "Arnold" in the "Plug-in Configuration" list, it means that you don't have a version of MtoA that is compatible with the installed version of MayaUSD.</p>
+<h2 id="incompatible-changes">Incompatible Changes</h2><ul>
+<li><p>The Maya Triplanar projection now matches the viewport, this will break the look of old scenes (MTOA-813)</p>
+</li>
+<li><p>Legacy sky shaders as background will fail to load correctly in existing scenes, as they're no longer represented as DAG nodes (MTOA-951)</p>
+</li>
+<li><p>Maya's Light Editor replaces the previous Arnold Light Manager (MTOA-883)</p>
+</li>
+<li><p>aiVolume parameters motionStart / motionEnd are no longer needed since the proper range is considered by Arnold (MTOA-987)</p>
+</li>
+<li><p><strong>Warnings about deprecated API usage enabled by default:</strong> Warnings about deprecated API usage are controlled by the AI_ENABLE_DEPRECATION_WARNINGS macro, which is now set to 1 by default. This will help you find any use of old Arnold API that might be causing issues. If you still need to disable them for some specific part of your code, they can be disabled by setting AI_ENABLE_DEPRECATION_WARNINGS to 0. (ARNOLD-11751).</p>
+</li>
+<li><p><strong>Changes in node_initialize/node_update</strong> : Those functions now receive a new parameter for the render session where the node is being rendered. This render session can be used for any API call requiring it to be specified. (ARNOLD-11817)</p>
+</li>
+<li><p><strong>Changes in logging API</strong> : Logging functions have been modified so that log messages are associated with a universe instead of a render session. This means the <code>AiMsgSetLogFileFlags</code>, <code>AiMsgSetConsoleFlags</code>, <code>AiMsgGetLogFileFlags</code> and <code>AiMsgGetConsoleFlags</code> API functions will now require a universe pointer instead of a render session pointer. Also, the log callback will receive a universe pointer parameter (called "universe") instead of a render session pointer. (ARNOLD-11983)</p>
+</li>
+<li><p><strong>Autodesk Network Licensing version</strong> : Arnold 7.1 switches to <code>ARNOL_2023</code> licensing.</p>
+<ul>
+<li>Single-user subscriptions will work with Arnold 7.1. The plugin installers automatically register the new version. If you do not use a plugin, then after you download Arnold, open the Arnold License Manager and click <em>Register</em> .</li>
+<li>Existing network licenses will not work with Arnold 7.1. Log on to your Autodesk account to generate your new <code>ARNOL_2023</code> licenses.</li>
+</ul>
+</li>
+</ul>
+<h2 id="bug-fixes">Bug Fixes</h2><ul>
+<li><p>MTOA-942 - Overscan not exported to Arnold</p>
+</li>
+<li><p>MTOA-585 - Output Denoising AOVs should output denoise_albedo</p>
+</li>
+<li><p>MTOA-328 - Disable "append" option on exr if not tiled</p>
+</li>
+<li><p>MTOA-813 - Maya triplanar texture projection doesn't match Maya viewport</p>
+<p><img src="../images/am-510-triplanar-18.jpg" alt=""></p>
+</li>
+<li><p>MTOA-951 - Sky shaders no longer rendering as background</p>
+</li>
+<li><p>MTOA-983 - MtoA logging to console is generating too many duplicates</p>
+</li>
+<li><p>MTOA-987 - Fix motion range for aiVolume nodes</p>
+</li>
+</ul>
+<ul>
+<li>ARNOLD-11958 - Color correct shader produces incorrect values with small gamma values</li>
+<li>ARNOLD-11852 - Memory leak with imagers when rendering multiple frames</li>
+<li>ARNOLD-11835 - Full frame imagers crash with negative render region</li>
+<li>ARNOLD-11827 - Intel Alder Lake CPUs did not always use high performance cores in Windows</li>
+<li>ARNOLD-11795 - Spotlight penumbra should affect the specular intensity</li>
+<li>ARNOLD-11667 - GPU and CPU+FIS filtering generated sampling patterns that could alias</li>
+<li>ARNOLD-11242 - 'n' key was no longer toggling AI denoisers in kick IPR</li>
+<li>ARNOLD-10400 - Volume motion blur advection computation was incorrect</li>
+<li>ARNOLD-10391 - Volume motion blur used incorrect motion/shutter intervals</li>
+<li>ARNOLD-11889 - Maketx --monochrome-detect should generate Y not R image for exr formats</li>
+<li>ARNOLD-11968 - AiUniverseGetRenderSession returns invalid pointer instead of null if the session was previously destroyed</li>
+<li>ARNOLD-11982 - Texture invalidation in Linux and macOS occurred even when texture was not modified</li>
+<li>ARNOLD-12055 - [GPU] Crash switching from CPU to GPU with optix denoiser</li>
+<li>ARNOLD-10577 - [GPU] Textured skydome_light leaks memory over multiple frames in a session</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_5x_html.html">MtoA 5.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-F1A304DB-0391-499B-AC74-000396AAD416">
+<meta name="language" content="CHS">
+<title>为 XGen“修改器”(Modifiers)创建点贴图</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-F1A304DB-0391-499B-AC74-000396AAD416">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>为 XGen“修改器”(Modifiers)创建点贴图</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__GUID-ABA3399B-97EE-4ACE-A8A6-0427A66674E1">添加<span class="ph uicontrol" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__GUID-04F067A1-8816-4EAA-8A7B-A1AB1C0FD416">“动画线”(Anim Wires)</span>或<span class="ph uicontrol" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__GUID-7DF671BF-0FC8-4E29-9986-F94F9C2D480B">“成束”(Clumping)</span>修改器时，XGen 使用网格上点的集合确定生成动画线和成束导向的位置。Maya 会将这些点位置保存为贴图，并将信息存储为点 (<samp class="ph codeph" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__GUID-7476254E-7575-4B52-84E5-D1BE5E5F3B48">.xuv</samp>) 文件。 
+	 </p>
+<p class="p" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__GUID-A9F44912-7B4E-4F76-9C5F-FCBE9380EA07">默认情况下，该文件将保存到描述的 <samp class="ph codeph" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__GUID-44388564-8E93-4AF9-9EE6-A42CD0535094">Points</samp> 文件夹中。点文件名基于绑定到描述的多边形对象。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F.htm">管理 XGen 文件和目录</a>以及 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-56075F6B-D1C9-4056-BDBC-9766C44AB88C.htm">XGen 中的 Ptex 贴图文件位置</a>。 
+	 </p>
+<p class="p" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__GUID-59D8EF02-447A-48F7-8A9C-D35D528736A0">点贴图也用于在网格曲面的特定位置上生成基本体（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-D38ED627-6B03-4C22-ABE4-AA4D1FD22EAC.htm" title="使用“指定点工具”(Specify Points Tool)，指定要在网格曲面上生成的基本体或几何体的位置。">指定基本体的位置</a>）。 
+	 </p>
+<div class="note note" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__GUID-C4282F6B-76E1-4DDA-A3CA-3132EBB337D6"><span class="notetitle">注：</span>  若要在其他描述中使用相同的点贴图，描述必须绑定到具有相同拓扑的几何体。 
+		<ol class="ol" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__OL_F39068B2FEB6423B8947DFC5F2674C11"><li class="li" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__LI_99D52BEA59DB4EBE9460A2C8CD66F7C4">在<span class="ph uicontrol" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__GUID-F4B964ED-CB9D-4808-9E12-4647BEAB5453">“生成贴图”(Generate Maps)</span>（对于<span class="ph uicontrol" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__GUID-533B50EC-436A-484A-95DC-82590A49B5EF">“动画线”(AnimWire)</span>）或<span class="ph uicontrol" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__GUID-0E59F571-5647-4010-A0C9-3D457BD567D7">“生成成束贴图”(Generate Clumping Map)</span>（对于<span class="ph uicontrol" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__GUID-7FDC8577-EE23-4254-B919-5D33A48B4BD5">“成束”(Clumping)</span>）窗口中，执行以下操作之一： 
+			 <ul class="ul" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__UL_033C0602A85B4710B82557F8CCB7E33E"><li class="li" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__LI_D74C139A6FF44C7188418AD2F3E35879">若要使用已为描述创建的点贴图，请单击<span class="ph uicontrol" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__GUID-CFAC5ED4-E38C-4CF8-BE33-80FAD61382E1">加载(Load)</span>。 
+				</li>
+<li class="li" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__LI_6E4FCF3230C84767963E6853947E7FE7">若要创建新的点贴图，请设置<span class="ph uicontrol" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__GUID-4CF51773-59B3-42E4-95F0-72BF38BE6C22">密度(Density)</span>，然后单击<span class="ph uicontrol" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__GUID-60D3C1FC-5100-44DA-BB80-97D2D7F47824">生成(Generate)</span>。 
+				</li>
+<li class="li" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__LI_471628E5307D47B8A0A253F535E12A2A">若要创建新的点位置，请在多边形曲面上单击这些区域。 
+				</li>
+<li class="li" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__LI_E82DDE303ECF4958A49471F672145D1F">（仅适用于基于导向的描述）若要在描述导向位置使用放置点，请单击<span class="ph uicontrol" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__GUID-79AE4CB7-6517-4E1C-B9AE-9BBCC5889EE8">“导向”(Guide)</span>。 
+				</li>
+</ul>
+ 
+		  </li>
+<li class="li" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__LI_D4E1EF7B3AE544AF9FC84A77A080B881">（可选）使用<span class="ph uicontrol" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__GUID-B2490609-7216-455E-A377-A7E74404E688">“点显示长度”(Points Display Length)</span>增大或减小点标记。 
+		  </li>
+<li class="li" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__LI_2FD6E0B3E59346839776E760E1BC8D20">若要将<span class="ph uicontrol" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__GUID-92C89278-9D30-4D08-A70A-30C4E46891E3">“遮罩”(Mask)</span>应用于点贴图，请单击 <img class="image" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__IMAGE_297D192976F541AAA6BA17A419FB13BA" src="../images/GUID-08B39FDE-C9A4-469D-883A-E54A77A2A1E2.png">，然后从列表中选择一个选项。 
+			 <p class="p" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__GUID-0CE5037E-6994-4C88-812F-62B0F5808517">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-8EF9212D-8496-4563-B30E-5A80608DB122.htm" title="创建基于 Ptex 的贴图，以基于颜色值和纹理控制属性值。">创建 Ptex 贴图以控制基本体</a>。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__LI_EE32A1B1C9B449A0B0C6B86993195448">单击<span class="ph uicontrol" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__GUID-2567F700-5235-402E-9AE2-B85EB8DCE24E">“保存”(Save)</span>。 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__SECTION_18708A2CBDEE4A97B00B422B6819822C"><h2 class="title sectiontitle">相关任务</h2> 
+		 
+		<ul class="ul" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__UL_F9FD29BC94CF467BAA7D5FA9C5315BBA"><li class="li" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__LI_48DFC74A4D9843D08AC1EDCC3D35BB1C"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-696C7063-42F5-4965-A9D3-9FB0CBCF1A57.htm">使用“动画线”(Anim Wires)修改器设置样条线基本体的动画</a> 
+		  </li>
+<li class="li" id="GUID-F1A304DB-0391-499B-AC74-000396AAD416__LI_4A13B654D809454596A41B9BBC641698"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-B09BD7E3-8792-4381-B7BA-86ABFFE9ED55.htm">创建头发或毛发束</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-A7BD9C80-AEC1-476E-AEDB-1EC2439F71F2.htm">定形和控制 XGen 基本体</a></div>
+</div>
+</div>
+
+</body>
+</html>

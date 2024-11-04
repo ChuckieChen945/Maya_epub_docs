@@ -1,0 +1,129 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shapes_am_Particles_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_PARTICLES">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 粒子 - Arnold for Maya">
+
+<title>粒子</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>粒子</h1></div>
+<div class="arnold-note">
+
+
+
+<table>
+<thead>
+<tr>
+<th>延伸阅读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有关 Arnold 形状和形状参数的完整文档，请参见<strong>《Arnold 用户手册》</strong>中的<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shapes_html" target="_blank">形状</a>。</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<p><img src="../images/mtoa_particles1.png" alt=""></p>
+<p>MtoA 支持 Maya 粒子和 nParticle，但目前存在一些限制：</p>
+<ul>
+<li><em>管状、数字</em>和<em>条纹</em>不受支持。</li>
+<li>粒子和不同纹理（例如 <em>Maya 渐变</em>纹理）中的 UV 坐标存在一些限制。    </li>
+<li>粒子云着色器不受支持。</li>
+<li>IPR 刷新不时需要强制执行。</li>
+<li>目前只针对多边形网格支持 SSS。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>有关演示将 nParticle 渲染为体积的 Maya 场景，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/nparticle-volume-collector-cloud.ma" target="_blank">此处</a>。</th>
+</tr>
+</thead>
+</table>
+<h3 id="interpolated-motion-blur">插值运动模糊(Interpolated Motion Blur)</h3><p>如果场景中的运动模糊关键帧与 nParticle 缓存采样时间不匹配，则会出现瑕疵。“插值运动模糊”(Interpolated Motion Blur)检查通过使用缓存中最近的采样可避免此情况。此选项要求<strong><em>“nCache 求值间隔”(nCache Evaluation Interval)</em></strong>属性与创建 nCache 时使用的<strong><em>“nCache 帧求值频率”(nCache Evaluate Every # frame(s))</em></strong>选项相同。</p>
+<p><img src="../images/mtoa_particles2.png" alt=""></p>
+<p>使用运动模糊时，此选项将禁止渲染超出最大粒子<strong>“寿命”(Lifespan)</strong>范围的粒子。</p>
+<p><img src="../images/mtoa_particles3.png" alt=""></p>
+<p><sup><strong>粒子最大寿命范围达到多边形平面（左）。删除无效粒子(Delete Dead Particles)：禁用。运动模糊超出粒子寿命（错误）（中心）。删除无效粒子(Delete Dead Particles)：启用（运动模糊正确）（右）。</strong></sup></p>
+<h2 id="">工作流问题</h2><h3 id="">粒子采样器信息</h3><p>MtoA 不导出 <em>particleSamplerInfo</em> 节点。它会导出某些“userDataXXX”节点，而这些节点需要导出粒子对象中的信息。</p>
+<p>在下面的示例中，一个 <em>particleSamplerInfo</em> 连接到渐变纹理的 UV 坐标，且<em>“输出 UV 类型”(Out UV Type)</em>设置为<em>“规格化的年龄”(Normalized Age)</em>：</p>
+<p><img src="../images/mtoa_particles4.png" alt=""></p>
+<p><sup><strong><em>particleSamplerInfo </em> 被忽略，且随着时间的推移，粒子颜色保持不变</strong></sup></p>
+<p>默认情况下无法做到这一点。要想做到这一点，请选择 <em>particleShape</em> 节点，并在<em>“Arnold”</em>部分的<em>“导出属性”(Export Attributes)</em>中键入“age”：</p>
+<p><img src="../images/mtoa_particles5.png" alt=""></p>
+<p><sub><strong>向 ParticleShape 节点的 Arnold 导出属性添加“年龄”(Age)可修复与 particleSamplerInfo 节点的连接</strong></sub></p>
+<table>
+<thead>
+<tr>
+<th>有关演示上述粒子采样器信息工作流的 Maya 场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/user-guide-particle-sampler-info.ma" target="_blank">此处</a>。</th>
+</tr>
+</thead>
+</table>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>仅当 particleShape 的“Arnold”部分中的“不透明度”(Opacity)为禁用时，才会导出 OpacityPP 及粒子。</p>
+
+</div></div>
+
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>将 Maya 粒子实例化器与*<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Stand_ins_html">替代对象</a>*结合使用是生成复杂场景的有效方法。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/arnold_for_maya_shapes_html.html">形状</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

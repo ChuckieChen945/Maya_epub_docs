@@ -1,0 +1,260 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Customizing">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4">
+<meta name="language" content="CHS">
+<title>创建自定义平视显示仪读数</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>创建自定义平视显示仪读数</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2606"> 使用 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/headsUpDisplay.html" target="_blank">headsUpDisplay</a> MEL 命令，可以在平视显示仪中创建或编辑自定义读数。 
+	 </p>
+<p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2608">下文将说明使用该命令的基础知识。请阅读 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/headsUpDisplay.html" target="_blank">headsUpDisplay</a> 命令文档，了解该命令用途和标志的完整说明。 
+	 </p>
+<div class="section" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F260C"><h2 class="title sectiontitle">组成部分</h2> 
+		 
+		<div class="section" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F260D"><h3 class="title sectiontitle">程序</h3> 
+		   
+		  <p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F260E">创建返回要在平视显示仪中显示的信息的 MEL 程序。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F260F"><h3 class="title sectiontitle">更新事件</h3> 
+		   
+		  <p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2610">确定 <span class="ph msgph prodname" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 何时需要更新显示项目。例如，如果显示项目显示有关选定对象的信息，则只有在当前选择发生更改时，<span class="ph msgph prodname" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 才需更改显示项目。这是触发显示更新的事件。 
+		  </p>
+ 
+		  <p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2611"><span class="ph msgph prodname" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 有许多您可以关注的事件。使用 <samp class="ph codeph" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__GUID-907B2DD8-3B31-4F60-A032-83A41DB28070">headsUpDisplay -listEvents</samp> 可以查看所有事件的列表。 
+		  </p>
+ 
+		  <p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2612">如果更新根据的是基于选择的事件（“SelectionChanged”或“SomethingSelected”），则可以使用 <samp class="ph codeph" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__GUID-035C0400-0319-4E35-B6C7-88169A47AAAE">-nodeChanges</samp> 标志将事件侦听细化到仅侦听选定节点特定更改类型的触发。 
+		  </p>
+ 
+		  <p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2613"> 
+			 <samp class="ph codeph" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__GUID-F35B85E6-87F3-43D0-8510-85114910165B">-nodeChanges </samp>"<samp class="ph codeph" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__GUID-97F08DE6-9291-4AC4-B3E9-43EE4A0F0269">attributeChange</samp>" 在选定节点上任何属性发生更改时触发。 
+		  </p>
+ 
+		  <p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2614"> 
+			 <samp class="ph codeph" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__GUID-B55557F0-E210-41A5-AB4D-AF5DD18CC597">-nodeChanges </samp>"<samp class="ph codeph" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__GUID-0D71517E-7723-4937-A3F6-F6DF90C3D832">connectionChange</samp>" 在选定节点上任何输入或输出发生更改时触发。 
+		  </p>
+ 
+		  <p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2615"> 
+			 <samp class="ph codeph" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__GUID-54AA2537-5BAC-4834-8600-2C3263176D5A">-nodeChanges </samp>"<samp class="ph codeph" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__GUID-33B5E42C-1076-4FA1-9AA6-E01CFC295087">instanceChange</samp>" 在任何选定的实例化节点发生更改时触发。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2616"><h3 class="title sectiontitle">区域和块位置</h3> 
+		   
+		  <p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2617">选择用于项目在其中显示的列。这称为区域。下图显示了命令用于指示每个列的数字。0 是左上角，9 是屏幕右下角。 
+		  </p>
+ 
+		  
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2618" class="table" width="100%" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="24.508670520231213%"> 
+						<p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2619">0 
+						</p>
+ 
+					 </td>
+<td class="entry" valign="top" width="18.78612716763006%"> 
+						<p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F261A">1 
+						</p>
+ 
+					 </td>
+<td class="entry" valign="top" width="15.78034682080925%"> 
+						<p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F261B">2 
+						</p>
+ 
+					 </td>
+<td class="entry" valign="top" width="18.20809248554913%"> 
+						<p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F261C">3 
+						</p>
+ 
+					 </td>
+<td class="entry" valign="top" width="22.71676300578035%"> 
+						<p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F261D">4 
+						</p>
+ 
+					 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="24.508670520231213%"> 
+						<p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F261E">5 
+						</p>
+ 
+					 </td>
+<td class="entry" valign="top" width="18.78612716763006%"> 
+						<p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F261F">6 
+						</p>
+ 
+					 </td>
+<td class="entry" valign="top" width="15.78034682080925%"> 
+						<p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2620">7 
+						</p>
+ 
+					 </td>
+<td class="entry" valign="top" width="18.20809248554913%"> 
+						<p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2621">8 
+						</p>
+ 
+					 </td>
+<td class="entry" valign="top" width="22.71676300578035%"> 
+						<p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2622">9 
+						</p>
+ 
+					 </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		  <p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2623">在区域内选择项目在其上显示的线。这称为块。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2624"><h3 class="title sectiontitle">标签</h3> 
+		   
+		  <p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2625">选择在显示线上显示于信息之前的标签，例如“位置:”。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2626"><h3 class="title sectiontitle">命令</h3> 
+		   
+		  <p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2627">创建平视显示仪项目： 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+headsUpDisplay 
+ -section &lt;section number&gt;
+ -block &lt;block number&gt;
+ -label "&lt;label&gt;"
+ -command "&lt;procedure()&gt;"
+ -event "&lt;event&gt;"
+ &lt;object name&gt;;
+</pre>
+ 
+		  <p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2628">然后，显示项目： 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+headsUpDisplay -edit -visability 1 &lt;object name&gt;;
+</pre>
+ 
+		  <p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2629">或者隐藏项目： 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+headsUpDisplay -edit -visability 0 &lt;object name&gt;;
+</pre>
+ 
+		  <p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F262A">请参见以下示例。 
+		  </p>
+ 
+		  <p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F262B">命令所拥有的选项数多于此处所述项目数，特别是更改显示项目的外观和检查块使用情况的选项。请阅读 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/headsUpDisplay.html" target="_blank">headsUpDisplay</a> 命令文档，了解详细信息。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F262C"><h3 class="title sectiontitle">使更改永久有效</h3> 
+		   
+		  <p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F262D">将创建平视显示仪项目（以及任何关联的用户界面）的命令添加到 userSetup.mel 中，使其永久添加到 <span class="ph msgph prodname" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 副本中。 
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F262E"><h2 class="title sectiontitle">示例</h2> 
+		 
+		<p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F262F">例如，要在平视显示仪中显示选定对象的 XYZ 坐标，则创建返回选定对象 XYZ 坐标的 MEL 程序（例如，objectPosition()）。 
+		</p>
+ 
+		<div class="section" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2630"><h3 class="title sectiontitle">objectPosition 程序</h3> 
+		   
+		  <pre class="pre codeblock">
+global proc float[] objectPosition ()
+{
+ string $selectedNodes[] = `selectedNodes`;
+ float $position[3];
+ if (size($selectedNodes) &gt; 0)
+ {
+ string $mainObject = $selectedNodes[ (size($selectedNodes) - 1) ];
+ $position[0] = `getAttr $mainObject.translateX`;
+ $position[1] = `getAttr $mainObject.translateY`;
+ $position[2] = `getAttr $mainObject.translateZ`;
+ }
+ else
+ {
+ $position[0] = 0;
+ $position[1] = 0;
+ $position[2] = 0;
+ }
+ return $position;
+}
+</pre>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2631"><h3 class="title sectiontitle">headsUpDisplay 命令</h3> 
+		   
+		  <p class="p" id="GUID-5C6AFD87-82DE-4C4B-B3F1-DB4A0C3B59C4__WS73099CC142F487553B93539F117EA10CE8F2632">然后，使用 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/headsUpDisplay.html" target="_blank">headsUpDisplay</a> 命令创建平视显示仪对象，并添加用户界面以启用或禁用显示项目。 
+		  </p>
+ 
+		  <pre class="pre codeblock">
+// Create custom HUD objects
+// To create a script like this for testing, see the command documentation
+// for the headsUpDisplay command.
+//
+headsUpDisplay 
+ -section 4
+ -block 5
+ -label "Position:"
+ -command "objectPosition()"
+ -event "SelectionChanged"
+ -nodeChanges "attributeChange"
+ HUDObjectPosition;
+// Add menu items to control the custom items
+// 
+global string $gHeadsUpDisplayMenu;
+// Add a divider to separate Maya items from custom items
+menuItem -parent $gHeadsUpDisplayMenu -divider true;
+// Add one menu item per heads up display object created above
+//
+menuItem -parent $gHeadsUpDisplayMenu
+ -checkBox true
+ -label "Object Position"
+ -command "headsUpDisplay -e -vis 1 HUDObjectPosition"
+ -annotation "Object Postion: Toggle the display of object position"\
+ myObjectPostionItem;
+</pre>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-37E02448-88B4-4722-8B8A-1BA607E5D1CC.htm">高级自定义</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_1x_am_140_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_140">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 1.4.0 - Arnold for Maya">
+
+<title>1.4.0</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>1.4.0</h1></div><h2 id="release-date">Release Date</h2><p>04 November 2016</p>
+<p>This version uses the Arnold <a href="https://help.autodesk.com/display/arnug/4.2.15.1">4.2.15.1</a> core.</p>
+<h2 id="downloads">DOWNLOADS</h2><ul>
+<li><a href="https://manage.autodesk.com/products/" target="_blank">https://manage.autodesk.com/products/</a></li>
+</ul>
+<p>This version uses the <a href="https://help.autodesk.com/x/KQHZAQ">Arnold 4.2.15.1</a> core.</p>
+<h2 id="ipr-enhancements">IPR Enhancements</h2><p>A video showing some of the IPR improvements in MtoA 1.4.0 can be found <a href="https://www.youtube.com/watch?v=isOwAmFB62Q" target="_blank">here.</a></p>
+<p><strong>The following scene changes should now update properly in the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_rendering_am_Arnold_RenderView_Window_html">Arnold RenderView</a> window:</strong></p>
+<ul>
+<li>Standins are updated in an animation. 3rd party procedurals will need some adjustments in order to support that too.</li>
+<li>Support frame changes with motion blur enabled (used to work badly).</li>
+<li>Nurbs surfaces couldn't be edited.</li>
+<li>Some nodes were still visible in the IPR after deletion.</li>
+<li>Support instance changes/ animations.</li>
+<li>Support particle changes/ animations.</li>
+<li>Support creating new shaders and connecting them in the shading tree.</li>
+<li>Support properly any changes in bump.</li>
+<li>Support parenting/unparenting of objects.</li>
+<li>Support changes in mesh "smoothing" parameters.</li>
+<li>Support changes in a Set's extra attributes (didn't work correctly in 100% situations).</li>
+<li>Support User data changes.</li>
+<li>Support changes with XGen nodes.</li>
+<li>Support changes with Bifrost nodes.</li>
+<li>"Frame" attribute is updated in the options when the frame changes.</li>
+<li>Matte checkbox.</li>
+<li>Changes in the log settings.</li>
+</ul>
+<p><strong>Preventing useless IPR refreshes.</strong></p>
+<p>The IPR no longer restarts when:</p>
+<ul>
+<li>A non-render camera is edited.</li>
+<li>The scene is saved.</li>
+<li>Some Maya windows are opened (hypershade / light editor).</li>
+<li>Shader selection in the hypershade (because of the swatch render).</li>
+<li>A new shader is created. Only connecting them in the shading tree will restart IPR.</li>
+<li>An empty render layer is created in Render Setup (Maya 2017).</li>
+<li>A collection is created in a non-visible layer (Maya 2017).</li>
+<li>We used to re-generate the skydome caches whenever any attribute was changed, but most of them (including skydome rotation) don't actually require that.</li>
+<li>When motion blur is enabled, the frame is switched for motion evaluation 'only' if we're editing an animated node. Editing static shaders, lights, etc.. won't trigger the motion evaluation, which is of course much faster. Therefore, we can now do IPR with motion blur enabled.</li>
+</ul>
+<h2 id="new-features">New Features</h2><ul>
+<li><strong>ARV can be docked in Maya 2017.</strong> In Maya 2017, it is now possible to dock the Arnold RenderView to Maya workspaces.</li>
+<li><strong>New <a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Curve+Collector&amp;linkCreation=true&amp;fromPageId=154764425">Curve Collector</a> node.</strong> To render Maya curves, one should now select the curves and do "Arnold -&gt; Curve Collector". This will create a Curve Collector node in Maya, with all the curves below its hierarchy. All Arnold curve attributes will then be controlled by the collector, and the curves will be merged into a single Arnold "curves" node. This results in a much faster export/ render than previous solutions.</li>
+<li><strong>New <a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Light+Portal&amp;linkCreation=true&amp;fromPageId=154764425">Light Portal</a> node.</strong> This was introduced for interior scenes which can be very noisy when rendered with a SkyDome Light. Light Portals will force the SkyDome light rays to be bent in the portals direction, which eliminates a lot of noise.</li>
+<li><strong>New <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Curvature_html">Curvature</a> Shader.</strong> As in other Arnold plugins. It returns a color based on the geometry's curvature, allowing you to use it for specific effects.</li>
+<li><strong>New command to update TX files.</strong> The new menu <em>Arnold-&gt;Utilities-&gt;Update TX</em> Files allows you to update all TX files that require it. The MEL command is <em>arnoldUpdateTx</em></li>
+<li><strong>New command to Flush cache on selected texture(s).</strong> This allows you to only flush the cache on specific textures (for example when a texture is being painted/modified). It is now possible to flush the cache on selected textures only with the menu <em>Flush Cache-&gt; Selected Textures.</em></li>
+<li><strong>Added naming options for .ASS export to avoid name conflicts.</strong> In the "Export to .ASS" options, you can now use the "Full path" option, or to specify a "Prefix". This will export the Arnold scene with a specific naming and can avoid naming conflicts when rendering the final scene.</li>
+<li>A new attribute called <strong>Velocity threshold</strong> (in Volume nodes), allows you to optimize renders by reducing the motion bounds.</li>
+<li>New built-in AOVs <strong>diffuse_albedo</strong> and <strong>shadow_matte</strong></li>
+<li>Improvements on Instances :  <ul>
+<li>User attributes are now exported from instances.</li>
+<li>The instancer now exports custom attributes from non-particle systems.</li>
+<li>Instancers now always generate the same name when the scene is exported.  </li>
+</ul>
+</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible changes</h2><ul>
+<li>Only renderable cameras will now be exported to .ass.</li>
+<li>Texture cache is now 2048 Mb by default.</li>
+<li>When motion blur is enabled, all static data will now be exported on the current frame, instead of the shutter start.</li>
+<li>'Ignore motion blur' now renders a scene at the current frame instead of at the shutter start.</li>
+<li>OSX 10.9 and higher required.</li>
+<li>Disabling LOD Visibility now hides the objects at render time</li>
+<li><strong>Major changes in MtoA API.</strong> MtoA's API has been refactored and simplified, removing several useless files and functions. This will allow you, in the future, to maintain binary compatibility between versions much easily than in the past, so that 3rd party extensions remain compatible. All extensions should be adapted to 1.4.0 as explained <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_extensions_am_Translator_of_a_custom_node_html">here</a> .</li>
+</ul>
+<h2 id="fixes">Fixes</h2><table>
+<thead>
+<tr>
+<th>Ticket</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>#2146</td>
+<td>Exporting 60K curves is very slow</td>
+</tr>
+<tr>
+<td>#2083</td>
+<td>instancerTranslator doesn't use custom attributes coming from non particle systems</td>
+</tr>
+<tr>
+<td>#2220</td>
+<td>Exporting user attributes from transform and instances</td>
+</tr>
+<tr>
+<td>#2518</td>
+<td>Refactor Node Translators to simplify MtoA API</td>
+</tr>
+<tr>
+<td>#1057</td>
+<td>Don't refresh IPR, when a non active camera is used</td>
+</tr>
+<tr>
+<td>#1209</td>
+<td>When some features in motion blur are disabled, they are not sampled at the right time</td>
+</tr>
+<tr>
+<td>#1410</td>
+<td>Handle IPR refresh when Motion Blur Options change.</td>
+</tr>
+<tr>
+<td>#1562</td>
+<td>Matte options are not refreshed in IPR without manually restarting</td>
+</tr>
+<tr>
+<td>#1661</td>
+<td>Deforming a NURBS surface does not update in the IPR</td>
+</tr>
+<tr>
+<td>#1708</td>
+<td>Saving scene refreshes the IPR</td>
+</tr>
+<tr>
+<td>#2045</td>
+<td>Instances of pfxHair nodes are exported without a link to a shader</td>
+</tr>
+<tr>
+<td>#2084</td>
+<td>instancerTranslator doesn't track nodes created</td>
+</tr>
+<tr>
+<td>#2104</td>
+<td>Instancer translator generates invalid data when deforming meshes are used during IPR</td>
+</tr>
+<tr>
+<td>#2215</td>
+<td>Support AI_TYPE_UINT in CNodeTranslator::ProcessParameter</td>
+</tr>
+<tr>
+<td>#2269</td>
+<td>Curves are still visible in IPR after deletion</td>
+</tr>
+<tr>
+<td>#2314</td>
+<td>Allow Procedurals to be re-generated during IPR</td>
+</tr>
+<tr>
+<td>#2472</td>
+<td>Arnold RenderView not updating when subdiv polymesh settings change</td>
+</tr>
+<tr>
+<td>#2500</td>
+<td>Bifrost Foam motion blur in Arnold is constant and doesn't react to moBlur setting changes</td>
+</tr>
+<tr>
+<td>#2521</td>
+<td>Curvature shader</td>
+</tr>
+<tr>
+<td>#2524</td>
+<td>default export of top/side/front cameras</td>
+</tr>
+<tr>
+<td>#2539</td>
+<td>Don't clear skydome cache at every change in the skydome</td>
+</tr>
+<tr>
+<td>#2540</td>
+<td>IPR is refreshed when opening the hypershade / selecting a shader</td>
+</tr>
+<tr>
+<td>#2544</td>
+<td>Connecting bump during IPR is not updated</td>
+</tr>
+<tr>
+<td>#2546</td>
+<td>IPR refreshed too often when a new node is created</td>
+</tr>
+<tr>
+<td>#2548</td>
+<td>Parenting isn't updated in IPR</td>
+</tr>
+<tr>
+<td>#2549</td>
+<td>User data not updated during IPR</td>
+</tr>
+<tr>
+<td>#2557</td>
+<td>Fix to follow Maya's new use of display names for render layers.</td>
+</tr>
+<tr>
+<td>#2560</td>
+<td>Editing set's overridden attributes doesn't update IPR correctly</td>
+</tr>
+<tr>
+<td>#2571</td>
+<td>IPR refreshed when Light Editor is opened</td>
+</tr>
+<tr>
+<td>#2572</td>
+<td>Log options not updated in IPR</td>
+</tr>
+<tr>
+<td>#2584</td>
+<td>Particles not refreshed in IPR</td>
+</tr>
+<tr>
+<td>#2599</td>
+<td>Support XGen updates in IPR</td>
+</tr>
+<tr>
+<td>#2603</td>
+<td>Support Bifrost updates in IPR</td>
+</tr>
+<tr>
+<td>#2604</td>
+<td>[Windows] TX files are locked</td>
+</tr>
+<tr>
+<td>#2615</td>
+<td>IPR Crash when deleting a set</td>
+</tr>
+<tr>
+<td>#2619</td>
+<td>Add Doxygen tags in API files</td>
+</tr>
+<tr>
+<td>#2633</td>
+<td>Support Volume threshold in OpenVDB volumes</td>
+</tr>
+<tr>
+<td>#2207</td>
+<td>InstancerTranslator generates different names every time scene is exported</td>
+</tr>
+<tr>
+<td>#2319</td>
+<td>Frame attr is not being updated at frame change during IPR session</td>
+</tr>
+<tr>
+<td>#2624</td>
+<td>Increase default texture cache to 2048</td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_1x_html.html">MtoA 1.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

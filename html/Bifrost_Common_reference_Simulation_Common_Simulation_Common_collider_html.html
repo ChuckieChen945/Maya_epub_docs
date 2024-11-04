@@ -1,0 +1,83 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_Common_Simulation_Common_collider_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>collider</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>collider</code></h1></div><p>碰撞对象是 Bifrost 模拟流程的障碍物。可以使用它们形成烟必须围绕其流动的障碍物，或者创建防止粒子在重力作用下流失的水池。可以为碰撞对象设置动画以创建各种效果。</p>
+<p>要使用此节点，请将其输出插入模拟节点（如 <code>simulate_aero</code>、<code>simulate_particles</code> 或 <code>simulate_mpm</code>）的 <code>colliders</code> 输入。</p>
+<h2 id="">输入</h2><h3 id="geometry"><code>geometry</code></h3><p>连接一个或多个几何对象以充当障碍物。这些可以是点对象、网格或体积。</p>
+<h2 id="">常规</h2><p>这些设置适用于所有方法。</p>
+<h3 id="enable"><code>enable</code></h3><p>关闭该选项可禁用碰撞。</p>
+<h3 id="method"><code>method</code></h3><p>碰撞是基于体积还是网格。</p>
+<ul>
+<li><code>Automatic</code>：使用基于体积的碰撞进行 Aero 和燃烧模拟，使用基于网格的碰撞进行粒子和 MPM 模拟。</li>
+<li><code>Volume</code>：可用于 Aero、燃烧和粒子模拟。输入网格自动转化为体积。输入体积必须有一个等值面 (<code>voxel_signed_distance</code>)。</li>
+<li><code>Mesh_For_Points</code>：可用于粒子和 MPM 模拟。此方法不支持输入体积。</li>
+</ul>
+<h3 id="start_frame"><code>start_frame</code></h3><p>发生碰撞的第一帧。</p>
+<h3 id="use_end_frame"><code>use_end_frame</code></h3><p>在指定的 <code>end_frame</code> 上停止碰撞。</p>
+<h3 id="end_frame"><code>end_frame</code></h3><p>模拟的最后一帧。</p>
+<h3 id="common-properties"><code>Common Properties</code></h3><p>这些设置应用于基于体积的碰撞和基于网格的碰撞。</p>
+<h3 id="detail_size"><code>detail_size</code></h3><p>模拟中最小可解析细节的大小。</p>
+<h3 id="offset"><code>offset</code></h3><p>与几何体曲面的碰撞距离（以世界空间单位表示）。正值会将碰撞曲面向外推，负值会将曲面收缩。但请注意，基于网格的粒子碰撞不支持负值。</p>
+<h3 id="inherit_velocity"><code>inherit_velocity</code></h3><p>碰撞时传递的碰撞对象几何体的动画运动比例。值为 0.0 表示不继承。基于网格的粒子碰撞不支持该功能。</p>
+<h3 id="volume-collider-properties"><code>Volume Collider Properties</code></h3><p>这些设置适用于基于体积的碰撞。</p>
+<h3 id="resolution_mode"><code>resolution_mode</code></h3><p>用于确定体积分辨率的方法：</p>
+<ul>
+<li><code>Absolute</code>：<code>detail_size</code> 以世界空间单位表示。</li>
+<li><code>Relative</code>：<code>detail_size</code> 相对于碰撞几何体的大小。</li>
+</ul>
+<h3 id="geo_mode"><code>geo_mode</code></h3><p>定义如何将输入网格转化为体积。</p>
+<ul>
+<li><code>Solid</code>：生成的体积表示输入网格的实体内部。</li>
+<li><code>Shell</code>：生成的体积仅表示网格的加厚曲面。</li>
+</ul>
+<h3 id="min_hole_radius"><code>min_hole_radius</code></h3><p>如果为正值，则启用实体体素化模式，此模式非常适合处理自相交点和小孔。在此模式下，将桥接半径小于 <code>min_hole_radius</code> 的间隙和孔。请注意，在 <code>Shell</code> 模式下，此项不发挥作用。</p>
+<h3 id="optimal_adaptivity"><code>optimal_adaptivity</code></h3><p>如果启用，体素化平面区域和平滑区域时要粗糙些。</p>
+<h3 id="display_diagnostic"><code>display_diagnostic</code></h3><p>是否显示碰撞对象。</p>
+<h3 id="mesh-collider-properties"><code>Mesh Collider Properties</code></h3><p>这些设置适用于基于网格的碰撞。</p>
+<h3 id="bounciness"><code>bounciness</code></h3><p>碰撞时反射的垂直于碰撞曲面的速度比例。例如，这会影响粒子接触地面后反弹的高度。最终值是粒子和碰撞对象上设置的 <code>bounciness</code> 的组合。如果这两个值均为 1.0，则粒子完全反弹；如果这两个值均为 0.0，则粒子根本不反弹。</p>
+<h3 id="friction"><code>friction</code></h3><p>碰撞时损失的沿碰撞曲面的速度比例。例如，如果此值为 1.0，则与地面接触的粒子将不会滚动；如果此值为 0.0，则粒子将滚动而不会减速。</p>
+<h3 id="roughness"><code>roughness</code></h3><p>改变反射角度以模拟粗糙曲面上的碰撞。值为 0.0 表示完全平滑的曲面。</p>
+<h3 id="stickiness"><code>stickiness</code></h3><p>控制粘附或“粘滞”到碰撞对象的粒子量。粘滞越大，粒子的相对速度降低得越多，因此粘滞得越多。在 <code>friction</code> 和 <code>bounciness</code> 之后应用粘滞。</p>
+<h2 id="">输出</h2><h3 id="collider"><code>collider</code></h3><p>充当障碍物的碰撞几何对象的数组</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_Common_html.html">Common</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

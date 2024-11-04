@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Animation">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-EED666D9-32C2-427A-9A94-C020C20D551C">
+<meta name="language" content="CHS">
+<title>姿势匹配最佳实践</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-EED666D9-32C2-427A-9A94-C020C20D551C">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>姿势匹配最佳实践</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-EED666D9-32C2-427A-9A94-C020C20D551C__SECTION_F7BAEAC8BF594AAC982FD05AF645EBE3"><h2 class="title sectiontitle">根对象</h2> 
+		 
+		<p class="p">默认情况下，“时间编辑器”(Time Editor)使用该片段驱动的所有对象作为重定位器的场景层次中的顶层对象。重定位器放置在动画根的第一帧上。 
+		</p>
+ 
+		<div class="p">但有时为了防止插值出错，最好重新指定根对象。例如，只要整个角色在使用变换的片段 crossfade 期间滑动，这就有可能是由使用错误的根偏移引起。 或者，片段具有多个根。例如，装备没有明确层次，但有一个适用于整个角色的控制器。
+		  <div class="note note" id="GUID-EED666D9-32C2-427A-9A94-C020C20D551C__GUID-C110F8EF-7B26-4380-BB8D-E144D7B19E40"><span class="notetitle">注：</span> 如果片段包含多个层次，则可具有多个根对象。 
+		  </div>
+ 
+		<p class="li listintro"><strong class="ph b">根对象规则</strong></p>
+<ul class="ul" id="GUID-EED666D9-32C2-427A-9A94-C020C20D551C__UL_7C8E7061B3494A8D8AA643C70155BF71"><li class="li" id="GUID-EED666D9-32C2-427A-9A94-C020C20D551C__LI_3FDFA606E0434AF1A8D8CE91A6DD7841">不同于匹配对象 
+		  </li>
+<li class="li" id="GUID-EED666D9-32C2-427A-9A94-C020C20D551C__LI_3D4EDC4967004E9D9B4648D640CB084A">应当是指应用“变换”(Transform)时不会从局部空间大幅偏移的对象 
+		  </li>
+<li class="li" id="GUID-EED666D9-32C2-427A-9A94-C020C20D551C__LI_5FBE11C5DC5440759E520612159C9F1A">将通过“变换”(Transform)工具变换位于场景层次中“姿势匹配”(Pose Matching)下的任何场景元素 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-EED666D9-32C2-427A-9A94-C020C20D551C__SECTION_E82BCF8A7433467D86F15925EAD37D0C"><h2 class="title sectiontitle">最佳实践</h2> 
+		 
+		<div class="p"> 
+		<ul class="ul" id="GUID-EED666D9-32C2-427A-9A94-C020C20D551C__UL_A882B1276ACD4EF2A4ABB4C88AFFEC29"><li class="li" id="GUID-EED666D9-32C2-427A-9A94-C020C20D551C__LI_DD1E341C501F49B78B3A772E3769D724">从层次中用于定义角色位置的顶部控制器（可能是重心或髋部）向下填充角色。 
+		  </li>
+<li class="li" id="GUID-EED666D9-32C2-427A-9A94-C020C20D551C__LI_226BF49577EB44E3A6EAA9A5EBA8AEFA">根偏移应当是不会相对于匹配对象大幅移动的对象。
+		  </li>
+<li class="li" id="GUID-EED666D9-32C2-427A-9A94-C020C20D551C__LI_26CF8056D8484D0981574F4F5C6D637E">使用<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-0A6A282F-96D2-44AF-A215-09F0A7D810ED.htm">“重定位”(Relocator)选项</a>使“时间编辑器”停止使用默认根，并在<span class="ph uicontrol">“片段根”(Clip Roots)</span>列表中指定不同的根。
+		  </li>
+<li class="li" id="GUID-EED666D9-32C2-427A-9A94-C020C20D551C__LI_300A0253FFBE44D3B1774286203C3B00"> 重定位器根通常与您用于操纵视口中整个角色的控制器相同。
+		  </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-EED666D9-32C2-427A-9A94-C020C20D551C__SECTION_5A2AAFAB132A42499C6E660F36804310"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<div class="p"> 
+		<ul class="ul" id="GUID-EED666D9-32C2-427A-9A94-C020C20D551C__UL_F0B27C3A749047389008099C47AB63DF"><li class="li" id="GUID-EED666D9-32C2-427A-9A94-C020C20D551C__LI_4FBDA829239B474093DC1AF3A22A7109"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-21688EE8-BB73-4438-90C8-F556D0BB2198.htm">使用时间编辑器重定位器匹配姿势</a> 
+		  </li>
+<li class="li" id="GUID-EED666D9-32C2-427A-9A94-C020C20D551C__LI_2CFB3F72EC944B9797DB45908076899C"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-F9ECE6FB-81EB-4877-8A15-E23BEACFDB5D.htm">通过重新定位重新确定角色的方向</a> 
+		  </li>
+<li class="li" id="GUID-EED666D9-32C2-427A-9A94-C020C20D551C__LI_9D6E2CECCF7047ECAAB3E713B4B64EB4"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-0A6A282F-96D2-44AF-A215-09F0A7D810ED.htm">“重定位器”(Relocator)选项</a>
+		  </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-21688EE8-BB73-4438-90C8-F556D0BB2198.htm">使用时间编辑器重定位器匹配姿势</a></div>
+</div>
+</div>
+
+</body>
+</html>

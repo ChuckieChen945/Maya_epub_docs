@@ -1,0 +1,74 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="ENU">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Maya-USD">
+  <meta name="topicid" content="GUID-70EB23EE-4006-4927-9D2B-840BEED6177A">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>USD terminology and composition</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>USD terminology and composition</h1></div><p>The following is a list of commonly used USD terms. The diagrams below use a component and scene created in USD to help you get familiar with the USD terms and its basic structure. </p>
+<ul>
+<li><strong>Stage</strong> – A loaded scenegraph, which can contain multiple Layers.</li>
+<li><strong>Prim (Primitive)</strong> – The primary object in USD. There are various types of prims, such as geometry, lights, cameras and shaders. A prim can also contain other prims.</li>
+<li><strong>Opinions</strong> – The basic elements involved in determining the values in USD. For example, when you author a value for an attribute of a prim, you are expressing an opinion for that prim.</li>
+<li><strong>Layer</strong> – A container of prims and opinions. Each layer is usually an indivisual usd/usda/usdc file on disk. Layers are composed together to represent a complete stage.</li>
+<li><strong>Composition</strong> – The process of assembling multiple layers together by the composition arcs that relate them to each other, resulting in a Stage scenegraph of Prims.</li>
+<li><strong>Composition arcs</strong> – the "operators" that allow USD to create rich compositions of many layers that contain mixes of "base" scene description and overrides.  The six kinds of arcs are subLayers, inherits, variantSets, references, payloads, and specializes (a subset of inherits).</li>
+<li><strong>Payload</strong> - a referenced USD file or prim that can be selectively loaded or unloaded to optimize performance.</li>
+<li><strong>Instancing</strong> - There are two methods for creating USD instances: marking a prim as "Instanceable" or using a PointInstancer. Instancing significantly improves the efficiency when populating a stage with multiple copies of an object. See <a href="https://openusd.org/release/api/_usd__page__scenegraph_instancing.html" target="_blank">OpenUSD's Scenegraph Instancing</a> and <a href="https://openusd.org/release/api/class_usd_geom_point_instancer.html" target="_blank">PointInstancer</a> for more information.</li>
+<li><strong>Proxy</strong> – A prim paired with model that can be used as a level of detail (LOD) stand-in while still allowing inspection of the full model.</li>
+</ul>
+<h2 id="usd-component">USD component</h2><p>The following diagram shows an example of the structure of a USD component. The prim <strong>ArcadeMachine</strong> has two children, <strong>geo</strong> and <strong>mtl</strong>, which store the geometry and materials, respectively. The prim <strong>geo</strong> has two children, <strong>proxy</strong> and <strong>render</strong>, which store the low-res and high-res meshes for proxy and render purposes.  </p>
+<p><img src="../images/USD_Component_small.png" alt="img for USD terminology &amp; composition 1">
+<br></p>
+<h2 id="prim-types">Prim types</h2><p>Prims come in a variety of types, such as XForm, scope, mesh, shader, light and camera. Among them, XForm contains transform data that can be used to translate, rotate and scale other prims; and scope serves as a container for grouping other prims without applying any transformation.  </p>
+<p><img src="../images/Prim_Type_small.png" alt="img for USD terminology &amp; composition 1">
+<br></p>
+<h2 id="variants">Variants</h2><p>A prim can store multiple variants, allowing easy switching between them. Variants can be organized into variant sets. </p>
+<p><img src="../images/Variants_small.png" alt="img for USD terminology &amp; composition 3">
+<br></p>
+<h2 id="usd-shot">USD shot</h2><p>A shot is usually composed of a root layer and several sublayers, each dedicated to a specific division of the pipeline, such as layout, animation, VFX, or lighting. Each sublayer references USD components as payloads. Instancing is often used when laying out a scene with multiple copies of an object. In the example below, only one arcade machine is loaded, while the others are instances of the same prim.  </p>
+<p><img src="../images/Shots_small.png" alt="img for USD terminology &amp; composition 3">
+<br></p>
+<h2 id="usd-terms-in-maya-ui">USD terms in Maya UI:</h2><ul>
+<li><strong>Anonymous Layer</strong> – An unsaved, newly created layer. Maya allows for layers to temporarily exist without a file on disk.</li>
+<li><strong>proxyShape</strong> – A leaf node in the Outliner DAG that the USD stage is attached under.  Operations to the Proxy node trigger UFE calls to interact with Maya and USD.</li>
+</ul>
+<p>For further reading, see <a href="https://graphics.pixar.com/usd/docs/index.html" target="_blank">Pixar's Introduction to USD</a> and <a href="https://graphics.pixar.com/usd/docs/USD-Glossary.html" target="_blank">Pixar USD Glossary</a>.</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>Parent page:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/GUID-9E9D45F2-4DA9-497B-8D69-1573ED6B2BA8.html">USD for Maya</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

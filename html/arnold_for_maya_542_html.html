@@ -1,0 +1,313 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_542_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_542">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 5.4.2 - Arnold for Maya">
+
+<title>5.4.2</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+<div class="head-block"><h1>5.4.2</h1></div><p>22 May 2024</p>
+<p>MtoA 5.4.2 introduces Arnold <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_core_7320_html" target="_blank">7.3.2.0</a>.</p>
+<h2 id="installation">Installation</h2><ul>
+<li><p>Download <a href="https://manage.autodesk.com/products/MAYA" target="_blank">Arnold for Maya</a> from your Autodesk Account.
+See <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_download_arnold_html" target="_blank">Download Arnold</a> for more information about downloading MtoA from your Autodesk Account.</p>
+</li>
+<li><p>Follow these installation instructions.</p>
+</li>
+</ul>
+<h2 id="enhancements">Enhancements</h2><ul>
+<li><strong>Toon tone-mapping</strong>: You can now drive the hue and saturation of tonemapping in the toon shader. The toon shader has four new parameters that complement the existing value-based tonemapping parameters. The connected shader's U coordinate drives direct light hue and the V coordinate drives saturation, which enables textures like those below to map the toon shader's response to colored lighting (Note: make sure to set the image's wrapping mode to <code>clamp</code> and filter to <code>closest</code> for best results) (ARNOLD-10687). These toon parameters include:
+
+<ul>
+<li><a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_toon_ac_toon_edge_html" target="_blank">edge_tonemap_hue_saturation</a></li>
+<li><a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_toon_ac_toon_silhouette_html" target="_blank">silhouette_tonemap_hue_saturation</a></li>
+<li><a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_toon_ac_toon_base_html" target="_blank">base_tonemap_hue_saturation</a></li>
+<li><a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_toon_ac_toon_specular_html" target="_blank">specular_tonemap_hue_saturation</a></li>
+</ul>
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/no_toon_base_tonemap_HS.jpg" alt=""></td>
+<td><img src="../images/toon_base_tonemap_HS.jpg" alt=""></td>
+<td><img src="../images/orc-specHS.jpg" alt=""></td>
+</tr>
+<tr>
+<td>No <em>base_tonemap_hue_saturation</em></td>
+<td>image -&gt; <em>base_tonemap_hue_saturation</em></td>
+<td>image -&gt; <em>specular_tonemap_hue_saturation</em></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/ac-rn-7320-sven-red-blue-HS.png" alt=""></td>
+<td><img src="../images/sven_image.offset_u.png" alt=""></td>
+</tr>
+<tr>
+<td>Color palette images -&gt; <em>base_tonemap_hue_saturation</em></td>
+<td><em>image.offset_u</em>: 0 to 1 (light color is unchanged)</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+</li>
+
+<li> <strong>Better volume denoising</strong>: Denoising volumes now produces better results. The changes in how volume albedo is computed help the denoiser to keep more details. Ringing artifacts when objects are viewed against the background are also reduced, and a new <code>N_denoise</code> AOV fixes some denoising artifacts visible in low-AA renders. (ARNOLD-14936, ARNOLD-13071) 
+
+
+
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/ac-rn-7320-denoising-albedo-byc_cloud-new-source_crop_map.png" alt=""></td>
+<td><img src="../images/ac-rn-7320-denoising-albedo-byc_cloud-source_crop_0.png" alt=""></td>
+<td><img src="../images/ac-rn-7320-denoising-albedo-byc_cloud-new-source_crop_0.png" alt=""></td>
+</tr>
+<tr>
+<td></td>
+<td>7.3.1</td>
+<td>7.3.2</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/ac-rn-7320-denoising-background_map.jpg" alt=""></td>
+<td><img src="../images/ac-rn-7320-denoising-background_old_crop_0.jpg" alt=""></td>
+<td><img src="../images/ac-rn-7320-denoising-background_new_crop_0.jpg" alt=""></td>
+</tr>
+<tr>
+<td></td>
+<td>7.3.1</td>
+<td>7.3.2</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+
+<div class="gallery center">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/ac-rn-7320-denoising-normals-old.jpg" alt=""></td>
+<td><img src="../images/ac-rn-7320-denoising-normals-new.jpg" alt=""></td>
+</tr>
+<tr>
+<td>7.3.1</td>
+<td>7.3.2</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+</li>
+</ul>
+
+<ul>
+<li><strong>Many-lights support for light linking</strong>: Global light sampling is now applied per group of lights linked to a shape. That can improve rendering performance for scenes with light linking. The ALab scene now renders twice as fast when you use Global Light Sampling.  (ARNOLD-14985)</li>
+<li><strong>Improved Standard Hair on GPU</strong>: The GPU renderer now supports the <em>extra_depth</em> parameter. This enables accurate rendering of blond or bright-colored hair without raising <em>GI_specular_depth</em>. </li>
+</ul>
+
+<div class="gallery center thumbnail-400">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/extra_depth_hair_gpu.png" alt=""></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li><p><strong>Improved volume albedo AOV</strong>: Volume albedo values are now more physically-based. This improves volume denoising and any LPE AOV using volume albedo is now much more useful for compositing. For backwards compatibility, you can set the new global option <code>legacy_volume_albedo</code> to <code>true</code>. (ARNOLD-13071)</p>
+</li>
+<li><p><strong>Bake Geometry can now bake to USD</strong> Subdivided and displaced geometry can now be baked to USD, ASS, or OBJ. (MTOA-1918)</p>
+</li>
+<li><p><strong>Improvements to the Arnold RenderView snapshots workflow</strong></p>
+<ul>
+<li>Snapshots by default now point to a folder based on the current scene name. You can use a custom folder instead, and this custom location will be saved with the scene and used instead of the default scene folder (MTOA-1923)</li>
+<li>Snapshots can be moved to a different folder. When you set a new snapshosts folder, or load a scene with a different snapshot folder, a Move option is displayed asking if you want to move the current snapshots. (MTOA-1932)</li>
+<li>A new Enable Snapshots Folder option that can be queried or set via MEL or Python<pre class="pre codeblock"><code class="prettyprint">// Get the value of the Enable Snapshots Folder option
+arnoldRenderView -get "Enable Snapshots Folder";
+// Result: 1
+//
+// Set the Enable Snapshots Folder option
+arnoldRenderView -opt "Enable Snapshots Folder";</code></pre></li>
+</ul>
+</li>
+<li><p><strong>Improved OSL interoperability</strong>: The color4, color2, vector4, vector2, and matrix33 are now supported as output types of OSL shaders when connected to Arnold shaders. Additionally, Arnold shaders that output RGBA or Vector2 types can now be directly connected to OSL shader color4 and vector2 input parameters. Those features make it easier to mix Arnold and MaterialX standard library shader nodes. (ARNOLD-1398 ARNOLD-14692)</p>
+</li>
+<li><p><strong>Update OpenVDB to version 11.0</strong>: Arnold now uses the latest OpenVDB library. For the list of changes between OpenVDB version 7.1.1 and version 11.0, see the <a href="https://github.com/AcademySoftwareFoundation/openvdb/releases" target="_blank">release notes</a>. (ARNOLD-11217)</p>
+</li>
+<li><p><strong>Change MtoA Windows installer to MSI</strong> MtoA now has a more integrated installer using the Microsoft Installer Framework (MTOA-1816)</p>
+</li>
+</ul>
+<h2 id="usd-enhancements">USD Enhancements</h2><ul>
+<li><strong>Cylinder lights</strong>  - Cylinder lights are saved as UsdLuxCylinderLight primitives - <a href="https://github.com/Autodesk/arnold-usd/issues/1894" target="_blank">usd#1894</a></li>
+</ul>
+<h2 id="api-changes">API changes</h2><ul>
+<li><p><strong>Geometry baking API</strong>: You can now bake subdivided and displaced geometry. You can save the baked geometry either in another universe or you can change the geometry in-place in the same universe.  Typically, you would bake geometry by looping over scene nodes with <code>AtNodeIterator</code>. Currently, geometry baking applies to polymesh nodes only.(ARNOLD-2815)</p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint"> AI_API AtNode* AiNodeGetProcessedGeometry(AtNode* source_node, AtUniverse *dest_universe);</code></pre>
+</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible Changes</h2><ul>
+<li><strong>Save usdz files to a usdz_tx folder</strong>: Previously when reading a .usdz file, any generated .tx files would be saved to a folder named <code>&lt;usdz_filename&gt;.tmp</code>. The .tmp extension may have led users to remove this folder prematurely, resulting in extra work the next time the usdz was rendered. These files will now be written to and read from a folder name <code>&lt;usdz_filename&gt;.usdz_tx</code>. (ARNOLD-14999)</li>
+<li><strong>Improved volume AOV</strong>: The volume albedo AOV and LPE scattering event has been improved. For backwards compatibility, you can set the new global option <code>legacy_volume_albedo</code> to <code>true</code>. (ARNOLD-13071)</li>
+</ul>
+<h2 id="bug-fixes">Bug Fixes</h2><ul>
+<li>MTOA-1906 - Overlay Imager: &lt;frame&gt; token not updating on frame change until Update Full Scene.</li>
+<li>MTOA-1798 - ADPClientService.exe is blocking the MtoA installer.</li>
+<li>MTOA-1927 - "onCameraCreated" debug message in script editor</li>
+<li>MTOA-1880 - Crash when connecting Arnold dot node to an assigned shader</li>
+<li>MTOA-1861 - Crash on Materialx volume node while rendering</li>
+<li>MTOA-1233 - Full Paths check box in Export All/Export Selection dialog boxes doesn't work</li>
+<li>MTOA-1213 - Loading some tx files, such as those that use multipart subimages as mip-map levels, crash Maya</li>
+<li>MTOA-1936 - Loading MtoA removes Attribute Editor menu customisations</li>
+<li>ARNOLD-8165 - Crash when curvature, ambient occlusion, or round corners is used in displacement</li>
+<li>ARNOLD-14551 - Add log notification when FIS is enabled</li>
+<li>ARNOLD-14590 - Very bright lights, such as the sun, are not properly occluded by dense volumes</li>
+<li>ARNOLD-14970 - [GPU] Rare “stack overflow exception” crash with OSL shaders</li>
+<li>ARNOLD-14995 - [GPU] Crash when attempting to render a Bifrost volume</li>
+<li>ARNOLD-14998 - Rare crash in Windows when texture_searchpath contains a root directory</li>
+<li>ARNOLD-15015 - Profiler data is lost when other universes are destroyed</li>
+<li>ARNOLD-15030 - GPU renderer and denoiser imagers incorrectly overriding FIS parameters set in options</li>
+<li>ARNOLD-15040 - AiTextureLoad crashes with textures that use subimages as mipmaps</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1900" target="_blank">usd#1900</a> - Fix transform hierarchies for Arnold non-xformable primitives</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1903" target="_blank">usd#1903</a> - USD Writer should skip materials when the shader mask is disabled</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1906" target="_blank">usd#1906</a> - Fix light filters assignment order in the render delegate to make it consistent with the procedural.</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1912" target="_blank">usd#1912</a> - Procedural interactive updates don't consider primitives visibility</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2><ul>
+<li>Maya 2023, 2024, or 2025</li>
+<li>Windows 10 or later, with the Visual Studio 2019 redistributable.</li>
+<li>Linux with at least glibc 2.17 and libstdc++ 4.8.5 (gcc 4.8.5). This is equivalent to RHEL/CentOS 7.</li>
+<li>x86-64 CPUs need to support the SSE4.1 instruction set. </li>
+<li>macOS 10.13 or later, macOS 11 and later for Maya 2024</li>
+<li>Apple Mac models with M series chips:<ul>
+<li>Natively supported by Arnold for Maya 2024</li>
+<li>Supported under Rosetta 2 mode for older versions of Maya</li>
+</ul>
+</li>
+<li><a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_rendering_ac_arnold_gpu_html" target="_blank">GPU rendering</a> and Optix denoising work on Windows and Linux only, and require an NVIDIA GPU with the Maxwell architecture or later.<ul>
+<li>On Linux, we recommend <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">535.104 or higher</a> drivers.</li>
+<li>On Windows, we recommend <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">537.13 or higher</a> drivers.</li>
+</ul>
+</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_5x_html.html">MtoA 5.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

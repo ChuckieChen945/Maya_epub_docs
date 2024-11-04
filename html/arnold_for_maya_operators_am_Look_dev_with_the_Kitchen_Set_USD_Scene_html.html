@@ -1,0 +1,166 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_operators_am_Look_dev_with_the_Kitchen_Set_USD_Scene_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_LOOK_DEV_WITH_THE_KITCHEN_SET_USD_SCENE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用厨房集 USD 场景进行外观制作 - Arnold for Maya">
+
+<title>使用厨房集 USD 场景进行外观制作</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>使用厨房集 USD 场景进行外观制作</h1></div><p><sup style="text-align: center;"><sub><strong><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" data-base-url="https://docs.arnoldrenderer.com" data-linked-resource-container-id="145391851" data-linked-resource-container-version="39" data-linked-resource-content-type="image/png" data-linked-resource-default-alias="kitchen.png" data-linked-resource-id="145391850" data-linked-resource-type="attachment" data-linked-resource-version="1" data-unresolved-comment-count="0" src="../images/am-Look-dev_with_the_Kitchen_Set_USD_Scene-kitchen-1.png" width="500"></span></strong></sub></sup></p>
+<p><sub><strong>使用 Arnold 渲染的 <a href="http://graphics.pixar.com/usd/downloads.html" target="_blank">USD 厨房集</a>资源</strong></sub></p>
+<p>在本教程中，我们将介绍如何从 <a href="https://graphics.pixar.com/usd/downloads.html" target="_blank">Pixar USD 下载页面</a>打开 <strong>kitchen_set.USD</strong> 文件。其中一种方法是使用 Arnold <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shapes_ac_arnold_procedural_html" target="_blank">程序</a></em> （MtoA 的<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Stand_ins_html">替代对象</a>）。这是可以单独加载 Arnold 的代理节点，但我们也可以直接加载 USD 文件。我们将介绍如何应用不同的外观和着色器，以及如何使用<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_operators_html" target="_blank"><em>运算符</em></a>更改 USD 文件的内容。</p>
+<table>
+<thead>
+<tr>
+<th>要下载对应的 kitchen_set.USD 文件，请单击<a href="https://graphics.pixar.com/usd/downloads.html" target="_blank">此处</a>。</th>
+</tr>
+</thead>
+</table>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关 USD 的详细信息，请单击<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_intro_usd_html" target="_blank">此处</a>。</p>
+
+</div></div>
+
+<h2 id="usd">加载 USD 文件</h2><ul>
+<li>创建 Arnold <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Stand_ins_html">替代对象</a>。我们将使用此方式打开 <strong>kitchen_set.USD</strong> 文件。</li>
+</ul>
+<p><img src="../images/am-Look-dev_with_the_Kitchen_Set_USD_Scene-image2021-7-26-9-58-22-2.png" alt=""></p>
+<ul>
+<li>在<em>程序/替代对象</em>的<em>路径</em>中打开 <strong>kitchen_set.USD</strong> 文件。</li>
+</ul>
+<p><img src="../images/am-Look-dev_with_the_Kitchen_Set_USD_Scene-image2021-7-26-10-22-25-3.png" alt=""></p>
+<ul>
+<li>将<em>“视口绘制模式”(Viewport Draw Mode)</em>从<em>“边界框”(Bounding Box)</em>（默认值）更改为<em>“着色多边形线”(Shaded Polywire)</em>，以便可以在视口中查看厨房的内容。</li>
+<li>在 X 轴方向将其旋转到 -90 度，使其正立。</li>
+</ul>
+<p><img src="../images/am-Look-dev_with_the_Kitchen_Set_USD_Scene-image2021-7-26-10-24-30-4.png" alt=""></p>
+<ul>
+<li>创建 *<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_core_ac_skydome_light_html" target="_blank">skydome_light</a>（“Arnold -&gt; 灯光 -&gt; 天穹灯光”(Arnold -&gt; Lights -&gt; Skydome Light)）。<em>将</em>采样数*增加到 3。</li>
+<li>在 <em>Arnold 渲染视图</em>窗口中渲染场景。</li>
+</ul>
+<p><img src="../images/am-Look-dev_with_the_Kitchen_Set_USD_Scene-image2021-7-26-10-44-13-5.png" alt=""></p>
+<p>如果我们查看<em>替代对象</em>的<em>“文件内容”(File Contents)</em>，可以看到 kitchen_set USD 文件的内容。您可以在 <em>Arnold 渲染视图</em>窗口中选择对象，并在视口和<em>“文件内容”(File Contents)</em>列表中查看所选内容。</p>
+<div class="head-block"><h1>覆盖</h1></div><h2 id="">添加着色器指定</h2><p>我们对 USD 文件的内容创建一些覆盖。</p>
+<ul>
+<li>将着色器指定添加到<em>“文件内容”(File Contents)</em>窗口中的<strong>“Kitchen_Table1 -&gt; 几何体”(Kitchen_Table1 -&gt; Geom)</strong>。</li>
+</ul>
+<p><img src="../images/am-Look-dev_with_the_Kitchen_Set_USD_Scene-image2021-7-26-11-27-25-6.png" alt=""></p>
+<ul>
+<li>选择右侧的着色器，然后选择一个 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html" target="_blank"><em>standard_surface</em></a> 着色器。将其 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_standard_surface_ac_standard_base_html" target="_blank">base_color</a></em> 更改为红色。这时效果应类似以下渲染。</li>
+</ul>
+<p><img src="../images/am-Look-dev_with_the_Kitchen_Set_USD_Scene-image2021-7-26-11-32-16-7.png" alt=""></p>
+<h2 id="">几何体指定</h2><p>除了着色器覆盖，我们还可以覆盖网格的所有 Arnold 属性（如细分）。例如，我们可以看到，墙上的铸铁几何体 (<code>/Kitchen_set/Props_grp/North_grp/NorthWall_grp/CastIron_1/Geom/pCylinder151</code>) 具有较少的细分数。</p>
+<p><img src="../images/am-Look-dev_with_the_Kitchen_Set_USD_Scene-image2021-7-26-11-37-29-8.png" alt=""></p>
+<h2 id="sup-span-style-color-rgb-0-0-0-castiron-geom-pcylinder151-span-sup"><sup><span style="color: rgb(0,0,0);">在渲染视图窗口中选择 CastIron/Geom/pCylinder151</span></sup></h2><ul>
+<li>选择 <strong>pCylinder151</strong> 几何体后，选择<em>“添加赋值 -&gt; 多边形网格 -&gt; subdiv_type”(Add Assignment -&gt; polymesh -&gt; subdiv_type)</em>和 <em>subdiv_iterations</em>（设置为 2）。</li>
+</ul>
+<p><img src="../images/am-Look-dev_with_the_Kitchen_Set_USD_Scene-image2021-7-26-11-41-8-9.png" alt=""></p>
+<p>现在，您应该注意到，该几何体是平滑的，不像以前未使用<em>多边形网格</em>覆盖时那样是面状的。</p>
+<p><img src="../images/am-Look-dev_with_the_Kitchen_Set_USD_Scene-image2021-7-26-11-43-29-10.png" alt=""></p>
+<div class="head-block"><h1>运算符</h1></div><h2 id="disable">使用 Disable 隐藏几何体</h2><p>我们还可以应用 Arnold <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_am_Operators_html">运算符</a>来隐藏几何体。</p>
+<ul>
+<li>在<em>“过滤器”(Filter)*中键入 *Fridge</em> 以显示冰箱几何体。</li>
+<li>选择“冰箱”(Fridge)组：<code>/Kitchen_set/Props_grp/North_grp/FridgeArea_grp</code></li>
+<li>从<em>“添加运算符”(Add Operator)</em>列表中选择 *<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_operators_ac_operators_disable_html" target="_blank">disable</a>*。您应该会注意到，渲染中不再显示冰箱。</li>
+</ul>
+<p><img src="../images/am-Look-dev_with_the_Kitchen_Set_USD_Scene-image2021-7-26-13-5-14-11.png" alt=""></p>
+<p><sub><strong>使用 Disable 运算符隐藏冰箱组</strong></sub></p>
+<h2 id="set_transform">使用 set_transform 移动对象</h2><p>我们还可以使用 Arnold <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_operators_html" target="_blank"><em>运算符</em></a>移动对象。</p>
+<ul>
+<li>选择 <strong>ChairB_1</strong> 组，然后对其应用 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_operators_ac_set_transform_html" target="_blank"><em>set_transform</em></a> 运算符。</li>
+</ul>
+<p><img src="../images/am-Look-dev_with_the_Kitchen_Set_USD_Scene-image2021-7-26-13-9-8-12.png" alt=""></p>
+<ul>
+<li>选择 <em>set_transform</em> 右侧的箭头，然后在属性编辑器中更改 <strong>ChairB_1</strong> 组的变换。</li>
+</ul>
+<p><img src="../images/am-Look-dev_with_the_Kitchen_Set_USD_Scene-image2021-7-26-13-14-36-13.png" alt=""></p>
+<p><sub><strong>使用 <em>aiSetTransform</em> 运算符转换椅子</strong></sub></p>
+<h2 id="show-graph">显示图形(Show Graph)</h2><ul>
+<li>我们还可以可视化所创建的运算符节点，并可以使用<em>“显示图形”(Show Graph)</em>按钮查看附加到<em>替代对象</em>的这些节点。</li>
+</ul>
+<p><img src="../images/am-Look-dev_with_the_Kitchen_Set_USD_Scene-image2021-7-26-13-18-16-14.png" alt=""></p>
+<p><sub><strong><em>运算符</em> -&gt; <em>替代对象</em></strong></sub></p>
+<h2 id="">外观</h2><p>现在，我们可以创建多个版本或“<em>外观</em>”，以更改可用于外观制作目的的外观。</p>
+<ul>
+<li>创建一个新外观（+ 图标），并将其命名为“Props”。</li>
+</ul>
+<p><img src="../images/am-Look-dev_with_the_Kitchen_Set_USD_Scene-image2021-7-26-14-58-26-15.png" alt=""></p>
+<ul>
+<li>选择 <strong>Arch_grp</strong>，然后创建 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_operators_ac_operators_disable_html" target="_blank"><em>disable</em></a> 运算符。现在，您应该能看到 Arnold 渲染视图窗口中渲染的 Props。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Look-dev_with_the_Kitchen_Set_USD_Scene-props-look-16.jpg" alt=""></td>
+<td><img src="../images/am-Look-dev_with_the_Kitchen_Set_USD_Scene-default-look-17.jpg" alt=""></td>
+</tr>
+<tr>
+<td>“Props”外观可见，其他几何体已使用运算符进行禁用（隐藏）</td>
+<td>“默认”外观</td>
+</tr>
+</tbody></table>
+<h2 id="">导入/导出运算符</h2><p>可以在资源、镜头甚至应用程序之间传递运算符。在照明阶段，您可能想要进行一些最后的更改，此时可以将其作为覆盖应用于场景中。</p>
+<ul>
+<li>选择<em>替代对象</em>后，转到<em>“Arnold -&gt; 运算符 -&gt; 导出运算符图表”(Arnold -&gt; Operators -&gt; Export Operator Graph)</em>。确保<em>“导出指定的着色器”(Export Assigned Shaders)处于启用状态</em>，以便导出 USD 中新创建的所有着色器。</li>
+</ul>
+<p><img src="../images/am-Look-dev_with_the_Kitchen_Set_USD_Scene-image2021-7-26-15-19-6-18.png" alt="">  </p>
+<p>现在，我们将运算符导入到新的 USD 厨房场景后：<em>“Arnold -&gt; 运算符 -&gt; 导入运算符图表”(Arnold -&gt; Operators -&gt; Import Operator Graph)</em>，您应该会在“节点编辑器”(Node Editor)窗口中看到这些运算符。您只需连接<em>替代对象</em>的 <em>lookSwitch -&gt; 运算符</em>。</p>
+<p><img src="../images/am-Look-dev_with_the_Kitchen_Set_USD_Scene-image2021-7-26-15-29-53-19.png" alt=""></p>
+<p><sub><strong>导入的<em>运算符</em>连接到替代对象</strong></sub></p>
+<p>希望您能够了解在 Arnold 中渲染时运算符和 USD 提供的强大功能。通过此工作流，您在应用程序之间切换时可以获得相同的外观，同时保留完全相同的渲染。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Operator_Tutorials_html.html">运算符教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

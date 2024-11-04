@@ -1,0 +1,61 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_USD_Prim_USD_Prim_define_usd_prim_hierarchy_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>define_usd_prim_hierarchy</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>define_usd_prim_hierarchy</code></h1></div><p>创建 Bifrost-USD 基本体定义的层次。将输出连接到 <code>add_to_stage</code> 节点下游时，会在后台文件中创建 USD 基本体层次。</p>
+<p>例如，将<em>“路径”(path)</em>设置为 <code>/model/geo/grp1/mesh</code>，并将<em>“类型”(types)</em>设置为 <code>Xform Scope Xform Mesh</code> 时，将创建以下 USD 层次：</p>
+<pre class="pre codeblock"><code class="prettyprint"> `--model [def Xform] (kind = group)
+     `--geo [def Scope] (kind = group)
+         `--grp1 [def Xform] (kind = group)
+             `--mesh [def Mesh] (kind = group)</code></pre><h2 id="">输入</h2><h2 id="hierarchy">层次(Hierarchy)</h2><h3 id="path"><code>path</code></h3><p>基本体层次的完整路径，例如 <code>/Car/geo/doors/left</code>。此处输入的路径将添加到任何已连接子对象指定的路径前面。同样，如果此节点的输出连接到基本体定义下游的 <code>children</code> 端口，则此路径将被附加到该处指定路径的后面。</p>
+<h3 id="parent_is_scope"><code>parent_is_scope</code></h3><p>即使 <code>types</code> 输入设置了其他类型，也要确保层次的父对象为<em>“范围”(Scope)</em>。当层次是由脚本从没有此类<em>“范围”(Scope)</em>类型的主机应用程序转换层次而创建时，这将非常有用。</p>
+<h3 id="types"><code>types</code></h3><p>以空格分隔的 USD 基本体类型的字符串。</p>
+<h3 id="default_type"><code>default_type</code></h3><p>如果基本体类型数小于基本体数，则 <code>default_type</code> 将用于设置其余基本体的类型。</p>
+<h2 id="mesh">网格(Mesh)</h2><h3 id="normal_per_vertex"><code>normal_per_vertex</code></h3><p>按顶点存储法线（如果存在于 Bifrost 网格上）。</p>
+<h3 id="subdivision_scheme"><code>subdivision_scheme</code></h3><p>网格的细分方法。启用 <code>normal_per_vertex</code> 时，细分方法将被忽略。</p>
+<h3 id="use_frame"><code>use_frame</code></h3><p>是否在指定的 <code>frame</code> 处设置几何体数据。</p>
+<h3 id="frame"><code>frame</code></h3><p>启用 <code>use_frame</code> 时要为其设置几何体数据的帧。</p>
+<h3 id="attribute_definitions"><code>attribute_definitions</code></h3><p>（可选）连接叶网格基本体的一个或多个属性定义。可以在端口上单击鼠标右键，然后选择<strong>“连接节点”(Connect Node)</strong>以快速添加和连接 <code>define_usd_attribute</code> 节点或常用预设（如 <code>define_usd_transform</code> 或 <code>define_usd_display_color</code>）。</p>
+<h3 id="relationship_definitions"><code>relationship_definitions</code></h3><p>（可选）连接叶网格基本体的一个或多个关系定义。可以在端口上单击鼠标右键，然后选择<strong>“连接节点”(Connect Node)</strong>以快速添加和连接 <code>define_usd_relationship</code> 节点。</p>
+<h3 id="leaf_mesh"><code>leaf_mesh</code></h3><p>如果连接了 Bifrost 网格，则将层次的最后一个基本体定义创建为相应的 USD 网格。用<em>“网格”(Mesh)</em>类型覆盖 <code>types</code> 输入的最后一个类型。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/USD/Bifrost_Common_reference_USD_Prim_html.html">Prim</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

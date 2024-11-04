@@ -1,0 +1,107 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Wedging_Wedging_wedge_cache_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>wedge_cache</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>wedge_cache</code></h1></div><p>支持写入和读取通过楔形化处理服务生成的文件缓存的节点。</p>
+<p>此节点将位于输出几何对象的节点下游的图表（位于节点右侧）中。在本地使用时，节点可以让对象穿过它或从磁盘读取对象的缓存。<code>Read or Passthrough if no File</code> 模式可以根据磁盘上是否存在文件从 <code>Read</code> 动态切换到 <code>Passthrough</code>。但是，在基于远程服务的楔形化处理服务上执行时，节点始终将文件写入磁盘（请参见 <code>mode</code> 输入端口）。</p>
+<p><code>wedge_cache</code> 节点可以写入 <code>.bob</code>（Bifrost 对象）、<code>.abc</code> (Alembic) 或 <code>.vdb</code> (OpenVDB) 文件（请参见 <code>wedge_filename</code> 作业端口输入）。</p>
+<h2 id="">用法</h2><ol>
+<li><code>wedge_filename</code> 作业端口指示要生成的文件缓存的位置和类型。供 <code>wedge_cache</code> 使用的 <code>wedge_filename</code> 节点对 <code>wedge_filename</code> 作业端口值执行标记替换（请参见 <code>wedge_filename</code> 节点的文档）。没有标记的路径对单个缓存也有效，但请记住，在输出楔形时应使用 <code>&lt;wedge_index&gt;</code> 标记，以确保不同楔形之间的文件不会相互覆盖。替换标记后，<code>wedge_cache</code> 节点还会展开输入路径中可能存在的 <code>$name</code> 或 <code>${name}</code> 形式的环境变量（请参见 <code>expand_env_vars</code> 节点的文档）。</li>
+<li>要使用楔形化处理，请设置 <code>wedge_index</code> 和 <code>wedge_index_count</code> 作业端口值。</li>
+<li>将 <code>wedge_index</code> 或 <code>wedge_parameter</code> 节点添加到图表中，以设置将在整个楔形范围内变化的参数。</li>
+</ol>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>可以为本地楔形化处理编写脚本以循环浏览所有楔形和帧，启用隐藏的 <code>write_state</code> 作业端口，并在循环期间修改 <code>wedge_index</code> 作业端口。用户还可以使用 <code>wedge_cache</code>、<code>wedge_filename</code> 和 <code>write_state</code> 节点中包含的构建块构建自己的缓存解决方案（如果需要）。</p>
+
+</div></div>
+
+<h2 id="">作业端口输入</h2>
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>通过取消选择 Bifrost 曲线图编辑器中的所有节点，当前图表使用的作业端口列表将显示在 Bifrost 参数编辑器中。</p>
+
+</div></div>
+
+<h3 id="wedge_filename"><code>wedge_filename</code></h3><p><code>wedge_filename</code> 作业端口确定文件的写入和读取位置。写入或读取的文件类型由 <code>wedge_filename</code> 节点返回的路径上的文件扩展名控制。<code>wedge_cache</code> 节点支持的文件扩展名包括 <code>.bob</code>（Bifrost 对象文件）、<code>.abc</code>（Alembic 文件）和 <code>.vdb</code>（OpenVDB 文件）。任何其他文件扩展名都将作为 Bifrost 对象文件写入和读取。</p>
+<h3 id="wedge_index"><code>wedge_index</code></h3><p><code>wedge_index</code> 作业端口指定当前楔形（基于 0）。</p>
+<h3 id="wedge_index_count"><code>wedge_index_count</code></h3><p><code>wedge_index_count</code> 作业端口指定楔形总数。</p>
+<h3 id="write_state"><code>write_state</code></h3><p><code>write_state</code> 作业端口确定 <code>wedge_cache</code> 节点何时写入文件。将此作业端口的值设置为 <code>true</code> 将启用文件写入，包括在本地执行节点时。只需确保在此之后将其关闭，否则可能会在本地无意中覆盖文件。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>基于远程服务的楔形化处理服务会在执行图表之前自动将此作业端口设置为 <code>true</code>。</p>
+
+</div></div>
+
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>如果 <code>write_state</code> 作业端口为 <code>true</code>，<code>wedge_cache</code> 节点始终穿过几何对象，从其 <code>objects</code> 输入到其 <code>out_objects</code> 输出。</p>
+
+</div></div>
+
+<h2 id="">输入</h2><h3 id="objects"><code>objects</code></h3><p>要写入到文件缓存和/或要穿过此节点的输入几何对象，具体取决于 <code>mode</code> 输入，以及节点是否在本地执行（另请参见 <code>write_state</code> 作业端口输入）。</p>
+<h2 id="">设置</h2><h3 id="mode"><code>mode</code></h3><p><code>mode</code> 确定在本地使用节点时节点的行为：</p>
+<ul>
+<li><code>Read or Passthrough if no File</code> 从磁盘读取文件缓存（如果存在）。如果没有，节点将自动穿过 <code>objects</code> 输入，因此节点仍输出数据。这是最自动的模式，但更加难以判断用户是从磁盘读取数据还是穿过数据。</li>
+<li><code>Read File</code> 从磁盘读取文件缓存（如果存在）。否则，输出将为空。</li>
+<li><code>Passthrough</code> 忽略从磁盘读取文件缓存，并穿过 <code>objects</code> 输入传递到其输出。</li>
+</ul>
+<p>在基于远程服务的楔形化处理服务上执行节点时，<code>mode</code> 将被忽略，且节点始终将文件写入磁盘。</p>
+<h3 id="properties"><code>properties</code></h3><p><code>wedge_cache</code> 节点写入文件时要写入的以空格分隔的特性列表。使用 <code>*</code>（星号）指定所有特性。有关此输入的更多详细信息，请参见 <code>write_Bifrost_object</code>、<code>write_Alembic</code> 和 <code>write_OpenVDB</code> 节点的文档。<code>wedge_cache</code> 节点在内部使用这些节点，其 <code>properties</code> 输入具有与这些节点相同的功能和限制。</p>
+<h3 id="create_directories"><code>create_directories</code></h3><p>如果为 <code>true</code>，则 <code>wedge_cache</code> 节点将创建目录树结构（通过 <code>wedge_filename</code> 节点指定，如果在节点写入文件时此树结构不存在）。有关此输入的更多详细信息，请参见 <code>wedge_cache</code> 节点在内部使用的 <code>write_Bifrost_object</code>、<code>write_Alembic</code> 和 <code>write_OpenVDB</code> 节点的文档。</p>
+<h2 id="alembic">Alembic</h2><h3 id="alembic_interpolation"><code>alembic_interpolation</code></h3><p>读取 Alembic 文件时在子帧位置进行数据插值的插值方法（请参见 <code>read_Alembic</code> 节点的文档）。</p>
+<h2 id="vdb">VDB</h2><h3 id="volume_subdivision_structure"><code>volume_subdivision_structure</code></h3><p>读取 OpenVDB 文件时输出 Bifrost 体积的体积细分结构（请参见 <code>read_OpenVDB</code> 节点的文档）。</p>
+<h2 id="">输出</h2><h3 id="out_objects"><code>out_objects</code></h3><p>已穿过此节点或从文件读取的对象数组，基于 <code>mode</code> 输入和 <code>write_state</code> 作业端口输入。</p>
+<h3 id="first_object"><code>first_object</code></h3><p><code>out_objects</code> 输出数组中的第一个对象。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Bifrost_Common_reference_Wedging_html.html">Wedging</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

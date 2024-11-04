@@ -1,0 +1,289 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_1x_am_142_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_142">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 1.4.2 - Arnold for Maya">
+
+<title>1.4.2</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>1.4.2</h1></div><h2 id="release-date">Release Date</h2><p>8 February 2017</p>
+<p>This version uses the Arnold <a href="https://help.autodesk.com/display/arnug/4.2.16.2">4.2.16.2</a> core.</p>
+<h2 id="downloads">DOWNLOADS</h2><ul>
+<li><a href="https://manage.autodesk.com/products/" target="_blank">https://manage.autodesk.com/products/</a></li>
+</ul>
+<p>MtoA 1.4.2 is the version included in Maya 2017 Update 3. It contains several improvements and bugfixes:</p>
+<h2 id="arnold-renderview">Arnold RenderView</h2><ul>
+<li>ARV is now integrated in Maya workspaces (Maya 2017) : its position in the Maya UI is now restored in new sessions.</li>
+<li>Color Management in the ARV (gamma, exposure, view transform, background, foreground) is now computed in GPU. This makes it interactive to edit, even at high resolutions, and the whole UI is now more efficient (showing snapshots, selecting, etc...)</li>
+<li>Snapshots folder: it is now possible to set a snapshots folder, in which all snapshots will be saved. This allows you to retrieve the snapshots from previous Maya sessions, or to switch between different sets of snapshots.</li>
+<li>New Pixel information window: shows detailed values for the pixel below the mouse cursor, on all AOVs.</li>
+<li>Support Displacement shaders in "Isolate Selected".</li>
+<li>Fixed viewer size flickering at first opening.</li>
+<li>Single menu for "Save Images": The color space will be applied (or not), depending on the output image format. Gamma/exposure/background are no longer saved.</li>
+<li>Improved the text format of the status bar "display pixel information".</li>
+<li>New icon to show the alpha channel.</li>
+<li>Support cropped images when loading into ARV.</li>
+<li>Fixed a crash when a new scene is opened while an AOV was being displayed.</li>
+<li>OCIO view transform was sometimes not applied.</li>
+</ul>
+<h2 id="volume">Volume</h2><ul>
+<li>Support IPR updates.</li>
+<li>Display the list of grids found in the VDB file in the Attribute Editor.</li>
+<li>Added automatic step size / step_scale in the volume node. It will use the highest resolution in the VDB file.</li>
+<li>Read the bounds information directly from the VDB file instead of creating a temporary arnold scene, which was time consuming.</li>
+</ul>
+<h2 id="mtoa-improvements">MtoA Improvements</h2><ul>
+<li>New set of icons for the Outliner, Node Editor, Arnold Shelves and menus.</li>
+<li>Type Tool text now renders correctly by default.</li>
+<li>Support Stereo Cameras in Sequence Rendering.</li>
+<li>Improvements in VP2 (standins, volume, sky).</li>
+<li>Local overrides in Render Setup were not active when exporting to .ass.</li>
+<li>Removed non-necessary attributes from the channel box.</li>
+<li>Support OCIO context changes.</li>
+<li>Support namespaces when an .ass file is loaded.</li>
+<li>Add Arnold shape attributes to Bifrost shapes.</li>
+<li>Support face-varying user data.</li>
+<li>Support User Attributes of type Message Array.</li>
+<li>Default folder for Render To Texture / Bake Geometry is Maya project folder.</li>
+<li>Instanced Standins were not behaving correctly in IPR</li>
+</ul>
+<h2 id="xgen">XGen</h2><ul>
+<li>Handle namespaces for referenced XGen scenes.</li>
+<li>Update primitives when the frame is changed.</li>
+<li>Fixed regression in the opaque attribute.</li>
+</ul>
+<h2 id="curve-collector">Curve Collector</h2><ul>
+<li>Fixed the width value so that it matches the width in the native curves (has to be divided by 2 as it's considered as a "radius" in Maya).</li>
+<li>Fixed Motion Blur that wasn't behaving properly.</li>
+<li>Intermediate objects (e.g. "original position" of animated curves) are no longer rendered.</li>
+</ul>
+<h2 id="new-shaders">New Shaders</h2><ul>
+<li>Thin film renders iridescence effects of a thin coat film.</li>
+<li>Complex IOR returns the reflectance color for complex IOR fresnel.</li>
+</ul>
+<h2 id="bugfixes">Bugfixes</h2><ul>
+<li>Fixed wrong camera exported to .ass in case of multiple cameras.</li>
+<li>Support Render to Texture on .ass files imported from HtoA.</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible Changes</h2><ul>
+<li>AOVs are no longer brought in when referencing scenes.</li>
+</ul>
+<h2 id="type-defect">Type: defect</h2><table>
+<thead>
+<tr>
+<th>Ticket</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>#2410</td>
+<td>Handle namespace of referenced xgen scenes</td>
+</tr>
+<tr>
+<td>#2422</td>
+<td>Type tool doesn't render correctly with Arnold</td>
+</tr>
+<tr>
+<td>#2596</td>
+<td>Batch render does not render out an image unless user opens Render Settings first</td>
+</tr>
+<tr>
+<td>#2714</td>
+<td>Arnold Render View does not update XGen primitives when you change frames</td>
+</tr>
+<tr>
+<td>#2723</td>
+<td>ARV goes blank when switching between workspaces (Maya 2017)</td>
+</tr>
+<tr>
+<td>#2733</td>
+<td>newly-created Arnold standin doesn't show up in VP2 when viewable mode is not bounding box</td>
+</tr>
+<tr>
+<td>#2783</td>
+<td>[ARV] Crashes when opening a new file while AOV is being displayed</td>
+</tr>
+<tr>
+<td>#2646</td>
+<td>viewport hotkeys don't work while Arnold Render View is docked</td>
+</tr>
+<tr>
+<td>#2670</td>
+<td>local overrides are active if you Export All to .ass for Arnold</td>
+</tr>
+<tr>
+<td>#2795</td>
+<td>Wrong motion blur with Curve Collector</td>
+</tr>
+<tr>
+<td>#1943</td>
+<td>Light Color temperature canvas representation should respect Maya 2015 color management</td>
+</tr>
+<tr>
+<td>#2467</td>
+<td>aiSky blocks shadows from other lights in Viewport 2.0</td>
+</tr>
+<tr>
+<td>#2551</td>
+<td>Missing draw api support for genericShader using OpenGl in Arnold (AO and aiHair)</td>
+</tr>
+<tr>
+<td>#2567</td>
+<td>Arnold StandIns do not respect Render Layer Visibility in VP2</td>
+</tr>
+<tr>
+<td>#2585</td>
+<td>Arnold AOVs are brought in when referencing or importing scenes</td>
+</tr>
+<tr>
+<td>#2700</td>
+<td>Error reported when rendering MtoA to Render View</td>
+</tr>
+<tr>
+<td>#2727</td>
+<td>Wrong options.camera when you export ASS for multiple renderable cameras</td>
+</tr>
+<tr>
+<td>#2734</td>
+<td>Adding Arnold lights via shelf or Arnold menu creates untitled collection in Maya's Render Setup</td>
+</tr>
+<tr>
+<td>#2737</td>
+<td>Tx Manager uses a Maya command only available in 2016 and later</td>
+</tr>
+<tr>
+<td>#2751</td>
+<td>Instances of StandIns have visibility issues in VP2</td>
+</tr>
+<tr>
+<td>#2752</td>
+<td>XGen splines do not honor 'Opaque'</td>
+</tr>
+<tr>
+<td>#2753</td>
+<td>The ARV is too tall by default</td>
+</tr>
+<tr>
+<td>#2756</td>
+<td>[ARV] Update Camera and AOVs list when a new scene is opened</td>
+</tr>
+<tr>
+<td>#2763</td>
+<td>Arnold StandIns instances do not respect Render Layer Visibility in VP2</td>
+</tr>
+<tr>
+<td>#2767</td>
+<td>Wrong Resolution / Aspect Ratio exported to ASS</td>
+</tr>
+<tr>
+<td>#2769</td>
+<td>Can't render to texture scenes exported from HtoA</td>
+</tr>
+<tr>
+<td>#2773</td>
+<td>ARV won't render if it was left open during File &gt; New (user must close &amp; reopen it)</td>
+</tr>
+<tr>
+<td>#2784</td>
+<td>Volumes not updated during IPR</td>
+</tr>
+<tr>
+<td>#2785</td>
+<td>Curve Collector should not contain intermediate objects</td>
+</tr>
+<tr>
+<td>#2789</td>
+<td>ARV size flickers when a new scene is opened</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>#2796</td>
+<td></td>
+</tr>
+</tbody></table>
+<p> | </p>
+<p>Curve Collector outputs a different curves.radius than an override set</p>
+<p> |
+| #2807 | [ARV] OCIO options sometimes ignored |
+| ## Type: enhancement |
+| Ticket | Summary |
+| #2264 | Read the openvdb bounding box using the openvdb api |
+| #2453 | Arnold attributes appearing below Shape in Channel Box |
+| #2532 | Support stereo and multicam rendering in Maya |
+| #2537 | Add support to OCIO Context in MtoA |
+| #2744 | [ARV] Compute Color Management in GPU |
+| #2033 | Curves width ramp |
+| #2183 | User Attribute of type Message Array |
+| #2201 | Support namespaces when importing ass files |
+| #2299 | OpenVDB : Add automatic step size and a step scale parameter to volume node |
+| #2351 | Maya Ramp : move position query and sorting to shader update |
+| #2667 | Drop down menu to select VDB grids |
+| #2680 | Allow to restore ARV from maya workspaces |
+| #2685 | Add Arnold attributes to Bifrost shapes |
+| #2696 | Improve progress reporting for sequence rendering |
+| #2725 | Export vertex colors using indexed user data if required |
+| #2726 | Add Lookdev template for aiImage node in the Hypershade Property Editor |
+| #2728 | Support new methods required by Maya Instancer |
+| #2729 | Arnold RenderView and color spaces |
+| #2735 | Add file browser support to aiImage node name field |
+| #2739 | [ARV] Add separate icon for alpha |
+| #2740 | [ARV] Re-introduce option to show buckets |
+| #2743 | [ARV] Format status bar text |
+| #2746 | [ARV] Support Displacement in Isolate Selected |
+| #2755 | [ARV] Take autocrop into account |
+| #2778 | Integrate new Arnold Icons for Outliner, Shelf and Node Editors (SVG) |
+| #2790 | Implement thin_film and complex_ior |
+| #2794 | default Output Folder for MtoA Render Selection to Texture &amp; Bake Selected Geometry should be the current project |
+| #2799 | [ARV] Pixel information window |
+| #2804 | Provide selection list to the flush textures command |
+| # 2808 | Remove warning message about render layer / fps |</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_1x_html.html">MtoA 1.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

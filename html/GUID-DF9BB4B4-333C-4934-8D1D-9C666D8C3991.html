@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Basics">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991">
+<meta name="language" content="CHS">
+<title>工作流程示例：创建 LOD 并导出到游戏引擎</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>工作流程示例：创建 LOD 并导出到游戏引擎</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-3815A754-9E0F-4734-871C-36D5A6BFA4A3">此工作流示例概述了如何在 <span class="ph msgph prodname" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 中创建 LOD 网格和设置 LOD 组，然后将它们传递到游戏引擎中。在本工作流中，我们会自动生成较低分辨率版本的网格，但您也可以使用已减少一组网格。在这种情况下，可以跳过此处的前几个步骤，改为参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-90307993-D898-4BFA-9E5E-D7F96EFAFAAD.htm">创建 LOD 组</a>。 
+	 </p>
+<ol class="ol" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__OL_BD9E8B6250374A19A88530509599C9C9"><li class="li" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__LI_7531AA15B711470F9CA788402B687337">加载并选择高分辨率网格。 
+		  <p class="p" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-EEAAC425-2D21-4458-B517-F43B7999BC4B">对于该示例，我们将其称为 <samp class="ph codeph" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-DA99E1FD-D7D4-44D8-B21D-CDA52761DFE1">Sven_Mesh</samp>。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__LI_29D60AEEFB0C4067ADBBA113AA47BBE9"> 选择<span class="ph uicontrol">“编辑 &gt; LOD (详细级别) &gt; 生成 LOD 网格”(Edit &gt; LOD (Level of Detail) &gt; Generate LOD Meshes)</span> &gt; <img class="image" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__IMAGE_1F2A8FDDD6A14FA5A5FC4C7AC16D0754" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">。 
+		</li>
+<li class="li" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__LI_239C795B60114D8C9AC78428597D80AD">在<span class="ph uicontrol">“生成 LOD 网格选项”(Generate LOD Meshes Options)</span>中，设置以下选项，以确定如何减少高分辨率网格以生成低分辨率网格： 
+		  <ul class="ul" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__UL_3C97804BB4894B4B855CDB67B85171AC"><li class="li" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__LI_C98248D7B0AB4167B5DCC5DCE3DE5B63"> 指定是否要将选定网格中的蒙皮权重复制到新网格。启用或禁用<span class="ph uicontrol">“复制蒙皮权重”(Copy skin weights)</span>复选框。 
+			 </li>
+<li class="li" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__LI_29F8545CCA44401F84D215052D094FED">将<span class="ph uicontrol">“减少方法”(Reduction Method)</span>设置为按百分比、顶点或三角形计数减少多边形数量。（在本示例中，我们使用<span class="ph uicontrol">“百分比”(Percentage)</span>。） 
+			 </li>
+<li class="li" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__LI_68057A2392CA46EB9F51BA8C6394E60E">指定要创建的<span class="ph uicontrol">“LOD 级别的数量”(Number of LOD levels)</span>，并为列表中的每个级别启用复选框。 
+				<div class="fig fignone" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__FIG_315EFA4318BD42B8A510508305CF6073"><img class="image" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__IMAGE_EC27BAC4F4274A39ABE5595B04AC2876" src="../images/GUID-D58A0CED-5FA8-406A-9866-E1CFA78181DE.png"></div>
+ 
+			 </li>
+<li class="li" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__LI_6C92211B1ED5459E8ECC305C7470577E">设定所需的任何其他形状和保留选项。（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-092344A4-0BFB-4C1A-8C10-1017AC92BBC4.htm">生成 LOD 网格选项</a>了解详细信息。） 
+			 </li>
+</ul>
+ 
+		  <div class="p" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-C2E9D8CA-E31B-48F5-A1B6-B8A260887A3E">现在，您即获得了一个为生成的每个网格指定了子组的 LOD 组，您可以在<span class="ph uicontrol" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-FA6486C6-0AE1-4FB5-91A6-E4D8667AD0D5">“Hypergraph”</span>或<span class="ph uicontrol" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-D11D592F-D38E-4984-B416-434BCEF87E08">“大纲视图”(Outliner)</span>中查看该组。例如： 
+		  <ul class="ul" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__UL_4F690002FA804F4F99A339987C42249B"><li class="li" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__LI_F6C59033F53540AC9398E9053D7D1448">LOD_0 
+				<p class="p" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-2C8C7304-7FE4-4C5A-9584-55C12EF1A192"> 
+				  <samp class="ph codeph" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-999E550B-C98F-4D95-8237-092CDF6FE54F">Sven_Mesh</samp> 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__LI_251D5B2AA07741B0B732A7319F55A58B">LOD_1 
+				<p class="p" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-8CDDC1AC-651A-400C-9EA0-AD7AFF5B3781"> 
+				  <samp class="ph codeph" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-3AFD8391-A777-45E5-9C30-F43FAD49254A">Sven_Mesh</samp> 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__LI_EFD1D7C1DCD444B38C63A4271A74E17E">LOD_2 
+				<p class="p" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-4A8951F9-B61E-4C57-A20D-5C2A72A95F97"> 
+				  <samp class="ph codeph" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-A8B92FF1-CA0E-48C1-810B-AC0EC63AD84B">Sven_Mesh</samp> 
+				</p>
+ 
+			 </li>
+</ul>
+ 
+		  </div>
+ 
+		  <div class="note note" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-8D3BCB46-19EB-4A86-9A7D-A64D23D4E853"><span class="notetitle">注：</span> 为自动生成的网格指定的名称与原始网格的名称相同，但生成低分辨率版本完成后，可以对其重命名。 
+		  </div>
+ 
+		  <p class="p">默认情况下，设置的 LOD 组的<span class="ph uicontrol">“阈值类型”(Threshold Type)</span>设置为<span class="ph uicontrol">“屏幕高度百分比”(Screen Height Percentage)</span>，这意味着将根据当前摄影机帧中整个 LOD 组占据的屏幕高度百分比换出 LOD 网格。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-6C4580F6-BAAE-4649-9180-55A8E2E8FE16.htm">细节级别属性</a>，以获取更多信息。 
+		  </p>
+ 
+		  <p class="p" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-D569300B-8336-495C-ADEF-7D0907CA5664">场景现在一次仅从一个级别显示几何体，当您移动摄影机时，显示的级别将会更改。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__LI_1C72C0B514124B81B8BA287BF657B31E">（可选）添加其他 LOD 或将更多对象添加到现有级别。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-4BC04D0B-86D5-4297-A6C4-9ED08CBF6CA6.htm">添加和编辑详细等级</a>。 
+		  <p class="p" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-2B9EEA64-BDA8-4AF2-8306-D724C0F47714">例如，如果最初将角色网格添加到 LOD 组，则可以将角色的武器添加到相同的结构。 
+		  </p>
+ 
+		  <ul class="ul" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__UL_9DFCB6412E08481787F0742AD981BF70"><li class="li" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__LI_54BB7E484ADF49C4A9ABF5E25BB7D063">LOD_0 
+				<p class="p" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-3BF595EA-8FB6-4088-9AB7-48C670ACCFC6"> 
+				  <samp class="ph codeph" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-3E1D2B82-8335-4A8A-A80B-D90C5029C4F1">Sven_HiRes</samp> 
+				</p>
+ 
+				<p class="p" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-4F6169BD-2986-416E-895B-DDAE03C0F21D"> 
+				  <samp class="ph codeph" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-F73AF459-D1EF-465C-AE45-300C19F5C0F7">Sven_Gun_HiRes</samp> 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__LI_3E6A5EC092144B18828A2F9B9E63153C">LOD_1 
+				<p class="p" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-AC774414-6862-4850-9BA6-B2CB650E8E3B"> 
+				  <samp class="ph codeph" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-48F1E052-3591-485B-A3B6-624C943BD8EF">Sven_MedRes</samp> 
+				</p>
+ 
+				<p class="p" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-00491062-EAC7-4400-9F31-407E86A4136B"> 
+				  <samp class="ph codeph" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-C3BAC7D4-1BF6-48E8-B945-7219BB645268">Sven_Gun_MedRes</samp> 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__LI_8CC04B9F71CE49398EC0D0300EEE903B">LOD_2 
+				<p class="p" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-C71AEB9B-6945-4D51-AA9C-6A06CE343C6C"> 
+				  <samp class="ph codeph" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-065A40AA-056C-42C1-A1D7-F43916C3CDAF">Sven_LowRes</samp> 
+				</p>
+ 
+				<p class="p" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-1B75BF60-0216-4344-918B-4B26B6E5A89A"> 
+				  <samp class="ph codeph" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-88BF2D0C-0A31-4411-9D18-9C74B8DE262D">Sven_Gun_LowRes</samp> 
+				</p>
+ 
+			 </li>
+</ul>
+ 
+		</li>
+<li class="li" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__LI_CD33A67011674BBBBC95B8E4CF0147FB">放大和缩小场景以测试默认 LOD 切换设置。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-57860C3A-0B83-4CB8-B468-0CB77509AA2D.htm">测试或预览 LOD</a>。 
+		</li>
+<li class="li" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__LI_3982A19AFD4E471DA5D064FD7116C803">（可选）<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-A4519B9D-1E55-475E-9778-561351649889.htm">编辑 LOD 阈值的值</a>。 
+		  <p class="p" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-EA446258-1790-4A95-B007-6BABF54CA3F7">如果您发现默认 LOD 切换阈值的值未产生所需的结果，请选择 LOD<em class="ph i" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-1339FFBC-6F01-4708-B93B-64139DF5C92E">n</em>_group 节点并调整用于触发每个级别的默认值。例如，要在对象远离时切换到 LOD_2，请将 LOD_2_Display Start 设置为更高的值。 
+		  </p>
+ 
+		  <p class="p" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-1B161CD3-E333-4279-8EBC-D8212B1D9B2B">放大和缩小场景以测试您的更改。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__LI_25343FB3DC234E9A8E4BC12929200C5F">当您对 <span class="ph msgph prodname" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 中的 LOD 切换感到满意后，可以将组导出到游戏引擎中。 
+		  <p class="p" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-97A4FDC6-1797-442A-AE5F-003E43A20803">当您将 LOD 组导出为 FBX 文件时，您指定的 LOD 切换和<span class="ph uicontrol" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__GUID-6F1F2560-D3BF-44D7-B498-095F7951609B">“阈值”(Threshold)</span>设置可以正确地传递。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-C55ED277-E7DE-439B-891E-A58ED14C7930.htm">将 LOD 组导出到游戏引擎</a>。 
+		  </p>
+ 
+		</li>
+</ol>
+<div class="section" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__SECTION_5E27A84E14B647D4AAE3263C484A6C2B"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__UL_417F2C284E81427496D68BB2A233C602"><li class="li" id="GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991__LI_5AA3079EF0D84D91903A1C97BE05C845"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-092344A4-0BFB-4C1A-8C10-1017AC92BBC4.htm">生成 LOD 网格选项</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2.htm">LOD（细节级别）</a></div>
+</div>
+</div>
+
+</body>
+</html>

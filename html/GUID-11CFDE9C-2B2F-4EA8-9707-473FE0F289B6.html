@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6">
+<meta name="language" content="CHS">
+<title>使用样条线 IK 控制柄的提示</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用样条线 IK 控制柄的提示 </h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF-56C0CD8012A8003217A-1F5B"><ul class="ul" id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6__WS73099CC142F48755-7B21313411809411AE9-5420"><li class="li" id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6__WS73099CC142F48755-7B21313411809411AE9-541F"> 要确保关节链在设置 IK 样条曲线的动画时平滑移动，则关节链中的关节应彼此接近（短骨骼）。
+		</li>
+<li class="li" id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6__WS73099CC142F48755-7B21313411809411AE9-541D">创建没有锐化弯曲的简单曲线，有助于关节链在设置曲线的动画时平滑移动。使用少量 CV。
+		</li>
+<li class="li" id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6__WS73099CC142F48755-7B21313411809411AE9-541C"> 将 IK 样条线控制柄添加到大多数动物（其中包括沿运动路径移动的鱼和蛇）的骨架中时，系统会将不受 IK 样条线控制柄控制的变换节点或父关节设置为每个 IK 样条线的起始关节的父对象。这会使关节链随父对象的变换移动，并且避免出现异常的关节翻转。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-D107AA78-C999-451D-BCAC-CFFF1F007F17.htm">防止在样条线 IK 链中翻转</a>。
+		</li>
+<li class="li" id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6__WS73099CC142F48755-7B21313411809411AE9-541A">如果正在处理根关节几乎不旋转的角色（例如，倾斜的树），则无需将变换节点或关节设置为起始关节的父对象。起始关节可充当角色的根关节。
+		</li>
+<li class="li" id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6__WS73099CC142F48755-7B21313411809411AE9-5419">对于沿运动路径移动的鱼或蛇等角色，如果创建从骨架的根开始的控制柄，则在创建 IK 样条线控制柄时，请启用<span class="ph uicontrol" id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6__GUID-AF59CF02-5147-4E75-AC98-3EA88C0AA41A">“自动创建根轴”(Auto Create Root Axis)</span>。这样可以防止在设置沿运动路径自动创建的父变换节点的动画时，出现异常的关节翻转。另外，请禁用<span class="ph uicontrol" id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6__GUID-C5803E1D-EF97-44A1-81FE-38766181FF38">“自动将曲线结成父子关系”(Auto Parent Curve)</span>。
+		</li>
+<li class="li" id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6__WS73099CC142F48755-7B21313411809411AE9-5418">如果创建从骨架根以外的关节开始的控制柄，请启用<span class="ph uicontrol" id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6__GUID-7DDA7CB7-E0D7-4A00-B392-83A03D614DC6">“自动将曲线结成父子关系”(Auto Parent Curve)</span>，并禁用<span class="ph uicontrol" id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6__GUID-3B6FC72C-0CCD-4B30-9D8A-8F1DDE0C036E">“自动创建根轴”(Auto Create Root Axis)</span>，以便控制柄的曲线和起始关节随父关节的变换而移动。
+		  <p class="p" id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6__WS17956D7ADBC6E736-185AC66B117AE30DA36-7FA4">操纵已设置为脊椎的子对象的尾部或颈部时，请避免移动尾部或颈部曲线的第一个 CV。以最小距离移动第二个 CV，首先仅沿假设的线从脊椎端中延伸笔直输出。自由操纵其他 CV。该技术可确保蒙皮在脊椎与尾部或颈部会合处自然流动。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6__WS73099CC142F48755-7B21313411809411AE9-5416"> 请勿将起始关节设置为曲线的父对象。这样会创建一个依存关系图循环，导致起始关节在曲线移动时紧跟该曲线。若要检测这类循环，请使用 MEL 命令 cycleCheck -all。
+		</li>
+<li class="li" id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6__WS73099CC142F48755-7B21313411809411AE9-5414">请勿将使用同一曲线作为运动路径的变换节点设置为曲线的父对象。换句话说，如果要在该曲线中放置变换节点，请勿启用<span class="ph uicontrol" id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6__GUID-91BA192A-2CA2-4ECC-BCA1-EBEA64926601">“自动创建根轴”(Auto Create Root Axis)</span>和<span class="ph uicontrol" id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6__GUID-93BC3923-7F37-4DC5-876D-41F241EE240D">“自动将曲线结成父子关系”(Auto Parent Curve)</span>。否则将创建依存关系图循环。
+		</li>
+<li class="li" id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6__WS73099CC142F48755-7B21313411809411AE9-5413"> 如果将 IK 样条曲线更改为柔体，则可以添加动态力，以更改曲线的运动。例如，您可以将湍流连接到曲线，以创建无规律的随机运动。
+		</li>
+</ul>
+<div class="section" id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6__SECTION_360FD97CA8AA4F81A280E72DCFD6B677"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6__UL_E6D7A5105A4C47E2B273E152189570AE"><li class="li" id="GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6__LI_8985D6E6718A43C1AB393700389581A0"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-356B7E1F-8715-4D8F-978A-888E145B4700.htm">创建样条线 IK 控制柄</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-F8854E79-AA13-4065-A8E6-D66AB8FD24BB.htm">使用样条线 IK</a></div>
+</div>
+</div>
+
+</body>
+</html>

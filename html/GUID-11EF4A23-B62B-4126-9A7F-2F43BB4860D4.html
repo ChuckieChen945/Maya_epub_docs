@@ -1,0 +1,208 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4">
+<meta name="language" content="CHS">
+<title>交互式修饰笔刷衰减(Brush Falloff)和根部到尖端幅值控制(Root to Tip Magnitude Control)设置</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>交互式修饰笔刷衰减(Brush Falloff)和根部到尖端幅值控制(Root to Tip Magnitude Control)设置 </h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__GUID-C7B8AF6B-232B-4E9C-AA7C-61407D3DC345"> 可用于指定工具效果如何从其中心点向其外边缘减弱。衰减表示为一条可以编辑的曲线。该曲线的作用类似于雕刻衰减曲线。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-10E5390B-574A-41D2-8269-0479B819B068">调整工具衰减</a>。 
+	 </p>
+<p class="p"><span class="ph uicontrol">“放置”(Place)</span>、<span class="ph uicontrol">“剪切”(Cut)</span>和<span class="ph uicontrol">“选择”(Select)</span>笔刷无衰减。 
+	 </p>
+<div class="section" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__SECTION_C381104B2D9E49DFB3126D41242FF5CC"><h2 class="title sectiontitle"><span class="ph uicontrol" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__GUID-6CFAA932-7687-440A-B59C-5C09079E0D44">衰减类型(Falloff Type)</span></h2> 
+		 
+		<p class="p"> 笔刷将衰减值指定给笔刷半径中的每个 CV（根据其与中心点的距离）。CV 距离中心点越远，应用的衰减就越多。以下衰减类型使用不同的方法来测量此距离，并生成唯一的结果。 
+		</p>
+ 
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__GUID-8445E76E-BE1E-438F-989F-B96ED1349F0A">体积(Volume)</span> 
+			 </dt>
+<dd class="dd"> 通过从笔刷中心向笔刷半径内的每个发股 CV 绘制一条直线，笔刷测量了距离。根据 CV 与中心点的距离，为 CV 指定衰减值。<span class="ph uicontrol">“体积”(Volume)</span>衰减影响笔刷半径中的所有 CV。 
+			 </dd>
+<dt class="dt dlterm"> 滤色(Screen) 
+			 </dt>
+<dd class="dd"> 该笔刷测量从笔刷半径的中心到边缘的衰减距离。衰减显示为从摄影机角度到头发 CV 的 2D 投影。此衰减类型在从摄影机角度进行雕刻时非常有用，便于塑造头发的轮廓视图。 
+				<p class="p"><span class="ph uicontrol">“密度”(Density)</span>笔刷没有<span class="ph uicontrol">“滤色”(Screen)</span>衰减。 
+				</p>
+ 
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">表面(Surface)</span> 
+			 </dt>
+<dd class="dd"> 通过在其中心点处开始并沿绑定网格曲面运动以查找发股 CV，笔刷了测量距离。根据发股 CV 与中心点的距离，为发股 CV 指定衰减值。在以下情况中使用<span class="ph uicontrol">“曲面”(Surface)</span>： 
+				<ul class="ul" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__UL_29FD696E11B04A15B446EDA884D99501"><li class="li" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__LI_79F7B89006D341F7B56F962B33A8AF1C">修饰工具设置为<span class="ph uicontrol">“全局”(Global)</span>模式，即：相对于沿单根头发的 CV 编辑发股组时。 
+				  </li>
+<li class="li" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__LI_4DCA3C0D0ADF4659AF2307478F648A1F">希望修饰工具与曲面一致时。 
+				  </li>
+<li class="li" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__LI_410B26438BEC4286BD3E63BF9FACBB22">在修饰卷发或许多头发重叠时。 
+				  </li>
+</ul>
+
+				<p class="p">使用此衰减类型 
+				</p>
+ 
+				<p class="p"><span class="ph uicontrol">“梳理”(Comb)</span>、<span class="ph uicontrol">“抓取”(Grab)</span>和<span class="ph uicontrol">“噪波”(Noise)</span>笔刷没有<span class="ph uicontrol">“曲面”(Surface)</span>衰减。 
+				</p>
+ 
+			 </dd>
+</dl>
+ 
+	 </div>
+<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__GUID-264641EA-3508-4F09-88BA-9D9111F1E9CE">衰减曲线(Falloff curve)</span> 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p">控制笔刷的剖面（横截面）。衰减曲线确定工具强度如何从中心向其外边缘减弱。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__GUID-57EFF87B-1DC2-4201-AAEB-A8E40D9C20DF">捕捉到栅格(Snap to Grid)</span> 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__GUID-FA8137BF-D645-48B7-967B-FA13B9FBBDA1">将点约束到<span class="ph uicontrol" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__GUID-6D4F2F9B-DA7D-46E5-94CC-964504E93C14">“衰减曲线”(Falloff Curve)</span>栅格。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__GUID-BAB84825-BB06-4029-AF05-F26DE33B6255">重置曲线(Reset Curve)</span> 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p">将衰减曲线重置为其默认形状。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__GUID-300034C0-D521-483D-9552-5415925072CB">保存自定义曲线(Save Custom Curve)</span> 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p">将当前的衰减曲线保存到<span class="ph uicontrol" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__GUID-E3AAA085-7B24-48D6-A829-06FCE15E8123">“工具设置”(Tool Settings)</span>中的<span class="ph uicontrol" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__GUID-31C9610B-392A-4BE8-9AC9-5AFCDE5809A7">“自定义曲线”(Custom Curve)</span>预设。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__GUID-3A4BA136-2D61-449D-8D9A-2534ACD96088">预设曲线(Preset Curve)</span> 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p">允许您通过从频繁使用的形状中进行选择来快速设置<span class="ph uicontrol" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__GUID-D444A209-0090-42BB-86BD-165FC224F700">“衰减曲线”(Falloff curve)</span>。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__GUID-3D15BFE9-3EC1-494F-A968-F1574EFCE068">自定义曲线(Custom Curve)</span> 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p">允许您通过从自定义形状中进行选择来快速设置<span class="ph uicontrol" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__GUID-EC0CADA2-7EA8-464B-9830-77B52AD761FC">“衰减曲线”(Falloff curve)</span>。 
+			 </p>
+ 
+			 <p class="p" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__GUID-3F9AA749-9138-42D9-83F5-86B8A1EFCBEC">按住 Ctrl 键并单击自定义曲线图像可删除它。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">体积搜索半径(Volume Search Radius)</span> 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p">特定于将<span class="ph uicontrol">“衰减类型”(Falloff Type)</span>设置为<span class="ph uicontrol">“体积”(Volume)</span>的笔刷。设置围绕笔刷中心的区域的半径，用于查找距笔刷半径的边缘最近的头发 CV。此值是笔刷半径的百分比。较大的值会增加体积选择的采样大小并改善整体结果，但会降低采样精确度，这意味着体积中心距离摄影机更远。默认值为 0.25。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">体积中心偏移(Volume Center Offset)</span> 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p">特定于将<span class="ph uicontrol">“衰减类型”(Falloff Type)</span>设置为<span class="ph uicontrol">“体积”(Volume)</span>的笔刷。用于调整体积中心与摄影机之间的距离。正值会增加此距离，而负值将减小此距离。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">偏移热键间隔(Offset Hotkey Interval)</span> 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p">特定于将<span class="ph uicontrol">“衰减类型”(Falloff Type)</span>设置为<span class="ph uicontrol">“体积”(Volume)</span>的笔刷。设置每次按下偏移热键时应用于体积的偏移量。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">过滤背面(Filter Back Faces)</span> 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p"> 启用后，背面多边形上的头发不受笔刷笔划影响。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">背面中止角度(Back Face Cutoff Angle)</span> 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p">控制背面过滤的角度。例如，设置为默认值 90 时，背向摄影机 90 度的面上的头发不受笔刷笔划影响。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">衰减开始角度(Falloff Start Angle)</span> 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p">确定衰减开始减弱笔刷效果的角度。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">总体颜色强度(Overall Color Intensity)</span> 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p">控制颜色反馈的颜色覆盖强度，包括<span class="ph uicontrol">“衰减”(Falloff)</span>和<span class="ph uicontrol">“选择前亮显”(Preselection Highlight)</span>颜色。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">笔刷衰减颜色(Brush Falloff Color)</span> 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p">启用后，颜色反馈根据选定的<span class="ph uicontrol">“笔刷衰减</span> 
+				<span class="ph uicontrol">曲线”</span>(Brush Falloff &gt; Curve)指示笔刷笔划的衰减区域。使用衰减颜色渐变可设置衰减曲线如何映射到受影响的头发。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">衰减颜色(Falloff Color)</span> 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p">指定如何显示衰减颜色反馈的颜色渐变。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">选择前亮显(Preselection Highlight)</span> 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p">启用后，受笔刷影响的头发将在开始雕刻之前亮显。单击<span class="ph uicontrol">“颜色”(Color)</span>样例或使用滑块控件更改亮显颜色。 
+			 </p>
+ 
+		  </dd>
+</dl>
+<div class="section" id="GUID-11EF4A23-B62B-4126-9A7F-2F43BB4860D4__SECTION_BA51DCF41A92454B9373D4371863EB94"><h2 class="title sectiontitle">根部到尖端幅值控制(Root to Tip Magnitude Control) </h2> 
+		 
+		<p class="p">启用后，可以指定该笔刷如何沿头发从根部到尖端的长度应用其效果。笔刷效果的幅值表示为一条可以编辑的曲线，其中最左侧的点表示发根，最右侧的点表示发梢。 
+		</p>
+
+		<p class="p">启用这些设置可提高笔刷效果的控制力和准确性。
+		</p>
+ 
+		<p class="p"><span class="ph uicontrol">“根部到尖端幅值控制</span> 
+		  <span class="ph uicontrol">曲线”</span>(Root to Tip Magnitude Control &gt; Curve)的控件与<span class="ph uicontrol">“笔刷衰减</span> 
+		  <span class="ph uicontrol">曲线”</span>(Brush Falloff &gt; Curve)相同，且工作原理类似。请参见上文中的衰减曲线设置。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-14A0A8ED-AC20-4F74-AD43-5ACE0D5F260E.htm">交互式修饰工具设置</a></div>
+</div>
+</div>
+
+</body>
+</html>

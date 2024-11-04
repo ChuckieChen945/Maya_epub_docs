@@ -1,0 +1,201 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_534_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_534">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 5.3.4 - Arnold for Maya">
+
+<title>5.3.4</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+<div class="head-block"><h1>5.3.4</h1></div><p>4 October 2023</p>
+<p>MtoA 5.3.4 introduces Arnold 7.2.4.0.
+See also the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_530_html">MtoA 5.3.0 release notes</a>.</p>
+<h2 id="installation">Installation</h2><ul>
+<li><a href="https://manage.autodesk.com/products/MAYA" target="_blank">Download</a> the Arnold for Maya plugin</li>
+<li>Follow these installation instructions.</li>
+</ul>
+<h2 id="enhancements">Enhancements</h2><ul>
+<li><p><strong>Arnold RenderView improvements</strong>: </p>
+<ul>
+<li>Better Crop handle feedback (ARNOLD-13491)</li>
+<li>Better A/B compare handle feedback (ARNOLD-13572)</li>
+<li>Improved IPR update speed (ARNOLD-13997)</li>
+</ul>
+</li>
+<li><p><strong>Log Window can be launched independently</strong> : You can open the Arnold Log window from the Arnold menu and the Arnold shelf, whether the Arnold RenderView is open or not. (MTOA-1478) </p>
+</li>
+<li><p><strong>Standins displaying points in viewport</strong> : The aiStandIn node can now display points in the viewport when in shaded polymesh mode (MTOA-1258)</p>
+</li>
+<li><p><strong>Toon shader - improved detection of internal edges:</strong> The toon shader now does a better job of detecting angle threshold silhouettes that are internal to a single object. This is most apparent in the regions between nearly parallel surfaces of an object that are at different distances to the camera. 
+(ARNOLD-10560)</p>
+</li>
+</ul>
+
+<div class="gallery center">
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/ac-rn-7240-toon-internal-edge-before.png" alt=""></td>
+<td><img src="../images/ac-rn-7240-toon-internal-edge-after.png" alt=""></td>
+</tr>
+<tr>
+<td>7.2.3</td>
+<td>7.2.4</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<img src="../images/brick-montage.jpg" width="800px">
+
+
+<ul>
+<li><p><strong>Improved mesh-lights sampling and update:</strong> Improved time to first pixel (up to 10% for scenes containing many large meshes) and overall render time (up to 5% for scenes with multiple flat mesh lights). (ARNOLD-13639)</p>
+</li>
+<li><p><strong>Improved interactive performance:</strong> Multiple optimizations to make interactive renders snappier by improving the interruption rate when modifying the scene. (ARNOLD-9833, ARNOLD-14077, ARNOLD-14083)</p>
+</li>
+<li><p><strong>Improved Global Light Sampling behavior around flat lights:</strong> Reduced noise with Global Light Sampling for surfaces near or behind flat lights (disk or quad lights). (ARNOLD-13192)</p>
+</li>
+</ul>
+
+<div class="gallery center">
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/ac-rn-7240-gls-flat-before.jpg" alt=""></td>
+<td><img src="../images/ac-rn-7240-gls-flat-after.jpg" alt=""></td>
+</tr>
+<tr>
+<td>7.2.3</td>
+<td>7.2.4</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+<p>||</p>
+<ul>
+<li><p><strong>Use dependency graph automatically for interactive renders:</strong> For interactive renders (IPR), the dependency graph is always enabled, regardless of the value of <code>options.enable_dependency_graph</code>. Interactive rendering updates for scene changes are improved by (and in some cases require) the dependency graph, so enforcing this setting avoids potential crashes. (ARNOLD-10732)</p>
+</li>
+<li><p><strong>Added support for alpha channel output in PNG driver:</strong> Added new boolean parameters <code>skip_alpha</code> and <code>unpremult_alpha</code> to the <code>driver_png</code> node. They behave in the same way as in the TIFF driver, with <code>skip_alpha</code> ignoring the alpha channel, and <code>unpremult_alpha</code> selecting either unassociated alpha (on) or associated alpha (off). Please note that PNG files with associated alpha are not supported by the PNG standard. (ARNOLD-10540)</p>
+</li>
+<li><p><strong>OpenColorIO Alias support</strong> The OCIO color manager now supports the use of <a href="https://opencolorio.readthedocs.io/en/latest/guides/authoring/authoring.html#aliases" target="_blank">OCIO color space aliases</a>. (ARNOLD-13998)</p>
+</li>
+</ul>
+<h2 id="usd-enhancements">USD Enhancements</h2><ul>
+<li><strong>Custom MaterialX node definitions</strong> MaterialX node definitions placed under a folder defined by the environment variable PXR_MTLX_STDLIB_SEARCH_PATHS are now supported when rendered with Arnold, through USD or Hydra <a href="https://github.com/Autodesk/arnold-usd/issues/1632" target="_blank">usd#1632</a>. There is no longer any restriction on the node definitions prefix and naming convention <a href="https://github.com/Autodesk/arnold-usd/issues/1603" target="_blank">usd#1603</a>.</li>
+<li><strong>ArnoldProceduralCustom support in Hydra</strong> Primitives ArnoldProceduralCustom are now supported inside of Hydra, and allow to render 3rd party Arnold procedural nodes <a href="https://github.com/Autodesk/arnold-usd/issues/739" target="_blank">usd#739</a>.</li>
+</ul>
+<h2 id="api-additions">API Additions</h2><ul>
+<li><strong>AiMaterialxGetNodeEntryFromDefinition:</strong> Given a MaterialX node definition, returns the corresponding Arnold node entry. Arnold searches for node definitions in the materialx directory in the Arnold distribution and in any directory listed in the ARNOLD_MATERIALX_NODE_DEFINITIONS environment variable. The function returns the relevant Arnold node type if the node has a native Arnold implementation, or the OSL node type if the node has an OSL implementation only, so you can safely call <em>AiMaterialxGetOslShaderCode</em> with the same node definition.  (ARNOLD-13957)</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible Changes</h2><ul>
+<li><strong>AiUniverseGetOptions() no longer returns "sanitized" threads count:</strong> <code>AiUniverseGetOptions()</code> returns the options set by the user, while <code>AiRenderSessionGetOptions()</code> returns the options actually used by the render. Previously this behavior was not followed for <code>options.threads</code>, and both the universe and render session's options contained a "sanitized" version of the thread count. For example, a thread count of 0 was interpreted as "autodetect" and sanitized to be the number of logical cores. Now, querying the universe <code>options.threads</code> can return 0 or other values that do not reflect what is being used. If the sanitized version is needed, replace <code>AiUniverseGetOptions(universe)</code> with <code>AiRenderSessionGetOptions(AiUniverseGetRenderSession(universe))</code>. (ARNOLD-14083)</li>
+</ul>
+<h2 id="bug-fixes">Bug Fixes</h2><ul>
+<li>MTOA-1525 - Maya 2022 in py2 environment, plugin fails to load with an error.</li>
+<li>MTOA-1549 - Unable to create extension attribute errors reported on plug-in load.</li>
+<li>MTOA-1541 - Blobby and Cloud nParticles no longer render</li>
+<li>MTOA-1475 - Spinner widgets in setParamater UI are limited to 100</li>
+<li>MTOA-1444 - Update TX Files hangs Maya</li>
+<li>MTOA-1158 - Tearing off viewport copy removes viewport toolbar icons</li>
+<li>ARNOLD-280 - Mac HighDPI: Crop Region is offset from mouse cursor</li>
+<li>ARNOLD-13733 - Crash on launching RenderView</li>
+<li>ARNOLD-12005 - Hang when toggling denoiser ('N' key) in kick</li>
+<li>ARNOLD-12205 - [GPU] Rare crash when process is terminating</li>
+<li>ARNOLD-13709 - Invalid render when new OSL shaders are created interactively</li>
+<li>ARNOLD-13823 - Correct scene scale conversion for nested procedurals</li>
+<li>ARNOLD-13983 - Crash in IPR when enabling the OptiX denoiser, light mixer, or Arnold denoiser imagers</li>
+<li>ARNOLD-13995 - Incorrect motion range in the instancer</li>
+<li>ARNOLD-14065 - Artifacts with thick curves when scaling is applied</li>
+<li>ARNOLD-14067 - Arnold MaterialX node definitions do not expose multiple outputs</li>
+<li>ARNOLD-14074 - shidx not being gathered for alembic.material_attrbute string attribute</li>
+<li>ARNOLD-14099 - Wrong separator used in the materialx paths</li>
+<li>ARNOLD-14179 Arnold RenderView menu cropped</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1693" target="_blank">usd#1693</a> - Fix regression with Geometry lights in Hydra</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1696" target="_blank">usd#1696</a> - Fix regression with Cryptomatte in Hydra</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1613" target="_blank">usd#1613</a> - Invisible Hydra primitives should ignore arnold visibility</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1641" target="_blank">usd#1641</a> - Ensure nodes created by the render delegate have the correct parent procedural</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1673" target="_blank">usd#1673</a> - UsdUvTexture ignores missing textures in hydra</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1675" target="_blank">usd#1675</a> - Fix UsdUvTexture default wrap modes and uvset coordinates.</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1657" target="_blank">usd#1657</a> - Fix a motion blur sampling bug happening when a mesh has facevarying indexed normals and different number of indices per key frame</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1634" target="_blank">usd#1634</a> - Support curves orientations identically between USD and Hydra / Prevent errors due to bad curves orientations count</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2><ul>
+<li>Maya 2022, 2023 or 2024</li>
+<li>Windows 10 or later, with the Visual Studio 2019 redistributable.</li>
+<li>Linux with at least glibc 2.17 and libstdc++ 4.8.5 (gcc 4.8.5). This is equivalent to RHEL/CentOS 7.</li>
+<li>x86-64 CPUs need to support the SSE4.1 instruction set. </li>
+<li>macOS 10.13 or later, macOS 11 and later for Maya 2024</li>
+<li>Apple Mac models with M series chips:<ul>
+<li>Natively supported by Arnold for Maya 2024</li>
+<li>Supported under Rosetta 2 mode for older versions of Maya</li>
+</ul>
+</li>
+<li>GPU rendering works on Windows and Linux only and requires an NVIDIA GPU of the Ada, Ampere, Turing, Volta, Pascal, or Maxwell architecture. We recommend using the <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">525.89 or higher drivers</a> on Linux and <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">528.49, or higher</a> on Windows. See  Arnold GPU for more information.</li>
+<li>For GPU rendering, the cache also needs to be re-populated after installing a new Arnold version, <strong>updating to a new NVIDIA driver</strong>, or changing the hardware configuration of GPUs on the system. More information can be found here.</li>
+<li>Optix™ denoiser requires an NVidia GPU with <a href="https://developer.nvidia.com/cuda-gpus" target="_blank">CUDA™ Compute Capability 5.0</a> and above.</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_5x_html.html">MtoA 5.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

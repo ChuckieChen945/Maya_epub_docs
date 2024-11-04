@@ -1,0 +1,70 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_car_am_Preparing_the_HDRI_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_PREPARING_THE_HDRI">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 准备 HDRI - Arnold for Maya">
+
+<title>准备 HDRI</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>准备 HDRI</h1></div><p>首先，我们对 HDR 贴图进行测试。我们并不是立即开始渲染汽车（此渲染会花费较长时间），而是渲染两个球体。一个球体用于测试照明，另一个球体用于测试光泽反射。</p>
+<ul>
+<li><p>为其中一个球体指定一个 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Surface_html">standard_surface</a> 着色器，如下图所示。将 <em>specular_weight</em> 减小到 0。这将用于测试照明和阴影。根据 HDR 贴图的源，可能需要增加或减少场景中照明的曝光。尝试匹配拍摄现场照明条件时，此灰色球体也可以证明很有用（稍后，可在拍摄现场使用灰色镀铬球体以匹配 3D 环境中的照明条件）。</p>
+</li>
+<li><p>将另一个 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Surface_html">standard_surface</a> 着色器指定给另一个球体。要使此材质看起来像镀铬，请将<em>“金属度”(Metalness)*增大到 1，将 *base_weight</em> 增大到 1，以及将 <em>specular_roughness</em> 减小到 0。</p>
+</li>
+<li><p>创建一个 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_core_ac_skydome_light_html" target="_blank"><em>skydome_light</em></a>，并将 HDR 贴图连接到 <em>skydome_light.color_。我们使用的 HDR 贴图采用的是_“经度-纬度”(Lat-long)_格式。增加_“分辨率”(Resolution)_以匹配 HDR 贴图较大的宽度分辨率。在本例中，分辨率为 4096。默认情况下，此分辨率设置为 1000，这意味着如果您使用的环境贴图大于 1000 像素，则应相应地调整 _skydome_light</em> 中的<em>“分辨率”(Resolution)</em>。例如，如果您的环境贴图为 3000*1500 像素，则 <em>skydome_light.resolution</em> 应设置为 3000，依此类推。</p>
+</li>
+</ul>
+<p><img src="../images/preparing-1.png" alt=""></p>
+<p><sub><strong style="text-align: center;">HDR 贴图连接到 <em>skydome_light</em> 的“颜色”(Color)属性</strong></sub></p>
+<ul>
+<li>渲染场景，生成的图像如下所示。如果白色球体看起来太暗，可能需要增加曝光。在本例中，曝光已增加至 2。</li>
+</ul>
+<p><img src="../images/aiShadowCatcher_car_tutorial_spheres.png" alt=""></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Rendering_a_Car_Using_an_HDRI_and_a_Backplate_html.html">使用 HDRI 和背板渲染汽车</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

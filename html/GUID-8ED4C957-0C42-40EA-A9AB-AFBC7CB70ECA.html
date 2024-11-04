@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="IK/FK 融合">
+<meta name="modified" content="31/08/2022">
+<meta name="topicid" content="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA">
+<meta name="language" content="CHS">
+<title>IK 和 FK 融合示例</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>IK 和 FK 融合示例</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__WS73099CC142F48755-7B21313411809411AE9-5305">本实例介绍融合 FK 摆动臂动画和 IK 挥动臂动画。
+	 </p>
+<ol class="ol" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__OL_4A8698394B38401391F7FA9020EC0217"><li class="li" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__LI_0BF200182BC6421AAE226A143E051B74">创建一个在循环行走期间摆动臂的简单动画：
+		  <ul class="ul" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__UL_2E2FB78A86874D9EA127C0F75674975C"><li class="li" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__LI_D6C44647D7B54652B5DE13C00CBBBF46">选择手臂关节链的根关节（肩部关节）。
+			 </li>
+<li class="li" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__LI_CB28A6F90CFD4659BF5DBDF8FFC6BC8F">使其沿 Z 轴旋转。
+			 </li>
+<li class="li" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__LI_523FCDB737F34C16BDB1E81193EF87C4">为关节设定关键帧 
+			 </li>
+</ul>
+ 
+		  <p class="p" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__GUID-04B80A7E-17C4-4A4C-881F-8BCF7D6E23DF">这将生成一个初步的 FK 动画。
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__WS73099CC142F48755-7B21313411809411AE9-5304"><img class="image" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__IMAGE_5B03A9C56423405D8A0C26D9D122B393" width="410" height="281" src="../images/GUID-0F35C77E-0BB1-481A-8BC7-D439A5EDD818.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__LI_303A472D0BB44C79BC9790DC480B693C">将该 FK 动画序列与手臂挥动的定向运动进行融合：
+		  <ul class="ul" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__UL_0E851E0E4AE24C5C81EEB2C6513AEB26"><li class="li" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__LI_D8F4E360209447F095E87233A7D4C8F9">在 FK 动画的开头和末尾处的 IK 控制柄和肩部关节上设置关键帧以创建一个融合区域。
+				<p class="p" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__WS73099CC142F48755-7B21313411809411AE9-52DA">您可以将这些关键帧<em class="ph i" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__GUID-95C502A1-E771-4980-AE8A-D68BE0E8E498">作为边界关键帧</em>，因为它们可确保您在它们之间的融合范围中设置的任何关键帧都不会在该范围之外更改动画。
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__LI_6B2ACEF9C88B490E8E77ED1203DC680D">将<span class="ph uicontrol" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__GUID-5491EFE4-F843-43F4-B455-8F0C24469976">“IK 融合”(IK Blend)</span>值更改为 1.000（纯 IK）。
+			 </li>
+<li class="li" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__LI_83D75797EE8B484EA749E69051D41292">在肩部关节和 IK 控制柄上设置关键帧。
+			 </li>
+</ul>
+ 
+		  <div class="fig fignone" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__WS73099CC142F48755-7B21313411809411AE9-5302"><img class="image" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__IMAGE_2D063062511B4743A07BFAC5FF80061F" width="410" height="341" src="../images/GUID-9F198FBF-25DE-4625-B814-04EED150D0F3.png"></div>
+ 
+		  <p class="p" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__GUID-1FB104D3-0BC4-4A5C-B3AD-C950CDB89EC0">在纯 FK 和 IK 动画之间的区域（即融合区域）中，<span class="ph uicontrol" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__GUID-8773D044-BA0E-4C69-AAC7-E8810FD7C907">“IK 解算器”(IK Solver)</span>在 0.000 到 1.000 之间插值动画。
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__WS73099CC142F48755-7B21313411809411AE9-5300"><img class="image" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__IMAGE_46473DB5B04E487EAAF73C22C16137FD" width="410" height="266" src="../images/GUID-8D11C665-22F9-461D-AF9B-1F9EC2C1F55D.png"></div>
+ 
+		  <p class="p" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__WS73099CC142F48755-7B21313411809411AE9-52FF"><span class="ph uicontrol" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__GUID-B0485036-169F-4479-8F19-FE6C481272EA">“IK 融合”(IK Blend)</span>值为 1.000 时，动画是纯 IK。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__LI_F45AD33AC40540D7AD877A4634DED463">在设定关键帧时平移和旋转 IK 控制柄以生成挥动手臂动画。
+		</li>
+<li class="li" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__LI_186A5EE798144D8884B2C7466A9685D7">将动画再次设置（使用其他融合区域并将 <span class="ph uicontrol" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__GUID-D65CC807-5061-451D-88D0-B4920ACEAAAB">“IK 融合”(IK Blend)</span>值更改为 0.000）到纯 FK。
+		  <p class="p" id="GUID-8ED4C957-0C42-40EA-A9AB-AFBC7CB70ECA__GUID-36E15FE6-09ED-48DC-9BC1-3B421A82138C">结果动画看起来像一个挥动的手臂 (FK)，举高挥动 (IK)，然后下降回到摆动动作（返回到 FK）。
+		  </p>
+ 
+		</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-05052A96-DBF4-4E91-925F-17244DDA4B9E.htm">IK/FK 融合</a></div>
+</div>
+</div>
+
+</body>
+</html>

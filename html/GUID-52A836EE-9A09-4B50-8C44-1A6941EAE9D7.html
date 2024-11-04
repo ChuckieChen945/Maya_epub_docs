@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Basics">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7">
+<meta name="language" content="CHS">
+<title>将元数据添加到 Maya 节点</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>将元数据添加到 Maya 节点</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-456A5EA8-AEF0-4766-B784-526E117355B9"> 可以使用 Maya 元数据 API 创建任意多的元数据结构，这些结构可以直接附加到 Maya 网格对象的任何 Maya 节点以及组件（顶点、面、边和顶点面）。也可以将元数据整体添加到 Maya 场景中，也就是说无需将其附加到任何特定节点。通过为数不多的一组 MEL 命令，可以从 Maya 内访问元数据。 
+	 </p>
+<p class="p" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-1593EADC-4C9C-4553-A9DF-1570DBF0772C">使用元数据类，可以为组件级别的元数据创建数据结构，并将其合并为单个数据流，该数据流允许元数据流经 Maya DG 中的操作，同时使元数据保持附加到节点。这包括向具有构建历史的网格节点添加组件级别元数据。由于元数据可以通过任意指定关联附加到任意节点，因此可以扩展 API 用途（如将元数据附加到点云中的点、模拟中的粒子或 NURBS 曲面上的顶点）。元数据稍后可通过 MEL 命令或 API 进行检查或修改，并在不同会话之间保存在 Maya 文件中。<samp class="ph codeph" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-7C0984F5-8526-4C0F-B0E2-5249505F2308">adsk::Data::Association</samp> 类引用中的示例显示了如何将顶点速度和加速数据存储在模拟网格上。请参见 Maya 开发人员帮助。 
+	 </p>
+<p class="p" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-9E31A454-43E9-4645-A369-9F6A35C89AF7"> 在构建历史中，元数据索引值不会发生变化。如果网格拓扑改变，则网格组件元数据可能不再与原始组件关联。<samp class="ph codeph" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-477D7036-F3BB-4AA5-AA06-F1C7CF469EBB">editMetadata</samp> 命令可以帮助将调整插入构建历史，进而修复由此引发的任何问题。 
+	 </p>
+<div class="note note" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-BB9592F5-2D2B-42CA-85B2-57B66F03C3BB"><span class="notetitle">注：</span>  
+		<p class="p" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-1FBAF14E-C8F8-4C1C-BDFB-F18D79CF7A30">不应将元数据添加到变形网格。 
+		</p>
+ 
+		<p class="p" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-48949027-C4F0-43BB-AD1B-7B84E1EB192B">通常，更改 polyShape 的 inMesh 属性（即，polyShape 节点的输入属性）的拓扑的任何操作（例如，硬边修改）不会以相同方式修改传入的元数据，并且可能会导致意外的结果。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__SECTION_DCF946554CB64CF3B383E7AED6FA7EDA"><h2 class="title sectiontitle"> 元数据 API 类</h2> 
+		 
+		<p class="p" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-939EC7CA-3A37-49BD-8F7E-0DA15CBF112F">元数据 API 包括以下最常用的类：<samp class="ph codeph" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-079FF68C-9994-4201-964D-1901617C5645">adsk::Data::Association、</samp> 
+		  <samp class="ph codeph" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-450B7F9E-0226-49A4-90A3-296ED61AABEE">adsk::Data::Channel</samp>、<samp class="ph codeph" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-530AFD02-E012-40EA-B5CC-04922C56675C">adsk::Data::Stream</samp>、<samp class="ph codeph" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-B87E2C79-1EB1-48BA-9205-3AF16C6593A2">adsk::Data::Structure</samp> 和 <samp class="ph codeph" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-73335810-C2E2-468C-B788-9D1132EA0D9A">adsk::Data::Handle</samp>。 
+		</p>
+ 
+		<ul class="ul" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__UL_5F5B5975E9F44072A68AC070B551625C"><li class="li" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__LI_C4D6DC0556544250A9FEC52BB470DB68"> <samp class="ph codeph" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-4CF0C122-7BAF-49EE-B07B-B2679E2CAAF3">adsk::Data::Association</samp> 类用于为每个组件的数据创建数据结构。 例如，可以定义要附加到网格对象曲面上的每个顶点的数据。 
+		  </li>
+<li class="li" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__LI_69218B6AFB5A4A56B5F40D203342A652"><samp class="ph codeph" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-123499EC-616B-46A7-B384-4E853A6C2A4F">adsk::Data::Channel</samp> 类用于将数据流合并到单个数据块。 
+		  </li>
+<li class="li" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__LI_C2929C346DE54F1D8C15F40724EF025E"><samp class="ph codeph" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-284065B3-EF49-47FA-AD66-576B6B9E7959">adsk::Data::Stream</samp> 类用于管理数据的索引列表，而且已针对典型操作（如从列表中间删除条目以及复制条目）进行优化。 
+		  </li>
+<li class="li" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__LI_36D2BE8072D64206A28C73951ACB4C31"><samp class="ph codeph" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-82698FFB-A988-473F-9ACD-FCE3C1A4823D">adsk::Data::Structure</samp> 类用于定义和管理元数据的数据结构。 
+		  </li>
+<li class="li" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__LI_59A6971B9809448C8BBDEC89ADF6D9E8"><samp class="ph codeph" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-590C9C28-F620-4242-A5DA-D656E7E917DE">adsk::Data::Handle</samp> 类提供用于访问 <samp class="ph codeph" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-070D8CCF-A252-4B8F-B5C8-2B58D307E790">adsk::Data::Stream</samp> 中的元数据值的接口。 
+		  </li>
+</ul>
+ 
+		<p class="p" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-349D3BAC-FF5B-4A67-AAFD-4CCA80D6EC22"><span class="ph uicontrol" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-C780A675-B538-4764-ABC4-E449AE79123B">“关联”(Association)</span>、<span class="ph uicontrol" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-BB3F239E-C3CB-4E32-AC74-DAE675A070A1">“通道”(Channel)</span>、<span class="ph uicontrol" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-B82E4941-56BC-4951-B578-863B3186263E">“流”(Stream)</span>和<span class="ph uicontrol" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-09977A16-BE46-445C-A454-DEAD3B5FBA90">“结构”(Structure)</span>各自具有等效的 <samp class="ph codeph" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-E9D95BC2-E9BB-4DE3-AE16-5BA0857F4420">XXIterator</samp> 类，有助于遍历类的所有成员。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__SECTION_B8DD5A8F4D054D6FA7D93FAD5F83D6F0"><h2 class="title sectiontitle"> 元数据 MEL 命令</h2> 
+		 
+		<p class="p" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-5D290B8A-9751-4FD4-9F14-237DE79D9884">从 Maya 中，可以使用以下 MEL 命令访问和操纵从元数据 API 创建的数据结构。有关完整的命令参考，请参见技术文档中的“MEL 命令”部分。 
+		   
+		</p>
+ 
+		<ul class="ul" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__UL_65D1954A0E374FFAAD739984C8D39E62"><li class="li" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__LI_192F37A6D77F493392A71101714671ED"> 使用 <a class="xref" href="http://www.autodesk.com/maya-help-2018-chs/index.html?contextId=COMMANDS-dataStructure" target="_blank">dataStructure</a> 创建未附加的元数据结构。 
+		  </li>
+<li class="li" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__LI_F92291B3D68F4BA6A5E84895BD2C2913"> 使用 <a class="xref" href="http://www.autodesk.com/maya-help-2018-chs/index.html?contextId=COMMANDS-addMetadata" target="_blank">addMetadata</a> 将结构的成员应用于 Maya 中的组件。 
+		  </li>
+<li class="li" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__LI_AEE0483ACD274B08BD1ECA05FAFF16AE">使用 <a class="xref" href="http://www.autodesk.com/maya-help-2018-chs/index.html?contextId=COMMANDS-editMetadata" target="_blank">editMetadata</a> 将值指定给选定组件的元数据流的成员。 
+			 <p class="p" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-D53073B3-3C3B-4292-B1FB-2C763FF81A9F">此命令可用于具有构建历史的节点。对于具有构建历史的网格节点，将创建 <samp class="ph codeph" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-A7017622-D1F6-426E-AD25-49FA7A273BD3">editMetadata</samp> 节点以包含对现有元数据所做的修改，而不是直接将修改应用到网格节点。 
+			 </p>
+ 
+			 <p class="p" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-2045274F-5273-42D2-82EF-36E3234CA973">您仍然可以选择编辑历史节点上的元数据。执行此操作时，所做编辑将直接应用于网格节点，而不会创建 <samp class="ph codeph" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-D3365388-7931-49BB-BFE0-CB5BA8350738">editMetadata</samp> 节点。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__LI_EB6C4BD47E874033A114720691C361DD">使用 <a class="xref" href="http://www.autodesk.com/maya-help-2018-chs/index.html?contextId=COMMANDS-hasMetadata" target="_blank">hasMetadata</a> 查询节点上是否存在元数据。 
+		  </li>
+<li class="li" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__LI_A9FACEB0EBB845768F4FCEFC816754CC">使用 <a class="xref" href="http://www.autodesk.com/maya-help-2018-chs/index.html?contextId=COMMANDS-getMetadata" target="_blank">getMetadata</a> 查询元数据值。 
+		  </li>
+</ul>
+ 
+		 
+		 
+		<p class="p" id="GUID-52A836EE-9A09-4B50-8C44-1A6941EAE9D7__GUID-267BE457-99A7-4F2C-B819-DA254A46F228"> 如果要使用其他索引类型，可通过 Maya API 借助插件来实现。元数据命令可以在显示本地索引类型的任意位置使用这些其他索引类型。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-688D724C-F0D9-4649-BDD4-86E2447CFA05.htm">使用 MEL 脚本将元数据添加到网格</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-8FE69AF2-B71A-4325-B391-C88E38D8DF02.htm">可视化元数据</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-897320C1-8F40-4125-9C43-CBBDA1867447.htm">元数据可视化选项</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-D53B9E3D-E6E3-4CC3-A38F-3AA3A09205E5.htm">节点和属性</a></div>
+</div>
+</div>
+
+</body>
+</html>

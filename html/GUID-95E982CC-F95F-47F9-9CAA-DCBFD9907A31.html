@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31">
+<meta name="language" content="CHS">
+<title>CgFX 着色器疑难解答</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>CgFX 着色器疑难解答</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__SECTION_94819FE103154F2BA6EBED33826271C9"><h2 class="title sectiontitle"> CgFX 着色器在 Viewport 2.0 中与硬件渲染器中显示不同</h2>
+
+<p class="p" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__GUID-71F1B571-73AB-481D-9D29-A02532BA2F0D"> 默认渲染器、硬件渲染器和 Viewport 2.0 渲染器在 CgFX 状态指定行为方面存在差异。DepthMask 状态的默认值不同。该默认值是 CGFX 着色器未指定值时使用的值。对于不同的渲染器，默认值如下所示： </p>
+
+<ul class="ul" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__UL_00BDB881E24E4F84A6A2BC9FB5CBADF9"><li class="li" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__LI_FF96722D7A6F4311A51D982FEAEAFE03"> 默认渲染器：未指定时，采用 DepthMask = true。 </li>
+<li class="li" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__LI_B53A36ECE33A426592569909644D3824">硬件渲染器：未指定时，采用 DepthMask = false。 </li>
+<li class="li" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__LI_088B7D607C864DAFB1E3A8CA4A5158E9">Viewport 2.0 渲染器：未指定时，采用 DepthMask = true。 </li>
+</ul>
+
+<p class="p" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__GUID-3B4D11E5-4B9D-4B88-B09B-53AA884BE74A">因此，如果使用硬件渲染器、但为默认渲染器和 Viewport 2.0 渲染器给定错误结果，则 CgFX 着色器可能也会正常工作。在这种情况下，将 DepthMask = false 状态指定添加到某些着色器过程可能会解决该问题。 </p>
+
+</div>
+<div class="section" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__SECTION_C89D052517F54170AB4D6FA3C46B5C54"><h2 class="title sectiontitle">依赖于局部顶点位置的 CgFX 插件未按预期方式运行</h2>
+
+<p class="p" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__GUID-C5C558FB-09CF-4AF4-9E1E-A7A5EDDDF28D">使用 Viewport 2.0 时，如果启用 Viewport 2.0 选项中的<span class="ph uicontrol" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__GUID-5C8DA3E3-54D2-48ED-9019-B26A2015A5D5">“合并世界”(Consolidate world)</span>选项，则依赖于局部顶点位置的 CgFx 插件可能不会按预期方式运行。 </p>
+
+
+<div class="p" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__GUID-A022674F-0F2A-41E9-BCB3-680E82ED61E7">在以下示例中，check3d.cgfx 着色器将 3D 棋盘格图案应用于与该对象局部空间中的曲面位置相对的对象，因此可能会在 Viewport 2.0 中生成意外的结果。同一着色器将应用于两个球体，但在<span class="ph uicontrol" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__GUID-E18A6EA0-2223-46EA-933A-DAE351A3B907">“合并世界”(Consolidate world)</span>已启用时，如果翻滚场景或选择球体，则棋盘格图案将会移动。 <div class="fig fignone" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__FIG_73AC3BC1B3184868B09140FDEC369C58"><img class="image" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__IMAGE_5C8AF48091924F949A9C5267D98B5C04" src="../images/GUID-5D6EFD36-22AA-48E5-8EC4-1C9E653B58B2.png"></div>
+ </div>
+
+<p class="p" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__GUID-3C4849A7-DFFD-4050-B879-D1FD3FE9D979">可以通过选择<span class="ph uicontrol" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__GUID-0FBAC73F-E355-44FF-9216-E8CE9F31A2F7">“渲染器 &gt; Viewport 2.0”(Renderer &gt; Viewport 2.0)</span>&gt; <img class="image" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__IMAGE_09C000832601455095C799FF8BB0C1F2" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png"> 打开<span class="ph uicontrol" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__GUID-78E6B514-753A-4D90-BA58-CD6EC8465A1E">“硬件渲染器 2.0 设置”(Hardware Renderer 2.0 Settings)</span>窗口来启用或禁用<span class="ph uicontrol" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__GUID-22F88B99-6A46-4A46-9399-21BF624188F0">“合并世界”(Consolidate world)</span>；或者，打开<span class="ph uicontrol" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__GUID-9666C9B1-92FE-4018-82DE-9E8300A53FAC">“渲染设置”(Render Settings)</span>窗口并单击<span class="ph uicontrol" id="GUID-95E982CC-F95F-47F9-9CAA-DCBFD9907A31__GUID-742DA560-3038-468E-B4A4-9786F895E40C">“Maya 硬件 2.0”(Maya Hardware 2.0)</span>选项卡也可以完成此操作。详细信息请参见 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-9BBB6035-2A02-41BB-AF2D-99D9BEE580F1">Viewport 2.0 选项</a>。 </p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-4B56973E-FAFE-401F-B3DF-504CA1AABCEA.htm">创建 CgFX 着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

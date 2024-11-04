@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Bifrost">
+<meta name="created" content="30/7/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="17/04/2023">
+<meta name="topicid" content="GUID-B6ED57CB-0B68-42F3-AF47-442E127AD980">
+<meta name="language" content="CHS">
+<title>调整导向 Bifrost 模拟</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-B6ED57CB-0B68-42F3-AF47-442E127AD980">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>调整导向 Bifrost 模拟</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-B6ED57CB-0B68-42F3-AF47-442E127AD980__GUID-566D2B7E-8D40-4D9A-9887-077A3D280482"> 以下是用于调整导向 Bifrost 模拟的一些准则。
+	 </p>
+<div class="p" id="GUID-B6ED57CB-0B68-42F3-AF47-442E127AD980__GUID-D3B42FFE-CBF7-45C9-BFD4-5A706D4CC6BF"> 
+	 <ul class="ul" id="GUID-B6ED57CB-0B68-42F3-AF47-442E127AD980__UL_C4282A1FAECB4BCFBFD0DC20FDDF89AE"><li class="li" id="GUID-B6ED57CB-0B68-42F3-AF47-442E127AD980__LI_D279D1CFC1BC4CEA9F4ADB57B83CEDC9"> 如果模拟不能保持其形状，则可以尝试禁用<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-3A70125C-191E-4580-9BBA-08FE924947B3.htm">全局导向特性</a>中的<span class="ph uicontrol" id="GUID-B6ED57CB-0B68-42F3-AF47-442E127AD980__GUID-48681E1E-4FD8-4C17-8260-C00FEAA22EEC">“从高分辨率液体计算导向”(Compute Guide from High Res Liquid)</span>。
+		</li>
+<li class="li" id="GUID-B6ED57CB-0B68-42F3-AF47-442E127AD980__LI_F12ACCCD29D04CE2BA78FF5BE3B3434F">如果模拟看起来“过度活跃”，例如，如果存在炸药爆炸，则在液体和导向之间形成的气穴可能有问题。尝试解决此问题的一种方法是减小<span class="ph uicontrol" id="GUID-B6ED57CB-0B68-42F3-AF47-442E127AD980__GUID-988B0D50-3D77-4032-9DF6-5353F1CCBB84">“界面距离”(Interface Distance)</span>。但是，此值应始终大于或等于<span class="ph uicontrol" id="GUID-B6ED57CB-0B68-42F3-AF47-442E127AD980__GUID-0BBDA21D-BDF9-4BC2-9E1B-F3BC86FAAA2A">“主体素大小”(Master Voxel Size)</span>的 1.5 倍，以避免在曲面上产生噪波。
+		</li>
+<li class="li" id="GUID-B6ED57CB-0B68-42F3-AF47-442E127AD980__LI_994913574CF644ABA6224ECB310973E1">尝试消除气穴的另一种方法是增大<span class="ph uicontrol" id="GUID-B6ED57CB-0B68-42F3-AF47-442E127AD980__GUID-AED9D972-8F8F-43D0-9FD5-F7E9C163804B">“导向重叠”(Guide Overlap)</span>和<span class="ph uicontrol" id="GUID-B6ED57CB-0B68-42F3-AF47-442E127AD980__GUID-44D11A78-987B-4463-B85C-2E8FA9646F6E">“液体重叠”(Liquid Overlap)</span>。但是，将这些值增大得太多也可能会导致问题。
+		</li>
+<li class="li" id="GUID-B6ED57CB-0B68-42F3-AF47-442E127AD980__LI_547EDCF601F14831866376BC8439E4AD">可能需要使用其他影响以缓和过度积极的模拟。例如，如果网格的“波浪”以与实际波浪差别很大的方式移动，将多边形网格用作导向时，尤其可能会发生这种情况。例如，如果导向网格更改形状过快，则它可能会提供极端加速，这又会导致模拟过头。在这种情况下，请尝试通过<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-2CF6E3F6-B798-49B4-9EE6-3C74006A8CF0.htm">运动场</a>抑制速度。
+		</li>
+<li class="li" id="GUID-B6ED57CB-0B68-42F3-AF47-442E127AD980__LI_C35BF6FA426B40FA8DFCCA3BABE7B52D">若要改善船后方的尾迹，请尝试增加全局导向特性中的<span class="ph uicontrol" id="GUID-B6ED57CB-0B68-42F3-AF47-442E127AD980__GUID-B2853E03-51EF-4BF4-845A-F265013B6AE2">“最小模拟深度”(Min Simulation Depth)</span>。值越大，波浪可以传播的波长就越长。
+		</li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-27B3938C-B471-4585-92C3-AC3F36D09C36.htm">引导液体曲面的 Bifrost 模拟</a></div>
+</div>
+</div>
+
+</body>
+</html>

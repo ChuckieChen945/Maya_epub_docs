@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="Autodesk 颜色管理允许您将任何颜色空间用作工作空间，并支持许多常用和标准颜色空间。在导入时，图像会自动从其输入颜色空间转化为工作空间。此外，某些应用程序允许您在颜色空间之间进行切换以执行特定操作。">
+<meta name="indexterm" content="颜色空间:选择工作空间">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-F864483A-EF62-444D-B82E-842C31BA70F5">
+<meta name="language" content="CHS">
+<title>选择工作颜色空间</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1> 选择工作颜色空间</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="shortdesc"> Autodesk 颜色管理允许您将任何颜色空间用作工作空间，并支持许多常用和标准颜色空间。在导入时，图像会自动从其输入颜色空间转化为工作空间。此外，某些应用程序允许您在颜色空间之间进行切换以执行特定操作。 
+  </p>
+<p class="p" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__GUID-1A521F60-747C-466E-854D-EF8504746378">一般而言，建议使用宽色域的颜色空间进行工作。这将确保您可以正确表示尽可能多的颜色。例如，数字电影 (DCI) 包含不使用负值的情况下无法使用 Rec. 709 主颜色表示的颜色（由 sRGB 和 HD 视频使用）。Autodesk 颜色管理能够保留负值，但其他工具可能没有此功能。虽然存在此缺陷，但 Rec. 709/sRGB 主颜色仍然是场景线性工作空间最常用的颜色。 
+	 </p>
+<p class="p" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__GUID-2C11255C-A39E-4388-837F-4E2C7861A8B4">ACES 2065-1 是一个色域极宽的颜色空间，可以表示任何可见的颜色。可以将其用作工作空间，但由于色域太宽，某些颜色操作可能会产生意外的结果。 
+	 </p>
+<p class="p" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__GUID-DC2EF68F-78F5-4CFA-8585-45D10555E91C">ACEScg、ACEScc/ACEScct、DCI-P3、ProPhoto-RIMM 或 UHDTV (Rec. 2020) 是很好的折中选择。它们的色域很宽，但并不是太宽。 
+	 </p>
+<p class="p" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__GUID-0FFBEDEB-4E4E-4122-87AC-8574B7953ABF">某些操作最适用于特定空间类型中的颜色：场景线性、视频或对数编码。工作时，您可能希望切换颜色空间以执行特定操作，然后切换回主工作空间或其他空间以执行其他操作。对于这些情况，建议使用完全可反转变换以保留尽可能多的颜色信息。 
+	 </p>
+<div class="section" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__SECTION_92FFD19770B449C7A89B20856F1E3409"><h2 class="title sectiontitle"> 最适用于场景线性颜色的操作</h2> 
+		 
+		<div class="p" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__GUID-C6C96B3B-800E-41DB-99DF-0A702E4D995C">以下操作最适用于场景线性颜色，即具有与场景中的光能量成正比的代码值的颜色。 
+		<ul class="ul" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__UL_8BB1B6291B7E4F8EB4CD9E2145180E27"><li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_F116991050324AD08CA05A58ECF7B976">合成和融合 
+		  </li>
+<li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_164C64453FE940EB8CA75FEB254DE6B9">光学效果（包括镜头模糊和散焦操作） 
+		  </li>
+<li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_93B1E40402D44BB6B46F34B2830906BC">运动模糊 
+		  </li>
+<li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_25960D14F4074FD2AAB6EED4F9D22375">抗锯齿 
+		  </li>
+<li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_A89AEC46B46041E0B037854E327E05F8">调整大小 
+		  </li>
+<li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_1FE84B3506F4424590A6CBC34B8C66B9">子像素重新定位 
+		  </li>
+<li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_DF8A20990F2D4FD0805EA209E6A4D14D">3D 渲染 
+		  </li>
+<li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_590CA1DCD8034851877151D239BD3019"> 照明和重新照明 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__SECTION_A317FC57B3664AFF808F084052423730"><h2 class="title sectiontitle"> 需要视频颜色的操作</h2> 
+		 
+		<div class="p" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__GUID-FCB7E8F3-98CB-4EC2-BE63-2DDB9BBE5D98">以下操作需要视频颜色（即限制在 [0, 1] 范围内的颜色值）。 
+		<ul class="ul" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__UL_252E21BA6AD24E95852BBB0749C7CF6C"><li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_FF86DB4BA034408392A34BF24C19C78D">颜色反转 
+		  </li>
+<li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_B2430E86DE024F238F0999A4B10A76CB">将 RGB 转化为 HLS、HSV 或 YCbCr 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__SECTION_E76C307A1FBC421F912B00A54E73E62E"><h2 class="title sectiontitle"> 最适用于视频或对数颜色的操作</h2> 
+		 
+		<div class="p" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__GUID-B76C00AC-C81E-4574-AA27-651FD821858D">以下操作最适用于视频或对数颜色： 
+		<ul class="ul" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__UL_D266B34FA4D346E28C0F0390BA9A74B6"><li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_27D3F57402B64F888C9DB5E92D874FC7">许多颜色校正操作 
+		  </li>
+<li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_E675E9FAF0A44F578C83264904327A83">向量示波器和柱状图 
+		  </li>
+<li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_40AD6FB3081045308AE481440FF6F9DD">跟踪与稳定 
+		  </li>
+<li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_AF79B2099C834DD28282CFF9488BAEBB">颗粒和噪波操作 
+		  </li>
+<li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_B5A12231DEE44297818F804BBB5F33EC">非锐化遮罩 
+		  </li>
+<li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_258204FBE49D477DAFAB6334EB46DF92">视频过渡 
+		  </li>
+<li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_2B683CFDA8E947D1BBAF9B2E6361C21D">创建渐变 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__SECTION_F7A663AFF11E4CF4AD01F33F36D0207C"><h2 class="title sectiontitle">手动在工作空间之间转化</h2> 
+		 
+		<div class="p" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__GUID-E75DCEB0-BBC7-44B8-8E83-D894F559A3ED">如果您需要通过从集合中<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-B2CD60E0-C100-45A4-9595-84D2DF98B268.htm" title="尽管 Autodesk 颜色管理提供了适当的工具可自动应用所需的变换以便在颜色空间之间进行转化，但在某些特殊情况下，您必须更好地控制要应用的特定变换。本部分介绍如何将位于 Autodesk 颜色变换集合中的组件用作构建块以集合特定任务的自定义转化。">手动指定自定义变换链</a>来在工作空间之间转化，以下这些注释可能会十分有用： 
+		<ul class="ul" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__UL_58B7C970B6434AC3A96097E999171324"><li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_0AD1C544486242A58A716B40DF6E8ABF">您可以通过应用色调贴图（如 tone-map/ 目录中的 PhotoMap_gamma_2.4）将场景线性转化为视频。一般而言，色调贴图使用 S 形曲线来增加对比度和压缩高光。 
+		  </li>
+<li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_BCE46CB0FCC7429F9DF6F477D979938C">您可以通过应用反向色调贴图（如 tone-map/ 目录中的 inversePhotoMap_gamma_2.4）将视频转化为场景线性。如果片段最初拍摄为视频或者使用不同的色调贴图转化，这会造成不精确。但在许多情况下，这是很好的近似值，不影响工作。需要特别注意的是，仅从视频图像中移除显示 Gamma 会生成线性化输出相关值，而不是场景线性值，不存在大于 1.0 的值。 
+			 <div class="note note" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__GUID-4846575D-088E-4E00-BFD7-1CB0BFAE3333"><span class="notetitle">注：</span> 对于用作纹理和其他贴图的图像，有一些特殊的注意事项。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-780C50BC-A79D-4F81-96B1-C0BA86BC2D95.htm" title="应使用场景线性工作空间渲染 3D CG 元素。但是，手动为用于纹理和其他贴图的图像指定颜色变换时，应当以不同的方式进行处理，具体取决于图像状态和贴图类型。">管理纹理和贴图的颜色</a>。 
+			 </div>
+ 
+		  </li>
+<li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_7EDE32FCDE8B4830A62567DCAC566685">您可以使用 film/LogLin/ 目录中的一个 Lin_to_Log 变换将场景线性图像转化到对数空间。 
+		  </li>
+<li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_D0B63CD04C434546952CBC30E592A545">可以使用 film/LogLin/ 目录中的一个 Log_to_Lin 变换将对数图像转化为场景线性。 
+		  </li>
+<li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_3A4D35DEA9834796A0BB20417784CE28">可以将视频图像转化到对数空间，方法是先转化为场景线性，然后转化为对数。 
+		  </li>
+<li class="li" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__LI_1B3B18FF192F4924B3D6BB082E4AAF5C"> 也可以将对数图像转化到视频空间，方法是先转化为场景线性，然后转化为视频。 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<p class="p" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__GUID-DBC68537-FB9F-4945-A3EA-45C581B4B3F0"> 
+		  <img class="image" id="GUID-F864483A-EF62-444D-B82E-842C31BA70F5__IMAGE_97DDF0D5E1CB49B9BB15B845CBAD1D66" src="../images/GUID-E57B3942-FE9B-4F7E-8213-5C4A5C249291.png" height="-1" width="-1"> 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-1658466E-7EC2-4191-B379-F30D3BDEFCA5.htm" title="颜色管理可以使颜色在不同的设备和媒体中尽可能精确地重现。与颜色校正不同，颜色管理的目的不是更改颜色，而是在不同的情况下保留感知颜色。">颜色管理概念</a></div>
+</div>
+</div>
+
+</body>
+</html>

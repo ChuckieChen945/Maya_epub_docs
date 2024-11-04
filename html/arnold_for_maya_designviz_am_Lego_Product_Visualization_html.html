@@ -1,0 +1,263 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_designviz_am_Lego_Product_Visualization_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_LEGO_PRODUCT_VISUALIZATION">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" LEGO 产品可视化 - Arnold for Maya">
+
+<title>LEGO 产品可视化</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>LEGO 产品可视化</h1></div><p><img src="../images/rally-500.gif" alt=""></p>
+<p>本教程将介绍如何对 LEGO Technic 拉力赛车的 CAD 模型进行照明、着色和渲染。教程中将演示如何使用 Arnold 区域光 (<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_area_light_ac_quad_light_html" target="_blank"><em>quad_light</em></a>) 对汽车模型进行照明。此外，还会介绍如何将 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_node_ac_standard_surface_html" target="_blank">standard_surface</a></em> 与 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_texture_node_ac_round_corners_html" target="_blank">round_corners</a></em> 结合使用以逼真地对 LEGO 模型进行着色，以及如何使用 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_utility_shaders_ac_clip_geo_html" target="_blank"><em>clip_geo</em></a> 着色器创建横截面动画效果。完成对场景的着色和照明后，我们将介绍如何使用 Arnold *<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_toon_html" target="_blank">卡通</a>*着色器创建可用于说明手册中的风格化外观。最后，我们将调整一些 Arnold 渲染设置以提高最终渲染的质量。有关使用 Arnold 进行 LEGO 渲染的更多示例，请单击<a href="https://leegriggs.com/lego-renders" target="_blank">此处</a>。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p><em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_core_ac_clip_geo_html" target="_blank">clip_geo</a></em> 和<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_toon_html" target="_blank"><em>卡通</em></a>着色器目前无法与 GPU 渲染结合使用。此问题计划在未来版本中修复。</p>
+
+</div></div>
+
+<p><strong>要下载 LEGO Technic 拉力赛车模型，请单击<a href="https://grabcad.com/library/lego-technic-rally-car-42077-1" target="_blank">此处</a>。</strong></p>
+<h2 id="cad">导入 CAD 数据</h2><ul>
+<li>首先，下载 CAD 模型（上面的链接）。</li>
+<li>提取内容并导入此 step 文件：<strong>LEGO Technic - Rally Car (42077).stp</strong></li>
+<li>定位并旋转汽车，使其平放在栅格上，如上面的动画中所示。</li>
+<li>创建地板平面（或使用上面链接中提供的工作室照明场景的圆柱型全景图）。</li>
+<li>为其指定一个 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_node_ac_standard_surface_html" target="_blank">standard_surface</a></em> 着色器。将 <em>specular_weight</em> 减小到 0（我们不希望圆柱型全景图中出现任何分散注意力的镜面反射，以免干扰对汽车模型的注意力）。</li>
+</ul>
+<p><img src="../images/lego3.png" alt=""></p>
+<h2 id="">照明</h2><p>我们将向场景添加一个 Arnold <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_area_light_ac_quad_light_html" target="_blank"><em>quad_light</em></a>。该灯光将模拟柔光箱工作室照明设置（本<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_lighting_am_Studio_Lighting_html">教程</a>对此进行了介绍）。或者，您也可以从页面顶部的链接下载预制的照明工作室。</p>
+<ul>
+<li>转到<em>“Arnold -&gt; 灯光”(Arnold -&gt; Lights)</em>。选择<em>“区域光”(Area Light)</em>（默认为 <em>quad_light</em>）。对其进行定位、定向和缩放，使其比汽车略大，如下图所示。</li>
+</ul>
+<p><img src="../images/lego4.png" alt=""></p>
+<p><sub><strong>场景使用 <em>quad_light</em> 进行照明（曝光：16）</strong></sub></p>
+<ul>
+<li>如果渲染场景，它将使用默认灯光<em>“曝光”(Exposure)</em>并显示为黑色。将<em>“曝光”(Exposure)</em>增加到 16 左右。这时应该会看到类似下图的效果。在此阶段不必担心噪波。这是因为默认“灯光采样数”(Light Samples)设置为 1，默认<em>“摄影机(AA)”(Camera (AA))</em>采样数设置为 3，有助于快速进行交互式渲染。我们稍后在准备好进行最终渲染时将调整这些设置。</li>
+</ul>
+<p><img src="../images/lego5.png" alt=""></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>*<a href="http://en.wikipedia.org/wiki/Exposure_value" target="_blank">曝光</a><em>是一个 F 制光圈值，用于将强度乘以 2 的 F 制光圈次幂。将</em>曝光*增加 1 可使灯光量加倍。</p>
+
+</div></div>
+
+<div class="head-block"><h1>使用标准曲面进行逼真着色</h1></div><h2 id="">场景转化器</h2><p>现在，我们将着色器（Phong 等）转化为 Arnold <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Surface_html">standard_surface</a> 着色器。</p>
+<ul>
+<li>转到<em>“Arnold -&gt; 着色器 -&gt; 将着色器转化为 Arnold”(Arnold -&gt; Shaders -&gt; Convert Shaders to Arnold)</em>。</li>
+<li>此时将显示一个对话框窗口，询问是转化所有着色器还是转化选定着色器。选择<em>“全部”(All)</em>。您应该会看到，所有场景材质现在都是 <em>standard_surface</em>。</li>
+</ul>
+<p><img src="../images/lego6.png" alt=""></p>
+<h2 id="">标准曲面</h2><p>现在，我们要创建一组可在所有 <em>standard_surface</em> 着色器中复制的逼真塑料着色器参数。更改每个 <em>standard_surface</em> 着色器的以下参数，使积木看起来更像塑料：</p>
+<ul>
+<li><em>specular_ior</em>：1.55（塑料）。</li>
+<li><em>specular_roughness</em>：0.2。</li>
+<li><em>coat_weight</em>：1。这将在镜面反射层之上提供一个有光泽的透明涂层。</li>
+<li><em>coat_roughness</em>：0.1。</li>
+<li><em>coat_ior</em>：1.55（塑料）。</li>
+</ul>
+<p><img src="../images/lego7.png" alt=""></p>
+<p><sub><strong>LEGO 塑料着色器设置</strong></sub></p>
+<h2 id="">圆角</h2><p>此着色器可修改边附近的着色法线以呈现圆角外观。可与尚未对倒角进行建模的坚硬曲面模型结合使用以模拟圆化倒角边，从而节省宝贵的建模时间。</p>
+<ul>
+<li>此着色器的一种简便使用方法是，将其输出法线连接到 <em>standard_surface</em>.<em>normal</em>。</li>
+<li>将<em>“半径”(Radius)</em>增加到 0.1 左右以查看效果。在进行最终帧渲染时，可能需要增加<em>采样数</em>。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/tire-0.jpg" alt=""></td>
+<td><img src="../images/tire-1.jpg" alt=""></td>
+</tr>
+<tr>
+<td>无 round_corners</td>
+<td>有 round_corners</td>
+</tr>
+</tbody></table>
+<p><img src="../images/lego8.png" alt=""></p>
+<p>*<sup><sub><strong>round_corners -&gt; standard_surface.normal_camera</strong></sub></sup>*</p>
+<h2 id="">剪裁几何体着色器</h2><p><em>clip_geo</em> 当前无法与 GPU 结合使用。</p>
+<p>我们可以使用 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_utility_shaders_ac_clip_geo_html" target="_blank"><em>clip_geo</em></a> 着色器在摄影机模型中创建切除着色效果。</p>
+<ul>
+<li>创建一个<em>长方体</em>（要用于剪裁的几何体），并将其放置到要剪裁几何体的位置。</li>
+<li>将 <em>clip_geo</em> 着色器指定给长方体。将该立方体放置在适当位置，使其穿透汽车。渲染场景时，您应该会发现它将切入（剪裁）到汽车几何体中（请参见顶部的标题图像）。但是，它也可能会剪裁地板平面，我们并不希望这样。</li>
+</ul>
+<p>避免剪裁地板平面：</p>
+<ol>
+<li>在着色器<em>“跟踪集”(Trace Sets)</em>文本框中输入名称以创建一个跟踪集（例如“objects_not_to_clip”）。</li>
+<li>清除<em>“包括”(Inclusive)</em>复选框。</li>
+<li>将对象放置在此跟踪集中（通过为这些形状输入相同的跟踪集名称）。</li>
+<li>将剪裁不在此跟踪集中的所有对象。</li>
+</ol>
+<p><img src="../images/lego9.png" alt=""></p>
+<p><sub><strong>指定了 <em>clip_geo</em> 的立方体。平面未被剪裁，因为它具有与 <em>clip_geo 跟踪集</em>匹配的<em>跟踪集</em><strong></strong>。<em>“包括”(Inclusive)</em>处于禁用状态。</strong></sub></p>
+<h2 id="">使用卡通着色器进行风格化着色</h2><ul>
+<li>将 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_node_ac_standard_surface_html" target="_blank">standard_surface</a></em> 着色器替换为*<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_toon_html" target="_blank">卡通</a>*着色器。更改以下参数：<ul>
+<li>将 <em>angle_threshold</em> 减小到 10 左右。这将在几何体周围提供更详细的边。</li>
+<li>将 <em>base_weight</em> 减小到 0。我们希望通过仅使用 <em>emission</em> 获得纯色效果。</li>
+<li>确保 <em>specular_weight</em> 为 0。</li>
+<li>将 <em>emission_weight</em> 增大到 1。</li>
+</ul>
+</li>
+<li>隐藏地板平面/CYC 几何体并渲染场景。</li>
+</ul>
+<p>要查看 <em>toon edge</em>，必须将<strong><em>“过滤器类型”(filter type)</em></strong>（采样设置）更改为<strong><em>“轮廓”(Contour)</em></strong>。请注意，增加<em>“轮廓的过滤器*</em>宽度”(contour filter width)*（采样设置）值将会增加渲染时间。</p>
+<ul>
+<li>您可能会发现 <em>contour_filter_width</em> 似乎太大（具体取决于图像大小分辨率）。如果它看起来太厚，请尝试将其减小到 1 左右。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/contour_filter_1.jpg" alt=""></td>
+<td><img src="../images/contour_filter_2.jpg" alt=""></td>
+</tr>
+<tr>
+<td>contour_filter_width：1</td>
+<td>contour_filter_width：2</td>
+</tr>
+</tbody></table>
+<p><img src="../images/lego-10.png" alt=""></p>
+<p><sub><strong><em>卡通</em>着色器参数</strong></sub></p>
+<div class="head-block"><h1>最终渲染设置</h1></div><h2 id="">光线深度</h2><p>使用 CYC 背景几何体（页面顶部的场景链接）进行渲染时，在 <em>diffuse_ray_depth</em> 为默认值 1 的情况下，场景看起来非常暗。增加此值可以使更多的灯光在 CYC 和汽车几何体周围反弹（但渲染时间会增加）。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/rally-ray-depth-1.jpg" alt=""></td>
+<td><img src="../images/rally-ray-depth-4.jpg" alt=""></td>
+</tr>
+<tr>
+<td>diffuse_ray_depth：1（默认值）</td>
+<td>diffuse_ray_depth：4</td>
+</tr>
+</tbody></table>
+<h2 id="">减少噪波</h2><p>在进行最终帧渲染时，我们需要增加一些采样设置。</p>
+<h2 id="">四边形灯光采样数</h2><ul>
+<li>选择 <em>quad_light</em> 灯光，并将采样数增加到 3 或 4。这应该会清除阴影中的大量噪波。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/light_samples-1.jpg" alt=""></td>
+<td><img src="../images/light_samples-4.jpg" alt=""></td>
+</tr>
+<tr>
+<td>quad_light.samples：1（默认值）</td>
+<td>quad_light.samples：4</td>
+</tr>
+</tbody></table>
+<h2 id="">漫反射采样数（内部噪波）</h2><p>汽车内部和下方有一些明显的噪波。增加 <em>diffuse_samples</em> 值应该会清除这些噪波。</p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>如果不确定噪波来自何处，请记得检查 AOV，例如阴影 (<em>light_samples</em>) 或间接灯光 <em>(diffuse_samples)</em>。</p>
+
+</div></div>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/diffuse_samples-2.jpg" alt=""></td>
+<td><img src="../images/diffuse_samples-10.jpg" alt=""></td>
+</tr>
+<tr>
+<td>diffuse_samples：2（默认值）</td>
+<td>diffuse_samples：10</td>
+</tr>
+</tbody></table>
+<h2 id="aa">摄影机 (AA) 采样数</h2><ul>
+<li>最后，将<em>“摄影机(AA)”(Camera(AA))</em>值增加到 5 左右。采样数越多，抗锯齿质量就越高，但渲染时间也越长。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/camera_samples-3.jpg" alt=""></td>
+<td><img src="../images/camera_samples-5.jpg" alt=""></td>
+</tr>
+<tr>
+<td>摄影机 (AA) 采样数：3（默认值）</td>
+<td>摄影机 (AA) 采样数：5</td>
+</tr>
+</tbody></table>
+<p>就是这样。您已看完本教程。做得不错！我们建议您多花一些时间阅读 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_am_Arnold_for_Maya_User_Guide_html">MtoA 用户手册</a>，该手册中提供了像本教程这样的其他教程。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Design_Visualization_Tutorials_html.html">设计可视化教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

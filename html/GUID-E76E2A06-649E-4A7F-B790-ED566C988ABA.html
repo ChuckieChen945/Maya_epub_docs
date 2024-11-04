@@ -1,0 +1,99 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="contextid" content="RENDER_SETUP_COMPATIBLE">
+<meta name="modified" content="03/11/2022">
+<meta name="topicid" content="GUID-E76E2A06-649E-4A7F-B790-ED566C988ABA">
+<meta name="language" content="CHS">
+<title>渲染设置集合的向后兼容性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-E76E2A06-649E-4A7F-B790-ED566C988ABA">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>渲染设置集合的向后兼容性</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> Maya 2017 引入了对<span class="ph uicontrol">“渲染设置”(Render Setup)</span>系统的改进（包括更好地处理集合），并需要更新在 Maya 2016 Extension 2 中创建的渲染设置文件。
+	 </p>
+<p class="p">如果打开的场景文件包含在 Maya 2016 Extension 2 中创建的集合，或者如果导入的 <samp class="ph codeph">.json</samp> 文件是从此版本导出，则会出现一个对话框，询问您是否要将集合转化为当前的渲染设置系统。如果单击“否”(No)，<img class="image" id="GUID-E76E2A06-649E-4A7F-B790-ED566C988ABA__IMAGE_E4305565DEDE489F8AC32EA814790C8C" src="../images/GUID-98F7BD36-94A8-44BF-A1CF-C11CB7917C4F.png"> 图标会一直显示在<span class="ph uicontrol">“渲染设置”(Render Setup)</span>编辑器中。随时单击此图标即可重新打开该对话框并转化集合。已转化的渲染设置节点以斜体显示。若要使项目以常规文本显示，请单击 <img class="image" id="GUID-E76E2A06-649E-4A7F-B790-ED566C988ABA__IMAGE_DD2A3E91297C421F9D7859188FFB7585" src="../images/GUID-EBD9664A-C400-4FAD-AE18-85DD92A3478A.png">。
+	 </p>
+<p class="p">在大多数情况下，使用 <span class="ph">Maya 2016 Extension 2</span> 创建的场景文件中的渲染设置集合将正确转化为当前渲染设置系统中的集合。但是，存在以下限制：
+	 </p>
+<ul class="ul" id="GUID-E76E2A06-649E-4A7F-B790-ED566C988ABA__UL_70B66D6A1B2A4477A3A83604BF9F0F15"><li class="li" id="GUID-E76E2A06-649E-4A7F-B790-ED566C988ABA__LI_751794B28E2F41009FEE4E9F0D3BA4A2"> 
+		  <p class="p">以非 DAG 节点作为成员和启用了<span class="ph uicontrol">“包括层次”(Include Hierarchy)</span>选项的集合及其关联覆盖将无法正确转化。
+		  </p>
+ 
+		  <p class="p">例如，如果将渐变纹理连接到 blinn 并将 blinn1 添加到集合，然后启用<span class="ph uicontrol">“包括层次”(Include Hierarchy)</span>以在 ramp1.noise 上创建覆盖，则集合及其关联覆盖不会转化为当前的渲染设置系统。
+		  </p>
+ 
+		  <p class="p">解决方法：将与 blinn 关联的对象（变换或形状节点）添加到集合，然后启用<span class="ph uicontrol">“包括层次”(Include Hierarchy)</span>，此集合及其关联覆盖将会正确转化。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-E76E2A06-649E-4A7F-B790-ED566C988ABA__LI_9004025174124798A3108F5C9B1BD99D"> 
+		  <p class="p">以 DAG 节点作为成员和启用了<span class="ph uicontrol">“包括层次”(Include Hierarchy)</span>选项以在其动画曲线上创建覆盖（或在不属于以下类别之一的节点上创建覆盖）的集合将无法正确转化。
+		  </p>
+ 
+		  <p class="p">例如，如果 pSphere1.translateX 已设置动画，并且您将 pSphere1 添加到集合，然后启用<span class="ph uicontrol">“包括层次”(Include Hierarchy)</span>并在 pSphere1.translateX 的 curveColor 属性上创建覆盖，则集合与覆盖将无法正确转化。
+		  </p>
+ 
+		  <p class="p">此限制也适用于不属于以下类别的节点上的覆盖：
+		  </p>
+ 
+		  <ul class="ul" id="GUID-E76E2A06-649E-4A7F-B790-ED566C988ABA__UL_6E2C90F6892E4C7CA27E247251E66BC5"><li class="li" id="GUID-E76E2A06-649E-4A7F-B790-ED566C988ABA__LI_40F76FA6347C448081D18DEA86C130F4">几何体生成器（polySphere、polyCube 和 makeNurbSphere 等） 
+			 </li>
+<li class="li" id="GUID-E76E2A06-649E-4A7F-B790-ED566C988ABA__LI_B57F64D9C42C4F57813E5EC9D908ED0F">集 
+			 </li>
+<li class="li" id="GUID-E76E2A06-649E-4A7F-B790-ED566C988ABA__LI_29D8C08877E445DFB9DC71CB2AB011C6">着色引擎 
+			 </li>
+<li class="li" id="GUID-E76E2A06-649E-4A7F-B790-ED566C988ABA__LI_763463BD84A641899922B61B168A41E8">着色器 
+			 </li>
+<li class="li" id="GUID-E76E2A06-649E-4A7F-B790-ED566C988ABA__LI_310CE6C80ADC4B37AC3479048ACB776D">着色节点 
+			 </li>
+<li class="li" id="GUID-E76E2A06-649E-4A7F-B790-ED566C988ABA__LI_07BC31961CE44F7DAB40B068F451897E">DAG 节点 
+			 </li>
+</ul>
+ 
+		  <p class="p">解决方法：使用过滤器类型为 animCurveTL 的<span class="ph uicontrol">“自定义”(Custom)</span>过滤器创建一个集合，将动画曲线节点添加到该集合，然后在此集合上创建覆盖。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-E76E2A06-649E-4A7F-B790-ED566C988ABA__LI_F8FBDDC3DE4D4F2995175FDDE9FE1D2A"> 
+		  <p class="p">以着色器作为成员和应用了着色器覆盖的集合将无法正确转化。
+		  </p>
+ 
+		  <p class="p">解决方法：添加应用了着色器的对象的变换节点，而不是将着色器添加为集合成员。例如，如果球体已指定给 blinn1，则将 pSphere1 而不是 blinn1 添加到集合。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-E76E2A06-649E-4A7F-B790-ED566C988ABA__LI_05DFF7DBB6F94F048E0AE6B189A5D3E9"> 
+		  <p class="p">包含变换节点和形状节点以及应用了材质覆盖的集合将会转化；但是，该覆盖将应用于变换节点和形状节点的材质指定。
+		  </p>
+ 
+		  <p class="p">解决方法：如果不想覆盖变换节点的材质指定，请将该节点从集合中移除。
+		  </p>
+ 
+		</li>
+</ul>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-646154F9-E4D2-4A3E-A0D9-B2F062960A4E.htm">Maya 渲染设置</a></div>
+</div>
+</div>
+
+</body>
+</html>

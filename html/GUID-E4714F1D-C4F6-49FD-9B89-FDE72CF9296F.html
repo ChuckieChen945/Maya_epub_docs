@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F">
+<meta name="language" content="CHS">
+<title>管理 XGen 文件和目录</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>管理 XGen 文件和目录</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-2F6C88B5-CFD7-499E-8850-8167AACC476F">首次创建新描述时，Maya 将在设定的 Maya 项目目录中创建一个<samp class="ph codeph" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-AF515A05-C63B-4692-8DF7-BCB5C34F0A0F"> xgen</samp> 文件夹。默认情况下，XGen 相关的所有文件（包括用于属性贴图、可修饰样条线、区域贴图和遮罩的描述 <em class="ph i" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-7B500387-A36A-43D7-A5C4-55762019FDBA">XDSC</em> 文件、点 <em class="ph i" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-A082A985-9A3C-48D6-BC31-D0BAA7E05CEE">XUV</em> 文件以及 Ptex 文件）都存储在项目的 <samp class="ph codeph" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-26610856-4E04-4CF6-AB05-DF232097AAC5">xgen</samp> 文件夹的子文件夹中。 
+	 </p>
+<p class="p" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-F81281AD-BD07-4F10-90B5-C7CA17AF2F82"><samp class="ph codeph" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-99466007-2753-4CC6-8C66-7E0C439EE2E3">${DESC} </samp>变量指当前描述的主数据路径。默认情况下，此数据路径设定为包含描述的集合的 <samp class="ph codeph" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-A2393686-89B8-4A31-8185-FE51C86B8031">xgen</samp> 文件夹。当预览或渲染描述时，XGen 将使用此数据路径访问所有文件和贴图。 
+	 </p>
+<div class="note important" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-EC6F61C1-84A5-427F-ADF8-1F39614E017B"><span class="importanttitle">重要：</span> 在 XGen 文件路径中使用正斜杠 (<samp class="ph codeph" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-D375FABE-E56E-432B-9257-AE2218213603">/</samp>)。XGen 中不支持反斜杠 (<samp class="ph codeph" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-9F6703CC-6CFD-4ACE-B80D-E0E2FAD02B77">\</samp>)。 
+	 </div>
+<p class="p" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-9914A005-E67E-4347-8C02-7E80FDCC7DC6">例如，在设置了 Maya 项目，并创建以下内容之后： 
+	 </p>
+<ul class="ul" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__UL_EAAFF963DB8F41EFB058CB668BDDBD69"><li class="li" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__LI_947A48F4DA194C9DA3108B8AB17CFD0B">名为 <samp class="ph codeph" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-9ACB16A8-3D34-4BC4-BC7C-8E4725362C96">GrassDescription</samp> 的描述以及名为 <samp class="ph codeph" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-2D973513-8774-4F39-B8AA-3B7D82F15BF7">LandscapeCollection</samp> 的集合。 
+		</li>
+<li class="li" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__LI_1F6397ED84C44D22BD08BE2ED486D609">在名为<samp class="ph codeph" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-48C61A4A-43A7-4D36-9880-FD05E69FCD76"> landScapeplane</samp> 的多边形网格上。 
+		</li>
+<li class="li" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__LI_28B1B927ACF64556AA0A942ECF2DEC73">使用导向放置基本体。 
+		</li>
+</ul>
+<p class="p" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-20FA973E-E7E4-45E2-9599-76DE76D9B0EA">Maya 将为 XGen 生成以下默认数据结构。 
+	 </p>
+<div class="fig fignone" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__FIG_1B2018DD7B6C42CA98D6261542216DD8"><img class="image" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__IMAGE_352BAA07AC224B1FA93B88E076CC303A" src="../images/GUID-F1F3A183-2181-4374-AE47-A5FB4E8D1F36.png"></div>
+<p class="p" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-039E1095-42CC-4727-9DC7-7776A9E43211">有关 Ptex 和点贴图位置的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-56075F6B-D1C9-4056-BDBC-9766C44AB88C.htm">贴图文件位置</a>。 
+	 </p>
+<div class="section" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__SECTION_5A387F03D72F4B768A3F186195BDF243"><h2 class="title sectiontitle">用户、局部和全局文件位置</h2> 
+		 
+		<p class="p" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-B605129D-238B-439D-B75A-EA12CF2D0059">您可以为文件资源库、表达式库和归档文件指定用户、局部和全局位置。使用以下环境变量指定这些位置： 
+		</p>
+ 
+		<ul class="ul" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__UL_DD76A7828084493790A7B6216507EFED"><li class="li" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__LI_BFD6168D9BF84EFC9F50E06694A777AA"> 用户：${HOME}/xgen 
+		  </li>
+<li class="li" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__LI_96032B18635A460FB5A895E1CC2C16B2">局部：${XGEN_ROOT} 
+		  </li>
+<li class="li" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__LI_7C4F8C09F98349AC8E3D9F0E41E94B3E"> 全局：${XGEN_LOCATION} 
+		  </li>
+</ul>
+ 
+		<p class="p" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-7ADDBEBF-9FFB-43B8-A7AE-FE7767E7608C">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-6ED517C7-7346-4A6E-A9CF-37D2B8511C36.htm">指定用户、本地和全局文件储存库的位置</a>。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__SECTION_F458755979D644B38ADAB4E586A72BDF"><h2 class="title sectiontitle">XGen 文件类型</h2> 
+		 
+		<dl class="dl" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-466D7007-8129-48F6-AADB-B1F69458B0AD"><dt class="dt dlterm" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-61D7AE8C-5A5C-4BD6-A158-53806020C502">集合 (.xgen) 
+			 </dt>
+<dd class="dd" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-9AAC36E7-E5C7-49E8-8609-A7564920BCE3">集合 (<em class="ph i" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-9AFF554B-9717-4D35-B709-748F54573F31">XGEN</em>) 文件存储所有关联描述的相关信息，其中可以包含 XGen 修改器、面片绑定和导向属性。创建描述或集合时会创建这些文件。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-D1B28D5E-A776-49B0-BA50-C99F2CA8E5AF.htm">XGen 集合</a>。 
+			 </dd>
+<dt class="dt dlterm" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-75404C36-6A39-4985-B396-EFAA5AE78BB5">描述 (.xdsc) 
+			 </dt>
+<dd class="dd" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-757C8F61-1BDA-440A-949C-3EF9218EC788">描述 <em class="ph i" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-6567BCA7-72DC-4166-89E3-78E9D10E6B53">XDSC</em> 文件存储单个 XGen 描述的相关信息，包括基本体属性值、预览和渲染设置。导出描述时会创建这些文件。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-E90F6106-DF5B-4D8E-AE7B-65CBC2FDB13D.htm">XGen 描述</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-14DB912A-88AD-4657-9028-2228B481157D.htm">保存和加载 XGen 文件</a>。 
+			 </dd>
+<dt class="dt dlterm" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-28DD0BF3-84FE-4797-8228-EC8E9A4D24B0">增量 (.xgd) 
+			 </dt>
+<dd class="dd" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-37D8B925-BF63-4795-A1E8-2059AB6041C1">存储对描述集合所做的更改的信息。使用此文件对描述进行编辑，同时保留其原始状态。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-1BCD66D2-594A-4903-8204-19E9836BBBB7.htm">将修饰编辑保存到增量文件</a>。 
+			 </dd>
+<dt class="dt dlterm" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-565A669F-874E-4351-A788-160D4BAC69E7">修改器 (.xgfx) 
+			 </dt>
+<dd class="dd" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-965050C5-3E7A-48AB-8BB4-F26BF4D174D6">这些文件包含 XGen 修改器实例的属性值。使用此文件可在同一描述或在其他描述中传递或重用修改器。修改器文件仅包含有关该修改器属性的信息。它们不会保存修改器用作参考的信息。例如，<span class="ph uicontrol" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-2A6903A9-A11D-42E6-9887-3E0C3751F247">“成束”(Clumping)</span>修改器的点和贴图不会保存在修改器文件中。您必须复制此信息。 
+				<p class="p" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-EF4EA0A6-0D44-4ECA-BF6F-8EAE5F93400A">请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-C1383446-2EA4-4E53-9FF3-5712EB720174.htm" title="使用 XGen 修改器可以更改“样条线”(Spline)基本体的外观和行为。例如，可以为头发和毛发创建发束和发圈，以及生成力和风的效果。">XGen 修修改器</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-2D2E3AFD-8C5B-4B2A-B78F-41F3BF11F347.htm">使用 Python 命令导出和导入 XGen 文件</a>。 
+				</p>
+ 
+			 </dd>
+<dt class="dt dlterm" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-DD99E49C-1AB5-4AF7-A81B-F66FEEDEC823">归档 (.xarc) 
+			 </dt>
+<dd class="dd" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-574E7A39-CC31-4590-90C0-77E2DBCB971B">与归档的几何体关联的引用文件，包括纹理、Alembic 和渲染代理文件。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-CEAEB736-4099-422A-AF78-DEA444559BE1.htm">自定义归档基本体</a>。 
+			 </dd>
+<dt class="dt dlterm" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-1EBBA2ED-44A6-4982-A33B-C1F3760E0CE8">Ptex (.ptex) 
+			 </dt>
+<dd class="dd" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-95D40FB2-F9D1-4ADA-A6E9-96B1A31FCCDF">Ptex 文件用于区域贴图和遮罩。在 Maya 中使用绘制工具创建 Ptex 文件或使用在 Autodesk Mudbox 2012（或更高版本）中创建的 Ptex 文件。可修饰样条线属性也保存为 Ptex 文件。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-56075F6B-D1C9-4056-BDBC-9766C44AB88C.htm">Ptex 贴图文件位置</a>。 
+			 </dd>
+<dt class="dt dlterm" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-D79622FE-D256-472F-9384-2250CE5B3F13">XPD 缓存 (.XPD) 
+			 </dt>
+<dd class="dd" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-7E44AF78-D00B-4EC4-AE9E-C43A90D944F3">包含逐面片的描述中各个基本体的几何体、位置和属性值的相关信息。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-725180FD-8B5D-4ABC-A4F4-2800E29888B3.htm">修饰烘焙修改器</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-CE13EEB8-627A-43C5-81BB-2A004F22747B.htm">输出设置</a>。 
+			 </dd>
+<dt class="dt dlterm" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-8BFA0231-EE0F-427F-9E02-86A299C7A5CE">点 (.xuv) 
+			 </dt>
+<dd class="dd" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-55A721AE-5106-499C-9A13-7B78A08570F7"> 
+				<p class="p" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-78047622-A706-4180-A28D-536A09B6B0D3">以点的形式保存生成的基本体位置。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-F1A304DB-0391-499B-AC74-000396AAD416.htm">使用点贴图</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-EE3E7FC8-93A6-4F8E-B8CD-CDE63D618C08.htm">“生成贴图”(Generate Maps)窗口</a>。 
+				</p>
+ 
+			 </dd>
+<dt class="dt dlterm" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-83383E84-C74C-4356-8B35-F75618EC0D94">粒子数据库（.pda、.pdb） 
+			 </dt>
+<dd class="dd" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-0ABF0412-938E-44F2-A842-81E6189A7BC1">以粒子的形式保存生成的基本体。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-CE13EEB8-627A-43C5-81BB-2A004F22747B.htm">“输出设置”(Output Settings)</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-2AB5AE5D-8E0E-4948-8ACE-179CCC4774A2.htm">粒子</a>。 
+			 </dd>
+<dt class="dt dlterm" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-0B612134-829D-4BC4-B81C-D4D1B26AD817">导向连接性 (.xgc) 
+			 </dt>
+<dd class="dd" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__GUID-C6CB327E-481F-4CF0-87D6-3875D2D98F45">存储 XGen 如何将导向插值到网格曲面的相关信息。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-49B8C299-71DD-4341-8638-97437D9A328F.htm">插值</a>。 
+			 </dd>
+</dl>
+ 
+	 </div>
+<div class="section" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__SECTION_DAD26E38609645BEAD29E85CD212FB37"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__UL_DD329E21D6BC4A87BBD8CD7E6D9159A0"><li class="li" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__LI_AC53DBD9AB7B4C0290E935D3168CA15C"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-6ED517C7-7346-4A6E-A9CF-37D2B8511C36.htm">指定用户、本地和全局文件储存库的位置</a> 
+		  </li>
+<li class="li" id="GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F__LI_0593917C94CF4A76907BD3C6C50671EF"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-56075F6B-D1C9-4056-BDBC-9766C44AB88C.htm">Ptex 贴图文件位置</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-47644337-40F0-4766-BD3B-4104F9F9B7E2.htm">XGen 概念</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-EB78EBE5-F572-4E0B-B283-A30AEA59D720">
+<meta name="language" content="CHS">
+<title>错误处理和消息</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-EB78EBE5-F572-4E0B-B283-A30AEA59D720">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>错误处理和消息</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-EB78EBE5-F572-4E0B-B283-A30AEA59D720__WS73099CC142F48755-3D114B7511841AEFA9F-112D"> 编写 MEL 脚本时，请牢记用户（即使您是唯一的用户）。确保 MEL 脚本考虑到用户错误并优雅地处理这些错误。
+	 </p>
+<p class="p" id="GUID-EB78EBE5-F572-4E0B-B283-A30AEA59D720__WS73099CC142F48755-3D114B7511841AEFA9F-112B">考虑 MEL 脚本可能会遇到的错误和边界条件。检查错误并发现存在错误后，应在 MEL 脚本中对该错误执行合理的应急操作。
+	 </p>
+<pre class="pre codeblock">
+proc burn(string $items[]) {print("Burning all items!\n");}
+proc burnSelected() {
+ string $selected_s[] = `ls -sl`;
+ if (size($selected_s) &gt; 10)
+ burn($selected_s);
+ else
+ print("Need more than ten items to burn.");
+}
+</pre>
+<p class="p" id="GUID-EB78EBE5-F572-4E0B-B283-A30AEA59D720__WS73099CC142F48755-3D114B7511841AEFA9F-112A">在本示例中，如果 burnSelected 程序缺少其需要执行的内容，它将创建一条错误消息，但不会失败。假定如果给定的项目少于十个，burn 程序将失败。当然，在本示例中，burn 程序不会失败，因为其仅打印字符串。
+	 </p>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B9015064-1216-4A73-BEFD-3F41EB867DEC.htm">较好的 MEL 样式</a></div>
+</div>
+</div>
+
+</body>
+</html>

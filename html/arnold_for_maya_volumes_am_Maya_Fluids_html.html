@@ -1,0 +1,121 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_volumes_am_Maya_Fluids_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_MAYA_FLUIDS">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" Maya 流体 - Arnold for Maya">
+
+<title>Maya 流体</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>Maya 流体</h1></div><h3 id="maya">渲染 Maya 流体</h3><p>体积目前与 Maya 内部流体和烟雾 FX 兼容。使用体积时存在一些限制。渲染 Maya 流体时的注意事项：</p>
+<ul>
+<li><p>渲染 Maya 体积时，默认情况下将使用流体上设置的灯光，而不是场景中的照明设置（对于 Maya 软件来说是如此，而 mental ray 可以正常渲染）。</p>
+</li>
+<li><p>即便与 Maya 流体属性匹配，也会存在一些差异。首先，因为在 Arnold 中体积是“基于物理的”，我们需要将其除以 4 * Pi（单位球体的面积）。之所以要这么做，是因为体积无法散射比入射光更多的灯光。使用 Maya 流体和 Maya 体积的线性衰退，将灯光曝光更改为 3.65（大致等于 4 * Pi 乘积）可以解决此问题。</p>
+</li>
+<li><p>Arnold 使用区域光，Maya 软件不使用，但 mental ray 也使用区域光。比较 Arnold 渲染与 Maya 软件渲染并不合适。</p>
+</li>
+<li><p>使用 MtoA 渲染时，您需要将 Arnold 灯光强度增加 4 * Pi。</p>
+</li>
+<li><p>Arnold 中渲染的图像会有一些差异。mental ray 和 Maya 软件都不使用多重重要性采样，但 Arnold 使用。</p>
+</li>
+<li><p>目前，流体不支持使用渲染标志（例如“主可见性”(Primary Visibility)）。</p>
+</li>
+<li><p>目前，无法针对流体体积生成<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_volume_shaders_ac_atmosphere_volume_html" target="_blank">大气体积</a>。这是因为大气返回一个不透明度覆盖在任何颜色背景的像素之上的单一平面结果。  </p>
+</li>
+<li><p>灯光链接当前无法与 Maya 流体结合使用。</p>
+</li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关使用 Maya 流体的教程，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_volume_am_Cloud_Fluids_with_the_Physical_Sky_html">此处</a>。</p>
+
+</div></div>
+
+<p><img src="../images/mtoa_maya_fluids1.png" alt=""></p>
+<p><sub><strong>Arnold 流体设置</strong></sub></p>
+<h3 id="">运动模糊</h3><p>将运动模糊与流体结合使用时，请确保对流体进行缓存，同时在流体和渲染设置中启用<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Motion_Blur_html">变形运动模糊</a>。使用流体的“速度比例”(Velocity Scale)（在“内容详细信息”(Contents Details)中）可控制流体上的运动模糊量。</p>
+<h3 id="maya">Maya 流体透明度属性</h3><p>Maya 流体透明度确定有多少灯光可以穿透流体并对流体的整体外观产生重大影响。它控制流体的每个体素的透明度。值为全黑意味着完全不透明，值为全白意味着完全透明。</p>
+<p><img src="../images/mtoa_maya_fluids2.png" alt=""></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>透明度值较低可能会增加渲染时间。</p>
+
+</div></div>
+
+<p><img src="../images/mtoa_maya_fluids3.png" alt=""></p>
+<p><sub><strong>0.1（左）、0.5（中间）、0.025（右）。</strong></sub></p>
+<h3 id="">过滤器类型</h3><p>指定访问体素栅格值时的过滤类型。<em>“最近”(Closest)</em>过滤的渲染时间最短，但在低分辨率栅格中可能会产生大量块状。更高质量的过滤看起来更平滑，但渲染时间更长。</p>
+<p><img src="../images/mtoa_maya_fluids4.png" alt=""></p>
+<p>这些结果类似于为 2D 纹理贴图放大选择<em>“最近”(Closest)</em>、<em>“双线性”(Bilinear)</em>和<em>“双三次”(Bicubic)</em>过滤的结果，只不过现在是在 3D 中使用：</p>
+<h2 id="custom-texture">自定义纹理(Custom Texture)</h2><p><img src="../images/mtoa_maya_fluids5.png" alt=""></p>
+<p>可以将纹理贴图连接至流体的颜色、白炽度和不透明度属性（此功能取代了 Maya 流体的原生“纹理”(Texture)属性）。</p>
+<p>确保启用“覆盖流体纹理”(Override Fluid Texture)，并选择要将纹理连接到的属性，即颜色、白炽度或不透明度。</p>
+<h3 id="coordinate-method">坐标方法(Coordinate Method)</h3><p>定义如何定义纹理坐标。" 选择“固定”(Fixed)时会将值设定为等于对象空间坐标系（在 X、Y 和 Z 中，0-1 用于体积）。选择“栅格”(Grid)时将使用点栅格，并在值之间进行插值。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p><em>“纹理颜色”(Texture Color)</em>仅兼容具有 3D 坐标的纹理（例如<em>噪波</em>）。</p>
+
+</div></div>
+
+<p>在下面的示例中，<em>“纹理颜色”(Texture Color)</em>已启用，且<em>噪波</em>着色器已连接至<em>“纹理”(Texture)</em>窗口。</p>
+<p><img src="../images/mtoa_maya_fluids6.png" alt=""></p>
+<p><sub><strong><em>噪波</em>着色器映射到流体的颜色和不透明度纹理属性。有关 Maya 场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/user-guide-fluid-texture.ma" target="_blank">此处</a>。</strong></sub></p>
+<ul>
+<li>将纹理拖动到<em>“纹理”(Texture)</em>窗口时，请确保将其正确连接，否则不会进行渲染。如上面的屏幕截图所示，将纹理贴图从 Hypershade 窗口拖动到“纹理”(Texture)窗口时，您应该会看到该窗口四周边缘会亮显。</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shapes/arnold_for_maya_shapes_volumes_html.html">体积</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

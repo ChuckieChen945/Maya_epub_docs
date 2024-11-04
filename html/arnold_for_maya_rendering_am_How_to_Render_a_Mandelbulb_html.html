@@ -1,0 +1,215 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_rendering_am_How_to_Render_a_Mandelbulb_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_HOW_TO_RENDER_A_MANDELBULB">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 如何渲染 Mandelbulb - Arnold for Maya">
+
+<title>如何渲染 Mandelbulb</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>如何渲染 Mandelbulb</h1></div><p><img src="../images/am-How_to_Render_a_Mandelbulb-image2014-1-13-8-46-39-1.png" alt=""></p>
+<p>本简短教程介绍如何通过 .ass 文件渲染 Mandelbulb。我们将生成 Mandelbrot 和 Julia 集的“Mandelbulb”3D 版本。有关如何生成 Mandelbulb 的详细信息，请参见<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_dev_guide_plugins_av_Large_Datasets_from_Procedurals_html" target="_blank">大型程序数据集</a>教程。</p>
+<p><img src="../images/am-How_to_Render_a_Mandelbulb-mandelbulb-studio-2.jpg" alt=""></p>
+<p><sub><strong style="text-align: center;">Mandelbulb 的特写。您可以清楚看到它是由数以千计的小球体组成。</strong></sub></p>
+<p>Julia 集是复平面上一些点的集合，当这些点进行平方并与某个常数 (C) 迭代相加后，“束缚点”没有逃出半径为 2 的圆形区域时，我们称这些点的集合为 Julia 集。对于常数 C 所有可能的值，存在一个完整的 Julia 集；C 是复平面上的一个二维值。</p>
+<p>Julia 集有 2 种不同的类型：</p>
+<ol>
+<li>完全连通。  </li>
+<li>由点组成的分散的 Cantor 尘（有关 Cantor 尘的详细信息，请参见 <a href="http://en.wikipedia.org/wiki/Cantor_set" target="_blank">http://en.wikipedia.org/wiki/Cantor_set</a>）</li>
+</ol>
+<p>如果 Julia 集的中心点 (0,0) 是束缚点，则 Julia 集是完全连通的；如果它不是束缚点，则 Julia 集是 Cantor 尘。  </p>
+<p>Mandelbrot 集是所有完全连通的 Julia 集的集合。它是通过对所有可能的 Julia 集的中心点进行采样而生成的。这意味着，对应 Mandelbrot 集中的每个点，可以生成一个 Julia 集。虽然这两个集合在复平面中都是连续函数，但我们通常通过抽样一个均匀栅格（像素）来渲染它们，如果点是束缚点，将被渲染为黑色。  </p>
+<p>Mandelbulb 将这个数学计算延伸到三个维度。此生成器的工作原理是：对一个常规栅格中的所有点进行采样，如果点是束缚点，便将其添加到一个 AiPoints 几何体节点中进行渲染。</p>
+<p>您需要以下文件来创建和渲染 Mandelbulb：</p>
+<p><strong>编译的 Mandelbulb 程序</strong></p>
+<p><strong>Arnold 6：<a href="https://areadownloads.autodesk.com/wdm/arnold/core/mandelbulb_Arnold6.zip" target="_blank">所有平台</a></strong></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>在学习本教程前，请确保您使用的是最新版本的 Arnold。否则，渲染 Mandelbulb 时可能会遇到问题。</p>
+
+</div></div>
+
+<h2 id="ass-ass-file">Ass 文件(Ass File)</h2><ul>
+<li>首先，创建一个替代对象（或称为 Arnold 程序）。转到<strong><em>“Arnold &gt; 替代对象 &gt; 创建”(Arnold &gt; Standin &gt; Create)</em></strong>。选择该替代对象，并在属性编辑器中找到 Mandelbulb.ass 文件。</li>
+</ul>
+<p>要安装 Mandelbulb 程序，必须将它添加到插件搜索路径（使用 ARNOLD_PLUGIN_PATH 环境变量或运行 kick -l）。加载插件后，您可以在场景中使用名为 Mandelbulb 的 Arnold 程序节点。</p>
+<p>您可以将一个着色器指定给 Mandelbulb Arnold 程序（替代对象）。创建一个灯光并渲染场景。程序需要花些时间进行渲染以生成 Mandelbulb。</p>
+<p>请查看此 <a href="https://areadownloads.autodesk.com/wdm/arnold/core/mandelbulb.ass" target="_blank">.ass</a> 文件中的示例。</p>
+<p>您也可以直接在 Arnold 程序中设置 <strong>mandelbulb.dll</strong> 文件，然后使用<strong>“用户选项”(User Options)</strong>字段定义自定义参数。</p>
+<h2 id="gridsize">栅格大小(Gridsize)</h2><p>栅格大小是栅格中单元的数量，即 800 x 800 x 800。</p>
+<p>要增大 Mandelbulb 的分辨率，需要增大栅格大小。较高的数值将创建更多的球体。增大此数值时应务必小心，因为内存使用量和渲染时间会随之增加。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-How_to_Render_a_Mandelbulb-gridsize-400-3.jpg" alt=""></td>
+<td><img src="../images/am-How_to_Render_a_Mandelbulb-gridsize-800-4.jpg" alt=""></td>
+</tr>
+<tr>
+<td>栅格大小：400</td>
+<td>栅格大小：800</td>
+</tr>
+</tbody></table>
+<h2 id="maximum-iterations">最大迭代次数(Maximum Iterations)</h2><p>尝试的最大迭代次数。如果经过这些次数的迭代后，点仍然位于半径为 2 的球体内，则认为它是束缚点。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-How_to_Render_a_Mandelbulb-max-iterations-3-5.jpg" alt=""></td>
+<td><img src="../images/am-How_to_Render_a_Mandelbulb-max-iterations-9-6.jpg" alt=""></td>
+</tr>
+<tr>
+<td>最大迭代次数：3</td>
+<td>最大迭代次数：9</td>
+</tr>
+</tbody></table>
+<h2 id="power">幂(Power)</h2><p>在二维模式下，Julia 集和 Mandelbrot 集是通过对 Z 的二次幂加 C 进行反复迭代计算得出的。在三维模式下，使用 8 次幂可得到更有趣的效果，但是如果您需要，可尝试通过控制选项更改此值。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-How_to_Render_a_Mandelbulb-1power4-7.jpg" alt=""></td>
+<td><img src="../images/am-How_to_Render_a_Mandelbulb-2-power-8-8.jpg" alt=""></td>
+<td><img src="../images/am-How_to_Render_a_Mandelbulb-3power12-9.jpg" alt=""></td>
+</tr>
+<tr>
+<td>幂：4</td>
+<td>幂：8</td>
+<td>幂：12</td>
+</tr>
+</tbody></table>
+<h2 id="spheremult">Spheremult</h2><p>这是每个单元中球体半径的倍数；较大的球体混合得更好，但会使效果“蓬松”，较小的球体会更多地显示栅格。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-How_to_Render_a_Mandelbulb-sphere-mult1-10.jpg" alt=""></td>
+<td><img src="../images/am-How_to_Render_a_Mandelbulb-sphere-mult2-11.jpg" alt=""></td>
+</tr>
+<tr>
+<td>Spheremult：1</td>
+<td>Spheremult：2</td>
+</tr>
+</tbody></table>
+<h2 id="orbitthresh">Orbitthresh</h2><p>如果一个点在迭代后不会超出这个距离，则认为它完全位于该 Mandelbulb 内，并且不会添加它进行渲染；这将在 Mandelbulb 的中心清除出一个很大的空心区域，从而使几何体更亮一些。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-How_to_Render_a_Mandelbulb-orbitthresh-0-05-12.jpg" alt=""></td>
+<td><img src="../images/am-How_to_Render_a_Mandelbulb-orbitthresh-2-13.jpg" alt=""></td>
+</tr>
+<tr>
+<td>Orbitthresh：0.05</td>
+<td>Obritthresh：2</td>
+</tr>
+</tbody></table>
+<h2 id="chunks">区块数(Chunks)</h2><p>这是 Mandelbulb 分解成的区块数量，这样就不用在 RAM 中一次构建整个集。数值越大，使用的 RAM 越少，极限在 30 左右。</p>
+<h2 id="threads">线程数(Threads)</h2><p>对栅格值进行采样时生成的线程数量。</p>
+<h2 id="julia">Julia</h2><p>此开关用于控制是渲染为 Mandelbulb 还是 Julia 集</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-How_to_Render_a_Mandelbulb-julia-off-14.jpg" alt=""></td>
+<td><img src="../images/am-How_to_Render_a_Mandelbulb-julia-on-15.jpg" alt=""></td>
+</tr>
+<tr>
+<td>Julia：禁用</td>
+<td>Julia：启用</td>
+</tr>
+</tbody></table>
+<h2 id="cval">Cval</h2><p>用来生成 Julia 集的 C 值；当 Julia == 禁用时，将忽略此值。</p>
+<p>本教程到此结束。尝试在 .ass 文件中增大栅格大小，并添加一些更有趣的照明效果。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-How_to_Render_a_Mandelbulb-4-16.jpg" alt=""></td>
+<td><img src="../images/am-How_to_Render_a_Mandelbulb-5-17.jpg" alt=""></td>
+<td><img src="../images/am-How_to_Render_a_Mandelbulb-6-18.jpg" alt=""></td>
+<td><img src="../images/am-How_to_Render_a_Mandelbulb-7-19.jpg" alt=""></td>
+<td><img src="../images/am-How_to_Render_a_Mandelbulb-8-20.jpg" alt=""></td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Rendering_Tutorials_html.html">渲染教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

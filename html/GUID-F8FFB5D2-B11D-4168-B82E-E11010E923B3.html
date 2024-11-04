@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="将 12 位整数 (12i) 或 16 位整数 (16i) 转化为 16 位浮点数 (16f) 编码（或者反向转化）通常很有用或者非常必要。像这样在编码之间来回转化时，变换应尽可能无损以避免图像质量下降，这一点非常重要。">
+<meta name="indexterm" content="颜色管理:转化编码">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3">
+<meta name="language" content="CHS">
+<title>在 12i 或 16i 与 16f 编码之间转化图像</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1> 在 12i 或 16i 与 16f 编码之间转化图像</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="shortdesc"> 将 12 位整数 (12i) 或 16 位整数 (16i) 转化为 16 位浮点数 (16f) 编码（或者反向转化）通常很有用或者非常必要。像这样在编码之间来回转化时，变换应尽可能无损以避免图像质量下降，这一点非常重要。 
+  </p>
+<p class="p" id="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3__GUID-3B22893A-1B0F-48CD-BA2C-5BF51641E583">在 Flame Premium 和 Smoke 中，通常需要在导入过程中将 16i 媒体升级到 16f，以最大程度提高合成和其他操作的精度。如果需要转化回 16i 进行输出，应该仅在能够确保处理过程中导出时可以保持最大精度的情况下才执行此操作。 
+	 </p>
+<p class="p" id="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3__GUID-51B7AE13-91C1-4DEC-8D87-1757AC8000D4">同样，在 Flame Reactor 中使用 12i 媒体时，它将会升级到 16f。 
+	 </p>
+<div class="section" id="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3__SECTION_85A763A6BF554E3AA92A5A9CF514FB25"><h2 class="title sectiontitle">从 16i 对数编码转化</h2> 
+		 
+		<p class="p" id="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3__GUID-C4E02C4C-6C00-43D0-8EC3-BD05CD3EB6EF">有多种 16 位整数对数编码，但几乎没有标准。因此，很难就如何转化这些图像给出通用性的建议。 
+		</p>
+ 
+		<p class="p" id="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3__GUID-09D040EA-2E02-414C-B530-BE925B8C5E56">若要将 16i 图像从对数空间转化为场景线性，可通过以下选项完成： 
+		</p>
+ 
+		<div class="p" id="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3__GUID-C719BE8D-525F-4EDB-9B39-853B4DAF627B"> 
+		<ul class="ul" id="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3__UL_1BCE25A7B3BC452280C4A6226789FC24"><li class="li" id="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3__LI_6C95D4618D9A46AA93F659DEABF02724">如果您知道图像在 ADX16 颜色空间中，则可以使用 film/ADX/ 目录中的 ADX16_to_ACES 变换，该变换会考虑胶片通道串扰并提供更精确的颜色。或者，您也可以使用 film/LogLin/ 目录中的 Log_to_Lin--adx16 变换，这是一个简单的 1D-LUT 样式变换，其可反转程度略高一些，可以在来回转化过程中轻松地转化回 16i。 
+		  </li>
+<li class="li" id="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3__LI_68B89E674FF14AF19E4B842CC63186D8">或者，请尝试 film/LogLin 目录中的其他 Log_to_Lin 变换之一。但请注意，这些变换针对每个通道独立操作。这意味着它们在颜色复制方面不太精确，但可反转程度更高，在来回转化过程中出现的错误要比 ADX 变换更少。 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3__SECTION_00FD5D05C5A649E9971DC12944EACCFB"><h2 class="title sectiontitle">从 12i 和 16i 视频编码转化</h2> 
+		 
+		<div class="p" id="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3__GUID-285F1D2E-876E-4041-93D6-738C10B949A5"> bitdepth/ 目录中提供了一些特殊变换，可将 12i 或 16i 图像从视频类空间转化为场景线性 16f，然后转化回 16i，同时尽可能地保留原始值。 
+		<ul class="ul" id="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3__UL_79B82AB4471D4D05A7926B2B2C077058"><li class="li" id="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3__LI_05D4AD3E2D614F7DBAF3BCD75E07BA60">12i_to_16f 和 16f_to_12i 变换旨在提供无损的来回转化。 
+		  </li>
+<li class="li" id="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3__LI_0FBC8934911C4C6E9AAE6318FD572A97">16i_to_16f 和 16f_to_16i 变换旨在将量化损失降到最低，来回转化时的最大错误为 65535 中的 2 个代码值。 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<p class="p" id="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3__GUID-D737F5AD-B3EE-4163-ACBC-25175A737A68">但是，由于 12i_to_16f 和 16i_to_16f 与典型的反向色调贴图大不相同，您应分别使用 16f_to_12i 或 16f_to_16i 作为显示变换以及输出变换（如果在来回转化过程中转化回 12i 或 16i）。 
+		</p>
+ 
+		<div class="p" id="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3__GUID-559F6432-D242-4BA3-A76F-CC4CC5036384">此外，请注意，这些变换不适合与所有操作配合使用。例如，对于调整大小和包括空间过滤的其他操作，其在场景线性空间中的结果与视频空间中的结果大相径庭。特别是，Lanczos 过滤器具有较大的负系数，可能会导致一些瑕疵，例如，在高对比度边缘出现环或光晕。在这些情况下，您应考虑使用其他变换来执行转化： 
+		<ul class="ul" id="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3__UL_3A7F8B87D4214EE092415F6CA9A75061"><li class="li" id="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3__LI_7B4A809686AE4280925C9DDAAF68764A">使用 log-to-linear 变换（如 film/LogLin/ 目录中的 Log_to_Lin--jzp）进行导入，并使用其反向变换（如 Lin_to_Log--jzp）进行查看和导出。 
+		  </li>
+<li class="li" id="GUID-F8FFB5D2-B11D-4168-B82E-E11010E923B3__LI_CF32E96E3C5F48AF904147CD73B56040"> 使用某一变换（如 gamma/ 目录中的 remove_2.40_gamma）进行导入，并使用其反向变换（如 apply_2.40_gamma）进行查看和导出。这样可以最大程度地减少光晕，但会在来回转化时导致精度受损更严重。 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-B2CD60E0-C100-45A4-9595-84D2DF98B268.htm" title="尽管 Autodesk 颜色管理提供了适当的工具可自动应用所需的变换以便在颜色空间之间进行转化，但在某些特殊情况下，您必须更好地控制要应用的特定变换。本部分介绍如何将位于 Autodesk 颜色变换集合中的组件用作构建块以集合特定任务的自定义转化。">手动配置自定义颜色变换链的准则</a></div>
+</div>
+</div>
+
+</body>
+</html>

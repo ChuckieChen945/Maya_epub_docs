@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Animation">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3">
+<meta name="language" content="CHS">
+<title>Maya 中的动画旋转</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>Maya 中的动画旋转</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF-56C0CD8012A8003217A-48D8"><p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21342">当设定对象旋转的关键帧时，Maya 将采用在一个关键帧到下一关键帧之间插入旋转值的方法，计算对象在关键帧之间的方向。在 Maya 中，<em class="ph i" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-97718556-EB77-433B-9885-A7602778490A">旋转插值</em>的方法有两种：<strong class="ph b">Euler</strong> 和<strong class="ph b">四元数</strong>。对于场景中的每个动画旋转，可以设置旋转插值方法，确定 Maya <em class="ph i" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-A3C8129C-B9BD-4B21-9B6C-A179D24F8023">如何</em>计算旋转。
+	 </p>
+<p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__P_B8D741471CD9424894278262F52A18D2">有关 Euler 角度和四元数的详细信息，请参见本主题中的以下部分：<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3.htm#GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS17956D7ADBC6E73676CB1DF8117AE306E4C-7FEF">Euler 角度</a>、<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3.htm#GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS17956D7ADBC6E73676CB1DF8117AE306E4C-7FED">四元数</a>以及<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3.htm#GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS17956D7ADBC6E73676CB1DF8117AE306E4C-7FEB">哪种类型的插值最适用于您的动画旋转？</a>。
+	 </p>
+<p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21343">在 Maya 中，旋转插值的默认方法是 <strong class="ph b">Euler 旋转</strong>。可以在 Maya 的<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-0817C74B-C95C-4E5F-BCFA-26DEE1D7747F">“动画”(Animation)首选项（在“设置”(Settings)下）</a>中为新曲线设置默认旋转插值方法。也可以从<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-22ADA983-6FA4-435A-8492-A109015F954D">“曲线图编辑器”(Graph Editor)</span>设置现有旋转曲线的旋转插值方法。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-AD9AEB91-63EC-44C5-9B25-00449351DEF9.htm">设定曲线的旋转插值</a>。
+	 </p>
+<div class="section" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS17956D7ADBC6E73676CB1DF8117AE306E4C-7FEF"><h2 class="title sectiontitle">Euler 角度</h2> 
+		 
+		<p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21344"> Maya 使用 Euler 角度确定对象随时间变化的轴特定方向，以对对象的动画旋转进行插值。使用三个独立的角度来计算 Euler 旋转，这三个角度表示绕 X、Y 和 Z 轴的旋转以及<em class="ph i">旋转的顺序</em>。
+		</p>
+ 
+		<p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21346">旋转顺序将指定动画对象绕其 X、Y 和 Z 轴进行旋转的顺序。更改动画对象的旋转顺序将更改其最终方向。通过指定对象的<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-83DBED02-118F-44D3-AFA5-87581A2C27ED">“旋转顺序”(Rotate Order)</span>属性，可以设定对象的旋转顺序。例如，如果将动画对象的<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-3E264F9C-C305-4A95-82A9-A7B9535897F6">“旋转顺序”(Rotate Order)</span>设定为 YZX，那么该对象将首先在 Y 轴上进行旋转，然后是 Z 轴，最后才是 X 轴。您可使用<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-6E6B4729-AE7F-4A4C-9366-BF851C6C24EA">“旋转顺序”(Rotate Order)</span>属性将导入动画对象的旋转顺序与这些对象的源 3D 软件包中的坐标系（例如，<em class="ph i">XZY</em>，不同于 Maya 默认的 <em class="ph i">XYZ</em>）相匹配。如果希望导入对象的动画旋转能按预期显示，这点就非常重要。
+		</p>
+ 
+		<div class="fig fignone" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21348"><img class="image" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__IMAGE_40014AAB837644F99D72E0209435BCA4" width="237" height="209" src="../images/GUID-130602BE-4E73-4D86-924F-B3E8E8B99A02.png"></div>
+ 
+		<p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21349">Maya 中有两种类型的 Euler 旋转插值：“独立”(Independent)和“同步”(Synchronized)。可以从<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-263BC26D-6E29-42A6-A002-C0E596543410">“曲线图编辑器”(Graph Editor)</span>中设定曲线的 Euler 旋转插值类型。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-619CAE9C-107D-4504-A769-227DDC847153.htm#GUID-619CAE9C-107D-4504-A769-227DDC847153__GUID-37393839-2DBA-4CA8-B1DE-2BEDB337DEC0">更改旋转插值</a>。
+		</p>
+ 
+		<p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D2134A"> 对于<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-61FC07FB-3D22-4BAB-AB57-1FA12D1A06EB">“独立 Euler”(Independent Euler)</span>曲线，插值从各独立曲线上的关键帧到关键帧进行计算，与相邻的旋转曲线无关。如果要为单个旋转通道设定关键帧，或要将更多关键帧（以及细节）添加到单个旋转曲线，请使用<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-7350AB1A-6955-4FC5-8CED-D7AC23E647B6">“独立 Euler”(Independent Euler)</span>曲线。<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-742D18B9-A421-4E20-940F-87045DC77B6B">“独立 Euler”(Independent Euler)</span>曲线特别适用于简单的动画旋转。
+		</p>
+ 
+		<p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D2134C"><span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-5A0E4CD4-0D7D-440E-BB5F-34C68FE5D68E">“同步 Euler”(Synchronized Euler)</span>曲线上的所有关键帧都锁定在同一时间。这意味着，如果对象具有<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-7377603B-7186-4707-961A-F7E9B34F4752">“同步 Euler”(Synchronized Euler)</span>旋转曲线，那么插值从<em class="ph i" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-E914ECE9-27C4-425D-8133-4B9589292C58">所有</em>旋转曲线上的关键帧到关键帧同时进行计算。如果要为多个旋转通道（X、Y 和 Z）设定关键帧，或要将更多关键帧（以及细节）添加到动画对象的<em class="ph i" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-A15B1E00-8FA8-439E-84BE-1EC1E94B124B">所有</em>旋转曲线，请使用<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-2FDAADA0-F0A0-4219-AE70-9E22151A9A44">“同步 Euler”(Synchronized Euler)</span>曲线。<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-CBADDC25-AF6F-4B49-86AE-3F6C7E1F0AE3">“同步 Euler”(Synchronized Euler)</span>曲线特别适用于更为复杂的动画旋转。
+		</p>
+ 
+		<p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D2134D"><span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-4E2E5B21-64E6-457C-BCA9-38AC1B498C1A">“独立 Euler”(Independent Euler)</span>和<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-CBC4086B-FF10-4398-96BA-2E57BB66207F">“同步 Euler”(Synchronized Euler)</span>曲线之间的主要区别在于它们的<em class="ph i" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-149A818C-32D4-4154-A975-68E9FDDF1200">关键帧</em>。例如，移动位于<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-05888386-024C-4610-B067-0FFA82B53C0B">“独立 Euler”(Independent Euler)</span><span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-1372E898-BA29-4CD0-8506-D86A335325B7">“旋转 X”(Rotate X)</span>曲线上关键帧的时间<em class="ph i" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-D351D29F-FB6F-4D60-8E14-744C74E12D42">只</em>会移动位于<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-FC8DB303-2CA9-411D-B864-3B77704E55AB">“旋转 X”(Rotate X)</span>曲线上的关键帧；然而，移动<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-0A287787-5F49-4D7A-9B1E-5AD433A116A2">“同步 Euler 旋转 X”(Synchronized Euler Rotate X)</span>曲线上关键帧的时间也会移动<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-B64D7F79-3F8C-4A37-B66E-967BE13270F3">“Y”</span>和<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-BE39AC3F-4C46-4D2E-8C18-340B5C625EAD">“Z”</span>曲线上相应的关键帧。同样，如果仅设定动画对象<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-5056AE8F-5562-4E31-9ED6-B01ED27F26C8">“旋转 X”(Rotate X)</span>通道的关键帧，并且旋转插值类型设定为<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-1A3AE4AF-C4E1-4C7B-9EB6-2DE0FE8A1D4E">“独立 Euler”(Independent Euler)</span>，那么只会设定<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-4AE29DD7-B4B4-4BD9-9FF8-1D0EAC44B5FE">“旋转 X”(Rotate X)</span>通道的关键帧。但是，如果旋转插值类型设定为<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-1414C577-3D7A-490C-BE9E-47DC7DA47A7C">“同步 Euler”(Synchronized Euler)</span>，那么将设定全部三个<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-C115EE5F-05B9-47E7-A142-406F2034E6F8">旋转</span>通道（<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-5CA6C0C7-875C-4478-B9D0-AD7F385F4623">“X”</span>、<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-750240D8-86AD-4D30-B6EB-F1F8B0F4B701">“Y”</span>和<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-6372B714-B02D-4ED2-B7E3-A792B3848E08">“Z”</span>）的关键帧。
+		</p>
+ 
+		<p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D2134E">当 Euler 角度用于插值对象的动画旋转时，对象绕其各个轴的方向将逐轴进行计算。这就是 Euler 角度旋转易于产生瑕疵（例如，万向锁定和翻转）的原因。当围绕单轴的旋转造成不需要的围绕互补轴的旋转，或当轴发生重合的时候，将发生万向锁定。当 Euler 角度旋转在关键帧之间插值时，角度如果意外地绕正或负 180 度折回，就会发生翻转。
+		</p>
+ 
+		<div class="section" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__SECTION_C949E8D43CEA4563B7B7D1F5DB78395E"><h3 class="title sectiontitle">更正万向锁</h3> 
+		   
+		  <p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D2134F">如果发生万向锁定或翻转，可以使用<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-9D0A2445-7AF5-43BE-B5C5-FA69C455D061">“Euler 过滤器”(Euler Filter)</span>校正该行为。例如，可以使用<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-1743B058-267E-4E8F-B394-CBD6DBE15FA9">“Euler 过滤器”(Euler Filter)</span>从损坏的运动捕捉动画数据中归一化毁损的旋转曲线。可以从<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-20C095FD-DA28-4FD1-A599-535154676E20">“曲线图编辑器”(Graph Editor)</span>或<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-DB36ABBB-0A49-4DC4-A60A-189F66042DE5">“摄影表”(Dope Sheet)</span>中的<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-AFC84FB9-7FD5-484B-8EDA-DCC775B911D7">“曲线”(Curves)</span>菜单访问<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-2B6CD9F9-EFFB-475D-9C40-56A8AB306FC8">“Euler 过滤器”(Euler Filter)</span>。有关<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-353A27D6-A419-4C55-B9B2-18C997F94EB7">“Euler 过滤器”(Euler filter)</span>的详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-9E69ABB3-E94B-4D67-9935-40F77FD2E9E0.htm#GUID-9E69ABB3-E94B-4D67-9935-40F77FD2E9E0__WS17956D7ADBC6E73647E34F8F117AE307467-7FF5">Euler 角度过滤</a>。
+		  </p>
+ 
+		   
+		  <p class="p">您还可以使用<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-378D7FF6-492F-4DA4-A468-507E6ABF8B58">“修改”(Modify)菜单</a>中的<strong class="ph b"><span class="ph uicontrol">“对旋转重新排序”(Reorder Rotation)</span></strong>工具对动画对象进行解算，以确定万向锁定势。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-50116A2D-5BD7-48D4-BCF1-8AF89CB24205">对旋转重新排序选项</a>，了解更改旋转轴以减少万向锁而不更改动画的方法。
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS17956D7ADBC6E73676CB1DF8117AE306E4C-7FEE"><h3 class="title sectiontitle">Euler 旋转插值应何时使用？</h3> 
+		   
+		  <p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21350">如果要对旋转的数值进行特定控制，同时要平滑旋转曲线的切线，请使用 Euler 旋转插值。通常，应仅为要在<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-ACAB7999-29A5-4C87-9E85-7FCBD537CE94">“曲线图编辑器”(Graph Editor)</span>中操纵的旋转动画曲线使用 Euler 旋转插值。与四元数曲线不同，Euler 曲线支持全部切线类型及其关键帧拥有的切线控制柄，以便轻松地调整曲线。
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS17956D7ADBC6E73676CB1DF8117AE306E4C-7FED"><h2 class="title sectiontitle">四元数</h2> 
+		 
+		<p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21351"> 四元数将提供动画旋转的平滑插值，与 Euler 角度相比，四元数总能在关键帧之间产生更为有效的路径。四元数将存储对象的总方向，而并非一系列的独立旋转。这意味着一个四元数存储的旋转数据量与三个 Euler 角度存储的量相同。因为四元数仅存储方向值，所以可用于计算一个方向到另一方向的最短旋转。
+		</p>
+ 
+		<p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21353">使用<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-40B179EB-D6D4-4773-992C-06D8EDCFD0D7">同步四元数</span>设定对象旋转的动画时，Maya 首先将对象已设定关键帧的方向值存储作为 Euler 角度，并将其转化为四元数以便进行插值处理，然后会将已插值的四元数旋转值转化回 Euler 角度，以便显示在<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-EC02D1E7-7050-4FF3-BA2A-B17C764864F9">“通道盒”(Channel Box)</span>和<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-34F46A8E-D6D3-47E9-B134-9D9B29F39F95">“曲线图编辑器”(Graph Editor)</span>中。
+		</p>
+ 
+		<p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21354">在 Maya 中，四元数显示为<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-18ABA50B-01DA-476A-A6FE-030733B17DB6">“同步”(Synchronized)</span><span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-C38C4665-48E3-4167-ABAC-FE84666FBF8E">“Euler”</span>曲线和值。当对象的旋转曲线处于同步状态时，位于对象<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-E4B8AB43-3E54-4167-9AD8-4AACCF395028">“旋转”(Rotate)</span><span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-E12D3B59-7F81-453C-9D9D-F9464A514DB6">“X”</span>、<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-25C53EA6-0D37-4250-A457-C6D4CAB1B3DC">“Y”</span>和<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-5193A408-9990-465B-8FC8-5302F96FA8C6">“Z”</span>曲线上的关键帧都锁定在同一时间。当添加、删除或移动其中一个对象旋转曲线上的关键帧时，相应的关键帧也将在相关的旋转曲线上进行更新。这样可消除从其中一个轴删除关键帧或单独移动关键帧时间时可能发生的插值问题。
+		</p>
+ 
+		<p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21355">四元数曲线的切线设置将影响对象动画旋转的插值方式。有关切线类型的详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-43A4FE2C-4863-4EA6-B6AE-6D2B6757F6C7.htm">“曲线图编辑器”(Graph Editor)“切线”(Tangents)菜单</a>。Maya 将使用下列类型的切线和插值来计算一个关键帧到另一关键帧的最短旋转：
+		</p>
+ 
+		<ul class="ul" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21356"><li class="li" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21357">具有钳制切线的四元数曲线使用阶跃插值 
+		  </li>
+<li class="li" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21358">具有线性切线的四元数曲线使用球形线性插值（也称为球面线性插值） 
+		  </li>
+<li class="li" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS73099CC142F48755-4607E7CC11B1CFFF571-284F">具有样条线切线的四元数曲线使用立方插值 
+			 <p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-788E40D4-8F99-4959-914A-BBE9FF00782D">对于具有钳制切线的四元数曲线，Maya 将使用阶跃插值。对于具有线性切线的四元数曲线，Maya 将使用球形线性插值（也称为 <span class="ph" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-A370F1F4-2A6B-4CE8-9393-F0CEE80501C1">SLERP</span>）来计算一个关键帧到下一关键帧的最短旋转，并在关键帧之间产生突变过渡。对于具有样条线切线的四元数曲线，Maya 将使用立方插值来计算一个关键帧到下一关键帧的最短旋转，并在关键帧之间产生平滑过渡。
+			 </p>
+ 
+		  </li>
+</ul>
+ 
+		<p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D2135F"> 在 Maya <span name="glyph_span">®</span><span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-721CA38D-F0A3-49BE-B82C-E2972D39B341">Trax</span> <span name="glyph_span">™</span><span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-27F5C873-AEFB-4F9D-8C04-C044A02DCEAA">编辑器</span> 中融合动画片段时，可选择下列四元数旋转插值类型之一：<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-2898666C-976F-499B-B24E-4550A999845D">“四元数最短路径”(Quaternion Shortest)</span>或<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-A7804646-F733-40DC-942C-5779B5D62025">“四元数最长路径”(Quaternion Longest)</span>。<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-BAA93225-86F6-49D5-8614-D6EEBF0651C6">“四元数最短路径”(Quaternion Shortest)</span>插值使用四元数插值来查找从一个片段到另一片段旋转之间的最短路径。<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-E534F554-6E18-4267-BDDF-27681F193126">“四元数最长路径”(Quaternion Longest)</span>插值使用四元数插值来查找从一个片段到另一片段旋转之间的最长路径。该路径处于<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-86FC9BF1-73F6-491F-B1DE-BF2C6A16EEB7">“四元数最短路径”(Quaternion Shortest)</span>的相反方向。
+		</p>
+ 
+		<div class="fig fignone" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21362"><img class="image" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__IMAGE_9A3C93E6225F4132B9E1180B0A119BE8" width="504" height="212" src="../images/GUID-D6410250-2B26-4B80-B810-C2D9AAE79F9E.png"></div>
+ 
+		<div class="fig fignone" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21364"><img class="image" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__IMAGE_E6144794E2DA447B939A4ADBF94A91E9" width="505" height="365" src="../images/GUID-FC3CA5CD-1E25-4108-A002-712201DB0FF6.png"></div>
+ 
+		<p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21365">通过设定<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-19E603E7-70BB-4191-B9CB-1C7FB169AAF4">“属性编辑器”(Attribute Editor)</span>中的<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-B06DA48F-3FB7-40AA-9A10-610352F528FA">“旋转融合”(Rotation Blend)</span>属性，可以指定片段融合的四元数旋转插值类型。
+		</p>
+ 
+		<div class="section" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS17956D7ADBC6E73676CB1DF8117AE306E4C-7FEC"><h3 class="title sectiontitle">四元数应何时使用？</h3> 
+		   
+		  <div class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21366">如果要平滑两个关键帧之间的插值，请使用四元数。四元数将产生最有效的插值路径，而且不会生出例如万向锁定和翻转的瑕疵。
+		  <p class="li listintro">重要信息：</p>
+<ul class="ul" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21368"><li class="li" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21369">在<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-099D646F-3172-4B1C-A3B6-68CA351F8B1E">“曲线图编辑器”(Graph Editor)</span>中隔离、查看和编辑四元数曲线是很困难的。
+			 </li>
+<li class="li" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D2136A">四元数曲线不支持切线控制柄，且仅适用于线性切线。
+			 </li>
+</ul>
+ 
+		  </div>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS17956D7ADBC6E73676CB1DF8117AE306E4C-7FEB"><h2 class="title sectiontitle">哪种类型的插值最适用于您的动画旋转？</h2> 
+		 
+		<p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D2136B">每种旋转插值方法都有优点和缺点。由您选择最适合您动画的插值类型。另请参见本主题中的以下部分：<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3.htm#GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS17956D7ADBC6E73676CB1DF8117AE306E4C-7FEE">Euler 旋转插值应何时使用？</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3.htm#GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS17956D7ADBC6E73676CB1DF8117AE306E4C-7FEC">四元数应何时使用？</a>。
+		</p>
+ 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D2136C" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="18.2579185520362%"> </th>
+<th class="entry" valign="top" width="38.98190045248869%">Euler 角度 
+				  </th>
+<th class="entry" valign="top" width="42.76018099547511%">四元数 
+				  </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="18.2579185520362%"> 
+					 <p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D2136D">优点 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="38.98190045248869%"> 
+					 <ul class="ul" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D2136E"><li class="li" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D2136F">轻松创建围绕单个主轴的简单旋转。
+						</li>
+<li class="li" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21370">支持自旋（旋转 &gt; 360°） 
+						</li>
+<li class="li" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21371">分别处理入切线和出切线 
+						</li>
+</ul>
+ 
+				  </td>
+<td class="entry" valign="top" width="42.76018099547511%"> 
+					 <ul class="ul" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21372"><li class="li" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21373">从一个方向到下一方向的平滑插值旋转 
+						</li>
+<li class="li" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21374">不用忍受万向锁定或翻转 
+						</li>
+</ul>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="18.2579185520362%"> 
+					 <p class="p" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21375">缺点 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="38.98190045248869%"> 
+					 <ul class="ul" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21376"><li class="li" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21377">易于产生万向锁定和翻转 
+						</li>
+<li class="li" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21378">创建难以预测的旋转，因为插值根据各旋转轴分别计算 
+						</li>
+</ul>
+ 
+				  </td>
+<td class="entry" valign="top" width="42.76018099547511%"> 
+					 <ul class="ul" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D21379"><li class="li" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D2137A">不支持自旋（旋转 &gt; 360°） 
+						</li>
+<li class="li" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D2137B">曲线难以进行可视化处理 
+						</li>
+<li class="li" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D2137C">不支持切线控制柄 
+						</li>
+<li class="li" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D2137E">在<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-E3269018-CD83-4161-8DD3-5972021DA9AE">“曲线图编辑器”(Graph Editor)</span>中难以查看和编辑切线，且不会单独处理切线 
+						</li>
+</ul>
+ 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+		<div class="note note" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__WS1A9193826455F5FF-6D855556117E9F816D2137F"><span class="notetitle">注：</span> 无论对象旋转使用的是四元数还是 Euler 角度，<span class="ph uicontrol" id="GUID-CBD30A0A-1166-4076-A564-1ADC946A15F3__GUID-0FFFB890-D518-45B0-BD9F-DF0B7DB31B67">“通道盒”(Channel Box)</span>始终会显示 Euler 角度的值。
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-91055F04-C5E0-45DA-BE0C-218D92AF6A16.htm" title="介绍 Maya 中的各种动画技术。">动画基础知识</a></div>
+</div>
+</div>
+
+</body>
+</html>

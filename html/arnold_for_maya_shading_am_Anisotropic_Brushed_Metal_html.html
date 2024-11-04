@@ -1,0 +1,139 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shading_am_Anisotropic_Brushed_Metal_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_ANISOTROPIC_BRUSHED_METAL">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 各向异性拉丝金属 - Arnold for Maya">
+
+<title>各向异性拉丝金属</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>各向异性拉丝金属</h1></div><p><img src="../images/am-Anisotropic_Brushed_Metal-pot-1.jpg" alt=""></p>
+<p><sub><strong>锅的底部呈现各向异性拉丝金属效果</strong></sub></p>
+<p>本简短教程介绍了如何创建一个具有各向异性反射的逼真钢质着色器，并利用该着色器在锅的底部创建拉丝金属效果。各向异性反射取决于反射曲面上存在的细小凹槽（凹凸、纹理或划痕）的方向。我们将组合使用一个连接到各向异性的径向渐变和一个连接到凹凸贴图属性的噪波纹理来实现此效果。</p>
+<p><strong>要下载示例场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/anisotropic-brushed-metal.zip" target="_blank">此处</a>。</strong></p>
+<ul>
+<li>选择锅的底面，并为其指定一个 <em>standard_surface</em> 着色器。将其重命名为“Base”。</li>
+</ul>
+<p><img src="../images/am-Anisotropic_Brushed_Metal-image2020-2-5-12-53-31-2.png" alt=""></p>
+<p><sub><strong>将 <em>standand_surface</em> 着色器指定给锅底</strong></sub></p>
+<h2 id="">镜面反射着色</h2><p>现在，我们要创建具有拉丝金属效果的钢质着色器。</p>
+<ul>
+<li>将 <em>base_weight</em> 减小到 0.4 左右。</li>
+<li>将 <em>specular_weight</em> 减小到 0.5，并将 <em>specular_roughness</em> 增大为 0.5 左右。这将使各向异性效果更柔和。您可能需要调整 <em>specular_rotation</em> 以匹配您的照明。在本例中，此值为 0.4。</li>
+</ul>
+<h2 id="rgb">渐变 RGB</h2><ul>
+<li>将 <em>ramp_rgb</em> 连接到 <em>specular_anisotropy</em> 参数。</li>
+<li>将 ramp_rgb <em>类型</em>更改为 <em>radial</em>。将四种黑色和四种白色插入渐变。将它们的<em>插值</em>更改为<em>平滑</em>。</li>
+</ul>
+<p>您可能会注意到，使用各向异性时，镜面反射高光部分会出现分面现象。我们可以通过在网格的 Arnold 属性中启用 <em>smooth_tangents</em> 来删除面状外观。请注意，这至少要求多边形网格中有一次 <em>subdivision_iteration</em>。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Anisotropic_Brushed_Metal-0-subdivisions-3.jpg" alt=""></td>
+<td><img src="../images/am-Anisotropic_Brushed_Metal-1-subdvision-4.jpg" alt=""></td>
+<td><img src="../images/am-Anisotropic_Brushed_Metal-1-subdvision-with-smooth-tangents-5.jpg" alt=""></td>
+</tr>
+<tr>
+<td>subdivision_iterations：无</td>
+<td>subdivision_iterations：1</td>
+<td>subdivision_iterations：1（启用 smooth_tangents）</td>
+</tr>
+</tbody></table>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>各向异性方向取决于当前使用的网格的 UV。  </p>
+
+</div></div>
+
+<p>此时，在锅底应该能看到各向异性拉丝金属效果。但是，目前还缺少这种效果所具有的凹凸皱纹质感。</p>
+<p><img src="../images/am-Anisotropic_Brushed_Metal-image2020-2-5-14-32-49-6.png" alt=""></p>
+<p><sub><strong><em>RampRGB </em>-&gt; <em>standard_surface</em> 的 <em>specular_anisotropy</em></strong></sub></p>
+<h2 id="">凹凸贴图</h2><p>现在，我们需要创建一个刮擦效果，并将其连接到凹凸属性，以实现精细的拉丝金属效果。我们可以使用以下着色器来执行此操作：</p>
+<p><em>渐变浮点 -&gt; 噪波 -&gt; bump2d (RampFloat -&gt; Noise -&gt; bump2d)</em></p>
+<ul>
+<li>创建 <em>bump2d<em>，并将其连接到锅底着色器的 *normal_camera</em>。将 *bump_height</em> 设置为 0.5 左右。</li>
+<li>创建一个噪波着色器，并将其连接到 bump2d 的 <em>bump_map</em>。将<em>“倍频程”(octaves)</em>更改为 8，将<em>“振幅”(amplitude)</em>更改为 0.4 左右。</li>
+<li>创建一个 <em>rampFloat</em>，并将其连接到噪波着色器的<em>“比例”(scale)</em>。将类型更改为<em>圆形</em>。这将得到我们所需的同心光环效果。</li>
+</ul>
+<h2 id="photoshop">Photoshop</h2><p>可以在 Photoshop 中创建一个刮擦贴图，并将其连接到凹凸属性，以实现精细的拉丝金属效果。</p>
+<ul>
+<li>转到<em>“过滤器 -&gt; 噪波 -&gt; 添加噪波”(Filter -&gt; Noise -&gt; Add Noise)</em>，为图像添加一些噪波。</li>
+<li>转到<em>“过滤器 -&gt; 扭曲 -&gt; 扭转”(Filter -&gt; Distort -&gt; Twirl)</em>，为噪波添加一个环形效果。您可能需要执行此操作两次或三次才能得到所需的效果。裁剪并保存图像。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Anisotropic_Brushed_Metal-noise-7.jpg" alt=""></td>
+<td><img src="../images/am-Anisotropic_Brushed_Metal-noise-twirl-bump-8.jpg" alt=""></td>
+</tr>
+<tr>
+<td>Photoshop 中的“噪波”(Noise)过滤器</td>
+<td>Photoshop 中的“扭转”(Twirl)过滤器</td>
+</tr>
+</tbody></table>
+<ul>
+<li>创建一个文件纹理，并打开保存的噪波图像。将其连接到 Base 着色器的<em>“凹凸”(Bump)</em>属性。</li>
+</ul>
+<p>有关如何创建各向异性拉丝金属着色器的简短教程到此结束。</p>
+<p><img src="../images/am-Anisotropic_Brushed_Metal-image2020-2-5-14-32-14-9.png" alt=""></p>
+<p><sub><strong>最终的着色网络</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Shading_html.html">着色</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

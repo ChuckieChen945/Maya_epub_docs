@@ -1,0 +1,114 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_bifrost_am_Legacy_Bifrost_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_LEGACY_BIFROST">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 旧版 Bifrost - Arnold for Maya">
+
+<title>旧版 Bifrost</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>旧版 Bifrost</h1></div><p><img src="../images/bifrost-waterfall.jpg" alt=""></p>
+<p>MtoA 支持使用 <a href="https://knowledge.autodesk.com/zh-hans/support/maya/learn-explore/caas/CloudHelp/cloudhelp/2016/CHS/Maya/files/GUID-F37B36D7-5ABB-4509-B2E6-9F27A3794DA3-htm.html" target="_blank">Bifrost</a>，Bifrost 是 Maya 中的一种工具，用来创建模拟液体和体积效果。使用 Maya 2018.1 [+] 和 Arnold 5 创建 Bifröst 模拟系统时，会使用 Arnold 随附的一些着色器为每个系统创建一组新的着色图。</p>
+<p><img src="../images/mtoa_legacy_bifrost0.png" alt=""></p>
+<p>每个着色器都连接到与模拟对应的旧有 SG 节点（bifrostLiquidMaterial、bifrostFoamMaterial、bifrostAeroMaterial）。每个着色器选择的属性设置都实现一个默认外观；<em><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shapes/bifrost/LegacyBifrost-Liquid">液体</a>*用来实现深海，</em><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shapes/bifrost/LegacyBifrost-Foam">泡沫</a><em>用来实现点粒子，</em><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shapes/bifrost/LegacyBifrost-Aero">Aero</a>* 用来实现烟雾。</p>
+<table>
+<thead>
+<tr>
+<th>有关 Bifrost 工作流示例，请单击<a href="https://knowledge.autodesk.com/zh-hans/support/maya/learn-explore/caas/CloudHelp/cloudhelp/2015/CHS/Maya/files/GUID-5CF6B50D-9A10-4DCA-B2C4-B2203570A11C-htm.html" target="_blank">此处</a>。</th>
+</tr>
+</thead>
+</table>
+<h3 id="">液体</h3><p>Arnold 可以让液体渲染成网格或隐式曲面。这些属性可在 liquidShape 节点的 Arnold 选项卡下的各个选项卡中找到。默认情况下，为 Bifröst 液体指定 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html" target="_blank">standard_surface</a></em> 着色器，着色器属性已调整为模拟深水效果。此液体被渲染成<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_polygons_html">多边形网格</a>。我们可以使用 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html" target="_blank">standard_surface</a></em> 着色器对它进行控制。</p>
+<p><img src="../images/mtoa_legacy_bifrost1.png" alt=""></p>
+<p><sub><strong>为 Bifrost 液体指定 <em>Standard_surface</em> 着色器</strong></sub></p>
+<p>液体模拟的渲染输出可使用以下属性进行程序化控制，这些属性位于<em>“液体形状 -&gt; Arnold -&gt; 曲面控制 -&gt; 网格控制”(Liquid Shape -&gt; Arnold -&gt; Surface Controls -&gt; Mesh Controls)</em>之下：</p>
+<p><img src="../images/mtoa_legacy_bifrost2.png" alt=""></p>
+<h3 id="">泡沫</h3><p>我们可以向液体中添加泡沫粒子来创建气泡、泡沫和喷射效果。这些元素在 MtoA 中渲染成支持运动模糊的点或球体。每粒子属性会导出为用户数据。粒子属性由原生泡沫着色器与渐变（漫反射、反射等）控制。可以将泡沫视为体积球体（使用体积着色器）（即具有 step_size 的点）或点/球体基本体（使用曲面着色器）。</p>
+<p>您可以为泡沫指定任意类型的着色器（曲面或体积），但使用体积着色器时会忽略点，因此这种情况下将改为渲染球体。</p>
+<p>在 MtoA for Maya 2018+ 中，已不再支持 BifrostFoamMaterial 和 BifrostAeroMaterial（它们将不再转换为 Arnold 着色器节点）。</p>
+<p>泡沫被渲染为<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_volumes_am_Volume_html">体积基本体</a>。我们可以使用 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_volume_shaders_ac_standard_volume_html" target="_blank">standard_volume</a></em> 着色器对它进行控制。</p>
+<p><img src="../images/mtoa_legacy_bifrost3.png" alt=""></p>
+<p><sub><strong>为 Bifrost Aero 指定标准体积着色器</strong></sub>  </p>
+<p>相关控制选项可在 foamShape 节点的<strong><em>“Arnold -&gt; 点控制”(Arnold -&gt; Points Control)</em></strong>选项卡下找到。</p>
+<ul>
+<li><p>在 Maya 2018+ 中，默认情况下不会为 Bifrost 泡沫应用 *<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_volume_shaders_ac_standard_volume_html" target="_blank">standard_volume</a>*。</p>
+</li>
+<li><p>您可以使用 *<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_volume_shaders_ac_standard_volume_html" target="_blank">standard_volume</a><em>（如果点步长 &gt; 0）或 *<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html" target="_blank">standard_surface</a></em>（如果点步长 = 0）渲染泡沫。</p>
+</li>
+</ul>
+<h3 id="aero">Aero</h3><p>与泡沫渲染类似，我们为 Bifröst Aero 指定 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_volume_shaders_ac_standard_volume_html" target="_blank">standard_volume</a></em> 着色器，其中“密度通道”(Density Channel)使用 Aero 的烟雾通道。此材质被渲染为<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_volumes_am_Volume_html">体积基本体</a>。</p>
+<p><img src="../images/mtoa_legacy_bifrost4.png" alt=""></p>
+<p><sub><strong>为 Bifrost Aero 指定标准体积着色器</strong></sub>  </p>
+<p>体积控制选项可在 aeroShape 节点的<strong><em>“Arnold -&gt; 体积控制”(Arnold -&gt; Volume Controls)</em></strong>选项卡下找到：</p>
+<p><img src="../images/mtoa_legacy_bifrost5.png" alt=""></p>
+<h2 id="">渲染通道</h2><p>使用工具的<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shaders_userdata_html">用户数据</a>节点，您可以创建一个着色网络用来渲染出 Bifröst 的各个通道。</p>
+<ul>
+<li>您可以使用 Bifrost 形状的“粒子显示”(Particle Display)部分的“颜色通道重映射”(Color Channel Remap)选项，在视口中以视觉方式呈现漩涡，确定 remapValue 着色器节点中需要的最小/最大值。</li>
+<li>在 Bifrost 形状的“Arnold”部分，确保“不透明度”(Opacity)已禁用。</li>
+<li>另外，在“Arnold”部分，您将看到漩涡默认情况下是一个导出通道。您还可以在这里添加其他属性，例如速度等（词与词之间以空格间隔）。</li>
+<li>对于着色网络，确保将漩涡（或根据上面一点列出的任何通道）作为属性输入 aiUserDataVector 节点。</li>
+<li>此外，在 remapValue 节点中，确保使用第一点中提到的通过视口通道重映射获得的最小/最大输入值。  </li>
+</ul>
+<p><img src="../images/mtoa_legacy_bifrost6.png" alt=""></p>
+<h4 id="ass-kick">导出 Ass 和 Kick</h4><ul>
+<li>使用上述方法，通过 Bifrost 设置 Maya 场景。</li>
+<li>转至<em>“文件 &gt; 导出全部”(File &gt; Export All)</em>或<em>“导出当前选择”(Export Selection)</em>。</li>
+<li>将<em>“文件类型”(File type)</em>更改为<em>“ASS 导出”(ASS Export)</em>。</li>
+<li>在<em>“导出”(Export)</em>子区域中，启用选项<em>“展开程序”(Expand Procedurals)</em>。</li>
+<li>根据需要配置其他设置并导出文件。</li>
+<li>使用 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_tutorials_am_Kick_html">Kick</a> 渲染生成的 ass 文件。</li>
+</ul>
+<p>对于 Aero 渲染：</p>
+<ol>
+<li>您还需要附加到 PATH 或库路径环境变量：</li>
+</ol>
+<p>Linux：LD_LIBRARY_PATHMac: DYLD_LIBRARY_PATHWindows: PATH</p>
+<p>Windows 示例：PATH=C:\Program Files\Autodesk\Bifrost\Maya2018\bin;C:\Program Files\Autodesk\Maya2018\bin2.使用 Kick 渲染 ass 文件时，需要使用“-l”标志指向 Bifrost 程序的 bin 位置。示例 Kick 命令：kick.exe -l C:\Program Files\Autodesk\Bifrost\1.5.0\Arnold-5.0.0.0\bin -l C:\solidangle\mtoadeploy\2018\shaders bifrost_LiquidAeroFoam.0030.ass</p>
+<p><em>ginstance</em> 节点可以覆盖体积容器的 <em>step_size</em> 参数，例如点、多边形网格、立方体和球体。例如，这允许将体积形状的实例着色为曲面（“实例步长”(instance step size)设置为 0，“不透明”(Opaque)设置为关闭，且使用曲面着色器）。</p>
+<p><img src="../images/mtoa_legacy_bifrost7.png" alt=""></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shapes/arnold_for_maya_shapes_bifrost_html.html">Bifrost</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

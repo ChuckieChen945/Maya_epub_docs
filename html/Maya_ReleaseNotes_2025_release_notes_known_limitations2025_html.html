@@ -1,0 +1,177 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Maya-ReleaseNotes">
+  <meta name="topicid" content="Maya_ReleaseNotes_2025_release_notes_known_limitations2025_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="applies-to" content="MAYACRE=NA">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>Maya 2025 已知问题</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>Maya 2025 已知问题</h1></div><p>此页面列出了 Maya 和/或 Maya Creative 的已知限制以及各种可用的解决方法。</p>
+<table>
+<thead>
+<tr>
+<th>缓存播放：显示/隐藏运动轨迹重建缓存</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>解决方法：</strong>在解算工具包中禁用不可见性解算器。<em>MAYA-130865</em></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>分组时忽略簇封套值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>封套权重仅影响簇变换，而不影响组变换。<br>您可以将权重设置为一个较小的值，然后移动两个变换来验证，您会发现组变换不受封套权重值的影响。<br><br>在 Maya 2020 中，当封套归零时，它会从使用父变换变为不使用任何变换，从而导致不需要的跳跃/不连续性。<br>为解决此问题，我们进行了修复，这也是 Maya 2022 及更高版本中报告的行为发生变化的原因。<br><br>如果要禁用簇变形器，则应将簇上的节点状态（在“节点行为”(Node Behavior)下）设置为“无效果”(HasNoEffect)。<em>MAYA-127789</em></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>GW 智能挤出：创建不正确的 UV</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>解决方法：</strong>沿 Y 轴重新投影 UV。<em>MAYA-132009</em></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>在最大化 Maya 后，“大纲视图”(Outliner)和“属性编辑器”(Attribute Editor)可能会被禁用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>解决方法：</strong>如果发生这种情况，请转到<strong>“工作空间”(Workspace)</strong>下拉菜单，然后选择<strong>“重置当前工作空间”(Reset current workspace)</strong>。<em>MAYA-131818</em></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Qt6：创建新文件夹时，文件浏览器 UI 发生崩溃</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>解决方法：</strong>命名新创建的文件夹后，按键盘上的 Enter 键。<em>MAYA-132418</em></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Qt6：比较 Qt6 和 Qt5 时，类型网格看起来更大</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>解决方法：</strong>在 Maya 2025 中使用文件之前，先在 Maya 2024 中删除网格历史。<br><br>这种解决方法还应用于需要跨平台使用的文件，即使这些文件仍使用相同的 Maya 版本。<em>MAYA-130830</em></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Qt6：系统唤醒后，应用程序主页成为 Maya 后的单独窗口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em>MAYA-131341</em></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Qt6：Windows 上的应用程序主页过渡瑕疵</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>解决方法：</strong>在应用主页和 Maya 之间切换时，手动调整主 Maya UI 大小可避免这些瑕疵。<em>MAYA-131310</em></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Qt6：Maya 应用程序和浮动窗口在不同位置启动</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em>MAYA-131457</em></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Qt6：PySide6.QtUiTools.loadUiType 未按预期运行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>在过渡到 Qt6 和 PySide6 的过程中，这些更改会影响 PySide6.QtUiTools.loadUiType 的使用以及对 PySide 命令行脚本的依赖。以下是更新的信息：<br><br>在 Maya 2025 中，pyside2-uic 和 pyside2-rcc 命令行脚本不再起作用。<br>现在，用户不应再依赖这些命令行脚本，而应直接使用 Qt 的 uic 和 rcc 文件。<br><br>这些文件位于以下位置：<br>Windows：C:\Program Files\Autodesk\Maya2025\bin<br>Mac：/Applications/Autodesk/maya2025/Maya.app/Contents<br>Linux：/usr/autodesk/maya2025/libexec<br><br>要使用命令行生成 Python 文件，用户应明确使用带有 -g python 参数的 uic。<br>请相应地更新您的工作流，将 pyside2-uic 的使用替换为 uic -g python，并基于您的平台引用正确的文件位置。<em>MAYA-132563</em></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Ubuntu alien 不支持 LookdevX 安装程序使用的环境变量类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>安装程序将显示失败，但软件包已安装。安装程序完成后，将 lookdevx.mod 文件从 /usr/autodesk/lookdevx/maya2025/1.3.0/modules 复制到 /usr/autodesk/modules/maya/2025。然后，将 .mod 文件中的路径编辑为正确的位置 /usr/autodesk/lookdevx/maya2025/1.3.0/plug-ins/lookdevx。当 Maya 启动时，它应拾取 .mod 文件，并可以通过插件管理器加载 Lookdevx。<em>MAYA-132609</em></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>在处理大型数据时，“摄影表摘要”(Dope Sheet Summary)可能会降低性能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>解决方法：</strong>在“视图”(View)菜单中禁用“摄影表摘要”(Dope Sheet Summary) <em>MAYA-132147</em></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Maya 2025 许可不支持 Wayland 显示</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有关详细信息和解决方法说明，请参见<a href="https://www.autodesk.com/support/technical/article/caas/tsarticles/ts/3t2VQSfCGLLvGEwb2lPn44.html" target="_blank">技术支持中的此文章</a>。<em>MAYA-129586</em></td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ReleaseNotes/files/MAYA_RELEASENOTES_2025_RELEASE_NOTES_HTML.html">Maya 2025 发行说明</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

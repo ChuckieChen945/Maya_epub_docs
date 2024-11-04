@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="MEL:脚本;MEL:脚本文件">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-FA813AD0-A947-45C4-9034-357E26C13D1C">
+<meta name="language" content="CHS">
+<title>执行外部 MEL 脚本文件</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-FA813AD0-A947-45C4-9034-357E26C13D1C">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>执行外部 MEL 脚本文件</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-FA813AD0-A947-45C4-9034-357E26C13D1C__WS73099CC142F48755-3D114B7511841AEFA9F-10D7">可以作为单独的文件运行 MEL 脚本。默认情况下 MEL 脚本具有扩展名 .mel。 
+	 </p>
+<p class="p" id="GUID-FA813AD0-A947-45C4-9034-357E26C13D1C__WS73099CC142F48755-3D114B7511841AEFA9F-10D6"> 可以使用两种方法执行外部脚本文件： 
+	 </p>
+<ul class="ul" id="GUID-FA813AD0-A947-45C4-9034-357E26C13D1C__WS73099CC142F48755-3D114B7511841AEFA9F-10D4"><li class="li" id="GUID-FA813AD0-A947-45C4-9034-357E26C13D1C__WS73099CC142F48755-3D114B7511841AEFA9F-10D3">在<span class="ph uicontrol" id="GUID-FA813AD0-A947-45C4-9034-357E26C13D1C__GUID-28101095-144A-4A01-AF75-00066A7A4DC6">“脚本编辑器”(Script Editor)</span>中，选择<span class="ph uicontrol" id="GUID-FA813AD0-A947-45C4-9034-357E26C13D1C__GUID-36146E18-E594-4254-89E0-B90B073D8EA8">“文件 &gt; 源化脚本”(File &gt; Source Script)</span>。 
+		  <div class="note note" id="GUID-FA813AD0-A947-45C4-9034-357E26C13D1C__WS73099CC142F48755-3D114B7511841AEFA9F-10D2"><span class="notetitle">注：</span>  执行脚本之前，请确保已保存正在处理的所有数据。 
+		  </div>
+ 
+		  <p class="p" id="GUID-FA813AD0-A947-45C4-9034-357E26C13D1C__WS73099CC142F48755-3D114B7511841AEFA9F-10D1">源化 MEL 脚本时，MEL 不允许正向引用局部范围过程。局部范围内的程序定义必须在被调用之前显示。例如，在名为 <samp class="ph codeph" id="GUID-FA813AD0-A947-45C4-9034-357E26C13D1C__GUID-64065341-DED3-48C5-A337-E38BC0360DE0">noForwardRef.mel</samp> 的文件中，引用局部程序之前定义这些程序。 
+		  </p>
+ 
+		   
+		  <pre class="pre codeblock">proc myLocalProc() {
+    print "In myLocalProc()\n";
+}
+
+proc anotherLocalProc() {
+    print "In anotherLocalProc()\n";
+    myLocalProc; 
+}
+
+global proc noForwardRef() {
+    print "Calling anotherLocalProc()\n";
+    anotherLocalProc;
+}</pre>
+ 
+		  <p class="p" id="GUID-FA813AD0-A947-45C4-9034-357E26C13D1C__WS73099CC142F48755-3D114B7511841AEFA9F-10CF">如果在源化脚本之后更改了脚本，那么 Maya 不会自动拾取该更改。您需要使用<span class="ph uicontrol" id="GUID-FA813AD0-A947-45C4-9034-357E26C13D1C__GUID-EB08A3BB-9F40-415C-92EF-35C90AA89239">“文件 &gt; 源化脚本”(File &gt; Source Script)</span>重新运行脚本。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-FA813AD0-A947-45C4-9034-357E26C13D1C__WS73099CC142F48755-3D114B7511841AEFA9F-10CE">将脚本放置在 Maya 的其中一个标准脚本目录中。 
+		  <p class="p" id="GUID-FA813AD0-A947-45C4-9034-357E26C13D1C__GUID-AF630F75-ACE5-421C-878E-3503088B5436">键入文件的名称时，Maya 将源化文件的内容，并且如果在文件中存在具有相同名称的过程，Maya 将执行该过程。这样可以创建像内置命令一样工作的脚本。 
+		  </p>
+ 
+		  <div class="note note" id="GUID-FA813AD0-A947-45C4-9034-357E26C13D1C__WS73099CC142F48755-3D114B7511841AEFA9F-10CD"><span class="notetitle">注：</span>  MEL 脚本和 mayaAscii 文件是不同的。如果将 .ma 文件重命名为 .mel 文件并源化该文件，则可能会出错。或者，如果将 .mel 脚本重命名为 .ma 文件并打开该文件，则可能会出错，或者甚至会使 Maya 崩溃。Maya 在读取文件时会执行一些特殊操作以提高性能，并非所有命令都与此兼容。 
+		  </div>
+ 
+		</li>
+</ul>
+<div class="section" id="GUID-FA813AD0-A947-45C4-9034-357E26C13D1C__SECTION_CB888313EDB547BEAF5A0DC2F4E78391"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-FA813AD0-A947-45C4-9034-357E26C13D1C__UL_870268A8837E4E869C7860A568303CA1"><li class="li" id="GUID-FA813AD0-A947-45C4-9034-357E26C13D1C__LI_C2344FE69AC74EEE9E5792C8E95CD7E3"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B27EEF99-8458-4130-BD06-4A36EB3AD533.htm">运行 MEL 命令</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B27EEF99-8458-4130-BD06-4A36EB3AD533.htm">运行 MEL 命令</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_MPM_Simulation_MPM_constrain_mpm_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>constrain_mpm</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>constrain_mpm</code></h1></div><p>使用此复合可在源几何体的 <code>point_position</code> 上创建约束，这些约束将在模拟过程中强制执行。约束是一种根据输入 <code>mpm_source</code> 几何体或 <code>constraint_geometry</code> 的动画运动强制某些点移动的方法。点约束到的位置称为目标位置。约束可以是硬约束，表示不允许出现偏差；也可以是软约束，表示充当运动导向（请参见 <code>strength</code> 输入）。注意：您也可以通过提供不移动的输入将源约束为保持静止。</p>
+<p><code>mpm_source</code> 输入应连接到 <code>make_mpm_cloth</code> 的 <code>cloth_source</code> 输出、<code>make_mpm_fiber</code> 的 <code>fiber_source</code> 输出或 <code>make_shell_fiber</code> 的 <code>shell_source</code> 输出。此复合的 <code>out_mpm_source</code> 输出应连接到 <code>simulate_mpm</code> 的 <code>sources</code> 输入。也可以在 <code>make_mpm_cloth</code> 和 <code>simulate_mpm</code> 之间链式连接多个 <code>constrain_mpm</code> 复合。在同一个点上应用冲突的约束时，最后一个添加的约束会覆盖上一个约束。</p>
+<h2 id="">输入</h2><h3 id="mpm_source"><code>mpm_source</code></h3><p>约束将应用于附加的任意数量的 <code>mpm_source</code>。如果未提供 <code>constraint_geometry</code>，则将使用输入几何体的运动来设置目标位置。</p>
+<h3 id="constraint_geometry"><code>constraint_geometry</code></h3><p><code>constraint_geometry</code> 输入的 <code>bounds_shape</code> 内的 <code>mpm_source</code> 输入几何体的任何点都将受到约束，以在 <code>start_frame</code> 与当前帧之间遵循 <code>constraint_geometry</code> 的相对变换。可以通过以下两种方式之一计算变换： </p>
+<ul>
+<li>如果 <code>constraint_geometry</code> 具有 <code>float4x4</code> 特性 <code>transform</code>，则将使用该特性。</li>
+<li>否则，它将计算两个几何体之间最适合的相对缩放、旋转和平移。 </li>
+</ul>
+<p>将按源的 <code>start_frame</code> 确定要约束的点，并且在模拟期间不会更新这些点。但是，在整个模拟过程中会更新其目标位置和强度。</p>
+<h3 id="enable_constraints"><code>enable_constraints</code></h3><p>是否应添加任何约束。</p>
+<h3 id="start_frame"><code>start_frame</code></h3><p>模拟的源几何体应开始受约束时的帧。</p>
+<h3 id="use_end_frame"><code>use_end_frame</code></h3><p>是否在 <code>end_frame</code> 之后取消激活约束。</p>
+<h3 id="end_frame"><code>end_frame</code></h3><p>模拟的源几何体将受约束的最后一帧（如果 <code>use_end_frame</code> 已启用）。</p>
+<h3 id="strength"><code>strength</code></h3><p>强度 0 相当于无约束，强度 1 相当于硬约束或绝对约束。小数值表示软约束 - 源的行为表现为像是使用静止长度为 0 的弹簧连接了它们。</p>
+<h3 id="use_color_set"><code>use_color_set</code></h3><p>是否使用颜色集特性值来缩放约束的强度。</p>
+<h3 id="color_set_name"><code>color_set_name</code></h3><p>输入 <code>mpm_source</code> 的几何体上的颜色集名称。您可以添加观察点以查看输入几何体上颜色集的名称和类型。对 Alpha、RGB 或 RGBA 通道着色以将颜色集映射到浮点。 </p>
+<h3 id="bounds_shape"><code>bounds_shape</code></h3><p>是使用轴对齐边界框还是使用 <code>constraint_geometry</code> 输入的边界球体来确定哪些点应受到约束。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_MPM_html.html">MPM</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

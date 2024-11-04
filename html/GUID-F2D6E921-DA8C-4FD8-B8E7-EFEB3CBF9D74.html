@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74">
+<meta name="language" content="CHS">
+<title>MEL 分析器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>MEL 分析器</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="p" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-14B680DF-52A4-4BA5-B49D-8BA38F2F4868"> <span class="ph uicontrol" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-C7C2799B-C36B-4C17-BD42-BBAB3AADFB3C">MEL 分析器</span>是一个分析系统，可用于监视工具使用情况并记录确定瓶颈所需的度量标准。此外，分析数据还可用于快速而轻松地诊断 MEL 工具集。 <div class="fig fignone" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__FIG_C247398E77E947FD8837C2A1DD2B592F"><img class="image" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__IMAGE_A82E65AFCF424386B0AFDD504BA0D12E" src="../images/GUID-69E59DB7-5959-4533-8060-11CDBE2E8B79.png"></div>
+ </div>
+<div class="section" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__SECTION_1E5490B8E9684014B1E5BFE5F436469A"><h2 class="title sectiontitle">度量标准</h2>
+
+<div class="section" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-D06D341F-BB94-4828-8FA3-AB1C3E9B56A3"><dl class="dl" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-D06D341F-BB94-4828-8FA3-AB1C3E9B56A3"><dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-47AA2EA9-7BCB-48EE-B6CD-509EBDA1DA90">程序名称(Proc Name)</span>
+</dt>
+<dd class="dd" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-8D670194-EDB1-4261-9335-06E3B92AEEBA">程序的名称。</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-30227A43-EFDD-4382-BD87-D2B134DDEA4E">运行时百分比(Percent of Runtime)</span>
+</dt>
+<dd class="dd" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-B8EB9E83-E594-4970-84F3-6B78AF6D1DD1">基于分析的时间跨度的程序总运行时的百分比（<span class="ph uicontrol" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-2DE23574-C2FE-4899-97EB-CC8217402467">“自时间”(Self Time)</span>）。</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-3E36E42F-D019-4F0B-941C-9EA7FA69BE4A">自时间(毫秒)(Self Time (ms))</span>
+</dt>
+<dd class="dd" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-934065DD-CAC8-441F-A7F2-BFF1F4B007FE"> 执行程序需要的时间总量（毫秒），不包括其子程序引发的时间。</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-8A81876C-5935-447C-8BDA-05877CFEFF92">调用数量(Number of calls)</span>
+</dt>
+<dd class="dd" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-C92B03A6-3271-4B14-A477-F71A0058339D">程序被调用的次数。</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-EEBA03BC-249F-4584-A1BF-71A75D124BAA">总时间(毫秒)(Total Time (ms))</span>
+</dt>
+<dd class="dd" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-3010EAC5-7E75-42B8-AC3B-106F446A4937">程序花费在其各种调用上的时间总量（毫秒）。 <div class="note note" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-79E493B5-D22F-44E6-AD47-3F40834FA1DA"><span class="notetitle">注：</span> 此值包括程序的子程序引发的时间。 </div>
+</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-91451B08-557F-4ECF-8291-25263D746253">平均调用时间(毫秒)(Average Call Time (ms))</span>
+</dt>
+<dd class="dd" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-CA7219C5-AE0C-45D9-8B50-1B651A9DB806">程序每次调用花费的平均时间量（毫秒）。</dd>
+<dt class="dt dlterm">
+<span class="ph uicontrol" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-314705AA-53FD-4ED0-965B-ED584DEF0C31">程序位置(Proc Location)</span>
+</dt>
+<dd class="dd" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-E1E89708-BFB7-4313-8E6D-975355B19F32">程序的位置（如果它是已知的）。所有局部程序被列为<strong class="ph b" id="GUID-F2D6E921-DA8C-4FD8-B8E7-EFEB3CBF9D74__GUID-4E1C5CDE-DF1E-4245-A154-E176EA30F344">“未知”(Unknown)</strong>。</dd>
+</dl>
+</div>
+
+</div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B887352D-A3D0-4EDF-979D-7A274062B4DA.htm">“MEL 分析器”(MEL Profiler)菜单</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-91FC49A9-C2E4-4C89-9BDD-13A7C8704464.htm">启动 MEL 分析器</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-9E7E6772-A25B-4E4A-B7FA-0E944BFB8A8E.htm">生成分析数据</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-FA6C9B09-B16A-4148-9D9E-9D9B11A7F90E.htm">MEL 窗口和编辑器</a></div>
+</div>
+</div>
+
+</body>
+</html>

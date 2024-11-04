@@ -1,0 +1,106 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shaders_am_OSL_Shaders_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_OSL_SHADERS">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" OSL 着色器 - Arnold for Maya">
+
+<title>OSL 着色器</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>OSL 着色器</h1></div><p>可以使用<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shading_ac_osl_shaders_html" target="_blank">开放式着色语言</a>创建自己的着色器。通过 OSL 着色器，我们可以使用闭包实现从简单纹理图案到完整材质在内的任何东西。</p>
+<p>有关 <strong><em>Ai OSL 着色器</em></strong>，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_utility_am_OSL_html">此处</a>。</p>
+<h2 id="">限制</h2><ul>
+<li>着色器的名称必须唯一。如果名称与现有着色器冲突，将不会加载 OSL 着色器。在此情况下，您应该会在日志中看到警告。</li>
+<li>目前不支持多个输出。</li>
+<li>不支持显示“数组”(Array)和“矩阵”(Matrix)类型的输入属性。</li>
+<li>输出属性的名称不同于着色器代码。</li>
+<li>无法在 OSL 着色器代码中执行 #includes。</li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关使用 OSL 着色器的详细信息，请单击<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shading_ac_osl_shaders_html" target="_blank">此处</a>。</p>
+
+</div></div>
+
+<table>
+<thead>
+<tr>
+<th>有关示例 .osl 着色器和 .mtd 文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/hda.zip" target="_blank">此处</a>。</th>
+</tr>
+</thead>
+</table>
+<p>如果您在渲染时使用文本编辑器更改着色器代码，需要在 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_rendering_am_Arnold_RenderView_Window_html">Arnold 渲染视图</a>中“更新整个场景”。</p>
+<h2 id="">安装</h2><p>就像其他任何第三方着色器库一样，放置在着色器搜索路径中的 OSL 着色器将自动注册为 Arnold 着色器节点。OSL 着色器参数会转化为 Arnold 参数。加载后，可以采用与 C++ 着色器相同的方式对它们进行检查、实例化和链接。</p>
+<p>要使用 Arnold 直接渲染 OSL 着色器，必须执行以下操作：</p>
+<ul>
+<li>将 OSL 着色器（.osl 和 .mtd）放入一个文件夹中，然后将 ARNOLD_PLUGIN_PATH 设置为指向此文件夹。例如：</li>
+</ul>
+<p><code>ARNOLD_PLUGIN_PATH=C:\shaders\osl</code></p>
+<ul>
+<li>Arnold 将自动编译 .osl 文件并生成 dll (.oso) 文件。</li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关详细信息，请参见<em>“第三方着色器”</em>页面。</p>
+
+</div></div>
+
+<ul>
+<li>着色器应在 Hypershade 窗口中可见。</li>
+</ul>
+<p><img src="../images/mtoa_osl_shaders1.png" alt=""></p>
+<p><sub><strong>使用 MtoA 渲染的 .osl 着色器</strong></sub></p>
+<p><img src="../images/mtoa_osl_shaders2.png" alt=""></p>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/qC1ayMyo7pI?" frameborder="0" allowfullscreen=""></iframe>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/arnold_for_maya_shaders_html.html">着色器</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

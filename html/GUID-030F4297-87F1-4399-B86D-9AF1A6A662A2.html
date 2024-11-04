@@ -1,0 +1,138 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2">
+<meta name="language" content="CHS">
+<title>使用 Paint Effects 笔划渲染场景</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 Paint Effects 笔划渲染场景</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-22FD"><p class="p" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-7519"> 
+		<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-8C9CA2B6-7472-40DA-B497-9988F86919F4">“Paint Effects”</span>笔划与场景其余部分无缝渲染。它们会受运动模糊、景深和雾的影响。 
+	 </p>
+<div class="note note" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-2425A046-FC4B-4F02-8C03-D72725728BA8"><span class="notetitle">注：</span> <span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-EEC48E28-CD11-45AB-9358-1A0A7F7336FD">“Paint Effects”</span>使用扫描线渲染器生成的深度缓冲区确定遮挡。 
+	 </div>
+<p class="p" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-7514">对于单个像素中多个曲面可见的渲染效果（例如透明度、抗锯齿边、运动模糊、灯光雾以及体积密度），该选项会产生问题，因为每像素仅有一个深度值和一个颜色可用于<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-FAFF3582-DBD2-4C76-BB55-EA5EEB42C95A">“Paint Effects”</span>合成。 
+	 </p>
+<p class="p" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-7513">通过使用摄影机的<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-F14B2B52-5135-46D9-8C8D-63CD23FAF7DF">“深度类型”(Depth Type)</span>属性，可影响渲染器确定如何将每像素内可见的多个深度值减少为单个输出深度值。 
+	 </p>
+<p class="p" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-7512">如果使用<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-68516BB8-1FE5-4BF0-ABFF-53917A5366C5">“最近可见</span><span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-3AC80D3E-E02D-43EF-8701-0E55F00D8620">深度”(Closest Visible Depth)</span>类型，渲染器将拾取像素和透明曲面内距离摄影机最近的曲面，或者拾取完全遮挡<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-D31ECD91-A317-4DAC-9E62-2D5EF6F1AD72">“Paint Effects”</span>元素后方任何元素的运动模糊条纹。如果改为使用<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-F27688DC-73FD-4527-9EAC-BFBFFF300261">“最远可见”(Furthest Visible)</span>，位于这些元素后方的<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-F3068512-11E1-48C1-8610-E917437774A5">“Paint Effects”</span>元素将穿出，效果完全如同于其位于前面。 
+	 </p>
+<p class="p" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-7511">针对这些情况的最佳解决方案如下： 
+	 </p>
+<ul class="ul" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-7510"><li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-750F">单独渲染<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-936A101B-95FA-4136-826A-C7188B41B663">“Paint Effects”</span>，然后再进行合成。 
+		</li>
+<li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-750E">使用<span class="ph menucascade" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-B60A7A9C-7F10-460E-9B6C-2FB9CEDDA2EA"><span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-08D5660E-0B5C-48E0-8F34-41CCF96679F5">“修改</span> &gt; <span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-EF55654B-CEC2-44A1-87F5-E92AC2CEFE25">转化</span> &gt; <span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-0387F125-6BA6-4A7B-B928-F4E755D330AF">Paint Effects 到多边形”(Modify &gt; Convert &gt; Paint Effects to Polygons)</span></span>，将 <span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-EDE52503-23C3-47A6-81AB-348947C6A915">Paint Effects</span> 笔划转化为多边形网格，包括构建历史。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-EFD71EDB-35BA-49B5-B742-6CF36A9B1B5C.htm">将 Paint Effects 转化为几何体</a>。 
+		</li>
+<li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-750D">针对<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-BC109007-3AD0-4E30-B9B5-CE87DD8F6632">“最近可见”(Closest Visible)</span>的问题，请尝试将<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-7552292D-BA02-4B80-BCF6-E62804B681A0">“阈值”(Threshold)</span>调整为 0.3 的近似值。 
+		</li>
+</ul>
+<div class="section" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS17956D7ADBC6E7362288812F117AE32F400-7FF8"><h2 class="title sectiontitle">使用 <span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-EEBAF091-8F5C-448B-A9F5-E811DEA0F403">Paint Effects</span> 笔划渲染场景</h2> 
+		 
+		<p class="p" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-750C">可从 Maya 内部渲染场景，也可从 Linux shell、DOS 窗口或终端中渲染场景。在渲染之前，请关闭所有应用程序（如果从 Linux shell、DOS 窗口或终端进行渲染，则还需关闭 Maya），以便最大程度增加可用于渲染的内存。 
+		</p>
+ 
+		<p class="li listintro" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-750A">使用 <span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-2C4C656F-0242-42FB-951A-D79D7B603812">Paint Effects</span> 笔划渲染场景</p>
+<ol class="ol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-750B"><li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-7509">设置灯光、渲染摄影机、渲染选项以及<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-68A82A92-EE46-4FDD-B06F-60AC49B28D63">“Paint Effects”</span>渲染选项。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-447EB05A-7563-41BB-87A0-3519050F14F4.htm">准备渲染具有“Paint Effects”的场景</a>。 
+		  </li>
+<li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-7508">使用与渲染 Maya 其他场景一样的方法渲染该场景。 
+			 <ul class="ul" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-7507"><li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-7506">有关渲染单帧的信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-DBA4E91D-3786-4EE7-B768-1D6B9B947DF5">渲染单帧</a>。 
+				</li>
+<li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-7505">有关渲染动画的信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-8A51B291-706A-434F-B97D-A3720A525E24">批渲染静止图像或动画</a>。 
+				</li>
+</ul>
+ 
+		  </li>
+</ol>
+ 
+		<div class="note note" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-7503"><span class="notetitle">注：</span> <span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-8262E245-4913-4D15-BB36-78C1412FF48D">始终多重处理“Paint Effects”</span>渲染。要禁用多重处理，请执行以下操作： 
+		  <ul class="ul" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-7501"><li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-7500">退出 Maya（或停止批渲染）。 
+			 </li>
+<li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74FF">将 MAYA_PAINT_EFFECTS_THREADS 环境变量设定为 1 到 3 之间的值，该值是要使用的处理器数量。 
+			 </li>
+<li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74FE">启动 Maya（或重新开始批渲染）。 
+			 </li>
+<li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74FD">重新渲染场景。 
+			 </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS17956D7ADBC6E7362288812F117AE32F400-7FF7"><h2 class="title sectiontitle">创建 <span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-71C5BE6F-44D6-4C1D-86F8-73A8B256A415">Paint Effects</span> 笔划和场景的合成</h2> 
+		 
+		<p class="p" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74FC"><span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-F990CAB6-90FA-4973-9661-60C1B108616D">“Paint Effects”</span>笔划的渲染操作可独立于场景的其余部分进行，然后再合成结果图像。 
+		</p>
+ 
+		<p class="li listintro" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74FA">创建合成</p>
+<ol class="ol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74FB"><li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74F9">使用 <span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-302FF373-EC12-4CD8-BEA3-E9479355AC10">Paint Effects</span> 笔划渲染场景或动画，操作如下： 
+			 <ul class="ul" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74F8"><li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74F7">选择<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-ACFA8110-67CC-494A-9F04-E096FE61E9FB">“窗口 &gt; 渲染编辑器 &gt; 渲染设置”(Windows &gt; Rendering Editors &gt; Render Settings)</span>。 
+				</li>
+<li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74F6">如果正在合成动画，请在<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-10973235-A5DB-464B-8336-E41D6886BC31">“帧/动画扩展名”(Frame/Animation Ext)</span>一侧选择 name.#.ext。 
+				</li>
+<li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74F5">.iff 或 .rla 的图像格式将包含嵌入的深度信息。而其他的格式将创建一个独立的、包含深度信息的 .iff 文件。通常情况下会将该深度文件写入到项目深度目录中。在本示例中，将图像作为 .iff 进行渲染。 
+				</li>
+<li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74F4">在<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-25AB991C-5011-417F-B29B-1A15502BA17D">“文件输出”(Image File Output)</span>区域中，启用<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-C39F428F-32A7-4D23-BC85-F3D4EC60DCD7">“通道”(Channels)</span>一侧的<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-8CA4E75D-0D0F-41C4-9D9B-54F731316C9A">“深度通道(Z 深度)”(Depth Channel(Z Depth))</span>。 
+				</li>
+<li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74F3">在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-9E704291-0A9E-48F2-94B8-43E1B66828D8.htm">Paint Effects 渲染选项</a>区域中，禁用<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-AFBFE4A2-7B0C-477A-B2E3-552562E13100">“启用笔划渲染”(Enable Stroke Rendering)</span>。 
+				</li>
+<li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74F2">渲染场景或动画（例如，<em class="ph i" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-69EEBCB2-9AD5-4141-A303-A04ABAFDE963">rainyday</em>）。有关详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-DBA4E91D-3786-4EE7-B768-1D6B9B947DF5">渲染单帧</a>或<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-8A51B291-706A-434F-B97D-A3720A525E24">批渲染静止图像或动画</a>。 
+				</li>
+</ul>
+ 
+		  </li>
+<li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74F1">使用不同的文件名保存场景，确保已渲染的图像不会彼此覆盖（例如，<em class="ph i" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-49DF67F9-58E1-4EF2-9F56-18368F8AD55A">rainydaywithstrokes</em>）。 
+		  </li>
+<li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74F0">使用场景渲染笔划，操作如下： 
+			 <ul class="ul" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74EF"><li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74EE">确保摄影机和灯光的设置与步骤 1 中的摄影机和灯光相匹配。 
+				</li>
+<li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74ED">选择<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-FD952364-5231-4BDD-BC6E-F00820565D60">“窗口 &gt; 渲染编辑器 &gt; 渲染设置”(Windows &gt; Rendering Editors &gt; Render Settings)</span>。 
+				</li>
+<li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74EC">如果正在合成动画，请在<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-843C9A92-A7FD-43B6-B050-EC60E6CAF00C">“帧/动画扩展名”(Frame/Animation Ext)</span>一侧选择 name.#.ext。 
+				</li>
+<li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74EB">在<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-8BAF7AE5-0CD8-4B73-8D8F-A63F4A248D68">“Paint Effects 渲染选项”(Paint Effects Rendering Options)</span>区域中，启用<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-1CD78693-1D67-47CB-89F5-312C5D23CA29">“启用笔划渲染”(Enable Stroke Rendering) 和</span><span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-CE4826D7-9A47-4E95-93E4-E2A0EDB4E47B">“仅渲染笔划”(Only Render Strokes)</span>。 
+				</li>
+<li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74EA">在<span class="ph uicontrol" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-30648613-D9A7-4B71-B557-4964AA79558C">“读取此深度文件”(Read This Depth File)</span>的一侧，键入步骤 1 中已渲染图像深度文件的位置和名称。。确保该名称为绝对路径名称（例如，<samp class="ph codeph" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-13365072-B7B7-4BA0-B197-A0F87EC1D5B3">/h/pearce/rainyday.iff</samp> 或 <samp class="ph codeph" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-1739324B-DA3F-4FA3-BF25-3FE2C55B7897">c:\pearce\rainyday.iff</samp>）。 
+				</li>
+</ul>
+ 
+			 <p class="p" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74E9">如果正在渲染动画，请使用文件名作为格式名称。#.iff（例如，<em class="ph i" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__GUID-8589B19E-5A03-4F40-8D0F-8A6A277EBC4E">rainyday.#.iff</em>）。 
+			 </p>
+ 
+			 <ul class="ul" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74E8"><li class="li" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74E7">渲染场景或动画。有关详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-DBA4E91D-3786-4EE7-B768-1D6B9B947DF5">渲染单帧</a>或<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-8A51B291-706A-434F-B97D-A3720A525E24">批渲染静止图像或动画</a>。 
+				</li>
+</ul>
+ 
+			 <p class="p" id="GUID-030F4297-87F1-4399-B86D-9AF1A6A662A2__WS1A9193826455F5FF-6381D1FC11809382DB8-74E6">输出图像的创建与命名都使用了格式名称。#.iff（例如，rainydaywithstrokes.5.iff）。 
+			 </p>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-13D16D12-F962-4E1E-B5F5-CFF698E8F259.htm">使用“Paint Effects”笔划渲染场景</a></div>
+</div>
+</div>
+
+</body>
+</html>

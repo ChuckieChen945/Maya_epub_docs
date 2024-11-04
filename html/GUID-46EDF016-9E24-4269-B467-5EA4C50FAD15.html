@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-ManagingScenes">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15">
+<meta name="language" content="CHS">
+<title>代理引用提示</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>代理引用提示</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F4875515A699EE12A80087827-4E83"><div class="section" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS17956D7ADBC6E7361CFBC89E117AE314237-7FF3"><h2 class="title sectiontitle">替换引用与代理引用</h2>
+
+<p class="p" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B140E"><span class="ph uicontrol" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__GUID-D2F1CA50-2D09-4933-A247-FB7D452B5223">“引用编辑器”(Reference Editor)</span>提供两种方法来替换父场景中的文件引用。每种方法都有其优点和限制。</p>
+
+<p class="p" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B140F"> <span class="ph uicontrol" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__GUID-7600D79E-A5CB-4192-AA69-E8A161108A70">“替换引用”(Replace Reference)</span>命令打开一个文件浏览器，以将当前引用替换为所选择的其他引用。组节点和/或定位器保持不变。文件引用在父场景级别存在的任何编辑将应用于替换的文件引用，因为参考节点未修改。尽管这适用于所替换的文件引用与原始文件引用具有相同节点名称和 DAG 层次的情形，但具有受限的应用程序。如果节点名称和 DAG 层次不同，您可能会在 Maya 尝试将引用编辑应用到替换的引用时遇到错误，并可能导致数据丢失。Maya 不会跟踪在使用<span class="ph uicontrol" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__GUID-C95C30EE-0809-4D1B-A49F-33F44F74FC8C">“替换引用”(Replace Reference)</span>命令时出现的替换，建议不要在引用层次中存在嵌套的文件引用时使用该替换。</p>
+
+<p class="p" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B1411"> 通过代理引用，可以通过为给定文件引用创建一组可能的替换引用（代理）来替换一个或多个文件引用。将创建一个新节点来跟踪多个代理。通过代理引用，可以通过选择代理引用并根据其代理标记重新加载它们，来一次全局替换许多代理引用。当需要快速从低分辨率版本的场景替换为高分辨率版本时，这会很有帮助，反之亦然。</p>
+
+</div>
+<div class="section" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS17956D7ADBC6E7361CFBC89E117AE314237-7FF2"><h2 class="title sectiontitle">在代理引用之间共享动画</h2>
+
+
+<p class="p" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B1414">如果希望在特定文件引用的代理引用之间共享动画，必须确保在特定文件引用的各种代理文件与其父场景之间存在对等状态。也就是说，在父场景中设定关键帧时，您要确保动画可以应用到正确的节点，而不管加载的代理文件为何。要实现此对等，代理文件必须进行如下设置：</p>
+
+<ul class="ul" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B1415"><li class="li" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B1416">每个代理文件中的节点必须具有相同的名称（以及 DAG 路径，如果需要）。</li>
+<li class="li" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B1417">建议您在父场景中创建角色集。这样可使动画免遭对基础引用文件进行的更改。</li>
+<li class="li" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B1418">角色集包含要从每个节点为每个代理设置动画的属性。每个代理处于活动状态时，将其属性添加到角色集中。请参见下文的<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF.htm#GUID-0A1B4177-3BC7-489E-86CD-015110C7CCBF__WS17956D7ADBC6E7361CFBC89E117AE314237-7FF1">角色集</a>。<div class="note note" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B1419"><span class="notetitle">注：</span> 
+<p class="p" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__GUID-CAB0091D-4DEE-43FA-A565-400AD5CC6ECA">如果在创建引用时使用了组节点，则将在代理之间共享组节点上的任何动画。</p>
+
+</div>
+</li>
+</ul>
+
+</div>
+<div class="section" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B141A"><h2 class="title sectiontitle">使用代理引用渲染</h2>
+
+<p class="p" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B141B"> 在渲染包含文件和代理引用的场景时，除非另有指定，否则将仅在图像中渲染当前加载的文件和代理引用。必须确保在渲染之前加载要显示在渲染中的任何引用。可以使用<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-E1E8EB5C-4998-4CE3-95FC-F7B451596346">“渲染前 MEL”(Pre Render MEL)脚本和“渲染后 MEL”(Post Render MEL)脚本</a>切换代理以用于渲染。</p>
+
+<p class="p" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B141E">例如，如果低分辨率代理当前显示在场景中并需要在渲染之前切换到高分辨率版本，然后在渲染完成后返回低分辨率版本。通过确定代理管理器在<span class="ph uicontrol" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__GUID-4B99602E-5E3C-4106-9AC2-D524A12B4824">“引用编辑器”(Reference Editor)</span>中的名称，随后可以确定每个代理的相关代理集节点的名称，然后创建一个简单脚本，用于在渲染之前和之后在低和高分辨率版本的代理之间切换。</p>
+
+<div class="section" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B141F"><h3 class="title sectiontitle">示例</h3>
+
+<p class="p" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B1420">以下工作流描述一种用于在渲染之前和之后在代理引用之间切换的方法：</p>
+
+<ul class="ul" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B1421"><li class="li" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B1422">通过查看<span class="ph uicontrol" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__GUID-B07D8FCA-1CED-45B1-84B6-17233C2F7AE9">“引用编辑器”(Reference Editor)</span>中的名称来确定代理管理器节点的名称。在此示例中，代理管理器名为 <samp class="ph codeph" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__GUID-21B9FA41-B213-42A8-BB54-6B0C6CCBFA6A">treePM</samp>。 </li>
+<li class="li" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B1423">选择代理管理器节点，以便可以通过查看选定节点在<span class="ph uicontrol" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__GUID-BCEA22A1-6D20-45D9-A645-780E7A2DD322">“Hypergraph”</span>内的依存关系图来确定各个代理节点。可以通过在命令行键入 <samp class="ph codeph" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__GUID-4E97A68D-C4AB-4348-88A2-E5F0D0A34B31">select -replace treePM</samp> 来选择代理管理器节点。在此示例中，显示在 <samp class="ph codeph" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__GUID-935CE164-BC0B-4733-8D07-E534304B6C0C">treePM</samp> 下游的节点称为 <samp class="ph codeph" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__GUID-5D3580D3-20E1-49A9-8F53-A7E98F880B7F">treeRN</samp> 和 <samp class="ph codeph" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__GUID-A50DEF7A-959A-42B2-84C8-DA0A7E667442">treeloRN </samp>（其中 <em class="ph i" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__GUID-0E9EFF15-C3BF-41D3-B7DA-0ED996EF0E2B">treeRN</em> 是原始高分辨率文件引用，<em class="ph i" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__GUID-E8C1EDFB-642C-4DFB-B282-59E358800B43">treeloRN</em> 是低分辨率代理）。</li>
+<li class="li" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B1424">按如下方式创建简单的渲染前和渲染后 MEL 脚本，以在低和高分辨率版本之间切换：<p class="p" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B1425">渲染前脚本：</p>
+<p class="p" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B1426">
+<samp class="ph codeph" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__GUID-28DED308-5996-44D3-9C20-26FDD765EF1A">//switch to the high res version</samp>
+</p>
+<pre class="pre codeblock">
+proxySwitch treeRN;
+</pre>
+<p class="p" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B1427">渲染后脚本：</p>
+<p class="p" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B1428">
+<samp class="ph codeph" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__GUID-C90AAF49-DEF8-4134-BC64-F3C5775293F0">//switch to the low res version</samp>
+</p>
+<pre class="pre codeblock">
+proxySwitch treeloRN;
+</pre>
+<div class="note note" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__WS73099CC142F48755-3D114B751181C40F14B1429"><span class="notetitle">注：</span> 
+<p class="p" id="GUID-46EDF016-9E24-4269-B467-5EA4C50FAD15__GUID-3C15058C-E894-48E4-9461-6B502052AE1E">多个代理引用可以使用上述方法进行切换。即，可以将多个 proxySwitch 行添加到每个脚本中以同时加载或卸载若干个代理。</p>
+
+</div>
+</li>
+</ul>
+
+</div>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-E9B50850-39EF-4BFC-97EB-08F008847CCA.htm">代理引用</a></div>
+</div>
+</div>
+
+</body>
+</html>

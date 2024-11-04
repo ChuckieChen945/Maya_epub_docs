@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98">
+<meta name="language" content="CHS">
+<title>使用牛顿场</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用牛顿场</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-25DF"><div class="fig fignone" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37FF"><img class="image" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__IMAGE_F6F57345502B4EE9A6BCBF510AAE57B2" width="49" height="44" src="../images/GUID-C831DFE7-C945-48F6-8185-073E16D9D91E.png"></div>
+<p class="p" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37FE"> 牛顿场会将对象拉向自身。这允许您创建效果，例如动态观察行星或绳球、碰撞球。该场基于这样一个原理，即宇宙中任何两个对象之间存在相互吸引的力并且该力与质量的乘积成比例。随对象之间距离的增加，拉力减小。 </p>
+<p class="p" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37FA">您可以使用牛顿场执行以下操作： </p>
+<ul class="ul" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37F9"><li class="li" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37F8">将对象吸引到一个单独的牛顿场。 </li>
+<li class="li" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37F7">将对象吸引到拥有牛顿场的 NURBS、多边形或粒子对象。 </li>
+</ul>
+<p class="p" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37F6">牛顿场受连接的对象的质量值影响。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-D2453612-8B37-4B37-97B2-C450F5C67F98.htm#GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS17956D7ADBC6E73626214027117AE3116F1-7FEF">对象的质量值</a>。另请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-A3D2F831-8DB1-4AFD-8384-1B478BD7D136.htm">牛顿选项</a>。 </p>
+<div class="section" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS17956D7ADBC6E73626214027117AE3116F1-7FEF"><h2 class="title sectiontitle">对象的质量值</h2>
+
+<p class="p" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37F5"> 自身有牛顿场或连接到牛顿场的所有对象都有默认的质量值。默认情况下，刚体的质量属性是 1。您可以通过在<span class="ph uicontrol" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__GUID-6150CB2B-0C69-4741-8820-8556A68409F1">“属性编辑器”(Attribute Editor)</span>中显示刚体以更改该值。 </p>
+
+<p class="p" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37F3">如果您将一个牛顿场添加到 NURBS 对象或多边形对象并且该对象不是刚体，则该对象具有一个等于其 CV 或顶点总数量的非属性质量。例如，具有 10 个 CV 的对象的质量为 10。 </p>
+
+<p class="p" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37F2">粒子对象的每个粒子质量属性控制其质量值。默认情况下，对象的每个粒子的质量值是 1。 </p>
+
+<p class="p" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37F1">一个单独的牛顿场没有质量属性，但默认质量值为 1。您无法更改该值。 </p>
+
+</div>
+<div class="section" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37F0"><h2 class="title sectiontitle">示例：创建绕轨道运行的对象</h2>
+
+<p class="li listintro" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37EE"> 创建绕轨道运行的对象</p>
+<ol class="ol" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37EF"><li class="li" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37EC">选择<span class="ph uicontrol" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__GUID-FFF329FF-9F66-4658-8966-6DA8DF01763B">“窗口 &gt; 设置/首选项 &gt; 首选项”(Windows &gt; Settings/Preferences &gt; Preferences)</span>，然后单击<span class="ph uicontrol" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__GUID-65BA25AA-B1D4-4A14-9DF5-E78B5CD41E66">“类别”(Categories)</span>列表中的<span class="ph uicontrol" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__GUID-8083EE33-C2F2-40D3-82EE-C10038F009FB">“动力学”(Dynamics)</span>。确保<span class="ph uicontrol" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__GUID-D4A87F4A-772D-47ED-8F98-CD773E48C6E6">“自动创建刚体”(Auto Create Rigid Body)</span>处于打开状态。 </li>
+<li class="li" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37EB">创建一个球体，然后将其定位在远离原点处，如下所示。 <div class="fig fignone" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37EA"><img class="image" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__IMAGE_B7710C1A415448698E2A915F848C1342" width="227" height="134" src="../images/GUID-6BA398FD-7625-4C8B-B075-146723AB5AD9.png"></div>
+ </li>
+<li class="li" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37E9">选中球体后，从<span class="ph uicontrol" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__GUID-ECADE8FC-121F-456A-868E-D0A3F2503C25">“Fx”</span>菜单集中，选择<span class="ph uicontrol" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__GUID-FF38FF14-0485-4D65-8ABE-7475D03751AB">“字段/解算器</span> &gt; <span class="ph uicontrol" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__GUID-BF2DB4FB-8A12-4EEE-9852-2A5FCE041986">牛顿”(Fields/Solvers &gt; Newton)</span> &gt; <img class="image" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__IMAGE_E83AC62E9A9248D380A79CB8DC031C53" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png">。 </li>
+<li class="li" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37E8">选择<span class="ph uicontrol" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__GUID-42EF2DAE-9E50-4AC4-9AC6-11385A26EB23">“编辑 &gt; 重置设置”(Edit &gt; Reset Settings)</span>以使用默认值，然后单击<span class="ph uicontrol" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__GUID-C0A046DD-A89F-46B6-95E8-142F65653375">“创建”(Create)</span>。 </li>
+<li class="li" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37E7">在<span class="ph uicontrol" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__GUID-CB121049-E9DB-40D4-AB8C-864CF1FE652F">“属性编辑器”(Attribute Editor)</span>中，将<span class="ph uicontrol" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__GUID-30D42B36-5827-4B73-9D5D-C10EC8EBFB35">“衰减”(Attenuation)</span>设定为 0。 </li>
+<li class="li" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__WS1A9193826455F5FF-6D855556117FACF922E-37E6">选择球体，然后单击<span class="ph uicontrol" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__GUID-D7B2E03D-8073-4B6A-BBF1-7863B9C46705">“属性编辑器”(Attribute Editor)</span>中的刚体选项卡。在<span class="ph uicontrol" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__GUID-8B738E90-736C-46DF-9939-6AE746FC38BC">“初始设置”(Initial Settings)</span>区域中，将<span class="ph uicontrol" id="GUID-D2453612-8B37-4B37-97B2-C450F5C67F98__GUID-EAF34711-2A50-4385-9999-1A03713507A6">“初始速度”(Initial Velocity)</span> Z 设定为 5。 </li>
+</ol>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-1E3B355A-A970-41D5-B670-7276A30A72B8.htm">使用场</a></div>
+</div>
+</div>
+
+</body>
+</html>

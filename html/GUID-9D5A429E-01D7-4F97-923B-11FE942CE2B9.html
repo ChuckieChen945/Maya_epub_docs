@@ -1,0 +1,245 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9">
+<meta name="language" content="CHS">
+<title>布局</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>布局</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-BAF"> 布局是指包含和排列其他 UI 元素的 UI 元素。它们是在 ELF 窗口中控制格式的基本方法。存在许多不同的专用布局，可以特定方式排列其内容。例如，列布局会在单个列中以垂直方式逐一排列其内容（如列表），但行布局会以水平方式逐一排列其内容。对于其他的排列方案，存在其他的布局。布局可以包含其他布局，以实现多种不同的外观。创建布局的所有命令均以 <samp class="ph codeph">Layout</samp>作为结尾；例如，<samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/gridLayout.html" target="_blank">gridLayout</a></samp>。 
+	 </p>
+<p class="p" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-BAD">有关可用布局的列表，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/cat_Windows.html" target="_blank">Windows</a> 命令的“布局”区域。 
+	 </p>
+<div class="fig fignone" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS1A9193826455F5FF3CBC1E051237AC78BEC-7D5F"><img class="image" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__IMAGE_3921572E1C3D4F8B83B058EAF52C514E" width="221" height="85" src="../images/GUID-477C8325-DFCB-4538-A89F-60D552EE27A0.png"></div>
+<p class="p" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-BAB"><samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/frameLayout.html" target="_blank">frameLayout</a></samp>、<samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/tabLayout.html" target="_blank">tabLayout</a></samp> 和 <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/menuBarLayout.html" target="_blank">menuBarLayout</a></samp> 命令有一些额外功能与定位其子项没有必然的关系。 
+	 </p>
+<div class="section" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-BAA"><h2 class="title sectiontitle">框架布局</h2> 
+		 
+		<p class="p" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-BA9"> 框架布局包含一个展开/收拢选项，在该选项中，布局标题旁边有一个按钮，可用于切换布局的状态。当布局处于收拢状态时，框架布局的内容会被隐藏，并且布局收拢后所占用的空间极少。仅当通过可见界面（例如用户可以单击的小箭头图标）收拢或取消收拢布局时，才调用用于展开或收拢布局的 <samp class="ph codeph">frameLayout</samp> 回调。使用如下代码将不会调用回调： 
+		</p>
+ 
+		<pre class="pre codeblock">
+frameLayout -e -collapse true $theFrame;
+</pre>
+ 
+		<p class="p" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-BA7">要在首次创建窗口时能够进行正确设置而不会进入无限循环，使回调以该种方式工作是唯一的方法。如果需要执行回调并且您知道该回调是安全的，则在执行收拢或展开的同时可直接调用该回调。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-BA6"><h2 class="title sectiontitle">选项卡布局</h2> 
+		 
+		<p class="p" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-BA5"> 选项卡布局包含许多其他布局，但一次只显示其中一个。每个子布局都有一个文件文件夹（例如选项卡），选中后可使该布局成为可见布局。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-BA3"><h2 class="title sectiontitle">菜单栏布局</h2> 
+		 
+		<p class="p" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-BA2"> 通过菜单栏布局，可以将菜单栏插入窗口中的任何位置。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-BA0"><h2 class="title sectiontitle">表格布局</h2> 
+		 
+		<p class="p" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-B9F"> <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/formLayout.html" target="_blank">formLayout</a></samp> 是更具强大功能的布局之一。该布局支持对子控件的绝对和相对定位。例如，可以指定某个控件的位置保持不变，而其尺寸是相对于窗口大小的。以下示例可以有力地证明这个概念。 
+		</p>
+ 
+		<pre class="pre codeblock">
+window -widthHeight 300 200 TestWindow2;
+ string $form = `formLayout -numberOfDivisions 100`;
+ string $b1 = `button -label "A"`;
+ string $b2 = `button -label "B"`;
+ string $b3 = `button -label "C"`;
+ string $b4 = `button -label "D"`;
+ string $b5 = `button -label "E"`;
+ formLayout -edit
+ -attachForm $b1 "top" 5
+ -attachForm $b1 "left" 5
+ -attachControl $b1 "bottom" 5 $b2
+ -attachPosition $b1 "right" 0 75
+ -attachNone $b2 "top"
+ -attachForm $b2 "left" 5
+ -attachForm $b2 "bottom" 5
+ -attachForm $b2 "right" 5
+ -attachOppositeControl $b3 "top" 0 $b1
+ -attachPosition $b3 "left" 5 75
+ -attachNone $b3 "bottom"
+ -attachForm $b3 "right" 5
+ -attachControl $b4 "top" 0 $b3
+ -attachOppositeControl $b4 "left" 0 $b3
+ -attachNone $b4 "bottom"
+ -attachOppositeControl $b4 "right" 0 $b3
+ -attachControl $b5 "top" 0 $b4
+ -attachOppositeControl $b5 "left" 0 $b4
+ -attachNone $b5 "bottom"
+ -attachOppositeControl $b5 "right" 0 $b4
+ $form;
+showWindow TestWindow2;
+</pre>
+ 
+		<p class="p" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-B9D">在生成的窗口中，按钮 A 固定到窗口的左上角，而其底边连接到按钮 B，其右边也连接到按钮 B，以便按钮 A 的宽度占窗口宽度的 75%。通过这些连接，在调整窗口大小时，按钮 A 将相应地增大或缩小。另请注意，按钮 D 和 E 上的连接会将其左边和右边与上方的按钮对齐。 
+		</p>
+ 
+		<p class="p" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-B9C">大部分 <samp class="ph codeph">formLayout</samp> 连接标志均按预期运行。<samp class="ph codeph">AttachOppositeForm</samp> 和 <samp class="ph codeph">attachOppositeControl</samp> 需要额外说明。将子控件添加到表格中时，虽然没有位置，但有顺序，因此具有相对于彼此的暗含位置。就 <samp class="ph codeph">attachControl</samp> 标志而言，第二个子控件顶部要连接到的“自然”位置为第一个子控件的底部。第二个子控件的左边要连接到的“自然”位置为第一个子控件的右边。 
+		</p>
+ 
+		<p class="p" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-B9B">因此，在某种意义上，第二个子控件位于第一个子控件的右下方，第三个子控件位于第二个子控件的右下方，依此类推。 
+		</p>
+ 
+		<p class="p" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-B9A">现在，假设要使第二个子控件附加到第一个子控件的旁边且必须为相对附件，以便子控件 2 在表格大小发生更改时仍保留在子控件 1 的旁边。通过常规 <samp class="ph codeph">attachControl</samp>，可以将子控件 2 的左侧边连接到子控件 1 的右侧边，<samp class="ph codeph">attachControl child2 “left” 0 child1;</samp> 表明要将子控件 2 的左侧边附加到子控件 1 的左右方向中距离“最近”的边，间距偏移为 0 像素。请记住，隐式顺序会直接将子控件 2 定位到子控件 1 的右边，因此“最近”边为子控件 1 的右边。 
+		</p>
+ 
+		<p class="p" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-B99">但是，<samp class="ph codeph">attachControl</samp> 会因遵循暗含顺序而无法使子控件 2 的顶部与子控件 1 的顶部对齐。<samp class="ph codeph"></samp>此时应使用 <samp class="ph codeph">attachOppositeControl</samp>。 
+		</p>
+ 
+		<pre class="pre codeblock">
+attachOppositeControl child2 "top" 0 child1;
+</pre>
+ 
+		<p class="p" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-B98">以上代码说明要将子控件 2 的顶边附加到距离 child2 顶部边缘最远的子控件 1 的边缘，间距偏移为 0 像素。表格知道要并列放置具有相同顶边位置的两个对象。 
+		</p>
+ 
+		<pre class="pre codeblock">
+window TestWindow3;
+string $form = `formLayout`;
+string $b1 = `button -label "AAAAAAAAA"`;
+string $b2 = `button -label "BBBBB"`;
+string $b3 = `button -label "CCCC"`;
+formLayout -edit
+ -attachForm $b1 "top" 5
+ -attachForm $b1 "left" 5
+ -attachControl $b2 "top" 0 $b1
+ -attachControl $b2 "left" 5 $b1
+ -attachNone $b2 "right"
+ -attachNone $b2 "bottom"
+ -attachControl $b3 "top" 0 $b2
+ -attachControl $b3 "left" 0 $b2
+ -attachNone $b3 "right"
+ -attachNone $b3 "bottom"
+ $form;
+showWindow TestWindow3;
+</pre>
+ 
+		<p class="p" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-B97">接下来，我们会看到 <samp class="ph codeph">attachOppositeControl</samp> 标志对第二个按钮的位置所执行的操作。只要第一个按钮附加到表格的顶部，<samp class="ph codeph">attachOppositeControl</samp> 的使用方法就会与执行 <samp class="ph codeph">attachForm $b2 “top”</samp> 的方法相同。如果相对于可移动的控件附加了按钮 1，则此处必须使用 <samp class="ph codeph">attachOppositeControl</samp>。 
+		</p>
+ 
+		<pre class="pre codeblock">
+window TestWindow4;
+string $form = `formLayout`;
+string $b1 = `button -label "AAAAAAAAA"`;
+string $b2 = `button -label "BBBBB"`;
+string $b3 = `button -label "CCCC"`;
+formLayout -edit
+ -attachForm $b1 "top" 5
+ -attachForm $b1 "left" 5
+ -attachOppositeControl $b2 "top" 0 $b1
+ -attachControl $b2 "left" 5 $b1
+ -attachNone $b2 "right"
+ -attachNone $b2 "bottom"
+ -attachControl $b3 "top" 0 $b2
+ -attachControl $b3 "left" 5 $b2
+ -attachNone $b3 "right"
+ -attachNone $b3 "bottom"
+ $form;
+showWindow TestWindow4;
+</pre>
+ 
+		<p class="p" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-B96">现在，我们在其他方向使用 <samp class="ph codeph">attachOppositeControl</samp>，使第三个按钮直接位于第二个按钮下合适的位置。 
+		</p>
+ 
+		<pre class="pre codeblock">
+window TestWindow5;
+string $form = `formLayout`;
+string $b1 = `button -label "AAAAAAAAA"`;
+string $b2 = `button -label "BBBBB"`;
+string $b3 = `button -label "CCCC"`;
+formLayout -edit
+ -attachForm $b1 "top" 5
+ -attachForm $b1 "left" 5
+ -attachOppositeControl $b2 "top" 0 $b1
+ -attachControl $b2 "left" 5 $b1
+ -attachNone $b2 "right"
+ -attachNone $b2 "bottom"
+ -attachControl $b3 "top" 0 $b2
+ -attachOppositeControl $b3 "left" 0 $b2
+ -attachNone $b3 "right"
+ -attachNone $b3 "bottom"
+ $form;
+showWindow TestWindow5;
+</pre>
+ 
+		<p class="p" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-B95">要使第三个按钮在第一个按钮下与之对齐，并延伸至第二个按钮的左侧边，请执行以下代码： 
+		</p>
+ 
+		<pre class="pre codeblock">
+window TestWindow6;
+string $form = `formLayout`;
+string $b1 = `button -label "AAAAAAAAA"`;
+string $b2 = `button -label "BBBBB"`;
+string $b3 = `button -label "CCCC"`;
+formLayout -edit
+ -attachForm $b1 "top" 5
+ -attachForm $b1 "left" 5
+ -attachOppositeControl $b2 "top" 0 $b1
+ -attachControl $b2 "left" 5 $b1
+ -attachNone $b2 "right"
+ -attachNone $b2 "bottom"
+ -attachControl $b3 "top" 0 $b2
+ -attachForm $b3 "left" 5
+ -attachControl $b3 "right" 0 $b2
+ -attachNone $b3 "bottom"
+ $form;
+showWindow TestWindow6;
+</pre>
+ 
+		<p class="p" id="GUID-9D5A429E-01D7-4F97-923B-11FE942CE2B9__WS73099CC142F48755-3D114B7511841AEFA9F-B94">既然 <samp class="ph codeph">attachForm $b3 “left” 5</samp> 将按钮 3 放置到按钮 2 的左边，则现在 <samp class="ph codeph">-attachControl $b3 “right” 0 $b2</samp> 的最近一侧将为按钮 2 的左边。最后，我们要使第三个按钮从按钮 1 的左边运行到按钮 2 的右边。 
+		</p>
+ 
+		<pre class="pre codeblock">
+window TestWindow7;
+string $form = `formLayout`;
+string $b1 = `button -label "AAAAAAAAA"`;
+string $b2 = `button -label "BBBBB"`;
+string $b3 = `button -label "CCCC"`;
+formLayout -edit
+ -attachForm $b1 "top" 5
+ -attachForm $b1 "left" 5
+ -attachOppositeControl $b2 "top" 0 $b1
+ -attachControl $b2 "left" 5 $b1
+ -attachNone $b2 "right"
+ -attachNone $b2 "bottom"
+ -attachControl $b3 "top" 0 $b2
+ -attachOppositeControl $b3 "left" 0 $b1
+ -attachOppositeControl $b3 "right" 0 $b2
+ -attachNone $b3 "bottom"
+ $form;
+showWindow TestWindow7;
+</pre>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B612C992-B8F8-41CA-9DB7-7EBBFD671F1A.htm">创建界面</a></div>
+</div>
+</div>
+
+</body>
+</html>

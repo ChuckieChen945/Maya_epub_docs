@@ -1,0 +1,185 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_volume_am_OpenVDB_Workflow_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_OPENVDB_WORKFLOW">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" OpenVDB 工作流 - Arnold for Maya">
+
+<title>OpenVDB 工作流</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>OpenVDB 工作流</h1></div><p><img src="../images/am-OpenVDB_Workflow-image2015-5-22-7-38-50-1.png" alt=""></p>
+<p>在本教程中，我们将逐步介绍如何设置和使用<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Volume_Sample_Float_html">体积采样浮点</a>着色器来调整 OpenVDB 文件的色温效果。</p>
+<p><strong>有关如何从 Houdini 将体积写入 OpenVDB 的教程，请单击<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_for_houdini_volumes_ah_Writing_Volumes_To_VDB_html" target="_blank">此处</a>。</strong>  </p>
+<ul>
+<li><p>首先，下载 VDB 文件（如 <em>explosion.vdb</em> 或 <em>fire.vbd</em> 文件），例如从 <a href="http://www.openvdb.org/download/" target="_blank">OpenVDB 下载页面</a>下载。</p>
+</li>
+<li><p>创建 Arnold 体积 -<em>“Arnold &gt; 体积”(Arnold &gt; Volume)</em></p>
+</li>
+<li><p>选择“体积”(Volume)，并确保将<strong>“类型”(Type)</strong>设置为<em>“OpenVDB”</em>。</p>
+</li>
+<li><p>在<strong>“文件名”(Filename)</strong>属性下，打开 <strong><em>.vdb</em></strong> 文件。</p>
+</li>
+</ul>
+<p><img src="../images/am-OpenVDB_Workflow-image2016-5-5-15-34-59-2.png" alt=""></p>
+<p><sub><strong>Arnold 体积设置。“栅格”(Grids)设置为<em>“密度”(density)</em>。</strong></sub></p>
+<h2 id="">标准体积</h2><ul>
+<li><p>将 <em>standard_volume</em> 着色器指定给体积。</p>
+</li>
+<li><p>渲染场景。它的外观应如下图所示。</p>
+</li>
+</ul>
+<p><img src="../images/am-OpenVDB_Workflow-image2015-5-22-7-39-41-3.png" alt=""></p>
+<h2 id="">体积采样浮点</h2><p>我们可以使用体积采样浮点着色器来控制我们的火焰体积效果的外观。此着色器将重映射 3D 体素栅格的值，方式与在 Photoshop 中将过滤器以色调映射和重映射方式映射到图像相同，只不过后者是在 2D 栅格中执行的。</p>
+<ul>
+<li>断开 2D 纹理节点与底部附近的渐变纹理属性中的“UV 坐标”(UV Coordinates)的连接。</li>
+<li>创建一个<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Volume_Sample_Float_html">体积采样浮点</a>着色器，然后将其拖放到<strong>“UV 坐标”(UV Coord)</strong>的 <strong><em>U 属性</em></strong>，如下图所示。</li>
+</ul>
+<p><img src="../images/am-OpenVDB_Workflow-image2016-5-5-15-40-6-4.png" alt=""></p>
+<p><sub><strong>体积采样浮点着色器连接到“UV 坐标”(UV Coord)的 U 属性</strong></sub>  </p>
+<ul>
+<li>“连接编辑器”(Connection Editor)将打开。将<strong>体积采样浮点</strong>的 <strong><em>outValue</em></strong> 连接到<strong>渐变</strong>的 <strong><em>uCoord</em></strong>。</li>
+</ul>
+<p><img src="../images/am-OpenVDB_Workflow-image2016-5-5-15-40-49-5.png" alt="">  </p>
+<ul>
+<li>选择体积采样浮点着色器，并将<strong><em>“密度”(density)</em></strong>添加到<strong>“通道”(Channel)</strong>属性。</li>
+</ul>
+<p><img src="../images/am-OpenVDB_Workflow-image2016-5-5-15-43-24-6.png" alt=""></p>
+<h2 id="emission">自发光(Emission)</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/emission_100.jpg" alt=""></td>
+<td><img src="../images/emission_1000.jpg" alt=""></td>
+</tr>
+<tr>
+<td>100</td>
+<td>1000</td>
+</tr>
+</tbody></table>
+<h2 id="volume-sample-float-attributes">体积采样浮点属性(Volume Sample Float Attributes)</h2><p>我们可以使用体积采样浮点着色器更改火焰的外观。下面的图像显示了不同的调整属性及其对火焰体积的影响。</p>
+<h2 id="input-max">输入最大值(Input Max)</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/input_max_1.jpg" alt=""></td>
+<td><img src="../images/input_max_2.jpg" alt=""></td>
+<td><img src="../images/input_max_3.jpg" alt=""></td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<h2 id="bias">偏差(Bias)</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/bias_0.92.jpg" alt=""></td>
+<td><img src="../images/bias_0.95.jpg" alt=""></td>
+<td><img src="../images/bias_0o97.jpg" alt=""></td>
+</tr>
+<tr>
+<td>0.92</td>
+<td>0.95</td>
+<td>0.97</td>
+</tr>
+</tbody></table>
+<h2 id="gain">增益(Gain)</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/gain_0.1.jpg" alt=""></td>
+<td><img src="../images/gain_0.2.jpg" alt=""></td>
+<td><img src="../images/gain_0.3.jpg" alt=""></td>
+</tr>
+<tr>
+<td>0.1</td>
+<td>0.2</td>
+<td>0.3</td>
+</tr>
+</tbody></table>
+<h2 id="output-max">输出最大值(Output Max)</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/output_max_0.5.jpg" alt=""></td>
+<td><img src="../images/output_max_0.6.jpg" alt=""></td>
+<td><img src="../images/output_max_0.7.jpg" alt=""></td>
+</tr>
+<tr>
+<td>0.5</td>
+<td>0.6</td>
+<td>0.7</td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Volume_Tutorials_html.html">体积教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

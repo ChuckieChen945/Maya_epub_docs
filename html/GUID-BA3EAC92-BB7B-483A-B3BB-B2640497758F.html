@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-BA3EAC92-BB7B-483A-B3BB-B2640497758F">
+<meta name="language" content="CHS">
+<title>向基于物理的着色器添加折射</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-BA3EAC92-BB7B-483A-B3BB-B2640497758F">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>向基于物理的着色器添加折射</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 您可以通过将曲面设置为透明，然后将<span class="ph uicontrol">“折射”(Refraction)</span>属性设置为大于 1，向 <span class="ph uicontrol">StingrayPBS</span> 节点添加折射。 
+	 </p>
+<ol class="ol" id="GUID-BA3EAC92-BB7B-483A-B3BB-B2640497758F__OL_F437428ED3424FD08E85E2481E1464D6"><li class="li" id="GUID-BA3EAC92-BB7B-483A-B3BB-B2640497758F__LI_28F3FB58EE37495098E8E1A2554AAE98">将 <span class="ph uicontrol">StingrayPBS</span> 着色器指定给对象，然后在<span class="ph uicontrol">“预设材质”(Preset Material)</span>下拉列表中选择<span class="ph uicontrol">“自定义”(Custom)</span>，以创建新的 ShaderFX 图表。 
+		</li>
+<li class="li" id="GUID-BA3EAC92-BB7B-483A-B3BB-B2640497758F__LI_A7615AB9DC09458ABEBE770B1F4FCDDC">选择<span class="ph uicontrol">“标准基础”(Standard Base)</span>节点，并将<span class="ph uicontrol">“融合模式”(Blend Mode)</span>设置为<span class="ph uicontrol">“透明”(Transparent)</span>。 
+		</li>
+<li class="li" id="GUID-BA3EAC92-BB7B-483A-B3BB-B2640497758F__LI_1789DE7D30A44D1CA99B665EDE6A085B">创建<span class="ph uicontrol">“材质变量”(Material Variable)</span>节点。 
+		  <p class="p">在<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中，将其<span class="ph uicontrol">“类型”(Type)</span>设置为<span class="ph uicontrol">“标量”(Scalar)</span>。（可选操作）为清楚起见，可以将该节点重命名为“透明度”。 
+		  </p>
+ 
+		  <p class="p">将“透明度”(Transparency)的<span class="ph uicontrol">“结果”(Result)</span>输出连接到<span class="ph uicontrol">“标准基础”(Standard Base)</span>节点的<span class="ph uicontrol">“不透明度”(Opacity)</span>输入。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-BA3EAC92-BB7B-483A-B3BB-B2640497758F__LI_C5F67F0F170D486DB3442214481B196A">创建第二个<span class="ph uicontrol">“材质变量”(Material Variable)</span>节点。 
+		  <p class="p">在<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中，将其<span class="ph uicontrol">“类型”(Type)</span>设置为<span class="ph uicontrol">“标量”(Scalar)</span>。（可选操作）为清楚起见，可以将该节点重命名为“折射”。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-BA3EAC92-BB7B-483A-B3BB-B2640497758F__LI_6F2240C2601E4EBFA9CDFE41D0FFDE9C">将“折射”(Refraction)的<span class="ph uicontrol">“结果”(Result)</span>输出连接到<span class="ph uicontrol">“标准基础”(Standard Base)</span>节点的<span class="ph uicontrol">“折射”(Refraction)</span>输入。 
+		  <div class="fig fignone" id="GUID-BA3EAC92-BB7B-483A-B3BB-B2640497758F__FIG_56F96BB38BDD4CF284E0E7186D1D19DE"><img class="image" id="GUID-BA3EAC92-BB7B-483A-B3BB-B2640497758F__IMAGE_F7703D2C0FAD45E09C7B5032B33D4651" src="../images/GUID-99D7A4D5-2E2D-4EBF-8499-72EFCFF62DEF.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-BA3EAC92-BB7B-483A-B3BB-B2640497758F__LI_1476817EB34E44668C8BADB89B251E66">在<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中将<span class="ph uicontrol">“折射”(Refraction)</span>属性调整为大于 1 的值。 
+		  <p class="p">折射值为 1.0 表示空气，值约为 1.3 模拟玻璃。 
+		  </p>
+ 
+		  <p class="p">本示例使用的值为 1.3。 
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-BA3EAC92-BB7B-483A-B3BB-B2640497758F__FIG_A198C84176CD409CA67BC4D35E2C1E98"><img class="image" id="GUID-BA3EAC92-BB7B-483A-B3BB-B2640497758F__IMAGE_712A5FAA56F74736A33D8BAE0D4F7A07" src="../images/GUID-804F08DF-2E28-4103-BCB9-BC8743B18A6E.png"></div>
+ 
+		</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3.htm">创建基于物理的 Stingray 着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

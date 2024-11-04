@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-BD7474A2-52B7-4CB5-A42A-335B662E01DA">
+<meta name="language" content="CHS">
+<title>使用发射粒子</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-BD7474A2-52B7-4CB5-A42A-335B662E01DA">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用发射粒子</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-BD7474A2-52B7-4CB5-A42A-335B662E01DA__WS73099CC142F48755-3D114B7511841AEFA9F-EEA"> 如果使对象发射粒子，可以编写一个创建或运行时表达式作为发射粒子的属性。例如，可以为发射粒子指定不透明度和颜色值。</p>
+<p class="li listintro" id="GUID-BD7474A2-52B7-4CB5-A42A-335B662E01DA__WS73099CC142F48755-3D114B7511841AEFA9F-EE7">为发射粒子编写表达式</p>
+<ol class="ol" id="GUID-BD7474A2-52B7-4CB5-A42A-335B662E01DA__WS73099CC142F48755-3D114B7511841AEFA9F-EE8"><li class="li" id="GUID-BD7474A2-52B7-4CB5-A42A-335B662E01DA__WS73099CC142F48755-3D114B7511841AEFA9F-EE6">创建发射器。</li>
+<li class="li" id="GUID-BD7474A2-52B7-4CB5-A42A-335B662E01DA__WS73099CC142F48755-3D114B7511841AEFA9F-EE5">将所需的动态属性添加到发射粒子的形状节点中。</li>
+<li class="li" id="GUID-BD7474A2-52B7-4CB5-A42A-335B662E01DA__WS73099CC142F48755-3D114B7511841AEFA9F-EE4">在<span class="ph uicontrol" id="GUID-BD7474A2-52B7-4CB5-A42A-335B662E01DA__GUID-E9EE96A9-A8A1-4F9F-988D-F0BBCDB08E5D">“表达式编辑器”(Expression Editor)</span>中选择发射粒子的图形节点，然后编写表达式来控制该属性。</li>
+</ol>
+<div class="section" id="GUID-BD7474A2-52B7-4CB5-A42A-335B662E01DA__WS73099CC142F48755-3D114B7511841AEFA9F-EE3"><h2 class="title sectiontitle">示例</h2>
+
+<p class="p" id="GUID-BD7474A2-52B7-4CB5-A42A-335B662E01DA__WS73099CC142F48755-3D114B7511841AEFA9F-EE2">假定您创建了一个发射器并将每粒子 <span class="ph uicontrol" id="GUID-BD7474A2-52B7-4CB5-A42A-335B662E01DA__GUID-68DDED43-ED12-4E63-98C6-A5327E61033D">“opacityPP”</span> 属性添加到发射粒子的形状节点中。下面的创建表达式为每个发射粒子指定一个介于 0 和 1 之间的随机不透明度：</p>
+
+<pre class="pre codeblock">
+particleShape1.opacityPP = rand(1);
+</pre>
+
+<div class="note attention" id="GUID-BD7474A2-52B7-4CB5-A42A-335B662E01DA__WS73099CC142F48755-3D114B7511841AEFA9F-EE1"><span class="attentiontitle">注意：</span> 如果任一对象的粒子消亡，请不要将每粒子属性指定给另一个对象的每粒子属性（因为您已经使用<span class="ph uicontrol" id="GUID-BD7474A2-52B7-4CB5-A42A-335B662E01DA__GUID-EB8068F4-F508-4CB5-89A9-AFD16CF6DE9F">“寿命 PP”(lifespanPP)</span>属性）。粒子消亡时，对象粒子的表达式计算顺序会发生变化。此操作将导致意外的结果。<p class="p" id="GUID-BD7474A2-52B7-4CB5-A42A-335B662E01DA__WS73099CC142F48755-3D114B7511841AEFA9F-EE0">不过，可以在包含即将消亡的粒子的同一对象中从指定一个属性改为指定另一个属性。不同属性的数组索引彼此同步。</p>
+<p class="p" id="GUID-BD7474A2-52B7-4CB5-A42A-335B662E01DA__WS73099CC142F48755-3D114B7511841AEFA9F-EDF">例如，如果粒子的<span class="ph uicontrol" id="GUID-BD7474A2-52B7-4CB5-A42A-335B662E01DA__GUID-2A31B4D2-71CF-4C1E-8222-126408E537EF">“寿命 PP”(lifespanPP)</span>为 2，则不要编写如下的表达式：</p>
+<p class="p" id="GUID-BD7474A2-52B7-4CB5-A42A-335B662E01DA__WS73099CC142F48755-3D114B7511841AEFA9F-EDE">emittedShape.rgbPP = otherParticleShape.rgbPP</p>
+</div>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-F7BE65C4-CDA4-42DC-A0D8-72B9D984B3E1.htm">关于粒子表达式</a></div>
+</div>
+</div>
+
+</body>
+</html>

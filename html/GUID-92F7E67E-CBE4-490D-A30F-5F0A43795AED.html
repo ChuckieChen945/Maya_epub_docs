@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED">
+<meta name="language" content="CHS">
+<title>渲染和照明 nParticle</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>渲染和照明 nParticle</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED__GUID-EEFE0978-51BD-4C50-85EA-2018D4B62F66"> 在 Viewport 2.0 中预览 nParticle 模拟后，您可以使用 Maya 软件或其他第三方渲染器渲染它。系统会为某些 nParticle 对象自动指定用于渲染的着色网络，如<span class="ph uicontrol" id="GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED__GUID-A4BC5BF5-FE6E-4645-8FDE-4C10E6260A3F">“厚云”(Thick Clouds)</span>和<span class="ph uicontrol" id="GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED__GUID-F6A0C4C3-0F4B-4D25-9FF7-D0E1F3E0774E">“水”(Water)</span>类型的 nParticle。 
+	 </p>
+<p class="p" id="GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED__GUID-F7ECE64F-4A36-44C7-9919-B2156F188EAD">若要基于每粒子控制着色器属性，或在软件渲染中使用<span class="ph uicontrol" id="GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED__GUID-AFC64CC1-766C-44B3-B5FB-5D91FE64772A">“rgbPP”</span>和<span class="ph uicontrol" id="GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED__GUID-8933D467-F4AE-428F-B988-D07BEEB196C1">“opacityPP”</span>属性，请创建“粒子采样器信息”(Particle Sampler Info)节点。 
+	 </p>
+<div class="section" id="GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED__SECTION_2DE1DC73B0AD422EBF4D94914C4059AD"><h2 class="title sectiontitle">关于使用 Maya 软件渲染器渲染 nParticle 的重要说明</h2> 
+		 
+		<ul class="ul" id="GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED__UL_6B40D5D3ADB14EA28D4BB2FE56795400"><li class="li" id="GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED__LI_3F3ED67534004618AE8860F608537233">若要使用运动模糊渲染 nParticle，请查阅首选第三方渲染器提供的文档。Maya 软件渲染的粒子不支持运动模糊。 
+		  </li>
+<li class="li" id="GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED__LI_39816E844F6D493E8E6A9105592CD06B">如果场景包含<span class="ph uicontrol" id="GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED__GUID-48F8F5E9-1C4A-43E6-B68D-4400E848113B">“滴状曲面”(Blobby Surface)</span>、<span class="ph uicontrol" id="GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED__GUID-D9662FFB-A96E-4350-8109-2D0A140D19F5">“云”(Cloud)</span>或<span class="ph uicontrol" id="GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED__GUID-19A5BE7C-0A36-4C02-8ABC-733FAF533765">“管状体”(Tube)</span>渲染类型，则可使用 Maya 软件渲染器或支持该功能的第三方渲染器进行渲染。请参见 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-A0ACB70C-2E74-4BAD-AFDD-1D49A8B34EF2">Maya 软件渲染器</a>。 
+		  </li>
+<li class="li" id="GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED__LI_FC2825DA7E084E10AA3AB677346DF8E0">Maya 软件渲染器支持<span class="ph uicontrol" id="GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED__GUID-09EE8DC2-7E5F-4857-BDF8-8137D7E8ACE8">“滴状曲面”(Blobby Surface)</span>、<span class="ph uicontrol" id="GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED__GUID-3242D57B-F11D-40A0-926F-75CEF77ACFC1">“云”(Cloud)</span>或<span class="ph uicontrol" id="GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED__GUID-D7F7FB08-7E35-44DA-BD20-A2AB38B0A3C8">“管状体”(Tube)</span>渲染类型上的光线跟踪阴影。 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-BA18E467-55EB-437D-838A-6DDEFB120532.htm">创建“粒子采样器信息”(Particle Sampler Info)节点</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-AF7452B6-4996-4012-8974-7C39A9186377.htm">“粒子采样器信息”(Particle Sampler Info)节点工作流程示例</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-385DE525-C35B-4100-BA58-5D8EC9005D0B.htm">设定“粒子采样器信息”(Particle Sampler Info)节点属性</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-8FF86A2D-0AB5-4CD2-9D72-2D1DA2FCD2AF.htm">添加灯光、反射、折射和阴影</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-4768E882-BD10-4241-BA13-47358E2B552D.htm">使用粒子创建光线跟踪的阴影</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-AEBE18A1-C2C8-4830-B600-8C8690979A35.htm">nParticle 工作流</a></div>
+</div>
+</div>
+
+</body>
+</html>

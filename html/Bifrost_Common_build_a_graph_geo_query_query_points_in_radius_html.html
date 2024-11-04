@@ -1,0 +1,68 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_build_a_graph_geo_query_query_points_in_radius_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>查询半径内的所有点</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>查询半径内的所有点</h1></div><p>使用 <code>get_points_in_radius</code> 节点返回几何体上位于以每个输入定位为中心的球体内的点的索引。然后，可以使用点索引访问几何体上的特性值。</p>
+<p><img src="../images/geoquery-pointsinradius.png" alt="根据半径内粒子的数量和距离在网格上设置顶点颜色"></p>
+<p>在上面的示例中，查询将针对平面网格的每个顶点返回某一半径范围内的粒子。粒子数用于计算基于距离的衰减权重，结果用于设置逐顶点颜色。</p>
+<p>要查找半径内的点，然后访问特性值，请执行以下操作：</p>
+<ol>
+<li><p>将 <code>get_points_in_radius</code> 节点添加到图表中。</p>
+</li>
+<li><p>将要查找其点的对象连接到 <code>geometry</code> 输入。</p>
+</li>
+<li><p>将球体中心的定位连接到 <code>positions</code> 输入。</p>
+</li>
+<li><p>设置所需的 <code>radius</code>。</p>
+</li>
+<li><p>根据需要，设置 <code>enable_max_number</code> 和 <code>max_number</code>。这可用于防止针对每个定位返回大量点，例如在密集几何体或大半径的情况下。启用后，仅返回最近点，并受设定的最大数量的限制。</p>
+</li>
+<li><p>使用 <code>get_closest_point</code> 节点的输出以访问几何体上的特性值。输出是二维数组，即数组中的每个元素是与每个位置的最近点对应的另一个数组。</p>
+<ul>
+<li>要对二维 <code>locations</code> 输出数组进行采样，请将其连接到一个或多个 <code>sample_property_2D</code> 节点。此节点类似于 <code>sample_property</code>（请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/geo-query/Bifrost_Common_build_a_graph_geo_query_sample_data_at_locations_html.html">对位置的几何特性进行采样</a>），但适用于位置的二维数组。结果将是值的二维数组，您可能需要在下游计算中进行循环。</li>
+<li>您也可以直接在二维 <code>locations</code> 或 <code>indices</code> 数组上循环。在循环内部，您可以使用 <code>array_size</code> 来确定每个位置找到的点数（如果有）。</li>
+</ul>
+</li>
+</ol>
+<p><img src="../images/geoquery-pointsinradius-graph.png" alt="根据图表中附近粒子的数量和距离设置顶点颜色"></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_geo_query_html.html">查询几何对象上的数据</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_room_am_Ai_Area_Lights_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_AI_AREA_LIGHTS">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" Ai 区域光 - Arnold for Maya">
+
+<title>Ai 区域光</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>Ai 区域光</h1></div><p><img src="../images/am-Ai_Area_Lights-image2013-8-7-13-34-25-1.png" alt=""></p>
+<p><sub><strong>四个 Ai 区域光穿过窗户</strong></sub></p>
+<p>用于对室内进行照明的常见方法是在窗户外部放置指向房间内部的区域光。请务必注意灯光的大小和位置。如果灯光太靠近窗框，可能会导致靠近窗户的区域出现漂白效果（参见下面的<a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Lighting/am-Lighting_a_Room/arnold_for_maya_room_am_Ai_Area_Lights_html.html#AiAreaLights-tonemapping">色调映射</a>）。所有示例图像中使用的灯光采样值均为 3。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>请记住，您也可以将 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_lights_ac_directional_light_html" target="_blank"><em>directional_light</em></a> 与窗户四边形 <em>area_lights</em> 组合在一起，实现与 <em>skydome_light</em> 类似的效果。</p>
+
+</div></div>
+
+<p><img src="../images/am-Ai_Area_Lights-image2013-7-9-18-2-28-2.png" alt=""></p>
+<ul>
+<li>创建四个<em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_lights_ac_area_light_html" target="_blank">区域光</a><em>，并将它们放置在窗户外，如左下图所示。下面是场景中四个_区域_光所用的设置。其中，</em>“曝光”(Exposure)<em>已增加至 18，</em>“灯光形状”(Light Shape)*已设置为</em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_lights_ac_area_light_html" target="_blank">四边形(quad)</a><em>，并且</em>“采样数”(Samples)*已增加至 3，以便用于最终场景渲染。</li>
+</ul>
+<p><img src="../images/am-Ai_Area_Lights-image2014-11-11-14-2-37-3.png" alt=""></p>
+<p><sub><strong>Ai 区域光形状设置为<em>“四边形”(Quad)</em></strong></sub></p>
+<p>对于含有玻璃的窗户，应将 <em>area_lights</em> 放在玻璃前面，这样 Arnold 就不需要处理玻璃相交处。但是，对于非常见形状的窗户，一种更简单的做法是将区域光放在窗户的正后方，使 <em>quad_light</em> 覆盖整个窗户。</p>
+<h2 id="">间接漫反射光线深度</h2><p>在现实生活中，内部场景的灯光会出现比外部场景更多的反弹，因此，如果希望在场景中获得更多次级反弹照明，则应该增加该值。</p>
+<p>下图显示了在“渲染设置”(Render Settings)中增加<em>diffuse_ray_depth</em> 的效果。请注意，渲染时间将随着反弹次数的增加而线性增加。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Ai_Area_Lights-Area-lights-Diffuse-Depth-1-4.jpg" alt=""></td>
+<td><img src="../images/am-Ai_Area_Lights-Area-lights-Diffuse-Depth-2-5.jpg" alt=""></td>
+<td><img src="../images/am-Ai_Area_Lights-area-lights-ray-depth-3-6.jpg" alt=""></td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<h3 id="">采样噪波</h3><p>渲染室内场景时，出现噪波是非常常见的现象。这可能是因为灯光的采样数不够，或者是<strong>“GI 漫反射光线”(Gi Diffuse Rays)</strong>设定得不够高。</p>
+<p>将_漫反射_光线设置为 0 后，我们便可以将注意力集中在灯光采样数上。在下图中，可在房间的角落中清晰地看到阴影噪波。通过逐渐增加灯光采样数，可以改善阴影的质量，同时不显著增加渲染时间。将灯光的<em>“采样数”(Samples)</em>增大为 3 便足以充分降低阴影噪波量。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Ai_Area_Lights-shadow-samples-1-7.jpg" alt=""></td>
+<td><img src="../images/am-Ai_Area_Lights-light-and-diffuse-samples-8.jpg" alt=""></td>
+<td><img src="../images/am-Ai_Area_Lights-3-area-light-samples-9.jpg" alt=""></td>
+</tr>
+<tr>
+<td>“GI 漫反射”(GI Diffuse)设置为 0（已禁用）。灯光噪波更易于识别。</td>
+<td>将 <em>area_light</em> 的采样数增加至 3 可解决噪波问题</td>
+<td>阴影噪波和_漫反射_噪波（二者很难区分）。</td>
+</tr>
+</tbody></table>
+<h2 id="">漫反射采样数</h2><p>完成灯光采样数微调后，便可以关注<em>“漫反射”(Diffuse)</em>噪波。在本例中，将<em>“漫反射”(Diffuse)</em>采样数增大为 5 即可提供干净的求解。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Ai_Area_Lights-diffuse-samples-1-10.jpg" alt=""></td>
+<td><img src="../images/am-Ai_Area_Lights-diffuse-samples-5-11.jpg" alt=""></td>
+</tr>
+<tr>
+<td>1</td>
+<td>5</td>
+</tr>
+</tbody></table>
+<h2 id="">区域光采样数</h2><p>在下面的示例图像中，对渲染一个大型区域光、两个区域光和四个区域光的差别进行了比较。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Ai_Area_Lights-1-area-light-6min-38-12.jpg" alt=""></td>
+<td><img src="../images/am-Ai_Area_Lights-2-area-lights-8min-41-13.jpg" alt=""></td>
+<td><img src="../images/am-Ai_Area_Lights-4-area-lights-12min-31-14.jpg" alt=""></td>
+</tr>
+<tr>
+<td>一个区域光：6 分 38 秒</td>
+<td>两个区域光：8 分 41 秒</td>
+<td>四个区域光：12 分 30 秒</td>
+</tr>
+</tbody></table>
+<p>对于每个灯光，Arnold 会跟踪 9 条光线，因而对于四个灯光而言，总共需要跟踪 36 条光线，这与使用一个灯光时只需跟踪 9 条光线形成了鲜明的对比。因此，使用小型灯光进行渲染所花费的时间比使用一个大型灯光进行渲染所花费的时间更长。但是，即使灯光采样数相同（本例中为 3），仅使用一个大型区域光也会产生更多噪波。这在书架周围的区域中更加明显。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Ai_Area_Lights-4-lights-bookcase-15.jpg" alt=""></td>
+<td><img src="../images/am-Ai_Area_Lights-1-light-bookcase-16.jpg" alt=""></td>
+</tr>
+<tr>
+<td>四个区域光</td>
+<td>一个区域光（在阴影中出现更多噪波）</td>
+</tr>
+</tbody></table>
+<div class="head-block"><h1>灯光衰退过滤器</h1></div><h2 id="">近距衰减</h2><p>窗户周围的区域非常明亮，以致于出现了漂白现象。解决此问题的一种方法是使用色调映射（参见下文），另一种方法则是使用灯光衰退过滤器。</p>
+<ul>
+<li>将一个 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_light_filters_ac_light_decay_html" target="_blank">light_decay</a></em> 过滤器连接到所有四个<em>区域_灯光。*<em>借助此过滤器，可以使用</em>“使用近距衰减”(Use Near Attenuation)<em>属性控制灯光的衰减。在下面右侧的图像中，</em>“近距开始”(Near Start)<em>设定为 40，</em>“近距结束”(Near End)*设定为 200。您可以看到，与未使用_灯光衰退_过滤器的渲染结果相比，地面上靠近灯光区域的过爆程度大大降低（已将 _diffuse_samples</em> 设置为 0，以便更清楚地查看效果）。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Ai_Area_Lights-no-light-decay-17.jpg" alt=""></td>
+<td><img src="../images/am-Ai_Area_Lights-light-decay-18.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用 <em>light_decay</em> 过滤器（窗户周围的区域出现漂白现象）</td>
+<td>使用 <em>light_decay</em> 过滤器改进灯光衰减</td>
+</tr>
+</tbody></table>
+<h2 id="">远距衰减</h2><p>“远距衰减”属性的工作原理类似于普通衰退，但您可以指定开始和结束距离。这样便可以通过设置 <em>end_distance</em> 来更好地控制房间内填充的灯光量。下面是一个简单的室内场景，显示了改变 <em>light_decay</em> 过滤器的_“远距结束”(Far End)_属性的效果。请注意它对地板的镜面反射的影响。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Ai_Area_Lights-far-attenuation-Far-End-0o5-19.jpg" alt=""></td>
+<td><img src="../images/am-Ai_Area_Lights-far-attenuation-Far-End-1-20.jpg" alt=""></td>
+<td><img src="../images/am-Ai_Area_Lights-far-attenuation-Far-End-2-21.jpg" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>_far_end_：0.05</strong></sub></td>
+<td><sub><strong>_far_end_：1</strong></sub></td>
+<td><sub><strong>_far_end_：2</strong></sub></td>
+</tr>
+</tbody></table>
+<h2 id="">色调映射</h2><p>修复窗户周围漂白区域的一种简单方法是使用后期处理软件对图像进行<a href="http://en.wikipedia.org/wiki/Tone_mapping" target="_blank">色调映射</a>。</p>
+<ul>
+<li>将场景渲染为 32 位 EXR 文件。这样就能够有足够的色调范围用来在后期处理中进行调整。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/Interior_Black_Books_WIP.jpg" alt=""></td>
+<td><img src="../images/tone-mapped.jpg" alt=""></td>
+</tr>
+<tr>
+<td>色调映射之前（窗户周围的区域出现漂白现象）</td>
+<td>色调映射之后</td>
+</tr>
+</tbody></table>
+<h2 id="hdri">使用 HDRI 的区域光</h2><p>我们可以向进入房间的灯光添加一些看上去更自然的颜色。这可以通过结合使用 HDRI 和区域光来实现。</p>
+<ul>
+<li>将 HDRI 连接到 _area_light.color_。</li>
+</ul>
+<p>减小灯光的强度，直至其位于应当足以看到 HDRI 效果的常规范围内。但是，要判断纹理贴图是否已正确映射到灯光可能并不是一件容易的事情。为了更清楚地看到效果，可以创建一个反射球体并将其放置在窗户前。通过此方法，就可以看到球体反射的 HDRI。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/area-light-window.png" alt=""></td>
+<td><img src="../images/hdri-area-lights.jpg" alt=""></td>
+</tr>
+<tr>
+<td>单个 <em>area_light</em> 进行缩放以适配所有窗户</td>
+<td>HDRI -&gt; <em>area_light</em></td>
+</tr>
+</tbody></table>
+<ul>
+<li>创建一个球体并为它指定一个 <em>standard_surface</em> 着色器。将 <em>base_weight</em> 减小为 0，将 <em>specular_weight</em> 增大为 1，并将 <em>specular_roughness</em> 减小为 0。在场景中渲染该球体。此时应该会看到球体反射的 HDRI，如下面右侧图像中所示。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/sphere.png" alt=""></td>
+<td><img src="../images/chrome-sphere.jpg" alt=""></td>
+</tr>
+<tr>
+<td>映射到区域光的 HDRI 的反射在球体上可见</td>
+<td>反射球体放置在窗户前</td>
+</tr>
+</tbody></table>
+<p>无法将 Arnold 的灯光设置为对摄影机可见。但是，<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_lights_ac_mesh_lights_html" target="_blank"><em>mesh_light</em></a> 中确实有<em>“灯光可见”(Light Visible)</em> 选项。</p>
+<p><img src="../images/am-Ai_Area_Lights-image2014-11-7-10-17-44-26.png" alt=""></p>
+<p><sub><strong>启用_“灯光可见”(Light Visible)_时的 _mesh_light_（多边形平面）</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Lighting/arnold_for_maya_lighting_am_Lighting_a_Room_html.html">对房间进行照明</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

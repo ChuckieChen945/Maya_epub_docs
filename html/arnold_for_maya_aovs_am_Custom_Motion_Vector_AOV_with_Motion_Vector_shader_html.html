@@ -1,0 +1,163 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_aovs_am_Custom_Motion_Vector_AOV_with_Motion_Vector_shader_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_CUSTOM_MOTION_VECTOR_AOV_WITH_MOTION_VECTOR_SHADER">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用运动向量着色器的自定义运动向量 AOV - Arnold for Maya">
+
+<title>使用运动向量着色器的自定义运动向量 AOV</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>使用运动向量着色器的自定义运动向量 AOV</h1></div><p>另一种创建运动向量过程的方法是使用自定义 AOV，并将 <em>Ai 运动向量</em>着色器指定给默认的“着色器”(Shader)属性。</p>
+<blockquote>
+<p>信息：有关运动向量的详细信息，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Motion_Vector_html">此处</a>。</p>
+</blockquote>
+<p><strong>要下载对应的场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/custom-motion-vector-AOV.ma" target="_blank">此处</a>。</strong></p>
+<ul>
+<li>首先，在<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_system_am_Render_Settings_html">“渲染设置”(Render Settings)</a>窗口中选择<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_render_settings_aovs_html">“AOV”(AOVs)</a>选项卡。单击<em>“添加自定义”(Add Custom)</em>添加一个<em>“新 AOV”(New AOV)</em>。在本例中，我们将其命名为<em>“mblur”</em>。</li>
+</ul>
+<p>不要将自定义 AOV 命名为“motionvector”，因为它可能会与内置的“motionvector”AOV 发生冲突。</p>
+<ul>
+<li>创建一个 *<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Motion_Vector_html">Ai 运动向量</a><em>着色器。启用</em>“编码原始向量”(Encode Raw Vector)*， 这样向量就不会进行规格化。将运动向量渲染引入后期处理软件包时，我们需要使用绝对向量。</li>
+</ul>
+<p><img src="../images/am-Custom_Motion_Vector_AOV_with_Motion_Vector_shader-image2016-5-3-11-28-27-1.png" alt=""></p>
+<p><sub><strong>Ai 运动向量着色器。已启用 _Encode_raw_vector_。</strong></sub></p>
+<ul>
+<li>使用鼠标中键将<em>“Ai 运动向量”(Ai Motion Vector)</em>拖动到“mblur”AOV 的<em>“着色器”(Shader)</em>上（位于自定义 AOV 下面）。</li>
+</ul>
+<p><img src="../images/am-Custom_Motion_Vector_AOV_with_Motion_Vector_shader-image2017-9-19-9-47-27-2.png" alt=""></p>
+<p><sub><strong>aiAOV_mblur</strong></sub></p>
+<ul>
+<li><p>在<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Motion_Blur_html">“运动模糊”(Motion Blur)</a>设置中启用 <em>instantaneous_shutter</em>。这是因为我们不希望渲染中出现运动模糊，但仍想在 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Motion_Vector_html">motion_vector</a> AOV 中保留运动速度信息。</p>
+</li>
+<li><p>渲染场景。自定义 AOV <em>mblur</em> 应该在渲染视图窗口中进行渲染。</p>
+</li>
+</ul>
+
+<div class="tablenobordernocolor gallery">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Custom_Motion_Vector_AOV_with_Motion_Vector_shader-beauty-pass-3.png" alt=""></td>
+<td><img src="../images/am-Custom_Motion_Vector_AOV_with_Motion_Vector_shader-motion-vector-aov-4.jpg" alt=""></td>
+</tr>
+<tr>
+<td>美景 AOV</td>
+<td>自定义运动向量 AOV</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<h2 id="strong-a-href-custommotionvectoraovwithmotionvectorshader-compositingthemotionvector-a-strong"><strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-AOV_Tutorials/arnold_for_maya_aovs_am_Custom_Motion_Vector_AOV_with_Motion_Vector_shader_html.html#CustomMotionVectorAOVwithMotionVectorshader-Compositingthemotionvector">合成运动向量</a></strong></h2><ul>
+<li>在 Nuke 等合成软件包中打开渲染的 EXR 文件。您应该能够同时看到 RGB 和运动向量。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Custom_Motion_Vector_AOV_with_Motion_Vector_shader-beauty-nuke-5.png" alt=""></td>
+<td><img src="../images/am-Custom_Motion_Vector_AOV_with_Motion_Vector_shader-motion-vector-nuke-6.png" alt=""></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li>将一个 <em>VectorBlur</em> 应用于 EXR 渲染。</li>
+<li>选择向量模糊节点。将“uv 通道”(uv channels)更改为“motionvector”，将“mv 预设”(mv presets)更改为“Arnold”。启用 <em>uv_alpha</em> 并选择“rgba.alpha”，以防止模糊被运动向量 AOV 的 Alpha 剪裁。</li>
+</ul>
+
+<div class="tablenobordernocolor gallery">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Custom_Motion_Vector_AOV_with_Motion_Vector_shader-vectorblur-7.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>Nuke 中的向量模糊节点设置</strong></sub></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+<p>最终输出应该类似下面的左图。相比于使用真实运动模糊渲染的场景，它看起来非常接近。但还是存在一些细微的差异。这是由渲染 2D 运动向量的限制所致。</p>
+<p><img src="../images/am-Custom_Motion_Vector_AOV_with_Motion_Vector_shader-image2017-9-19-10-9-7-9.png" alt=""></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_AOV_Tutorials_html.html">AOV 教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,1479 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D">
+<meta name="language" content="CHS">
+<title>Viewport 2.0 中 dx11Shader 和 glslShader 插件所支持的语义和注释</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>Viewport 2.0 中 dx11Shader 和 glslShader 插件所支持的语义和注释</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-A7B3A96C-22AD-4AE5-A514-D76C9FC518B3"> 如果您编写自己的自定义着色器在 Viewport 2.0 中使用 dx11Shader 或 glslShader 插件，以下是支持的语义和注释。
+	 </p>
+<div class="section" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__SECTION_AEF8AD13F4A946DFA6FD2460CFF66006"><h2 class="title sectiontitle">支持的参数和一致注释</h2> 
+		 
+		<p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-2AD1EE8D-47A0-4965-BF32-6D47B791F055"><samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-B3DE43C4-60F2-4446-9FA2-1BA67096DF25">dx11ShaderNode</samp> 和 <samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-F3CDF874-160F-47BC-8FF2-E86969FCA18C">GLSLShaderNode</samp> 类在参数和统一标注 (GLSL) 上查找以下注释并在创建时将相关信息发送给 <samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-2A612C7C-423F-470C-8825-DE4AA722C49A">MUniformParameter</samp> 类：
+		</p>
+ 
+		<div class="note note" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-7C6B60D0-C167-4852-877D-B4F307763699"><span class="notetitle">注：</span> 尽管 OpenGL 着色语言 (GLSL) 不支持注释，但是 OGSFX 支持并且可以用于一致、技术和过程定义。
+		</div>
+ 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__TABLE_1B675E7C84664AD08722DB19B3DEF897" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-632CBDCB-DC21-4367-BAA1-E374249C7047">名称</strong> 
+				  </td>
+<td class="entry" valign="top" width="25%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-316164D6-1120-4116-9B8C-D6C2F9AB0BCA">类型</strong> 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-069654F1-9C1A-41DE-8951-8D9FC99D9E3D">描述</strong> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">UIOrder 
+				  </td>
+<td class="entry" valign="top" width="25%">int 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-878A06CF-0F2D-4DC4-BDAB-14CB3E0677F6">用于在<span class="ph uicontrol" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-24AA520C-7E97-425D-95EE-01A1A45D4C4D">“属性编辑器”(Attribute Editor)</span>中重新排序参数，由于编译器返回的参数顺序并不始终遵循 FX 文件中的声明顺序，因此尤其有用。UIOrder 最小的参数放在 AE 的顶部，其他参数按 UIOrder 递增顺序添加。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-A2AA613E-75E2-495D-AFC9-49E87C8E8F7B">如果未设置，则该参数将按在着色器文件中出现的顺序放置，但位于具有指定 UIOrder 的参数后面。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">UVEditorOrder 
+				  </td>
+<td class="entry" valign="top" width="25%">int 
+				  </td>
+<td class="entry" valign="top" width="50%">用于在<span class="ph uicontrol" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-DB3A51A8-77D0-4491-B747-8FC024137386">“UV 纹理编辑器”(UV Texture Editor)</span>中重新排序纹理。<span class="ph uicontrol" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-1E589FA2-C0EA-47BE-BD5F-20C5AF5DF833">“纹理”(Textures)</span>菜单中首先显示 UVEditorOrder 最低的纹理参数。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">UIGroup 
+				  </td>
+<td class="entry" valign="top" width="25%">string 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-AFABC873-F00B-4F84-BE95-50916F910C7F">具有相同 UIGroup 属性的所有参数放在单独的可收拢面板上，其标签为 UIGroup 值。这些面板将插入 UIOrder 最低的组参数所在的位置。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-DC06F4B4-9EDC-43DA-84D7-CE08D3E482D9">如果未设置（或为空），则该参数不放置在任何命名组中。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">Object 
+				  </td>
+<td class="entry" valign="top" width="25%">string 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-09EC80F7-E2FC-4EFC-893E-7EDFE9DF47FF">将不同的着色器参数分组为同一 <span class="ph msgph prodname" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 对象的一部分。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-AA69AB90-49D7-4795-8753-769D5AAF4D8E">这通常用于定义灯光的所有参数。在<span class="ph uicontrol" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-BACB0939-C009-4815-9011-D60643AD8C2C">“属性编辑器”(Attribute Editor)</span>参数布局级别，这与 UIGroup 注释完全相同，但默认情况下面板处于收拢状态。当灯光对象名称包含“Light”（或“Lamp”）和“Point”、“Spot”、“Ambient”或“Directional”时，这也用于确定灯光对象的类型。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-610FD737-E7A8-4CA9-BDF4-EF233B898483">为每个不同对象创建一个下拉菜单，以轻松连接到现有 Maya 场景灯光。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-955B58F2-965A-4C59-9C87-CAFF8A65F2B8">示例：
+					 </p>
+ 
+					 <pre class="pre codeblock">uniform lightColor : DIFFUSE
+&lt;
+    Object = "Light0_Spot";
+&gt;;
+uniform lightPosition : POSITION
+&lt;
+    Object = "Light0_Spot;
+&gt;;</pre>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-F31FEAA0-0416-40B2-BA18-72079299D4E2">LightColor 和 lightPosition 将绑定到相同灯光节点（可能会是聚光灯）的属性。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">UIName 
+				  </td>
+<td class="entry" valign="top" width="25%">string 
+				  </td>
+<td class="entry" valign="top" width="50%">用于在 UI（<span class="ph uicontrol" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-8D2AB087-6963-4990-9B0A-4B5F158940A4">“属性编辑器”(Attribute Editor)</span>）中重命名参数。默认情况下，显示变量名称。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-34DDD48B-325E-4A36-A8ED-6760A92269D5">SasUiVisible 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-4FE704CE-8763-444F-818E-B65D1C70445D">UIType 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-9BB6C7F2-EEB9-4E92-8E12-0D10DB09D743">UIWidget 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-B624AFF2-F9E4-47FB-A0C3-978343D56968">bool 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-79D704DB-864A-4DE6-923B-D3379AC61BEC">字符串 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-0E817D65-5634-492F-A79C-334D769AA57B">字符串 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-D254DDB8-7989-471D-A802-0FEC054AB94F">控制 UI 中变量的可见性。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-0620EA88-289C-42AB-8D27-D1164490B405">对于这两个字符串注释，“无”(None)值将隐藏变量。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-40791ED8-C38E-4A17-8681-0B2E6421611D">将 UIType 或 UIWidget 设置为 ColorPicker 以使用“颜色选择器”(Color Chooser)构件。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-2B666B0C-5C75-437E-AC11-94DC56A580A0">SasUiMin 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-265E4435-B03D-4965-9300-BD333BEA89EA">UIMin 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-2950B960-4B78-4B91-8429-8AE64F5D76BF">uimin 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-3DF4571B-54FD-42F8-B39C-178C66C93F01">float/int 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-8BE49526-A5A0-4A96-9427-A7EF48B8064C">（与参数相同） 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-B4D338C5-2F51-4791-AC34-702CDA2F0555">最小范围值。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-D9504FD7-C30D-474F-8DA2-3ADD1AEB0634">对应于 <samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-5B06028E-511A-4B22-8261-829F592A69D6">MUniformParameter::setRangeMin()</samp>。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-54B14BAD-F478-4508-99D8-F975B346FFA9">SasUiMax 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-225DCE3E-D5FF-48C7-BF47-E21202D321A1">UIMax 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-9B06D2C7-71F2-4925-B92A-CECB6437B5BE">uimax 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-46CBED11-9259-43FC-A861-F68CDA4C71CF">float/int 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-1973A716-FF08-452C-901C-47DEEBA4AC1F">（与参数相同） 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-47D0A382-4993-443F-ACA8-F5201440C6C5">最大范围值。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-E5018FE6-54EB-4D35-B29B-6333266077BC">对应于 <samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-EBA17563-DE57-4441-A4DD-CB869C2640ED">MUniformParameter::setRangeMax()</samp>。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-F18AFFA5-83E4-47DB-86B4-533485F1D74B">UISoftMin 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-9FB97189-4F4E-4E76-A677-83B11F931D61">uisoftmin 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-9907EA93-21A8-49EA-888B-31BEA420CA9A">float/int 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-D8683C24-DC81-4B34-808B-E21CF1F1D15C">（与参数相同） 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-C3604365-D02C-4CE4-A86A-2788BE2FA325">范围的最小滑块值。可以在参数的数值输入中输入小于 UISoftMin 但大于 UIMin（如果已指定）的值。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-4DC8F8A7-58F5-471B-AC2B-82E9538DEE75">对应于 <samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-1CD429B0-EEB9-4A9E-BD1D-69DF4F56A7C1">MUniformParameter::setSoftRangeMin()</samp>。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-74037B49-D805-4726-A9AA-FBFFA3290F58">UISoftMax 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-6AD84010-DE38-4ADE-8B45-1874E79B63FA">uisoftmax 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-42345512-BF59-48E4-856C-B4BFFF67B8A6">float/int 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-78A41326-857C-4431-AE7E-1038D1437833">（与参数相同） 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-DCCB8B0D-6128-498C-BC6A-EBBC1E0CC393">范围的最大滑块值。可以在参数的数值输入中输入大于 UISoftMax 但小于 UIMax（如果已指定）的值。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-A6AC9522-D499-4E07-8133-D281308395E1">对应于 <samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-64D34F5E-C358-454A-B2D4-AA7F21B5FAC6">MUniformParameter::setSoftRangeMax()</samp>。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">UIFieldNames 
+				  </td>
+<td class="entry" valign="top" width="25%">字符串 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-6F037F83-E4B6-4DC5-B3AD-6A516A40BF1A">使用属性值中的字符串为整型参数创建下拉菜单。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-14B4EB3B-55C1-4270-A698-6B196B767F18">格式与 MEL 命令 `attributeQuery -listEnum` 相同，该字符串中用冒号“:”分隔场名称，用等号“=”分隔索引值。索引从零开始，如果未明确指定，项目的索引值等于前一项（如果有）的索引加一。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-2BCFEC99-7C83-4506-A60D-A38268977919">示例：“Shaded:Wireframe=8:Bounding Box”定义了 3 项，值分别为 0、8 和 9。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-BBD8628C-CF53-4404-9095-F1738A2DC67A">ResourceName 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-D7B7CC96-4D5B-42D3-BF96-36C19913A105">SasResourceAddress 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%">string 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-60C270D4-B861-4B11-ABFE-D65C7E081288">默认纹理文件名。在设置效果时插件自动加载并连接纹理。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-7690FE31-D22A-49BA-B74C-98DED1F24058">路径可以是绝对路径或相对路径。如果定义的是相对路径，则插件将先尝试搜索与当前 <samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-6A13E5C4-A1A1-4942-8366-87F2413A67C4">ogsfx</samp> 文件位于相同文件夹层级中的文件。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-359B77D6-114D-4D0E-8CA8-53B515CA215F">如果未找到该文件，则插件会在 <samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-5E8088FB-7A1E-465E-A2D8-9C7CEFCFDD47">MHWRender::MTextureManager::imagePaths()</samp> 中定义的路径下搜索该文件。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-EB32A3F6-83AC-4BF0-A65D-D3A459A0930C">TextureType 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-478DADA4-8A0F-4610-9459-0A2CD52CCD74">ResourceType 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%">string 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-571365FD-55CC-4000-BFFE-E79B2669B6DF">如果变量被描述为不明确纹理，而不是纹理[1D|2D|3D|立方体]，则此注释将允许您指定纹理类型。有效值为“1D”、“2D”、“3D”和“立方体(Cube)”。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">Space 
+				  </td>
+<td class="entry" valign="top" width="25%">string 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-D7F05EB8-467F-49B1-97C8-15B6A99DBDD0">允许为位置和方向语义指定默认空间。有效值为“对象”(Object)、“世界”(World)、“视图”(View)和“摄影机”(Camera)。任何其他值均会忽略，且语义仍未定义。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-B0607392-B361-40CB-85F2-9BF7162BF633">“对象”(Object)对应于：语义 <samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-62C3D6C3-341D-40D4-AAFE-7AB784328FA5">MUniformParameter::kSemanticObjectPos</samp> 或 <samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-C7DC72E7-D13A-4603-AD85-CEBC96EA256B">MUniformParameter::kSemanticObjectDir</samp> 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-049C33F3-A278-4392-A1A5-BE889B65B567">“世界”(World)对应于：<samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-9599E2B2-6BAF-4E25-B158-6077194EF15C">MUniformParameter::kSemanticWorldPos</samp> 或 <samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-428D95EA-D1AF-4480-85C4-CF49EB1A2949">MUniformParameter::kSemanticWorldDir</samp> 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-A7CBE853-45D0-4ABF-AC41-5C62F6C30445">“视图”(View)或“摄影机”(Camera)对应于：<samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-7F3DBF3A-90A4-418B-A9A2-3E14B8995DAC">MUniformParameter::kSemanticViewPos</samp> 或 <samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-755FC20B-AC81-496E-9302-0FA714A9338A">MUniformParameter::kSemanticViewDir</samp> 
+					 </p>
+ 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__SECTION_4F9C3A41DA47434BBFF815611E9CBAD3"><h2 class="title sectiontitle">纹理特定参数注释</h2> 
+		 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__TABLE_BFEC3E4A8922450F8BE7B731EF21FD87" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-F06D4CD2-473E-4BBF-A8F3-2D64B332D3ED">名称</strong> 
+				  </td>
+<td class="entry" valign="top" width="25%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-8732C917-2C0B-4C5E-B6E2-0A42569E91EA">类型</strong> 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-9F7A4344-085B-4ACF-B33D-E96012B07648">描述</strong> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">mipmaplevels 
+				  </td>
+<td class="entry" valign="top" width="25%">int 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-CE17D754-89BA-4482-959D-D9115BA42997">dx11Shader 允许您控制在技术或纹理描述级别上应加载或生成的 Mip-map 级别数。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-2921F20F-E16F-42C2-B0D5-4140B8DC2C77">请将此注释与纹理描述结合使用。以下值有效。
+					 </p>
+ 
+					 <ul class="ul" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__UL_04422F0B10FB44F1B05481AC4E76B9B6"><li class="li" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__LI_84CDEDE9B3AA4A7F8A3735A255B0E058"> 
+						  <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-0CCA167A-0B0E-4A81-AABB-E34CC22A6FEE">&lt;val&gt; = 0：为受影响的纹理生成所有 Mipmap 级别。如果纹理中存在任何现有 Mipmap，则会对其进行加载。例如，这允许为 DDS 纹理加载预计算的 Mipmap。
+						  </p>
+ 
+						</li>
+<li class="li" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__LI_C3AD96B2967E45AE802E74756D5EDC44"> 
+						  <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-93D5A316-3EB3-4439-8C15-DFD87C59C0BC">&lt;val&gt; = 1-10：仅生成截至指定级别的 Mipmap。
+						  </p>
+ 
+						</li>
+</ul>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-FB3C50E5-544E-45B4-9079-756423ABFC63">为了减少纹理内存，dx11Shader 插件的默认值设置为 1，以便只加载/计算第一个 Mipmap 级别 (&lt;val&gt;=1)。
+					 </p>
+ 
+					 <div class="note note" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-99D29C46-F9DA-489A-9D1D-BC3B827FE97A"><span class="notetitle">注：</span> 对于 glslShader 和 shaderFX 插件，默认值设置为 0。
+					 </div>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-4CDDFAA9-D79B-4976-81E8-6DC49A1899D2">还可以强制对每个纹理执行此操作，明确减少内存使用量。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-A0ED96F0-1507-435D-AC7B-26059D43BF8A">示例实现如下所示：
+					 </p>
+ 
+					 <pre class="pre codeblock">Texture2D DiffuseTexture
+&lt;
+    string UIName = "Diffuse Map";
+    string ResourceType = "2D";
+    int mipmaplevels = &lt;val&gt;; 
+&gt;; </pre>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-88096979-8A6F-472E-B740-35EB76A68C77">此值优先于为技术注释设置的值 (texture_mipmaplevels)。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D.htm#GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__SECTION_69F3DD31952242A9A1922AF00307938D">支持的技术注释</a>。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-576930A5-1E03-4FF4-AB6A-7CB8A7DDDAFE">有关此注释的使用示例，请参见 Maya 安装文件夹 <samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-4C8CD8CD-794D-4058-B44C-667C6ED377C4">presets\HLSL11\examples</samp> 中的 <samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-445BB0EF-E0D8-4A20-88E5-610B48DB5B2A">AutodeskUberShader.fx</samp>。
+					 </p>
+ 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__SECTION_B00A07AC9682430B9C6B07EB22D63687"><h2 class="title sectiontitle">支持的语义</h2> 
+		 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__TABLE_54077711674847B39FA6BFB61C86CB6B" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="33.33333333333333%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-488BBD62-C060-4F53-AB21-D3233C32CED5">语义</strong> 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-DAB58FD9-7600-4A7B-AFC1-FA3EBCE28573">类型</strong> 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-AF493E6E-A96D-4DAF-9DD1-0D93F77E70CA">描述</strong> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%">颜色(Color) 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-1648678A-92BC-4396-87AD-3F5615A18DC8">float3/4 (dx11Shader) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-520E80D5-0183-452A-ABCE-D1E2828DF4B8">vec3/4 (glslShader) 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%">颜色参数：使用<span class="ph uicontrol" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-080CC115-4598-4BE1-9748-E5867790AAD2">“属性编辑器”(Attribute Editor)</span>中的“颜色选择器”(Color Chooser)构件。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%">Ambient 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-2AE9167B-E56A-4472-BA5C-0A1D23EFA65E">float3/4 (dx11Shader) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-F9853970-0A18-4900-831C-2DD6B6E22AEA">vec3/4 (glslShader) 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%">颜色参数：使用<span class="ph uicontrol" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-8290DBF6-AEEC-4E38-A453-6BDC543DACDB">“属性编辑器”(Attribute Editor)</span>中的“颜色选择器”(Color Chooser)构件。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%">Specular 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-C7C1399E-4EAE-45C5-BD6C-131100EFF52C">float3/4 (dx11Shader) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-827807AF-9260-4CB3-A7A6-72A13BB50D3C">vec3/4 (glslShader) 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%">颜色参数：使用<span class="ph uicontrol" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-B28D6A02-39D6-43F9-A138-2DDBE94EFD18">“属性编辑器”(Attribute Editor)</span>中的“颜色选择器”(Color Chooser)构件。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%">Diffuse 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-91F5D2FA-EB11-4476-A373-E5670BBCFADE">float3/4 (dx11Shader) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-45BC762A-A1D1-4079-93E0-EEC74DB6D9B6">vec3/4 (glslShader) 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%">颜色参数：使用<span class="ph uicontrol" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-4D965A88-CE4C-41FB-AAF0-BA7E0C6A366C">“属性编辑器”(Attribute Editor)</span>中的“颜色选择器”(Color Chooser)构件。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%">TranspDepthTexture 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%">texture 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-14318129-97A0-42AB-AFFE-5A6D26CA3B19">“深度剥离”(Depth Peeling)和“加权平均”(Weighted Average)透明度算法使用的纹理。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%">OpaqueDepthTexture 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%">texture 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-7C029827-66B9-4279-BB71-2B3D4634638E">“深度剥离”(Depth Peeling)和“加权平均”(Weighted Average)透明度算法使用的纹理。
+					 </p>
+ 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__SECTION_69BF5C30DC194842BCB19427449A9CF5"><h2 class="title sectiontitle">灯光特定语义</h2> 
+		 
+		<p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-ABA75C0E-5DE6-42B4-AEA5-F49C60695768">除了 <samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-9486468C-B30C-476B-8400-D07B8300C61C">MUniformParameter</samp> 类当前支持的所有语义外，<samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-02913302-EEE2-4B89-9C19-7C78A3B4FEAD">dx11ShaderNode</samp> 和 <samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-76AD85A7-2C00-4A55-BFD4-F836C344E626">GLSLShaderNode</samp> 还添加了额外的灯光特定语义，可将场景灯光的特性绑定到着色器参数。在灯光受 Maya 驱动时，所有支持的参数值将使用绘图上下文中的灯光信息写入。不支持的参数保留着色器中发现的值。这意味着连接点光源将驱动位置参数，而不是方向参数。
+		</p>
+ 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__TABLE_9009649BF1FB4FD483E66307090C08E5" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="20%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-C316B29C-A6C5-4692-BAB9-1FAC1BD719E5">语义</strong> 
+				  </td>
+<td class="entry" valign="top" width="20%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-270068B9-D29F-4E68-9FBB-E6747B440E15">类型</strong> 
+				  </td>
+<td class="entry" valign="top" width="20%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-F5DD2D01-1A18-4FD5-A0D7-E00B20429BBA">Maya 灯光参数</strong> 
+				  </td>
+<td class="entry" valign="top" width="40%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-44776DD4-34D6-42CE-B09F-814F47FE9445">描述</strong> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="20%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-EE1E2249-4319-4A13-875D-8967D4E14D08">LightColor、Color、
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-C2F8B209-E01F-4EA6-A261-6418760D868E">LightDiffuseColor、Diffuse、
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-52F03B15-CCA1-4031-83D3-5EC1D3BD43DE">LightAmbientColor、Ambient、
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-7BC9A38F-92F8-45D1-A75B-4D169F6B7E8A">LightSpecularColor、Specular 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="20%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-B7A91216-0134-457B-A3D4-9C96D069666D">float3/4 (dx11Shader) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-C9C06EB0-C2A0-42F9-A95B-060C4E7C0755">vec3/4 (glslShader) 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="20%">颜色(Color) 
+				  </td>
+<td class="entry" valign="top" width="40%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-C23CFF1D-173B-4C88-BA44-91264AE516C6">颜色参数：使用<span class="ph uicontrol" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-F9129ED2-69BA-4EF3-A903-9D05C7F56BE1">“属性编辑器”(Attribute Editor)</span>中的“颜色选择器”(Color Chooser)构件。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-9A7E1448-9731-4E11-88CA-A92D05BFC3C2">值没有预乘灯光强度。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="20%">LightIntensity 
+				  </td>
+<td class="entry" valign="top" width="20%">float 
+				  </td>
+<td class="entry" valign="top" width="20%">强度(Intensity) 
+				  </td>
+<td class="entry" valign="top" width="40%"> </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="20%">LightEnable 
+				  </td>
+<td class="entry" valign="top" width="20%">bool 
+				  </td>
+<td class="entry" valign="top" width="20%">照明(Illuminate)（默认） 
+				  </td>
+<td class="entry" valign="top" width="40%">遵循灯光可见性，包括全局灯光设置。如果为 true，则 Maya 灯光处于活动状态且可见。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="20%">LightType 
+				  </td>
+<td class="entry" valign="top" width="20%">int 
+				  </td>
+<td class="entry" valign="top" width="20%">类型 
+				  </td>
+<td class="entry" valign="top" width="40%">允许写入连接到任何灯光类型时能正确反应的常规照明代码。有效值为：
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-469F6032-F70C-4775-9C0B-B38C570109B6">2- 聚光灯(2- Spot) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-244D2948-0B28-4CB2-AED9-25C32A789C24">3- 点光源(3- Point) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-503AAAAB-25FC-4374-9AE9-09569FAA9893">4- 平行光(4- Directional) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-54F430E4-6A5D-4EC8-818E-B1DEB9AD08D4">5- 环境光(5- Ambient) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-BBE0F2B6-694A-46DC-9A31-9CAD2B562F7F">6- 体积光(6- Volume) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-3FCEA5A9-BF32-49C7-A66E-571EDACE2B5A">7- 区域光(7- Area) 
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="20%">Position 
+				  </td>
+<td class="entry" valign="top" width="20%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-C660C474-E708-4808-8C87-F97C6FBE1A37">float3/4 (dx11Shader) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-21929040-2FCC-480F-BDC4-E4414D858834">vec3/4 (glslShader) 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="20%"> </td>
+<td class="entry" valign="top" width="40%">点光源、聚光灯、区域光<span class="ph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-7F17F9BA-6610-4D46-AEB4-C7DF71F0306C">和体积光</span>的位置。
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-BD8C16E9-74DA-481D-A0ED-457689DD6C94">对于区域光，位置为区域光的中心。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-6D610E7C-649D-4818-B067-88D13CB4774F">可以使用注释指定引用空间。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="20%">Direction 
+				  </td>
+<td class="entry" valign="top" width="20%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-539932EA-FA38-46D5-B45D-A01D814F663E">float3/4 (dx11Shader) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-68B1C3F5-3546-4F6B-8AB6-C2F42F11AD86">vec3/4 (glslShader) 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="20%"> </td>
+<td class="entry" valign="top" width="40%">平行光和聚光灯的方向。可以使用注释指定引用空间。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="20%">AreaPosition0-3 
+				  </td>
+<td class="entry" valign="top" width="20%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-2779069F-4D18-41A3-9CE0-A6B034079F52">float3/4 (dx11Shader) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-19DA8A2A-1B53-4379-B635-96583FE79089">vec3/4 (glslShader) 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="20%"> </td>
+<td class="entry" valign="top" width="40%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-64179B67-EDC4-497F-82A6-6D838F6940DF">区域光四个角点的位置。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="20%">Hotspot 
+				  </td>
+<td class="entry" valign="top" width="20%">float 
+				  </td>
+<td class="entry" valign="top" width="20%">圆锥体角度(Cone Angle)/半影角度(Penumbra Angle) 
+				  </td>
+<td class="entry" valign="top" width="40%">对于聚光灯，一半角度（以弧度为单位）。Hotspot 等于 ConeAngle 和 (ConeAngle+PenumbraAngle) 之中的最小值。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="20%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-858D09A7-C7E9-407D-8753-BD67B6688551">LightFalloff 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-9562CB4A-88BB-40D0-891C-9F1FB403D309">Falloff 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="20%">float 
+				  </td>
+<td class="entry" valign="top" width="20%">圆锥体角度(Cone Angle)/半影角度(Penumbra Angle) 
+				  </td>
+<td class="entry" valign="top" width="40%">对于聚光灯，一半角度（以弧度为单位）。Falloff 等于 ConeAngle 和 (ConeAngle+PenumbraAngle) 之中的最大值。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="20%">DecayRate 
+				  </td>
+<td class="entry" valign="top" width="20%">float 
+				  </td>
+<td class="entry" valign="top" width="20%">衰退速率(Decay Rate) 
+				  </td>
+<td class="entry" valign="top" width="40%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-9E824E94-D646-4453-B26B-3948F5709E11">对于聚光灯、点光源、区域光和体积光，表示为指数。
+					 </p>
+ Maya 提供了以下值：
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-E91ABEFC-0330-47AD-8669-567D523FCB90">0.0 – 无衰退(0.0 – No Decay) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-26A2BDAC-E9B8-492E-BE9B-112EEBE1A056">1.0 – 线性(1.0 – Linear) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-9EDA8464-3887-4BD2-92C1-80D3639D5F2F">2.0 – 二次方(2.0 – Quadratic) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-EB70B845-2634-4D77-B423-CB7BF832A766">3.0 – 立方(3.0 – Cubic) 
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="20%">ShadowFlag 
+				  </td>
+<td class="entry" valign="top" width="20%">bool 
+				  </td>
+<td class="entry" valign="top" width="20%">视情况而定 
+				  </td>
+<td class="entry" valign="top" width="40%">如果为 true，灯光将投射曲面可接收的阴影。仅当全局“阴影”(Shadows)处于启用状态，灯光启用“使用深度贴图阴影”(Use Depth Map Shadows)，且曲面启用<em class="ph i" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-6552C675-B769-4385-8A9F-7E736599A472">“接收阴影</em>”(Receive Shadows)时，该值才为 true。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="20%">ShadowColor 
+				  </td>
+<td class="entry" valign="top" width="20%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-323E94C3-9CA2-4A41-AA71-F923659F4BAB">float3/4 (dx11Shader) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-7237935D-CC81-48FB-8228-C90922266B74">vec3/4 (glslShader) 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="20%">阴影颜色(Shadow Color) 
+				  </td>
+<td class="entry" valign="top" width="40%">颜色参数：使用<span class="ph uicontrol" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-18E87145-5E0F-48FF-98C3-CFAE83DE4BC3">“属性编辑器”(Attribute Editor)</span>中的“颜色选择器”(Color Chooser)构件。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="20%">ShadowMap 
+				  </td>
+<td class="entry" valign="top" width="20%">Texture2D 
+				  </td>
+<td class="entry" valign="top" width="20%"> </td>
+<td class="entry" valign="top" width="40%">包含由 Maya 计算出的深度贴图阴影纹理。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="20%">ShadowMapBias 
+				  </td>
+<td class="entry" valign="top" width="20%">float 
+				  </td>
+<td class="entry" valign="top" width="20%">深度贴图偏移(dmapBias) 
+				  </td>
+<td class="entry" valign="top" width="40%"> </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="20%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-262717FC-DD7E-47E0-A962-427F5996663B">ShadowMapMatrix 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-A922A473-44EF-4A51-A1E1-EAEB78BBA8CA">ShadowMapXForm 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="20%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-FA2AC6D1-5D47-4620-A533-B0B54293592E">float4x4 (dx11Shader) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-1D252384-F97F-4F4A-A7C9-3CB197C0833B">mat4 (glslShader) 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="20%"> </td>
+<td class="entry" valign="top" width="40%">查看灯光的变换矩阵 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__SECTION_630FC86973B440B1894838255A6FDA3A"><h2 class="title sectiontitle">顶点流的多种属性</h2> 
+		 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__TABLE_D159FC2EC86347AB8C175DE4F6CC1AA7" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="33.33333333333333%">语义 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%">类型 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%">说明 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%">POSITION 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-7895AA0E-581F-44C5-A1CC-67AB8664E5DE">float3/4 (dx11Shader) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-BFB1466E-95B7-4915-B3C4-EE4947FD712B">vec3/4 (glslShader) 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-0B0A444D-85C0-4F72-B9FD-467A7DEDA610">指示 <span class="ph msgph prodname" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 将此属性绑定到包含这些位置的顶点缓冲区。 
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%">NORMAL 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-92A3E93D-2500-417F-AE29-88284596DCD0">float3/4 (dx11Shader) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-B66CFA5A-3489-4DD2-9A57-E23BDD862D83">vec3/4 (glslShader) 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-E3FA28E4-602C-4D74-ADF3-1B2330A6D744">指示 <span class="ph msgph prodname" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 将此属性绑定到法线顶点缓冲区。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%">TANGENT 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-68F853CA-7600-4506-B48F-84FF5EDEAE74">float3/4 (dx11Shader) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-5B20C709-67D1-46D7-9E61-91A3E1A365D6">vec3/4 (glslShader) 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-9475F522-DB18-4DA5-8A7A-AA8121C1468A">指示 <span class="ph msgph prodname" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 将此属性绑定到切线顶点缓冲区。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%">BINORMAL 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-07CEADDB-0E35-4D74-8689-F01EA19B6A86">float3/4 (dx11Shader) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-62773DD8-C093-4C3A-B9C3-83D87255B508">vec3/4 (glslShader) 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-25783DD1-1938-43D4-AF7D-DDB5790F0C66">指示 <span class="ph msgph prodname" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 将此属性绑定到次法线（或双切线）顶点缓冲区。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%">COLOR0 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-B497A0A8-B02D-4328-A0D4-FD163F230AB8">float3/4 (dx11Shader) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-30FD1613-3B17-415C-9F1B-AAAABECCEA08">vec3/4 (glslShader) 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-574FFD1B-6978-4BD3-A87B-6E47648A2B1F">指示 <span class="ph msgph prodname" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 将此属性绑定到颜色集顶点缓冲区。
+					 </p>
+ 
+					 <div class="note note" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-136C9C60-D7DD-41E1-A6D7-0686EA4C8C96"><span class="notetitle">注：</span>  
+						<p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-20FF2756-BA76-493E-9FB1-F293F343D5E9">仅限 glslShader：
+						</p>
+ 
+						<p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-74366513-9CA2-4E9D-8093-34784111B6D7">目前，只有一个流可用。
+						</p>
+ 
+						<p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-5B655A49-8BB5-4581-96EA-5FB4F1C93AD4">尽管 OGSFX 仅限于 COLOR0 语义定义的一个颜色流，但是仍然可以通过使用 TEXCOORDx 语义定义多个颜色流。
+						</p>
+ 
+						<p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-31A1101D-21D1-4331-A32B-4E3193042F27">使用 vec3 或 vec4 型 TEXCOORDx 语义的属性可用来将颜色流传递给着色器，而使用 vec2 型 TEXCOORDx 语义的属性则可用来传递 UV 坐标流。
+						</p>
+ 
+					 </div>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%">TEXCOORD0-7 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-F5F1C525-2700-42B7-9DAA-F6ECEA107F13">float3/4 (dx11Shader) 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-63ED25AB-984D-4123-8891-BED33431E22C">vec2 或 vec3/4 (glslShader) 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="33.33333333333333%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-28D1E28C-BC28-4168-B7D1-2C3E3F8EFDF0">指示 <span class="ph msgph prodname" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 将此属性绑定到 UV 集顶点缓冲区。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-7B148165-1FF5-412A-9299-BFBF57FED8CA">目前，有 8 个流可用。
+					 </p>
+ 
+					 <div class="note note" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-A8F0906E-F535-4730-9521-534A98A75B31"><span class="notetitle">注：</span>  
+						<p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-404A9568-60C3-4676-8708-B9A6A11EDCDF">仅限 glslShader：
+						</p>
+ 
+						<p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-BD1121AF-D682-4AF6-BA27-F10CA52391DF"> 尽管 OGSFX 仅限于 COLOR0 语义定义的一个颜色流，但是仍然可以通过使用 TEXCOORDx 语义定义多个颜色流。
+						</p>
+ 
+						<p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-3451AACB-7BBF-44CB-84A8-94F49CA3C135">使用 vec3 或 vec4 型 TEXCOORDx 语义的属性可用来将颜色流传递到着色器，而使用 vec2 型 TEXCOORDx 语义的属性则可用来传递 UV 坐标流。
+						</p>
+ 
+					 </div>
+ 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__SECTION_0DD32EE5827540D78A95A2C74F101414"><h2 class="title sectiontitle">硬件雾特定的语义</h2> 
+		 
+		<div class="note note" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-69A42BE2-1D01-4BCC-8299-22852C357B95"><span class="notetitle">注：</span> 当前不支持 glslShader 插件。
+		</div>
+ 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__TABLE_DB8639FF539440868AA9EB5E74C265A3" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-7BDF432C-B2A0-4C08-8564-E582703FDB98">名称</strong> 
+				  </td>
+<td class="entry" valign="top" width="25%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-9027351E-B0AF-45FA-9DE7-D3080C186233">类型</strong> 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-ED4F164C-549C-465C-BB32-5BA6C4C6A233">描述</strong> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">HardwareFogEnabled 
+				  </td>
+<td class="entry" valign="top" width="25%">bool 
+				  </td>
+<td class="entry" valign="top" width="50%">指定是否已启用硬件雾。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">HardwareFogMode 
+				  </td>
+<td class="entry" valign="top" width="25%">int 
+				  </td>
+<td class="entry" valign="top" width="50%">指定雾类型是“线性”(Linear)、“指数”(Exponential)还是“指数平方”(Exponential squared)。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">HardwareFogStart 
+				  </td>
+<td class="entry" valign="top" width="25%">float 
+				  </td>
+<td class="entry" valign="top" width="50%">指定在线性雾中使用的近距离。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">HardwareFogEnd 
+				  </td>
+<td class="entry" valign="top" width="25%">float 
+				  </td>
+<td class="entry" valign="top" width="50%">指定在线性雾中使用的远距离。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">HardwareFogDensity 
+				  </td>
+<td class="entry" valign="top" width="25%">float 
+				  </td>
+<td class="entry" valign="top" width="50%">指定指数雾的密度。
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">HardwareFogColor 
+				  </td>
+<td class="entry" valign="top" width="25%">float4 (dx11Shader) 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-1BE9C146-BC8D-42CF-9000-D3DA8FE1DD94">vec4 (glslShader) 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="50%">指定以 RGBA 值表示的雾颜色。
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__SECTION_C94DE4D5CCC94A92996AEC11608FDE3B"><h2 class="title sectiontitle">选择语义</h2> 
+		 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__TABLE_7B84C29373414C87BC7DA1064908A76A" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-64265C5A-080B-4C16-A278-7F8E7BC7FD56">名称</strong> 
+				  </td>
+<td class="entry" valign="top" width="25%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-C2548D4C-022F-4FCB-B840-4CCB2DFF8B76">类型</strong> 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-4EB97908-0440-4E75-A5E9-3707747C27E0">描述</strong> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-1F590D50-8185-4A7C-AEE7-EB5AF4F923D2">HWS_PrimitiveBase 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%">int 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-0A2E9BD1-354E-4BD5-8AC1-821715AF4BA3">用于生成对象、第一个组件或第一个几何体实例的颜色的整数。（必须在“Viewport 2.0 选项”(Viewport 2.0 Options)窗口中启用“GPU 实例化”(GPU Instancing)。） 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-DFBE32FD-2B68-467C-AB8C-4C39ABA8CEEE">对应于：<samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-2BB34F8C-CCA6-4248-93AE-E58438FD4A55">MUniformParameter::kSemanticHWSPrimitiveBase</samp>。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-34B4A859-22AC-4105-8AFC-BBE1102C707E">HWS_PrimitiveCountPerInstance 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%">int 
+				  </td>
+<td class="entry" valign="top" width="50%">指定需要为每个几何体实例递增 HWS_PrimitiveBase 的量。
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-BFA452F3-5BB5-4708-8525-22C3997E32FE">对应于：<samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-B7C62642-9FEF-43BC-819E-F726111ED60B">MUniformParameter::kSemanticHWSPrimitiveCountPerInstance</samp>。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-DD398EE3-6035-4758-A5BE-438AF0B02D96">HWS_ObjectLevel 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%">bool 
+				  </td>
+<td class="entry" valign="top" width="50%">指定选择是否要在对象级别完成。
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-469C2851-A50D-470B-9060-83DDD360EE32">对应于：<samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-DE642F38-45AB-4BAD-B53B-F964FE35053E">MUniformParameter::kSemanticHWSObjectLevel</samp>。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-5B714042-67DF-4645-A62B-8A97BE38B61D">HWS_FaceLevel 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%">bool 
+				  </td>
+<td class="entry" valign="top" width="50%">指定选择是否要在面级别完成。
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-3F0E4236-8391-4767-A81B-E4DC487409B8">对应于：<samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-14601B1A-315F-43A2-BEFF-52DF067B7091">MUniformParameter::kSemanticHWSFaceLevel</samp>。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-BDF05016-19CF-40F9-8B7B-EBD47D70BE8D">HWS_EdgeLevel 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%">bool 
+				  </td>
+<td class="entry" valign="top" width="50%">指定选择是否要在边级别完成。
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-9EF83CDF-68D9-4CAC-9AAF-385147537B0C">对应于：<samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-5B4E75A9-2628-4545-B74C-72A9E7CEF138">MUniformParameter::kSemanticHWSEdgeLevel</samp>。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-93A4D578-9C05-45AF-B9A3-E56788E49384">HWS_VertexLevel 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%">bool 
+				  </td>
+<td class="entry" valign="top" width="50%">指定选择是否要在顶点级别完成。
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-EB00BA26-59E5-4A47-9AC3-E0CB96D55477">对应于：<samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-ADD414B4-888D-442E-B739-BAC89A6CA523">MUniformParameter::kSemanticHWSVertexLevel</samp>。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-D6A776FC-43E1-43BA-93B5-9014125DF8E6">HWS_FrontCCW 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%">bool 
+				  </td>
+<td class="entry" valign="top" width="50%">指定逆时针三角形是否前置。在生成脂肪点或线时非常有用。
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-C85AB3D2-6AC0-427C-ADC8-C55C1F0431C9">对应于：<samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-445F0066-C265-4E53-9C1A-8CA185D74406">MUniformParameter::kSemanticHWSFrontCCW</samp>。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-04287681-4564-47EB-9391-32312A2EBC8A">HWS_InstancedDraw 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%">bool 
+				  </td>
+<td class="entry" valign="top" width="50%">指定是否正在绘制几何体实例。
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-F523B3AD-0915-44FD-84B3-7F557F4E133F">对应于：<samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-FC1AA964-7A6B-4C30-B261-A9F52B4BAAEB">MUniformParameter::kSemanticHWSInstancedDraw</samp>。
+					 </p>
+ 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__SECTION_69F3DD31952242A9A1922AF00307938D"><h2 class="title sectiontitle">支持的技术注释</h2> 
+		 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__TABLE_F0883ED4A76A41E7B68272D4D24FF495" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-69559E6B-B40E-4B82-9B5B-AC14F02FAA60">名称</strong> 
+				  </td>
+<td class="entry" valign="top" width="25%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-D6E84AD2-812B-41BC-81F5-38FF33A8E32B">类型</strong> 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-C8BD229B-57BE-4648-9435-E64AB312B5C2">描述</strong> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">index_buffer_type 
+				  </td>
+<td class="entry" valign="top" width="25%">string 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-C214052C-BBC8-4FD3-8006-552AC537195F">允许通过索引缓冲区生成器和转变器插件指定自定义基本体类型。通常用于细分，以便为着色器提供包含多余数据的索引缓冲区。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-6CD8D64C-26D0-4CF8-A8EA-C5A1F1872811">dx11Shader/glslShader 项目将包含一个转变器，该转变器可以使用相邻边法线 (PN-AEN) 索引缓冲区生成点法线三角形。<span class="ph">请参见<em class="ph i" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-D4F48BE1-DEC9-42F7-B7D3-C61AAEA24AB2">“Maya 开发人员帮助”</em>中的<em class="ph i" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-E43B6DCD-981E-487E-9864-C68D351C0C39">“自定义着色器的几何数据”</em>。</span> 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-FCCE5680-251E-43C1-A487-1BD16E5251A0">对于 dx11Shader/glslShader，请使用以下值：
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-ED547C8F-71E2-4366-8C8C-9E606ED5993D">无值：默认索引缓冲区（默认） 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-FC9C80D7-D1BF-4D91-906F-4CFD5D5D53DA">“PNAEN9”/“GLSL_PNAEN9”：三角形和相邻边 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-CEF56FC3-70B4-425D-9410-4B8921848066">“PNAEN18”/“GLSL_PNAEN18”：三角形、相邻边、主边和主顶点 
+					 </p>
+ 
+					  
+					  
+					  
+					  
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-51B93109-7629-4532-A529-DCAB33E5B8EC">与索引转变器的注册名称匹配的任何其他值均可接受。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-D0A4213C-ADE3-4DD3-B1E5-D026F384C777">对应于 <samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-C560D528-289E-4CAE-93A3-84DFCE7D202A">MHWRender::MPxPrimitiveGenerator</samp>。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-B3B8693B-1129-4697-8FD3-7B349E3C68B2">texture_mipmaplevels 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%">int 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-A9FA0793-F3D5-464C-B49B-7A9257770F26">dx11Shader 允许您控制在技术或纹理描述级别上应加载或生成的 Mip-map 级别数。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-0A79CC22-0D01-4DB3-AB56-8746E3F69B85">将此注释与技术定义结合使用，以指定在使用此技术加载纹理时应该生成的 Mipmap 级别。以下值有效。
+					 </p>
+ 
+					 <ul class="ul" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__UL_D54C99E48CB24E529A397F5DB53C91E2"><li class="li" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__LI_70F1C0CD20E2493CAF32E2674C03FD70"> 
+						  <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-1FEDBBFE-4ADF-4103-9154-7F1A796AB7F3">&lt;val&gt; = 0：为受影响的纹理生成所有 Mipmap 级别。如果纹理中存在任何现有 Mipmap，则会对其进行加载。例如，这允许为 DDS 纹理加载预计算的 Mipmap。
+						  </p>
+ 
+						</li>
+<li class="li" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__LI_E96B0669A1854E9192D5699DBEA66856"> 
+						  <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-BDA9FEB1-5269-42CC-9BB9-F6F33EF345D3">&lt;val&gt; = 1-10：仅生成截至指定级别的 Mipmap。
+						  </p>
+ 
+						</li>
+</ul>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-A6BEA1DA-C353-4E3D-96CA-B928D3F1D9D4">为了减少纹理内存，dx11Shader 插件的默认值设置为 1，以便只加载/计算第一个 Mipmap 级别 (&lt;val&gt;=1)。
+					 </p>
+ 
+					 <div class="note note" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-5F412DA4-2BBF-40A6-87A5-C2CD5C712F5B"><span class="notetitle">注：</span> 对于 glslShader 和 shaderFX 插件，默认值设置为 0。
+					 </div>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-C7EA2449-52B9-4A78-8946-6D0D96F5F639">还可以强制对每个纹理执行此操作，明确减少内存使用量。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-B1D8BE69-FCD2-4B16-ABDD-39C7BE09FA9E">示例实现如下所示：
+					 </p>
+ 
+					 <pre class="pre codeblock">technique11 T0
+&lt; 
+    bool overridesDrawState = false;
+    int isTransparent = 0;
+    int texture_mipmaplevels = &lt;val&gt;;
+&gt;</pre>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-C40B42DB-6E4D-4C3B-8B36-DCE57720CC84">可以与参数注释 mipmaplevels 结合使用，在这种情况下，后者优先。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D.htm#GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__SECTION_4F9C3A41DA47434BBFF815611E9CBAD3">纹理特定参数注释</a>。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">isTransparent 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-1254D796-046E-4FE6-9C3A-97DB930792FE">(dx11Shader) 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%">int 
+				  </td>
+<td class="entry" valign="top" width="50%">指定效果的不透明度，允许 Maya 使用正确的过程和消隐。支持的值如下：
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-AD868D91-6CB9-433B-86B0-174043D5E6EB">0：技术始终是不透明的 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-0FE50EF0-3AB9-474E-95F0-2DED907DB6BA">1：技术始终是透明的 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-1EF2BC32-00A3-4A22-B320-B63C91368FA5">2：技术的不透明度与使用“不透明度”语义的浮点参数相关，且在不透明度值小于 1.0 时为透明状态。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">透明度(Transparency) 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-D3DDE4C5-B0FA-4303-A211-397D56C6E17C">(glslShader) 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%">string 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-863DBBA1-4CFC-4B83-A4F9-C9EEEB912FD9">指定是否应该在半透明度模式中渲染此技术。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-6518E17B-3C61-4176-9B05-9C98F5897ACB">“Opaque”：不透明（默认） 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-28761C34-BAC8-423B-A00A-2188D5EDBCF0">“Transparent”：已启用透明度。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-451BF4F3-324D-442B-A2CF-544D2E427457">对应于 <samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-2A1988BA-AA27-47DB-B87A-3E3BDDF4613B">MPxShaderOverride::isTransparent()</samp>。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">SupportsAdvancedTransparency 
+				  </td>
+<td class="entry" valign="top" width="25%">string (bool) 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-657C330D-2E4B-4082-91A4-EB5530DC3FE7">指定此技术是否支持高级透明度算法（例如，深度剥离）。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-A2C4A3AC-BE20-454F-9E4D-521CD44ECB4C">如果为 true，则此技术必须为绘制上下文“transparentPeel”、“transparentPeelAndAvg”和“transparentWeightedAvg”定义过程。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-CB1B486F-AC39-4848-AC9E-DD659AB5CCFB">“false”：不支持高级透明度（默认值） 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-0023667C-0B84-492D-94B8-CF6B465520C5">“true”：支持高级透明度 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-D2C3617E-B765-4ADA-9A1B-BA9AF5F8B8CE">对应于：<samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-2E452CE8-748E-416F-B67C-A172338778F3">MPxShaderOverride::supportsAdvancedTransparency()</samp>。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">OverridesDrawState 
+				  </td>
+<td class="entry" valign="top" width="25%">string (bool) 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-BF855B05-F4A6-4D4E-BEAE-9DC092AFF115">指定此技术是应该遵循 <span class="ph msgph prodname" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 的透明对象渲染还是自管（多过程）。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-E3DA5E39-6F1F-4A27-BB01-E57CB9317D0A">“false”：不覆盖状态（默认值） 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-1151977F-BF88-43D5-A7AD-A0C23769B8BE">“true”：自管 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-628A5747-D095-4196-94C3-B11085E01B2C">对应于：<samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-DD716F8A-CF8E-4972-8EFF-3AF337F3C45E">MPxShaderOverride::overridesDrawState()</samp>.
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-912BF29B-51E5-47D7-AF75-A30666B7904F">OverridesNonMaterialItems 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%">string (bool) 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-CC51A265-6BEB-446F-98AD-2192FA835170">指定是否应该使用此技术渲染非材质项，如线框和选定边/顶点组件。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-0AA1746B-A36F-4E8E-B162-1DF970CC0AC4">此选项特别适用于计算与渲染材质不匹配（导致很难选择）的对象几何体置换的着色效果。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-E0647899-CCF8-41EB-8F63-202312B1D1FA">“false”：不覆盖非材质项（默认） 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-EFF6EF3F-BAD1-4C48-9116-005BE7220E6B">“true”：用于渲染非材质项，以便着色器可以显示 UI 基本体 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-754472E1-81B6-4B6E-836D-68D35114832F">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D.htm#GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__SECTION_A918E2F899F4430F806D16FEEFCE82B2">支持的过程注释</a>中的 DrawContext。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-115748B5-3C43-4E96-9EFC-D803D4DB562D">对应于：<samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-B2FD68B7-EDB2-4870-A40E-4040ECA2A465">MPxShaderOverride::overridesNonMaterialItems()</samp> .
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">ExtraScale 
+				  </td>
+<td class="entry" valign="top" width="25%">float 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-95871978-E947-4914-BBD9-4D5B77E0E696">指定此技术是否需要额外的比例因子才能应用于对象空间边界框。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-27C3CABB-18B2-4B51-A87B-2E066F03829F">这允许此技术指示边界框应该大于基础几何体；通常是由于存在置换等效果，同时防止几何体在移动到视口边缘时或在选择期间被丢弃。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-7B9E297B-2D5E-4A0F-9F11-A1A724FBE9D6">默认值为 1.0。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-239B1DDE-EF2C-4A19-BD3D-EE6D43F993F7">对应于：<samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-E9058993-F2F4-4891-B256-3FE8B3984341">MPxShaderOverride::boundingBoxExtraScale()</samp>。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">VariableNameAsAttributeName 
+				  </td>
+<td class="entry" valign="top" width="25%">string (bool) 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-BF3F220D-8D83-431F-8E4B-F9134A774E4A">告知 <span class="ph msgph prodname" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 使用统一变量名称作为 <span class="ph msgph prodname" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 属性名称，而不是 UIName（如果存在）。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-32BE9779-0171-4C53-9203-3C21CC26347F">“false”：使用 UIName 作为属性名称（默认） 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-4CE3D288-9819-43E8-B538-79BFED22E191">“true”：使用变量名称作为属性名称 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-0157DFE3-1D5E-430F-9895-E2AF127B44A4">当在着色器文件中定义的 UI 名称已修改时，可用于保持与保存的 Maya 场景向后兼容。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-9ADF632C-A0EE-4358-85D8-9896CCAFAEFC">handlesConsolidatedGeometry 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%">string (bool) 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-80FC0CA4-9F50-4D1F-B4DB-E66709844F8F"> 如果设置为 False，则指定应在要应用 glslShader 的几何体上禁用<span class="ph uicontrol" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-88019BE8-E8A4-4403-94BB-F210A2F857C8">“合并世界”(Consolidate World)</span>功能。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-50AC0CBC-EA7B-432A-B87F-89EA7599A9CF">通过技术绘制其计算涉及对象的对象空间坐标（例如，使用世界变换矩阵）的置换时，此注释非常有用。<span class="ph uicontrol" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-4F20DC2D-F35B-4E8C-AA5B-7DA81224B561">“合并世界”(Consolidate World)</span>会将多个对象的顶点移到一个新的共享对象空间中，因此可能会导致插件着色器渲染错误。在这种情况下，您可能需要禁用<span class="ph uicontrol" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-BAE6D306-4A48-4C7C-9181-B8976D1EC80A">“合并世界”(Consolidate World)</span>。
+					 </p>
+ 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__SECTION_A918E2F899F4430F806D16FEEFCE82B2"><h2 class="title sectiontitle">支持的过程注释</h2> 
+		 
+		<p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-95148979-AE3E-4AC7-80BF-5FDFD9C1EB91">效果可以请求在特定上下文中激活技术中的某些过程，例如绘制阴影深度贴图时。通过添加名为“DrawContext”的字符串注释（用于指定激活过程的上下文）完成此操作。
+		</p>
+ 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__TABLE_C74BD6F539DF413481FA606AD68630BA" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-BD77AC8A-DADD-4AC7-AB30-04D247DA9DE5">名称</strong> 
+				  </td>
+<td class="entry" valign="top" width="25%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-8B96DA50-232F-4FA1-AA6C-44C300D71520">类型</strong> 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-6549FC69-6F19-498B-BA22-45EC1D0DD4E8">描述</strong> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">DrawContext 
+				  </td>
+<td class="entry" valign="top" width="25%">string 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-074D8C77-EAB3-4E22-8004-D148281FDFE1">指定应该只为该绘制上下文启用此过程。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-329E112D-01BD-4E4F-962C-171477120AD8">多个过程可以具有相同的 DrawContext 值。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-886A0000-4485-4BC0-A113-54D136B23A3F">这可以是与 <samp class="ph codeph" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-1AD018E3-D0E7-4654-9405-E52511C1495C">MHWRender::MPassContext</samp> 中的过程语义匹配的任何字符串值。例如，支持以下上下文：“colorPass”、“shadowPass”、“depthPass”和“normalDepthPass”。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-7727ADFD-DE51-48B3-BBBC-403E3F85631F">空值（或者如果未设置 DrawContext）等同于将此注释设置为“colorPass”。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-304B91AB-2E0D-4677-8BD7-A809F6B0FE4F"> 对于用于渲染非材质项的过程，设置为“nonMaterialItemsPass”。对于用于选择非材质项的过程，设置为“selectionPass”。请参见上文<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D.htm#GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__SECTION_69F3DD31952242A9A1922AF00307938D">支持的技术注释</a>中的 OverridesNonMaterialItems。
+					 </p>
+ 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-21C7265F-2CB2-428E-97B6-219B24107165">PrimitiveFilter 
+					 </p>
+ 
+				  </td>
+<td class="entry" valign="top" width="25%">string 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-C33F91AA-083B-459A-882A-CCC6BE05477B">指定此过程可以处理以下组件的渲染：
+					 </p>
+ 
+					 <ul class="ul" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__UL_1A44523D23B446FF858B900AEBFE19EF"><li class="li" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__LI_604DB24794F0403CA194A00447D771AD"> 
+						  <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-CF8BD163-B59E-4942-8733-EDDE676BE9DD"> 作为脂肪线的线（线宽 &gt; 1） 
+						  </p>
+ 
+						</li>
+<li class="li" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__LI_C0F1C2CD5F804636BE65EF6BAC204A7F"> 
+						  <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-5C306ED7-F42A-4663-AD2C-4723C81D8939"> 作为脂肪点的点（点大小 &gt; 1） 
+						  </p>
+ 
+						</li>
+</ul>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-03FB3213-356A-46DD-B5EA-51CE19CA998F">可用于在渲染过程或选择过程中处理边或顶点组件。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-E43A2D24-1A64-437D-847C-5841659DC8F3">顶点组件渲染为四边形而非单像素，边组件在预先选择亮显期间通常会渲染得更大，以获得更好的可见性。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-5BADA117-C9E4-4BFD-9AB2-84B1B68D699A">使用几何体着色器将线和点转化为四边形通常可以实现这一点。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-36D22B52-E2CD-4B46-8FE1-953F8ECD12E6">“fatLine”：此过程可以将线渲染为四边形 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-2E1A5F05-C3D1-4947-90F4-7514FE4A8A76">“fatPoint”：此过程可以将点渲染为四边形 
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-359F7A4E-3792-404F-AD78-F5EEAA226540">如果没有定义处理这种特殊情况的过程，则会使用处理绘制上下文“nonMaterialItemsPass”或“selectionPass”的默认过程。
+					 </p>
+ 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__SECTION_A19F1868D5B343A59FCC5C201B084143"><h2 class="title sectiontitle">全局语义</h2> 
+		 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__TABLE_BC17A477C9EA4FA6A782E806DB6D463F" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="25%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-9445B82F-8E29-48F3-B86C-D420ADBE58A7">名称</strong> 
+				  </td>
+<td class="entry" valign="top" width="25%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-949DD5D1-562A-4C88-80D5-AC8232B666A8">类型</strong> 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <strong class="ph b" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-B39766A5-B1D7-4BD1-AFB3-6E41A31BF44B">描述</strong> 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="25%">MayaSwatchRender 
+				  </td>
+<td class="entry" valign="top" width="25%">bool 
+				  </td>
+<td class="entry" valign="top" width="50%"> 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-96852760-0C54-4844-9A88-66224581716A">标识当前渲染过程何时用于绘制样例。
+					 </p>
+ 
+					 <p class="p" id="GUID-13229A83-B6A0-4280-840C-F9C6F40BB13D__GUID-F54FB208-DAF1-4764-A69D-D6DB5C6C0E35">允许用户在绘制样例时处理特定路径。
+					 </p>
+ 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5.htm">创建和渲染硬件着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="Bullet 工作流:碰撞检测;碰撞检测:Bullet 工作流">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987">
+<meta name="language" content="CHS">
+<title>使用 Bullet 刚体创建碰撞</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1> 使用 Bullet 刚体创建碰撞</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-629EEC6A-777A-4B24-8B6A-6550E79899C0"> 此工作流说明了三个对象中任意两个之间的刚体模拟和碰撞检测。 
+	 </p>
+<ol class="ol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__OL_C7860441E5574837BCCE54D7E2D96A25"><li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_ACB0D150B92747A8AF9000E17263B9AD">在新的 Maya 场景中，将 Maya 时间滑块的持续时间设置为 100 帧，并确保已将其设置为在第 1 帧播放。 
+		</li>
+<li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_6F3B7829B1CA482E9F5C3C6AC8C08317">创建多边形立方体，方法为选择<span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-8ECAC4DC-B6EB-4975-B064-3CCF30BB2022">“创建</span> &gt; <span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-1D4F456A-8127-4DFE-8BD5-1F6D723329C9">多边形基本体</span> &gt; <span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-8BC3BE78-5887-4B7D-A831-BAAFB4B2D922">立方体”(Create &gt; Polygon Primitives &gt; Cube)</span> &gt; <img class="image" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__IMAGE_6FCD25307D9145FEA4C4EBF9A72EFC8D" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">。 
+		</li>
+<li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_32D136C7F3624A5EB5BC93B78DE5DF7D"> 将<span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-DCA2D5DB-2B13-4CB1-B47F-5963B25F3C3B">“宽度”(Width)</span>、<span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-45A643AA-5BFB-403D-BF05-65EEE7E3A040">“高度”(Height)</span>和<span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-F2154DE6-CE7A-4F29-B6DB-1FA3ED51E5E2">“深度”(Depth)</span>设置为 2，然后单击<span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-54F7F1D3-F4EC-4DD3-A014-6D7109BEEDEF">“创建”(Create)</span>。 
+		</li>
+<li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_A39A322FE538462BAFCCBFBBFB024083">放置立方体，方法为将其<span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-F89A432A-3E8A-4DA9-8A0B-8216209C2495">“平移”(Translate)</span>值设置为以下值: 
+		  <ul class="ul" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__UL_2AE472CA323D4099B49D5D0C51FBC56A"><li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_0283FF0C3A564ABF8B83DEDD21239152">X: 0 
+			 </li>
+<li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_F0BF2E66812A4F35952A2EE61A22E25A">Y: 1 
+			 </li>
+<li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_9C486AAF717D49C5B7A2AFE6173666EC">Z: 0 
+			 </li>
+</ul>
+ 
+		  <div class="fig fignone" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__FIG_7E9DE21B8EBF43FC83093329DEE37A01"><img class="image" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__IMAGE_2AEB3CC9EF9040F9ACE8D0B1CA302918" src="../images/GUID-32378E99-3C80-4829-8114-996A4861E5FA.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_62DD9CA27EF84A0B82E40A6633CB6232">创建多边形球体，方法为选择<span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-FF32B970-1E90-4553-A889-CEDB8E2C8F13">“创建</span> &gt; <span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-A9398205-4644-4569-8EEF-717294E83424">多边形基本体</span> &gt; <span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-A956362F-FB6C-4A4B-87F2-56010B6551E2">球体”(Creat &gt; Polygon Primitives &gt; Sphere)</span>。将<span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-F0B2B839-DAFE-4BB3-B9BC-AF8C461D75E1">“半径”(Radius)</span>设置为 1，然后单击<span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-7735F024-AC42-4713-82B3-6162C51C4580">“创建”(Create)</span>。 
+		</li>
+<li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_7D867782C09146139D9D0F67E4FA8F0A">放置球体，方法为将其<span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-AC7E151D-9AC3-48B9-BABA-4AB4034EBB23">“平移”(Translate)</span>值设置为: 
+		  <ul class="ul" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__UL_7631CC816CC54E26A54D1C007C31B83C"><li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_0A4AC2D618CE4A9C935E8353A1911D00"> X: -10 
+			 </li>
+<li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_9F07E3BF80304043AB37A748835F48A7"> Y: 1 
+			 </li>
+<li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_F473503D2D6B4059AC95933A784B32B5">Z: 0 
+			 </li>
+</ul>
+ 
+		  <div class="fig fignone" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__FIG_BFE8509025D44CA9A2100D47BBE2FEE3"><img class="image" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__IMAGE_F94219B28E294F15A3438BA650C847A6" src="../images/GUID-0D969783-91A2-4DAB-B536-6CBDB129E115.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_15C30981924C4E8AAB4D97DD4B299738">将立方体和球体转化为刚体，方法是按 <img class="image" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__IMAGE_44E576C1DF524B8CB55F53E4011196BF" src="../images/GUID-08667A50-F943-4CA7-AF8B-4BF2A40E3297.png"> 键并选择它们，然后选择<span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-38A59041-46F1-4586-AAA6-49A0929D7A93">“Bullet</span> &gt; <span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-FB740B99-7760-4009-9FA8-E8400CCEF9E6">创建主动刚体”(Bullet &gt; Create Active Rigid Body)</span>。 
+		</li>
+<li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_42FBD05ED735484D86C93BD6023D3273">在“大纲视图”(Outliner)中，选择“bulletSolver”。 
+		</li>
+<li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_084C513D60E5428A8D446B4AC63E1C96">在“属性编辑器”(Attribute Editor)中，启用<span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-4F59A9D3-8276-4785-BC5C-4DA77BE4DDCE">“解算器特性”(Solver Properties)</span>部分的<span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-3B60E506-1006-43F2-954D-E1A8CF293880">“地平面”(Ground Plane)</span>。 
+		</li>
+<li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_F0E3EE6794B0409F8FBFF0829FC30BD7">在<span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-9EBAE925-0163-46BF-8C79-ACE308227B50">“属性编辑器”(Attribute Editor)</span>中，选择立方体并选择其 <span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-C7EDBDDE-6268-4F25-86A6-6A40344EC7CD">bulletRigidBodyShape</span> 节点选项卡。 
+		</li>
+<li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_B1A2AD5DCEED4DCEB43A4418E5FE77C6">在“刚体特性”(Rigid Body Properties)部分中，将<span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-F8202273-FA68-4D8E-A3C1-D12DCAF21C85">“摩擦力”(Friction)</span>设置为 0.1，这会减小由于目前作用在该对象上的摩擦所产生的力。 
+		</li>
+<li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_DAE1B6686C504783A8F205C04D50B2D2">将<span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-4037FB27-280B-49E4-B980-A3923C0C05ED">“恢复”(Restitution)</span>设置为 0.0，使该立方体在球体碰撞时不反弹。 
+		  <div class="note note" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-F583D6E4-0D05-4609-BB1E-CC9C57225E00"><span class="notetitle">注：</span> 尝试使用<span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-6DC6B6FD-1480-4945-A1AA-5582343F03BA">“恢复”(Restitution)</span>设置以创建球体推动立方体时的立方体反应， 
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_AC2E4C8971F4418BA7FDA7D255F0DC6E">在“属性编辑器”(Attribute Editor)中，选择球体并选择 <span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-6D71F835-6CA0-404E-96EE-CCC9FF6C6080">bulletRigidBodyShape</span> 节点选项卡。 
+		</li>
+<li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_6516A7EEF3104926A4798041CC1B2DB0">在“刚体特性”(Rigid Body Properties)部分中，将<span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-DC2F87F0-4358-4B06-AF17-9F9CDD7BEB96">“摩擦力”(Friction)</span>设置为 0.1，并在“力/冲量”(Forces/Impulses)部分中，将沿 X 轴的<span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-08FA938E-D487-4525-9E11-8B48104087FC">“冲量”(Impulse)</span>设置为 0.8。 
+		</li>
+<li class="li" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__LI_B0C616CC78AA42E9BF6410B4BA6DF0C1">在“碰撞对象特性”(Collider Properties)部分中，将<span class="ph uicontrol" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-93F49083-EE68-4E97-A93C-146ED79F4B38">“碰撞对象形状类型”(Collider Shape Type)</span>设置为球体。一种好方法是将碰撞对象形状类型尽可能匹配为正在使用的形状。播放模拟。 
+		  <div class="p" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__GUID-79901B95-4815-4090-903E-E556077008B1"> “冲量”(Impulse)属性沿 X 轴应用力，从而导致刚体球体沿平面滚动并与立方体碰撞，使其前行。 
+			 <div class="fig fignone" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__FIG_35D06D4F9CF6456584E44AEA81DF4F5A"><img class="image" id="GUID-B7B70358-7A1E-4162-94FF-FAFB08E46987__IMAGE_F75763832D7142EF8BBAE281D4C312D2" src="../images/GUID-8267DF70-3E52-455B-8F0B-AD286AA29D70.gif"></div>
+ 
+		  </div>
+ 
+		</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-44A75D64-8C67-4336-A7CC-9A99FD772C29.htm">Bullet 工作流示例</a></div>
+</div>
+</div>
+
+</body>
+</html>

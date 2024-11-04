@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="Bullet:Alembic 缓存工作流;Alembic:bullet 模拟">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E">
+<meta name="language" content="CHS">
+<title>使用 Alembic 渲染 Bullet 模拟</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 Alembic 渲染 Bullet 模拟</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-E1B97A2A-FB04-414C-8A8A-26785187C224">以下工作流显示了如何将 Bullet 解算器导出到 Alembic 缓存文件，以便导入到另一个带纹理的场景版本来节省时间。您可以在 Maya 中使用 Alembic 缓存，以在产品级流水线的各个阶段之间传递 Bullet 模拟。Alembic 缓存文件的内容作为 Maya 几何体进行求值，并且可以使用多边形、NURBS 和细分曲面编辑工具进行修改。 </p>
+<p class="p" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-4E3C499E-6BCF-4E75-A35F-E50298F4E1B8"> 有关 Alembic 缓存系统工作方式的详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-332E42EB-148B-4AFC-8F8C-B912470609C6">关于 Alembic 缓存</a>。 </p>
+<p class="p" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-5C472524-99A3-4CAB-9AB3-D6A0BE7A5ED6"> 此工作方式非常适合将由其他团队（如照明或摄影艺术家）开发的场景，在这些场景中，您可以为他们提供轻量版本的模拟，使他们可以在最终渲染之前添加其元素。 </p>
+<div class="p" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-8D960113-79D6-4A1D-BA7D-20138C14C038">此工作流分为两个部分： <ul class="ul" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__UL_2BACA74185FC4B17B91CFB629A0025DC"><li class="li" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__LI_8C1DBE5EF5694153B0F7331C23B1AFA9">将模拟导出到缓存文件 </li>
+<li class="li" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__LI_BABD77BD0B9D4E8BB65C0505C4E09AA2">导入缓存文件 </li>
+</ul>
+ </div>
+<div class="note note" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-D5B71D96-8374-4812-AA80-1C1406D8DE52"><span class="notetitle">注：</span> 
+<ul class="ul" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__UL_2B197BFA37AC43A7874EB878E6FE5275"><li class="li" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__LI_1B86BF96B4A344E99DFDBC13C4EE776C">如果场景有一个名称空间，则在与渲染场景合并之前，必须将该名称空间移除。使用<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-4595D8DC-7CE2-45FB-BB0A-47C666EEB030">“窗口”(Window)</span> &gt;<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-E08F2CD7-8336-4FDE-9CA4-93846DFAD6D3">“常规”(General)</span> &gt;<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-8139C5B1-3C37-43DF-965E-39800AA98EE2">
+<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-A6A47F1A-A6B7-43EF-9BB4-E3832D8453DC">“名称空间编辑器”(Namespace Editor)</span>
+</a>以在导出前移除该名称空间。 </li>
+<li class="li" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__LI_493CB41D298D4F5C8E3FAB850ED7B917">您可以使用 VP2.0 屏幕外生成播放预览，从而可以从命令行使用 mayabatch 生成播放预览。 </li>
+<li class="li" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__LI_970B158E407447D59294E853FB383FE9"> 如果材质是黑色的，则回放场景以更新材质。 </li>
+<li class="li" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__LI_E4D099B384934BE3BCDA3F0246EA2E50">创建刚体集时，可以在<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-BAF0A4FA-C99C-4E91-BA36-A9A278BFC4C9">“创建刚体集”(Create Rigid Set)</span>选项中使用输出网格创建（以便可视化模拟结果），也可以让 Viewport 2.0 渲染该刚体集（已解算状态节点中的“可见性”(Visibility)选项），但无需两种方法都使用。如果您使用的是旧版视口，可以使用<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-2CD00593-E6AD-4CF2-9803-887FD1843E11">“创建刚体集”(Create Rigid Set)</span>选项中的“输出网格”(Output Mesh)设置进行创建，如果使用的是 Viewport 2.0，则无需如此。 </li>
+<li class="li" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__LI_7006A9B1297C4149AA985E58925E2B74"> 在创建 Bullet 刚体集之前冻结缩放。缩放变换值未正确传递到生成的已解算对象。 </li>
+</ul>
+
+</div>
+<p class="p" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-36E8BCA7-9FD0-45DD-9063-88C0E61C19E0">您可以选择导出刚体集、附加了单个刚体的对象或者场景中的任何内容。对于该示例，我们会导出刚体集（山脉顶部），因此我们选择<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-9D4CBC02-C03B-45FC-AA8E-1A7E7F62E82D">“将当前选择导出到 Alembic”(Export selection to Alembic)</span>。 </p>
+<p class="p" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-D6C6D362-4594-48D3-8AF5-4399E0DCBF31"> 单击播放器控件中的 <strong class="ph b" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-95B46BDE-EF74-4993-9881-AB82891281D3">CC</strong> 按钮以启用/禁用以下视频的字幕： </p>
+<div class="section" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__SECTION_98283181336347649F34D7CA20D189BA"><h2 class="title sectiontitle">将模拟导出到缓存文件</h2>
+
+<p class="p" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-1D4716B7-8C3A-439F-AA57-F07192266B4F">在工作流的这一部分中，我们首先使用通过 Viewport 2.0 设置的岩面场景的线框版本，其中包括山脉底部的网格和山脉顶部的断裂刚体集。我们将创建刚体模拟层次的 Alembic 缓存文件，该文件可发送给负责添加照明和摄影机的第二个团队。使用 Alembic 工作流，就不用模拟和驱动实际对象，从而可以节约时间。 </p>
+
+<p class="li listintro" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-C43FB28C-5378-4B41-8901-D265F96F4FCD">若要将解算输出到 Alembic 缓存文件，请执行以下操作：</p>
+<ol class="ol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__OL_BD1472BC43184CFE9B6EFC4B2B3E8CB9"><div class="note note" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-4E02C5B9-2896-4D25-93C2-6BF47F1836DE"><span class="notetitle">注：</span>  当前，Bullet Alembic 导出不支持几何图形已应用缩放的工作流。移除对象任何缩放和/或局部枢轴后，再将 Bullet 解算器附加到对象。  </div>
+<li class="li" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__LI_1112104E23594EB582FB64A083B7F2B4">若要设置场景以便导出，请禁用已解算状态节点中的“可见性”(Visibility)选项，并将场景切换到<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-084AF7A3-DD51-478F-B2AE-08E4E32ECF64">“线框”(Wireframe)</span>模式。可以在“Bullet 解算形状”(Bullet Solved Shape)节点中启用<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-770FB618-444D-4607-A63A-1B864DB07E20">“边界框”(Bounding Box)</span>，以进行非常基本的解算器显示。 </li>
+<li class="li" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__LI_36A5BF5EC8284154B76F7BDB4F5F2D23">按<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-922B117A-7970-4D15-84C5-52454908F186">“播放”(Play)</span>查看模拟。调整物理设置（如有必要）。一旦模拟准备就绪，我们必须将动画传递到具有材质和纹理的原始几何体。 </li>
+<li class="li" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__LI_F9BC39D78DC1404EA37E73162AB1AE05">选择刚体集或网格对象。 </li>
+<li class="li" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__LI_101240AC60EF43AE8362A604062BB09B">选择<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-F7ADACE0-A337-4C3F-920A-ABD21E014CFF">“Bullet</span> &gt; <span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-DF6904CB-2D81-4133-A007-268D76830D81">将当前选择导出到 Alembic”(Bullet &gt; Export Selection to Alembic)</span>。有两个选项：<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-67C0C8BD-C314-4D18-9CE1-15BF5E2EBC28">“将当前选择导出到 Alembic”(Export Selection to Alembic)</span>（仅过滤 Bullet 刚体对象）和<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-45843788-7A29-45F9-A6CA-218A4980821B">“将所有内容导出到 Alembic”(Export All to Alembic)</span>。在此工作流程中，选择<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-F5877391-D22D-436E-9339-B80D0490EA01">“将当前选择导出到 Alembic”(Export Selection to Alembic)</span>将包括刚体集和所有刚体形状。 </li>
+<li class="li" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__LI_07F429A52AAB4F569218708DF7CA31E0">将打开<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-74C5FE27-0350-47AA-B57A-E91612D42F39">“导出当前选择”(Export Selection)</span>窗口。您可以选择使用时间滑块、设置开始和结束帧或其他时间范围。 </li>
+<li class="li" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__LI_775DC44B52B947A9997427D4F8A713FD">向下滚动以启用<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-8CA6CADD-5F05-4D3A-B5DF-9D07C3CE0BFB">“去除名称空间”(Strip Namespace)</span>选项。如果场景有一个名称空间，则在与渲染场景合并时，必须将该名称空间移除。 </li>
+<li class="li" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__LI_0087AE20527043BEB144FEBC4099F58D">选择<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-60A46936-21A5-4450-898A-A13AB38D9A64">“HDF5”</span>作为文件格式。 <div class="note note" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-264622AF-FC36-4AC2-9682-BE9D3B92FDD4"><span class="notetitle">注：</span> 不提供对 Ogawa 文件格式的 Bullet 支持。 </div>
+ </li>
+<li class="li" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__LI_88B69D12FB0A45368AC18559721C43C0">输入导出文件的名称，然后单击<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-EDC9194A-6693-4712-AB48-054A061E3141">“导出选定对象”(Export Selected)</span>。模拟将在导出时运行。 <div class="fig fignone" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__FIG_17659004CAA54E848378CC5585C96A84"><img class="image" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__IMAGE_F61E321BBE5F473FBE6633116A8D71EC" src="../images/GUID-2167D9CC-7DFD-4535-AF8F-A261E349C77D.png"></div>
+ <div class="note note" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-3CC386D4-97F1-4D06-8B80-2F3FE0BA7877"><span class="notetitle">注：</span> 为了更快地进行解算，可以批量运行解算。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-8A51B291-706A-434F-B97D-A3720A525E24">批渲染静止图像或动画</a>。 </div>
+ </li>
+</ol>
+
+</div>
+<div class="section" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__SECTION_3438E5D2174D455FBBCBE3E7F79E8B42"><h2 class="title sectiontitle">导入缓存文件</h2>
+
+<p class="p" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-690F8E04-77F1-4DA6-803D-216C7037D895">在工作流的这一部分中，照明和摄影机团队接收导出的 Alembic 缓存文件，并将其与具有灯光和摄影机的场景版本合并在一起。第二个团队的场景中包含与创建该解析的团队相同的层次，但没有动画。 </p>
+
+</div>
+<p class="li listintro" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-6234510B-0C1E-46CE-9770-9ADEA827BA2C">若要将 Alembic 缓存导入渲染文件，请执行以下操作：</p>
+<ol class="ol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__OL_18FA3B9976524C8997A99E4C1C36752C"><li class="li" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__LI_A8CA008F8F5B4758949FA26437F1ECC4">我们加载具有相同层次的静态场景，但这次我们加载具有纹理、材质、灯光和摄影机的静态场景。 <div class="fig fignone" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__FIG_689EDC0D57E04C4B945F4C146CE7E700"><img class="image" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__IMAGE_3970438E121345FFA182865DC5F051D1" src="../images/GUID-BD4CDE3B-916F-4DC7-9EC3-105D2BF5CC21.png"></div>
+ <div class="note note" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-6140F7A0-9C3B-477E-9DD3-77CD140FB7A5"><span class="notetitle">注：</span> 渲染场景层次没有名称空间。文件上存在名称空间时，如果希望将其绑定到导入的缓存文件，则需要事先移除该名称空间，因为 Alembic 不支持将 abc 文件导入现有的名称空间。 </div>
+ </li>
+<li class="li" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__LI_9B2F5DC0AFB84E7D806E6B1FC2CC47E0">选择<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-F633036D-4B31-4872-B7D2-1DE5DA935FA6">“缓存</span> &gt; <span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-E267B7AE-C15C-40F7-B3EB-2FA87DC2A985">Alembic 缓存</span> &gt;<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-9E3624B7-711E-4605-B98F-6F2B5C363153"> 导入 Alembic”(Cache &gt; Import Alembic &gt; Import Alembic)</span> &gt; <img class="image" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__IMAGE_74955FC5B8EA4E409A2737C281F19D16" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">。 </li>
+<li class="li" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__LI_4E776D46FFA0497F89917EBAF0B97F27">在<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-E33F5E71-84B5-4B18-8EEE-7C5EB52754F8">“Alembic 导入”(Alembic Import)</span>窗口中，选择<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-88E4AF8D-DC5F-4F29-BF8C-E4C023A318A2">“在当前选择下导入”(Import Under Current Selection)</span>和<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-20F48107-A806-46C4-99E9-9A8A4A68C428">“合并”(Merge)</span>。这会在 .abc 文件中应用动画并将其与新层次中的匹配对象进行连接。 </li>
+<li class="li" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__LI_C608D4EE870548D7B3742AF7A95A49D6">单击<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-F8999CAC-1F8F-4480-9F30-7E63563E5967">“导入”(Import)</span>。单击<span class="ph uicontrol" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-A3DD203C-DDC9-43CB-9090-F541FB8697BD">“播放”(Play)</span>可在渲染场景中查看解算。 <div class="fig fignone" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__FIG_6858B4EF03EF4A82855584D3BC063203"><img class="image" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__IMAGE_8AAAAAF1E50B48B381C4DCE51E0A538D" src="../images/GUID-ED3DAFCD-FF79-468F-9F3B-A8D13EB58100.png"></div>
+ <div class="note note" id="GUID-C0C66CE1-A2BB-402E-AA16-49F58E8BFB8E__GUID-0996ACC3-D89B-4B09-BFA5-444AFBCB1C5A"><span class="notetitle">注：</span> 拥有场景后，您可以将其提交以进行渲染或生成播放预览。 </div>
+ </li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-44A75D64-8C67-4336-A7CC-9A99FD772C29.htm">Bullet 工作流示例</a></div>
+</div>
+</div>
+
+</body>
+</html>

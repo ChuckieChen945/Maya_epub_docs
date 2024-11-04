@@ -1,0 +1,85 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-MayaPlugin">
+  <meta name="topicid" content="Bifrost_MayaPlugin_input_objects_from_the_scene_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>从场景输入几何体和材质</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>从场景输入几何体和材质</h1></div><p>在图表中，可以将多边形网格、曲线、nParticle 对象和材质用作输入。例如，网格可由图表进行变形，或用于在模拟中发射粒子等其他用途。</p>
+<p>位于图表顶层的所有输入节点均有一个<strong>“路径”(Path)</strong>部分，可用于从场景中获取几何对象。</p>
+<p><code>path</code> 参数包含一个字符串，可用于查询场景并返回匹配的对象或对象数组。如果重命名场景中的对象，连接会一直保留，直到您在 <code>path</code> 参数中按 Enter 键以重新查询场景。在这种情况下，可以输入新名称以重新创建连接。</p>
+<p>仅可在图表的顶级从场景输入对象。无法输入复合内的对象。</p>
+<h2 id="maya-outliner">从 Maya 的“大纲视图”(Outliner)拖动对象</h2><p>使用鼠标中键将对象或其形状从 Maya 的<strong>“大纲视图”(Outliner)</strong>拖动到<strong>“Bifrost 曲线图编辑器”(Bifrost Graph Editor)</strong>中图表的顶层。或者，您可以使用鼠标左键拖动图标（而非名称）。</p>
+<p>将创建新的 <code>input</code> 类型节点，其名称与对象名称相同。请注意，不支持层次 - 仅导入第一个有效形状。</p>
+<ul>
+<li>Maya 网格将作为 Bifrost 网格导入。</li>
+<li>曲线将作为股对象导入。使用 <code>input</code> 节点上的选项控制如何对曲线重采样。</li>
+<li>nParticle 对象将作为点对象导入，但首先使用自动创建的名为 <code>convertParticleToBifrost</code> 的第二个图表进行转化。您只需在<strong>“曲线图编辑器”(Graph Editor)</strong>中关闭此选项卡即可。</li>
+<li>材质将成为材质参照。请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-MayaPlugin/files/Bifrost_MayaPlugin_input_objects_from_the_scene_html.html?guid=Bifrost_Common_apply_materials_html">应用材质</a>。</li>
+<li>变换（例如空组）将变为 <code>float4x4</code>。可以通过在输入节点的输出端口上单击鼠标右键将其转换为 <code>double4x4</code>。</li>
+</ul>
+<p>如果选择了多个对象并将其拖动到图表中，则每个对象类型都有一个单独的输入节点。</p>
+<ul>
+<li>多个选定网格将作为一组网格导入。如果打算以不同的方式（例如，作为发射器、碰撞对象等）使用网格，建议逐个输入它们。</li>
+<li>默认情况下，对多条曲线进行采样并将其作为单个股对象导入。如果需要，可以稍后将其转化为一组股，方法是在 <code>input</code> 节点的输出端口上单击鼠标右键并更改其类型。</li>
+</ul>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>您也可以使用鼠标中键从<strong>“节点编辑器”(Node Editor)</strong>或<strong>“Hypergraph”</strong>拖动形状。</p>
+
+</div></div>
+
+<h2 id="">将材质拖动到图表中</h2><p>与几何对象类似，您也可以使用鼠标中键将材质拖动到图表中。对于<strong>“节点编辑器”(Node Editor)</strong>和<strong>“Hypershade”</strong>以及<strong>“大纲视图”(Outliner)</strong>（如果<strong>“显示 &gt; 指定的材质”(Display &gt; Assigned Materials)</strong>处于启用状态）中可见的材质节点，均可执行此操作。</p>
+<h2 id="">手动添加场景引用</h2><p>您可以手动添加 <code>input</code> 节点并指定对象，而不是将对象拖动到图表中。</p>
+<ol>
+<li>在图表顶级，按 Tab 键并开始键入 <code>input</code>。单击 <code>input</code> 将节点添加到图表中。</li>
+<li>在“参数编辑器”(Parameter Editor)的<strong>“路径”(Path)</strong>框中，输入形状的名称或路径，例如“/pSphere1/pSphereShape1”。名称和路径均区分大小写。</li>
+</ol>
+<h3 id="">多个对象和通配符</h3><p>要指定多个对象作为数组，请使用一个以空格分隔的列表，例如“/pCube1/pCubeShape1 /pSphere1/pSphereShape1”。</p>
+<p>也支持通配符“*”和“?”。将“//”用于任意深的层次。例如：</p>
+<ul>
+<li>“/<em>/</em>”指定不属于某个组或变换层次的所有受支持的几何体。</li>
+<li>“/group1/*/”指定 group1 中所有受支持的几何体。</li>
+<li>“/p<em>/</em>”指定属于变换节点直接子对象的所有受支持的几何体，其名称以“p”开头，不属于某个组或层次。</li>
+<li>“/<em>/</em>S*”指定名称中带有“S”且不属于某个组或层次的所有受支持的几何体。</li>
+<li>“//*”指定场景中所有受支持的几何体。</li>
+<li>“/group1//*”指定“group1”下层次中任意位置所有受支持的几何体。</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

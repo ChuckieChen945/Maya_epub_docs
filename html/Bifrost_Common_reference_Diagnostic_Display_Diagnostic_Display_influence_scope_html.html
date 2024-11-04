@@ -1,0 +1,105 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Diagnostic_Display_Diagnostic_Display_influence_scope_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>influence_scope</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>influence_scope</code></h1></div><p>influence_scope 可视化输入影响物对象的特性，例如该对象的力、遮罩、阻力、删除或要修改的特性。标量特性（如遮罩值）在点形状上可以显示为颜色和大小，而向量特性则绘制为箭头或流线。</p>
+<p>点是在边界框内或探测几何体顶点位置进行采样的。如果使用探测几何体，则还可以选择应用边界框。</p>
+<h2 id="">用法示例</h2><p>要使用此功能，请创建一个影响物（例如 <code>turbulence_influence</code>），将来自它的 <code>out_influence</code> 插入到 influence_scope 的 <code>influence</code> 中。然后将输出 <code>diagonostic_geo</code> 插入到图表的输出中以实现可视化。</p>
+<h2 id="">输入</h2><h3 id="influence"><code>influence</code></h3><p>要可视化的影响物对象。可按菊花链状方式构建影响物以获得复杂效果。内部影响物对象可能有多个特性，例如力、遮罩、阻力、删除和要修改的特性。</p>
+<h3 id="probe_geometry"><code>probe_geometry</code></h3><p>如果连接到此项，则将在几何体位置进行采样，否则将根据 divisions 使用边界框进行采样。</p>
+<p>几何体可以是网格、点对象（如粒子系统）或体积。如果是体积，则将在体素位置对点进行采样，这可能需要进行大量采样。可以使用 <code>skip_prop_samples</code> 和 <code>apply_bounds_to_probe</code> 特性减少来自探测的采样数。另请注意，如果影响物包含代理场，则它们将使用探测几何体进行解算，前提是探测几何体上存在代理特性。在这种情况下，探测几何体应该是应用影响物的对象，如 simulate_aero 或 simulate_particles 的输出。另请注意，如果使用流线，则代理无法进行解算。</p>
+<h3 id="bounds_geometry"><code>bounds_geometry</code></h3><p>如果连接此项，则将使用几何体的边界框覆盖最小边界和最大边界。</p>
+<h2 id="">影响物特性</h2><p>此项控制将可视化来自影响物的哪些标量特性：</p>
+<ul>
+<li><code>None</code>：不显示任何标量特性。</li>
+<li><code>Mask</code>：影响物遮罩，范围为 0-1。</li>
+<li><code>Kill</code>：影响物删除粒子或密度时采用的速率。</li>
+<li><code>Drag</code>：影响物应用的阻力大小。</li>
+<li><code>Force Magnitude</code>：力向量的长度。</li>
+<li><code>Property</code>：如果选择此项，则需要定义 point_property 名称。这应该是由影响物修改的特性，例如在 modify_influence 或 set_influence_property 中修改的特性。</li>
+</ul>
+<h3 id="point_size"><code>point_size</code></h3><p>此项控制输出点的总体大小。它与来自 <code>size_remap</code> 曲线的最终值输出相乘。</p>
+<h3 id="point_property_name"><code>point_property_name</code></h3><p><code>point_display</code> 设置为 <code>Property</code> 时，这是由影响物设置的某个特性的名称，例如，通过 modify_influence 或使用 set_influence_property 设置的特性。</p>
+<h3 id="vector_display"><code>vector_display</code></h3><p>此项控制将可视化来自影响物的哪些向量特性 (float3)：</p>
+<ul>
+<li><code>None</code>：不显示任何向量特性。</li>
+<li><code>Force</code>：影响物将应用的力。</li>
+<li><code>Property</code>：如果选择此项，则需要定义 vector_property 名称。这应该是由影响物修改的特性，例如在 modify_influence 或 set_influence_property 中修改的特性。</li>
+</ul>
+<h3 id="vector_length"><code>vector_length</code></h3><p>此项控制输出箭头或流线的总长度。它与来自 <code>length_remap</code> 曲线的最终值输出相乘。</p>
+<h3 id="vector_width"><code>vector_width</code></h3><p>这是箭头的宽度以及流线的宽度。</p>
+<h3 id="vector_property_name"><code>vector_property_name</code></h3><p><code>vector_display</code> 设置为 <code>Property</code> 时，这是由影响物设置的某个特性的名称，例如，通过 modify_influence 或使用 set_influence_property 设置的特性。</p>
+<h3 id="apply_mask"><code>apply_mask</code></h3><p>启用此项后，内部影响物遮罩将以在解算器内部应用的方式应用于影响物值（如力）。</p>
+<h2 id="">重映射值</h2><h3 id="size_remap"><code>size_remap</code></h3><p>此曲线可用于控制影响物值如何映射到点的大小。沿曲线底部的值表示输入场值，这些位置处曲线的值是输出。如果曲线的前外推和后外推恒定，则超出这些范围的值将会钳制。</p>
+<h3 id="length_remap"><code>length_remap</code></h3><p>此曲线可用于控制影响物向量值如何映射到箭头的长度。沿曲线底部的值表示输入场长度值，这些位置处曲线的值是输出长度。如果曲线的前外推和后外推恒定，则超出这些范围的值将会钳制。</p>
+<h3 id="color_remap"><code>color_remap</code></h3><p>此项将影响物值重映射到颜色值的查找。原始点特性或向量特性的长度将使用此曲线进行重映射，然后结果将用作 3 条颜色曲线的输入。</p>
+<p>通常，最简单的做法是将颜色曲线保留在 0-1 范围内，并调整颜色重映射以确定映射到颜色的场范围。如果希望将 20.0 到 25.0 之间的影响物值映射到颜色范围，则将两个顶点的位置移动到 20（值为 0.0）和 25（值为 1.0）。</p>
+<h2 id="">形状和颜色</h2><h3 id="vector_base_brightness"><code>vector_base_brightness</code></h3><p>此项缩放调整箭头的根部位置处的颜色。如果为 1.0，则箭头从根部到头部是统一的颜色。如果为零，则箭头的根部将为黑色，而头部将为定义的颜色值。</p>
+<h3 id="point_display"><code>point_display</code></h3><p>要显示影响物的哪个特性。 </p>
+<h3 id="point_shape"><code>point_shape</code></h3><p>要用于绘制的形状：</p>
+<ul>
+<li><code>point</code>：由一个像素组成的简单点</li>
+<li><code>disk</code>：实心圆</li>
+<li><code>circle</code>：线条绘制的圆</li>
+<li><code>cube</code>：实心立方体</li>
+<li><code>sphere</code>：实心球体</li>
+<li><code>numeric</code>：此项可用于将场显示为数字。</li>
+</ul>
+<h3 id="screen_aligned"><code>screen_aligned</code></h3><p>如果为 true，点形状将旋转为朝向摄影机。</p>
+<h3 id="color_r"><code>color_R</code></h3><p>红色范围。</p>
+<h3 id="color_g"><code>color_G</code></h3><p>绿色范围。</p>
+<h3 id="color_b"><code>color_B</code></h3><p>蓝色范围。</p>
+<h3 id="draw_arrowheads"><code>draw_arrowheads</code></h3><p>将向量绘制为带有头部的箭头，而不是锥形线。</p>
+<h3 id="vector_numeric_display"><code>vector_numeric_display</code></h3><p>将原始场值绘制为文本。对于向量 xyz，这是每个点的三个浮点数。</p>
+<h2 id="">采样</h2><p>使用范围时，将对边界框内的均匀栅格进行采样，其中 <code>divisions</code> 特性控制此框相对于最大轴的细分。如果存在探测几何体，则将在探测几何体的各点处采样，而忽略 <code>divisions</code>。</p>
+<h3 id="min__bounds"><code>min__bounds</code></h3><p>这是一个表示边界框的最小位置的 float3。如果有连接到 <code>bounds_geometry</code> 的对象，则其将覆盖此设置。</p>
+<h3 id="max_bounds"><code>max_bounds</code></h3><p>这是一个表示边界框的最大位置的 float3。如果有连接到 <code>bounds_geometry</code> 的对象，则其将覆盖此设置。</p>
+<h3 id="divisions"><code>divisions</code></h3><p>此项控制在没有探测几何体时的采样数。在最小/最大边界内生成一个均匀的采样栅格，其中 divisions 是沿主轴的采样计数。</p>
+<h3 id="skip_probe_samples"><code>skip_probe_samples</code></h3><p>使用探测几何体时，此项可用于按 X 的间隔跳过采样。值为零时将使用每个几何体点，而值为 1 时将按 1 个点的间隔使用点，值为 2 时将按 2 个点的间隔使用点，依此类推。当探测为体积（可能有许多体素）时，这可能特别有用。</p>
+<h3 id="apply_bounds_to_probe"><code>apply_bounds_to_probe</code></h3><p>使用探测几何体时，此项可用于进一步将边界框应用于探测采样。</p>
+<h2 id="">流线显示</h2><p>流线是从采样位置开始并通过影响物向量特性（视为速度）跟踪流的股。它们可以被认为是模拟粒子在影响物体积中平流传递的路径。</p>
+<h3 id="display_flowlines"><code>display_flowlines</code></h3><p>如果启用此项，则将绘制流线，而不是箭头。</p>
+<h3 id="flowline_length_in_sec"><code>flowline_length_in_sec</code></h3><p>流线路径长度由粒子在此时间内移动的距离确定，此时向量场被视为速度。</p>
+<h3 id="flowline_samples_per_second"><code>flowline_samples_per_second</code></h3><p>此项确定创建流线时采用的步数。值较大时，产生的曲线更加平滑，从而更加准确地符合影响物向量场，但也会增加计算量。如果 <code>flowline_length_in_seconds</code> 为 2，此项为 100，则每条流线将有 200 个采样。</p>
+<h2 id="">输出</h2><h3 id="diagnostic_geo"><code>diagnostic_geo</code></h3><p>这是一个输出点和/或股几何体，其中包含调整了颜色和大小的采样值。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Diagnostic/Bifrost_Common_reference_Diagnostic_Display_html.html">Display</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

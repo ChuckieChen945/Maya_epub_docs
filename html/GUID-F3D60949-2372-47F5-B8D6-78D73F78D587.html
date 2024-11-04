@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Customizing">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587">
+<meta name="language" content="CHS">
+<title>每当 Maya 启动时运行 MEL 命令</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>每当 Maya 启动时运行 MEL 命令</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__WS73099CC142F487553B93539F117EA10CE8F25F6"> 
+		当 <span class="ph msgph prodname" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 启动时，都会运行 <samp class="ph codeph" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__GUID-B54722FA-AF95-4F17-AF3D-996E29C9E56E">userSetup.mel</samp> 文件中的任何命令。您可以使用此文件来设置您的工作环境或执行常用的 MEL 命令（如锯齿）。
+	 </p>
+<p class="p" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__WS73099CC142F487553B93539F117EA10CE8F25F8"><samp class="ph codeph" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__GUID-9EAFDEFB-50DE-40DD-9953-C265613DB978">userSetup.mel</samp>/ <samp class="ph codeph">userSetup.py</samp> 脚本将在 <span class="ph msgph prodname" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 初始化和设置阶段执行，因此只有用于设置工作环境且不依赖于 <span class="ph msgph prodname" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 功能的命令才能在此脚本中成功运行。
+	 </p>
+<p class="li listintro" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__WS73099CC142F487553B93539F117EA10CE8F25FA">在 <span class="ph msgph prodname" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 每次启动时都运行一组特定的 MEL 命令</p>
+<ol class="ol" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__WS73099CC142F487553B93539F117EA10CE8F25F9"><li class="li" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__WS73099CC142F487553B93539F117EA10CE8F25FB">在以下文件夹中创建名为 <samp class="ph codeph" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__GUID-6D6B9E94-3115-4881-9776-2F2B754D09B5">userSetup.mel</samp> 或 <samp class="ph codeph">userSetup.py</samp> 的文件：
+		  <ul class="ul" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__WS73099CC142F487553B93539F117EA10CE8F25FC"><li class="li" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__WS73099CC142F487553B93539F117EA10CE8F25FD">Windows：<samp class="ph codeph" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__GUID-919F3047-68FE-40D1-8BDE-7E566C87A8C3">..\My Documents\maya\&lt;版本&gt;\scripts</samp> 
+			 </li>
+<li class="li" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__WS73099CC142F487553B93539F117EA10CE8F25FE">Mac OS X：<samp class="ph codeph" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__GUID-CD201052-7C7D-41C3-B56B-BCF3A122269B">~/Library/Preferences/Autodesk/maya/&lt;version&gt;/scripts</samp>。
+			 </li>
+<li class="li" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__WS73099CC142F487553B93539F117EA10CE8F25FF">Linux：<samp class="ph codeph" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__GUID-A05BFD9C-5C86-47AE-9395-DBED471F71EF">~/maya/&lt;version&gt;/scripts</samp>。
+			 </li>
+<p class="p" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__WS73099CC142F487553B93539F117EA10CE8F2600">（其中 ~ 是主文件夹） 
+		  </p>
+</ul>
+ 
+		</li>
+<li class="li" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__WS73099CC142F487553B93539F117EA10CE8F2601">在 <samp class="ph codeph" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__GUID-2C429C82-CDB5-4653-9368-046DD068E0F9">userSetup.mel</samp> 文件中，键入要让 <span class="ph msgph prodname" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 在启动时运行的命令。
+		</li>
+</ol>
+<div class="p"> 
+		<div class="note note" id="GUID-F3D60949-2372-47F5-B8D6-78D73F78D587__GUID-80EF282B-03A9-4403-8615-7CE7932F8E01"><span class="notetitle">注：</span> 您可以通过<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-2176117C-6998-4802-9F9F-1417DF41C661.htm">“安全”(Security)首选项</a>控制 Maya 是否自动读取/执行 userSetup。
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-37E02448-88B4-4722-8B8A-1BA607E5D1CC.htm">高级自定义</a></div>
+</div>
+</div>
+
+</body>
+</html>

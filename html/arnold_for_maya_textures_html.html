@@ -1,0 +1,192 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_textures_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="TEXTURES_MAIN">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 纹理 - Arnold for Maya">
+
+<title>纹理</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+<div class="head-block"><h1>纹理</h1></div>
+<div class="arnold-note">
+
+
+
+<table>
+<thead>
+<tr>
+<th>延伸阅读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>请参见<strong>《Arnold 用户手册》</strong>中的<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_textures_html" target="_blank">纹理</a></td>
+</tr>
+<tr>
+<td><strong>《Arnold for Maya 用户手册》</strong>介绍了如何在 Maya 用户界面中使用 Arnold 纹理。<strong>《Arnold 用户手册》</strong>提供了有关 Arnold 纹理的完整文档。</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<h2 id="tx-auto-generate-tx-textures">自动生成 TX 纹理(Auto-generate TX Textures)</h2><p>使用 Arnold 时，建议使用通过 maketx 创建的经过 Mipmap 处理的分片纹理格式，例如 .exr 或 .tx。</p>
+<ul>
+<li>有关此过程的教程，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_rendering_am_MakeTX_A_Wooden_Floor_html">此处</a>。</li>
+</ul>
+<p>默认情况下，系统将为每个<em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_texture_am_Ai_Image_html">图像</a></em> 着色器自动生成经过 Mipmap 处理的分片 TX 纹理。生成的 TX 将放置在原始纹理文件旁边。当纹理文件名包含 UDIM 等标记时，系统将为每个子分片生成 TX 纹理。</p>
+<p>将纹理转化为 TX 可能需要一些时间，特别是对于存储在网络共享中的大型纹理，但通常只有在第一次渲染时才执行此操作。对于后续渲染，如果检测到现有的匹配 TX 纹理，则不会重新生成，除非源纹理内容或颜色空间已更改。另请注意，如果输入纹理文件名的扩展名已经是 <code>.tx</code>，则将保留原样。</p>
+<h3 id="">禁用自动生成</h3><p>可以在 Arnold <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_system_am_Render_Settings_html">渲染设置(Render Settings)</a>的<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_textures_html">纹理(Textures)</a>选项卡中找到禁用自动生成 .tx 纹理的开关，以全局禁用 TX 自动生成。此外，使用 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_texture_am_Ai_Image_html">Ai</a> <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_texture_am_Ai_Image_html">图像</a>着色器和 Maya 文件节点上的<em>自动生成 TX 纹理(Auto-generate TX Textures)</em>开关，也可针对每个纹理禁用此行为。</p>
+<h3 id="">线性化</h3><p>此外，TX 纹理将根据 Maya 的<em>颜色管理(Color Management)</em>设置中的颜色空间规则进行线性化。</p>
+<p>如果不使用经过 Mipmap 处理的纹理，则没有纹理过滤。这会导致存在一些差异，特别是对于放射性贴图和置换贴图。</p>
+<h2 id="">清除缓存</h2><p><img src="../images/flush_caches.png" alt=""></p>
+<p><sub><strong>“清除缓存”(Flush Caches)菜单位于应用程序主窗口的 Arnold 菜单栏中</strong></sub></p>
+<p>如果默认启用了<em>“自动 Mipmap”(Auto-mipmap)</em>或<em>“自动分片”(Auto-tile)</em>选项，OIIO 会在首次使用纹理的渲染过程中执行纹理预处理。这会将纹理保存在纹理缓存中，后续的渲染将不再需要执行此过程。但此做法的缺点是，在 Windows 中，纹理将在首次渲染后被锁定。<br>如果需要在渲染期间修改纹理，则可以采取以下操作：</p>
+<ul>
+<li>使用<em>“清除缓存 -&gt; 纹理”(Flush Caches -&gt; Textures)</em>命令。</li>
+<li>修改纹理期间，禁用<em>“自动 Mipmap”(Auto-mipmap)</em>和<em>“自动分片”(Auto-tile)</em>选项。使用此选项，每次渲染前将不会执行任何预处理。</li>
+</ul>
+<p>渲染开始后，使用的纹理文件会被锁定（即便渲染并非 IPR 会话），无法被其他应用程序（例如 Photoshop）写入。这时通常会显示以下消息：</p>
+<p><img src="../images/could_not_save.png" alt=""></p>
+<p>用户随后必须关闭应用程序并重新打开场景，以便 Arnold 插件接受新保存的纹理文件。解决方法是清除缓存。</p>
+<ul>
+<li>还必须禁用“自动 TX”(Auto-TX)，否则，将使用 .tx 纹理，并可能会修改原始文件。</li>
+<li>此问题仅存在于 Windows 平台上。Linux 和 Mac OS 不受影响。</li>
+<li>要观看演示此工作流的简短视频，请单击<a href="">此处</a>。</li>
+</ul>
+<p><strong>选定纹理(Selected Textures)</strong></p>
+<p>仅清除选定纹理。</p>
+<p><strong>天穹灯光(Skydome lights)</strong></p>
+<p>清除指定给天穹灯光的所有纹理。</p>
+<p><strong>四边形灯光(Quad lights)</strong></p>
+<p>清除指定给四边形灯光的所有纹理。</p>
+<p><strong>全部(All)</strong></p>
+<p>清除场景中的所有纹理缓存，包括法线、天穹和四边形灯光纹理。</p>
+<h2 id="maketx">Maketx</h2><p>Maketx 是一个将图像转化为经过 Mipmap 处理的分片纹理的命令行工具，类似于 Pixar Renderman 中的 txmake。它是 OpenImageIO (<a href="http://www.openimageio.org/" target="_blank">http://www.openimageio.org</a>) 的一部分，由 Sony Pictures Imageworks 公司的 Larry Gritz 开发。</p>
+<ul>
+<li>有关在使用 .tx 文件时所涉及工作流的教程，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_rendering_am_MakeTX_A_Wooden_Floor_html">此处</a>。</li>
+<li>如果不使用经过 Mipmap 处理的纹理，则没有纹理过滤。这会导致存在一些差异，特别是对于放射性贴图和置换贴图。</li>
+<li>请勿将用来推导标量值的纹理线性化，否则会失去精度值。</li>
+<li>maketx 工具位于 MtoA 插件文件夹中。在 Windows 中，为如下位置：</li>
+<li>C:\Program Files\Autodesk\Arnold\maya2020</li>
+</ul>
+<h2 id="mipmap">Mipmap 偏差</h2><p><img src="../images/mip_map_bias.png" alt=""></p>
+<p>Mipmap 偏差会偏移进行纹理采样的 Mipmap 级别。负值表示较大的 Mipmap 级别（纹理更大）；正值表示较小的 Mipmap 级别（纹理更小）。在以下图像的顶部，这一点很明显：</p>
+<p><img src="../images/level_detail.jpg" alt=""></p>
+<p><sub><strong>显示 Mipmap 处理的图像</strong></sub></p>
+<p>以下示例显示了增加 Mipmap 偏差对渲染的影响：</p>
+<p><img src="../images/mipmap_bias_0_1_2.jpg" alt=""></p>
+<h2 id="">标记</h2><p>除了Arnold <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_filename_tokens_ac_token_attr_html" target="_blank">attr</a>、<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_filename_tokens_ac_token_tile_html" target="_blank">tile</a> 和 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_filename_tokens_ac_token_udim_html" target="_blank">udim</a> 标记，MtoA 还支持 shapeName 和 shapePath 标记。</p>
+<p>除了Arnold <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_filename_tokens_ac_token_attr_html" target="_blank">attr</a>、<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_filename_tokens_ac_token_tile_html" target="_blank">tile</a> 和 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_filename_tokens_ac_token_udim_html" target="_blank">udim</a> 标记，MtoA 还支持 shapeName 和 shapePath 标记。</p>
+<h3 id="shapename">shapeName</h3><p>纹理标记 <shapename> 可直接将网格名称与纹理名称连接起来，并在渲染时替换“形状”的名称。</shapename></p>
+<p>下面是一个示例 shapeName 工作流：</p>
+<ul>
+<li><p>将这两个纹理重命名为：</p>
+<pre class="pre codeblock"><code class="prettyprint">   main_BlueShape.jpg  </code></pre><pre class="pre codeblock"><code class="prettyprint">   main_RedShape.jpg  </code></pre></li>
+</ul>
+<p><img src="../images/mtoa_shapename1.png" alt=""></p>
+<ul>
+<li>将 <strong>main_<shapename>.jpg</shapename></strong> 添加到在 Maya 中为两个网格指定的文件纹理的图像名称。</li>
+</ul>
+<p><img src="../images/mtoa_shapename2.png" alt=""></p>
+<ul>
+<li>将两个网格分别重命名为“Red”和“Blue”之后，即会自动替换纹理。</li>
+</ul>
+<p><img src="../images/mtoa_shapename3.png" alt=""></p>
+<h3 id="shapepath">shapePath</h3><p><shapepath> 标记替换为导出到 Arnold 的节点的完整名称且“|”被替换为“_”。但是，仅当在渲染设置中导出完整路径时才会如此。</shapepath></p>
+<p>例如，Maya 中名为 | <em>pCube1|pCubeShape1</em> 的节点将在 <shapepath> 中变为 <em>_pCube1_pCubeShape1</em>。</shapepath></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>以后可能会弃用此功能，因为可以改用 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_filename_tokens_ac_token_attr_html" target="_blank"></a><a href="attr:name">attr:name</a> 来获得节点名称。</p>
+
+</div></div>
+
+<h3 id="">示例</h3><table>
+<thead>
+<tr>
+<th>标记</th>
+<th>纹理名称</th>
+<th>纹理路径</th>
+<th>形状名称</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="attr:">attr:</a></td>
+<td>moon.tx</td>
+<td>&lt;attr:planet default:moon&gt;.tx</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><shapename></shapename></td>
+<td>main_RedShape.tx</td>
+<td>main_<shapename>.tx</shapename></td>
+<td>Red</td>
+<td>RedShape</td>
+</tr>
+<tr>
+<td><tile></tile></td>
+<td>texture _u1_v1.tx</td>
+<td>texture<tile>.tx</tile></td>
+<td></td>
+<td>_u1_v1</td>
+</tr>
+<tr>
+<td><udim></udim></td>
+<td>texture_v0001.tx</td>
+<td>texture_v0001.<udim>.tx</udim></td>
+<td></td>
+<td>1001、1002、1003 等</td>
+</tr>
+</tbody></table>
+<ul>
+<li>如果在<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_system_am_Search_Path_html">渲染设置(Render Settings)</a>中启用<strong>“绝对纹理路径”(Absolute Texture Paths)</strong>，则必须在文本框中输入（或粘贴）完整的绝对路径。如果字符串中包含标记，则 Maya 无法解析该路径，因此它仅存储文本框中的字符串。如果使用文件浏览器并插入标记，则 Maya 仅提供该路径的部分字符串。请观看此示例<a href="http://www.screencast.com/t/c6krc3KT" target="_blank">视频</a>。</li>
+<li>在<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_system_am_Search_Path_html">渲染设置(Render Settings)</a>中禁用<strong>“绝对纹理路径”(Absolute Texture Paths)</strong>。然后，部分（和未解析的）路径将与纹理搜索路径组合在一起，形成完整的绝对纹理路径。</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/arnold_for_maya_am_Arnold_for_Maya_User_Guide_html.html">Arnold for Maya 用户手册</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

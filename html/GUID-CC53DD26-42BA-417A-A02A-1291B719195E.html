@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-CC53DD26-42BA-417A-A02A-1291B719195E">
+<meta name="language" content="CHS">
+<title>使用特定粒子</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用特定粒子</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E8C"> 每粒子属性包含每个对象粒子的属性值。例如，<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-2440C329-9468-49A4-B267-993D8AE755D4">“rgbPP”</span>属性包含每个粒子的<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-B3756248-2EDE-4452-AA0B-A94E73CD83FD">“rgbPP”</span>值的值。 </p>
+<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E8A">每个粒子都具有唯一的数值粒子标识符。粒子的标识符存储在粒子对象的每粒子<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-C0788C09-5403-454B-A23B-8291366BCA14">“particleId”</span>属性中。创建粒子对象的粒子时，Maya 按连续顺序（从 0 开始）为每个粒子指定 particleId。 </p>
+<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E89">例如，假设通过单击工作区中的位置来使用<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-7EC56327-EEC1-4E22-B344-8A724754B6E5">“粒子工具”(Particle tool)</span>创建五粒子对象。第一次单击鼠标会创建 particleId 为 0 的粒子，第二次单击时会创建 particleId 为 1 的粒子，第三次单击时会创建 particleId 为 2 的粒子，以此类推。</p>
+<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E88">发射器发射粒子时，Maya 按连续顺序（从第一个发射的粒子开始）指定 particleId 编号。第一个发射的粒子的 particleId 为 0，第二个发射的粒子的 particleId 为 1，第三个发射的粒子的 particleId 为 2，以此类推。</p>
+<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E87"> 可以使用 particleId 属性将每粒子属性值指定给特定粒子。 </p>
+<div class="section" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E84"><h2 class="title sectiontitle">示例</h2>
+
+<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E83">假设您已使用<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-7C16AA24-16EB-49D2-A568-706C2FF91650">“粒子工具”(Particle tool)</span>创建 9 个粒子的栅格，名为<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-08F8BEBF-A5BF-4FB2-8DF4-92C25B700884">“ColorGrid”</span>。在<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-5C7F7295-AB24-4BCB-9566-4D92881DD65A">“属性编辑器”(Attribute Editor)</span>中，您已将粒子的<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-3B29F89A-A73E-4030-93D3-11AC18CE6179">“粒子渲染类型”(Particle Render Type)</span>设定为<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-AF17EEFB-4C54-4C93-AB88-44ABEBF80B73">“球体”(Spheres)</span>。您已选择<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-F63FC8A5-5E0C-4F83-979B-BEEB6DCCC75F">“着色 &gt; 对所有项目进行平滑着色处理”(Shading &gt; Smooth Shade All)</span>来显示着色的粒子。</p>
+
+<div class="fig fignone" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E82"><img class="image" width="139" height="125" src="../images/GUID-459CA4FF-2A3F-4A9E-A094-E54FA33F611F.png"></div>
+
+<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E81">您可以根据它们的 particleId 为粒子设置不同的颜色。</p>
+
+<p class="li listintro" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E7F"> 若要根据 particleId 设置粒子的颜色，请执行下列操作：</p>
+<ol class="ol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E80"><li class="li" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E7D">选择<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-DA249530-787D-479F-950F-339E226FABEB">“ColorGrid”</span>。</li>
+<li class="li" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E7C">在<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-88507CC8-CAF1-4D8E-992E-E9F60974A04F">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-CD178C1C-A2CE-48EE-91C1-A0BA4E027B26">“添加动态属性”(Add Dynamic Attributes)</span>部分，单击<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-AC14A64C-775A-4CC5-B898-5D05B60EC00F">“颜色”(Color)</span>。 <p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E7B">将显示<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-CABDC8D4-F83C-413A-A4D7-09ADF4F47A46">“粒子颜色”(Particle Color)</span>窗口。</p>
+</li>
+<li class="li" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E7A">选择<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-9DA8F68C-D626-4B47-BBD4-C2711A816219">“添加每粒子属性”(Add Per Particle Attribute)</span>，然后单击<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-61B8ADC3-0554-47FC-9BE5-BE8E6E4619F8">“添加属性”(Add Attribute)</span>。<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E79">该操作会添加名为<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-0FEB9D14-8B92-47BC-BCE6-3B83D4B6F8AA">“rgbPP”</span>的每粒子属性，控制每个粒子的红、绿和蓝颜色方案。 </p>
+<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E78">未选择粒子时，这些粒子会在您添加<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-FFBA6EC6-8962-4A5D-9A1C-6D16D392BA8E">“rgbPP”</span>属性之后变为黑色。添加 rgbPP 属性会禁用粒子的默认颜色，并为它们赋值 &lt;&lt;0,0,0&gt;&gt;。</p>
+</li>
+<li class="li" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E77"> 在<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-6BBA9644-4F38-4B87-9B67-963D7F624828">“属性编辑器”(Attribute Editor)</span>中，从<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-449EE39E-415E-4B62-A4B4-9D0A27A3F282">“粒子渲染类型”(Particle Render Type)</span>菜单中选择<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-F757348B-0B3E-4427-A18E-42F4E5CADC0B">“数值”(Numeric)</span>。<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E74">显示每个粒子的 particleId，而不是球体：</p>
+<div class="fig fignone" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E73"><img class="image" width="135" height="103" src="../images/GUID-D6CE7EE9-AA81-459D-8D2E-7FA3CCFE5D40.png"></div>
+</li>
+<li class="li" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E72">在<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-A9D21EAA-F1C3-4164-AEB1-E021999D01F7">“表达式编辑器”(Expression Editor)</span>中选择<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-C0C07F3D-AE8D-4BDA-8CD5-3D339347DBDD">“ColorGridShape”</span>，输入该创建表达式：<pre class="pre codeblock">
+if (particleId &lt;= 2) 	rgbPP = &lt;&lt;1,0,0&gt;&gt;; else if ((particleId &gt; 2) &amp;&amp; (particleId &lt; 6)) 	rgbPP = &lt;&lt;1,1,1&gt;&gt;; else rgbPP = &lt;&lt;0,0,1&gt;&gt;;
+</pre>
+<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E71">创建表达式在回放动画时执行。粒子尚未显示颜色指定。<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-73CD6021-DDDD-4C51-BF79-8453E9AAA911">“数值”(Numeric)</span><span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-4BC28DEC-9AC9-4A40-A00F-B97F4177DFD5">“粒子渲染类型”(particle render type)</span>会忽略指定给<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-01895A07-E74C-41DF-BD47-823D2EF48459">“rgbPP”</span>的颜色。 </p>
+</li>
+<li class="li" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E70">在<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-6281E56A-E84C-4B52-9DB0-6A70E797FDC4">“属性编辑器”(Attribute Editor)</span>中，再次将粒子的<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-C38FE8E2-EB4D-4CC7-85F3-23BCA29CA3E3">“粒子渲染类型”(Particle Render Type)</span>设定为<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-7A57EAEE-BA90-471E-A1E0-44183426549A">“球体”(Spheres)</span>。<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E6F">粒子的左列、中间列和右列的颜色分别为红色、白色和蓝色：</p>
+<div class="fig fignone" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E6E"><img class="image" width="148" height="119" src="../images/GUID-54602F4A-7BBE-44FB-939E-60C037F23419.png"></div>
+<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E6D">表达式的第一个语句指定 particleId 小于或等于 2 的所有粒子为红色。在 RGB 颜色方案中，值 &lt;&lt;1,0,0&gt;&gt; 为红色。</p>
+<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E6C">第二个语句指定 particleId 大于 2 且小于 6 的所有粒子为白色。在 RGB 颜色方案中，值 &lt;&lt;1,1,1&gt;&gt; 为白色。 </p>
+<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E6B">第三个语句指定不满足以上两个语句条件的所有粒子为蓝色。也就是说，particleId 大于或等于 6 的所有粒子变为蓝色。在 RGB 颜色方案中，值 &lt;&lt;0,0,1&gt;&gt; 为蓝色。</p>
+<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E6A">以下步骤介绍了另一种根据 particleId 属性控制属性的常用方法。</p>
+</li>
+</ol>
+
+<p class="li listintro" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E68">若要将一半粒子的颜色设置为红色，另一半粒子的颜色设置为蓝色，请执行以下操作：</p>
+<ol class="ol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E69"><li class="li" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E67">输入以下运行时表达式：<pre class="pre codeblock">
+if ((particleId % 2) == 0) 	rgbPP = &lt;&lt;1,0,0&gt;&gt;; else rgbPP = &lt;&lt;0,0,1&gt;&gt;;
+</pre>
+</li>
+<li class="li" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E66">播放场景。<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E65">运行时表达式在播放动画时执行每个帧。particleId 为偶数的粒子为红色。particleId 为奇数的粒子为蓝色。</p>
+<div class="fig fignone" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E64"><img class="image" width="144" height="124" src="../images/GUID-2EC1EFC4-FFE6-4753-BAEE-08BF42A2A0BD.png"></div>
+<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E63">第一个语句使用模除运算符 (%) 计算 particleId 除以 2 的余数。然后，将余数和 0 进行比较。如果余数等于 0，那么语句指定粒子为红色。值 &lt;&lt;1,0,0&gt;&gt; 为红色。</p>
+<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E61">如果模除操作的余数不等于 0，那么第二个语句指定粒子为蓝色。值 &lt;&lt;0,0,1&gt;&gt; 为蓝色。例如，particleId 0 除以 2 等于 0，余数为 0。由于余数为 0，因此 particleId 为 0 的粒子接收红色。</p>
+<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E60">particleId 1 除以 2 等于 0，余数为 1。由于余数为 1，因此 particleId 为 1 的粒子接收蓝色。</p>
+<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E5F">particleId 2 除以 2 等于 1，余数为 0。由于余数为 0，因此 particleId 为 1 的粒子接收蓝色。对对象中的每个粒子执行该表达式。 </p>
+<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E5E">结果是，particleId 为偶数的粒子变为红色，particleId 为奇数的粒子变为蓝色。 </p>
+</li>
+<li class="li" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E5D">回放动画。<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E5C">执行创建表达式。正如针对上述表达式的描述，粒子变为红色、白色和蓝色。</p>
+</li>
+<li class="li" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E5B">播放动画。<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E5A">运行时表达式执行每个帧。播放动画时粒子为红色和蓝色。</p>
+<div class="note note" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E59"><span class="notetitle">注：</span> 程序员注意事项：<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E58">无法通过编程语言中常用的阵列索引表示法将值指定给各个粒子。 </p>
+<p class="p" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__WS73099CC142F48755-3D114B7511841AEFA9F-E56">例如，假设您已为由三个粒子组成的对象创建<span class="ph uicontrol" id="GUID-CC53DD26-42BA-417A-A02A-1291B719195E__GUID-6F5EAA21-7FA6-4BCB-AD54-E40424A9DE29">“opacityPP”</span>属性。您不能按该示例所示指定这些值：</p>
+<pre class="pre codeblock">
+opacityPP[0] = 0.3;
+opacityPP[1] = 0.5;
+opacityPP[2] = 1;
+</pre>
+</div>
+</li>
+</ol>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-F7BE65C4-CDA4-42DC-A0D8-72B9D984B3E1.htm">关于粒子表达式</a></div>
+</div>
+</div>
+
+</body>
+</html>

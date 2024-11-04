@@ -1,0 +1,221 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_4x_am_420_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_420">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 4.2.0 - Arnold for Maya">
+
+<title>4.2.0</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>4.2.0</h1></div><p>28 Jan 2021</p>
+<p>MtoA 4.2.0 introduces Arnold 6.2.0.0 and is a feature release bringing light mixing, bloom and interactive denoising through imagers, OSL syntax highlighting to the OSL shader and an improved layout to the Arnold Render View.</p>
+<p>This version breaks binary compatibility. Shaders, procedurals and other plugins compiled against Arnold 6.1 are not compatible with this version of Arnold and will need to be updated and recompiled.</p>
+<p>MtoA 4.2.0 requires <a href="https://area.autodesk.com/bifrost/downloads/" target="_blank">Bifrost 2.2.02</a></p>
+<h2 id="installation">Installation</h2><ul>
+<li><a href="https://manage.autodesk.com/products/MAYA" target="_blank">Download</a> the Arnold for Maya plugin</li>
+<li>Follow these installation instructions .</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2><ul>
+<li><p>Maya 2018, 2019 or 2020</p>
+</li>
+<li><p>Windows 10 or later, with the Visual Studio 2019 redistributable.</p>
+</li>
+<li><p>Linux with at least glibc 2.17 and libstdc++ 4.8.5 (gcc 4.8.5). This is equivalent to RHEL/CentOS 7.</p>
+</li>
+<li><p>macOS 10.13 to 10.15. Note that macOS 11 Big Sur is not certified .</p>
+</li>
+<li><p>CPUs need to support the SSE4.1 instruction set.</p>
+</li>
+<li><p>GPU rendering works on Windows and Linux only and requires an NVIDIA GPU of the Ampere, Turing, Volta, Pascal, or Maxwell architecture. We recommend using the <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">460.39</a> or higher drivers on Linux and <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">461.40 (Quadro), 461.40 (GeForce)</a> , or higher on Windows. See Arnold GPU for more information.</p>
+</li>
+<li><p>Optix™ denoiser requires an NVidia GPU with <a href="https://developer.nvidia.com/cuda-gpus" target="_blank">CUDA™ Compute Capability 5.0</a> and above.</p>
+</li>
+</ul>
+<h2 id="enhancements-a-href-topicid-arnold_for_maya_arnold_am_imagers_html-imagers-a">Enhancements## <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Imagers_html">Imagers:</a></h2><ul>
+<li><h2 id="aiimagerdenoisernoice-topicid-arnold_user_guide_ac_denoising_ac_imager_denoiser_html"><code>[aiImagerDenoiserNoice]topicid=arnold_user_guide_ac_denoising_ac_imager_denoiser_html</code></h2></li>
+<li><h2 id="aiimagerdenoiseroptix-topicid-arnold_user_guide_ac_denoising_ac_denoiser_optix_html"><code>[aiImagerDenoiserOptix]topicid=arnold_user_guide_ac_denoising_ac_denoiser_optix_html</code></h2></li>
+<li><h2 id="aiimagerlenseffects-bloom-topicid-arnold_user_guide_ac_lens_effects_ac_lens_bloom_html"><code>[aiImagerLensEffects (bloom)]topicid=arnold_user_guide_ac_lens_effects_ac_lens_bloom_html</code></h2></li>
+<li><h2 id="aiimagerlightmixer-topicid-arnold_user_guide_ac_post_processing_ac_light_mixer_html"><code>[aiImagerLightMixer]topicid=arnold_user_guide_ac_post_processing_ac_light_mixer_html</code></h2></li>
+</ul>
+<p><strong><a href="https://help.autodesk.com/pages/viewpage.action?pageId=132612287">Light Mixer imager</a> :</strong> This new imager makes it possible to interactively edit the contribution of light group AOVs during and after rendering without restarting the render (core#9838).</p>
+<p><strong>Bloom in imager_lens_effect :</strong> The imager_lens_effect now implements a bloom effect. Bloom or glow is a post-processing effect that will blur pixels above a given threshold across the frame to simulate light bleeding on an imperfect lens. See the (core#9728).</p>
+<p> <img src="../images/am-420-candle-300-1.gif" alt="">** <img src="../images/am-420-ocean-bloom-2.gif" alt=""><img src="../images/am-420-blue-man-bloom-3.gif" alt="">**</p>
+<ul>
+<li><p><strong><a href="https://help.autodesk.com/pages/viewpage.action?pageId=132612474">Noice denoiser imager</a> :</strong> The Arnold Noice denoiser is now also available as a post-processing effect. You can automatically denoise images every time you render a scene, edit the denoising settings and see the resulting image directly in the render view. Note that imager_denoiser_noice does not support temporal denoising (core#9718).</p>
+</li>
+<li><p><strong><a href="https://help.autodesk.com/pages/viewpage.action?pageId=132612351">OptiX denoiser imager</a> :</strong> The OptiX™ denoiser is now available as a post-processing effect. The imager also exposes additional controls for clamping and blending the result. (core#9719).</p>
+</li>
+<li><p><strong>OpenColorIO v2 support:</strong> Arnold now uses an updated version of <a href="https://help.autodesk.com/display/afmugtmp/Color+Management">OCIO</a> and is able to load and run <a href="https://opencolorio.readthedocs.io/en/latest/upgrading_v2/_index.html#migrating-to-v2" target="_blank">OpenColorIO v2</a> configurations. It is fully backward compatible and will load and run existing configurations as before.(core #7827)</p>
+</li>
+<li><p><strong>Up to 256 <a href="https://help.autodesk.com/display/ARNTUT/Per-light+AOVs">light AOVs</a> supported:</strong> The number of supported <a href="https://help.autodesk.com/display/ARNTUT/Per-light+AOVs">light AOVs</a> is now 256, it was 15 previously (core#7802).</p>
+</li>
+<li><p><strong>**</strong>Faster cell_noise :<strong>**</strong> The cell_noise shader is now about 2.5x faster on CPU and 4.3x faster on GPU. In order to achieve this, we had to make a look-breaking change that manifests as a different random seed (core#9866).</p>
+</li>
+<li><p><strong>New d</strong> <strong>efault values for <a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/am-4x/(topicid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html)">Standard Surface</a> :</strong> The <em>base</em> and <em>base_color</em> parameters on <em><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/am-4x/(topicid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html)">standard_surface</a></em> are now respectively set to 1.0, and (0.8, 0.8, 0.8) by default. C hanging <code>base</code> to 1 after connecting <code>base_color</code> to a texture is such a common use case that it's better to swap the two defaults and avoid having to adjust <code>base</code> every time (core #9128 <a href="https://github.com/Autodesk/standard-surface/pull/15" target="_blank">standardsurface#15</a> )</p>
+</li>
+<li><p><strong>Improved progressive sampling:</strong> faster and higher-quality sampling improves progressive and <a href="https://help.autodesk.com/display/afmugtmp/Adaptive+Sampling">adaptive</a> rendering performance (core#10023).</p>
+</li>
+<li><p><strong>Constant color detection in maketx:</strong> Added constant color detection to maketx. maketx/AiMakeTx will by default add the <code>--monochrome-detect</code> flag (core#10179).</p>
+</li>
+<li><p><strong>OpenEXR maketx passthrough:</strong> OpenEXR file inputs to maketx/AiMakeTx will now by default generate an OpenEXR based .tx files instead of TIFF based .tx files. <code>--format tif</code> or specifying a non-tx extension in the output filename will still allow for using other filetypes (core#6792).</p>
+</li>
+<li><p><strong>maketx allows by default half TIFFs</strong> : maketx / <a href="https://help.autodesk.com/api/arnold-6.1.0.1/group__ai__texture.html#ga8cf697fa92435b938f7adac6aea6020b">AiMakeTx</a> will now by default allow creating TIFF based .tx files with half floats. Before, passing <code>-d half</code> would by default produce a 32-bit float TIFF .tx file. Beware that most tools do not support half TIFF, so float TIFF or half OpenEXR should be used when the .tx file needs to be used outside of Arnold (core#6792).</p>
+</li>
+<li><p><strong>Faster maketx half TIFF generation:</strong> Generating half TIFF .tx files should be several times faster on certain Linux machines (core#10224).</p>
+</li>
+<li><p><strong>Support for OSL shader metadata:</strong> Metadata from OSL shaders are now visible on Arnold nodes and can be read via the <a href="https://help.autodesk.com/api/arnold-6.1.0.1/group__ai__metadata.html">AiMetadata</a> APIs (core#6718).</p>
+</li>
+<li><p><strong>Limit number of per-light log messages</strong> : If there are more than 100 lights, we stop outputting per-light sampling log messages at the regular log verbosity and instead only output these at debug level verbosity. This should help avoid "spamming" the logs when there are many lights in a scene (core#10098).</p>
+</li>
+<li><p><strong>Faster <a href="https://www.autodesk.com/company/autodesk-analytics" target="_blank">Autodesk Analytics Program</a> :</strong> ADPClientService should upload data more quickly and consume fewer CPU resources, especially when there is no internet access (core#9776).</p>
+</li>
+<li><p><strong>Updated <a href="https://help.autodesk.com/display/A5AILIC/Licensing">single-user licensing</a></strong> : Autodesk Desktop Licensing has been updated to version 11.0.0.4854. This version is not compatible with previous Arnold versions and should be installed automatically from plugin installers if single-user licensing is used, or can be updated manually from the Arnold License Manager . It is required only for single-user licensing, network licensing (AdskFlex) and RLM are not affected (core#289).</p>
+</li>
+<li><p><strong>More accurate crash report:</strong> When crashes occur while Arnold is running, a stacktrace is printed out. The stacktrace report should now be more reliable and slightly easier to understand (core#9156).</p>
+</li>
+<li><p><strong>More profile blocks added:</strong> Most of the Arnold API now has associated <a href="https://help.autodesk.com/pages/viewpage.action?pageId=71013068">profiling blocks</a> so it is easier to determine which Arnold components are consuming the most render time (core#10272).</p>
+</li>
+<li><p><strong>Interactive imagers in kick:</strong> kick now displays imagers in interactive mode (core#9836).</p>
+</li>
+<li><p><strong>Faster Apple M1 performance:</strong> Arnold should now be able to properly use both the big and small M1 cores (still under Rosetta2) (core#10062).</p>
+</li>
+<li><p><strong>OpenVDB 7.1:</strong> Arnold now uses OpenVDB 7.1. More information about the changes between OpenVDB 4 and 7.1 can be found <a href="https://www.openvdb.org/documentation/doxygen/changes.html" target="_blank">here</a> . (core #9861)</p>
+</li>
+<li><p><strong>OSL Syntax highlighting</strong> :  The OSL code editor now has syntax highlighting in the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_utility_am_OSL_html">OSL node</a></p>
+</li>
+</ul>
+<h2 id="arnold-render-view">Arnold Render View</h2><p><img src="../images/am-420-image-1--4.png" alt=""></p>
+<ul>
+<li><p><strong>Post-Processing Imagers in the Arnold Render View</strong> : Arnold Render View now has the ability to add/remove/edit Imager nodes in the Maya Scene.</p>
+</li>
+<li><p><strong>Arnold Render View Layout changes</strong> - Arnold Render view now has the ability to resize the side panel and snapshots panel</p>
+</li>
+</ul>
+<h2 id="gpu-enhancements">GPU Enhancements</h2><ul>
+<li><strong>Shadow groups</strong> : Support for shadow groups has been added (core#9898).</li>
+<li><strong>Improved start-up times</strong> : This version improves the initial startup time when rendering a scene for the first time. On some scenes, we measured up to a 2x speedup in startup time, as well as a 4% speedup in render time (core#10160).</li>
+<li><strong>Report GPU memory used when there is a GPU crash:</strong> Running out of GPU memory is a common problem and can sometimes result in random error messages. We now report the amount of GPU memory that Arnold had available when it first started, which if low could indicate that other applications were using GPU resources and stopping those applications will allow Arnold to succeed, and also report the amount of memory available when the GPU crash occurred, which if low is highly suggestive of an out of memory condition. (core#10261).</li>
+</ul>
+<h2 id="usd-enhancements">USD Enhancements</h2><ul>
+<li><strong>Prefix for Schema Attributes</strong> : Arnold schemas now prefix their attributes for better compatibility with built-in USD schemas. ( <a href="https://github.com/Autodesk/arnold-usd/issues/583" target="_blank">usd#583</a> )</li>
+<li><strong>Inheriting from UsdGeomXformable</strong> : Arnold schemas now inherit from UsdGeomXformable instead of UsdTyped. ( <a href="https://github.com/Autodesk/arnold-usd/issues/558" target="_blank">usd#558</a> )</li>
+<li><strong>Authoring extent</strong> : Extents on UsdGeom shapes are now correctly authored when using the USD scene format. ( <a href="https://github.com/Autodesk/arnold-usd/issues/582" target="_blank">usd#582</a> )</li>
+<li><strong>Creating XForms</strong> : The USD scene format now correctly creates UsdGeomXform parents for shapes instead of UsdTyped. ( <a href="https://github.com/Autodesk/arnold-usd/issues/629" target="_blank">usd#629</a> )</li>
+<li><strong>Per ray-visibility</strong> : The USD procedural now supports per-ray visibilities exported from Houdini. ( <a href="https://github.com/Autodesk/arnold-usd/issues/637" target="_blank">usd#637</a> )</li>
+<li><strong>USD 20.11</strong> : The USD procedural now uses USD 20.11. More information about the changes between 19.11 and 20.11 [can be found <a href="https://github.com/PixarAnimationStudios/USD/blob/release/CHANGELOG.md" target="_blank">here</a> . (core#10209)</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible Changes</h2><ul>
+<li>Previous attributes to denoise an AOV, or the beauty, are no longer supported. Existing scenes using denoising will need to be setup with imagers now. Please refer to the [aiImagerDenoiserOptix]topicid=arnold_user_guide_ac_denoising_ac_denoiser_optix_html documentation  for more details.</li>
+</ul>
+<ul>
+<li><p><strong>Dropped Windows 7 and 8 compatibility</strong> : This version of Arnold is not supported on Windows 7 and Windows 8.</p>
+</li>
+<li><p><strong>Dropped CentOS/RHEL6 compatibility :</strong> Arnold now requires a Linux version with at least glibc 2.17 and libstdc++ 4.8.5 (gcc 4.8.5). This is equivalent to RHEL/CentOS 7.</p>
+</li>
+<li><p><strong>Look change to thin film:</strong> We changed how the thin film values are clamped to avoid negative values, and as a result, thin film looks slightly more saturated in this version. (core#9982)</p>
+</li>
+<li><p><strong>Look change to blackbody:</strong> A bug fix in blackbody emission math will cause a slight change in intensity and color, resulting in brighter values. This affects the blackbody shader and temperature color pickers. (core#10074)</p>
+</li>
+<li><p><strong><strong>Deprecated log callbacks:</strong></strong> The following log callback functions are now deprecated <strong>:</strong> <em><a href="https://help.autodesk.com/api/arnold-6.1.0.1/group__ai__msg.html#ga91565e49c6aea894a1a2e56c1e2ac710">AiMsgSetCallback()</a></em> , <em><a href="https://help.autodesk.com/api/arnold-6.1.0.1/group__ai__msg.html#ga51f9a5f43328597c832fc18ac4b408e1">AiMsgAddCallback()</a></em> , <em><a href="https://help.autodesk.com/api/arnold-6.1.0.1/group__ai__msg.html#ga7d7d695ea6fb9787b7f9ff750ac8fc1d">AiMsgResetCallback()</a></em> . Client code should now use <em><a href="https://help.autodesk.com/api/arnold-6.1.0.1/group__ai__msg.html#ga627e5fda08585e4089195b804dccdd77">AiMsgRegisterCallback()</a></em> and <em><a href="https://help.autodesk.com/api/arnold-6.1.0.1/group__ai__msg.html#ga0fa4557a263c8f140534c04f32421d76">AiMsgDeregisterCallback()</a></em> instead. (core#9891)</p>
+</li>
+<li><p><strong>Removed <em>AiPromptADPDialog()</em> :</strong> The deprecated <em><a href="https://help.autodesk.com/api/arnold-6.1.0.1/ai__adp_8h.html#a5ade21b0c468a81889ca6d8aa2564be9">AiPromptADPDialog()</a></em> function has been removed. Plugin developers should use <em><a href="https://help.autodesk.com/api/arnold-6.1.0.1/ai__adp_8h.html#a6aa316731aef660f98b11c5725f888ec">AiADPDialogStrings()</a></em> instead. (core#10169).</p>
+</li>
+<li><p><strong>New d</strong> <strong>efault values for <a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/am-4x/(topicid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html)">Standard Surface</a> :</strong> The <em>base</em> and <em>base_color</em> parameters on <em><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/am-4x/(topicid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html)">standard_surface</a></em> are now respectively set to 1.0, and (0.8, 0.8, 0.8) by default. (core #9128)</p>
+</li>
+<li><p><strong>**</strong>cell_noise random seed change:<strong>**</strong> The cell_noise shader has a look-breaking change that manifests as a different random seed (core#9866).</p>
+</li>
+<li><p><strong>White Balance imager:</strong> The imager_white_balance imager now correctly accounts for the rendering color space, resulting in small differences. (core#10006)</p>
+</li>
+</ul>
+<h2 id="bug-fixes">Bug Fixes</h2><ul>
+<li><p>mtoa#4378 - arnoldExportAlembic -file does not support spaces</p>
+</li>
+<li><p>mtoa#4421 - Remove python3 incompatible iteritem calls</p>
+</li>
+<li><p>mtoa#4433 - Crash when generating .tx via autotx with new OCIO</p>
+</li>
+<li><p>core#10278 100% progress is not always printed.</p>
+</li>
+<li><p>core #10074 Blackbody: bad XYZ color normalization.</p>
+</li>
+<li><p>core #9982 Clamp negative values with thin_film and transmission.</p>
+</li>
+<li><p>core #10233 clip_geo: stops working if you tumble the camera in IPR.</p>
+</li>
+<li><p>core #9744 Crash due to out-of-memory when rendering.</p>
+</li>
+<li><p>core #10222 [GPU] Fix Arnold not being able to recover from recoverable exceptions.</p>
+</li>
+<li><p>core #10208 [GPU] Remove usage of scientific notation for log progress.</p>
+</li>
+<li><p>core #10175 Mix of two standard_surfaces with transmission hangs the render.</p>
+</li>
+<li><p>core #10149 Points should be visible in the viewport API in polygon mode.</p>
+</li>
+<li><p>core #10091 quad_light can produce rare black samples.</p>
+</li>
+<li><p>core #10283 Remove MacOS xcrun installation prompt when crash occurs.</p>
+</li>
+<li><p>core #10259 Report error code when NVML fails to initialize.</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/592" target="_blank">usd#592</a> Invalid face-varying primvars crash the render delegate.</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/596" target="_blank">usd#596</a> Invalid USD is produced if polymesh is made of triangles and nsides is empty.  </p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/481" target="_blank">usd#481</a> std::string, TfToken, and SdfAssetPath typed VtArrays are not converted when setting primvars.  </p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/619" target="_blank">usd#619</a> Several built-in render buffer types are not translated to the right Arnold AOV type.</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/634" target="_blank">usd#634</a> Fixing disappearing meshes when playing back animation.</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/621" target="_blank">usd#621</a> UVs not read from facevarying primvar if indexes are not present.</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/638" target="_blank">usd#638</a> Motion start and motion end is not set reading animated transformation.</p>
+</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_4x_html.html">MtoA 4.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

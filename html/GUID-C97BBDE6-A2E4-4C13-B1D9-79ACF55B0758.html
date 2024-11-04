@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-C97BBDE6-A2E4-4C13-B1D9-79ACF55B0758">
+<meta name="language" content="CHS">
+<title>删除 UI 元素</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-C97BBDE6-A2E4-4C13-B1D9-79ACF55B0758">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>删除 UI 元素</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-C97BBDE6-A2E4-4C13-B1D9-79ACF55B0758__WS73099CC142F48755-3D114B7511841AEFA9F-B6B"> UI 元素通过使用 <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/deleteUI.html" target="_blank">deleteUI</a></samp> 命令删除，或者通过删除其父对象来删除。例如，在运行上述脚本 4 之后执行该命令时，将删除列布局 <samp class="ph codeph">TestColumnLayout</samp> 及其子按钮。 
+	 </p>
+<pre class="pre codeblock">
+deleteUI ExampleWindow4|TestFrameLayout|TestColumnLayout;
+</pre>
+<p class="p" id="GUID-C97BBDE6-A2E4-4C13-B1D9-79ACF55B0758__WS73099CC142F48755-3D114B7511841AEFA9F-B69">为避免用户创建的 UI 元素的累积，窗口的默认行为是在关闭它们时删除它们及其内容。因此，关闭具有 Motif 窗口菜单或 <samp class="ph codeph">-visible false</samp> 标志的窗口时，将删除该窗口及其内容。通过在创建时使用 <samp class="ph codeph">-retain</samp> 标志，可以使窗口在不可见时变成永久窗口。 
+	 </p>
+<div class="note important" id="GUID-C97BBDE6-A2E4-4C13-B1D9-79ACF55B0758__WS73099CC142F48755-3D114B7511841AEFA9F-B68"><span class="importanttitle">重要：</span> 如果在窗口中回调某个字段时，为该字段所在窗口发出 <samp class="ph codeph">deleteUI</samp> 命令，则 Maya 将抛出致命错误。例如： 
+		<pre class="pre codeblock">window w; columnLayout; textField -cc "deleteUI w"; showWindow w;</pre>
+ 
+		<div class="p" id="GUID-C97BBDE6-A2E4-4C13-B1D9-79ACF55B0758__WS73099CC142F48755-3D114B7511841AEFA9F-B66">若要避免该致命错误，请使用 <samp class="ph codeph">evalDeferred</samp> 命令。因此，在上一个示例中，请将 <samp class="ph codeph">textField</samp> 命令更改为： 
+		  <pre class="pre codeblock">textField -cc "evalDeferred(\"deleteUI w\")";</pre>
+ 
+		   
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B612C992-B8F8-41CA-9DB7-7EBBFD671F1A.htm">创建界面</a></div>
+</div>
+</div>
+
+</body>
+</html>

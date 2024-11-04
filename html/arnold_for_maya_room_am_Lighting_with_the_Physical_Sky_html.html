@@ -1,0 +1,82 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_room_am_Lighting_with_the_Physical_Sky_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_LIGHTING_WITH_THE_PHYSICAL_SKY">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用物理天空进行照明 - Arnold for Maya">
+
+<title>使用物理天空进行照明</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>使用物理天空进行照明</h1></div><p><img src="../images/am-Lighting_with_the_Physical_Sky-room-physical-sky-1.jpg" alt=""></p>
+<p>借助物理天空，可以非常方便地在场景中获取精确照明。只需调整“仰角”(Elevation)和“方位角”(Azimuth)设置，便可创建有趣的“黄金时刻”照明效果。只需执行以下步骤，便可轻松实现此目的。</p>
+<p>不建议对室内场景使用天穹灯光 (skydome_light)。此灯光专为室外场景设计，在背景中表示为球形圆顶。多重重要性灯光采样将在此圆顶的特定方向上跟踪光线。但是，在室内场景中，大多数跟踪光线会照射到物体上，根本就没有从灯光获得任何贡献，反而会产生噪波。在这种情况下，<a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Lighting/am-Lighting_a_Room/arnold_for_maya_room_am_Lighting_with_the_Physical_Sky_html.html">四边形灯光</a>或<a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Lighting/am-Lighting_a_Room/arnold_for_maya_room_am_Lighting_with_the_Physical_Sky_html.html">带方向性的灯光</a>是更好的选择。</p>
+<p><img src="../images/am-Lighting_with_the_Physical_Sky-physical-sky-2.jpg" alt=""></p>
+<p><sub><strong>场景使用连接到天穹灯光的物理天空节点进行照明</strong></sub></p>
+<ul>
+<li>首先，创建一个<strong>“物理天空”(Physical Sky)</strong>着色器。</li>
+<li>创建一个 <strong>SkyDomeLight</strong>，并将<strong>“物理天空”(Physical Sky)</strong>连接到 <strong><em>SkyDomeLight</em></strong> 的 color 属性。</li>
+<li>IPR 渲染场景并调整“仰角”(Elevation)和“方位角”(Azimuth)设置，以便太阳光透过窗户照进来并照射到最右侧的墙壁和地板上。在本例中，<strong><em>“仰角”(Elevation)</em></strong>非常低 <strong><em>(15)</em></strong>，<strong><em>“方位角”(Azimuth)</em></strong>已进行合理设置，角度可让太阳光照射到远处的墙壁上 <strong><em>(143)</em></strong>。</li>
+</ul>
+<h2 id="">大气体积</h2><p>天穹灯光不会对任何体积/大气散射效果产生贡献。但是，我们可以通过向场景添加将聚光灯来掩盖这一情况。</p>
+<ul>
+<li>放置一个<strong>聚光灯</strong>，以使其光线穿过窗户。旋转聚光灯，以使其匹配物理天空的太阳光角度。注意，现在我们的场景中有两个表示太阳光的灯光。这会产生两种类型的阴影，而我们不希望如此（聚光灯只是用来营造体积散射效果）。如果这种效果很明显，您可以尝试禁用 physical_sky 着色器中的“enable_sun”，并使用聚光灯模拟直射的太阳光。</li>
+</ul>
+<p><img src="../images/am-Lighting_with_the_Physical_Sky-image2015-4-9-12-35-26-3.png" alt=""></p>
+<p><sub><strong>聚光灯指向窗户</strong></sub></p>
+<p>要获得“云隙光”效果，我们可以向聚光灯添加一个 <strong>Gobo</strong> 过滤器。</p>
+<ul>
+<li>选择聚光灯并为其连接一个 Gobo 过滤器。</li>
+<li>选择 Gobo，然后将一个<strong><em>“噪波贴图”(noise map)</em></strong>连接到<strong>“滑动贴图”(Slide Map)</strong>。</li>
+<li>启用<strong>“大气体积”(Atmosphere Volume)</strong>，并将<strong><em>“密度”(Density)</em></strong>增大为 1。</li>
+<li>最后，将聚光灯的<strong><em>“色温”(Color Temperature)</em></strong>更改为 4500 左右，以便透过窗户得到温暖的太阳光效果。</li>
+</ul>
+<p><img src="../images/am-Lighting_with_the_Physical_Sky-image2013-9-19-17-11-26-4.png" alt=""></p>
+<p><sub><strong>使用聚光灯照明并在场景中添加大气体积</strong></sub></p>
+<p><img src="../images/am-Lighting_with_the_Physical_Sky-image2013-12-9-13-34-42-5.png" alt=""></p>
+<p><sub><strong>其他使用连接到天穹灯光的物理天空进行照明的室内场景示例</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Lighting/arnold_for_maya_lighting_am_Lighting_a_Room_html.html">对房间进行照明</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

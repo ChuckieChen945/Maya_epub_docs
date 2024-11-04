@@ -1,0 +1,84 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_Particles_Simulation_Particles_particle_solver_settings_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>particle_solver_settings</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>particle_solver_settings</code></h1></div><p>允许用户指定 <code>simulate_particles</code> 复合使用的全局参数。</p>
+<p>此项应连接到 <code>simulate_particles</code> 复合上的设置端口。如果未将任何设置连接到 <code>simulate_particles</code>，则将对设置使用默认值。</p>
+<h2 id="">输入</h2><h2 id="general"><code>General</code></h2><h3 id="use_master_start_frame"><code>use_master_start_frame</code></h3><p>使用 <code>particle_solver_settings</code> 上的 <code>master_start_frame</code> 覆盖所有单个发射器和碰撞对象上的开始帧。</p>
+<h3 id="master_start_frame"><code>master_start_frame</code></h3><p>如果启用了 <code>use_master_start_frame</code>，则 <code>master_start_frame</code> 将用作所有发射器和碰撞对象的全局开始帧。</p>
+<h3 id="label_point_id"><code>label_point_id</code></h3><p>是否将额外的数字特性 <code>point_id</code> 存储在 <code>simulate_particles</code> 输出中，用于在模拟过程中唯一标识每个点，即使某些点被删除也是如此。</p>
+<h3 id="label_sources"><code>label_sources</code></h3><p>是否将额外的数字特性 <code>point_source_id</code> 存储在 <code>simulate_particles</code> 输出中，用于标识从哪个源几何体播种点。</p>
+<h2 id="global-solver-settings"><code>Global Solver Settings</code></h2><h3 id="gravity"><code>gravity</code></h3><p>如果启用此项，模拟将使用 <code>gravity_vector</code> 来确定要应用于所有粒子的固定加速度。</p>
+<h3 id="gravity_vector"><code>gravity_vector</code></h3><p>此项为应用于所有粒子的固定加速度向量。默认值 (0,-9.8,0) 模拟地球重力加速度，场景单位为米。</p>
+<h3 id="substeps"><code>substeps</code></h3><p>此项为每帧中计算的模拟步数。在某些情况下，大于 1 的值可能有助于更好地解决碰撞、更好地沿用影响场或处理快速移动的发射器。</p>
+<h3 id="simulation_speed"><code>simulation_speed</code></h3><p>应用于模拟的感知视觉速度的比例。值大于 1 时会加快模拟速度，值小于 1 时会降低模拟速度。</p>
+<h3 id="viscosity"><code>viscosity</code></h3><p>如果此项不为零，则将在相邻粒子之间设置弹性约束。值较高时可能会创建硬材质，尤其是在与子步结合使用时。</p>
+<h2 id="collision-options"><code>Collision Options</code></h2><h3 id="self_collisions"><code>self_collisions</code></h3><p>如果启用此项，则粒子将相互碰撞。<code>point_size</code> 特性确定每个粒子的碰撞半径。</p>
+<h3 id="store_self_collisions"><code>store_self_collisions</code></h3><p>如果启用此项，则输出粒子对象将具有以下几何特性。</p>
+<ul>
+<li><code>point_self_collision</code> <code>array&lt;bool&gt;</code> 如果在当前帧期间粒子与任何其他粒子碰撞，则此项为 true。</li>
+</ul>
+<h3 id="store_surface_collisions"><code>store_surface_collisions</code></h3><p>如果启用此项，则输出粒子对象将具有以下几何特性。然后，用户还可以通过影响中使用的特性代理场访问这些特性，以及在系统上进行后期操作时使用它们。例如，用户可以使用此项在碰撞点处将粒子发射到另一个粒子系统中。</p>
+<ul>
+<li><code>point_collide_normal</code> <code>array&lt;Math::float3&gt;</code> 碰撞点处几何体的曲面法线。</li>
+<li><code>point_collide_position</code> <code>array&lt;Math::float3&gt;</code> 碰撞时粒子的位置（可能发生在时间步内，与当前位置不同）</li>
+<li><code>point_surface_collision</code> <code>array&lt;bool&gt;</code> 如果在当前帧期间粒子与某个几何体碰撞，则此项为 true。</li>
+</ul>
+<h3 id="spin_on_collision"><code>spin_on_collision</code></h3><p>这将启用碰撞自旋的效果。如果启用，系统还将添加 <code>point_orientation</code> 和 <code>point_spin</code> 特性（如果不存在）。</p>
+<h3 id="collision_spin"><code>collision_spin</code></h3><p>此项控制通过碰撞修改自旋的速率，用于模拟摩擦力。如果此项为零，则碰撞不会影响点旋转。</p>
+<h2 id="particle-display"><code>Particle Display</code></h2><h3 id="shape"><code>shape</code></h3><p>要用于绘制的形状：</p>
+<ul>
+<li><code>point</code>：由一个像素组成的简单点</li>
+<li><code>disk</code>：实心圆</li>
+<li><code>circle</code>：线条绘制的圆</li>
+<li><code>cube</code>：实心立方体</li>
+<li><code>sphere</code>：实心球体</li>
+<li><code>numeric</code>：此项可用于以数字形式显示粒子特性，以供诊断。要显示的特性由 <code>numeric_property</code> 字符串指定。</li>
+</ul>
+<p><code>point</code> 和 <code>numeric</code> 以外的所有形状都使用粒子的 <code>point_size</code> 特性来确定世界空间大小。</p>
+<h3 id="numeric_property"><code>numeric_property</code></h3><p>此项为形状设置为 <code>numeric</code> 时要使用的粒子特性。 </p>
+<h3 id="face_camera"><code>face_camera</code></h3><p>如果禁用此项，则 <code>disk</code>、<code>circle</code> 和 <code>quad</code> 形状将使用粒子的 <code>point_orientation</code>（旋转），否则这些形状将旋转以始终朝向摄影机。</p>
+<h3 id="additional_settings"><code>additional_settings</code></h3><p>用户可以将包含其他设置特性的对象连接到此项。</p>
+<h3 id="simulation_bounds"><code>simulation_bounds</code></h3><p>用于将模拟限制在空间中的某个区域。使用的边界将是连接到此端口的几何体的轴对齐边界框。如果未连接任何对象，则没有边界。不会在此边界框外发射粒子，移出此框的任何粒子都会消亡。</p>
+<h2 id="">输出</h2><h3 id="solver_settings"><code>solver_settings</code></h3><p>输出是一个包含所有设置特性的对象，应连接到 <code>simulate_particles</code> 复合的 <code>settings</code> 端口。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_Particles_html.html">Particles</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

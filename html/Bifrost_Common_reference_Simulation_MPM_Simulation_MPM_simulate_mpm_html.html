@@ -1,0 +1,59 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_MPM_Simulation_MPM_simulate_mpm_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>simulate_mpm</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>simulate_mpm</code></h1></div><p>Bifrost 中材质点方法 (MPM) 的主复合。可以使用此项来模拟各种各样的物理材质，包括沙子、雪、流体、布料和纤维。</p>
+<p>要使用此复合，请插入一个或多个 <code>sources</code>（选自各种 <code>source_mpm</code> 和 <code>make_mpm</code> 节点），并将一个 <code>mpm_solver_settings</code> 节点插入到 <code>settings</code> 端口中。</p>
+<p>材质点方法的工作方式是跟踪粒子的各种物理特性（对粒子进行体素化，以在某个瞬间获取材质的体积表示）。先计算体积的瞬时运动，使其与任何 <code>colliders</code> 碰撞，然后使用其来移动粒子，并更新其特性。在单个帧中多次重复执行此过程，其中每次迭代称为一个时间步。由于运动是基于体素化表示计算得出的，因此单个粒子的运动将被限制在体积表示的范围内。这意味着粒子不是根据其各自的速度移动，而是根据体积的平均速度移动。</p>
+<h2 id="">输入</h2><h3 id="sources"><code>sources</code></h3><p>一个或多个来自 <code>source_mpm_snow</code>、<code>source_mpm_sand</code>、<code>source_mpm_fluid</code>、<code>make_mpm_cloth</code> 或 <code>make_mpm_fibers</code> 的输出。<code>source_mpm</code> 节点播种粒子并生成 <code>granular_particles</code> 输出，<code>make_mpm_cloth</code> 生成 <code>cloth_mesh</code> 输出，<code>make_mpm_fibers</code> 生成 <code>fiber_strands</code> 输出。</p>
+<h3 id="colliders"><code>colliders</code></h3><p>零个或多个来自 <code>collider</code> 节点的输出，用于阻止粒子流动。</p>
+<h3 id="influences"><code>influences</code></h3><p>零个或多个来自 <code>influence</code> 节点的输出，用于添加力、更改特性、删除粒子等。</p>
+<h3 id="surface_material"><code>surface_material</code></h3><p>用于代理和最终输出的曲面颜色的材质。</p>
+<h3 id="displacement_material"><code>displacement_material</code></h3><p>用于置换代理及最终输出布料和壳体的材质。</p>
+<h3 id="settings"><code>settings</code></h3><p><code>mpm_solver_settings</code> 节点的输出设置。</p>
+<h2 id="">输出</h2><h3 id="granular_particles"><code>granular_particles</code></h3><p>从节点的 <code>source_mpm</code> 族创建的种子粒子。对于每个输入材质，数组中有一个对象。即，所有沙子粒子一起表示为一个对象，所有雪粒子一起表示为一个单独的对象，等等。使用 <code>split_particles_by_material</code> 可按材质将此输出分割为单个输出粒子。</p>
+<h3 id="cloth_mesh"><code>cloth_mesh</code></h3><p>一个基于输入 <code>make_mpm_cloth</code> 的 <code>cloth_mesh</code>。</p>
+<h3 id="shell_mesh"><code>shell_mesh</code></h3><p>一个基于输入 <code>make_mpm_shell</code> 的 <code>shell_mesh</code>。</p>
+<h3 id="fiber_strands"><code>fiber_strands</code></h3><p>一个基于输入 <code>make_mpm_fiber</code> 的 <code>cloth_mesh</code>。</p>
+<h3 id="diagnostic_geo"><code>diagnostic_geo</code></h3><p>用于内置诊断（在诊断终端中使用）的诊断可视化几何体。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_MPM_html.html">MPM</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Modeling">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="contextid" content="CURVEBEZIERTOOL">
+<meta name="topicid" content="GUID-5A399D05-9271-4517-8370-0533DC468277">
+<meta name="language" content="CHS">
+<title>Bezier 曲线</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-5A399D05-9271-4517-8370-0533DC468277">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>Bezier 曲线</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-5A399D05-9271-4517-8370-0533DC468277__WS73099CC142F487557BFAA8DA122EC01152F50C8">Bezier 曲线是 NURBS 曲线的子集，它由两种类型的控制顶点组成：定位点和切线。定位点位于曲线上并确定切线的原点。切线确定曲线通向相邻定位点时的形状。 
+	 </p>
+<div class="fig fignone" id="GUID-5A399D05-9271-4517-8370-0533DC468277__WS1A9193826455F5FF-6AB24494123382A9C4B-5A18"><img class="image" id="GUID-5A399D05-9271-4517-8370-0533DC468277__IMAGE_61EB3D49D1034AAC8FE9629C707D2060" width="409" height="266" src="../images/GUID-987D4DD8-EBB3-45FD-9F5C-5524E5AC46B1.png"></div>
+<div class="fig fignone" id="GUID-5A399D05-9271-4517-8370-0533DC468277__WS1A9193826455F5FF-6AB24494123382A9C4B-5A17"><img class="image" id="GUID-5A399D05-9271-4517-8370-0533DC468277__IMAGE_DB78F95DDB7B4AD2975B87C40F465F65" width="430" height="177" src="../images/GUID-77C83A4A-AE6A-4C3E-8366-ED728F8DAE2F.png"></div>
+<p class="p" id="GUID-5A399D05-9271-4517-8370-0533DC468277__WS1A9193826455F5FF3CBC1E051237AC78BEC-6FEE">由于 Bezier 曲线是 NURBS 曲线的子集，因此可以对 Bezier 曲线执行大多数 NURBS 操作。也可以对 Bezier 曲线和 NURBS 曲线的组合执行 NURBS 操作。通常，涉及所有 Bezier 曲线的操作会生成 Bezier 曲线，而涉及 Bezier 和 NURBS 曲线组合的操作会生成 NURBS 曲线。 
+	 </p>
+<div class="section" id="GUID-5A399D05-9271-4517-8370-0533DC468277__WS73099CC142F487557BFAA8DA122EC01152F50C9"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-5A399D05-9271-4517-8370-0533DC468277__WS73099CC142F487557BFAA8DA122EC01152F50CA"><li class="li" id="GUID-5A399D05-9271-4517-8370-0533DC468277__WS73099CC142F487557BFAA8DA122EC01152F50CB"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-772705B6-D2EC-4151-820C-7C916D4F60B2.htm">创建 Bezier 曲线</a> 
+		  </li>
+<li class="li" id="GUID-5A399D05-9271-4517-8370-0533DC468277__WS73099CC142F487557BFAA8DA122EC01152F50CC"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-3BCDB943-2151-45C6-AB85-26E904884096.htm">编辑 Bezier 曲线</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+<div class="section" id="GUID-5A399D05-9271-4517-8370-0533DC468277__WS73099CC142F487557BFAA8DA122EC01152F50CD"><h2 class="title sectiontitle">Bezier 曲线背后的数学理论</h2> 
+		 
+		<p class="p" id="GUID-5A399D05-9271-4517-8370-0533DC468277__WS73099CC142F487557BFAA8DA122EC01152F50CE">Maya 中的所有 Bezier 曲线都是立方的，即两个定位点之间的曲线由四个点（<strong class="ph b" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-62EBCED6-D60E-4018-B9FF-35AD27DCA949">p</strong><sub class="ph sub" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-C67B0629-E4BC-4329-8E7D-4BDD9F64F850"> 
+			 <span class="ph" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-D92673E5-0F37-4EFC-8590-329B8EAF86D0"> 
+				<span class="ph" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-A980C79E-670E-46CA-8F00-D5EF835C6085">1</span> 
+			 </span> 
+		  </sub> 到 <strong class="ph b" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-935BB541-032E-42DE-A295-6ABF255FAC3E">p</strong><sub class="ph sub" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-9E90CEFC-81B8-47B7-914D-2C1F12924A71"> 
+			 <span class="ph" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-F095E106-99FF-49A3-AE4F-001951F9C2FD"> 
+				<span class="ph" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-9AE46269-8BD1-4823-B0CE-4E5636857A06">4</span> 
+			 </span> 
+		  </sub>）确定。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-5A399D05-9271-4517-8370-0533DC468277__WS73099CC142F487557BFAA8DA122EC01152F50CF"><img class="image" id="GUID-5A399D05-9271-4517-8370-0533DC468277__IMAGE_A239D13DB1774F2CA30A6F2D3CDF90B7" width="364" height="209" src="../images/GUID-2F427BD8-E64A-4EFB-B2BA-4D9816021416.png"></div>
+ 
+		<p class="p" id="GUID-5A399D05-9271-4517-8370-0533DC468277__WS73099CC142F487557BFAA8DA122EC01152F50D0">该曲线从 <strong class="ph b" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-0E238192-1590-44CF-8DA6-3A0F741E41A5">p</strong><sub class="ph sub" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-09F8A28E-6185-45DF-ABC9-C2E0353FEA73"> 
+			 <span class="ph" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-1B1F1661-2D56-4A8D-9BF9-D68DA2248E0B">1</span> 
+		  </sub> 开始，朝 <strong class="ph b" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-A18394A9-C117-4798-98D8-0E0434997939">p</strong><sub class="ph sub" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-498BBEE8-316C-4888-9764-B485FF272BD1"> 
+			 <span class="ph" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-BF83A74E-98F7-48DC-B800-22DAEEF036BE">2</span> 
+		  </sub> 移动，然后通过 <strong class="ph b" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-FF0C8A27-6DD4-4785-81AE-E9419B1E3B91">p</strong><sub class="ph sub" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-C1039DC9-1489-40D2-9754-E11265F57EA2"> 
+			 <span class="ph" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-983764B3-8550-436C-8E9C-012AB1A29589">3</span> 
+		  </sub> 走弧线向 <strong class="ph b" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-BEBFE9EC-DD58-450F-B3B0-DDCFA282E43C">p</strong><sub class="ph sub" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-7E86766F-0ABB-4D35-9829-8F857BC874BF"> 
+			 <span class="ph" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-91EE85EA-E024-4A10-AC6B-9727763A83F2">4</span> 
+		  </sub> 移动。 
+		</p>
+ 
+		<div class="p" id="GUID-5A399D05-9271-4517-8370-0533DC468277__WS73099CC142F487557BFAA8DA122EC01152F50D1">通过以下公式可在任一点查找定位点 <strong class="ph b" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-374BEDB9-8C32-4E83-85FE-12AD971922C4">a</strong> 的位置： 
+		  <div class="fig fignone" id="GUID-5A399D05-9271-4517-8370-0533DC468277__FIG_EC06E1E528DC47B8A3A0E7CB2801CF25"><img class="image" id="GUID-5A399D05-9271-4517-8370-0533DC468277__IMAGE_E63B8109EC0943E7BAD68AB097C2C7C5" src="../images/GUID-800407A2-D118-4B88-AC29-4622D9DBAB54.png"></div>
+
+		</div>
+ 
+		<p class="p" id="GUID-5A399D05-9271-4517-8370-0533DC468277__WS73099CC142F487557BFAA8DA122EC01152F50D2">其中 x 是大于等于 0 且小于等于 1 的任意值。 
+		</p>
+ 
+		<p class="p" id="GUID-5A399D05-9271-4517-8370-0533DC468277__WS73099CC142F487557BFAA8DA122EC01152F50D3">从数学原理上讲，可通过为每个 x 值绘制一个点然后连接这些点来生成 Bezier 曲线。在 Maya 中，可通过手动绘制定位点并调整切线（t<sub class="ph sub" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-52BD1417-79DF-4334-AD0F-319747E844A7"> 
+			 <span class="ph" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-868E817D-6779-4A75-86C2-12297C2E5108">1</span> 
+		  </sub> 和 t<sub class="ph sub" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-71A2560B-4DC4-43AC-9B0B-ACF16F3A17D9"> 
+			 <span class="ph" id="GUID-5A399D05-9271-4517-8370-0533DC468277__GUID-47EF3FF0-4EFB-4F57-9D30-567AEA3E483E">2</span> 
+		  </sub>）来绘制 Bezier 曲线。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-5EC05798-3F28-4AD2-8154-36BC444A4DC9.htm">NURBS 概述</a></div>
+</div>
+</div>
+
+</body>
+</html>

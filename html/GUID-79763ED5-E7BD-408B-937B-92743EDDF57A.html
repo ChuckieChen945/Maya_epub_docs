@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Modeling">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A">
+<meta name="language" content="CHS">
+<title>将纹理转化为多边形网格</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>将纹理转化为多边形网格</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS73099CC142F48755-7B21313411809411AE9-7129">可以使用<span class="ph uicontrol" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__GUID-D4218A62-5181-4B26-BBE6-7810E9DF32BA">“修改 &gt; 转化 &gt; 纹理到几何体”(Modify &gt; Convert &gt; Texture to Geometry)</span>将纹理图像转化为多边形网格。<span class="ph uicontrol" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__GUID-669CBD44-CB1C-43D5-8FD8-FD51F24BD15E">“纹理到几何体”(Texture to Geometry)</span>功能通过创建基于图像颜色进行细分的多边形网格将图像转化为几何体。然后，可能会向网格上的细分面指定颜色与原始图像类似的着色材质。细分多边形网格可以按原样使用，或者如果图像已映射到几何体，则可以使其包裹原始多边形网格，从而使其显示在与原始纹理贴图相同的位置。
+	 </p>
+<div class="fig fignone" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS73099CC142F48755-7B21313411809411AE9-7128"><img class="image" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__IMAGE_23C466672B094F40935B3281D6853861" width="442" height="226" src="../images/GUID-DF9CCF95-0257-48FF-BA55-EA1AEEA51EAF.png"></div>
+<p class="p" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS73099CC142F48755-7B21313411809411AE9-7127"> 
+		<span class="ph uicontrol" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__GUID-A10C2083-2AF3-40AA-90EB-D4BF3198A3BA">在以下情况中，“纹理到几何体”(Texture to Geometry)</span>非常有用：
+	 </p>
+<ul class="ul" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS73099CC142F48755-7B21313411809411AE9-7124"><li class="li" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS73099CC142F48755-7B21313411809411AE9-7123">在需要使用 Maya 矢量渲染器生成包含纹理贴图的图像时。矢量渲染器无法渲染位图纹理。<span class="ph uicontrol" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__GUID-4E3D592C-BD42-4D14-8771-4EA05E59E3B0">“纹理到几何体”(Texture to Geometry)</span>功能会生成多边形网格，该网格可以在纹理区域包裹对象并包含逐个面的正确颜色信息。
+		</li>
+<li class="li" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS73099CC142F48755-7B21313411809411AE9-7122">在要使用一个图像为多边形网格上的面定义边边界位置时。使用该方法可以节省时间，因为不必手动分割每个边。可以改为使用一个图像定义边位置。
+		  <p class="p" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS73099CC142F48755-7B21313411809411AE9-7121">例如，可以使用纹理到几何体转化来帮助将着色材质信息转化为逐顶点颜色信息 (CPV)，以便在 CPV 是首选工作流时进行纹理烘焙。
+		  </p>
+ 
+		  <p class="p" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS73099CC142F48755-7B21313411809411AE9-7120"><span class="ph" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__GUID-EE9F488E-3F57-429B-B6D5-339A8D8BF5B1">纹理烘焙也称为“预照明”，</span>广泛用于视频游戏的制作之中，其中根据曲面网格在渲染过程中接收的照明信息，为纹理贴图上的像素指定 RGB 颜色值。而不是实时渲染照明，生成或烘焙纹理贴图以照亮场景区域。这样能释放游戏控制台的有限处理资源，以便进行其他需要实时完成的计算工作。
+		  </p>
+ 
+		  <p class="p" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS73099CC142F48755-7B21313411809411AE9-711E">逐顶点颜色信息受到广泛支持，并在游戏控制台中作为一种显示着色和照明的技术广泛使用，这种技术无需在实时渲染计算中包含实际灯光。CPV 质量依赖于多边形网格中的细节级别，纹理到几何体可以通过将多边形细节添加到网格（最需要该细节在其中代表场景中的照明区域）来增强结果。
+		  </p>
+ 
+		  <p class="p" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS73099CC142F48755-7B21313411809411AE9-711D">首先需要使用“批烘焙”功能烘焙纹理以生成带有照明的曲面的纹理贴图。然后，使用<span class="ph uicontrol" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__GUID-87D825E0-6DE3-463D-80A3-D0E6FBEC2109">“纹理到几何体”(Texture to Geometry)</span>功能将烘焙纹理信息转化为几何体。最后，在一个最终时间使用“批烘焙”功能将由“纹理到几何体”功能生成的着色信息转化为 CPV（逐顶点颜色信息）。
+		  </p>
+ 
+		</li>
+</ul>
+<p class="p" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS73099CC142F48755-7B21313411809411AE9-711B"> 
+		<span class="ph uicontrol" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__GUID-9A7A7F73-BAF6-438B-982E-CBDF96DB0399">“纹理到几何体”(Texture to Geometry)</span>会按照以下四个阶段生成多边形网格：
+	 </p>
+<div class="section" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS73099CC142F48755-7B21313411809411AE9-73EB-1583"><dl class="dl" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS73099CC142F48755-7B21313411809411AE9-73EB-1583"><dt class="dt dlterm"> 
+	 <span class="ph uicontrol" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__GUID-30A20B05-0284-409F-B5B3-821D23E1B40C">分段(Segmentation)</span> </dt>
+<dd class="dd" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS1A9193826455F5FF-4855151011E4FD543C6-43B7"> 
+	 <p class="p" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS73099CC142F48755-7B21313411809411AE9-7118">在指定的图像中检测具有相关 RGB 颜色值的像素组。然后，将像素组分为不同的区域或分段。
+	 </p>
+ </dd>
+<dt class="dt dlterm"> 
+	 <span class="ph uicontrol" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__GUID-5DA0798C-DF51-4212-A7C5-5B0011C0A619">曲面网格(Surface meshing)</span> </dt>
+<dd class="dd" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS1A9193826455F5FF-4855151011E4FD543C6-43B6"> 
+	 <p class="p" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS73099CC142F48755-7B21313411809411AE9-7116">分段会转化为可定义进行网格细分的位置的不同三角形边界。根据这些边界细分网格。
+	 </p>
+ </dd>
+<dt class="dt dlterm"> 
+	 <span class="ph uicontrol" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__GUID-9A73138C-31AD-41A2-B4CC-8187CBA3CEC7">曲面拟合(Surface fitting)</span> </dt>
+<dd class="dd" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS1A9193826455F5FF-4855151011E4FD543C6-43B5"> 
+	 <p class="p" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS73099CC142F48755-7B21313411809411AE9-7114">生成的多边形网格可平放在场景视图中或包裹场景视图中略高于选定网格的指定对象。
+	 </p>
+ </dd>
+<dt class="dt dlterm"> 
+	 <span class="ph uicontrol" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__GUID-CCBCF782-4C48-489B-886F-9916718E5D1B">曲面输出(Surface output)</span> </dt>
+<dd class="dd" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS1A9193826455F5FF-4855151011E4FD543C6-43B4"> 
+	 <p class="p" id="GUID-79763ED5-E7BD-408B-937B-92743EDDF57A__WS73099CC142F48755-7B21313411809411AE9-7112">然后，使用在分段阶段中检测到的 RGB 颜色值为生成的网格上的细分面指定着色材质。
+	 </p>
+ </dd>
+</dl>
+</div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-5580B297-5045-4251-9596-0F468D73A12B.htm">将纹理转化为几何体</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-748DCCAF-E056-4234-B7CC-11DAE72DBC21.htm">来回转化多边形</a></div>
+</div>
+</div>
+
+</body>
+</html>

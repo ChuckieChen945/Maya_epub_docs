@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Bifrost">
+<meta name="created" content="30/7/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="17/04/2023">
+<meta name="topicid" content="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D">
+<meta name="language" content="CHS">
+<title>添加和编辑 BOSS 影响</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>添加和编辑 BOSS 影响</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 影响是用于在 Bifrost 海洋模拟系统中生成和反射波浪的对象。它们可用于创建涟漪、弓形波和开尔文尾迹等效果。
+	 </p>
+<p class="p">除了静态和动画网格，您还可以使用 EXR 文件。例如，您可以对包含岩石的复杂海岸线使用单个 EXR 图像，而不是几何体。再举个例子，您可以使用一系列 EXR 图像创建雨点落在水面上的图案。
+	 </p>
+<p class="p">每个影响均可充当用于创建波浪的生成器和/或用于反射波浪的碰撞对象。如果某个影响是生成器兼碰撞对象，则充当碰撞对象的区域应该略小于充当生成器的区域，这样可以在它们之间的条带中正常地形成波浪。您可以调整<span class="ph uicontrol">“生成器展开”(Generator Expand)</span>和<span class="ph uicontrol">“碰撞对象收缩”(Collider Shrink)</span>属性，以便调整此条带的宽度。
+	 </p>
+<div class="note tip" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__GUID-41E7F015-79C8-425A-A7A9-280884B4A3F0"><span class="tiptitle">提示：</span> 将隐藏网格用作附加影响可更好地控制效果的各个部分。例如，您可以在一艘船的后面使用简单网格来延长尾迹。
+	 </div>
+<div class="section" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__SECTION_23A72E97B1FF4E85B702C71164A7C20D"><h2 class="title sectiontitle">添加几何体影响</h2> 
+		 
+		<ol class="ol" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__OL_23A009D08305481E939F64C719B38C43"><li class="li" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__LI_798B54AA7A2F406795964E6CF8966542">在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-965CDA03-3CE0-4626-9507-23ED526FF776.htm"><span class="ph uicontrol">“BOSS 涟漪/波浪生成器”(Boss Ripple/Wave Generator)</span></a>窗口左侧的<span class="ph uicontrol">“波浪解算器”(Wave Solver)</span>列表中，选择要添加影响的解算器。
+		  </li>
+<li class="li" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__LI_DEA04C7C97234B4F9B1C9453CE3EC446">在场景中，选择一个或多个要作为影响的多边形网格。
+		  </li>
+<li class="li" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__LI_ADE6F561C03B493A9C8920669E97BC53">在<span class="ph uicontrol">“BOSS 涟漪/波浪解算器”(Boss Ripple/Wave Solver)</span>窗口中，单击 <img class="image" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__IMAGE_95832F1AC23047C09341E046B59DB974" src="../images/GUID-BA0851BA-7D8D-4F14-853D-7F1B2DEB129C.png">。
+			 <p class="p">将为每个选定的网格创建 BossGeoProperties 节点。
+			 </p>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__SECTION_A0E8CCD20B7C4876ABAC79738AFA3EAB"><h2 class="title sectiontitle">添加 EXR 图像影响</h2> 
+		 
+		<ol class="ol" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__OL_A780EAAA9039450FBA72509AE55935CF"><li class="li" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__LI_FEB23F5692B7499C82BE6528C028A9B4">使用图像编辑应用程序以 EXR 格式创建单个图像或图像序列。要获得最佳结果，请遵循以下指导原则：
+			 <ul class="ul" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__UL_BD302C37EAAC401B90F21051E5E56739"><li class="li" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__LI_878CB4F486004019BA4EF70068EF0DA9">将拉伸图像以适应场景世界 X 和 Z 轴中的模拟区域，因此图像纵横比应与基础网格（对于波浪解算器）和面片大小（对于光谱解算器）的纵横比匹配。
+				</li>
+<li class="li" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__LI_7ABF92A0B1B245F2843FA04B3CE589C1">使用 R 通道定义用于波浪生成的遮罩，其中，1.0 表示生成器的内部，0.0 表示背景。保持轮廓相当清晰。
+				</li>
+<li class="li" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__LI_43D30DB9C0CB41B1AAC353B2EBCD0010">使用 G 通道以相同的方式定义用于波浪碰撞的遮罩。
+				</li>
+</ul>
+ 
+		  </li>
+<li class="li" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__LI_FCA0A655CB4E4D17B6B6A918566E0E8B">在<span class="ph uicontrol">“BOSS 涟漪/波浪生成器”(Boss Ripple/Wave Generator)</span>窗口的左侧，选择要添加影响的解算器。
+		  </li>
+<li class="li" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__LI_B6048E36418A448A97F5A324AA0E5F57">在<span class="ph uicontrol">“BOSS 涟漪/波浪解算器”(Boss Ripple/Wave Solver)</span>窗口中，单击 <img class="image" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__IMAGE_B9B2EEDEC77B4DF0BE09328440B6A026" src="../images/GUID-51087770-DE3B-4F13-BCF4-D6997AF8FA7F.png">。
+		  </li>
+<li class="li" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__LI_05F4C065EB5C489D980DDFE82E61867D">在<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中，将<span class="ph uicontrol">“EXR 文件名”(EXR Filename)</span>设置为图像或序列的文件路径和名称。
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__SECTION_AE2B5C6D1C6E429AA2CC7894A30CC0BE"><h2 class="title sectiontitle">编辑影响</h2> 
+		 
+		<div class="p">若要在<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中显示影响属性，请执行以下操作：
+		<ol class="ol" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__OL_7DC13322552548479C12FC360D1B7B4F"><li class="li" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__LI_BEB79881DC5B4491AD5B5FD95698A7E7">确保<span class="ph uicontrol">“BOSS 涟漪/波浪生成器”(Boss Ripple/Wave Generator)</span>窗口中的<span class="ph uicontrol">“自动选择节点”(Auto Select Nodes)</span>处于启用状态。
+		  </li>
+<li class="li" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__LI_45251A2EB9EB4CC792EFE2F631B50BEA">在左侧的<span class="ph uicontrol">“波浪解算器”(Wave Solver)</span>列表中选择关联的解算器。
+		  </li>
+<li class="li" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__LI_7769FECBA4C84298AC435B86331005FB">在右侧的<span class="ph uicontrol">“波影响”(Wave Influences)</span>列表中选择所需的影响。
+		  </li>
+</ol>
+ 
+		</div>
+ 
+		<p class="p">有关属性的简短描述，请将指针悬停在属性上方。如果在短暂的延迟后并未显示工具提示，请确保已在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-2B90FD26-20F6-4CF6-8A68-2DD4AD6CF334">帮助首选项</a>中启用<span class="ph uicontrol">“显示工具动画演示”(Display Toolclips)</span>。
+		</p>
+ 
+		<div class="p">以下是有关其中几个设置的一些注释：
+		<ul class="ul" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__UL_451EBF8AB3704C2783664BF9CE40BD85"><li class="li" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__LI_0DB36FBBEA4E4AFAA9A5003DAE5B218C"> 
+			 <p class="p">调整<span class="ph uicontrol">“振幅”(Amplitude)</span>可控制由不同影响生成的波浪的相对强度。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__LI_724CA6AD651D4BFB9FB850110EAC7350"> 
+			 <p class="p">使用<span class="ph uicontrol">“碰撞对象偏移 X”(Collider Offset X)</span>和<span class="ph uicontrol">“碰撞对象偏移 Z”(Collider Offset Z)</span>可移动碰撞区域并更改其周围波浪生成条带的形状。例如，如果朝一艘船的后面偏移碰撞对象，则前面的生成区域会变大并创建更为明显的弓形波。请注意，这些属性相对于场景的世界轴，因此如果一艘船在转弯，则应为其设置动画以匹配该船的方向。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__LI_A9F3A2EABBAE4C2EBCE0CA4453A86F62"> 
+			 <p class="p">几何体影响的<span class="ph uicontrol">“分辨率 X”(Resolution X)</span>和<span class="ph uicontrol">“分辨率 Y”(Resolution Y)</span>属性控制对几何体进行采样所使用的分辨率，并独立于解算器和其他影响的分辨率。
+			 </p>
+ 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="p">除<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>外，您还可以直接从<span class="ph uicontrol">“BOSS 涟漪/波浪生成器”(Boss Ripple/Wave Generator)</span>窗口切换<span class="ph uicontrol">“生成器”(Generator)</span>和<span class="ph uicontrol">“碰撞对象”(Collider)</span>复选框：
+		<ul class="ul" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__UL_C2896405FA7944CCBE5C55C8E1534E58"><li class="li" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__LI_B388D1C0F2D44C618BD032FC99EB8E25">单击蓝色的 G 图标 <img class="image" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__IMAGE_659475AC98694AE28B5310161B1FDA57" src="../images/GUID-39AF9E3D-A292-44B8-BB45-FAA83ACE6EB6.png"> 可禁用<span class="ph uicontrol">“生成器”(Generator)</span>。单击灰色的 G 图标 <img class="image" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__IMAGE_4044BF6279E64624B74182D69390C2E5" src="../images/GUID-4D1A7C0B-B06D-49C0-BF5D-A9A4A901CA2E.png"> 可重新启用该选项。
+		  </li>
+<li class="li" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__LI_71AD08E2DE4A4879BB59FAC80E9CFA62">单击蓝色的 C 图标 <img class="image" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__IMAGE_B01C16EF27D84E0E8EF67D2C406B0B3C" src="../images/GUID-E67A8770-18E6-45EE-8BA5-927CC9D046BD.png"> 可禁用<span class="ph uicontrol">“碰撞对象”(Collider)</span>。单击灰色的 C 图标 <img class="image" id="GUID-D5959FC7-E2DD-4B7C-8A73-7280D2FDB55D__IMAGE_FDB3D670CF7D4B019D7000828AFDDFC3" src="../images/GUID-730380E9-2295-42AF-ADDE-73D7EE9D44C4.png"> 可重新启用该选项。
+		  </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-1D4CE594-25ED-4442-9C22-759E3111EFD7.htm" title="通过 Bifrost 海洋模拟系统，可以创建具有波浪、涟漪和尾迹的逼真海洋表面。">BOSS - Bifrost 海洋模拟系统</a></div>
+</div>
+</div>
+
+</body>
+</html>

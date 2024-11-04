@@ -1,0 +1,116 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_operators_am_Modifying_an_Alembic_Procedural_Using_Operators_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_MODIFYING_AN_ALEMBIC_PROCEDURAL_USING_OPERATORS">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用运算符修改 Alembic 程序 - Arnold for Maya">
+
+<title>使用运算符修改 Alembic 程序</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>使用运算符修改 Alembic 程序</h1></div><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Modifying_an_Alembic_Procedural_Using_Operators-blacksmith-operators-off-1.jpg" alt=""></td>
+<td><img src="../images/am-Modifying_an_Alembic_Procedural_Using_Operators-blacksmith-operators-on-2.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>使用运算符在 <em>Alembic 程序</em>内更改铁砧的颜色、将蒙版添加到挡板并隐藏铁砧。</strong></sub></p>
+<p>本教程介绍如何应用<em>运算符<em>以修改“不透明”对象的内容，这是一个 Arnold Alembic 程序。Alembic 文件本身并不包含材质，没有特定的对象特性，这里正是</em>运算符<em>的用武之地，例如，将给定着色器应用于给定子对象。对于导入的 *Alembic</em>，每个子对象是一个实际的形状节点。通过<em>运算符</em>，我们可以对 *Alembic</em> 文件的各个内容执行操作。</p>
+<p>像在文件系统中一样，Arnold 中也存在一种根深蒂固的命名约定。根级别为 /，层级中的每个节点也使用 / 与其父节点进行分隔。因此，如果将此场景导出到 .ass 文件，对于导入的 Alembic 形状，您将读取名称 <code>/geo1/alembic1, /geo1/alembic1_1</code>，依此类推。而对于 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Alembic_html">Arnold Alembic</a> 节点，只有一个 /Alembic001 节点名称。此约定非常重要，因为<em>运算符</em>选择在很大程度上基于 Arnold 对象名称。</p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>使用<em>“诊断 &gt; 功能覆盖”(Diagnostics &gt; Feature Overrides)</em>中的<em>“忽略运算符”(Ignore Operators)</em>标志，以检查在没有任何<em>运算符</em>时渲染效果如何。</p>
+
+</div></div>
+
+<p><strong>要下载对应的场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/alembic_blacksmith.zip" target="_blank">此处</a>。</strong></p>
+<p><img src="../images/am-Modifying_an_Alembic_Procedural_Using_Operators-image2018-10-29-6-41-37-3.png" alt=""></p>
+<p><sub><strong>Alembic 几何体在 Arnold 属性中可见</strong></sub></p>
+<h2 id="set-parameter">隐藏铁砧（“设置参数”(Set Parameter)）</h2><p>我们可以使用<em>“设置参数”(Set Parameter)</em>隐藏所导入 Alembic 的铁砧。</p>
+<ul>
+<li>添加以下表达式：</li>
+</ul>
+<p><code>visibility=0</code></p>
+<ul>
+<li>在<em>“选择”(Selection)</em>下为铁砧几何体添加以下内容：</li>
+</ul>
+<p><code>*geo1/alembic1_3</code></p>
+<p><img src="../images/am-Modifying_an_Alembic_Procedural_Using_Operators-image2018-11-5-11-49-34-4.png" alt=""></p>
+<p><sub><strong>在<em>“选择”(Selection)</em>中，将需要以“*”或程序名称开头</strong></sub></p>
+<h2 id="set-parameter">将蓝色着色器指定给铁砧（“设置参数”(Set Parameter)）</h2><p>我们可以使用以下内容在 Alembic 中将球体蓝色 <em>standard_surface</em> 着色器指定给铁砧（请注意，着色器名称也具有尾部反斜杠）：</p>
+<ul>
+<li>在“选择”(Selection)下为铁砧几何体添加以下内容：</li>
+</ul>
+<p><code>*geo1/alembic1_3</code></p>
+<ul>
+<li>在“表达式”(Expression)下添加以下内容：</li>
+</ul>
+<p><code>shader='sphere_standard'</code></p>
+<p><img src="../images/am-Modifying_an_Alembic_Procedural_Using_Operators-image2018-11-6-13-43-34-5.png" alt=""></p>
+<h2 id="merge">合并(Merge)</h2><p>我们可以使用<em>“合并”(Merge)</em>运算符将两个输入节点组合在一起。</p>
+<h2 id="set-parameter">将蒙版指定给挡板（“设置参数”(Set Parameter)）</h2><p>我们可以使用<em>“设置参数”(Set Parameter)</em>运算符将 Arnold Alembic 挡板变成蒙版对象。</p>
+<ul>
+<li>在<em>“表达式”(Expression)</em>下添加以下内容：</li>
+</ul>
+<p><code>matte=true</code></p>
+<ul>
+<li>在<em>“选择”(Selection)</em>下为挡板几何体添加以下内容：</li>
+</ul>
+<p><code>*geo1/alembic1_1</code></p>
+<p><img src="../images/am-Modifying_an_Alembic_Procedural_Using_Operators-image2018-11-5-12-18-52-6.png" alt=""></p>
+<p><img src="../images/am-Modifying_an_Alembic_Procedural_Using_Operators-image2018-11-5-12-17-49-7.png" alt=""></p>
+<p><sub><strong>最终运算符图表设置</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Operator_Tutorials_html.html">运算符教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

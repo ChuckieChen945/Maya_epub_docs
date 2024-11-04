@@ -1,0 +1,88 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Rigging_Module_Rigging_Module_root_module_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>root_module</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>root_module</code></h1></div><p>定义一个关节和一个控件的绑定模块。可用输入：</p>
+<ul>
+<li><code>pins.world_matrices</code>：[必需] 一个用于定义世界空间中根关节的静止状态的矩阵。</li>
+<li><code>joints.names</code>：[可选] 一个用于定义根关节名称的字符串。</li>
+<li><code>joints.operator_matrices</code>：[可选] 一个用于控制根关节变换的动画的矩阵。</li>
+<li><code>controls.names</code>：[可选] 一个用于定义根关节名称的字符串。</li>
+<li><code>controls.operator_matrices</code>：[可选] 一个用于控制根控件变换的动画的矩阵。</li>
+</ul>
+<h2 id="">输入</h2><h3 id="inputs"><code>inputs</code></h3><p>此模块的 <code>Rigging::Module::Inputs</code> 结构，包含标准输入数据，用于定义设置并驱动关节和控件的动画。 </p>
+<ul>
+<li><code>pins</code>：作为导向的辅助对象变换，通常用于定义关节和控件的静止变换。</li>
+<li><code>operator_matrices</code>：<code>double4x4</code> 运算符矩阵数组，用于驱动关节和控件的动画。在动画解算期间，将在此模块的变换中应用它们。</li>
+<li><code>names</code>：（可选）<code>string</code> 数组，可用于指定关节和控件名称以及创建其路径。</li>
+<li><code>weights</code>：（可选）<code>double</code> 数组，可用于驱动动画解算器参数。</li>
+<li><code>anchors</code>：（可选）父模块中的特定关节和控件（路径和变换）。尽管锚点通常由模块的 <code>Anchors Selection</code> 参数选择，但您可以手动指定它们，并将 <code>selection_method</code> 保留为 <code>Off</code>。</li>
+<li><code>setup_custom</code>：（可选）包含要在设置计算期间使用的任何额外设置数据的对象。</li>
+<li><code>animation_custom</code>：（可选）包含要在设置计算期间使用的任何额外设置数据的对象。</li>
+</ul>
+<h2 id="">常规</h2><p>绑定模块的标准参数。</p>
+<h3 id="name"><code>name</code></h3><p>定义此模块的名称。此项主要用于在分析器中标识此模块，但也可用于以程序方式创建关节和控件的路径。</p>
+<h3 id="rest_state"><code>rest_state</code></h3><p>如果启用此项，将跳过任何动画计算并输出处于静止状态的模块。</p>
+<h3 id="profile"><code>profile</code></h3><p>如果启用此项，则分析此模块，以及单个设置和动画计算。可以在主机应用程序的分析器中查看分析结果。</p>
+<h3 id="cache_setup"><code>cache_setup</code></h3><p>如果启用此项，则缓存此模块的计算设置，并且仅在其输入有变化时才更新它。请注意，当前仅检测来自此模块的 <code>inputs</code> 的设置相关成员的更改。</p>
+<h3 id="cache_animation"><code>cache_animation</code></h3><p>如果启用此项，则缓存此模块的计算动画，并在设置或动画输入有变化时更新它。请注意，当前仅检测来自此模块的 <code>inputs</code> 的动画相关成员的更改。</p>
+<h2 id="">诊断</h2><p>在启用 <code>D</code> 终端标志时，显示此模块的生成的关节和变换。</p>
+<h3 id="display_joints"><code>display_joints</code></h3><p>如果启用此项，则将关节层级显示为网格几何体。</p>
+<h3 id="joint_size"><code>joint_size</code></h3><p>用于定义关节半径的默认大小。</p>
+<h3 id="joint_color"><code>joint_color</code></h3><p>关节的颜色。</p>
+<h3 id="display_transforms"><code>display_transforms</code></h3><p>如果启用此项，则将骨架关节的变换显示为股箭头。</p>
+<h3 id="axes_shape"><code>axes_shape</code></h3><p>要应用于生成的股的几何体着色器的类型。 </p>
+<ul>
+<li><p><code>Wire</code>：将股显示为 1 像素宽的细线。</p>
+</li>
+<li><p><code>Ribbon</code>：将股显示为条带，宽度相对于变换的比例，并使用 <code>axes_scale</code>、<code>arrowhead_size_ratio</code> 和 <code>stem_width_ratio</code> 值。</p>
+</li>
+<li><p><code>Tube</code>：将股显示为厚管，半径相对于变换的比例，并使用 <code>axes_scale</code>、<code>arrowhead_size_ratio</code> 和 <code>stem_width_ratio</code> 值。</p>
+</li>
+</ul>
+<h3 id="axes_scale"><code>axes_scale</code></h3><p>用于增加或减小要显示的变换轴比例的倍增。</p>
+<h3 id="arrowhead_size_ratio"><code>arrowhead_size_ratio</code></h3><p>箭头宽度的大小比率，相对于每个变换轴的比例。假定变换的比例为 <code>[1, 1, 1]</code>，则值为 <code>0.1</code> 时，箭头的宽度将为 <code>0.1</code>。如果变换的比例为 <code>[10. 10. 10]</code>，则使用相同的值时，箭头的宽度将为 <code>1.0</code>。</p>
+<h3 id="stem_width_ratio"><code>stem_width_ratio</code></h3><p>杆宽度相对于箭头最宽部分的值。值为 <code>0.1</code> 表示杆宽度是箭头宽度的十分之一。</p>
+<h2 id="">根设置</h2><h3 id="control_drives_joint"><code>control_drives_joint</code></h3><p>如果启用此项，关节将继承控件的任何变换更改。</p>
+<h2 id="">输出</h2><h3 id="outputs"><code>outputs</code></h3><p>此模块的 <code>Rigging::Module::Outputs</code> 结构。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Rigging/Bifrost_Common_reference_Rigging_Module_html.html">Module</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-EnvVar">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04">
+<meta name="language" content="CHS">
+<title>使用 Maya.env 设置环境变量</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 Maya.env 设置环境变量</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F4875525E8C7E5129B19AABD9-7B82"><p class="p" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__WS1A9193826455F5FF-29C43AA6117B26F372E4A0"><samp class="ph codeph" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__GUID-0C9699C5-BAA1-46E3-B034-0F7E9282F689">Maya.env</samp> 文件用于设置环境变量。
+	 </p>
+<p class="p">除了几个特定的环境变量外，<samp class="ph codeph" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__CODEPH_22E20AEC9DFE4FB6B3FBD46927F76F6F">Maya.env</samp> 中设置的变量值不会覆盖在操作系统环境中设置的值。这意味着，如果已在系统环境中设置变量（如 <samp class="ph codeph" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__CODEPH_9591FDF587044E8288AA4F69A62A5E19">PYTHONPATH</samp>），则在 <samp class="ph codeph" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__CODEPH_14A0C96F149042C4A84A29DAD13EC2E0">Maya.env</samp> 中设置该变量将不起作用，Maya 将使用在环境中设置的 <samp class="ph codeph" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__CODEPH_C689E108143C44A78EE81B89A87103B0">PYTHONPATH</samp> 值。
+	 </p>
+<p class="p">如果未在环境中设置变量，则 Maya 将使用 <samp class="ph codeph" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__CODEPH_6550DF7C5DDF4F589CBCE64B09EBFB66">Maya.env</samp> 中的值。
+	 </p>
+<p class="p" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__P_62AAD283BC9C4836A35520FFF3900DE3"><samp class="ph codeph" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__CODEPH_AC2E709FD20247179060FC2EFB77D718">Maya.env</samp> 覆盖的变量（即使在系统环境中设置了这些变量）包括：
+	 </p>
+<div class="p"> 
+	 <ul class="ul" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__UL_3950500CBC1746F593B068CC2A7D64A3"><li class="li" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__LI_6EF73D4A5B0B4404A1C5166131D61C99">MAYA_SCRIPT_BASE 
+		</li>
+<li class="li" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__LI_4AFA6F02DEDA4C0EAFC7A7898E1480A0">MAYA_SHADER_LIBRARY_PATH 
+		</li>
+<li class="li" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__LI_95FA2A4624074B4DABF83F12358BC971">MAYA_LOCATION 
+		</li>
+<li class="li" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__LI_0B5FAAF2A5424CE58961A12F5CD63F91">MAYA_HELP_URL 
+		</li>
+<li class="li" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__LI_4202B9B9AA0E4C7DBBDCCAD4A2BEAB53">MAYA_PLUG_IN_PATH 
+		</li>
+<li class="li" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__LI_0DB2DB68678840E6A991645E7D398E55">MAYA_PLUG_IN_RESOURCE_PATH 
+		</li>
+<li class="li" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__LI_77D33D348B56477F98EB6863F9B52863">MAYA_SCRIPT_PATH 
+		</li>
+<li class="li" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__LI_3BCFB7BE77424472B1D1E6C9BA9BE054">XBMLANGPATH 
+		</li>
+<li class="li" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__LI_59804B7AADC5490596CCDFAA8D8D164E">MAYA_MODULE_PATH 
+		</li>
+<li class="li" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__LI_EFDC4519D8A84C6C9ACAA2DFD7A75C99">MAYA_CONTENT_PATH 
+		</li>
+<li class="li" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__LI_A518EB17705343C38C3A454B089AAA2A">路径 
+		</li>
+<li class="li" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__LI_31DB3321A8F24F65B2BC3FC7ECE7AEBE">SYNHUB_CONFIG_PATH 
+		</li>
+</ul>
+ 
+	 </div>
+<p class="p">每个版本的 Maya 都有一个 <samp class="ph codeph" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__CODEPH_7858AF10C0AF499E9495796446B1A92E">Maya.env</samp> 文件。您可以在以下位置找到它：
+	 </p>
+<div class="p"> 
+	 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__TABLE_76A15F55746042C69CD9AA2F6D63862E" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="44.64285714285714%">平台 
+				</th>
+<th class="entry" valign="top" width="55.35714285714285%"><samp class="ph codeph" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__CODEPH_F65D4C9C658C4098B64528EBDA6C819D">Maya.env</samp> 的位置 
+				</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="44.64285714285714%">Windows 
+				</td>
+<td class="entry" valign="top" width="55.35714285714285%"><span class="ph filepath">C:\Users\&lt;Username&gt;\Documents\maya\&lt;version_number&gt;\</span> 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="44.64285714285714%">Linux 
+				</td>
+<td class="entry" valign="top" width="55.35714285714285%"><span class="ph filepath">$HOME/maya/&lt;version_number&gt;/</span> 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="44.64285714285714%">macOS 
+				</td>
+<td class="entry" valign="top" width="55.35714285714285%"><span class="ph filepath">$HOME/Library/Preferences/Autodesk/maya/&lt;version_number&gt;/</span> 
+				</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+	 </div>
+<p class="p">通常，首次启动 Maya 后，系统将会创建 <samp class="ph codeph" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__CODEPH_552E0066E97F4FFBA285995422F1E3AF">Maya.env</samp> 文件。如果系统未创建，您可以自己创建此文件。
+	 </p>
+<div class="p">若要编辑 <samp class="ph codeph" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__CODEPH_47A8A7D5F3E74075BFEA6AC79CF596D2">Maya.env</samp>，请在文本编辑器中打开它，然后在各自的行中输入每个环境变量和值对：<pre class="pre codeblock">
+&lt;ENVIRONMENT_VARIABLE&gt;=&lt;value&gt;
+</pre>
+ 
+	 </div>
+<p class="p">您无法在 <samp class="ph codeph" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__CODEPH_D96A8840AFC54AC4A78246CB3B202658">Maya.env</samp> 中设置 MAYA_APP_DIR。
+	 </p>
+<p class="p">Maya 会忽略名称、等号和值旁边的空行和空格。以 <samp class="ph codeph">#</samp> 开头的行将被视为注释并忽略。
+	 </p>
+<p class="p">在 Windows 上使用分号 (<samp class="ph codeph">;</samp>)) 分隔多个路径，在 macOS <span class="ph">和 Linux </span>上使用冒号 (<samp class="ph codeph">:</samp>) 进行分隔。
+	 </p>
+<div class="p">可以在 <samp class="ph codeph" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__CODEPH_A9939C509B8641C89526625F4F2F7D21">Maya.env</samp> 中使用变量替换。在 <span class="ph">Linux 和 </span>macOS 上使用 <samp class="ph codeph" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__CODEPH_55FDAA05D9934E458C11F5105B8697BB">$[variable_name]</samp>，在 Windows 上使用 <samp class="ph codeph" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__CODEPH_73895DF4693A4645A0A324E5C9C6BE62">%[variable_name]%</samp>。可以在替换中使用任何环境变量（即使不是 Maya 特定的环境变量），前提是已定义相应环境变量。例如：
+	 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__TABLE_59092B38D8984720B19DC6FDCB018CE3" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">在 <span class="ph">Linux 和 </span>macOS 上 
+				</td>
+<td class="entry" valign="top" width="50%"><samp class="ph codeph">MAYA_PLUG_IN_PATH = $MAYA_APP_DIR/scripts/test</samp> 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">在 Windows 上 
+				</td>
+<td class="entry" valign="top" width="50%"><samp class="ph codeph">MAYA_PLUG_IN_PATH = %MAYA_APP_DIR%\scripts\test</samp> 
+				</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__SECTION_2D714702C1804FCC88E246C3CE79D2F4"><h2 class="title sectiontitle">Maya.env 搜索路径</h2> 
+		 
+		<p class="p">Maya 先检查是否设置了 MAYA_ENV_DIR 环境变量。如果已设置，则从此位置读取 <samp class="ph codeph">Maya.env</samp>。
+		</p>
+ 
+		<p class="p">如果未设置此环境变量（默认行为），则 Maya 将按以下顺序搜索 <samp class="ph codeph">Maya.env</samp>：
+		</p>
+ 
+		<ol class="ol" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__OL_5B65C9DEF44C42D28451764DD398B96A"><li class="li" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__LI_15C76A6978C34CC2B90CAEE4D2EA9008">MAYA_APP_DIR/&lt;Maya 版本&gt; 
+		  </li>
+<li class="li" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__LI_53F0DC4343CA430DB3ED518A8437C436"> MAYA_APP_DIR 
+		  </li>
+</ol>
+ 
+		<div class="note tip" id="GUID-8EFB1AC1-ED7D-4099-9EEE-624097872C04__GUID-67033F47-1895-4938-BC88-8664CB570391"><span class="tiptitle">提示：</span> 若要查询 MAYA_APP_DIR 的位置，请<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-EnvVar/files/GUID-651CDCC9-21D1-4C02-BE7A-32B4E400E6E1.htm">在命令行中键入以下内容</a>：<pre class="pre codeblock">getenv "MAYA_APP_DIR"</pre>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-EnvVar/files/GUID-AE7BF762-0666-44D9-A275-75020684F838.htm">从自定义位置读取 Maya.env</a><br>
+</li>
+</ul></div></div>
+
+</body>
+</html>

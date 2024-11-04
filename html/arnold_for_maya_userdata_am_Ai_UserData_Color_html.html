@@ -1,0 +1,123 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_userdata_am_Ai_UserData_Color_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="NODES-AIUSERDATACOLOR">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" Ai 用户数据颜色 - Arnold for Maya">
+
+<title>Ai 用户数据颜色</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>Ai 用户数据颜色</h1></div>
+<div class="arnold-note">
+
+
+
+<table>
+<thead>
+<tr>
+<th>延伸阅读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有关完整的着色器文档，请参见<strong>《Arnold 用户手册》</strong>中的<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shading_ac_userdata_shaders_html" target="_blank">用户数据着色器</a>。</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<p><img src="../images/mtoa_userdatacolor1.png" alt=""></p>
+<p><sub><strong>由一个 <em>Ai 用户数据颜色</em>着色器驱动不同的彩色模型</strong></sub></p>
+<p>本简短教程介绍如何使用 <em>Ai 用户数据颜色</em>着色器将一个具有不同颜色的着色器指定给场景中的三个模型。</p>
+<p><strong>要下载对应的场景，请单击<a href="">此处</a>。</strong></p>
+<ul>
+<li>在这个场景中，有三个机器人模型。我们希望为这三个模型分别指定红色、蓝色和绿色。首先，选择所有三个机器人，然后为它们指定一个 Ai 标准曲面着色器。</li>
+</ul>
+<p><img src="../images/mtoa_userdatacolor2.png" alt=""></p>
+<p><sub><strong>为所有机器人指定了一个着色器</strong></sub></p>
+<ul>
+<li>创建一个 <em>Ai 用户数据颜色*着色器，并将它连接到 <em>standard_surface</em> 着色器的 *base_color</em> 属性。</li>
+</ul>
+<p><img src="../images/mtoa_userdatacolor3.png" alt=""></p>
+<ul>
+<li>选择该 <em>Ai 用户数据颜色</em>着色器，并在<em>“颜色属性名称”(Color Attr Name)</em>旁的文本字段中键入<em>“color”</em>。</li>
+</ul>
+<p><img src="../images/mtoa_userdatacolor4.png" alt=""></p>
+<ul>
+<li>选择一个机器人。为其添加属性。请确保选择机器人的形状节点，以便正确添加属性。要执行此操作，请在选择机器人几何体的情况下按属性编辑器中的<em>“聚焦”(Focus)</em>按钮。</li>
+</ul>
+<p><img src="../images/mtoa_userdatacolor5.png" alt=""></p>
+<p><sub><strong>选择“聚焦”(Focus)按钮以选择机器人模型的形状节点</strong></sub></p>
+<h3 id="add-attribute">添加属性(Add Attribute)</h3><ul>
+<li>将属性添加到机器人的形状几何体节点（<em>“属性 &gt; 添加属性”(Attributes &gt; Add Attribute)</em>）。在“长名称”(Long name)旁的字段中键入<em>“mtoa_constant_color”</em>。请注意，长名称只能使用小写字母。大写字母不起作用。将<em>“数据类型”(Data Type)</em>更改为<em>“向量”(Vector)</em>。这有助于我们更改 Ai 标准曲面着色器的颜色输出的 RGB 值。</li>
+</ul>
+<p><img src="../images/mtoa_userdatacolor6.png" alt=""></p>
+<p><sub><strong>添加“mtoa_constant_color”名称并将“数据类型”(Data Type)更改为“向量”(Vector)</strong></sub></p>
+<ul>
+<li>在选择机器人形状节点的情况下，打开属性编辑器底部的<em>“附加属性”(Extra Attributes)</em>。这时应看到新的<em>“Mtoa 恒定颜色”(Mtoa Constant Color)</em>属性，且该属性有三个向量字段，分别对应每个 RGB 通道。</li>
+</ul>
+<p><img src="../images/mtoa_userdatacolor7.png" alt=""></p>
+<ul>
+<li>将第一个<em>“Mtoa 恒定颜色”(Mtoa Constant Color)</em>更改为 1，然后渲染场景。这时应看到机器人颜色已更改为红色，因为我们已经为<em>“Mtoa 恒定颜色”(Mtoa Constant Color)</em>的<em>“R”字段</em>添加了 1。</li>
+</ul>
+<p><img src="../images/mtoa_userdatacolor8.png" alt=""></p>
+<ul>
+<li>要更改其他机器人的颜色，请重复上述过程。但是，在 <em>Ai 用户数据颜色</em>着色器中，请将一个机器人的 <em>R 字段</em>更改为 <em>1</em>，将第二个机器人的 <em>G 字段</em>更改为 <em>1</em>，并将第三个机器人的 <em>B 字段</em>更改为 <em>1</em>。这时应看到如下图所示的场景：</li>
+</ul>
+<p><img src="../images/mtoa_userdatacolor9.png" alt=""></p>
+<p><sub><strong>带有金属眼睛的 RGB 机器人</strong></sub></p>
+<h2 id="default-value">默认值(Default Value)</h2><ul>
+<li>我们还可以为眼球使用同样的着色器。如果我们将<em>“Ai 用户数据颜色”(Ai UserData Color)</em>着色器的<em>“默认值”(Default Value)</em>更改为白色，眼球将变成白色，这是因为我们还未向眼球的形状节点添加<em>“Mtoa 恒定颜色”(Mtoa Constant Color)</em>属性。它会在分配了 Ai 标准曲面着色器（且该着色器连接了 <em>Ai 用户数据颜色</em>着色器）的任何对象上将颜色更改为白色（您也可以将着色器拖放到此属性上）。</li>
+</ul>
+<p><img src="../images/mtoa_userdatacolor10.png" alt=""></p>
+<p><sub><strong>将 <em>default_value</em> 颜色更改为白色或用鼠标中键将白色着色器拖动到此属性</strong></sub>  </p>
+<p><img src="../images/mtoa_userdatacolor11.png" alt=""></p>
+<p><sub><strong>眼球的 <em>default_value</em> 已更改为白色</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shaders/arnold_for_maya_shaders_userdata_html.html">Ai 用户数据着色器</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

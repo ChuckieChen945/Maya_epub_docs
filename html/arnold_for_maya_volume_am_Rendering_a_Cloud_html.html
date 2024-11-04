@@ -1,0 +1,300 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_volume_am_Rendering_a_Cloud_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_RENDERING_A_CLOUD">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 渲染云 - Arnold for Maya">
+
+<title>渲染云</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>渲染云</h1></div><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_a_Cloud-cloud-1-1.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_a_Cloud-cloud-2-2.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p>本教程提供有关如何渲染 <strong><a href="https://www.disneyanimation.com/technology/datasets" target="_blank">Walt Disney Animation Studios 云数据集</a></strong>的分步说明。下载中包含的 VDB 文件是包含密度数据的非均质体积云模型。我们将使用 <em>Arnold 体积</em> 着色器渲染此 VDB 数据，并使用 <em>standard_volume</em> 着色器对其进行着色。我们将使用连接到 <em>skydome_light</em> 颜色的 <em>physical_sky</em> 为场景照明。</p>
+<p><strong>要下载场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Cloud-volume-user-guide.ma" target="_blank">此处</a>。</strong></p>
+<p>本教程分为以下章节：</p>
+<h4 id="">数据</h4><h4 id="arnold">Arnold 体积</h4><h4 id="">照明</h4><h4 id="">光线深度</h4><h4 id="">标准体积着色器</h4><h4 id="">最终渲染设置</h4><h2 id="">数据</h2><ul>
+<li>首先，从上面的链接下载云体积数据，并解压缩该文件的内容。您应该会看到各个不同大小的 VDB 文件、参考图像和 <code>README.txt</code> 文件。</li>
+</ul>
+<h2 id="arnold">Arnold 体积</h2><ul>
+<li>创建 <em>Arnold 体积</em>，然后在<em>“文件名”(Filename)</em>下打开文件 <strong><code>wdas_cloud_sixteenth.vdb</code></strong>。这是云数据的最低分辨率版本，因此初始加载速度更快（最后我们会将其替换为完全分辨率 VDB 文件）。</li>
+<li>增加 <em>step_scale*，使体积更柔和，散射更少。步长为零意味着将使用体素大小作为步长。此数据集的 *step_scale</em> 建议值介于 <strong>10</strong> 至 <strong>20</strong> 之间。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_a_Cloud-Step-Scale-1-3.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_a_Cloud-Step-Scale-20-4.jpg" alt=""></td>
+</tr>
+<tr>
+<td>1</td>
+<td>20</td>
+</tr>
+</tbody></table>
+<h2 id="">照明</h2><ul>
+<li>将一个 <em>physical_sky</em> 连接到 <em>skydome_light</em> 的 color 属性。调整 <em>physical_sky</em> 的 <em>elevation</em> 和 <em>azimuth</em>，实现有趣的灯光效果。或者，您也可以仅在 Y 方向旋转 <em>skydome_light</em>。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_a_Cloud-Elevation-45-default-5.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_a_Cloud-Elevation-10-sunset-6.jpg" alt=""></td>
+</tr>
+<tr>
+<td>仰角：45（默认值）</td>
+<td>仰角：10（日落）</td>
+</tr>
+</tbody></table>
+<h2 id="">光线深度</h2><ul>
+<li>开始渲染体积之前，在渲染设置中将 <em>volume_ray_depth</em> 增加到一个较高的值，如 <strong>50</strong>（务必将 <em>total_ray_depth</em> 增加到 <strong>50</strong>）。这是实现逼真的云外观的关键所在，因为光线会在体积内反弹多次，使其看起来更亮。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_a_Cloud-Volume-ray-depth-0-default-7.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_a_Cloud-Volume-ray-depth-10-8.jpg" alt=""></td>
+</tr>
+<tr>
+<td>0（默认值）</td>
+<td>10</td>
+</tr>
+<tr>
+<td><img src="../images/am-Rendering_a_Cloud-Volume-ray-depth-25-9.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_a_Cloud-Volume-ray-depth-50-10.jpg" alt=""></td>
+</tr>
+<tr>
+<td>25</td>
+<td>50</td>
+</tr>
+</tbody></table>
+<h2 id="">标准体积着色器</h2><ul>
+<li>创建一个 <em>standard_volume</em> 着色器，并将其指定给该体积。已调整以下属性，为体积赋予云的外观。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_a_Cloud-Scatter-color-0o5-default-11.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_a_Cloud-Scatter-Color-10-12.jpg" alt=""></td>
+</tr>
+<tr>
+<td>scatter_color：0.5（默认值）。</td>
+<td>10</td>
+</tr>
+</tbody></table>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p><em>“散射”(Scatter)</em>滑块最大值应限定为 1。将此值增加到 1 以上只是权宜之计，应谨慎使用。该数字通常应小于 1 以保持能量守恒。</p>
+
+</div></div>
+
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>务必将<em>密度</em>添加到 <em>scatter_color_channel</em>。  </p>
+
+</div></div>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_a_Cloud-Transparent-Depth-1-13.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_a_Cloud-Transparent-Depth-15-14.jpg" alt=""></td>
+</tr>
+<tr>
+<td>transparent_depth：1。</td>
+<td>15。控制 transparent_color 在体积中达到的深度。</td>
+</tr>
+</tbody></table>
+<p><sub><strong>增加此值可使体积具有更像云的外观。</strong></sub></p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p><em>Transparency_depth</em> 与单位相关。  </p>
+
+</div></div>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_a_Cloud-Transparent-Weight-0o368-default-15.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_a_Cloud-Transparent-Weight-0o7-16.jpg" alt=""></td>
+</tr>
+<tr>
+<td>Transparent_weight：0.368。</td>
+<td>0.7。增加此值可以更好地控制云体积的密度。</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_a_Cloud-Density-1-17.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_a_Cloud-Density-4o3-18.jpg" alt=""></td>
+</tr>
+<tr>
+<td>密度：1。</td>
+<td>4.3。增加此值可以使云体积具有更厚的外观。</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_a_Cloud-Anisotropy-0-19.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_a_Cloud-Anisotropy-0o5-20.jpg" alt=""></td>
+</tr>
+<tr>
+<td>各向异性：1（默认值）。</td>
+<td>0.5（各向异性应高于 0，因为云具有相当强的正向散射性）。</td>
+</tr>
+</tbody></table>
+<p><img src="../images/am-Rendering_a_Cloud-image2019-2-15-13-54-13-21.png" alt=""></p>
+<p><sub><strong>在颜色选择器中，将颜色值增加到 10</strong></sub></p>
+<h2 id="">最终渲染设置</h2><p>对云外观感到满意后，即可进行最终帧渲染。</p>
+<ul>
+<li>将 VDB 文件 <strong><code>wdas_cloud_sixteenth.vdb</code></strong> 替换为 <strong><strong><code>wdas_cloud.vdb.</code></strong></strong> 请记住，这是完全分辨率的 VDB 文件，因此渲染时间会更长。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_a_Cloud-wdas-cloud-sixteenth-22.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_a_Cloud-wdas-cloud-23.jpg" alt=""></td>
+</tr>
+<tr>
+<td>“wdas_cloud_sixteenth.vdb”。</td>
+<td>“wdas_cloud.vdb”</td>
+</tr>
+</tbody></table>
+<ul>
+<li>对照明（和着色）效果感到满意后，将 <em>skydome_light.volume_sampses</em> 增加到 <strong>5</strong> 或 <strong>6</strong> 左右。</li>
+<li>将<em>摄影机 (AA)</em> 采样数增加到 <strong>5</strong> 左右。</li>
+<li>在渲染设置中的<em>“采样”(Sampling)</em> 下，将 <em>volume_indirect</em> 增加到 <strong>3</strong> 左右。这将有助于去除体积的间接照亮区域的噪波。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_a_Cloud-Volume-Indirect-2-default-24.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_a_Cloud-Volume-Indirect-3-25.jpg" alt=""></td>
+</tr>
+<tr>
+<td>Volume_indirect：2</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<ul>
+<li>最后，渲染场景。有关如何渲染 VDB 云数据集的教程到此结束。</li>
+</ul>
+<p>完成本教程后，请务必从云的思绪中跳出来！</p>
+<p><img src="../images/am-Rendering_a_Cloud-cloudHD-720-26.jpg" alt=""></p>
+<p><img src="../images/am-Rendering_a_Cloud-mtoa-cloud-27.jpg" alt=""></p>
+<p><sub><strong>用于此场景的设置</strong></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Volume_Tutorials_html.html">体积教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_simulate_dynamic_effects_vary_properties_on_emission_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>在发射时改变特性</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>在发射时改变特性</h1></div><p>从源发射时，可以改变特性以获得更自然的外观。例如，可以改变基本粒子的大小、烟的密度、沙子的粘度等。</p>
+<p><img src="../images/dynamic_castle_crumble.png" alt="使用字段控制模拟特性的结果"></p>
+<p>提供了两种方法：</p>
+<ul>
+<li>将数据类型（如字段）直接连接到源节点上的 <code>auto</code> 端口。</li>
+<li>使用 <code>vary_source_property</code> 节点。</li>
+</ul>
+<h2 id="">直接在源节点上改变发射特性</h2><p>此方法易于设置。但是，它不适用于布料或壳模拟。</p>
+<p>将以下类型之一连接到 <code>source_particles</code>、<code>source_air</code>、<code>source_mpm_sand</code>、<code>source_mpm_snow</code> 或 <code>source_mpm_fluid</code> 节点的兼容 <code>float</code> 或 <code>float3</code> 端口，例如，<code>fog_density</code> 用于空气，<code>viscosity</code> 用于沙子。兼容特性由其端口上的光晕标识，表示它们接受不同的输入类型。</p>
+<ul>
+<li>连接字段以基于字段在空间中的值改变特性。</li>
+<li>连接一个字符串，该字符串用于指定源几何体上特性的名称，以使用它来改变模拟特性。</li>
+<li>连接一组值以将这些值用作发射元素的值。</li>
+</ul>
+<h2 id="vary_source_property">使用 <code>vary_source_property</code> 改变发射特性</h2><p>此方法更复杂，但更灵活。它还适用于所有类型的模拟。</p>
+<p><img src="../images/vary_source_property.png" alt="图表中的 `vary_source_property`"></p>
+<ol>
+<li><p>将发射器几何体连接到 <code>vary_source_property</code> 节点的 <code>geometry</code> 输入。</p>
+</li>
+<li><p>将 <code>vary_source_property</code> 节点的 <code>out_geometry</code> 输出连接到源节点的 <code>geometry</code> 输入。</p>
+<ul>
+<li>请注意，如果已连接发射器几何体，应展开串联输入端口以替换现有连接或断开连接。否则，该几何体将会连接两次：一次在改变的情况下，一次在未改变的情况下。</li>
+</ul>
+</li>
+<li><p>指定要改变的 <code>property</code>。可用特性名称取决于模拟的类型 - 可在“信息”(Info)选项卡中查看对应的列表。如果要使用相同设置改变多个特性，可以输入以空格分隔的特性列表。</p>
+</li>
+<li><p>选择如何改变这些值：</p>
+<ul>
+<li>要随机化值，请启用 <code>randomize_values</code>，并根据需要设置 <code>min</code>、<code>max</code>、<code>bias</code> 和 <code>animated</code>。为了在几何体中均匀改变值，应使用密集网格。要改变向量值（例如 <code>direction</code>），请将 float3 <code>value</code> 节点连接到 <code>min</code> 或 <code>max</code> 端口。使用 <code>layer_mode</code> 指定是否要将在源节点上设置的值替换为随机值、与随机值相加或相乘。</li>
+<li>要根据几何体上的颜色集设置值，请启用 <code>use_color_set</code>，并指定 <code>color_set_name</code>，就像在主场景中对几何体调用它一样。使用单通道颜色集改变 float 值，使用 RGB 颜色集改变 float3 值。</li>
+<li>如果 <code>randomize_values</code> 和 <code>use_color_set</code> 都已启用，则颜色集将用作随机值的倍增。</li>
+<li>（可选）使用 <code>multiplier</code> 扩大或缩小值。</li>
+</ul>
+</li>
+</ol>
+<p>要使用不同设置改变其他特性，请在发射器几何体与源节点之间将其他 <code>vary_source_property</code> 节点呈菊花链状连接到一起。</p>
+<p>如果使用多个 <code>vary_source_property</code> 节点多次改变相同的特性，则它们的应用顺序与它们在链中的显示顺序不同。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/Bifrost_Common_simulate_dynamic_effects_html.html">模拟动力学效果</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

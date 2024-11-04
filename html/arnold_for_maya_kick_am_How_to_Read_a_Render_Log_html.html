@@ -1,0 +1,326 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_kick_am_How_to_Read_a_Render_Log_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_HOW_TO_READ_A_RENDER_LOG">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 如何读懂渲染日志 - Arnold for Maya">
+
+<title>如何读懂渲染日志</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>如何读懂渲染日志</h1></div><p>在 kick 渲染图像时，渲染日志会将进度消息、警告和错误输出到控制台或文件。还会显示完成百分比，这些详细的统计信息可用于优化和调试场景。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>Arnold 日志提供了详细的统计信息，对于调试、优化和衡量渲染非常有用。遇到错误时应该首先检查日志，它通常是发送给支持人员的首要信息。</p>
+
+</div></div>
+
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>遇到渲染问题时，您首先应在日志文件中搜索单词“<strong>ERROR</strong>”。在大多数情况下，您可在 ERROR 消息中找到问题的根源。</p>
+
+</div></div>
+
+<p>kick 与插件的详细级别有所不同。</p>
+<table>
+<thead>
+<tr>
+<th>Kick</th>
+<th>插件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0 - 无输出</td>
+<td>错误</td>
+</tr>
+<tr>
+<td>1 - 进度</td>
+<td>警告 + 信息</td>
+</tr>
+<tr>
+<td>2</td>
+<td>调试</td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>5 - 详细</td>
+<td></td>
+</tr>
+<tr>
+<td>6 - 调试</td>
+<td></td>
+</tr>
+<tr>
+<td>错误</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>下面的日志包含最常见的输出。日志的第一列 <code>00:00:00</code> 以 <code>[hh:mm:ss](http://hhmmss)</code> 格式显示已用时间。第二列 <code>773</code> <code>MB</code> 显示相应阶段的内存使用量。</p>
+<h2 id="">初始化（信息）</h2><p>此部分显示所用的 Arnold 版本及其内部版本详细信息。其中还列出了执行渲染的计算机的硬件规格和操作系统。</p>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00   773MB         | log started Tue Jul 21 15:26:25 2015
+00:00:00   773MB         | Arnold 4.2.7.4 windows icc-14.0.2 oiio-1.5.15 rlm-11.2.2 2015/06/15 09:39:31
+00:00:00   773MB         | host application: MtoA 1.2.3.1 03a85380bec8 (Master) MtoA-1.2.3.1 Maya 2016
+00:00:00   773MB         | running on PC, pid=12188
+00:00:00   773MB         |  1 x Intel(R) Xeon(R) CPU E5-1650 v2 @ 3.50GHz (6 cores, 12 logical) with 32712MB
+00:00:00   773MB         |  Windows 7 Professional Service Pack 1 (version 6.1, build 7601) </code></pre><p>有一个对应于整个渲染会话的初始化进程（仅在首次渲染时），后续的每次渲染会有一个更新的进程。</p>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00   773MB         | [mtoa.session]     Initializing at frame 1.000000
+00:00:00   773MB         | [mtoa] Exporting Arnold options 'defaultArnoldRenderOptions'
+00:00:00   773MB         | [mtoa.extensions]  aiOptions Using translator &lt;built-in&gt;, provided by &lt;built-in&gt;(&lt;built-in&gt;).
+00:00:00   773MB         | [mtoa.session]     defaultArnoldRenderOptions     | Exporting plug defaultArnoldRenderOptions.message for type aiOptions </code></pre><h2 id="">加载/插件</h2><p>此部分显示导入任何着色器或程序的结果。</p>
+<p>只通过 kick 本身进行渲染时，不会显示插件和 ass 位置。</p>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00   773MB         | loading plugins from ....
+00:00:00   773MB         | no plugins loaded
+00:00:00   773MB         | [ass] loading project/scenes/simplescene.ass ...
+00:00:00   773MB         | [ass] read 11386 bytes, 11 nodes in 0:00.00 </code></pre><p>如果加载插件（且详细级别足够高），将列出着色器：</p>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00   773MB         | loading plugin: C:/solidangle/mtoadeploy/2016/shaders/mtoa_shaders.dll ...
+00:00:00   773MB         |  mtoa_shaders.dll: MayaMultiplyDivide uses Arnold 4.2.7.4
+00:00:00   773MB         |  mtoa_shaders.dll: MayaClamp uses Arnold 4.2.7.4
+00:00:00   773MB         |  mtoa_shaders.dll: MayaGammaCorrect uses Arnold 4.2.7.4
+00:00:00   773MB         |  mtoa_shaders.dll: MayaCondition uses Arnold 4.2.7.4
+....
+00:00:00   774MB         |  mtoa_shaders.dll: volume_sample_float uses Arnold 4.2.7.4
+00:00:00   774MB         |  mtoa_shaders.dll: volume_sample_rgb uses Arnold 4.2.7.4
+00:00:00   774MB         |  mtoa_shaders.dll: driver_mplay uses Arnold 4.2.7.4
+00:00:00   774MB         | loaded 90 plugins from 1 lib(s) in 0:00.00 </code></pre><h2 id="">许可检查</h2><p>如果有可用的许可，日志将显示以下内容。</p>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00   810MB         | [rlm] checkout of "arnold 20150615" in progress ...
+00:00:00   810MB         | [rlm] checkout of "arnold 20150615" from server PC in 0:00.01
+00:00:00   810MB         | [rlm] expiration date: 31-dec-2015 (164 days left)  </code></pre><p>但是，如果 RLM 服务器未运行，将显示一条警告。</p>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00   810MB WARNING | [rlm] could not connect to license server on 5053@localhost </code></pre><h2 id="">颜色管理</h2><pre class="pre codeblock"><code class="prettyprint">00:00:00    56MB         |
+00:00:00    63MB         | [color_manager_syncolor] Using syncolor_color_manager Version 2018.0.80
+00:00:00    63MB         |                          with the native catolog directory from /path/to/synColor
+00:00:00    63MB         |                          and the optional custom catalog directory from /other/path/to/Shared/ </code></pre><p>使用 SYNCOLOR 环境变量时，kick 将覆盖 ass 颜色管理路径，因此输出将如下所示：</p>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00    63MB         | [color_manager_syncolor] Using syncolor_color_manager Version 2018.0.80
+00:00:00    63MB         |                          from the preference file /path/to/synColorConfig.xml
+00:00:00    63MB         |                          and the optional custom catalog directory from /other/path/to/Shared/ </code></pre><h2 id="">场景内容</h2><p>此处将列出场景中灯光和对象的数量（及其类型）。</p>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00   818MB         | there are 1 light and 2 objects:
+00:00:00   818MB         |       1 persp_camera
+00:00:00   818MB         |       1 distant_light
+00:00:00   818MB         |       1 utility
+00:00:00   818MB         |       1 lambert
+00:00:00   818MB         |       1 driver_exr
+00:00:00   818MB         |       1 gaussian_filter
+00:00:00   818MB         |       1 polymesh
+00:00:00   818MB         |       1 list_aggregate
+00:00:00   818MB         |       1 MayaShadingEngine
+00:00:00   818MB         |       1 renderview_display  
+00:00:00   818MB         |       1 color_manager_syncolor  </code></pre><h2 id="">分辨率/采样</h2><p>此部分显示输出分辨率和有关采样数的详细信息。</p>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00   818MB         | rendering image at 640 x 480, 3 AA samples
+00:00:00   818MB         |   AA sample clamp   &lt;disabled&gt;
+00:00:00   818MB         |   diffuse           samples  3 / depth  1
+00:00:00   818MB         |   specular          samples  3 / depth  2
+00:00:00   818MB         |   transmission      samples  1 / depth  2
+00:00:00   818MB         |   volume indirect   &lt;disabled by depth&gt;
+00:00:00   818MB         |   total                          depth 10
+00:00:00   818MB         |   bssrdf            &lt;disabled&gt;
+00:00:00   818MB         |   transparency      depth 10 / fast opacity off </code></pre><h2 id="">节点</h2><p>渲染开始前，会对节点进行初始化。此处的统计信息让您了解场景中的对象和灯光，并可在出现任何配置错误时显示警告。请注意，某些数据不会立即初始化，有些计算会延迟，直到第一条光线投射到对象时才开始，这样渲染期间将可显示进一步的信息。</p>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00   818MB         |  initializing 11 nodes ...
+00:00:00   818MB         |   creating root object list ...
+00:00:00   818MB         |   scene bounds: (-0.995465517 -1.01209259 -0.995465755) -&gt; (1.00453472 0.98790741 1.00453484)
+00:00:00   818MB         |  node initialization done in 0:00.00 (single-threaded)
+00:00:00   818MB         |  updating 12 nodes ...
+00:00:00   818MB         |   directionalLightShape1: distant_light using 1 sample
+00:00:00   818MB         |  node update done in 0:00.00 (single-threaded)
+
+</code></pre><h2 id="aov">驱动程序/AOV</h2><p>此处显示场景中使用的驱动程序和 AOV，以及在它们设置不正确时出现的任何警告。</p>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00   818MB         |  [aov] parsing output statement: "RGBA RGBA defaultArnoldFilter@gaussian_filter defaultArnoldDisplayDriver@renderview_display"
+00:00:00   818MB         |  [aov] parsing output statement: "RGBA RGBA defaultArnoldFilter@gaussian_filter defaultArnoldDriver@driver_exr.RGBA"
+00:00:00   818MB         |  [aov] registered driver: "defaultArnoldDisplayDriver@renderview_display" (renderview_display)
+00:00:00   818MB         |  [aov]  * "RGBA" of type RGBA filtered by "defaultArnoldFilter@gaussian_filter" (gaussian_filter)
+00:00:00   818MB         |  [aov] registered driver: "defaultArnoldDriver@driver_exr.RGBA" (driver_exr)
+00:00:00   818MB         |  [aov]  * "RGBA" of type RGBA filtered by "defaultArnoldFilter@gaussian_filter" (gaussian_filter)
+00:00:00   818MB         |  [aov] done preparing 1 AOV for 2 outputs to 2 drivers (0 deep AOVs) </code></pre><h2 id="">进度</h2><p>此时渲染已经开始，日志将显示所用的渲染块数以及所采用的大小。如果需要生成任何重要性表（在本例中为天穹），则会立即这样做，并显示平均能量值。按 5% 的增量显示已完成百分比以及每像素的平均光线数。如果您的采样设置太高，则此值将一闪而过。</p>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00   825MB         |  starting 12 bucket workers of size 64x64 ...
+00:00:00   835MB         |     0% done - 9 rays/pixel
+00:00:00   835MB         |   [accel] bvh4 done - 0:00.00 - 400 prims, 1 key
+00:00:00   836MB         |     5% done - 9 rays/pixel
+00:00:00   836MB         |    10% done - 9 rays/pixel
+00:00:00   836MB         |    15% done - 9 rays/pixel
+00:00:00   837MB         |    20% done - 9 rays/pixel
+00:00:00   837MB         |    25% done - 9 rays/pixel
+00:00:00   837MB         |    30% done - 9 rays/pixel
+00:00:00   837MB         |    35% done - 10 rays/pixel
+00:00:00   837MB         |    40% done - 10 rays/pixel
+00:00:00   838MB         |    45% done - 12 rays/pixel
+00:00:00   838MB         |    50% done - 12 rays/pixel
+00:00:00   838MB         |    55% done - 13 rays/pixel
+00:00:00   838MB         |    60% done - 13 rays/pixel
+00:00:00   838MB         |    65% done - 13 rays/pixel
+00:00:00   838MB         |    70% done - 13 rays/pixel
+00:00:00   838MB         |    75% done - 13 rays/pixel
+00:00:00   838MB         |    80% done - 13 rays/pixel
+00:00:00   838MB         |    85% done - 13 rays/pixel
+00:00:00   838MB         |    90% done - 13 rays/pixel
+00:00:00   838MB         |    95% done - 13 rays/pixel
+00:00:00   838MB         |   100% done - 13 rays/pixel
+00:00:00   824MB         |  bucket workers done in 0:00.38 </code></pre><h2 id="">输出</h2><p>渲染完成后，会使用选定的输出驱动程序将其写入文件（或屏幕）。日志将显示相对路径。</p>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00   824MB         |  [driver_exr] writing file `C:/Users/Documents/example.exr'
+00:00:00   821MB         | render done  </code></pre><h2 id="">场景创建统计信息</h2><p>这些计时显示加载插件和 .ass 文件所用的时间。</p>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00   821MB         | scene creation time:
+00:00:00   821MB         |  plugin loading               0:00.07
+00:00:00   821MB         |  system/unaccounted           0:00.12
+00:00:00   821MB         |  total                        0:00.12  ( 1.05% machine utilization) </code></pre><h2 id="">渲染时间统计信息</h2><p>这些计时显示执行各种任务所用的时间。通常，像素渲染会占用大部分时间，如果不是这样，通过查看节点初始化和几何体统计信息，可能会发现效率低下的地方。计算机利用率低可能指示同一计算机上的其他进程导致渲染速度降低。但是，也可能指示大量的时间用于执行单线程任务，例如在节点初始化、程序或网格处理中。另一种可能的情况是，存在许多（慢速）文件访问，通常用于纹理或体积。查看纹理统计信息可能会找出问题所在。</p>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00   821MB         | render time:
+00:00:00   821MB         |  node init                    0:00.00
+00:00:00   821MB         |   sanity checks               0:00.00
+00:00:00   821MB         |  bucket rendering             0:00.38
+00:00:00   821MB         |   mesh processing             0:00.00
+00:00:00   821MB         |   accel. building             0:00.00
+00:00:00   821MB         |   pixel rendering             0:00.38  (multi-threaded render, this value may not be reliable)
+00:00:00   821MB         |  system/unaccounted           0:00.17
+00:00:00   821MB         |  total                        0:00.55  (69.23% machine utilization) </code></pre><h2 id="">内存统计信息</h2><p>此处列出了启动时使用的内存和用于各种类型的数据的峰值内存。使用插件时，启动内存会显示主机应用程序使用的内存量，从 kick 渲染时，启动内存很小，这通常意味着可以渲染更大的场景。如果内存使用量太高，这些统计信息会指示调整哪些数据最有助于降低内存使用量。</p>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00   821MB         | memory consumed in MB:
+00:00:00   821MB         |  at startup                    807.25
+00:00:00   821MB         |  plugins                         2.52
+00:00:00   821MB         |  AOV samples                    11.67
+00:00:00   821MB         |  output buffers                  5.32
+00:00:00   821MB         |  node overhead                   0.00
+00:00:00   821MB         |  message passing                 0.02
+00:00:00   821MB         |  memory pools                   13.54
+00:00:00   821MB         |  geometry                        0.01
+00:00:00   821MB         |    polymesh                      0.01
+00:00:00   821MB         |  accel. structs                  0.02
+00:00:00   821MB         |  strings                         0.30
+00:00:00   821MB         |  texture cache                   0.00
+00:00:00   821MB         |  unaccounted                     1.64
+00:00:00   821MB         |  total peak                    842.29 </code></pre><h2 id="">光线统计信息</h2><p>此处显示每种类型的光线数，以及每个像素和每个 AA 采样对应的光线数。如果渲染时间很长，则通过这些数值可以了解哪些类型的采样渲染成本最高，以及尝试调整哪些类型的采样最有助于减少渲染时间。</p>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00   821MB         | ray counts:                           (/pixel, /sample) (% total) (avg. hits) (max hits)
+00:00:00   821MB         |  camera                       2318256 (   8.71,    1.00) ( 64.57%) (     0.11) (       1)
+00:00:00   821MB         |  shadow                        228076 (   0.86,    0.10) (  6.35%) (     0.00) (       0)
+00:00:00   821MB         |  diffuse                      1043914 (   3.92,    0.45) ( 29.08%) (     0.00) (       0)
+00:00:00   821MB         |  total                        3590246 (  13.48,    1.55) (100.00%) (     0.07) (       1)
+00:00:00   821MB         |  max depth                          1 </code></pre><h2 id="">着色器统计信息</h2><p>此处显示各种上下文中的着色器调用数，此信息可用于确定哪些着色器调用最有助于加快速度。</p>
+<ul>
+<li>Primary：非阴影光线的曲面着色（这是传统着色）。</li>
+<li>Transparent_shadow：阴影光线穿过透明曲面时的曲面着色（需要进行着色，以了解光线是被阻挡还是可以继续传播，如果继续传播，则改变其颜色）。</li>
+<li>Autobump：每次计算自动凹凸时，必须计算置换。</li>
+<li>Background：背景着色器。</li>
+<li>Importance：计算重要性表时进行的调用。</li>
+<li>Volume：体积着色器调用。</li>
+</ul>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00   821MB         | shader calls:                         (/pixel, /sample) (% total)
+00:00:00   821MB         |  primary                       523006 (   1.96,    0.23) (100.00%)
+00:00:00   821MB         |  total                         523006 (   1.96,    0.23) (100.00%) </code></pre><p>您可以使用这些着色器统计信息来缩短渲染时间。例如，如果您看到大量 transparent_shadow，通常表示灯光采样数极高或包含大量透明对象。另一个示例是，如果自动凹凸极高，您可以尝试对似乎并未从中受益良多的网格禁用自动凹凸。</p>
+<h2 id="">几何体统计信息</h2><p>通过这些统计信息，可以了解场景中的几何体数量。如果内存使用量很高或者场景设置耗时很长，可以利用这些信息找出这种情况主要是由哪些对象导致的，以及对哪些对象进行简化或减少细分迭代次数有助于解决问题。</p>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00   821MB         | geometry:                             (% hit ) (instances) (  init mem,  final mem)
+00:00:00   821MB         |  lists                              1 (100.0%) (        0) (      0.00,       0.00)
+00:00:00   821MB         |  polymeshes                         1 (100.0%) (        0) (      0.02,       0.01)
+00:00:00   821MB         | -----------------------------------------------------------------------------------------
+00:00:00   821MB         | geometric elements:                   (      min) (       avg.) (      max)
+00:00:00   821MB         |  objects (top level)                1 (        1) (        1.0) (        1)
+00:00:00   821MB         |  polygons                         400 (      400) (      400.0) (      400)
+00:00:00   821MB         | -----------------------------------------------------------------------------------------
+00:00:00   821MB         | triangle tessellation:                (      min) (       avg.) (      max) (/ element) (% total)
+00:00:00   821MB         |  polymeshes                       760 (      760) (      760.0) (      760) (     1.90) (100.00%)
+00:00:00   821MB         |  unique triangles:                760
+00:00:00   821MB         |  memory use (in MB)              0.01
+00:00:00   821MB         |    vertices                      0.00
+00:00:00   821MB         |    vertex indices                0.00
+00:00:00   821MB         |    packed normals                0.00
+00:00:00   821MB         |    normal indices                0.00
+00:00:00   821MB         |    uv coords                     0.00
+00:00:00   821MB         |    uv coords idxs                0.00
+00:00:00   821MB         |    uniform indices               0.00
+00:00:00   821MB         |    userdata                      0.00
+00:00:00   821MB         |  largest polymeshes by triangle count:
+00:00:00   821MB         |          760 tris -- pSphereShape1 </code></pre><h2 id="strong-a-href-howtoreadarenderlog-texturestats-a-strong"><strong><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Kick/arnold_for_maya_kick_am_How_to_Read_a_Render_Log_html.html#HowtoReadaRenderLog-TextureStats">纹理统计信息</a></strong></h2><p>图像纹理的详细统计信息。通过这些统计信息可以了解哪些纹理使用的内存最多，以及哪些纹理未分片且适合转化为 .tx 文件。主缓存未命中百分比应该非常小，以便获得良好性能；如果此百分比很高，渲染时间可能会显著增加。如果主缓存未命中次数太高，则确保仅使用 .tx 文件、减少纹理数或调整纹理设置会有所帮助。</p>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00   841MB         | OpenImageIO Texture statistics
+00:00:00   841MB         |   Queries/batches : 
+00:00:00   841MB         |     texture     :  261503 queries in 261503 batches
+00:00:00   841MB         |     texture 3d  :  0 queries in 0 batches
+00:00:00   841MB         |     shadow      :  0 queries in 0 batches
+00:00:00   841MB         |     environment :  0 queries in 0 batches
+00:00:00   841MB         |   Interpolations :
+00:00:00   841MB         |     closest  : 0
+00:00:00   841MB         |     bilinear : 398256
+00:00:00   841MB         |     bicubic  : 701789
+00:00:00   841MB         |   Average anisotropic probes : 2.8
+00:00:00   841MB         |   Max anisotropy in the wild : 671
+00:00:00   841MB         | 
+00:00:00   841MB         | OpenImageIO ImageCache statistics (000000003D574040) ver 1.5.15
+00:00:00   841MB         |   images : 1 unique
+00:00:00   841MB         |     ImageInputs : 1 created, 1 current, 1 peak
+00:00:00   841MB         |     Total size of all images referenced : 1.7 MB
+00:00:00   841MB         |     Read from disk : 1.7 MB
+00:00:00   841MB         |     File I/O time : 0.2s (0.0s average per thread)
+00:00:00   841MB         |     File open time only : 0.0s
+00:00:00   841MB         |   Tiles: 25 created, 24 current, 24 peak
+00:00:00   841MB         |     total tile requests : 1454328
+00:00:00   841MB         |     micro-cache misses : 35383 (2.43294%)
+00:00:00   841MB         |     main cache misses : 25 (0.00171901%)
+00:00:00   841MB         |     Peak cache memory : 2.3 MB
+00:00:00   841MB         |   Image file statistics:
+00:00:00   841MB         |         opens   tiles  MB read  I/O time  res              File
+00:00:00   841MB         |       1    1       12      1.7      0.2s   768x 768x3.u8   C:/Users/Documents/example.tif UNTILED UNMIPPED MIP-COUNT [12,7,3,2,1,0,0,0,0,0]
+00:00:00   841MB         | 
+00:00:00   841MB         |   Tot:     1       12      1.7      0.2s
+00:00:00   841MB         |   1 not tiled, 1 not MIP-mapped </code></pre><h2 id="">关闭</h2><p>Arnold 运行结束时，会释放所有资源、内存/线程并关闭。</p>
+<pre class="pre codeblock"><code class="prettyprint">00:00:00   841MB         | releasing resources
+00:00:00   831MB         |  unloading 27 plugins
+00:00:00   829MB         |  unloading plugins done
+00:00:00   828MB         | Arnold shutdown </code></pre>
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关 Kick 快速入门的详细信息，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_kick_am_Getting_Started_With_Kick_html">此处</a>。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Kick_html.html">Kick</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

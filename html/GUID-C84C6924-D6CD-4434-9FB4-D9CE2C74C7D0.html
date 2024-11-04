@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Basics">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0">
+<meta name="language" content="CHS">
+<title>将回调链接到脚本</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>将回调链接到脚本</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-EE502334-0245-49B0-80CD-4B79864FF7A0">您可以使用回调将属性链接到一个执行任意数量函数的复杂脚本。例如，使用回调脚本，可以通过影响场景的方式调整<span class="ph uicontrol" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-56FB8187-C1A5-46B8-A43B-5CA936D0E147">“属性编辑器”(Attribute Editor)</span>控件。
+	 </p>
+<p class="p" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-F12AAD68-5183-47BC-9AE4-337E8D5B3865">下图中显示在 Maya 中创建的坦克。该坦克的主节点处于选中状态，且该坦克在<span class="ph uicontrol" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-3CBA5596-5743-481B-A392-F0C735E58E0E">“属性编辑器”(Attribute Editor)</span>中以默认视图显示。
+	 </p>
+<div class="fig fignone" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__FIG_0B98BF7BDAA84A2D9B7564F5E9D10E33"><img class="image" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__IMAGE_FC685E4819F6444683B3D01F78FCF11A" src="../images/GUID-29E6C6C4-E092-4AAD-8AE0-50F1D5F17458.png"></div>
+<div class="p" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-03816F64-E7A5-4872-84BD-FC3A68EF04E9">下图中选择了名为<strong class="ph b" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-AAABC3CF-62D9-4C42-8C7D-77359FC53A6C">“动画”(Animation)</strong>的视图。此视图已进行自定义，可满足动画师的需求。例如，已禁用<span class="ph uicontrol" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-173AC2D7-7122-4A3B-A386-AA98816F6932">“细节”(Details)</span>属性。因此，场景中隐藏了坦克的细节。
+		<div class="fig fignone" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__FIG_8772B568032F48CC97F6AA3AE365A25E"><img class="image" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__IMAGE_4AEE7B4E34004E229D1D5CA01B19129D" src="../images/GUID-3F430503-2797-4284-98A9-F08113EF4F72.png"></div>
+ 
+	 </div>
+<div class="p" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-42211B13-4213-4254-8473-C98D7499052A">此视图已在名为 <samp class="ph codeph" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-CEBDB5EE-ADAA-445D-98F6-F45641323420">AETransformTemplate.xml</samp> 的自定义模板中创建，它会调用一个名为 <samp class="ph codeph" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-20BEC824-F1C0-4F58-8D1D-9C864C5FCBBA">AEtankControlAnim</samp> 的程序：
+		<div class="fig fignone" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__FIG_AB519AD4C3394177834F02138D634F79"><img class="image" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__IMAGE_97D874E12E5E4F72B4551A0C239F82F3" src="../images/GUID-FC0C7088-52B5-42D5-A9A9-250F8D5D3443.png"></div>
+ 
+	 </div>
+<p class="p" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-CCD21A7A-F0CA-4A5C-BC46-2AC6D4603CFD"> 
+		<samp class="ph codeph" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-C6754CC5-3B8E-43A6-9AA5-57EAA51D4881">AEtankControlAnim</samp> 可在 MEL 或 Python 中创建（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-3CC05B40-233C-4A1C-95F4-D372A90AE36F.htm">创建自定义属性控件</a>）并包含回调脚本。
+	 </p>
+<div class="p" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-990030A8-DDAD-4F9F-A0FA-8D8A89F8B77D">回调脚本可完成两个任务：
+	 <ol class="ol" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__OL_38C849C56B2F41AF84F62E1A7FEB2F69"><li class="li" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__LI_8AEB0C2CE7704C9B842C7ECBDFE94346">根据属性类型创建控件。
+		  <div class="p" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-D9F714A7-3857-410C-9A77-148BCED417C0">例如，<span class="ph uicontrol" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-AF3A83B8-D91F-4C09-BF83-CC3FDE28BF23">“细节”(Details)</span>属性的属性声明中包含以下代码行：<pre class="pre codeblock">&lt;attribute name='details' type='maya.bool'&gt;</pre>
+由于类型为 <samp class="ph codeph" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-D08DEE86-FCFA-4671-8087-005FF2059818">maya.bool</samp>，因此<span class="ph uicontrol" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-E508A4A9-098F-4693-81DC-51DFF0A6778D">“属性编辑器”(Attribute Editor)</span>创建了一个复选框。有关类型的列表，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-D2DF8C97-0AFE-4EDE-938C-B99BF1E46B6E#GUID-D2DF8C97-0AFE-4EDE-938C-B99BF1E46B6E__WS1A9193826455F5FF-12BA6B3A11A9C207460-70ED">属性类型</a>。
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__LI_7364AFEA99524E2F92F9755D2D124343">当更改控件的值时，将运行另一个脚本，即更改命令。这样，可以保持<span class="ph uicontrol" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-76159E54-4B80-40F2-AC68-3832BC8BFA82">“属性编辑器”(Attribute Editor)</span>与属性同步。
+		</li>
+</ol>
+ 
+	 </div>
+<div class="p" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-A5E4A792-400D-4DCA-80A0-4BFC803FACF0">为了更改<span class="ph uicontrol" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-AA164C3C-130E-4C3E-91AA-7BAF927A9DD5">“细节”(Details)</span>属性，在 <samp class="ph codeph" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-1A69CA20-2A41-4BA8-B493-2A1B70CA9C46">AEtankControlAnim</samp> 程序中又添加了几行代码。
+		<div class="fig fignone" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__FIG_CE68389F828546A5B8F7AA2A7FB4C032"><img class="image" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__IMAGE_56FA620E937B4F469E1DA7EA61760703" src="../images/GUID-F0267533-0CA6-48F9-9641-9FF1674F8FE8.png"></div>
+ 
+	 </div>
+<div class="p" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-49D0108A-2CF2-4305-884E-8073DE643371"> 名为 <samp class="ph codeph" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-5F294DDC-7339-4947-B0B4-7F7D1C01B117">tankControlAnimCB</samp> 的更改命令启动另一个脚本，从而确保在<span class="ph uicontrol" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-29F4DCBC-F594-4488-9EE1-28AE7D59BE2F">“属性编辑器”(Attribute Editor)</span>布局中关闭<span class="ph uicontrol" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-CA5EBB1D-951B-4DF0-922E-EDE0301ABD44">“细节”(Details)</span>复选框。
+		<div class="note tip" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__GUID-D1A69646-780F-4E76-9716-0BA818BC2D80"><span class="tiptitle">提示：</span> 若要使用命令标志清除场景的脏状态，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-F4AEB748-8159-439F-8571-CD7DFB7E77EB.htm">使用回调时避免不必要地弄脏场景</a>。
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__SECTION_CFB0855496AA4EA592F41002861E22FC"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__UL_7E750394DAE4427FB716679EA0AFCC87"><li class="li" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__LI_A90527F2F8D442FBAEA35668EF345274"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-3CC05B40-233C-4A1C-95F4-D372A90AE36F.htm">创建自定义属性控件</a> 
+		  </li>
+<li class="li" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__LI_F42836E7B03843EF886E698A336A3EA2"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-C386F366-A1F9-49E1-938D-45149F79D354.htm">创建自定义属性编辑器模板</a> 
+		  </li>
+<li class="li" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__LI_B46908C9CE72443399ECFDB61C75F72A"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-1BB52D1E-AA28-438E-A008-A0F4173D20FD.htm">在属性编辑器模板中使用回调</a> 
+		  </li>
+<li class="li" id="GUID-C84C6924-D6CD-4434-9FB4-D9CE2C74C7D0__LI_DA9D07E4DAAE4BB79AFB65D9B115841F"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-F4AEB748-8159-439F-8571-CD7DFB7E77EB.htm">使用回调时避免不必要地弄脏场景</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-1BB52D1E-AA28-438E-A008-A0F4173D20FD.htm">在属性编辑器模板中使用回调</a></div>
+</div>
+</div>
+
+</body>
+</html>

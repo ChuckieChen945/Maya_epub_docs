@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C">
+<meta name="language" content="CHS">
+<title>示例工作流程：使用基于物理的 Stingray 着色器融合两个纹理</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>示例工作流程：使用基于物理的 Stingray 着色器融合两个纹理 </h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-F6880D01-9BC7-4D9D-B26E-64370E514639">此示例演示如何使用 <span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-3F5B219E-F256-4E88-8B46-5512792295AD">Stingray PBS</span> 节点和 ShaderFX 节点创建着色器网络，以便可以通过绘制顶点融合两个纹理。 
+	 </p>
+<p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-665690F7-AB37-43B6-8966-077F3EDC735E">此工作流与 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-7C3BECD1-6E58-4963-9534-477314928E0F.htm">ShaderFX 介绍性示例工作流</a>主题中的<em class="ph i" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-D0F492DB-9953-49E3-9C63-A20881D4427C">“使用顶点颜色节点融合纹理”</em>示例类似；但是，此示例使用 <span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-D366FFA5-4CF8-40BA-A906-5B2646DB416E">Stingray PBS</span> 节点及其关联的 ShaderFX 节点。 
+	 </p>
+<ol class="ol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__OL_BD2CDF22736E457EADE6E62D233FE5E6"><li class="li" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__LI_27E87096041442B286F53D664E923704"> 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-6A7977EE-5C84-455F-BD2A-DE904665A179">在场景中创建一个平面，并将其细分增至 20x20。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__LI_D2DA4268D9D34428BBD552D316BAF337"> 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-D6B64235-4A60-4DEF-83F6-10BB954FBA54">右键单击该平面并选择<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-9A8BFEEB-670B-4574-859A-5F3F2875BB1B">“指定新材质”(Assign New Material)</span>，然后从<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-FBAB97AB-4847-464E-AEAE-5083872ECA30">“指定新材质”(Assign New Material)</span>窗口中选择 <span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-3C0BE1EF-E3A0-440E-86A9-9C6FF32C70F1">Stingray PBS</span>。 
+		  </p>
+ 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-D4D08821-6F9A-494B-B885-19E2AFC34B0D">按 6 键以选择带纹理模式。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__LI_1ACC100A0C4E4CD7BFC88A521D856BDA"> 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-70CC7C96-F34F-489E-8972-C1852665B2B6">在 StingrayPBS<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-BF7DA723-5906-4775-B42D-F37B58088533">“属性编辑器”(Attribute Editor)</span>中，从<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-B5769B08-5845-4D81-BFC3-232EB0EE0F87">“预设材质”(Preset Material)</span>下拉列表中选择<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-1177FA35-FDEC-4355-AF12-9E1524617303">“自定义”(Custom)</span>。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__LI_F3496C193AA5432B8B4788CD8E6AC7AC"> 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-EC405A3D-D25E-401D-81C5-CC628CB72AA4">单击<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-5AB5792F-B15B-4D77-98A5-927D1F16A75E">属性编辑器</span>中的<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-091AA42F-AF7C-4F00-9926-5E5838C3416F">“打开 ShaderFX”(Open ShaderFX)</span>以打开 ShaderFX 编辑器窗口。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__LI_75CD97A5EA7A4BBF954DB11A4E2386F1"> 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-40CCB97A-E972-475A-B6FE-E468F3B98E2B">将<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-D6A49D28-11C0-4102-A1B5-F91B0429AE3F">“采样纹理”(Sample Texture)</span>节点从<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-4029CE01-F9E8-41C3-86DC-0066640B4C04">节点浏览器</span>拖动到工作区。将它连接到第一个纹理；在此示例中为“混凝土”。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__LI_B1721FA32A6D481CA1A19FB896E08E8F"> 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-19661E19-4040-4AF1-9479-5BC1CE2B9C99">创建第二个<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-C0152E17-B1DA-4B72-BE22-A3319DAED91E">“采样纹理”(Sample Texture)</span>节点，并将它连接到第二个纹理；在此示例中为“草地”。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__LI_4D3FB55587FE456089D45BCE74C74726"> 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-5CFA9281-5636-4BDE-899A-98A1CF82D3B8">创建 <span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-149DE826-6DBB-4522-A553-BA8787189E17">TexCoord 0</span> 节点。 
+		  </p>
+ 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-FBC05ED1-57FD-4806-9E31-93DCBEC8A2C0">注意：必须将 UV 集节点连接到<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-6B5617C9-8EB1-4FE8-A80A-133D016703E8">“采样纹理”(Sample Texture)</span>的 UV 输入，才能设置对象的纹理坐标。UV 端口的红色边界也表示输入是强制的。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__LI_EF0355CD6B184E10BF42529723BE8634"> 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-C62D3781-605C-476B-A9C5-AA11B0A2B065">将 <span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-C55F54DD-6DE1-4742-A4F7-5FE3EC83F525">Texturecoord0</span> 的<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-D4D92321-BBD8-4D56-928C-0A7A8CD67027">“RG”</span>输出连接到每个<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-27099EF6-7BE7-460E-A69F-35F1CF696045">“采样纹理”(Sample Texture)</span>节点的<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-9B74B9B3-8531-473D-B5C7-552E79CC3FC0">“UV”</span>输入。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__LI_34EB676C0F5544658D567AC312262917"> 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-FA35BD89-2A7D-40AC-8D0E-D8273338CD9F">创建<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-D5CCB292-9491-41B9-895D-FAC731FF0B02">“顶点颜色 0”(Vertex Color 0)</span>节点和<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-A6F057D3-9484-4903-BBBF-E01EA08D941B">“线性插值”(Linear Interpolate)</span>节点。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__LI_65014650B31A4C449571A6F3B527ECC8"> 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-CFD4EB17-F508-4B72-B085-209866B2C7F0">将第一个<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-E239323A-C530-4BA3-9BB9-3E3CFCFD4A7B">“采样纹理”(Sample Texture)</span>节点的<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-FE980B79-7258-4BF1-B544-F24BF8DB3E7C">“RGBA”</span>输出连接到<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-0509BA0F-64E7-4448-A775-47F6BC8A57C8">“线性插值”(Linear Interpolate)</span>节点的第一个<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-6F6C798F-6055-48A0-930F-420733B970D6">“值”(Value)</span>输入。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__LI_42C769541F8447B4A091053CA173E46D">将第二个<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-BF997863-F1D9-4A12-BF85-E04C1AD8860B">“采样纹理”(Sample Texture)</span>节点的<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-F1B8A66B-B8F9-4056-B61C-0295013E6070">“RGBA”</span>输出连接到第二个<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-39812271-DDF5-414D-97D4-D8165857F7A5">“值”(Value)</span>输入。 
+		</li>
+<li class="li" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__LI_F330E077AFFF46DF98611BDBD2DA5B81"> 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-61E4329E-AF7B-4F9C-9111-7E112B75F2F0">将<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-CE81786A-8FD2-4C93-BC15-62B02E0F7F3F">“顶点颜色 0”(Vertex Color 0)</span>节点的<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-8C356066-512A-4F61-A5E9-C9D592A31857">“RGBA”</span>输出连接到<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-F3E05F6D-B29E-405F-A775-3CD7AEFCA588">“线性插值”(Linear Interpolate)</span>节点的<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-A74DF235-F5A5-4654-9533-1CBC217C2A46">“混合”(Mix)</span>输入。 
+		  </p>
+ 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-7F72283B-B4FA-4B0F-89E5-7B771AC6C065">顶点颜色用于融合两个纹理。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__LI_E50C781DEB6942738B979288C3F39F7B"> 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-198451D5-FE01-4F97-9F59-913676BB941E">单击<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-265D2BB2-7890-4AD7-8971-FCC7F7BED690">“线性插值”(Linear Interpolate)</span>节点上的<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-B3BEA5B3-420C-4314-A0A2-87256AA09F23">“混合”(Mix)</span>属性。在<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-F5A165CF-841C-4391-95C4-9702DD4E1B3F">属性编辑器</span>中，在<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-915C3A9C-F49F-4043-A500-2E39A151376A">“组件混合”(Component Swizzle)</span>字段中输入 r。 
+		  </p>
+ 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-51684D7B-F5B5-4D5A-A0F6-E379CCB1C76A">在“混合”(Mix)属性的旁边将添加 r 注释。红色通道现在用于融合两个纹理。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__LI_0D575F3BE8CB4A2BBA3E43DCFD22FF7B"> 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-41FF1504-4909-4B06-9E0B-DE712D5AB380">将<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-3EE46BF7-C8C7-4221-B807-58CBC71D5E5B">“线性插值”(Linear Interpolate)</span>的<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-CCC38211-9260-4342-A539-88131B6F5C9F">“结果”(Result)</span>输出连接到<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-1AE8977A-91B8-4370-8B6F-DC422A936F89">“标准基础”(Standard Base)</span>的<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-8ACAD701-072A-48F3-B0D9-4DE3CAA1A411">“基础颜色”(Base Color)</span>输入。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__LI_7FA08D73E0114AE880D59813D5E29379"> 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-80F368EF-3103-4551-BFFD-E88D9534FCF5"> 选择平面，然后选择<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-76C1EBF5-609B-428D-ABA8-7A621D28CD8E">“网格显示 &gt; 应用颜色”(Mesh Display &gt; Apply Color)</span> &gt; <img class="image" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__IMAGE_5D05BAC9C24D4ED187638E7DD1647B31" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">。 
+		  </p>
+ 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-2CE75474-FB38-4AFB-A43A-ABC1BBED1915">将<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-251F3161-BF4C-48E6-9F97-31A6B2388AAF">“颜色”(Color)</span>设置为黑色，然后单击<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-A13C7F4D-138F-41DE-9D9F-4083801F8FDC">“应用颜色”(Apply Color)</span>以确保所有顶点都以顶点颜色 0, 0, 0 开始。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__LI_65685310497D4634A7D7F801A265E7B5"> 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-C82CD678-AB27-42EA-9187-94B0039F5219">选择<span class="ph uicontrol" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-2C8C467C-0C4E-4121-B171-7A58A73E0169">“网格显示 &gt; 绘制顶点颜色工具”(Mesh Display &gt; Paint Vertex Color Tool)</span> &gt; <img class="image" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__IMAGE_D288E194621442BC99ECB7771087A579" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">。 
+		  </p>
+ 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-21DEA3A0-AA71-4C19-B677-21F41842D047">将“颜色”(Color)值设置为红色，因为红色通道用于融合。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__LI_66AB1A7B84394AC2B615DBF4F0463086"> 
+		  <p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-3629BB4D-78B7-40F6-BE05-4AE416CD2222">在平面上绘制，您会看到用红色绘制的区域采用草地纹理的值。现在，已通过绘制顶点融合纹理。 
+		  </p>
+ 
+		</li>
+</ol>
+<div class="fig fignone" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__FIG_DE266259ED9F42BE8DA61FCB68522810"><img class="image" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__IMAGE_3CED483C1F72423691BFF5F32A78BBCA" src="../images/GUID-C9D22021-652D-4041-AE96-BDFB5D607DF6.png"></div>
+<p class="p" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__GUID-1AF9B50A-139F-48AB-B256-DB434235B512">纹理由 www.cgtextures.com 提供。 
+	 </p>
+<div class="section" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__SECTION_DFE4CFF5346141FF8E34CE5CD6967F80"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__UL_3499FB4C46684D1C8D637BB89102012B"><li class="li" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__LI_05923AA0975E4587B79A8FEC6D9A393C"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-DC9B7CAC-B949-4C37-99D0-A1B3D8FD1EC9.htm">使用 ShaderFX 编辑器构建 Stingray 基于物理的着色器</a> 
+		  </li>
+<li class="li" id="GUID-B3203ECE-79B5-4F03-991C-40D9946FD08C__LI_338E55DDC41C4408A13559511F9C986A"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-6D54F764-0105-40CC-910E-53EAF37BBF0A.htm">将顶点颜色添加到 Stingray 基于物理的 ShaderFX 网络</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3.htm">创建基于物理的 Stingray 着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

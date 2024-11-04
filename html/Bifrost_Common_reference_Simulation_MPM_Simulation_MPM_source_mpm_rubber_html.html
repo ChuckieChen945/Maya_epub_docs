@@ -1,0 +1,96 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_MPM_Simulation_MPM_source_mpm_rubber_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>source_mpm_rubber</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>source_mpm_rubber</code></h1></div><p>指定应在其中创建或源化橡胶粒子的 <code>simulate_mpm</code>。可以使用此项创建连续的橡胶流或橡胶区域。</p>
+<p>除了像名称中所指示的可用于橡胶之外，<code>source_mpm_rubber</code> 还可用于任何需要完全弹性行为的材料。</p>
+<p>此复合的 <code>rubber_source</code> 输出应连接到 <code>simulate_mpm</code> 的 <code>sources</code> 输入。</p>
+<h2 id="">输入</h2><h3 id="geometry"><code>geometry</code></h3><p>用于定义粒子创建位置的点、网格或体积。</p>
+<h2 id="general"><code>General</code></h2><h3 id="enable"><code>enable</code></h3><p>是否应使用此源。未选中时，此源将被忽略，因此不会生成粒子。</p>
+<h3 id="start_frame"><code>start_frame</code></h3><p>应开始发射粒子时的帧。如果对 <code>mpm_solver_settings</code> 复合选中了 <code>use_master_start_frame</code>，则将覆盖此选项。</p>
+<h3 id="use_end_frame"><code>use_end_frame</code></h3><p>如果选中此项，则在 <code>end_frame</code> 后停止发射粒子。</p>
+<h3 id="end_frame"><code>end_frame</code></h3><p>应停止发射粒子时的帧。如果等于 <code>start_frame</code>，将即时发射粒子。</p>
+<h2 id="particle-settings"><code>Particle Settings</code></h2><h3 id="particle_display_scale"><code>particle_display_scale</code></h3><p>使粒子看起来更大或更小。此项用作输出 <code>point_size</code> 的倍增，但并不影响模拟。要更改粒子的有效模拟大小，请使用 <code>mpm_solver_settings</code> 的 <code>detail_size</code> 特性。</p>
+<h3 id="particles_per_voxel"><code>particles_per_voxel</code></h3><p>应播种到一个体素中的平均粒子数，其中，体素的大小由 <code>mpm_solver_settings</code> 的 <code>detail_size</code> 确定。值越大，模拟的粒子数越多，并且可以增加细节，但请注意，运动是基于体素化体积计算得出的，因此增加此设置时，运动的整体分辨率将保持相同。当出于某种与粒子数无关的原因（例如，如果您希望更好地解析薄碰撞对象周围的运动，但不希望增加粒子数），您需要减小 <code>detail_size</code> 时，也可以减小此值。</p>
+<h3 id="passthrough_points"><code>passthrough_points</code></h3><p>启用此选项以使用输入几何体的 <code>point_position</code> 作为粒子的初始 <code>point_position</code>。在这种情况下会忽略 <code>distribution</code> 和 <code>particles_per_voxel</code> 设置。</p>
+<h3 id="passthrough_properties"><code>passthrough_properties</code></h3><p>启用 <code>passthrough_points</code> 后，这些附加特性将在每一帧复制到粒子，并在类型支持时插值到子步。如果使用多个 <code>source_mpm_rubber</code>，则将合并其所有 <code>passthrough_properties</code>，并对缺少的特性使用默认值。</p>
+<h3 id="distribution_mode"><code>distribution_mode</code></h3><p>输入 <code>geometry</code> 上发射粒子的位置。</p>
+<ul>
+<li><code>Surface</code>：仅从外部层或表面发射。</li>
+<li><code>Volume</code>：从内部或封闭体积发射。</li>
+</ul>
+<h3 id="geometry-volume-conversion"><code>Geometry Volume Conversion</code></h3><h4 id="use_solver_detail_size"><code>use_solver_detail_size</code></h4><p>使用在 <code>mpm_solver_settings</code> 节点上设置的 <code>detail_size</code> 来体素化源，而不是 <code>geo_detail_size</code>。</p>
+<h4 id="resolution_mode"><code>resolution_mode</code></h4><p>如何确定网格发射器的体素大小。 </p>
+<ul>
+<li><code>Absolute</code>：发射器体素的大小是采用世界空间单位的 <code>geo_detail_size</code> 值。</li>
+<li><code>Relative</code>：<code>geo_detail_size</code> 与源轴对齐边界框的最大尺寸成比例。因此，在 <code>Relative</code> 模式下，大小为 20 个单位的立方体的世界空间体素大小比指定的 <code>geo_detail_size</code> 值大 20 倍。对于源，开始帧处源网格的边界用于确定完整动画的 <code>geo_detail_size</code>，即使为源大小设置动画也是如此。</li>
+</ul>
+<h4 id="geo_detail_size"><code>geo_detail_size</code></h4><p>体素化发射器中最小可解析细节的大小。</p>
+<h4 id="geo_volume_mode"><code>geo_volume_mode</code></h4><p>定义输入网格的体素化方式。</p>
+<ul>
+<li><code>Solid</code>：在此模式下，将多边形网格体素化为实体，如果网格是密闭网格，效果最好。</li>
+<li><code>Shell</code>：在此模式下，将网格体素化为薄壳，不要求网格是防水网格。</li>
+</ul>
+<h4 id="min_hole_radius"><code>min_hole_radius</code></h4><p>使用 <code>Solid</code> 模式从网格发射时，填充半径小于此值的间隙和孔。</p>
+<h4 id="geo_volume_offset"><code>geo_volume_offset</code></h4><p>从网格或点发射时体素化体积的偏移量（以世界单位表示）。正值会扩大体积，负值会使体积收缩。</p>
+<h4 id="optimal_adaptivity"><code>optimal_adaptivity</code></h4><p>在平面和平滑区域中使用较粗糙的体素。这样可以通过减少体素数来提高性能。</p>
+<h4 id="display_diagnostic"><code>display_diagnostic</code></h4><p>是否显示源。</p>
+<h2 id="rubber-properties"><code>Rubber Properties</code></h2><h3 id="mass_density"><code>mass_density</code></h3><p>以千克/立方米为单位的质量。值越大，橡胶越重，将能够推动较轻的材质。</p>
+<h3 id="viscosity"><code>viscosity</code></h3><p>邻近点的运动被平均化的量。这是运动粘度，以平方米/秒为单位</p>
+<h3 id="volume_preservation"><code>volume_preservation</code></h3><p>橡胶保留其体积与形状的相对程度。此值是无单位值，应介于 0 到 1 之间：1 表示根本不保留形状（橡胶的行为类似于液体），0 表示根本不保留体积。对于大多数实体，此值可设为 0.5，表示形状和体积同等保留。例如，在一块材质的两个对侧推动时，通常，另外四侧会向外弯曲以保留总体积，而 <code>volume_preservation</code> = 0 时，材质根本不会扩展，而只是抵抗形状变化。此参数与工程中常用的泊松比相关。</p>
+<h3 id="vibration_speed"><code>vibration_speed</code></h3><p>振动穿过橡胶的速度，以米/秒为单位。此值应为正值。值越大，刚度越高。这是声音在橡胶中传播的速度，也是压力波的自然速度。通常，值越大，计算时间越长，因此应使用可获得良好效果的最小值。如果橡胶不应明显反弹，则振动速度应足够大，以便振动可以在一帧内穿过橡胶。</p>
+<h3 id="initial_speed"><code>initial_speed</code></h3><p>粒子的初始速度。此项与 <code>direction</code> 相乘，并与来自 <code>inherit_velocity</code> 特性的速度相加。值以米/秒为单位。</p>
+<h3 id="direction"><code>direction</code></h3><p>粒子的初始速度方向。此项按 <code>initial_speed</code> 缩放，并与来自 <code>inherit_velocity</code> 特性的速度相加。</p>
+<h3 id="inherit_velocity"><code>inherit_velocity</code></h3><p>与粒子初始速度相加的 <code>geometry</code> 输入的速度比例。</p>
+<h3 id="active"><code>active</code></h3><p>是否应模拟粒子。如果 <code>active</code> 为 false，则解算器将不更新粒子，它们就好像具有较大质量，其他活动粒子可以与它们碰撞。可以使用 <code>influences</code> 通过设置 <code>point_active</code> 特性有选择地激活和取消激活粒子。出于性能原因，当 <code>active</code> 为 true 时，<code>point_active</code> 特性不会添加到粒子（除非其他 <code>source_mpm_rubber</code> 添加此特性），可以使用 <code>additional_properties</code> 端口强制添加此特性。</p>
+<h3 id="additional_properties"><code>additional_properties</code></h3><p>连接 <code>set_property</code> 节点以在模拟的粒子上定义和初始化其他特性。可以在模拟过程中使用 <code>influences</code> 修改这些特性。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>如果它是存储在 <code>float4</code> 中的四元数，则解算器将会更新 <code>point_orientation</code>。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_MPM_html.html">MPM</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

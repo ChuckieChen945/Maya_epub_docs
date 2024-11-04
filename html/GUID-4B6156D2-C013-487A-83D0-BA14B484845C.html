@@ -1,0 +1,116 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-4B6156D2-C013-487A-83D0-BA14B484845C">
+<meta name="language" content="CHS">
+<title>ShaderFX 置换、细分和偏移凹凸贴图</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>ShaderFX 置换、细分和偏移凹凸贴图</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__SECTION_8A03E82220464CE082A0F465B5EF6E0D"><h2 class="title sectiontitle">置换和细分因子</h2>
+
+<p class="p" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-D631A7A7-1185-425F-8D71-1C01C8AE7249">通过将高度（置换）贴图连接到<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-C6BEBA3A-C037-40D4-8BB1-1CE2D4D9F6A2">“材质”(Material)</span>节点的<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-DC471C40-871E-4D3C-84EC-978976CF8D47">“置换”(Displacement)</span>属性，可以向对象添加置换。 </p>
+
+
+<p class="p" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-A53F0640-23E4-4F7B-B1BD-AE4219B03ED0">若要在 <span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-14BCF533-785C-47E4-A5AB-6C116DB23544">Viewport 2.0</span> 中可视化细分和置换，您必须在 DirectX 11 环境中工作，并且启用 <samp class="ph codeph" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-9017573C-032E-4BF5-BAB4-B952DF096EB2">dx11Shader.mll</samp> 插件。有关详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-EE108A86-9830-455E-BF2F-64A4075E8303">将 DirectX 11 与 Viewport 2.0 结合使用</a>。 </p>
+
+<p class="p" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-570DCEE1-094C-4EFA-BA82-ABDB39FC2413">下图演示了如何连接置换和细分属性： </p>
+
+<div class="fig fignone" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__FIG_0849F4EA3D2144D198D812CB3C485E6B"><img class="image" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__IMAGE_FC720FF0F80C4840A953C49ECC3190F2" src="../images/GUID-27C85066-415D-4CF0-B388-802AA7A05044.png"></div>
+
+<ul class="ul" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__UL_875817DC22444F20B20A51B9427521F8"><li class="li" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__LI_F5E5DF93DEF74E5A8D124168354DE263">
+<p class="p" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-9FD9FD17-F835-441A-8FAB-19543D62D6DA">为置换贴图创建一个<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-81987BDB-75BE-4F46-BCE8-502F753123E7">“纹理贴图”(Texture Map)</span>节点，并将其<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-8E6E7441-D776-41B6-B7D7-623C652BFF9F">“颜色”(Color)</span>属性连接到<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-EE24A947-5FEC-423F-857B-B0063ACB6354">“材质”(Material)</span>节点的<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-ACF17FC8-5AEE-4940-92FE-6E9EFE771E72">“置换”(Displacement)</span>属性。 </p>
+
+</li>
+<li class="li" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__LI_A48368C1CD054B3EBA1E18A6E3A3919E">
+<p class="p" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-6420640F-794C-4315-9A9E-E5EE8BA186C4">创建一个<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-31A322E2-8133-4E42-83D1-706F1FF0882A">“浮点型”(Float)</span>节点，并将它连接到<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-43C7A138-FB11-4FC7-ADCA-6A4CA6221CCB">“材质”(Material)</span>节点的<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-135482FC-1E6A-411E-9739-6EBB96E6FB56">“细分因子”(Tessellation Factor)</span>属性。使用浮点值调整对象的细分量。若要在 <span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-AFB20CD4-5383-44CD-AE1E-C6F591741449">Viewport 2.0</span> 中可视化细分量，请选择<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-3F9ADB54-DF08-461D-B1FE-4461FD249206">“材料”(Material)</span>节点并在<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-AF41F37A-8D88-4981-9369-902985BE6933">“属性编辑器”(Attribute Editor)</span>中启用<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-9C000580-A58C-4F3E-9ED9-3C3784549D93">“线框”(Wireframe)</span>选项。设置此浮点值时，应考虑网格的密度是多少；如果网格已经包含大量面，可以使用较小的值，例如 2 或 3。如果网格中没有大量面，可能需要使用较大的值。如果将此值设置得太高，场景可能会变慢；因此，应尝试使用不同的值，以找出最符合您的目的的值。 </p>
+
+<div class="fig fignone" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__FIG_05A4357D11424595A64D46ED27365107"><img class="image" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__IMAGE_D6C8D3BCE6EE49439C5B7DF660DE2E6C" src="../images/GUID-700F8464-2BEB-40BA-83B9-B2866037FCDE.png"></div>
+
+</li>
+<li class="li" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__LI_470B07CF1202423B95EF9AA21B2A42CC">
+<p class="p" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-F4AFD628-13DD-4BA0-84CD-57A0084689F5">创建一个<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-E07251E2-B67A-4D67-9589-52EC5A3AC25C">“法线贴图”(Normal Map)</span>节点，并将它连接到<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-121513D3-E10A-49C9-AFF2-00CFD150776C">“TraditionalGameSurfaceShader”</span>的<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-88BEA40E-0355-4A47-B74B-5690B44E5980">“法线”(Normal)</span>属性，如图所示。此步骤是必需的，因为当您置换对象顶点时，法线将因顶点的新位置而变得不正确。您可以通过将具有正确法线值的法线贴图连接到网络来更正此问题。 </p>
+
+</li>
+</ul>
+
+<div class="fig fignone" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__FIG_4CBF4707E5D34538968B493FE598A7B1"><img class="image" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__IMAGE_62A11A9A0C0E4CF8825A5D5008C3A80D" src="../images/GUID-CFA51A7B-4BBF-4355-BC93-7C80A999679A.png"></div>
+
+</div>
+<div class="section" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__SECTION_9B84E1A168354D49B6BEF61FBA63C735"><h2 class="title sectiontitle">向量置换贴图（PNAEN 置换贴图）</h2>
+
+<p class="p" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-D3115898-A748-4ED4-99C2-92724803576B">通过在<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-6E595D64-BA53-4E6C-A7BF-95188F19A395">“ShaderFX”</span>编辑器中选择<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-C6BBEB3F-24B5-4AA4-93F5-39CA16264D30">“硬件着色器节点 &gt; 纹理 &gt; PNAEN 置换贴图”(Hw Shader Nodes &gt; Textures &gt; PNAEN Displacement Map)</span>来创建此节点。 </p>
+
+
+<p class="p" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-BEAAB11E-2E8B-4BFF-8D7C-876FB720BF07">在<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-2E650CCC-A01F-4DA7-A4C1-BAAA7015E3EE">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-AF9ECE56-A35C-4D01-9F2A-C13D809DE5E1">“材料”(Material)</span>节点中，您可以通过<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-A2BCA34F-84DB-42B4-9B82-CF009A87E261">“置换/选项”(Displacement / Options)</span>属性在提供灰度贴图或向量置换贴图之间选择。 </p>
+
+<p class="p" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-3FC30A53-DFDA-49F9-BF51-2B5EA2EC061B">若要在 <span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-0E66FB46-F671-4001-9A8B-EB6AD4BB4F60">Viewport 2.0</span> 中可视化细分和置换，您必须在 DirectX 11 环境中工作，并且启用 <samp class="ph codeph" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-175A2EEE-0B8F-4915-AC82-D776E9094DCF">dx11Shader.mll</samp> 插件。有关详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-EE108A86-9830-455E-BF2F-64A4075E8303">将 DirectX 11 与 Viewport 2.0 结合使用</a>。 </p>
+
+<p class="p" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-992490E7-FD09-4493-88AC-38D0AD63D332">下图演示了如何连接法线和高度贴图： </p>
+
+<div class="fig fignone" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__FIG_FC3C5D452C6541DA9DFC58ED236B4404"><img class="image" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__IMAGE_A4A5FFC8FE59443AB3861932F7BB58AB" src="../images/GUID-B5A97EC1-EDE6-4EEC-AA0F-6F3937760962.png"></div>
+
+<ul class="ul" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__UL_8F525DBD85DC48598C5FB3B81CC67A6E"><li class="li" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__LI_086DE8BE7F4648CCB6CF7338C29BC85B">创建<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-8EB0E0D0-D458-4B37-ABA6-B3D08504BAA2">“PNAEN 置换贴图”(PNAEN Displacement Map)</span>节点（<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-6F5666A0-09AF-4F8E-BB73-3CF1A32C84BF">“硬件着色器节点 &gt; 纹理 &gt; PNAEN 置换贴图”(Hw Shader Nodes &gt; Textures &gt; PNAEN Displacement Map)</span>）并将其<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-850FF1BB-4E87-4F2C-9F09-862F00B9D775">“颜色”(Color)</span>属性连接到<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-10A7E763-7405-4E3D-8725-916A7A6A4735">“材质”(Material)</span>节点的<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-D38AA31A-5D80-4C48-9F86-1765A71A77E1">“置换”(Displacement)</span>属性。 </li>
+<li class="li" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__LI_FD667B977616482FAF8E9B2327B81020">创建一个<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-5E802B83-23CA-415F-8A6B-F003E7AC5DAE">“浮点型”(Float)</span>节点（<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-CBBD8CC4-6B7D-408C-940A-8D6CDFDBE053">“硬件着色器节点 &gt; 值 &gt; 浮点型”(Hw Shader Nodes &gt; Values &gt; Float)</span>），并将它连接到<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-0776BE92-C493-418D-A213-37868BE0B674">“材质”(Material)</span>节点的<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-861B3029-32DD-40E2-B6FB-824CF9F7414E">“细分因子”(Tessellation Factor)</span>属性。 </li>
+<li class="li" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__LI_44B4540336924A1BB63E8BE0C6C66A08">创建一个<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-5D2F02FE-BA96-4B55-A7B9-C8944E0DD13F">“法线贴图”(Normal map)</span>节点（<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-9B84DC36-9E3F-44B8-AD0A-2D273DD7E393">“硬件着色器节点 &gt; 纹理 &gt; 法线贴图”(Hw Shader Nodes &gt; Textures &gt; Normal Map)</span>）,并将它连接到<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-969EDC0B-40D4-428E-AED1-9AD326080B47">“TraditionalGameSurfaceShader”</span>节点的<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-70CB5620-0366-4CBE-8509-BEC8E2446C44">“法线”(Normal)</span>属性。 </li>
+<li class="li" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__LI_F9212032AD9344BE9A6A84A903990D09">选择<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-8C89564A-318D-4ED4-9786-842DE281F6A6">“材质”(Material)</span>节点，并在<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-64CD712C-CD2C-4A82-85AA-11A6E8F85EB4">“属性编辑器”(Attribute Editor)</span>中调整下列属性。 <ul class="ul" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__UL_35017501E70A4ADC9EAAA72B71ACC3E5"><li class="li" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__LI_2F1B46FBD0E4415290035C4D2F6CC52A">将<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-54719667-32C3-4ABB-8148-865EF6A807F5">“置换/选项”(Displacement / Options)</span>设置为<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-AEEC16B5-3030-436F-8E11-5978F42D3A57">“VectorDisplacementTangent”</span>或<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-778DB3E7-5446-4E6E-BECE-33851A13B2A8">“VectorDisplacementWorld”</span>，具体取决于贴图是在切线还是世界空间中。 </li>
+<li class="li" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__LI_D5AAC846E6E249E990879A15B3F01535">从<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-4F3977A6-3D97-4E00-8E6C-1A67811FF5B0">“VDM_CoordSys/选项”(VDM_CoordSys / Options)</span>选择正确的置换轴。轴由生成向量置换贴图的应用程序决定，如 Mudbox。 </li>
+<li class="li" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__LI_B32EE040BE6C4647AD31BFDB0B965E87">调整<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-E16B0110-11E3-4434-AF65-36A4E2427B7E">“DisplacementMultiplier”</span>。如果从其创建向量置换贴图的应用程序与 Maya 具有相同的世界缩放，则可以将此值保留为 1。否则，就必须调整此值。 </li>
+<li class="li" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__LI_FC6CB4FA8A8446FEBAAD65C42CB62715">对于向量置换贴图，将<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-7163F4B8-A75F-4D91-904A-97B84E72A490">“置换偏移”(Displacement Offset)</span>设置为 0（对于灰度置换贴图，将此值设置为 0.5）。 <p class="p" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-6E9DAA23-042A-4A0C-93E4-1931B630E513">此属性用于控制置换的基值。 </p>
+ <p class="p" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-3EC4B450-8A60-4B70-B48F-929DF5E74BF1">例如，如果将偏移设置为 0.5，则不会置换灰色部分。黑色会产生缩进。白色将产生挤出。 </p>
+ <p class="p" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-4509D2D3-F8A0-42AF-8746-AFB943CCBB75">同样，如果偏移设置为 0，则不会置换黑色部分。灰色 (0.5) 偏移将挤出 1.0（白色）偏移一半的偏移量。不会产生缩进。 </p>
+ </li>
+</ul>
+ </li>
+</ul>
+
+<div class="fig fignone" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__FIG_4201734DB84143BAA95A4844A4A4363D"><img class="image" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__IMAGE_E12AE72BCB91406980A6CA2EA1EBF9D0" src="../images/GUID-D49A9ADA-980E-44DB-8F92-6B29F8828581.png"></div>
+
+</div>
+<div class="section" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__SECTION_33F2925E4F27406EAE2A32D0AAF41C5F"><h2 class="title sectiontitle">偏移凹凸贴图</h2>
+
+<p class="p" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-352290C5-4940-4D0C-88A6-09453569A0E1">通过在<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-F2D8EC16-E795-4C99-A4CA-D5D3E1883068">“ShaderFX”</span>编辑器中选择<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-2E94CDAB-D1BA-4A89-952D-DFABE4100782">“硬件着色器节点 &gt; 纹理 &gt; 偏移凹凸贴图”(Hw Shader Nodes &gt; Textures &gt; Offset Bump Map)</span>创建此节点。 </p>
+
+<p class="p" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-82917986-C1CE-47B6-ABA4-ECEE82561D47"><span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-CD340444-C05D-4005-A40B-7D758DBCFAA9">“偏移凹凸贴图”(Offset Bump Map)</span>也称为视差贴图。您可以将法线贴图和其他高度贴图连接到此节点，以便可以更好地表达深度。 </p>
+
+<p class="p" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-1947947D-CE88-457F-AEBF-6ADEB5B28011">下图演示了如何连接法线和高度贴图： </p>
+
+<div class="fig fignone" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__FIG_CEC908A632D74C14B47A91C253F314E0"><img class="image" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__IMAGE_524F5A9099114329AB4B861CD4EEB0DE" src="../images/GUID-27229490-DDB3-45D6-BD82-4FBEF78CEAC6.png"></div>
+
+<ul class="ul" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__UL_0AD476F138B540F7B8B6D72D9FB288B9"><li class="li" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__LI_B45C366E100041C4B04514139E9527CB">在<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-4ED034E9-EBC7-4D32-9A83-D906A95C2494">“偏移凹凸贴图”(Offset Bump Map)</span> <span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-7F89A289-2737-4B26-BBCE-DADF981F2C40">“属性编辑器”(Attribute Editor)</span>中，连接法线贴图。 </li>
+<li class="li" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__LI_DD93A30072774F93891BC6475D35DC94">为高度贴图创建一个<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-94DA0FEF-F7F2-4B14-A2E2-95281539A0D8">“纹理贴图”(Texture Map)</span>节点，并将其<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-D50E47E8-3607-4EBB-9F42-6F4F6AB4E239">“红”(Red)</span>通道连接到<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-4CFE85F4-5197-4538-BB14-8DFEDC7C8253">“偏移凹凸贴图”(Offset Bump Map)</span>的<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-B5C77311-13BC-485B-9961-A349C461D635">“高度”(Height)</span>属性。 </li>
+<li class="li" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__LI_F160BFBBCDCC407DB953E6702D32BA5B">为漫反射贴图创建另一个<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-D1BFCF80-0E57-4050-A7B8-A985123EE409">“纹理贴图”(Texture Map)</span>节点，并将其连接到<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-F61C75E0-5B0D-4AEF-B760-D77A982874DA">“TraditionalGameSurfaceShader”</span>的<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-41B37A94-3E60-41D5-AF43-31BC2C5B4727">“漫反射颜色”(Diffuse Color)</span>属性。 </li>
+</ul>
+
+<p class="p" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-F5DF2E99-5F82-4AA7-9F40-5A0352899A2F">您可以通过以下方式调整凹凸的高度：选择<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-A1B96AD0-906B-45CC-A13B-F96EE542FD25">“偏移凹凸贴图”(Offset Bump Map)</span>并调整<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-B73504F8-C7CC-4A8D-9F18-E9A54AD38F5E">“属性编辑器”(Attribute Editor)</span>中的<span class="ph uicontrol" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__GUID-E427D7B1-2CFB-4CB9-AA45-576015B4EDC1">“OffsetAmount”</span>属性。 </p>
+
+<div class="fig fignone" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__FIG_0FD017184A9D46F190F5BAA792329FB5"><img class="image" id="GUID-4B6156D2-C013-487A-83D0-BA14B484845C__IMAGE_284AA12718EC43719A32BC27921750EE" src="../images/GUID-13C867AA-6646-49E3-8EB5-CE2BA5EC154F.png"></div>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-355DCB0C-D9A6-4B59-8AFB-CBA7E1067D60.htm">公用 ShaderFX 节点和应用程序</a></div>
+</div>
+</div>
+
+</body>
+</html>

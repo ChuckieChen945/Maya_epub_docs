@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-BC18AA8A-5737-4091-90F0-A988958165F8">
+<meta name="language" content="CHS">
+<title>指定给向量数组属性分量</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>指定给向量数组属性分量</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__WS73099CC142F48755-3D114B7511841AEFA9F-E3A"> 表达式既不可以读取也不可以指定向量或向量数组属性分量。以下示例将介绍一项用于解除该限制的技术。有关使用颜色属性的详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-79CF4D4A-B5B2-421A-BB9F-CBE8377A8567.htm">使用颜色</a>。</p>
+<div class="section" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__WS73099CC142F48755-3D114B7511841AEFA9F-E38"><h2 class="title sectiontitle">示例</h2>
+
+<p class="p" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__WS73099CC142F48755-3D114B7511841AEFA9F-E37">假定您有一个<span class="ph uicontrol" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__GUID-CF5A8D59-395F-4F35-A6A7-0BDBDE334A65">“云”(Cloud)</span>，其中包含 100 个粒子并对它们随机定位。启用<span class="ph uicontrol" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__GUID-BC16A1F3-2A5C-4FFA-B5F4-15E9F4ADF4AF">“着色 &gt; 对所有项目进行平滑着色处理”(Shading &gt; Smooth Shade All)</span>，添加一个针对每个粒子的<span class="ph uicontrol" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__GUID-1546CAB6-C3B6-43AE-932F-1932C5CD6B57">“rgbPP”</span>属性。然后输入以下创建表达式：</p>
+
+<pre class="pre codeblock">
+CloudShape.position = sphrand(1);
+vector $pos = CloudShape.position;
+CloudShape.rgbPP = &lt;&lt;0,$pos.y,0&gt;&gt;;
+</pre>
+
+<p class="p" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__WS73099CC142F48755-3D114B7511841AEFA9F-E36">将为<span class="ph uicontrol" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__GUID-3E33CF0E-793C-47F2-BEC1-2F133C05D5C5">“云”(Cloud)</span>中的每个粒子执行一次以上三条语句。</p>
+
+<p class="p" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__WS73099CC142F48755-3D114B7511841AEFA9F-E35">第一条语句在半径为 1 的球形区域中为粒子提供了一个随机位置。sphrand (1) 函数为 X、Y 和 Z 位置分量提供了一个介于 -1 和 1 之间的值。 </p>
+
+<p class="p" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__WS73099CC142F48755-3D114B7511841AEFA9F-E34">第二条语句将粒子的位置指定给向量分量 $pos。 </p>
+
+<p class="p" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__WS73099CC142F48755-3D114B7511841AEFA9F-E33">第三条语句将 RGB 颜色指定给粒子的<span class="ph uicontrol" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__GUID-4A6C159C-1A0F-4B33-BD27-B7CAAD1B8198">“rgbPP”</span>属性。 </p>
+
+<p class="p" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__WS73099CC142F48755-3D114B7511841AEFA9F-E32">CloudShape.rgbPP 的左侧、中间和右侧的向量分量表示 RGB 颜色方案的红色、绿色和蓝色分量。因此，第三条语句将 0（无颜色）指定给粒子的 colorRGB 的红色和蓝色分量。它为粒子的绿色分量提供其 Y 坐标位置的值。 </p>
+
+<p class="p" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__WS73099CC142F48755-3D114B7511841AEFA9F-E31">因为值 0 或更小值会导致 0 绿色值，所以位于 XZ 平面以下的粒子为黑色。如果粒子的 Y 坐标位置位于 XZ 平面上方，则它将有一个绿色分量，该分量在从几乎为 0 到完全饱和的绿色之间变化。 </p>
+
+<p class="p" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__WS73099CC142F48755-3D114B7511841AEFA9F-E30">这将根据粒子的位置在黑色到绿色范围内为粒子着色。</p>
+
+<div class="fig fignone" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__WS73099CC142F48755-3D114B7511841AEFA9F-E2F"><img class="image" width="383" height="269" src="../images/GUID-173FC80E-2471-4CD4-AF09-9299AAA4790E.png"></div>
+
+</div>
+<div class="section" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__WS73099CC142F48755-3D114B7511841AEFA9F-E2E"><h2 class="title sectiontitle">示例</h2>
+
+<pre class="pre codeblock">
+particleShape1.rgbPP = &lt;&lt;1,0,CloudShape.position.z&gt;&gt;;
+</pre>
+
+<p class="p" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__WS73099CC142F48755-3D114B7511841AEFA9F-E2D">这将导致一个错误。Maya 将 CloudShape.position.z 解释为名为 CloudShape.position 的对象的名为 z 的属性。 </p>
+
+<p class="p" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__WS73099CC142F48755-3D114B7511841AEFA9F-E2C">您可以使用下列语句获得预期的结果：</p>
+
+<pre class="pre codeblock">
+vector $temp = CloudShape.position;
+particleShape1.rgbPP = &lt;&lt;1,0,$temp.z&gt;&gt;;
+</pre>
+
+<p class="p" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__WS73099CC142F48755-3D114B7511841AEFA9F-E2B">第一条语句读取向量属性 CloudShape.position 的所有三个分量并将该属性指定给向量变量 $temp。第二条语句读取 $temp 的右侧分量的值，它包含 CloudShape.position 的右侧分量。然后，将该分量指定给 particleShape1.rgbPP 的右侧分量。</p>
+
+</div>
+<div class="section" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__WS73099CC142F48755-3D114B7511841AEFA9F-E2A"><h2 class="title sectiontitle">示例</h2>
+
+<pre class="pre codeblock">
+particleShape1.rgbPP.y = 1;
+</pre>
+
+<p class="p" id="GUID-BC18AA8A-5737-4091-90F0-A988958165F8__WS73099CC142F48755-3D114B7511841AEFA9F-E29">这也将导致一个错误。您不能将值指定给向量数组属性分量。</p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-D1D39AB5-8CF1-429C-92E0-FA84C16D82A2.htm">指定给向量和向量数组</a></div>
+</div>
+</div>
+
+</body>
+</html>

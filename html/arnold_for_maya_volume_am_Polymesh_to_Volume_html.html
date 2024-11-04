@@ -1,0 +1,118 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_volume_am_Polymesh_to_Volume_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_POLYMESH_TO_VOLUME">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 将多边形网格渲染为体积 - Arnold for Maya">
+
+<title>将多边形网格渲染为体积</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>将多边形网格渲染为体积</h1></div><p><img src="../images/am-Polymesh_to_Volume-0a5c9db8-668c-4afc-a669-a587e4abd04a-rw-1200-1.jpg" alt=""></p>
+<p>我们可以将多边形网格对象渲染为体积。这提供了许多创意机会，以各种各样有趣的方式渲染实体对象。这个简短的制作教程介绍了如何使用 <em>standard_volume</em> 着色器的<em>“置换”(Displacement)</em>属性，将一个<em>多边形网格</em>和一个<em>体积</em>的着色合并在一起，以实现组合它们的效果。</p>
+<p><strong>有关演示此着色效果的简化场景，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Volume-Displacement_MA.zip" target="_blank">此处</a>。</strong></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>多边形网格应闭合且没有任何自交，否则体积可能无法正确渲染。</p>
+
+</div></div>
+
+<h2 id="">步长</h2><ul>
+<li>首先，我们需要将头部网格转化为体积。选择网格，然后在它的 Arnold 属性中，将 <em>step_size</em> 增大到 0.1。当 <em>step_size</em> 为正值时，会将多边形网格渲染为体积，其值将用作光线行进体积时的基准步长。</li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关体积 <em>step_size</em> 的详细信息，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_polygons_am_Volume_Attributes_html">此处</a>。</p>
+
+</div></div>
+
+<h2 id="">标准体积</h2><ul>
+<li>为多边形网格指定 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_volume_shaders_ac_standard_volume_html" target="_blank">standard_volume</a></em> 着色器，并将<em>“密度”(Density)</em>增大到 20 左右。这将确保<em>置换</em>纹理稍后看起来更明确。</li>
+</ul>
+<p><img src="../images/am-Polymesh_to_Volume-image2017-8-16-12-58-48-7.png" alt=""></p>
+<p><sub><strong>多边形网格渲染为体积</strong></sub></p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>必须添加 <em>step_size</em> 值并指定 <em>standard_volume</em> 着色器，以便将网格渲染为体积。</p>
+
+</div></div>
+
+<h2 id="">体积填充</h2><p>下一步是使用<em>填充功能</em>扩大体积。这在我们要使用纹理置换体积时非常有用。请注意，这种松弛不仅适用于边界框，还适用于边界框内的光线范围所使用的体素。本例中使用的量较小，只有 0.05。</p>
+<p>为了获得最佳性能，应将它设置得尽可能低，同时仍覆盖最大置换量。</p>
+<h2 id="">体积</h2><ul>
+<li>接下来，在头的后部放置 Arnold 体积，并为它指定相同的 <em>standard_volume</em> 着色器。在本例中，使用的是烟 <a href="https://www.openvdb.org/download/" target="_blank">.vdb</a> 文件。</li>
+</ul>
+<p>或者，您也可以使用一个不同的网格，并对其应用与头部相同的着色器。目的是为<em>置换</em>纹理过程准备看起来复杂的效果。</p>
+<p><img src="../images/am-Polymesh_to_Volume-image2017-8-16-12-57-18-8.png" alt=""></p>
+<p><sub><strong>使用相同的 <em>standard_volume</em> 着色器渲染的体积</strong></sub></p>
+<h2 id="">置换纹理（标准体积着色器）</h2><ul>
+<li>将一个文件纹理连接到 <em>standard_volume</em> 着色器的<em>“置换”(Displacement)</em>属性。在本例中，使用了摄影机投影。我们可以看到纹理的效果（主要在头部），但需要让效果更明显。</li>
+</ul>
+<p><img src="../images/am-Polymesh_to_Volume-image2017-8-16-13-16-40-9.png" alt="">c</p>
+<p><sub><strong>置换纹理隐约可见</strong></sub></p>
+<h2 id="">范围着色器</h2><ul>
+<li>我们可以使用<em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_math_shaders_ac_math_range_html" target="_blank">范围</a><em>着色器重映射文件纹理的输入值，让效果更加夸张。将文件纹理连接到范围着色器的</em>“输入”(Input)<em>属性，然后将</em>范围*着色器连接到 *standard_volume</em> 着色器的<em>“置换”(Displacement)<em>属性。将</em>范围*着色器的 *output_max</em> 值增大到 8 左右。现在您应该开始真正看到文件纹理对体积<em>置换</em>产生的效果。</li>
+</ul>
+<p><img src="../images/am-Polymesh_to_Volume-image2017-8-16-13-27-19-10.png" alt=""></p>
+<p><sub><strong>范围着色器使置换纹理变得更加明显</strong></sub></p>
+<ul>
+<li>最后，如果要添加一些颜色，您可以尝试将同一文件纹理连接到 <em>standard_volume</em> 着色器的 <em>scatter_color</em> 或 <em>transparent_weight</em> 属性。</li>
+</ul>
+<p><img src="../images/am-Polymesh_to_Volume-head-mesh-volume-11.jpg" alt="">  </p>
+<p><img src="../images/am-Polymesh_to_Volume-image2021-10-18-8-37-28-12.png" alt=""></p>
+<p><sub><strong>最终的着色网络</strong></sub>  </p>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/bDweVNgbI1c&amp;t=5s?" frameborder="0" allowfullscreen=""></iframe>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Volume_Tutorials_html.html">体积教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

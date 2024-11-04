@@ -1,0 +1,263 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-23DD8241-2736-4E3B-AFDB-A77E7E4A4DD6">
+<meta name="language" content="CHS">
+<title>使用 XGen API 访问交互式修饰样条线数据</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-23DD8241-2736-4E3B-AFDB-A77E7E4A4DD6">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 XGen API 访问交互式修饰样条线数据</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 本主题介绍了如何使用 <samp class="ph codeph">xgenSplineArnoldExtension</samp> 示例访问 Arnold for Maya 渲染器等第三方插件的 XGen 交互式修饰样条线数据。您可以从 <samp class="ph codeph">plug-ins\xgen</samp> 目录的 <samp class="ph codeph">devkit</samp> 文件夹中访问此示例。例如，从 Maya 安装软件包浏览到以下位置： 
+	 </p>
+<p class="p"><samp class="ph codeph">\runTime\plug-ins\xgen\devkit</samp>。 
+	 </p>
+<p class="p">使用 XGen API 访问交互式修饰样条线数据的过程可分为三个主要步骤。 
+	 </p>
+<div class="section" id="GUID-23DD8241-2736-4E3B-AFDB-A77E7E4A4DD6__SECTION_9EAD83088B284FCCB3A7CBF683CC0366"><h2 class="title sectiontitle">1. 获取样条线数据</h2> 
+		 
+		<p class="p">使用 <samp class="ph codeph">XgFnSpline</samp> 类有助于对样条线数据进行操作。它位于标头文件 <samp class="ph codeph">XgSplineApi.h</samp> 中。<samp class="ph codeph">XgFnSpline</samp> 类可以从 Maya 中的 <samp class="ph codeph">xgmSplineDescription.outRenderData</samp> 栓加载这些数据。转换器使用 Maya 的 <samp class="ph codeph">MPxData::writeBinary()</samp> 方法将栓数据序列化成 BLOB。<samp class="ph codeph">XgFnSpline</samp> 无需 Maya 即可解释这些数据。 
+		</p>
+ 
+		<p class="p"> 为 XgFnSpline 加载数据： 
+		</p>
+ 
+		<pre class="pre codeblock">// Stream out the spline data
+std::string data;
+MPlug       outPlug = fnDagNode.findPlug("outRenderData");
+MObject     outObj  = outPlug.asMObject();
+MPxData*    outData = MFnPluginData(outObj).data();
+if (outData)
+{
+    std::ostringstream opaqueStrm;
+    outData-&gt;writeBinary(opaqueStrm);
+    data = opaqueStrm.str();
+}
+// Load the sample for i-th motion step
+_splines.load(opaqueStrm, sampleSize, sampleTime)
+</pre>
+ 
+	 </div>
+<div class="section" id="GUID-23DD8241-2736-4E3B-AFDB-A77E7E4A4DD6__SECTION_631A516A71DE481790E5FF5942EBA543"><h2 class="title sectiontitle">2. 为样条线数据分配内存</h2> 
+		 
+		<p class="p"> 将数据加载到 XgFnSpline 对象中之后，您需要为数据分配内存。您需要使用 <samp class="ph codeph">XgItSpline</samp> 从步骤 1 开始迭代 XgFnSpline 对象 _splines，然后计算点、曲线和采样的数量。然后，可以根据需求为这些缓冲区分配内存。 
+		</p>
+ 
+		<p class="p"> 以下是支持 Arnold 渲染器的示例代码。行内提到了一些特殊的要求。您还可以根据自身的特殊需求进行处理。 
+		</p>
+ 
+		<pre class="pre codeblock">// Count the number of curves and the number of points
+// Arnold's b-spline requires two phantom points.
+unsigned int curveCount        = 0;
+unsigned int pointCount        = 0;
+unsigned int pointInterpoCount = 0;
+for (XgItSpline splineIt = _splines.iterator(); !splineIt.isDone(); splineIt.next())
+{
+    curveCount        += splineIt.primitiveCount();
+    pointCount        += splineIt.vertexCount();
+    pointInterpoCount += splineIt.vertexCount() + splineIt.primitiveCount() * 2;
+}
+// Get the number of motion samples
+const unsigned int steps = _splines.sampleCount();
+// Allocate buffers for the curves
+_numPoints  = AiArrayAllocate(curveCount, 1, AI_TYPE_UINT);
+_points     = AiArrayAllocate(pointInterpoCount, steps, AI_TYPE_POINT);
+_radius     = AiArrayAllocate(pointCount, 1, AI_TYPE_FLOAT);
+_uCoord     = AiArrayAllocate(curveCount, 1, AI_TYPE_FLOAT);
+_vCoord     = AiArrayAllocate(curveCount, 1, AI_TYPE_FLOAT);
+_wCoord     = AiArrayAllocate(pointInterpoCount, 1, AI_TYPE_FLOAT);
+
+unsigned int*   numPoints   = reinterpret_cast&lt;unsigned int*&gt;(_numPoints-&gt;data);
+SgVec3f*        points      = reinterpret_cast&lt;SgVec3f*&gt;(_points-&gt;data);
+float*          radius      = reinterpret_cast&lt;float*&gt;(_radius-&gt;data);
+float*          uCoord      = reinterpret_cast&lt;float*&gt;(_uCoord-&gt;data);
+float*          vCoord      = reinterpret_cast&lt;float*&gt;(_vCoord-&gt;data);
+float*          wCoord      = reinterpret_cast&lt;float*&gt;(_wCoord-&gt;data);
+</pre>
+ 
+	 </div>
+<div class="section" id="GUID-23DD8241-2736-4E3B-AFDB-A77E7E4A4DD6__SECTION_4BCDDF1772EB4E4D8924AE9D5BC67E24"><h2 class="title sectiontitle">3. 使用根据 XgFnSpline 对象计算出的值填充相应对象</h2> 
+		 
+		<p class="p">在此步骤中，您将使用根据 XgFnSpline 对象计算出的正确值填充这些对象。XGen 提供了名为 XgItSpline 的迭代器。它也位于 <samp class="ph codeph">XgSplineApi.h</samp> 文件中，并且提供的功能可帮助访问每条样条线的内部数据。一些重要的方法如下所示，应提供所有几何体信息： 
+		</p>
+ 
+		<ul class="ul" id="GUID-23DD8241-2736-4E3B-AFDB-A77E7E4A4DD6__UL_35A09D72398449E9A2F18A63504F2D65"><li class="li" id="GUID-23DD8241-2736-4E3B-AFDB-A77E7E4A4DD6__LI_3E2EE6781B3A4BE892524648A8A93414"><samp class="ph codeph"> unsigned int primitiveInfoStride() const;</samp> 
+			 <p class="p"> 基本体信息阵列的步幅， 
+			 </p>
+ 
+			 <ul class="ul" id="GUID-23DD8241-2736-4E3B-AFDB-A77E7E4A4DD6__UL_AD0B32741036453794AAD40DA090B88A"><li class="li" id="GUID-23DD8241-2736-4E3B-AFDB-A77E7E4A4DD6__LI_71E48B1BF12643B78D31B56F4612D5D0"><samp class="ph codeph"> [0]: Offset</samp> 
+				</li>
+<li class="li" id="GUID-23DD8241-2736-4E3B-AFDB-A77E7E4A4DD6__LI_020D7A6AACC5429BA2DEF5F2519F0174"><samp class="ph codeph"> [1]: Length</samp> 
+				</li>
+<p class="p"> “偏移”(Offset)和“长度”(Length)确定可变阵列中每个顶点的不同属性位置。 
+			 </p>
+</ul>
+ 
+		</li>
+<li class="li" id="GUID-23DD8241-2736-4E3B-AFDB-A77E7E4A4DD6__LI_0B9C54E5DA2A4B44AA4F8AC3A738B4A4"><samp class="ph codeph"> unsigned int primitiveCount() const;</samp> 
+		  <p class="p"> 返回基本体的数量 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-23DD8241-2736-4E3B-AFDB-A77E7E4A4DD6__LI_B3D2C15DBA2349F28FE4AE72E5F4E488"><samp class="ph codeph"> unsigned int vertexCount() const;</samp> 
+		  <p class="p"> 返回顶点的数量。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-23DD8241-2736-4E3B-AFDB-A77E7E4A4DD6__LI_56D4A187FACE4FCCBCF09214E64F96CD"><samp class="ph codeph"> SgBox3f boundingBox(int motion = 0) const;</samp> 
+		  <p class="p"> 返回边界框。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-23DD8241-2736-4E3B-AFDB-A77E7E4A4DD6__LI_EE4242258B414D189EADA04B6E89C190"><samp class="ph codeph"> SgBox3f motionBoundingBox() const;</samp> 
+		  <p class="p"> 返回运动向量的边界框。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-23DD8241-2736-4E3B-AFDB-A77E7E4A4DD6__LI_6D3A81F2DB8440B1A0C7EAD577E2F462"> 
+		  <samp class="ph codeph">const unsigned int* primitiveInfos() const;</samp> 
+		  <p class="p"> 基本体信息。请参见上面的 <samp class="ph codeph">primitiveInfoStride()</samp>。 
+		  </p>
+ 
+		</li>
+</ul>
+ 
+		<p class="p"> 
+		  <strong class="ph b">多种（逐顶点）属性</strong> 
+		</p>
+ 
+		<ul class="ul" id="GUID-23DD8241-2736-4E3B-AFDB-A77E7E4A4DD6__UL_4F2CB1F6C6FE4E54BB773E5FF8B67E65"><li class="li" id="GUID-23DD8241-2736-4E3B-AFDB-A77E7E4A4DD6__LI_26D14B8DECAE4D44AC2EBD6B85680B7B"> 
+			 <samp class="ph codeph">const SgVec3f* positions(int motion = 0) const;</samp> 
+			 <p class="p"> 顶点位置。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-23DD8241-2736-4E3B-AFDB-A77E7E4A4DD6__LI_55201DBAF18E4751B36E86370346C281"><samp class="ph codeph"> const SgVec2f* texcoords( int motion = 0) const;</samp> 
+			 <p class="p"> 从根部到尖端的 Texcoord，U 方向为 0.0，V 方向介于 0.0（根部顶点）到 1.0（尖端顶点）之间。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-23DD8241-2736-4E3B-AFDB-A77E7E4A4DD6__LI_ABEA97979B714CB7B40EA6C0AE3FA081"> 
+			 <samp class="ph codeph">const SgVec2f* patchUVs( int motion = 0) const;</samp> 
+			 <p class="p"> 面片上的根部顶点的 Texcoord。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-23DD8241-2736-4E3B-AFDB-A77E7E4A4DD6__LI_EC3463F07A2F43FCA45BF8B9EBD95658"><samp class="ph codeph"> const float* width( int motion = 0) const;</samp> 
+			 <p class="p"> 获取宽度。 
+			 </p>
+ 
+		  </li>
+</ul>
+ 
+		<p class="p"> 使用通过上述方法获取的信息，您可以获得所需的任何内容并根据要求填充到数据中。下面举例说明如何为 Arnold 采样获得这些信息： 
+		</p>
+ 
+		<pre class="pre codeblock">// Fill the array buffers for motion step 0
+for (XgItSpline splineIt = _splines.iterator(); !splineIt.isDone(); splineIt.next())
+{
+    const unsigned int  stride         = splineIt.primitiveInfoStride();
+    const unsigned int  primitiveCount = splineIt.primitiveCount();
+    const unsigned int* primitiveInfos = splineIt.primitiveInfos();
+    const SgVec3f*      positions      = splineIt.positions(0);
+    const float*        width          = splineIt.width();
+    const SgVec2f*      texcoords      = splineIt.texcoords();
+    const SgVec2f*      patchUVs       = splineIt.patchUVs();
+
+    for (unsigned int p = 0; p &lt; primitiveCount; p++)
+    {
+        const unsigned int offset = primitiveInfos[p * stride];
+        const unsigned int length = primitiveInfos[p * stride + 1];
+
+        // Number of points
+        *numPoints++ = length + 2;
+
+        // Texcoord using the patch UV from the root point
+        *uCoord++ = patchUVs[offset][0];
+        *vCoord++ = patchUVs[offset][1];
+
+        // Add phantom points at the beginning
+        *points++ = phantomFirst(&amp;positions[offset], length);
+        *wCoord++ = phantomFirst(&amp;texcoords[offset], length)[1];
+
+        // Copy varying data
+        for (unsigned int i = 0; i &lt; length; i++)
+        {
+            *points++ = positions[offset + i];
+            *radius++ = width[offset + i] * 0.5f;
+            *wCoord++ = texcoords[offset + i][1];
+        }
+
+        // Add phantom points at the end
+        *points++ = phantomLast(&amp;positions[offset], length);
+        *wCoord++ = phantomLast(&amp;texcoords[offset], length)[1];
+
+    } // for each primitive
+} // for each primitive batch
+
+// Fill the array buffers for motion step &gt; 0
+for (unsigned int key = 1; key &lt; steps; key++)
+{
+    for (XgItSpline splineIt = _splines.iterator(); !splineIt.isDone(); splineIt.next())
+    {
+        const unsigned int  stride         = splineIt.primitiveInfoStride();
+        const unsigned int  primitiveCount = splineIt.primitiveCount();
+        const unsigned int* primitiveInfos = splineIt.primitiveInfos();
+        const SgVec3f*      positions      = splineIt.positions(key);
+
+        for (unsigned int p = 0; p &lt; primitiveCount; p++)
+        {
+            const unsigned int offset = primitiveInfos[p * stride];
+            const unsigned int length = primitiveInfos[p * stride + 1];
+
+            // Add phantom points at the beginning
+            *points++ = phantomFirst(&amp;positions[offset], length);
+
+            // Copy varying data
+            for (unsigned int i = 0; i &lt; length; i++)
+            {
+                *points++ = positions[offset + i];
+            }
+
+            // Add phantom points at the end
+            *points++ = phantomLast(&amp;positions[offset], length);
+
+        } // for each primitive
+    } // for each primitive batch
+} // for each motion step
+// Set the buffers to the curves node
+AiNodeSetArray(_curves, "num_points", _numPoints);
+AiNodeSetArray(_curves, "points", _points);
+AiNodeSetArray(_curves, "radius", _radius);
+AiNodeSetArray(_curves, "uparamcoord", _uCoord);
+AiNodeSetArray(_curves, "vparamcoord", _vCoord);
+AiNodeSetArray(_curves, "wparamcoord", _wCoord);
+</pre>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-F911C29C-A97C-4A75-9B9D-5A005133759A.htm">XGen 技术文档</a></div>
+</div>
+</div>
+
+</body>
+</html>

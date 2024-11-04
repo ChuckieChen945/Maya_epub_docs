@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A">
+<meta name="language" content="CHS">
+<title>Nucleus 对象自碰撞</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>Nucleus 对象自碰撞</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__WS1A9193826455F5FF6026605B1181C8F4F2E-1F23"> 对于 nCloth，自碰撞发生在 nCloth 对象的组件（例如其顶点或面）之间。自碰撞对于动画 nCloth 在接触其自身时模拟布料交互非常重要。例如，如果沿幕杆推开 nCloth 幕布片，它将开始倾斜并相对自身打褶，导致布料变形。也可以想像一下标志在风停止后折叠自身的方式，或舞蹈者身上的伞裙在舞蹈者更改方向时的碰撞方式。 </p>
+<p class="p" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__WS1A9193826455F5FF68908C3E11A1FA06A23-30E3">对于 nParticle，会在属于同一 nParticle 对象的各个粒子之间发生自碰撞。与 nParticle 和其他 Nucleus 对象之间的碰撞一样，自碰撞涉及能量的交换或传递。nParticle 自碰撞可用于模拟刚性对象之间的交互。例如，可以使用 nParticle 实例化几何体并让几何体彼此碰撞。 </p>
+<p class="p" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__GUID-99C15558-4D3F-45D6-9C55-072F067553AB">对于 nHair，头发系统的动力学曲线之间会发生自碰撞。 </p>
+<p class="p" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__WS1A9193826455F5FF6026605B1181C8F4F2E-1F21">若要发生自碰撞，必须在 nClothShape 或 nParticle<span class="ph uicontrol" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__GUID-D5C09861-D602-46FF-A618-D96C4FD34C82">“属性编辑器”(Attribute Editor)</span>选项卡的<span class="ph uicontrol" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__GUID-D17C7E82-8A4B-408D-9D80-D4EB0ED3CF46">“碰撞”(Collisions)</span>区域中启用<span class="ph uicontrol" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__GUID-296C5154-4C77-4B18-A60C-383502D95335">“自碰撞”(Self Collide)</span>属性。此外，可以使用 nClothShape 选项卡<span class="ph uicontrol" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__GUID-7277FDAD-6BF5-4B9D-8729-886ADD4B1A3C">“碰撞”(Collisions)</span>区域中的<span class="ph uicontrol" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__GUID-4998284F-3BBF-4063-A874-C41224BE35D9">“自碰撞标志”(Self Collision Flag)</span>下拉列表，设定参与其自碰撞的 nCloth 组件（<span class="ph uicontrol" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__GUID-35277B46-A83E-441B-BB98-E7B051958C82">“顶点”(Vertex)</span>、<span class="ph uicontrol" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__GUID-D4E0BE5E-C601-4512-A1CA-9EE9DDCA5A68">“顶点边”(VertexEdge)</span>、<span class="ph uicontrol" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__GUID-AAF2B35A-8D54-4E9F-8D3F-6D01977FBBF3">“顶点面”(VertexFace)</span>和<span class="ph uicontrol" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__GUID-6EC6E88F-AC3F-4863-BB67-B1CFE2C10729">“完整曲面”(Full Surface)</span>）。对于 nHair，可以将<span class="ph uicontrol" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__GUID-B7F25177-87D8-4949-933D-DA93AF02D321">“自碰撞标志”(Self Collision Flag)</span>设置为<span class="ph uicontrol" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__GUID-816391F9-E02D-44B5-8DF2-5CF470323551">“顶点”(Vertex)</span>或<span class="ph uicontrol" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__GUID-59C1F30B-03FA-423E-9F7B-0C568F180B92">“边”(Edge)</span>。也可以使用<span class="ph uicontrol" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__GUID-0C82BB34-3BF2-4196-AA6B-0D7B41674BF5">“最大自碰撞迭代次数”(Max Self Collide Iterations)</span>和<span class="ph uicontrol" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__GUID-6520ACCF-C701-4AF6-B1A3-4DEFB3D3CC5A">“自碰撞宽度比例”(Self Collide Width Scale)</span>提高和降低 nParticle 和 nCloth 对象的自碰撞质量。 </p>
+<div class="section" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__WS73099CC142F48755-63C0748611A1FA08F71-4A05"><h2 class="title sectiontitle">相关主题</h2>
+
+<ul class="ul" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__WS1A9193826455F5FF6026605B1181C8F4F2E-1F2E"><li class="li" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__WS1A9193826455F5FF6026605B1181C8F4F2E-1F2D">
+<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-99C0FE0F-8A37-4EA5-99C2-E08A0EF437A5">nClothShape</a>
+</li>
+<li class="li" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__WS73099CC142F48755-63C0748611A1FA08F71-4A04">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-3130B434-C0D5-4FF7-94A4-7F056ADF712A.htm">nParticleShape</a>
+</li>
+<li class="li" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__LI_E8E0E1B1E3194A5183AA599536AA715E">
+<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-13327D03-5EC0-43AA-AD16-461D79D1153B">头发节点</a>
+</li>
+<li class="li" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__WS73099CC142F48755-63C0748611A1FA08F71-4A03">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-FC77BEE3-264A-444C-8D0B-BC1B44C29083.htm">nRigidShape</a>
+</li>
+<li class="li" id="GUID-A17204AD-13ED-4ACE-88E8-439E59508B2A__WS1A9193826455F5FF6026605B1181C8F4F2E-1F2C">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-8BB10228-74E2-49A6-864C-03110C7FBB45.htm">Nucleus</a>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-BABBD1CE-C82C-4EDB-BBF6-4C0EBC854DAA.htm">nDynamic 碰撞</a></div>
+</div>
+</div>
+
+</body>
+</html>

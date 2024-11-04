@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C">
+<meta name="language" content="CHS">
+<title>Hermite</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>Hermite</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1256"> 沿 Hermite 曲线返回值。例如，可以使用 Hermite 函数沿曲线平滑地移动对象。<span class="ph" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__GUID-76794992-17F4-498E-B0F9-67E896200A87">如以下示例所示，可以通过改变 Hermite 函数的参数来创建各种曲线形状。</span> </p>
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1253">vector hermite(vector start, vector end, vector tan1, vector tan2, float parameter) </p>
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1252">float hermite(float start, float end, float tan1, float tan2, float parameter) </p>
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1251">start 为曲线的起点。 </p>
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1250">end 为曲线的终点。 </p>
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-124F">tan1 是切向向量，用于控制曲线在离开曲线的起点时的方向和形状。向量的位置在曲线的起点开始。 </p>
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-124E">tan2 是切向向量，用于控制曲线在接近曲线的终点时的方向和形状。向量的位置在曲线的终点开始。 </p>
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-124D">parameter 是介于 0 和 1 之间的浮点值，例如 linstep 函数返回的值。 </p>
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-124C">在第二种格式中，参数和返回值在单维中工作。 </p>
+<div class="section" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-124B"><h2 class="title sectiontitle">示例 1</h2>
+
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-124A">假设创建一个由原点处的一个球体组成的名为 dust 的对象。若要控制该粒子在动画的前四秒中沿短的上弹曲线运动，可以编写以下运行时表达式： </p>
+
+<pre class="pre codeblock">
+dust.position = hermite(&lt;&lt;0,0,0&gt;&gt;,&lt;&lt;2,2,0&gt;&gt;,
+&lt;&lt;3,0,0&gt;&gt;, &lt;&lt;0,3,0&gt;&gt;, linstep(0,4,time));
+</pre>
+
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1249">在播放动画时，对象从起点 &lt;0,0,0&gt; 沿曲线移动到终点 &lt;2,2,0&gt;。切线向量 &lt;3,0,0&gt; 设置曲线在离开起点时的方向和形状。切线向量 &lt;0,3,0&gt; 在曲线接近终点时设置曲线的方向和形状。 </p>
+
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1248">在动画播放的零到四秒期间，对象沿 linstep 函数定义的曲线移动。（有关详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-4C59836B-1712-4022-9632-9FFE9C3DF0B1.htm">linstep</a>。） </p>
+
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1247">函数参数和对象的结果路径如下： </p>
+
+<div class="fig fignone" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1246"><img class="image" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__IMAGE_16EDEC0847AC4A7595ED42D61FAE2111" width="392" height="249" src="../images/GUID-CA1BBFAE-A3BF-4D96-BE5D-51248B7AA60E.png"></div>
+
+</div>
+<div class="section" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1245"><h2 class="title sectiontitle">示例 2</h2>
+
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1244">假设您将上一个示例表达式的第三个参数更改为 &lt;&lt;6,0,0&gt;&gt;： </p>
+
+<pre class="pre codeblock">
+dust.position = hermite(&lt;&lt;0,0,0&gt;&gt;,&lt;&lt;2,2,0&gt;&gt;,
+&lt;&lt;6,0,0&gt;&gt;, &lt;&lt;0,3,0&gt;&gt;, linstep(0,4,time));
+</pre>
+
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1243">由于 <em class="ph i" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__GUID-327C8C14-45AB-49D1-B1DB-662D5ED487EE">tan1</em> 向量较长，因此路径曲线的坡度变陡： </p>
+
+<div class="fig fignone" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1242"><img class="image" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__IMAGE_E2538562BA8848678AEEAFBF5E9C3736" width="449" height="238" src="../images/GUID-1D30A33C-75AD-4796-8D62-710F580324DE.png"></div>
+
+</div>
+<div class="section" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1241"><h2 class="title sectiontitle">示例 3</h2>
+
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1240"> 下面的表达式在 S 图案中移动灰尘： </p>
+
+<pre class="pre codeblock">
+dust.position = hermite(&lt;&lt;0,0,0&gt;&gt;,&lt;&lt;2,0,0&gt;&gt;,
+&lt;&lt;0,3,0&gt;&gt;, &lt;&lt;0,3,0&gt;&gt;, linstep(0,4,time));
+</pre>
+
+<div class="fig fignone" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-123E"><img class="image" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__IMAGE_083E3955EEDF4C8599C29BFD19563A8D" width="358" height="213" src="../images/GUID-44385BF1-E25A-4EE6-A391-E96D94353ABD.png"></div>
+
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-123D"><em class="ph i" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__GUID-281803C9-141A-4E3F-AE72-1D37E2C8B98F">tan1</em> 向量 &lt;&lt;0,3,0&gt;&gt; 将曲线的方向从起点设置为正 Y 轴方向。<em class="ph i" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__GUID-56740BD7-B915-4F84-8FF6-0548BC1E120D">tan2</em> 向量 &lt;&lt;0,3,0&gt;&gt; 在曲线接近终点时将曲线的方向设置为正 Y 方向。 </p>
+
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-123C">将对起始和终点曲线之间的值插值以形成一个 S 图案。 </p>
+
+</div>
+<div class="section" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-123B"><h2 class="title sectiontitle">示例 4</h2>
+
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-123A">假设您将上一个示例表达式的第四个参数更改为 &lt;&lt;0,-3,0&gt;&gt;： </p>
+
+<pre class="pre codeblock">
+dust.position = hermite(&lt;&lt;0,0,0&gt;&gt;,&lt;&lt;2,0,0&gt;&gt;,
+&lt;&lt;0,3,0&gt;&gt;, &lt;&lt;0,-3,0&gt;&gt;, linstep(0,4,time));
+</pre>
+
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1239"> 该 dust 对象在一个类似于半圆的图案中移动： </p>
+
+<div class="fig fignone" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1237"><img class="image" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__IMAGE_EE444C7AFA084792A4E45ECF1C3EDCBF" width="286" height="340" src="../images/GUID-38A91933-926F-45D2-AEB9-EF22909D9830.png"></div>
+
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1236"><em class="ph i" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__GUID-36556404-B533-4326-A5D1-69B7B04645F5">tan1</em> 向量 &lt;&lt;0,3,0&gt;&gt; 将曲线的方向从起点设置为正 Y 轴方向。<em class="ph i" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__GUID-1F451BA8-40B4-4E03-A896-23A2526AA659">tan2</em> 向量 &lt;&lt;0,-3,0&gt;&gt; 将曲线接近终点时曲线的方向设置为负 Y 方向。 </p>
+
+</div>
+<div class="section" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1235"><h2 class="title sectiontitle">示例 5</h2>
+
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1234">假设您将前一个示例表达式的第三个参数更改为 &lt;&lt;0,10,0&gt;&gt;： </p>
+
+<pre class="pre codeblock">
+dust.position = hermite(&lt;&lt;0,0,0&gt;&gt;,&lt;&lt;2,0,0&gt;&gt;,
+&lt;&lt;0,10,0&gt;&gt;, &lt;&lt;0,-3,0&gt;&gt;, linstep(0,4,time));
+</pre>
+
+<div class="fig fignone" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1233"><img class="image" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__IMAGE_1998C11494E04F95AE10D753DCF8AA8C" width="286" height="431" src="../images/GUID-F1C6FB49-B122-4984-9EDF-0A2FF8B30AF0.png"></div>
+
+<p class="p" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__WS73099CC142F48755-3D114B7511841AEFA9F-1232">由于 <em class="ph i" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__GUID-97E24A38-A660-481D-AAF7-B1576AA7E88F">tan1</em> 向量较长，因此路径曲线从起点上升时其坡度会变陡。因为 <em class="ph i" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__GUID-EC0E3255-7660-4BC7-9CDA-09A6CC5CC3D7">tan2</em> 向量的 Y 幅值小于 <em class="ph i" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__GUID-74BDB0A6-7D1A-46DC-9CC7-0E114ED9871D">tan1</em> 向量的 Y 幅值，所以路径曲线在接近终点时其坡度会更加平坦。因为 <em class="ph i" id="GUID-A04A9BE2-5282-4EED-BAE1-54313DFCE66C__GUID-B44E2105-AAA3-4629-86E1-F93ECEABCFEA">tan1</em> 的 Y 分量的幅值较大（为 10 而不是 3），所以曲线在 Y 方向的上升大于上一个示例。 </p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-768BD5F3-DDB3-4F47-9A84-FB5BA6346E1E.htm">曲线函数</a></div>
+</div>
+</div>
+
+</body>
+</html>

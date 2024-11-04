@@ -1,0 +1,88 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="ENU">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Maya-USD">
+  <meta name="topicid" content="GUID-4D29A90A-FD4E-41F8-A68F-202B8DAAAC23">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>Create a USD stage from file</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>Create a USD stage from file</h1></div><p>Unlike importing a USD file, creating a stage from file lets you use existing USD data without converting it into a native Maya format. With this method, Maya creates a <code>proxyShape</code> node, which points to the USD file. This allows USD data to persist in memory, letting you take advantage of all the benefits of USD, like fast playback and load times while working alongside Maya data (ie. facilitating the mixed data model). You can edit layers in your existing USD stage with the <strong>USD Layer Editor</strong>. You can also select any USD prim displayed under the <code>proxyShape</code> stage node in the <strong>Outliner</strong> and use the <strong>Attribute Editor</strong> to edit it.</p>
+<h3 id="to-create-a-usd-stage-from-an-existing-file-on-disk">To create a USD stage from an existing file on disk</h3><ol>
+<li><p>Do one of the following:</p>
+<ul>
+<li><p>In the <strong>USD Layer Editor</strong>, <strong>Create &gt; Stage from File</strong> (recommended)</p>
+<div class="note note:">  <span class="notetitle">Note:</span> To open the USD Layer Editor, Select <em>Windows &gt; USD Layer Editor</em>.</div>
+</li>
+<li><p><strong>Create &gt; Universal Scene Description &gt; Stage from File</strong></p>
+</li>
+</ul>
+</li>
+<li><p>In the <strong>Create USD Stage from File</strong> window that appears, you can select a USD file and set the following <strong>USD File Options</strong>:</p>
+<p> <img src="../images/usd_maya_createstagefromfilewindow.png" alt=""></p>
+<div class="note important:"> <span class="importanttitle">Important:</span> If you have <strong>Windows &gt; Settings/ Preferences &gt; Preferences &gt; Files/ Projects &gt; File Dialog</strong> set to <strong>OS Native</strong>, you will see your operating system's file browser instead of this dialog. In this case, to access the USD File Options settings, click Create &gt; Universal Scene Description (USD) &gt; Stage from File &gt; <img src="../images/optbox.png" alt="">.  </div>
+<h4 id="relative-pathing">Relative Pathing</h4><ul>
+<li><strong>Make Path Relative to Scene File</strong>: Save an anonymous root layer relative to your Maya scene file and sublayers relative to parent layers. To enact this, ensure you save your Maya scene file to disk when you toggle this setting on to enact your relative pathing selections. To learn more about saving USD files relatively, see <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-9EF1E7A0-F187-4332-9232-62532A09D138">Make Path Relative</a>.</li>
+</ul>
+<h4 id="stage">Stage</h4><ul>
+<li><strong>Load Payloads</strong>: When on, loads all prims marked as payloads. When off, all prims marked as payloads and their children are not loaded.</li>
+</ul>
+<h4 id="stage-display">Stage Display</h4><ul>
+<li><strong>Prim Path</strong>: Loads the specified prim path. If a matching prim path is not found, all prims in the file are loaded.</li>
+<li><strong>Exclude Prim Paths</strong>: Excludes the specified prim paths from the loaded USD data. Multiple prim paths must be separated by a comma.</li>
+</ul>
+</li>
+<li><p>Once you are done making changes, click <strong>Create</strong>.</p>
+<div class="note note:"> <span class="notetitle">Note:</span>  .usd , .usdc, and .usda are supported file formats.</div>
+</li>
+<li><p>The following occurs:</p>
+<p> A <code>proxyShape</code> node is created and appears in the <strong>Outliner</strong> as the stage. For example, if <strong>kitchen_set.usd</strong> is selected, the proxyShape node is called <code>kitchen_set</code>. If an existing proxyShape with the same name already exists, then a "1" is appended to the name: for example, <code>kitchen_set1</code>. If the filename is invalid, <code>mayaUSDProxyShapeBase</code> is used.</p>
+</li>
+<li><p>In the Outliner, right-click a prim to access the commands in the contextual menu. See <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-C27A9992-10DD-4F4C-8D34-B7D176336039">Work with USD data in the Outliner</a>.</p>
+</li>
+</ol>
+<hr>
+<p><span style="color: purple;"><strong>Further editing</strong></span> </p>
+<ul>
+<li><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-902DA013-943E-44B1-990B-9545655ADD14">Work with the USD Layer Editor</a></li>
+<li><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-97358ED4-179F-4568-9382-7409E3F8E70A">USD data in the Outliner</a></li>
+<li><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-C27A9992-10DD-4F4C-8D34-B7D176336039">Work with prims in the Outliner</a></li>
+<li><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-EDC40BE3-2112-46D5-9E31-B620C08C8DDE">Add a USD reference in the Outliner</a></li>
+<li><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-9EF1E7A0-F187-4332-9232-62532A09D138">Make Path Relative</a></li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>Parent page:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/Get-Started-with-USD-in-Maya/GUID-899873C6-7696-4D7B-BBDA-7859AECA5AFB.html">Create a USD stage</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

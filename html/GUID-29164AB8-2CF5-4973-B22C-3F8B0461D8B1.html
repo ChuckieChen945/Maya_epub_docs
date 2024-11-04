@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1">
+<meta name="language" content="CHS">
+<title>使用位置、速度和加速度</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用位置、速度和加速度</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-F18"> 要创建各种类型的粒子运动，可以将向量值指定给位置、速度或加速度属性。有关使用这些属性的示例，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-E0629023-2D2F-415E-9060-AF3B139F577A.htm">编写运行时表达式</a>。</p>
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-F14">除非您具备扎实的物理学知识，否则请避免设置位置、速度和加速度属性的组合。</p>
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-F13"> 若要使用运行时表达式为粒子指定平滑的随机运动，请使用随机数函数（如 sphrand）将随机数指定给<span class="ph uicontrol" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__GUID-A3478600-25CB-4CA1-80D3-B5923830CC0B">“粒子形状”(particle shape)</span>的加速度属性。更改加速度始终会实现平滑的运动，无论其值的更改多么突然。 </p>
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-F11"> 若要使用运行时表达式为粒子指定抖动随机运动，请使用随机数函数（如 sphrand）将随机数指定给<span class="ph uicontrol" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__GUID-C8D8ECF2-6B2E-484F-B541-B1D2C53D7AAB">“粒子形状”(particle shape)</span>的速度属性或位置属性。</p>
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-F0F">有关如何使用随机数函数的详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-CA91F705-2E91-425C-BEA3-E15162C4CB55.htm">随机数函数简介</a>。</p>
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-F0E"> 如果表达式和动态字段控制对象的位置、速度或加速度，Maya 将首先计算表达式的影响，然后添加字段的影响。 </p>
+<div class="note note" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-F08"><span class="notetitle">注：</span> 如果动力学和表达式影响表达式执行瞬间的位置、速度或加速度，则会对产生的对象运动造成影响。如果在动力学之前执行表达式，Maya 将使用表达式赋予的值来计算动力学。如果在动力学之后执行表达式，Maya 将根据上一个帧留下的任何属性值或由输入渐变生成的值来计算动力学。 <p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-F07">若要设置在动力学之前还是之后执行表达式，请选择粒子对象，显示<span class="ph uicontrol" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__GUID-0994CF23-99D0-4D7D-AB06-DBF7D70220CD">“属性编辑器”(Attribute Editor)</span>，然后启用或禁用<span class="ph uicontrol" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__GUID-EDA36422-5DAD-4DD6-99BC-94F69ED470F7">“表达式动力学后”(Expressions After Dynamics)</span>。 </p>
+</div>
+<div class="section" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-F06"><h2 class="title sectiontitle">示例</h2>
+
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-F05">假设粒子带有默认重力选项的重力场的影响下落下。重力使粒子以 9.8 个单位/每秒的速率沿 Y 轴加速。换句话说，重力的默认加速度为 &lt;&lt;0，-9.8,0&gt;&gt;。 </p>
+
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-F04">进一步假设为粒子编写了下列运行时表达式：</p>
+
+<pre class="pre codeblock">
+velocity = velocity + &lt;&lt;1,0,0&gt;&gt;;
+</pre>
+
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-F03">随着每个帧播放，Maya 首先使用表达式语句计算粒子的速度。在 X 轴方向上，速度每秒增加 1 个单位。随后，Maya 将重力加速度累加到速度上。Maya 使用组合的结果来计算粒子的位置。 </p>
+
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-F02">当然，您不会看到该计算过程。在执行所有计算之后，该帧会在适当位置显示粒子。</p>
+
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-F01">该表达式将常量 &lt;&lt;1,0,0&gt;&gt; 添加到动画播放时每帧的粒子速度上。这会使粒子随着时间的增加以增加速度沿 X 方向移动。增加速度与加速度相同。 </p>
+
+<div class="fig fignone" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-F00"><img class="image" width="530" height="300" src="../images/GUID-396E8099-7C6D-4E12-B4D3-AF099FD54213.png"></div>
+
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-EFF"> 加速度属性的工作方式与位置或速度属性在一个重要方面有所差异。Maya 将其值初始化为每帧之前 &lt;&lt;0,0,0&gt;&gt;。如果过采样级别大于 1，则在每个时间步骤之前都会发生初始化。 </p>
+
+</div>
+<div class="section" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-EFD"><h2 class="title sectiontitle">示例</h2>
+
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-EFC"> 假设您为不受重力影响的五粒子对象编写以下运行时表达式：</p>
+
+<pre class="pre codeblock">
+acceleration = acceleration + &lt;&lt;0,1,0&gt;&gt;;
+</pre>
+
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-EFA">不是将 &lt;&lt;0,1,0&gt;&gt; 累加到每帧的加速度值，对于每个粒子，加速度保持为常量 &lt;&lt;0,1,0&gt;&gt;。发生这种情况的原因是，Maya 将加速度的值初始化为每帧之前 &lt;&lt;0,0,0&gt;&gt;。 </p>
+
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-EF9">假设使用默认设置将粒子对象连接到重力。粒子的加速度变为 &lt;&lt;0,1,0&gt;&gt; 加上 &lt;&lt;0，-9.8,0&gt;&gt;，等于 &lt;&lt;0，-8.8,0&gt;&gt;。在表达式中指定的加速度会放慢重力的向下加速度。</p>
+
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-EF8">假设您将上一个表达式更改为以下形式：</p>
+
+<pre class="pre codeblock">
+acceleration = acceleration + sphrand(3);
+</pre>
+
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-EF7">由于 Maya 将加速度设置为每帧之前 &lt;&lt;0,0,0&gt;&gt;，因此该语句的结果与以下语句的结果相同：</p>
+
+<pre class="pre codeblock">
+acceleration = sphrand(3);
+</pre>
+
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-EF6">随着每个帧播放，Maya 首先使用表达式语句计算每个粒子的加速度。每个粒子都会收到 sphrand (3) 函数的结果。 </p>
+
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-EF5">sphrand (3) 函数提供了一个向量，其随机选择的组件驻留在半径为 3 的原点处居中的球形区域中。每个粒子接收不同的向量值。 </p>
+
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-EF4">最后，Maya 将添加重力的加速度累加到从 sphrand (3) 产生的表达式加速度上。该帧在产生的位置显示每个粒子。 </p>
+
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-EF3">由于从表达式生成随机值，因此每个粒子拥有的加速度在方向和幅值上都与重力稍有不同。由于会对每帧的每个粒子执行 sphrand (3) 函数，因此每帧的每个粒子的加速度会有所不同。</p>
+
+<div class="fig fignone" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-EF2"><img class="image" width="469" height="241" src="../images/GUID-35F01B39-B2A4-49B2-B2BD-F67EC52E3D29.png"></div>
+
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-EF1">此示例说明您可以充分利用字段的累加影响和加速度属性来创建自定义字段影响。</p>
+
+<div class="note tip" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__WS73099CC142F48755-3D114B7511841AEFA9F-EF0"><span class="tiptitle">提示：</span> 
+<p class="p" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__GUID-B3A43F72-2D04-4887-B64A-8DBDEF79640C"> 通过将<span class="ph uicontrol" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__GUID-556BABB9-07B7-4A8D-BEF5-8E03BC3317FC">“粒子形状”(particle shape)</span>节点属性的<span class="ph uicontrol" id="GUID-29164AB8-2CF5-4973-B22C-3F8B0461D8B1__GUID-F6B5011F-8533-47A4-B641-FA36E927C9A4">“dynamicsWeight”</span>属性设置为 0，可以禁用该属性上所有字段的影响。</p>
+
+</div>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-F7BE65C4-CDA4-42DC-A0D8-72B9D984B3E1.htm">关于粒子表达式</a></div>
+</div>
+</div>
+
+</body>
+</html>

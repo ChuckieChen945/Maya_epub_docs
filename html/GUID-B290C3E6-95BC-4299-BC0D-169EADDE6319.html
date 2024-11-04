@@ -1,0 +1,324 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Basics">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="矩阵工具节点;工具节点:矩阵">
+<meta name="modified" content="06/03/2024">
+<meta name="topicid" content="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319">
+<meta name="language" content="CHS">
+<title>矩阵工具节点</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>矩阵工具节点</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> Maya 使用矩阵工具节点通过矩阵数学向场景中添加额外的效果。另请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-4BEE4922-0137-4319-8AD9-0EBCD51CC62C.htm">编辑“变换偏移父对象矩阵”(Transform Offset Parent Matrix)属性</a>。
+	 </p>
+<p class="p"> Maya 中提供了以下工具矩阵：
+	 </p>
+<div class="p"> 
+	 <dl class="dl"><dt class="dt dlterm">addMatrix 
+		  </dt>
+<dd class="dd"> 此 addMatrix 节点接受矩阵列表作为输入，并将其添加到一起以生成输出，该输出为所有输入矩阵的总和 (m1 + m2 + m3 + m4 = matrixSumOutput)。
+			 <p class="p" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__WS1A9193826455F5FF453265C9125FAA23BBB-6375">另请参见 Maya 技术文档中的 <strong class="ph b">addMatrix</strong>。
+			 </p>
+ 
+		  </dd>
+</dl>
+ 
+	 <dl class="dl"><dt class="dt dlterm">aimMatrix 
+		  </dt>
+<dd class="dd"> 变换输入矩阵，使指定的主轴指向指定的主要目标。可以选择使用次要目标沿该常规方向（上方向向量）对准次轴。
+		  </dd>
+<dd class="dd"><strong class="ph b">aimMatrix</strong> 节点具有<strong class="ph b">“空间矩阵”(Space Matrix)</strong>部分，您可以在此使用<span class="ph uicontrol">“前空间矩阵”(Pre Space Matrix)</span>和<span class="ph uicontrol">“后空间矩阵”(Post Space Matrix)</span>浮点数，以及“合成”(Composition)和“矩阵”(Matrix)选项卡来改变输入和输出的空间。有关不同状态所表示内容的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-4BEE4922-0137-4319-8AD9-0EBCD51CC62C.htm">编辑“变换偏移父对象矩阵”(Transform Offset Parent Matrix)属性</a>。
+		  </dd>
+<dd class="dd">aimMatrix 是混合对准/对齐操作。利用此节点，您可以通过独立于次轴对准或对齐操作的对齐或对准操作来设置主轴。
+			 <p class="li listintro"> aimMatrix 节点具有以下选项</p>
+<ul class="ul" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__UL_4B31B7470CDA43FFB872F8B0CCD123BC"><li class="li" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__LI_6FDFE4C91F3B4C9CBD681468BCE7A331"> 
+				  <strong class="ph b">输入轴(Input axis)</strong>：要对准/对齐的轴 
+				</li>
+<li class="li" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__LI_9778E779C3F548C6A53B4BDE899A933C"> 
+				  <strong class="ph b">模式(Mode)</strong>：<strong class="ph b">aimMatrix</strong> 节点有 5 种模式：
+				  
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__TABLE_166C8984FC884392B51DC95613E2747F" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">模式 
+							 </th>
+<th class="entry" valign="top" width="50%">功能 
+							 </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">锁定轴(Lock Axis) 
+							 </td>
+<td class="entry" valign="top" width="50%"> 保持输入轴不变。 
+							 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">目标(Aim) 
+							 </td>
+<td class="entry" valign="top" width="50%"> 将输入轴对准目标矩阵中目标向量定义的点。 
+							 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">对齐(Align) 
+							 </td>
+<td class="entry" valign="top" width="50%"> 将输入轴对齐目标矩阵中目标向量定义的向量。 
+							 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">无(None) 
+							 </td>
+<td class="entry" valign="top" width="50%"> 在解算中不包括次轴。主轴在解算中采用最短四元数球面线性插值。 
+							 </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">目标向量(Target Vector) 
+							 </td>
+<td class="entry" valign="top" width="50%"> 
+								<ul class="ul" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__UL_513C15F2459F4A60B955C3CDB748A093"><li class="li" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__LI_638406C9CCDA4B028F60B234B9ED4DDB"><strong class="ph b">“目标”(Aim)</strong>模式：目标向量被视为目标矩阵中的 3D 点。 
+								  </li>
+<li class="li" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__LI_1EEF740F354C4DDAACE31CDD29F66389"><strong class="ph b">“对齐”(Align)</strong>模式：目标向量被视为目标矩阵中的向量。在此模式下，必须指定有效值（0,0,0 无效）。 
+								  </li>
+</ul>
+ 
+							 </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+				</li>
+</ul>
+ 
+		  </dd>
+<dt class="dt dlterm">axisFromMatrix 
+		  </dt>
+<dd class="dd"> 从指定的变换矩阵中检索所需的轴（X、Y 或 Z）三维向量。
+		  </dd>
+<dt class="dt dlterm">blendMatrix 
+		  </dt>
+<dd class="dd"> BlendNode 将基础矩阵 (InputMatrix) 与每个目标依次融合。融合以堆栈的形式进行。上一个融合结果将与下一个目标融合，依此类推。
+		  </dd>
+<dd class="dd"> 将变形与 <strong class="ph b">blendMatrix</strong> 节点链接在一起，其中权重值可用于外推和插值。
+		  </dd>
+<dd class="dd"> 
+			 <strong class="ph b">blendMatrix</strong> 不是加权平均，而是有序融合，每个后续矩阵都覆盖前面的矩阵。例如，如果三个矩阵的加权融合可能使用值 1、1 和 1 进行 50% 融合，则需要权重 1、0.5 和 0.3333（或更加清楚地说是 1/1、1/2、1/3）以达到与有序融合相同的结果。
+		  </dd>
+<dd class="dd">blendMatrix 具有“空间矩阵”(Space Matrix)部分，您可以在此更改输入和输出的空间。
+		  </dd>
+<dd class="dd"><strong class="ph b">blendMatrix</strong> 节点具有<strong class="ph b">“空间矩阵”(Space Matrix)</strong>部分，您可以在此更改输入和输出的空间，无需额外的 multiMatrix 节点。有关不同状态所表示内容的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-4BEE4922-0137-4319-8AD9-0EBCD51CC62C.htm">编辑“变换偏移父对象矩阵”(Transform Offset Parent Matrix)属性</a>。
+			 <p class="li listintro"> blendMatrix 节点具有以下选项</p>
+<ul class="ul" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__UL_952321B294EB40F8A8FD333CB8367889"><li class="li" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__LI_5A42724549744038BEF73F5C3225350B"> 
+				  <strong class="ph b">使用矩阵(Use Matrix)</strong>：激活 blendMatrix 节点 
+				</li>
+<li class="li" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__LI_5B22670EA9E146CBA15D7725F37F840C"> 
+				  <strong class="ph b">使用缩放/平移/旋转/斜切(Use Scale/Translate/Rotate/Shear)</strong>：用于选择融合计算中将使用的组件（缩放/平移/旋转/斜切）。
+				</li>
+</ul>
+ 
+		  </dd>
+<dt class="dt dlterm">columnFromMatrix 
+		  </dt>
+<dd class="dd"> columnFromMatrix 节点从 4x4 矩阵返回指定列。
+		  </dd>
+<dt class="dt dlterm">composeMatrix 
+		  </dt>
+<dd class="dd"> composeMatrix 节点使用平移、（四元数或旋转）、缩放和斜切值来生成 4 x 4 矩阵。
+		  </dd>
+<dt class="dt dlterm">decomposeMatrix 
+		  </dt>
+<dd class="dd"> decomposeMatrix 节点将 4 x 4 变换矩阵用作输入，并返回变换矩阵分解。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-8AE22982-B840-4E7B-A098-B4D15D01CCE4.htm">变换偏移父矩阵(Transform Offset Parent Matrix)</a>、rotationFromMatrix、scaleFromMatrix 和 translationFromMatrix。
+		  </dd>
+<dt class="dt dlterm">determinant 
+		  </dt>
+<dd class="dd"> determinant 节点计算给定矩阵的行列式。矩阵的行列式是标量值，它是矩阵条目的函数。
+		  </dd>
+<dt class="dt dlterm">fourByFourMatrix 
+		  </dt>
+<dd class="dd">此节点根据 16 个输入值输出 4 x 4 矩阵。可以将该输出矩阵属性连接到属于“矩阵”类型的任何属性。
+			 <p class="p">矩阵的第一行由 in00、in01、in02、in03 定义。
+			 </p>
+ 
+			 <p class="p"> 矩阵的第二行由 in10、in11、in12、in13 定义。
+			 </p>
+ 
+			 <p class="p">矩阵的第三行由 in20、in21、in22、in23 定义。
+			 </p>
+ 
+			 <p class="p">矩阵的第四行由 in30、in31、in32、in33 定义。
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm">holdMatrix 
+		  </dt>
+<dd class="dd">使用该工具缓存矩阵。
+		  </dd>
+<dt class="dt dlterm">inverseMatrix 
+		  </dt>
+<dd class="dd"> inverseMatrix 节点计算给定可逆矩阵的逆矩阵。矩阵的逆矩阵是指与该矩阵相乘得到单位矩阵的矩阵。
+		  </dd>
+<dt class="dt dlterm">multiplyPointByMatrix 
+		  </dt>
+<dd class="dd"> multiplyPointByMatrix 节点返回点与矩阵相乘的乘积。
+		  </dd>
+<dt class="dt dlterm">multiplyVectorByMatrix 
+		  </dt>
+<dd class="dd"><strong class="ph b">multiplyVectorByMatrix</strong> 节点返回向量与矩阵相乘的乘积。这相当于计算向量终点与矩阵相乘减去向量起点与矩阵相乘。
+		  </dd>
+<dt class="dt dlterm">multMatrix 
+		  </dt>
+<dd class="dd"> 将一系列矩阵相乘。
+		  </dd>
+<dt class="dt dlterm">parentMatrix 
+		  </dt>
+<dd class="dd">parentMatrix 节点接受输入矩阵并融入其他父目标的效果。它将归一化所有目标的效果。
+			 <p class="p">它可用于通过混合多个目标输入的加权影响来设置变换父对象的动画。
+			 </p>
+ 
+			 <p class="p">利用此节点，您可以使用<strong class="ph b">“前空间矩阵”(Pre Space Matrix)</strong>属性和<strong class="ph b">“后空间矩阵”(Post Space Matrix)</strong>属性来改变输入和输出的空间。
+			 </p>
+ 
+			 <p class="p"><strong class="ph b">parentMatrix</strong> 节点具有<strong class="ph b">“空间矩阵”(Space Matrix)</strong>部分，您可以在此使用“前空间矩阵”(Pre Space Matrix)属性和“后空间矩阵”(Post Space Matrix)属性，以及“合成”(Composition)和“矩阵”(Matrix)选项卡来改变输入和输出的空间，无需额外的 multMatrix 节点。有关如何使用 parentMatrix 的示例，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-C7FB988D-F85E-44BA-B55B-B3BDBA324580.htm">使用 parentmatrix 节点将对象更改为其父对象</a>。
+			 </p>
+ 
+			 <div class="p">parentMatrix 节点针对每个目标提供以下选项：
+			 <ul class="ul" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__UL_A1D6C0001D5845F6A0D5E33549A236C9"><li class="li" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__LI_59411A6C26844DA5AD128BFA461F908E"> 
+				  <strong class="ph b">启用目标(Enable Target)</strong>：激活目标 
+				</li>
+<li class="li" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__LI_802CCEA8CD334CB6B4846A8286FE9DD3"> 
+				  <strong class="ph b">权重(Weight)</strong>：要用于目标的权重（将与其他目标权重一起归一化） 
+				</li>
+<li class="li" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__LI_EDE85B96F2314A8EAB710B6BE8259BF2"> 
+				  <strong class="ph b">目标矩阵(Target Matrix)</strong>：要融入的目标矩阵 
+				</li>
+<li class="li" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__LI_314D15CC931B42C080AFEF838A3A8DFF"> 
+				  <strong class="ph b">偏移矩阵(Offset Matrix)</strong>：相对于目标矩阵的偏移。在设置从一个目标到另一个目标的动画时，可以使用此项捕获在某个交接点处对象相对于目标的偏移。
+				</li>
+</ul>
+ 
+			 </div>
+ 
+		  </dd>
+<dd class="dd"> 
+			 <dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">管理目标(Manage Targets)</span> 
+				  </dt>
+<dd class="dd"> 
+					 <div class="fig fignone" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__FIG_060618B485794384B75AB32D6ED4B365"><img class="image" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__IMAGE_0337068A1C914E0493EC209A9759F94F" src="../images/GUID-A857235C-2EA4-44E3-89AC-B6552EB40B2D.png" alt=""><p class="figcap">parentMatrix 的“管理目标”(Manage Targets)菜单</p></div>
+parentMatrix 节点还具有<span class="ph uicontrol">“管理目标”(Manage Targets)</span>菜单。从以下选项中选择：
+					 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__TABLE_10766043022942D4B773531773E76CC3" class="table" frame="border" border="1" rules="all"><tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="33.33333333333333%"><strong class="ph b"><span class="ph uicontrol">将选定项添加为目标(Add Selected as Target)/移除选定项作为目标(Remove Selected as Target)</span></strong> 
+								</td>
+<td class="entry" valign="top" width="66.66666666666666%">将选定对象合并到矩阵中或从矩阵中移除选定对象。
+								</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"><strong class="ph b"><span class="ph uicontrol">初始化目标偏移(Initialize Target Offset)</span></strong> 
+								</td>
+<td class="entry" valign="top" width="66.66666666666666%">计算 offsetMatrix，以便当目标成为唯一的影响因素时（目标的权重为 1.0，而所有其他对象的权重为 0.0），对象与 inputMatrix 保持在同一位置。
+								</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="33.33333333333333%"><strong class="ph b"><span class="ph uicontrol">捕捉目标偏移(Snap Target Offset)</span></strong> 
+								</td>
+<td class="entry" valign="top" width="66.66666666666666%">计算 offsetMatrix，以便当目标成为唯一的影响因素时（目标的权重为 1.0，而所有其他对象的权重为 0.0），对象不会移离当前位置。
+								</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+				  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">启用(Enable)</span> 
+				  </dt>
+<dd class="dd">激活<span class="ph uicontrol">“封套”(Envelope)</span>滑块，使您可以指定矩阵中目标对象的偏移强度。
+				  </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">封套(Envelope)</span> 
+				  </dt>
+<dd class="dd"> 指定矩阵中目标对象的偏移强度的比例因子。
+				  </dd>
+</dl>
+ 
+		  </dd>
+<dt class="dt dlterm">passMatrix 
+		  </dt>
+<dd class="dd"> 将矩阵乘以一个常量，而不缓存任何内容。
+		  </dd>
+<dt class="dt dlterm">pickMatrix 
+		  </dt>
+<dd class="dd"> 用于选择要在输入矩阵中使用的输出矩阵组件，例如，可以仅选择平移和旋转。未使用的组件设置为单位矩阵。
+		  </dd>
+<dt class="dt dlterm">proximityPin 
+		  </dt>
+<dd class="dd"> 
+			 <div class="note note" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__GUID-6D2BC82D-79D3-4556-902B-E9E74D892629"><span class="notetitle">注：</span> 从技术上讲，proximityPin 是一个矩阵节点。
+			 </div>
+ 
+		  </dd>
+<dd class="dd"> proximityPin 节点返回几何体（由“deformedGeometry”属性给定）上每个点（由“coordinateU”和“coordinateV”属性给定）的矩阵。
+		  </dd>
+<dd class="dd">它用于跟踪变形曲面上的位置。它从输入变换中曲面上的最近点派生位置。相反，<strong class="ph b">uvPin</strong> 节点从指定的 UV 坐标派生位置。
+		  </dd>
+<dd class="dd"> 如果要使用相关控件以重新定位输入或不存在干净 UV，请使用 proximityPin 节点将对象附加到几何体。
+		  </dd>
+<dd class="dd">有关详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-17402067-DFA9-4F0B-99E3-233920040A0B">接近度固定(Proximity Pin)</a>、<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-92DA0E89-26BB-4F1A-A74B-541FE2359BDC">创建接近度固定</a>和<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-F048B789-FAD0-45CC-AD28-238DE35B2B3F">接近度固定选项(Proximity Pin Options)</a>。
+		  </dd>
+<dt class="dt dlterm">rotationFromMatrix 
+		  </dt>
+<dd class="dd"> <strong class="ph b">rotationFromMatrix</strong> 节点从 4x4 变换矩阵提取 Euler 旋转。这些节点要求给定矩阵是格式正确的变换（旋转、缩放、平移）矩阵。要求的旋转顺序为 XYZ。
+		  </dd>
+<dt class="dt dlterm">rowFromMatrix 
+		  </dt>
+<dd class="dd"> <strong class="ph b">rowFromMatrix</strong> 节点从 4x4 矩阵返回指定行。可以使用此节点并选择 4x4 变换矩阵的第 4 行以从该矩阵提取平移。
+		  </dd>
+<dt class="dt dlterm">scaleFromMatrix 
+		  </dt>
+<dd class="dd"> <strong class="ph b">scaleFromMatrix</strong> 节点从 4x4 变换矩阵提取 X、Y、Z 比例。这些节点要求给定矩阵是格式正确的变换（旋转、缩放、平移）矩阵。
+		  </dd>
+<dt class="dt dlterm">translationFromMatrix 
+		  </dt>
+<dd class="dd"> <strong class="ph b">translationFromMatrix</strong> 节点从 4x4 变换矩阵提取 X、Y、Z 平移。这些节点要求给定矩阵是格式正确的变换（旋转、缩放、平移）矩阵。
+		  </dd>
+<dt class="dt dlterm">transposeMatrix 
+		  </dt>
+<dd class="dd"> transposeMatrix 节点转置给定矩阵。矩阵的转置矩阵是指矩阵元素沿对角线翻转后的矩阵。位于（行 i，列 j）的值在转置后将位于位置（行 j，列 i）。
+		  </dd>
+<dt class="dt dlterm">uvPin 
+		  </dt>
+<dd class="dd"> 
+			 <div class="note note" id="GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319__GUID-E91E4321-A621-4C60-A9D3-8E62200797E4"><span class="notetitle">注：</span> 从技术上讲，uvPin 是一个矩阵节点。
+			 </div>
+ 
+		  </dd>
+<dd class="dd">使用此节点可直接按其矩阵输出驱动变换。
+		  </dd>
+<dd class="dd"> 返回几何体（由“deformedGeometry”属性给定）上每个点（由“coordinateU”和“coordinateV”属性给定）的矩阵。
+		  </dd>
+<dd class="dd">请参见 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-17402067-DFA9-4F0B-99E3-233920040A0B">UV 固定(UV Pin)</a>和<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-AADA4417-39D1-4EE0-84DB-2DCEE2F72B1F">创建 uvPin</a>。
+		  </dd>
+<dt class="dt dlterm">wtAddMatrix 
+		  </dt>
+<dd class="dd"> 将矩阵的加权列表加在一起。
+		  </dd>
+</dl>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-8AE22982-B840-4E7B-A098-B4D15D01CCE4.htm">变换偏移父对象矩阵(Transform Offset Parent Matrix)</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-D53B9E3D-E6E3-4CC3-A38F-3AA3A09205E5.htm">节点和属性</a></div>
+</div>
+</div>
+
+</body>
+</html>

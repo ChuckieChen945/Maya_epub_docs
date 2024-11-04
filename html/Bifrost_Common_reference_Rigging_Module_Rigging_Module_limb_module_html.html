@@ -1,0 +1,128 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Rigging_Module_Rigging_Module_limb_module_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>limb_module</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>limb_module</code></h1></div><p>用于定义由三个或更多关节组成的双骨骼肢体 IK/FK 链的绑定模块。可用输入：</p>
+<ul>
+<li><code>pins.world_matrices</code>：[必需] 三个或四个用于引导手臂关节和控件的创建的矩阵，分别定义 <code>start</code>、<code>hinge</code>、<code>end</code> 和 <code>end_direction</code> 静止状态。如果未指定 <code>end_direction</code>，则末关节将使用其默认方向。</li>
+<li><code>joints.names</code>：[可选] 定义关节名称的字符串数组。此数组的大小应等于此模块生成的关节数。如果未指定此项，则将改用默认名称。</li>
+<li><code>joints.operator_matrices</code>：[可选] 用于控制关节的动画的矩阵数组。在此上下文中，此项用于驱动 FK 动画。</li>
+<li><code>controls.names</code>：[可选] 定义 IK 控件（分别是 <code>target</code> 和 <code>pole_target</code> 控件）名称的两个字符串。如果未指定此项，则将改用默认名称。</li>
+<li><code>controls.operator_matrices</code>：[可选] 用于控制控件的动画的两个矩阵。在此上下文中，它们分别表示 <code>target</code> 和 <code>pole_target</code> IK 控件。</li>
+</ul>
+<h2 id="">输入</h2><h3 id="inputs"><code>inputs</code></h3><p>此模块的 <code>Rigging::Module::Inputs</code> 结构，包含标准输入数据，用于定义设置并驱动关节和控件的动画。 </p>
+<ul>
+<li><code>pins</code>：作为导向的辅助对象变换，通常用于定义关节和控件的静止变换。</li>
+<li><code>operator_matrices</code>：<code>double4x4</code> 运算符矩阵数组，用于驱动关节和控件的动画。在动画解算期间，将在此模块的变换中应用它们。</li>
+<li><code>names</code>：[可选] <code>string</code> 数组，用于指定关节和控件名称以及创建其路径。</li>
+<li><code>weights</code>：[可选] <code>double</code> 数组，用于驱动动画解算器参数。</li>
+<li><code>anchors</code>：[可选] 父模块中的特定关节和控件（路径和变换）。尽管锚点通常由模块的 <code>Anchors Selection</code> 参数选择，但您可以手动指定它们，并将 <code>selection_method</code> 保留为 <code>Off</code>。</li>
+<li><code>setup_custom</code>：[可选] 包含要用于计算设置的任何额外设置数据的对象。</li>
+<li><code>animation_custom</code>：[可选] 包含要用于计算动画的任何额外设置数据的对象。</li>
+</ul>
+<h3 id="parents"><code>parents</code></h3><p>父模块的输出（如果有）。父对象通常用于选择要在此模块中使用的特定锚点节点。</p>
+<h2 id="">常规</h2><p>绑定模块的标准参数。</p>
+<h3 id="name"><code>name</code></h3><p>定义此模块的名称。此项主要用于在分析器中标识此模块，但也可用于以程序方式创建关节和控件的路径。</p>
+<h3 id="rest_state"><code>rest_state</code></h3><p>如果启用此项，将跳过任何动画计算并输出处于静止状态的模块。</p>
+<h3 id="profile"><code>profile</code></h3><p>如果启用此项，则分析此模块的性能，以及各个设置和动画计算。可以在主机应用程序的分析器中查看分析结果。</p>
+<h3 id="selection_method"><code>selection_method</code></h3><p>定义选择锚点的方法，即从连接的 <code>parents</code> 中选择特定父关节和控件。然后，可以在模块的设置和动画复合内访问选定的锚点。可用方法按计算成本从低到高的顺序排序。</p>
+<ul>
+<li><p><code>Off</code>：不选择任何锚点，使用与 <code>anchors</code> 输入相连的任何锚点（如果有）。</p>
+</li>
+<li><p><code>By Name</code>：通过搜索匹配的名称来选择锚点。使用此方法时，<code>selection</code> 的内容将解释为逗号分隔的名称，例如 <code>root_joint, shoulder_control, hand_control</code>。</p>
+</li>
+<li><p><code>By Expression</code>：通过匹配表达式来选择锚点。这可用于使用通配符过滤父关节和控件名称。一些示例表达式： </p>
+<ul>
+<li>若要匹配所有的名称，可使用 <code>*</code>。 </li>
+<li>若要匹配除 <code>arm_joint</code> 以外的所有父关节名称，可使用 <code>* !arm_joint</code>。 </li>
+<li>若要匹配以 <code>arm_</code> 开头的所有父控件名称，可使用 <code>arm_*</code>。 </li>
+<li>若要匹配不以 <code>arm_</code> 开头的所有父关节名称，可使用 <code>* !arm_*</code>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="selection"><code>selection</code></h3><p>包含要从连接的父模块中选择的关节和控件的字符串。对此字符串的解释取决于且应反映 <code>selection_method</code>。</p>
+<h3 id="cache_setup"><code>cache_setup</code></h3><p>如果启用此项，则缓存此模块的计算设置，并且仅在其输入有变化时才更新它。请注意，当前仅检测来自此模块的 <code>inputs</code> 的设置相关成员的更改。</p>
+<h3 id="cache_animation"><code>cache_animation</code></h3><p>如果启用此项，则缓存此模块的计算动画，并在设置或动画输入有变化时更新它。请注意，当前仅检测来自此模块的 <code>inputs</code> 的动画相关成员的更改。</p>
+<h2 id="">诊断</h2><p>在启用 <code>D</code> 终端标志时，显示此模块的生成的关节和变换。</p>
+<h3 id="display_joints"><code>display_joints</code></h3><p>如果启用此项，则将关节层级显示为网格几何体。</p>
+<h3 id="joint_size"><code>joint_size</code></h3><p>关节的显示半径。</p>
+<h3 id="joint_color"><code>joint_color</code></h3><p>关节的颜色。</p>
+<h3 id="display_transforms"><code>display_transforms</code></h3><p>如果启用此项，则将骨架关节的变换显示为股箭头。</p>
+<h3 id="axes_shape"><code>axes_shape</code></h3><p>要应用于生成的股的几何体着色器的类型。 </p>
+<ul>
+<li><p><code>Wire</code>：将股显示为 1 像素宽的细线。</p>
+</li>
+<li><p><code>Ribbon</code>：将股显示为条带，宽度相对于变换的比例，并使用 <code>axes_scale</code>、<code>arrowhead_size_ratio</code> 和 <code>stem_width_ratio</code> 值。</p>
+</li>
+<li><p><code>Tube</code>：将股显示为厚管，半径相对于变换的比例，并使用 <code>axes_scale</code>、<code>arrowhead_size_ratio</code> 和 <code>stem_width_ratio</code> 值。</p>
+</li>
+</ul>
+<h3 id="axes_scale"><code>axes_scale</code></h3><p>用于增加或减小要显示的变换轴比例的倍增。</p>
+<h3 id="arrowhead_size_ratio"><code>arrowhead_size_ratio</code></h3><p>箭头宽度的大小比率，相对于每个变换轴的比例。假定变换的比例为 <code>[1, 1, 1]</code>，则值为 <code>0.1</code> 时，箭头的宽度将为 <code>0.1</code>。如果变换的比例为 <code>[10, 10, 10]</code>，则使用相同的值时，箭头的宽度将为 <code>1.0</code>。</p>
+<h3 id="stem_width_ratio"><code>stem_width_ratio</code></h3><p>杆宽度相对于箭头最宽部分的值。值为 <code>0.1</code> 表示杆宽度是箭头宽度的十分之一。</p>
+<h2 id="">肢体设置</h2><h3 id="upper_twist_joint_count"><code>upper_twist_joint_count</code></h3><p>要生成的上骨骼扭曲关节数。上骨骼扭曲关节位置是在 <code>start</code> 和 <code>hinge</code> 关节之间插值。</p>
+<h3 id="lower_twist_joint_count"><code>lower_twist_joint_count</code></h3><p>要生成的下骨骼扭曲关节数。下骨骼扭曲关节位置是在 <code>hinge</code> 和 <code>end</code> 关节之间插值。</p>
+<h3 id="primary_axis"><code>primary_axis</code></h3><p>指定变换轴以使变换与其前置变换对齐。</p>
+<p>指定应与从每个关节到其前置关节的方向对齐的变换轴。例如，如果此项设置为 <code>[1, 0, 0]</code>，则每个关节的变换系统的 X 轴将指向链中的下一个关节。引申开来，<code>target</code> 控件也将从 <code>end</code> 关节继承其位置和方向。</p>
+<h3 id="secondary_axis"><code>secondary_axis</code></h3><p>指定应与 <code>up_vector</code> 对齐的变换轴。例如，如果此项设置为 <code>[0, 1, 0]</code>，则每个关节的变换系统的 Y 轴将尝试与 <code>up_vector</code> 指定的相同方向对齐。引申开来，<code>target</code> 控件也将从 <code>end</code> 关节继承其位置和方向。</p>
+<h3 id="up_vector"><code>up_vector</code></h3><p>变换的 <code>secondary_axis</code> 应与之对齐的上方向向量。</p>
+<h3 id="ik_weight"><code>ik_weight</code></h3><p>用于控制此节点对 <code>transforms</code> 的影响的权重。 </p>
+<p>值为 <code>0.0</code> 时，将按原样传递 <code>transforms</code>；值为 <code>1.0</code> 时，将完全应用节点的影响；值介于 <code>0.0</code> 和 <code>1.0</code> 之间时，将在输入和经过修改的 <code>transforms</code> 之间混合。</p>
+<h3 id="min_rotate_hinge"><code>min_rotate_hinge</code></h3><p>铰链能够打开所允许的最小角度。如果为 <code>0.0</code>，则肢体可能会拉伸为一条直线，这会使铰链轴难以确定。因此，建议至少使用一个较小的值。</p>
+<h3 id="max_rotate_hinge"><code>max_rotate_hinge</code></h3><p>铰链能够合上所允许的最大角度。如果为 <code>180.0</code>，肢体可能完全折叠到自身上。</p>
+<h3 id="use_pole_target"><code>use_pole_target</code></h3><p>如果启用此项，则使用输入 <code>pole_target</code> 计算 IK。</p>
+<h3 id="pole_target_weight"><code>pole_target_weight</code></h3><p>用于控制 <code>pole_target</code> 对 IK 计算的影响的权重。 </p>
+<h3 id="target_orient_weight"><code>target_orient_weight</code></h3><p>用于控制在链中的最后一个变换（末端效应器）中应用输入 <code>target</code> 方向的程度的权重。如果为 <code>0.0</code>，则仅使用目标的位置。</p>
+<h3 id="roll"><code>roll</code></h3><p>围绕极向量进行额外旋转的角度（以度为单位）。</p>
+<h3 id="twist_weight"><code>twist_weight</code></h3><p>用于控制将在上骨骼和下骨骼扭曲变换中使用扭曲分布的程度的权重。</p>
+<h3 id="joint_scaling"><code>joint_scaling</code></h3><p>用于缩放骨骼长度的倍增。这会使上骨骼和下骨骼同时变长或变短。</p>
+<h3 id="upper_joint_scaling"><code>upper_joint_scaling</code></h3><p>用于缩放上骨骼长度的倍增。这不影响下骨骼的长度。</p>
+<h3 id="lower_joint_scaling"><code>lower_joint_scaling</code></h3><p>用于缩放下骨骼长度的倍增。这不影响上骨骼的长度。</p>
+<h3 id="pin_scale_weight"><code>pin_scale_weight</code></h3><p>用于控制将铰链固定到 <code>pole_target</code> 的程度的权重。如果为 <code>1.0</code>，则将拉伸或缩短上骨骼和下骨骼，使铰链位于 <code>pole_target</code> 的位置。</p>
+<h3 id="min_pin_scale"><code>min_pin_scale</code></h3><p>在需要缩短骨骼以将铰链固定到 <code>pole_target</code> 时，可以应用的最小缩放量。例如，当此项设置为 <code>0.5</code> 时，为了实现此目的，骨骼的缩放比例不会低于一半。</p>
+<h3 id="max_pin_scale"><code>max_pin_scale</code></h3><p>在需要拉长骨骼以将铰链固定到 <code>pole_target</code> 时，可以应用于骨骼的最大缩放量。例如，当此项设置为 <code>2.0</code> 时，为了实现此目的，骨骼的缩放比例不会超过两倍。</p>
+<h3 id="auto_scale_weight"><code>auto_scale_weight</code></h3><p>用于控制为了末端效应器到达目标可以应用自动缩放的程度的权重。当此项设置为 <code>1.0</code> 时，骨骼将缩短或拉长，以便能够到达目标。</p>
+<h3 id="min_auto_scale"><code>min_auto_scale</code></h3><p>由于自动缩放而可应用的最小缩放量。例如，当此项设置为 <code>0.5</code> 时，骨骼的缩放比例不会低于一半。</p>
+<h3 id="max_auto_scale"><code>max_auto_scale</code></h3><p>由于自动缩放而可应用的最大缩放量。例如，当此项设置为 <code>2.0</code> 时，骨骼的缩放比例不会超过两倍。</p>
+<h2 id="">输出</h2><h3 id="outputs"><code>outputs</code></h3><p>此模块的 <code>Rigging::Module::Outputs</code> 结构。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Rigging/Bifrost_Common_reference_Rigging_Module_html.html">Module</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

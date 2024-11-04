@@ -1,0 +1,82 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Geometry_Mesh_Geometry_Mesh_update_mesh_adjacency_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>update_mesh_adjacency</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>update_mesh_adjacency</code></h1></div><p>构建网格的相邻结构。</p>
+<p>这些结构可用于确定指定面或顶点的相邻面。如果多个面共用一条边，则它们是相邻的。一个顶点与参照该顶点的所有面相邻。除了计算相邻面外，此节点还确定在面的哪一侧边或哪一角与其他面和顶点相邻。例如，给定此网格：</p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">p0───────────p1──────────p2
+│            │            │
+│            │            │
+│     f0     │     f1     │
+│            │            │
+│            │            │
+p5───────────p4──────────p3
+
+face_offset = [0, 4, 8]
+face_vertex = [0, 5, 4, 1, 1, 4, 3, 2]</code></pre>
+<p>f0 参照顶点 [p0, p5, p4, p1] 和 f1 参照顶点 [p1, p4, p3, p2]。每个面都参照 4 个顶点。因此，它们都有 4 个角和 4 个侧边。每个面的侧边和角都标记如下：</p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">p0───────────p1──────────p2
+│c0   s3   c3│c0   s3   c3│
+│            │            │
+│s0   f0   s2│s0   f1   s2│
+│            │            │
+│c1   s1   c2│c1   s1   c2│
+p5───────────p4──────────p3</code></pre>
+<p>由于 f0 参照顶点 [p0, p5, p4, p1]，因此角 c0 对应于 p0，c1 对应于 p5，依此类推。侧边 s0 是面在角 c0 和 c1 之间的侧边。类似地，s1 是面在角 c1 和 c2 之间的侧边，依此类推。请注意，侧边是定向的。它们总是从索引较低的角开始到索引较高的角，即 s[i] 定义为从 c[i] 到 c[i+1] 的半边。唯一的例外是最后一个侧边，它始终从最后一个角到第一个角（即，对于具有 n 个面顶点的面，从 c[n-1] 到 c[0]）。</p>
+<p>对于每个面的每一个侧边，此节点将计算其相邻面以及该相邻面内的相应侧边。例如，在上面的网格中，面 f0 上的侧边 s2 与 f1 上的 s0 相邻，因为 (f0, s2) 和 (f0, s0) 都参照了同一对顶点：p1 和 p4。如果面的一个侧边位于开放边上，则它没有相邻面，并返回标记值。对于上面的网格，(f0, s0)、(f0, s1) 和 (f0, s3) 是开放边，没有相邻数据。每个面的每个侧边的相邻值都在 <code>face_vertex_adjacent_edge</code> 数组中返回。此数组与网格的 face_vertex 计数大小相同。使用 <code>get_mesh_structure</code> 可获取网格中面顶点的数量。对于网格中的每个面顶点 i，相邻面-侧边位于 <code>face_vertex_adjacency_edge</code> 数组中的第 i 个元素处。</p>
+<p>与网格中的每个顶点类似，此节点计算相邻面和这些相邻面内的相应角。对于顶点 p0，唯一的相邻面是 f0，该面内参照 p0 的角是 c0。对于 p1，有两个相邻面-角 (f0, c3) 和 (f1, c0)。每个顶点的相邻值数取决于参照该顶点的面数。因此，返回的值将使用索引器/偏移模式返回。此节点返回一个值数组 (<code>point_face_adjacency</code>)，以及该数组内的另一个偏移数组 (<code>point_face_adjacency_index</code>)。<code>point_face_adjacency</code> 数组的大小是可变的，但 <code>point_face_adjacency_index</code> 数组的大小始终等于网格中顶点数加 1。使用 <code>access_offset_array</code> 节点可获取 <code>point_face_adjacency</code> 中与指定顶点索引对应的相邻值范围。</p>
+<p>对于上面的网格，此节点将返回标记值（使用 (x,x) 表示）：</p>
+<ul>
+<li><p><code>face_vertex_adjacent_edge</code> [(x,x), (x,x), (f1,s0), (x,x), (f0,s2), (x,x), (x,x), (x,x)]</p>
+</li>
+<li><p><code>point_face_adjacency</code> [(0,1), (0,3), (1,0), (1,3), (1,2), (0,2), (1,1), (0,1)]</p>
+</li>
+<li><p><code>point_face_adjacency_index</code> [0, 1, 3, 4, 5, 7, 8]</p>
+</li>
+</ul>
+<h2 id="">输入</h2><h3 id="mesh"><code>mesh</code></h3><p>为其构建相邻结构的网格。这些结构将作为几何特性添加到 <code>out_mesh</code>。 </p>
+<h2 id="">输出</h2><h3 id="out_mesh"><code>out_mesh</code></h3><p>添加了相邻数据的网格。</p>
+<h3 id="face_vertex_adjacent_edge"><code>face_vertex_adjacent_edge</code></h3><p>包含面到面相邻关系的数组。网格中每个面-顶点都有一个值。每个元素都对应于指定面-侧边的相邻面和侧边。 </p>
+<h3 id="point_face_adjacency"><code>point_face_adjacency</code></h3><p>包含顶点到面相邻关系的数组。 </p>
+<h3 id="point_face_adjacency_index"><code>point_face_adjacency_index</code></h3><p>包含每个顶点在 <code>point_face_adjacency</code> 数组中的偏移的数组。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Geometry/Bifrost_Common_reference_Geometry_Mesh_html.html">Mesh</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

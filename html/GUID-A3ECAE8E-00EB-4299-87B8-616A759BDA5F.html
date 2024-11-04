@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Basics">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F">
+<meta name="language" content="CHS">
+<title>使用 MEL 创建属性控件</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 MEL 创建属性控件</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-A571058A-C647-4DDB-9E08-025A3A0B29A7"> 若要使用 MEL 创建属性控件，请完成以下步骤： </p>
+<ul class="ul" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__UL_DDB9CEE02CB840C2B5F2FF80AB143BD5"><li class="li" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__LI_078130FE4DB9401DB9EC985B35896377"> 创建属性控件 </li>
+<li class="li" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__LI_915629BED0AB4DD8A580CA20468FC7C9"> 设置 MEL 程序的源 </li>
+<li class="li" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__LI_72BB101F5945441294655CF11E5BDDBF"> 定义 MEL 程序的回调 </li>
+</ul>
+<div class="section" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__SECTION_2D1243DBC43147378192B1FA5CF68DC1"><h2 class="title sectiontitle">
+<strong class="ph b" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-18E606B1-37ED-47F6-97F2-84C3E9BF2D98">创建属性控件</strong>
+</h2>
+
+<p class="p" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-16AB0F99-E7FB-4BF3-9864-BA02D4AA8097">在下面的示例中，<samp class="ph codeph" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-C344ABAC-B0CA-44A6-A337-CBD1222E6D54">floatSlider</samp> 控件是使用 MEL 程序 <samp class="ph codeph" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-DE7203B8-CF59-40A2-A489-268CAD4C4D3C">AEFloatSlider</samp> 创建的，然后使用更改命令 <samp class="ph codeph" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-132D8748-9C04-4A3A-A086-FA0659F00B26">AEaddFloatSliderCB</samp>。 </p>
+
+<div class="p" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-B731FF08-0460-4424-AEE1-138F3DB5C6DD">
+<pre class="pre codeblock">global proc AEaddFloatSliderCB( string $plug, string $slider ) 
+{ 
+	float $val = `floatSlider -q -v $slider`; 
+	setAttr $plug $val; 
+} 
+
+</pre>
+
+<pre class="pre codeblock">global proc AEaddFloatSlider ( string $plug,
+string $label, string $annot )
+</pre>
+
+<pre class="pre codeblock">{
+
+	// Body of callback
+	rowLayout -nc 2;
+	float $val = `getAttr $plug`;
+	string $slider;
+	text -label $label;
+	$slider = `floatSlider -annotation $annot -v $val`;
+	floatSlider -e -cc ("AEaddFloatSliderCB \"" + $plug + "\" \"" + $slider + "\"")
+ 	$slider;
+	 setParent
+
+}</pre>
+
+</div>
+
+<p class="p" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-09BDC7C8-7730-480A-A4C7-5B14EB8326EC"> MEL 程序使用以下参数： </p>
+
+<ul class="ul" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__UL_4A5B2E78DF7843F08F21492D2174BC50"><li class="li" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__LI_6C9914E419454893B033ECB968CAD889"><samp class="ph codeph" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-5EAC873B-CE3E-406C-B0B9-F907AEE43946">$plug</samp> 是栓，即该控件使用的节点和属性。 </li>
+<li class="li" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__LI_9E8CC17D33E548D7A9E697083F7E1240"><samp class="ph codeph" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-0C335990-DF79-4066-A51A-92C25C6639D5">$label</samp> 是属性的标签。 </li>
+<li class="li" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__LI_086390347C3E455C8B170D6D3047261D"> <samp class="ph codeph" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-2A470A4F-14E5-49CE-92BF-48CE3235F019">$annot</samp> 是属性的注释。 </li>
+</ul>
+
+</div>
+<div class="section" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__SECTION_9CD59D3C07134718B4B7E37CCEE698CF"><h2 class="title sectiontitle"> 设置 MEL 程序的源 </h2>
+
+<p class="p" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-8B4085AD-3645-4B4A-9EC7-FC83224441BE">此步骤为 <span class="ph msgph prodname" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 提供了包含 MEL 程序的 MEL 文件的路径。如果将文件保存到名为 <samp class="ph codeph" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-F5F706FC-9064-4C85-9573-6CC3836C9C7E">C:/myScripts</samp> 的目录中，请将以下内容键入到 MEL 命令行或<span class="ph uicontrol" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-62E10963-CB6A-4515-9B11-5EE3CC1F3B21">“脚本编辑器”(Script Editor)</span>中： </p>
+
+<p class="p" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-05DEB078-1670-404C-9A85-7FDDC150780C">
+<samp class="ph codeph" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-95CBA265-A1D3-4CCD-A016-0BF2DCE7CCF9">source "C:/myScripts/AEFloatSlider.mel";</samp>
+</p>
+
+<div class="note tip" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-CED26B0A-8DC6-4FF6-8B92-04FB16B9D522"><span class="tiptitle">提示：</span> 也可以为 MEL 文件指定与回调所用程序相同的名称。这样即可在首次启动回调时将文件作为源。例如，如果回调定义为 <samp class="ph codeph" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-A994083A-134E-4233-ACCA-98B559429EEB">global proc AEaddFloatSlider()</samp>，则将回调文件在 <span class="ph msgph prodname" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 的其中一个脚本目录中保存为 <samp class="ph codeph" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-CCFF83EA-367B-4CBD-86F3-23DAD9017FB0">AEaddFloatSlider.mel</samp>。 </div>
+
+</div>
+<div class="section" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__SECTION_C2AB1346705F40D49F0C795EA1D8833D"><h2 class="title sectiontitle"> 定义 MEL 程序的回调 </h2>
+
+<p class="p" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-E8921D07-CD3E-43E2-9662-D14A0825CA4F">在创建模板文件时，将 <samp class="ph codeph" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-DCFE983C-527F-49CA-B5DE-11CD4056620E">&lt;description language="cb"&gt;</samp> 标记添加到属性声明或视图定义中，并指定 MEL 程序的回调。若要将上述步骤中定义的自定义滑块控件添加到“白炽度红色”(Incandescence Red)属性，请使用以下命令： </p>
+
+<div class="p" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-637433E7-3D21-4F17-A019-1B3E1493BC73">
+<pre class="pre codeblock">&lt;attribute name='incandescenceR' type='maya.float'&gt;
+    &lt;label&gt;Incandescence Red&lt;/label&gt;
+      &lt;description language="cb"&gt;AEaddFloatSlider&lt;/description&gt;
+&lt;/attribute&gt;</pre>
+
+</div>
+
+<div class="p" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-48FB8899-F453-41C3-9EC7-007F73D7C92A">当您在<span class="ph uicontrol" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__GUID-DB98A7D5-815B-4DD1-8AEE-33746E1B5748">“属性编辑器”(Attribute Editor)</span>中访问属性视图时，“白炽度红色”(Incandescence Red)属性会使用自定义的滑块。 <div class="fig fignone" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__FIG_F2EE882C10B94FAABE5B1212E80447E3"><img class="image" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__IMAGE_F40FD962B239457F933AD6BC0058BC3E" src="../images/GUID-D165F03B-68BA-403B-BB13-7360A67BC2CB.png"></div>
+ </div>
+
+</div>
+<div class="section" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__SECTION_BE2EC5581EBA4F428C8AC27873A39BE4"><h2 class="title sectiontitle">相关主题</h2>
+
+<ul class="ul" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__UL_C6A9E800C84E408689B568EAC729E6F2"><li class="li" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__LI_4DBF61F02DCE42E391EC11E5A1E1485C">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-D434EE42-D39A-4466-9799-B8CD7EB8E178.htm">自定义属性编辑器模板</a>
+</li>
+<li class="li" id="GUID-A3ECAE8E-00EB-4299-87B8-616A759BDA5F__LI_7DAB7F7BEEDE4994B38BA9F2BC98E9EE">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-67A58D31-4722-4769-B3E6-1A35B5B53BED.htm">属性编辑器(Attribute Editor)</a>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-3CC05B40-233C-4A1C-95F4-D372A90AE36F.htm">创建自定义属性控件</a></div>
+</div>
+</div>
+
+</body>
+</html>

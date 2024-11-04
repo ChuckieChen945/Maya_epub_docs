@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C">
+<meta name="language" content="CHS">
+<title>更改雾、烟或灰尘的视觉效果</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>更改雾、烟或灰尘的视觉效果</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF-56C0CD8012A8003217A-19E3"><p class="p" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__WS73099CC142F48755-3D114B7511812357EFE-73FA"> 有关可以模拟雾、烟和灰尘的体积材质的详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-6FF09EBA-CD7C-45B7-8B49-305D748EE7B4.htm">关于体积材质</a>。 </p>
+<p class="p" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__WS73099CC142F48755-3D114B7511812357EFE-73F8">通过<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-AFCF7307-B6AB-4696-8415-4699B1F19798">“体积着色器”(Volume Shader)</span>，可以直接将其他属性和效果与材质的颜色、透明度和蒙版不透明度相连。<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-9388047E-D983-4604-AAA2-9428168B20C4">“体积着色器”(Volume Shader)</span>可用于<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-295D4E01-A4B9-4697-B715-A2241545188C">“聚光灯”(Spot Light)</span>、<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-5BEAD383-DA9F-43E0-BFB9-3CF3AAF2EAE4">“点光源”(Point Light)</span>、<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-A3890269-0F72-4B53-8BF4-E29D4C68D2A9">“环境雾”(Environment Fog)</span>和粒子。</p>
+<p class="p" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__WS73099CC142F48755-3D114B7511812357EFE-73F7">尝试该简单示例。通过将<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-1472951C-DE16-4921-8A23-CC574FF36450">“体积着色器”(Volume Shader)</span>映射到<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-C9ABEC50-66A0-4DA3-A3DD-99EB451A0460">“聚光灯”(Spot Light)</span>的<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-3A64A181-0F73-4C67-8AAB-AB9FF81D604F">“灯光雾”(Light Fog)</span>，可以将纹理映射到<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-A8632D84-2887-410D-B0BA-0AE50B0671C1">“体积着色器”(Volume Shader)</span>的属性并更改雾的视觉效果。</p>
+<p class="li listintro" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__WS73099CC142F48755-3D114B7511812357EFE-73F5">使用具有<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-43CA1786-7510-4759-910A-8E76F3546FF9">“灯光雾”(Light Fog)</span>的<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-2991D8F1-51DE-4765-AC8E-5E7643B70D83">“体积着色器”(Volume Shader)</span>（示例）</p>
+<ol class="ol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__WS73099CC142F48755-3D114B7511812357EFE-73F6"><li class="li" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__WS73099CC142F48755-3D114B7511812357EFE-73F4">在场景中使用聚光灯或点光源。该示例使用聚光灯。 </li>
+<li class="li" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__WS73099CC142F48755-3D114B7511812357EFE-73F3">在聚光灯的<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-454A9D03-5BAD-4606-9B6D-1758A22491B1">“属性编辑器”(Attribute Editor)</span>中的<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-9A301845-098C-4FA8-9057-A5B438167C47">“灯光效果”(Light Effects)</span>部分，单击<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-973843D2-4783-4DA9-A99C-E4F111C8736B">“灯光雾”(Light Fog)</span>映射按钮以将其映射到灯光。 <p class="p" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__WS73099CC142F48755-3D114B7511812357EFE-73F2">聚光灯的图标会增大。如有必要，增加<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-520ABCFF-F052-4955-9282-8A8154EF8A84">“雾扩散”(Fog Spread)</span>和<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-4A8414A0-C9CA-4972-A050-08342CA39CB9">“雾密度”(Fog Intensity)</span>值。</p>
+<div class="fig fignone" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__WS73099CC142F48755-3D114B7511812357EFE-73F1"><img class="image" width="440" height="174" src="../images/GUID-4F88AC76-1366-465C-9DA8-22B840899061.png"></div>
+</li>
+<li class="li" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__WS73099CC142F48755-3D114B7511812357EFE-73F0">在<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-9A004FDD-B623-42AD-89FD-8FD848133C14">“Hypershade”</span>中，创建<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-AE2656F9-D78C-444E-BB9F-771D22B260C1">“体积着色器”(Volume Shader)</span>材质。 </li>
+<li class="li" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__WS73099CC142F48755-3D114B7511812357EFE-73EF">在<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-11C7863E-407A-46FC-984E-E72D034584BD">“聚光灯”(Spot Light)</span>样例上用鼠标中键拖动<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-C89886DB-1FB0-4C3F-8F5F-993AB9F8232B">“体积着色器”(Volume Shader)</span>材质样例。从出现的弹出式菜单中，选择要将体积着色器与该属性映射的一种属性，例如颜色。<div class="fig fignone" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__WS73099CC142F487552C60378B128B24194AD6D69"><img class="image" width="182" height="113" src="../images/GUID-27E50698-78EE-4644-87E7-CC3A8CD9E273.png"></div>
+</li>
+<li class="li" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__WS73099CC142F48755-3D114B7511812357EFE-73EE">打开<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-E576BBA3-A3AF-4182-B0AE-82E0010EB593">“体积着色器”(Volume Shader)</span>的<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-B211CF00-3154-4D93-A5E9-04B77FC31E0E">“属性编辑器”(Attribute Editor)</span>，并将纹理（例如云）映射到<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-AA26463F-8FAF-46A7-BD77-842BC4006F57">“输出颜色”(Out Color)</span>属性。下图显示了渲染结果。<div class="fig fignone" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__WS73099CC142F48755-3D114B7511812357EFE-73ED"><img class="image" width="203" height="144" src="../images/GUID-E6B50B60-A61B-44B8-AD12-A00EF365A725.png"></div>
+<p class="p" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__WS73099CC142F48755-3D114B7511812357EFE-73EC">更改<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-A6BAED73-4727-4043-878A-7FECC870995D">“云”(Cloud)</span>纹理的属性，以在需要时更改雾效果。</p>
+<div class="fig fignone" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__WS73099CC142F48755-3D114B7511812357EFE-73EB"><img class="image" width="203" height="144" src="../images/GUID-7CDF7C1B-5390-48CF-82E8-15FEAB5A3C2D.png"></div>
+<p class="p" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__WS73099CC142F48755-3D114B7511812357EFE-73EA">在下一示例中，左侧的球体显示平面 (2D)，因为它由<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-5D87787B-BF98-4F89-860C-20EA78C6FC98">“表面着色器”(Surface Shader)</span>着色。请注意，与右侧的球体相比该球体上缺少阴影。右侧的灯光雾显示平面，因为它由<span class="ph uicontrol" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__GUID-EB985D28-00CA-4F56-9E28-8B6BA8E606F8">“体积着色器”(Volume Shader)</span>着色。请注意，与左侧的灯光雾相比该处缺少体积阴影。</p>
+<div class="fig fignone" id="GUID-C6416F65-38E1-4397-BBAE-B4868CCB546C__WS73099CC142F48755-3D114B7511812357EFE-73E9"><img class="image" width="221" height="185" src="../images/GUID-BD19E743-AFD6-44E6-8218-CFED5BC7A93B.png"></div>
+</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-91DD365A-30C9-4285-9ADB-0E7AF6AD950C.htm">大气</a></div>
+</div>
+</div>
+
+</body>
+</html>

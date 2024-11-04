@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-7373CB68-7BF0-41BC-ACF4-5E751AAD39D8">
+<meta name="language" content="CHS">
+<title>通过错误、警告和跟踪发出信号</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-7373CB68-7BF0-41BC-ACF4-5E751AAD39D8">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>通过错误、警告和跟踪发出信号</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-7373CB68-7BF0-41BC-ACF4-5E751AAD39D8__WS73099CC142F48755-3D114B7511841AEFA9F-7CE"><h2 class="title sectiontitle">错误</h2> 
+		 
+		<p class="p" id="GUID-7373CB68-7BF0-41BC-ACF4-5E751AAD39D8__WS73099CC142F48755-3D114B7511841AEFA9F-7CD"> <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/error.html" target="_blank">error</a></samp> 命令以标准 MEL 格式打印错误消息并停止脚本：
+		</p>
+ 
+		<pre class="pre codeblock">
+$l = `ls -lights`;
+if (size($l) == 0) {
+	error "No lights in scene";
+}
+</pre>
+ 
+		<p class="p" id="GUID-7373CB68-7BF0-41BC-ACF4-5E751AAD39D8__WS73099CC142F48755-3D114B7511841AEFA9F-7CB"> 该命令将生成以下输出并停止执行：
+		</p>
+ 
+		<pre class="pre codeblock">
+// Error: No lights in scene //
+</pre>
+ 
+	 </div>
+<div class="section" id="GUID-7373CB68-7BF0-41BC-ACF4-5E751AAD39D8__WS73099CC142F48755-3D114B7511841AEFA9F-7C9"><h2 class="title sectiontitle">警告</h2> 
+		 
+		<p class="p" id="GUID-7373CB68-7BF0-41BC-ACF4-5E751AAD39D8__WS73099CC142F48755-3D114B7511841AEFA9F-7C8"><samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/warning.html" target="_blank">warning</a></samp> 命令以标准 MEL 格式打印警告消息但不停止脚本：
+		</p>
+ 
+		<pre class="pre codeblock">
+$l = `ls -lights`;
+if (size($l) == 0) {
+	warning "No lights in scene";
+}
+</pre>
+ 
+		<p class="p" id="GUID-7373CB68-7BF0-41BC-ACF4-5E751AAD39D8__WS73099CC142F48755-3D114B7511841AEFA9F-7C7"> 该命令将生成以下输出：
+		</p>
+ 
+		<pre class="pre codeblock">
+// Warning: No lights in scene //
+</pre>
+ 
+		<p class="p" id="GUID-7373CB68-7BF0-41BC-ACF4-5E751AAD39D8__WS73099CC142F48755-3D114B7511841AEFA9F-7C5">错误和警告命令都具有 <samp class="ph codeph" id="GUID-7373CB68-7BF0-41BC-ACF4-5E751AAD39D8__GUID-BECC31C7-21A1-4038-8232-95FB7529096B">-showLineNumber</samp> 标志。将该标志设定为 true 将显示出现警告或错误的文件和行号。将该标志设定为 false 将抑制行号。
+		</p>
+ 
+		<pre class="pre codeblock">
+warning -showLineNumber true "No lights";
+// Warning: file: C:\test.mel line 2: No lights //
+</pre>
+ 
+	 </div>
+<div class="section" id="GUID-7373CB68-7BF0-41BC-ACF4-5E751AAD39D8__WS73099CC142F48755-3D114B7511841AEFA9F-7C4"><h2 class="title sectiontitle">跟踪</h2> 
+		 
+		<p class="p" id="GUID-7373CB68-7BF0-41BC-ACF4-5E751AAD39D8__WS73099CC142F48755-3D114B7511841AEFA9F-7C3"><samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/Commands/trace.html" target="_blank">trace</a></samp> 命令以字符串形式打印 Maya 的标准错误输出。
+		</p>
+ 
+		<pre class="pre codeblock">
+trace "Entering the loop";
+while ($i &lt; 10) {
+	setAttr("nurbsSphere"+$i+".translateX",5);
+}
+trace "Exiting the loop";
+</pre>
+ 
+		<p class="p" id="GUID-7373CB68-7BF0-41BC-ACF4-5E751AAD39D8__WS73099CC142F48755-3D114B7511841AEFA9F-7C2"> 使用 <samp class="ph codeph" id="GUID-7373CB68-7BF0-41BC-ACF4-5E751AAD39D8__GUID-6A81395C-5C33-4A78-A899-765404B6450E">-where</samp> 标志将在输出中显示出现跟踪命令的文件和行号。
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-415B2E8F-0D70-45F9-B34A-B69DC6589681.htm">MEL 调试功能</a></div>
+</div>
+</div>
+
+</body>
+</html>

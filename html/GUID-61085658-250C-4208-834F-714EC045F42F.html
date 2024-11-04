@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-61085658-250C-4208-834F-714EC045F42F">
+<meta name="language" content="CHS">
+<title>在对象的局部空间中应用力</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-61085658-250C-4208-834F-714EC045F42F">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>在对象的局部空间中应用力</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-330E"><p class="p" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS1A9193826455F5FF-6D855556117FACF922E-338B"> 动力可影响世界空间坐标系中的 NURBS 和多边形对象。无论您如何旋转圆锥体，例如，使用默认选项设置的重力场沿世界空间的 Y 轴向下移动圆锥体。 </p>
+<p class="p" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS1A9193826455F5FF-6D855556117FACF922E-3389"> 默认情况下，场还会影响世界空间中的粒子对象。但是，您可以促使场影响粒子对象局部空间中的粒子对象。例如，可以使重力场向粒子对象的局部 Y 轴下方（而不是世界空间的 Y 轴下方）拉动粒子对象。 </p>
+<p class="p" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS1A9193826455F5FF-6D855556117FACF922E-3387">请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-12644447-E489-4FA5-B7F2-D02280CA368E.htm">nParticle 动力学特性</a>。 </p>
+<div class="section" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS17956D7ADBC6E7361A342C07117AE3124CC-7FBE"><h2 class="title sectiontitle">获取世界位置、速度和质心</h2>
+
+<p class="p" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS1A9193826455F5FF-6D855556117FACF922E-3386"> 粒子对象的位置、速度和质心属性包含局部空间值。（粒子对象的质心是其粒子的平均位置。）有时，您需要了解粒子对象的世界空间值。 </p>
+
+<p class="p" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS1A9193826455F5FF-6D855556117FACF922E-3381">例如，假定您对粒子对象应用重力以使其穿过玻璃地板。您还可以为粒子对象的<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-129DD18A-66AA-47EB-96F4-CA8A504B2BE4">“旋转 Y”(Rotate Y)</span>属性设置关键帧，使粒子对象在下落时围绕原点的 Y 轴进行旋转。假设您需要知道粒子的确切世界空间位置，这样才能在粒子通过地板时更改它们的颜色。无法通过位置属性获取该信息，原因是该属性包含局部空间位置。 </p>
+
+<p class="p" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS1A9193826455F5FF-6D855556117FACF922E-3380">可以从与位置、速度和质心对应的三个世界空间属性获取该信息： </p>
+
+<ul class="ul" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS1A9193826455F5FF-6D855556117FACF922E-337F"><li class="li" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS1A9193826455F5FF-6D855556117FACF922E-337E">
+<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-37A79959-A52D-49BE-8AC4-9B84B19DCD7E">worldPosition</span>
+</li>
+<li class="li" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS1A9193826455F5FF-6D855556117FACF922E-337C">
+<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-80B7BDB3-4D1A-42E2-8B64-1029EE662752">worldVelocity</span>
+</li>
+<li class="li" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS1A9193826455F5FF-6D855556117FACF922E-337A">
+<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-C1A0C235-0C52-407C-9E6D-60AA9AE219C8">worldCentroid</span>
+</li>
+</ul>
+
+<p class="p" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS1A9193826455F5FF-6D855556117FACF922E-3378"><span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-7B17AAAC-6B0F-4E17-BD1D-B07D90B11540">“centroid”</span>属性是一个复合属性，由<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-053FE250-EC90-4425-A3DD-19F8A59F0E69">“centroidX”</span>、<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-55E7F1B0-1EB0-4890-B5A4-C1F2A01F1062">“centroidY”</span>和<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-6C46C15B-C190-4D18-A206-BA5A0E5DE86D">“centroidZ”</span>属性组成。<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-2D28FE29-07B9-4552-A75E-D7689C2246F7">“worldCentroid”</span>属性是一个复合属性，由<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-E93987D8-E769-43CB-BBE9-6464D0833398">“worldCentroidX”</span>、<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-F60EAF3E-276B-421A-83EB-F6AC083EB091">“worldCentroidY”</span>和<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-E3B22139-58D3-401E-9CCA-70268F195A27">“worldCentroidZ”</span>属性组成。 </p>
+
+<p class="p" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS1A9193826455F5FF-6D855556117FACF922E-3377">可以在<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-26B8A598-2548-4B13-8343-3574219214FE">“连接编辑器”(Connection Editor)</span>中将<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-C95BE3C2-2F1D-41D7-B32C-55EBEE97E0FE">“worldPosition”</span>、<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-92500556-C288-4D0D-97A1-804CE3B14FE9">“worldVelocity”</span>和<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-CB12F9FA-CF9E-45A3-9738-C666323C19AD">“worldCentroid”</span>的值作为输入读取。可以在表达式中读取<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-DEAD2AC5-8897-4812-A677-A8EF4D6DF174">“worldCentroidX”</span>、<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-B37540AA-5192-4328-8670-1D1B8CE483C2">“worldCentroidY”</span>和<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-110D7AFA-A79B-4D7D-A4A4-84512DC5F9E4">“worldCentroidZ”</span>的值。您不能设置这些属性的值。 </p>
+
+<p class="p" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS1A9193826455F5FF-6D855556117FACF922E-3376"><span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-121E779A-F829-4C48-8839-DF3C4F63D6ED">“worldVelocity”</span>包含当前帧与上一帧的<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-AB6F07E0-32FE-46ED-91F7-D5AE13B2A618">“worldPosition”</span>之间的差。<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-41AB88FA-DB40-4F6C-B727-0C039F1217B7">worldVelocity</span> 受对象（和对象父级）的<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-BA4C06B3-7835-4D80-93A3-9765D865C69F">“平移”(Scale)</span>、<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-9AECFDB6-061E-44C0-9D97-0389B2AA40A8">“旋转”(Rotate)</span>和<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-3471A51D-1140-4E2D-8DB3-930B57E8981C">“缩放”(Scale)</span>值的影响，因此它包括所应用的关键帧的效果。 </p>
+
+<p class="p" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS1A9193826455F5FF-6D855556117FACF922E-3375"> 如果需要将粒子对象的世界空间速度转换为局部空间速度，请注意，您可以使用粒子对象的<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-85470D5A-78AD-4AC6-ADD7-DA7EBBEA9F3F">“worldVelocityInObjectSpace”</span>属性。 </p>
+
+<p class="p" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS1A9193826455F5FF-6D855556117FACF922E-3373">没有 worldAcceleration 属性。 </p>
+
+</div>
+<div class="section" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS17956D7ADBC6E7361A342C07117AE3124CC-7FBD"><h2 class="title sectiontitle">通过属性连接设置输入力</h2>
+
+<p class="p" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS1A9193826455F5FF-6D855556117FACF922E-3372"> 连接到粒子对象的每个场或弹簧将其向量力的值写入到对象中的<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-281C5CCB-E80B-4D49-AC24-D9D0ADD721BA">“输入力”(Input Force)</span>[]”属性中。该属性是向量数组。连接到对象的每个场都有一个<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-8E649649-9966-48C0-B887-146E17291412">“输入力”(Input Force)</span>数组。例如，连接到三个场的对象具有<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-6C49984C-ADAB-4684-A840-91021E649ADE">“输入力”(Input Force)</span> [0]、<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-6566F378-2198-413B-8C5B-A961FBCEF014">“输入力”(Input Force)</span> [1]和<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-808A559F-D4D6-400A-9928-ED24FE670B24">“输入力”(Input Force)</span> [2]。数组中的每个向量代表一个粒子的力。 </p>
+
+<p class="p" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS1A9193826455F5FF-6D855556117FACF922E-336C">您可以使用<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-57F97B1F-A2F9-4317-AD68-A8F45D6AB6BC">“连接编辑器”(Connection Editor)</span>或 API 将一个粒子形状属性传送到另一个<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-AAE5D056-A2C3-43A6-8D79-AACDC2FF8715">“输入力”(Input Force)</span>[]属性。属性必须是一个向量数组，例如速度。 </p>
+
+<p class="p" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS1A9193826455F5FF-6D855556117FACF922E-336B"> 将属性连接到<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-DE7289B8-E269-45EB-A86C-FF0059BF21A1">“输入力”(Input Force)</span>[0] 时，如果两个粒子对象具有相同数量的粒子，则输入到<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-0BA2DF21-35CB-48AE-9411-5CA04803F061">“输入力”(Input Force)</span>[0] 的值将一一匹配。如果包含<span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-E6BC0BCD-6B74-4C87-BCAB-E4653670B250">“输入力”(Input Force)</span>[0] 的对象的粒子少于提供输入的对象的粒子，则其余的值将被忽略。如果比提供输入的对象的粒子多，则重复最后一个。 </p>
+
+<p class="p" id="GUID-61085658-250C-4208-834F-714EC045F42F__WS1A9193826455F5FF-6D855556117FACF922E-3367"> <span class="ph uicontrol" id="GUID-61085658-250C-4208-834F-714EC045F42F__GUID-CDC4A40A-1C97-4D57-96C2-2CE25162F093">“输入力”(Input Force)</span>[] 也存在于刚体的形状节点中。和粒子一样，它也适用于 CV 或顶点。 </p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-AEBE18A1-C2C8-4830-B600-8C8690979A35.htm">nParticle 工作流</a></div>
+</div>
+</div>
+
+</body>
+</html>

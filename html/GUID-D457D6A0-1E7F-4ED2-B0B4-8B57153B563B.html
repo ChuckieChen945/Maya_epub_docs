@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-D457D6A0-1E7F-4ED2-B0B4-8B57153B563B">
+<meta name="language" content="CHS">
+<title>在 Python 中初始化和未初始化</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-D457D6A0-1E7F-4ED2-B0B4-8B57153B563B">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>在 Python 中初始化和未初始化</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-D457D6A0-1E7F-4ED2-B0B4-8B57153B563B__WS1A9193826455F5FF-29C43AA6117B273E5D1-6467">在 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-D64ACA64-2566-42B3-BE0F-BCE843A1702F.htm">mayapy</a> 或其他<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-83799297-C629-48A8-BCE4-061D3F275215.htm">外部 Python 解释器</a>中使用 Maya Python 之前，您需要在解释器中加载和初始化 Maya 库。
+	 </p>
+<p class="p">使用 <samp class="ph codeph">import maya.standalone</samp> 在解释器中加载库，然后使用 <samp class="ph codeph">initialize()</samp> 初始化它们：
+	 </p>
+<pre class="pre codeblock">import maya.standalone 
+maya.standalone.initialize()</pre>
+<div class="p" id="GUID-D457D6A0-1E7F-4ED2-B0B4-8B57153B563B__GUID-7CEF3549-0519-416E-AA5F-8C902AEA5279">如果您是从 Maya 脚本编辑器中运行脚本，则无需调用 <samp class="ph codeph">initialize()</samp>。这是因为 Maya 库会在脚本编辑器中自动加载和初始化。从脚本编辑器中调用 <samp class="ph codeph">initialize()</samp> 会生成错误。如果您正在写入的脚本可能是从 Maya 脚本编辑器或外部解释器中调用的，则需要将对 <samp class="ph codeph">initialize()</samp> 的调用包含在 <samp class="ph codeph">try</samp> 块中。 
+		<pre class="pre codeblock">
+try: 			
+    import maya.standalone 			
+    maya.standalone.initialize() 		
+except: 			
+    pass
+</pre>
+ 
+	 </div>
+<p class="p">这将安全地捕获从脚本编辑器中调用 <samp class="ph codeph">initialize()</samp> 时生成的错误。 
+	 </p>
+<div class="p">您的脚本应该在退出之前调用 <samp class="ph codeph">maya.standalone.uninitialize()</samp>。这将完全终止脚本与 Maya 的连接。对 <samp class="ph codeph">uninitialize()</samp> 的调用也将在脚本编辑器中失败。它也应包含在 <samp class="ph codeph">try</samp> 块中。 
+		<pre class="pre codeblock">
+try: 			
+    maya.standalone.uninitialize() 		
+except: 			
+    pass
+</pre>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-703B18A2-89E5-48A8-988A-1ED815D5566F.htm">Python</a></div>
+</div>
+</div>
+
+</body>
+</html>

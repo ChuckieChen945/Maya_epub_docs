@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-51EBAC2D-6445-410A-82A1-F9BEBB4885B7">
+<meta name="language" content="CHS">
+<title>clamp</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-51EBAC2D-6445-410A-82A1-F9BEBB4885B7">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>clamp</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-51EBAC2D-6445-410A-82A1-F9BEBB4885B7__WS73099CC142F48755-3D114B7511841AEFA9F-14A3"> 返回范围内的一个数值。可以使用 clamp 函数将不断增加、减小或随机变化的数值限制在一系列的值中。</p>
+<p class="p" id="GUID-51EBAC2D-6445-410A-82A1-F9BEBB4885B7__WS73099CC142F48755-3D114B7511841AEFA9F-14A0">float clamp(float minnumber, float maxnumber, float parameter)</p>
+<p class="p" id="GUID-51EBAC2D-6445-410A-82A1-F9BEBB4885B7__WS73099CC142F48755-3D114B7511841AEFA9F-149F">最小数值和最大数值指定返回值的范围。 </p>
+<p class="p" id="GUID-51EBAC2D-6445-410A-82A1-F9BEBB4885B7__WS73099CC142F48755-3D114B7511841AEFA9F-149E">参数是值要钳制在范围内的属性或变量。</p>
+<p class="p" id="GUID-51EBAC2D-6445-410A-82A1-F9BEBB4885B7__WS73099CC142F48755-3D114B7511841AEFA9F-149D">如果参数位于最小数值和最大数值之间的数值范围内，则该函数将返回参数值。 </p>
+<p class="p" id="GUID-51EBAC2D-6445-410A-82A1-F9BEBB4885B7__WS73099CC142F48755-3D114B7511841AEFA9F-149C">如果参数大于范围，该函数将返回最大数值。 </p>
+<p class="p" id="GUID-51EBAC2D-6445-410A-82A1-F9BEBB4885B7__WS73099CC142F48755-3D114B7511841AEFA9F-149B">如果参数小于范围，该函数将返回最小数值。 </p>
+<div class="section" id="GUID-51EBAC2D-6445-410A-82A1-F9BEBB4885B7__WS73099CC142F48755-3D114B7511841AEFA9F-149A"><h2 class="title sectiontitle">示例</h2>
+
+<pre class="pre codeblock">
+clamp(4,6,22)
+</pre>
+
+<p class="p" id="GUID-51EBAC2D-6445-410A-82A1-F9BEBB4885B7__WS73099CC142F48755-3D114B7511841AEFA9F-1499">返回 6，因为 22 大于 6 而 6 是范围的最大数值。</p>
+
+<pre class="pre codeblock">
+clamp(4,6,2)
+</pre>
+
+<p class="p" id="GUID-51EBAC2D-6445-410A-82A1-F9BEBB4885B7__WS73099CC142F48755-3D114B7511841AEFA9F-1498">返回 4，因为 2 小于 4 而 4 是范围的最小数值。</p>
+
+<pre class="pre codeblock">
+clamp(4,6,5)
+</pre>
+
+<p class="p" id="GUID-51EBAC2D-6445-410A-82A1-F9BEBB4885B7__WS73099CC142F48755-3D114B7511841AEFA9F-1497">返回 5，因为该数值位于范围内。</p>
+
+<pre class="pre codeblock">
+Ball.scaleY = clamp(0,3,time);
+</pre>
+
+<p class="p" id="GUID-51EBAC2D-6445-410A-82A1-F9BEBB4885B7__WS73099CC142F48755-3D114B7511841AEFA9F-1496">每次执行表达式都返回介于 0 到 3 之间的值。</p>
+
+<p class="p" id="GUID-51EBAC2D-6445-410A-82A1-F9BEBB4885B7__WS73099CC142F48755-3D114B7511841AEFA9F-1495">当动画回放到第 1 帧时，将执行上述表达式，同时球的 ScaleY 属性将接收时间的值 — 一个略高于 0 的数字。clamp 函数返回时间的值，因为时间介于范围 0 到 3 之间。</p>
+
+<p class="p" id="GUID-51EBAC2D-6445-410A-82A1-F9BEBB4885B7__WS73099CC142F48755-3D114B7511841AEFA9F-1494">播放动画时，时间将随每帧缓慢递增。表达式将在每帧上执行，并且球的 scaleY 属性将接收时间的值，直到时间超过 3。当时间超过 3 时，clamp 函数将返回的值为 3。</p>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-278D4063-7CCF-4D02-88B8-F2D9126B6D88.htm">限制函数</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="product-feature" content="Unreal Live Link for Maya">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="UnrealLiveLink">
+  <meta name="topicid" content="livelink_streaming_object_data">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="applies-to" content="MAYAUL=2022"><meta name="applies-to" content="MAYAUL=2023"><meta name="applies-to" content="MAYAUL=2024">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>将对象数据从 Maya 流式传输到 Unreal</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>将对象数据从 Maya 流式传输到 Unreal</h1></div><p>您可以使用实时链接将属性数据从 Maya 中的对象直接流式传输到 Unreal中的对应对象。如果要预览前者中的属性更改在后者中的效果，这将非常有用。使用此方法比<a href="https://help.autodesk.com/cloudhelp/2025/CHS/UnrealLiveLink/files/UnrealLiveLink_streaming_animation_html.html">流式传输动画数据</a>执行得更快，但是在 Unreal 中，除了当前帧之外的帧上的任何数据都将丢失。</p>
+<p>无论是流式传输对象还是动画数据，都必须首先将对象添加到 Maya 的<em>“连接列表”(Connection List)</em>中：</p>
+<ol>
+<li><p>确保 <a href="https://help.autodesk.com/cloudhelp/2025/CHS/UnrealLiveLink/files/UnrealLiveLink_getting_started_html.html">Maya 和 Unreal 已连接</a>。</p>
+</li>
+<li><p>在当前 Maya 场景和 Unreal 项目中加载对象（无需将对象加载到当前关卡）。<br>为确保兼容性，我们建议您先<a href="https://help.autodesk.com/cloudhelp/2025/CHS/UnrealLiveLink/files/UnrealLiveLink_exporting_to_unreal_html.html">将对象从 Maya 导出到 Unreal</a>。</p>
+</li>
+<li><p><strong>在 Maya 中</strong>，选择要链接的对象的基本节点。对于角色，这是其<strong>关节骨架</strong>的根（而不是控件）。</p>
+</li>
+<li><p>转到 <em>Unreal Live Link 窗口</em>，然后单击<em>“添加当前选择”(Add Selection)</em>。这会将对象添加到 Maya 的<em>“连接列表”(Connection List)</em>，并自动为其指定<em>“类型”(Type)</em>。可以通过手动单击<em>“类型”(Type)</em>下拉菜单来更改类型。<strong>不要</strong>将多个具有相同名称的对象添加到此列表。</p>
+</li>
+<li><p>（可选）将<em>“对象名称”(Object Name)</em>从默认名称更改为更易于用户使用的名称。</p>
+</li>
+</ol>
+<p>完成此操作后，后续步骤将取决于要链接的对象的类型。</p>
+<h2 id="">流式传输角色数据</h2><ol>
+<li><p><strong>在 Unreal 中</strong>，创建新蓝图并引用角色。</p>
+</li>
+<li><p>将<em>“Maya 实时链接姿势”(Maya Live Link Pose)</em>节点添加到蓝图，并将<em>“实时链接主题名称”(Live Link Subject Name)</em>设置为已连接的角色。</p>
+</li>
+<li><p>将<em>“Maya 实时链接姿势”(Maya Live Link Pose)</em>输出连接到<em>“输出姿势”(Output Pose)</em>输入。</p>
+</li>
+<li><p>编译并保存。</p>
+</li>
+<li><p>将蓝图添加到场景中，选择并转到<em>“细节”(Details)面板</em>，然后启用<em>“骨架网格”(Skeletal Mesh)</em>区域下的<em>“在编辑器中更新动画”(Update Animation in Editor)</em>。</p>
+</li>
+</ol>
+<p>现在，如果在 Maya 中移动时间滑块，Unreal 蓝图将更新。</p>
+<p>在<em>“动画编辑器”(Animation Editor)</em>中链接资产：</p>
+<ol>
+<li><p>在<em>内容浏览器</em>中双击资产，以在<em>“动画编辑器”(Animation Editor)</em>窗口中查看该资产。</p>
+</li>
+<li><p>在<em>“预览场景设置”(Preview Scene Settings)</em>选项卡中，设置以下值：</p>
+<ul>
+<li><em>预览控制器(Preview controller)</em>：实时链接预览控制器（不要将其设置为<em>“Maya 实时链接预览控制器”(Maya Live Link Preview Controller)</em>，它是为<a href="https://help.autodesk.com/cloudhelp/2025/CHS/UnrealLiveLink/files/UnrealLiveLink_streaming_animation_html.html">流式传输动画</a>保留的）</li>
+<li><em>实时链接主题名称(Live Link Subject Name)</em>：与在 Maya 的 <em>Unreal Live Link 窗口</em>中指定的<em>“对象名称”(Object Name)</em>相同</li>
+<li><em>启用摄影机同步(Enable Camera Sync)</em>：如果希望 Unreal 的摄影机与 Maya 的摄影机匹配，请启用此选项</li>
+</ul>
+</li>
+</ol>
+<h2 id="">流式传输灯光、摄影机或网格数据</h2><ol>
+<li><p><strong>在 Unreal 中</strong>，选择灯光（平行光、点光源、聚光灯）、CameraActor 或 StaticMeshActor。</p>
+</li>
+<li><p>转到<em>“详细信息”(Details)面板</em>中的 <em>LiveLinkComponentController</em>，然后将<em>“主题表示”(Subject Representation)</em>切换到该特定链接的灯光/摄影机/网格。</p>
+</li>
+</ol>
+<p>现在，在 Maya 和 Unreal 对象之间建立了链接。有关在 Unreal 中重定角色目标的详细信息，请参见<a href="https://dev.epicgames.com/documentation/zh-cn/unreal-engine/live-link-in-unreal-engine?application_version=5.0" target="_blank">此处</a>的文档。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>所有链接的资产都应该在 Unreal 中可移动。选择资产，在<em>“详细信息”(Details)面板</em>中找到<em>“变换”(Transform)</em>类别，然后将<em>“移动性”(Mobility)</em>更改为<em>“可移动”(Movable)</em>。</p>
+
+</div></div>
+
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>默认情况下，CameraActor 对象链接到 Maya 中的当前摄影机。要查看它，请在 Unreal 的<em>“世界大纲视图”(World Outliner)</em>中选择它以查看预览，或将当前摄影机设置为 CameraActor。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

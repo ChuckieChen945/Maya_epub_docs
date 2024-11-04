@@ -1,0 +1,207 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_5x_am_520_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_520">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 5.2.0 - Arnold for Maya">
+
+<title>5.2.0</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>5.2.0</h1></div><p>03 Aug 2022</p>
+<p>MtoA 5.2.0 introduces Arnold 7.1.3.0 and is a minor feature release bringing improvements to volume shading and viewport rendering.</p>
+<h2 id="installation">Installation</h2><ul>
+<li><a href="https://manage.autodesk.com/products/MAYA" target="_blank">Download</a> the Arnold for Maya plugin</li>
+<li>Follow these installation instructions.</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2><ul>
+<li>Maya 2020, 2022 or 2023</li>
+<li>Windows 10 or later, with the Visual Studio 2019 redistributable.</li>
+<li>Linux with at least glibc 2.17 and libstdc++ 4.8.5 (gcc 4.8.5). This is equivalent to RHEL/CentOS 7.</li>
+<li>macOS 10.13 or later.</li>
+<li>CPUs need to support the SSE4.1 instruction set. Apple Mac models with M series chip are supported under Rosetta 2 mode.</li>
+<li>GPU rendering works on Windows and Linux only and requires an NVIDIA GPU of the Ampere, Turing, Volta, Pascal, or Maxwell architecture. We recommend using the <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">495.46 or higher drivers</a> on Linux and <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">511.09 (Quadro), 511.09 (GeForce), or higher</a> on Windows. See  Arnold GPU for more information.</li>
+<li>Optix™ denoiser requires an NVidia GPU with <a href="https://developer.nvidia.com/cuda-gpus" target="_blank">CUDA™ Compute Capability 5.0</a> and above.</li>
+</ul>
+<p><strong>The driver type must be set to DCH.</strong></p>
+<p><img src="../images/image2022-2-1_14-46-53.png" alt=""> </p>
+<p><sup><strong><span style="color: rgb(29,28,29);">In the driver page, select "Windows Driver Type:" DCH</span></strong></sup></p>
+<p>The cache will also need to be re-populated after installing a new Arnold version, <strong>updating to a new NVIDIA driver</strong> , or changing the hardware configuration of GPUs on the system. More information can be found here .</p>
+<h2 id="maya-plugins-compatibility">Maya Plugins Compatibility</h2><p>MtoA 5.2.0 works with the following Maya plugins</p>
+<ul>
+<li><a href="https://area.autodesk.com/bifrost/downloads/" target="_blank">Bifrost Extension for Maya 2.4.0.0</a></li>
+<li><a href="https://github.com/Autodesk/maya-usd/releases/tag/v0.18.0" target="_blank">MayaUSD 0.18.0</a> (USD 21.11)</li>
+</ul>
+<h2 id="enhancements">Enhancements</h2><ul>
+<li><p><strong>Viewport rendering improvements</strong>: A new toolbar has been added to all model view panels to make it easier to run and control the Arnold Viewport Renderer. The new crop render tool allows users to select a crop region without needing to render a full viewport first (MTOA-1006)
+<img src="../images/avp_001.png" alt="avp_001"></p>
+</li>
+<li><p><strong>Arnold Render View by Default:</strong> The Maya Render View has been replaced with the Arnold Render View for Arnold Renders and IPR, except for Render Sequence (MTOA-1008)</p>
+</li>
+<li><p><strong>Emit Specular &amp; Emit Diffuse Options on Maya Lights:</strong> This version adds support for the native Emit Specular and Emit Diffuse options on Maya lights (MTOA-1086)</p>
+</li>
+<li><p><strong>Dual-lobe phase function for standard_volume:</strong> A new phase function model has been implemented for the <em>standard_volume</em> shader, which is a mixture of two lobes rather than a single lobe as before. This provides a more realistic approximation to the physical phase function of scattering media such as clouds. The new model adds two new parameters, <em>scatter_secondary_anisotropy</em> (in [-1,1]) and <em>scatter_secondary_anisotropy_mix (in [0,1])</em>. (ARNOLD-9335)</p>
+<p>The cloud on the left (below), using the default anisotropy (0) settings, does not show much forward scattering. The center image (anisotropy 1: 0.7, anisotropy 2: 0.7) shows a strong "silver lining" at the rim of strongly forward scattered light from the sun behind. The cloud on the right (anisotropy 1: -0.4, anisotropy 2: 0.7) adds a secondary phase function lobe which fills in the bulk of the cloud with back-scattered light while maintaining the silver lining.
+<img src="../images/image2022-7-14_18-56-45.png" alt="image2022-7-14_18-56-45"></p>
+<p>The image below shows the full parameter space of the new dual-phase function model (each cell shows the phase function shape for a given combination of lobe anisotropies, which varies as the lobe mix weight is animated). The blue curves correspond to the old single lobe model.</p>
+<p><img src="../images/dualhg_anim_lores.gif" alt="dualhg_anim_lores"></p>
+</li>
+<li><p><strong>Physically correct volume emission scaling</strong>: The <em>standard_volume</em> shader has been improved to support scaling of volumetric emission in a more physically correct manner (via the <em>emission_scaling</em> option). The "<em>opacity</em>" emission scaling mode is based on density and transparency and scaled appropriately to the opacity of the resulting volume. This is physically accurate for blackbody if the scattering color is black. The "<em>thermodynamic</em>" emission scaling mode is the most physically correct as it also takes into account scattering color, since according to thermodynamics volumes with higher scattering albedo emit less blackbody radiation. For example, burning hydrogen produces steam but barely emits blackbody radiation while sooty smoke readily does. This mode is most useful when mixing different types of volumes with varying scattering properties. (ARNOLD-11701)</p>
+<p>The images below show the effect of the scaling mode on blackbody emission. The difference between opacity and thermodynamic modes here is that in thermodynamic mode the white, highly scattering smoke does not emit, while the black smoke does (which is a slightly subtle effect but more physically correct).
+<img src="../images/image2022-7-12_8-23-53.png" alt="image2022-7-12_8-23-53"></p>
+</li>
+<li><p><strong>Other volume emission improvements</strong>: The <em>blackbody_intensity</em> control can now be dialed above 1 for convenience. A <em>blackbody_contrast</em> parameter has also been added to (non-physically) reduce the brightness difference between parts of the volume at different temperatures, which can be useful for artistic purposes (ARNOLD-11701). </p>
+<p>The images below show the effect of altering the new <em>blackbody_contrast</em> parameter. This reduces the disparity in brightness between parts of the volume at different temperatures, which tends to bring out the blackbody colors more vividly (though note that only value 1 is physically correct).
+<img src="../images/image2022-7-18_12-50-48.png" alt="image2022-7-18_12-50-48"></p>
+</li>
+<li><p><strong>Pinned curves:</strong> A new <em>wrap_mode</em> parameter on <em>curves</em> can enable curve pinning. Pinned non-periodic curves go through the first and last point without having to introduce phantom points, thus reducing the amount of data stored on disk. (ARNOLD-12209)</p>
+<p><img src="../images/curve_wrap_mode_pinned.jpg" alt="curve_wrap_mode_pinned">
+The left curve's wrap_mode is set to nonperiodic, the right curve's is set to pinned.</p>
+</li>
+<li><p><strong>Nested instancers:</strong> Nested instancers (instancer that contains instances of instancers) now properly perform instancing, fixing a severe overhead in node init/update time that made heavy use of nested instancers intractable. (ARNOLD-12410)</p>
+</li>
+<li><p><strong>Cameras in ASS procedurals:</strong> Cameras stored in .ass file procedurals can now be used for rendering. (ARNOLD-12333)</p>
+</li>
+<li><p><strong>Reduced missing texture overhead:</strong> The time spent handling missing textures has been reduced. Most likely this will be noticeable on file servers servicing a render farm. (ARNOLD-11915)</p>
+</li>
+<li><p><strong>Light profile blocks</strong>: The AiLightsPrepare() profile result has been elaborated on, with LightSampling, light_filters, and LightInitSampler profile blocks being added. This will result in the self times reported for AiLightsPrepare() going down and these other profile blocks showing up with the corresponding times. This can help point out where render time is going during lighting. (ARNOLD-12439)</p>
+</li>
+<li><p><strong>Python binding error message:</strong> When Arnold cannot be loaded by the python bindings, we now output the original exception error message instead of just the cryptic "Could not find libai". (ARNOLD-12366)</p>
+</li>
+<li><p><strong>Cryptomatte 1.2.0:</strong> The version of Cryptomatte bundled with Arnold is upgraded to <a href="https://github.com/Psyop/CryptomatteArnold/releases/tag/1.2.0" target="_blank">1.2.0</a>. (ARNOLD-12340)</p>
+</li>
+<li><p><strong>Upgrade OpenImageIO 2.4.1</strong>: The OIIO used by Arnold has been upgraded to slightly newer than 2.4.1 (OIIO hash 7a662829b). (ARNOLD-12471)</p>
+</li>
+</ul>
+<h2 id="usd-enhancements">USD Enhancements</h2><ul>
+<li><strong>Support dataWindowNDC</strong>: when the render settings primitive defines the attribute dataWindowNDC, it now renders accordingly in both Hydra and the USD reader, by framing the render to the expected normalized window. (<a href="https://github.com/Autodesk/arnold-usd/pull/1161" target="_blank">usd#1161</a>)</li>
+<li><strong>Cryptomatte in Hydra</strong>: When rendering final frames with Hydra, the cryptomatte metadatas are set in the output image. (usd<a href="https://github.com/Autodesk/arnold-usd/pull/1164" target="_blank">#1164</a>)</li>
+<li><strong>Render products with no productName</strong>: When AOVs are defined through a render product prim that doesn't have any product name, they now render to the same filename as the beauty image. (<a href="https://github.com/Autodesk/arnold-usd/pull/1170" target="_blank">usd#1170</a>)</li>
+<li><strong>Instances optimizations in the procedural:</strong> When using instances, the usd procedural now relies on a usdStageCache to represent the instance prototypes, instead of re-loading the usd files on disk for each prototype. </li>
+<li><strong>Pinned curves:</strong> Curves pinning is now supported in the Hydra render delegate and in the USD procedural.</li>
+</ul>
+<h2 id="api-additions">API Additions</h2><ul>
+<li><strong>Unique identifiers for AtUniverse</strong>: Each universe has a unique ID that can be obtained through the new <em>AiUniverseGetId()</em> API. This ID can later be used to retrieve a pointer to that universe using the new <em>AiUniverseGetFromId()</em> API. (ARNOLD-12302)</li>
+<li><strong>Print system info:</strong> The new <em>AiMsgSystemInfo()</em> outputs information related to the Arnold version, the system, and the devices. Even though this information was already printed at the start of an Arnold log, in certain cases it is useful to reprint it. (ARNOLD-12428)</li>
+<li><strong>AI_LOG_STATUS mask:</strong> We introduced a new log mask called <code>AI_LOG_STATUS</code> for messages that Arnold generates to indicate what is currently occurring. For instance, it will report when GPU shader compilation is occurring, when rendering has started, when node init and update are starting, and so on. These messages can help plugins to explain to users what is going on and what, for example, Arnold is doing before rendering starts and the screen is still black. (ARNOLD-12219, ARNOLD-12502)</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible Changes</h2><ul>
+<li><p><strong>Post translation scripts are now Python-based:</strong> A constant variable UNIVERSE_ID is set that can be used to retrieve the current render universe and change nodes after translation (MTOA-966).
+For example a user could set the translation script like so:</p>
+<p><strong>Post Translation Script</strong></p>
+<pre class="pre codeblock"><code class="prettyprint">import sys,os
+filelocation=cmds.file(q=True,sn=True)
+dirpath=os.path.dirname(filelocation)
+sys.path.append(dirpath)
+import callback
+callback.callback(UNIVERSE_ID)</code></pre><p>Where the callback script called <em>callback.py</em> in the same folder as the Maya scene file contains this code to find the <em>lambert1</em> node and make it green:</p>
+<p><strong>callback.py</strong></p>
+<pre class="pre codeblock"><code class="prettyprint">import maya.cmds as cmds
+from arnold import *
+def callback(universeId):
+    print(__file__)
+    print("Universe ID : '{}'".format(universeId))
+    universe = AiUniverseGetFromId(universeId)
+    node_it =AiUniverseGetNodeIterator(universe, AI_NODE_SHADER)
+    while not AiNodeIteratorFinished(node_it):
+        node =AiNodeIteratorGetNext(node_it)
+        nodename =AiNodeGetName(node)
+        print(nodename)
+        if nodename == "lambert1":
+            AiNodeSetRGB(node, "Kd_color", 0.2, 0.8,0.2)
+
+        AiNodeIteratorDestroy(node_it)</code></pre></li>
+<li><p><strong>Improved AOV wildcards:</strong> When using AOV wildcard syntax and specifying a name for an output layer, the AOV type will be replaced by the given name. For example, using a wildcard of '<code>diffuse_*</code>', a layer name of '<code>myLayer</code>', and AOVs of '<code>red</code>' &amp; '<code>blue</code>', the layers written into the EXR will be named '<code>myLayer_red</code>' and '<code>myLayer_blue</code>' instead of '<code>diffuse_red</code>' and '<code>diffuse_blue</code>' as before. (ARNOLD-12282)</p>
+</li>
+</ul>
+<h2 id="bug-fixes">Bug Fixes</h2><ul>
+<li><p>MTOA-986 -  You cannot select a Maya object in front of an aiStandin</p>
+</li>
+<li><p>MTOA-966 - PostTranslation scripts no longer can load the current universe to edit nodes before render</p>
+</li>
+<li><p>MTOA-1085 - Swatch rendering triggers WARNINGS</p>
+</li>
+<li><p>MTOA-1100 - System information missing from render logs</p>
+</li>
+<li><p>MTOA-1102 - Python3 Error in mtoa.ui.qt.syntaxhighlighter breaks aiOslShader AeTemplate</p>
+</li>
+<li><p>MTOA-1116 - Update Available information not working in Maya with python 3</p>
+</li>
+<li><p>MTOA-1109 - [USD] USD Export: Exporting using Arnold plugin settings and a parent scope crashes maya</p>
+</li>
+<li><p>MTOA-1063 - [USD] Exporting Arnold SkyDome with "arnold" plugin configuration and "Material X" checked on crashes Maya</p>
+</li>
+<li><p>ARNOLD-9636 - Cryptomatte does not work with multiple cameras or denoising</p>
+</li>
+<li><p>ARNOLD-12282 - Crash writing light groups with <code>preserve_layer_name</code></p>
+</li>
+<li><p>ARNOLD-12337 - Compression setting for dwaa/dwab is too low</p>
+</li>
+<li><p>ARNOLD-12346 - Clip_geo crashes when rendered in multiple render sessions</p>
+</li>
+<li><p>ARNOLD-12441 - Json stats should place the shader "percent by depth" category under "shader calls"</p>
+</li>
+<li><p>ARNOLD-12470 - Empty/invalid mesh on mesh_light causes crash</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/pull/1168" target="_blank">usd#1168</a> Remove attributes reset in the lights delegate</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/pull/1165" target="_blank">usd#1165</a> Support double array primvars in the procedural</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/pull/1175" target="_blank">usd#1175</a> Fix authoring per-channel connections so that the output attribute exists</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/pull/1131" target="_blank">usd#1131</a> Revert to SdrShaderNodes for discovery plugin</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/pull/1179" target="_blank">usd#1179</a> Support filter-type attributes in the reader</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/pull/1205" target="_blank">usd#1205</a> Support several render products for the same render var</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/pull/1183" target="_blank">usd#1183</a> Fix usdPreviewSurface attribute useSpecularWorkflow in the procedural</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/pull/1191" target="_blank">usd#1191</a> Ignore distant lights normalize attribute in the delegate to match the procedural</p>
+</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_5x_html.html">MtoA 5.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

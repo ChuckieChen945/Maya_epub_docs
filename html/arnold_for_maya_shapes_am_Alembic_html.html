@@ -1,0 +1,126 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shapes_am_Alembic_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_ALEMBIC">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" Alembic - Arnold for Maya">
+
+<title>Alembic</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>Alembic</h1></div>
+<div class="arnold-note">
+
+
+
+<table>
+<thead>
+<tr>
+<th>延伸阅读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有关 Arnold 形状和形状参数的完整文档，请参见<strong>《Arnold 用户手册》</strong>中的<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shapes_html" target="_blank">形状</a>。</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<p><img src="../images/mtoa_alembic1.png" alt=""></p>
+<p><sub><strong>在 MtoA 中渲染的 Alembic (.abc) 文件</strong></sub></p>
+<p>可用于读取 <a href="http://www.alembic.io/" target="_blank">Alembic</a> 文件的程序节点。MtoA 通过 Maya 的<a href="https://knowledge.autodesk.com/zh-hans/support/maya/learn-explore/caas/CloudHelp/cloudhelp/2015/CHS/Maya/files/GUID-9D272E39-9279-4146-8449-928DDA865C9D-htm.html" target="_blank">流水线缓存</a>工作流来支持 Alembic (.abc) 文件。有关 Arnold 特定属性的信息，请参见下文。</p>
+<p><img src="../images/mtoa_alembic2.png" alt=""></p>
+<p><sub><strong>Alembic GPU 缓存中的 Arnold 属性</strong></sub></p>
+<h2 id="visibility">可见性(Visibility)</h2>
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关 Arnold 可见性属性的信息，请单击<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Arnold_Common_Settings_html">此处</a>。</p>
+
+</div></div>
+
+<h2 id="alembic-alembic-contents">Alembic 内容(Alembic Contents)</h2><p>选择要在 Alembic 文件中显示的对象（更改“几何体路径”(Geometry Path)）。内容列表会保存至 gpuCache 的缓存属性，因此，无需时时读取 .abc 文件。</p>
+<p>在<em>属性编辑器</em>中显示文件的内容，并允许您对所选项目应用覆盖。</p>
+<table>
+<thead>
+<tr>
+<th>提供了一个<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Standin_abc_operators-user-guide.zip" target="_blank">场景</a>文件，演示如何对 .abc 文件使用<em>运算符</em>和<em>赋值</em>。</th>
+</tr>
+</thead>
+</table>
+<h2 id="look">外观(Look)</h2><p>选择创建、编辑或删除<em>外观<em>变体。创建新</em>外观*时，会自动添加一个 *aiLookSwitch</em> 节点，该节点是 <code>switch_operator</code> 和 <code>merge</code> 的组合并连接到程序图的根。处理第一个外观时，当前运算符将移动到变体切换节点上的第一个输入列表。<em>aiLookSwitch</em> 中的标签用于填充 <em>aiStandIn</em> 中的菜单。可以通过<em>“渲染设定”(Render Setup)<em>工具（用于按层/通道添加不同外观）来设置/覆盖此栓。名称/</em>外观</em>/通道将转换为索引编号以进行渲染。</p>
+<p><img src="../images/mtoa_alembic3.png" alt=""></p>
+<p><sub><strong>应用“绿色”<em>外观</em></strong></sub></p>
+<h2 id="add-assignment">添加赋值(Add Assignment)</h2><p>参数列表，可以指定给其中的对象。它可以用于向节点的子对象添加属性和参数赋值。它可为每个选择创建一个<a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Set+Parameter&amp;linkCreation=true&amp;fromPageId=154769749">设置参数(Set Parameter)</a>节点，并将其按顺序放在<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_operators_html" target="_blank">运算符(Operators)</a>列表中。顶部是第一个<em>运算符</em>，层次中的最后一个叶是该列表中的最后一个运算符。</p>
+<h3 id="local-overrides">局部覆盖(Local Overrides)</h3><p>层次中节点上的赋值。</p>
+<h3 id="inherited-assignments">继承赋值(Inherited Assignments)</h3><p>影响下面的对象或匹配字符串表达式选择的覆盖。</p>
+<p><img src="../images/mtoa_alembic4.png" alt=""></p>
+<p><sub><strong>使用最左侧按钮创建的<em>继承赋值</em></strong></sub></p>
+<h2 id="add-operator-a-href-alembic-alembicoverrides-a">添加运算符(Add Operator)<a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shapes/Alembic-AlembicOverrides"></a></h2><p>向图表中的点添加常规运算符。选择字符串必须引用 .ass 文件中的节点。</p>
+<p><img src="../images/mtoa_alembic5.png" alt=""></p>
+<p><sub><strong>“运算符”列表</strong></sub></p>
+<h2 id="show-graph">显示图形(Show Graph)</h2><p>显示形状和与之相连的任何*<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_operators_html" target="_blank">运算符</a>*的独立图表。</p>
+<p><img src="../images/mtoa_alembic6.png" alt=""></p>
+<div class="head-block"><h1>Alembic 覆盖(Alembic Overrides)</h1></div><p><img src="../images/mtoa_alembic6.png" alt=""></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关常见 Arnold 形状设置的信息，请单击此处。</p>
+
+</div></div>
+
+<h2 id="enable-overrides">启用覆盖(Enable Overrides)</h2><p>如果要将参数传递到所创建的形状，声明用户数据时请使用与参数相同的类型，并以形状名称和冒号 (:) 为前缀。例如，使用<shape>：<parameter>。因此，以下声明将确保创建的每个多边形网格都将 step_size 设置为 0.1。</parameter></shape></p>
+<p>pull_user_params on</p>
+<p>declare polymesh:step_size constant FLOAT</p>
+<p>polymesh:step_size 0.1</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/arnold_for_maya_shapes_html.html">形状</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

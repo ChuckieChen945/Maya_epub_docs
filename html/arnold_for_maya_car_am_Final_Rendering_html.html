@@ -1,0 +1,135 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_car_am_Final_Rendering_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_FINAL_RENDERING">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 最终渲染 - Arnold for Maya">
+
+<title>最终渲染</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>最终渲染</h1></div><p>在最终完工前，我们可以对一些项进行微调，以尽可能获得最佳结果：</p>
+<ul>
+<li><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/am-Rendering_a_Car_Using_an_HDRI_and_a_Backplate/arnold_for_maya_car_am_Final_Rendering_html.html#FinalRendering-Shadowrender">阴影渲染</a></li>
+<li><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/am-Rendering_a_Car_Using_an_HDRI_and_a_Backplate/arnold_for_maya_car_am_Final_Rendering_html.html#FinalRendering-FilterWidth">过滤器宽度</a></li>
+<li><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/am-Rendering_a_Car_Using_an_HDRI_and_a_Backplate/arnold_for_maya_car_am_Final_Rendering_html.html#FinalRendering-ShadowCatcherreflection">阴影蒙版反射</a></li>
+</ul>
+<h2 id="strong-strong"><strong>阴影渲染</strong></h2><ul>
+<li>要单独渲染阴影，我们首先需要对所有汽车对象禁用<em>“主可见性”(Primary Visibility)</em>。选择汽车并打开 Maya 的“属性总表”(Attribute Spreadsheet)窗口。选择<em>“主可见性”(Primary Visibility)</em>列，然后在选定列中键入<strong>“off”</strong>或 <strong><em>0</em></strong>。</li>
+</ul>
+<p><img src="../images/final-rendering1.png" alt=""></p>
+<p><sub><strong>在“属性总表”(Attribute Spread Sheet)中禁用“主可见性”(Primary Visibility)</strong></sub></p>
+<ul>
+<li>当您渲染汽车时，汽车会渲染为不可见，但阴影将会保留。Alpha 通道应类似以下渲染：</li>
+</ul>
+<p><img src="../images/final-rendering2.jpg" alt=""></p>
+<p><sub><strong>Ai 阴影蒙版渲染</strong></sub></p>
+<h2 id="strong-strong"><strong>过滤器宽度</strong></h2><p><img src="../images/final-rendering2b.jpg" alt=""></p>
+<p>默认情况下，Arnold 渲染时使用的 <em>filter_width</em> 值为 2。但是，相较于原始摄影背板，渲染后的汽车看起来有点过于清晰。此外，相较于摄影背景，汽车边缘上的抗锯齿看起来也过于清晰。我们可以尝试在后期修复此问题，但在后期对图像进行模糊处理只是对像素整体进行平均化，可能会产生不理想的结果。它也会在后期制作工作中增加不必要的步骤。更好的方法是使用较宽的过滤器宽度设置进行渲染。</p>
+<p>下面比较了在同一场景中使用 <em>filter_width</em> 2 和 3 分别进行渲染的效果：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/final-rendering3.jpg" alt=""></td>
+<td><img src="../images/final-rendering4.jpg" alt=""></td>
+</tr>
+<tr>
+<td>_filter_width_： 2。渲染在背板中过于清晰。</td>
+<td><em>filter_width_： 3。增加 _filter_width</em> 有助于混合渲染与背板。</td>
+</tr>
+</tbody></table>
+<p><em>filter_width</em> 值优先使用 2.5，因为值为 3 时有点过于模糊。我们可以通过实验来获得合适的值，当然，这也取决于场景。在本例中，当前使用的 HDR 贴图的分辨率小于所需的值。这可能会在汽车的材质中产生低分辨率的反射。在这种情况下，增加 <em>filter_width</em> 也会有所帮助。</p>
+<h2 id="">阴影蒙版：间接漫反射</h2><p>根据使用的 HDR 贴图和背板，与地平面接触的轮胎区域看起来可能会比摄影背景中的灯光稍暗。您可能希望有更多的灯光从地板反射到轮胎底部。</p>
+<p>我们可以通过启用 <em>shadow_matte</em> 着色器的 <em>indirect_diffuse</em> 属性来解决此问题。您可以手动选择颜色，也可以选择 <em>diffuse_color</em>，然后使用颜色拾取器单击图像平面背景地面上的像素。第二种方法可确保相同的颜色反射回轮胎。</p>
+<p>下面是该效果的一个极端示例：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/final-rendering5.jpg" alt=""></td>
+<td><img src="../images/final-rendering6.jpg" alt=""></td>
+</tr>
+<tr>
+<td>_漫反射_： 0</td>
+<td>_漫反射_： 1</td>
+</tr>
+</tbody></table>
+<p>您现在拥有将汽车合成到背板所需的所有渲染元素：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/final-rendering7.jpg" alt=""></td>
+<td><img src="../images/final-rendering8.jpg" alt=""></td>
+<td><img src="../images/final-rendering9.jpg" alt=""></td>
+</tr>
+<tr>
+<td>汽车美景渲染</td>
+<td><em>shadow_matte</em> 渲染</td>
+<td>摄影背板</td>
+</tr>
+</tbody></table>
+<p>下图是使用 6 个 AA 采样渲染的最终结果。<em>skydome_light</em> 采样数已增加到 3 以进行最终渲染。</p>
+<p><img src="../images/final-rendering10.jpg" alt=""></p>
+<p><sub><strong>最终合成的渲染</strong></sub></p>
+<p>也可以尝试使用与上面相同的工作流渲染另一个背板：</p>
+<p><img src="../images/am-Final_Rendering-aiShadowCatcher-car-tutorial-other-backplate-12.jpg" alt=""></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Rendering_a_Car_Using_an_HDRI_and_a_Backplate_html.html">使用 HDRI 和背板渲染汽车</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2">
+<meta name="language" content="CHS">
+<title>创建非动态流体效果</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>创建非动态流体效果</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-257E"><p class="p" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__WS73099CC142F48755-3D114B7511841AEFA9F-5875"> 在非动态流体效果中，流体特性值是在 Maya 内预定义的并随着时间的推移保持不变，这意味着无需对这些值重新计算。可以通过对流体中内置的特殊流体着色器执行纹理操作创建流体的外观。将该着色器构建到流体中以获得更好的性能。如果希望流体效果具有运动，可以对纹理属性设定动画（设定关键帧）。由于 Maya 不用求解流体动力学表达式，因此渲染该类型的流体要比渲染动态流体快得多。 
+	 </p>
+<p class="p" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__WS73099CC142F48755-3D114B7511841AEFA9F-5874">云、雾、空间及其他较抽象的效果都是理想的非动态效果候选对象。 
+	 </p>
+<p class="p" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__WS73099CC142F48755-3D114B7511841AEFA9F-5873">有关基本非动态流体效果的示例，请参见“Maya 快速入门”中的<span class="ph uicontrol" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__GUID-A6963D70-8068-469F-9815-1E41C5336429">“流体效果”(Fluid Effects)</span>课程二。也可以在<span class="ph uicontrol" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__GUID-200A8309-D6EF-4B94-B525-51919F99E22A">“内容浏览器”(Content Browser)</span>的“流体示例”(Fluid Examples)文件夹中加载示例。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-B4E29BB7-83E5-43A7-8AE0-A9703DA7C18D.htm">导入流体示例</a>。 
+	 </p>
+<p class="li listintro" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__WS73099CC142F48755-3D114B7511841AEFA9F-5871">创建非动态流体效果</p>
+<ol class="ol" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__WS73099CC142F48755-3D114B7511841AEFA9F-5872"><li class="li" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__WS73099CC142F48755-3D114B7511841AEFA9F-5870">创建流体容器。 
+		  <p class="p" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__WS73099CC142F48755-3D114B7511841AEFA9F-586F">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-1026CEA3-6AB0-4072-8A81-C15D54801435.htm#GUID-1026CEA3-6AB0-4072-8A81-C15D54801435__WS73099CC142F48755-3D114B7511841AEFA9F-58F3">流体容器</a>。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__WS73099CC142F48755-3D114B7511841AEFA9F-586E">将<span class="ph uicontrol" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__GUID-C2DD328F-0E29-4613-A8F6-5776B7DA54F7">“密度”(Density)</span>值添加到不能随时间而更改的容器中。执行下列操作之一： 
+		  <ul class="ul" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__WS73099CC142F48755-3D114B7511841AEFA9F-586D"><li class="li" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__WS73099CC142F48755-3D114B7511841AEFA9F-586C">将它们作为预定义的渐变值添加。 
+			 </li>
+</ul>
+ 
+		  <p class="p" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__WS73099CC142F48755-3D114B7511841AEFA9F-586B">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-2AEC1CD1-3CD6-4D85-96BA-84547E7474E8.htm">将特性作为预定义的渐变添加</a>。 
+		  </p>
+ 
+		  <ul class="ul" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__WS73099CC142F48755-3D114B7511841AEFA9F-586A"><li class="li" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__WS73099CC142F48755-3D114B7511841AEFA9F-5869">将它们添加到<span class="ph uicontrol" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__GUID-864E611A-CC92-48D0-9DB1-4DB9920EEAAB">“静态栅格”(Static Grid)</span>。 
+			 </li>
+</ul>
+ 
+		  <p class="p" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__WS73099CC142F48755-3D114B7511841AEFA9F-5868">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-14AA33D0-D6D3-49FE-8B42-3AF702D96D7D.htm#GUID-14AA33D0-D6D3-49FE-8B42-3AF702D96D7D__WS17956D7ADBC6E73667CD8F71117AE314748-7FF3">向栅格添加属性</a>。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__WS73099CC142F48755-3D114B7511841AEFA9F-5867">将颜色添加到使用内置流体着色器的容器。 
+		  <p class="p" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__WS73099CC142F48755-3D114B7511841AEFA9F-5866">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-F2FD0CBF-2BA7-444A-9F80-C83BC400C320.htm#GUID-F2FD0CBF-2BA7-444A-9F80-C83BC400C320__WS73099CC142F48755-3D114B7511841AEFA9F-57A2">使用着色颜色为流体上色</a>。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__WS73099CC142F48755-3D114B7511841AEFA9F-5865">使用内置的流体纹理功能对流体内容执行纹理操作。 
+		  <p class="p" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__WS73099CC142F48755-3D114B7511841AEFA9F-5864">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-7C6CFDEA-B0B6-46EA-B3A4-6DD0ACCED9D4.htm">设置流体的纹理</a>。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__WS73099CC142F48755-3D114B7511841AEFA9F-5863">若要创建运动，请在 fluidShape 的<span class="ph uicontrol" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__GUID-288420A2-6C20-476B-BCB8-D5BA2F638B4E">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__GUID-AA2EE6D0-B611-4271-9604-8EF5D8EE1BFA">“纹理”(Textures)</span>区域中对<span class="ph uicontrol" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__GUID-7321FA12-52FC-460F-92CD-1BC9D564A39D">“纹理时间”(Texture Time)</span>属性设定关键帧。 
+		  <p class="p" id="GUID-2D6D327B-B1B0-4072-BD94-989966A84AA2__WS73099CC142F48755-3D114B7511841AEFA9F-5862">有关关键帧属性的详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-68F66F69-1F76-4F58-A88A-0A58FBDE5350">关键帧</a>。 
+		  </p>
+ 
+		</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-FB3B965A-F4F5-4522-B545-70DB00D10684.htm">创建流体效果</a></div>
+</div>
+</div>
+
+</body>
+</html>

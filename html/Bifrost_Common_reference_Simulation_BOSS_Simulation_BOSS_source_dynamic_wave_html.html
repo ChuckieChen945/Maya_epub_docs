@@ -1,0 +1,74 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_BOSS_Simulation_BOSS_source_dynamic_wave_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>source_dynamic_wave</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>source_dynamic_wave</code></h1></div><p>此节点可以将源几何体（例如船）转换为高度和遮挡贴图，用于在 dynamic_wave_simulation 节点中生成尾迹。输出应连接到 simulate_dynamic_waves <code>source</code>。在内部，它跟踪几何体低于水高度位置的贴图，然后应用两个不同的后期处理：生成器和碰撞对象（或遮挡对象）。碰撞对象将创建波反射并使波高度清零，但不会生成向外的涟漪。生成器将创建涟漪，但不创建反射，并且还会在碰撞对象的实体内部应用，但通常不需要这样。因此，组合使用这两种方法通常可获得良好的尾迹。通常，将生成器扩展几个像素，将碰撞对象收缩几个像素。这将获得从源几何体向外延伸几个像素的涟漪创建区域，避免几何体内出现涟漪。</p>
+<h2 id="">输入</h2><h3 id="geometry"><code>geometry</code></h3><p>这是要从其创建贴图的几何体。通过沿 Y 轴进行光线跟踪以查找对象的交点来确定贴图。</p>
+<h2 id="source-properties"><code>Source Properties</code></h2><h3 id="resolution_xz"><code>resolution_xz</code></h3><p>贴图的分辨率。这是相对于由边界设置确定的贴图边界的值。    </p>
+<h3 id="water_height"><code>water_height</code></h3><p>模拟中水在 Y 方向上的高度，通常为零。在输入几何体低于此值的位置生成贴图。</p>
+<h2 id="generator"><code>Generator</code></h2><p>这些特性会影响输出 height_wave_map。</p>
+<h3 id="enable_generator"><code>enable_generator</code></h3><p>此项用于切换是否创建此贴图并在此贴图连接到的模拟中使用它。</p>
+<h3 id="generator_amplitude"><code>generator_amplitude</code></h3><p>这是对象与平面（由对象低于 <code>water_height</code> 值的位置定义）相交时使用的值。在其他位置，贴图为零，除非 <code>generator_smoothing</code> 不为零。值较大时，可能会在模拟中创建较大涟漪。</p>
+<h3 id="generator_expand"><code>generator_expand</code></h3><p>此项用于将非零贴图值增大定义的像素数。值为负时将向内缩小贴图。</p>
+<h3 id="generator_smooth"><code>generator_smooth</code></h3><p>这是将平滑过滤器应用于生成器图像的迭代次数。</p>
+<h3 id="generator_offset_xz"><code>generator_offset_xz</code></h3><h2 id="collider"><code>Collider</code></h2><p>这些特性会影响输出 obstruction_wave_map。</p>
+<h3 id="enable_collider"><code>enable_collider</code></h3><p>此项用于切换是否创建此贴图并在此贴图连接到的模拟中使用它。</p>
+<h3 id="collider_amplitude"><code>collider_amplitude</code></h3><h3 id="collider_expand"><code>collider_expand</code></h3><p>此项用于将非零贴图值增大定义的像素数。值为负时将向内缩小贴图。</p>
+<h3 id="collider_offset_xz"><code>collider_offset_xz</code></h3><h3 id="collider_smooth"><code>collider_smooth</code></h3><p>这是将平滑过滤器应用于碰撞对象图像的迭代次数，最初为 1.0，此时对象低于水位，并且在其他位置为零。</p>
+<h2 id="bounds"><code>Bounds</code></h2><p>边界确定贴图在 X 和 Z 方向上的尺寸。 </p>
+<h3 id="geo_bounds_padding"><code>geo_bounds_padding</code></h3><p>这是用于扩展边界（和分辨率）的像素数，这有助于避免因跟踪非常接近 XZ 方向上的对象边界而产生的问题。</p>
+<h3 id="bounds_method"><code>bounds_method</code></h3><p>此项确定如何为贴图定义边界。值为 <code>From_Geometry</code> 时，将创建适合所跟踪对象的 xz 边界的图像，但通过减少沿较小轴的像素在这些边界内保持方形像素（如果需要）。其他方法专门用于边界来自模拟节点的情况，如果这些边界与对象不重叠，则将不跟踪像素。在所有情况下，都仅在对象与水相交的位置创建贴图。使用除 <code>From_Geometry</code> 外的边界方法时，应将分辨率设置为定义的边界所需的分辨率，并且输出贴图将是与对象重叠的边界的子集，如果对象相对于边界较小，则这可能只是几个像素。</p>
+<ul>
+<li><p><code>Min_Max</code>：边界由特性 <code>min_bound</code> 和 <code>max_bounds</code> 确定</p>
+</li>
+<li><p><code>Size_Center</code>：边界由特性 <code>size</code> 和 <code>center</code> 确定</p>
+</li>
+<li><p><code>From_Geometry</code>：边界由连接到所跟踪的 <code>geometry</code> 的输入几何体确定。</p>
+</li>
+</ul>
+<h3 id="min_bound"><code>min_bound</code></h3><p>贴图在 X 和 Z 方向上的最小范围。（当 <code>bounds_method</code> 为 <code>Min_Max</code> 时）</p>
+<h3 id="max_bound"><code>max_bound</code></h3><p>贴图在 X 和 Z 方向上的最大范围。（当 <code>bounds_method</code> 为 <code>Min_Max</code> 时）</p>
+<h3 id="size"><code>size</code></h3><p>贴图在 X 和 Z 方向上的总体大小（当 <code>bounds_method</code> 为 <code>Size_Center</code> 时）</p>
+<h3 id="center"><code>center</code></h3><p>贴图边界在 X 和 Z 方向上的中心位置（当 <code>bounds_method</code> 为 <code>Size_Center</code> 时）</p>
+<h2 id="">输出</h2><h3 id="wave_source"><code>wave_source</code></h3><p>这是应连接到 <code>simulate_dynamic_wave.source</code> 的输出波贴图对象。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_BOSS_html.html">BOSS</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

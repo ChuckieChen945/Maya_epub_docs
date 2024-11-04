@@ -1,0 +1,99 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D">
+<meta name="language" content="CHS">
+<title>在 SynColor 中使用用户颜色变换</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>在 SynColor 中使用用户颜色变换</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-5A2634BC-B982-47EE-A8D2-5BDAABCE2834">可以在使用内置颜色空间选项的同时使用用户定义的颜色变换，或使用用户定义的颜色变换替代内置颜色空间选项。添加了用户变换之后，它会显示在相应的菜单上。 
+	 </p>
+<div class="note note" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-834C1495-96C6-4938-BB24-393CDFA16D44"><span class="notetitle">注：</span> 这些步骤仅在使用旧版颜色管理系统（称为 SynColor）时适用。若要结合使用自定义颜色空间与默认 OCIO v2 颜色管理系统，必须使用可定义所需空间的自定义 OCIO 配置文件。 
+	 </div>
+<div class="p" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-5133F04A-5355-48C1-9835-2E7C7937A122">若要将用户变换添加到可用选项，需要一个执行以下操作之一的变换： 
+	 <ul class="ul" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__UL_60C9425F49824C3D8C00E313365EE58C"><li class="li" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__LI_45777D26E9A04508999DD7A82047EF42">对于输入空间，您的变换必须从要添加的颜色空间转化为已识别的输入颜色空间之一（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-2622A6C2-B79B-442E-B5C3-327474409CC7.htm">输入颜色空间列表</a>）。 
+		</li>
+<li class="li" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__LI_7929C00D2AFA48C09D1BBB209B0B5E27">对于视图或输出变换，变换必须从可用选项之一转化为要添加的颜色空间。 
+		</li>
+</ul>
+ 
+	 </div>
+<p class="p" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-53B13DCB-4145-4325-9B9A-F7FA2FA3C017">变换可以是 SynColor .ctf 文件，也可以采用任意第三方格式。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-D432E828-7CB6-4B27-818E-89DB6C29A41B.htm" title="除了本地 CTF 格式外，使用 Autodesk 颜色管理的应用程序还可以读取若干 LUT 和变换文件格式。导入后，这些格式将转化为本地运算符。支持导出变换的 Autodesk 产品会将其导出为 CTF 文件。">支持的颜色变换文件格式</a>。 
+	 </p>
+<p class="p" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-F3635B05-73C9-4D30-8C6C-713B67B23913">用户变换以 .ctf 文件形式存储于在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-2D9BBB9D-49F0-44C6-8BFF-B237FD8ED746">颜色管理首选项</a>中设置的<span class="ph uicontrol" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-7EA929DC-5AD0-41FD-A870-63D2488ABDC9">“用户变换/LUT 目录路径”(User Transform/LUT Directory Path)</span>中。它们包括对包含变换的文件的引用，可以存储在任何位置。此外，用户变换还包括其他元数据，如输入或输出颜色空间。元数据允许 Autodesk 颜色管理自动构建一系列变换，以通过连接空间从一种颜色空间转化到另一种颜色空间。 
+	 </p>
+<p class="p" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-98D00FCD-E1F3-4633-A42F-C9F287B78ED3">如果结合使用 SynColor 和 OCIO v1 配置文件进行颜色管理，则不能使用用户变换。使用 OCIO 配置文件时，只有配置文件中指定的颜色变换可用。 
+	 </p>
+<p class="p" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-71846137-AFA1-4ED2-80C7-C29F1D130A1D">颜色空间按名称匹配。如果您打开的场景使用了一个不可用的用户变换，将显示一条消息。如果<span class="ph uicontrol" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-75AF0CCC-5134-45FD-AC26-017EC1728C26">“文件”(File)</span>纹理和其他节点使用的任意输入颜色空间不存在，将在<span class="ph uicontrol" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-A4C97C17-65D7-4074-B9D5-91B952E598AC">“属性编辑器”(Attribute Editor)</span>中以红色亮显该颜色空间。此外，图像输入节点中任何缺少的颜色空间在<span class="ph uicontrol" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-1733E93B-1FEE-459B-A805-795E406EB663">属性编辑器</span>中都以红色亮显，且不应用变换。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-7783582B-FD5F-4B8E-A68D-F82F8E5FF465.htm">修复缺少的颜色变换</a>。 
+	 </p>
+<div class="section" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__SECTION_8C3E6ED06AB4463786E4E241849C30D0"><h2 class="title sectiontitle">添加用户变换</h2> 
+		 
+		<ol class="ol" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__OL_52871DBB4A2E4B339CAB34C54EC3B1BE"><li class="li" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__LI_5A1CFDA012A640C18D92FA01264B6630">在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-2D9BBB9D-49F0-44C6-8BFF-B237FD8ED746">颜色管理首选项</a>中，展开变换或颜色空间下拉菜单之一，然后选择<span class="ph uicontrol" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-310288A7-EC3E-4AE2-AF09-EA97DED3AEF7">“+ 添加新项目”(+ Add New)</span> 
+			 。 
+			 <p class="p" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-07622FB4-AE88-420F-8459-2B488803AD88">也可以使用<span class="ph uicontrol" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-542B11D8-6821-4BA4-B77B-53BDBFC65B2F">“渲染设置”(Render Settings)</span>窗口<span class="ph uicontrol" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-76A11615-85BA-47D3-83F8-6E9B1DA7BAD8">“公用”(Common)</span>选项卡的<span class="ph uicontrol" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-42310332-7D11-4681-BAD4-6DCFAC47F110">“颜色管理”(Color Management)</span>组中的<span class="ph uicontrol" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-B67C8E0B-61DA-4360-8347-5CD0483E16B2">“输出变换”(Output Transform)</span>菜单。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__LI_02429BC670AE423FA6E80C6CA0B4AE75">在<span class="ph uicontrol" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-04508779-1D2B-4476-B3C6-BBADA308B5CF">“变换文件”(Transform File)</span>中，输入 LUT 或其他颜色变换文件的路径和文件名。 
+			 <div class="note tip" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-ADACB03A-CE4F-42E6-B91F-73C5FD98E1CD"><span class="tiptitle">提示：</span> Autodesk 变换集合位于 <span class="ph msgph prodname" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 安装位置的 synColor/transforms/ 文件夹中。它包括默认情况下菜单上未提供的许多变换。 
+			 </div>
+ 
+		  </li>
+<li class="li" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__LI_731ADC21C49F4B179570E79E467C3CCF">在<span class="ph uicontrol" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-2D6493E1-C3DE-43CB-ADD7-97F0C085CD13">“变换名称”(Transform Name)</span>中，输入希望显示在菜单中的自定义变换的标签。 
+		  </li>
+<li class="li" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__LI_4BD989FC7FA64FC891A0D03AE2251E54">执行下列操作之一： 
+			 <ul class="ul" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__UL_2EC3097771DF4CABAF502D644D99D918"><li class="li" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__LI_6F1B96D46E7B4171B3455C01E9E0FCCE">对于输入空间变换，将<span class="ph uicontrol" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-DBE0A05A-F803-4693-99CC-1C2F24E54AA5">“目标颜色空间”(Destination Color Space)</span>设置为变换的预期输出颜色空间。 
+				</li>
+<li class="li" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__LI_DC0D753FF2984ABE8019916A204BF6F1">对于视图和输出变换，将<span class="ph uicontrol" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-187B9D86-9AD7-4128-95B5-0633EA3CAF9D">“源颜色空间”(Source Color Space)</span>设置为变换的预期输入颜色空间。如果变换的输入与渲染空间相同，则可以选择<span class="ph uicontrol" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-53D68995-07F2-47D2-92D9-00F0A838FDA5">“原始”(Raw)</span>。 
+				</li>
+</ul>
+ 
+		  </li>
+<li class="li" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__LI_A1F7F32EC5924C82B5E833F0CC2D670C">单击“确定”(OK)。 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__SECTION_BD666AFDB2CD49F1ABBD9BCB90ED7B83"><h2 class="title sectiontitle">移除用户变换</h2> 
+		 
+		<p class="p" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-0D2175EF-2A4F-43DE-9F34-BC25D70BB79D">移除用户变换将移除引用<span class="ph uicontrol" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-4CA286DD-4715-4901-AA54-90423B87C008">“用户变换/LUT 目录路径”(User Transform/LUT Directory Path)</span>中变换的 .ctf 文件，但不会移除引用的变换本身。 
+		</p>
+ 
+		<ol class="ol" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__OL_E1304806260F4127B6C3900FF27CEFFB"><li class="li" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__LI_6E07AA9F663D4202A88D08A1DEE6A4DA">在其中一个菜单中选择用户变换。 
+		  </li>
+<li class="li" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__LI_449BD69705FA4D1697D84D83CECE26D2">单击齿轮图标，然后选择<span class="ph uicontrol" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-8F012606-CB30-4ABB-A978-51DDA700DA8D">“移除”(Remove)</span>。 
+		  </li>
+</ol>
+ 
+		<p class="p" id="GUID-543C3E49-8D66-43BC-8232-7DE71C02B83D__GUID-4E07761F-DB1E-4C56-AB54-55561C442BE2">不能移除任何内置的变换。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-C6DE175D-C37F-4BA1-952B-512503432519.htm">使用 Maya 的旧版颜色管理 (SynColor)</a></div>
+</div>
+</div>
+
+</body>
+</html>

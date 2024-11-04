@@ -1,0 +1,114 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_getting_started_am_Hyperspace_Effect_using_a_Gobo_and_Atmosphere_Volume_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_HYPERSPACE_EFFECT_USING_A_GOBO_AND_ATMOSPHERE_VOLUME">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用 Gobo 和大气体积营造超空间效果 - Arnold for Maya">
+
+<title>使用 Gobo 和大气体积营造超空间效果</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>使用 Gobo 和大气体积营造超空间效果</h1></div><p><img src="../images/image2016-10-10_17_31_56.png" alt=""></p>
+<p>在本教程中，我们将介绍如何使用 <em>gobo</em> 过滤器结合聚光灯和 <em><a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Atmosphere+Volume&amp;linkCreation=true&amp;fromPageId=154764893">atmosphere_volume</a></em> 来营造超空间效果。我们还将介绍调整聚光灯以增强场景照明的各种方式。最后，我们将向摄影机添加一个 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_am_Cameras_html">filter_map</a></em> 来提供渐晕效果。</p>
+<p><strong>要下载对应的 Maya 场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/gobo-scene_user-guide.ma" target="_blank">此处</a>。</strong></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>您可以从 Autodesk 的 <em><a href="http://area.autodesk.com/hyperspacemadness" target="_blank">Hyperspace Madness</a></em> 制作下载本系列教程的原始 Maya 场景文件。</p>
+
+</div></div>
+
+<ul>
+<li>首先，创建一个 <em>spot_light。</em> 定位并旋转聚光灯，使其指向摄影机。在 Arnold <em>spot_light</em> 属性下，启用 <em>color_temperature，</em> 并使用约为 15000 的冷蓝色值。将<em>“曝光”(Exposure)</em> 增加到 7 左右。</li>
+</ul>
+<h2 id="">大气体积</h2><ul>
+<li><p>打开<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_system_am_Render_Settings_html">渲染设置(Render Settings)</a>，转到<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_arnold_am_Environment_html">环境(Environment)</a>。选择<em>“大气”(Atmosphere)</em>右侧的图标，创建 <a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Atmosphere+Volume&amp;linkCreation=true&amp;fromPageId=154764893"><em>atmosphere_volume</em></a>。</p>
+</li>
+<li><p>将<em>“密度”(Density)</em>增加至 1。您可能会注意到 <em>atmosphere_volume</em> 中存在一些噪波。这对于测试渲染是可以接受的，但是在最终场景渲染中，您可能需要增加 <em>atmosphere_volume.samples</em> 值（本例中使用的值为 15）。</p>
+</li>
+</ul>
+<p><img src="../images/volume-scattering.jpg" alt=""></p>
+<p><sub><strong><em>密度(Density)：</em> 1</strong></sub>  </p>
+<h2 id="gobo">Gobo 过滤器</h2><ul>
+<li>转到 Arnold 的 <em>spot_light</em> 属性，然后添加一个 <a href="https://help.autodesk.com/pages/createpage.action?spaceKey=AFMUGTMP&amp;title=Gobo&amp;linkCreation=true&amp;fromPageId=154764893">aiGobo</a> 过滤器。将 <em>filter_mode</em> 更改为<em>“融合”(mix)</em>，并将<em>“密度”(Density)</em>增加为 1。</li>
+<li>将 <em>gobo</em> 过滤器的 <em>scale_s</em> 和 <em>t</em> 增加为 0.5。这会缩小将在 slide_map 中使用的分形纹理。</li>
+</ul>
+<p><img src="../images/image2016-10-11_10_59_32.png" alt="">  </p>
+<ul>
+<li>将一个<em>分形</em>纹理贴图连接到 <em>gobo</em> 过滤器的 <em>slide_map</em>。</li>
+<li>增加分形纹理的<em>“振幅”(Amplitude)</em> 值。这将提高分形的对比度，实现我们希望在 <em>atmosphere_volume</em> 中看到的光束效果。增加 <em>frequency_ratio</em> 将创建更精细的光束。</li>
+</ul>
+<p><img src="../images/image2016-10-11_11_13_5.png" alt=""></p>
+<p><img src="../images/fractal-beams.jpg" alt=""></p>
+<p><sub><strong>分形纹理 -&gt; <em>gobo.slide_map</em> 过滤器</strong></sub></p>
+<ul>
+<li>接下来，我们将为噪波光束添加一些变化。断开分形贴图，将一个<em>渐变</em>纹理投影到滑动贴图。将<em>分形</em>纹理连接到一个渐变颜色。将渐变<em>“类型”(Type)</em>更改为 <em>uv_ramp</em>。通过为渐变添加一些噪波进行试验。</li>
+</ul>
+<p><img src="../images/image2016-10-11_11_39_11.png" alt=""></p>
+<h2 id="">逐灯光属性缩放</h2><p>如果要调整太空船前面的镜面反射高光，我们可以调整聚光灯的曝光。但是，这也会增强体积散射效果，而这不是我们所希望的。要解决此问题，一种方法是在 Arnold 的 <em>spot_light</em> 属性中，调整<em>“镜面反射”(Specular)</em>的<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_am_Lights_html">逐灯光缩放</a>。然后，您可以调整灯光对镜面反射度的影响，而不影响其他对象。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>这些值通常应该保留为 1，以产生在物理上精确的效果。</p>
+
+</div></div>
+
+<p><img src="../images/image2016-10-11_14_31_40.png" alt=""></p>
+<h2 id="">摄影机过滤器贴图</h2><p>我们可以使用摄影机 <em>filtermap</em> 属性轻松为摄影机的镜头添加渐晕效果。</p>
+<ul>
+<li>打开摄影机的 Arnold 属性，将一个<em>渐变</em>连接至<em>“过滤器贴图”(Filtermap)</em>属性。将<em>“类型”(Type)</em>更改为 <em>circular_ramp</em>，并将<em>“插值”(Interpolation)</em>更改为 <em>exponential_down</em>。</li>
+</ul>
+<p><img src="../images/image2016-10-11_16_31_55.png" alt=""></p>
+<p><img src="../images/filtermap.jpg" alt=""> <img src="../images/no-filtermap.jpg" alt=""></p>
+<p><sub><strong><em>circular_ramp</em> -&gt; <em>filtermap</em></strong></sub></p>
+<h2 id="">动画</h2><p>对超空间效果的外观感到满意后，您可以尝试为它添加动画效果。在下面的示例中，分形纹理的<em>“时间”(Time)</em> 属性已设置关键帧。<em>分形</em> 纹理的 <em>place2dTexture</em> 的 <em>rotate_frame</em> 属性也已设置关键帧。</p>
+<p><img src="../images/hyperspace.gif" alt=""></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/getting-started/arnold_for_maya_getting_started_am_Hyperspace_Madness_Production_html.html">Hyperspace Madness 制作</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="ENU">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Flow-Retopology-Maya">
+  <meta name="topicid" content="GUID-166C4E11-7AD7-47ED-944A-D04CAA512C6B">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>Submit or monitor a Flow Retopology Job</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>Submit or monitor a Flow Retopology Job</h1></div><p>The main interface for Flow Retopology utilizes two key dialogs, the job submitter and the job monitor. Ensure you have the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-9E5CFD2B-D227-4678-9BDB-5F8EA59D70B3">plug-in loaded</a> in the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-2CF7D90B-EF10-40D1-9129-9D401CCAB952">Plug-in Manager</a> to start submitting and monitoring jobs.</p>
+<h2 id="submit-a-flow-retopology-job">Submit a Flow Retopology Job</h2><p>You can submit multiple retopology jobs to process in the cloud while you work in Maya.</p>
+<h3 id="create-a-new-retopo-job">Create a new retopo job</h3><ol>
+<li><p>Select <strong>Flow Graph Engine tab &gt; Create New Retopo Job</strong>. This will open the <strong>Flow Retopology Submitter</strong> dialog.</p>
+<p><img src="../images/comp_flow-retopology-maya_submitter_expanded_v1.png" alt=""></p>
+</li>
+<li><p>Edit the settings for your output in the <strong>Flow Retopology Submitter</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Interface</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Edit</td>
+<td>Choose to <strong>Save Settings</strong> or <strong>Reset Settings</strong> in your submitter dialog. This is useful to save your setting preferences.</td>
+</tr>
+<tr>
+<td>Selected Mesh</td>
+<td>Displays the mesh as named in the Outliner that is currently selected to perform retopology on.</td>
+</tr>
+<tr>
+<td>Current face count</td>
+<td>Displays the face count in your selected mesh before retopology.</td>
+</tr>
+<tr>
+<td>Job name</td>
+<td>Choose the name for your job. A viable and unique job name is required for retopology to proceed. This value defaults to your mesh object name.</td>
+</tr>
+<tr>
+<td>Choose output location</td>
+<td>Navigate to the directory for your retopology output. A viable location on disk is required to proceed. This value defaults to your current project directory.</td>
+</tr>
+<tr>
+<td>Target face count</td>
+<td>Choose the number of faces in your output. This is not a hard count, but more of a target that the algorithm will attempt to hit.Ensure this value is not set below 60 for a viable result. By default, this value is set to 10000.</td>
+</tr>
+<tr>
+<td>Topology Options</td>
+<td><strong>Topology Regularity</strong><br>Set the number of singularities (vertices with other than 4 connected edges) in the result. When set to 0, the result is sensitive to the surface, producing more singularities. When set to 1, fewer singularities are produced and the result may smooth over fine details.<br><strong>Face Uniformity</strong><br>Represents the overall size and shape of faces. When set to 0, results in varying sizes, with smaller faces in areas of higher curvature. When set to 1, faces are more uniform in size (irrespective of surface curvature).<br><strong>Anisotropy</strong><br>Adaptivity to the directional curvature of a surface. When set to 0, faces stretch less and square up. When set to 1, faces stretch further to adapt to the surface per curvature direction. Note: If uniformity is set to 1, Anisotropy has no effect.</td>
+</tr>
+<tr>
+<td>Feature Preservation Options</td>
+<td><strong>Hard Edges</strong><br>When on, explicit hard edges (those defined using Mesh Display &gt; Harden Edges) on the input mesh are preserved. As a result, features around the hard edges (such as wrinkles, brows, lips, etc) are more accurately converted in the result. Too many hard edges can increase processing time. Turning this option off(default) treats all edges as soft edges.<br><strong>Edges by angle</strong><br>When on, edges are preserved based on the specified angle tolerance. If the angle between its adjacent faces exceeds the specified angle tolerance, the edge between the faces is preserved. Use this option when your mesh contains edges that aren't visually hard (ie. on the interior of your mesh) or you don't want to explicitly define hard edges.<br><strong>Edge component tags</strong><br>When on, the algorithm searches for the specified edge Component Tags on the input mesh and uses them to influence the resultant mesh. This text box supports comma separated lists of Edge Component Tags. It also supports wildcards in the format <code>&lt;name&gt;</code>.</td>
+</tr>
+<tr>
+<td>Symmetry Options</td>
+<td><strong>Symmetry</strong><br>Enable to create even edge flow on both sides of your mesh.<br><strong>Axis position</strong><br>Lets you select the symmetry plane for the selected object. Choose between Object (pivot location and orientation), Bounding Box (invisible cube encompassing selected object) and World (space origin).<br><strong>Axis</strong><br>ets you select the axis and direction that symmetry is performed. For example, when +X to -X is selected, topology is cut and filled from the +X axis to the -X axis.</td>
+</tr>
+</tbody></table>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>Note:</div>
+<div class="callout-body">
+
+<p> Unlike the Maya Retopologize tool, Flow Retopology for Maya will automatically decide to preprocess your mesh if required.</p>
+
+</div></div>
+
+</li>
+<li><p>Click <strong>Submit</strong>. Ensure you are aware of <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-1DD3E66D-A225-4D5E-BBB1-2D0D45296DB0">job submission details</a>.</p>
+</li>
+</ol>
+<h2 id="monitor-flow-retopology-job-progress">Monitor Flow Retopology Job Progress</h2><p>Once you have jobs submitted, you can monitor their progress using the Job Monitor window.</p>
+<h3 id="open-the-flow-job-monitor">Open the Flow Job Monitor</h3><ul>
+<li>Select <strong>Flow Graph Engine tab &gt; Open Job Monitor</strong> <em>or</em> <strong>Open Web Monitor</strong> (requires autodesk login on web).</li>
+</ul>
+<p><img src="../images/comp_jobmonitor_statuses_all.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>Interface</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Search by Job Name</td>
+<td>Type to find a specific job submission and track its status.</td>
+</tr>
+<tr>
+<td>Refresh Icon</td>
+<td>Refresh all jobs in progress.</td>
+</tr>
+<tr>
+<td>Filter Icon</td>
+<td>Filter your results to find a specfic job.</td>
+</tr>
+<tr>
+<td>Job Status</td>
+<td><strong>Scheduled</strong><br> The job is logged but has not started yet.<br><strong>Computing</strong><br>The job is processing and going through the retopology operation.<br><strong>Canceled</strong><br>You canceled the operation.<br><strong>Failed</strong><br>The job did not complete and your mesh was not retopologized.<br><strong>Completed</strong><br>The job has finished successfuly and is ready to import.</td>
+</tr>
+<tr>
+<td>Import button</td>
+<td>Import the retopologized mesh into your current scene. Note: Your retopologized file will automatically be downloaded to the location specified when the job is completed.</td>
+</tr>
+<tr>
+<td>Delete Job button</td>
+<td>Remove a job from the job monitor list. <br><strong>Note:</strong> To manually cleanup data or file(s), navigate to the output location specified for your job.</td>
+</tr>
+</tbody></table>
+<p><img src="../images/gif_jobmonitor_details_comp.gif" alt=""></p>
+<p>Click into a job to view additional details like output location, job log, retopology job details and more.</p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>Tip:</div>
+<div class="callout-body">
+
+<p> To see the exact results of your retopology operation in the Viewport once complete, select <strong>Display &gt; Heads Up Display &gt; <img src="../images/icon_maya_checkbox_full.png" alt=""> Poly Count</strong>. You can use the heads up display to compare the poly count between your retopology result and initial model in the Viewport.</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

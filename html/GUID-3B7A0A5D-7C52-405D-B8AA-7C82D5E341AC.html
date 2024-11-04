@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-3B7A0A5D-7C52-405D-B8AA-7C82D5E341AC">
+<meta name="language" content="CHS">
+<title>如何禁用各个粒子？</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-3B7A0A5D-7C52-405D-B8AA-7C82D5E341AC">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>如何禁用各个粒子？</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-3B7A0A5D-7C52-405D-B8AA-7C82D5E341AC__WS73099CC142F48755-3D114B7511841AEFA9F-1168"> 禁用某一粒子 ID 的唯一办法是使其寿命为 0。例如：
+	 </p>
+<pre class="pre codeblock">
+//RUN TIME EXPRESSION FOR REMOVING PARTICLES AFTER THEY REACH
+//10 ON Y AXIS
+//GET THE POSITION OF PARTICLES
+vector $pos= particleShape1.position;
+//CHECK TO SEE IF THEY HAVE PASSED A CERTAIN Y VALUE (10 in this example)
+if ($pos.y&gt;=10)
+{
+int $pi=particleId;
+//PRINT IDs OF PARTICLES TO BE REMOVED
+print ($pi+"\n");
+particle -e -at lifespanPP -id $pi -fv 0 particle1;
+}
+</pre>
+<p class="p" id="GUID-3B7A0A5D-7C52-405D-B8AA-7C82D5E341AC__WS73099CC142F48755-3D114B7511841AEFA9F-1166">将该脚本附加到发射器：
+	 </p>
+<ol class="ol" id="GUID-3B7A0A5D-7C52-405D-B8AA-7C82D5E341AC__WS73099CC142F48755-3D114B7511841AEFA9F-1165"><li class="li" id="GUID-3B7A0A5D-7C52-405D-B8AA-7C82D5E341AC__WS73099CC142F48755-3D114B7511841AEFA9F-1164">显示 particalShape 并打开<span class="ph uicontrol" id="GUID-3B7A0A5D-7C52-405D-B8AA-7C82D5E341AC__GUID-4A0961CF-AB92-4BE6-91D5-4985C2E0D148">“属性编辑器”(Attribute Editor)</span>。
+		</li>
+<li class="li" id="GUID-3B7A0A5D-7C52-405D-B8AA-7C82D5E341AC__WS73099CC142F48755-3D114B7511841AEFA9F-1163">将寿命从<span class="ph uicontrol" id="GUID-3B7A0A5D-7C52-405D-B8AA-7C82D5E341AC__GUID-B772648A-9813-4B2E-A40F-772A9A50022E">“永生”(live forever)</span>更改为<span class="ph uicontrol" id="GUID-3B7A0A5D-7C52-405D-B8AA-7C82D5E341AC__GUID-986564AE-9F50-479C-8FDA-84B57C5DE649">“仅寿命 PP”(lifeSpanPP Only)</span>。
+		</li>
+<li class="li" id="GUID-3B7A0A5D-7C52-405D-B8AA-7C82D5E341AC__WS73099CC142F48755-3D114B7511841AEFA9F-1162">在<span class="ph uicontrol" id="GUID-3B7A0A5D-7C52-405D-B8AA-7C82D5E341AC__GUID-409A6C8E-EF09-4355-A042-3E7F7DB5A8B3">“每粒子(数组)属性”(Per Particle (Array) Attributes)</span>部分中，在<span class="ph uicontrol" id="GUID-3B7A0A5D-7C52-405D-B8AA-7C82D5E341AC__GUID-CE6C8DCA-C4AC-4B40-B25F-5BB8D7BC9790">“位置”(Position)</span>属性上单击鼠标右键并选择<span class="ph uicontrol" id="GUID-3B7A0A5D-7C52-405D-B8AA-7C82D5E341AC__GUID-96CD1FCB-2D66-493F-AAE3-8E68565607EF">“运行时表达式”(Runtime Expression)</span>（在动力学计算之前或之后）。
+		</li>
+<li class="li" id="GUID-3B7A0A5D-7C52-405D-B8AA-7C82D5E341AC__WS73099CC142F48755-3D114B7511841AEFA9F-1161">将该脚本粘贴到<span class="ph uicontrol" id="GUID-3B7A0A5D-7C52-405D-B8AA-7C82D5E341AC__GUID-6842BC05-FE10-4491-93AD-4C1305C27981">“表达式编辑器”(Expression Editor)</span>，然后单击<span class="ph uicontrol" id="GUID-3B7A0A5D-7C52-405D-B8AA-7C82D5E341AC__GUID-C40D3B95-BFE9-4987-B718-5ACB0B78C12F">“创建”(Create)</span>。
+		</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-ED9B9E68-6A50-4B97-884B-A04AB49673B4.htm">动画、动力学和渲染</a></div>
+</div>
+</div>
+
+</body>
+</html>

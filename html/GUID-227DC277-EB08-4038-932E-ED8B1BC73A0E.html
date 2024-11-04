@@ -1,0 +1,163 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Modeling">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E">
+<meta name="language" content="CHS">
+<title>减少网格中的面数</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>减少网格中的面数</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-7414"> <span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-1AD83B1D-9247-491B-9AD3-C7E3251C122C">“减少”(Reduce)</span>功能可以自动按指定的多边形总数百分比、目标顶点数或目标三角形数，减少网格中的多边形数。在减少过程中，<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-5203B837-29D6-4A9D-9FCF-D631EC38D9D8">“减少”(Reduce)</span>功能还会尝试保留原始形状。
+	 </p>
+<p class="p" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-7411">需要减少多边形网格中的多边形总数或要减少网格中特定区域的多边形数时，减少多边形数非常有用。例如，在交互式视频游戏中，可能需要以较少的多边形数量为高分辨率多边形模型创建低分辨率复本，用于不同级别的细节显示目的。又例如，要简化经过 3D 激光扫描的详细物理模型的多边形数据集。
+	 </p>
+<p class="p" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-7410">总的来说，在场景视图设置动画时，被简化的多边形模型数据会减少，且交互性能会改进。
+	 </p>
+<p class="p" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-740F">多边形减少量通过创建的 <span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-48453B17-C60B-4C19-8A8E-9414386405EE">polyReduce</span> 节点进行控制。通过此功能，可以尝试进行不同量的融合减少，并在希望将多边形网格恢复为其在减少前的原始状态时完全删除所有减少。
+	 </p>
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-740E" class="table" width="100%" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">目标
+				</th>
+<th class="entry" valign="top" width="50%">操作 
+				</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%"> 
+				  <p class="p" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-740D">减少网格中的面数。
+				  </p>
+ 
+				</td>
+<td class="entry" valign="top" width="50%"> 
+				  <p class="p" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-740C">选择要减少的面，然后选择“网格 &gt; 减少”<span class="ph menucascade" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-F3350F0E-885C-483D-BAEE-50727CF1EA8F"><span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-3DEEA309-3FB9-46F1-AAAD-D14244F566FE">(Mesh</span> &gt; <span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-51C1C432-AAE9-4155-B65A-C7A75885061E">Reduce)</span> &gt; <span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-B56D96C8-7EAD-474E-9A10-EDE725578729"><img class="image" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__IMAGE_2FE2A2BC29164276B0E121112DB6A893" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png"></span></span>。
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%"> 
+				  <p class="p" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-740B">保留当前的多边形网格，以便在更改选项的过程中可以比较原始版本和减少后的版本。
+				  </p>
+ 
+				</td>
+<td class="entry" valign="top" width="50%"> 
+				  <p class="p" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-740A">在<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-FF39B51B-D255-47E3-9C76-B104899A2DC9">“减少选项”(Reduce Options)</span>窗口中，启用<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-35FE603D-4DCD-4DBE-8808-8764DA16CB33">“保持原始”(Keep original)</span>选项。
+				  </p>
+ 
+				  <p class="p" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-7409">减少后的网格将沿 X 轴显示在原始网格旁边。
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%"> 
+				  <p class="p" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-3F62EABA-652E-4A5E-9598-78D626658FE1">启用对称减少。
+				  </p>
+ 
+				</td>
+<td class="entry" valign="top" width="50%"> 
+				  <p class="p" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-3B30C770-5459-472F-A083-9DDEBDF0CC80">在<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-CC37ADB2-414C-4777-AA19-4DE25F0A9CCB">“减少选项”(Reduce Options)</span>窗口中，从<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-C0B4D468-2CE6-4FFD-BD06-AFAE72D35908">“对称类型”(Symmetry type)</span>下拉列表中选择<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-0C1A4552-7042-40C9-86DE-F591382F0E9B">“自动”(Automatic)</span>或<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-616380CD-3629-4B13-8151-986781EBCD6A">“平面”(Plane)</span>。
+				  </p>
+ 
+				</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="p" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-7408">也可以使用 Artisan 绘画功能来指定多边形网格中希望多边形减少的区域。使用<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-9C23C4F2-032E-419F-BE2A-30152294F1E7">“绘制减少权重工具”(Paint Reduce Weights Tool)</span>绘制要减少的区域，可以更精确地控制多边形减少以及减少较少区域之间的融合。
+	 </p>
+<p class="li listintro" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-7406"> 使用<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-B1F816B6-479B-4315-B79F-32B8104C75CE">“绘制减少权重工具”(Paint Reduce Weights Tool)</span>更精确地控制要减少哪些区域</p>
+<ol class="ol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-7407"><li class="li" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-7404">选择要减少的面。
+		</li>
+<li class="li" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-7403">在<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-AEA4564D-A4C9-4760-8836-C25F08CEDE58">“建模”(Modeling)</span>菜单集中选择<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-15A22466-0C2F-4566-BF44-0FD76D12722C">“网格 &gt; 减少”(Mesh &gt; Reduce)</span> &gt; <img class="image" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__IMAGE_C9DFA9282ADA4864887479125109AE6C" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png">。
+		</li>
+<li class="li" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-7402">设置减少百分比、目标顶点数或目标三角形数并启用<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-12B8B27D-FAC0-4C20-B84C-B67A04AE0168">“保持原始”(Keep original)</span>，然后单击<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-37374CBE-2C63-433C-BFA9-88378334012A">“减少”(Reduce)</span>。
+		  <div class="note tip" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-0AD63F4F-1576-4967-9100-544E95D4B017"><span class="tiptitle">提示：</span> 在显示的<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-C9C88AA3-CE61-4389-9A19-B6456427EBA2.htm">视图中编辑器(In-View Editor)</a>中，可以继续调整 polyReduce 节点中的属性。
+		  </div>
+ 
+		  <p class="p" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-7401">减少后的网格将沿 X 轴显示在原始网格旁边。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-7400">选择<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-9EA6782D-F2B7-426D-AAFE-D2A39E03B595">“网格工具 &gt; 绘制减少权重工具”(Mesh Tools &gt; Paint Reduce Weights Tool)</span>。
+		</li>
+<li class="li" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-73FF">在原始多边形网格上绘制减少值。
+		  <p class="p" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-73FE">深色区域的减少程度将更高。浅色区域将会尽可能保持不变。
+		  </p>
+ 
+		  <p class="p" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-73FD">在原始网格上绘制时，减少后的版本会同时更新。
+		  </p>
+ 
+		</li>
+</ol>
+<div class="section" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-73FC"><h2 class="title sectiontitle">使用“网格 &gt;<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-2D475DE5-FF4F-4957-8AFF-A2ACF6B71870">减少</span>”(Mesh &gt; Reduce)的注意事项</h2> 
+		 
+		<ul class="ul" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-73FB"><li class="li" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-73FA"> 不能在减少后的版本上绘制减少权重。必须使用<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-23212DA8-4291-48E7-BDE7-FE789447EEE2">“保持原始”(Keep original)</span>选项并在原始对象上绘制。
+			 <p class="p" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-73F8">如果尝试在减少后的版本上绘制减少权重，<span class="ph msgph prodname" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 将自动选择原始版本。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-73F7">如果选择减少面（而不是减少整个网格），毗邻选择面的面可能会移动或也被减少。
+			 <p class="p" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-73F6">可通过在减少多边形前将其从网格中提取出来以避免此效果。启用<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-5ABD6492-3403-403F-8963-003ADB686043">“网格边界”(Mesh borders)</span>选项，稍后即可重新附加提取的网格。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-73F5">绘制减少权重时，<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-4B3CE143-6B82-4006-92BD-12752433FD0D">“绘制属性工具”(Paint Attributes Tool)</span>的默认设置是仅在完成笔划后更新。这是因为对大型网格进行减少操作需要较长时间。
+			 <p class="p" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-73F4">如果希望在绘制时更新减少后的版本，请选择“修改 &gt; 绘制属性工具”<span class="ph menucascade" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-393010B5-2F23-4033-9B44-CA2DCBAF980B"><span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-329AB11D-9731-4394-A020-22176D0F9621">(Modify</span> &gt; <span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-51EA65FF-1BCB-4058-811D-275184FEBF6C"> Paint Attributes Tool)</span> &gt; <span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-93B33408-D5ED-4972-A330-B085D00F2B57"><img class="image" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__IMAGE_A1F9C6748B9E413C95EE56D7CE63E892" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png"></span></span>，然后在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-8539DC98-B8EC-4C8D-B990-BD2212A5B144">“绘制属性工具”(Paint Attributes Tool)选项</a>中打开<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-7581E9FD-EDCA-4B96-98D1-7E79CDA4EDF0">“笔划”(Stroke)</span>部分，并启用<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-295C649B-BF04-4529-9C05-0D6FEF7B0087">“持续更新”(Update continuously)</span>。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-73F3">减少权重是一种偏移，而不是绝对控制。在某些极端情况下，绘制为白色但并不需要的多边形，仍将被减小以在其他位置保持形状。
+		  </li>
+<li class="li" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-73F2"> 
+			 <span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-404DF2EB-4BE2-40AC-AE4D-708EB65FBC03">“减少”(Reduce)</span>适用于四边形和 n 边多边形，但是，非平面多边形可能会变形和可能不会正常减少。
+		  </li>
+<li class="li" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-73F1"><span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-5CDBF50A-8A34-4A25-B35F-B1BAA785BC36">“保留四边形”(Preserve quads)</span>选项在某些情况下会产生扭曲效果。发生这种情况时，应减少<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-1445A51E-657F-4B73-9E8A-BA989D1BE90F">“保留四边形”(Preserve quads)</span>滑块值。
+		  </li>
+<li class="li" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-73F0">如果在绘制减少权重时想要将某个区域恢复为其原始状态，可以撤销绘制笔划或对网格整体应用黑色即可。
+		  </li>
+<li class="li" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__LI_88F6E8C9663F46EF8CEB373C5BBE4D63">将<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-A49ACF01-5E9C-4337-BDF1-38ACF72446AD">“减少选项”(Reduce Options)</span>的<span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-22C99281-3E01-4A1D-9A83-B91413032935">“功能保留”(Feature Preservation)</span>部分中的任何选项设置为 1.0 可确保这些组件不会因减少而改变。这可用于准确保留曲面相交处的边界边。
+		  </li>
+<li class="li" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__LI_6009E3EDFE8144668C93823235A87EC4"> <span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-9767E2FE-17DE-4CCA-BA38-7927725F7368">“减少”(Reduce)</span>功能会保留拓扑，因此，在减少多边形的数量之前，应先清理具有无关小控制柄的已扫描网格数据。
+		  </li>
+</ul>
+ 
+	 </div>
+<div class="section" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-73EF"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-73EE"><li class="li" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-73ED"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-B221E50B-08B8-455D-AD9D-3881CC91B1F7.htm">删除和简化多边形</a> 
+		  </li>
+<li class="li" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__WS73099CC142F48755-7B21313411809411AE9-73EC"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-49F4731D-4F59-4B98-9751-F0E1CAA675CD.htm">减少选项(Reduce Options)</a>（“网格 &gt; 减少”<span class="ph menucascade" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-F5008428-D57A-4955-A21B-148A4E80D8CF"><span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-972B1F60-977F-4D15-AA27-77415EA889B7">(Mesh</span> &gt; <span class="ph uicontrol" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__GUID-89B75C9D-E50F-4728-B615-B4273FE24D5B">Reduce)</span></span>） 
+		  </li>
+<li class="li" id="GUID-227DC277-EB08-4038-932E-ED8B1BC73A0E__LI_985A364A87CF4E899254F6D92CD6C280"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-576159C9-86A5-40CE-8B5F-282E3E206BE1.htm">绘制减少权重工具选项(Paint Reduce Weights Tool Options)</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-B221E50B-08B8-455D-AD9D-3881CC91B1F7.htm">删除和简化多边形</a></div>
+</div>
+</div>
+
+</body>
+</html>

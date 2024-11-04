@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-0B7FE62E-6D03-46E5-9F06-AFC86ED902C7">
+<meta name="language" content="CHS">
+<title>ShaderFX 游戏头发着色器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-0B7FE62E-6D03-46E5-9F06-AFC86ED902C7">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>ShaderFX 游戏头发着色器</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"><span class="ph uicontrol">“Shaderfx 游戏头发”(Shaderfx Game Hair)</span>着色器可用于直接在视口中查看模型逼真的游戏头发着色。您可以通过 <span class="ph uicontrol">Hypershade</span> 中的<span class="ph uicontrol">“创建”(Create)</span>选项卡创建此着色器。 
+	 </p>
+<p class="p">创建多边形条带以为头发建模。您可以使用<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A">将 XGen 基本体转化为多边形</a>工作流快速生成这些多边形条带。将<span class="ph uicontrol">“Shaderfx 游戏头发”(Shaderfx Game Hair)</span>着色器应用于这些多边形条带，然后将不透明贴图连接到该着色器以定义每根条带的发股，并连接分解贴图以提供受控噪波，使头发看起来更真实。然后，您可以在视口中预览头发着色。您可能希望调整每根条带的 UV，使发股布局变得更加多样化。 
+	 </p>
+<div class="fig fignone" id="GUID-0B7FE62E-6D03-46E5-9F06-AFC86ED902C7__FIG_56A164C6FBAD48BD8EA86D86F2268825"><img class="image" id="GUID-0B7FE62E-6D03-46E5-9F06-AFC86ED902C7__IMAGE_B46E64632F7948EAA059328B0F9EEFE4" src="../images/GUID-84941079-BE59-4450-A9EC-CD0C7EDC3E0D.png"></div>
+<p class="p"> 安装文件夹目录 <samp class="ph codeph">/presets/Assets/Textures</samp> 中为您提供了一系列专门绘制的不透明贴图和分解贴图。 
+	 </p>
+<p class="p">创建该着色器后，不透明贴图和分解贴图默认为已连接。 
+	 </p>
+<p class="p">将该着色器应用于网格之后，您可以按如下所示调整其属性： 
+	 </p>
+<dl class="dl"><dt class="dt dlterm">颜色 
+		  </dt>
+<dd class="dd">头发的颜色。此属性影响漫反射和次镜面反射颜色。 
+		  </dd>
+<dt class="dt dlterm">漫反射 
+		  </dt>
+<dd class="dd">头发漫反射强度的倍增。 
+		  </dd>
+<dt class="dt dlterm">主镜面反射强度 
+		  </dt>
+<dd class="dd">主镜面反射高光的倍增。 
+		  </dd>
+<dt class="dt dlterm">主镜面反射粗糙度 
+		  </dt>
+<dd class="dd">主镜面反射高光的粗糙度。 
+		  </dd>
+<dt class="dt dlterm">次镜面反射强度 
+		  </dt>
+<dd class="dd">次镜面反射高光的倍增。 
+		  </dd>
+<dt class="dt dlterm">次镜面反射粗糙度 
+		  </dt>
+<dd class="dd">次镜面反射高光的粗糙度。 
+		  </dd>
+<dt class="dt dlterm">次镜面反射偏移 
+		  </dt>
+<dd class="dd">次镜面反射高光远离灯光的偏移量。应先将此值设置为大于 0 以模拟在毛囊内部散射的光子，然后在与漫反射和次镜面反射高光相同的一侧退出。 
+		  </dd>
+<dt class="dt dlterm">后散射 
+		  </dt>
+<dd class="dd">模拟穿过头发散射和从入射方向消散的灯光。 
+		  </dd>
+<dt class="dt dlterm">分解贴图 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p">连接贴图以将受控噪波添加到头发，使发股看起来彼此相交和编织，从而呈现出更逼真的外观。 
+			 </p>
+ 
+			 <p class="p">纹理默认为已连接。若要映射到其他纹理，请导航到连接至<span class="ph uicontrol">“分解贴图”(Breakup Map)</span>属性的文件节点，然后通过<span class="ph uicontrol">“图像名称”(Image Name)</span>属性选择其他文件。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm">不透明贴图 
+		  </dt>
+<dd class="dd"> 
+			 <p class="p">用于定义发股的纹理贴图。它决定了多边形条带的不透明度，使每根条带看起来像一束头发。 
+			 </p>
+ 
+			 <p class="p">纹理默认为已连接。若要映射到其他纹理，请导航到连接至<span class="ph uicontrol">“不透明贴图”(Opacity Map)</span>属性的文件节点，然后通过<span class="ph uicontrol">“图像名称”(Image Name)</span>属性选择其他文件。 
+			 </p>
+ 
+		  </dd>
+<dt class="dt dlterm"> 不透明度 
+		  </dt>
+<dd class="dd">用于确定多边形条带的不透明度的量，乘以不透明贴图。 
+		  </dd>
+<dt class="dt dlterm">自阴影量 
+		  </dt>
+<dd class="dd">应用于头发的阴影数量。 
+		  </dd>
+</dl>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-50D16E12-5E09-4DE9-A572-302C5C00FC03.htm">创建 ShaderFX 着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

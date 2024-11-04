@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Bifrost">
+<meta name="created" content="30/7/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="17/04/2023">
+<meta name="topicid" content="GUID-C6AFFC0B-AEDB-4B63-BC21-2A6DFFBCB6D6">
+<meta name="language" content="CHS">
+<title>控制 Bifrost 模拟的体素分辨率</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-C6AFFC0B-AEDB-4B63-BC21-2A6DFFBCB6D6">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>控制 Bifrost 模拟的体素分辨率</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 体素大小是 Bifrost 模拟分辨率的主控件。体素大小越大，提供的细节越低，这有助于在调整设置的同时进行快速测试和预览。体素大小越小，最终输出时提供的细节越高，精度也越好。
+	 </p>
+<p class="p">体素大小的主要设置是主要特性的<span class="ph uicontrol">“分辨率”(Resolution)</span>属性组中的<span class="ph uicontrol">“主体素大小”(Master Voxel Size)</span>。这将确定用于流体模拟本身的体素大小。它也是用于体素化模拟中所用网格（包括发射器、碰撞对象和其他对象）的基础大小。请注意，当您更改<span class="ph uicontrol">“主体素大小”(Master Voxel Size)</span>时，可能还需要调整时间自适应性设置。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-2736BED6-E4B6-4BF5-9824-5A8AD99763DD.htm">优化 Bifrost 模拟可提高精确度（而不是内存和计算速度）</a>。
+	 </p>
+<p class="p">此外，还可通过额外控件控制体素化模拟中所用网格的大小。每个网格特性（例如，发射器或碰撞对象特性）对应的<span class="ph uicontrol">“转化”(Conversion)</span>组中都存在影响最初如何体素化关联网格的<span class="ph uicontrol">“体素比例”(Voxel Scale)</span>属性。液体模拟也具有附加全局控件，用于控制组合体素化网格的大小：碰撞对象和其他网格的全局<span class="ph uicontrol">“体素比例”(Voxel Scale)</span>属性位于主液体容器中；对于导向模拟，<span class="ph uicontrol">“导向体素比例”(Guide Voxel Scale)</span>属性位于全局导向特性中。发射器没有全局比例属性。
+	 </p>
+<div class="p">网格体素化分两步完成。对于液体模拟：
+	 <ul class="ul" id="GUID-C6AFFC0B-AEDB-4B63-BC21-2A6DFFBCB6D6__UL_3AF97CAB8C7D4A5CB9451EBB48033E67"><li class="li" id="GUID-C6AFFC0B-AEDB-4B63-BC21-2A6DFFBCB6D6__LI_66B24F3F639344CC92D6FB35A935F1DE">网格最初转化为大小等于 (网格<span class="ph uicontrol">“体素比例”(Voxel Scale)</span>)×(全局<span class="ph uicontrol">“体素比例”(Voxel Scale)</span>)×(<span class="ph uicontrol">“主体素大小”(Master Voxel Size)</span>) 的体素。此外，也会使用该大小应用<span class="ph uicontrol">“厚度”(Thickness)</span>。发射器只需使用(网格<span class="ph uicontrol">“体素比例”(Voxel Scale)</span>)×(<span class="ph uicontrol">“主体素大小”(Master Voxel Size)</span>)。
+		</li>
+<li class="li" id="GUID-C6AFFC0B-AEDB-4B63-BC21-2A6DFFBCB6D6__LI_9F8896771BCC4A0389FD99EB0C4BF948">在初始体素化之后，相同类型的对象将组合在一起，其体素大小等于(全局<span class="ph uicontrol">“体素比例”(Voxel Scale)</span>)×(<span class="ph uicontrol">“主体素大小”(Master Voxel Size)</span>)。发射器只需使用<span class="ph uicontrol">“主体素大小”(Master Voxel Size)</span>。
+		</li>
+</ul>
+ 
+	 </div>
+<p class="p">例如，如果任何碰撞对象无需细节，则可将全局<span class="ph uicontrol">“碰撞</span> &gt; <span class="ph uicontrol">体素比例”(Collision &gt; Voxel Scale)</span>设置为大于 1.0 的值，从而节省时间和内存。另一方面，如果特定碰撞对象无需细节，则可在相应的碰撞对象特性中将<span class="ph uicontrol">“体素比例”(Voxel Scale)</span>设置为大于 1.0 的值，这样做最终不会节省内存，因为这些碰撞对象将以较小的体素大小组合在一起，但是可能缩短体素化细节较少的大型网格所需的时间。
+	 </p>
+<p class="p">特别是，如果将碰撞对象特性中的<span class="ph uicontrol">“体素比例”(Voxel Scale)</span>设置为小于 1.0 的值以在特定网格中显示更多细节，当以较大的体素大小将碰撞对象组合在一起时可能会丢失该细节的一部分。如果特定网格需要高细节，则应使用小于 1.0 的全局<span class="ph uicontrol">“体素比例”(Voxel Scale)</span>，并在其他网格的网格特性中使用大于 1.0 的<span class="ph uicontrol">“体素比例”(Voxel Scale)</span>。
+	 </p>
+<p class="p">对于 Aero 模拟，对象最初以(网格<span class="ph uicontrol">“体素比例”(Voxel Scale)</span>)×(<span class="ph uicontrol">“主体素大小”(Master Voxel Size)</span>)体素化，然后以<span class="ph uicontrol">“主体素大小”(Master Voxel Size)</span>组合。此外，还可以减小 Aero 模拟的<span class="ph uicontrol">“体素大小渲染因子”(Voxel Size Render Factor)</span>来增加用于渲染的细节，而不必提高 FLIP 模拟本身的分辨率。
+	 </p>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-490292AC-38B2-4D13-9F41-9E959A767064.htm">使用 Bifrost 模拟流体</a></div>
+</div>
+</div>
+
+</body>
+</html>

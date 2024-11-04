@@ -1,0 +1,300 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_extensions_am_Translator_of_a_custom_node_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_TRANSLATOR_OF_A_CUSTOM_NODE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 自定义节点的转换器 - Arnold for Maya">
+
+<title>自定义节点的转换器</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+      <script src="../scripts/lang-cmd.js"></script>
+      <script src="../scripts/lang-bash.js"></script>
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>自定义节点的转换器</h1></div><p>首先，我们将创建一个非常基本的 Maya 插件，由它定义一个自定义节点：</p>
+<p><strong>myPlugin.cpp</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#include &lt;maya/MFnPlugin.h&gt;
+#include "myNode.h"
+
+MTypeId mySimpleNode::id(0x00070005);
+MObject mySimpleNode::s_value;
+
+void* mySimpleNode::creator()
+{
+    return new mySimpleNode();
+}
+
+MStatus mySimpleNode::initialize()
+{
+    MFnNumericAttribute nAttr;
+
+    s_value = nAttr.create("my_attribute", "ma", MFnNumericData::kFloat, 0.5f);
+    nAttr.setSoftMin(0);
+    nAttr.setSoftMax(1);
+    nAttr.setMin(0);
+    nAttr.setMax(10);
+    addAttribute(s_value);
+
+    return MS::kSuccess;
+}
+
+
+MStatus initializePlugin(MObject obj)
+{
+    MStatus status;
+    MFnPlugin plugin(obj, "My Company", "1.0", "Any");
+
+    status = plugin.registerNode("mySimpleNode",
+                                 mySimpleNode::id,
+                                 mySimpleNode::creator,
+                                 mySimpleNode::initialize,
+                                 MPxNode::kLocatorNode);
+    if (!status) {
+        status.perror("registerNode");
+        return status;
+    }
+
+    return status;
+}
+
+
+MStatus uninitializePlugin(MObject obj)
+{
+    MStatus status;
+    MFnPlugin plugin(obj);
+
+    status = plugin.deregisterNode(mySimpleNode::id);
+    if (!status) {
+        status.perror("deregisterNode");
+        return status;
+    }
+
+    return status;
+}
+</code></pre>
+<p>然后对其进行编译。</p>
+<p><strong>Windows</strong></p>
+<p>打开 Visual Studio 命令提示符，然后执行以下命令：</p>
+<p>首先，设置 <code>MAYA_PATH</code> 和 <code>MTOA_PATH</code> 环境变量（根据需要更改 Maya 和 MtoA 版本）：</p>
+<pre class="pre codeblock"><code class="lang-cmd prettyprint">set MTOA_PATH="C:\solidangle\mtoadeploy\20XX"
+set MAYA_PATH="C:\Program Files\Autodesk\Maya20XX" </code></pre>
+<pre class="pre codeblock"><code class="prettyprint">cl /c myPlugin.cpp /EHsc /MD /DNT_PLUGIN /DREQUIRE_IOSTREAM /I%MAYA_PATH%\include
+
+link /dll myPlugin.obj /LIBPATH:%MAYA_PATH%\lib OpenGl32.lib glu32.lib Foundation.lib OpenMaya.lib OpenMayaRender.lib OpenMayaUI.lib OpenMayaAnim.lib OpenMayaFX.lib /export:initializePlugin /export:uninitializePlugin /OUT:myPlugin.mll</code></pre><p><strong>Linux/MacOS</strong></p>
+<p>设置这些环境变量，以便更轻松地设置编译时所针对的 Maya 和 MtoA 版本</p>
+<pre class="pre codeblock"><code class="lang-bash prettyprint">export MTOA_PATH="/usr/autodesk/arnold/20XX"
+export MAYA_PATH="/usr/autodesk/Maya20XX" </code></pre>
+<pre class="pre codeblock"><code class="lang-bash prettyprint"> g++ -o myPlugin.o -c -fvisibility=hidden -Wno-reorder \
+-DBits64\_ -m64 -DUNIX -D_BOOL -DLINUX -DFUNCPROTO -D_GNU_SOURCE \
+-DLINUX_64 -fPIC \
+-fno-strict-aliasing -DREQUIRE\_IOSTREAM -O3 -Wall \
+-Wno-multichar -Wno-comment -Wno-sign-compare -funsigned-char \
+-pthread \
+-std=c++11 \
+-Wno-deprecated -Wno-reorder \
+-fno-gnu-keywords \
+-I. -I${MAYA_PATH}/include -I/usr/X11R6/include\
+-lOpenMaya -lOpenMayaRender -lOpenMayaUI -lFoundation -lGL \
+myPlugin.cpp
+
+
+
+g++ -o myPlugin.so -fvisibility=hidden -Wno-reorder \
+-DBits64_ -m64 -DUNIX -D_BOOL -DLINUX -DFUNCPROTO -D_GNU_SOURCE \
+-DLINUX_64 -fPIC \
+-fno-strict-aliasing -DREQUIRE_IOSTREAM -O3 -Wall \
+-Wno-multichar -Wno-comment -Wno-sign-compare -funsigned-char \
+-pthread \
+-std=c++11 \
+-Wno-deprecated -Wno-reorder \
+-fno-gnu-keywords \
+-Wl,-Bsymbolic -shared myPlugin.o \
+-L${MAYA\_PATH}/lib -lOpenMaya -lOpenMayaRender -lOpenMayaUI -lFoundation -lGL
+
+</code></pre>
+<p>通过将生成的 <code>myPlugin.mll/.so/.dylib</code> 添加到 <code>MAYA_PLUIGN_PATH</code> 环境变量，在 Maya 中加载它，然后即可创建 <code>mySimpleNode</code> 节点实例。</p>
+<p>在脚本编辑器中使用 MEL 键入以下内容： </p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">loadPlugin("myPlugin");
+createNode("mySimpleNode");</code></pre>
+<p>此节点的转换器非常简单，但这次，我们将从 <code>CDagTranslator</code>（而非 <code>CNodeTranslator</code>）继承转换器，这样将可以使用 DAG 节点特定的方法，如导出变换矩阵。</p>
+<p><strong>test.h</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#include "translators/DagTranslator.h"
+
+class CTestTranslatorCmd
+    : public CDagTranslator
+{
+public:
+    AtNode* CreateArnoldNodes();
+    void Export(AtNode*);
+    static void* creator();
+};</code></pre>
+<p>然后，我们将定义导出 Arnold 球体的方法，从节点获取矩阵，然后将节点属性导出到球体半径。</p>
+<p><strong>test.cpp</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#include "test.h"
+
+#include &lt;ai_msg.h&gt;
+#include &lt;ai_nodes.h&gt;
+
+void CTestTranslatorCmd::Export(AtNode* node)
+{
+    AiMsgInfo("[test extension] Exporting %s", GetMayaNodeName().asChar());
+    // Export the transform matrix
+    ExportMatrix(node);
+
+    AiNodeSetFlt(node, AtString("radius"), FindMayaPlug("my_attribute").asFloat());
+}
+
+AtNode* CTestTranslatorCmd::CreateArnoldNodes()
+{
+    return AddArnoldNode("sphere");
+}
+
+void* CTestTranslatorCmd::creator()
+{
+    return new CTestTranslatorCmd();
+}</code></pre>
+<p>我们使用以下方法加载扩展：</p>
+<p><strong>plugin1.cpp</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#include "test.h"
+#include "myPlugin.cpp"
+#include "extension/Extension.h"
+
+extern "C"
+{
+
+DLLEXPORT void initializeExtension(CExtension &amp;plugin)
+{
+    plugin.Requires ( "myPlugin" );
+
+    plugin.RegisterTranslator("mySimpleNode",
+                              "",
+                              CTestTranslatorCmd::creator);
+}
+
+DLLEXPORT void deinitializeExtension(CExtension &amp;plugin)
+{
+}
+}</code></pre>
+<p>此外，我们也可以将这个自定义 Maya 节点放在扩展本身中，这样就不需要再加载插件。<br>首先，我们通过移除 <code>initializePlugin</code> 和 <code>uninitializePlugin</code> 方法来简化自定义 Maya 节点插件：</p>
+<p><strong>myNode.cpp</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#include "myNode.h"
+
+
+MTypeId mySimpleNode::id(0x00070006);
+MObject mySimpleNode::s_value;
+
+void* mySimpleNode::creator()
+{
+    return new mySimpleNode();
+}
+
+MStatus mySimpleNode::initialize()
+{
+    MFnNumericAttribute nAttr;
+
+
+    s_value = nAttr.create("my_attribute", "ma", MFnNumericData::kFloat, 0.5f);
+    nAttr.setSoftMin(0);
+    nAttr.setSoftMax(1);
+    nAttr.setMin(0);
+    nAttr.setMax(10);
+    addAttribute(s_value);
+
+    return MS::kSuccess;
+}</code></pre>
+<p>我们需要将声明移至单独的标头：</p>
+<p><strong>myNode.h</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#include &lt;maya/MPxLocatorNode.h&gt;
+#include &lt;maya/MFnNumericAttribute.h&gt;
+#include &lt;maya/MTypeId.h&gt;
+
+
+class mySimpleNode : public MPxLocatorNode
+{
+public:
+    mySimpleNode(){};
+    virtual ~mySimpleNode(){};
+
+    static void* creator();
+    static MStatus initialize();
+    static MTypeId id;
+
+    static MObject s_value;
+};
+</code></pre>
+<p>我们不需要修改转换器，但是要在 <code>initializeExtension</code> 方法中做以下更改：</p>
+<p><strong>plugin2.cpp</strong></p>
+<pre class="pre codeblock"><code class="lang-cpp prettyprint">#include "test.h"
+#include "myNode.h"
+#include "extension/Extension.h"
+
+extern "C"
+{
+
+DLLEXPORT void initializeExtension(CExtension &amp;plugin)
+{
+    plugin.RegisterNode("mySimpleNode",
+                        mySimpleNode::id,
+                        mySimpleNode::creator,
+                        mySimpleNode::initialize,
+                        MPxNode::kLocatorNode);
+
+    plugin.RegisterTranslator("mySimpleNode",
+                              "",
+                              CTestTranslatorCmd::creator);
+}
+
+DLLEXPORT void deinitializeExtension(CExtension &amp;plugin)
+{
+}
+}</code></pre>
+<p>现在，当使用 MtoA 加载扩展时，我们的自定义节点及其转换器将会正确注册。</p>
+<p>渲染后，它将生成简单的球体基本体</p>
+<img src="../images/am-technical_custom_node_render.png" style="width:600px">
+
+<p>自定义节点具有名为 <code>my_attribute</code> 的简单属性，该属性将控制球体的半径</p>
+<img src="../images/am-technical_custom_node_attribute.png" style="width:600px">
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Technical/arnold_for_maya_technical_am_Writing_Extensions_html.html">编写扩展</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

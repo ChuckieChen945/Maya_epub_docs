@@ -1,0 +1,95 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_userdata_am_Ai_User_Data_String_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_AI_USER_DATA_STRING">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" Ai 用户数据字符串 - Arnold for Maya">
+
+<title>Ai 用户数据字符串</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>Ai 用户数据字符串</h1></div><p>本简短教程介绍如何使用 <em>Ai 用户数据字符串*着色器。在此示例中，多个纹理可连接到不同的对象，并且是使用同一 *<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Surface_html">standard_surface</a></em> 着色器。</p>
+<p><strong>有关对应的 Maya 场景，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/user_data_string.zip" target="_blank">此处</a>。</strong></p>
+<ul>
+<li><p>创建一个球体，并向形状节点（而非变换节点）添加一个附加属性。使用向下键 (<code>pickWalkDown</code>) 选择形状节点。</p>
+</li>
+<li><p>添加长名称 -<strong>“mtoa_constant_Texture”</strong>（“Texture”是我们将为 Ai 用户数据字符串节点使用的前缀，但您也可以随意命名（不要使用“name”，此名称不起作用）。将<strong>“数据类型”(Data Type)</strong>设置为<strong><em>“字符串”(String)</em></strong>。</p>
+</li>
+</ul>
+<p><img src="../images/am-Ai_User_Data_String-image2016-5-4-15-27-48-1.png" alt=""></p>
+<p><sub><strong>字符串 Maya 属性</strong></sub></p>
+<ul>
+<li>选择球体的形状节点。在<strong>“附加属性”(Extra Attributes)</strong>下，应该可以看到新创建的属性 -<strong><em>“mtoa_constant_Texture”</em></strong>。在此属性旁边的文本字段中，键入纹理的完整路径名（必须为绝对路径名）。</li>
+</ul>
+<p><img src="../images/am-Ai_User_Data_String-image2016-5-4-15-29-17-2.png" alt="">  </p>
+<ul>
+<li><p>将一个 <em>standard_surface</em> 着色器指定给球体。将一个文件纹理连接到 <strong><em>base_color</em></strong> 属性。创建一个 <strong>Ai 用户数据字符串</strong>节点。</p>
+</li>
+<li><p>打开这两者的连接编辑器。将 <strong>Ai 用户数据字符串</strong>节点的 <strong><em>outValue</em></strong> 属性连接到“文件纹理”节点的 <strong><em>fileTextureName</em></strong> 属性：</p>
+</li>
+</ul>
+<p><img src="../images/am-Ai_User_Data_String-image2016-5-4-15-33-5-3.png" alt=""></p>
+<p>着色器网络应类似下图：</p>
+<p><img src="../images/am-Ai_User_Data_String-image2017-4-6-10-12-18-4.png" alt=""></p>
+<p><sub><strong>Ai 用户数据字符串节点连接到文件纹理节点</strong></sub></p>
+<ul>
+<li>选择 <strong>Ai 用户数据字符串</strong>节点，并键入之前添加到球体属性的前缀（在本例中为<strong><em>“Texture”</em></strong>）。</li>
+</ul>
+<p><img src="../images/am-Ai_User_Data_String-image2016-5-4-15-34-5-5.png" alt=""></p>
+<ul>
+<li>渲染场景。此时球体将使用添加到球体属性的纹理路径进行渲染。</li>
+</ul>
+<p><img src="../images/am-Ai_User_Data_String-image2016-5-4-15-41-30-6.png" alt=""></p>
+<ul>
+<li>复制球体。在第二个球体的<strong>“附加属性”(Extra Attributes)</strong>下，键入第二个纹理贴图的完整路径名（绝对路径名）。</li>
+</ul>
+<p><img src="../images/am-Ai_User_Data_String-image2017-4-6-10-7-7-7.png" alt=""></p>
+<ul>
+<li>渲染场景。现在，这两个球体都使用相同的 <em>standard_surface</em> 着色器，但分别具有指定给它们的纹理。</li>
+</ul>
+<p><img src="../images/am-Ai_User_Data_String-image2016-5-4-15-41-15-8.png" alt=""></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Shading/arnold_for_maya_shading_am_User_Data_Tutorials_html.html">用户数据教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

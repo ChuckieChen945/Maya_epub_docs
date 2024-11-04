@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194">
+<meta name="language" content="CHS">
+<title>创建网格 nCloth</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>创建网格 nCloth</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF11D4ED1B128F2317A081B22"><p class="p" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__WS1A9193826455F5FF6026605B1181C8F4F2E-1F63">在创建 nCloth 对象时可能会出现下列情况：创建新的 Maya Nucleus 系统节点并为选定网格建立新的连接，nCloth 控制柄将显示在新的 nCloth 对象中。如果选定的多边形网格由四边形组成，Maya Nucleus 解算器还可以细分选定的多边形网格并生成交叉链接。如果选定的多边形网格由三角形组成，则不会为选定的多边形网格生成交叉链接。 </p>
+<p class="p" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__WS1A9193826455F5FF6026605B1181C8F4F2E-1F62">可以使用 nCloth 控制柄快速选择 nCloth 的形状节点 (<samp class="ph codeph" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__GUID-43E99A06-0A83-489B-B34E-3C72B40BB8BA">nClothShape</samp>)，然后成为<span class="ph uicontrol" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__GUID-7DE5617C-334A-46BF-B871-DB2A79BAA86A">“属性编辑器”(Attribute Editor)</span>中的当前选择。 </p>
+<div class="fig fignone" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__WS1A9193826455F5FF6026605B1181C8F4F2E-1F61"><img class="image" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__IMAGE_5669189EE5E2417EB5C0928F79022D1E" width="441" height="305" src="../images/GUID-162FDDC3-291C-47C4-846D-72AB13658215.png"></div>
+<p class="p" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__WS1A9193826455F5FF6026605B1181C8F4F2E-1F60">每个 nCloth 对象均由两个独立网格组成：输入网格 (pMeshShape) 和输出网格 (outputCloth)。 </p>
+<p class="p" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__WS1A9193826455F5FF6026605B1181C8F4F2E-1F5F">输入网格提供了 nCloth 对象模拟的开始状态。首次创建 nCloth 时，其输入网格状态与开始帧的 nCloth 原始网格状态相同。但是，可以通过设定 nCloth 的初始状态来更改 nCloth 使用其输入信息的方式。 </p>
+<p class="p" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__WS1A9193826455F5FF6026605B1181C8F4F2E-1F5E">初始状态存储 nCloth 当前输出网格的点位置和速度或具有匹配拓扑的选定网格，作为 nCloth 模拟新的开始状态。可以在模拟过程中的任何时候，使用<span class="ph uicontrol" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__GUID-6DCB3017-8F57-4B35-9F74-E0CE3903CC56">“字段/nSolver &gt; 初始状态 &gt; 为选定对象设置”(Fields/nSolver &gt; Initial State &gt; Set for Selected)</span>或<span class="ph uicontrol" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__GUID-78DDB8F6-A9FF-4473-A765-C49761BB3517">“nSolver &gt; 初始状态 &gt; 从网格设置”(nSolver &gt; Initial State &gt; Set from Mesh)</span>菜单项设置 nCloth 的初始状态。设定 nCloth 的初始状态不会永久改变其输入网格的形状。可以使用<span class="ph uicontrol" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__GUID-9E5FD6BB-4AA7-47A4-B8BA-7F70B262FFE2">“nSolver &gt; 初始状态 &gt; 清除初始状态”(nSolver &gt; Initial State &gt; Clear Initial State)</span>菜单项移除 nCloth 的初始状态。默认情况下，nCloth 的输入网格隐藏在场景视图中。若要查看 nCloth 的输入网格，请选择<span class="ph uicontrol" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__GUID-74A1C36E-1415-485B-9302-6A5984C3084E">“nCloth &gt; 显示输入网格”(nCloth &gt; Display Input Mesh)</span>。 </p>
+<div class="note note" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__WS1A9193826455F5FF6026605B1181C8F4F2E-1F5D"><span class="notetitle">注：</span> 
+<p class="p" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__GUID-2FDF8172-3DCF-4F33-AA18-5D5C3F05890F">某些 nCloth 特性会使用输入网格。例如，<span class="ph uicontrol" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__GUID-3077A2AC-6767-4183-9731-61B7D0BED5DD">“输入网格吸引”(Input Mesh Attract)</span>和<span class="ph uicontrol" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__GUID-BE0C8DCC-2193-464C-A1AC-4DC814D1AB27">“皱褶贴图”(Wrinkle Map)</span>。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-99C0FE0F-8A37-4EA5-99C2-E08A0EF437A5.htm">nClothShape</a>。 </p>
+
+</div>
+<p class="p" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__WS1A9193826455F5FF6026605B1181C8F4F2E-1F5C">输出网格是指在播放场景时看到的在场景视图中模拟的 nCloth。在编辑 nCloth 的 <samp class="ph codeph" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__GUID-2E532461-B9B1-465E-9930-E1021BA84ADA">nClothShape</samp> 节点特性时，将会看到对其输出网格行为所作的更改。 </p>
+<p class="p" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__WS1A9193826455F5FF6026605B1181C8F4F2E-1F5B">如果要在模拟过程中指定 nCloth 尝试实现的形状，可以将 nCloth 设定为静止形状。静止形状确定了 nCloth 在模拟过程中的静止长度和默认弯曲角度。默认情况下，nCloth 的静止形状与开始帧的 nCloth 原始网格状态相同。但是，可以从 nCloth 的开始形状或具有匹配拓扑的选定网格中，使用<span class="ph uicontrol" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__GUID-5B2F739C-B7AD-48D0-B407-5700AD73189D">“nCloth &gt; 静止形状”(nCloth &gt; Rest Shape)</span>菜单项设置 nCloth 的静止形状。 </p>
+<p class="p" id="GUID-4004174F-8C3A-43CC-8B1C-D7DFD3EC8194__WS1A9193826455F5FF6026605B1181C8F4F2E-1F5A">有关如何创建 nCloth 对象的详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-6A645A7C-1583-476D-86EA-B56E317B8D6F.htm">创建或移除 nCloth</a>。 </p>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-6FB65F16-528E-40F5-89D6-508CF654C547.htm">nCloth 概述和概念</a></div>
+</div>
+</div>
+
+</body>
+</html>

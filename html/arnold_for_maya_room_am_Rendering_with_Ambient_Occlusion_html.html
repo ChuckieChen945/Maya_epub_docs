@@ -1,0 +1,115 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_room_am_Rendering_with_Ambient_Occlusion_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_RENDERING_WITH_AMBIENT_OCCLUSION">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用环境光遮挡进行渲染 - Arnold for Maya">
+
+<title>使用环境光遮挡进行渲染</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>使用环境光遮挡进行渲染</h1></div><p><img src="../images/am-Rendering_with_Ambient_Occlusion-amb-over-diffuse-image-1--1.jpg" alt=""></p>
+<p><sub><strong><span style="color: rgb(0,0,0);">通过后期处理软件组合的环境光遮挡和直接照明渲染</span></strong></sub></p>
+<p>另一种为房间照明的方法是使用<a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Lighting/am-Lighting_a_Room/arnold_for_maya_room_am_Rendering_with_Ambient_Occlusion_html.html">环境光遮挡</a>。其典型的工作流是将环境光遮挡渲染合成到没有任何 <a href="https://help.autodesk.com/display/A5AFMUG/Samples#Samples-Diffuse">GI 漫反射光线</a>的漫反射渲染图像上。其优点在于，通常渲染速度更快，并且可以在合成时给予更多的创意控制。您也不需要向场景中添加任何 GI 漫反射或 GI 光泽光线。但是，它并不是一种物理上精确的方法，并且需要具备一定的合成经验才能微调最终外观。</p>
+<p><img src="../images/am-Rendering_with_Ambient_Occlusion-image2013-7-9-18-3-37-2.png" alt=""></p>
+<h2 id="ai">Ai 环境光遮挡着色器</h2><ul>
+<li>首先，创建一个 <a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Lighting/am-Lighting_a_Room/arnold_for_maya_room_am_Rendering_with_Ambient_Occlusion_html.html">Ai 环境光遮挡</a>着色器，并将其指定给房间几何体。将环境光遮挡着色器的<strong>“采样数”(Samples)</strong>增加到 <strong><em>6</em></strong> 左右会减少与此着色器相关的任何噪波。</li>
+<li>使用环境光遮挡着色器渲染该场景。结果应如下图所示：</li>
+</ul>
+<p><img src="../images/am-Rendering_with_Ambient_Occlusion-ambient-occlusion-render-3.jpg" alt=""></p>
+<p><sub><strong>仅使用 Ai 环境光遮挡着色器进行渲染的结果</strong></sub></p>
+<h2 id="">直接照明渲染</h2><ul>
+<li>现在只使用直接照明来渲染场景（本例中在窗户外面布置了<a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Lighting/am-Lighting_a_Room/arnold_for_maya_room_am_Rendering_with_Ambient_Occlusion_html.html">区域光</a>，但您可以尝试其他灯光，例如 _skydome_light_）。但是，在本例中，请确保 GI 漫反射采样数设置为 0。您应该会注意到，渲染此场景时没有任何反弹光，因而后墙将为黑色。我们将在 Nuke 中使用环境光遮挡来“填充”没有 GI 漫反射反弹光的区域。</li>
+</ul>
+<p><strong><img src="../images/am-Rendering_with_Ambient_Occlusion-Area-lights-No-Indirect-Diffuse-Depth-1-4.jpg" alt=""></strong></p>
+<p><sub><strong><span style="color: rgb(0,0,0);">直接灯光（间接灯光为 0）。</span></strong></sub></p>
+<h2 id="a-href-topicid-arnold_for_maya_room_am_rendering_with_ambient_occlusion_html-a"><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_room_am_Rendering_with_Ambient_Occlusion_html">合成</a></h2><ul>
+<li>在 Nuke 中同时打开这两个渲染。创建一个<strong><em>合并</em></strong>节点，将<strong>环境光遮挡</strong>渲染连接到<strong><em>“A”</em></strong>输入，将<strong>直接灯光</strong>连接到<strong><em>“合并”</em></strong>节点的<strong><em>“B”</em></strong>输入。确保将<strong>“操作”(Operation)</strong>设置为<strong><em>“覆盖”(Over)</em></strong>。将<strong><em>“混合”(mix)</em></strong>调整为 <strong><em>0.5</em></strong> 左右。您应该会发现，“直接灯光”图像的黑色区域出现了环境光遮挡。显而易见，我们实际上通过一种“作弊”的方式使用环境光遮挡实现了反弹光的效果。</li>
+</ul>
+<p><img src="../images/nuke-merge.jpg" alt=""></p>
+<p><sub><strong>环境光遮挡渲染与漫反射渲染合并（无 GI）</strong></sub></p>
+<p>下面的图像显示了将“环境光遮挡”渲染合并（覆盖）到漫反射照明（无 GI）渲染后的结果。这种方法的优势在于渲染速度较快，并且不含任何 GI 噪波。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_with_Ambient_Occlusion-amb-over-diffuse-image-6.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_with_Ambient_Occlusion-ambient-occlusion-amb-over-diffuse-7.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_with_Ambient_Occlusion-Area-lights-No-Indirect-Diffuse-Depth-1-8.jpg" alt=""></td>
+</tr>
+<tr>
+<td>环境光遮挡和直接灯光渲染合并在一起</td>
+<td>环境光遮挡渲染</td>
+<td>直接灯光（间接灯光为 0）</td>
+</tr>
+</tbody></table>
+<p>下面的图像显示了使用设置为<strong><em>“平面”(Flat)</em></strong>颜色的 <strong>Ai 工具</strong>着色器进行渲染的结果，及其与环境光遮挡 AOV <a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/merge.jpg" target="_blank">合并</a>后的结果。通过这种方法可以非常快速地进行渲染，但渲染的效果远达不到照片级水准。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Rendering_with_Ambient_Occlusion-ambient-occlusion-render2-9.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_with_Ambient_Occlusion-flat-color-10.jpg" alt=""></td>
+<td><img src="../images/am-Rendering_with_Ambient_Occlusion-nuke-flat-color-occsusion-11.jpg" alt=""></td>
+</tr>
+<tr>
+<td>环境光遮挡</td>
+<td>工具着色器设置为纯色</td>
+<td>环境光遮挡和工具着色器合并在一起</td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Lighting/arnold_for_maya_lighting_am_Lighting_a_Room_html.html">对房间进行照明</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

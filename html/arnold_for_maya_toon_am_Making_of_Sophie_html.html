@@ -1,0 +1,206 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_toon_am_Making_of_Sophie_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_MAKING_OF_SOPHIE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 制作 Sophie - Arnold for Maya">
+
+<title>制作 Sophie</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>制作 Sophie</h1></div><p><img src="../images/am-Making_of_Sophie-sophie-tutorial-1.jpg" alt=""></p>
+<p>在此制作教程中，我们将分步介绍如何使用<em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_toon_html" target="_blank">卡通</a><em>着色器渲染上图。我们将介绍如何使用</em>卡通<em>着色器的 *rim_lighting</em>、*base_tonemap、specular_tonemap</em> 和 <em>stylized_highlight</em> 属性。此外，还将介绍如何在 <em>edge_width</em> 中添加变化，以创建更具有说明性的样式。</p>
+<p>该模型由 <a href="https://www.artstation.com/artwork/xz38D4" target="_blank">Jaeyeon Nam</a> 友情提供。原始概念由 <a href="https://www.artstation.com/artwork/2DEKx" target="_blank">Hong SoonSang</a> 提出。</p>
+<p>确保在对<em>卡通边</em>进行渲染时<strong><em>“过滤器类型”(Filter Type)</em></strong>（渲染设置）设置为<strong><em>“轮廓”(Contour)</em></strong>。</p>
+<p><strong>要下载场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Sophie-user-guide.mb.zip" target="_blank">此处</a>。</strong></p>
+<h2 id="">照明</h2><p>创建一个 <em>skydome_light*，并将 *physical_sky</em> 着色器连接到其<em>“颜色”(Color)<em>属性。将</em>“曝光”(Exposure)*增加到 2 左右。将 *physical_sky</em> 的<em>“仰角”(Elevation)</em>更改为 30 左右。这将用作主要照明，但稍后我们还将添加一个平行（远距离）光，以在她的靴子、纽扣等上创建风格化高光。</p>
+<p>本教程按 Sophie 的多个部分分别进行介绍，这些部分均需要注意使用特定着色。我们将从上到下进行介绍。</p>
+<h2 id="">头发</h2><ul>
+<li>为头发几何体指定<em>卡通</em>着色器。</li>
+<li>禁用<em>边</em>，因为不需要使用它。</li>
+<li>将 <em>base_color</em> 更改为深褐色。</li>
+<li>要在头发上呈现高光，我们需要将渐变连接到 <em>specular_tonemap</em>。更改渐变，使其看上去像下面的渐变，图中白色为头发的亮显区域。确保渐变中没有插值，因为我们希望头发上呈现强光泽外观的高光。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Making_of_Sophie-hair-no-base-tonemap-2.jpg" alt=""></td>
+<td><img src="../images/am-Making_of_Sophie-hair-base-tonemap-3.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用基础色调映射（默认值）</td>
+<td>渐变 -&gt; 基础色调映射</td>
+</tr>
+</tbody></table>
+<p><img src="../images/am-Making_of_Sophie-image2019-2-21-16-10-40-4.png" alt=""></p>
+<h2 id="">皮肤</h2><ul>
+<li>为<em>头部</em>和<em>身体</em>几何体指定<em>卡通</em>着色器，然后将其重命名为 <em>Skin</em>。</li>
+<li>将贴图 <strong>test_diffuse<udim>.tif</udim></strong> 连接到 _base_color_。</li>
+<li>将如下所示的渐变连接到 <em>base_tonemap*。确保它的皮肤色调较暗，以使 *base_tonemap</em> 可见。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Making_of_Sophie-face-without-tonemap-5.jpg" alt=""></td>
+<td><img src="../images/am-Making_of_Sophie-face-with-tonemap-6.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用基础色调映射（默认值）</td>
+<td>渐变 -&gt; 基础色调映射</td>
+</tr>
+</tbody></table>
+<p><img src="../images/am-Making_of_Sophie-image2019-2-25-15-55-44-7.png" alt=""></p>
+<ul>
+<li>将<em>边</em>颜色更改为褐色。</li>
+<li>将 <em>angle_threshold</em> 减小到 80 左右。这样，将在嘴、鼻子和下巴周围获得满意的<em>边</em>细节量。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Making_of_Sophie-skin-angle-threshold-180-8.jpg" alt=""></td>
+<td><img src="../images/am-Making_of_Sophie-skin-angle-threshold-80-9.jpg" alt=""></td>
+</tr>
+<tr>
+<td>角度阈值：180（默认值）</td>
+<td>角度阈值：80</td>
+</tr>
+</tbody></table>
+<p><img src="../images/am-Making_of_Sophie-image2019-2-27-10-5-12-10.png" alt=""></p>
+<p><sub><strong>皮肤卡通着色器设置</strong></sub></p>
+<div class="head-block"><h1>眼</h1></div><h2 id="">眼球</h2><ul>
+<li>为<em>眼球<em>几何体指定</em>卡通*着色器。将 *base_weight</em> 减小到 0，并将 <em>emission_weight</em> 增加到 1。这样将获得纯白色。</li>
+</ul>
+<h2 id="">虹膜</h2><ul>
+<li>为眼睛的虹膜多边形面指定 <em>standard_surface</em> 着色器。此处不需要 <em>toon_edge</em> 着色器，因此 <em>standard_surface</em> 着色器应足够了。</li>
+<li>将褐色梯度渐变连接到 <em>base_color*，并将 *specular_weight</em> 减小到 0（我们将向角膜着色器添加镜面反射度）。</li>
+</ul>
+<p><img src="../images/am-Making_of_Sophie-image2019-2-26-11-48-4-11.png" alt=""></p>
+<h2 id="">角膜</h2><ul>
+<li>为角膜几何体指定<em>卡通</em>着色器。</li>
+<li>禁用<em>边</em>，因为皮肤与眼睛相交处已经存在一个<em>边</em>。</li>
+<li>将 <em>base_weight</em> 减小到 0。将 <em>specular_color</em> 更改为深灰，将 <em>specular_roughness</em> 增加到 0.3 左右。</li>
+<li>将 <em>transmission_weight</em> 增加到 0.9 左右（如果使其完全透明，则意味着将没有镜面反射高光）。</li>
+<li>将 <em>indirect_diffuse</em> 和 <em>indirect_specular*</em>（“高级”(Advanced)）*减小到 0（我们不希望眼球内部发生任何间接着色）。</li>
+</ul>
+<p><img src="../images/am-Making_of_Sophie-image2019-2-26-12-21-46-12.png" alt=""></p>
+<p><sub><strong>眼球、虹膜和瞳孔几何体</strong></sub></p>
+<h2 id="">套衫</h2><ul>
+<li>为套衫指定两个<em>卡通</em>着色器（一个白色，一个用于橙色条纹）。</li>
+<li>为套衫的 <em>base_color</em> 添加淡紫色色调，为条纹的 <em>base_color</em> 添加橙色。</li>
+<li>将渐变连接到 <em>base_tonemap</em>（对两个着色器使用相同的渐变）。</li>
+</ul>
+<p><img src="../images/am-Making_of_Sophie-image2019-2-21-16-25-43-13.png" alt=""></p>
+<ul>
+<li>将橙色套衫着色器的<em>“优先级”(Priority)（“高级边缘控制”(Advanced Edge Control)）</em>更改为 1。我们希望其高于皮肤的优先级，否则，套衫与皮肤相交处将出现边。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Making_of_Sophie-jumper-orange-priority-0-14.jpg" alt=""></td>
+<td><img src="../images/am-Making_of_Sophie-jumper-orange-priority-1-15.jpg" alt=""></td>
+</tr>
+<tr>
+<td>套衫优先级：0（出现不需要的皮肤边）</td>
+<td>套衫优先级：1</td>
+</tr>
+</tbody></table>
+<h2 id="">靴子</h2><ul>
+<li>为塑料橙色靴子指定<em>卡通</em>着色器。</li>
+<li>将渐变连接到 <em>base_tonemap</em>。</li>
+</ul>
+<p><img src="../images/am-Making_of_Sophie-image2019-2-26-13-13-13-16.png" alt=""></p>
+<p>为了在 Sophie 的靴子上呈现光泽高光，我们可以使用 <strong>stylized_highlight</strong>。</p>
+<ul>
+<li>创建<em>带方向性的</em>（远距离）灯光，并使其所处的角度位置类似于 <em>physical_sky</em>（需要通过眼睛执行此操作）。</li>
+<li>在 <em>stylized_highlight</em> 下输入此带方向性的灯光的名称（根据您使用的 Arnold 插件，这可能会有所不同）。 有关正确的命名约定，请查看<em>卡通</em>文档。例如，在 MtoA 中，它将是 <code>directionalLightShape1</code></li>
+<li>将 <em>stylized_highlight</em> 的<em>大小</em>增加到 0.2 左右。</li>
+</ul>
+<p><img src="../images/am-Making_of_Sophie-image2019-2-26-13-17-31-17.png" alt=""></p>
+<p><sub><strong>靴子上的 <em>stylized_highlight</em></strong></sub></p>
+<h2 id="a-href-topicid-arnold_for_maya_toon_am_making_of_sophie_html-a"><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_toon_am_Making_of_Sophie_html">轮廓</a></h2><p>现在差不多了。但是，<em>卡通</em>边看起来太清晰和完美。我们需要分解 <em>edge_silhouette</em>，以产生手绘效果。</p>
+<ul>
+<li>对主要着色器（例如牛仔裤、靴子、杆等）启用<em>轮廓</em>。</li>
+<li>使每个着色器的 <em>silhouette_color</em> 与 <em>edge_color</em> 一致。</li>
+<li>创建一个 <em>cell_noise</em> 着色器，并将其连接到<em>边 -&gt; 轮廓 -&gt; width_scale</em>。将<em>图案</em>更改为 <em>worley1</em>。在本例中，<em>“比例”(scale)</em>已更改为 0.2。您可能希望根据期望的外观来尝试不同的<em>“图案”(pattern)</em>和<em>“比例”(scale)</em>设置。您还可以使用<em>“偏移”(Offset)</em>来更改噪波沿<em>边</em>的位置。<em>“随机度”(Randomness)</em>等属性对<em>边</em>厚度外观的影响巨大。  </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Making_of_Sophie-silhouette-cell-18.jpg" alt=""></td>
+<td><img src="../images/am-Making_of_Sophie-silhouette-no-cell-19.jpg" alt=""></td>
+</tr>
+<tr>
+<td>使用 cell_noise -&gt; silhouette_edge</td>
+<td>未使用</td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Shading/arnold_for_maya_shading_am_Toon_Tutorials_html.html">卡通教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

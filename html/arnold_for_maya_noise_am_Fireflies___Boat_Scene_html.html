@@ -1,0 +1,163 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_noise_am_Fireflies___Boat_Scene_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_FIREFLIES___BOAT_SCENE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 高亮杂点 - 船场景 - Arnold for Maya">
+
+<title>高亮杂点 - 船场景</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>高亮杂点 - 船场景</h1></div><p><img src="../images/am-Fireflies_-_Boat_Scene-image2013-9-18-11-21-0-1.png" alt=""></p>
+<p><sub><strong><em>physical_sky</em> 的太阳导致出现高亮杂点</strong></sub></p>
+<p>此场景由一个船模型和一个表示海面的平面组成。两个模型都指定了 <em>standard_surface</em> 着色器。在上图中可以看到，此场景中有许多“高亮杂点”。在这种情况下，它们是由连接到 <em>skydome_light</em> 的 <em>physical_sky</em> 着色器中明亮的太阳圆盘引起的。单纯增加“渲染设置”(Render Settings)中的采样数，很难去除这种噪波。但是，有几种方法可以克服这种噪波。下面我们来介绍其中一些方法。</p>
+<p><strong>要下载对应的场景，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Fireflies_Boat_Scene.zip" target="_blank">此处</a>。</strong></p>
+<h2 id="aov">AOV</h2><p>一种确定高亮杂点起因的方法是使用 AOV 渲染场景。</p>
+<ul>
+<li>打开“渲染设置”(Render Settings)窗口，并选择“AOV”(AOVs)选项卡。在 *<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_render_settings_aovs_html">AOV 浏览器(AOV Browser)</a><em>中选择</em>“内置”(Builtin)<em>。在</em>“可用 AOV”(Available AOVs)<em>中，双击 *indirect_specular</em>。新的 AOV 应显示在<em>“激活的 AOV”(Active AOVs)</em>下方。</li>
+<li>渲染场景，并在 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_rendering_am_Arnold_RenderView_Window_html">Arnold 渲染视图</a>窗口打开这些 AOV 或查看它们。</li>
+</ul>
+<p><img src="../images/am-Fireflies_-_Boat_Scene-image2017-4-6-10-53-44-2.png" alt=""></p>
+<p>我们立刻就能知道它们来自两个地方：</p>
+<ol>
+<li>船着色器，它有一些镜面反射度。</li>
+<li>海面着色器，它也有一些镜面反射度。</li>
+</ol>
+<p>在渲染这些 AOV 时，可以清楚地看到高亮杂点：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Fireflies_-_Boat_Scene-clamp-max-value-10-3.jpg" alt=""></td>
+<td><img src="../images/am-Fireflies_-_Boat_Scene-indirect-specular-AOV-4.jpg" alt=""></td>
+</tr>
+<tr>
+<td>clamp_max_value：10（默认值）</td>
+<td>indirect_specular AOV（船上可见高亮杂点）</td>
+</tr>
+</tbody></table>
+<h2 id="">镜面反射粗糙度</h2><p>在某些情况下，增加 <em>specular_roughness</em> 可帮助减少高亮杂点，因为这实际上是创建了一个更大、更柔和的镜面反射高光。增加指定给船的 <em>standard_surface</em> 着色器的 <em>specular_roughness</em> 可以减少高亮杂点的数量。但是，在本例中，使用这种方法后仍然有一些明显的高亮杂点。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Fireflies_-_Boat_Scene-roughness-0-467-5.jpg" alt=""></td>
+<td><img src="../images/am-Fireflies_-_Boat_Scene-roughness-1-6.jpg" alt=""></td>
+</tr>
+<tr>
+<td>低 specular_roughness 值</td>
+<td>specular_roughness：1。高亮杂点已减少，但仍然明显。</td>
+</tr>
+</tbody></table>
+<h2 id="">镜面反射采样数</h2><p>由于海面着色器的表面几乎就像镜面一样，因此会有极高的镜面反射值从太阳反射到镜面反射的海面上。这些高镜面反射值很难采样，因此在这种情况下，增加 <em>specular_samples</em> 值无助于消除高亮杂点。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Fireflies_-_Boat_Scene-glossy-samples-2-7.jpg" alt=""></td>
+<td><img src="../images/am-Fireflies_-_Boat_Scene-glossy-samples-4-8.jpg" alt=""></td>
+</tr>
+<tr>
+<td>2</td>
+<td>4</td>
+</tr>
+</tbody></table>
+<h2 id="">光线切换</h2><p>更好的方法是使用 <em>ray_switch_shader</em> 着色器为_镜面反射<em>和</em>漫反射_光线指定一个更简单的着色器。</p>
+<ul>
+<li>为船指定一个 <em>ray_switch</em> 着色器。</li>
+<li>将 <em>standard_surface</em> 着色器连接到 <em>ray_switch_shader</em> 着色器的 <em>diffuse_reflection</em> 和 <em>specular_reflection</em> 光线。确保将 <em>specular_weight</em> 设置为 0。这将强制镜面反射和漫反射光线不计算着色器的镜面反射组件，而这也是产生高亮杂点的源头。</li>
+<li>将船的 <em>standard_surface</em> 着色器（连同 <em>specular_weight</em>）连接到其余属性<em>（“摄影机”(Camera)、“镜面反射”(Specular Reflection)、“透射”(Transmission)</em>和<em>“阴影”(Shadow)</em>）。</li>
+</ul>
+<p>现在观察 AOV，会发现高亮杂点已经不见了：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Fireflies_-_Boat_Scene-rayswitch-indirect-specular-9.jpg" alt=""></td>
+<td><img src="../images/am-Fireflies_-_Boat_Scene-rayswitch-beauty-10.jpg" alt=""></td>
+</tr>
+<tr>
+<td>indirect_specular AOV</td>
+<td>光线切换美景（无高亮杂点）</td>
+</tr>
+</tbody></table>
+<p><img src="../images/am-Fireflies_-_Boat_Scene-image2013-9-18-10-56-55-11.png" alt=""></p>
+<p><sub><strong>两个 <em>standard_surface</em> 着色器 -&gt; <em>ray_switch_shader</em></strong></sub></p>
+<h2 id="">区间限定采样值</h2><p>另一种方法是区间限定场景中像素的输出值。此控制选项会将场景中所有着色器的像素采样数区间限定到指定的最大值。下面的图像显示了区间限定操作对高亮杂点产生的效果。值为 1 时，可完全消除高亮杂点。但这样也会移除渲染的全部动态范围。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Fireflies_-_Boat_Scene-image2013-9-18-10-56-55-11.jpg" alt=""></td>
+<td><img src="../images/am-Fireflies_-_Boat_Scene-clamp-max-value-1-13.jpg" alt=""></td>
+</tr>
+<tr>
+<td>clamp_max_value：5</td>
+<td>clamp_max_value：1（无高亮杂点）</td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Removing_Noise_html.html">去除噪波</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

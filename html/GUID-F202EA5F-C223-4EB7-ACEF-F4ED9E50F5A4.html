@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4">
+<meta name="language" content="CHS">
+<title>创建 HLSL 着色器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>创建 HLSL 着色器</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-38A23F5C12A55EE7664-7E97"><p class="p" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-B4F57B71-EE2E-43F8-90AB-BF436EDBB5E5"><samp class="ph codeph" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-7CD8A02E-C3C3-4BF2-A806-EDCD0E9B7DB5">dx11Shader.mll</samp> 是用于创建 Direct X 着色器的首选插件。因此，不再随标准 Maya 安装提供 HLSL 插件。
+	 </p>
+<p class="p" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-4262D711-20F5-491C-8EC0-059AA8752286">为了向后兼容，可以从 Autodesk Maya Bonus Tools 软件包（从 Maya 菜单中选择<span class="ph uicontrol" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-7B48570E-5D83-4BD5-9DE5-94EC2E116F28">“帮助 &gt; Maya 资源和工具 &gt; 下载 Bonus Tools”(Help &gt; Maya Resources and Tools &gt; Download Bonus Tools)</span>）下载 <samp class="ph codeph" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-2A48C8F3-113F-41D1-8C87-4410AB841A60">hlslShader.mll</samp>，<span class="ph">或者从 <a class="xref" href="https://www.autodesk.com/developmaya" target="_blank">Autodesk Developer Network</a> 上的开发人员工具包中下载 <em class="ph i" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-91F79791-B86A-40F7-85B6-C703A4D9C6DE">hlslShader</em> 插件示例</span>。
+	 </p>
+<p class="li listintro" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__WS73099CC142F48755-3D114B7511812357EFE-77B5"> 加载 HLSL 插件</p>
+<ol class="ol" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__WS73099CC142F48755-3D114B7511812357EFE-77B6"><li class="li" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__WS73099CC142F48755-3D114B7511812357EFE-77B3">选择<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-2CF7D90B-EF10-40D1-9129-9D401CCAB952">窗口 &gt; 设置/首选项 &gt; 插件管理器(Window &gt; Settings/Preferences &gt; Plug-in Manager)</a>。
+		  <p class="p" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__WS73099CC142F48755-3D114B7511812357EFE-77B2">此时将显示<span class="ph uicontrol" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-D53F184C-BC78-464A-BB0E-C881DDB85E08">“插件管理器”(Plug-in Manager)</span>。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__WS73099CC142F48755-3D114B7511812357EFE-77B1">加载 <samp class="ph codeph" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-CEE455E6-D24B-4AB6-9C76-EF83537794BD">hlslShader.mll</samp> 插件。
+		  <p class="p" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__WS73099CC142F48755-3D114B7511812357EFE-77B0">有关<span class="ph uicontrol" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-BAD87268-3B3E-48C0-8E2A-0EA63BA427AE">“插件管理器”(Plug-in Manager)</span>的详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-2CF7D90B-EF10-40D1-9129-9D401CCAB952">插件管理器</a>。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__WS73099CC142F48755-3D114B7511812357EFE-77AF">单击<span class="ph uicontrol" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-CAD73584-9D33-4ABE-A5D5-35CF9F6EC63D">“关闭”(Close)</span>。
+		</li>
+</ol>
+<p class="li listintro" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__WS73099CC142F48755-3D114B7511812357EFE-77AD">创建<span class="ph uicontrol" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-22DB6105-004E-4AD0-B636-4513E6CD85EB">“HLSL 着色器”(HLSL Shader)</span>材质</p>
+<ol class="ol" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__WS73099CC142F48755-3D114B7511812357EFE-77AE"><li class="li" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__WS73099CC142F48755-3D114B7511812357EFE-77AC">在<span class="ph uicontrol" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-D26967A5-3FFD-4696-9CFD-9362DE718D8F">“Hypershade”</span>中，从<span class="ph uicontrol" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-32273276-4B81-45D0-B0DB-0126A93A21C6">“Maya &gt; 表面”(Maya &gt; Surface)</span>列表中选择<span class="ph uicontrol" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-B1380E2D-7C97-445D-BBC4-528B76CE2146">“HLSL 着色器”(HLSL Shader)</span>材质。
+		  <p class="p" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__WS73099CC142F48755-3D114B7511812357EFE-77AB">在<span class="ph uicontrol" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-13F8D460-CC19-400C-8642-2E2208E3149C">“Hypershade”</span>中将显示新着色材质，而在<span class="ph uicontrol" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-A922ECDB-1E93-42A5-99D1-F71981FA956D">“属性编辑器”(Attribute Editor)</span>中将显示<span class="ph uicontrol" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-7EC6F556-0233-49B5-9FC0-D600101E43FA">“HLSLShader”</span>材质节点。
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__WS73099CC142F48755-3D114B7511812357EFE-77AA"><img class="image" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__IMAGE_1AA9876A6B114040A5E5A6871D1846A6" width="298" height="213" src="../images/GUID-DC4C7007-7E42-4468-8064-B94EAF32BAB5.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__WS73099CC142F48755-3D114B7511812357EFE-77A9">在<span class="ph uicontrol" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-BB9822E7-5A57-4F83-B47D-8467B5121285">“着色器”(Shader)</span>区域中，键入到要使用的 <samp class="ph codeph" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-6680CEAE-1491-4B46-A6A3-70ED39A28233">.fx</samp> 文件的路径，或浏览到 <samp class="ph codeph" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-BBB52344-A87C-4634-AF68-47C847A34E1B">.fx</samp> 文件。
+		  <p class="p" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__WS73099CC142F48755-3D114B7511812357EFE-77A8">在 hlslShader 节点上配置了 <samp class="ph codeph" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-952FCCCC-47C1-48CF-BAAB-F364EB2375BF">.fx</samp> 文件之后，插件会自动将属性（如果存在）加载到<span class="ph uicontrol" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-CF4FCBA2-427F-4312-AC17-1DD1C3ECBD14">“属性编辑器”(Attribute Editor)</span>中。
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__WS73099CC142F48755-3D114B7511812357EFE-77A7">打开<span class="ph uicontrol" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-7B0043FD-AD70-4D6E-A36B-62E59ED3B27D">“属性编辑器”(Attribute Editor)</span>，并在必要时调整任何属性。
+		</li>
+<li class="li" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__WS73099CC142F48755-3D114B7511812357EFE-77A6">将新<span class="ph uicontrol" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-B1C3E292-462F-4EC5-8031-1ED71DDEB8E1">“HLSL 着色器”(HLSL Shader)</span>材质指定给场景中的对象。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-D41AF807-F7CB-447E-BACC-7F0867C14E8D.htm">将现有材质指定给曲面</a>。
+		</li>
+<li class="li" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__WS73099CC142F48755-3D114B7511812357EFE-77A5">在场景视图中，打开<span class="ph uicontrol" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__GUID-33FDC737-EAD8-4071-8FB6-46DFC644B146">“硬件纹理”(Hardware Texturing)</span>（位于<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-C6188583-EA9E-4880-AAE7-8D895FD94DD6">面板菜单：“着色”(Shading)</a>设置中。
+		</li>
+</ol>
+<div class="section" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__WS73099CC142F48755-3D114B7511812357EFE-77A4"><h2 class="title sectiontitle">支持将纹理放置到 HLSL 着色器中</h2> 
+		 
+		<p class="p" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__WS73099CC142F48755-3D114B7511812357EFE-77A3">因为纹理查找是由硬件着色代码本身执行的，Maya 无法为其原生纹理放置节点提供自动支持。
+		</p>
+ 
+		<p class="p" id="GUID-F202EA5F-C223-4EB7-ACEF-F4ED9E50F5A4__WS73099CC142F48755-3D114B7511812357EFE-77A2">如果希望将 Maya 的纹理放置节点与硬件着色器一起使用，则必须在着色器代码内实施纹理放置计算，然后将放置参数显示为着色器上的一致参数。然后可以将代表这些纹理放置一致参数的属性连接到 Maya 的纹理放置节点上的相应属性，从而使美工人员能够随意将该节点用于本地 Maya 着色器。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5.htm">创建和渲染硬件着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

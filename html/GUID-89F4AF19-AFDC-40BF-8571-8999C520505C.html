@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Customizing">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="崩溃;恢复;位置恢复;数据;崩溃文件">
+<meta name="modified" content="12/07/2024">
+<meta name="topicid" content="GUID-89F4AF19-AFDC-40BF-8571-8999C520505C">
+<meta name="language" content="CHS">
+<title>查找恢复数据</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-89F4AF19-AFDC-40BF-8571-8999C520505C">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>查找恢复数据</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF-56C0CD8012A8003217A-252A"><p class="p">在 Maya 崩溃时创建的任何恢复文件都将保存到系统的临时目录中，并命名为 <samp class="ph codeph">&lt;current_file_name&gt;[Recovered-&lt;username&gt;.&lt;date_and_time&gt;].ma</samp>。例如，如果您的用户名为 <samp class="ph codeph">rsmith</samp>，恢复文件的保存时间为 2022 年 9 月 28 日上午 10:47，则恢复文件的名称为 <samp class="ph codeph">untitle[Recovered-rsmith.2022-09-28-10.47].ma</samp>。另请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-5347C421-CCDF-4F73-BBC8-84020DDDF72D.htm">崩溃后恢复场景</a>。
+	 </p>
+<div class="p">通过查询系统的临时目录位置，可以找到保存恢复文件的位置：
+	 
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-89F4AF19-AFDC-40BF-8571-8999C520505C__TABLE_33AFAAA8B390484887FED14A756D7423" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">操作系统 
+				</th>
+<th class="entry" valign="top" width="50%">临时目录的位置 
+				</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">Windows 
+				</td>
+<td class="entry" valign="top" width="50%">由 TEMP 环境变量定义 
+				  <p class="p">使用 <samp class="ph codeph">echo %TEMP%</samp> 查找精确位置 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">macOS 
+				</td>
+<td class="entry" valign="top" width="50%">由 TMPDIR 环境变量定义 
+				  <p class="p">使用 <samp class="ph codeph">echo $TMPDIR</samp> 查找精确位置 
+				  </p>
+ 
+				</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">Linux 
+				</td>
+<td class="entry" valign="top" width="50%">由 TMPDIR 环境变量定义 
+				  <p class="p">使用 <samp class="ph codeph">echo $TMPDIR</samp> 查找精确位置 
+				  </p>
+ 
+				</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+	 </div>
+<div class="p">Windows 上 TEMP 的默认位置为 <samp class="ph codeph">\Users\[用户名]\AppData\Local\Temp\</samp>。默认情况下，Windows 上的 <strong class="ph b">AppData</strong> 目录处于隐藏状态。您需要转到文件资源管理器上的<strong class="ph b">“查看”</strong>选项卡，然后在<strong class="ph b">“显示/隐藏”</strong>部分中选择<strong class="ph b">“隐藏的项目”</strong>以查看此目录。
+		<div class="fig fignone" id="GUID-89F4AF19-AFDC-40BF-8571-8999C520505C__FIG_0265AADB2C644DAC900B24D52F0DEC60"><img class="image" id="GUID-89F4AF19-AFDC-40BF-8571-8999C520505C__IMAGE_ED6571A4A74A475D810A5E7F439EAAE5" src="../images/GUID-61011BC5-29F1-41A3-B3CA-0D8CC5B2C7EA.png"></div>
+ 
+	 </div>
+<div class="section" id="GUID-89F4AF19-AFDC-40BF-8571-8999C520505C__SECTION_7AD8ACE0B2C84D2995378199E107739A"><h2 class="title sectiontitle">自定义恢复位置</h2> 
+		 
+		<div class="note note" id="GUID-89F4AF19-AFDC-40BF-8571-8999C520505C__GUID-D688610C-C3FF-4EF1-BE7D-3C76C8D6AA8C"><span class="notetitle">注：</span> 此选项仅适用于 Windows 
+		</div>
+ 
+		<p class="p">您可以使用环境变量为恢复文件设置自定义位置，而不使用默认的系统临时目录。有关如何设置此变量的详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-228CCA33-4AFE-4380-8C3D-18D23F7EAC72">文件路径变量</a>主题中的 <strong class="ph b">MAYA_WINDOWS_CRASH_LOG_DIR</strong>。
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-4ED0DCD9-4E74-4AC8-B202-37DF2899F967.htm">疑难解答</a></div>
+</div>
+</div>
+
+</body>
+</html>

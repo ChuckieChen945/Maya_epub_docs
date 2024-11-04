@@ -1,0 +1,353 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_4x_am_404_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_404">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 4.0.4 - Arnold for Maya">
+
+<title>4.0.4</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>4.0.4</h1></div><p>05 Aug 2020</p>
+<p>MtoA 4.0.4 is a minor feature release, that uses Arnold <a href="https://help.autodesk.com/display/arnug/6.0.4.0">6.0.4.0</a> . It is fully binary compatible with 4.0.* versions.</p>
+<p>This release includes several IPR update issues, an improved Tx manager, a new Log Window in the Arnold RenderView, as well as several other improvements and bugfixes.</p>
+<h2 id="installation">Installation</h2><ul>
+<li><a href="https://manage.autodesk.com/products/MAYA" target="_blank">Download</a> the Arnold for Maya plugin</li>
+<li>Follow these installation instructions .</li>
+</ul>
+<p><strong>Autodesk Network Licensing</strong> in Arnold 6 requires new license files with an updated <strong>2020 version</strong> . Please follow the instructions on <a href="https://help.autodesk.com/x/zocfBg">this page</a> to generate your license file. More info about Arnold 6 licensing can be found <a href="https://help.autodesk.com/display/A5AILIC/Arnold+6+Licensing">here</a> .</p>
+<h2 id="compatible-maya-versions">Compatible Maya Versions</h2><ul>
+<li>Maya 2018</li>
+<li>Maya 2019</li>
+<li>Maya 2020</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2><ul>
+<li>OSX 10.11 or later</li>
+<li>Windows 7 or later, with the Visual Studio 2015 redistributable</li>
+<li>Linux with at least glibc 2.12 and libstdc++ 3.4.13 (gcc 4.4.7). This is equivalent to RHEL/CentOS 6</li>
+<li>CPUs need to support the SSE4.1 instruction set</li>
+<li>Optix™ denoiser requires an NVidia GPU with <a href="https://developer.nvidia.com/cuda-gpus" target="_blank">CUDA™ Compute Capability 5.0</a> and above</li>
+<li>Arnold GPU works on Linux and Windows and requires an NVIDIA GPU of the Turing, Volta, Pascal, or Maxwell architecture. We recommend using the <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">450.57</a> or higher drivers on Linux and <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">451.77</a> or higher on Windows. See Arnold GPU for more information.</li>
+</ul>
+<h2 id="enhancements">Enhancements</h2><ul>
+<li><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_rendering_am_Arnold_RenderView_Window_html#ArnoldRenderViewWindow-log">Log window in the Arnold Renderview</a> : The Arnold RenderView now includes a new Log window reporting exclusively the Arnold rendering logs. The logs can be filtered by severity (errors, warnings, info, etc...), and be saved to a file. (mtoa#2748)</li>
+</ul>
+<ul>
+<li><strong><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_utils_am_Tx_Manager_html">Improved TX Manager</a></strong> : The TX Manager has been highly improved and is now dockable in the Maya UI. (mtoa#2534)</li>
+</ul>
+<p><img src="../images/am-404-tx-manager-1.png" alt=""></p>
+<ul>
+<li><strong>LOD visibility is now respected:</strong> If geometry in the scene uses maya LOD visibility it is now respected by MtoA (mtoa#4259)</li>
+<li><strong>IPR update fixes</strong> : We have introduced multiple improvements to the IPR updates<ul>
+<li>Issue with deformation motion blur with vertex amount changes (mtoa#4101)</li>
+<li>update motion blur changes (mtoa#4126)</li>
+<li>group / ungrouping lights (mtoa#4238)</li>
+</ul>
+</li>
+<li><strong>Adding matte to curve collector</strong> : The curve collector node now has the matte attribute exposed to easily apply matte output to the curves (mtoa#4189)</li>
+<li><strong>Alembic export always exports normals</strong> : The MtoA alembic exporter was previously only exporting normals if they were changed in any way from their default smoothness. Users can force normals to not be exported either by using the <em>-noNormals</em> flag on the <em>arnoldExportAlembic</em> command or adding the custom boolean attribute <em>noNormals</em> to the individual geometry (mtoa#4193)</li>
+</ul>
+<h2 id="arnold-enhancements">Arnold Enhancements</h2><ul>
+<li><p><strong>Automatic file path remapping</strong> : String parameter values can now be automatically modified according to the OS Arnold is running on. For example, this is useful when the artist workstations are running Windows but the renderfarm nodes are running Linux. Configuration is done with a JSON file that contains the strings to search and replace for each OS. This configuration file can be selected through the <code>ARNOLD_PATHMAP</code> environment variable.  (9311)  For example:  </p>
+<pre class="pre codeblock"><code class="prettyprint"> {
+    "windows":
+    {
+       "this_path/": "some/other_path/windows/"
+    },
+
+    "mac":
+    {
+      "this_path/": "some/other_path/mac/"
+    },
+
+    "linux":
+    {
+      "this_path/": "some/other_path/linux/"
+    }
+} </code></pre></li>
+<li><p><strong>Rim light control for the Toon shader</strong> : A new <code>rim_light_tint</code> float parameter was added to the <code>toon</code> shader to tint the color of the rim light using the base color of the surface. See the full documentation . (9003)</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-404-white-tint-0-2.jpg" alt=""></td>
+<td><img src="../images/am-404-white-tint-0-5-3.jpg" alt=""></td>
+<td><img src="../images/am-404-white-tint-1-4.jpg" alt=""></td>
+</tr>
+<tr>
+<td>0 (default)</td>
+<td>0.5</td>
+<td>1</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<ul>
+<li><p><strong>Performance improvements on Windows with many cores and texture-heavy scenes</strong> : Several performance improvements have been made, particularly for those running Windows, using many cores, tiff based textures, and/or reading many textures/sec. Expected speedups can be anywhere from a few percent to orders of magnitude faster on many-core Windows machines. (9515, #9685, #9686, #9695, #9709, #9761) For a medium complexity scene that uses exr based .tx textures we get the following speedups on Windows :</p>
+<table>
+<thead>
+<tr>
+<th>CPU</th>
+<th>Arnold 6.0.3.0</th>
+<th>Arnold 6.0.4.0</th>
+<th>Speedup</th>
+<th><img src="../images/am-404-robotSoldier-arvids-setup-v01-11-gpu-vp-5.jpg" alt=""></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AMD 3970X (64 threads)</td>
+<td>439s</td>
+<td>397s</td>
+<td>1.11x</td>
+<td></td>
+</tr>
+<tr>
+<td>AMD 3990X (128 threads)</td>
+<td>379s</td>
+<td>267s</td>
+<td>1.42x</td>
+<td></td>
+</tr>
+<tr>
+<td>AMD 3995WX (128 threads)</td>
+<td>351s</td>
+<td>276s</td>
+<td>1.27x</td>
+<td></td>
+</tr>
+<tr>
+<td>Intel Xeon 8280 x 2 (112 threads)</td>
+<td>356s</td>
+<td>337s</td>
+<td>1.06x</td>
+<td></td>
+</tr>
+<tr>
+<td>Intel i9-9980XE (36 threads)</td>
+<td>748s</td>
+<td>720s</td>
+<td>1.04x</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>For a texture heavy stress scene (8GB of tiff based .tx texture tiles end up being read in) we get the following speedups on Windows:</p>
+<table>
+<thead>
+<tr>
+<th>CPU</th>
+<th>Arnold 6.0.3.0</th>
+<th>Arnold 6.0.4.0</th>
+<th>Speedup</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AMD 3970X (64 threads)</td>
+<td>2002s</td>
+<td>9.9s</td>
+<td>202x</td>
+</tr>
+<tr>
+<td>AMD 3990X (128 threads)</td>
+<td>2103s</td>
+<td>10.1s</td>
+<td>208x</td>
+</tr>
+<tr>
+<td>AMD 3995WX (128 threads)</td>
+<td>2130s</td>
+<td>9.0s</td>
+<td>237x</td>
+</tr>
+<tr>
+<td>Intel Xeon 8280 x 2 (112 threads)</td>
+<td>1585s</td>
+<td>11.2s</td>
+<td>142x</td>
+</tr>
+<tr>
+<td>Intel i9-9980XE (36 threads)</td>
+<td>1145s</td>
+<td>16.8s</td>
+<td>68x</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>String parameter path metadata</strong> : A new <code>path</code> metadata can be assigned to string parameters to give specific hints about how they will be handled. Currently available values are: <code>file</code> , <code>folder</code> and <code>folderlist</code> . Arnold will expand environment variables, apply the remapping, and handle backslashes on string parameters with the metadata. (4969)</p>
+</li>
+<li><p><strong>AA_adaptive_threshold in log</strong> : The <code>options.AA_adaptive_threshold</code> used is now output in the log file. (9841)</p>
+</li>
+<li><p><strong>Upgraded OSL</strong> : Arnold now uses OSL 1.11.6 bringing multiple optimizations and bug fixes, see the <a href="https://github.com/imageworks/OpenShadingLanguage/blob/Release-1.11.6.0-dev/CHANGES.md" target="_blank">full list</a> of changes. (8917)</p>
+</li>
+</ul>
+<h2 id="gpu-enhancements">GPU Enhancements</h2><ul>
+<li><strong>Global AOV shaders</strong> : The <code>aov_shader</code> option is now supported on GPU. This option defines a list of shaders that the renderer will evaluate after the regular surface shader. With this, it's possible to add shaders to set specific AOVs without modifying the original shader tree. See the option documentation . (9394)</li>
+<li><strong>Initial support for attributes in OSL</strong> :  You can now retrieve user data bound to shapes via the <code>getattribute</code> function or via a <code>lockgeom</code> parameter attribute. This initial implementation still has some limitations when compared to the CPU implementation. Queryable attributes are currently restricted to those bound to the current shaded shape and attributes of the active render camera. Querying node parameters is also not yet supported. (9666)</li>
+<li><strong>Initial support for tracing in OSL</strong> :  You can now use the <code>trace</code> function to trace rays in OSL shaders along with the <code>getmessage</code> function to retrieve information regarding any intersected object. This initial implementation has the restriction that you cannot yet query parameters on an intersected object. (9797)</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible Changes</h2><ul>
+<li><strong>Replaced @ by / for internal MtoA node names</strong> : To make node names compatible with other formats like USD we now export all non-scene generated nodes with a '/' instead of an @, this may affect the use of operators to get set shader parameters based on the node name (mtoa#4245)  </li>
+</ul>
+<ul>
+<li><strong>AiMsg* changes</strong> : Changes have been made to how logging behaves. Now the log session is for the life of the Arnold process instead of just between <code>AiBegin/AiEnd</code> pairs. If messages are not showing up or too many messages show up, you might need to set the logging flags and other options before calling <code>AiBegin</code> . Another change is that you can now set the log filename at any point in time, each time <code>AiMsgSetLogFileName</code> is called the previous file will be closed and the new file will be created. See the <a href="https://help.autodesk.com/api/arnold-6.0.4.0/group__ai__msg.html">API documentation</a> for the full set of functions. (9575)</li>
+<li><strong>Increased default texture maximum memory</strong> : The <code>options.texture_max_memory_MB</code> default value has been raised from 2048MB to 4096MB. (9846)</li>
+</ul>
+<h2 id="bug-fixes">Bug Fixes</h2><ul>
+<li><p>mtoa#3713 MtoA installer doesn't work with Python 3 based Linux (RHEL 8)</p>
+</li>
+<li><p>mtoa#4101 [ARV] breaks with IPR and Deformation Motion Blur vertex changing error.</p>
+</li>
+<li><p>mtoa#4278 [ARV] log window hangs maya</p>
+</li>
+<li><p>mtoa#4188 [ARV] Add menusFilter to OpenRenderView</p>
+</li>
+<li><p>mtoa#4240 Add additional bifrost graph default shader assignments to ignore</p>
+</li>
+<li><p>mtoa#4259 Arnold is not respecting Maya LOD visibility</p>
+</li>
+<li><p>mtoa#4189 Curve collector doesn't expose matte</p>
+</li>
+<li><p>mtoa#4243 Don't crash if Bifrost serialized data is empty</p>
+</li>
+<li><p>mtoa#4126 IPR doesn't update until camera move when changing motion blur length</p>
+</li>
+<li><p>mtoa#4269 Operator UI: Assignment expression editor always puts single quotes around the value</p>
+</li>
+<li><p>mtoa#4251 Set proper ID to aiViewRegion</p>
+</li>
+<li><p>mtoa#4238 Ungrouping a light (skydome) needs updating in the IPR</p>
+</li>
+<li><p>mtoa#3583 VP2 aiRectangleAreaLight.xml errors when command line rendering.</p>
+</li>
+<li><p>mtoa#4193 alembic export ignores normals if they default values</p>
+</li>
+<li><p>mtoa#4255 error when adding override to objectSet in 2021</p>
+</li>
+<li><p>mtoa#4256 error when removing AOV via "remove AOV" menu</p>
+</li>
+<li><p>#9828 AiMetaDataGet/Set functions crash with a NULL node entry</p>
+</li>
+<li><p>#9746 [Alembic] sampled faceset data causes crash</p>
+</li>
+<li><p>#9816 [Alembic] Velocities data on curves not applied correctly</p>
+</li>
+<li><p>#9515 Allow IPR to properly scale past 64 cores on Windows</p>
+</li>
+<li><p>#9809 Allow maketx to use either single dash or double dashes for arguments</p>
+</li>
+<li><p>#9684 Arnold ignores non-linear output color spaces on images wider than 8 bit</p>
+</li>
+<li><p>#9020 Back slashes in strings get changed to forward slashes when queried or written to .ass</p>
+</li>
+<li><p>#9672 Better duplicate output detection</p>
+</li>
+<li><p>#9749 BVH with 3+ motion keys is missing AiProfileBlock</p>
+</li>
+<li><p>#9575 Crash when calling AiMsg while the Arnold session is ending</p>
+</li>
+<li><p>#9725 [GPU] Arnold prematurely runs out of memory with on demand textures</p>
+</li>
+<li><p>#9748 [GPU] Crash in GPU prepare when failing to compile programs</p>
+</li>
+<li><p>#9794 [GPU] fov not set when using custom perspective camera</p>
+</li>
+<li><p>#9852 [GPU] GPU crash with multiple shaders connected to the UV camera post_bake</p>
+</li>
+<li><p>#9580 [GPU] Incorrect "Insufficient device memory" error when using NVLink</p>
+</li>
+<li><p>#9692 [GPU] Incorrect result when calling user data shaders from uv_camera.post_bake</p>
+</li>
+<li><p>#9771 [GPU] OptiX denoiser incorrectly accumulates feature buffers in progressive mode with multiple filters</p>
+</li>
+<li><p>#9774 [GPU] OSL: Don't throw exceptions when getattribute is called</p>
+</li>
+<li><p>#9636 [GPU] OSL texture crash when toggling devices</p>
+</li>
+<li><p>#9202 [GPU] Precision issue in bump mapping</p>
+</li>
+<li><p>#9532 [GPU] Random crash during the GPU prepare stage</p>
+</li>
+<li><p>#9801 [GPU] "Unable to load Optix library" error on Tesla and TCC GPUs on Windows</p>
+</li>
+<li><p>#8956 kick logs show superfluous plugin loading messages before official log start</p>
+</li>
+<li><p>#9758 Make smart opaque robust to numerical precision error</p>
+</li>
+<li><p>#7934 mesh_light with degenerate triangles has poor performance</p>
+</li>
+<li><p>#9522 [OSL] Arnold can fail to find stdosl.h when the path to Arnold contains specific characters on Windows</p>
+</li>
+<li><p>#9840 [OSL] Crash when SIP is enabled on MacOS 10.14 when using OSL</p>
+</li>
+<li><p>#9607 Parsing errors in ass file parameters should abort scene loading</p>
+</li>
+<li><p>#9659 Potential memory leak when using _triggers_reinitialize metadata</p>
+</li>
+<li><p>#9753 Prevent texture cache from being smaller than 2GB</p>
+</li>
+<li><p>#9863 Print license error details at warning level</p>
+</li>
+<li><p>#9845 Python binding for AiParamGetType returns c_int instead of c_uint8</p>
+</li>
+<li><p>#9762 Slow build with many ginstances of many-prim objects</p>
+</li>
+<li><p>#9595 Slow node update of VDB volumes on Windows and Linux even when volume did not change</p>
+</li>
+<li><p>#9610 Spurious render message when using -default_nodes in kick</p>
+</li>
+<li><p>#9644 Using AOV write shaders increases texture usage</p>
+</li>
+<li><p>#9638 Wrong exterior illumination with portal lights in interior_exterior mode</p>
+</li>
+<li><p><a href="https://github.com/Autodesk/arnold-usd/issues/463" target="_blank">usd#463</a> Texture coordinates of texcoord2f type are not read correctly</p>
+</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_4x_html.html">MtoA 4.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

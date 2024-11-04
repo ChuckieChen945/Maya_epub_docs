@@ -1,0 +1,274 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_540_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_540">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 5.4.0 - Arnold for Maya">
+
+<title>5.4.0</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+<div class="head-block"><h1>5.4.0</h1></div><p>13 December 2023</p>
+<blockquote>
+<p>Note: If you need the bug fixes from <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_5353_html">MtoA 5.3.5.3</a> or <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_5352_html">MtoA 5.3.5.2</a>, please update to MtoA <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_541_html">5.4.1.0</a></p>
+</blockquote>
+<p>MtoA 5.4.0 introduces Arnold 7.3.0.0.</p>
+<p>Important: This version breaks binary compatibility. Shaders, procedurals, and other plugins compiled against older versions of Arnold are not compatible with this version of Arnold and will need to be updated and recompiled.</p>
+<h2 id="installation">Installation</h2><ul>
+<li><p>Download <a href="https://manage.autodesk.com/products/MAYA" target="_blank">Arnold for Maya</a> from your Autodesk Account.
+See Download Arnold for more information about downloading MtoA from your Autodesk Account.</p>
+</li>
+<li><p>Follow these installation instructions.</p>
+</li>
+</ul>
+<h2 id="enhancements">Enhancements</h2><ul>
+<li><strong>Support for MaterialX shader networks in LookDevX:</strong> MtoA 5.4.0 adds support for the new LookDevX MaterialX node graph editor. This allows you to assign LookdevX shader networks to Maya geometry and mix MaterialX shader nodes with Arnold shaders. (MTOA-1672, MTOA-1703)</li>
+</ul>
+
+<div class="gallery center thumbnail-400">
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am540_ldx_disp.png" alt="LookDevX Displacments"></td>
+</tr>
+<tr>
+<td>LookDevX MaterialX graph with Displacements</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<p><strong>Soloing individual nodes in the graph</strong></p>
+
+<div class="gallery center thumbnail-400">
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am540_ldx_solo.png" alt="LookDevX Soloing"></td>
+</tr>
+<tr>
+<td>Soloing an individual shader in a LookDevX node graph</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<ul>
+<li><strong>Better editor for the overlay imager:</strong> The editor for the overlay imager is now more intuitive and previews the choosen font and style (MTOA-1664)</li>
+</ul>
+
+<div class="gallery center thumbnail-400">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/mtoa_rn540_overlay_editor.png" alt="Alt text"></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<ul>
+<li><strong>Progressive dithered sampling</strong>: Arnold now supports dithered samples in progressive and adaptive rendering. Dithering brings nicer noise distributions at low AA sample counts. (ARNOLD-10739)</li>
+</ul>
+
+<div class="gallery center thumbnail-400">
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/ac-rn-7300-no-dithering.jpg" alt=""></td>
+<td><img src="../images/ac-rn-7300-dithering.jpg" alt=""></td>
+</tr>
+<tr>
+<td>before 7.3.0.0, AA=1</td>
+<td>7.3.0.0, AA=1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+<p>||</p>
+<ul>
+<li><p><strong>Improved MaterialX support</strong>: Arnold can now render MaterialX node graphs mixing Arnold nodes with MaterialX standard library nodes. DCCs loading the Arnold node definitions benefit from the newly added UI metadata and provide a better user experience. Arnold also now uses MaterialX 1.38.8, this update brings new nodes in the MaterialX standard library, for a full list of changes please see the <a href="https://github.com/AcademySoftwareFoundation/MaterialX/releases/tag/v1.38.8" target="_blank">full release notes</a>. (ARNOLD-14286, ARNOLD-14623, ARNOLD-14513) </p>
+</li>
+<li><p><strong>Emission and per-light-group AOVs</strong>: Per-light-group indirect AOVs no longer include emission. Emissive surfaces now only appear in the "default" light group output. When using emission in shaders, the sum of the light group AOVs will now add up to the beauty pass. (ARNOLD-9453)</p>
+</li>
+<li><p><strong>Evaluate autobump in SSS on GPU</strong>: Autobump will now be evaluated in the SSS computation with the GPU renderer when the <code>sss_use_autobump</code> option is enabled, this matches the behavior when rendering on CPU. (ARNOLD-8494)</p>
+</li>
+<li><p><strong>Device selection in the Intel Denoiser</strong>: It is now possible to toggle between Auto/CPU/GPU for OIDN denoiser imager. Arnold now also provides accurate timing information for the denoiser in the log. (ARNOLD-14524, ARNOLD-14526)</p>
+</li>
+<li><p><strong>Batch renders now abort on license fail</strong>: Arnold now aborts if there is a license error in a batch render. The option <code>abort_on_license_fail</code> is now <code>true</code> by default, and applies to batch renders only. This means you don't have to check rendered image sequences for watermarks. Interactive renders do not abort, and have a watermark on license fail as usual. The environment variable <code>ARNOLD_FORCE_ABORT_ON_LICENSE_FAIL</code>overrides this default behavior (0 = batch and interactive render with watermarks on license fail, 1 =  batch and interactive abort on license fail). (ARNOLD-13024)</p>
+</li>
+<li><p><strong>Add license checkout time to render statistics</strong>: The render statistics now include the "license checkout time", which is the time in microseconds spent on license checkout for a specific render. This is useful to users to diagnose long checkout times when rendering in batch. (ARNOLD-13497)</p>
+</li>
+<li><p><strong>New network server configuration modes in the License Manager</strong>: You can now choose a license file or specify a three server redundancy setup on the network server configuration tab in the License Manager. (ARNOLD-14586, ARNOLD-14615)</p>
+</li>
+<li><p><strong>Updated OCIO version to 2.3.2 in Arnold Render View</strong> The version of OpenColorIO has been updated to 2.3.2 (ARNOLD-14700)</p>
+</li>
+<li><p><strong>Updated Alembic to 1.8.5:</strong> The Alembic tools in MtoA now use version 1.8.5 of the Alembic library (MTOA-1688)</p>
+</li>
+<li><p><strong>Autodesk Analytics Program</strong>: A newer version of the Autodesk Analytics Program (ADP) has been integrated into Arnold. This brings stability improvements. (ARNOLD-13805)</p>
+</li>
+</ul>
+<h2 id="usd-enhancements">USD Enhancements</h2><ul>
+<li><strong>Update to USD 23.11</strong>: The USD version was updated from 22.11 to 23.11 in the procedural. The USD Arnold procedural embeds a static version of USD 23.11, see <a href="https://github.com/PixarAnimationStudios/OpenUSD/blob/release/CHANGELOG.md" target="_blank">USD 23.11 Changelog</a> for all the changes related to this new version of USD.</li>
+<li><strong>Light instances</strong>: You can now instance lights with a Point Instancer. (<a href="https://github.com/Autodesk/arnold-usd/issues/1705" target="_blank">usd#1705</a>)</li>
+<li><strong>Visibility and Mattes on instances in Hydra</strong>: In the Hydra Render Delegate, the Arnold visibility and matte attributes now work on instances. (<a href="https://github.com/Autodesk/arnold-usd/issues/1635" target="_blank">usd#1635</a>) </li>
+</ul>
+<h2 id="api-changes">API changes</h2><ul>
+<li><p><strong>Builtin metadata</strong>: Nodes and their parameter definitions have been augmented with more metadata that could be useful across DCCs. The metadata that has been included are the following: animateable, default, help, gpu_support, hide, linkable, max/min, softmax/softmin and units. Some of these metadata were previously distributed as separate mtd files in each DCC. (ARNOLD-10265)</p>
+</li>
+<li><p><strong>Remove _private functions from BSDF API</strong>: The functions <code>AiMicrofacetBSDF_private</code> and <code>AiMicrofacetRefractionBSDF_private</code> (included to support dielectric priority) have now been removed from the BSDF API. The functions <code>AiMicrofacetBSDF</code> and <code>AiMicrofacetRefractionBSDF</code> now take <code>dielectric_priority</code> as an optional argument. (ARNOLD-14166)</p>
+</li>
+<li><p><strong>Expose conductor Fresnel mode as an enum in AiMetalBSDF</strong>: <code>AiMetalBSDF</code> has been modified to accept an <code>AtMetalFresnelMode</code> enum argument, selecting between the original "Gulbrandsen" conductor Fresnel model and the new "F82-tint" model. (ARNOLD-14165)</p>
+</li>
+<li><p><strong>Expose random walk version in the closure API</strong>: <code>AiClosureRandomWalkV2BSSRDF</code> has been removed, and instead the existing <code>AiClosureRandomWalkBSSRDF</code> has been modified to accept an <code>AtRandomWalkVersion</code> enum argument, selecting between the original v1 and v2 SSS modes. (ARNOLD-14164)</p>
+</li>
+<li><p><strong>Expose thin walled transmission in the public BSDF API</strong>: <code>AiMicrofacetBSDF</code> has been modified to accept an optional <code>thin_walled_transmission</code> argument, which specifies the fraction of the BSDF considered to represent a thin-walled dielectric. This is used to implement thin-walled transmission in Standard Surfaces. This was previously implemented in a way that circumvented the API, which has been fixed to be more explicit with this change. (ARNOLD-14167)</p>
+</li>
+<li><p><strong>Provide azimuthal roughness to AidEonBSDF</strong>: <code>AidEonBSDF</code> has been modified to accept a <code>roughness_azimuthal</code> argument, specifying the specular roughness for azimuthal scattering specifically. This is in addition to the existing roughness argument specifying the specular roughness for longitudinal scattering. (ARNOLD-8325)</p>
+</li>
+<li><p><strong>Removed AiADPSetIntroShown() and AiADPDialogStrings()</strong>: These deprecated functions were removed from the Arnold API. (ARNOLD-13805)</p>
+</li>
+<li><p><strong>Change AiUniverseCacheFlush API to receive a non-const universe</strong>: The AtUniverse passed into <code>AiUniverseCacheFlush()</code> was changed from <code>const</code> to non-const. (ARNOLD-14548)</p>
+</li>
+<li><p><strong>Remove deprecated AiGPUCachePopulate functions</strong>: Deprecated functions <code>AiGPUCachePopulate()</code>, <code>AiGPUCachePopulateStatus()</code>, <code>AiGPUCachePopulateRemainingSeconds()</code>, and <code>AiGPUCachePopulateTerminate()</code> have been removed. (ARNOLD-14570)</p>
+</li>
+<li><p><strong>Remove deprecated AiRenderSetCallback function</strong>: Deprecated function <code>AiRenderSetCallback()</code> has been removed. (ARNOLD-12583)</p>
+</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible Changes</h2><ul>
+<li><p>MTOA-1449 - <strong>Create aiStandardVolume Removed from Atmosphere Menu:</strong> The aiStandardVolume shader was removed from the Render Settings &gt; Environment &gt; Atmosphere menu</p>
+</li>
+<li><p><strong>This version breaks binary compatibility</strong>: Shaders, procedurals, and other plugins compiled against older versions of Arnold are not compatible with this version of Arnold and need to be updated and recompiled.</p>
+</li>
+<li><p><strong>Autodesk Network Licensing version</strong>: Arnold 7.3 switches to <code>ARNOL_2025</code> licensing. (ARNOLD-14292)</p>
+<ul>
+<li>Single-user subscriptions will work with Arnold 7.3. The plugin installers automatically register the new version. If you do not use a plugin, then after you download Arnold, open the Arnold License Manager and click Register.</li>
+<li>Existing network licenses will not work with Arnold 7.3. Log on to your Autodesk account to generate your new <code>ARNOL_2025</code> licenses.</li>
+<li>If you do not run the installers, and you manually register Arnold, then use<code>--pk C0PQ1 --pv 2025.0.0.F</code> with the <code>AdskLicensingInstHelper</code> command.</li>
+</ul>
+</li>
+<li><p><strong>abort_on_license_fail defaults to true</strong>: Arnold now aborts by default if there is a license error in batch renders. You can revert to the previous behavior by setting the <code>abort_on_license_fail</code>to <code>false</code>, or by using the new <code>ARNOLD_FORCE_ABORT_ON_LICENSE_FAIL</code> environment variable. (ARNOLD-10455, ARNOLD-13024)</p>
+</li>
+<li><p><strong>Emission and per-light-group AOVs</strong>: Per-light-group indirect AOVs no longer include emission.  (ARNOLD-9453)</p>
+</li>
+</ul>
+<h2 id="bug-fixes">Bug Fixes</h2><ul>
+<li>MTOA-1669 - Imagers: Editing the attributes of a removed imager crashes Maya.</li>
+<li>MTOA-1661 - About -ltVersion is deprecated warning on start up on Linux</li>
+<li>MTOA-1737 - Overlay Imager: Cannot change font back to default, crashes renderer on re-render.</li>
+<li>MTOA-1739 - [USD] Maya USD Export does not export filename for Yeti procedurals</li>
+<li>MTOA-1658 - [USD] Export selection shouldn't export render setting nodes</li>
+<li>MTOA-1670 - [USD] Error when NodeGraph input connected to opacity of UsdPreviewSurface</li>
+<li>MTOA-1609 - [USD] Duplicate as USD data crashes Maya</li>
+<li>MTOA-1509 - [USD] LookdevX: Arnold does not render when texture path is relative</li>
+<li>ARNOLD-14599 - Arnold Renderview BG is grey on Mac OSX</li>
+<li>ARNOLD-14558 - RenderView not updating</li>
+<li>ARNOLD-14246 - [MaterialX] Promoted attributes and nodegraph interfaces are ignored</li>
+<li>ARNOLD-14601 - [MaterialX] Missing enum values in node definitions</li>
+<li>ARNOLD-14612 - [MaterialX] Ignored color space on standard library image nodes</li>
+<li>ARNOLD-14646 - [MaterialX] Crash when using the distance node in USD</li>
+<li>ARNOLD-14561 - [MaterialX] Crash when mixing Arnold and standard library shaders</li>
+<li>ARNOLD-14287 - Rare crash when compiling OSL with LLVM during IPR</li>
+<li>ARNOLD-14634 - Error when denoising unsupported pixel type AOVs in OIDN and OptiX</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1758" target="_blank">usd#1758</a> - Fix several crashes by returning a default value when an attribute type is not recognized.</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1756" target="_blank">usd#1756</a> - Registry should declare filenames as assets in GetTypeAsSdfType.</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1770" target="_blank">usd#1770</a> - Fix exr driver always rendering float with husk when productType is arnold.</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1772" target="_blank">usd#1772</a> - RectLight texture uvs are now consistent between husk, kick and other renderer.</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1776" target="_blank">usd#1776</a> - Fix incorrect PointInstancer instance orientations in the render delegate.</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1769" target="_blank">usd#1769</a> - Fix curve uvs when they are vertex interpolated.</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1784" target="_blank">usd#1784</a> - The aov layer name is now correctly taken into account when rendering exrs with husk and using the arnold productType.</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2><ul>
+<li>Maya 2023, 2024 or 2025</li>
+<li>Windows 10 or later, with the Visual Studio 2019 redistributable.</li>
+<li>Linux with at least glibc 2.17 and libstdc++ 4.8.5 (gcc 4.8.5). This is equivalent to RHEL/CentOS 7.</li>
+<li>x86-64 CPUs need to support the SSE4.1 instruction set. </li>
+<li>macOS 10.13 or later, macOS 11 and later for Maya 2024</li>
+<li>Apple Mac models with M series chips:<ul>
+<li>Natively supported by Arnold for Maya 2024</li>
+<li>Supported under Rosetta 2 mode for older versions of Maya</li>
+</ul>
+</li>
+<li>GPU rendering works on Windows and Linux only and requires an NVIDIA GPU of the Ada, Ampere, Turing, Volta, Pascal, or Maxwell architecture. We recommend using the <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">535.104.05 or higher drivers</a> on Linux and <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">537.13, or higher</a> on Windows. See  Arnold GPU for more information.</li>
+<li>Optix™ denoiser requires an NVidia GPU with <a href="https://developer.nvidia.com/cuda-gpus" target="_blank">CUDA™ Compute Capability 5.0</a> and above.</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_5x_html.html">MtoA 5.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

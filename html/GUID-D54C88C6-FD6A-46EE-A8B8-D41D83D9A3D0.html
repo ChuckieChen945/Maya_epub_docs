@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="24/11/2022">
+<meta name="topicid" content="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0">
+<meta name="language" content="CHS">
+<title>构建 Python 状态机</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>构建 Python 状态机</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="fig fignone" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__FIG_E6B0629879694FD3AF2EDF85F5A8D169"><img class="image" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__IMAGE_9F53579A2A7A42E086588B17E15E8CFE" src="../images/GUID-0C203B49-F5F4-412E-895C-F4A77908A4A5.png"></div>
+<p class="p"> 您可以使用状态机按顺序执行 Python 脚本节点，其中包含多个<span class="ph uicontrol">阶段</span>节点并呈菊花链状连接在一起。这对于直接在应用程序中构建交互式体验（如教程、演示和演练）非常方便。这些节点允许您通过<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-383D6D2A-DE9A-4764-9DE0-6514718A1578">节点编辑器</a>轻松地插入和移除所涉及的脚本或重新排列这些脚本的执行顺序。
+	 </p>
+<div class="note note" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__GUID-D458B351-5F43-49AB-AD85-0940BB1C2E50"><span class="notetitle">注：</span> 为了使用阶段节点，必须先通过<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-2CF7D90B-EF10-40D1-9129-9D401CCAB952">插件管理器</a>加载 stage.py 插件。
+	 </div>
+<p class="li listintro">构建和运行状态机</p>
+<ol class="ol" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__OL_D4E43AB77E954DD294B6C56529750B0C"><li class="li" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__LI_053685EF4E9F490DB4462D32429375F6">确保在<span class="ph menucascade"><span class="ph uicontrol">“窗口</span> &gt; <span class="ph uicontrol">设置/首选项</span> &gt; <span class="ph uicontrol">插件管理器”(Windows &gt; Settings/Preferences &gt; Plug-in Manager)</span></span>中加载了 <span class="ph uicontrol">stage.py</span>。
+		</li>
+<li class="li" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__LI_D6AC99F498974802AEA7FB70B3C860DD">打开<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-383D6D2A-DE9A-4764-9DE0-6514718A1578">节点编辑器</a>。
+		</li>
+<li class="li" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__LI_0F2682328E25440F818A9ABD3EBAC345">创建<strong class="ph b">两个</strong><span class="ph uicontrol">阶段</span>节点。
+		  <div class="fig fignone" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__FIG_8B553D4C1DD64C959C9E623781C5682F"><img class="image" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__IMAGE_F5CD758F5E45418E978BAE7F07929172" src="../images/GUID-822201BA-6A32-424B-A62A-B332027D13B1.png" height="200"></div>
+ 
+		</li>
+<li class="li" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__LI_3CCEEC561ACC4A149EE978A7BE248FF9">将 stage1 的<span class="ph uicontrol">“下一状态”(Next State)</span>属性连接到 stage2 的<span class="ph uicontrol">“前一状态”(Previous State)</span>属性。
+		  <div class="fig fignone" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__FIG_AEC91667DE6041468A25884DF48E5995"><img class="image" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__IMAGE_D5652005BA354E9688FA5526CEDD307F" src="../images/GUID-C8169312-E819-40D3-A990-1DA0E0FBEF2F.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__LI_2CB77F10CCF047CDB7D66F52194E5AD6">在每个阶段的<span class="ph uicontrol">“激活脚本时”(On Activate Script)</span>和<span class="ph uicontrol">“取消激活脚本时”(On Deactivate Script)</span>属性中，输入想要在阶段开始和结束时执行的 Python 代码（直接在字段中，或通过连接设置为<span class="ph uicontrol">“Python”模式</span>的<span class="ph uicontrol">脚本</span>节点）。
+		  <div class="fig fignone" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__FIG_D11CC93207544818AC766C368CF0F7E3"><img class="image" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__IMAGE_EA10D09EE1A44E85A52DCB30C3DA54D3" src="../images/GUID-56A8B426-6724-49F9-BC50-381218B50CE3.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__LI_933B8BC1289148F88DB1F9176C37A8C1">（可选）将<span class="ph uicontrol">“时间滑块书签”(Time Slider Bookmark)</span>节点连接到阶段节点，以在阶段激活时自动框显这些书签。
+		  <div class="fig fignone" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__FIG_D60A922878D14295AF08729B6A83027F"><img class="image" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__IMAGE_3BE1965F188C4968880A4FF8F793B305" src="../images/GUID-EE9B5780-7DE2-4546-BD0C-F5AAB7B40D35.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__LI_B88B3292F14A43C8964D594A652B4701">（可选）按照相同模式在 stage2 后面添加其他阶段节点。
+		</li>
+<li class="li" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__LI_BDAA4485C8514C0486EC41473C835452">链完成后，可以使用 MEL 命令从头开始执行：<pre class="pre codeblock">stage -e -a "stage1"</pre>
+ 
+		</li>
+</ol>
+<p class="li listintro">从当前阶段前进到下一阶段</p>
+<ol class="ol" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__OL_619690420EA14C5CA9243CBF6A4AF56A"><li class="li" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__LI_9B4E50E3142D4E58A4B68FF62C69AAD3">执行下列操作之一：
+		  <ul class="ul" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__UL_0CF14F25EBCB4E9D972C6EABA3E9983F"><li class="li" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__LI_E4FAB2B4283A40189579D2DA6AE11B64">针对当前阶段启用<span class="ph uicontrol">“条件”(Condition)</span>属性。
+			 </li>
+<li class="li" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__LI_0A4D7471ECB04326A9C6E9342CA70688">针对当前阶段启用<span class="ph uicontrol">“动画结束”(End of Animation)</span>属性，然后播放场景。
+			 </li>
+<li class="li" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__LI_441B1C8C09B94DBC95A2F9F9166781E5">将当前阶段的<span class="ph uicontrol">“延时”(Time Delay)</span>属性设置为任意非零正数，状态机将在此延时（以秒为单位）后自动前进到下一阶段。
+			 </li>
+<li class="li" id="GUID-D54C88C6-FD6A-46EE-A8B8-D41D83D9A3D0__LI_FADB35630D7E4ABABF9FAEC15DA984EC">运行命令：<pre class="pre codeblock">stage("&lt;current stage&gt;", edit=True, next=True)</pre>
+ 
+			 </li>
+</ul>
+ 
+		</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-5AF5DEC6-EB6A-4DA1-A6BF-3D817A8F2F28.htm">阶段节点参考</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-113DD257-7995-4B35-BF2F-860ECD19B19D.htm">状态机示例：交互式教程</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-703B18A2-89E5-48A8-988A-1ED815D5566F.htm">Python</a></div>
+</div>
+</div>
+
+</body>
+</html>

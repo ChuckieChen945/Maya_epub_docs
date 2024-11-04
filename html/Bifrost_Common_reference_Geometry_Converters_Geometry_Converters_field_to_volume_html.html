@@ -1,0 +1,78 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Geometry_Converters_Geometry_Converters_field_to_volume_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>field_to_volume</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>field_to_volume</code></h1></div><p>将输入场体素化为自适应体素栅格。等值面（带符号距离场）和/或雾密度体积可以选择为输出。</p>
+<h2 id="">输入</h2><h3 id="field"><code>field</code></h3><p>要体素化的场。目前，<code>field_to_volume</code> 假定 <code>field</code> 表示带符号距离场。</p>
+<h3 id="proxy_geometry"><code>proxy_geometry</code></h3><p>一组用作嵌套触发场的输入的代理几何体。</p>
+<h3 id="bounding_geometry"><code>bounding_geometry</code></h3><p>如果将几何体连接到此端口，则最小/最大边界派生自对象的边界框。</p>
+<h2 id="input-field"><code>Input Field</code></h2><h3 id="field_interpretation"><code>field_interpretation</code></h3><p>输入场可以是带符号距离（例如 <code>sphere_field</code> 的直接输出），也可以是雾密度。如果要输出雾密度体积，则使用 fog_density 解释不仅可以指定雾的位置，还可以指定雾的密度。例如，可以输出体积内的密度渐变，这在使用输入带符号距离时是不可能的。使用带符号距离时，将生成等值面，然后使用均匀雾填充。请注意，对于带符号距离，负值在内部（或稠密），正值为空，而雾密度输入正好相反。 </p>
+<ul>
+<li>在 <code>Signed Distance Field</code> 模式下，输入场被视为与曲面（或等值面）的距离。如果场值不能准确表示距离，或许仍可获得可接受的输出等值面，但可能会出现诸如自适应平铺树粗化效果差等问题。</li>
+<li>在 <code>Fog Density</code> 模式下，输入场被视为密度场。这样，可以直接设置输出密度，而不是简单地填充在带符号距离模式下创建的等值面。在此模式下，<code>fog_density</code> 特性乘以输入场密度。与带符号距离模式不同，密度可能是任意值，不需要以正确的形式构成。可以另外输出一个从密度派生的等值面，但结果可能不如使用输入距离场时那么平滑。</li>
+</ul>
+<h3 id="density_threshold"><code>density_threshold</code></h3><ul>
+<li>当 <code>field_interpretation</code> 设置为 <code>Fog Density</code> 且 <code>store_level_set</code> 处于启用状态时，这将控制生成 level_set 的密度阈值。在某些情况下，输出 level_set 可能会出现噪波，并带有栅格瑕疵。为了将密度平滑转化为 level_set，最好在定义曲面的体素上具有不断变化的密度。例如，如果密度在 2 个体素范围内从 1 下降到 0，则值为 0.5 会将曲面向里推一个体素，并提供平滑的结果。</li>
+</ul>
+<h2 id="">常规</h2><h3 id="volume_mode"><code>volume_mode</code></h3><p>体积模式决定输入场如何转化为体积。请注意，仅当输入场为网格时，此模式才适用。</p>
+<ul>
+<li>在 <code>Solid</code> 模式下，输入网格被体素化为具有实心内部。</li>
+<li>在 <code>Shell</code> 模式下，输入网格被体素化为具有空心内部的加厚曲面。</li>
+</ul>
+<h3 id="offset"><code>offset</code></h3><p>要应用于输出等值面的世界空间偏移（以世界空间单位表示）。正值会将曲面向外推，负值会使曲面收缩。</p>
+<h3 id="store_level_set"><code>store_level_set</code></h3><p>如果为 true，则从输入场计算并存储等值面体积。</p>
+<h3 id="rebuild_level_set"><code>rebuild_level_set</code></h3><p>如果为 true，则重新设置转化的等值面的距离以包含单位渐变。生成的等值面将采用带符号距离表示。使用带宽（即使一起使用 store_fog_density）时需要此项，否则可能会出现瑕疵。如果输入不是带符号距离场，则可能无法产生预期效果。例如，在以下情况下用户需要禁用此选项：转化等值面与分形噪波相乘的输入场。如果输出不符合预期，请尝试切换此选项。</p>
+<h3 id="store_fog_density"><code>store_fog_density</code></h3><p>如果为 true，则从输入场计算并存储雾密度体积。</p>
+<h3 id="fog_density"><code>fog_density</code></h3><p>要应用于雾密度体积的倍增。</p>
+<h3 id="min_bounds"><code>min_bounds</code></h3><p>指定将在其中体素化场的边界框的最小世界空间坐标。如果存在与 <code>bounding_geometry</code> 的连接，则会覆盖此项。</p>
+<h3 id="max_bounds"><code>max_bounds</code></h3><p>指定将在其中体素化场的边界框的最大世界空间坐标。如果存在与 <code>bounding_geometry</code> 的连接，则会覆盖此项。</p>
+<h2 id="">解决方案</h2><h3 id="resolution_mode"><code>resolution_mode</code></h3><p>分辨率模式决定 <code>detail_size</code> 的单位。</p>
+<ul>
+<li>在 <code>Absolute</code> 模式下，<code>detail_size</code> 以世界空间单位指定。</li>
+<li>在 <code>Relative</code> 模式下，<code>detail_size</code> 相对于输入网格的边界框指定。</li>
+</ul>
+<h3 id="detail_size"><code>detail_size</code></h3><p>指定输出体积中体素的世界空间大小。</p>
+<h3 id="enable_bandwidth"><code>enable_bandwidth</code></h3><p>如果启用，可保证在输入场周围的 <code>bandwidth</code> 体素空间单位的条带中提供高分辨率体素。例如，如果您计划对等值面应用大置换，并且您因曲面被置换到较粗糙的体素而出现瑕疵，则此功能非常有用。</p>
+<h3 id="bandwidth"><code>bandwidth</code></h3><p>输入场周围要保证的世界空间带宽。</p>
+<h2 id="">输出</h2><h3 id="volume"><code>volume</code></h3><p>输出 Bifrost 体积。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Geometry/Bifrost_Common_reference_Geometry_Converters_html.html">Converters</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

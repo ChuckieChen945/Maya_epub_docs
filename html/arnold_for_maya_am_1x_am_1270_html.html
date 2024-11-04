@@ -1,0 +1,289 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_1x_am_1270_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_1270">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 1.2.7.0 - Arnold for Maya">
+
+<title>1.2.7.0</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>1.2.7.0</h1></div><h2 id="release-date">Release Date</h2><p>March 08, 2016</p>
+<p>This version uses the Arnold <a href="https://help.autodesk.com/display/arnug/4.2.12.0">4.2.13.0</a> core</p>
+<h2 id="downloads">DOWNLOADS</h2><ul>
+<li><a href="https://manage.autodesk.com/products/" target="_blank">https://manage.autodesk.com/products/</a></li>
+</ul>
+<h2 id="arnold-renderview-enhancements">ARNOLD RENDERVIEW ENHANCEMENTS</h2><p>The following <a href="https://www.youtube.com/watch?v=HS7ov7NmdBA" target="_blank">video</a> illustrates the latest features in this version :</p>
+<ul>
+<li>First <strong>support for OpenColorIO</strong> in the RenderView. It is now possible to load a .ocio configuration file from the Display Settings, and choose a View Transform for the Display.</li>
+<li>RenderView updates the View Transform according to <strong>Maya's Color Management</strong> . Not only the OCIO settings are updated from Maya preferences, but also most of the Maya native View Transforms (gamma, sRGB, Rec709, Log, Raw).</li>
+<li>Allow to <strong>load 3D lut files from all formats</strong> supported by OCIO.</li>
+<li>RenderView <strong>options are now saved with the Maya scene</strong> . This allows to restore previously defined options when re-opening an existing scene.</li>
+<li><strong>A/B Comparison tool</strong> . Allows to choose 2 snapshots to be compared using a wipe tool. Choosing a single snapshot will compare it with the current render.</li>
+<li><strong>Changed the behaviour of the play / stop / refresh</strong> icons. The meaning of the icons should now be easier to understand, when compared to Maya's native Render View.</li>
+<li>Snapshots Library and Display Settings (previous LUT window) appear now inside of the RenderView window instead of being separate UIs. The layout is thus much more consistent now across different platforms.</li>
+<li>Rendered Images can be saved from the RenderView in <strong>EXR for all platforms</strong> . The default folder is Maya's project "image" folder.</li>
+<li>Support for EXR background images in all platforms.</li>
+<li>All rendered AOVs can be saved at once in a <strong>Multi-Layer EXR</strong> .</li>
+<li>Existing <strong>images can be loaded in the Snapshots Library</strong> for comparison.</li>
+<li><strong>Save UI threads</strong> option that allows to reserve one or two threads in order to avoid slowing down Maya UI, which improves IPR performance. This is only applied during the early progressive sampling steps and not for the final AA step.</li>
+<li>Support <strong>picking of Procedurals / Standins</strong> in the RenderView. The "ID" AOV is no longer needed to support object picking, and thus is no longer added automatically to the list of AOVs.</li>
+<li><strong>Update Full Scene</strong> option allows to clear and re-generate the whole Arnold scene. This avoids to close and re-open the RenderView.</li>
+<li><strong>Improved Crop Region UI</strong> . You can now drag the region corners, or pan the region rectangle. An option allows to grey-out what's outside the crop region.</li>
+<li>Render is <strong>updated when the Render Layer</strong> is changed.</li>
+<li><strong>Limited logging verbosity during IPR</strong> . Restoring the original scene verbosity just for the final step by default. The option Log allows to control that behaviour.</li>
+<li>Rendering tiles squares are now displayed for the last AA step.</li>
+<li>Optionally apply LUT options to the Background image.</li>
+<li>RenderView options can now be set by script. For example <em>arnoldRenderView -opt "3D Manipulation" "1"</em></li>
+<li>It's possible to open the RenderView without inmediately triggering a render by scripting <em>arnoldRenderView -mode open</em></li>
+<li>Restore the previous Window size when closing / reopening the RenderView, or when opening a previously saved scene.</li>
+<li>Ensure the AOVs / Cameras drop-down list is large enough to display the item names.</li>
+<li>Added minimize / maximize buttons to the window.</li>
+</ul>
+<blockquote>
+<p><sup><em>Screen capture of the new RenderView UI showing the A/B wipe tool for comparing two saved snapshots.</em></sup></p>
+</blockquote>
+<h2 id="mtoa-updates">MTOA UPDATES</h2><ul>
+<li><strong>Quad light spread</strong> : The Arnold quad and disk lights can now emit light focused along the normal direction. The default spread value of 1.0 gives diffuse emission, while lower values focus the light more, until it becomes an almost laser-like beam at 0. Note that lower values of spread are hader to sample and thus noisier than the default high spread.</li>
+<li><strong>Photometric light radius</strong> : Photometric lights now include a radius parameter with which softer shadows may be obtained in a manner similar to point lights or spot lights. Defaults to 0, which matches this light's original behavior of razor sharp shadows.</li>
+<li><strong>ShadowCatcher improvements</strong> . The shadow catcher shader is now more accurate, in particular with multiple lights or with skydomes / area lights.</li>
+<li><strong>Watermarks for shaderballs</strong> : Shaderball previews in MtoA no longer show the "arnold" watermark.</li>
+<li><strong>Export Selection</strong> now works when nodes are not under a group node.</li>
+<li>Adding <strong>new nodes in the shading tree during IPR</strong> session is now better suported.</li>
+<li>Better <strong>updates for nodes that are hidden/unhidden</strong> during an IPR session (lights, shapes).</li>
+<li>Support for <strong>Mesh Light User Data</strong> .</li>
+<li>Fixed Triplanar projection issue when rotation is 45 degrees.</li>
+<li>When the XGen Config Path is defined, it is now initialized properly.</li>
+</ul>
+<h2 id="arnold-enhancements">ARNOLD ENHANCEMENTS</h2><ul>
+<li><strong>Faster OpenVDB motion blur</strong> : Rendering of motion blur on CPUs with many threads is now faster. The speedups depend on the specific scene and the CPU, but we have often seen 2x faster, and even 10x faster in some cases. Additionally, rendering of OpenVDB files with separate velocity grids for the XYZ components is now also up to 2x faster, so that merging the grids into a single vector velocity grid is no longer required for good performance.</li>
+<li><strong>Faster textures and gobos</strong> : AiTextureAccess() is now much closer (though still not equal) in performance to AiTextureHandleAccess(). We have also made AiTextureHandleAccess() faster in certain situations. In addition, the number of texture evaluations in thegobo light filter has been greatly reduced.</li>
+<li><strong>Default texture cache size increased to 2GB</strong> : The default setting for options.texture_max_memory_MB has been increased from 1GB to 2GB. This can help improve performance on texture heavy scenes.</li>
+<li><strong>More shader parameter conversions allowed</strong> : It is now possible to link a shader that outputs a float to a shader that takes in an integer type and vice versa. Likewise, several other useful types of conversions are also now allowed.</li>
+<li><strong>Deep EXR driver support for append / checkpointing</strong> : The driver_deepexrnode now supports append on to skip rendering buckets that were saved in a previous interrupted render. Currently this only works for tiled mode, not scanline. Note that since Nuke only works with scanline deep files, if your output deep files are tiled you will have to convert them with: oiiotool input_tiled_deep.exr --scanline output_scanline_deep.exr</li>
+<li><strong>Improved deep EXR driver support for volumes</strong> : Deep volumes are now written with higher precision using less samples, which results in much more accurate and smaller deep EXR files, with size savings of 50 to 75%.</li>
+<li><strong>Fewer warnings</strong> : A number of pedantic warnings have been removed in order to declutter log files: nonexisting shader paths, camera matrix overriding handedness, deprecated RGB AOV, empty polymesh node, UV array compression, ignoring mesh with all faces invisible, user normals on subdivs, too many messages of given type.</li>
+</ul>
+<h2 id="incompatible-changes">INCOMPATIBLE CHANGES</h2><ul>
+<li><strong>Require SSE4.2 CPU</strong> : We now require CPUs that support (at least) SSE4.2 instructions. On older computers that do not support these instructions, Arnold will inmediately abort on startup.</li>
+<li><strong>Internal reflections in standard shader</strong> : The enable_internal_reflections parameter previously did not ignore all internal reflections, and incorrectly ignored some other reflections, which is now fixed.</li>
+<li><strong>Low specular roughness</strong> : When using very low or zero roughness in the standard shader or microfacet API functions, reflections will be sharper than before, where previously they were too blurry.</li>
+<li>In Arnold RenderView, Save UI Threads is set to 1 by default, which means that one less thread will be used for rendering in IPR by default.</li>
+</ul>
+<h2 id="fixes">Fixes</h2><table>
+<thead>
+<tr>
+<th>Ticket</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>#2204</td>
+<td>Allow to save exr images from RV using OIIO</td>
+</tr>
+<tr>
+<td>#2251</td>
+<td>Export Mesh Lights user data attributes into the mesh node</td>
+</tr>
+<tr>
+<td>#2276</td>
+<td>Exr custom attributes is hardcoded to defaultArnoldDriver</td>
+</tr>
+<tr>
+<td>#2287</td>
+<td>Triplanar projection issue when rotation is 45 degrees</td>
+</tr>
+<tr>
+<td>#2290</td>
+<td>Change behaviour of RV start / stop / continuous icons</td>
+</tr>
+<tr>
+<td>#1061</td>
+<td>Export Selection does not work for nodes that are not under a Maya Transform Node</td>
+</tr>
+<tr>
+<td>#2188</td>
+<td>Init XGen Config Path when it is defined</td>
+</tr>
+<tr>
+<td>#2193</td>
+<td>XGen Palette path should not include group name</td>
+</tr>
+<tr>
+<td>#2205</td>
+<td>Interactive render(IPR and new render view) is not that interactive at all</td>
+</tr>
+<tr>
+<td>#2214</td>
+<td>Support Procedurals when picking in the Renderview</td>
+</tr>
+<tr>
+<td>#2229</td>
+<td>Force full scene update in the RenderView</td>
+</tr>
+<tr>
+<td>#2250</td>
+<td>Adding new nodes in a shading tree isn't updated properly in IPR</td>
+</tr>
+<tr>
+<td>#2252</td>
+<td>Un-hiding nodes is not tracked in IPR sessions</td>
+</tr>
+<tr>
+<td>#2253</td>
+<td>Hide RV's AOV list when they are disabled</td>
+</tr>
+<tr>
+<td>#2265</td>
+<td>.cube files wrong behaviour for out-of-bounds input colors</td>
+</tr>
+<tr>
+<td>#2275</td>
+<td>Possible nans in MayaProjection</td>
+</tr>
+<tr>
+<td>#2278</td>
+<td>Improve Background + Luts in the RV</td>
+</tr>
+<tr>
+<td>#2279</td>
+<td>Better integration of the Snapshots and LUTs UI in the RV</td>
+</tr>
+<tr>
+<td>#2280</td>
+<td>Allow creating layer overrides to environment attributes</td>
+</tr>
+<tr>
+<td>#2297</td>
+<td>Save RV options along with the scene</td>
+</tr>
+<tr>
+<td>#2298</td>
+<td>RV not updated when changing the Render Layer</td>
+</tr>
+<tr>
+<td>#2300</td>
+<td>Apply Maya Color Management to RenderView</td>
+</tr>
+<tr>
+<td>#2301</td>
+<td>Port C4dToA improvements on Shadow Catcher to MtoA</td>
+</tr>
+<tr>
+<td>#2286</td>
+<td>XgArnoldProcedural object file created in the source directory during compilation</td>
+</tr>
+</tbody></table>
+<h2 id="enhancements">Enhancements</h2><table>
+<thead>
+<tr>
+<th>Ticket</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>#2271</td>
+<td>RV Crop Region responds to all Render Settings</td>
+</tr>
+<tr>
+<td>#2283</td>
+<td>Support OCIO in RV</td>
+</tr>
+<tr>
+<td>#1947</td>
+<td>Use the Arnold "Active" flag for nodes during an IPR session</td>
+</tr>
+<tr>
+<td>#1961</td>
+<td>standin as attribute group</td>
+</tr>
+<tr>
+<td>#2230</td>
+<td>Add A/B image comparison in the RV</td>
+</tr>
+<tr>
+<td>#2248</td>
+<td>Allow to open the RenderView without starting the render</td>
+</tr>
+<tr>
+<td>#2255</td>
+<td>Improve RV crop region UI</td>
+</tr>
+<tr>
+<td>#2257</td>
+<td>Support negative threads in the RV</td>
+</tr>
+<tr>
+<td>#2258</td>
+<td>IPR sessions should have limitated verbosity by default</td>
+</tr>
+<tr>
+<td>#2262</td>
+<td>Load file image in RV snapshots</td>
+</tr>
+<tr>
+<td>#2266</td>
+<td>Save Multi-layered EXR from the RV</td>
+</tr>
+<tr>
+<td>#2267</td>
+<td>Save snapshots in project image dir by default</td>
+</tr>
+<tr>
+<td>#2274</td>
+<td>Show Rendering Tiles in RV for last AA step</td>
+</tr>
+<tr>
+<td>#2282</td>
+<td>Allow to edit RV options by script</td>
+</tr>
+<tr>
+<td>#2303</td>
+<td>Expose new Light parameters (spread, photometric radius)</td>
+</tr>
+</tbody></table>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/am-1x/arnold_for_maya_am_1x_am_12_html.html">1.2</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

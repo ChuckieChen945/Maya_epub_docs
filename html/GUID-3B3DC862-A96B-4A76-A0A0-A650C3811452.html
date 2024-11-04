@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452">
+<meta name="language" content="CHS">
+<title>I/O 和用户交互</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>I/O 和用户交互</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C8B"> 通过这些命令可以暂停脚本以获取用户输入。若要创建复杂的自定义用户界面，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B612C992-B8F8-41CA-9DB7-7EBBFD671F1A.htm#GUID-B612C992-B8F8-41CA-9DB7-7EBBFD671F1A__WS17956D7ADBC6E736-382DDEB7117AE328B72-8000">创建界面</a>。
+	 </p>
+<div class="section" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C89"><h2 class="title sectiontitle">使用 confirmDialog 询问问题</h2> 
+		 
+		<p class="p" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C88"><samp class="ph codeph">confirmDialog</samp> 命令可创建一个模式窗口，其中包含向用户显示的消息以及任意数量的按钮。
+		</p>
+ 
+		<p class="p" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C87"> 当用户按任意按钮或单击该窗口的关闭按钮时，该窗口消失。
+		</p>
+ 
+		<ul class="ul" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C85"><li class="li" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C84">使用消息标志设定显示在按钮上方的文本字符串。
+		  </li>
+<li class="li" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C83">添加 <samp class="ph codeph" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__GUID-F0BA58A4-20EC-4A29-B265-E2412F5BAB11">button</samp> 标志与每个按钮的标题字符串。
+		  </li>
+<li class="li" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C82">使用 <samp class="ph codeph" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__GUID-8437A735-E6F2-4A23-BF9F-9CF8F4F28788">defaultButton</samp> 标志可以指定哪个按钮对应于 Enter 键。
+		  </li>
+<li class="li" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C81">使用 <samp class="ph codeph" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__GUID-B10D4DF5-A957-4E69-AA1C-59782F8CE0BF">cancelButton</samp> 标志可以指定哪个按钮对应于 Esc 键。
+		  </li>
+<li class="li" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C80">如果用户单击某个按钮，将返回该按钮的名称。
+		  </li>
+<li class="li" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C7F">如果用户单击该窗口的关闭按钮，将返回 <samp class="ph codeph" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__GUID-B0E4E10F-8519-48A3-A05A-2EBAF6FF98BE">dismissString</samp> 标志指定的字符串。
+			 <div class="fig fignone" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C7E"><img class="image" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__IMAGE_E0B205C1047840F3BEE34F97BEF22CE9" width="136" height="85" src="../images/GUID-C0ECAF41-24D2-49E0-8858-F2C0D778E40A.png"></div>
+ 
+		  </li>
+</ul>
+ 
+		<pre class="pre codeblock">
+confirmDialog -title "Confirm" -message "Are you sure?"
+	-button "OK" -button "Cancel" -defaultButton "OK"
+	-cancelButton "Cancel" -dismissString "Cancel";
+</pre>
+ 
+	 </div>
+<div class="section" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C7D"><h2 class="title sectiontitle">允许用户使用 fileDialog 选择文件</h2> 
+		 
+		<p class="p" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C7C"><samp class="ph codeph">fileDialog</samp> 命令可显示文件打开对话框窗口。请参见 <a class="xref" href="https://help.autodesk.com/view/MAYAUL/2024/CHS/?guid=__Commands_index_html" target="_blank">Maya MEL 命令文档</a>中的 <samp class="ph codeph">fileDialog</samp> 
+		</p>
+ 
+		<ul class="ul" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C7B"><li class="li" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C7A"> 使用 <samp class="ph codeph" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__GUID-CF06F030-EFB3-435B-88F6-0AE0F781D4F3">directoryMask</samp> 标志可以指定起始目录和文件名过滤器。如果不使用此标志，文件对话框会在当前工作目录中启动。
+			 <p class="p" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C78">字符串可以包含路径名称，并且必须包含通配符文件说明符（“*.cc”或“/usr/u/*”）。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C77">该命令可返回用户选择的文件的路径，或空字符串（如果用户取消文件对话框）。
+			 <div class="fig fignone" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C76"><img class="image" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__IMAGE_76A8EB83B220480B8B1204C2BE8C3DDD" width="430" height="297" src="../images/GUID-405154EF-DCA2-4182-9307-86DB42780104.png"></div>
+ 
+		  </li>
+</ul>
+ 
+		<pre class="pre codeblock">
+fileDialog -directoryMask "*.txt"
+</pre>
+ 
+	 </div>
+<div class="section" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C75"><h2 class="title sectiontitle">使用 promptDialog 获取字符串</h2> 
+		 
+		<p class="p" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C74"> <samp class="ph codeph">promptDialog</samp> 命令可创建一个窗口，其中包含向用户显示的消息、一个文本框以及任意数量的按钮。请参见 <a class="xref" href="https://help.autodesk.com/view/MAYAUL/2024/CHS/?guid=__Commands_index_html" target="_blank">Maya MEL 命令文档</a>中的 <samp class="ph codeph">promptDialog</samp>。
+		</p>
+ 
+		<ul class="ul" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C72"><li class="li" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C71">使用 <samp class="ph codeph" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__GUID-DE878167-4609-4D03-8804-56D324050180">title</samp> 标志可以设置窗口标题。使用 <samp class="ph codeph" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__GUID-B67F0605-127C-471C-8FD1-E7D379796078">message</samp> 标志可以设置显示在文本框和按钮上方的字符串。
+		  </li>
+<li class="li" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C70">使用 <samp class="ph codeph" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__GUID-18F9EB45-8E87-4DFE-A66E-8AFF8D6123D1">text</samp> 标志可以设置文本框的初始内容。使用 <samp class="ph codeph" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__GUID-00216CE4-0906-4D2D-9056-AC4D70B7C8AE">scrollableField</samp> 标志可以将文本框更改为多行滚动字段。
+		  </li>
+<li class="li" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C6F">添加 <samp class="ph codeph" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__GUID-2B1AD632-778F-4E3F-B942-EF3F0E53044B">button</samp> 标志与每个按钮的标题字符串。
+		  </li>
+<li class="li" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C6E">使用 <samp class="ph codeph" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__GUID-835150D5-683C-4BF8-87F5-EA1D07BD9E2E">defaultButton</samp> 标志可以指定哪个按钮对应于 Enter 键。
+		  </li>
+<li class="li" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C6D">使用 <samp class="ph codeph" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__GUID-05BDC631-FD16-4239-BC10-6DBEC375A153">cancelButton</samp> 标志可以指定哪个按钮对应于 Esc 键。
+		  </li>
+<li class="li" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C6C">如果用户单击某个按钮，将返回该按钮的名称。
+		  </li>
+<li class="li" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C6B">如果用户单击该窗口的关闭按钮，将返回 <samp class="ph codeph" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__GUID-8E808272-C51F-4F28-9D17-46C96BDAD4FA">dismissString</samp> 标志指定的字符串。
+		  </li>
+<li class="li" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C6A">该命令返回后，再次将该命令与 <samp class="ph codeph" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__GUID-E130057D-8075-46CC-8380-22D6B7E04333">query</samp> 标志和 <samp class="ph codeph" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__GUID-F868C95C-A3FA-43CB-ABB2-00DB557049B3">text</samp> 标志结合使用，以获取用户输入的文本。
+			 <div class="fig fignone" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__WS73099CC142F48755-3D114B7511841AEFA9F-C69"><img class="image" id="GUID-3B3DC862-A96B-4A76-A0A0-A650C3811452__IMAGE_7CBBB6117A3645BDB63E80C7759D14B9" width="134" height="91" src="../images/GUID-15C41A62-201E-43CC-A276-D98BD2FC1E5A.png"></div>
+ 
+		  </li>
+</ul>
+ 
+		<pre class="pre codeblock">
+// Show the dialog box:
+string $text;
+string $result = `promptDialog
+	-title "Rename Object"
+	-message "Enter Name:"
+	-button "OK" -button "Cancel"
+	-defaultButton "OK" -cancelButton "Cancel"
+	-dismissString "Cancel"`;
+// Use the command again in query mode to
+// get the text:
+if ($result == "OK") {
+	$text = `promptDialog -query -text`;
+}
+</pre>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-7D50AA7D-DA27-4D7F-BE15-F0F428E40755.htm">读取和写入文件</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-7060F7BD-E4E3-4841-988C-DF5A44134460.htm">测试文件存在、权限和其他特性</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-D82E194B-0D98-4E75-A4E9-39BB5D8E8CDF.htm">操纵文件</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-21460598-20D5-4DE4-BED1-44D6B8376F68.htm">使用目录</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-4A5FC8A1-9529-41DE-84A9-C229FA5DD18A.htm">执行系统命令</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-608A2F28-5F6B-4D54-9976-E261CCC8317E.htm">从系统命令管道读取和写入到系统命令管道</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-6BBC67B3-5ED8-4E7D-90D7-E0054E2132D9.htm">从 AppleScript 调用 MEL 或相反情况</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-E151A15C-BA1D-4E60-8DB6-9D92C6202170.htm">MEL 和表达式</a></div>
+</div>
+</div>
+
+</body>
+</html>

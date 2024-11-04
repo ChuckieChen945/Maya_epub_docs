@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="contextid" content="HIERARCHCOLLECTIONS_SHADERS">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D">
+<meta name="language" content="CHS">
+<title>使用层次集合覆盖逐面应用的着色器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用层次集合覆盖逐面应用的着色器</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 此处以头部模型为例，其头发、蒙皮、颈部和眼睛/嘴均已指定给不同的材质。 
+	 </p>
+<div class="fig fignone" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__FIG_2B0E6929113F4DBD8B855190D7B1338D"><img class="image" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__IMAGE_72C89C09E59345D29216F40EDEC866EE" src="../images/GUID-1D4C2AF9-669A-4049-A3C9-EFF5E6C7D1E5.png"></div>
+<p class="p">以下工作流将说明如何创建下列覆盖： 
+	 </p>
+<ul class="ul" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__UL_72A1CB1613FE429E9AD4483FFD6EBFD9"><li class="li" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__LI_09D6A4DF8B6F48E780B2D45EB4B285C5">在模型的头发上创建颜色覆盖 
+		</li>
+<li class="li" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__LI_3FF598B4040F47AC83BE67141E9CF011">在模型的眼睛和嘴上创建颜色覆盖 
+		</li>
+<li class="li" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__LI_450312A374134F66813360C8C6EA6247">模型颈部上的颜色覆盖，用于将颈部连接到棋盘格纹理 
+		</li>
+<li class="li" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__LI_2E4694AFB02D4E4EA2B24617F99B2F44">使用着色器覆盖将蒙皮着色器替换为其他着色器 
+		</li>
+</ul>
+<p class="p">最终结果应如下所示： 
+	 </p>
+<div class="fig fignone" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__FIG_2612E2FD373446E6A9139A38E1A74338"><img class="image" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__IMAGE_46C49D109A2041F29447DC4D1091B8A2" src="../images/GUID-6CF9C70F-F561-4F15-A35C-80D29FFDF71C.png"></div>
+<div class="note note" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__GUID-54F0A395-B183-4E16-98D1-194CDD8CE71C"><span class="notetitle">注：</span>  
+		<p class="p">在<span class="ph uicontrol">“大纲视图”(Outliner)</span>中启用<span class="ph uicontrol">“显示 &gt; 指定的材质”(Display &gt; Assigned Materials)</span>，可以显示指定给场景中每个对象的材质。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__FIG_E43FCA5023454A53AE5878A074D99740"><img class="image" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__IMAGE_876BDBD59515475D8DA3356E5D698842" src="../images/GUID-403FF843-A39E-4269-8B97-597936A4AE33.png"></div>
+ 
+		<p class="p">本示例假定您对层、集合、覆盖以及着色器覆盖有一个基本的了解。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-AA669F09-9CDB-4327-BC37-3E4ECD6A0E69.htm" title="若要将非破坏性更改应用于场景，可以为集合创建覆盖。通过禁用覆盖、使其不会应用，您可以轻松将属性恢复为其原始状态。通过启用和禁用操作体验不同的覆盖。">在渲染层中为集合创建覆盖</a>、<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-E61603BF-B06F-473D-938E-96A7B9A0CEB4.htm" title="采用以下两种方式之一，可覆盖应用于集合中对象的材质：创建材质覆盖（以覆盖着色组）或着色器覆盖（以覆盖表面着色器）。">覆盖应用于集合中对象的材质</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-DB06A462-5EB3-4DD4-8FC7-064038CFD844.htm" title="您可以在任何值上创建绝对或相对覆盖，然后将网络连接到覆盖。例如，您可以在颜色属性上创建一个相对覆盖并将纹理连接到此覆盖。">使用值覆盖将网络连接到属性</a>。 
+		</p>
+ 
+	 </div>
+<p class="li listintro">覆盖模型的头发和眼睛/嘴的颜色</p>
+<ol class="ol" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__OL_E249C634CD2F401397D04BC415966D7E"><li class="li" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__LI_2DE2927DAD974771B6FB1633BCE56583">创建层并将其命名为“MyModel”。 
+		  <p class="p">单击 <img class="image" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__IMAGE_649BD8A9D1084F17A6673F493F21207B" src="../images/GUID-1B8909A2-7282-45A5-9A5C-52C504EF2EA5.png"> 使层可见。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__LI_AD22D24FF358409B97C3A51C163A9B8F">在层上单击鼠标右键，选择<span class="ph uicontrol">“创建集合”(Create Collection)</span>，然后将集合命名为“ModelHead”。 
+		</li>
+<li class="li" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__LI_49F529D28FA4448F9691359AD9B10185">选定 ModelHead 集合后，从<span class="ph uicontrol">“大纲视图”(Outliner)</span>中选择“头部”(Head)，然后在<span class="ph uicontrol">“特性编辑器”(Property Editor)</span>中单击<span class="ph uicontrol">“添加”(Add)</span>，将其添加到集合中。 
+		  <p class="p">头部模型现已添加到层。 
+		  </p>
+ 
+		  <div class="note note" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__GUID-CF5E7B35-542B-4B29-848C-F16DC5CAA594"><span class="notetitle">注：</span> 默认情况下，仅将其变换节点添加到此集合。 
+		  </div>
+ 
+		  <div class="fig fignone" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__FIG_A4676F493AC1434CB264DB29379B26A3"><img class="image" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__IMAGE_B9461A8469F24701A9F7470143E56E26" src="../images/GUID-67A51901-87C5-43FB-97F4-D6164553C0FA.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__LI_02E7212E6D7945218E7656D05B0A9378">在<span class="ph uicontrol">“大纲视图”(Outliner)</span>中，选择任意着色器，如“蒙皮”(Skin)。在“蒙皮”(Skin)着色器的<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中，使用鼠标中键将<span class="ph uicontrol">“颜色”(Color)</span>属性拖放到 ModelHead 集合的<span class="ph uicontrol">“特性编辑器”(Property Editor)</span>以创建覆盖。 
+		  <p class="p">ModelHead_shaders 子集合将随对应的颜色覆盖一起创建。选择该集合可看到在<span class="ph uicontrol">“特性编辑器”(Property Editor)</span>中，<span class="ph uicontrol">“集合过滤器”(Collection Filters)</span>已设置为<span class="ph uicontrol">“着色器”(Shaders)</span>。 
+		  </p>
+ 
+		  <p class="p">在<span class="ph uicontrol">“特性编辑器”(Property Editor)</span>中单击<span class="ph uicontrol">“全选”(Select All)</span>，可以看到所有“蒙皮”(Skin)、“头发”(Hair)、“颈部”(Neck)和“眼”(Eyes)着色器均包含在该集合中。该集合包含指定给头部模型的所有着色器。 
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__FIG_467FC6BD7EBB468787CDA29BE4DE2B00"><img class="image" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__IMAGE_0279888B8F4148A598343622136DFACE" src="../images/GUID-23B0F56B-C606-490F-B810-C183AE8B9477.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__LI_848E3DA034F14A7B8D54D87FF344F00E">在<span class="ph uicontrol">“特性编辑器”(Property Editor)</span>中单击<span class="ph uicontrol">“添加”(Add)</span>，然后移除“蒙皮”(Skin)、“颈部”(Neck)和“眼”(Eyes)，只留下“头发”(Hair)。从表达式字段中移除 *。 
+		  <p class="p">该集合现在仅包含“头发”(Hair)着色器。将其重命名为“头发”(Hair)。 
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__FIG_CCDC03E7F04447F39C9142E82670EE03"><img class="image" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__IMAGE_0D744C36BB054F09863588E870740DEC" src="../images/GUID-B6956901-BEF9-4923-B6CC-633415844238.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__LI_199F1B1239A84338A013CEE8067BF2F9">选择颜色覆盖并将颜色更改为绿色。在视口中，模型的头发将变为绿色。 
+		  <div class="fig fignone" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__FIG_B2D23618EB3D441DA0CBFBD86FE24CBF"><img class="image" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__IMAGE_7FF644FF73824B1FB47E41E95EA15973" src="../images/GUID-228A4D4B-A3F4-45DB-9691-0B8861925883.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__LI_919567F0A88649529532FF234FE9E3F6">当 MyModel 层仍然设置为可见时，再次选择 ModelHead 集合，然后选择“蒙皮”(Skin)着色器。在“蒙皮”(Skin)着色器的<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中，在<span class="ph uicontrol">“颜色”(Color)</span>属性上单击鼠标右键，然后选择<span class="ph uicontrol">“为可见层创建绝对覆盖”(Create Absolute Override for the Visible Layer)</span>。 
+		  <p class="p">ModelHead_shaders 子集合将随对应的颜色覆盖一起创建。如前所述，所有“蒙皮”(Skin)、“头发”(Hair)、“颈部”(Neck)和“眼”(Eyes)着色器均包含在该集合中。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__LI_52254DBB85FD4B398D19D654BA4150B4">选定 ModelHead_shaders 子集合的情况下，单击<span class="ph uicontrol">“特性编辑器”(Property Editor)</span>中的<span class="ph uicontrol">“全选”(Select All)</span>，单击<span class="ph uicontrol">“添加”(Add)</span>，然后移除皮肤、颈部和头发，只留下眼睛。从表达式字段中移除 *。 
+		  <p class="p">该集合现在仅包含“眼”(Eyes)着色器，后者同时应用于“眼”(Eyes)和“嘴”(Mouth)。将其重命名为“Eyes_Mouth”。 
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__FIG_CDE091BD210E47B398CDE917A295E376"><img class="image" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__IMAGE_334836E0611C4F5392542C44D6C99339" src="../images/GUID-4B856736-EEB5-42EE-91F9-AF48730269BB.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__LI_C6822B8DE42D403AB3AE574F3A7560B2">选择颜色覆盖并将颜色更改为红色。在视口中，模型的眼和嘴将变为红色。 
+		  <div class="fig fignone" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__FIG_66345CB0C4654633A0361659FF799771"><img class="image" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__IMAGE_006B0D3942934982B6849437C2622541" src="../images/GUID-C03B5F93-EF85-484A-A8FD-663828BD13FD.png"></div>
+ 
+		</li>
+</ol>
+<p class="li listintro">将棋盘格纹理映射到模型颈部着色器的颜色属性</p>
+<ol class="ol" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__OL_5FAB1DE067B849A7A416C77DCAD1C2A5"><li class="li" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__LI_10129BD77FC84F7C8DF5C4445268B0EA">当 MyModel 层仍然设置为可见时，再次选择 ModelHead 集合，然后选择任一着色器；例如，“颈部”(Neck)。在“颈部”(Neck)着色器的<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中，在<span class="ph uicontrol">“颜色”(Color)</span>属性上单击鼠标右键，然后选择<span class="ph uicontrol">“为可见层创建绝对覆盖”(Create Absolute Override for the Visible Layer)</span>。 
+		  <p class="p">ModelHead_shaders 子集合将随对应的颜色覆盖一起创建。如前所述，所有“蒙皮”(Skin)、“头发”(Hair)、“颈部”(Neck)和“眼”(Eyes)着色器均包含在该集合中。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__LI_29695EF44A1442B69281BEF4022EA418">选定 ModelHead_shaders 子集合的情况下，单击<span class="ph uicontrol">“特性编辑器”(Property Editor)</span>中的<span class="ph uicontrol">“全选”(Select All)</span>，单击<span class="ph uicontrol">“添加”(Add)</span>，然后移除皮肤、眼睛和头发，只留下颈部。从表达式字段中移除 *。 
+		  <p class="p">将该集合重命名为“颈部”(Neck)。 
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__FIG_11FB5C9BFF8749E5A0F532AE6E1CF0D0"><img class="image" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__IMAGE_E48B883728A9406FBC7CA3E243824729" src="../images/GUID-8F922764-3654-452D-918B-F43F41D8F374.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__LI_4861920AE8FD4389B36D11D8B4FEA2E5">选择颜色覆盖，然后单击 <img class="image" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__IMAGE_0D1527FEA4084B84929E39661A8048D6" src="../images/GUID-085F901A-F3E8-43AE-9060-FCA856106689.png"> 按钮将<span class="ph uicontrol">“颜色”(Color)</span>属性连接到纹理，如“棋盘格”(Checker)。 
+		  <p class="p">在视口中，模型的颈部显示时带有棋盘格纹理。 
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__FIG_315F50207B52489982525033D02284A4"><img class="image" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__IMAGE_A25EF9405B9A4404BCD884A45B88181A" src="../images/GUID-9DBEF4DC-0400-4A75-B364-D5CC0FFE6BE0.png"></div>
+ 
+		</li>
+</ol>
+<p class="li listintro">使用着色器覆盖将模型的蒙皮着色器替换为其他着色器</p>
+<ol class="ol" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__OL_4592531E83984C87A26DC432C679C12C"><li class="li" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__LI_53C88B487F9342D2ADFB37FAE8041DEB">选择 ModelHead 集合，单击鼠标右键，然后选择<span class="ph uicontrol">“创建着色器覆盖”(Create Shader Override)</span>。 
+		  <p class="p">名为 ModelHead_shadingEngines 的集合将随对应的着色器覆盖一起创建。选择该集合可看到<span class="ph uicontrol">“集合过滤器”(Collection Filters)</span>已设置为<span class="ph uicontrol">“着色引擎”(Shading engines)</span>。该集合包含应用于头部模型的所有着色引擎。 
+		  </p>
+ 
+		  <p class="p">将该集合重命名为“蒙皮”(Skin)。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__LI_9D1623D56D374A8DAC36438B3D1B55BB">在<span class="ph uicontrol">“大纲视图”(Outliner)</span>中选择 SkinSG，然后在<span class="ph uicontrol">“特性编辑器”(Property Editor)</span>中单击<span class="ph uicontrol">“添加”(Add)</span>，将其添加到集合中。从表达式字段中移除 *。 
+		  <div class="fig fignone" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__FIG_BF5EE3F5EF3A4F87A626A766DAA78B76"><img class="image" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__IMAGE_B997189EE4E44AF8820EDFCEABC363A1" src="../images/GUID-1B710C51-58AD-4BFE-ADB1-40045304FA46.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__LI_5AE2C51655374765A0879BE7414AC2C2">选择着色器覆盖，然后单击 <img class="image" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__IMAGE_37B274EB46904EBFAB466696706DDBC7" src="../images/GUID-085F901A-F3E8-43AE-9060-FCA856106689.png"> 图标，以将 SkinSG 着色引擎连接到其他着色器，如 blinn。 
+		  <p class="p">调整 blinn 着色器上的颜色，然后在视口中的模型更新上查看蒙皮。 
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__FIG_63370580BD7C486583ABC81EED6A2095"><img class="image" id="GUID-BB14B68E-2288-461C-8EB5-984EA3DEE00D__IMAGE_B698E4EA77184758A38A27C3D3C1531C" src="../images/GUID-6CF9C70F-F561-4F15-A35C-80D29FFDF71C.png"></div>
+ 
+		</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-405E1713-CED2-4A07-A822-27A77C68D3FB.htm">覆盖对象的着色</a></div>
+</div>
+</div>
+
+</body>
+</html>

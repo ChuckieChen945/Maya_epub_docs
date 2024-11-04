@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Bifrost">
+<meta name="created" content="30/7/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="17/04/2023">
+<meta name="topicid" content="GUID-A517BF9A-7C61-43D9-BE3A-30B0648DFE66">
+<meta name="language" content="CHS">
+<title>设置 Bifrost 液体和泡沫模拟的初始状态</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-A517BF9A-7C61-43D9-BE3A-30B0648DFE66">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>设置 Bifrost 液体和泡沫模拟的初始状态</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p">某些模拟需要预备运行才会显示良好。例如，对于顺着岩石向下层叠到池中的水，可能需要很多帧才会使水达到岩石底部并使泡沫创建漩涡图案。在这些情况下，可以设置初始状态，即：可以根据需要为尽可能多的帧运行模拟，然后将当前帧设置为后续运行的模拟的新起点。这样，就不需要在每次调整模拟设置时重新运行。
+	 </p>
+<p class="p">一旦设置初始状态，即可更改模拟的任何方面，它将使用新设置从该起点继续。您甚至可以更改<span class="ph uicontrol">“主体素大小”(Master Voxel Size)</span>，所有值将以新分辨率重采样。具体来说，您可以低分辨率播放模拟，从而快速实现所需的整体流形状，然后设置初始状态，最后减小<span class="ph uicontrol">“主体素大小”(Master Voxel Size)</span>，以更高的分辨率从这里开始继续播放。
+	 </p>
+<div class="section" id="GUID-A517BF9A-7C61-43D9-BE3A-30B0648DFE66__SECTION_A3FA5F3A58F54AFBAF282E4B564A68FE"><h2 class="title sectiontitle">设置初始状态</h2> 
+		 
+		<p class="p">若要设置初始状态或将其更改为后续帧（如果已设置），请执行以下操作：
+		</p>
+ 
+		<ol class="ol" id="GUID-A517BF9A-7C61-43D9-BE3A-30B0648DFE66__OL_DF5AE7F968704C06ABBF5133BC8828A1"><li class="li" id="GUID-A517BF9A-7C61-43D9-BE3A-30B0648DFE66__LI_F7697F3043EA4FF4B6FC13F457CB861E">根据需要设置 Bifrost 液体模拟（带或不带泡沫）。
+		  </li>
+<li class="li" id="GUID-A517BF9A-7C61-43D9-BE3A-30B0648DFE66__LI_BCE23AF954F74100B0F10267264648F8">播放模拟，直至达到要用作起点的帧。
+		  </li>
+<li class="li" id="GUID-A517BF9A-7C61-43D9-BE3A-30B0648DFE66__LI_49BC55D0ABCD4F6D8C7507F46C1BDA7B">选择 <span class="ph uicontrol">bifrostLiquid</span> 节点。
+		  </li>
+<li class="li" id="GUID-A517BF9A-7C61-43D9-BE3A-30B0648DFE66__LI_B5A0F857D2424875A3490E6E79279EF6">选择<span class="ph menucascade"><span class="ph uicontrol">“Bifrost 流体</span> &gt; <span class="ph uicontrol">设置初始状态”(Bifrost Fluids &gt; Set Initial State)</span></span>。
+			 <p class="p">默认情况下，液体（和泡沫（如果有））的当前状态基于场景和对象名称在当前项目缓存目录的子文件夹中保存为 .bif 文件。此外，在 <span class="ph uicontrol">bifrostLiquidProperties</span> 和 <span class="ph uicontrol">bifrostFoamProperties</span> 节点的<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-0877BBD6-831D-4844-97AC-10FEFAB78B02.htm"><span class="ph uicontrol">“缓存”(Caching)</span></a>组中，<span class="ph uicontrol">“初始状态缓存”(Initial State Cache)</span>属性将自动设置为相应值。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-A517BF9A-7C61-43D9-BE3A-30B0648DFE66__LI_6437BDB951354F2EB7DBD0CDCD4FAD7A">如果模拟不包含发射器、碰撞对象、场和导向等已设置动画的对象，则表示操作已完成。
+			 <div class="p">但如果存在已设置动画的对象，则动画和模拟不再相互匹配。在第一帧上，模拟现在对应于已设置为初始状态的帧，但对象的动画保持不变。重新同步这些对象的最佳方式如下：
+			 <ol class="ol" type="a" id="GUID-A517BF9A-7C61-43D9-BE3A-30B0648DFE66__OL_81D015DDE5564F3B9EE2BC4EC7B84970"><li class="li" id="GUID-A517BF9A-7C61-43D9-BE3A-30B0648DFE66__LI_6863E5D7927447079229C4A5336D03AF">在 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-2C8F3E64-00A7-498A-B6FD-6281EAE83ADB.htm"><span class="ph uicontrol">bifrostLiquidContainer</span></a> 属性中，将<span class="ph uicontrol">“开始帧”(Start Frame)</span>设置为用于初始状态的帧。
+				</li>
+<li class="li" id="GUID-A517BF9A-7C61-43D9-BE3A-30B0648DFE66__LI_946913E607EC4B59B93CBCD48FE64D21">此外，将场景的动画或播放范围的起点设置为同一帧。有关详细信息，请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-E9E054A1-A5D0-412C-976A-F57C0F6960B1">范围滑块</a>。
+				</li>
+</ol>
+ 
+			 </div>
+ 
+		  </li>
+</ol>
+ 
+		<div class="note note" id="GUID-A517BF9A-7C61-43D9-BE3A-30B0648DFE66__GUID-0C080EA5-C6C5-46F3-9855-4E3351366559"><span class="notetitle">注：</span> 如果为仅限液体的模拟设置初始状态，然后向其添加泡沫，则可能需要几帧才能完全形成泡沫。如果之后设置新的初始状态，则泡沫和液体都使用新帧作为其初始状态 - 这可确保泡沫的位置和速度始终匹配液体。
+		</div>
+ 
+		<div class="note note" id="GUID-A517BF9A-7C61-43D9-BE3A-30B0648DFE66__GUID-4611A537-B321-4E7D-AE7E-A121570E429F"><span class="notetitle">注：</span> 设置导向液体模拟的初始状态后，请勿移除发射区域。
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-A517BF9A-7C61-43D9-BE3A-30B0648DFE66__SECTION_B6F1E3F14C734826A15545BE32C215F3"><h2 class="title sectiontitle">清除初始状态</h2> 
+		 
+		<p class="p">若要停止使用初始状态，请执行以下操作：
+		</p>
+ 
+		<ol class="ol" id="GUID-A517BF9A-7C61-43D9-BE3A-30B0648DFE66__OL_3693D1527FB2480A858FA3C84BDC0DB2"><li class="li" id="GUID-A517BF9A-7C61-43D9-BE3A-30B0648DFE66__LI_F439BA7291AF436F92E084A9B4418989">选择 <span class="ph uicontrol">bifrostLiquid</span> 节点。
+		  </li>
+<li class="li" id="GUID-A517BF9A-7C61-43D9-BE3A-30B0648DFE66__LI_2D06FC8D815545629A7A48B58D9B0F95">选择<span class="ph menucascade"><span class="ph uicontrol">“Bifrost 流体</span> &gt; <span class="ph uicontrol">清除初始状态”(Bifrost Fluids &gt; Clear Initial State)</span></span>。
+		  </li>
+<li class="li" id="GUID-A517BF9A-7C61-43D9-BE3A-30B0648DFE66__LI_D908191CD1B041789633C2173184517E">单击“确认”(Confirm)。如果当前为液体和泡沫设置初始状态，则各自有单独的确认对话框。例如，可以对液体单击<span class="ph uicontrol">“否”(No)</span>以保持初始状态，然后对泡沫单击<span class="ph uicontrol">“是”(Yes)</span>以移除初始状态。
+		  </li>
+<li class="li" id="GUID-A517BF9A-7C61-43D9-BE3A-30B0648DFE66__LI_DF4ED5A4FFC94D94B28D8A9BE3319723">如有必要，请将<span class="ph uicontrol">“bifrostLiquidContainer”</span>的<span class="ph uicontrol">“开始帧”(Start Frame)</span>以及场景的动画或播放范围的起点更改回其原始值。
+		  </li>
+</ol>
+ 
+		<p class="p">下次播放时，模拟将从头开始重新计算。
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-48510726-6052-4CD4-96D7-3B739AE707A7.htm">使用 Bifrost 液体</a></div>
+</div>
+</div>
+
+</body>
+</html>

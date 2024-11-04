@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F">
+<meta name="language" content="CHS">
+<title>有关使用 nHair 的高级提示</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>有关使用 nHair 的高级提示</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-2405"><p class="p" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__WS73099CC142F48755-3D114B751181C40F14B3304"> 
+		以下是头发处理的建议提示。 
+	 </p>
+<div class="section" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__WS17956D7ADBC6E7361D6FCE9F117AE322342-7FF9"><h2 class="title sectiontitle">最大头发密度选项变量</h2> 
+		 
+		<p class="p" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__WS73099CC142F48755-3D114B751181C40F14B3306"> 
+		   有助于了解以下选项变量： 
+		</p>
+ 
+		<pre class="pre codeblock">
+createHairMaxDensity
+</pre>
+ 
+		<p class="p" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__WS73099CC142F48755-3D114B751181C40F14B3308">其默认值为 100。若要增大该值，请键入： 
+		</p>
+ 
+		<pre class="pre codeblock">
+optionVar -intValue createHairMaxDensity 150;
+</pre>
+ 
+		<p class="p" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__WS73099CC142F48755-3D114B751181C40F14B3309">这将决定可以在曲面上创建或绘制的最大行/列的头发。根据毛囊在该分辨率栅格中的位置对毛囊进行命名。这一命名的原因在于<span class="ph uicontrol" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__GUID-761ECBFC-CC31-4076-9DED-55270C9DB13E">“绘制头发工具”(Paint Hair Tool)</span>根据该命名查找给定 UV 位置的头发。 
+		</p>
+ 
+		<p class="p" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__WS73099CC142F48755-3D114B751181C40F14B330A">如果该变量变大，则在曲面上可绘制的最大毛囊数将变大；但是，绘制也将变得较为缓慢，即便是绘制低密度毛囊。如果更改该变量，则以前创建的头发系统将变得不可绘制（在一个区域进行绘制可能会影响笔刷覆盖范围以外的其他毛囊）。 
+		</p>
+ 
+		<p class="p" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__WS73099CC142F48755-3D114B751181C40F14B330B">如果绘制头发较慢，减小变量的值可能会有所帮助，但是您不能创建高密度毛囊。 
+		</p>
+ 
+		<p class="p" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__WS73099CC142F48755-3D114B751181C40F14B330C">默认情况下为 100x100 栅格，最多可在每个曲面绘制 10000 个毛囊。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__WS73099CC142F48755-3D114B751181C40F14B330D"><h2 class="title sectiontitle">使用 pfxstrokes 命令</h2> 
+		 
+		<p class="p" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__WS73099CC142F48755-3D114B751181C40F14B330E"> <samp class="ph codeph"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Tech-Docs/CommandsPython/pfxstrokes.html" target="_blank">pfxstrokes</a></samp> 命令的基本用途是将<span class="ph uicontrol" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__GUID-52628746-9291-4545-BDFF-589158093654">“Paint Effects”</span>管信息转储到文件中。这适用于从<span class="ph uicontrol" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__GUID-14DB7291-BDD5-44EF-AA24-B4220F5D4506">“Paint Effects”</span>中生成曲线，或发送信息到其他渲染器。<span class="ph uicontrol" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__GUID-855FDC48-13F1-4FF4-9DFA-4F878B3C0B31">“管”(Tubes)</span>处于启用状态时，头发和笔刷的数据格式不同。 
+		</p>
+ 
+		<p class="p" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__WS73099CC142F48755-3D114B751181C40F14B3310"> 
+		  <span class="ph uicontrol" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__GUID-E75FE01C-5E90-4DDF-9318-6DFB1E364EAC">“Paint Effects”</span>可以调用 <samp class="ph codeph" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__GUID-F46444F0-9E9B-4EB0-9DEA-94257D5132F8">runtime</samp> 和 <samp class="ph codeph" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__GUID-8F0458A1-2B92-46DA-A2A9-05113F5D1541">create</samp> MEL 脚本。这些被定义为笔刷节点上的字符串属性：paint create 函数和 paint runtime 函数。将字符串设定为函数的名称以进行调用。该 MEL 函数有一组必须传入且返回的指定参数。工作流是复制提供的其中一个模板 MEL 文件、更改函数名和文件名，然后编辑函数的内部。如果在笔刷上已经设定了任何 runtime 或 create 函数，则绘制笔划时调用这些函数。<samp class="ph codeph" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__GUID-7E042BC4-EDF7-4088-B29A-55EE6A34F34C">pfxstrokes</samp> 命令虚设笔划的重画调用，不绘制任何内容。因此，调用 <samp class="ph codeph" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__GUID-BDAA44FD-AF38-4216-AE01-10B6695E01A8">pfxstrokes</samp> 命令时也会对这些脚本进行求值。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__WS73099CC142F48755-3D114B751181C40F14B3311"><h2 class="title sectiontitle">将毛囊节点用作多边形上的点约束</h2> 
+		 
+		<p class="p" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__WS73099CC142F48755-3D114B751181C40F14B3312"> 
+		   毛囊节点可用作多边形上的点约束。一种方法是创建一些头发，然后删除除毛囊以外的所有内容。例如，删除头发系统、pfxHair 和<span class="ph uicontrol" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__GUID-12ACF16D-99AD-4BE1-8D9A-5F302438D0B4">“开始”(Start)</span>位置曲线。然后，可以使一个对象成为毛囊的一个子对象。或者，可以使用毛囊节点的脚本。 
+		</p>
+ 
+		<p class="p" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__WS73099CC142F48755-3D114B751181C40F14B3314">下列示例脚本将圆锥体约束到多边形球体的曲面。圆锥体将相对于多边形已定义 UV 点的法线和切线移动。（如果 UV 值设定为已定义多边形 UV 集以外的一个值，则该点将出现在球体的中心。） 
+		</p>
+ 
+		<pre class="pre codeblock">
+// create a cone, poly sphere and a follicle node
+string $sphere[] = `polySphere`;
+string $cone[] = `cone`;
+string $fol = `createNode follicle`;
+// get the parent transforms of the follicle
+string $folTform[] = `listTransforms $fol`;
+// connect the sphere to the follicle
+connectAttr ($sphere[0] + ".outMesh") ($fol + ".inputMesh");
+connectAttr ($sphere[0] + ".worldMatrix[0]") ($fol + ".inputWorldMatrix");
+// apply the follicle output positions to its own transform
+connectAttr ($fol + ".outTranslate") ($folTform[0] + ".translate" );
+connectAttr ($fol + ".outRotate") ($folTform[0] + ".rotate" );
+// parent the cone under the follicle
+parent -r $cone[0] $folTform[0];
+// the default uv of 0 0 doesn't exist on the poly sphere, so we set it
+setAttr ($fol + ".parameterV") 0.5;
+// rotate the cone to point along the normal
+setAttr ($cone[0] + ".rotateY") -90;
+</pre>
+ 
+	 </div>
+<div class="section" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__WS73099CC142F48755-3D114B751181C40F14B3315"><h2 class="title sectiontitle">附加跳绳（动力学曲线）到手</h2> 
+		 
+		<p class="p" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__WS73099CC142F48755-3D114B751181C40F14B3316"> 
+		  使用<span class="ph uicontrol" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__GUID-EE0E18EE-DAF9-4F33-B86A-02024FCA04EA">“变换”(Transform)</span> nConstraint 和组，或将 dynamicConstraintShape 节点约束到正在移动的对象。这将锁定动力学曲线，以使其跟随对象的扭曲和旋转，好比弹簧上附加了刚度附件。如果动力学曲线附加不稳妥，则将是一个约束错误。相对约束位置在开始帧处确定，因此在开始帧处不施加力。需要通过抓握的手对<span class="ph uicontrol" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__GUID-DCCB3D9E-1054-49A8-A53E-13BCB1E1B3DD">“开始”(Start)</span>曲线进行建模。 
+		</p>
+ 
+		<p class="p" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__WS73099CC142F48755-3D114B751181C40F14B3318">对根部附近手下方的毛囊进行分组、然后使用<span class="ph uicontrol" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__GUID-F8CF236A-82E7-4059-96EB-0335CBBF1D7D">“变换”(Transform)</span>将绳索的任意一端约束到成组的另一只手，也可以通过这种方式对跳绳进行处理。但是，不可以使用 follicleShape 节点上的<span class="ph uicontrol" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__GUID-23B151B0-D2FA-4E64-BDF4-D001A0831471">“点锁定”(Point Lock)</span>属性的<span class="ph uicontrol" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__GUID-23FD6DFE-A091-4F61-A9C1-5E0CF1F87D3A">“无附加”(No Attach)</span>选项约束开始点。选定<span class="ph uicontrol" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__GUID-93221415-5221-49A7-9C16-D08489E1AB9D">“无附加”(No Attach)</span>后，开始点在重力作用下保持移动，不会因约束而被曲线张力拉动。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__WS73099CC142F48755-3D114B751181C40F14B3319"><h2 class="title sectiontitle">头发作为线变形器</h2> 
+		 
+		<p class="p" id="GUID-A0D2DD53-FE41-4244-8635-CD4651ABF97F__WS73099CC142F48755-3D114B751181C40F14B331A"> 当头发曲线成为移动对象的子级并作为线变形器应用时，其有助于形成抖动效果。头发可以用作线变形器，以使所有或部分曲面动态化。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-47CE9C7F-ED24-4A08-8DFF-E11BDBE2D170.htm">采样动力学曲线场景</a></div>
+</div>
+</div>
+
+</body>
+</html>

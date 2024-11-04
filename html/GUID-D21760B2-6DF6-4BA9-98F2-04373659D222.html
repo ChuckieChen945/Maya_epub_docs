@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222">
+<meta name="language" content="CHS">
+<title>自每个点处改变 nParticle 发射</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>自每个点处改变 nParticle 发射</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-3304"><p class="p" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31ED"> 您可以为每个粒子、CV、顶点、编辑点，或泛向/定向粒子发射器的晶格点使用不同的发射速率例如，可以从圆形的编辑点发射火的边，并改变每个点的发射，以增强自然火中的不规则。<em class="ph i" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__GUID-10E720F9-48A6-450F-BC62-EB9656ADB19C">不能改变基于“发射器类型”是“曲面”或“曲线”的对象逐点的发射</em>。 
+	 </p>
+<div class="fig fignone" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31EB"><img class="image" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__IMAGE_58D27039EDCA460F8480BBF42869F1E3" width="386" height="275" src="../images/GUID-2316CB5A-BC29-4507-812E-218DFFABFD25.png"></div>
+<div class="fig fignone" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31EA"><img class="image" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__IMAGE_96B26F7316994A7186DEA923499EE6C9" width="440" height="193" src="../images/GUID-9DE6FEC1-EE0E-48F5-AB1E-14BCE9E26C73.png"></div>
+<div class="note tip" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31E9"><span class="tiptitle">提示：</span>  如果粒子对象发射，则可以使用表达式或 MEL 命令来获取发射粒子的所有粒子的 id。您可以使用 id 查询发射对象的属性值，例如，加速度、速度和随机数流。要执行此操作，必须将 parentId 属性添加到发射的粒子形状节点。如果使用 MEL 发射命令创建发射粒子，则这些发射的粒子的 parentId 属性始终为 0 
+	 </div>
+<p class="li listintro" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31E5">从粒子更改发射</p>
+<ol class="ol" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS17956D7ADBC6E7361A342C07117AE3124CC-7FA4"><li class="li" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31E4">创建并选择发射粒子对象。 
+		</li>
+<li class="li" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31E3">选择<span class="ph menucascade" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__GUID-177CCF93-64F9-4CAD-ADBB-4FF431936657"><span class="ph uicontrol" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__GUID-446FC47E-3C98-461D-A81C-4E022F7B9784">“nParticle</span> &gt; <span class="ph uicontrol" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__GUID-DE00D5BD-F1A6-4C61-8D40-326D060A684F">逐点发射速率”(nParticles &gt; Per-Point Emission Rates)</span></span>。 
+		  <p class="p" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31E2">这将为发射的粒子对象创建名为“emitterRatePP”的属性。此属性用于改变基于每个粒子的发射速率。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31DF">在<span class="ph uicontrol" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__GUID-49305BB1-97E1-45F8-8E5E-C39EF489AB71">“属性编辑器”(Attribute Editor)</span>中，打开<span class="ph uicontrol" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__GUID-70D6993B-6574-4CDF-9725-C1A27C6C7A42">“每粒子(数组)属性”(Per Particle (Array)Attributes)</span>区域。 
+		</li>
+<li class="li" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31DE">无需断开“emitterNameRatePP”，右键单击“emitterNameRatePP”框并选择设置其值所需的方法。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-402F5F7A-0003-403D-A253-15CDABF699D1.htm">使用每粒子属性</a>。 
+		  <p class="p" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31DD">请注意，您可以启用或禁用发射器的<span class="ph uicontrol" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__GUID-72BD1945-3F78-4CAD-944D-E47DF4260E1A">“使用逐点速率”(Use Per-Point Rate)</span>属性来切换逐点发射速率。在<span class="ph uicontrol" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__GUID-680E52D5-A5B2-48EC-BEBF-1ACA472C3384">“大纲视图”(Outliner)</span>中，发射器将在发射对象下缩进。 
+		  </p>
+ 
+		</li>
+</ol>
+<p class="li listintro" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31DA"> 从 NURBS 或多边形点发射器改变发射</p>
+<ol class="ol" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31DB"><li class="li" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31D8">添加点发射器后，完成建模几何体。 
+		</li>
+<li class="li" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31D7">选择发射的几何体。 
+		</li>
+<li class="li" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31D6">选择<span class="ph menucascade" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__GUID-42381628-1F40-4367-A8EA-BAE94B69BD49"><span class="ph uicontrol" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__GUID-589DC1AC-C0CE-4E92-941F-783EF8911239">“nParticle</span> &gt; <span class="ph uicontrol" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__GUID-5EDE92CD-EE1A-47A9-9911-38E110F69629">逐点发射速率”(nParticles &gt; Per-Point Emission Rates)</span></span>。 
+		</li>
+<li class="li" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31D5">选择发射对象的形状节点。 
+		</li>
+<li class="li" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31D4">在<span class="ph uicontrol" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__GUID-D7291492-AA26-41F8-8681-A3DA699561C2">“属性编辑器”(Attribute Editor)</span>的<span class="ph uicontrol" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__GUID-4025E036-C859-4B7E-97EA-3761BEF114F0">“附加属性”(Extra Attributes)</span>区域，打开“emitterName 速率 PP”部分。 
+		  <p class="p" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31D3">对于“emitterNameRatePP”属性，请在与 CV、顶点、编辑点或晶格点对应的<span class="ph uicontrol" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__GUID-ABD07118-40BA-45E4-A7F0-906628511881">“属性编辑器”(Attribute Editor)</span>框中输入值。要了解哪些框对应于一点，请尝试使用框中较大的值。也可以使用表达式、渐变或 Artisan 设置单个速率。 
+		  </p>
+ 
+		  <div class="note note" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31D2"><span class="notetitle">注：</span> 如果添加和调整逐点发射速率后添加 CV、顶点或编辑点，则可以选择第二次<span class="ph uicontrol" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__GUID-83D41D93-BBD9-4AA2-99B4-C492AE1A4223">“逐点发射速率”(Per-Point Emission Rates)</span>，以设置“emitterNameRatePP”的其他条目。但是，该“属性编辑器 emitterNameRatePP”条目不再与 CV、顶点或编辑点的相同标识符对应。您将需要校正“emitterNameRatePP”条目。 
+			 <p class="p" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__WS1A9193826455F5FF-6D855556117FACF922E-31D1">如果删除 CV、顶点或编辑点，则删除发射器，创建新的发射器，并选择<span class="ph uicontrol" id="GUID-D21760B2-6DF6-4BA9-98F2-04373659D222__GUID-991BFB05-EDE4-4C3D-8D16-33812D6558AC">“逐点发射速率”(Per-Point Emission Rates)</span>。 
+			 </p>
+ 
+		  </div>
+ 
+		</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-E3037F35-3B01-472F-89A0-7A29DD24A6D1.htm">使用 nParticle 发射器</a></div>
+</div>
+</div>
+
+</body>
+</html>

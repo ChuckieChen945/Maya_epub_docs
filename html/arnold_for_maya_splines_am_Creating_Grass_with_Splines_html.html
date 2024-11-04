@@ -1,0 +1,128 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_splines_am_Creating_Grass_with_Splines_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_CREATING_GRASS_WITH_SPLINES">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用样条线创建草 - Arnold for Maya">
+
+<title>使用样条线创建草</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>使用样条线创建草</h1></div><p><img src="../images/am-Creating_Grass_with_Splines-image2014-5-5-9-7-15-1.png" alt=""></p>
+<p>本教程介绍如何使用 <a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-XGen_Tutorials/am-Splines/arnold_for_maya_splines_am_Creating_Grass_with_Splines_html.html">XGen</a> 样条线非常快速轻松地创建一片草坪。我们还会使用一些表达式来控制草的行为和外观。</p>
+<p>本教程分为以下章节：</p>
+<h6 id="">创建草</h6><h6 id="">弯曲草</h6><h6 id="">使用表达式随机更改草的颜色</h6><h6 id="">使用表达式更改长度</h6><h2 id="">创建草</h2><ul>
+<li>创建一个<strong>高度</strong>和<strong>宽度</strong>细分数均为 <strong>20</strong> 的多边形平面。这样我们就能够雕刻平面，为草创建各种基底。将该平面在 <strong>X</strong> 和 <strong>Z</strong> 方向上放大到 <strong>10</strong> 左右。</li>
+</ul>
+<p><img src="../images/am-Creating_Grass_with_Splines-image2016-5-11-12-58-55-2.png" alt=""></p>
+<ul>
+<li>选择该多边形平面，然后转到<strong><em>“XGen &gt; 创建描述”(XGen &gt; Create Description)</em></strong>。此操作将打开下面的<strong>“创建 XGen 描述”(Create XGen Description)</strong>。</li>
+<li>选择<strong><em>“样条线(用于长发、藤蔓等)”(Splines (use for long hair, vines, etc))</em></strong>。保留其他默认设置不变，然后单击<strong><em>“创建”(Create)</em></strong>。</li>
+</ul>
+<p><img src="../images/am-Creating_Grass_with_Splines-image2016-5-11-12-46-48-3.png" alt=""></p>
+<ul>
+<li>建议先降低<strong>“预览/输出”(Preview/Output)</strong>选项卡中的<strong><em>“百分比”(Percent)</em></strong>值，然后再继续操作。如果<strong><em>“百分比”(Percent)</em></strong>的值过高，您可能会发现计算机会因生成大量的基本体而停止运行。</li>
+</ul>
+<p><img src="../images/am-Creating_Grass_with_Splines-image2016-5-11-12-47-35-4.png" alt=""></p>
+<ul>
+<li>将“密度”(Density)增大到 5000 左右，让草覆盖平面。将<strong>“宽度”(Width)</strong>降低到 0.05 左右，使草变得更细。将样条线的<strong>“长度”(Length)</strong>增大到 2。将<strong>“锥化”(Taper)</strong>调整为 <strong>0.5</strong>，将<strong>“锥形起点”(Taper Start)</strong>调整为 <strong>0.5</strong>，使样条线看起来更像草叶。</li>
+</ul>
+<p><img src="../images/am-Creating_Grass_with_Splines-image2016-5-11-12-49-2-5.png" alt=""></p>
+<ul>
+<li>将一个 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Surface_html">standard_surface</a> 着色器指定给 XGen 描述。将<strong>“基础颜色”(Base Color)</strong>更改为绿色。创建一个 <em>skydome_light</em> 并渲染场景。</li>
+</ul>
+<p><img src="../images/am-Creating_Grass_with_Splines-image2014-4-16-17-8-50-6.png" alt=""></p>
+<p><sub><strong>具有 XGen 草样条线的平面（平面底下放置了带渐变的立方体）。</strong></sub></p>
+<h2 id="">弯曲草</h2><p>我们可以使用表达式沿随机方向弯曲草，而不是沿一个方向整齐弯曲草。弯曲 U 和 V 可控制样条线在对应 CV 上的弯曲程度。0 表示没有弯曲，而 1.0 表示 90 度弯曲。</p>
+<p>单击<strong>“弯曲 U</strong> <strong>[0]”(Bend U[0])</strong>和<strong>“弯曲 V[0]”(Bend V[0])</strong>旁边的表达式图标，然后在“XGen 表达式编辑器”(XGen Expression Editor)中输入以下文本：</p>
+<pre class="pre codeblock"><code class="prettyprint"> $a=rand(-1.5,1.5);#-2.0,2.0 </code></pre><pre class="pre codeblock"><code class="prettyprint"> $a </code></pre><p><img src="../images/am-Creating_Grass_with_Splines-image2016-5-11-12-49-40-8.png" alt=""></p>
+<p>草样条线应随机呈弯曲状：</p>
+<p><img src="../images/am-Creating_Grass_with_Splines-image2014-4-22-12-41-16-9.png" alt=""></p>
+<p>现在，草看起来还是有些整齐。我们可以使用<strong>“弯曲参数[0]”</strong> <strong>(Bend Param[0])</strong> 添加更多的变化。此属性控制样条线从哪个位置开始弯曲。值的范围介于 0.0（样条线底端）到 1.0（样条线尖端）之间。</p>
+<ul>
+<li>单击<strong>“弯曲参数[0]”</strong> <strong>(Bend Param[0])</strong>旁边的表达式图标，然后在“XGen 表达式编辑器”(XGen Expression Editor)中输入以下文本：</li>
+</ul>
+<pre class="pre codeblock"><code class="prettyprint"> $a=rand(0.2,0.9);#0.0,1.0 </code></pre><pre class="pre codeblock"><code class="prettyprint"> $a </code></pre><p><img src="../images/am-Creating_Grass_with_Splines-image2016-5-11-12-50-14-11.png" alt=""></p>
+<p><img src="../images/am-Creating_Grass_with_Splines-image2014-4-16-16-57-5-12.png" alt=""></p>
+<p><sub><span style="color: rgb(51,51,51);"><strong>草的弯曲看起来更加随机，这得益于“弯曲参数</strong></span><strong><span style="color: rgb(51,51,51);">[0]”(Bend Param[0])</span></strong></sub></p>
+<h2 id="">使用表达式随机更改草的颜色</h2><p>我们可以使用 XGen 的表达式和 Ai 用户数据颜色节点来随机更改草的色调。</p>
+<ul>
+<li>创建一个 <strong><em>Ai 用户数据颜色</em></strong>节点，并将其连接到指定给草 XGen 描述的标准曲面着色器的<strong>“颜色”(Color)属性</strong>。</li>
+</ul>
+<p><img src="../images/am-Creating_Grass_with_Splines-image2016-5-11-12-50-52-13.png" alt=""></p>
+<p><sub><strong>Ai 用户数据颜色节点连接到 <em>standard_surface</em> 着色器的“颜色”(Color)属性</strong></sub></p>
+<ul>
+<li>在 Ai 用户数据颜色节点的<strong>“颜色属性名称”(Color Attr Name)</strong>中键入 <strong><em>grassColor</em></strong>。我们将在 XGen 描述中使用相同的<strong>“grassColor”</strong>名称。</li>
+</ul>
+<p><img src="../images/am-Creating_Grass_with_Splines-image2016-5-11-12-52-52-14.png" alt=""></p>
+<p><sub><strong>将名称“grassColor”添加到 Ai 用户数据颜色节点中的“颜色属性名称”(Color Attr Name)</strong></sub></p>
+<ul>
+<li>单击 XGen 中的<strong>“预览/输出”(Priview/Output)</strong>选项卡，并打开<strong><em>“输出设置”(Output Settings)</em></strong>。您应该会在下方看到<strong>“自定义着色器参数”(Custom Shader Parameters)</strong>。在<strong>“名称”(Name)</strong>文本字段中，键入用于<strong>Ai 用户数据颜色</strong>节点的<strong><em>“颜色属性名称”(Color Attr Name)</em></strong>的相同名称。在本例中，我们使用单词<strong>“grassColor”</strong>。单击<strong>“浮点”(float)</strong>并将其更改为<strong><em>“颜色”(Color)</em></strong>，因为这是我们想要更改的属性。</li>
+</ul>
+<p><img src="../images/am-Creating_Grass_with_Splines-image2016-5-11-12-54-21-15.png" alt=""></p>
+<ul>
+<li>单击新定义的 grassColor 颜色属性旁边的表达式图标 <img src="../images/am-Creating_Grass_with_Splines-image2016-5-11-12-54-39-16.png" alt="">，然后输入以下表达式：</li>
+</ul>
+<pre class="pre codeblock"><code class="prettyprint"> [rand(0,0.5)^0.5, 1,rand(0,0.3)] </code></pre><p><img src="../images/am-Creating_Grass_with_Splines-image2016-5-11-12-55-15-17.png" alt=""></p>
+<ul>
+<li>渲染场景。您应该会看到草的绿色色调着色现在呈随机状。</li>
+</ul>
+<p><img src="../images/am-Creating_Grass_with_Splines-image2014-4-21-11-16-10-18.png" alt=""></p>
+<h2 id="">使用表达式更改长度</h2><p>现在，我们还可以使用表达式随机改变草的长度。</p>
+<ul>
+<li>单击<strong>“长度”(Length)</strong>属性旁边的表达式图标，然后输入以下表达式：</li>
+</ul>
+<pre class="pre codeblock"><code class="prettyprint"> $a=rand(0.5,1.0);#0.05,5.0 </code></pre><pre class="pre codeblock"><code class="prettyprint"> $a </code></pre><p><img src="../images/am-Creating_Grass_with_Splines-image2016-5-11-12-56-5-20.png" alt=""></p>
+<p>草应类似下图：</p>
+<p><img src="../images/am-Creating_Grass_with_Splines-image2014-4-21-11-35-51-21.png" alt=""></p>
+<ul>
+<li>最后，将<strong>“密度”(Density)</strong>增大到 10000，就可以完成渲染了。可尝试为草着色器添加一些背面照明（启用 <em>standard_surface.thin_walled</em> 并使用 <em>SSS</em> ）和镜面反射度，以获得更逼真的效果。</li>
+</ul>
+<p><img src="../images/am-Creating_Grass_with_Splines-image2014-4-21-11-40-59-22.png" alt=""></p>
+<p><img src="../images/am-Creating_Grass_with_Splines-image2014-4-21-19-57-30-23.png" alt=""></p>
+<p><sub><sup><em>感谢 <strong><a class="external-link" href="http://www.pedrofe.com/" rel="nofollow" target="_blank">Pedro Fernando Gómez</a></strong> 在 XGen 方面提供的帮助。</em></sup></sub></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-XGen_Tutorials/arnold_for_maya_xgen_am_Splines_html.html">样条线</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

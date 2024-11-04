@@ -1,0 +1,78 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_build_a_graph_geo_query_query_raycast_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>查询光线投射交点</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>查询光线投射交点</h1></div><p>使用 <code>get_raycast_locations</code> 节点返回光线与网格的第一个交点的位置。然后，可以将这些位置与 <code>sample_property</code> 节点结合使用，以对定位、颜色、曲面法线等特性值进行采样。</p>
+<p><img src="../images/geoquery-raycast-color.png" alt="获取光线投射位置的颜色"></p>
+<p>在上面的示例中，光线从球的点定位沿其法线投射。如果光线投射到平面，则对插值顶点颜色进行采样。</p>
+<p>要查找光线投射交点的位置并对其中的值进行采样，请执行以下操作：</p>
+<ol>
+<li><p>将 <code>get_raycast_locations</code> 节点添加到图表中。</p>
+</li>
+<li><p>将要向其投射光线的目标对象连接到 <code>geometry</code> 输入。</p>
+</li>
+<li><p>将发出光线的源位置连接到 <code>positions</code> 输入。</p>
+</li>
+<li><p>将沿其投射每条光线的匹配方向连接到 <code>directions</code> 输入。</p>
+</li>
+<li><p>指定 <code>proximity_method</code>：</p>
+<ul>
+<li><code>semi-line</code> 沿方向向量射出无限长的光线。</li>
+<li><code>line</code> 沿正和负方向向量射出无限长的光线。</li>
+<li><code>segment</code> 沿方向向量射出光线，但光线长度仅为向量的长度。这允许每条光线有不同的距离，与 <code>cutoff_distance</code> 不同。</li>
+</ul>
+</li>
+<li><p>根据需要，设置 <code>use_cutoff_distance</code> 和 <code>cutoff_distance</code>。使用时，将仅返回中止距离内的交点。如果除了 <code>segment</code> 方法之外还使用中止距离，则将针对每条光线分别使用较短的距离。</p>
+</li>
+<li><p>如果需要，将 <code>min_distance</code> 设置为非零值。这样可以防止返回的位置距离每个定位太近。在将光线从对象投射到自身时，这有助于避免始终返回输入位置。</p>
+</li>
+<li><p>使用 <code>get_closest_locations</code> 节点的输出对几何体上的特性值进行采样：</p>
+<ul>
+<li>可以将 <code>locations</code> 输出连接到一个或多个 <code>sample_property</code> 节点，以立即对特性进行采样（请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/geo-query/Bifrost_Common_build_a_graph_geo_query_sample_data_at_locations_html.html">对位置的几何特性进行采样</a>）。在这些情况下，您通常在连接到 <code>get_closest_locations</code> 节点的同一几何体上进行采样。</li>
+<li>您可以将 <code>found</code> 输出与 <code>if</code> 节点结合使用，来控制图表中按光线进行的后续操作，包括是否对特性进行采样。</li>
+<li>如果输入定位与另一个几何对象的点对应，则可以将输出存储为该对象上的几何特性，以在其他位置使用它们（请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_geo_properties_html.html">获取并设置几何对象的特性</a>）。您还可以缓存它们，并将其用于模拟中的将来帧（请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_custom_sims_html.html">创建自定义模拟</a>）。</li>
+</ul>
+</li>
+</ol>
+<p><img src="../images/geoquery-raycast-color-graph.png" alt="对光线与网格交点的颜色和位置进行采样"></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_geo_query_html.html">查询几何对象上的数据</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

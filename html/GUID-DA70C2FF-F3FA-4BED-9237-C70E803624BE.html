@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="热量贴图;平滑蒙皮:使用热量贴图">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE">
+<meta name="language" content="CHS">
+<title>使用热量贴图绑定平滑蒙皮</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用热量贴图绑定平滑蒙皮</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="li listintro" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__GUID-A09BE8B9-7EF2-4F46-BC21-760932CC5490">绑定蒙皮并基于热量扩散技术设置初始权重</p>
+<ol class="ol" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__OL_353F697B4BE0439B813C0A6ADA3F111D"><div class="note note" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__GUID-2A2EC735-2192-44BC-9EEE-A1296712C0D0"><span class="notetitle">注：</span> 此方法仅适用于多边形网格。该方法不适用于具有错误形状的面的网格，例如长度为零的边或者任何由两个以上的面共享的边。 </div>
+<li class="li" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__LI_4533C0DBEC92416CA1D1914DF84B52A9"> 选择要绑定的关节和网格，然后选择<span class="ph uicontrol" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__GUID-7B55B5EB-42EE-439A-8CD3-213C80E37B03">“蒙皮 &gt; 绑定蒙皮”(Skin &gt; Bind Skin) &gt; </span> <img class="image" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__IMAGE_879E9475F05747C59FB37DD09697B909" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">。 </li>
+<li class="li" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__LI_6D53F2583AB54165901BF986F7ACCED8">在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-CF2C698A-44BB-4CA0-BCB9-DB36500DA812.htm">绑定蒙皮选项</a>中，将<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-CF2C698A-44BB-4CA0-BCB9-DB36500DA812.htm#GUID-CF2C698A-44BB-4CA0-BCB9-DB36500DA812__GUID-DF0A38B1-7EF8-496C-8523-C1B5C3A1A321">“绑定方法”(Bind Method)</a>设置为<span class="ph uicontrol" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__GUID-30FE6E84-51A5-4487-A426-D7F98C0D2D34">“热量贴图”(Heat Map)</span>。 <div class="note note" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__GUID-807968F5-2189-4528-BDDC-A8A2E3BCEFDB"><span class="notetitle">注：</span> 仅定义在网格<em class="ph i" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__d4651e132">内</em>的影响对象将在<span class="ph uicontrol" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__d4651e135">“热量贴图”(Heat Map)</span>绑定期间发热。例如，如果您将骨架绑定到的末关节延伸出网格，则末关节将不会在绑定期间接收任何权重，并且不会对网格产生任何影响。但是，如果骨骼穿透网格但其关节对象未穿透网格，则从该骨骼发射的所有影响都将传递到父关节，即使父关节超出网格。 
+		   
+		</div>
+ </li>
+<li class="li" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__LI_C42ED1CBD06B47D69F7705C4F7CAAF06"> 调整<span class="ph uicontrol" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__GUID-D02FA9E0-0C6B-437D-961D-499E2E1DD646">“热量贴图衰减”(Heatmap falloff)</span>滑块来控制选定影响对象周围权重的衰减。 <p class="p" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__GUID-10D5C7BE-D6C4-45BC-802B-637F2C016D72">这可以帮助减少热量贴图绑定期间小权重跨网格扩散的量。 </p>
+ <p class="p" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__GUID-3F36B430-C5EA-4362-9978-FFF16B3ED52B">默认情况下，<span class="ph uicontrol" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__d3169e538">“热量贴图衰减”(Heatmap falloff)</span>设置为 0.68，可提供更好的总权重。接近 0 的值可以生成平滑的结果，但可以使小权重在网格曲面的远处扩散。值越接近 1，生成的衰减就越尖锐，这会保持权重更接近影响对象，从而限制小权重的扩散。
+	 </p>
+ </li>
+<li class="li" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__LI_9B434A878FD344949338550C3075D4BD"> 单击<span class="ph uicontrol" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__GUID-6A23E0C5-5113-48A7-A8EE-F1CDDC1C4322">“绑定蒙皮”(Bind Skin)</span>。 </li>
+</ol>
+<div class="section" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__SECTION_FB7A95EDB26748D48A361D7EE1540B27"><h2 class="title sectiontitle">相关主题</h2>
+
+<ul class="ul" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__UL_978AF11B1EB0417CBF012DDE8ED2FF61"><li class="li" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__LI_04A0043B9A1140219E6A582A273DD97D">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-8DBA9E62-3854-4348-A0AD-1F981ECEA54F.htm">绑定平滑蒙皮</a>
+</li>
+<li class="li" id="GUID-DA70C2FF-F3FA-4BED-9237-C70E803624BE__LI_640BDE22A92241488BE108B9CE3DDBAE">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-EEFC3BE1-B386-4664-BD19-8688C58D1618.htm">平滑蒙皮的绑定方法</a>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-8DBA9E62-3854-4348-A0AD-1F981ECEA54F.htm">绑定平滑蒙皮</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_MPM_Simulation_MPM_make_mpm_shell_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>make_mpm_shell</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>make_mpm_shell</code></h1></div><p>指定 <code>simulate_mpm</code> 应在何处创建材质的薄壳。薄壳与布料模型之间的主要区别在于，壳模型支持弯曲阻力。通过基于受限 Catmull-Clark 细分曲面的曲率来定义曲率，可实现此操作。</p>
+<p>此复合的 <code>shell_source</code> 输出应连接到 <code>simulate_mpm</code> 的 <code>sources</code> 输入。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>这是一个实验节点，可能在将来发生变化。使用它的复合和图表可能无法在更高版本的 Bifrost 中正常使用。</p>
+
+</div></div>
+
+<h2 id="">输入</h2><h3 id="geometry"><code>geometry</code></h3><p>用于定义壳创建位置的网格。网格的面不应少于三个顶点。应避免使用角度较小的面。</p>
+<h2 id="general"><code>General</code></h2><h3 id="enable"><code>enable</code></h3><p>是否应使用此源。未选中时，此源将被忽略，因此不会生成壳。</p>
+<h3 id="start_frame"><code>start_frame</code></h3><p>应开始模拟壳时的帧。如果对 <code>mpm_solver_settings</code> 复合选中了 <code>use_master_start_frame</code>，则将覆盖此选项。</p>
+<h2 id="shell-properties"><code>shell Properties</code></h2><h3 id="mass_density"><code>mass_density</code></h3><p>以千克/立方米为单位的质量。值越大，壳越重，将能够推动较轻的材质。</p>
+<h3 id="viscosity"><code>viscosity</code></h3><p>邻近点的运动被平均化的量。这是运动粘度，以平方米/秒为单位</p>
+<h3 id="area_preservation"><code>area_preservation</code></h3><p>壳保留其面的面积与形状的相对程度。此值是无单位值，应介于 0 到 1 之间：1 表示根本不保留形状，0 表示根本不保留面积。对于大多数实体，此值可设为 0.5，表示形状和面积同等保留。例如，在一块壳的两个对侧推动时，通常另外两侧会向外弯曲以保留总面积，而 <code>area_preservation</code> = 0 时，壳根本不会扩展，而是仅抵抗形状变化。此参数与工程中常用的泊松比相关。</p>
+<h3 id="vibration_speed"><code>vibration_speed</code></h3><p>振动穿过壳的速度，以米/秒为单位。该值应为正值。值越大，刚度越高。这是声音在壳中传播的速度，也是压力波的自然速度。通常，值越大，计算时间越长，因此应使用可获得漂亮结果的最小值。如果壳不应明显反弹，则振动速度应足够大，以便振动可以在一帧内穿过壳。</p>
+<h3 id="collision_max_speed"><code>collision_max_speed</code></h3><p>碰撞力的幅值，以米/秒为单位。该值应为正值。值越大，刚度越高。与 <code>vibration_speed</code> 类似，值越大，计算时间越长。如果无法穿透，可增加此值。</p>
+<h3 id="thickness"><code>thickness</code></h3><p>壳的厚度，以米为单位。与 <code>mass_density</code> 和面的面积一起使用，可设置每个点的质量。增加厚度时也会增加弯曲阻力。</p>
+<h3 id="initial_speed"><code>initial_speed</code></h3><p>点的初始速度。此项与 <code>direction</code> 相乘，并与来自 <code>inherit_velocity</code> 特性的速度相加。值以米/秒为单位。</p>
+<h3 id="direction"><code>direction</code></h3><p>点的初始速度方向。此项与 <code>initial_speed</code> 相乘，并与来自 <code>inherit_velocity</code> 特性的速度相加。</p>
+<h3 id="inherit_velocity"><code>inherit_velocity</code></h3><p>与点初始速度相加的 <code>geometry</code> 输入的速度比例。</p>
+<h3 id="reference_point_position"><code>reference_point_position</code></h3><p>定义壳的静止状态。附加一组位置，以定义壳未拉伸和未压缩时的状态。如果希望壳最初处于拉伸状态，则使用此项。</p>
+<h2 id="breaking"><code>Breaking</code></h2><p>使用这些选项控制壳的断开。想象一下，弯曲一块金属时，最初金属会抵抗弯曲，直到施加足够的力使其明显弯曲。该变形量定义当材质停止弹性变形并开始塑性变形时的 <code>elastic_limit</code>。然后，当您停止施加力时，金属将稍微往回移动一点，这时弹性变形将消失，只留下塑性变形。如果您随后继续弯曲金属，甚至可能需要前后弯曲，则最终它会在完全塑性变形后断开，这就是 <code>breaking_threshold</code>。对于某些金属，每次在塑性变形后恢复弯曲时，金属需要更多力来再次塑性变形，这是正 <code>hardening</code>。</p>
+<h3 id="enable_breaking"><code>enable_breaking</code></h3><p>是否允许壳在变形过大时断开。</p>
+<h3 id="breaking_post_process"><code>breaking_post_process</code></h3><p>对断开的壳几何体进行后期处理。唯一的选项是“无”。添加此项是为了实现向前兼容性。</p>
+<h3 id="elastic_limit"><code>elastic_limit</code></h3><p>在塑性变形开始之前允许的弹性变形量。应为非负值。</p>
+<h3 id="breaking_threshold"><code>breaking_threshold</code></h3><p>壳断开前的塑性变形量。如果需要非常脆的壳，且不需要任何塑性变形，请将此值设置为零。  </p>
+<h3 id="hardening"><code>hardening</code></h3><p>通过增加塑性变形量的硬化时间来增加 <code>elastic_limit</code>。此值也可以为负值，如果为负值，则表示软化，这样材质将更容易发生塑性变形。</p>
+<h3 id="additional_properties"><code>additional_properties</code></h3><p>连接 <code>set_property</code> 节点以在模拟的粒子上定义和初始化其他特性。可以在模拟过程中使用 <code>influences</code> 修改这些特性。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>如果它是存储在 <code>float4</code> 中的四元数，则解算器将会更新 <code>point_orientation</code>。</p>
+
+</div></div>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_MPM_html.html">MPM</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

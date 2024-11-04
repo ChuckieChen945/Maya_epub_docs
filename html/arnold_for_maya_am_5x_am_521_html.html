@@ -1,0 +1,122 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_am_5x_am_521_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_521">
+  <meta name="keyword" content="keyword placeholder">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 5.2.1 - Arnold for Maya">
+
+<title>5.2.1</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>5.2.1</h1></div><p>17 Aug 2022</p>
+<p>MtoA 5.2.0 introduces Arnold 7.1.3.1 and is a minor feature release including several improvements in viewport rendering, OSL shaders, as well as several bug fixes.</p>
+<h2 id="installation">Installation</h2><ul>
+<li><a href="https://manage.autodesk.com/products/MAYA" target="_blank">Download</a> the Arnold for Maya plugin</li>
+<li>Follow these installation instructions.</li>
+</ul>
+<h2 id="maya-plugins-compatibility">Maya Plugins Compatibility</h2><p>MtoA 5.2.0 works with the following Maya plugins</p>
+<ul>
+<li><a href="https://area.autodesk.com/bifrost/downloads/" target="_blank">Bifrost Extension for Maya 2.4.0.0</a></li>
+<li><a href="https://github.com/Autodesk/maya-usd/releases/tag/v0.18.0" target="_blank">MayaUSD 0.18.0</a> (USD 21.11)</li>
+</ul>
+<h2 id="enhancements">Enhancements</h2><ul>
+<li><strong>Viewport Render improvements</strong>. Several improvements were done on the Arnold Render in viewport, including :<ul>
+<li>Viewport Render Region now reverts to full frame when disabled (MTOA-1095)</li>
+<li>Progress bar no longer overlaps with status on low resolution screens (MTOA-1138)</li>
+<li>Model bar icons weren't resizing in hiDPI monitors (MTOA-1139)</li>
+<li>Added ability to set custom HUD color (MTOA-1155)</li>
+<li>Arnold HUD no longer overlaps with Maya's heads-up display (MTOA-1141)</li>
+<li>Toolbar icons were greyed out after turning render region off, in viewport full frame mode (MTOA-1153)</li>
+</ul>
+</li>
+<li><strong>"Coat affect" attributes in aiStandardSurface</strong> : The attributes coat_affect_color and coat_affect_roughness are now exposed in aiStandardSurface UI</li>
+<li><strong>Render callbacks in Arnold RenderView</strong> : The pre/post render callbacks are now invoked in Arnold renderview as they were in Maya Renderview. For single frame renders, the post-render  callbacks are invoked immediately after the render finishes, but during IPR they are only invoked when the viewer is closed or IPR is disabled (MTOA-1137)</li>
+<li><strong>Render through USD Cameras</strong> : When a USD file is loaded with mayaUSD, it is now possible to render through cameras that are part of this usd file (MTOA-34)</li>
+</ul>
+<h2 id="incompatible-changes">Incompatible Changes</h2><ul>
+<li><strong>Pre / Post Render callbacks</strong> are now invoked in a different, more consistent way, than in previous versions. Pipelines relying on the previous behaviour might need to be updated. </li>
+</ul>
+<h2 id="bug-fixes">Bug Fixes</h2><ul>
+<li>MTOA-1160 Export selection with motion blur returns invalid cameras data </li>
+<li>MTOA-934 Crash when drawing a render region before the first render in Arnold RenderView</li>
+<li>MTOA-1146 Crash when doing "Render Current Frame" with docked Maya RenderView</li>
+<li>MTOA-1148 mtoa.mod file in module's root folder has invalid paths</li>
+<li>MTOA-1031 OSL Files in plugin path not reloaded when upating full scene</li>
+<li>MTOA-905 Recompiling OSL shader clears previous values</li>
+<li>MTOA-1142 getLatestVersion was using legacy URL</li>
+<li>MTOA-1154 Prevent MtoA loading error when stereoCameras aren't loaded in Maya</li>
+<li>ARNOLD-10677 - smart opaque did not work on ginstances when source mesh is hidden</li>
+<li>ARNOLD-12486 - Rocky 8 linux crash in kick on startup</li>
+<li>ARNOLD-12487 - Crash when application exits</li>
+<li>ARNOLD-12508 - Camera visible cylinder lights sometimes disappear when animate</li>
+<li>ARNOLD-12544 - "Free Render" not initializing geometries in non-default universes</li>
+<li><a href="https://github.com/Autodesk/arnold-usd/issues/1220]" target="_blank">usd#1220</a> Fail to override output filename when AOVs are duplicated </li>
+<li>usd#1234 Fix udim with relative paths</li>
+<li>usd#1247 Check if texture path is empty before trying to resolve it</li>
+<li>usd#1238 Crash in the procedural with varying instance count</li>
+<li>usd#1241 UsdUvTexture should always have ignore_missing_textures enabled</li>
+<li>usd#1245 Read material bindings in the full purpose</li>
+<li>usd#1252 Connect the UsdPreviewSurface opacity into arnold transmission</li>
+<li>usd#1253 Add GeometryLight in CreateFallbackSprim</li>
+<li>usd#1240 Don't remap vertex primvars for pinned curves </li>
+<li>usd#1269 Fix visibility of instanceable prims under a point instancer hierarchy</li>
+<li>usd#1272 Avoid prefixing the primvars before getting their value for converting them to builtin parameter</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2><ul>
+<li>Maya 2020, 2022 or 2023</li>
+<li>Windows 10 or later, with the Visual Studio 2019 redistributable.</li>
+<li>Linux with at least glibc 2.17 and libstdc++ 4.8.5 (gcc 4.8.5). This is equivalent to RHEL/CentOS 7.</li>
+<li>macOS 10.13 or later.</li>
+<li>CPUs need to support the SSE4.1 instruction set. Apple Mac models with M series chip are supported under Rosetta 2 mode.</li>
+<li>GPU rendering works on Windows and Linux only and requires an NVIDIA GPU of the Ampere, Turing, Volta, Pascal, or Maxwell architecture. We recommend using the <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">495.46 or higher drivers</a> on Linux and <a href="https://www.nvidia.com/Download/Find.aspx?lang=en-us" target="_blank">511.09 (Quadro), 511.09 (GeForce), or higher</a> on Windows. See  Arnold GPU for more information.</li>
+<li>Optix™ denoiser requires an NVidia GPU with <a href="https://developer.nvidia.com/cuda-gpus" target="_blank">CUDA™ Compute Capability 5.0</a> and above.</li>
+</ul>
+<p><strong>The driver type must be set to DCH.</strong></p>
+<p><img src="../images/image2022-2-1_14-46-53.png" alt=""> </p>
+<p><sup><strong><span style="color: rgb(29,28,29);">In the driver page, select "Windows Driver Type:" DCH</span></strong></sup></p>
+<p>The cache will also need to be re-populated after installing a new Arnold version, <strong>updating to a new NVIDIA driver</strong> , or changing the hardware configuration of GPUs on the system. More information can be found here .</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/release-notes/arnold_for_maya_release_notes_am_5x_html.html">MtoA 5.x</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

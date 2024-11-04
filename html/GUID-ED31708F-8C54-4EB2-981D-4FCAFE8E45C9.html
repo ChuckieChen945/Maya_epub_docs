@@ -1,0 +1,262 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="video-id" content="FmZnhkdjqjDAoL0VCKS9wodl5oAL42XT">
+<meta name="indexterm" content="lookdev">
+<meta name="indexterm" content="lookdev 工具包">
+<meta name="indexterm" content="Hypershade">
+<meta name="indexterm" content="开发外观">
+<meta name="indexterm" content="noise">
+<meta name="indexterm" content="着色节点">
+<meta name="indexterm" content="法线贴图">
+<meta name="indexterm" content="合并法线贴图">
+<meta name="modified" content="22/01/2022">
+<meta name="topicid" content="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9">
+<meta name="language" content="CHS">
+<title>LookdevKit 着色节点</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>LookdevKit 着色节点</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-1CD1BEDF-B0BA-40FC-97D0-F930EBA18888"><samp class="ph codeph" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-5AF14B48-EF84-4C6E-BEA4-E7B05A2E3FF2">lookdevKit</samp> 插件提供了一组噪波、数学和工具节点，最适合在<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-723FCADE-838D-4550-8783-E3B2BA00D66F">“Hypershade”</span>中创建程序网络。 
+	 </p>
+<p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-9FD09AB8-99DF-4072-9D8F-1282956C03DE">若要创建这些节点，请确保在<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-906A7948-95B7-4AF5-8AAD-F59A1EBBA5E8">“插件管理器”(Plug-in Manager)</span>（<span class="ph menucascade" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-20DCD79A-24D4-4F90-9B3C-6839466A4D04"><span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-144F7E8D-C68C-4355-92D1-23933D3B3102">“窗口</span> &gt; <span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-B38A8A8F-B03E-43BB-A027-9E0A84364215">设置/首选项”(Windows &gt; Settings/Preferences)</span></span>）中启用 <samp class="ph codeph" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-C4579834-BC2A-4CE2-BA7B-D20EC9BE6B4F">lookdevKit.mll</samp> 插件。 
+	 </p>
+<p class="p">有关噪波节点的信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-615F0CA0-ADE4-4A79-9FDB-90B2B51AED0C.htm">LookdevKit 单一噪波节点</a>。 
+	 </p>
+<p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-6AF659DD-952E-4FDC-B062-6862B443DDC7">每个节点都具有颜色和 Alpha 输入，其中颜色输入仅影响颜色值，而 Alpha 输入仅影响 Alpha 值。 
+	 </p>
+<p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-715FBDB7-DC5C-4699-A5D5-F152E0345BB1">下面列出的所有<strong class="ph b">颜色</strong>节点都具有对应的<strong class="ph b">浮点型</strong>对象，例如<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-86A04F9D-922E-4250-BE4F-C9A025B55D1A">“浮点合成”(Float Composite)</span>与<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-AFA622E9-57AF-4D61-9F87-5658E27A788B">“颜色合成”(Color Composite)</span>，其仅接受一个浮点输入（如置换贴图），而不是浮点 3 输入（例如颜色）。如果您只需要处理单个通道，更有效率的方法是使用浮点节点。 
+	 </p>
+<div class="section" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__SECTION_6AB020257209411193E283F54A178E4B"><h2 class="title sectiontitle">颜色合成</h2> 
+		 
+		<p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-4315970B-BB37-4EB4-8442-D59D5DC59F64">使用此节点对纹理分层，然后从若干<span class="ph uicontrol">“操作”(Operation)</span>模式中进行选择。尝试使用不同的分层模式来创建最适合您的效果。 
+		</p>
+ 
+		<p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-2A57D5AF-3E2A-4409-9501-706362F8F227">调整<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-DE67615D-9E64-4B25-A060-1CF78AD57693">“系数”(Factor)</span>属性来控制合成效果的强度；例如，用于淡出特定效果，或为着色图表的某个方面制作动画。 
+		</p>
+ 
+		<p class="p">在此示例中，使用<span class="ph uicontrol">“颜色合成”(Color Composite)</span>节点将天空图像与鞋带图案结合起来。此图像比较所有不同模式的结果。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__FIG_12180F4BA7B948B7B701E2A20FC9E992"><img class="image" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__IMAGE_36C00CBC05A74E1C97E8127ACEE14D8A" src="../images/GUID-4B54F34C-4171-4F83-955B-4A1F9A41616B.png"></div>
+ 
+		<p class="p">纹理由 www.cgtextures.com 提供。 
+		</p>
+ 
+		<p class="p">分层模式如下： 
+		</p>
+ 
+		<ul class="ul" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__UL_A0BCDAE35888406C92FF2B182255ADE1"><li class="li" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__LI_B9AA7F2264AC433787EDF2649699121E"><span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-B91E38B3-21CC-4004-95E4-63B2204F0DA7">相加(Add)</span>：将颜色 A 与颜色 B 的值相加。使用此模式可为纹理添加光晕效果。 
+		  </li>
+<li class="li" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__LI_85A2CC15CAE445E19D544A47E87A49EB"><span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-B5A08FEC-417D-4931-9A3C-8E228985B0E3">相减(Subtract)</span>：从颜色 A 中减去颜色 B 以使纹理变暗。您也可以使用此模式在纹理中创建洞。 
+		  </li>
+<li class="li" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__LI_7AFF1B5E00994DD0BA7C1C139C53F8CF"><span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-5D283B25-B71C-421B-8B21-2AD21575D757">混合(Mix)</span>：混合颜色 A 与颜色 B 的值。使用此模式可在两个纹理之间淡入淡出，或混合两种设置了动画的纹理。 
+		  </li>
+<li class="li" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__LI_674B21A777254FE5B17B53F6ECCB1B42"><span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-1B3E1E9C-AC8A-4FCC-9C5C-3949F167E6AB">相乘(Multiply)</span>：将颜色A 的值与颜色 B 的值相乘以使纹理变暗。使用此模式可应用环境光阻光贴图，以创建阴影或添加污垢层。 
+			 <p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-858201C1-9ECD-4C4B-A2E9-C59CC9525C7D">通常使用此模式将漫反射纹理与带有暗色区域的白色纹理相乘。所有暗色区域都将被调暗。 
+			 </p>
+ 
+			 <div class="note tip" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-71546F09-534E-4462-A30B-7A080ED1D749"><span class="tiptitle">提示：</span> 您可以使用<span class="ph uicontrol">“反转”(Reverse)</span>节点反转纹理的白色与暗色图案。 
+			 </div>
+ 
+			 <p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-A30909D9-D92F-42FD-B445-B1EBDF71DFDD">在此示例中，<span class="ph uicontrol">“颜色合成”(Color Composite)</span>设置为<span class="ph uicontrol">“相乘”(Multiply)</span>，以便将渐变用于变暗天空纹理中低于地平线的区域。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__FIG_1CFB2ADBC8194E069CC813D9953F8B89"><img class="image" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__IMAGE_B2D5ACC2AFFD48CB8D00B5B02F4F6A49" src="../images/GUID-6EE0058E-8593-4776-A23D-B3017FE760C8.png"></div>
+ 
+			 <p class="p">天空纹理由 www.cgtextures.com 提供。 
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__LI_51BD9AA9E42B4E03BE2BAEB67A1DCCFE"><span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-500AD4AF-3C33-4050-BB1E-61CA46531E20">屏蔽(Screen)</span>：合成两个纹理并使较暗的区域变得透明。它类似于<span class="ph uicontrol">“相加”(Add)</span>模式，但不会添加<span class="ph uicontrol">“相加”(Add)</span>产生的放射光效果。应用它的一个例子是将层灰尘添加到漫反射纹理。 
+		  </li>
+<li class="li" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__LI_51CE86D6C81F46FEA0562B4AD76DB379"><span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-6E0671B6-4F50-46D3-8203-EA59865978E9">叠加(Overlay)</span>：较暗区域变得更暗，较亮区域变得更亮，而中间色调是透明的。此模式会调整对比度。 
+			 <p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-6BC603C1-B652-424C-9133-CF74AB14A729">它可使细节变得更清晰；例如，使角色面部纹理的眼睛亮显。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__FIG_D5F757FCA7194A4EA74EF54EC5646D57"><img class="image" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__IMAGE_16C1A0EC62C94BFE968F5122BB94EB38" src="../images/GUID-FEDD9689-9744-4FE7-AECE-05AE1339CBE3.png"></div>
+ 
+		  </li>
+<li class="li" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__LI_4420507F8B6445AA8718553B1F2E7623"><span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-A310A893-6106-4F31-9F40-5DC83256F5C0">差集(Difference)</span>：比较两个纹理并仅输出两者之间不同的像素。 
+			 <p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-78597975-F1EF-4F1B-AF69-A143BF878BD0">应用它的一个例子是获得两个纹理（例如两个噪波）之间的交集，然后将合成结果应用到另一个纹理。 
+			 </p>
+ 
+			 <p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-9C54A432-E72C-4FF1-A181-BCC96EC1A763">在此示例中，通过将 Difference_ColorComposite 设置为<span class="ph uicontrol">“差集”(Difference)</span>模式获得两个噪波节点之间的交集。然后，使用另一个<span class="ph uicontrol">“颜色合成”</span>节点 (MultiplyDifference_ColorComposite) 将结果与黄色 (Yellow_ColorConstant) 融合在一起。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__FIG_3B201FC885E94EC0A91BEF53DC9DFC4F"><img class="image" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__IMAGE_6D06556218F94EFA903443447B430BE5" src="../images/GUID-3F05BC30-9387-472F-9C78-B361C3267BF7.png"></div>
+ 
+		  </li>
+<li class="li" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__LI_CD1EF29C693A4D45B0834E0D2EF1928D"><span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-597098C5-3FE6-4AC9-A4E0-4BEA5FC342C1">减淡(Dodge)</span>：增加白色区域的曝光。将漫反射纹理与具有白色区域的纹理相结合，以亮显白色区域。 
+			 <p class="p">使用此模式可<strong class="ph b">合并两个法线贴图</strong>，如以下示例中所示。对于每个法线贴图，创建一个<span class="ph uicontrol">“Bump2d”</span>节点，并将法线贴图的<span class="ph uicontrol">“输出 Alpha”(Out Alpha)</span>连接到<span class="ph uicontrol">“Bump2d”</span>节点的<span class="ph uicontrol">“凹凸值”(Bump Value)</span>输入。将每个<span class="ph uicontrol">“Bump2d”</span> 
+				<span class="ph uicontrol">“输出法线”(Out Normal)</span>值连接到<span class="ph uicontrol">“颜色合成”(Color Composite)</span>节点作为输入颜色。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__FIG_87FC5147BA7D4FF59F378091E10613BA"><img class="image" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__IMAGE_9A6C828B8BBA481CB5F22A83DB699B9C" src="../images/GUID-67476E21-209B-4FFD-A220-26783A215889.png"></div>
+ 
+			 <div class="fig fignone" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__FIG_73D1D2BB93094F5D869E19B9D9D073AF"><img class="image" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__IMAGE_CD20F312E83F42F38BBA728242041A76" src="../images/GUID-CCD263CF-064C-460F-9D57-838078932F30.png"></div>
+ 
+		  </li>
+<li class="li" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__LI_E64A935D7AD242E59DEFB87B8F99B261"><span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-2A764831-F956-43B0-B972-F8C31FCF667A">焚烧(Burn)</span>：使黑色区域变暗。将漫反射纹理与具有黑色区域的纹理相结合，以使黑色区域变暗。 
+		  </li>
+</ul>
+ 
+		 
+	 </div>
+<div class="section" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__SECTION_9E7AC6E099924672B9FB31D13444F9C8"><h2 class="title sectiontitle">数学颜色</h2> 
+		 
+		<p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-567E3097-498D-46FB-8BA9-C38074B739B6">使用该节点可将输入结合在一起。此节点类似于<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-81BFDED9-E3BF-4AB4-9DA4-2F6DBC746114">“颜色合成”(Color Composite)</span>节点，但是进行了简化，而且可选择数学运算。 
+		</p>
+ 
+		 
+		 
+	 </div>
+<div class="section" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__SECTION_B0E961C1A8604969A3CAD2C79983C9F8"><h2 class="title sectiontitle">颜色校正</h2> 
+		 
+		<p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-8601B845-9E51-4330-AB49-AC58C4581336">将输入纹理连接到此节点，以更正其颜色和/或 Alpha 值。例如，可以调整饱和度或颜色对比度，调整 Alpha 增益和偏移，以及钳制颜色或 Alpha 通道。颜色和 Alpha 是独立的输入，可以单独调整。 
+		</p>
+ 
+		<p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-4CD6F7DB-0B37-4427-9556-E0FC7B2066E8"><span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-1B2AFD1D-A92D-404C-83CE-B43ADCDFA2EF">“颜色校正”(Color Correct)</span>节点使您可以试验各种不同的颜色校正设置。例如，可以创建一个<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-520950F1-2CEF-4EC3-BDAF-B01025D5DE10">“文件”(File)</span>节点，然后将其连接到三个<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-3C8A0E67-D62D-4137-B01B-F705D8AB1C9A">“颜色校正”(Color Correct)</span>节点，且每个节点都具有不同的颜色校正设置，您可以轻松地在这些设置之间切换以找到最适合您的效果。同时，您也可以将同一<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-10574842-8493-4DF7-A0E2-1E9F82A2B0A4">“文件”(File)</span>节点连接到节点网络的另一部分，而无需执行任何颜色校正。如果您的纹理文件发生更改，则只需调整一个“文件”(File)节点的文件路径。 
+		</p>
+ 
+		<p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-20DBE49B-6D38-4D93-8BB1-A094C3CB44CD">在此示例中，您可以在红色、绿色和蓝色颜色校正之前进行切换，只需将 Blinn 颜色输入重新连接到其他颜色校正输出。也可以将相同的文件纹理（不进行任何颜色校正）连接到着色器网络的另一个部分。 
+		</p>
+ 
+		<p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-B5994460-719C-4F75-AC61-553CA319F141">另一方面，如果通过调整<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-0DE30473-0767-4D47-A5DD-2FCFB85C95C1">“文件”(File)</span>节点上的<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-FFFC79D7-C4F1-4647-8C2D-91378F80C8D9">“颜色平衡”(Color Balance)</span>属性来执行颜色校正，则必须通过三组颜色设置来创建三个<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-5D2459D6-6EFF-4535-AF52-0263E018FD93">“文件”(File)</span>节点，以完成相同的目标。如果纹理文件发生更改，必须调整三个文件节点的文件路径。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__FIG_BE472AF10B6E46B9AAE5BBE932F0B805"><img class="image" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__IMAGE_DEF7CE6F620C48E0B5362976438B092C" src="../images/GUID-B0B6F8AD-896F-4BA3-A33A-510E207C2D20.png"></div>
+ 
+		 
+	 </div>
+<div class="section" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__SECTION_AF72B24451E04C31A0DEA45BB7F5F026"><h2 class="title sectiontitle">恒定颜色</h2> 
+		 
+		<p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-F12AD99C-BB8A-4CAF-9E64-B9F265449171">使用该节点可以输出一个简单的实体颜色，用于您的着色图表。 
+		</p>
+ 
+		<p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-4D8B5025-BED7-485D-B202-8CD05884ADC2">使用该节点可按程序控制着色图表的多个方面，并且轻松调整和控制着色器。应用示例包括： 
+		</p>
+ 
+		<ul class="ul" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__UL_94647FE8D8884F27A4D7D7CFC1860F67"><li class="li" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__LI_0A748157867D4007BB8F252E609C49B0">作为<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-172B2C1C-39CB-4ADB-9EC5-0C042D337295">“单一噪波”(Simplex Noise)</span>的<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-B66C7012-A465-4A98-A1AF-DCE60A27D100">“扭曲 U”(Distortion U)</span>和<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-64161C10-E58B-4470-9618-56176A1102C5">“扭曲 V”(Distortion V)</span>属性的输入，用于扭曲噪波图案 
+		  </li>
+<li class="li" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__LI_E3B107CF7AA3470EB82BBD97388262E9">作为合并两个程序纹理的<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-73E2A8E4-4342-45E9-864B-6226F4E62599">“融合颜色”(Blend Colors)</span>节点的<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-F89CB785-2810-4919-B2A2-FB000D094E9B">“融合器”(Blender)</span>属性输入 
+		  </li>
+</ul>
+ 
+		<p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-8D4CA703-3F9C-4AAB-BD04-F86D16AC71B5">在此示例中，<span class="ph uicontrol">“恒定颜色”(Color Constant)</span>提供纯绿色，其可以与<span class="ph uicontrol">“单一噪波”(Simplex Noise)</span>结合以创建绿色蜥蜴蒙皮图案。您只需调整<span class="ph uicontrol">“恒定颜色”(Color Constant)</span>节点，即可轻松更改蒙皮的颜色，同时保持图案不变。使用单独的节点设置蒙皮颜色，使您可以轻松查找和更改颜色，以及将其连接到多个节点以进行程序控制。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__FIG_FD309839F9CD44F785578B1E1138D0B8"><img class="image" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__IMAGE_F876B9C881AF47478BED6DB1B831C421" src="../images/GUID-B3774078-B75C-4A9C-81FD-79FC33705DCF.png"></div>
+ 
+		<p class="p">在此示例中，<span class="ph uicontrol">“恒定颜色”(Color Constant)</span>连接到输出其红色通道的<span class="ph uicontrol">“通道”(Channels)</span>节点。此红色通道连接到三个不同的<span class="ph uicontrol">“颜色校正”(Color Correct)</span>节点，每个节点都有不同的<span class="ph uicontrol">“Alpha 增益”(Alpha Gain)</span>值，该值作为乘数用于控制<span class="ph uicontrol">“单一噪波”(Simplex Noise)</span>节点上的三个不同属性：<span class="ph uicontrol">“比例”(Scale)</span>、<span class="ph uicontrol">“频率”(Frequency)</span>和<span class="ph uicontrol">“频率比”(Frequency Ratio)</span>。红色通道也可以直接控制噪波节点的<span class="ph uicontrol">“振幅”(Amplitude)</span>。此噪波节点控制 Blinn 着色器的凹凸。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__FIG_165A9B7BAB9242E99E0B4CE160B726DC"><img class="image" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__IMAGE_37939DAD26234CFE92F95B3D32856C9F" src="../images/GUID-FAC7FEC5-D046-44DB-BC6B-E729734831D0.png"></div>
+ 
+		<div class="fig fignone" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__FIG_8EFA08605A964D6496BEF78DE99879BF"><img class="image" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__IMAGE_906209D009CD44D89621FA8BDD934551" src="../images/GUID-D6E389B7-5FED-4EAD-992A-1A8437F0C553.png"></div>
+ 
+		<p class="p">若要调整凹凸效果，您只需要调整<span class="ph uicontrol">“恒定颜色”(Color Constant)</span>。此示例演示了通过将单个节点连接到不同的乘数，从而调整多个效果。 
+		</p>
+ 
+		<p class="p">在调整<span class="ph uicontrol">“恒定颜色”(Color Constant)</span>时，观察<span class="ph uicontrol">“单一噪波”(Simplex Noise)</span>上的效果。 
+		</p>
+ 
+		<p class="p"><video data-video-id="FmZnhkdjqjDAoL0VCKS9wodl5oAL42XT" crossorigin="anonymous" controls="controls" width="400" height="225" poster="https://help.autodesk.com/videos/FmZnhkdjqjDAoL0VCKS9wodl5oAL42XT/poster"><source type="video/webm" src="https://help.autodesk.com/videos/FmZnhkdjqjDAoL0VCKS9wodl5oAL42XT/video.webm"></source><source type="video/mp4" src="https://help.autodesk.com/videos/FmZnhkdjqjDAoL0VCKS9wodl5oAL42XT/video.mp4"></source></video> 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__SECTION_0866009BAD0F42CD8C89085170C1016A"><h2 class="title sectiontitle">颜色遮罩</h2> 
+		 
+		<p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-E4A5101E-287A-406C-AE18-82AC00502508">连接输入颜色或纹理以及作为 Alpha 遮罩的纹理，以生成遮罩的输出。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__FIG_87338B673450494CB813B673712B0C69"><img class="image" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__IMAGE_87A7AB7AEDAC47F6A57D78D725322649" src="../images/GUID-932C05DD-1123-4BB8-93E5-F8FA358E654F.png"></div>
+ 
+		<p class="p">叶纹理由 www.cgtextures.com 提供。 
+		</p>
+ 
+		<p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-5829C95C-0F10-4DFF-B591-281896AA48C0">应用它的一个例子是使用<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-8947F7A0-452A-4F59-B085-02448DADF9E1">“颜色合成”(Color Composite)</span>节点在漫反射纹理上分层<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-5F6863F2-F4ED-4A93-A8FD-5AC462F9DEA9">“颜色遮罩”(Color Mask)</span>结果。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__SECTION_7E9D9A25EE3B4A2E9E45BAC23746F08F"><h2 class="title sectiontitle">通道(Channels)</h2> 
+		 
+		<p class="p">将纹理节点作为输入连接到<span class="ph uicontrol">“通道”(Channels)</span>节点，然后使用该节点重新关联其输出中的 RGBA 通道。例如，通过将任何通道 R/G/B 设置为 A，在任何 RGB 通道中输出 Alpha。 
+		</p>
+ 
+		 
+		<p class="p">您也可以使用此节点来修改遮罩。例如，在使用红色、绿色和蓝色遮罩纹理不同区域的绘制应用程序中绘制纹理贴图：绿色用于遮罩衬衫，红色用于遮罩帽子，蓝色用于遮罩运动鞋。若要输出仅包含帽子和衬衫的纹理，请创建一个<span class="ph uicontrol">“通道”(Channels)</span>节点，并将<span class="ph uicontrol">“通道 A”(Channel A)</span>设置为<span class="ph uicontrol">“R”</span>以输出红色通道，然后创建第二个“通道”(Channels)节点并将<span class="ph uicontrol">“通道 A”(Channel A)</span>设置为<span class="ph uicontrol">“G”</span>，以输出绿色通道，然后创建一个<span class="ph uicontrol">“颜色合成”(Color Composite)</span>节点来添加两个 Alpha 通道。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__SECTION_CB943AD1EFD0411CB3D0496D873A60C3"><h2 class="title sectiontitle">预乘(Premultiply)</h2> 
+		 
+		<p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-6C370D2F-F304-470E-B81D-21B6844F8C18">将输入颜色 RGB 通道乘以<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-0D063CB8-C577-4D77-BEAB-ADB54BA1E712">“Alpha”</span>值。将输入纹理连接到<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-90A81BA0-0674-420C-8DC4-277E999E52DD">“颜色”(Color)</span>属性，并将具有 Alpha 通道的纹理连接到<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-67401869-BE9D-4D2A-AB88-F30601C441EB">“Alpha”</span>属性。Alpha 通道中的所有黑色像素都将在输出中变为黑色，并且 Alpha 通道中的所有白色像素都使输入纹理保持不变。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__SECTION_29CF961B63B14AF7824E0231CC896668"><h2 class="title sectiontitle">取消预乘(Unpremultiply)</h2> 
+		 
+		<p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-3B07DF7C-7661-4E04-8382-540F9F9F3A3A">将输入颜色除以<span class="ph uicontrol" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-6D6ECD00-C3BD-415F-B65A-3CA1AA580A98">“Alpha”</span>值。连接预乘图像作为输入纹理并使用该节点反转预乘。 
+		</p>
+ 
+		<p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-656546A6-D8F5-4382-BD9F-AE02673E9036">例如，您可能希望先取消预乘图像，然后再执行一组颜色校正，随后再次预乘以便不会意外对任何透明 Alpha 边进行颜色校正。 
+		</p>
+ 
+		<p class="p">在此示例中，已预乘纹理图像。因此，必须先取消预乘其颜色通道，然后才可钳制其值，并随后再次相乘。相同的 Alpha 输出（从纹理图像）将输入到<span class="ph uicontrol">“取消预乘”(Unpremultiply)</span>和<span class="ph uicontrol">“预乘”(Premultiply)</span>节点。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__FIG_FAD4E6FC5E76401FBE96A5052067DAD4"><img class="image" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__IMAGE_1A6AD7F61A1740D4A9FE580BC5717AC5" src="../images/GUID-8B68D194-4EB1-4A68-87CC-1EBD7BB8110A.png"></div>
+ 
+	 </div>
+<div class="section" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__SECTION_91022EC6AFAE41AA87AEB86DA766B0FA"><h2 class="title sectiontitle">颜色逻辑</h2> 
+		 
+		<p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-E666A36E-5E0F-42F5-BAFE-CEFC2E45D1B0"> 此节点会使用各种等式运算符（如 &lt;= 或 !=）比较<span class="ph uicontrol">“颜色 A”(Color A)</span>和<span class="ph uicontrol">“颜色 B”(Color B)</span>=. 如果比较返回 true 结果，它始终输出布尔值：1（白色），如果比较返回 false 结果，则值为 0（黑色）。 
+		</p>
+ 
+		<p class="p"><span class="ph uicontrol">“颜色逻辑”(Color Logic)</span>和<span class="ph uicontrol">“颜色条件”(Color Condition)</span>通常彼此结合使用。 
+		</p>
+ 
+		<p class="p">在此示例中，<span class="ph uicontrol">“颜色逻辑”(Color Logic)</span>比较两个输入值是否相等。如果它们相等，则使用<span class="ph uicontrol">“颜色 A”(Color A)</span>提供用于<span class="ph uicontrol">“表面着色器”(Surface Shader)</span>的颜色。否则，使用<span class="ph uicontrol">“颜色 B”(Color B)</span>。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__FIG_506935609D8A4E23B998CDBB843B3B64"><img class="image" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__IMAGE_E26745FA16E344218A8CA55A3B339FD1" src="../images/GUID-03E43A6D-A5DE-4AAC-BAD7-5AA4C2B61F28.png"></div>
+ 
+	 </div>
+<div class="section" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__SECTION_9DDD36FBA50E45D3B86D07F33CAFA41A"><h2 class="title sectiontitle">颜色条件</h2> 
+		 
+		<p class="p" id="GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9__GUID-E3EB8439-6E6C-4AE1-A61E-911BF6B68209">如果条件为 true，则使用<span class="ph uicontrol">“颜色 A”(Color A)</span>。否则，使用<span class="ph uicontrol">“颜色 B”(Color B)</span>。 
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-615F0CA0-ADE4-4A79-9FDB-90B2B51AED0C.htm">LookdevKit“单一噪波”(Simplex Noise)节点</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-DA9707D2-8A0D-4911-A010-8274C57D3FD3.htm">工具节点(Utility nodes)</a></div>
+</div>
+</div>
+
+</body>
+</html>

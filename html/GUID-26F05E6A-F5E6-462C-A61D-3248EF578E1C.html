@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="contextid" content="PAINTNCLOTHWEIGHTSTOOL">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C">
+<meta name="language" content="CHS">
+<title>绘制 nCloth 特性贴图</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>绘制 nCloth 特性贴图</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529-2313"><p class="p" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25FC"> 您可以绘制 nCloth 特性，创建顶点贴图或纹理贴图。绘制顶点贴图时，绘制的 nCloth 特性值将按 nCloth 上的逐个顶点进行存储。顶点贴图不需要清理 UV。绘制纹理贴图时，绘制的 nCloth 特性值将存储到磁盘上的纹理文件中。纹理贴图需要清理 UV。 
+	 </p>
+<p class="p" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25FA">您可以绘制碰撞或动态 nCloth 特性，以及 nComponent 特性。碰撞特性确定 nCloth 的属性设置，动态特性覆盖特定的 Maya Nucleus 设置，nComponent 特性控制 nCloth 约束的强度。 
+	 </p>
+<p class="p" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25F9">另请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-663F1653-4BEC-4F65-A46E-DF0E24231F32.htm">绘制 nCloth 特性和特性贴图</a>。 
+	 </p>
+<div class="note attention" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25F8"><span class="attentiontitle">注意：</span>  
+		<p class="p" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-72F73F5C-4D90-4C79-BCBD-D37AA76EA53C">对于连接顶点和顶点的约束，只能创建绘制的顶点贴图。 
+		</p>
+ 
+	 </div>
+<div class="note tip" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25F7"><span class="tiptitle">提示：</span>  
+		<ul class="ul" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25F6"><li class="li" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25F5">在绘制 nCloth 特性时，对顶点或特性贴图整体应用较高的值，然后逐渐向下绘制特性值，直到获得所需效果。 
+		  </li>
+<li class="li" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25F4">将褶皱贴图应用到 nCloth 网格时，褶皱只会在法线方向上偏移到一边。若要创建正褶皱和负褶皱，请针对褶皱贴图纹理节点将<em class="ph i" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-DE8F2E17-C5CC-45B9-89AE-6A03C1D17407">“Alpha 偏移”(Alpha Offset)</em> 值设置为 -0.5。 
+		  </li>
+</ul>
+ 
+	 </div>
+<p class="li listintro" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25F2">创建 nCloth 顶点贴图</p>
+<ol class="ol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25F3"><li class="li" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25F1">选择要在其顶点上绘制 nCloth 特性的 nCloth 对象。 
+		</li>
+<li class="li" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25F0">选择<span class="ph menucascade" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-1DD5AE7E-E0C2-4595-B0DB-A1145C12A7F8"><span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-C0DF6FBE-69F0-4D38-9450-C246C7F5B4C8">“nCloth</span> &gt; <span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-233E300D-8792-48FF-8387-3F00FC83B80F"> 绘制顶点特性”(nCloth &gt; Paint Vertex Properties)</span> &gt; <span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-D2CF6A0B-291D-4ADD-A877-6A3575510378"></span></span> [nCloth 特性]。 
+		  <p class="p" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25EF"><span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-E3D20015-F345-4647-8D84-D5F92F95E9A3">“绘制顶点属性工具”(Paint Vertex Properties Tool)</span>将成为当前工具，其设置将显示在<span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-4927AF47-9475-4AF3-800D-171E4A2F55EE">“工具设置”(Tool Settings)</span>面板中。该工具是<span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-0D7E381C-8259-4897-9BA0-31383E8E0FCD">“绘制属性工具”(Paint Attributes Tool)</span>的修改版本。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-67B8F095-4A0E-4BAE-938C-CB41B3EBD533.htm">Artisan 工具设置</a>。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25EE">按需要设置<span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-7B026307-02EF-4953-8C71-6BCB3EB7F546">“绘制顶点属性工具”(Paint Vertex Properties Tool)</span>设置。 
+		</li>
+<li class="li" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25ED">按需要绘制顶点属性。 
+		  <p class="p" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25EC">绘制的顶点属性将自动保存到选定的 nCloth 顶点中。 
+		  </p>
+ 
+		</li>
+</ol>
+<p class="li listintro" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25EA">创建 nCloth 纹理贴图</p>
+<ol class="ol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25EB"><li class="li" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25E9">选择要绘制纹理贴图的 nCloth 对象。 
+		</li>
+<li class="li" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25E8">选择<span class="ph menucascade" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-D5038BE2-F899-4017-AAF1-0C523CCED431"><span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-8C5197B4-BA7B-4581-9ED2-836724F595E4">“nCloth</span> &gt; <span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-C64F12FB-D023-47E6-89B7-2B367B2ADF76"> 绘制纹理特性”(nCloth &gt; Paint Texture Properties)</span> &gt; <span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-B27436D9-3425-472A-8FEC-305FFFFEE761"></span></span> [nCloth 特性]。 
+		</li>
+<li class="li" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25E7"><span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-C4A2E261-58E4-4C4E-AB19-A0E772AF3748">“绘制纹理特性工具”(Paint Texture Properties Tool)</span>将成为当前工具，其设置将显示在<span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-7C44165C-2138-4F58-9E80-0A35FC54CBB6">“工具设置”(Tool Settings)</span>面板中。该工具是<span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-FD15B3A7-1906-42C9-828A-8A2DDF739DE3">“3D 绘制工具”(3D Paint Tool)</span>的修改版本。请参见 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-11EAC728-8E0A-46F6-A0D8-A68E3D60DD13">3D 绘制工具</a>。 
+		</li>
+<li class="li" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25E6">按需要设置<span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-D506A797-1F39-4630-A80D-6187E9AF7963">“3D 绘制工具”(3D Paint Tool)</span>的设置。 
+		</li>
+<li class="li" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25E5">将选定属性的值绘制到 nCloth 的曲面上。 
+		</li>
+<li class="li" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25E4">在<span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-DDB5C35F-D46B-4972-829E-54E928CD4BF3">“工具设置”(Tool Settings)</span>中，单击<span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-ABB7DA07-171D-41C8-9F22-3BF951BC0AAB">“文件纹理”(File Textures)</span>部分的<span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-69A5263E-75A4-41CB-8722-8A93AD12EF55">“保存纹理”(Save Textures)</span>。 
+		  <p class="p" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25E3">默认情况下，绘制的纹理贴图 nCloth 特性值将作为文件纹理保存到 <samp class="ph codeph" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-C9088B53-4D5C-42EC-BC79-88398C625911">\maya\projects\default\3dPaintTextures</samp> 目录中。 
+		  </p>
+ 
+		</li>
+</ol>
+<p class="li listintro" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25D8">将 nCloth 顶点贴图转化为纹理贴图</p>
+<ol class="ol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25D9"><li class="li" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25D7">选择要将其顶点属性值转化为纹理贴图的 nCloth 对象。 
+		</li>
+<li class="li" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25D6">选择<span class="ph menucascade" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-F33F0402-CBC0-4382-BFC3-217F4DF3CEAC"><span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-9A26A307-8735-4FB1-9870-E0BD611116DB">“nCloth</span> &gt; <span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-A53B384E-93F8-4120-852C-D75CBCFB7C81"> 将顶点贴图转化为纹理贴图”(nCloth &gt; Convert Vertex to Texture Map)</span> &gt; <span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-D76F1D80-0F19-43AC-9C29-D9B29C555254"></span></span> [nCloth 特性]。 
+		  <p class="p" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25D5">选定属性的值将作为纹理贴图（文件纹理）保存到磁盘上，nCloth 顶点上属性的值将不会移除。 
+		  </p>
+ 
+		</li>
+</ol>
+<p class="li listintro" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25D3">将 nCloth 纹理贴图转化为顶点贴图</p>
+<ol class="ol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25D4"><li class="li" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25D2">选择要将其纹理贴图转化为逐顶点属性值的 nCloth 对象。 
+		</li>
+<li class="li" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25D1">选择<span class="ph menucascade" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-6179AC8E-B346-461D-968D-AD039BCA516C"><span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-59E9D408-9625-4956-A062-306DC065D230">“nCloth</span> &gt; <span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-709A3660-319E-4399-A71A-60CF73B7E067"> 将纹理贴图转化为顶点贴图”(nCloth &gt; Convert Texture to Vertex Map)</span> &gt; <span class="ph uicontrol" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__GUID-74EF7C87-9B24-4506-8D90-7C9F17877300"></span></span> [nCloth 特性]。 
+		  <p class="p" id="GUID-26F05E6A-F5E6-462C-A61D-3248EF578E1C__WS1A9193826455F5FF6026605B1181C8F4F2E-25D0">选定特性的当前纹理贴图（文件纹理）将转化为逐顶点特性值，然后这些值将存储在选定的 nCloth 顶点上，并且纹理贴图不会从磁盘中删除。 
+		  </p>
+ 
+		</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-6A645A7C-1583-476D-86EA-B56E317B8D6F.htm">创建和编辑 nCloth</a></div>
+</div>
+</div>
+
+</body>
+</html>

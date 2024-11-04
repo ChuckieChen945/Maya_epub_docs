@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-ManagingScenes">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6">
+<meta name="language" content="CHS">
+<title>将引用编辑导出到脱机文件</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>将引用编辑导出到脱机文件</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F4875515A699EE12A80087827-4E73"><p class="p" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS73099CC142F48755-1C09418211F25B18DC4-433C">可以将场景中的引用编辑（例如对几何体或新节点连接的更改）导出到 .<samp class="ph codeph" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__GUID-C5F2FE96-EE8E-47A4-A39D-72AF6E2BAC6A">editMB</samp> 或 .<samp class="ph codeph" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__GUID-4F06F603-85BC-432A-9ADD-E73AB0D817C4">editMA</samp> 引用编辑文件。然后，可将该编辑文件应用于其他对象以对其调用相同的更改。
+	 </p>
+<p class="p" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS73099CC142F48755-1C09418211F25B18DC4-433B">例如，如果从基础循环行走动画开始，可以将几个不同的调整（如阔步走、拖脚走和迈进）导出到不同的文件中。然后可以将这些编辑应用于其他角色。
+	 </p>
+<p class="p" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS73099CC142F48755-1C09418211F25B18DC4-433A">可以导出场景中某个资产、某个被引用文件或一组选定节点上的编辑内容。导出引用编辑之前，可以查看它们以确保文件中包含正确的编辑。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-9CE1E15D-C0F4-4AA1-B692-B4F4B449A81A.htm">列出引用编辑</a>。
+	 </p>
+<div class="note note" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__GUID-286B5522-D7C4-4A17-9406-8B36002B6026"><span class="notetitle">注：</span>  
+		<p class="p" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__GUID-148B63AD-89D1-4F14-9D33-B9D7263B92AF">悬挂连接（到未导出节点的连接）和引用编辑将保存到具有占位符名称空间的编辑文件。应用这些编辑时，Maya 会将占位符替换为应用该文件的引用的名称空间，或者使用“:”代表导入到主场景。
+		</p>
+ 
+		<p class="p" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__GUID-2D8BFFAE-91B9-44DF-A730-C0B34FC4C0F0">不会导出默认节点。例如，如果更改了默认着色器 (<span class="ph uicontrol" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__GUID-979807C1-8E0B-4702-9A7D-85B4176314EE">standardSurface1</span>)，然后导出了编辑，则更改的 <span class="ph uicontrol" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__GUID-29237879-F297-4877-BEF6-05FFD2BB5D50">standardSurface1</span> 不会导出。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__SECTION_0BBBF5CF98A44D4CB42BE3B0F5706C12"><h2 class="title sectiontitle">从选定节点导出引用编辑</h2> 
+		 
+		<p class="li listintro" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS73099CC142F48755-1C09418211F25B18DC4-432D">从一组选定节点导出引用编辑</p>
+<ol class="ol" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS73099CC142F48755-1C09418211F25B18DC4-432E"><li class="li" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS73099CC142F48755-1C09418211F25B18DC4-432C"> 按住 Shift 键的同时在场景中选择要从中导出编辑内容的节点。
+		  </li>
+<li class="li" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS73099CC142F48755-1C09418211F25B18DC4-432B">选择<span class="ph uicontrol" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__GUID-3553EC0F-347D-4D5B-9417-2F17C4AD3A69">“文件 &gt; 导出到脱机文件”(File &gt; Export to Offline File)</span>。
+			 <p class="p" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS73099CC142F48755-1C09418211F25B18DC4-432A">将显示文件浏览器。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS73099CC142F48755-1C09418211F25B18DC4-4327">导航到要存储编辑内容的文件夹并输入文件的名称。默认情况下，Maya 将这些文件放置在当前项目中名为 <samp class="ph codeph" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__GUID-A940974E-A3AB-4795-A71D-52B1B2DCB9EF">scenes\edits</samp> 的子文件夹中。
+		  </li>
+<li class="li" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS73099CC142F48755-1C09418211F25B18DC4-4326">单击<span class="ph uicontrol" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__GUID-8ED3207B-237A-407F-9624-4BD8E42FC869">“导出到脱机文件”(Export to Offline File)</span>。
+			 <p class="p" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS1A9193826455F5FF-3859B43C1209703A8387F28">Maya 会创建包含引用编辑的指定文件，扩展名为 .editMA 或 .editMB。不能在 Maya 中打开这些文件，但可以将其指定给其他文件。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-8D2F8B56-8546-42A7-B31D-A088D1EC2698.htm">指定脱机文件</a>。
+			 </p>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+<p class="p" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS73099CC142F48755F2FC9DF120970276F72662">还可以导出特定被引用文件的编辑内容。
+	 </p>
+<div class="section" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__SECTION_FF3A9A59BE9C4C36A5E91A57EB2CB6AF"><h2 class="title sectiontitle">导出被引用文件上的编辑内容</h2> 
+		 
+	 </div>
+<p class="li listintro" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS73099CC142F48755-1C09418211F25B18DC4-4335">导出被引用文件上的编辑内容</p>
+<ol class="ol" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS73099CC142F48755-1C09418211F25B18DC4-4336"><li class="li" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__LI_8CC283AD48B04283B8A68A6AD8870680">通过执行下列操作之一来访问<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-B29122B2-8835-4165-AEE4-3008D55F1D18">导出到脱机文件选项(Export to Offline File Options)</a>：
+		  <ul class="ul" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__UL_CC3CB3F5E7BC4097A37131B2052864CF"><li class="li" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__LI_989EA6642E0645E3A9960CD60139738E">在<span class="ph uicontrol" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__GUID-427713A2-0E4A-4C0F-B06D-7FA5FB8137EF">“大纲视图”(Outliner)</span>中，在要从中导出编辑内容的被引用文件上单击鼠标右键，然后从显示的菜单中选择<span class="ph uicontrol" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__GUID-DD45DFCF-5678-4A82-A91E-83095CAA16B9">“导出到脱机文件”(Export to Offline File)</span> &gt; <img class="image" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__IMAGE_E136EE2B0D36410C8ECDB655FE3FA2BB" width="17" height="15" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">。
+			 </li>
+<li class="li" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__LI_1043A5F1532148C09C85D4AC88BA2060">在<span class="ph uicontrol" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__GUID-9FFAE3DB-111A-48C4-A891-39A41F60C920">“引用编辑器”(Reference Editor)</span>（<span class="ph uicontrol" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__GUID-44AA5DBF-2651-45DE-9A32-6355BE55DC57">“文件 &gt; 引用编辑器”(File &gt; Reference Editor)</span>）中，选择要从中导出编辑内容的被引用文件，然后选择<span class="ph uicontrol" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__GUID-4161E4DC-50C6-446C-976D-CEA6045AA27B">“文件 &gt; 导出到脱机文件”(File &gt; Export to Offline File)</span> &gt; <img class="image" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__IMAGE_8A7947AA657E453281FD48C36D9D79D1" width="17" height="15" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">。
+			 </li>
+</ul>
+ 
+		</li>
+<li class="li" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS73099CC142F48755-1C09418211F25B18DC4-4333">在<span class="ph uicontrol" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__GUID-9E132287-FFAE-416F-A21F-B842F8441793">“导出到脱机文件选项”(Export to Offline File Options)</span>中，设置导出选项，然后单击<span class="ph uicontrol" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__GUID-BAD4E749-8149-45EF-BA1B-DEB1191B13B3">“导出到脱机文件”(Export to Offline File)</span>。
+		</li>
+<li class="li" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS73099CC142F48755-1C09418211F25B18DC4-4331">导航到要存储编辑内容的文件夹并输入文件的名称。默认情况下，Maya 将这些文件放置在当前项目中名为 <samp class="ph codeph" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__GUID-0D04C54B-A85C-4055-929E-42C14BAEAD98">scenes\edits</samp> 的子文件夹中。
+		</li>
+<li class="li" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS73099CC142F48755-1C09418211F25B18DC4-4330">单击<span class="ph uicontrol" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__GUID-874B1D1B-33AE-4C5C-BA3D-720855CB7DE7">“导出到脱机文件”(Export to Offline File)</span>。
+		</li>
+</ol>
+<div class="section" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS73099CC142F48755-1C09418211F25B18DC4-4339"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS73099CC142F48755-1C09418211F25B18DC4-4338"><li class="li" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS73099CC142F48755-1C09418211F25B18DC4-4337"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-8D2F8B56-8546-42A7-B31D-A088D1EC2698.htm">将引用编辑指定给脱机文件</a> 
+		  </li>
+<li class="li" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__LI_532A05AD444E4BDB97E257109746138C"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-9CE1E15D-C0F4-4AA1-B692-B4F4B449A81A.htm">列出引用编辑</a> 
+		  </li>
+<li class="li" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__LI_00704D5EB96E4EF39A46D595700806A4"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-0928E2DA-0A00-44B2-B240-E14AF8752EDD.htm">引用编辑概述</a> 
+		  </li>
+<li class="li" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__LI_38ABA329F3744F659A86E4918BCD5DFB"> 
+			 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-77994E64-9574-4E95-9540-B3CA881D96CD">“大纲视图”(Outliner)上下文菜单</a> 
+		  </li>
+<li class="li" id="GUID-E2D1A00B-A90C-443D-AFC5-B819A037C5B6__WS73099CC142F48755-3D114B751181C40F14B12B6"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-8D8E0D4A-DE37-4C63-9F59-8D71F00E3367.htm">引用编辑器</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-021D6556-CC80-4CE3-8E07-CA80ED72B804.htm">引用编辑</a></div>
+</div>
+</div>
+
+</body>
+</html>

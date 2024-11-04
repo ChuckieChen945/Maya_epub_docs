@@ -1,0 +1,92 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_Particles_Simulation_Particles_source_particles_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>source_particles</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>source_particles</code></h1></div><p>用户可以使用此项将粒子发射到 simulate_particles 复合中。</p>
+<p>要使用此节点，请将几何体对象连接到几何体输入，然后将 source_particles.particle_source 输出插入 <code>simulate_particles</code> 复合的 <code>sources</code> 输入。</p>
+<h2 id="">输入</h2><h3 id="geometry"><code>geometry</code></h3><p>一组用于定义源几何体的输入网格、点和体积。</p>
+<h2 id="">常规</h2><p>时间边界和用于禁用源的整体特性。</p>
+<h3 id="enable"><code>enable</code></h3><p>是否应使用此源。未选中时，此源将被忽略，因此不会生成粒子。</p>
+<h3 id="start_frame"><code>start_frame</code></h3><p>开始从源发射的帧。</p>
+<h3 id="use_end_frame"><code>use_end_frame</code></h3><p>启用该项以在特定帧处停止发射。否则，将在模拟持续时间内继续发射。</p>
+<h3 id="end_frame"><code>end_frame</code></h3><p>停止从源发射的帧。</p>
+<h3 id="creation-options"><code>Creation Options</code></h3><p>这些控件影响从几何体源进行发射的操作。</p>
+<h3 id="passthrough_points"><code>passthrough_points</code></h3><p>启用此选项以使用输入几何体的 <code>point_position</code> 作为粒子的初始 <code>point_position</code>。在这种情况下会忽略其他 <code>Creation Options</code>。</p>
+<h3 id="passthrough_properties"><code>passthrough_properties</code></h3><p>启用 <code>passthrough_points</code> 后，这些附加特性将在每一帧复制到粒子，并在类型支持时插值到子步。如果使用多个 <code>source_particles</code>，则将合并其所有 <code>passthrough_properties</code>，并对缺少的特性使用默认值。</p>
+<h3 id="distribution"><code>distribution</code></h3><p>此项控制粒子在几何体上的分布方式：</p>
+<ul>
+<li><code>Surface</code>：从输入几何体的表面发射。</li>
+<li><code>Volume</code>：从输入几何体的内部发射。这需要体素化几何体，它使用 volume_detail_size 特性来确定相对于边界框体素化的精细程度。也可以通过将此复合设置为可编辑并进入其中，为此体素化设置 geo_volume_mode 和 geo_volume_offset。</li>
+</ul>
+<h3 id="geometry-volume-conversion"><code>Geometry Volume Conversion</code></h3><h4 id="volume_resolution_mode"><code>volume_resolution_mode</code></h4><p>如何确定网格发射器的体素大小。 </p>
+<ul>
+<li><code>Absolute</code>：发射器体素的大小是采用世界空间单位的 <code>volume_detail_size</code> 值。</li>
+<li><code>Relative</code>：<code>volume_detail_size</code> 与源轴对齐边界框的最大尺寸成比例。因此，在 <code>Relative</code> 模式下，大小为 20 个单位的立方体的世界空间体素大小比指定的 <code>volume_detail_size</code> 值大 20 倍。对于源，开始帧处源网格的边界用于确定完整动画的 <code>volume_detail_size</code>，即使为源大小设置动画也是如此。</li>
+</ul>
+<h4 id="volume_detail_size"><code>volume_detail_size</code></h4><p>这是针对 <code>Volume</code> <code>distribution</code> 方法体素化几何体时要使用的体素大小。</p>
+<h4 id="geo_volume_mode"><code>geo_volume_mode</code></h4><p>定义输入网格的体素化方式。</p>
+<ul>
+<li><code>Solid</code>：在此模式下，将多边形网格体素化为实体，如果网格是密闭网格，效果最好。</li>
+<li><code>Shell</code>：在此模式下，将网格体素化为薄壳，不要求网格是防水网格。</li>
+</ul>
+<h4 id="geo_volume_offset"><code>geo_volume_offset</code></h4><p>从网格或点发射时体素化体积的偏移量（以世界单位表示）。正值会扩大体积，负值会使体积收缩。</p>
+<h3 id="rate"><code>rate</code></h3><p>此项根据 <code>rate_mode</code> 控制每步发射的粒子数。</p>
+<h3 id="rate_mode"><code>rate_mode</code></h3><p>此项控制 <code>rate</code> 的定义方式：</p>
+<ul>
+<li><code>Density</code>：对于表面分布，每帧的粒子数基于世界空间单位面积，对于体积分布，则基于单位体积。通常，将速率模式修改为密度时，最好先降低速率，因为非常大的对象的 Aero 或体积可能会非常大，这可能造成粒子数巨大。</li>
+<li><code>Count</code>：速率将表示每帧要发射的平均粒子数。</li>
+<li><code>Count Per Point</code>：将从顶点（而非表面或体积）发射粒子。速率是每帧从每个顶点发射的粒子数。如果切换到此项，当网格包含大量顶点时，用户可能希望先降低速率，因为生成的粒子数可能很大。</li>
+</ul>
+<h3 id="particle-properties"><code>Particle Properties</code></h3><p>这些控件影响每次发射时每个粒子特性的初始值。</p>
+<h3 id="speed"><code>speed</code></h3><p>此项为粒子的初始速度。此值影响 <code>normal_speed</code> 以及 <code>direction</code> 向量。常规速度为单位数/秒。</p>
+<h3 id="direction"><code>direction</code></h3><p>此项为沿世界空间中某个固定方向的发射速度分量。</p>
+<h3 id="normal_speed"><code>normal_speed</code></h3><p>此项为沿几何体法线的发射速度分量。如果几何体没有 point_normal，则将沿所有方向发射。</p>
+<h3 id="spread"><code>spread</code></h3><p>此项影响发射方向。值为 0 时，将沿定义的方向或法线发射。值为 0.5 时，将随机扰动发射方向以扩散 180 度。值为 1.0 时，将沿完全随机的发射方向进行发射。</p>
+<h3 id="inherit_velocity"><code>inherit_velocity</code></h3><p>此项为向发射速度附加源几何体速度的程度。值为 1.0 时，发射器将完整对象速度附加到粒子。</p>
+<h3 id="bounciness"><code>bounciness</code></h3><p>此项为粒子的碰撞弹性，确定粒子的反弹程度。如果碰撞对象和粒子的反弹度值都为 1.0，将产生完全弹性碰撞，即假定不存在阻力，粒子将持续反弹到相同高度。如果值大于 1.0，将产生物理上不可能发生的碰撞。</p>
+<h3 id="live_forever"><code>live_forever</code></h3><p>如果启用此项，将忽略 age_limit 且粒子不会消亡，除非使用 influence_field 将其删除。</p>
+<h3 id="age_limit"><code>age_limit</code></h3><p>粒子年龄（以秒为单位），超过此值时粒子将被删除。</p>
+<h3 id="size"><code>size</code></h3><p>要为粒子 point_size 设置的初始值，用于碰撞以及绘制。</p>
+<h3 id="additional_properties"><code>additional_properties</code></h3><p>用户可以使用此对象端口添加其他每粒子特性。传入对象的任何简单特性都将成为粒子系统的数组几何特性。传入对象的值将作为发射时粒子获取的值。例如，可以创建一个 set_property 节点，将键设置为 <code>color</code>，将值设置为 float3，然后将其插入 <code>additional_properties</code>。粒子将具有颜色特性。</p>
+<h2 id="">输出</h2><h3 id="particle_source"><code>particle_source</code></h3><p>输出是一个对象，其中包含粒子解算器的源相关输入集合，应连接到 <code>simulate_particles</code> 节点上的 <code>sources</code> 端口。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_Particles_html.html">Particles</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

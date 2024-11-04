@@ -1,0 +1,227 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D">
+<meta name="language" content="CHS">
+<title>关于交互式真实照片级渲染 (IPR)</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>关于交互式真实照片级渲染 (IPR)</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529120A"><div class="fig fignone" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS1A9193826455F5FF-E569A012180CE5891-D84"><img class="image" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__IMAGE_A6CA87E2404444CFA81CAD08D8BDE0A8" width="283" height="251" src="../images/GUID-ED249EC4-6CDD-4D97-8A9B-F9606647E121.png"></div>
+<p class="p" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F612E">IPR 是<span class="ph uicontrol" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__GUID-469ED1CB-ECD9-4F19-872F-A5F80C8B4FEB">“渲染视图”(Render View)</span>渲染的一个组件，允许您快速高效地预览和调整灯光、着色器、纹理和 2D 运动模糊。 
+	 </p>
+<p class="p" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F612F">IPR 是在您工作时实现场景可视化的理想方案，因为它几乎可以立即显示您所作的修改。您也可以暂停和停止 IPR 渲染，选择多个渲染选项加入 IPR 过程或从中排除这些选项。IPR 的工作方式与常规的软件渲染略有不同；如果需要了解有关其工作方式的详细信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D.htm#GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS17956D7ADBC6E7366A2D893A117AE33D52A-7FFE">IPR 的工作方式</a>。 
+	 </p>
+<p class="p" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6130">软件渲染支持 IPR；但是，它并不支持所有的软件可渲染功能（例如，光线跟踪或产品级质量抗锯齿不受支持）。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D.htm#GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS17956D7ADBC6E7366A2D893A117AE33D52A-7FFD">IPR 限制（适用于 Maya 软件渲染器）</a>。不支持用于 Maya 硬件 2.0 渲染器。
+	 </p>
+<div class="section" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS17956D7ADBC6E7366A2D893A117AE33D52A-7FFE"><h2 class="title sectiontitle">IPR 的工作方式</h2> 
+		 
+		<p class="p" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6131"> 当您启动 IPR 会话时，Maya 会计算初始 IPR 图像，该图像是深光栅格式，不仅包含最终图片。Maya 将执行所有的可见性计算（仅执行一次），并将结果存储在 <samp class="ph codeph" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__GUID-C22B0E0C-25DB-4CC6-B2AF-95B6EA00D178">iprImages</samp> 目录中的文件中。 
+		</p>
+ 
+		<p class="p" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6133">IPR 图像是带有附加数据的 IFF 图像。IFF 图像大于常规的图像文件，因为该文件中同时存储着可见性和着色数据。数据的计算方式有以下几种： 
+		</p>
+ 
+		<ul class="ul" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6134"><li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6135">可见性计算，可以计算项目在场景中的位置，或图像中每个像素上的哪些项目对于摄影机（对于阴影的深度贴图来说，或者是灯光）是可见的。 
+		  </li>
+<li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6136">着色计算，可以计算图像的每个像素上显示哪种颜色。 
+			 <div class="note note" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6137"><span class="notetitle">注：</span>  
+				<p class="p" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__GUID-080AFDEC-01C7-4AAF-87D6-41D6FEAF2CDE">IPR 图像不属于场景文件；它仅表示场景在特定时间、特定摄影机或灯光中看上去是什么样子的。您可以在场景中工作时重用 IPR 图像，但是请记住，当您调整场景和在视图中移动对象时，IPR 图像可能不会与场景同步。 
+				</p>
+ 
+			 </div>
+ 
+		  </li>
+</ul>
+ 
+		<p class="p" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6138">使用该格式的数据能够以一种交互的方式高效地调整着色和照明参数。 
+		</p>
+ 
+		<p class="p" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6139">若要调整 IPR 选项，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-09B4478C-214D-49C5-BEDC-BB6D196DC623.htm#GUID-09B4478C-214D-49C5-BEDC-BB6D196DC623__WS17956D7ADBC6E736-7EB1F595117AE33AD8D-7FC0">IPR 选项</a>。 
+		</p>
+ 
+		<div class="note note" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F613A"><span class="notetitle">注：</span> 对于高级用户： 
+		  <p class="p" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F613B">您可以提前使用命令行批处理 IPR 图像，之后便可以调整同一动画的若干帧，动画中帧与帧的可见性数据可能各有不同。 
+		  </p>
+ 
+		  <p class="p" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F613C">有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-76A6C578-C4B9-42C8-9EC4-ECCE89A1E3BE.htm#GUID-76A6C578-C4B9-42C8-9EC4-ECCE89A1E3BE__WS73099CC142F487553B93539F117EA10CE8F6661">批渲染 IPR 文件</a>。 
+		  </p>
+ 
+		</div>
+ 
+		<p class="p" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F613D"> 执行 IPR 渲染比执行软件渲染需要更长时间，因为需要将更多信息写入磁盘。IPR 图像包含您在调整场景参数时为图像中每个像素执行着色计算所需的信息。 
+		</p>
+ 
+		<p class="p" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F613F">当您选择要调整的区域时，Maya 会将选定区域中的所有像素的所有必要信息加载到内存中。 
+		</p>
+ 
+		<p class="p" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6140">修改场景属性时，Maya 重新计算着色计算，<span class="ph uicontrol" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__GUID-70050B2A-0037-477A-ABAA-3FF90261C121">“渲染视图”(Render View)</span>中的选定区域将更新。 
+		</p>
+ 
+		<p class="p" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6141">由于此阶段不需要计算任何可见性计算，因此调整更新肯定快于完整的软件渲染。 
+		</p>
+ 
+		<p class="p" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6142">IPR 图像可以很大（例如，使用 NTSC 视频分辨率时，单个 IPR 图像的大小可能高达 60MB）。请确保有足够的磁盘空间存储 IPR 图像，然后再执行 IPR 渲染。 
+		</p>
+ 
+		<div class="note note" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6143"><span class="notetitle">注：</span>  IPR 默认光源（在 IPR 渲染过程中创建）的工作方式与软件渲染器默认光源的工作方式相似： 
+		  <ul class="ul" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6145"><li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6146">IPR 会话终止一旦终止（例如单击了 IPR 停止按钮），IPR 默认光源将立即从场景中移除。 
+			 </li>
+<li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6147">IPR 默认光源不会与场景一同保存，这样可以防止您无意中将 IPR 默认灯光添加到保存的场景。 
+			 </li>
+</ul>
+ 
+		  <p class="p" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6148">有关详细信息，请参见手册的“照明”部分中的 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-6D4A0119-5A23-49DF-9D67-C44311BC472B">Maya 中的默认照明</a>。 
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS17956D7ADBC6E7366A2D893A117AE33D52A-7FFD"><h2 class="title sectiontitle">IPR 限制（适用于 Maya 软件渲染器）</h2> 
+		 
+		<div class="section" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6149"><h3 class="title sectiontitle">可见性限制</h3> 
+		   
+		  <p class="p" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F614A"> 任何影响可见性计算的属性更改，如更改摄影机角度、添加或删除曲面或变换曲面上的 CV，都需要进行另一个 IPR 渲染，然后才能查看更改的效果。 
+		  </p>
+ 
+		  <p class="p" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F614D">在应用于对象或摄影机时（如移动对象或缩放视图，因为移动对象或摄影机可能会改变每个像素的可见项），变换将影响可见性。这其中不包括照明更改，它们是受支持的。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F614E"><h3 class="title sectiontitle">添加或删除曲面、UV 映射值</h3> 
+		   
+		  <p class="p" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F614F">如果您向场景添加曲面或从中删除曲面，或者更改某个纹理的 UV 映射值，则必须先执行另一个 IPR 渲染，然后才能看到所做的更改。这些类型的更改示例包括： 
+		  </p>
+ 
+		  <ul class="ul" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6150"><li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6151"> 当您在某个多边形曲面上选择一个新面组时（即使曲面已经在场景中）。在 IPR 中，选择纹理的新面组等同于创建新曲面。 
+			 </li>
+<li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6153"> 启用/禁用<span class="ph uicontrol" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__GUID-BD442419-2EE0-43ED-9A47-9CCB6C6EE712">“修复纹理扭曲”(Fix Texture Warp)</span>将改变在 IPR 渲染中生成 UV 映射值的方式。这种情况类似于改变多边形 UV 的放置来修改这些 UV。 
+			 </li>
+<li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6156">在纹理窗口中编辑 UV。 
+			 </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6157"><h3 class="title sectiontitle">更改图像平面、阴影贴图、背景色</h3> 
+		   
+		  <p class="p" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6158"> 如果您更改了阴影贴图的分辨率、图像平面或背景色，必须手动更新 IPR 调整区域（选择<span class="ph uicontrol" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__GUID-B3113957-771B-439C-880E-FDFB8021C563">“IPR &gt; 更新阴影贴图”(IPR &gt; Update Shadow Maps)</span>或<span class="ph uicontrol" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__GUID-C6683B61-A913-4DD0-8519-905466F03354">“IPR &gt; 更新图像平面/背景”(IPR &gt; Update Image Planes/Background)</span>）。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F615B"><h3 class="title sectiontitle">Maya 软件渲染器 IPR 的一般限制</h3> 
+		   
+		  <ul class="ul" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F615C"><li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F615D">光线跟踪效果（例如，透明度、反射、折射） 
+			 </li>
+<li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F615E">粒子 
+			 </li>
+<li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F615F">3D 运动模糊 
+			 </li>
+<li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6160">抗锯齿：自适应着色、多像素过滤 
+			 </li>
+<li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6161"><span class="ph uicontrol" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__GUID-A8ECDE17-ADF4-4160-8604-2D99E1E07B1A">“启用深度贴图”(Enable Depth Maps)</span>属性的全局覆盖（在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-59DFB8B7-776B-4243-B404-A3D602FF8CFD.htm">渲染设置窗口</a>中）不能正常工作 
+			 </li>
+<li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6162">输出到 IFF（深光栅） 
+			 </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6167"><h3 class="title sectiontitle">特定于 Mac OS X 的限制</h3> 
+		   
+		  <ul class="ul" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6168"><li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6169">无法以 4K 或更高的分辨率以交互方式进行渲染 
+			 </li>
+<li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F616A">如果成功渲染图像后再次使用较低分辨率渲染，渲染后的图像大小不会减小。 
+			 </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F616B"><h3 class="title sectiontitle">图像平面限制</h3> 
+		   
+		  <ul class="ul" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F616C"><li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F616D">仅支持文件模式，不支持纹理模式。 
+			 </li>
+<li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F616E">文件模式的更改不能正确进行 IPR 渲染，除非为每个更改启用<span class="ph uicontrol" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__GUID-130B20D8-C6F0-4E80-AEDD-8CC38E1F1281">“更新图像平面/背景”(Update Image Planes/Background)</span>。 
+			 </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F616F"><h3 class="title sectiontitle">着色器和纹理限制</h3> 
+		   
+		  <ul class="ul" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6170"><li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6171">不能很好地支持背景着色器的使用，因为该着色器依赖于光线跟踪。 
+			 </li>
+<li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6172">修改、添加或删除应用于几何图形的置换贴图需要重新渲染。 
+			 </li>
+<li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6173">在文件纹理中启用高级过滤器（例如二次、立方体或高斯）需要重新渲染。除非最初生成渲染时启用了高级过滤器，否则更多信息需要存储到 IPR 图像中。 
+			 </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6174"><h3 class="title sectiontitle">需要 IPR 重新渲染的几何体更改</h3> 
+		   
+		  <ul class="ul" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6175"><li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6176">添加或删除几何体。 
+			 </li>
+<li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6177">变换或变形几何体。 
+			 </li>
+<li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6178">更改细分。 
+			 </li>
+<li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6179">启用/禁用曲面的<span class="ph uicontrol" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__GUID-23468366-D169-4462-A0D2-047BD2978F37">“修复纹理扭曲”(Fix Texture Warp)</span>，或修改任何<span class="ph uicontrol" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__GUID-27644CD9-242B-47B2-BCCE-99F22C187373">“修复纹理扭曲”(Fix Texture Warp)</span>属性。 
+				<div class="note tip" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F617A"><span class="tiptitle">提示：</span> 可以考虑使用平行光预览渲染，特别是在使用 IPR 时。这些灯光很容易变换以获得您需要的初始灯光效果。Maya 默认的灯光是平行光。 
+				</div>
+ 
+			 </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F617B"><h3 class="title sectiontitle">辉光限制</h3> 
+		   
+		  <ul class="ul" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F617C"><li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F617D">灯光辉光强度的显示可能有区别，因为灯光辉光遮挡是在生成 IPR 时计算的。如果灯光移动时灯光辉光遮挡发生变化，则可能产生不准确的辉光强度。 
+			 </li>
+<li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F617E">着色器辉光看起来可能会有所不同，因为 IPR 区域（未覆盖整个场景）将生成不同的自动曝光归一化。 
+			 </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F617F"><h3 class="title sectiontitle">其他</h3> 
+		   
+		  <ul class="ul" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6180"><li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6181">除非重新渲染，否则更改模糊帧数不会更新 IPR。 
+			 </li>
+<li class="li" id="GUID-9887F11F-E4DF-4F35-815A-9CB7417DD98D__WS73099CC142F487553B93539F117EA10CE8F6182">因为所操作的区域较小，所以 2D 运动模糊不会绝对正确。 
+			 </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-86A435B8-8E20-477F-A232-FCEF2760F781.htm">渲染方法</a></div>
+</div>
+</div>
+
+</body>
+</html>

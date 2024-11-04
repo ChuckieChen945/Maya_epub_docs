@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-ManagingScenes">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822">
+<meta name="language" content="CHS">
+<title>关于 GPU 缓存</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>关于 GPU 缓存</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="fig fignone" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__FIG_C15A4A876D5E450A90A69D51068F3FA0"><img class="image" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__IMAGE_3F62C6A51A5D4E65859BF4F5BEFC1092" src="../images/GUID-2D93A634-9D5D-4477-A677-B6878447FA22.png"></div>
+<p class="p" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__GUID-C5ABDB1F-D3DC-4C9A-A4CE-E0B24F17E20B"> GPU 缓存文件从 Alembic 开源文件格式开发而来，通过优化这些文件可提高 Maya 中的播放性能。根据对 GPU 缓存文件进行求值的方式来实现性能提升。GPU 缓存节点直接将缓存的数据路由到系统显卡，以处理、忽略 Maya 依存关系图求值。此数据流可缓解在打开和播放具有庞大数据集的大型场景时出现的性能问题。
+	 </p>
+<p class="p" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__GUID-A66156FC-72B6-44AF-87D9-DD0F8B8F054C">在您导入 GPU 缓存文件时，该文件将作为单个 gpuCache 节点显示在<span class="ph uicontrol" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__GUID-7F199463-0C82-4115-9506-8CBBBB1F4ADC">“大纲视图”(Outliner)</span>中，并使用以下图标表示：<img class="image" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__IMAGE_A3A49C5593DA4134A7420CC0BB74EF0F" src="../images/GUID-1F60537E-F126-4685-BC17-AF07BDBE9A64.png">。在场景中，GPU 缓存几何体显示为虚线线框对象。<span class="ph uicontrol" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__GUID-49118EA3-5B62-4175-91F9-6DA8D2774D5D">“属性编辑器”(Attribute Editor)</span>显示一个以对象命名的<span class="ph uicontrol" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__GUID-3833E0FF-14A5-42C8-AEA8-BD28EAAF87F3">“变换”(Transform)</span>节点，该节点合并了所有单个源对象<span class="ph uicontrol" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__GUID-ABB411E0-802F-4809-99AE-6AD68AB2898B">“变换”(Transform)</span>节点。以对象命名的形状节点还提供其他属性，例如<span class="ph uicontrol" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__GUID-AA2DD01B-9029-4A9B-B385-165E8D0BED3E">“缓存文件名”(Cache File Name)</span>、<span class="ph uicontrol" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__GUID-4F2180A8-EB85-43F6-9454-C4420C115765">“几何体路径”(Geometry Path)</span>和缓存重新加载按钮。对 GPU 缓存文件进行更改（在其首次导入场景之后）时，可以单击 <img class="image" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__IMAGE_4F9F041F6BB448E5879540DD38730CC6" src="../images/GUID-8D11FACC-44CC-4ABF-8142-F83A350D3431.png"> 图标以重新加载更新的缓存文件。无需使用<span class="ph uicontrol" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__GUID-6233C422-2D44-4A87-9DF1-9D6DB52A3C85">“GPU 缓存 &gt; 导入”(GPU Cache &gt; Import)</span>命令重新导入文件。 
+	 </p>
+<p class="p" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__GUID-6FEAF76E-CAB3-4E77-AFA5-994E1A074BEE">不能将 GPU 缓存的对象作为 Maya 几何体进行编辑。
+	 </p>
+<div class="section" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__SECTION_1FEC00FD98C74015A23B5C9EF1CE00BE"><h2 class="title sectiontitle">GPU 缓存功能</h2> 
+		 
+		<p class="p" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__GUID-4D65238D-2D71-4828-8F16-D5B87B705853">使用 GPU 缓存，您可以：
+		</p>
+ 
+		<ul class="ul" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__UL_46D6394CDC874057855D5A5389E9971F"><li class="li" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__LI_5654388D136B43D9AC6FB5A695208FFF">使用“捕捉到点”(Snap to points)工具操纵 GPU 缓存的对象。这包括捕捉到其他 GPU 缓存的多边形对象及未缓存的多边形对象的点。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-BABE0532-14F5-4A61-A261-D73E3B84A3FA">将一个对象捕捉到另一个对象</a>。
+		  </li>
+<li class="li" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__LI_0C74DF4CBAE6421B895B63A35AC07E98">启用 GPU 缓存背景加载，从而使缓存文件在您工作时加载到场景中。请参见 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-0F340CD7-FDE1-4F64-ADCA-52687835BC90#GUID-0F340CD7-FDE1-4F64-ADCA-52687835BC90__SECTION_F5EFF18768A940139BB174D3D26DC5D4">GPU 缓存首选项(GPU Cache Preferences)</a>。
+		  </li>
+<li class="li" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__LI_ACF80D6683824B828446FDC7335242C5">从源几何体导出 <span class="ph uicontrol" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__GUID-2CC17185-45E4-4066-A232-FD8D98CE91E0">Lambert</span> 和 <span class="ph uicontrol" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__GUID-56036D71-817A-4028-90DA-D190E507A408">Phong</span> 着色信息。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-F1B239BD-E60C-4E3D-AC6A-48D2A380477A.htm">对 GPU 缓存进行着色和渲染</a>。
+		  </li>
+<li class="li" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__LI_12DA03F9BC0E402288A13052980AD264">将多个 GPU 缓存节点缓存到单个缓存文件。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-8C7EFEB6-20F1-4DED-B77D-DE2513965530.htm">递归 GPU 缓存</a>。
+		  </li>
+<li class="li" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__LI_7F83029515D44FC2B0C75B50D246FB73">使用<span class="ph uicontrol">“缓存时间范围”(Cache Time Range)</span>偏移缓存以在特定帧处开始，这类似于音频文件偏移。
+		  </li>
+<li class="li" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__LI_9E57B7EBD4704CEEB8D9F1F8B68FB504">指定首选项，确定用于播放 GPU 缓存文件的系统显卡内存量。请参见 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-0F340CD7-FDE1-4F64-ADCA-52687835BC90#GUID-0F340CD7-FDE1-4F64-ADCA-52687835BC90__SECTION_F5EFF18768A940139BB174D3D26DC5D4">GPU 缓存首选项(GPU Cache Preferences)</a>。
+		  </li>
+<li class="li" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__LI_E28C8AE0E5184FD1B0159CD8A485E864"> 重新拓扑具有较高多边形计数的稠密资产。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-6121F248-5E15-4E42-AFC5-427CBCF540B3">重新拓扑 GPU 缓存节点</a>。
+		  </li>
+</ul>
+ 
+	 </div>
+<div class="section" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__SECTION_862EAF96783448B0BA2CEE54D2E34F9A"><h2 class="title sectiontitle">GPU 缓存插件</h2> 
+		 
+		<p class="p" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__GUID-DE741F9B-8D6C-4705-86CF-7B6D6D4B31AA">若要将 Maya 对象和场景另存为 GPU 缓存文件并加载，请加载 <span class="ph uicontrol" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__GUID-7B579A15-FCDF-4ACD-A3E7-F94ED4341840">gpuCache.mll</span>。若要加载插件，请打开<span class="ph uicontrol" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__GUID-E6568851-318F-424B-9A97-42EE7E92C2E9">“插件管理器”(Plug-in Manager)</span>（<span class="ph uicontrol" id="GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822__GUID-7A97EE40-8B2D-46BB-9ADE-B9AE59CFD54F">“窗口 &gt; 设置/首选项 &gt; 插件管理器”(Windows &gt; Settings/Preferences &gt; Plug-in Manager)</span>）。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-07A89E6C-199C-4719-98A0-11C3A2BCDF21">加载或卸载 Maya 插件</a>。
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-F1B239BD-E60C-4E3D-AC6A-48D2A380477A.htm">对 GPU 缓存进行着色和渲染</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-8C7EFEB6-20F1-4DED-B77D-DE2513965530.htm">递归 GPU 缓存</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-907BB76E-1A01-4A29-B2FA-659B7CDA7BC4.htm">创建或导入 GPU 缓存</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-9D272E39-9279-4146-8449-928DDA865C9D.htm" title="通过 Alembic 缓存导出和导入选项，将 Maya 场景和几何体另存为基于 Alembic 的缓存文件并进行加载。Alembic 文件是具有较强可移植性且与应用程序无关的文件，因此可由多种内容创建应用程序进行共享、处理和播放。">Alembic 缓存</a></div>
+</div>
+</div>
+
+</body>
+</html>

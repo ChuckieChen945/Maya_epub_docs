@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-MotionGraphics">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-9DB5EBE8-8514-492A-B74E-6F87CFDFE220">
+<meta name="language" content="CHS">
+<title>缓存 MASH 网络进行渲染</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-9DB5EBE8-8514-492A-B74E-6F87CFDFE220">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>缓存 MASH 网络进行渲染</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="p"> 由于某些 MASH 节点具备程序特性，因此通常建议在渲染时缓存使用这些节点以快速获得可预测结果的所有网络。这对模拟类型节点而言最重要，其中包括： 
+	 <ul class="ul" id="GUID-9DB5EBE8-8514-492A-B74E-6F87CFDFE220__UL_B302852E994140E389E69A882500A661"><li class="li" id="GUID-9DB5EBE8-8514-492A-B74E-6F87CFDFE220__LI_8079241D7E0E419CB1CFCA5FE236371B"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-MotionGraphics/files/GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547.htm">飞行(Flight)</a>
+		</li>
+<li class="li" id="GUID-9DB5EBE8-8514-492A-B74E-6F87CFDFE220__LI_8B49B756EA4C4D3083FAF4350D2DD077"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-MotionGraphics/files/GUID-3AA2961A-A5A4-45C2-AA12-0CACF8806C30.htm">弹簧(Spring)</a>
+		</li>
+<li class="li" id="GUID-9DB5EBE8-8514-492A-B74E-6F87CFDFE220__LI_1C9160AFC9D3428F9581E46A0ADD17D7"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-MotionGraphics/files/GUID-6CBD271F-853A-4EBC-8D06-F8B2B2C56235.htm">轨迹(Trails)</a>
+		</li>
+<li class="li" id="GUID-9DB5EBE8-8514-492A-B74E-6F87CFDFE220__LI_01F2771504274B80B69CEE8EF8F6F54F">任何基于<span class="ph uicontrol">“速度”(Velocity)</span>的效果（默认为在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-MotionGraphics/files/GUID-6322679A-61CD-4747-8FB0-0EBDE787F1EA.htm">颜色(Color)</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-MotionGraphics/files/GUID-BB035215-1676-4A8A-96EA-807F689E30D8.htm">时间(Time)</a>节点中，但也可通过自定义的 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-MotionGraphics/files/GUID-DCB144BD-DFE2-418B-9838-E06963F61A20.htm">Python</a> 脚本访问此属性）
+		</li>
+<li class="li" id="GUID-9DB5EBE8-8514-492A-B74E-6F87CFDFE220__LI_E7428DFDB0D9475DB7E60D32A710E93D">当<span class="ph uicontrol">“添加”(Add)</span>模式由<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-MotionGraphics/files/GUID-95AA0392-3C50-403E-848F-F1A12ADABC36.htm">衰减(Falloff)</a>节点使用的任何时候
+		</li>
+</ul>
+
+	 </div>
+<p class="p">缓存 MASH 网络的过程因当前的<span class="ph uicontrol">“几何体类型”(Geometry Type)</span>而异。
+	 </p>
+<p class="li listintro">在使用<span class="ph uicontrol">实例化器</span>时缓存 MASH 网络</p>
+<ol class="ol" id="GUID-9DB5EBE8-8514-492A-B74E-6F87CFDFE220__OL_5ADE6B1801A3474984A7485DAECE02A6"><li class="li" id="GUID-9DB5EBE8-8514-492A-B74E-6F87CFDFE220__LI_52BB1BD1EC7B4B6BA7244AFACA26A2CC">打开 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-MotionGraphics/files/GUID-6B3FAF64-960F-4C23-A883-98446AD88ABD.htm">Waiter</a> 节点的<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>。
+		</li>
+<li class="li" id="GUID-9DB5EBE8-8514-492A-B74E-6F87CFDFE220__LI_E36F086466824E268A4CF3B89F573CCB">在<span class="ph uicontrol">“缓存”(Caching)</span>部分中，打开<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-MotionGraphics/files/GUID-C852D530-6AD5-44A4-889A-7110D34E4E73.htm">缓存创建器(Cache Creator)</a>。
+		</li>
+<li class="li" id="GUID-9DB5EBE8-8514-492A-B74E-6F87CFDFE220__LI_326CBD533F064E9189DD52F3F608D56A">设置相应的选项，然后单击<span class="ph uicontrol">“创建缓存”(Create Caches)</span>。
+		</li>
+</ol>
+<p class="li listintro">在使用<span class="ph uicontrol">重新投影</span>网格时缓存 MASH 网络</p>
+<ol class="ol" id="GUID-9DB5EBE8-8514-492A-B74E-6F87CFDFE220__OL_7CF22B0291504640B37C0B634E4572E0"><li class="li" id="GUID-9DB5EBE8-8514-492A-B74E-6F87CFDFE220__LI_9548B4A2BB7A4441A5BC2628E3740A21">选择重新投影网格，然后选择<span class="ph menucascade"><span class="ph uicontrol">“缓存</span> &gt; <span class="ph uicontrol">Alembic 缓存</span> &gt; <span class="ph uicontrol">将当前选择导出到 Alembic”(Cache &gt; Alembic Cache &gt; Export Selection to Alembic)</span></span>，以便将网格导出到 Alembic 缓存。
+		</li>
+<li class="li" id="GUID-9DB5EBE8-8514-492A-B74E-6F87CFDFE220__LI_239E9A950ABA41FBAA766C746622A25C">将 Alembic 缓存重新导入到场景中（<span class="ph menucascade"><span class="ph uicontrol">“缓存</span> &gt; <span class="ph uicontrol">Alembic 缓存</span> &gt; <span class="ph uicontrol">导入 Alembic”(Cache &gt; Alembic Cache &gt; Import Alembic)）</span></span>。
+		</li>
+<li class="li" id="GUID-9DB5EBE8-8514-492A-B74E-6F87CFDFE220__LI_5B885438254B4F1DA92498CA82D93348">删除或禁用 MASH 网络的其余部分。
+		</li>
+</ol>
+<div class="note note" id="GUID-9DB5EBE8-8514-492A-B74E-6F87CFDFE220__GUID-78FF7406-E4D5-4E7B-9E07-53217C5148D1"><span class="notetitle">注：</span> 作为步骤 3 和 4 的替代方法，您可以使用 Vray Proxies 等第三方渲染工具直接渲染缓存。
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-MotionGraphics/files/GUID-5F45C398-D87D-424E-9F00-51D9FAB5A40B.htm">MASH 程序效果</a></div>
+</div>
+</div>
+
+</body>
+</html>

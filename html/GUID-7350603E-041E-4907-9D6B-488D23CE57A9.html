@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="video-id" content="1wZ2dqazoa1RgfhBoAEArWnh_Wpe65jl">
+<meta name="modified" content="01/09/2022">
+<meta name="topicid" content="GUID-7350603E-041E-4907-9D6B-488D23CE57A9">
+<meta name="language" content="CHS">
+<title>ShaderFX 自定义代码节点</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>ShaderFX 自定义代码节点</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-28D72972-E050-4C3A-BECF-D2F8819A5DE0"><span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-0D4E03C5-6F2E-48A9-9EAF-EC47F85896B1">“自定义代码”(Custom Code)</span>节点可以让您编写自定义函数，并将其添加到着色器。
+	 </p>
+<p class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-16B070E0-3BEB-44BC-9BA3-77CFA8A42D73"> <video data-video-id="1wZ2dqazoa1RgfhBoAEArWnh_Wpe65jl" crossorigin="anonymous" controls="controls" poster="https://help.autodesk.com/videos/1wZ2dqazoa1RgfhBoAEArWnh_Wpe65jl/poster"><source type="video/webm" src="https://help.autodesk.com/videos/1wZ2dqazoa1RgfhBoAEArWnh_Wpe65jl/video.webm"></source><source type="video/mp4" src="https://help.autodesk.com/videos/1wZ2dqazoa1RgfhBoAEArWnh_Wpe65jl/video.mp4"></source></video> 
+	 </p>
+<p class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-9FE42933-42B9-432D-9C4A-289E4E9EC1FD"> 若要创建<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-EACD0001-67C7-41AC-A807-FAE71B830379">“自定义代码”(Custom Code)</span>节点，请从 ShaderFX 菜单栏中选择<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-9F7F48B8-D16E-494E-8BA3-0CB93B984287">“设置 &gt; 切换高级模式”(Settings &gt; Toggle Advanced Mode)</span>以启用高级模式，然后选择<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-B2B53582-C575-4344-B47F-4B4403D50B83">“硬件着色器节点 &gt; 各种 &gt; 自定义代码”(Hw Shader Nodes &gt; Various &gt; Custom Code)</span>。默认情况下，<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-6B49556A-E7E0-47BF-8D0D-1B7AC657A916">“自定义代码”(Custom Code)</span>节点包含两个输入：<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-4E0B94B6-B8BE-479D-9850-37A73C3BBE79">“纹理”(Texture)</span>和<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-530018B6-072B-4621-B496-B25195BB452A">“采样器状态”(Sampler State)</span>。每个此类输入的方形端口表示它可以接受多个输入。此节点可以让您从纹理读取像素。默认情况下，没有针对节点的输出。
+	 </p>
+<div class="fig fignone" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__FIG_18CD3C47A0284CA494E4615481F292C6"><img class="image" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__IMAGE_3E6992751D8143B2902E0FCDAF9BE176" src="../images/GUID-5B00CB4E-3FAD-4980-A1A8-5D75538FA5CF.png"></div>
+<p class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-C3705ED4-7274-437F-813B-6ED173C33DFF">按<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-2430FED9-ACB0-43B8-A2E2-C5D90D5A8713">“属性编辑器”(Attribute Editor)</span>中的<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-8DF88DF7-2FAF-4DB2-B7DF-9763B6C013D4">“编辑”(Edit)</span>，在显示的<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-A16C8A28-BE4A-4568-B7E4-5A9E0FEFFCDE">“自定义代码”(Custom Code)</span>编辑器中输入您的代码。系统提供了一个基本编辑器，但您也可以在任意编辑器中编写代码并在代码完成后将其复制并粘贴到此基本编辑器中。系统还为您提供了一个 <samp class="ph codeph" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-C14683C1-38C2-47F1-AF2A-88053F826FD9">struct</samp> 和一个基本函数定义，便于您着手使用。
+	 </p>
+<p class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-A19C9C7C-269C-41BC-A0D9-A93DB173353E">第一个 <samp class="ph codeph" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-474E554A-6821-43A4-8B41-C249855C2288">struct</samp> 表示输出；默认情况下，它是 <samp class="ph codeph" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-99A837D5-0369-4B12-B94E-BAEE388B6A39">float4 color</samp>。
+	 </p>
+<pre class="pre codeblock">struct CustomCode1188Output 
+{ 
+	float4 color; 
+}; </pre>
+<p class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-C15BB529-4ADA-4E3A-B90B-502632AA384C">函数定义用于定义输入参数；默认情况下，它是 <samp class="ph codeph" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-23323E42-5260-4786-973F-F1D0EDDE5FB9">float inputA</samp>。
+	 </p>
+<pre class="pre codeblock">CustomCode1188Output CustomCode1188Func( float inputA ) </pre>
+<p class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-FCE934AC-0931-42CE-8669-C1E3F735417A"><span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-B490916C-48A4-4D59-88D7-07DEB731540D">“自定义代码”(Custom Code)</span>的<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-AC439394-7EF9-4428-8905-9991A600AE9A">“属性编辑器”(Attribute Editor)</span>列出了<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-1CAAB204-C390-4AC6-88B0-F4C248292181">“函数名称”(Function Name)</span>：例如 CustomCode1188。
+	 </p>
+<div class="fig fignone" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__FIG_7518405A60D6444AA851B93FC07DD4A2"><img class="image" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__IMAGE_482FD6EA988C4F3E92C631DC4060AA1D" src="../images/GUID-11780673-96FE-4C60-8084-2FFA0532450B.png"></div>
+<p class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-E02ECF64-6458-46E0-8BE2-8DBEB944614B">您可以自定义<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-BB0EE8E8-D997-48EE-A474-BEDA79F5F96D">“函数名称”(Function Name)</span>；但是，<samp class="ph codeph" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-B55AF4AB-5A52-4A4E-8E64-FCED34189545">struct</samp>、函数和<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-C30C2DA8-96E2-419B-943E-669C6BF0E100">“函数名称”(Function Name)</span>都必须相同。
+	 </p>
+<p class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-9986C8B4-7555-4CB1-9F2B-7326F9573E87">关闭编辑器之后，将会创建 <samp class="ph codeph" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-868B95BE-08DC-414E-A9DD-1C0A7D792080">inputA</samp> 输入和 <samp class="ph codeph" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-09C3BD9A-C582-4AFE-9E87-7DF64CC871D1">color</samp> 输出。
+	 </p>
+<div class="fig fignone" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__FIG_3ED2EFCF167A4708970AEA2E21C23498"><img class="image" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__IMAGE_FB88854164094E4A98B1B75E967F9E53" src="../images/GUID-CB8EC51E-B350-493A-9480-1DA923ECCAA0.png"></div>
+<div class="note note" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-57762973-93F0-46B1-9B6E-B5E4EF6D8C64"><span class="notetitle">注：</span> 通过脚本创建<span class="ph uicontrol">“自定义代码”(Custom Code)</span>节点时，必须在更新自定义代码后执行刷新操作，使该节点自我更新。您可以使用带有 <samp class="ph codeph">edit_action</samp> 标志的 <samp class="ph codeph">shaderfx</samp> 命令执行该操作。
+	 </div>
+<div class="section" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__SECTION_6DA90B700F9A42B19A1CA1F2C14E12FD"><h2 class="title sectiontitle">着色器语言</h2> 
+		 
+		<p class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-67620702-CB92-4B9B-A841-09A74FE26678">着色器所用的语言有所不同，具体取决于渲染引擎和平台。
+		</p>
+ 
+		<div class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-1AE77555-1057-4C02-AA2E-74B7EE0C8700">对于 <span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-366F10D3-1105-4471-BE39-19A81C64672E">Viewport 2.0</span>：
+		<ul class="ul" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__UL_F65E888A519140C4AF6EA2F914672124"><li class="li" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__LI_ECFE352CE89D41A1BAB08EA5EF88BCCE">SFX_HLSL_5：对于 DirectX 11 模式 
+		  </li>
+<li class="li" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__LI_07AEC215D0AF4FAA8F7313B1823D1050">SFX_OGSFX：对于 OpenGL 核心配置模式 
+		  </li>
+<li class="li" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__LI_4BC03E354EB54FD7974C7F27AA650F55">SFX_CGFX_3：对于 OpenGL 模式 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-B91E9D83-70F5-4A96-9915-FE13D25DA29C">对于样例：
+		<ul class="ul" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__UL_43860BCEA9114AFC9C8B94E788F42B86"><li class="li" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__LI_1B9E4999097D445899BFA20A309E77F6">SFX_GLSL_4：对于 Linux/Windows 上的 OpenGL 以及运行 OpenGL 核心配置模式时的所有平台 
+		  </li>
+<li class="li" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__LI_FE76D57B885D4EC780C4B750F360C06A">SFX_GLSL_1_2：对于 Mac OS X 上的 OpenGL 
+		  </li>
+<li class="li" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__LI_C443EBEFAACA4C079EACFE5EB68F505D">SFX_HLSL_5：对于 DirectX 11 
+		  </li>
+<li class="li" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__LI_A329C2277BE44E4DA15D5A4835AF7257">SFX_SWATCH：对于在 ShaderFX 内部渲染样例（当在 <span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-52C52F4F-37CF-478E-83BE-70E4FD5ED332">Viewport 2.0</span> 内进行渲染时值为 false） 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-146B72FB-3E14-40E7-A62A-66CE95FD7761">不在 Maya 中使用：
+		<ul class="ul" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__UL_C61E251E4C7D4E7BB3588496C5E09E86"><li class="li" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__LI_B2141BB1C3CB4AA9BC642B2E44D49C28">SFX_HLSL_3：可以导出 
+		  </li>
+<li class="li" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__LI_1A001C0BE8F44D7FB1F2F2CD223D4DF0">_3DSMAX_：用于 3ds Max 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<div class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-21500632-F3A2-4B30-9CF6-7E9F8C0BAF63">对于 Maya：
+		<ul class="ul" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__UL_B370002ACCEB40F2BCEF8198816485ED"><li class="li" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__LI_3196D4602A8C420B8A90AD2370BCD237">_MAYA_：如果在 Maya 中运行着色器，值为 true 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+		<p class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-586F0395-0A6E-4A1A-AE1B-B624441FFEF0">如果打算同时使用 DirectX 和 OpenGL 模式，请确保您的函数支持这两种模式的语言。此外，还要确保您拥有为每种操作系统包含的语言。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__SECTION_9ED1AF545E904C90A8FA6B1625E35CAB"><h2 class="title sectiontitle">示例</h2> 
+		 
+		<p class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-91D88AC8-ADFE-405A-8951-30E83A86DF90">在此简单的示例中，输出是输入颜色乘以输入颜色。<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-D100A748-2EDD-4B03-8EB7-BD014D34D8D2">“自定义代码”(Custom Code)</span>样例显示的蓝色比通过 inputA 连接的蓝色要深。
+		</p>
+ 
+		<pre class="pre codeblock">struct CustomCode1181Output 
+{ 
+    float3 color; 
+}; 
+
+CustomCode1181Output CustomCode1181Func( float3 inputA ) 
+{ 
+    CustomCode1181Output OUT; 
+    OUT.color = float3(inputA*inputA); 
+    return OUT; 
+} </pre>
+ 
+		<div class="fig fignone" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__FIG_DF0F42798683448081F987E12FDA0DE0"><img class="image" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__IMAGE_2C8B310674544A378C0FD6AD94037878" src="../images/GUID-DA89E18E-226F-4A6A-B8E5-F4A678418959.png"></div>
+ 
+		<p class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-941C150A-88B0-4C19-8A61-AF8159945D0B">以下示例演示了如何以 Maya 支持的几种语言对纹理进行采样，然后将采样值与输入颜色相乘。<samp class="ph codeph" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-00A65E48-BE34-4702-A128-132D9B043A27">if/endif</samp> 和 <samp class="ph codeph" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-4F67317A-4469-4E91-BE02-69E29867FADD">ifdef/endif</samp> 语句将与编译时执行的 <samp class="ph codeph" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-8E101610-0F22-4B66-8287-597CBDDF9D76">if</samp> 语句交换代码。
+		</p>
+ 
+		<pre class="pre codeblock">struct CustomCode1178Output 
+{ 
+    float3 color; 
+}; 
+
+CustomCode1178Output CustomCode1178Func( float3 inputA, float2 UV ) 
+{ 
+    CustomCode1178Output OUT; 
+
+    float3 t = float3(0,0,0);
+    #if defined(SFX_CGFX_3) || defined(SFX_HLSL_3)
+        t = tex2D( SFX_SAMPLER0, float2(UV.x, 1-UV.y) ).xyz;
+    #endif
+
+    #ifdef SFX_HLSL_5
+        #if defined(SFX_SWATCH) || defined(_3DSMAX_)
+            t = SFX_TEXTURE0.Sample( SFX_SAMPLER0, UV );
+        #else
+            t = SFX_TEXTURE0.Sample( SFX_SAMPLER0, float2(UV.x, 1-UV.y) );
+        #endif
+    #endif
+
+    #ifdef SFX_GLSL_4
+        t = texture( SFX_TEXTURE0, float2(UV.x, 1-UV.y) ).xyz;
+    #endif
+
+    #ifdef SFX_GLSL_1_2
+        t = texture2D( SFX_TEXTURE0, float2(UV.x, 1-UV.y) ).xyz;
+    #endif
+
+OUT.color = inputA * t;
+
+return OUT; 
+} </pre>
+ 
+		<p class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-F87429B0-AC16-45AE-8E7E-A2EB0DE7CA7C">在创建<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-E49E3AB0-329F-4657-A4D5-94D4C953EEB3">“自定义代码”(Custom Code)</span>节点时，将会创建下列节点并按照下图所示进行连接：
+		</p>
+ 
+		<ul class="ul" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__UL_F9386D0866A44F99B41D2A04CB2AF8B7"><li class="li" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__LI_F5F461D7CE204517A90FA4E019064884"> 
+			 <span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-7E32620A-0E39-4516-A079-09CB11F838E4">硬件着色器节点 &gt; 纹理 &gt; 纹理分量(Hw Shader Nodes &gt; Textures &gt; Texture Component)</span> 
+		  </li>
+<li class="li" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__LI_B9F26B57D2DC47079A6C1C76EFB5007B"> 
+			 <span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-5696F083-8E4A-409E-ABDB-B3F0C6CCB5C3">硬件着色器节点 &gt; 纹理 &gt; 采样器状态(Hw Shader Nodes &gt; Textures &gt; Sampler State)</span> 
+		  </li>
+<li class="li" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__LI_C63A6A94FC3D43E0B8CD00FD9D59EEC2"> 
+			 <span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-6E7524D0-2B93-4DD3-A922-EAE9D73095BF">硬件着色器节点 &gt; 值 &gt; 颜色(Hw Shader Nodes &gt; Values &gt; Color)</span> 
+		  </li>
+<li class="li" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__LI_99D8505ED1B647C09DCC6DD50AD88887"> 
+			 <span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-9B9D4B7E-F1BA-429F-A54F-3B924144612A">硬件着色器节点 &gt; 公共输入 &gt; UV 集(Hw Shader Nodes &gt; Inputs Common &gt; UV Set)</span> 
+		  </li>
+</ul>
+ 
+		<div class="fig fignone" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__FIG_75CAB23473574410A571C0585437682D"><img class="image" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__IMAGE_6DF0C427178F40C8ADBA68B37912AC1A" src="../images/GUID-E30857F1-EACD-4E37-9750-DA7C3E80B5D1.png"></div>
+ 
+		<p class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-7B0F1E85-2A9C-4AD0-92B6-5DB366110A5C">现在，当您使用 DirectX 11 时，<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-96AB3897-60B8-427C-BEDB-32ED885F9FC3">Viewport 2.0</span> 中的纹理和样例使用 SFX_HLSL_5 代码进行采样。<span class="ph" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-8BAF8A5A-DE8E-4FCF-B927-1674B062BD5E">当您使用 OpenGL 时，<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-3D69FF15-72E1-46FA-A34E-5119CDBF73CE">Viewport 2.0</span> 中的纹理使用 SFX_CGFX_3 代码进行采样，而样例使用 SFX_GLSL_4 代码进行采样（对于 Linux/Windows）。</span> 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__FIG_306CBCE734A241D391E447C139CDEEAC"><img class="image" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__IMAGE_E6CD33EA4A234BBD94CF29F1AA21546B" src="../images/GUID-11A8B01A-C19B-4CCD-AFBA-31B74606CD45.png"></div>
+ 
+		<p class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-3970740A-ACAF-4366-9561-10E3CDC8B7C3"><span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-59BDF0FA-91BF-485E-8F7C-5598998CC72E">“自定义代码”(Custom Code)</span>编辑器中的注释还建议您使用 SFX_TEXTURE[n] 或 SFX_SAMPLER[n] 来引用纹理。这样，您就无需对纹理名称（例如，grass_texture_A）进行硬编码。SFX_TEXTURE[n] 和 SFX_SAMPLER[n] 是指连接纹理的顺序。您连接的第一个<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-B25AAC92-2C94-4382-AE37-8015FEA0F437">“纹理分量”(Texture Component)</span>/<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-CE6D9ADA-B8B2-4781-A59E-50982A5F83E3">“采样器状态”(Sampler State)</span>节点对分别是 SFX_TEXTURE[0] 和 SFX_SAMPLER[0]，下一对分别是 SFX_TEXTURE[1] 和 SFX_SAMPLER[1]。在上图中可以发现，从<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-2140DFDB-CDB7-42F4-90E9-054A38B66845">“纹理分量”(Texture Component)</span>和<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-25149D2C-6CF1-483D-9DCF-992A7F3E7C33">“采样器状态”(Sampler State)</span>节点发出的连接也指示 0。
+		</p>
+ 
+		<p class="p" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-163EB3FC-46F4-4CE5-BE15-FC1EA4CE84A9">下面的示例图具有两个<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-46E486DF-1650-488F-AC01-A14925ABB1A2">“纹理分量”(Texture Component)</span>/<span class="ph uicontrol" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__GUID-70473748-C31D-41C0-B369-10F8AF3D5356">“采样器状态”(Sampler State)</span>对。一对的连接指示 0，另一对的连接指示 1。为了更好地进行组织，您可能还需要对节点进行分组。
+		</p>
+ 
+		<div class="fig fignone" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__FIG_3FA8C9DE0F27410FAED642BA9C616AE1"><img class="image" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__IMAGE_65FF14C47DFA422EBC95E9C3FCDCDCB5" src="../images/GUID-DE0A1F28-F520-4C21-A179-143212A65AF7.png"></div>
+ 
+		<div class="fig fignone" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__FIG_F11D4FABD5FF4645B35C7CBF6E1DC1CC"><img class="image" id="GUID-7350603E-041E-4907-9D6B-488D23CE57A9__IMAGE_F63C367D3C834B5B82441910A66703F8" src="../images/GUID-A5E991D8-8397-4406-8A9F-FE6885B3E680.png"></div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-355DCB0C-D9A6-4B59-8AFB-CBA7E1067D60.htm">公用 ShaderFX 节点和应用程序</a></div>
+</div>
+</div>
+
+</body>
+</html>

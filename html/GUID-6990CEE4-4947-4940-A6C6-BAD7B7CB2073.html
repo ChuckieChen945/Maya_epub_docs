@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073">
+<meta name="language" content="CHS">
+<title>点调整对象（调整节点）</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>点调整对象（调整节点）</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF-56C0CD8012A8003217A-1DB3"><p class="p" id="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073__WS1A9193826455F5FF6026605B1181C8F4F2E-3360"> 点调整在对象的各个点上移动或设定关键帧。对于已经为其创建了某些变形器的对象，在调整其点时，Maya 会自动防止使用变形器时可能出现的意外效果。Maya 通过在向对象应用任何变形之前向对象应用调整来实现这一点。 
+	 </p>
+<p class="p" id="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073__WS1A9193826455F5FF6026605B1181C8F4F2E-335E"> 创建变形器时，Maya 会创建调整节点和变形节点。在依存关系图中，Maya 将调整节点放置为变形节点的输入，以便在对变形节点求值之前执行任何点调整。该放置意味着，默认情况下，按创建变形器的顺序，对象的变形顺序首先包含点调整，然后包含变形。 
+	 </p>
+<div class="note important" id="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073__WS1A9193826455F5FF6026605B1181C8F4F2E-335C"><span class="importanttitle">重要：</span> 在创建变形器之后，应该避免更改可变形对象的点（例如，CV、顶点或晶格点）的数量。更改点的数量可能会导致意外的变形效果。请确保对可变形对象的拓扑满意之后，再开始使用变形器。希望将来进行进一步的建模时，可以保存对象的副本。 
+	 </div>
+<p class="p" id="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073__WS1A9193826455F5FF6026605B1181C8F4F2E-335B">当变形顺序首先包含点调整时（默认），如果变形器的属性不使用其初始（重置）值，那么 CV 可能不会按与移动工具的操纵器相同的方向移动。如果要更改该设置，请将变形器重置为使用其初始（重置）的值。或者，可以更改变形顺序，使 Maya 在应用变形之后应用点调整。但是，如果 Maya 在应用变形之后应用点调整，那么使用变形器时，可能会得到意外的结果。 
+	 </p>
+<p class="p" id="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073__WS1A9193826455F5FF6026605B1181C8F4F2E-335A">如果进行了某些点调整，然后希望检查对象在没有调整的情况下如何变形，可以禁用调整节点。 
+	 </p>
+<p class="li listintro" id="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073__WS1A9193826455F5FF6026605B1181C8F4F2E-32C6">禁用或启用调整节点</p>
+<ol class="ol" id="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073__WS1A9193826455F5FF6026605B1181C8F4F2E-32C7"><li class="li" id="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073__WS1A9193826455F5FF6026605B1181C8F4F2E-32C5">打开调整节点的<span class="ph uicontrol" id="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073__GUID-8486A015-E3FB-47FD-AB2C-A4D5C0FD04E1">“属性编辑器”(Attribute Editor)</span>。 
+		</li>
+<li class="li" id="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073__WS1A9193826455F5FF6026605B1181C8F4F2E-32C4">在<span class="ph uicontrol" id="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073__GUID-67C10FFC-0381-40B5-A064-6CEA32DF1271">“属性编辑器”(Attribute Editor)</span>中，打开<span class="ph uicontrol" id="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073__GUID-ECDE1C0C-E00D-4117-8AD2-43B5DEBFAABD">“节点行为”(Node Behavior)</span>。 
+		  <p class="p" id="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073__WS1A9193826455F5FF6026605B1181C8F4F2E-32C3">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-778B7255-F6F9-4056-8952-B28F8E222E72.htm">常规变形器节点属性</a>。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073__WS1A9193826455F5FF6026605B1181C8F4F2E-32C2">将<span class="ph uicontrol" id="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073__GUID-BC6153EF-F295-491B-AC8E-58E21C4FB6EB">节点状态”(Node State)</span>设置为<span class="ph uicontrol" id="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073__GUID-5D63B8E2-46DD-4AF1-A0D3-166E276A8040">“无效果”(HasNoEffect)</span>。 
+		</li>
+<li class="li" id="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073__WS1A9193826455F5FF6026605B1181C8F4F2E-32BC">若要启用调整节点，请将<span class="ph uicontrol" id="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073__GUID-ED7BB67D-347A-4F19-BE3B-7AA617D129A7">“节点状态”(Node State)</span>设置为<span class="ph uicontrol" id="GUID-6990CEE4-4947-4940-A6C6-BAD7B7CB2073__GUID-E71A3949-DFD0-4EE9-8399-1D2094F3F2E6">“正常”(Normal)</span>。 
+		</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-21B8A5D4-21FA-4CE8-8EBB-5BA752EE5E86.htm" title="使用变形效果时，有时需要进一步控制输出。此部分提供有关使用调整节点在变形对象的点上设置关键帧、如何镜像变形器权重以及使用组件标记成员身份在变形上创建衰减效果的信息。">修改变形器</a></div>
+</div>
+</div>
+
+</body>
+</html>

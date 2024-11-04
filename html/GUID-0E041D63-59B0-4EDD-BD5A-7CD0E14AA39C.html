@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-SimulationEffects">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="description" content="创建“水”(Water)类型的 nParticle 对象，然后调整“液体模拟”(Liquid Simulation)属性，添加特性使其外观和行为与流动的液体相似。“液体模拟”(Liquid Simulation) nParticle 最适合于包含的液体和小型液体流。">
+<meta name="topicid" content="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C">
+<meta name="language" content="CHS">
+<title>创建 nParticle 液体</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>创建 nParticle 液体</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF11D4ED1B128F2317A081B13"><p class="shortdesc">创建<span class="ph uicontrol" id="GUID-BE3456A5-EAB1-4A02-9F7B-F9503C3F1E0E">“水”(Water)</span>类型的 nParticle 对象，然后调整<span class="ph uicontrol" id="GUID-B9A6A5EF-8E4F-4384-8BF1-10D83FB19BFE">“液体模拟”(Liquid Simulation)</span>属性，添加特性使其外观和行为与流动的液体相似。<span class="ph uicontrol" id="GUID-0AC1057B-9DCF-4FDA-A99B-72D7FC793352">“液体模拟”(Liquid Simulation)</span> nParticle 最适合于包含的液体和小型液体流。 
+  </p>
+<p class="p" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F4875532927B7F1241B571F20-764B">调整 nParticle 属性以进行模拟时，调整属性然后缓存模拟是很有用的。然后可以播放缓存以查看属性调整的结果。有关 nParticle 属性如何影响液体模拟的信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-0E076533-4FF6-41F9-A47B-9C16BD1C71D2.htm">nParticle 液体模拟属性</a>. 有关 nCache 的信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-7FB6513C-28FF-4B68-A77C-8AF86B51F0DC.htm">创建 nParticle nCache</a>。设置 nParticle 液体模拟后，可以将 nParticle 对象转化为多边形网格。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-FCADDA11-623E-43FF-9D20-BECB1749E7F8.htm">使用 nParticle 网格</a>。 
+	 </p>
+<div class="note tip" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F4875532927B7F1241B571F20-764A"><span class="tiptitle">提示：</span>  创建 nParticle 液体模拟时，请确保禁用 nParticle 对象的<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-CF231BC5-1B53-47E6-A880-6FE1CBEAF222">“自碰撞”(Self Collide)</span>属性。否则，nParticle 将不会重叠，从而不会产生平滑的曲面。 
+	 </div>
+<p class="li listintro" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F487552A50A53111913E7C26F-63A9">创建液体模拟</p>
+<ol class="ol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F487552A50A53111913E7C26F-63AA"><li class="li" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F4875532927B7F1241B571F20-7649">创建<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-275CD129-9450-430B-898B-2C7D37F210EF">“水”(Water)</span>类型的 nParticle 对象。 
+		  <div class="note note" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS1A9193826455F5FF-12BA6B3A11A9C207460-74A5"><span class="notetitle">注：</span>  
+			 <p class="p" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-7221E4C3-5AC8-45C2-8896-6C6F0D60873D">也可以为<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-998EF736-BE69-4006-90BB-14545B29B97B">“球”(Ball)</span>类型的 nParticle 对象启用<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-0F4AA0C5-595F-4B43-975B-34479F9B20EB">“液体模拟”(Liquid Simulation)</span>，但这些 nParticle 对象在渲染时的外观或行为可能与液体并不相似。 
+			 </p>
+ 
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F487552A50A53111913E7C26F-63A8">在场景视图或<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-80E38E5A-84C1-46E2-AE45-56198FBF8EE0">“大纲视图”(Outliner)</span>中，选择 nParticle 对象。 
+		</li>
+<li class="li" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS1A9193826455F5FF-2ADE9D9118A20D4F814718">在<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-CF25510E-86FD-4C1D-9F6B-ACFB53545E85">“属性编辑器”(Attribute Editor)</span>中，选择对象的<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-F50DBB5F-33B2-4823-9272-8D6AF783CCF1">“nParticleShape”</span>选项卡。 
+		</li>
+<li class="li" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F4875532927B7F1241B571F20-7648">若要设定影响静止的液体和运动中的液体的属性，请执行下列操作： 
+		  <ul class="ul" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F4875532927B7F1241B571F20-7647"><li class="li" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F4875532927B7F1241B571F20-7646"> 在<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-D778916B-D4CC-4A88-BB9A-94AE29CF8081">“粒子大小”(Particle Size)</span>区域中，调整 nParticle<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-3A54D4AD-C706-4EEC-9783-94CE331A1CC3">“半径”(Radius)</span>以适合模拟。 
+				<p class="p" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-6733771F-7D7E-4FF0-8F9B-6FE10CD1258E"> 增大<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-59B3C8FB-D772-471A-8E21-56DBFC48C332">“半径”(Radius)</span>可能会增加粒子重叠的趋势，并提高液体的曲面的平滑度。nParticle 重叠的量也是由<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-C8B83DAF-4B16-4DE3-A767-D7540C96F01F">“液体半径比例”(Liquid Radius Scale)</span>确定的。调整<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-EF440DFE-3F47-4502-8F1B-5236AAE0B342">“半径”(Radius)</span>也可能会影响 nParticle 碰撞，且该值增大得太多可能会导致穿透其他 Nucleus 对象。 
+				</p>
+. 
+			 </li>
+<li class="li" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F4875532927B7F1241B571F20-7645">在<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-266843BB-5187-4872-B661-5DE88D3109DE">“液体模拟”(Liquid Simulation)</span>区域中，设定<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-A3AC21AA-9935-4E04-8C68-818B4DD6873B">“液体半径比例”(Liquid Radius Scale)</span>。 
+				<p class="p" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-C916EF70-23CF-469F-9BF6-B2816B889DD6">与<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-F55944FC-9199-4848-878B-FBBACE9D7C5D">“半径”(Radius)</span>一起，此选项设置 nParticle 重叠的量。 
+				</p>
+ 
+				<div class="fig fignone" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F48755360AA6ED11A9C1EFFAA-7545"><img class="image" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__IMAGE_332D1B1DE24B4115B6E06D2A9987486F" width="415" height="181" src="../images/GUID-9703558D-5708-4E82-AB62-537528642FF8.png"></div>
+ 
+				<p class="p" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F4875532927B7F1241B571F20-7644">nParticle 重叠也会受 nParticle<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-359B6118-138E-44EE-AAF5-60FD1AFCCDD5">“半径”(Radius)</span>影响。 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F487552A50A53111913E7C26F-63A7">设定<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-1E318EC7-36D4-4C47-9428-8564D6B19A35">“不可压缩性”(Incompressibility)</span>以指定希望液体抵制压缩的量。 
+				<p class="p" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F48755360AA6ED11A9C1EFFAA-754E"> 请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-0E076533-4FF6-41F9-A47B-9C16BD1C71D2.htm#GUID-0E076533-4FF6-41F9-A47B-9C16BD1C71D2__WS73099CC142F487552A50A53111913E7C26F-7AA6">不可压缩性</a>。 
+				</p>
+ 
+				<div class="fig fignone" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F48755360AA6ED11A9C1EFFAA-754D"><img class="image" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__IMAGE_A71365FA9C7C440EA1D632D8E252DDC8" width="436" height="173" src="../images/GUID-4E9B5C9A-22A6-4219-AA23-5BFC6BCE7660.png"></div>
+ 
+			 </li>
+<li class="li" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F4875532927B7F1241B571F20-7643">设定<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-9D74B3DB-A089-4CB1-8D9A-B86200B61E36">“静止密度”(Rest Density)</span>以指定在 nParticle 对象处于静止状态时 nParticle 在液体中的排列。 
+			 </li>
+<li class="li" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F4875532927B7F1241B571F20-7642">如果已包含液体，则可能需要设定<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-64B576E2-5237-4E11-8499-B8D3589B6906">“碰撞宽度比例”(Collide Width Scale)</span>。 
+				<p class="p" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-B2EA3E73-FEC0-4CE2-95DD-4D9918A919E5">几何体（如被动碰撞玻璃）中包含液体 nParticle 时，调整<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-58169B30-0DDE-4D81-8FC2-BDBD047C7A39">“碰撞宽度比例”(Collide Width Scale)</span>以避免穿透。 
+				</p>
+ 
+			 </li>
+</ul>
+若要设定影响液体流动的属性，请执行下列操作： 
+		  <ul class="ul" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F4875532927B7F1241B571F20-7641"><li class="li" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F4875532927B7F1241B571F20-7640">设定<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-77D7052E-5605-4521-9217-EF02AF0068C6">“粘度”(Viscosity)</span>以控制液体的流动阻力。 
+				<p class="p" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F4875532927B7F1241B571F20-763F">可以使用<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-B4D0F923-EF87-4F1D-BE0F-03FC2FA798B7">“粘度比例渐变”(Viscosity Scale ramp)</span>逐粒子设定<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-3138FC55-E69F-4796-9904-04168B70C98D">“粘度”(Viscosity)</span>。 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F4875532927B7F1241B571F20-763E">设定<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-15433E29-172F-4757-9C59-55AF9A477B29">“曲面张力”(Surface Tension)</span>以在液体的曲面流动或暂停时，向该曲面添加曲面张力。 
+				<p class="p" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F4875532927B7F1241B571F20-763D">可以使用<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-A7F7428A-0063-40E5-B7E0-87F4D59B2555">“曲面张力比例渐变”(Surface Tension Scale ramp)</span>逐粒子设定<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-93141EE7-9CCE-4F00-8743-58AA97500B7F">“曲面张力”(Surface Tension)</span>。 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__LI_B94963A422304E8EABCF28B68AD5B9D7"><span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-09441A25-3143-497B-B233-07255F622905">“阈值”(Threshold)</span>通过控制重叠粒子的密度确定 nParticle 的渲染曲面的大小和平滑度。<span class="ph uicontrol" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__GUID-150FC1F4-063E-49E7-A85C-F7C718B36AA2">“阈值”(Threshold)</span>影响粒子的渲染方式，但不会影响粒子在模拟中的行为方式。 
+			 </li>
+</ul>
+ 
+		</li>
+</ol>
+<p class="p" id="GUID-0E041D63-59B0-4EDD-BD5A-7CD0E14AA39C__WS73099CC142F48755360AA6ED11A9C1EFFAA-7543">实现所需的液体外观和行为之后，可以将液体 nParticle 对象转化为多边形几何体。 
+	 </p>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-87BE424C-46D1-4245-9546-86C44797B104.htm">创建 nParticle</a></div>
+</div>
+<div class="relinfo"><h4 class="related">相关信息</h4>
+<ul><li><a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-FCADDA11-623E-43FF-9D20-BECB1749E7F8.htm">使用 nParticle 网格</a></li><li><a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-SimulationEffects/files/GUID-92F7E67E-CBE4-490D-A30F-5F0A43795AED.htm">渲染和照明 nParticle</a></li></ul></div>
+</div>
+</body>
+</html>

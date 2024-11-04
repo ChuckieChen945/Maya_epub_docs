@@ -1,0 +1,57 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_Influence_Simulation_Influence_aero_pyroclastic_influence_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>aero_pyroclastic_influence</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>aero_pyroclastic_influence</code></h1></div><p><code>aero_pyroclastic_influence</code> 可为 Aero 模拟添加细节，类似于火山烟尘和大爆炸中的火山碎屑细节。将输出两个单独的影响（阻力和漩涡），每个影响都可以由 <code>influence_scope</code>（将 Aero 对象作为 <code>probe_geometry</code>）进行检验。要获得完整的火山碎屑效果，两个输出影响都必须连接到 <code>simulate_aero</code> 复合的 <code>influences</code> 端口。</p>
+<h2 id="">输入</h2><h3 id="influence"><code>influence</code></h3><p>可以选择将影响场 out_influence 连接到此端口。例如，可以连接 mask_influence 节点以遮罩此影响的效果。可以将任意数量的影响场呈菊花链状连接在一起，以构建复杂的场。</p>
+<h2 id="general"><code>General</code></h2><h3 id="enable"><code>enable</code></h3><p>启用/禁用影响。</p>
+<h2 id="drag"><code>Drag</code></h2><h3 id="drag"><code>drag</code></h3><p>drag 将对速度应用随机阻力，从而产生凹凸的烟效果。阻力可控制速度方向上的噪波。此设置是阻力的总体幅值。</p>
+<h3 id="frequency"><code>frequency</code></h3><p>这是用于控制阻力的分形噪波的基础频率。值越大，细节越精细。</p>
+<h3 id="num_frequencies"><code>num_frequencies</code></h3><p>要求和的噪波频率总数。通常，随着该数字的增加，将产生更多细节或较小型的噪波。该值不需要是整数。如果对 <code>num_frequencies</code> 缓慢设置动画，则最小型的噪波将逐渐淡入，而不是以整数值弹出。</p>
+<h2 id="vorticity"><code>Vorticity</code></h2><h3 id="vorticity"><code>vorticity</code></h3><p>vorticity 将添加小比例漩涡，并生成分辨率级别的细节。这是漩涡的总体幅值。如果火山碎屑效果缺少细节，则可以增加此值。这反过来又会导致烟移动速度不太快的区域产生静态噪波，请参见 <code>noise_dampening</code> 参数。特定模拟所需的 <code>vorticity</code> 可能取决于 <code>aero_solver_settings</code> 以及 <code>fluid_detail_size</code> 和 <code>source_air</code> 节点上的 <code>max_steps</code>、<code>scene_units_in_meters</code>、<code>velocity_smoothness</code>、<code>kinematic_viscosity</code> 和 <code>simulation_speed</code> 参数，以及每秒帧数。通常，较低的 <code>fluid_detail_size</code> 需要较低的 <code>vorticity</code> 值。</p>
+<h3 id="static_noise_dampening"><code>static_noise_dampening</code></h3><p>如果某些区域需要特定的 <code>vorticity</code> 才能获得所需的细节量，但要在流体移动缓慢的其他区域中创建静态噪波，则可以增加 <code>noise_dampening</code> 以减少静态噪波量。</p>
+<h3 id="min_fog_density"><code>min_fog_density</code></h3><p>漩涡将仅应用于雾密度值高于 <code>min_fog_density</code> 的空间位置。这可用于仅在烟尘边缘附近应用漩涡。</p>
+<h3 id="max_fog_density"><code>max_fog_density</code></h3><p>漩涡将仅应用于雾密度值低于 <code>max_fog_density</code> 的空间位置。这可用于避免在烟尘内部应用漩涡。适用于将漩涡限制到烟尘外部，以避免存在可能会降低解算器速度的较大内部速度。</p>
+<h2 id="">输出</h2><h3 id="vorticity_influence"><code>vorticity_influence</code></h3><p>漩涡影响场输出。</p>
+<h3 id="drag_influence"><code>drag_influence</code></h3><p>阻力影响场输出。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_Influence_html.html">Influence</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

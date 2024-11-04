@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Basics">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67">
+<meta name="language" content="CHS">
+<title>使用 Python 全局名称空间创建属性控件</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 Python 全局名称空间创建属性控件</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-8A0153D6-26EC-417C-A993-8878BE14DF61"> 若要使用 Python 全局名称空间创建属性控件，请完成以下步骤： </p>
+<ul class="ul" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__UL_D09E36C5085340BDBBE16DAE79683F0A"><li class="li" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__LI_8B3D3D39B15E4FD3AF7A2AA04F363531">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67.htm#GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__SECTION_2D1243DBC43147378192B1FA5CF68DC1">创建属性控件</a>
+</li>
+<li class="li" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__LI_550B1DC7A852452B9148A67D3B8A2E5E">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67.htm#GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__SECTION_9CD59D3C07134718B4B7E37CCEE698CF">定义 Python 程序</a>
+</li>
+<li class="li" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__LI_77E7C0D8DC6B4A158E1604DDE56F900A">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67.htm#GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__SECTION_C2AB1346705F40D49F0C795EA1D8833D">定义对 Python 程序的回调</a>
+</li>
+</ul>
+<div class="section" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__SECTION_2D1243DBC43147378192B1FA5CF68DC1"><h2 class="title sectiontitle">
+<strong class="ph b" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-18E606B1-37ED-47F6-97F2-84C3E9BF2D98">创建属性控件</strong>
+</h2>
+
+<p class="p" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-16AB0F99-E7FB-4BF3-9864-BA02D4AA8097">在下面的示例中，将使用 Python 全局名称空间方法创建一个滑块控件。回调名为 <samp class="ph codeph" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-43A0AFC5-9C99-4F87-90F5-FC3EADE64023">AEFloatSliderGlobal</samp>。此程序会创建 <samp class="ph codeph" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-E8DAB0BD-33AE-4778-9DF7-BDD3B656D143">floatSlider</samp> 控件，然后该控件使用更改命令 <samp class="ph codeph" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-DD1CEA77-D75C-4105-B693-FCC414F80CFE">AEaddFloatSliderGlobalCB</samp>。 </p>
+
+<div class="p" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-B731FF08-0460-4424-AEE1-138F3DB5C6DD">
+<pre class="pre codeblock">def AEaddFloatSliderGlobalCB( plug, slider ):
+	val = cmds.floatSlider( slider, q=1, v=1 )
+	cmds.setAttr( plug, val )
+
+def AEaddFloatSliderGlobal( plug, sliderLabel, annot ):
+	cmds.rowLayout( nc=2 )
+	val = cmds.getAttr( plug )
+	cmds.text( label=sliderLabel )
+	slider = cmds.floatSlider( annotation=annot, v=val )
+	cmds.floatSlider( slider, e=1, cc=('AEaddFloatSliderGlobalCB( \"' + plug + '\", \"' + slider + '\" )' ) )
+	cmds.setParent( u=1 )
+</pre>
+
+</div>
+
+<p class="p" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-09BDC7C8-7730-480A-A4C7-5B14EB8326EC"> 该程序中使用下列参数： </p>
+
+<ul class="ul" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__UL_4A5B2E78DF7843F08F21492D2174BC50"><li class="li" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__LI_6C9914E419454893B033ECB968CAD889"><samp class="ph codeph" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-5EAC873B-CE3E-406C-B0B9-F907AEE43946">plug</samp> 是栓，即控件使用的节点和属性。 </li>
+<li class="li" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__LI_9E8CC17D33E548D7A9E697083F7E1240"><samp class="ph codeph" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-0C335990-DF79-4066-A51A-92C25C6639D5">label</samp> 是属性的标签。 </li>
+<li class="li" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__LI_086390347C3E455C8B170D6D3047261D"> <samp class="ph codeph" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-2A470A4F-14E5-49CE-92BF-48CE3235F019">annot</samp> 属性的注释。 </li>
+</ul>
+
+</div>
+<div class="section" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__SECTION_9CD59D3C07134718B4B7E37CCEE698CF"><h2 class="title sectiontitle">定义 Python 程序</h2>
+
+<p class="p" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-8B4085AD-3645-4B4A-9EC7-FC83224441BE">您必须定义 Python 程序，以便 Maya 可以使用它们。在<span class="ph uicontrol" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-D4133903-2F2D-46DF-8958-4489443E4672">“脚本编辑器”(Script Editor)</span>的 <span class="ph uicontrol" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-6FCC589D-8073-4F23-8041-3678F14A3BB2">Python</span> 选项卡中执行上述示例的代码可以完成此操作。 </p>
+
+</div>
+<div class="section" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__SECTION_C2AB1346705F40D49F0C795EA1D8833D"><h2 class="title sectiontitle"> 定义对 Python 程序的回调 </h2>
+
+<p class="p" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-E8921D07-CD3E-43E2-9662-D14A0825CA4F">当您创建自定义模板文件时，请将 <samp class="ph codeph" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-DCFE983C-527F-49CA-B5DE-11CD4056620E">&lt;description language="cb"&gt;</samp> 标志添加至属性声明部分以指定对 Python 程序的回调。默认情况下，回调在模板中采用 MEL 进行指定。 </p>
+
+<p class="p" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-3DE2750D-AD39-4A78-9B55-8D220D07E916">若要在全局名称空间中指定名为 <samp class="ph codeph" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-4E7692AF-BB2A-4706-8561-D04851978F03">AEaddFloatSliderGlobal</samp> 的 Python 回调，声明应为 <samp class="ph codeph" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-7D811B01-4301-455F-B170-6C8419774287">py.AEaddFloatSliderGlobal</samp>。声明采用以下格式：<samp class="ph codeph" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-9E3E559D-B37D-4DA2-BEB7-7088017C3BB9"> py.&lt;ProcedureName&gt;</samp>。 </p>
+
+<p class="p" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-0922F604-E36A-4FC1-9962-E4497AF9F1B8">若要将在以上 Python 模块中定义的自定义滑块控件添加至“白炽度绿”(Incandescence Green)属性，请采用以下操作： </p>
+
+<div class="p" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-637433E7-3D21-4F17-A019-1B3E1493BC73">
+<pre class="pre codeblock">&lt;attribute name='incandescenceG' type='maya.float'&gt;
+   &lt;label&gt;Incandescence Green&lt;/label&gt;
+     &lt;description language="cb"&gt;py.AEaddFloatSliderGlobal&lt;/description&gt;
+&lt;/attribute&gt;</pre>
+
+</div>
+
+<div class="p" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-48FB8899-F453-41C3-9EC7-007F73D7C92A">在<span class="ph uicontrol" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__GUID-6EA565DF-8F26-4129-ACAD-57141ACBD302">“属性编辑器”(Attribute Editor)</span>中访问属性视图时，“白炽度绿”(Incandescence Green)属性使用自定义的滑块。 <div class="fig fignone" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__FIG_D9A081F94A284D9A8D568F887904069E"><img class="image" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__IMAGE_3433C0685635483CAA3FD278B00B5749" src="../images/GUID-18EFB9C0-36C7-4F85-B428-DB6A2B387CBC.png"></div>
+ </div>
+
+</div>
+<div class="section" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__SECTION_BE2EC5581EBA4F428C8AC27873A39BE4"><h2 class="title sectiontitle">相关主题</h2>
+
+<ul class="ul" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__UL_C6A9E800C84E408689B568EAC729E6F2"><li class="li" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__LI_4DBF61F02DCE42E391EC11E5A1E1485C">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-D434EE42-D39A-4466-9799-B8CD7EB8E178.htm">自定义属性编辑器模板</a>
+</li>
+<li class="li" id="GUID-F4411BAF-9F15-46C1-9D75-C535D3FB3A67__LI_7DAB7F7BEEDE4994B38BA9F2BC98E9EE">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-67A58D31-4722-4769-B3E6-1A35B5B53BED.htm">属性编辑器(Attribute Editor)</a>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-3CC05B40-233C-4A1C-95F4-D372A90AE36F.htm">创建自定义属性控件</a></div>
+</div>
+</div>
+
+</body>
+</html>

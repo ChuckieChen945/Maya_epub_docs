@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-10817F71-CE9C-4E10-850F-F7C5C49FAB9B">
+<meta name="language" content="CHS">
+<title>颜色、遮罩 (Alpha) 和深度通道</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-10817F71-CE9C-4E10-850F-F7C5C49FAB9B">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>颜色、遮罩 (Alpha) 和深度通道</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE529121A"><p class="p" id="GUID-10817F71-CE9C-4E10-850F-F7C5C49FAB9B__WS73099CC142F487553B93539F117EA10CE8F632E"> 在渲染期间，Maya 软件渲染器可生成一个图像文件，其中包含颜色通道 (RGB)、遮罩通道 (RGBA)、深度通道 (RGBZ) 或这三者的组合 (RGBAZ)。 
+	 </p>
+<div class="fig fignone" id="GUID-10817F71-CE9C-4E10-850F-F7C5C49FAB9B__WS73099CC142F487553B93539F117EA10CE8F6287"><img class="image" id="GUID-10817F71-CE9C-4E10-850F-F7C5C49FAB9B__IMAGE_286F085A334D461293F7450669F57E1E" width="457" height="156" src="../images/GUID-2454DD0C-9EDB-41BF-8209-E57E083220BF.png"></div>
+<p class="p" id="GUID-10817F71-CE9C-4E10-850F-F7C5C49FAB9B__WS73099CC142F487553B93539F117EA10CE8F6332">默认情况下，Maya 生成一个包含三个颜色通道和一个遮罩通道的图像文件，但您可以控制在渲染图像文件中包括的通道类型。遮罩和深度通道主要用于合成。如果您不准备合成渲染图像，则无需在渲染过程中生成遮罩或深度通道。如果图像包含遮罩或深度通道，文件大小将增加，计算时间也可能延长。 
+	 </p>
+<p class="p" id="GUID-10817F71-CE9C-4E10-850F-F7C5C49FAB9B__WS73099CC142F487553B93539F117EA10CE8F6333">若要启用或禁用通道，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-82169BFD-43F1-44FD-9AA4-0C4A529AAAF3.htm">为渲染图像启用颜色通道、深度通道和遮罩通道</a>。 
+	 </p>
+<p class="p">默认情况下，如果使用的是 Arnold for Maya 渲染器，则会以 <samp class="ph codeph">.exr</samp> 格式渲染图像（包括 Alpha (RGBA) 通道）。 
+	 </p>
+<div class="section" id="GUID-10817F71-CE9C-4E10-850F-F7C5C49FAB9B__SECTION_80AD1BF1B95544FF9D8863FC10AA9AEB"><h2 class="title sectiontitle">颜色通道</h2> 
+		 
+		<p class="p" id="GUID-10817F71-CE9C-4E10-850F-F7C5C49FAB9B__WS73099CC142F487553B93539F117EA10CE8F6288"> 位图图像中的每个像素都包含三个颜色通道，其中每个颜色通道分别表示图像中红色、绿色或蓝色的量。每个像素也可能具有一个用于实现透明度的 Alpha（遮罩）通道和一个表示与摄影机之间距离的深度通道。某些图像格式不能包含嵌入遮罩或深度通道；在这种情况下，Maya 可以生成单独的遮罩文件或深度文件。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-10817F71-CE9C-4E10-850F-F7C5C49FAB9B__WS73099CC142F487553B93539F117EA10CE8F6334"><h2 class="title sectiontitle">遮罩通道</h2> 
+		 
+		<p class="p" id="GUID-10817F71-CE9C-4E10-850F-F7C5C49FAB9B__WS73099CC142F487553B93539F117EA10CE8F6335"> 遮罩通道（或 Alpha 通道）定义图像在何处透明，何处不透明。对象的不透明区域为白色，半透明区域为灰色，透明区域为黑色。 
+		</p>
+ 
+		<p class="p" id="GUID-10817F71-CE9C-4E10-850F-F7C5C49FAB9B__WS73099CC142F487553B93539F117EA10CE8F6337">可对合成软件使用遮罩通道将图像分层。例如，可以将一个图像的遮罩通道用作蒙版，与另一个图像一起来合成对象（不含背景）。 
+		</p>
+ 
+		<p class="p">如果使用的是 <strong class="ph b">Arnold for Maya</strong>，请参见 <a class="xref" href="https://docs.arnoldrenderer.com/display/A5AFMUGCHS/AOV" target="_blank">AOV</a> 和 <a class="xref" href="https://docs.arnoldrenderer.com/display/A5AFMUGCHS/Cryptomatte" target="_blank">Cryptomatte</a>。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-10817F71-CE9C-4E10-850F-F7C5C49FAB9B__WS73099CC142F487553B93539F117EA10CE8F6338"><h2 class="title sectiontitle">深度通道</h2> 
+		 
+		<p class="p" id="GUID-10817F71-CE9C-4E10-850F-F7C5C49FAB9B__WS73099CC142F487553B93539F117EA10CE8F6339"> 深度通道（或 Z 深度或 Z 缓冲区通道）提供图像的 3D 信息。它表示对象与摄影机之间的距离。 
+		</p>
+ 
+		<p class="p" id="GUID-10817F71-CE9C-4E10-850F-F7C5C49FAB9B__WS73099CC142F487553B93539F117EA10CE8F633B">深度通道供合成软件使用。例如，可以在保持正确遮挡的同时，使用深度通道正确合成多个层。 
+		</p>
+ 
+		<p class="p" id="GUID-10817F71-CE9C-4E10-850F-F7C5C49FAB9B__WS73099CC142F487553B93539F117EA10CE8F633C">Maya 将深度值存储为 -1/z。这些值表示近剪切值和远剪切值。 
+		</p>
+ 
+		<p class="p">如果使用的是 <strong class="ph b">Arnold for Maya</strong>，请参见 <a class="xref" href="https://docs.arnoldrenderer.com/display/A5AFMUGCHS/AOV" target="_blank">AOV</a> 和 <a class="xref" href="https://support.solidangle.com/display/a5AFMUGCHS/Z+Depth+AOV" target="_blank">Z 深度 AOV</a>。 
+		</p>
+ 
+		<div class="section" id="GUID-10817F71-CE9C-4E10-850F-F7C5C49FAB9B__WS73099CC142F487553B93539F117EA10CE8F633D"><h3 class="title sectiontitle">在 3D 空间中依次排列对象</h3> 
+		   
+		  <p class="p" id="GUID-10817F71-CE9C-4E10-850F-F7C5C49FAB9B__WS73099CC142F487553B93539F117EA10CE8F633E"> 在层中渲染时，合成应用程序必须能够判定各个对象的各个部分的前后顺序。Alpha 通道不包含该信息，因此您可以使用 Maya 中<span class="ph uicontrol" id="GUID-10817F71-CE9C-4E10-850F-F7C5C49FAB9B__GUID-982F76EE-4240-4027-97D2-C21F12DD2B36">“蒙版不透明度”(Matte Opacity)</span>功能的<span class="ph uicontrol" id="GUID-10817F71-CE9C-4E10-850F-F7C5C49FAB9B__GUID-1381107D-DAF5-42DC-982B-C27BF5FAC129">“黑洞”(Black Hole)</span>模式生成正确合成的裁切区域。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-F51C1EF2-4AF0-4594-AE09-7BE85F7D0B18.htm">修改遮罩通道</a>。 
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-9BFE6DA1-7B16-4B56-8BC7-FEB93B6D8A21.htm">渲染输出</a></div>
+</div>
+</div>
+
+</body>
+</html>

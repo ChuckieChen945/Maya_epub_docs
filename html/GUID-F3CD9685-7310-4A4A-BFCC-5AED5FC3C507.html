@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="dx11 疑难解答">
+<meta name="indexterm" content="绘制疑难解答">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-F3CD9685-7310-4A4A-BFCC-5AED5FC3C507">
+<meta name="language" content="CHS">
+<title>DirectX 11 着色器不显示顶点颜色的疑难解答</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-F3CD9685-7310-4A4A-BFCC-5AED5FC3C507">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>DirectX 11 着色器不显示顶点颜色的疑难解答</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-F3CD9685-7310-4A4A-BFCC-5AED5FC3C507__GUID-56AD3942-460D-44E2-B2F0-65C658CDBB94"> 如果使用<span class="ph uicontrol" id="GUID-F3CD9685-7310-4A4A-BFCC-5AED5FC3C507__GUID-662018D4-4636-4FB3-8A76-11942C75E3CD">“绘制顶点颜色工具”(Paint Vertex Color Tool)</span>在已应用 DirectX 11 着色器的对象上绘制顶点，且顶点颜色未按预期显示，则可能是因为 DirectX 11 着色器的<span class="ph uicontrol" id="GUID-F3CD9685-7310-4A4A-BFCC-5AED5FC3C507__GUID-00B395D5-93F8-4F53-9C96-7138F0DB9D9D">“曲面数据”(Surface Data)</span>部分中的 <span class="ph uicontrol" id="GUID-F3CD9685-7310-4A4A-BFCC-5AED5FC3C507__GUID-BCB1E24C-5A84-4CCD-A150-FB82E05EF637">Color0</span> 属性未设置为正确的颜色集。默认情况下，Maya 将您创建的第一个顶点颜色集命名为 colorSet1。 </p>
+<p class="p" id="GUID-F3CD9685-7310-4A4A-BFCC-5AED5FC3C507__GUID-9C4500DA-54BB-4207-9C8E-9C5964B4BBAE">以下是可能的解决办法： </p>
+<ul class="ul" id="GUID-F3CD9685-7310-4A4A-BFCC-5AED5FC3C507__UL_A24584A8E9F44072A4EF747A9CBF0A03"><li class="li" id="GUID-F3CD9685-7310-4A4A-BFCC-5AED5FC3C507__LI_C19E199FE1A84068A5B1027A549AD7A6">在 <samp class="ph codeph" id="GUID-F3CD9685-7310-4A4A-BFCC-5AED5FC3C507__GUID-51944DB1-2981-4E79-A705-73417189B746">.fx</samp> 文件中使用 COLOR1 语义。这对应于 colorSet1。（COLOR0 语义对应于 colorSet。）但是，仅当在 Maya 中使用 <samp class="ph codeph" id="GUID-F3CD9685-7310-4A4A-BFCC-5AED5FC3C507__GUID-7103231C-8252-4510-83A3-19E39708C4CB">.fx</samp> 文件时，这才会提供正确的结果。如果 <samp class="ph codeph" id="GUID-F3CD9685-7310-4A4A-BFCC-5AED5FC3C507__GUID-D9611380-BDA2-4E04-9877-AEF952C17F7D">.fx</samp> 文件由其他应用程序（如游戏引擎）使用，则可能会遇到意外的结果。 </li>
+<li class="li" id="GUID-F3CD9685-7310-4A4A-BFCC-5AED5FC3C507__LI_0CE44C97913B4D3AA70E4A9BA19906FF">在 DirectX 11 着色器的<span class="ph uicontrol" id="GUID-F3CD9685-7310-4A4A-BFCC-5AED5FC3C507__GUID-004453F4-FD4B-4131-BC96-BABED3710814">“曲面数据”(Surface Data)</span>部分中，将 <span class="ph uicontrol" id="GUID-F3CD9685-7310-4A4A-BFCC-5AED5FC3C507__GUID-772D2D6E-7731-46C5-8DC0-A9EC950B3950">Color 0</span> 属性设置为 colorSet1。 </li>
+<li class="li" id="GUID-F3CD9685-7310-4A4A-BFCC-5AED5FC3C507__LI_01F2E1DE6A324453B5602E49214361B6">修改 dx11Shader 插件，以便 COLOR0 语义对应于 colorSet1（而不是 colorSet）。 </li>
+</ul>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-A1803564-B9B5-4CE1-99C7-9BD0424C14F3.htm">与 Maya 材质和纹理有关的疑难解答</a></div>
+</div>
+</div>
+
+</body>
+</html>

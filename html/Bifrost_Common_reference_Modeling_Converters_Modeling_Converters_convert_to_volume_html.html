@@ -1,0 +1,88 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Modeling_Converters_Modeling_Converters_convert_to_volume_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>convert_to_volume</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>convert_to_volume</code></h1></div><p>对输入几何体进行体素化，以创建等值面（带符号距离场）和/或雾密度体积。此节点还可以对输入几何体上存储的其他特性进行体素化。</p>
+<h2 id="">输入</h2><h3 id="geometry"><code>geometry</code></h3><p>要进行体素化的点或网格几何体。可以连接一个或多个对象或对象数组，它们将合并为单个数组。</p>
+<h2 id="">常规</h2><h3 id="volume_mode"><code>volume_mode</code></h3><p>确定如何将输入几何体转化为体积。请注意，仅当输入几何体为网格时，此模式才适用。</p>
+<ul>
+<li>在 <code>Solid</code> 模式下，输入网格被体素化为具有实心内部。</li>
+<li>在 <code>Shell</code> 模式下，输入网格被体素化为具有空心内部的加厚曲面。</li>
+</ul>
+<h3 id="offset"><code>offset</code></h3><p>要应用于输出等值面的世界空间偏移（以世界空间单位表示）。正值会将曲面向外推，负值会使曲面收缩。</p>
+<h3 id="store_level_set"><code>store_level_set</code></h3><p>如果为 true，则从输入几何体计算并存储等值面体积。</p>
+<h3 id="store_fog_density"><code>store_fog_density</code></h3><p>如果为 true，则从输入几何体计算并存储雾密度体积。</p>
+<h3 id="fog_density"><code>fog_density</code></h3><p>要应用于雾密度体积的倍增。</p>
+<h3 id="min_hole_radius"><code>min_hole_radius</code></h3><p>使用 <code>Solid</code> 模式从网格转化时，填充半径小于此值的间隙和孔。</p>
+<h3 id="properties"><code>properties</code></h3><p>要进行体素化的特性的列表（以空格分隔）。</p>
+<h2 id="">解决方案</h2><h3 id="resolution_mode"><code>resolution_mode</code></h3><p>分辨率模式决定 <code>detail_size</code> 的单位。</p>
+<ul>
+<li>在 <code>Automatic</code> 模式下，如果 <code>geometry</code> 是点，则 <code>detail_size</code> 以世界空间单位进行解释（即类似于 <code>Absolute</code> 模式）；否则，<code>detail_size</code> 会解释为相对于输入几何体的边界框（即类似于 <code>Relative</code> 模式）。</li>
+<li>在 <code>Absolute</code> 模式下，<code>detail_size</code> 以世界空间单位指定。</li>
+<li>在 <code>Relative</code> 模式下，<code>detail_size</code> 相对于输入几何体的边界框指定。</li>
+</ul>
+<h3 id="detail_size"><code>detail_size</code></h3><p>指定输出体积中体素的世界空间大小。</p>
+<h3 id="adaptivity"><code>adaptivity</code></h3><p>确定转化中使用的空间自适应性的类型。</p>
+<ul>
+<li><code>Off</code>：不使用自适应性。</li>
+<li><code>Automatic</code>：一种自动自适应性，在此情况下，体素化平面区域和平滑区域时要粗糙些。请注意，如果启用了带宽，带宽内的体素将保持精细。</li>
+<li><code>VariedFromProperty</code>：在提供由下面的 <code>adaptivity_property</code> 指定的自定义特性的情况下，输出体积的体素大小可在空间中变化。这样，您可以完全自由地选择所需的细节。</li>
+</ul>
+<h3 id="adaptivity_property"><code>adaptivity_property</code></h3><p>包含在 <code>VariedFromProperty</code> 模式下使用的绝对细节大小的 <code>float</code> 特性的名称。</p>
+<h3 id="max_relative_error"><code>max_relative_error</code></h3><p><code>adaptivity</code> 设置为 <code>Optimized</code> 时，输出中允许的相对于细节大小和边界框的最大差异（与非自适应体积相比）。首先尝试默认值，然后根据结果上下调整。如果误差阈值太低，放大时可能会出现瑕疵，如果误差阈值设置得太高，将会减少内存并节省计算时间。</p>
+<h3 id="enable_resolution_bounds"><code>enable_resolution_bounds</code></h3><p>根据分辨率边界启用自适应性，并允许使用网格构建分辨率边界。分辨率级别由网格连接到的端口确定。每个分辨率级别之间分辨率跃升两倍。请注意，输入网格的轴对齐边界框用于确定分辨率边界，而不是实际网格本身。</p>
+<p>不需要在较低分辨率边界内嵌套较高分辨率边界，可以任意放置边界。如果较低分辨率边界完全位于较高分辨率边界内，不会有任何影响，因为在重叠区域中始终使用最高分辨率。</p>
+<h3 id="enable_bandwidth"><code>enable_bandwidth</code></h3><p>如果启用，可保证在 <code>bandwidth</code> 体素空间单位的条带中围绕输入几何体提供高分辨率体素。例如，如果您计划对等值面应用大置换，并且您因曲面被置换到较粗糙的体素而出现瑕疵，则此功能非常有用。</p>
+<h3 id="bandwidth"><code>bandwidth</code></h3><p>输入几何体周围要保证的世界空间带宽。</p>
+<h3 id="volume_subdivision_structure"><code>volume_subdivision_structure</code></h3><p>Bifrost 体积的细分结构。</p>
+<ul>
+<li>在 <code>Automatic</code> 模式下，启用 <code>adaptivity</code> 时，此选项与 Power2 行为类似；否则，其行为与 Power5 类似。</li>
+<li>在 <code>Power2</code> 模式下，分辨率将随体积中的每个级别翻倍。</li>
+<li>在 <code>Power5</code> 模式下，分辨率将随体积中的每个级别提高五倍。</li>
+</ul>
+<h3 id="base_resolution"><code>base_resolution</code></h3><p>一组网格，用于指定空间中转化应得到最精细的分辨率级别的区域。</p>
+<h3 id="half_resolution"><code>half_resolution</code></h3><p>一组网格，用于指定空间中转化应得到一半的基本分辨率的区域。</p>
+<h3 id="quarter_resolution"><code>quarter_resolution</code></h3><p>一组网格，用于指定空间中转化应得到四分之一的基本分辨率的区域。</p>
+<h3 id="eighth_resolution"><code>eighth_resolution</code></h3><p>一组网格，用于指定空间中转化应得到八分之一的基本分辨率的区域。</p>
+<h2 id="">输出</h2><h3 id="volume"><code>volume</code></h3><p>输出体积。请注意，这始终是一个数组，即使单个对象连接到 <code>geometry</code> 输入也是如此。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Modeling/Bifrost_Common_reference_Modeling_Converters_html.html">Converters</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

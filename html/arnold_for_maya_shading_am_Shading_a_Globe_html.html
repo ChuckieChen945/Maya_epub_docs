@@ -1,0 +1,153 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shading_am_Shading_a_Globe_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_SHADING_A_GLOBE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 为地球着色 - Arnold for Maya">
+
+<title>为地球着色</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>为地球着色</h1></div><p><img src="../images/am-Shading_a_Globe-image2015-6-9-20-35-34-1.png" alt=""></p>
+<p>在本教程中，我们将分步骤介绍如何只使用着色器来制作一个逼真的地球和云。我们将使用一个体积和一个 <em>standard_volume</em> 着色器来向地平线添加一些大气。我们还将使用连接到 <em>skydome_light</em> 的 <em>physical_sky</em> 为场景照明。此场景对于科幻题材的电影（例如有关宇航员发生不幸的电影）来说是一个理想的背景。非常感谢 MPC 的 Will MacNeil 提供本教程中使用的场景。</p>
+<p>您需要下载这些<strong><a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Globe-textures.zip" target="_blank">高分辨率纹理</a></strong>与此场景一起使用。请记住，在渲染之前将纹理转化为 .tx 格式。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Shading_a_Globe-B1-and-C1-Watermask-Half-Res-2.jpg" alt=""></td>
+<td><img src="../images/am-Shading_a_Globe-B1-C1-Colour-Bright-3.jpg" alt=""></td>
+<td><img src="../images/am-Shading_a_Globe-B1-C1-Elevation-4.jpg" alt=""></td>
+<td><img src="../images/am-Shading_a_Globe-Clouds-Comp-v002-5.jpg" alt=""></td>
+</tr>
+<tr>
+<td>Earth Mask（镜面反射）</td>
+<td>Earth Color（漫反射）</td>
+<td>Earth Elevation（置换）</td>
+<td>云（自发光、不透明度、置换）</td>
+</tr>
+</tbody></table>
+<p><strong>要下载最终场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Arnold_Globe_Final.zip" target="_blank">此处</a>。</strong></p>
+<p>本教程分为以下阶段：</p>
+<p><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Shading/arnold_for_maya_shading_am_Shading_a_Globe_html.html#ShadingaGlobe-EarthShader">地球着色器</a></p>
+<p><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Shading/arnold_for_maya_shading_am_Shading_a_Globe_html.html#ShadingaGlobe-CloudsShader">云着色器</a></p>
+<p><a href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Shading/arnold_for_maya_shading_am_Shading_a_Globe_html.html#ShadingaGlobe-AtmosphereVolume">大气体积</a></p>
+<ul>
+<li>首先，打开<strong><a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Arnold_Globe_Start.zip" target="_blank">起始场景</a></strong>。此场景包含地球 (Earth) 和云 (Cloud) 对象。我们将对这两个对象应用各自的着色器。</li>
+</ul>
+<p><img src="../images/am-Shading_a_Globe-image2017-4-5-13-46-30-6.png" alt=""></p>
+<p><sub><strong>包含地球和云对象的起始场景</strong></sub>  </p>
+<ul>
+<li>创建 <em>skydome_light</em> 以照亮场景。将一个 <em>physical_sky</em> 连接到 <em>skydome_light.color*。您需要更改 <em>physical_sky</em> 中太阳的方向，使其在海上发生反射。将 *skydome_light</em> 的<em>摄影机</em>可见性减小为 0，以使<em>物理天空</em>在摄影机中不可见。</li>
+</ul>
+<h2 id="">地球着色器</h2><p>暂时先将云对象隐藏起来。我们先重点了解地球着色器。</p>
+<h2 id="">漫反射</h2><ul>
+<li>为地球对象指定<em>标准曲面</em>着色器，并将其重命名为“Earth”。创建文件纹理，并打开 <strong><em>Earth Color</em></strong> 纹理。将该文件纹理连接到 <em>standard_surface</em> 着色器的<em>“基础颜色”(Base Color)</em>。这将为我们提供地球的基本漫反射颜色。</li>
+</ul>
+<p><img src="../images/am-Shading_a_Globe-image2015-6-10-10-15-56-7.png" alt=""></p>
+<p><sub><strong>“Earth Color”贴图连接到地球 <em>standard_surface</em> 着色器的基础颜色</strong></sub></p>
+<h2 id="">镜面反射</h2><p>现在，我们要添加一个镜面反射贴图，以确定海面上发生反射的位置和地面上没有镜面反射度的位置。</p>
+<ul>
+<li>选择地球的 <em>standard_surface</em> 着色器。创建一个文件纹理，并打开 <strong>Earth Mask</strong> 文件。这是一个遮罩，它将确定什么是有光泽的（白色），什么是无光泽的（黑色）。但是，从图像上看，会发现实际结果与我们想要的恰恰相反。因此，我们需要反转贴图。我们可以在文件纹理的“效果”(Effects)部分执行此操作。为文件遮罩纹理启用<strong><em>“反转”(Invert)</em></strong>选项。</li>
+<li>将 <strong>Earth Mask</strong> 连接到 <em>standard_surface</em> 着色器的 <strong><em>specular_weight</em></strong>。</li>
+</ul>
+<p><img src="../images/am-Shading_a_Globe-image2017-4-5-13-57-12-8.png" alt=""></p>
+<p><sub><strong>地面/海面的闪光程度取决于连接到地球着色器的镜面反射度的“Earth Mask”纹理</strong></sub></p>
+<h2 id="">置换</h2><p>现在，地球表面看起来有些平坦。我们可以向地表添加一些高海拔区域，方法是使用置换贴图 -<strong>“Earth Elevation”</strong>。</p>
+<ul>
+<li><p>创建<strong>文件纹理</strong>，并将其连接到地球标准着色器的着色组的“置换”(Displacement)属性。打开纹理 <strong><em>Earth Elevation</em></strong>。要想在置换中看到精细的细节，我们需要为地球几何体添加一些细分。</p>
+</li>
+<li><p>选择地球几何体。在 Arnold 的<strong>“细分”(Subdivision)</strong>选项卡下，将<strong>“类型”(Type)</strong>更改为<strong><em>“Catclark”</em></strong>，并将<strong><em>“迭代次数”(Iterations)</em></strong>增加到 <strong>4</strong>。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Shading_a_Globe-displace-9.jpg" alt=""></td>
+<td><img src="../images/am-Shading_a_Globe-no-displace-10.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>地球的地形使用“Earth Elevation”纹理进行置换</strong></sub></p>
+<p>地球表面的最终着色器网络应类似下图：</p>
+<p><img src="../images/am-Shading_a_Globe-image2017-7-31-7-19-31-11.png" alt=""></p>
+<p><sub><strong>最终地球着色器网络</strong></sub></p>
+<h2 id="">云着色器</h2><p>云着色器的设置稍微简单一些。我们将使用云图像，并将它连接到一个 <em>standard_surface</em> 着色器的<em>“自发光”(Emission)、“不透明度”(Opacity)和“置换”(Displacement)</em>属性。</p>
+<ul>
+<li>为云创建一个 <em>standard_surface</em> 着色器。将其重命名为 <strong>Clouds</strong>，然后将其指定给<strong><em>云对象</em></strong>。</li>
+<li>创建一个图像纹理，然后打开云图像。将该云图像纹理连接到<strong><em>“不透明度”(Opacity)、“自发光”(Emission)</em></strong>和<strong><em>“置换”(Displacement)</em></strong>属性。</li>
+<li>将 <strong><em>emission_scale</em></strong> 增大到 1 左右。这将确定云的明亮程度。</li>
+<li>现在，我们需要对云对象重复之前对地球对象执行的操作，以便置换云，使它们看起来像漂浮在地球表面一样。选择云几何体，然后在<strong>“细分”(Subdivision)</strong>选项卡下，将<strong>“类型”(Type)</strong>更改为<strong><em>“Catclark”</em></strong>，并将<strong><em>“迭代次数”(Iterations)</em></strong>增大为 <strong>4</strong>。在<strong>“置换”(Displacement)</strong>下，将<strong><em>“高度”(Height)</em></strong>增大为 <strong>1.5</strong> 左右。</li>
+</ul>
+<p><strong><img src="../images/am-Shading_a_Globe-image2015-6-10-16-34-17-12.png" alt=""></strong></p>
+<p><sub><strong>云的“置换”(Displacement)、“不透明度”(Opacity)和“自发光”(Emission)由云纹理贴图驱动</strong></sub></p>
+<p><img src="../images/am-Shading_a_Globe-image2017-7-31-7-16-27-13.png" alt=""></p>
+<p><sub><strong>最终的云着色器网络</strong></sub></p>
+<h2 id="">使用体积创建大气</h2><p>最后，我们将使用体积创建一些在地平线上可见的大气。</p>
+<ul>
+<li><p>创建球体。将其缩放，使其覆盖地球对象。</p>
+</li>
+<li><p>在 Arnold 属性中将 <strong><em>step_size</em></strong> 增加到 0.1。</p>
+</li>
+<li><p>创建一个 <em>standard_volume</em> 着色器，并将它指定给球体。球体现在应渲染为体积。</p>
+</li>
+<li><p>将 <strong>scatter_color</strong> 更改为浅蓝色。增加 <strong>transparent_depth</strong> 以微调效果。您还可以在此添加 facing_ratio 着色器来为大气提供逼真的衰减。</p>
+</li>
+</ul>
+<p><img src="../images/am-Shading_a_Globe-image2019-12-19-10-52-6-14.png" alt="">  </p>
+<p>有关如何为地球进行逼真着色的教程到此结束。最后，何不尝试一下为云和地球的旋转设置关键帧，创造出假的延时效果或用动画表现宇航员跌落太空的情形？</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Shading_html.html">着色</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

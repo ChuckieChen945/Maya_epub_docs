@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="从头发创建卡片">
+<meta name="indexterm" content="将头发转化为卡片">
+<meta name="contextid" content="TC-GROOMING-CONVERT-TO-POLYGONS">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A">
+<meta name="language" content="CHS">
+<title>将 XGen 头发和毛发转化为 Maya 几何体</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>将 XGen 头发和毛发转化为 Maya 几何体</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p">您可以将由交互式修饰工具创建的头发和毛发或默认样条线转化为 Maya 多边形条带（也称为卡片）。这包括： 
+	 </p>
+<ul class="ul" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__UL_D38C1206AC044A7E83D3439A1F19DEAF"><li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_1C4850DE53F94A5D804E6892C531A692">交互式修饰样条线。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-4842AD23-51D6-4C59-BAA7-50C69B876871.htm">使用交互式修饰样条线创建头发和毛发</a>。 
+		</li>
+<li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_B251D9FFE4494B9D8CC8E831F2B8EB07"> 
+		  <p class="p">从交互式修饰修改器中生成交互式修饰导向和线。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-9DD94E4E-81B2-4BF7-AB31-7BAB42E35430.htm">使用导向和线性线修改器</a>。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_2222ADABBE094BDB9193774F0D7F18AC">默认样条线基本体。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-B3BEC412-9673-45E6-A92F-807A53607C91.htm" title="通过在角色网格上实例化样条线基本体，创建所有样式的头发和毛发。例如，将样条曲线用于长发或短发、眉毛、髭和胡须。也可以使用样条曲线为地形创建草、绳索和其他对象。">使用样条线基本体创建头发或毛发</a>。 
+		</li>
+</ul>
+<p class="p">将头发或毛发转化为多边形，这并不会改变原始修饰。这意味着您可以修改描述并生成其他多边形版本，从而轻松创建头发和毛发的多个变体。在 XGen 中确定头发和毛发形状，然后将修饰转化为低分辨率多边形条带，这是为游戏角色和其他游戏资产创建头发的理想方式。 
+	 </p>
+<div class="section" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__SECTION_92D1720F1DFF495ABEB87C00CA46AC22"><h2 class="title sectiontitle">关于转化头发和毛发</h2> 
+		 
+		<p class="p">将头发和毛发转化为 Maya 几何体时，请考虑以下事项： 
+		</p>
+ 
+		<ul class="ul" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__UL_AED0022F80F0405DB97A867493093AE8"><li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_E4AD949C930F494D8F004E6C24CF83C5"> 默认情况下，Maya 会从每根头发生成多边形网格带。对于包含大量头发的描述，请考虑降低描述的密度值。对于默认样条线，也可以使用<span class="ph uicontrol">“XGen 编辑器”(XGen Editor)</span><span class="ph uicontrol">中的“输出设置”(Output Settings)</span>转化头发密度的百分比（请参见下文）。否则，Maya 的交互式性能可能会受到影响。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-DF8E4397-ABC6-43AD-946B-27BD270425B1.htm">XGen 生成器属性</a>。 
+		  </li>
+<li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_C6E8AFB9DB8F485495C68C89C3610A7E">多边形网格中的跨度通过样条线 CV 而创建。若要生成分辨率更高的网格，请为样条线添加添加更多 CV，具体方法是：对于交互式修饰样条线，增加<span class="ph uicontrol">“CV 计数”(CV Count)</span>值（请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-B27B8595-D714-4CA6-AEDF-3F08B30E6ED8.htm">XGen description_base 节点属性</a>）；或者，对于默认样条线，增加<span class="ph uicontrol">“修改器 CV 计数”(Modifier CV Count)</span>值（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-0A477193-D75C-4720-89B6-1316EAE2EE8B.htm">基本体属性</a>）。 
+		  </li>
+<li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_D09DB3DF8E9E4AD2894F51D8941CDEFE">当 Maya 转化样条线基本体时，将为每个输出网格对象创建一个名为 <span class="ph filepath">&lt;描述名称&gt;_convert</span> 
+			 <span class="ph filepath">polygonSurface</span> 的节点组。 
+		  </li>
+</ul>
+ 
+	 </div>
+<div class="section" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__SECTION_B83C5F271F854404A1646596FFA9E63B"><h2 class="title sectiontitle">将交互式修饰头发和毛发转化为几何体</h2> 
+		 
+		<p class="p">如果您要针对游戏角色将交互式修饰转化为几何体，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-2CFBC23D-358F-4EDF-B51D-94796DFC2201.htm">准备修饰以便转化为几何体</a>。
+		</p>
+ 
+		<ol class="ol" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__OL_3146677AF9D24906A168E4BFBCE8B05E"><li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_F87CFE3A94384A9997A84314DE462739">在<span class="ph uicontrol">“XGen 交互式编辑器”(XGen Interactive Editor)</span>中，执行以下操作之一： 
+			 <ul class="ul" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__UL_1239B18D21754D30AF5A80DE2DA6019D"><li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_F0FBA7ECB0B6491E8A0D95E0B6A046AA">若要转化交互式修饰样条线，请选择修饰的描述节点。 
+				</li>
+<li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_9103F516A8C34A3FBE4E75CD711B813D">若要转化导向或线，请展开<span class="ph uicontrol">“导向”(Guide)</span>或<span class="ph uicontrol">“线性线”(Linear Wire)</span>修改器，然后选择<span class="ph uicontrol">“inGuide”</span>节点。 
+				</li>
+</ul>
+ 
+		  </li>
+<li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_7F8D518A4B7B43D4A9FBD9197624C899">在<span class="ph uicontrol">“建模”(Modeling)</span>菜单集中，选择<span class="ph menucascade"><span class="ph uicontrol">“生成</span> &gt; <span class="ph uicontrol">将交互式修饰转化为多边形”(Generate &gt; Convert Interactive Groom to Polygon)</span></span>。 
+		  </li>
+<li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_F18992DA5A464EB294AAC9D79E62663E">在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-5A38705B-3741-4B0D-B5DF-C8FFFB474822.htm">将交互式修饰转化为多边形选项(Convert Interactive Groom to Polygons Options)</a>窗口中，指定所需的网格生成设置。 
+		  </li>
+<li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_9F5EE91B4E554CDB9526B0989FE8ED71">单击<span class="ph uicontrol">“转化”(Convert)</span>生成多边形对象。 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__SECTION_3636EC7FB262462AA99FE1D94F8A67F3"><h2 class="title sectiontitle">将默认样条线头发、毛发和实例化几何体转化为几何体</h2> 
+		 
+		<div class="section" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__SECTION_0791CC132A984E91A36676686CF15808"><h3 class="title sectiontitle">使用<span class="ph uicontrol">将 XGen 基本体转化为多边形的选项(Convert XGen Primitives to Polygon Options)</span>转化头发和毛发</h3> 
+		   
+		  <ol class="ol" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__OL_D910CDFEC8AD4B1590CFAC042404A4C4"><li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_761C99EE2F5A48F3A3EC2B2CFE8C4203">选择头发、毛发或实例化默认样条线描述。 
+			 </li>
+<li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_D0C4EDD481504EEAAA115836211548BB">执行下列操作之一： 
+				<ul class="ul" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__UL_09F3EB813D8F4E368AC2E381F088FB73"><li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_DD0AE60D4E5A478880E038BC8C645D72">在<span class="ph uicontrol">“建模”(Modeling)</span>菜单集中，选择<span class="ph menucascade"><span class="ph uicontrol">“生成</span> &gt; <span class="ph uicontrol">将 XGen 基本体转化为多边形”</span></span>(Generate &gt; Convert XGen Primitives to Polygons)。 
+				  </li>
+<li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_B68500DF83CB4F96A936FAAC1B3FA233">选择<span class="ph menucascade"><span class="ph uicontrol">“修改</span> &gt; <span class="ph uicontrol">转化</span> &gt; <span class="ph uicontrol">将 XGen 基本体转化为多边形”</span> &gt; <span class="ph uicontrol"></span></span> 
+					 <img class="image" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__IMAGE_63D7A51C43BF4FBBAD2485276E5F3887" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">(Modify &gt; Convert &gt; Convert XGen Primitives to Polygons)。 
+				  </li>
+</ul>
+ 
+			 </li>
+<li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_1E211AFC5A8C44B1B0BC5831CDA8D154">在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-5A38705B-3741-4B0D-B5DF-C8FFFB474822.htm">将基本体转化为多边形选项(Convert Primitives to Polygons Options)</a>窗口中，指定所需的网格生成设置。 
+			 </li>
+<li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_DE14F3051F8A4826A988605996718586">单击<span class="ph uicontrol">“转化”(Convert)</span>生成多边形对象。 
+			 </li>
+</ol>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__SECTION_ED8AAA188C64407D95861949FCC76598"><h3 class="title sectiontitle"> 使用 <span class="ph uicontrol">XGen 编辑器</span> 
+			 <span class="ph uicontrol">输出设置</span>转化头发和毛发</h3> 
+		   
+		  <ol class="ol" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__OL_651F49910E5C4E9C9206C3D530992340"><li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_90B446CAEC38402F8E42325A18A1D408">选择头发、毛发或实例化默认样条线描述。 
+			 </li>
+<li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_D40B5AEBE6964CB1904B261A9E559869">在 <span class="ph uicontrol">XGen 编辑器</span>中，单击<span class="ph uicontrol">“预览/输出”(Preview/Output)</span>选项卡。 
+			 </li>
+<li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_3699B2DFCBF744DDA0377624EBA06381">在<span class="ph uicontrol">“输出设置”(Output Settings)</span>区域中，将<span class="ph uicontrol">“操作”(Operation)</span>设置为<span class="ph uicontrol">“创建几何体”(Create Geometry)</span>。 
+			 </li>
+<li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_0DE3B11D17BE420CA0F7F42952DD7D4E">调整<span class="ph uicontrol">“百分比”(Percent)</span>，可转化修饰的总体头发密度百分比。 
+			 </li>
+<li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_6E266302C5854B33A808DC09AD3C6E39"> 指定所需的网格生成设置。这些设置与<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-5A38705B-3741-4B0D-B5DF-C8FFFB474822.htm">将基本体转化为多边形选项(Convert Primitives to Polygon Options)</a>相同。 
+			 </li>
+<li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_F2E8709DF64A482FB5796660896F0FF7">单击<span class="ph uicontrol">“创建几何体”(Create Geo)</span>生成多边形对象。 
+			 </li>
+</ol>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__SECTION_0D8A11D061DC454D975377D373B31861"><h2 class="title sectiontitle">为已转化的多边形头发条带着色 </h2> 
+		 
+		<p class="p">指定 Shaderfx 游戏头发着色器，用于直接在视口中查看逼真的游戏头发着色。请参见 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-0B7FE62E-6D03-46E5-9F06-AFC86ED902C7">Shaderfx 游戏头发着色器</a>。 
+		</p>
+ 
+		<p class="p">还可以将头发纹理文件添加到着色网络中，使多边形条带看起来像单根头发。通过浏览到 Maya 2017（或更高版本）安装目录的以下位置访问头发纹理文件： 
+		</p>
+ 
+		<p class="p"><samp class="ph codeph">C:\Program Files\Autodesk\Maya&lt;版本&gt;\presets\Assets\Textures</samp>。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__SECTION_93171610F7344F66AE0A910D3420EBB3"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__UL_B731DC1FC5014D30B345DA08D5FB79C9"><li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_0E414F69736D469292E7D493A0BBDE62"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-CE13EEB8-627A-43C5-81BB-2A004F22747B.htm">XGen 输出设置</a> 
+		  </li>
+<li class="li" id="GUID-33279585-C22F-4E3E-880F-6EFD3D0BFA9A__LI_5BD3DFB95DA446A4896E1499E212B13A"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-A7BD9C80-AEC1-476E-AEDB-1EC2439F71F2.htm">定形和控制 XGen 基本体</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-C6324505-BD4F-4FD2-B340-CF99158D4819.htm" title="XGen 是以任意数量的随机或均匀放置的基本体填充多边形网格曲面的几何体实例化器。XGen 能够以程序方式创建和设计角色的头发、毛发和羽毛。就布景而言，XGen 可实现快速填充大规模环境，包括草原、森林、岩石地形和碎屑轨迹。">XGen 几何体实例化器</a></div>
+</div>
+</div>
+
+</body>
+</html>

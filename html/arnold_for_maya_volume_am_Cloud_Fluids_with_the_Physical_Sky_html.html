@@ -1,0 +1,325 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_volume_am_Cloud_Fluids_with_the_Physical_Sky_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_CLOUD_FLUIDS_WITH_THE_PHYSICAL_SKY">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 云流体与物理天空 - Arnold for Maya">
+
+<title>云流体与物理天空</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>云流体与物理天空</h1></div><p><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-Clouds-400x400-1.gif" alt=""></p>
+<p>本教程将为您介绍如何使用 Maya 流体容器和 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_texture_am_Physical_Sky_html">physical_sky</a></em> 渲染多云天空。首先，我们使用一个云预设，并对 Maya 流体的一些着色属性进行微调，以获得最佳的效果。最后，我们将介绍如何对流体设置动画，从而获得适用于延时或摄影机飞越的效果。</p>
+<p><strong>要下载对应的场景，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Cloud-Fluid.ma" target="_blank">此处</a>。</strong></p>
+<h2 id="visor">从 Visor 导入流体</h2><ul>
+<li>在此示例中，我们首先使用<strong>“内容浏览器”(Content Browser)</strong>窗口 <strong><em>Fluid Examples</em></strong> 下 <strong><em>CloudsandFog</em></strong> 文件夹中的一个云流体预设。右键单击 <strong><em>CloudsSun.ma</em></strong>，然后选择<strong><em>“导入”(Import)</em></strong>。</li>
+</ul>
+<p><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-image2016-5-9-12-45-58-2.png" alt=""></p>
+<p><sub><strong>导入流体预设“CloudsSun.ma”</strong></sub></p>
+<ul>
+<li>删除点光源 -“太阳”。仅保留“云”流体。使用摄影机 <strong><em>CloudsSunCamera</em></strong> 渲染场景。在没有任何场景照明的情况下，渲染结果应如下图所示：</li>
+</ul>
+<p><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-image2016-5-9-12-47-45-3.png" alt=""></p>
+<p><sub><strong>没有场景照明的“CloudLayer”流体渲染</strong></sub></p>
+<h2 id="">创建物理天空</h2><ul>
+<li>创建一个 <em>skydome_light_，并将一个 _physical_sky</em> 连接到该 _skydome_light.color_（您可以使用鼠标中键从 Hypershade 窗口的纹理选项卡中拖动 <em>aiPhysicalSky</em>）。</li>
+</ul>
+<p><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-image2016-5-9-12-49-59-4.png" alt=""></p>
+<p><sub><strong><em>physical_sky</em> -&gt; <em>skydome_light</em></strong></sub></p>
+<ul>
+<li>渲染场景。如果使用默认设置，则场景应如下图所示。该场景看起来很不错，但我们可以通过添加物理天空并调整 Maya 流体的一些着色属性进一步改善其效果。</li>
+</ul>
+<p><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-image2016-5-9-12-53-35-5.png" alt=""></p>
+<ul>
+<li>天空看起来有点暗。我们需要增加其亮度，并向天空添加更多的蓝色。选择 <strong>physical_sky</strong>。将<strong><em>“强度”(Intensity)增加到 3</em></strong>，并将<strong><em>“天空染色”(Sky Tint)</em></strong>更改为浅蓝色。</li>
+</ul>
+<p><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-image2016-5-9-12-54-14-6.png" alt=""></p>
+<ul>
+<li>最后，通过调整 <strong>physical_sky</strong> 的<strong><em>“仰角”(Elevation)</em></strong>和<strong><em>“方位角”(Azimuth)</em></strong>属性定位太阳，使其对摄影机可见。</li>
+</ul>
+<h2 id="">对流体进行着色</h2><p>下面是有关此特定流体的一些说明：</p>
+<ol>
+<li>它只使用恒定密度。</li>
+<li>着色 Y 渐变具有很强的边衰减。</li>
+<li>Y 渐变颜色、白炽度和不透明度输入在很大程度上构成云的颜色和形状，而具有柏林噪波的纹理不透明度提供云的细节。</li>
+</ol>
+<h2 id="opacity">不透明度(Opacity)</h2><p>云看起来有点松散。我们可以通过降低透明度和不透明度使其更密集。将透明度与不透明度结合使用可确定有多少灯光可以穿透流体密度。首先，我们使用不透明度。您可以在下面看到调整“不透明度”(Opacity)的“输入偏差”(Input Bias)的结果。您可能要尝试使用此值。您可以尝试使用 0.3，该值应该会为您提供一些大且密集的云。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-opacity-0-1-7.jpg" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-opacity-0-2-8.jpg" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-opacity-0-3-9.jpg" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-opackty-0-4-10.jpg" alt=""></td>
+</tr>
+<tr>
+<td>不透明度“输入偏差”(Input Bias)：0.1</td>
+<td>不透明度“输入偏差”(Input Bias)：0.2</td>
+<td>不透明度“输入偏差”(Input Bias)：0.3</td>
+<td>不透明度“输入偏差”(Input Bias)：0.4</td>
+</tr>
+</tbody></table>
+<h2 id="transparency">透明度(Transparency)</h2><p>使用透明度值可以进一步优化云的不透明度。仅增加“透明度”(Transparency)值可产生以下效果：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-Transparency-0o1-11.jpg" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-Transparency-0o05-12.jpg" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-Transparency-0o03-13.jpg" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-Transparency-0o01-14.jpg" alt=""></td>
+</tr>
+<tr>
+<td>0.1</td>
+<td>0.05</td>
+<td>0.03</td>
+<td>0.01</td>
+</tr>
+</tbody></table>
+<p>我们还可以调整透明度的颜色值以实现彩色不透明度。</p>
+<ul>
+<li>单击<strong>“透明度”(Transparency)</strong>旁边的颜色拾取器并增加<strong><em>饱和度值</em></strong>。在下面的示例中，使用了下列值：</li>
+</ul>
+<p><strong>色调(Hue)：1.042。饱和度(Saturation)：0.243。明度(Value)：0.067</strong></p>
+<p>通过调整 HSV，您应该能够获得一些有趣的彩色云。您可能要尝试将此值与物理天空的“方位角”(Azimuth)结合使用，以获得一些有趣的天空效果。</p>
+<p><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-transparency-15.jpg" alt=""></p>
+<p><strong>更改“透明度”(Transparency)的 HSV 可以产生有趣的彩色多云天空</strong></p>
+<p>可以增加以下 Maya 流体着色属性值来提高流体内的细节程度和复杂性。</p>
+<p>请注意，增加其中一些值（如<strong>“最大深度”(Depth Max)</strong>）将增加渲染时间。</p>
+<h2 id="frequency">频率(Frequency)</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-frequency-3-16.jpg" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-frequency-1-5-17.jpg" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-frequency-0-5-18.jpg" alt=""></td>
+</tr>
+<tr>
+<td>3</td>
+<td>1.5</td>
+<td>0.5</td>
+</tr>
+</tbody></table>
+<h2 id="frequency-ratio">频率比(Frequency Ratio)</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-frequency-ratio-4-19.jpg" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-frequency-ratio-1-5-20.jpg" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-frequency-ratio-2-21.jpg" alt=""></td>
+</tr>
+<tr>
+<td>4</td>
+<td>1.5</td>
+<td>2</td>
+</tr>
+</tbody></table>
+<h2 id="depth-max">最大深度(Depth Max)</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-depth-max-3-22.jpg" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-depth-max-4-23.jpg" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-depth-max-2-24.jpg" alt=""></td>
+</tr>
+<tr>
+<td>3</td>
+<td>4</td>
+<td>2</td>
+</tr>
+</tbody></table>
+<h2 id="ratio">比率(Ratio)</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-ration-0-25-25.jpg" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-ration-0-5-26.jpg" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-ration-0-27.jpg" alt=""></td>
+</tr>
+<tr>
+<td>0.25</td>
+<td>0.5</td>
+<td>0.75</td>
+</tr>
+</tbody></table>
+<h3 id="phase-function-anisotropy">相位函数各向异性(Phase Function Anisotropy)</h3><p>我们可以通过调整<strong>相位函数各向异性(Phase Function Anisotropy)</strong>来更改太阳光在体积内的“散射”方式。它位于 Maya 流体的 Arnold 属性内。</p>
+<p><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-image2016-5-9-12-55-25-28.png" alt=""></p>
+<ul>
+<li>将<em>“相位函数各向异性”(Phase Function Anisotropy)</em>增加到 0.5 左右。请注意，光晕效果在太阳圆盘周围变得更明显。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-phase-function-anisotropy-0-29.jpg" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-phase-function-anisotropy-0-5-30.jpg" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-phase-function-anisotropy-0-75-31.jpg" alt=""></td>
+</tr>
+<tr>
+<td>0</td>
+<td>0.5</td>
+<td>0.75</td>
+</tr>
+</tbody></table>
+<p>下面是使用“相位函数各向异性”(Phase Function Anisotropy)的另一个更“极端”的示例。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-phase-function-anisotropy-1-32.jpg" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-phase-function-anisotropy-0-5-33.jpg" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-phase-function-anisotropy-0-5-34.jpg" alt=""></td>
+</tr>
+<tr>
+<td>1</td>
+<td>0.5</td>
+<td>-0.5</td>
+</tr>
+</tbody></table>
+<h2 id="">为云设置动画</h2><p>我们可以为云的移动设置动画以创建延时效果。首先，我们使用蓝色天空并通过<strong><em>“着色 &gt; 边衰减”(Shading &gt; Edge Dropoff)</em></strong>构建云。然后，我们为<strong><em>“纹理原点 Z”(Texture Origin Z)</em></strong>设置动画以使云穿过 Z 轴移动。</p>
+<h2 id="edge-dropoff">边衰减(Edge Dropoff)</h2><p>通过增加“边衰减”(Edge Dropoff)，我们可以使云的外观看起来更密集，“暴风雨”的效果更明显。增加此值会减弱流体内向云边缘的密度衰减。通过为此值设置动画，我们可以增加云层的形成。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-edge-dropoff-0-3-35.jpg" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-edge-dropoff-0-45-36.jpg" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-edge-dropoff-0-5-37.jpg" alt=""></td>
+</tr>
+<tr>
+<td>0.3</td>
+<td>0.45</td>
+<td>0.5</td>
+</tr>
+</tbody></table>
+<ul>
+<li>在第 1 帧中，使用较低的值（如 <strong><em>0.2</em></strong>）为<strong><em>“边衰减”(Edge Dropoff)</em></strong>设置关键帧。在动画的最后一帧（在本例中为 100）中，将值增加到 0.5，并为其设置关键帧。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-edge-droppoff-38.gif" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-image2016-5-9-12-57-43-39.png" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>增加“边衰减”(Edge Dropoff)以查看流体云形式 (0.2-0.5)。</strong></sub></p>
+<ul>
+<li>选择流体，然后转到<strong>“纹理”(Textures)</strong>。在第 1 帧处，将<strong><em>“纹理原点 Z”(Texture Origin Z)</em></strong>的关键帧设置为 0。转到第 <strong>100</strong> 帧，然后将<strong><em>“纹理原点 Z”(Texture Origin Z)</em></strong>的关键帧设置为 <strong><em>-2</em></strong>。这将为穿过负 Z 方向的流体纹理移动设置动画。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-cloud-animation-40.gif" alt=""></td>
+<td><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-image2016-5-9-13-0-2-41.png" alt=""></td>
+</tr>
+</tbody></table>
+<p><sub><strong>为“纹理原点 Z”(Texture Origin Z)设置动画以查看云沿 Z 轴移动。</strong></sub></p>
+<h2 id="atmosphere_volume">Atmosphere_volume</h2><p>目前，无法针对流体体积很好地生成 <em>atmosphere_volume</em>。这是因为大气返回一个不透明度覆盖在任何颜色背景的像素之上的单一平面结果。</p>
+<p><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-volume-scattering-fluid-42.jpg" alt=""></p>
+<p>有关使用 Maya 流体和 <em>physica_sky</em> 渲染云的教程到此结束。这些设置也可以应用于其他 Maya 流体预设。请尝试使用不同的云预设，或将这些技术应用于您自己的 Maya 流体。</p>
+<h2 id="">渲染示例</h2><p><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-clouds-animation-43.gif" alt="">  </p>
+<p><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-image2022-3-30-11-23-47-44.png" alt=""></p>
+<p><img src="../images/am-Cloud_Fluids_with_the_Physical_Sky-lightning-600-45.jpg" alt=""></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Volume_Tutorials_html.html">体积教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

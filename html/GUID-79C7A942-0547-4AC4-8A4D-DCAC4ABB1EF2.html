@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Basics">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2">
+<meta name="language" content="CHS">
+<title>LOD（细节级别）</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>LOD（细节级别）</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2__WS73099CC142F487553B93539F117EA10CE8F3E7B">用于关联相同几何体的多个版本，以便在游戏引擎中基于特定阈值进行替换。这样使用远处和近处之间的多个版本就可以为近处生成模型的高质量版本，为远处生成模型的低质量版本。 
+	 </p>
+<p class="p" id="GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2__GUID-F1B8CEC3-5C18-4905-8617-1A26B316C225">在任意给定时间，使用 LOD 组可以轻松显示几何体的适当版本（细节级别组的一个子对象），具体取决于组与摄影机的距离或屏幕高度的百分比。 
+	 </p>
+<p class="p" id="GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2__GUID-73E1A844-9743-4879-B9C1-42439F177D6A">下图显示了分离的几何体，这样您就可以看到分辨率差异。通常，LOD 分组的几何体正好彼此堆栈在一起，以便从一个 LOD 级别无缝切换到下一个级别。出于测试目的，您可以将级别暂时设置为始终显示。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-57860C3A-0B83-4CB8-B468-0CB77509AA2D.htm">测试或预览 LOD</a>。 
+	 </p>
+<div class="fig fignone" id="GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2__FIG_73B7B2AECFEF409DA5B256ED38853FEB"><img class="image" id="GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2__IMAGE_0D22C09D5A904DED8F9A0DE1741DC8E0" src="../images/GUID-348D2254-40B7-4D12-AA20-F93E97ACDC1D.png"></div>
+<div class="section" id="GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2__SECTION_10B41BB4F6894335A6611DAE715AC00D"><h2 class="title sectiontitle">LOD 的已知限制</h2>
+		
+		<ul class="ul" id="GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2__UL_0AC72C2DB4C0483AB3C7D138E246E4E1"><li class="li" id="GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2__WS73099CC142F487553B93539F117EA10CE8F3E7F"> 
+			 <span class="ph uicontrol" id="GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2__GUID-B4166E12-F5CD-4814-81B9-2A92324D2BF5">“细节级别”(Level of Detail)</span>不处理实例。创建细节级别时请仅使用非实例化几何体。（将实例化几何体添加到<span class="ph uicontrol" id="GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2__GUID-3758511C-64C3-480E-8250-1B20665449BA">“细节级别”(Level of Detail)</span>组中后，该实例化几何体将不会一致显示。） 
+		  </li>
+<li class="li" id="GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2__WS73099CC142F487553B93539F117EA10CE8F3E80">不要在<span class="ph uicontrol" id="GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2__GUID-8693C495-BFFB-4286-BCA5-EE3167964A9C">“细节级别”(Level of Detail)</span>组上使用<span class="ph uicontrol" id="GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2__GUID-4CACBF8C-93FB-45FF-9F0A-E5A4E74D4DF3">“编辑 &gt; 解组”(Edit &gt; Ungroup)</span>；LOD 阈值信息不会在<span class="ph uicontrol" id="GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2__GUID-57328421-6F42-4E2A-A4C5-020C340C2BE5">“撤消”(Undo)</span>时正确重置。使用<span class="ph uicontrol" id="GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2__GUID-1EF451AF-41CB-44C1-89DC-127434C4D581">“编辑 &gt; 细节级别 &gt; 解组”(Edit &gt; Level of Detail &gt; Ungroup)</span>可以正确解组 lodGroup 节点。 
+		  </li>
+<li class="li" id="GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2__LI_D0E52EFBB1FE44F39D8F899FF7A5939C"><span class="ph uicontrol">“细节级别”(Level of Detail)</span>不处理层次。要同时从多个网格生成较低分辨率的网格，每个选定网格必须是顶级变换的唯一子对象。例如，必须将本示例中的两个网格从组节点中移除，然后再生成 LOD 网格。 
+			 <div class="fig fignone" id="GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2__FIG_AD4ED59B12464DF2ACA272F3B5C8BB5C"><img class="image" id="GUID-79C7A942-0547-4AC4-8A4D-DCAC4ABB1EF2__IMAGE_D19DD649E948480F91DD9641B2DF1F4E" src="../images/GUID-6F2795CF-4617-462A-A998-8E75527DDAF3.png"></div>
+ 
+		  </li>
+</ul>
+
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-4BC04D0B-86D5-4297-A6C4-9ED08CBF6CA6.htm">添加和编辑细节级别</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-90307993-D898-4BFA-9E5E-D7F96EFAFAAD.htm">创建 LOD 组</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-A4519B9D-1E55-475E-9778-561351649889.htm">编辑 LOD 阈值的值</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-DF9BB4B4-333C-4934-8D1D-9C666D8C3991.htm">工作流程示例：创建 LOD 并导出到游戏引擎</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-C55ED277-E7DE-439B-891E-A58ED14C7930.htm">将 LOD 组导出到您的游戏引擎</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-95F6A84C-7C38-4EEC-84D6-A2E424D3609B.htm">生成 LOD 网格</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-57860C3A-0B83-4CB8-B468-0CB77509AA2D.htm">测试或预览 LOD</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-C52C9A27-BE90-4803-9DBF-D52F49AA83BB.htm">基于距离的 LOD 和正交摄影机</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-6C4580F6-BAAE-4649-9180-55A8E2E8FE16.htm">“细节级别”(Level of Detail)属性</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Basics/files/GUID-59D87B3C-5E1B-4CEE-A63B-6EE44EDCFE69.htm" title="使用摄影机、视图面板、显示/隐藏选项、漫游等功能浏览场景。">查看 Maya 场景</a></div>
+</div>
+</div>
+
+</body>
+</html>

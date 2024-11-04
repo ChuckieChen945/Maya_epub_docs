@@ -1,0 +1,171 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="ENU">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Maya-USD">
+  <meta name="topicid" content="GUID-C1C08BA5-24EA-44FF-9497-71E0A6843744">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="contextid" content="UsdEditDuplicateAsMaya">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>Work between USD and Maya data interchangeably</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>Work between USD and Maya data interchangeably</h1></div><p>Working with USD data and Maya data in conjunction and translating between the two enables you to leverage both USD and all of Maya's animation tools. To amplify your workflow with the mixed data model of Maya and USD data, you can use the Maya Outliner to translate data back and forth between Maya and USD. </p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>Tip:</div>
+<div class="callout-body">
+
+<p> When translating data, track the progress of your change with the progress bar in the bottom left corner of your screen.</p>
+
+</div></div>
+
+<h2 id="strong-starting-with-usd-data-strong"><strong>Starting with USD data</strong></h2><ul>
+<li>Using the <strong>Outliner</strong> and the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-9FD37B6B-7559-4F9D-B393-3AAD9AB4F24B">Outliner Context Menu</a>, you can right-click any prim in the Outliner and choose to <strong>Edit as Maya Data</strong> or <strong>Duplicate as Maya Data</strong>.</li>
+<li>You can also access the <strong>Marking Menu</strong> in the <strong>Viewport</strong> with a selected prim to activate the option to <strong>Edit as Maya Data</strong>.</li>
+</ul>
+<div class="note important:"><span class="importanttitle">Important:</span> The option to <strong>Edit as Maya Data/ Duplicate as Maya Data</strong> will only appear on primtypes that have import/export translators. If any primtype has <em>a set of translators</em> (one for import, one for export), the option to <strong>Edit as Maya data</strong> will appear. For example, the primType BlendShape doesn't have translators, so the option will not appear when a Blendshape PrimType is selected. However, if you are an advanced user of the USD pipeline and your studio has created custom translators, you will be able to access the <strong>Edit as Maya Data/ Duplicate as Maya Data</strong> option.</div>
+<p>PrimTypes that currently have registered import/export translators can be found on the <a href="https://github.com/Autodesk/maya-usd/tree/dev/lib/usd/translators" target="_blank">official MayaUSD GitHub repository</a>. Remember that for a PrimType to have Edit as Maya Data functionality, it requires <em>both an import and export translator</em>.</p>
+<ul>
+<li>Example C++ prim translators:<ul>
+<li><a href="https://github.com/Autodesk/maya-usd/blob/dev/lib/usd/translators/cameraWriter.h" target="_blank">cameraWriter.h</a> (export)</li>
+<li><a href="https://github.com/Autodesk/maya-usd/blob/dev/lib/usd/translators/cameraReader.cpp" target="_blank">cameraReader.cpp</a> (import)</li>
+</ul>
+</li>
+</ul>
+<div class="note note:"><span class="notetitle">Note:</span> When Maya data is inside USD hierarchy (via Pull), the Maya data will inherit visibility from the USD ancestors. Going one step further, if the Maya pulled object is inside the USD data which is then inside a Maya hierarchy, the pulled Maya data will inherit the Maya data's visibility as well. Also, when you frame an ancestor of the Maya pulled data, the Maya data will be included in the frame.  Going further, if the Maya pulled object is inside USD data which is then inside a Maya hierarchy, the pulled Maya data will be framed when the top level Maya data is framed. </div>
+<h3 id="edit-as-maya-data">Edit as Maya data</h3><h4 id="pull-push-workflow">Pull/Push workflow</h4><ol>
+<li><p><strong>Select a prim &gt; right-click &gt; Edit as Maya data</strong> (PULL)  </p>
+<div class="note tip:"><span class="tiptitle">Tip:</span> Select the "<img src="../images/optbox.png" alt="">" beside Edit as Maya data to configure your options. This box opens up the standard Maya options from the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-65E19505-E27D-4477-BD7D-7C0F2BC0D328">import dialog</a>. Here you can configure plug-in configurations and customize an import with prim readers, shader readers, chasers, and more. This gives you and your studio greater control over the Edit As Maya Data workflow.</div>
+</li>
+<li><p>Once a prim is pulled the following occurs:</p>
+<ol>
+<li><strong>USD Layer Editor:</strong> The session layer is edited with application state data. To unhide your session layer and learn more about working with session layers, see USD Layer Editor Options. This allows edits to be cleared easily as data interchanges between Maya and USD. Your target layer in the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-4FAD73CA-E775-4009-9DCB-3BC6792C465E">USD Layer Editor</a> will remain unchanged until you <em>Merge Edits to USD</em>.</li>
+<li><strong>Viewport:</strong> Your chosen prim is deselected once data caching/translation into Maya data is complete.</li>
+<li><strong>Outliner:</strong> Your pulled data branch lines will be grey and <em>your pulled object will be italicized</em>. Note that <em>all decendant nodes are pulled as well</em>. Once pulled, the maya object and children are all locked.</li>
+</ol>
+</li>
+<li><p>You can undo and redo edits while manipulating pulled data.</p>
+</li>
+<li><p>The following options are available for once you finish editing as Maya data:</p>
+<ul>
+<li><p>Select <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-B0B54125-3633-4D78-86DE-61E57F76EB4B">Merge Maya Edits to USD</a> (PUSH), the following occurs:</p>
+<ul>
+<li><p>The connected prim with edits are merged back to USD. Once pushed, the connected prim is visible in the viewport containing the new edits. The new edits on the prim are authored on the layer that has the editTarget. </p>
+<p>After merging your edits to USD, if you go into the same prim and select <em>Edit as Maya Data</em> again, you will not see the construction history from the previous pulled Maya object. </p>
+<div class="note important:"><span class="importanttitle">Important:</span> When merging edits to USD, all edits will be placed on your current edit target layer. The session layer will be cleared of all application state data. Also, if 'Merging to USD' on a stronger layer (including the session layer), the prim is specified as an over. If you are 'Merging to USD' on a weaker layer, the prim is specified as a def.</div>
+</li>
+</ul>
+</li>
+<li><p>Select <strong>Discard Maya Edits</strong> (CLEAR), the following occurs: </p>
+<ul>
+<li>The pulled Maya object diappears and in it's place in the USD hierarchy you will see the original prim that was connected. This action is undoable.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<div class="note important:"><span class="importanttitle">Important:</span> When you pull a prim into Maya data, a new set appears in the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-97358ED4-179F-4568-9382-7409E3F8E70A">Outliner</a> called <code>usdEditasMaya</code>. If you have an orphaned Maya object (if a USD ancestor is deactivated/deleted, switched via a variant or unloaded from your scene via payloads), there will be limited options for your <code>usdEditAsMaya</code> set. You will only be able to <strong>Discard Maya Edits</strong> in this case. Orphaned data appears greyed out and with a red x icon on the pulled prim in your <code>usdEditAsMaya</code> set.</div>
+<div class="note note:"><span class="notetitle">Note:</span> When Maya data is inside a USD hierarchy (via Pull), the Maya data will inherit visibility from the USD ancestors. Going one step further, if the Maya pulled object is inside the USD data which is then inside a Maya hierarchy, the pulled Maya data will inherit the Maya data's visibility as well.</div>
+<h4 id="the-pull-push-methodology-amp-common-use-cases">The Pull/Push methodology &amp; common use cases</h4><p>Pulling and pushing your data back and forth in MayaUSD allows you to access twice the workflows. This process works thorough the backend like merging and branching edits; a cached version of edits are created locally on your drive and once complete, are discarded or merged back (with undo feature implemented in the process). This feature enables (but is not limited to) the following edits for USD data pulled into Maya data:</p>
+<ul>
+<li>Editing and adding UV tags</li>
+<li>Sculpting point positions</li>
+<li>Modifying a material assignment</li>
+<li>Animating a camera</li>
+</ul>
+<h3 id="duplicate-as-maya-data">Duplicate as Maya data</h3><h4 id="copy-workflow">Copy workflow</h4><ol>
+<li><strong>Select a prim &gt; right-click &gt; Duplicate as Maya data</strong> (COPY)</li>
+<li>Once a prim is copied the following occurs:<ol>
+<li><strong>Importing:</strong> All aspects of your selected prim are imported as Maya data. The USD data gets imported into Maya nodes, independent of the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-65E19505-E27D-4477-BD7D-7C0F2BC0D328">import options</a>.</li>
+<li><strong>Interface:</strong> Your newly created Maya node is selected in the <strong>Outliner</strong> and <strong>Viewport</strong>.</li>
+</ol>
+</li>
+<li>Undo is supported in this workflow and there are no edits within the USD Layer Editor.</li>
+</ol>
+<h4 id="copy-methodology-amp-use-cases">Copy methodology &amp; use cases</h4><p>The copy workflow enables you to leverage USD into your Maya toolset by providing an extensible and funtional reference point for your work. This feature enables (but is not limited to) the following capabilities for Maya data as a result of USD data:</p>
+<ul>
+<li>Using USD data as a reference for Maya modeling data</li>
+<li>Using USD data and bringing it into Maya data to create a live surface</li>
+<li>Debugging a translation</li>
+</ul>
+<h2 id="strong-starting-with-maya-data-strong"><strong>Starting with Maya data</strong></h2><h3 id="duplicate-as-usd-data">Duplicate as USD data</h3><ul>
+<li>If a stage node exists in your Maya scene file (see <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-4D29A90A-FD4E-41F8-A68F-202B8DAAAC23">Create a USD Stage</a>), the <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-9FD37B6B-7559-4F9D-B393-3AAD9AB4F24B">Outliner Context Menu</a> will include the option <strong>Duplicate as USD Data</strong> for your currently selected Maya node. To duplicate a Maya object as USD data, right-click on the Maya node in the Outliner and choose <strong>Duplicate as USD Data</strong>. You can also duplicate multiple objects as USD data simultaneouly by selecting the nodes, right-clicking on one of them, and selecting <strong>Duplicate as USD Data</strong>.<ul>
+<li>If multiple stages are present in your scene, you will be able to select and choose which stage to place the duplicate of your Maya node in.
+![- When you select materials and choose <strong>Duplicate as USD Data</strong>, only the materials, not the meshes, will be duplicated.]
+![- When duplicating materials to a USD stage that lacks existing materials, the duplicated materials will be added to the stage under a newly created material scope.]</li>
+<li>You can customize the <strong>Duplicate as USD Data</strong> settins by right-clicking on the prim and selecting <strong>Duplicate as USD Data &gt; Options</strong>. In the <strong>Duplicate As USD Data Options</strong> window, you can specify what data you want to include for the duplication.
+<img src="../images/Duplicate_as_USD.jpg" alt=""></li>
+</ul>
+</li>
+<li>You can also access the <strong>Marking Menu</strong> in the <strong>Viewport</strong> with a selected Maya node to activate the option to <strong>Duplicate as USD Data</strong>.</li>
+</ul>
+<h3 id="copy-workflow">Copy workflow</h3><ol>
+<li><strong>Select a Maya node</strong> (when a USD stage is present in the scene) <strong>&gt; right-click &gt; Duplicate as USD Data</strong><ol>
+<li>If multiple stages are present in the scene, you can select which one to duplicate the data into from the stages presented.</li>
+</ol>
+</li>
+<li>Select <strong>Options...</strong> to choose the way your Maya objects are exported to USD. The <strong>Duplicate as USD Data</strong> window appears with the same options as the typical <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=ENU&amp;accessmode=live&amp;v=2025&amp;guid=GUID-3A763D43-E626-4832-9824-57AAA9BC0A00">export options</a>; including <strong>Geometry</strong>, <strong>Materials</strong>, <strong>Animation</strong> and <strong>Advanced</strong> settings. In this window you can set your preferences for the export. After building out the scope of your options, select <strong>Apply</strong> to apply your settings or <strong>Close</strong> to cancel the operation. 
+ Important: When you duplicate edits to USD, the options in this dialog that you select can persist in Maya memory from the last time you exported and even in your last Maya session. Ensure you check these settings each time as your selections can be saved in Maya. You can also select <strong>Edit</strong> from the top left menu in this dialog to <strong>Save Settings</strong> or <strong>Reset Settings</strong> for any Maya data export processes.</li>
+<li>Once a maya node is copied, the following occurs:<ol>
+<li>Exporting: The Maya selected object in its entirety gets exported to its USD equivalent, which is created at the root of the stage.</li>
+<li>The original Maya object remains as it was.</li>
+</ol>
+</li>
+</ol>
+<h3 id="copy-methodology-amp-use-cases">Copy methodology &amp; use cases</h3><p>The copy workflow enables you to leverage USD into your Maya toolset by providing an extensible and functional reference point for your work. This feature enables (but is not limited to) the following capabilities for USD data as a result of Maya data:</p>
+<ul>
+<li>Using Maya modeling data as a reference for USD data</li>
+<li>Creating an extensible workflow from an existing limited workflow in Maya</li>
+<li>Debugging a translation</li>
+</ul>
+<h2 id="push-pull-method-limitations">Push/Pull method limitations</h2>
+<div class="callout callout-important">
+<div class="callout-title"><i class="callout-icon fa fa-exclamation-triangle" aria-hidden="true"></i>Important:</div>
+<div class="callout-body">
+
+<p> USD data is unaware of Maya data inside in the mixed-data model. Thus, when Maya data is inside a USD hierarchy, its visibility isn't inherited from its USD ancestors. Additionally, when Maya data is inside a USD hierarchy, reframing the Viewport on its USD ancestors will not include Maya data. Transforms can therefore misconfigure when animating pulled USD data.</p>
+
+</div></div>
+
+
+  <div class="related-links">
+      <div class="relinfo relchildren">
+        <strong>Pages in this section</strong>
+        <ul class="ullinks">
+          <li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/Get-Started-with-USD-in-Maya/Work-between-USD-and-Maya-Data-Interchangeably/GUID-B0B54125-3633-4D78-86DE-61E57F76EB4B.html">Merge Maya Edits to USD</a>
+          </li>
+        </ul>
+      </div>
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>Parent page:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-USD/files/USD-for-Maya/GUID-36CFE2C3-766F-4B00-8464-E94F95E7AF4B.html">Get Started with USD in Maya</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

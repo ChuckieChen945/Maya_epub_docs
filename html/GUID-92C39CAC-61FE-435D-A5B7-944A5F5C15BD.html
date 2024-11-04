@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD">
+<meta name="language" content="CHS">
+<title>2D 运动模糊问题疑难解答</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>2D 运动模糊问题疑难解答</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-2231E4B3128F27EE5291260"><p class="p" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67A3"> 仅适用于 Maya 软件渲染。</p>
+<div class="section" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67A5"><h2 class="title sectiontitle">如果对象周围显示暗色光晕</h2>
+
+<p class="p" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67A6">请尝试以下操作：</p>
+
+<ul class="ul" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67A7"><li class="li" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67A8">确保背景颜色为黑色</li>
+<li class="li" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67A9">如果场景中有雾，确保打开<span class="ph uicontrol" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__GUID-7CE8E439-B443-4314-A0C5-A71B1CD60F49">“平滑 &gt; 颜色”(Smooth &gt; Color)</span>。</li>
+</ul>
+
+</div>
+<div class="section" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67AA"><h2 class="title sectiontitle">连同背景一起移动透明对象</h2>
+
+<p class="p" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67AB">在这种情况下，背景也会模糊，即使它不不应该模糊。解决方法是先单独模糊透明对象，然后再与场景的其余部分进行合成。对于包含大量透明度的复杂场景或透明粒子，实施此解决方法会很难。 </p>
+
+</div>
+<div class="section" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67AC"><h2 class="title sectiontitle">移动对象后面的详细背景</h2>
+
+<p class="p" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67AD">一些详细信息可能会丢失，因为必须做出与移动对象遮挡的背景区域有关的假设。解决方法是模糊移动对象（不包括背景），然后合成结果。</p>
+
+</div>
+<div class="section" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67AE"><h2 class="title sectiontitle">旋转对象</h2>
+
+<p class="p" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67AF">可能看起来不太正常，因为必须做出与这些对象的后侧应看似什么有关的假设。尝试使用 3D 运动模糊。 </p>
+
+</div>
+<div class="section" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67B0"><h2 class="title sectiontitle">对象从图像外部进入或离开图像</h2>
+
+<p class="p" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67B1">框架的边可能不会获得正确的详细信息，因为必须做出与刚好位于框架外面的对象颜色有关的假设。解决方法是渲染能够覆盖原始图像的较大图像，然后将其裁剪至所需大小。 </p>
+
+</div>
+<div class="section" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67B2"><h2 class="title sectiontitle">3D 和 2D 的渲染结果有很大不同</h2>
+
+<p class="p" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67B3">不要尝试混合通过两种不同模糊操作进行渲染的图像。 </p>
+
+</div>
+<div class="section" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67B4"><h2 class="title sectiontitle">使用 IPR 调试 2D 运动模糊</h2>
+
+<p class="p" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67B5"> 当使用 IPR 调试 2D 运动模糊时，自动更新无法始终正常完成。调整材质或灯光的属性以强制执行正确更新，或框选调整区域以强制执行更新。</p>
+
+</div>
+<div class="section" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67B7"><h2 class="title sectiontitle">2D 运动模糊瑕疵 </h2>
+
+<p class="p" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67B8"> 当在包含雾的场景或透明对象前面有实体对象的场景中进行渲染时，或当背景颜色不是黑色时，2D 运动模糊将导致出现瑕疵。</p>
+
+<p class="p" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67BB">有以下三种可能的解决方法：</p>
+
+<ul class="ul" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67BC"><li class="li" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67BD">从场景中移出透明对象、雾、辉光和背景颜色。渲染 2D 模糊，然后将这些元素重新合成到该场景中。</li>
+<li class="li" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67BE">将<span class="ph uicontrol" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__GUID-8404FA93-AF6F-4509-9FAE-5D5BE1C24FDF">“平滑值”(Smooth Value)</span>设定为 0。在命令行中，为 -m 0。对应的解决方法是跳过平滑屏蔽操作。结果，图像可能看上去会出现更严重的锯齿化现象。</li>
+<li class="li" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__WS73099CC142F487553B93539F117EA10CE8F67BF">打开<span class="ph uicontrol" id="GUID-92C39CAC-61FE-435D-A5B7-944A5F5C15BD__GUID-C38C92AA-63B4-4421-BBB5-9568CE01CD55">“平滑 &gt; 颜色”(Smooth &gt; Color)</span>。在命令行中，为 -r 1。对应的解决方法是使用不同的平滑算法。结果，图像可能看起来更模糊。 </li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-A7A7E22E-4A0F-49CC-A30C-CF9BB386D7B1.htm">渲染疑难解答</a></div>
+</div>
+</div>
+
+</body>
+</html>

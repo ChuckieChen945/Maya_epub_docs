@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-4CF324AB-0398-498C-A539-2094BB640B7C">
+<meta name="language" content="CHS">
+<title>渲染设置最佳实践</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>渲染设置最佳实践</h1></div>
+</div>
+</div>
+
+<div class="body"><ul class="ul" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__UL_84F6FBD34DA74B76BBC3065A4DD034A1"><li class="li" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__LI_F2376C99F26E4564A5D249952474AFA2"> 
+		  <p class="p">设置场景时，您可能希望将类似对象引用到同一名称空间中（例如，效果、头发、集等）。这样您就可以创建类似对象的集合来覆盖其属性并控制其可见性。 
+		  </p>
+ 
+		  <p class="p">可以通过名称空间使用表达式轻松填充集合。 
+		  </p>
+ 
+		  <p class="p">例如，创建一个名为 <em class="ph i">chr</em> 的名称空间来引用角色。 
+		  </p>
+ 
+		  <p class="p">然后，在 <em class="ph i">chr</em> 名称空间中，分别创建一个 <em class="ph i">crowd</em>、<em class="ph i">hero</em> 和 <em class="ph i">hair</em> 名称空间。 
+		  </p>
+ 
+		  <p class="p">对象中的引用如下所示： 
+		  </p>
+ 
+		  <ul class="ul" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__UL_89417301D09C4E88BBBC970E0EE9C073"><li class="li" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__LI_24D003877CE14F22A88B8485D9DC25C1"> 
+				<p class="p">chr:crowd:chr_crowd_verA 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__LI_9595683274954756BFE96FE25C1E7DFC"> 
+				<p class="p">chr:hero:chr_nik 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__LI_9B8A293106524C28B07BEC9588AB62F4"> 
+				<p class="p">chr:hair:chr_mike_hairgroom 
+				</p>
+ 
+			 </li>
+</ul>
+ 
+		  <p class="p">然后，可以使用表达式 chr::* 填充角色集合。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__LI_B19434E0F6854165B4AF56A4026757EC">创建表示场景操作的集合和覆盖，然后<strong class="ph b">将其导出为模板，以供稍后重用</strong>。例如，在创建阴影层时，可以分别为已禁用主可见性的投射器和已指定 aiShadowMatte 着色器的接收器创建一个集合，然后将这些集合导出为模板，以便导入到不同的场景或在同一场景中重用（如果发生更改）。 
+		</li>
+<li class="li" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__LI_7FDF289461BE4417B0B1F4D59608BDB6">如果层的视口结果看似不准确，请检查层可见性图标是否显示红色边界 <img class="image" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__IMAGE_B60CDB66CED84CD6AA687136EE634DE6" src="../images/GUID-7BFB60FC-AB73-409C-8460-0D2945F5E997.png">。单击此图标可刷新该层。 
+		</li>
+<li class="li" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__LI_36B9528B05544D1F95A108C935E000C7"> 如果导入或引用在保存时渲染层设置为可见的场景，则 Maya 会自动从传入场景中取消应用任何渲染设定覆盖，以防止无意中应用它们。但是，建议先保存场景层设置为可见的文件，然后再将其导入或引用。 
+		   
+		</li>
+<li class="li" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__LI_BD34BB356D9E4814A9A392C24EC13FE0"> 导入或引用场景时不包括渲染设定节点。通常，您应该<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-0B7531C8-E392-4596-9926-D3E09857956B.htm" title="创建并导出主设置，然后导入并重用它来从序列中构建镜头。以 .json 文件格式导出渲染设置（渲染层、集合和覆盖）。将此设置导入到另一个场景中，并在多个合并选项之间进行选择。">导入或导出渲染设定模板</a>，以便将渲染设定层和节点导入场景。 
+		   
+		</li>
+<li class="li" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__LI_B3E742CB36384F69A2EAA68735CB296A"> 
+		  <p class="p">填充集合时，结果将在首次执行计算后缓存，且第二次将层设为可见时，处理将会更快。更改集合或场景时，缓存将失效（并重新进行计算）。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__LI_78AC05C082E44CDA84741B4964838954"> 
+		  <p class="p">为了提高性能，可以在该层之外另外创建一个层；也就是说，场景层可以在您使用集合填充渲染层和创建覆盖时保持可见。 
+		  </p>
+ 
+		  <p class="p">还可以为尚不存在的数据创建集合。例如，在构建包含大量建筑的城市场景时，请遵循一致的建筑命名约定（例如，citybldg1、citybldg2，依此类推），然后使用 citybl* 等表达式将所有建筑添加到一个集合中。 
+		  </p>
+ 
+		  <p class="p">当您创建一个新场景并导入渲染设置模板，然后将建筑添加到场景中之后，可以通过单击 <img class="image" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__IMAGE_6EBF6056C6A9412F87BB56B5B18B1031" src="../images/GUID-7BFB60FC-AB73-409C-8460-0D2945F5E997.png"> 图标重新应用表达式，建筑会因此自动添加到集合中。 
+		  </p>
+ 
+		  <p class="p">此外，最好在场景层可见时重新排序或启用/禁用集合和覆盖，以提高性能并缩短计算时间。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__LI_F01681B2EEB54848AEEFA64D977362EA">如果在使用“渲染设置”(Render Setup)时内存不足，则选择<span class="ph uicontrol">“文件 &gt; 新建”(File &gt; New)</span>，然后重新加载场景以恢复内存。 
+		</li>
+<li class="li" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__LI_CC7BAA1CA87B41EEBC4576963BF78DB8"> 
+		  <p class="p">如果无需可视化场景，请在加载复杂场景之前暂停视口。暂停允许您在场景中进行更改（例如，导入 <samp class="ph codeph">.json</samp> 模板文件），而不必等待视口更新。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-5326458C-E6AA-45F8-ACAF-D32FAAA613E3.htm">在 Hypershade 中暂停 Viewport 2.0 和材质查看器</a> 
+		  </p>
+ 
+		  <p class="p">同样，对无需即时提供可视反馈的复杂场景执行多个操作时，也请暂停视口。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__LI_DD699B704C51447D910F3B8FE6ABCEDC"> 通过执行以下操作，可以提高播放性能： 
+		  <ul class="ul" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__UL_8F40968721BE4C3F9A75A67A41060524"><li class="li" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__LI_4D7C399AC0CC4B87B1F114FC6DF8D26F"> 
+				<p class="p"> 确保计算密集型已设置动画对象不在当前渲染层中。 或者，也可以将这些对象添加到集合，并在当前层中禁用此集合。 
+				</p>
+ 
+				<p class="p">不必覆盖已设置动画的对象的可见性来提高性能。实际上，您应该避免这样做，因为它可能会导致不正确的行为，除非您在更改“可见性”(Visibility)覆盖的值后更新可见渲染层，这可以通过切换到场景层并返回到当前层来完成。 
+				   
+				</p>
+ 
+			 </li>
+</ul>
+ 
+		</li>
+<li class="li" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__LI_381275798EA54545A8A25FBA608935AA"> 
+		  <p class="p">创建集合时，精确声明表达式将有助于缩短计算时间；例如：|Set|Building|*，而不仅仅是 |Set|*，因为这可以减少集合中的节点数。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-4CF324AB-0398-498C-A539-2094BB640B7C__LI_5BEC031511494187A234CE6D9D0F7C1E">建议仅高级用户使用<span class="ph uicontrol">“所有”(All)</span> 
+		  <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-80F24E1B-AC00-4A60-A3AF-FE0A8321AE5E.htm" title="使用“集合过滤器”(Collection Filters)功能可仅向集合添加形状、着色器和集等。此外，您还可以创建自定义过滤器，以添加感兴趣的特定节点类型。">集合过滤器</a>。此外，它可能会影响性能。 
+		</li>
+</ul>
+<p class="p"> 
+	 </p>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-646154F9-E4D2-4A3E-A0D9-B2F062960A4E.htm">Maya 渲染设置</a></div>
+</div>
+</div>
+
+</body>
+</html>

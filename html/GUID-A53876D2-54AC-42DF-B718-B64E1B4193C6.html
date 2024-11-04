@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Animation">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6">
+<meta name="language" content="CHS">
+<title>融合几何缓存片段</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>融合几何缓存片段</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D21285"> 可以融合几何缓存片段，以在对象的重叠缓存片段之间创建平滑、无缝的过渡。 
+	 </p>
+<p class="p" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D21287">几何缓存片段将自动融合。默认情况下，启用的几何缓存片段的所有重叠区域会使用其缓存片段的当前权重设置自动融合在一起。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-816C1298-4046-4EF7-B37B-C35331E70949.htm#GUID-816C1298-4046-4EF7-B37B-C35331E70949__WS17956D7ADBC6E736-2696A29F117AE307F06-7FEE">输入权重</a>。 
+	 </p>
+<p class="p" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D21288">缓存权重在重叠缓存片段之间进行归一化。因此，如果两个重叠缓存片段具有相同的权重值（即 1.0 和 1.0，0.5 和 0.5 等等），则它们将在播放时对其缓存融合区域中的变形起同等作用。 
+	 </p>
+<p class="p" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D21289">可以调整缓存片段融合的平滑度，方法是调整其权重设置，或操纵其权重曲线。例如，如果您有两个重叠缓存片段，一个从帧 1-25，另一个从帧 20-45，两个片段均将其输入权重设定为 0.5 (50%)，则这两个缓存片段将在播放时对其对象在帧 20-25 的变形起到同等作用。 
+	 </p>
+<div class="fig fignone" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D2128A"><img class="image" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__IMAGE_42F8980219194DC49BF1520F947302F8" width="431" height="157" src="../images/GUID-02066F59-D8FC-4122-9765-FDFD6A8E6C79.png"></div>
+<p class="p" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D2128B">顺序缓存片段不进行融合。当您的几何缓存片段之间存在间隙时，将使用对象的原始（源）变形的实时播放（而非插值缓存数据）填充这些间隙。 
+	 </p>
+<div class="fig fignone" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D2128C"><img class="image" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__IMAGE_95B54680AD354793A2C5D740EE99388E" width="387" height="119" src="../images/GUID-CA4898CA-120C-47CA-8EF2-7B0E0A6CCF5A.png"></div>
+<div class="note tip" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D2128D"><span class="tiptitle">提示：</span> 如果希望一个缓存片段中的最终变形继续影响其对象在下一个缓存片段中的变形，请使用影响以下对象的几何体的保持。 
+	 </div>
+<p class="p" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D2128E">也可以为几何缓存片段创建权重曲线。通过这些权重曲线可以调整几何缓存片段的变形从其融合区域缓入和缓出的方式。 
+	 </p>
+<p class="li listintro" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D2128F">创建并调整几何缓存片段权重曲线</p>
+<ol class="ol" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS17956D7ADBC6E736-493A56A7117AE30712B-7FD8"><li class="li" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D21290">在<span class="ph uicontrol" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__GUID-4E3E6E44-A831-4A15-BEE7-DFBF8A6E4760">“Trax 编辑器”(Trax Editor)</span>中，选择要创建并调整其权重曲线的几何缓存片段。 
+		</li>
+<li class="li" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D21291"> 在缓存片段上单击鼠标右键，然后从显示的上下文相关菜单中选择<span class="ph uicontrol" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__GUID-1E43E23B-657A-45C3-957F-357872946AF8">“创建权重曲线”(Create Weight Curve)</span>。 
+		  <p class="p" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D21292">系统将为选定的缓存片段创建权重曲线。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D21293">执行下列操作之一： 
+		  <ul class="ul" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D21294"><li class="li" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D21295">在 Trax 工具栏中，单击<span class="ph uicontrol" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__GUID-94AEF993-F865-4AA0-84D3-64016DC67E6D">“图形权重曲线”(Graph Weight Curves)</span>按钮 (<img class="image" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__IMAGE_EBBA9213702B40DBA6CAE241B7090989" width="26" height="28" src="../images/GUID-4E318283-9BF2-4432-803D-B4EFDDCDC541.png">)。 
+			 </li>
+<li class="li" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D21297">在选定的缓存片段上单击鼠标右键，然后从显示的上下文相关菜单中选择<span class="ph uicontrol" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__GUID-D28F5119-5E59-4D0B-ABA4-57459AA23337">“对权重制图”(Graph Weight)</span>。 
+			 </li>
+</ul>
+ 
+		  <p class="p" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D21298"><span class="ph uicontrol" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__GUID-A33CE44A-E024-4F55-8AE6-5A16A8725AFA">“曲线图编辑器”(Graph Editor)</span>将打开，选定的缓存片段权重曲线将在其图形视图中处于框显状态。 
+		  </p>
+ 
+		   
+		   
+		</li>
+<li class="li" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D2129A">通过执行以下操作，调整缓存片段权重曲线的形状： 
+		  <ul class="ul" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D2129B"><li class="li" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D2129C">移动权重曲线的关键帧或关键帧切线。 
+			 </li>
+</ul>
+ 
+		  <p class="p" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D2129D">从 Maya 工具箱中选择<span class="ph uicontrol" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__GUID-49DC9530-146F-42F6-BB12-46A2303FF4A0">“移动工具”(Move Tool)</span>，然后使用鼠标中键拖动关键帧或关键帧切线控制柄，可更改权重曲线的形状。 
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D2129E"><img class="image" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__IMAGE_C2361C3A58B8415DBD2BEEABB6F53AFC" width="280" height="152" src="../images/GUID-5483C116-D051-43A1-AE36-27F9B411097D.png"></div>
+ 
+		  <ul class="ul" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D2129F"><li class="li" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D212A0">（可选）将新关键帧添加到权重曲线。 
+			 </li>
+</ul>
+ 
+		  <p class="p" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D212A1">从<span class="ph uicontrol" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__GUID-14B6742F-BC82-4E19-A1A9-F3AD4152CF4A">“曲线图编辑器”(Graph Editor)</span>的工具栏中选择<span class="ph uicontrol" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__GUID-B4C3ED4B-6514-45CA-A934-C2D497D7588E">“插入关键帧工具”(Insert Keys Tool)</span> (<img class="image" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__IMAGE_86B37641D185425C82FBFF264A606B9E" src="../images/GUID-02DF1766-6F61-4938-89C2-F8E485910316.png">)，然后使用鼠标中键单击权重曲线，可将其他关键帧添加到权重曲线。 
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D212A6"><img class="image" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__IMAGE_7CC24117ACC240908C97B68A7FB01310" width="280" height="152" src="../images/GUID-5D76CEEC-1748-44DC-A92C-4EE781CE81F4.png"></div>
+ 
+		  <p class="p" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D212A7">然后可以使用这些新关键帧及其切线控制柄，来进一步操纵权重曲线的形状。 
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D212A8"><img class="image" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__IMAGE_506513B7A0D44054AE0A7CC8F827209F" width="280" height="152" src="../images/GUID-05C858C9-5CA1-4E43-BED3-FB138CCBB06F.png"></div>
+ 
+		  <p class="p" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D212A9">修改后的权重曲线现在显示在轨迹视图区域中的选定缓存片段上。 
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D212AA"><img class="image" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__IMAGE_4702BD5B9282409AAB5CDDB957FD6F45" width="222" height="72" src="../images/GUID-FD53FA11-338A-43C3-8660-98762EBCBF42.png"></div>
+ 
+		  <div class="note tip" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__WS1A9193826455F5FF-6D855556117E9F816D212AB"><span class="tiptitle">提示：</span>  
+			 <p class="p" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__GUID-84B04156-1FB4-427A-A513-CB94678670C9">在<span class="ph uicontrol" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__GUID-DB987824-34FC-45F4-AB27-DEF4B236844C">“属性编辑器”(Attribute Editor)</span>中，也可以为几何缓存的  节点上的<span class="ph uicontrol" id="GUID-A53876D2-54AC-42DF-B718-B64E1B4193C6__GUID-D20325DE-C104-4AAC-9987-EFB39BD93B8F">“输入权重”(Input Weight)</span>属性设置关键帧，以便为对象创建几何缓存权重曲线。 
+			 </p>
+ 
+		  </div>
+ 
+		</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Animation/files/GUID-4E14F8FA-A085-410C-BF86-818F4BA9315E.htm">使用几何缓存片段</a></div>
+</div>
+</div>
+
+</body>
+</html>

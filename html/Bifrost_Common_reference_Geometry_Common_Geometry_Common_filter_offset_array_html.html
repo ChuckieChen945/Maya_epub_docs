@@ -1,0 +1,53 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Geometry_Common_Geometry_Common_filter_offset_array_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>filter_offset_array</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>filter_offset_array</code></h1></div><p>过滤输入 <code>offset_array</code>，保留 <code>indices_to_keep</code> 输入指定的元素。要过滤由偏移数组表示并具有关联数据数组的组件（如股或网格面）时，可以使用此节点。</p>
+<p>例如，有一个包含三个股的股几何体，其中第一个股引用三个点 [0, 1, 2]，第二个股引用三个点 [3, 4, 5]，最后一个股引用四个点 [6, 7, 8, 9]，此股几何体将包含一个名为 <code>strand_offset</code> 的偏移数组，其值将为 [0, 3, 6, 10]。</p>
+<p>要过滤此几何体以仅保留第一个股和最后一个股，则将 [0, 2] 传入到 <code>indices_to_keep</code> 中。输出 <code>filtered_offset_array</code> 将为 [0, 3, 8]，<code>target_compaction_indices</code> 将为 [0, 1, 2, 6, 7, 8, 9]。</p>
+<p>然后，<code>target_compaction_indices</code> 可以连接到一个 <code>get_from_array</code> 节点，该节点将仅过滤对应于保留的各个股（第一个股和最后一个股）的点的元素。例如，<code>point_position</code>、<code>point_size</code> 和 <code>point_tangent</code> 都可以使用相同的 <code>target_compaction_indices</code> 数组进行过滤。</p>
+<h2 id="">输入</h2><h3 id="offset_array"><code>offset_array</code></h3><p>要过滤的偏移数组。</p>
+<h3 id="indices_to_keep"><code>indices_to_keep</code></h3><p>要在 <code>offset_array</code> 中保留的元素的索引。</p>
+<h2 id="">输出</h2><h3 id="filtered_offset_array"><code>filtered_offset_array</code></h3><p>仅包含 <code>indices_to_keep</code> 数组指定的元素的已过滤偏移数组。</p>
+<h3 id="target_compaction_indices"><code>target_compaction_indices</code></h3><p>索引数组，用于精简与偏移数组关联的数据数组。此输出可以连接到 <code>get_from_array</code> 以过滤这些关联的数据数组。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Geometry/Bifrost_Common_reference_Geometry_Common_html.html">Common</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

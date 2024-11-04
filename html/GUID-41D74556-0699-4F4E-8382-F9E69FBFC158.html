@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="核心配置">
+<meta name="modified" content="31/08/2022">
+<meta name="topicid" content="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158">
+<meta name="language" content="CHS">
+<title>创建和可视化 GLSL 着色器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>创建和可视化 GLSL 着色器</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__GUID-A69674B8-6A0A-4D55-B272-82A81575EC01">若要创建并可视化 GLSL 着色器，必须在“OpenGL 核心配置”(OpenGL Core Profile)模式下运行 <span class="ph uicontrol" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__GUID-CE81DF6B-4D7A-43C5-A9EF-FDC46BC77F54">Viewport 2.0</span>，并加载 <span class="ph uicontrol" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__GUID-527595ED-561E-4C95-8ED4-A6EDC1FFA631">glslShader</span> 插件。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-43B99310-5D5B-4C86-B716-0BF44A3CFB4C">在核心配置模式下运行 Viewport 2.0</a>。<span class="ph">执行这些步骤后，在 <span class="ph uicontrol" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__GUID-EDD44323-8CB1-4C6C-8948-E2A6ADA6D61D">Hypershade</span> 的“创建”(Create)选项卡中以及<span class="ph uicontrol" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__GUID-34CDED87-1299-44C0-8548-CF176A8536FD">“创建渲染节点”(Create Render Node)</span>窗口和<span class="ph uicontrol" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__GUID-218BCAA2-2E35-4F9A-A5FF-740768B54FE5">“指定新材质”(Assign New Material)</span>窗口中将显示 GLSL 着色器。</span> 
+	 </p>
+<p class="li listintro" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__GUID-37A08FC3-5BB6-4250-91D3-0DC6B57A17FF">创建自定义 GLSL 着色器</p>
+<ol class="ol" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__OL_822B4C14EF4A45208E758271A2C3B8C8"><li class="li" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__LI_C08EB846942745D3B46A63746F223EE3"> 右键单击对象，然后选择<span class="ph uicontrol" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__GUID-363C8F58-A107-4607-9E3E-003A911E50F8">“指定新材质”(Assign New Material)</span>。
+		</li>
+<li class="li" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__LI_4E13CB7570AA45F79503B861BD01B977">从<span class="ph uicontrol" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__GUID-C9D62BFD-4071-4393-8C88-054DAF3462F3">“指定新材质”(Assign New Material)</span>窗口中选择<span class="ph uicontrol" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__GUID-84D94A8B-99A8-486D-8DF9-36C7FC15553A">“GLSL 着色器”(GLSL Shader)</span>。
+		</li>
+<li class="li" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__LI_BBCE972795BC4687AD1BAFAB52ED4FED">在 GLSLShader <span class="ph uicontrol" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__GUID-FD578CCA-08F7-45AE-816D-4A65FF48DFDC">属性编辑器</span>中，导航到 <samp class="ph codeph" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__GUID-5840C293-2630-4048-AF8F-B82F369BB306">.ogsfx</samp> 文件。
+		  <p class="p" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__GUID-0A38D08E-67E8-4E2C-B9A3-FB4C7E8719E3">示例 <samp class="ph codeph" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__GUID-88E9AC44-3E54-464D-B6C3-03FC215D7B50">.ogsfx</samp> 文件可在 Maya 安装目录的 <samp class="ph codeph" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__GUID-6152584A-445F-47F0-9F53-0F4C67266943">..\presets\GLSL\examples</samp> 文件夹中找到。开发人员工具包示例 <em class="ph i" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__GUID-ABC34415-3808-400C-BAA8-C3E4EF7D435C">brickShader</em>（C++ 和 Python 版本）也已更新为支持 GLSL，因此可在视口中以<span class="ph uicontrol" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__GUID-D726BAA2-6DE6-4221-AE39-5125F59B2EE4">“OpenGL 核心配置”(OpenGL Core Profile)</span>模式运行。
+		  </p>
+ 
+		  <p class="p" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__GUID-0D3EA95C-D56B-4561-8FCC-1913D840581B">开发人员工具包可从 <a class="xref" href="https://www.autodesk.com/developmaya" target="_blank">Autodesk 开发人员网络</a>获取。
+		  </p>
+ 
+		  <div class="note note" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__GUID-01A9A1AE-6E00-40B0-86DD-63B47D72CEA2"><span class="notetitle">注：</span>  
+			 <ul class="ul" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__UL_797583E8CFB04D60A8770EF052C946AF"><li class="li" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__LI_28AE15422B554F699342C0701DE0DA89"> 
+				  <p class="p">如果在场景中加载效果文件后使用外部文本编辑器编辑了效果文件，则必须通过单击 <img class="image" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__IMAGE_6942FD7B064049C1BFEA390C06B23085" src="../images/GUID-49424667-4F99-4E3A-875F-2F3F1B79EF37.png"> 图标重新加载文件，这样着色器才能识别您所做的最新更改。
+				  </p>
+ 
+				</li>
+<li class="li" id="GUID-41D74556-0699-4F4E-8382-F9E69FBFC158__LI_C738F29211D241E78B064B41AB29F36C"> 
+				  <p class="p">加载 <samp class="ph codeph">.ogsfx</samp> 文件时，如果 GLSL 着色器中的任何参数与您先前已加载的 <samp class="ph codeph">.ogsfx</samp> 文件中的参数名称和类型匹配，则这些参数将使用现有场景值，而不是新文件中的默认值。
+				  </p>
+ 
+				  <p class="p">例如，如果您有两个效果文件，其中 <samp class="ph codeph">effect1.ogsfx</samp> 的 gAmbient 参数默认值为“绿色”(green)，<samp class="ph codeph">effect2.ogsfx</samp> 的 gAmbient 参数默认值为“红色”(red)，您先加载第一个 effect1，然后再加载 effct2，加载 effect2 后，gAmbient 参数值仍为“绿色”(green)。此外，如果您加载 effect1，稍后将 gAmbient 颜色更改为“蓝色”(blue)并加载 effect2，则由于系统保留当前值，因此 gAmbient 仍为“蓝色”(blue)
+				  </p>
+ 
+				  <p class="p">这允许您从简单的效果切换至更复杂的效果，而不影响环境光和其他共享参数的当前场景值。
+				  </p>
+ 
+				   
+				</li>
+</ul>
+ 
+		  </div>
+ 
+		</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-F81B34C5-30B8-4784-8351-F252006C42D8.htm">编写自定义 GLSL 着色器：纹理、透明度、照明和硬件选择示例</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-1565820B-A688-4063-B09B-BF3A320E58B3.htm">编写自定义 GLSL 着色器：细分示例</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-0A3159BB-7A7E-4407-AA5B-2F22FF7D33B8.htm">使用 ogsfx 文件中的 include 指令加载顶点和碎片着色器</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-5AD6C183-6A2A-47C2-8860-E20BEF3718E5.htm">创建和渲染硬件着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

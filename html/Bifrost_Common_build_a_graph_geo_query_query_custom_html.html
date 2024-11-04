@@ -1,0 +1,89 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_build_a_graph_geo_query_query_custom_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>创建自定义几何体查询</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>创建自定义几何体查询</h1></div><p>可以在 <code>Geometry::Query</code> 名称空间中使用基本构建块，创建用于特殊用途的自定义查询。自定义查询包括三个步骤：首先构建加速器，然后对加速器进行采样，最后对特性值进行采样。</p>
+<p>在下列情况下，您可以重用相同的加速结构以提高效率：</p>
+<ul>
+<li>在同一个几何体上执行多个查询，而不是简单地对多个特性的相同位置进行采样。例如，可以对任何查询使用多组位置，也可以对光线投射查询使用不同的方向。</li>
+<li>获取编程循环中的位置，例如在为对象的每个点执行计算时。可以在循环外部构建一次加速结构，而不是在循环内部反复构建加速结构。</li>
+</ul>
+<p>深入研究高级查询（例如 <code>get_points_in_radius</code>），了解构建块如何组合在一起。下面是一个粗略的概述：</p>
+<ol>
+<li><p>构建适当的加速度结构。通常，这应在任何编程循环（例如 <code>for_each</code> 复合）外部完成。如果在模拟过程中几何体未以任何方式移动或更改，甚至还可以在模拟循环外部完成该操作。</p>
+<ul>
+<li>对于最近位置、最近点或半径内的所有点，使用 <code>build_closest_accelerator</code>。</li>
+<li>对于光线投射，使用 <code>build_raycast_accelerator</code>。</li>
+</ul>
+</li>
+<li><p>将要查询的对象连接到 <code>geometry</code> 输入。</p>
+</li>
+<li><p>将 <code>geo_component</code> 设置为适当的值：</p>
+<ul>
+<li>对于网格曲面上的位置，将其设置为 <code>face_component</code> 或保留为空。这是用于光线投射的唯一有效选项。</li>
+<li>对于沿股长度的位置，将其设置为 <code>strand_component</code> 或保留为空。</li>
+<li>对于点对象上的点，将其设置为 <code>point_component</code> 或保留为空。</li>
+<li>对于网格或股对象上的点，将其设置为 <code>point_component</code>。</li>
+</ul>
+</li>
+<li><p>将加速器输出连接到以下一个或多个基本查询。根据具体情况，查询可能位于循环内。</p>
+<ul>
+<li><code>sample_raycast_accelerator</code>，适用于光线交点。</li>
+<li><code>sample_closest_accelerator</code>，适用于最近位置。</li>
+<li><code>sample_closest_point_accelerator</code>，适用于最近点。</li>
+<li><code>sample_closest_in_radius_accelerator</code>，适用于半径内的所有点。</li>
+</ul>
+</li>
+<li><p>根据需要，设置查询节点的其他输入。它们的工作方式与高级查询相同。</p>
+</li>
+<li><p>使用查询节点的输出以访问几何体上的特性值：</p>
+<ul>
+<li>可以将 <code>location</code> 输出连接到一个或多个 <code>sample_property</code> 节点，以立即对几何特性进行采样（请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/geo-query/Bifrost_Common_build_a_graph_geo_query_sample_data_at_locations_html.html">对位置的几何特性进行采样</a>）。在这些情况下，您通常在连接到 <code>get_closest_point</code> 节点的同一几何体上进行采样。</li>
+<li>可以使用 <code>point_index</code> 输出访问几何体上几何特性的数据数组（请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_geo_properties_html.html">获取并设置几何对象的特性</a>）。</li>
+<li>请记住，<code>sample_closest_in_radius_accelerator</code> 的 <code>point_index</code> 输出是二维数组，可能需要额外的循环。</li>
+<li>您可以将 <code>found</code> 输出与 <code>if</code> 节点结合使用，来控制图表中按定位进行的后续操作，包括是否对特性进行采样。这在使用 <code>point_index</code> 输出时尤其重要，因为它将包含无法成功查询的位置的索引 0 或空数组。</li>
+<li>如果输入位置与另一个几何对象的点相对应，则可以将输出存储为该对象上的几何特性，以在其他位置使用它们。您还可以缓存它们，并将其用于模拟中的将来帧（请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_custom_sims_html.html">创建自定义模拟</a>）。</li>
+</ul>
+</li>
+</ol>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_geo_query_html.html">查询几何对象上的数据</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-260F55C7-988E-4995-97C9-F7E0AE883551">
+<meta name="language" content="CHS">
+<title>创建雕刻变形器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>创建雕刻变形器</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-327B"><h2 class="title sectiontitle">限制</h2> 
+		 
+		<ul class="ul" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-327A"><li class="li" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-3279">当前不支持除隐式球体和 NURBS 对象之外的几何体类型。若要使用其他类型的曲面，请将其转化为 NURBS 曲面。 
+		  </li>
+<li class="li" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-3278">随着雕刻工具和/或要变形的对象中的顶点数量增加，性能可能会降低。 
+		  </li>
+<li class="li" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-3277">为获得最佳效果，请使用闭合的凸对象作为雕刻工具。 
+		  </li>
+</ul>
+ 
+	 </div>
+<div class="section" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-3276"><h2 class="title sectiontitle">高级(Advanced)</h2> 
+		 
+		<ul class="ul" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-3275"><li class="li" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-3274">可以有多个雕刻变形器变形同一对象。 
+		  </li>
+<li class="li" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FFF0124D0128744E2E7D-7D33">可以使用连接编辑器或 MEL connectAttr 命令手动连接其他对象作为雕刻工具。 
+		  </li>
+<li class="li" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__LI_7813F553FDF9440A95E12B56DFE778C0">使用隐式球体时，对雕刻变形器提供 GPU 支持。您仍可对 NURBS 对象使用雕刻变形器，但变形会发送到 CPU。 
+		  </li>
+</ul>
+ 
+	 </div>
+<p class="li listintro" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-3261"> 创建雕刻变形器</p>
+<ol class="ol" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-3262"><li class="li" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-325F">选择一个或多个可变形对象。 
+		</li>
+<li class="li" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-325E">请执行下列任一操作： 
+		  <ul class="ul" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__UL_F38B8ACC780745C792449F6C52BEEB91"><li class="li" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__LI_A1C02BD9B05D43398858D25314929842">选择<span class="ph menucascade"><span class="ph uicontrol">“变形</span> &gt; <span class="ph uicontrol">(创建)雕刻”(Deform &gt; (Create) Sculpt)</span> &gt; <span class="ph uicontrol"><img class="image" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__IMAGE_865DD8ADDF06456CBFBE9E47B6707A99" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png"></span></span>以设置<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-38726F7A-1EFC-4288-AE0B-88B92D923465.htm">雕刻变形器选项</a>，然后创建变形器。 
+				<p class="p" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__GUID-704D3A76-853B-4F12-92BA-CD4964F7FF6B">单击<span class="ph uicontrol" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__GUID-261D7894-9212-49BB-8F15-31CB0719FE89">“雕刻选项”(Sculpt Options)</span>中的<span class="ph uicontrol" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__GUID-5E31A62A-4907-4ADA-94AE-E66F198E203A">“基本”(Basic)</span>和<span class="ph uicontrol" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__GUID-4C3ED539-89A0-4B50-BDF6-3B93FF7396D3">“高级”(Advanced)</span>选项卡，并设置创建选项。 
+				</p>
+ 
+				<p class="p" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-325B">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-3D228DBA-C968-4870-9B1D-8C2C60DE6970.htm">“高级”(Advanced)变形器选项</a>。 
+				</p>
+ 
+			 </li>
+<li class="li" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__LI_C6BA123A1ADD44349F02AA14443062BD">选择<span class="ph menucascade"><span class="ph uicontrol">“变形</span> &gt; <span class="ph uicontrol">(创建)雕刻”(Deform &gt; (Create) Sculpt)</span></span>，以立即使用当前创建选项创建变形器。 
+				<p class="p" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__GUID-FE12D9A4-5106-4623-915F-E0160A3D8767">如果不确定当前的创建选项是什么，则在创建变形器前检查这些选项将可节省以后用于调整变形器属性的时间。 
+				</p>
+ 
+			 </li>
+</ul>
+ 
+		</li>
+<li class="li" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS73099CC142F48755-3D114B751181C40F14B1659">（可选）打开创建选项时，还可以执行下列操作： 
+		  <ul class="ul" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS73099CC142F48755-3D114B751181C40F14B165A"><li class="li" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-3CD0">选择<span class="ph menucascade"><span class="ph uicontrol">“编辑</span> &gt; <span class="ph uicontrol">保存设置”(Edit &gt; Save Settings)</span></span>以保存创建选项而不创建雕刻变形器，并保持选项窗口的打开状态。 
+			 </li>
+<li class="li" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-3CCF">选择<span class="ph menucascade"><span class="ph uicontrol">“编辑</span> &gt; <span class="ph uicontrol">重置设置”(Edit &gt; Reset Settings)</span></span>以将选项重置为其默认值，并保持选项窗口的打开状态。 
+			 </li>
+<li class="li" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-3258">单击<span class="ph uicontrol" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__GUID-B3C2C436-0751-48FA-9B64-F36B54CD0B69">“创建”(Create)</span>来创建雕刻变形器。选项窗口将关闭。 
+			 </li>
+<li class="li" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-3257">单击<span class="ph uicontrol" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__GUID-C2DEBF46-6475-4463-AB06-007F33527B73">“应用”(Apply)</span>来创建雕刻变形器，并保持选项窗口打开。 
+			 </li>
+<li class="li" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-3254">单击<span class="ph uicontrol" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__GUID-07C77B6D-E4FC-414B-9944-2352BF52C0EF">“关闭”(Close)</span>来关闭该窗口。 
+			 </li>
+</ul>
+ 
+		</li>
+</ol>
+<div class="note attention" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__GUID-83F7EEFF-C87B-4FE9-8E09-8FF9F172A93A"><span class="attentiontitle">注意：</span> 创建变形器之后，请避免更改可变形对象的点（例如，CV、顶点或晶格点）的数量。更改点的数量可能会导致意外的变形效果。请确保在对可变形对象的拓扑满意后再开始使用变形器。保存对象的副本，以备以后需要在其上面进行进一步的建模。 
+	 </div>
+<p class="li listintro" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-3253">将 NURBS 或多边形对象用作雕刻变形器的雕刻工具</p>
+<ol class="ol" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS17956D7ADBC6E73670456B1E117AE30FF04-7FF9"><li class="li" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-3252">选择要变形的对象，然后选择要用作雕刻工具的 NURBS 曲面或多边形网格。 
+		</li>
+<li class="li" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-3251">选择<span class="ph menucascade"><span class="ph uicontrol">“变形</span> &gt; <span class="ph uicontrol">(创建)雕刻”(Deform &gt; (Create) Sculpt)</span> &gt; <span class="ph uicontrol"><img class="image" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__IMAGE_109ED3E93A67460B8FD1B6A85C583A68" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png"></span></span>。 
+		  <p class="p" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-3250">将显示<span class="ph uicontrol" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__GUID-A4923FEE-B349-4DA2-874A-05E04A4E410F">“雕刻选项”(Sculpt Options)</span>窗口。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-324F">启用<span class="ph uicontrol" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__GUID-28E3DE28-9F24-438A-B2E4-96A5D71A3D5E">“使用次 NURBS 或多边形对象”(Use secondary NURBS or Polygon Object)</span>雕刻工具选项。 
+		  <div class="note important" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-324E"><span class="importanttitle">重要：</span> 如果将非凸面闭合对象用作次 NURBS 或多边形雕刻对象，可能会出现异常结果。 
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__WS1A9193826455F5FF6026605B1181C8F4F2E-324D">单击<span class="ph uicontrol" id="GUID-260F55C7-988E-4995-97C9-F7E0AE883551__GUID-E21E87D4-9131-4213-93EA-13E316BE69A5">“创建”(Create)</span>。 
+		</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-8A7188B9-34C1-48B8-B690-5CB0EA36932D.htm">雕刻变形器</a></div>
+</div>
+</div>
+
+</body>
+</html>

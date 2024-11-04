@@ -1,0 +1,359 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_aovs_am_Introduction_to_Light_Path_Expressions_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_INTRODUCTION_TO_LIGHT_PATH_EXPRESSIONS">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 灯光路径表达式简介 - Arnold for Maya">
+
+<title>灯光路径表达式简介</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>灯光路径表达式简介</h1></div>
+<div class="tablenobordernocolor gallery">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/title-beauty.jpg" alt=""></td>
+<td><img src="../images/title-spec.jpg" alt=""></td>
+</tr>
+<tr>
+<td>美景渲染</td>
+<td>镜面反射 LPE AOV</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+<p>在将灯光输出到特定 AOV 时，灯光路径表达式 (LPE) 很有用。LPE 描述灯光在场景中的传输，从光源开始，在对象之间反弹，最后在摄影机处结束。LPE 可用于将 Arnold 中的特定灯光贡献提取到单独的内置或自定义 AOV 中，然后可以在合成软件包中以各种方式输出和重新组合它们。</p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>建议您首先熟悉<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_output_aovs_ac_expression_aovs_html" target="_blank">灯光路径表达式 AOV</a>。</p>
+
+</div></div>
+
+<p><strong>最终场景可以在<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_tutorials_am_Learning_Scenes_html">学习场景</a>页面上找到。</strong></p>
+<h4 id="lpe-aov">内置 LPE AOV</h4><h4 id="aov">自定义 AOV</h4><h4 id="lpe">灯光组和 LPE</h4><h4 id="">自定义着色器</h4><h2 id="lpe-aov">内置 LPE AOV</h2><p>LPE 不是特别方便美工人员使用，因此 Arnold 提供了一系列内置的 LPE AOV。下面是已在此场景中使用的内置灯光路径表达式 AOV 的一些示例。</p>
+
+<div class="tablenobordernocolor gallery thumbnail">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/beauty.jpeg" alt=""></td>
+<td><img src="../images/diffuse_albedo.jpeg" alt=""></td>
+<td><img src="../images/diffuse_direct.jpeg" alt=""></td>
+<td><img src="../images/diffuse_indirect.jpeg" alt=""></td>
+</tr>
+<tr>
+<td>美景：<code>C.*</code></td>
+<td>漫反射反照率：<code>C&lt;RD&gt;A</code></td>
+<td>漫反射直接：<code>C&lt;RD&gt;L</code></td>
+<td>漫反射间接：<code>C&lt;RD&gt;[DSVOB].*</code></td>
+</tr>
+<tr>
+<td><img src="../images/diffuse.jpeg" alt=""></td>
+<td><img src="../images/direct.jpeg" alt=""></td>
+<td><img src="../images/emission.jpeg" alt=""></td>
+<td><img src="../images/indirect.jpeg" alt=""></td>
+</tr>
+<tr>
+<td>漫反射：<code>C&lt;RD&gt;.*</code></td>
+<td>直接：<code>C[DSV]L</code></td>
+<td>自发光：<code>C[LO]</code></td>
+<td>间接：<code>C[DSV/][DSVOB].*</code></td>
+</tr>
+<tr>
+<td><img src="../images/specular_direct.jpeg" alt=""></td>
+<td><img src="../images/specular_indirect.jpeg" alt=""></td>
+<td><img src="../images/specular.jpeg" alt=""></td>
+<td><img src="../images/sss_albedo.jpeg" alt=""></td>
+</tr>
+<tr>
+<td>镜面反射直接：<code>C&lt;RS&gt;L</code></td>
+<td>镜面反射间接：<code>C&lt;RS&gt;[DSVOB]./*</code></td>
+<td>镜面反射：<code>C&lt;RS&gt;.*</code></td>
+<td>SSS 反照率：<code>C&lt;TD&gt;A</code></td>
+</tr>
+<tr>
+<td><img src="../images/sss_direct.jpeg" alt=""></td>
+<td><img src="../images/sss_indirect.jpeg" alt=""></td>
+<td><img src="../images/sss.jpeg" alt=""></td>
+<td><img src="../images/transmission.jpeg" alt=""></td>
+</tr>
+<tr>
+<td>直接：<code>C[DSV]L</code></td>
+<td>间接：<code>C[DSV][DSVOB].*</code></td>
+<td>SSS：<code>C&lt;TD&gt;.*</code></td>
+<td><code>Transmission:</code>C<ts>.*`</ts></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+<p> <img src="../images/am-Introduction_to_Light_Path_Expressions-image2017-9-19-12-7-19-18.png" alt=""></p>
+<p><sub><strong>在 AOV 节点中输入 LPE 'C[T].*L|O' 并在 Arnold 渲染视图中查看的自定义 AOV</strong></sub></p>
+<h2 id="aov">自定义 AOV</h2><p>内置 AOV 适合大多数任务使用。但是，自定义 AOV 可在使用 LPE 时提供更多控制。例如，您可以在渲染场景时选择要使用的 LPE 组合。</p>
+<h4 id="">示例</h4><p>在下面的示例中，<code>C[ST].*[LO]</code> 渲染<em>镜面反射<em>和</em>透射</em> <strong>[ST]</strong>。本例中并未使用<em>漫反射</em> (<strong><code>D</code></strong>)，因此没有渲染背景，因为它只有一个漫反射组件。</p>
+
+<div class="tablenobordernocolor gallery thumbnail">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/diffuse_off.jpeg" alt=""></td>
+<td><img src="../images/diffuse_specular_off.jpeg" alt=""></td>
+</tr>
+<tr>
+<td><code>Transmission: C[T].*[LO]</code></td>
+<td><code>Specular, Transmission: C[ST].*[LO]</code></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+<p>下面是另外一些 LPE 与自定义 AOV 结合使用的示例。</p>
+
+<div class="tablenobordernocolor gallery thumbnail">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/example-direct.jpeg" alt=""></td>
+<td><img src="../images/example-direct_indirect_diffuse.jpeg" alt=""></td>
+</tr>
+<tr>
+<td><code>Diffuse: CD.*L</code></td>
+<td><code>Direct + Specular + Volume Scattering: C[DSV]L</code></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+
+<div class="tablenobordernocolor gallery thumbnail">
+
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/example-emission.jpeg" alt=""></td>
+<td><img src="../images/example-emission_indirect_emission.jpeg" alt=""></td>
+</tr>
+<tr>
+<td><code>Emission + Emission Indirect: C.*O</code></td>
+<td><code>Emission: C[LO]</code></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+<h2 id="lpe">灯光组和 LPE</h2><p>也可以输出逐灯光 AOV。合成 AOV 时，将灯光组与 LPE 组合可以作为一个功能强大的工具。默认情况下，LPE 使用场景中的所有灯光。我们可以使用灯光组限制来自单个或多个灯光的灯光贡献。</p>
+<ul>
+<li><p>在本例中，我们为每个灯光使用了以下 <strong>AOV 灯光组</strong>名称：主灯光（白色）、边缘光 1（洋红色）和边缘光 2（蓝色）。</p>
+</li>
+<li><p>我们将添加一个自定义 AOV，例如使用“RGBA_”作为前缀。因此，蓝色边缘光的灯光组名称为“RGBA_blue”。</p>
+</li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>本示例中使用了 RGBA，但您也可以使用任何其他 [LPE]。</p>
+
+</div></div>
+
+
+<div class="tablenobordernocolor gallery thumbnail">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/RGBA_white.jpeg" alt=""></td>
+<td><img src="../images/RGBA_magenta.jpeg" alt=""></td>
+<td><img src="../images/RGBA_blue.jpeg" alt=""></td>
+</tr>
+<tr>
+<td>主灯光 AOV：RGBA_white</td>
+<td>边缘光 1 AOV：RGBA_magenta</td>
+<td>边缘光 2 AOV：RGBA_blue</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+<ul>
+<li>现在，我们可以使用 &lt;L.'groupname'&gt; 语法，用以下表达式来隔离来自蓝色灯光的镜面反射作用：<code>C&lt;RS&gt;&lt;L.' blue '&gt;.*</code>    </li>
+</ul>
+<p>对于灯光组 AOV，需要使用 &lt;L.&gt; 而不只是 L。</p>
+
+<div class="tablenobordernocolor gallery thumbnail">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Introduction_to_Light_Path_Expressions-image2017-5-5-10-47-20-28.png" alt=""></td>
+</tr>
+<tr>
+<td><sub><strong>来自蓝色边缘光的镜面反射：C<rs>&lt;L.'blue'&gt;.*</rs></strong></sub></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Introduction_to_Light_Path_Expressions-image2017-9-19-12-11-1-29.png" alt=""></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关<strong>逐灯光 AOV</strong> 的详细信息，可以在 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_render_settings_aovs_html">AOV</a> 和<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_am_Lights_html">灯光</a>页面上找到。</p>
+
+</div></div>
+
+<h2 id="">自定义着色器</h2><p>我们可以限制表达式只使用特定的着色器参数。在下面的示例中，<code>C&lt;RS[^'coat']&gt;.*</code> 已用于渲染场景（无涂层）。因此，当<em>“涂层”(Coat)</em>为 1 时，头盔着色器在渲染的图像中不明显。但是，当<em>“涂层”(Coat)</em>小于 1 时，镜面反射 (<strong>RS</strong>) 在头盔中可见。</p>
+
+<div class="tablenobordernocolor gallery thumbnail-250">
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/coat-1.jpg" alt=""></td>
+<td><img src="../images/coat-0.jpeg" alt=""></td>
+</tr>
+<tr>
+<td>当头盔的“涂层”(Coat)值为 1 时，头盔不可见</td>
+<td>仅镜面反射</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_AOV_Tutorials_html.html">AOV 教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

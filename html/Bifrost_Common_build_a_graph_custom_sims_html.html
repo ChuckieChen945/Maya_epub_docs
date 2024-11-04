@@ -1,0 +1,68 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_build_a_graph_custom_sims_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>创建自定义模拟</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>创建自定义模拟</h1></div><p>复合上的反馈端口可用于缓存子图的上次解算结果，并将其用作下一次解算的输入。这是模拟的工作方式，其中上一帧的结果是下一帧的基础。</p>
+<p>反馈端口由复合上一对匹配的输入和输出端口组成，因此输出值将用作下一次复合或整个图表解算的输入。</p>
+
+<div class="callout callout-important">
+<div class="callout-title"><i class="callout-icon fa fa-exclamation-triangle" aria-hidden="true"></i>重要信息：</div>
+<div class="callout-body">
+
+<p>要确保每次推进一帧时都对图表进行解算，它必须具有可更改值的输入。例如，必须有 <code>time</code> 节点或来自主场景的动画输入。</p>
+
+</div></div>
+
+<p>要获取相关工作方式的示例，请查看 <code>simulation_example</code> 复合。它为常规模拟提供了一个模板，您可以根据需要进行编辑和修改。</p>
+<p>在复合上创建一对反馈端口：</p>
+<ol>
+<li>确保复合具有相同类型且匹配的输入和输出端口。请注意，<code>any</code> 端口不受支持。如有必要，请右键单击端口，然后选择<strong>“设置值类型”(Set Value Type)</strong>以设置明确的类型。</li>
+<li>在复合内，右键单击输入或输出端口，选择<strong>“设置反馈端口”(Set Feedback Port)</strong>，然后选择匹配的端口。</li>
+</ol>
+<p>为获得最佳结果，自定义模拟应：</p>
+<ul>
+<li>将模拟重置为其在第一帧处的初始状态。</li>
+<li>确定模拟是否应前进（例如，如果当前帧比最后缓存帧多 1 帧）。</li>
+<li>确定在其他情况下应触发什么操作（例如，如果当前帧不比最后缓存帧多 1 帧，是应该通过上次的结果还是应该重置）。</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/Bifrost_Common_build_a_graph_html.html">构建和修改图表</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F">
+<meta name="language" content="CHS">
+<title>将绑定几何体替换为未绑定的几何体</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>将绑定几何体替换为未绑定的几何体</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F4875515A699EE12A80087827-4A71"><p class="p" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-4BEA"> 可以使用<span class="ph uicontrol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__GUID-FF5AB32C-2C25-4C9E-A005-CF581628A952">“替换几何体”(Substitute Geometry)</span>菜单项将一个未绑定的几何体与角色的绑定几何体交换，并将所有平滑蒙皮权重传递给未绑定的几何体。 
+	 </p>
+<p class="p" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-4BE4"> 
+		<span class="ph uicontrol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__GUID-D01F7E24-72AB-408F-97E0-2E8AE1D1897B">“替换几何体”(Substitute Geometry)</span>（<span class="ph uicontrol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__GUID-54B2FDB1-3191-4266-905F-F9D9DA97828C">“装配”(Rigging)</span>菜单集中的<span class="ph uicontrol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__GUID-4556E525-A417-4DB6-B56F-D6269862E89F">“蒙皮 &gt; 替换几何体”(Skin &gt; Substitute Geometry)</span>）使制作流程中的各种相关人员（如建模人员、技术总监和动画人员）能够同时处理同一角色，而不必多次重新计算角色的蒙皮权重。 
+	 </p>
+<div class="note note" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-4BE2"><span class="notetitle">注：</span>  如果要交换的未绑定几何体是蒙皮（绑定几何体）的副本，则仅当复制时蒙皮的骨架处于其<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-36808BCC-ACF9-4A9E-B0D8-B8F509FEC0D5.htm">绑定姿势</a>的情况下，<span class="ph uicontrol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__GUID-00B3E671-86B7-494E-9B22-73562C4E4D22">“替换几何体”(Substitute Geometry)</span>才会生成有效结果。 
+	 </div>
+<p class="p" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755F2FC9DF120970276F7-5F60">如果未绑定的几何体已冻结变换为与绑定几何体不同的比例和转换，请完成以下步骤来准备几何体以进行替换。 
+	 </p>
+<p class="li listintro" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-4A15">准备冻结变换几何体以进行替换</p>
+<ol class="ol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-4A16"><li class="li" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-4A14">选择骨架，然后选择<span class="ph uicontrol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__GUID-81349FDA-85A8-48DC-B504-3DD8207CF9A7">蒙皮 &gt; 转到绑定姿势(Skin &gt; Go To Bind Pose)</span>。 
+		</li>
+<li class="li" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-4A13">选择未绑定的几何体，将其<span class="ph uicontrol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__GUID-95B88DDA-CBD9-4544-8DF6-632410529E56">“平移”(Translate)</span>和<span class="ph uicontrol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__GUID-1C15098B-FAEB-4DF9-B438-2C333384306B">“旋转 XYZ”(Rotate XYZ)</span>值设置为 0 0 0，并将<span class="ph uicontrol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__GUID-A7416EC0-A523-4F08-8514-9A269FD20484">“缩放 XYZ”(Scale XYZ)</span>值设置为 1 1 1。 
+		  <p class="p" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-4A12">蒙皮和未绑定的几何体现在应该位于 XYZ 空间中大致相同的位置。如果位置不同，请移动未绑定的几何体，以使其在场景视图中显示在蒙皮上方。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-4A11">选择未绑定的几何体，然后选择<span class="ph uicontrol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__GUID-3EDF18FC-4A06-4305-A3F9-97D163527F96">修改 &gt; 冻结变换(Modify &gt; Freeze Transformations)</span>。 
+		  <p class="p" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-4A10">现在可以移动和缩放未绑定的几何体，并且<span class="ph uicontrol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__GUID-20D0A396-A4AB-4F95-9EC3-91E69C17D9A6">“替换几何体”(Substitute Geometry)</span>操作将产生理想的结果。 
+		  </p>
+ 
+		</li>
+</ol>
+<p class="li listintro" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-4A0E">将角色的绑定几何体替换为未绑定的几何体</p>
+<ol class="ol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-4A0F"><li class="li" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-4A0D">选择角色的绑定几何体或蒙皮。 
+		</li>
+<li class="li" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-4A0C"> 
+		   
+		  <img class="image" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__IMAGE_E9F5AF63BEB24D4EB6B770623509DE0A" width="59" height="25" src="../images/GUID-08667A50-F943-4CA7-AF8B-4BF2A40E3297.png"> 键并单击要与选定蒙皮交换的多边形对象。 
+		  <div class="note note" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-4A0B"><span class="notetitle">注：</span>  在<span class="ph uicontrol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__GUID-7359499E-590B-446E-8337-601EC1129DEF">“替换几何体”(Substitute Geometry)</span>操作中，未绑定几何体和绑定几何体不必重叠在一起，但为使操作生成理想的结果，需要在相同的 XYZ 位置并以同样的大小创建未绑定几何体和绑定几何体。 
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-4A07">选择<span class="ph uicontrol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__GUID-3757A70D-8A7B-4E29-B982-3F9D6F0D6D6D">“蒙皮 &gt; 替换几何体”(Skin &gt; Substitute Geometry)</span>（或者，如果要先设置<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-E9069302-F010-41E0-986A-27BF11BB1C57.htm">替换几何体选项</a>，则选择<span class="ph uicontrol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__GUID-5AD5716A-AE72-40BB-9A59-67FDEEDA5535">“蒙皮 &gt; 替换几何体”</span>(Skin &gt; Substitute Geometry) &gt; <img class="image" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__IMAGE_3B0A7B76F4EC45BFACD617747BEBA4F9" width="15" height="14" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png">）。 
+		  <div class="note note" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-4A02"><span class="notetitle">注：</span> 若要取消<span class="ph uicontrol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__GUID-C6CD037B-3B8A-40FD-8FFB-1FEA851F0766">“替换几何体”(Substitute Geometry)</span>操作，请按 <img class="image" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__IMAGE_8A363B7C9F704FE5BBD8C13E6BE6A7EA" width="24" height="25" src="../images/GUID-2A9D6F33-E77A-4D09-9D6F-B574BDC24FC5.png"> 键。 
+			 <p class="p" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-4A01">这会撤消迄今为止执行的所有操作，角色将返回其原始状态。 
+			 </p>
+ 
+		  </div>
+ 
+		  <p class="p" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755F2FC9DF120970276F7-5F5F">选定的未绑定几何体将移动和旋转到角色的绑定几何体的位置。 
+		  </p>
+ 
+		  <p class="p" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755F2FC9DF120970276F7-5F5E">将创建绑定几何体的骨架副本作为未绑定的几何体，并且原始绑定几何体的蒙皮权重会传递到未绑定的几何体。此外，会使用旧蒙皮的名称命名新蒙皮，以维护旧蒙皮的所有连接。 
+		  </p>
+ 
+		  <p class="p" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755F2FC9DF120970276F7-5F5D">默认情况下，将删除原始蒙皮，未绑定的几何体将成为角色的新蒙皮。如果启用了<span class="ph uicontrol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__GUID-366AEA24-4809-44E8-B368-83E1F1A1760A">“替换几何体选项”(Substitute Geometry Options)</span>中的<span class="ph uicontrol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__GUID-62719F30-A361-4201-90EE-38872592D762">保留旧几何体</span>，则会为旧的绑定几何体添加后缀 1。 
+		  </p>
+ 
+		</li>
+</ol>
+<div class="section" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-4A00"><h2 class="title sectiontitle"><span class="ph uicontrol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__GUID-8EB2A0DC-9B27-4234-B66E-BFB7B0326AD1">“替换几何体”(Substitute Geometry)</span>的限制</h2> 
+		 
+		<ul class="ul" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-49FF"><li class="li" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-49FE"> 不允许用户交换多个绑定几何体。 
+		  </li>
+<li class="li" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-49FC">不支持在绑定几何体历史中的蒙皮之后执行建模操作。替换几何体之前，必须移除蒙皮与绑定几何体的形状节点之间的所有建模节点。 
+		  </li>
+<li class="li" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-49FB">不支持细分曲面。 
+		  </li>
+<li class="li" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-49FA">不适用于具有融合变形的曲面。 
+		  </li>
+<li class="li" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__WS73099CC142F48755-7B21313411809411AE9-49F9">新蒙皮上距离原始绑定几何体较远的顶点可能无法正确贴图，还可能需要重新计算权重。可以使用<span class="ph uicontrol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__GUID-151235BB-E432-4A46-AA00-C3A6DC8D65BB">“替换几何体选项”(Substitute Geometry Options)</span>中的<span class="ph uicontrol" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__GUID-F5C2D810-0846-47F4-8238-FF86AAB06A25">“重置权重时使用的距离容差”(Re-weighting Distance Tolerance)</span>选项改进权重计算结果。 
+		  </li>
+</ul>
+ 
+	 </div>
+<div class="section" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__SECTION_9842286743C74377BBA055E6EEFAA5A8"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__UL_4D6F1D02E676437E89FE5C97B496BBF5"><li class="li" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__LI_4262B6582FE041BBAE4529B828876762"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-E9069302-F010-41E0-986A-27BF11BB1C57.htm">替换几何体选项(Substitute Geometry Options)</a> 
+		  </li>
+<li class="li" id="GUID-4142CBB5-90C7-4EEF-898D-138794F4EC6F__LI_6439C81CD3E043239AA572BC051DA57C"> 
+			 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-DA296489-D6E1-4C8E-8D2C-8FC8FEF2887D">重置变换选项(Reset Transformations Options)和冻结变换选项(Freeze Transformations Options)</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-EA1D1658-A32C-4136-8CA6-F7111117DECE.htm">编辑平滑蒙皮</a></div>
+</div>
+</div>
+
+</body>
+</html>

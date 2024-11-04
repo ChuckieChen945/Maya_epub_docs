@@ -1,0 +1,196 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_designviz_am_Automotive_Exterior_Rendering_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_AUTOMOTIVE_EXTERIOR_RENDERING">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 汽车外部渲染 - Arnold for Maya">
+
+<title>汽车外部渲染</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>汽车外部渲染</h1></div><p><img src="../images/automotive-exterior1.png" alt=""></p>
+<p><sub><strong><em>shadow_matte</em> 着色器应用于地板平面</strong></sub>  </p>
+<p>本教程将介绍如何使用外部 HDRI 和背板图像对汽车模型进行照明、着色和渲染。本教程将演示如何使用以下项对汽车模型进行照明：Arnold <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_lights_ac_skydome_light_html" target="_blank"><em>skydome_light</em></a>。介绍如何使用 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_node_ac_car_paint_html" target="_blank">car_paint</a></em> 和 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_node_ac_standard_surface_html" target="_blank">standard_surface</a> 着色器逼真地对汽车模型进行着色。我们还将使用 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_node_ac_shadow_matte_html" target="_blank"><em>shadow_matte</em></a> 着色器将汽车模型合成到摄影背板中。</p>
+<ul>
+<li>要下载汽车模型，请单击<a href="https://grabcad.com/library/lamborghini-aventador-lp700-1" target="_blank">此处</a>。</li>
+<li>要下载 HDRI 和背板图像，请单击<a href="https://duronautomotive.com/acb-free" target="_blank">此处</a>。</li>
+</ul>
+<h2 id="cad">导入 CAD 数据</h2><ul>
+<li>首先，下载 CAD 模型（上面的链接）。</li>
+<li>提取内容并导入此 step 文件：<strong>01-AVENTADOR LP700.SLDPRT</strong>（SolidWorks 零件文件）。</li>
+<li>定位并旋转汽车，使其平放在栅格上，如下图所示。</li>
+</ul>
+
+<div class="callout callout-important">
+<div class="callout-title"><i class="callout-icon fa fa-exclamation-triangle" aria-hidden="true"></i>重要信息：</div>
+<div class="callout-body">
+
+<p><strong></strong>Maya 不支持 .SLDPRT 和 .SLDASM 文件。您可以下载试用版 3ds Max，然后将其导出为 Maya 可以打开的文件，例如 .stp。或者，您可以尝试打开文件 01-AVENTADOR LP700.STEP。但要注意的是，它将以大型 NURBS 数据集方式打开。</p>
+
+</div></div>
+
+<h2 id="">地板平面</h2><ul>
+<li>创建足够大的地板平面以捕捉汽车模型产生的阴影。</li>
+<li>为其指定 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_node_ac_shadow_matte_html" target="_blank"><em>shadow_matte</em></a> 着色器。这将“捕捉”场景内照明产生的阴影，并用于将汽车模型集成到摄影背景背板中。</li>
+</ul>
+<h2 id="">背景（背板）</h2><p>现在，我们要将摄影背板导入 MtoA。</p>
+<ul>
+<li>选择渲染摄影机，在“环境”(Environment)下创建新图像平面，然后在<em>“文件名”(Filename)</em>中打开 <strong>BACKPLATE-L-_NIK2854.TIF</strong>。</li>
+</ul>
+<p><img src="../images/automotive-exterior2.png" alt=""></p>
+<p><sub><strong>BACKPLATE-L-_NIK2854.TIF -&gt; RenderCam -&gt; 图像平面</strong></sub></p>
+<h2 id="">天穹照明</h2><p>为了对场景进行照明，我们将 HDRI 连接到 _skydome_light.color_。</p>
+<ul>
+<li><p>在 <em>Hypershade</em> 窗口中创建一个<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_texture_am_Ai_Image_html">图像</a>着色器，然后在<em>“图像名称”(Image Name)</em>中打开 <strong>DA-STR-MB1-HDR-B-4K-SPEED+96.exr</strong>。</p>
+</li>
+<li><p>将<em>图像</em>着色器拖动到 <em>skydome_light -&gt;*</em>“颜色”(Color)*上。</p>
+</li>
+<li><p>旋转 <em>skydome_light</em>，使其与背板中照明的方向匹配（大约 90 度）。</p>
+</li>
+<li><p>您可能必须将 <em>skydome_light</em> 的 <em>exposure</em> 增加 1 档或 2 档光圈（具体取决于 HDRI）。</p>
+</li>
+<li><p>将灯光采样数增加到 3（<em>skydome_light</em> 的“渲染”(Rendering)选项卡）。</p>
+</li>
+</ul>
+<p>如果您不确定照明的外观，请向场景中添加一个球体，为其指定一个 <em>standard_surface</em> 着色器，并将 <em>metalness</em> 增加到 1。这将为您提供一个镀铬球体，可使用该球体将反射与背板进行匹配。您还可以使用暗灰色着色器创建另一个球体，也可使用该球体来匹配照明。</p>
+<p><img src="../images/automotive-exterior3.png" alt=""></p>
+<p><sub><strong>DA-STR-MB1-HDR-B-4K-SPEED+96.exr -&gt; <em>skydome_light -&gt; 颜色/强度 -&gt; 纹理</em></strong></sub></p>
+<ul>
+<li>将 <em>standard_surface</em> 着色器应用于汽车模型。此“石膏预览”样式渲染将让我们更好地了解照明如何影响场景。</li>
+<li>渲染场景。这时应得到如下图所示的场景。</li>
+</ul>
+<p><img src="../images/white_car.jpg" alt=""></p>
+<h2 id="shadow_matte">屏幕外颜色 (shadow_matte)</h2><p>如果我们靠近看，可以看到地板平面在反射球体中的反射并不完全正确。在镜面反射中可见的某些区域可能会超出背景图版，这些区域称为“屏幕外区域”。<em>shadow_matte.offscreen_color</em> 参数定义用于这些屏幕外区域的颜色，例如，您可以为实例链接一个纹理。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/no-offscreen-color.jpg" alt=""></td>
+<td><img src="../images/offscreen-color.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用 offscreen_color</td>
+<td>使用 offscreen_color（默认值）</td>
+</tr>
+</tbody></table>
+<ul>
+<li>将 HDR 图像连接到 <em>offscreen_color</em>。</li>
+</ul>
+<p><img src="../images/image2020-6-2_13_47_16.png" alt=""></p>
+<p><sub><strong style="text-align: center;"><em>“屏幕外颜色”(Offscreen Color)</em>位于图像平面的 Arnold 属性下。<em>shadow_matte.background</em> 设置为 <em>background_color</em>。</strong></sub></p>
+<h2 id="">着色</h2><p>对照明和环境满意后，现在要开始对汽车进行着色。出于本教程的目的，我们将重点介绍汽车涂料。可以在页面顶部的链接中下载其他汽车材质（挡风玻璃、轮缘、塑料等）。</p>
+<h2 id="">双色调金属汽车涂料</h2><p>现在，我们创建一个双色调 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_node_ac_car_paint_html" target="_blank"><em>car_paint</em></a> 着色器，并将其应用于车身几何体。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/default-car_paint.jpg" alt=""></td>
+<td><img src="../images/two-tone-title.jpg" alt=""></td>
+</tr>
+<tr>
+<td>Base_color：蓝色（使用默认设置）</td>
+<td>双色调 car_paint。Base_color：蓝色，specular_color：紫色。</td>
+</tr>
+</tbody></table>
+<ul>
+<li>打开 <em>Hypershade</em> 窗口，然后创建一个 <em>car_paint</em> 着色器。</li>
+<li>选择车身，并对其应用 <em>car_paint</em>。</li>
+</ul>
+<p>更改以下参数：</p>
+<ul>
+<li>将 <em>base_color</em> 更改为深蓝色。</li>
+<li>将 <em>specular_color</em> 更改为紫色。这是用于调整镜面反射的颜色。此颜色将为基础涂层的镜面反射高光“染色”。</li>
+<li>将 <em>specular_roughness</em> 增加到 0.5 左右。它控制基础涂层的镜面反射的光泽度。值越小，反射越清晰。</li>
+<li>增加 <em>specular_IOR</em> 值将提高涂料的反射质量。在此示例中，使用的值为 10。</li>
+</ul>
+<p><img src="../images/image2020-6-2_13_52_17.png" alt=""></p>
+<p><sub><strong>双色调 <em>car_paint</em> 属性设置</strong></sub></p>
+<h3 id="">前灯</h3><p>现在，我们开始对前灯进行着色。</p>
+<p>渲染玻璃和金属（以及漫反射曲面）时，几何体的法线应朝向正确的方向，这一点非常重要，否则在渲染时可能会得到不正确的结果。从其他 CAD 应用程序导入模型时，如果曲面的法线方向可以反转，这可能会导致出现问题。</p>
+<p>具有许多镜面反射曲面（如前灯）的场景需要较高的 <em>specular_ray_depth</em> 值才能正确显示。<em>specular_ray_depth</em> 定义光线可镜面反射的最大次数。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/specular_ray_depth_2.jpg" alt=""></td>
+<td><img src="../images/specular_ray_depth_6.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><sup><sub><strong><em>左：specular_ray_depth：2（默认值）。</em>右：<em>specular_ray_depth</em>：6。</strong></sub></sup></p>
+<h2 id="">玻璃</h2><ul>
+<li>选择前灯玻璃几何体 (<strong>01-HEADLIGHTS-1-surface14</strong>)，并为其指定 <em>standard_surface</em> 着色器。将其重命名为“headlight_glass”。</li>
+<li>将 <em>transmission_weight</em> 增加到 1。</li>
+</ul>
+<h2 id="">黑色塑料饰边</h2><ul>
+<li>选择黑色塑料饰边几何体 (<strong>01-HEADLIGHTS-1-solid43</strong>)，并为其指定 <em>standard_surface</em> 着色器。将其重命名为“headlight_plastic”。</li>
+<li>将 <em>base_color</em> 更改为黑色。将 <em>coat_weight</em> 增加到 0.1 左右。</li>
+</ul>
+<h2 id="">金属灯具</h2><p>灯泡前面的那块玻璃 (<strong>01-HEADLIGHTS-1-surface12</strong>) 是单面几何体。<em>Thin_walled</em> 非常适用于薄（单面）对象，例如气泡。</p>
+<ul>
+<li>创建另一个 <em>standard_surface</em> 着色器，并将其重命名为“light_glass”。</li>
+<li>将 <em>transmission_weight</em> 增加到 1，并启用 <em>thin_walled</em>（在<em>“几何体”(geometry)</em>下）。</li>
+</ul>
+<p>建议仅将 <em>thin_walled</em> 用于较薄的对象（单面几何体），因为具有厚度的对象可能无法正确渲染。</p>
+<ul>
+<li>为玻璃后面的反射金属对象 (<strong>01-HEADLIGHTS-1-solid42</strong>) 指定 <em>standard_surface</em> 着色器。</li>
+<li>将 <em>metalness</em> 增大到 1。</li>
+</ul>
+<p>就是这样。您已看完本教程。做得不错！我们建议您多花一些时间阅读 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_am_Arnold_for_Maya_User_Guide_html">MtoA 用户手册</a>，该手册中提供了像本教程这样的其他教程。</p>
+<p><img src="../images/blue-nissan-634.jpg" alt=""></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Design_Visualization_Tutorials_html.html">设计可视化教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

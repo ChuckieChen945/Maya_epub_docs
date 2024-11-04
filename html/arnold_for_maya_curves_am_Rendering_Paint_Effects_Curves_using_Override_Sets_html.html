@@ -1,0 +1,130 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_curves_am_Rendering_Paint_Effects_Curves_using_Override_Sets_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_RENDERING_PAINT_EFFECTS_CURVES_USING_OVERRIDE_SETS">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 使用覆盖集渲染 Paint Effects 曲线 - Arnold for Maya">
+
+<title>使用覆盖集渲染 Paint Effects 曲线</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>使用覆盖集渲染 Paint Effects 曲线</h1></div><img src="../images/pfx-curves.jpg" width="600px">
+
+
+<p>本教程介绍如何将 Maya 的 Paint Effects 与 MtoA 的覆盖集结合使用，来渲染复杂的“抽象”曲线场景。我们将使用 Maya 的 Paint Effects 工具创建一些有趣的形状。然后，我们会将结果转化为曲线并使用覆盖集快速轻松地对其进行渲染。下面我们就开始吧。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Curves_html">曲线收集器</a>可更快、更轻松地渲染大量曲线。</p>
+
+</div></div>
+
+<p><strong>要下载对应的场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/Paint-Effects-Curves_Override-Sets.zip" target="_blank">此处</a>。</strong></p>
+<h2 id="paint-effects">Paint Effects 糊状笔刷</h2><ul>
+<li>创建一个新场景。打开<strong>“内容浏览器”(Content Browser)</strong>窗口。</li>
+<li>在左侧“Paint Effects”文件夹列表中，应该有一个名为 <em>funmesh</em> 的文件夹。选择该文件夹。</li>
+</ul>
+<p><img src="../images/am-Rendering_Paint_Effects_Curves_using_Override_Sets-image2016-5-10-9-46-13-2.png" alt=""></p>
+<ul>
+<li>在右侧窗格中，应该有一个名为“gloppy.mel”的笔刷。选择该笔刷并在 Maya 视口中进行绘制，直到获得如下图所示的结果（用于此糊状笔划形状的设置包括 - <em>采样密度(Sample Density)</em>：80；<em>全局比例(Global Scale)</em>：4）。</li>
+</ul>
+<p><img src="../images/am-Rendering_Paint_Effects_Curves_using_Override_Sets-image2016-5-10-10-2-2-3.png" alt=""></p>
+<h2 id="paint-effects">将 Paint Effects 转化为多边形</h2><ul>
+<li>现在，我们要将糊状 Paint Effects 笔刷转化为多边形，以便可以在上面绘制另一个笔刷。选择<em>糊状</em>笔刷，然后转到<em>“修改 &gt; 将 Paint Effects 转化为多边形”(Modify &gt; Convert Paint Effects to Polygons)</em>。</li>
+</ul>
+<p>根据下图，现在您应该会得到糊状 Paint Effects 笔刷的多边形版本：</p>
+<p><img src="../images/am-Rendering_Paint_Effects_Curves_using_Override_Sets-image2016-5-10-10-3-51-4.png" alt=""></p>
+<h2 id="paint-effects">Paint Effects 星系笔刷</h2><ul>
+<li>再次打开<strong>“内容浏览器”(Content Browser)</strong>窗口。这次，选择“Galactic”文件夹，然后在右侧窗格中选择笔刷“galaxy.mel”。我们将在糊状多边形网格上“自动绘制”此笔刷。</li>
+</ul>
+<p><img src="../images/am-Rendering_Paint_Effects_Curves_using_Override_Sets-image2016-5-10-10-4-44-5.png" alt=""></p>
+<ul>
+<li>选择糊状几何体并亮显“galaxy.mel”Paint Effects 笔刷后，打开<em>“Paint Effects &gt; 自动绘制 &gt; 随机绘制”(Paint Effects &gt; Auto Paint &gt; Paint Random)</em>选项窗口。<em>“自动随机绘制”(Auto Paint Random)</em>会将选定的 Paint Effects 笔刷随机应用到选定的几何体，而无需我们手动操作。“U 向跨度数”(Spans U)和“V 向跨度数”(Spans V)确定应用于几何体的笔划数。注意不要将这个数字设置得太高。否则，Maya 可能需要很长时间来计算所有曲线，而最糟糕的情况则是导致内存不足。将<em>“U 向跨度数”(Spans U)和“V 向跨度数”(Spans V)</em>更改为 20。</li>
+</ul>
+<p><img src="../images/am-Rendering_Paint_Effects_Curves_using_Override_Sets-image2016-5-10-10-6-34-6.png" alt=""></p>
+<ul>
+<li>单击“应用”(Apply)。您应该会看到，新的“星系”笔划显示在建模和大纲视图窗口中，如下所示：</li>
+</ul>
+<p><img src="../images/am-Rendering_Paint_Effects_Curves_using_Override_Sets-image2016-5-10-10-10-8-7.png" alt=""></p>
+<h2 id="paint-effects">将 Paint Effects 转化为曲线</h2><ul>
+<li>现在，我们可以将这些 Paint Effects 笔划转化为曲线。要执行此操作，请选择“星系”笔划，然后转到_“修改 &gt; 将 Paint Effects 转化为曲线”(Modify &gt; Convert Paint Effects to Curves)_。经过一些时间的计算后，Maya 应该会将所有“星系”笔划都转化为曲线（您可能会注意到，这些曲线看上去与星系 Paint Effects 笔划相去甚远。不用担心，这正是我们想要的效果！）</li>
+</ul>
+<p><img src="../images/am-Rendering_Paint_Effects_Curves_using_Override_Sets-image2016-5-10-10-10-51-8.png" alt=""></p>
+<ul>
+<li>选择曲线后，为其创建集<em>（“创建 &gt; 集 &gt; 集”(Create &gt; Sets &gt; Set)）</em>。</li>
+</ul>
+<p><img src="../images/am-Rendering_Paint_Effects_Curves_using_Override_Sets-image2016-5-10-10-13-18-9.png" alt=""></p>
+<h2 id="">将曲线添加到集</h2><ul>
+<li>选择该集并打开属性编辑器。单击“Arnold”。这时应看到能够添加或移除_覆盖属性_：</li>
+</ul>
+<p><img src="../images/am-Rendering_Paint_Effects_Curves_using_Override_Sets-image2016-5-10-10-13-43-10.png" alt=""></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>更快、更高效地渲染多条曲线的方法是使用_曲线收集器_。</p>
+
+</div></div>
+
+<p>您可能会注意到，选择曲线集时存在延迟情况。这是因为操作涉及了大量曲线。</p>
+<h2 id="">添加附加属性</h2><ul>
+<li>单击“添加”(Add)。此时应该会显示“添加覆盖属性”(Add Override Attribute)窗口。选择以下属性：</li>
+</ul>
+<ol>
+<li><strong><em>aiRenderCurve</em></strong> - 确定是否渲染曲线。</li>
+<li><strong><em>aiCurveShader</em></strong> - 用于为曲线指定着色器。将 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Hair_html">standard_hair</a></em> 或 <em><a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_surface_am_Standard_Surface_html">standard_surface</a></em> 着色器连接到该属性。</li>
+<li><strong><em>aiCurveWidth</em></strong> - 用于为曲线设置宽度值。选择不小于 0.010 的值以获得一定的厚度，但不要太厚。</li>
+<li><strong><em>aiMode</em></strong> - 用于选择曲线的渲染模式 -<em>“带状”(Ribbon)</em>或<em>“有厚度”(Thick)</em>。选择<em>“有厚度”(Thick)</em>。</li>
+</ol>
+<p><img src="../images/am-Rendering_Paint_Effects_Curves_using_Override_Sets-image2016-5-10-10-14-52-11.png" alt=""></p>
+<p>已添加的“覆盖属性”应显示在集的属性编辑器的<em>“附加属性”(Extra Attributes)</em>下。您可以看到，我们已将着色器连接到<em>“Ai 曲线着色器”(Ai Curve Shader)</em>（在本例中为 <em>standard_surface</em>）。“Ai 曲线宽度”(Ai Curve Width)已设置为 0.01。您可以选择增大或减小该值，具体取决于您的个人喜好（所有示例渲染均使用 0.01）。<em>“Ai 模式”(Ai Mode)</em>已设置为<em>“有厚度”(thick)</em>，这在本例中看起来效果更好，因为它具有圆形横截面。</p>
+<p><img src="../images/am-Rendering_Paint_Effects_Curves_using_Override_Sets-image2016-5-10-10-15-33-12.png" alt=""></p>
+<h2 id="">总结</h2><p>现在可以开始渲染曲线了。下一步是添加一些有趣的照明（如下图中所示的 *<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_texture_am_Physical_Sky_html">physical_sky</a>*），以及摄影机景深。也可以尝试将 Paint Effects“线修改器”添加到“糊状”或“星系”笔划，从而为曲线“设置样式”，使其变成一些更有趣的形状。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/am-Rendering_Tutorials/arnold_for_maya_rendering_am_Rendering_Curves_html.html">渲染曲线</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

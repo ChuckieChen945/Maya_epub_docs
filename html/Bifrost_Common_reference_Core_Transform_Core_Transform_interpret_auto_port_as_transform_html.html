@@ -1,0 +1,67 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Core_Transform_Core_Transform_interpret_auto_port_as_transform_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>interpret_auto_port_as_transform</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>interpret_auto_port_as_transform</code></h1></div><p>将各种输入转化为 <code>double4x4</code> 类型。使用此工具节点可以构建支持多种输入类型的可重用复合，以执行要对变换矩阵执行的任何类型的操作。例如，变换几何体对象的点。 </p>
+<p>若要使用此节点，请将 <code>interpreted_transform_port</code> 连接到复合中 <code>auto</code> 类型的输入，然后使用输出 <code>transform</code> 在复合内执行任何类型的矩阵操作。</p>
+<p>支持以下多种可能的输入类型：</p>
+<ul>
+<li><p>将单个 <code>float4x4</code> 升级为 <code>double4x4</code>。</p>
+</li>
+<li><p>按原样传递单个 <code>double4x4</code>。</p>
+</li>
+<li><p>单个 <code>Transform</code> 返回其 <code>world_matrix</code> 分量。</p>
+</li>
+<li><p><code>array&lt;float4x4&gt;</code> 解释为变换堆栈，并且按顺序缩减并转换为单个 <code>double4x4</code> 变换矩阵。</p>
+</li>
+<li><p><code>array&lt;double4x4&gt;</code> 解释为变换堆栈，并且按顺序缩减为单个 <code>double4x4</code> 变换矩阵。</p>
+</li>
+<li><p><code>array&lt;Transform&gt;</code> 解释为变换堆栈，并且其 <code>world_matrix</code> 分量按顺序缩减为单个 <code>double4x4</code> 变换矩阵。</p>
+</li>
+<li><p><code>object</code> 返回对象的 <code>Transform</code> 类型的 <code>transform</code> 特性。如果 <code>transform</code> 特性不存在，则 <code>valid</code> 为 false，并且 <code>transform</code> 将输出单位矩阵。</p>
+</li>
+</ul>
+<h2 id="">输入</h2><h3 id="interpreted_transform_port"><code>interpreted_transform_port</code></h3><p>将此端口连接到复合的 <code>auto</code> 输入，以支持不同类型的输入。从这个端口创建新端口时，还会向该端口添加解释的自动类型调整。</p>
+<h2 id="">输出</h2><h3 id="transform"><code>transform</code></h3><p>将输入 <code>interpreted_transform_port</code> 转换为 <code>double4x4</code> 变换矩阵的结果。如果结果变换矩阵无效，则此项将输出单位矩阵。</p>
+<h3 id="valid"><code>valid</code></h3><p>输出 <code>transform</code> 是否有效。如果无效，则 <code>transform</code> 将返回单位矩阵。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Core/Bifrost_Common_reference_Core_Transform_html.html">Transform</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

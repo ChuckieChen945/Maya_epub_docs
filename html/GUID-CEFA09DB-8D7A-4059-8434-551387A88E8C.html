@@ -1,0 +1,300 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C">
+<meta name="language" content="CHS">
+<title>法线贴图疑难解答</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>法线贴图疑难解答</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS73099CC142F48755-38A23F5C12A55EE7664-7E88"><div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__SECTION_42D17311AB9749C1990C50F8FD16B99D"><h2 class="title sectiontitle">法线贴图显示时带有接缝或照明不正确</h2> 
+		 
+		<p class="p">将法线贴图添加到已管理颜色的场景时，必须手动将贴图的颜色空间设置为<span class="ph uicontrol">“Raw”</span>。这是因为法线贴图包含标量数据而非颜色数据，因此应当未经过颜色管理。启用颜色管理后，图像文件最初使用由<span class="ph uicontrol">“颜色管理”(Color Management)</span>首选项中的<span class="ph uicontrol">“输入颜色空间规则”(Input Color Space Rules)</span>确定的颜色空间。默认情况下为 sRGB。在相应的<span class="ph uicontrol">“文件</span> 
+		  <span class="ph uicontrol">属性编辑器”(File &gt; Attribute Editor)</span>中，可以将每个法线贴图的<span class="ph uicontrol">“颜色空间”(Color Space)</span>设置为<span class="ph uicontrol">“Raw”</span>。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-A84A137B-CB0B-4BAA-A271-5A3FFF448143">为纹理和其他图像输入指定颜色空间</a>。 
+		</p>
+ 
+		<div class="fig fignone" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__FIG_23504A38D19241BFABAC4CA2F028B059"><img class="image" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__IMAGE_C2C269AE1C614C16BC842CCB9AE6CC1F" src="../images/GUID-D8C13D9C-F966-41AD-84BB-0C414268A367.png"></div>
+ 
+		<p class="p">如果场景中有多个法线贴图，则还可以设置一条规则，使文件名中包含“norm”的所有文件均使用输入颜色空间<span class="ph uicontrol">“Raw”</span>。这样，您只需在法线贴图文件名中使用字母“norm”即可，而不必手动分别设置每个文件节点的颜色空间。请参见<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-631C665F-3092-4B2B-90B7-2A94158870C9">定义颜色空间指定给输入文件的规则</a>。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__SECTION_E81070BBD8CA44F3AA5B8E4F40203C1B"><h2 class="title sectiontitle">使用传递贴图(Transfer Maps)创建的法线贴图</h2> 
+		 
+		<p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-771B"> 以下部分详细介绍有关<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-173D5200-A7E5-4AC5-9B89-14DD66B0F3C6">“传递贴图”(Transfer Maps)</span>编辑器中法线贴图的疑难解答主题。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-487EC09F-D5EB-4EAB-A0FA-0A2865414442.htm">传递贴图</a>。 
+		</p>
+ 
+		 
+		<div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-7713"><h3 class="title sectiontitle">法线贴图的细节丢失或放置错误</h3> 
+		   
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-7712"><h4 class="title sectiontitle">原因</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-7711">您的源曲面具有非零变换并且您在<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-3D0F61C2-68C7-4660-943A-D571CE936F1E">“对象空间”(Object Space)</span>中传递了法线贴图。 
+			 </p>
+ 
+		  </div>
+ 
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-7710"><h4 class="title sectiontitle">解决方案</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-770F">如果源对象和目标对象在场景视图中重叠，请将<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-9B931C1F-43D9-4AEE-A5A6-BD6891DB6C70">“传入”(Transfer In)</span>选项设置为<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-F4C9640A-6BAB-4417-8A42-84AE5B2F60AA">“世界空间”(World Space)</span>，然后再次烘焙贴图。 
+			 </p>
+ 
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-770E">如果源对象和目标对象在场景视图中不重叠并且<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-689A8CF0-7FE0-40AB-9DE6-57BB670C4222">“传入: 对象空间”(Transfer In Object Space)</span>选项不产生任何结果，则移动源对象和目标对象，使它们彼此重叠，冻结其变换（“修改 &gt; 冻结变换”(Modify &gt; Freeze Transformations)），将它们移回到其原始位置，然后再次烘焙贴图。 
+			 </p>
+ 
+		  </div>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-770D"><h3 class="title sectiontitle">贴图已损坏或缺少贴图的某些区域</h3> 
+		   
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-770C"><h4 class="title sectiontitle">原因</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-770B">源对象或目标对象具有重叠 UV。 
+			 </p>
+ 
+		  </div>
+ 
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-770A"><h4 class="title sectiontitle">解决方案</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-7709">确保源对象和目标对象具有清晰、非重叠的 UV，并确保其 UV 位于 0 到 1 UV 范围内。 
+			 </p>
+ 
+		  </div>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-7708"><h3 class="title sectiontitle">我的贴图的截面缺少详细信息或模糊</h3> 
+		   
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-7707"><h4 class="title sectiontitle">原因</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-7706">您的贴图的分辨率和采样质量可能太低，或者您的贴图的受影响区域可能无法占用足够的 UV 空间。 
+			 </p>
+ 
+		  </div>
+ 
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-7705"><h4 class="title sectiontitle">解决方案</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-7704">在<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-54F56451-BA43-48A5-B9F1-37FA069D78EA">“传递贴图”(Transfer Maps)</span>编辑器的<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-AA8A758A-18B5-4000-AEF4-047D78EF161F">“Maya 公用输出”(Maya Common Output)</span>设置中，执行下列操作： 
+			 </p>
+ 
+			 <ul class="ul" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-7703"><li class="li" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-7702">提高贴图的分辨率。<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-27D0B816-34DA-4FF1-B737-86B789471075">“贴图宽度”(Map Width)</span>和<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-E824AB78-AED4-435E-99D3-0CE24D5015B6">“贴图高度”(Map Height)</span>值确定贴图的分辨率。 
+				</li>
+<li class="li" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-7701">提高贴图的<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-542CF028-1F53-40EA-A8D3-23C098EDE1C7">“采样质量”(Sampling Quality)</span>。 
+				</li>
+<li class="li" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-7700">增加贴图的<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-7D2B0072-1E08-4DA1-AC71-C9182E2730D9">“过滤器大小”(Filter Size)</span>。 
+				</li>
+<li class="li" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76FF">在<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-98756469-32FF-41AE-9E30-1CB04A479AA5">“UV 纹理编辑器”(UV Texture Editor)</span>中，增大贴图的受影响区域的 UV 映射覆盖范围。 
+				</li>
+</ul>
+ 
+		  </div>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76FE"><h3 class="title sectiontitle">传递贴图保存到错误的项目</h3> 
+		   
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76FD"><h4 class="title sectiontitle">原因</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76FC">默认情况下，当您选择<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-45376A98-6E91-4AE0-92E7-B83FDA9BC1E3">照明/着色 &gt; 传递贴图(Lighting/Shading &gt; Transfer Maps)</a>时，贴图将始终保存到您当前所在的项目中。 
+			 </p>
+ 
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76FB">即使您设置新项目也是如此。在打开<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-BB101BCC-E32D-406E-811B-FC8F9D99751E">“传递贴图”(Transfer Maps)</span>编辑器并单击其中任意贴图图标以创建传递贴图时，贴图仍设置为上一个项目。 
+			 </p>
+ 
+		  </div>
+ 
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76FA"><h4 class="title sectiontitle">解决方案</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76F9">单击<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-31C8FECA-C198-45FD-86EA-3029146A614D">“移除贴图”(Remove Map)</span>按钮移除传递贴图，并再次单击贴图图标以将该贴图添加到场景中。现在，该贴图将设置为保存到正确的项目文件夹。 
+			 </p>
+ 
+		  </div>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76F8"><h3 class="title sectiontitle">贴图显示像素化或锯齿化</h3> 
+		   
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76F7"><h4 class="title sectiontitle">原因</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76F6">您的贴图的分辨率和采样质量可能太低，或者过滤器大小可能太小。 
+			 </p>
+ 
+		  </div>
+ 
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76F5"><h4 class="title sectiontitle">解决方案</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76F4">在<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-1EBCD9FC-B383-4270-B09D-4ADA706E9B7C">“传递贴图”(Transfer Maps)</span>编辑器的<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-62E1C867-DA01-4AA5-A700-81CF16AB72A3">“Maya 公用输出”(Maya Common Output)</span>设置中，执行下列操作： 
+			 </p>
+ 
+			 <ul class="ul" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76F3"><li class="li" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76F2">提高贴图的分辨率。<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-90515FD6-7C7B-4829-B7A0-8EEB0DF7AF5E">“贴图宽度”(Map Width)</span>和<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-4725D986-F9FB-42FF-8B70-46F70B5994A0">“贴图高度”(Map Height)</span>值确定贴图的分辨率。 
+				</li>
+<li class="li" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76F1">提高贴图的<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-1633A0B2-A1D4-4663-AADD-5C3B495784FD">“采样质量”(Sampling Quality)</span>。 
+				</li>
+<li class="li" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76F0">增加贴图的<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-A56822B9-5F2E-4CFF-B862-BB6040C97B6F">“过滤器大小”(Filter Size)</span>。 
+				</li>
+</ul>
+ 
+		  </div>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76EF"><h3 class="title sectiontitle">我的贴图缺少截面</h3> 
+		   
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76EE"><h4 class="title sectiontitle">原因</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76ED">缺少的贴图区域超过最大搜索深度或由<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-105FA905-3922-4AF4-AA75-CDDEF561E4BD">“搜索封套”(Search Envelope)</span>排除。 
+			 </p>
+ 
+		  </div>
+ 
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76EC"><h4 class="title sectiontitle">解决方案</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76EB">在<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-2056EB9C-32F9-48A5-A606-306E56777B8D">“传递贴图”(Transfer Maps)</span>编辑器的<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-EE265FC6-FAFC-4C9B-BBDB-A1C3A4CE8612">“输出”(Output)</span>设置中，增加最大搜索深度或更改<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-009A2F7E-1E52-4AD2-99DE-A8533A8B83CC">“搜索方法”(Search Method)</span>。 
+			 </p>
+ 
+		  </div>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76EA"><h3 class="title sectiontitle">源曲面细节显示在我的目标曲面的错误一侧</h3> 
+		   
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76E9"><h4 class="title sectiontitle">原因</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76E8">当贴图的最大搜索深度过大时，曲面细节会从源对象的一侧投影到贴图的相反一侧或错误一侧。 
+			 </p>
+ 
+		  </div>
+ 
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76E7"><h4 class="title sectiontitle">解决方案</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76E6">在<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-D5CE31FC-EC5C-4AFC-B4D2-D3E0837EFE0A">“传递贴图”(Transfer Maps)</span>编辑器的<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-3B104F8D-39D8-4E18-B9F9-7BAD5CE1D1E8">“输出”(Output)</span>设置中，减小<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-84AE4127-9DB2-448B-8BF6-99A64510DD69">“最大搜索深度”(Max Search Depth)</span>。 
+			 </p>
+ 
+		  </div>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76E5"><h3 class="title sectiontitle">Maya 在烘焙贴图时耗尽内存</h3> 
+		   
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76E4"><h4 class="title sectiontitle">原因</h4> 
+			  
+			 <ul class="ul" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76E3"><li class="li" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76E2">您没有足够的 RAM。 
+				</li>
+<li class="li" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76E1">Maya 没有足够的内存来为大型模型和贴图完成烘焙操作。 
+				</li>
+</ul>
+ 
+		  </div>
+ 
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76E0"><h4 class="title sectiontitle">解决方案</h4> 
+			  
+			 <ul class="ul" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76DF"><li class="li" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76DE">一次仅烘焙一个输出。 
+				</li>
+<li class="li" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76DD">仅将源网格和目标网格加载到场景中。 
+				</li>
+<li class="li" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76DC">对于高分辨率的对象，以线框着色模式显示它们。 
+				</li>
+</ul>
+ 
+		  </div>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76DB"><h3 class="title sectiontitle">当源包含多个层时，贴图缺少曲面细节</h3> 
+		   
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76DA"><h4 class="title sectiontitle">原因</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76D9">您的<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-4C3C273E-FB8E-4CE2-AF2B-4A6505B99D19">“搜索方法”(Search method)</span>无法包括所有源网格的曲面细节，或者<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-3061DE1D-6B7C-4297-8FB6-31241EC7925E">“最大搜索深度”(Max Search Depth)</span>可能太低，无法包括源几何体的所有层。 
+			 </p>
+ 
+		  </div>
+ 
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76D8"><h4 class="title sectiontitle">解决方案</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76D7">增加<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-8D9F58EF-60A5-4964-915E-D5CCCD498BE2">“搜索方法”(Search method)</span>和<span class="ph uicontrol" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__GUID-7EA62ADF-1B60-4CC0-95BA-391B22C897BD">“最大搜索深度”(Max Search Depth)</span>，使其包含缺少的细节。 
+			 </p>
+ 
+		  </div>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76D6"><h3 class="title sectiontitle">在创建传递贴图时接缝沿 UV 边界显示的疑难解答</h3> 
+		   
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76D5"><h4 class="title sectiontitle">原因</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76D4">UV 壳之间没有足够的空间。 
+			 </p>
+ 
+		  </div>
+ 
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76D3"><h4 class="title sectiontitle">解决方案</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76D2">确保所有 UV 壳之间以及每个 UV 壳与纹理的边之间至少有几个像素。在创建法线贴图时最有可能出现此问题。 
+			 </p>
+ 
+		  </div>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76D1"><h3 class="title sectiontitle">法线贴图中出现扭曲疑难解答</h3> 
+		   
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76D0"><h4 class="title sectiontitle">原因 1</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76CF">目标曲面大于源曲面。 
+			 </p>
+ 
+		  </div>
+ 
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76CE"><h4 class="title sectiontitle">解决方案</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76CD">确保目标曲面小于（建议）源曲面或与源曲面大小相同。 
+			 </p>
+ 
+		  </div>
+ 
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76CC"><h4 class="title sectiontitle">原因 2</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76CB">几何体包括非常长的多边形。 
+			 </p>
+ 
+			 <div class="fig fignone" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76CA"><img class="image" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__IMAGE_1CF69C90834C4A83BA4EB67AFFE24241" width="423" height="314" src="../images/GUID-757970B0-113A-4B05-AC88-3B4D1A330A07.png"></div>
+ 
+		  </div>
+ 
+		  <div class="section" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76C9"><h4 class="title sectiontitle">解决方案</h4> 
+			  
+			 <p class="p" id="GUID-CEFA09DB-8D7A-4059-8434-551387A88E8C__WS73099CC142F48755-3D114B7511812357EFE-76C8">通过沿多边形添加其他细分来移除非常长的多边形，或在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-45376A98-6E91-4AE0-92E7-B83FDA9BC1E3">照明/着色 &gt; 传递贴图(Lighting/Shading &gt; Transfer Maps)</a>的<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-45376A98-6E91-4AE0-92E7-B83FDA9BC1E3#WS17956D7ADBC6E736427CAAB117AE33EDE2-7FE6">高级选项(Advanced Options)</a>部分中选择“使用以下对象匹配: 曲面法线”选项。 
+			 </p>
+ 
+		  </div>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-A1803564-B9B5-4CE1-99C7-9BD0424C14F3.htm">与 Maya 材质和纹理有关的疑难解答</a></div>
+</div>
+</div>
+
+</body>
+</html>

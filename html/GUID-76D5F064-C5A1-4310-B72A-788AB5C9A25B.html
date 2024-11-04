@@ -1,0 +1,156 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Modeling">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B">
+<meta name="language" content="CHS">
+<title>在网格之间传递属性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>在网格之间传递属性</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-75AB">若要在具有不同拓扑的网格（即，每个网格上顶点的数量、排列和连接不同）之间传递 UV、逐顶点颜色 (CPV) 和顶点位置信息，请使用<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-86661397-F099-491F-AED0-683BA4841C13">“传递属性”(Transfer Attributes)</span>功能。 
+	 </p>
+<p class="p" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-75AA"> 
+		<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-FD782485-34E3-41E7-AB0F-B26357BCCB71">“传递属性”(Transfer Attributes)</span>通过对源网格上的顶点信息进行采样来传递顶点数据，然后根据基于空间的比较将信息传递给指定的目标网格。从而实现对目标网格的修改。 
+	 </p>
+<p class="p" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-75A9">使用<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-C42A238F-DB33-427D-867D-E4146A94BBCE">“传递属性”(Transfer Attributes)</span>传输顶点属性非常适用于以下情况： 
+	 </p>
+<ul class="ul" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-75A8"><li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-75A7">将完成的 UV 布局（包括多个 UV 集）从一个曲面网格传递到另一个没有现有 UV 的网格。 
+		</li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-75A6">将 UV 布局从高分辨率模型传递到低分辨率版本。 
+		  <div class="fig fignone" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS1A9193826455F5FF-156C9AA7119D8906FDE-5439"><img class="image" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__IMAGE_BD8C8C6E9B4B459482221CE2F0C70A02" width="459" height="187" src="../images/GUID-DE8FB523-CE9D-4EA6-8C8B-333BDC3F2DA6.png"></div>
+ 
+		  <div class="fig fignone" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS1A9193826455F5FF-156C9AA7119D8906FDE-5438"><img class="image" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__IMAGE_4BAE3E0F92594361BDA62AB8FE5536DB" width="349" height="193" src="../images/GUID-10F8E801-AF2D-4BB5-985C-7E074AD890C5.png"></div>
+ 
+		  <div class="fig fignone" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS1A9193826455F5FF-156C9AA7119D8906FDE-5437"><img class="image" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__IMAGE_11784CBBB3674ADDAEBCB77747D065FA" width="458" height="164" src="../images/GUID-19B0CAE7-2434-4CE6-9273-246A56C962D1.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-75A5">将逐顶点颜色 (CPV) 数据（包括多个颜色集）从高分辨率模型传递到低分辨率版本。 
+		</li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-75A4">在低分辨率曲面网格上修改顶点位置以匹配高分辨率版本上的位置。 
+		</li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-75A3">将顶点信息从曲面网格的某一半镜像到另一半。例如，通过采样网格某一半的属性信息并将数据传递给网格相反的一半，可以确保网格上的 UV、顶点和颜色信息对称。 
+		  <div class="note note" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-75A2"><span class="notetitle">注：</span>  
+			 <p class="p" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-488B4B66-5A93-4127-A8EA-9DC986A391DC">根据需求，您可以将<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-948E0713-84C2-4DAD-95B2-640E65A81013">“传递属性”(Transfer Attributes)</span>功能设定为单独或一次性传递 UV 集、CPV 颜色集和顶点位置。 
+			 </p>
+ 
+		  </div>
+ 
+		</li>
+</ul>
+<p class="p" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-75A1">虽然源和目标网格可以在拓扑上有很大不同，但是因为采样的性质和发生的传递过程，默认传递设置要求将对象放置在空间中的相同位置。 
+	 </p>
+<p class="p" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-75A0">您也可以使用<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-180AC78B-45D6-4464-B125-DED9B847C496">“传递属性”(Transfer Attributes)</span>翻转 UV 壳在<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-69D35E0B-A2C8-438A-BDE2-4EF366FC0A07">“UV 纹理编辑器”(UV Texture Editor)</span>中显示时 UV 壳的方向。这样可以简化 UV 布局和纹理工作流。 
+	 </p>
+<p class="li listintro" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-759F"> 在单独网格之间传递属性</p>
+<ol class="ol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS17956D7ADBC6E736-3FD2C632117AE334C62-7FF7"><li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-759D">在场景视图中，移动源和目标网格，使它们按属性传递所需的方式定位和定向。确保按先后顺序选定源网格和目标网格。 
+		  <div class="note note" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-759C"><span class="notetitle">注：</span> 选择的顺序很重要。最后选定的对象将始终被认为是传递操作的目标。 
+			 <p class="p" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-759B">必须在对象模式下选择源网格；对于目标网格，可以在对象模式下选择，也可以通过选择目标网格上待修改区域中的各个顶点来进行选择。 
+			 </p>
+ 
+			 <p class="p" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-759A">如果在场景视图中难以选择源网格或目标网格，则将网格显示更改为线框模式或通过使用<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-4B9A9A3A-83C5-445A-95D5-64104BC47406"><span class="ph uicontrol">大纲视图</span></a>来选择这两者。 
+			 </p>
+ 
+		  </div>
+ 
+		</li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-7599">选择<span class="ph menucascade" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-D7ADB008-8A86-4124-AD59-8884495714AC"><span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-DCDCB406-19AC-4B4D-913C-36D3C649326B">“网格</span> &gt; <span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-B1288108-E3A4-4F54-B07B-2B7A64A6731E">传递属性”(Mesh &gt; Transfer Attributes)</span> &gt; <span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-628BFBE1-A529-4538-92EA-E18CFA71E60F"> 
+				<img class="image" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__IMAGE_99AB7F8E23EE4B5CABC0481AC93C2083" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png"> 
+			 </span></span>。在<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-5E9D3489-6CFF-41E8-99A2-D364C7BF2422.htm">传递属性选项(Transfer Attributes Options)</a>窗口中，指定<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-8B0C8DE3-38AD-44EF-8D4C-901F3496D2C3">“要传递的属性”(Attributes to Transfer)</span>，如下所示： 
+		  <ul class="ul" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-7598"><li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-7597">如果要传递源网格上的顶点信息并修改目标网格上的顶点以进行匹配，请将<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-74FCCEE2-E4A1-4ECF-8988-58B657FB226C">“顶点位置”(Vertex position)</span>设定为<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-1675AD2E-DC97-45FA-B49F-32CE62176F9E">“启用”(On)</span>。默认设置为<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-86E745F8-E3BD-4DC3-8593-F78444767BE3">“禁用”(Off)</span>。 
+			 </li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-7596">如果要对源网格的所有 UV 进行采样并传递到目标网格，则将<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-3373610C-7BF0-43FB-8FBC-57054A16B3F5">“UV 集”(UV sets)</span>设定为<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-5BF2FCCA-9E89-4A02-85CC-3BAC809329F9">“全部”(All)</span>。如果存在多个 UV 集，<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-6BCF83C7-6EAD-4830-8771-E6A5FE9743AA">“全部”(All)</span>设置可确保对所有这些集进行采样并传递到目标网格。如果源网格具有多个 UV 集，您可以通过选择<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-BF587F3E-E52B-4BA4-B5A1-C07D1241CE46">“当前”(Current)</span>选项，选择性传递当前活动 UV 集。默认设置为<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-C5B784E9-B8F4-444D-98BD-BB67234D3934">“全部”(All)</span>。 
+			 </li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-7595">如果希望对源网格的全部 CPV 数据进行采样并将这些数据传递到目标网格，请将<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-ACE84D75-0885-41EC-85BF-6A497E5F5D7C">“颜色集”(Color sets)</span>设定为<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-419D31A4-2736-4274-9D50-466DAC300EAE">“全部”(All)</span>。如果存在多个颜色集，<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-0CC04369-0A59-49C3-821C-8230D0096342">“全部”(All)</span>设置可确保对所有这些集进行采样，并将这些集传递到目标网格。如果源网格具有多个 CPV 集，您可以通过选择<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-5A4F61C6-0CC1-44EF-80F0-A58CFC200095">“当前”(Current)</span>设置，选择性传递当前活动颜色集。默认设置为<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-412E0870-EDB9-4E0A-93AC-F2C2886466A4">“全部”(All)</span>。 
+			 </li>
+</ul>
+ 
+		</li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-7594">通过按以下方式设定<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-0A16FD79-CBBE-4C12-B94B-67A9197A0CE1">“采样空间”(Sample space)</span>设置，指定希望的采样发生方式： 
+		  <ul class="ul" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-7593"><li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-7592">使用<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-8703E996-C920-41A7-A82C-9875BE235B1C">“世界”(World)</span>设置可以在世界空间中进行采样。这应该用于大多数的属性传递操作。这是默认设置。 
+			 </li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-7591">如果对象有相同的大小和形状，但可能已在场景中转换、旋转或缩放（例如，在不同位置有两张椅子），则使用<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-90B307AE-5252-4158-9563-A62C9C8BC621">“局部”(Local)</span>设置。如果要并列比较源网格和目标网格，则使用<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-DE76AB62-38E7-4FA2-80E3-F6753B52C548">“局部”(Local)</span>设置。 
+			 </li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-7590">如果源网格和目标网格之间不存在有用的相关性，则使用<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-8363D01C-A1D8-4F17-8A5F-A46B43560C83">“UV”</span>设置在 UV 空间中对属性采样。例如，如果网格的比例迥异或者在不同比例下构建，但是网格在 UV 空间中共享一个公用贴图。例如，如果巨人和矮人模型面的 UV 映射在 UV 纹理空间中处于相同位置，则巨人和矮人模型可以基于它们的 UV 纹理坐标而相关。 
+				<div class="note note" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-758F"><span class="notetitle">注：</span>  使用<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-CDB7A8BF-3A91-4C9E-B15B-2B4F838A9743">“UV”</span>设置来确定属性传递的发生方式与在模型之间物理传递 UV 数据非常不同。传递 UV 属性通常使用<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-2B4D46E9-FA4F-4D1B-A8AD-7A6F48C2F16D">“世界”(World)</span>或<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-20ACCE67-12E7-47DE-9D78-AA840D71859A">“局部”(Local)</span>空间设置完成。 
+				</div>
+ 
+			 </li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS1A9193826455F5FF-7F10494411F03A24F24380C">使用<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-17B566F1-C0DE-40A1-9C42-C6AD7838B692">“组件”(Component)</span>设置可以通过组件的 ID 将属性直接从一个组件传递到另一个组件。若要使用该设置，两个对象必须具有相同数量的顶点、面和边，并且两个对象上这些组件之间的关系必须相同。例如，如果要将 UV 纹理贴图从一个头部传递到相同头部的拉伸版本，则使用该设置。 
+			 </li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS1A9193826455F5FF-7F10494411F03A24F24380D">使用<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-C83FFDF8-DB7C-41E6-A744-89EA300469F7">“拓扑”(Topology)</span>设置可以在对象的拓扑相同而组件 ID 不同时将属性直接从一个组件传递到另一个组件。例如，Maya 中的某些选项可能会重新排列模型上的顶点顺序。该选项允许您通过匹配的拓扑而不是不匹配的顶点顺序，传递原始网格的纹理贴图。 
+			 </li>
+</ul>
+ 
+		</li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-758E">基于其他指定要求，设定其余选项： 
+		  <ul class="ul" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-758D"><li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-758C">如果希望属性传递跨定义的轴（<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-C275D65A-B005-4543-B38A-36B5CD523BD6">“X”</span>、<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-84D81991-0DA9-42F1-904E-99A6B03C5FB1">“Y”</span>、<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-08B21EED-9690-41E0-A177-74CA8C4B0DE9">“Z”</span>）发生，请设定<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-D56B6E8C-CA1B-4F52-B7C7-65D2A2F985F7">“镜像”(Mirroring)</span>选项。请确保已选定沿着镜像边界的顶点。如果源采样和目标传递发生在相同的网格上，必须设定镜像轴。默认设置为<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-81757CC3-1208-44F8-A54D-4704148EC1E1">“禁用”(Off)</span>。 
+			 </li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-758B">如果要对 UV 进行采样，并且希望传递的 UV 壳在出现在 UV 纹理编辑器中时沿<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-AAC37B1B-A636-407A-BAB9-57EA4DD23A0C">“U”</span>或<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-6D5C2AA2-F9F6-4D53-AE68-1D762B61D099">“V”</span>轴翻转，请设定<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-CB42A0ED-0D3E-4538-A624-25071CB34A4F">“翻转 UV”(Flip UVs)</span>选项。如果要在相同曲面网格上对 UV 进行镜像操作，则该选项将非常有用。默认设置为<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-E8A47845-1FFA-426A-B7C0-24A2C72BF916">“禁用”(Off)</span>。 
+			 </li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-758A">如果希望源网格中的硬颜色边在将 CPV 数据传递到目标网格时保持不变，请将<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-74ADA661-4AB3-4BEA-85A4-0F8CB60C53C7">“颜色边界”(Color borders)</span>设定为<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-FDC79B38-D109-4845-86AB-E40210DE7A1A">“保留”(Preserve)</span>。否则，如果曲面拓扑非常不同，可以将<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-96386810-DDF8-461C-BC91-2A5579BF77C7">“颜色边界”(Color borders)</span>选项设定为<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-87520BA4-74F7-4641-BC6D-D770731A3611">“忽略”(Ignore)</span>。默认设置为<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-2EFE2E4B-0E27-4949-B7D5-5EE848297156">“保留”(Preserve)</span>。 
+			 </li>
+</ul>
+ 
+		</li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-7589">单击<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-60C7122C-30AD-46EF-90F2-AD250251F59D">“传递”(Transfer)</span>传递属性并关闭选项窗口，或者单击<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-6E4F8F8D-D29E-4ED4-AD8B-DD1AD0B8B1FD">“应用”(Apply)</span>传递属性并保留窗口。 
+		</li>
+</ol>
+<p class="li listintro" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-7587"> 在相同曲面网格上镜像顶点属性</p>
+<ol class="ol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-7588"><li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-7585">在场景视图中，选择曲面网格上的要通过<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-2F01B94E-D053-476B-A51A-70578077669C">“传递属性”(Transfer Attribute)</span>功能修改的组件（即，面、顶点或边）。 
+		  <p class="p" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-7584"><span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-10DB9EA6-3609-49AD-A9D9-17ED434B4A9B">“传递属性”(Transfer Attributes)</span>功能将绕指定的镜像轴对曲面采样并将新的值指定给选定组件。所有未选定组件都将保留其原始属性值。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-7583">选择<span class="ph menucascade" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-4F6DDC36-65DB-42B3-8A50-5429C9FA478F"><span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-5A34ACFD-5FA1-481F-9770-24D3070F73E6">“网格</span> &gt; <span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-3B545EC1-2CDA-4823-A16E-998A88DDDE02">传递属性”(Mesh &gt; Transfer Attributes)</span> &gt; <span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-D9A9EA0C-EFD6-47BE-A97D-7890B386A274"> 
+				<img class="image" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__IMAGE_404B7F05CF5B4E8E922B9CC575E4C9A0" width="16" height="15" src="../images/GUID-96432FB8-EBE9-4D1A-8DED-5173E032EBC0.png"> 
+			 </span></span>。 
+		</li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-7582">根据工作流，按如下方式设定<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-88BD965B-D686-4C5A-9577-4AC5FC29B027">“传递属性”(Transfer Attributes)</span>： 
+		  <ul class="ul" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-7581"><li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-7580">指定要传递的属性（<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-CE6E33B7-CFC2-46A4-956E-4DE05CDA4B25">“顶点位置”(Vertex Position)</span>、<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-9E51C7A8-1180-4E1E-87FB-A34A57554FB8">“UV 集”(UV Sets)</span>、<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-3E1D09E1-001D-4CBF-B30D-59E716B7D083">“颜色集”(Color Sets)</span>） 
+			 </li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-757F">指定属性镜像操作所围绕的轴。例如，如果要基于所选内容，围绕 X 轴对属性进行镜像操作，则将<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-F6C43FC6-EEED-4A85-95F0-F06E2E2A75D4">“镜像”(Mirroring)</span>设定为<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-9BE2E2FF-3044-426A-8844-80C30064CF28">“X”</span>。 
+			 </li>
+</ul>
+ 
+		</li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-757D">单击<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-0999C3F5-A875-4543-A05F-B19527CD67D6">“传递”(Transfer)</span>传递属性并关闭选项窗口，或者单击<span class="ph uicontrol" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__GUID-C9DDB0C4-25D3-44D6-A697-9D4025B04A0B">“应用”(Apply)</span>传递属性并保持窗口处于打开状态。 
+		</li>
+</ol>
+<div class="section" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-757C"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-757B"><li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__WS73099CC142F48755-7B21313411809411AE9-7579"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-BEB29BE8-E961-4DB3-B3EE-18ECE05F28EA.htm">在网格之间传递 UV</a> 
+		  </li>
+<li class="li" id="GUID-76D5F064-C5A1-4310-B72A-788AB5C9A25B__LI_F1523E8038D8401BB07508CFB16BF010"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-5E9D3489-6CFF-41E8-99A2-D364C7BF2422.htm">传递属性选项(Transfer Attributes Options)</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-470EF73D-C9E1-4290-AD57-4A20620FCE74.htm">修改多边形网格</a></div>
+</div>
+</div>
+
+</body>
+</html>

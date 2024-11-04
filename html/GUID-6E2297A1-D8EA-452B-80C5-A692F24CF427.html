@@ -1,0 +1,138 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427">
+<meta name="language" content="CHS">
+<title>目标约束</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>目标约束</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF-56C0CD8012A8003217A-1EED"><p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45E6">目标约束可约束某个对象的方向，以使该对象对准其他对象。目标约束的典型使用包括使灯光或摄影机对准某个对象或一组对象。在角色设置中，目标约束的典型使用是设置用于控制眼球转动的定位器。
+	 </p>
+<p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45E5">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-B11F4068-A929-418A-B1F0-C994B37AC9A2.htm">“创建目标约束”(Create aim constraints)</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-D4769D95-EC0E-4C94-AF60-8EB3FC4305E4.htm">“约束 &gt; 目标”(Constrain &gt; Aim)</a>。
+	 </p>
+<div class="fig fignone" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45E4"><img class="image" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__IMAGE_7403076AA5954426AFBC3276049A79E0" width="227" height="137" src="../images/GUID-3DA6BF4B-25CC-4356-8C18-8C2FBB063E23.png"></div>
+<div class="section" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS17956D7ADBC6E736-3392E17117AE30CC4B-7FF9"><h2 class="title sectiontitle">目标约束的受约束对象的方向</h2> 
+		 
+		<p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45E3">受约束对象的方向由三个向量控制：目标向量、上方向向量和世界上方向向量。这些向量不会显示在工作区中，但可以推断它们对受约束对象的方向产生的效果。
+		</p>
+ 
+		<p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45E2">无需为了有效地使用约束而了解这些向量如何工作的详细信息。如果不熟悉约束，则可以跳过本节的其余部分。但是，如果要对目标约束进行较高程度的控制，将需要使用这些向量。此外，熟悉这些向量可帮助您了解受约束对象如何才能突然侧滚。
+		</p>
+ 
+		<div class="note note" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45E1"><span class="notetitle">注：</span>  
+		  如果 aimVector 和 upVector 共线或者<span class="ph uicontrol" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__GUID-18783FDB-3663-451E-819F-A4344C6D97CC">“worldUpType”</span>为<span class="ph uicontrol" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__GUID-5000D5BB-4403-4F7E-A28B-E350679B867B">“无”(None)</span>，则<span class="ph uicontrol" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__GUID-A0C2ED79-1B7D-47BF-B751-62C0C13C862C">“目标”(Aim)</span>约束可能存在更新问题。
+		  <p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45E0">这些约束的工作方式是旋转对象，以使 aimVector 指向所需的方向。然后，围绕 aimVector 扭曲对象，以便 upVector 的指向尽可能接近 worldUpVector。
+		  </p>
+
+		  <p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45DF">如果 aimVector 和 upVector 指向同一方向，那么不可能进行此处的第二个旋转。无论对象如何围绕 aimVector 旋转，upVector 都不会更加靠近 worldUpVector。
+		  </p>
+
+		  <p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45DE">这可能会是一个很有用的效果，因为它允许受约束对象指向任何方向而从不翻转。它的旋转量最小，以便 aimVector 瞄准对象，然后它将停止。但是，它会从当前的位置旋转，因此，如果每次不对相同的帧序列求值，则得不到相同的答案。这会对渲染造成影响，因此最好避免该情形。
+		  </p>
+
+		</div>
+ 
+		<div class="section" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45DD"><h3 class="title sectiontitle">目标向量</h3> 
+		   
+		  <p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45DC"> 目标向量约束受约束对象以使其始终指向目标点。目标向量在受约束对象的枢轴点开始，并且始终指向目标点。
+		  </p>
+ 
+		  <p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45DA">对象如何旋转以指向目标点取决于相对于该对象的局部空间定义目标向量的方式。例如，默认情况下，对目标向量进行定义，以使其指向与局部旋转正 X 轴相同的方向。因此，默认情况下，受约束对象的局部旋转正 X 轴将指向目标点。
+		  </p>
+ 
+		  <p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45D9">目标向量自身无法完全约束对象，因为目标向量并不控制对象可能会围绕目标向量旋转的方式。围绕目标向量的对象的方向是由上方向向量和世界上方向向量所控制的。
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45D8"><h3 class="title sectiontitle">上方向向量和世界上方向向量</h3> 
+		   
+		  <p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45D7"> 上方向向量控制围绕目标向量的受约束对象的方向。与目标向量类似，上方向向量也是相对于受约束对象的局部空间定义的。默认情况下，上方向向量尝试指向与世界上方向向量相同的方向，世界上方向向量是相对于场景的世界空间定义的。上方向向量通过尝试将它自身尽可能与世界上方向向量对齐，确定围绕目标向量的受约束对象的方向。
+		  </p>
+ 
+		  <p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45D5">在移动目标对象时，受约束对象的目标向量会移动以指向目标点，并相应地确定受约束对象的方向。同时，受约束对象将按照上方向向量的定向自行确定绕目标向量的方向。 
+		  </p>
+ 
+		  <p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45D4">例如，默认情况下，对上方向向量进行定义，以使其指向与局部旋转正 Y 轴相同的方向。受约束对象的局部正 X 轴将按照默认目标向量的定向指向目标点。同时，该对象的局部正 Y 轴将尝试按照该对象的上方向向量的定向指向与世界上方向向量相同的方向。目标向量与上方向向量一起使用可约束受约束对象的方向。
+		  </p>
+ 
+		  <p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45D3"> 默认情况下，上方向向量将尝试保持尽可能与世界上方向向量紧密对齐。但是，可以使用各种方法控制世界上方向向量的作用。例如，可以相对于某个其他对象的局部空间定义世界上方向向量，而不是相对于工作区的世界空间定义它（默认设置）。这样的对象称为世界上方向对象。
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS17956D7ADBC6E736-3392E17117AE30CC4B-7FF8"><h3 class="title sectiontitle">翻滚效果</h3> 
+		   
+		  <p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45D1"> 某些情况下，受约束对象可以快速围绕其目标向量旋转。为了理解为什么出现该情况，需要了解目标向量、上方向向量和世界上方向向量的工作方式。如果不熟悉约束，则可以跳过本节。有关详细信息，请参见上一节<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427.htm#GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS17956D7ADBC6E736-3392E17117AE30CC4B-7FF9">目标约束的受约束对象的方向</a>。
+		  </p>
+ 
+		  <p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45CF">随着目标向量越来越接近指向与上方向向量相同的方向或相反的方向，受约束对象围绕目标向量旋转得更快。如果目标向量恰好指向相同的方向，或恰好指向相反的方向，则受约束对象可能会突然围绕目标向量旋转 180 度。
+		  </p>
+ 
+		  <p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45CE">这些快速旋转会产生翻滚效果，您可能希望避免这些效果。通过移动世界上方向向量或设置其动画，可以避免翻滚效果。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-B80A5105-AFAF-4AF0-879A-289EAB6ECFBC.htm">控制目标约束的运动历史相关性效果</a>。
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS17956D7ADBC6E736-3392E17117AE30CC4B-7FF7"><h3 class="title sectiontitle">运动历史相关性效果</h3> 
+		   
+		  <p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45CD"> 运动历史相关性是指对象如何可以在相同的情况下（除了对象先前受操纵或已设置动画之外）提供不同的运动效果。
+		  </p>
+ 
+		  <p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45CB">例如，当设置某个对象的动画并循环运行动画时，如果对象在每个循环中在相同的帧处以略为不同的方式结束移动，那么该对象与运动历史相关。在某个帧处，根据其先前的方向，可能会以不同的方式确定对象的方向。相反，如果在每个循环中对象以完全相同的方式移动，那么该对象就与运动历史无关。
+		  </p>
+ 
+		  <p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45CA">如果需要可预测的运动效果，那么运动历史相关性效果可能会是一个问题。但是，如果要寻求某些不可预测的运动效果，则可能需要利用对象的运动历史相关性。
+		  </p>
+ 
+		  <p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45C9">在某些情况下，受约束对象的方向可能会变成与运动历史相关。为了理解为什么出现该情况，需要熟悉目标向量和上方向向量（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427.htm#GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS17956D7ADBC6E736-3392E17117AE30CC4B-7FF9">目标约束的受约束对象的方向</a>）。
+		  </p>
+ 
+		  <p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45C8">如果将目标向量和上方向向量定义为指向同一方向，则受约束对象可能会变成与运动历史相关。例如，如果相对于受约束对象的局部 Y 轴定义目标向量，但不更改上方向向量的默认方向（上方向向量也相对于对象的局部 Y 轴），则可能会这样做。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-B80A5105-AFAF-4AF0-879A-289EAB6ECFBC.htm">控制目标约束的运动历史相关性效果</a>。
+		  </p>
+ 
+		  <p class="p" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS73099CC142F48755-7B21313411809411AE9-45C7">如果将约束的<span class="ph uicontrol" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__GUID-C7D7A3E0-A2A9-4303-8E50-5E4E91B67E96">“世界上方向类型”(World Up Type)</span>属性设定为<span class="ph uicontrol" id="GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__GUID-3EEA3372-B27A-4E55-8449-C9C57D570D13">“无”(None)</span>，那么受约束对象也可能会变成与运动历史相关。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-C6C7C7ED-273F-486D-867D-BF0B3FE3B5CF.htm">编辑点约束</a>。
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-B11F4068-A929-418A-B1F0-C994B37AC9A2.htm">创建目标约束</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-D4769D95-EC0E-4C94-AF60-8EB3FC4305E4.htm">目标约束选项(Aim constraint options)</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-1E0E200A-7C84-4FE0-8188-F1F98C91F2ED.htm">设定目标约束选项</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-47EB2CA4-CE0B-4CCC-A2D4-C89A052053B4.htm">编辑目标约束</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-7665A291-FAA7-44C0-BDEB-A6C83482116C.htm">约束</a></div>
+</div>
+</div>
+
+</body>
+</html>

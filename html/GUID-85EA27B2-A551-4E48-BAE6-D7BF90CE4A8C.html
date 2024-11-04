@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C">
+<meta name="language" content="CHS">
+<title>在表达式中使用自定义属性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>在表达式中使用自定义属性</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9F8"> 将某个自定义属性添加到对象并在表达式中使用该自定义属性通常很有用。您可以使用自定义属性控制其他属性的组合。您还可以将自定义属性用作变量，变量是一个临时存储要由其他属性读取的值的地方。</p>
+<p class="p" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9F6">自定义属性不会对对象的任何特性产生直接影响。</p>
+<p class="p" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9F5">有关如何添加和使用与粒子相关的自定义属性的详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-A8F23477-3689-4690-BEE3-5517025A7D11.htm">指定给自定义属性</a>。</p>
+<div class="section" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9F4"><h2 class="title sectiontitle">示例</h2>
+
+<p class="p" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9F3"> 假设您使用以下表达式为名为<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-E2FCEFFF-7D26-45BC-806C-959A34208A6B">“Planet”</span>的 NURBS 球体指定一个圆形，以便在 XY 平面中进行环绕运动：</p>
+
+<pre class="pre codeblock">
+Planet.tx = sin(time);
+Planet.ty = cos(time);
+</pre>
+
+<div class="fig fignone" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9F1"><img class="image" width="149" height="139" src="../images/GUID-3F4458D5-691C-4374-B9D4-A79929E1DDF7.png"></div>
+
+<p class="p" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9F0">Planet 以 1 个单位为半径环绕原点旋转。 </p>
+
+<p class="p" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9EF">在下列步骤中，您将创建一个名为<em class="ph i" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-8DDE9C50-907A-4CE2-9269-6467B03D04D3">“distance”</em>的自定义属性，使<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-D9AB5C2F-7962-4739-819C-19AB7CED5844">“Planet”</span>的环绕半径随时间增大。</p>
+
+<div class="note note" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9EE"><span class="notetitle">注：</span> 
+<p class="p" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-1570D2F7-1F76-44D5-A918-7751A8D2B4F6">上图中的小球显示了<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-DA7A656A-1155-42CF-B0D0-CD950AC2D30F">“Planet”</span>的圆形路径。之所以在图中显示它们，只是为了帮助您看到其运动。它们不是动画或表达式的一部分。</p>
+
+</div>
+
+<p class="li listintro" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9EC"> 添加自定义属性以改变环绕</p>
+<ol class="ol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9ED"><li class="li" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9EA">选择<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-D8CAD1AA-B2B5-4B18-9E65-E2A496D11983">“Planet”</span>。</li>
+<li class="li" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9E9">选择<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-3C81CEBF-A92A-493D-9630-7F9AE4C5B74C">修改 &gt; 添加属性(Modify &gt; Add Attribute)</a>。<div class="fig fignone" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F487551FEA285E1221E4F9FF8-5574"><img class="image" width="304" height="318" src="../images/GUID-06BE0D34-245C-4DC1-9852-E2C1E66EE32A.png"></div>
+</li>
+<li class="li" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9E7">在<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-136B1135-51F9-4199-A8DC-E3867F7F056E">“添加属性”(Add Attribute)</span>窗口中，在<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-50F373AE-54D0-45A9-B0F8-3F712A34D33F">“长名称”(Long Name)</span>文本框中输入 distance。</li>
+<li class="li" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9E6">确保<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-A8BFCA53-96C5-4D49-85CA-EF4D3B145566">“创建属性: 可设定关键帧”(Make attribute: Keyable)</span>处于启用状态。</li>
+<li class="li" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9E5">将<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-F9542620-35CF-42C5-A60B-75AB720E98CE">“数据类型”(Data Type)</span>设定为<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-DB440DC9-38FB-4D0A-B91B-E7C18584AAEB">“浮点型”(Float)</span>，将<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-C61D0B7A-7FB1-4F80-95B9-40AA30825EB2">“属性类型”(Attribute Type)</span>设定为<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-275DC6E8-4AA2-481D-A376-39A5AB334961">“标量”(Scalar)</span>。</li>
+<li class="li" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9E4">将<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-6451BEBF-91D7-4068-96F2-B2E37FF971AB">“最小值”(Minimum)</span>设定为 1，将<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-58F93CB0-3175-4AFF-B227-CA8373A047D5">“最大值”(Maximum)</span>设定为 10，将<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-E987BA7A-24CF-45F6-97CD-D4F5AC4197F8">“默认”(Default)</span>设定为 4。 <p class="p" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9E3"><span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-45C08267-9E5D-4F6D-909E-F40FB71D6978">“最小值”(Minimum)</span>和<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-2040EAAB-A977-469E-928B-EC75C6F4C534">“最大值”(Maximum)</span>设定您可在<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-3BA547C1-F485-4743-B773-1035DC82BF3F">“属性编辑器”(Attribute Editor)</span>或<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-79DE9610-2AC2-494C-9CB4-9215DCF78AE4">“通道盒”(Channel Box)</span>中为属性输入的最低值和最高值。 </p>
+<p class="p" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9E2">“默认”设置为属性显示的默认值。</p>
+<p class="p" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9E1">表达式不受<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-4750C015-FB96-4D1D-8E8C-C203F591EE30">“最小值”(Minimum)</span>和<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-3C6063FE-26BA-4E2E-B3EB-8290C9792426">“最大值”(Maximum)</span>的约束。属性将接收您在表达式中指定的任何值。 </p>
+<p class="p" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9E0">表达式可以读取<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-744D97F5-513F-469F-920F-CD78FFC55740">“默认”(Default)</span>值或您在<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-79C818EE-3B73-4C08-BA7F-F52D9586CE72">“属性编辑器”(Attribute Editor)</span>或<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-00CDC2E3-2556-4453-A9D3-7FA70B08074E">“通道盒”(Channel Box)</span>中设定的任何其他值。</p>
+</li>
+<li class="li" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9DF">单击<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-C35035EE-A048-4F75-8409-79CEBD11C02F">“添加”(Add)</span>添加属性，然后关闭<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-7CE56EB6-F8FB-4EE3-8693-E99405D71751">“添加属性”(Add Attribute)</span>窗口。<p class="p" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9DE">distance 属性将显示在<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-CE665C04-CA99-45FC-9863-74C7DF1FC0D9">“Planet”</span>的<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-097DC076-E4B8-48C9-A02D-D3E526DC7B6C">“表达式编辑器”(Expression Editor)</span>的<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-5031B182-4CF3-42FE-A429-156DB57C5B7F">“属性”(Attributes)</span>列表中。您现在可以在任何表达式中设定或读取属性值。 </p>
+</li>
+<li class="li" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9DD">按以下形式编辑表达式：<pre class="pre codeblock">
+Planet.tx = distance * sin(time);
+Planet.ty = distance * cos(time);
+</pre>
+<p class="p" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9DC">将 sin (time) 和 cos (time) 乘以 distance 属性，可以使<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-7DDF2068-AF7D-49E1-B600-4EE1AC063B68">“Planet”</span>以 distance 属性值指定的距离绕原点环绕。有关正弦和余弦函数的详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B00C3232-BF83-433B-9AED-E983E4FBD5CA.htm#GUID-B00C3232-BF83-433B-9AED-E983E4FBD5CA__WS17956D7ADBC6E736-B7DF06E117AE328567-8000">有用的函数</a>。</p>
+<div class="fig fignone" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9DB"><img class="image" width="186" height="170" src="../images/GUID-9C34F4DC-C51D-4170-9333-6A11C74FC2CE.png"></div>
+<p class="p" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9DA">因为您先前将距离属性添加到<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-7EA0C827-2AAD-4389-B147-B74068C095A7">“Planet”</span>时已为其给定默认值 4，因此播放动画将使 <span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-DF947561-0BBE-4489-8846-C88555F2E581">“Planet”</span>以距离原点 4 个栅格单位的距离绕原点环行。</p>
+<p class="p" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9D9">您可以使表达式随时间控制距离属性。 </p>
+</li>
+<li class="li" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9D8">按以下形式编辑表达式：<pre class="pre codeblock">
+distance = time;
+Planet.tx = distance * sin(time);
+Planet.ty = distance * cos(time);
+</pre>
+<p class="p" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9D7">通过将距离设置为时间值，<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-00A52088-CF0C-479A-AEB1-7D076E7D566D">“Planet”</span> 的旋转距离将随播放时间增加。<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-EC487F70-C2B3-4E30-B486-CFC8ECB6C705">播放动画时，“Planet”</span>向外匀速螺旋移动。</p>
+<div class="fig fignone" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9D6"><img class="image" width="203" height="191" src="../images/GUID-BA2CC439-9112-4934-A0D1-DDC47EF6939D.png"></div>
+<p class="p" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9D5">与使用表达式控制距离不同，您可以随时间设置距离值的关键帧。 </p>
+<p class="p" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9D4">例如，通过在第 1 帧处设置距离值 1 的关键帧，在第 200 帧处设置距离值 10 的关键帧，<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-274C831F-39A6-4D01-B957-A6785C15305C">“Planet”</span>就会在您播放这 200 帧时向外匀速螺旋移动。<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-42016A9E-D98A-49B5-89DD-466186FA8DA8">播放动画时，“Planet”</span>的距离以线性插值方式从 1 增加到 10。</p>
+<p class="p" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9D3">您可以单独使用关键帧或单独使用表达式设置距离属性的动画，不能同时使用二者。</p>
+<div class="note tip" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9D2"><span class="tiptitle">提示：</span> 如果表达式控制某属性，而您希望改为使用关键帧控制该属性，请删除将值指定给该属性的所有语句，然后单击<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-5F52E0D5-7EAC-4D13-877A-CDD167242D2E">“编辑”(Edit)</span>按钮。使用<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-E04E1966-EBD8-4F22-AE2F-4243574E16CE">“通道盒”(Channel Box)</span>将该属性的值重置为初始值，然后根据需要设定关键帧。<p class="p" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__WS73099CC142F48755-3D114B7511841AEFA9F-9D0">如果关键帧控制某属性，而您希望改为使用表达式控制该属性，请在<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-94901C40-7A99-4CF0-B80D-5B60B9EF801C">“通道盒”(Channel Box)</span>中单击该属性的文本框，然后选择<span class="ph uicontrol" id="GUID-85EA27B2-A551-4E48-BAE6-D7BF90CE4A8C__GUID-2B077EF3-ED3F-4CE5-87F7-50C9FC9F5206">“通道 &gt; 删除选定项”(Channels &gt; Delete Selected)</span>。根据需要将值指定给表达式中的属性名称。</p>
+</div>
+</li>
+</ol>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B0A92424-8666-4669-97D7-B16F718FA3FD.htm">高级动画表达式主题</a></div>
+</div>
+</div>
+
+</body>
+</html>

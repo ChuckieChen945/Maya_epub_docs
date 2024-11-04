@@ -1,0 +1,140 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shading_am_Shading_a_Rose_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_SHADING_A_ROSE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 对一朵玫瑰花进行着色 - Arnold for Maya">
+
+<title>对一朵玫瑰花进行着色</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>对一朵玫瑰花进行着色</h1></div><p><img src="../images/am-Shading_a_Rose-rose-1.jpg" alt=""></p>
+<p>本教程探讨如何使用 <em>standard_surface</em> 着色器着色出外观逼真的玫瑰花材质。我们将讨论构成玫瑰花着色器的一些细微（但却重要）的着色属性，包括半透明度和<strong>次表面散射</strong>，以及渲染<strong>单面几何体</strong>时要记住的一些建模注意事项。</p>
+<h2 id="">着色</h2><p>玫瑰花的 <em>standard_surface</em> 着色器连接了 <em>base_rolor<em>、</em>镜面反射*和 *SSS</em> 贴图。另外，次表面颜色属性还连接了一个稍加修改的相同颜色贴图。通过启用<em>“薄壁”(Thin Walled)</em>可获得背面照明效果。</p>
+<p>下面的 GIF 动画显示了<em>漫反射 (base_color)<em>、</em>镜面反射<em>（具有高 *specular_roughness</em>）和*次表面</em> <em>(SSS)</em> 散射对玫瑰花外观的作用。场景使用指向摄影机的带方向性的灯光（营造出半透明的背面照明效果）和 <em>skydome_light</em>（其“颜色”(Color)属性连接了天空 HDR 贴图）进行照明。</p>
+<p><img src="../images/am-Shading_a_Rose-rose-2.gif" alt=""></p>
+<h2 id="">半透明度</h2><p>将 <em>SSS</em> 和 <em>thin_walled</em> 结合使用可重现从背后照亮半透明对象的效果（请记住，此效果更适于单面对象）。下面的图像显示了增加花瓣厚度时花瓣渲染效果有何不同。花瓣后面放置了一个苍蝇模型，平行光照向摄影机，以获得最佳效果。</p>
+<p>通常建议只对纤薄对象（单面几何体）使用 <em>thin_walled</em>，因为具有厚度的对象可能无法正确渲染。但是，在本例中，即使有厚度也没问题（要确保漫反射光线深度级别大于 1）。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Shading_a_Rose-backlighting-scale1-3.jpg" alt=""></td>
+<td><img src="../images/am-Shading_a_Rose-backlighting-scale20-4.jpg" alt=""></td>
+</tr>
+<tr>
+<td>网格宽度比例：1 个单位</td>
+<td>网格宽度比例：10 个单位</td>
+</tr>
+</tbody></table>
+<h2 id="">照明</h2><p>天穹灯光的“颜色”(Color)属性连接了一个 HDRI。本示例中使用的 HDRI 下载自 <a href="http://www.hdrlabs.com/sibl/archive.html" target="_blank">www.hdrlabs.com</a>。另外，使用了一个平行光向场景中添加更多太阳光。</p>
+<p><img src="../images/am-Shading_a_Rose-sky-5.jpg" alt=""></p>
+<p><sub><strong>场景使用一个带方向性的灯光和一个连接了 HDR 贴图的<em>天空</em>着色器进行照明</strong></sub></p>
+<h2 id="">阴影终结</h2><p>使用方向性很强的灯光从背后照亮场景在阴影终结处产生了一些瑕疵。当前由 shadow_terminator_fix 实现的算法对球体这样的凸面曲面效果不错，但是不能修复凹面区域中的自身阴影。有很多方法可以解决此问题。</p>
+<h2 id="">阴影角度</h2><p>增大灯光半径（在本例中是增大<em>“角度”(Angle)</em>，因为我们使用了带方向性的灯光来表示太阳）可以帮助减弱阴影终结效果（通过柔化阴影）。但是，即使将“角度”(Angle)增大到很高，阴影终结效果仍然比较明显。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Shading_a_Rose-terminator-shadow-angle-0-6.jpg" alt=""></td>
+<td><img src="../images/am-Shading_a_Rose-terminator-shadow-angle-4-1--7.jpg" alt=""></td>
+</tr>
+<tr>
+<td>阴影角度：0</td>
+<td>阴影角度：4</td>
+</tr>
+</tbody></table>
+<h2 id="">细分迭代</h2><p>另一个解决办法是增加花瓣几何体的 <em>subdivision_iterations</em> 数量。通过这种方法可使瑕疵变得更小。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Shading_a_Rose-terminator-no-subdivision-1--8.jpg" alt=""></td>
+<td><img src="../images/am-Shading_a_Rose-catclark-subdivisions-1--9.jpg" alt=""></td>
+</tr>
+<tr>
+<td>未使用细分</td>
+<td>细分迭代：2</td>
+</tr>
+</tbody></table>
+<h2 id="">挤压厚度</h2><p>一种更好的、物理上更准确的方法是通过<strong>挤压</strong>花瓣来为几何体增加少量厚度。左图中的花瓣只是单面的。渲染时，花瓣看起来非常薄（在花瓣的背向散射区域周围更明显）。右图显示了花瓣具有挤压深度时的渲染结果。现在，花瓣在渲染时看起来有一定的厚度。</p>
+<p><img src="../images/am-Shading_a_Rose-single-sided-10.jpg" alt=""></p>
+<p><sub><strong><span style="color: rgb(0,0,0);">单面（网格没有厚度）。</span></strong></sub></p>
+<p><img src="../images/am-Shading_a_Rose-extruded-thickness-11.jpg" alt=""></p>
+<p><sub><strong><span style="color: rgb(0,0,0);">网格具有挤压厚度</span></strong></sub></p>
+<div class="head-block"><h1>渲染</h1></div><h2 id="">间接漫反射光线深度</h2><p>增大 <em>diffuse_ray_depth</em> 值会将更多的反弹光添加到场景中。将光线深度增大到 3 后，玫瑰显得明亮得多。增大 <em>diffuse_ray_depth</em> 值时要小心谨慎，因为 <em>SSS</em> 对此值很敏感。当您有许多重叠或闭合的曲面（如玫瑰花）时，如果将 <em>diffuse_ray_depth</em> 反弹数增大到 2 或更多，效果会很明显。</p>
+<p>降低次表面散射的值将有助于抵消这种增加的亮度。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Shading_a_Rose-diffuse-rays-1-1--12.jpg" alt=""></td>
+<td><img src="../images/am-Shading_a_Rose-diffuse-rays-3-1--13.jpg" alt=""></td>
+</tr>
+<tr>
+<td>漫反射光线深度：1</td>
+<td>漫反射光线深度：3</td>
+</tr>
+</tbody></table>
+<p>有关如何对玫瑰进行着色的教程到此结束。本文介绍的方法同样适用于其他半透明材质，例如皮肤、纸张和蜡。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Shading_html.html">着色</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

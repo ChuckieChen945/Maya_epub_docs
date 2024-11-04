@@ -1,0 +1,99 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_aovs_am_The_Attribute_Editor_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="NODES-AIAOV">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 属性编辑器 - Arnold for Maya">
+
+<title>属性编辑器</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>属性编辑器</h1></div><p><img src="../images/Arnold-logo-small.jpg" alt=""> 请参见<strong>《Arnold 用户手册》</strong>中的<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_render_settings_html" target="_blank">渲染设置</a></p>
+<p><img src="../images/1_aov_attribute_editor.png" alt=""></p>
+<p>每个 AOV 都具有一个关联节点。您可以使用属性编辑器来查看这些节点的详细信息。</p>
+<h2 id="aov-aov-attributes">AOV 属性(AOV Attributes)</h2><h3 id="enabled">启用(Enabled)</h3><p>仅当选中此属性时，AOV 才会写入磁盘（即使 AOV 位于活动列表中）。</p>
+<h3 id="name">名称(Name)</h3><p>AOV 的名称 - 这将构成磁盘上的名称的一部分。最初，此属性只是取用 AOV 浏览器内显示的标准名称，但您可以根据需要更改名称（或许应该选择一个有助于区分 AOV 类型的名称）。请注意，您可以使用“前缀”(Prefix)属性为此名称添加前缀。</p>
+<h3 id="data-type">数据类型(Data Type)</h3><p>要写入 AOV 的数据类型 - rgba、float、vector 等。Arnold 通常会为每个 AOV 指定一个默认类型，因此您不必显式地设置此属性。请注意，“节点行为”(Node Behavior)选项卡下的属性是场景中所有节点公用的标准 Maya 属性。</p>
+<h3 id="denoise">降噪(Denoise)</h3><p>与 <em>Optix</em> 降噪器（“系统”(System)选项卡）配合使用。就像普通过滤器一样，此过滤器可应用于任何 AOV。</p>
+<h3 id="camera-batch-only">摄影机(仅批处理)(Camera (Batch only))</h3><p>此选项可用于将特定的摄影机设置给某个 AOV。此选项只适用于批渲染。</p>
+<h2 id="light-groups">灯光组(Light Groups)</h2><p>当多个光源属于同一灯光组时，它们的贡献可分别写出到单独的 AOV。一个灯光组可以有多个灯光，但一个灯光只能属于一个灯光组。这个组由灯光的<em>“AOV 灯光组”(AOV light group)</em>参数定义。可用的灯光组将在对话框的右侧列出，您可以选择哪些灯光组由选定的 AOV 渲染。每个选定灯光组表示一个新的 AOV，以灯光组的名称作为后缀（例如，<em>diffuse_direct_group01、specular_direct_group02、sss_default</em>）。名为 <strong><em>default</em></strong> 的组包含不属于任何组的灯光（<strong>“AOV 灯光组”(AOV Light Group)</strong>参数为空）。</p>
+<p><img src="../images/2a_aov_attribute_editor.jpg" alt=""></p>
+<p><sub><strong>AOV 灯光组在灯光中命名为“red”（左）。在 AOV 中选中了“Red”灯光组（右）。</strong></sub></p>
+<p>除了 <code>&lt;L.'groupname'&gt;</code> 语法之外，通过在 <code>light.aov</code> 参数中指定特定的 AOV 组，可以将任何内置或自定义 LPE 分割为多个 AOV，以输出一部分灯光。为此，必须在 <code>options.outputs</code> 中为 LPE AOV 名称添加后缀。</p>
+<pre class="pre codeblock"><code class="prettyprint"> outputs "diffuse RGB filter driver"            # all lights in one AOV
+outputs "diffuse_* RGB filter driver"          # output multiple AOVs, one for each light group
+outputs "diffuse_groupname RGB filter driver"  # only light in AOV group "groupname"
+outputs "diffuse_default RGB filter driver"    # only lights with no AOV group assigned </code></pre><h4 id="">灯光组示例</h4><p>在此示例中，一个球体被蓝色、红色和绿色三种灯光照亮。蓝色和红色灯光定义了不同的 <em>AOV 灯光组</em>，而绿色灯光不属于任何组。<br>“<code>default</code>”是由灯光照亮的美景 AOV，不在任何 AOV 灯光组中。“<code>RGBA_default</code>”+“<code>RGBA_red</code>”+“<code>RGBA_blue</code>”提供总的 RGBA 美景通道。</p>
+<p><img src="../images/3_aov_attribute_editor.png" alt=""></p>
+<p><strong><sub>美景、RGBA_red、RGBA_blue、RGBA_default（绿色灯光不在 AOV 组中）</sub></strong></p>
+<p>最多支持 16 个不同的灯光 AOV，不过给定 AOV 可以包含任意数量的灯光。</p>
+<h3 id="aov-global-aov">全局 AOV(Global AOV)</h3><p>输出一个包含不属于任何组的灯光的美景 AOV。</p>
+<h3 id="all-light-groups">所有灯光组(All Light Groups)</h3><p>为场景中的每个灯光组输出一个 AOV。启用<em>“所有灯光组”(All Light Groups)</em>复选框后，将渲染每个灯光组。否则，将只渲染选定的灯光组。进行批渲染时，会使用不同通道输出同一个 EXR 文件中的所有内容，每个灯光组一个通道。</p>
+<h2 id="aov-custom-aov">自定义 AOV(Custom AOV)</h2><h3 id="">着色器</h3><p>您可以通过 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_userdata_am_Ai_Write_Color_html">aov_write</a> 着色器在自定义 AOV 中写入着色器的输出。</p>
+<h3 id="">光线路径表达式</h3><p>您可以使用以下方法定义自定义<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_output_aovs_ac_expression_aovs_html" target="_blank">灯光路径表达式</a>，以将照明组件写入单独的 AOV：</p>
+<ul>
+<li>添加一个自定义 AOV，并确保已在<em>“激活的 AOV”(Active AOVs)</em>列表中选中它。</li>
+<li>然后，您可以在属性编辑器中设置 LPE。</li>
+</ul>
+<p><img src="../images/4_aov_attribute_editor.png" alt=""></p>
+<p><sub><strong>在属性编辑器的自定义 AOV 中设置了漫反射 LPE</strong></sub></p>
+<p>要选择 LPE 的类型，请单击“灯光路径表达式”(Light Path Expression)右侧的图标。您将看到一个可用 AOV 的列表（及它们关联的 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_output_aovs_ac_expression_aovs_html" target="_blank">LPE</a>）。</p>
+<p><img src="../images/5_aov_attribute_editor.png" alt=""></p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>有关其他灯光路径表达式，请单击<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_output_aovs_ac_expression_aovs_html" target="_blank">此处</a>。</p>
+
+</div></div>
+
+<h2 id="arnold">Arnold 驱动程序高级输出</h2><p><img src="../images/6_aov_attribute_editor.png" alt=""></p>
+<h3 id="override-path-prefix">覆盖路径前缀(Override Path Prefix)</h3><p>覆盖 AOV 的 Maya 文件名前缀。</p>
+<h3 id="output-mode">输出模式(Output Mode)</h3><p>选择在渲染视图 (GUI)、批渲染还是在两者中查看 AOV。</p>
+<h3 id="">颜色管理</h3><p>这允许您设置特定的颜色空间来输出渲染的图像。默认情况下，8 位图像通过此属性（默认为 sRGB）应用视图变换，16/32 位图像应用输出变换（默认为“未经处理”(Raw)）。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/render-settings/arnold_for_maya_render_settings_aovs_html.html">AOV</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

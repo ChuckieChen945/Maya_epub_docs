@@ -1,0 +1,147 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Bifrost">
+<meta name="created" content="30/7/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="使用缓存属性">
+<meta name="modified" content="17/04/2023">
+<meta name="topicid" content="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6">
+<meta name="language" content="CHS">
+<title>创建 Bifrost 用户缓存</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>创建 Bifrost 用户缓存</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__SECTION_A97DE47F7B9F4669AC49AAD50884CB42"><h2 class="title sectiontitle">准备 Bifrost 模拟以进行用户缓存</h2> 
+		 
+		<p class="p"> 若要在生成用户缓存时减少不必要的计算和内存要求，请执行以下操作：
+		</p>
+ 
+		<ol class="ol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__OL_F533346B1DBF4D1AA69F60BFFCC071CE"><li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_9810F9C97C904BCDBD99B142FF1339DE">如果场景中有多个 Bifrost 模拟，则可暂时关闭未在进行用户缓存的模拟。若要执行此操作，请在主容器节点的<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-AB049D5C-8F4B-49DB-9E03-B88B06BD9CBE">“容器属性”(Container Attributes)</span>组中取消选中<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-3A159A7D-6B77-46F3-B56C-B5BDDBF4A018">“启用”(Enable)</span>。
+		  </li>
+<li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_BA1D70B3AF6F4B9E8C46DD0FB21ADFFE">要避免过度使用内存和访问磁盘，最好禁用临时缓存。如果同时启用用户缓存和临时缓存，会将用户缓存写入磁盘或从磁盘读取用户缓存，此外，临时缓存会将这些帧保留在内存中，直到超出内存限制为止，届时临时缓存也将分载到临时文件。若要禁用临时缓存（如果正在使用），请执行以下操作：
+			 <ul class="ul" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__UL_49CDFB4A1F2B498F9DE909487E5E1BE0"><li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_ECAC567A040A4FECA81D46699FD0BEED">选择<span class="ph menucascade" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-8479E48E-D16E-4E8D-93C0-1A35083C2DCF"><span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-A7D42DC0-8407-4422-8291-48579FD762AE">“Bifrost 流体</span> &gt; <span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-A2BB6CD0-B270-46A0-954C-363F1716BF97">Bifrost 选项”(Bifrost Fluids &gt; Bifrost Options)</span></span>，然后关闭<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-056732FD-C11E-4974-9AC5-3F7B33FD17EE">“启用后台处理”(Enable Background Processing)</span>。系统在启用后台处理后始终会使用临时缓存。
+				</li>
+<li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_70BB23DFB26C44429C9149786E941E67">关闭临时缓存。您可以在主容器节点的<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-21620EB1-3C85-4040-9485-53F0D7C04399">“模拟属性”(Simulation Attributes)</span>组中禁用<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-8229FB27-691A-44B3-9C79-893CB665D87D">“临时缓存”(Scratch Cache)</span>，或者在<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-F5DD7A9D-5952-4640-9BFC-4C3A4C485B66">“Bifrost 选项”(Bifrost Options)</span>对话框中禁用<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-1444D140-1511-44F3-8756-9F3AC2FC82AE">“启用临时缓存”(Enable Scratch Caching)</span>，以影响场景中的所有 Bifrost 模拟。
+				  <div class="note note" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-A99A4DBA-BE53-4A8B-BEBD-BC2E6C944674"><span class="notetitle">注：</span> 即使您已在<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-40E2B1E4-530A-4282-8A26-EBF111E7CBDA">“Bifrost 选项”(Bifrost Options)</span>对话框中关闭<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-9796B368-1439-402E-AF5F-D874A120BB99">“启用临时缓存”(Enable Scratch Caching)</span>，<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-58B17544-2841-4517-87B8-C7C7C85D0F55">“临时缓存”(Scratch Cache)</span>也可能会在各个主容器节点中处于启用状态。再次启用和禁用<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-AC4977C3-AE9C-4CB1-8918-A698760D0B3A">“启用临时缓存”(Enable Scratch Caching)</span>，以确保为所有节点禁用<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-F2ACB6CD-815F-4F5B-9930-B7E4315DE013">“临时缓存”(Scratch Cache)</span>。
+				  </div>
+ 
+				</li>
+</ul>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__SECTION_88AE6EAEF142476193D573BD7464BB0D"><h2 class="title sectiontitle"> 为场景中的所有可缓存对象创建用户缓存</h2> 
+		 
+		<p class="p">此方法同时为场景中的所有可缓存对象创建了单独的用户缓存，包括液体、Aero、泡沫和碰撞对象的缓存。如果计划通过将新缓存的帧附加到现有用户缓存来扩展模拟的帧范围，请使用此方法。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-17D2A4E6-65D9-4C19-B560-483D1825AE09.htm">附加到现有 Bifrost 用户缓存</a>。
+		</p>
+ 
+		<ol class="ol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__OL_1C62783F0A0D45E09245682B174900C9"><li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_BCC0CC3282AB495BB01C9A9B10A50DDA">为要缓存的模拟选择容器。
+		  </li>
+<li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_A6E81AFFD8A54F0F9AC7BE777EC8E37C">选择<span class="ph menucascade" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-63B0011E-E7DC-4252-A904-D07FD8AAC3CD"><span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-AF6687D0-7120-4CC7-99C3-99F3439BF493">“Bifrost 流体</span> &gt; <span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-E23DD949-BF2A-47FF-8948-20E4F9DCBB3E">计算并缓存到磁盘”(Bifrost Fluids &gt; Compute and Cache to Disk)</span> &gt; <span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-32CDBB3F-C84C-4E04-A9AC-660ABDA382EC"><img class="image" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__IMAGE_3DF25E2E94A942F785001E6EF8E2B258" src="../images/GUID-23B160F6-E1FB-4E29-94B2-7323BFE33726.png"></span></span>。
+		  </li>
+<li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_784735BE1E284A138E045535716EFF0E">确保设置符合需要。例如：
+			 <ul class="ul" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__UL_935CFA4324C4442FB288706721B80BFE"><li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_080029EF717C45049E0FF55311618527"><span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-05D61D33-29DA-402E-930D-3017E9394D5E">“压缩格式”(Compression format)</span>设置为相应的质量。
+				</li>
+<li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_94CC06EA389A418986D56A4F322382AE"> 
+				  <span class="ph uicontrol">“缓存元素”(Cache Elements)</span>处于启用状态。
+				</li>
+<li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_F8119CD9EAE942AE9A2DDA2E2CEBBA14"><span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-F5C523B3-6F5A-4F14-AD7E-7FC7DFA2EF2F">“缓存时间范围”(Cache time range)</span>设置为以主容器节点的<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-CD09FE2F-59EC-46CE-92BA-7534D846AE41">“模拟属性”(Simulation Attributes)</span>组中所设置模拟的<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-F0ECAC2E-C125-4BCE-8A5C-A6623B382C2A">“开始帧”(Start Frame)</span>开始。
+				</li>
+<li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_D8289DB015344E2E853BEDF9B45D7A01"><span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-F6B6DBD5-A452-4A0E-A33B-033CC9FAEB23">“写入模式”(Write Mode)</span>设置为<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-D3821B56-A42B-4066-B908-FF54308079E8">“全部写入”(Write All)</span>。
+				</li>
+</ul>
+ 
+			 <p class="p">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-01B84FF3-0D73-468E-965C-F4FA6AD47067.htm">计算和缓存选项</a>。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_C3B758E18CEC4D9FA7010D69DB26EFE3">单击<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-31D7C68C-0A2D-4F29-BD52-F85F87177BD6">“创建”(Create)</span>或<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-55C62DAE-145F-4800-8F90-7F0865E8A6B8">“应用”(Apply)</span>。 
+			 <p class="p" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-350474DE-1580-49FF-8C3F-4B14679BA94F">当<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-7B7D3673-681D-43A5-A5A6-A367CE4F4010">“启用后台处理”(Enable Background Processing)</span>处于禁用状态时，请求的帧将发送到 Bifrost 计算服务器（一次一帧），必须等待它们全部处理完，您才可以在 Maya 中进行交互。
+			 </p>
+ 
+			 <div class="p" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-EE6CABFD-1D3D-4278-99EE-716AA44FA818">用户缓存将写入到磁盘中。此外，将发生以下情形：
+			 <ul class="ul" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__UL_0C0FD07EDB384730A6B4BEE5F0167298"><li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_343B29D3D4954AFA91EA97FF175BB083">对于每个可缓存的对象，在对象的主特性节点的<span class="ph uicontrol">“缓存”(Caching)</span>属性组中设置了<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-85F47A20-13BE-4134-A5A5-7FEC32CCCEC9">“缓存目录”(Cache Directory)</span>和<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-07949485-AC87-40E9-8B50-4F73489D4513">“缓存名称”(Cache Name)</span>属性。
+				</li>
+<li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_392E952CCB5548D590789DFF48C74921"><span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-5D350B41-3974-48B2-9607-FC01D19BA161">“启用”(Enable)</span>已激活，且<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-43EB83F0-B5E1-4BB8-B261-D65BB790B01B">“缓存控制”(Cache Control)</span>设置为 1（读取模式）。
+				</li>
+</ul>
+ 
+			 </div>
+ 
+		  </li>
+<li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_85BD9E8AEFFF4082849FF6B616DB7A77">如果需要，您可以重新打开<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-3038FB52-862F-4D8A-96BC-FBA002EF258C">“临时缓存”(Scratch Cache)</span>，以便更快速地拖动和播放。
+		  </li>
+</ol>
+ 
+		<div class="note note" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-C5AE55BE-F23E-47BB-A71B-A42DB5AED2CF"><span class="notetitle">注：</span> 使用缓存时，在<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-7BBF96BC-ED90-469F-91AB-1E2CD9165DE4">“动力学”(Dynamics)</span>首选项中关闭<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-ABD2046F-D50F-48B0-B1AD-17293AC7B908">“预备运行到当前时间”(Run up to current time)</span>。
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__SECTION_187C3C9B52584CBB87DF8781D342ADE1"><h2 class="title sectiontitle"> 为各个 Bifrost 对象创建用户缓存</h2> 
+		 
+		<p class="p">通过设置<span class="ph uicontrol">“缓存”(Caching)</span>属性，可以为各个 Bifrost 对象创建用户缓存。当模拟中不需要其他对象的用户缓存时，缓存单个对象可以减少不必要的计算。这意味着，如果扩展整个模拟的帧范围，则需要重新对其进行缓存。
+		</p>
+ 
+		<div class="note important" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-46EBD329-3706-4EAD-A2A6-27E9E75AA3C4"><span class="importanttitle">重要：</span>  在<span class="ph menucascade"><span class="ph uicontrol">“设置</span> &gt; <span class="ph uicontrol">时间滑块”(Settings &gt; Time Slider)</span></span>首选项中，确保<span class="ph uicontrol">“循环”(Looping)</span>设置为<span class="ph uicontrol">“一次”(Once)</span>。否则，Bifrost 将在循环播放到开始帧时重新缓存模拟。
+		</div>
+ 
+		<ol class="ol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__OL_526124A4D1F0493699A1681F65F0DCA1"><li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_CA55BEE794484F57B803407065389730">为要缓存的模拟选择主容器。
+		  </li>
+<li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_8637E51C8B124F76BD0922F731100CC8">在<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中，单击要缓存对象的主特性节点对应的选项卡。
+		  </li>
+<li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_2A3E4075AF684B9EBD7021577C5A7F57">在对象的<span class="ph uicontrol">“缓存”(Caching)</span>组中，将<span class="ph uicontrol">“缓存控制”(Cache Control)</span>设置为 2（写入模式）。
+			 <p class="p">确保根据需要设置所有其他缓存属性。请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-0877BBD6-831D-4844-97AC-10FEFAB78B02.htm">Bifrost 缓存属性</a>。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_539887174E944DE19D67022B90EFBFAB">从开始帧起播放模拟，以创建用户缓存。
+			 <p class="p">Bifrost 会计算并缓存对象的帧，然后将其保存到指定位置。
+			 </p>
+ 
+		  </li>
+<li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_8D873E78E3474AE2A23C54D97707DB5F">将<span class="ph uicontrol">“缓存控制”(Cache Control)</span>设置为 1（读取模式）。
+		  </li>
+<li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_627F6800698D42658899F4509FDC00D8">预览模拟。
+		  </li>
+</ol>
+ 
+	 </div>
+<div class="section" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__SECTION_4816D7551AF946CCA7E32B8B3816B3F6"><h2 class="title sectiontitle">停止读取用户缓存</h2> 
+		 
+		<ol class="ol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__OL_9D45357F60054FF8B50DE678965CF508"><li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_1A694B5053674399AF9CE5873E20B065">将模拟回放到开始帧。
+		  </li>
+<li class="li" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__LI_4C16F6C2BED14306B1BDC7BD41059A67">在 Bifrost 对象的主特性节点的<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-342624AA-EB0D-496D-AC6A-787B96D40769">“缓存”(Caching)</span>属性组中禁用<span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-F929E36E-2AB7-4C5F-9502-742DEE111BD5">“启用”(Enable)</span>。
+			 <p class="p" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-381DC190-1894-4BBC-A9A5-39D42683BFB9"><span class="ph uicontrol" id="GUID-39E8E699-81DA-4638-BDAD-7DA5E8FAE7A6__GUID-0C044CA2-D533-457E-8353-F8F023C118A1">“缓存控制”(Cache Control)</span>仍然设置为 1（读取模式）。但是，Maya 将计算模拟而不是读取用户缓存。
+			 </p>
+ 
+		  </li>
+</ol>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Bifrost/files/GUID-36D0E99D-B4BC-4210-9174-AAB982A1CE04.htm">使用 Bifrost 用户缓存</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Modeling">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673">
+<meta name="language" content="CHS">
+<title>细分曲面代理网格的最佳实践</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>细分曲面代理网格的最佳实践</h1></div>
+</div>
+</div>
+
+<div class="body"><ul class="ul" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__WS73099CC142F48755-7B21313411809411AE9-74D9"><li class="li" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__WS73099CC142F48755-7B21313411809411AE9-74D8"> 大多数情况下，应该仅编辑代理网格，而不编辑平滑网格。如果编辑平滑网格，对代理网格的进一步更改会与对平滑网格的编辑进行交互，从而产生奇怪的曲面形状。 </li>
+<li class="li" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__WS73099CC142F48755-7B21313411809411AE9-74D6">代理网格是平滑网格的构建历史输入的一部分。对代理网格的所有更改都可能影响平滑网格。相反，旋转包含两个网格的组。 </li>
+<li class="li" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__WS73099CC142F48755-7B21313411809411AE9-74D5"> 您可以移动代理网格，这样它就位于平滑网格的旁边，从而使您能够同时看到两者。但是，不要旋转代理网格。旋转代理网格会以意外方式更改平滑曲面。 </li>
+<li class="li" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__WS73099CC142F48755-7B21313411809411AE9-74D4"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-37FE06C7-0681-4F77-B6C6-B47DE6386178.htm">不能对代理表格执行“网格 &gt; 结合”(Mesh &gt; Combine)</a>和<span class="ph uicontrol" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__GUID-54593F46-A997-40BD-B6D2-96D0FF972B20">“网格 &gt; 布尔”(Mesh &gt; Booleans)</span>操作。这些操作会创建新曲面，并且会断开代理网格和平滑网格之间的连接。 <p class="p" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__WS73099CC142F48755-7B21313411809411AE9-74D3">如果需要使用这些操作，则在使用<span class="ph uicontrol" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__GUID-49F10248-3603-4DC2-BE7B-0FC77BE7F7FE">“细分曲面代理”(Subdiv Proxy)</span>之前，或不再需要该代理时，执行这些操作。 </p>
+ </li>
+<li class="li" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__WS73099CC142F48755-7B21313411809411AE9-74D2">在整个动画中保持代理网格和平滑网格的连接，以减少要操纵的组件。（您可能希望在<span class="ph uicontrol" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__GUID-9F3A1CB4-A1FA-4FC2-9026-8548D54FF2DA">“层编辑器”(Layer Editor)</span>中禁用平滑网格层的可见性）。 </li>
+<li class="li" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__WS73099CC142F48755-7B21313411809411AE9-74D1">较高的<span class="ph uicontrol" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__GUID-43D9E08C-8EC3-46D8-8038-BC13BB506681">“细分级别”(Subdivision Levels)</span>属性会影响 Maya 的性能。在建模时保持较低的<span class="ph uicontrol" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__GUID-19FE475A-FBAE-44D4-B617-91E47C13DCA6">“细分级别”(Subdivision Levels)</span>，然后在渲染之前将其提高。 <div class="note tip" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__GUID-30B670BE-BBA3-4084-9D9E-12069424F8E7"><span class="tiptitle">提示：</span> 若要针对某个对象自动执行此操作，请打开<span class="ph uicontrol" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__GUID-AF988528-D2AD-4DC3-949B-551AD5967037">“渲染设置”(Render Settings)</span>窗口，显示<span class="ph uicontrol" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__GUID-DE394500-F887-435C-8634-4D0FCABC0865">“渲染选项”(Render Options)</span>，然后将以下命令添加到<span class="ph uicontrol" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__GUID-67B133BC-214C-44DB-9115-51B793EA2362">“渲染前 MEL”(Pre Render MEL)</span>代码（其中 X 是对象的<span class="ph uicontrol" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__GUID-F209383B-E605-490A-9A34-04E374615549">“细分曲面代理”(Subdiv Proxy)</span>节点编号，Y 是细分数上限，最大为 4。）： <pre class="pre codeblock">
+setAttr polySmoothFaceX.divisions Y;
+</pre>
+ <p class="p" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__WS73099CC142F48755-7B21313411809411AE9-74CE">将相同的命令添加到<span class="ph uicontrol" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__GUID-13FEFF88-8F1C-4C67-8845-57D866CF271C">“渲染后 MEL”(Post Render MEL)</span>代码，但 Y 为较小的细分数。 </p>
+ </div>
+ </li>
+</ul>
+<ul class="ul" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__WS73099CC142F48755-7B21313411809411AE9-74CD"><li class="li" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__WS73099CC142F48755-7B21313411809411AE9-74CC">代理网格是可渲染的。如果不希望它显示在渲染图像中，可以隐藏它（使用 ` 热键）、禁用<span class="ph uicontrol" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__GUID-EAE94C6B-9D54-4F29-B497-62386578045C">“可渲染的细分曲面代理”(Subdiv Proxy Renderable)</span>、删除它，或者将它放置在隐藏渲染层中。 </li>
+</ul>
+<div class="section" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__SECTION_88135A29FAC647049C9BE411091E07BA"><h2 class="title sectiontitle">相关主题</h2>
+
+<ul class="ul" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__UL_4634FAB6A6DD4BC4AD1630B8C70A0A1C"><li class="li" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__LI_CF95A90657C3471E8B741A5AC6F0F497">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-DBB39F66-FC4B-4577-94DF-2BA0D61AFDBD.htm">创建细分曲面代理</a>
+</li>
+<li class="li" id="GUID-5CFE8D1C-6C28-4562-9A25-EBEE5397D673__LI_CD7A51AF06C443FCB321B0F7C0F6FCAC">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-196DCBDA-4A3D-4D48-904F-D38D8267E07E.htm">细分曲面代理概述</a>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Modeling/files/GUID-196DCBDA-4A3D-4D48-904F-D38D8267E07E.htm">细分曲面代理概述</a></div>
+</div>
+</div>
+
+</body>
+</html>

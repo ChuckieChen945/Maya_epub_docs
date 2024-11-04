@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98">
+<meta name="language" content="CHS">
+<title>为 HumanIK 准备现有骨架</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1> 为 HumanIK 准备现有骨架 </h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98__GUID-9564912D-FC27-4A5B-885E-78E8AC7DD1AE">在使用<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-630B5349-213C-414D-B6C9-D283CE319472.htm">“定义”(Definition)选项卡</a>将角色骨架中的骨骼映射到 HumanIK 解算器理解的节点之前，必须将角色设置为基本的 T 形站姿，以便为 HumanIK 提供有关角色骨架和关节变换比例的重要信息。 
+	 </p>
+<p class="p" id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98__GUID-2D1D3749-C1B6-4985-B9ED-89EF09174D62">角色的 T 形站姿必须尽可能与以下的描述和示例相匹配，以便<span class="ph" id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98__GUID-06593BC3-A9A6-4403-A93F-287A4B5293ED">反向运动学和重定目标解算器</span>为角色生成精确的结果。如果未正确配置 T 形站姿，那么解算器会将全部操作基于错误数据之上，并很可能产生出歪斜、古怪或意想不到的姿势。 
+	 </p>
+<p class="p" id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98__GUID-5CD4399E-4726-4427-9765-0D61960C8A3E">T 形站姿有以下要求： 
+	 </p>
+<ul class="ul" id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98__UL_E5DD345A95A94E1B963A1209D40D8B6E"><li class="li" id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98__LI_87D20D77CAEA437B86328630C321BC3A">角色必须面向 Z 轴的正方向。 
+		</li>
+<li class="li" id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98__LI_30BF74AE14E94539B7499AD0D95F6D39">手臂必须沿 X 轴扩散。因此，左臂应指向 X 轴的正方向。 
+		</li>
+<li class="li" id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98__LI_F0E6243D78DE4C8E9BAE4B6739A41844">角色的头顶必须向上，并位于 Y 轴的正方向上。 
+		</li>
+<li class="li" id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98__LI_7E17148C09144CBDB6D61CA52F64BF08">角色的手将展平，手掌朝向地面，拇指平行于 X 轴。 
+		</li>
+<li class="li" id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98__LI_2F2FF324885947CB8352C1B23E1F80AB">角色的脚需要垂直于腿（脚趾指向 Z 轴方向，如图所示）。脚不得绕 Y 轴旋转（即，左脚脚趾不应向内朝向右腿，也不应向外远离右腿）。 
+		</li>
+</ul>
+<p class="p" id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98__GUID-87EA1394-00F5-44D4-8220-0354C8A16A68">典型的 T 形站姿如下图所示： 
+	 </p>
+<div class="fig fignone" id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98__FIG_110FF28734FE41E1A6CC9B94CC2B5655"><img class="image" id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98__IMAGE_09E6AA612D3E45D9888A310473DFE11C" src="../images/GUID-B8EDA668-E911-4215-8372-CCE2354A566C.png"></div>
+<div class="note note" id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98__GUID-824764CC-69DE-4ABD-AB3C-C62DA68D9204"><span class="notetitle">注：</span> 有关 HumanIK 所需特定骨骼结构的其他信息，请参见 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-5DEFC6E5-033C-45D5-9A0E-224E7A35131B.htm">HumanIK 角色结构</a>。 
+	 </div>
+<div class="section" id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98__SECTION_7245CD8AC72A4C4CA9FAE36F9E3097BF"><h2 class="title sectiontitle">四足动物</h2> 
+		 
+		<p class="p" id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98__GUID-0801DA78-3A4D-40FA-B014-9E8A1BFD8CB7">HumanIK 可用于控制四足动物以及两足动物。如果为四足动物的角色创建特征，则必须将角色骨架设置为上图所示的相同的 T 形站姿。尽管此两足动物 T 形站姿对于四足动物而言有些古怪，但您必须将角色设置为该两足动物位置，才能确保 HumanIK 可以正确地设置角色骨架的比例。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98__SECTION_FBF7E87D1D24458CAB2A4E0C2E3DE860"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98__UL_484F3FE5BA23446286C23A6AEE553A05"><li class="li" id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98__LI_E2BCAD7424384C1488588BB1ED45092A"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-630B5349-213C-414D-B6C9-D283CE319472.htm">“定义”(Definition)选项卡</a> 
+		  </li>
+<li class="li" id="GUID-8D27BAFD-7785-4173-860E-515FEB2E9C98__LI_00E8BEAD637C44DE8978E2696C474B1D"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-36808BCC-ACF9-4A9E-B0D8-B8F509FEC0D5.htm">绑定姿势</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-83281B78-7DB0-4228-88D0-284E4A61564C.htm">设置 HumanIK 角色</a></div>
+</div>
+</div>
+
+</body>
+</html>

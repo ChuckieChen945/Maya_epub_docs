@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Rendering">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-A5A2B5C8-7992-41E3-8482-9DD86EC89717">
+<meta name="language" content="CHS">
+<title>配置颜色管理</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-A5A2B5C8-7992-41E3-8482-9DD86EC89717">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>配置颜色管理</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-A5A2B5C8-7992-41E3-8482-9DD86EC89717__GUID-E25F24C4-82CC-44E7-8E5A-6062820D745D">始终建议在首次启动新项目或场景时配置颜色管理。这是因为颜色管理会影响颜色控件和灯光的工作方式，因此，如果您在应用材质和创建灯光后更改设置，则后面将需要进行大量调整。 
+	 </p>
+<div class="p" id="GUID-A5A2B5C8-7992-41E3-8482-9DD86EC89717__GUID-6A7FF72A-8C57-484F-A20F-5BEC2D40CBF7"> 您可以通过以下几种方法配置颜色管理： 
+	 <ul class="ul" id="GUID-A5A2B5C8-7992-41E3-8482-9DD86EC89717__UL_1F66D3B40E2E4E37B74698586D91BFF2"><li class="li" id="GUID-A5A2B5C8-7992-41E3-8482-9DD86EC89717__LI_E13253772E9E46BB9138BD8DD1B5B307">您可以单独设置首选项，例如，渲染空间、视图、显示以及其他选项。该操作可以通过下列方式完成： 
+		  <ul class="ul" id="GUID-A5A2B5C8-7992-41E3-8482-9DD86EC89717__UL_DDBCBA28D8B94B50858308A4BAF8F334"><li class="li" id="GUID-A5A2B5C8-7992-41E3-8482-9DD86EC89717__LI_1F15D889BAD5401C98643C9C6742955C"> 手动，即：使用<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-2D9BBB9D-49F0-44C6-8BFF-B237FD8ED746">颜色管理首选项</a>。 
+			 </li>
+<li class="li" id="GUID-A5A2B5C8-7992-41E3-8482-9DD86EC89717__LI_BF87086E0365407FBFFBE540F23B6C03">使用 MEL 或 Python 命令。 在技术文档中搜索“colorManagementPrefs”。 
+			 </li>
+</ul>
+ 
+		  <p class="p">颜色管理首选项将用于新场景，但要在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-8F961875-1D41-4C52-9CD5-B90DE75C546C"><span class="ph uicontrol">新建场景选项</span></a>中设置颜色管理是否默认为启用。大部分设置都将保存在场景文件中，但是如果要使用颜色管理策略或已设置 OCIO 环境变量，则在打开场景时这些设置可能会被覆盖。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-A5A2B5C8-7992-41E3-8482-9DD86EC89717__LI_D635E4E29DD846BB936001562EB75E93">在首选项中，可以指定要使用的 <samp class="ph codeph">OCIO</samp> 配置文件。这将确定可用的空间以及其他设置。配置文件的路径将保存在场景文件中，但与其他设置一样，如果要使用策略或已设置 <samp class="ph codeph">OCIO</samp> 环境变量，则在打开场景时该路径将被覆盖。 
+		</li>
+<li class="li" id="GUID-A5A2B5C8-7992-41E3-8482-9DD86EC89717__LI_7F599FFEF4B949C7892522D7F2AF7C65"><samp class="ph codeph">OCIO</samp> 环境变量将覆盖存储在场景中的配置文件路径和名称，并允许在整个工具中或者逐项目或逐场景强制实施配置。但是，<samp class="ph codeph">OCIO</samp> 环境变量也会被策略覆盖。 
+		</li>
+<li class="li" id="GUID-A5A2B5C8-7992-41E3-8482-9DD86EC89717__LI_CF57CE14FC7C41EF81040F59D5D9DF08">配置颜色管理设置后，可以保存和加载策略（颜色管理首选项文件）。启动新场景或打开保存的场景时，这些文件或策略可用于强制实施特定的颜色管理设置。若要逐项目或逐快照指定策略，可以使用 <samp class="ph codeph">MAYA_COLOR_MANAGEMENT_POLICY_FILE</samp> 环境变量。 
+		</li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-E5C96EFF-92FE-4102-BED1-E7685F480D74.htm">对当前场景启用或禁用颜色管理</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-6ACE38C5-AC9D-4036-9247-F9208E632412.htm">针对新场景启用或禁用颜色管理</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-2A714F4D-7768-41D0-89F4-9C0062E6CA6D.htm">对所有场景禁用颜色管理</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-4ABC6724-9DB0-45D5-AAF2-5C2FF135247D.htm">重要的颜色管理设置</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-AE1F72ED-FA00-4E81-8027-785E3D6058F7.htm">使用颜色管理策略（外部首选项文件）</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-5CDEBBB6-18F7-4062-B2AF-BDFDF11501F1.htm">选择渲染空间</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-A9CA3572-FAFA-440D-92EB-37566A2DFE0B.htm">选择用于预览的视图</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-631C665F-3092-4B2B-90B7-2A94158870C9.htm">定义规则以便将颜色空间指定给输入文件</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Rendering/files/GUID-96633B57-EDBD-4123-A1FC-1EA17AB18D46.htm">颜色管理任务</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E">
+<meta name="language" content="CHS">
+<title>将贴图连接到基于物理的 Stingray 着色器</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>将贴图连接到基于物理的 Stingray 着色器</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-11893FF8-C3AC-438B-B763-F10A803F932D">默认情况下，<span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-3BCC4C17-9439-4D45-ADB0-C224CB60BFFD">Stingray PBS</span> 节点接受六种不同类型的贴图的输入： 
+	 </p>
+<ul class="ul" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__UL_54372F8937ED4B96A4A2D07B723FD2E7"><li class="li" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__LI_9514B417C48F49F288C10F98F1564CE1">Ao 贴图（环境光遮挡） 
+		</li>
+<li class="li" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__LI_3D172CA974CD479F803E12867D33C7A9">颜色贴图（漫反射系数或漫反射） 
+		</li>
+<li class="li" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__LI_9D5677EAF3CB4B22990452F7F036370F">放射性贴图（辉光） 
+		</li>
+<li class="li" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__LI_7427A7DCE7D64EEAB8DB7375D45036B4">金属贴图（金属） 
+		  <p class="p" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-DB3AE39A-9535-4ED8-977C-FCA2059CE346">金属贴图是确定金属性对象区域以及非金属性区域的遮罩。此值应为 0 或 1，其中非金属为 0，而金属为 1。贴图值应该表示材质的顶层；因此，已上漆的金属不应设置为 1，因为油漆属于非金属。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__LI_F0D7FE73F249443A8301BB7132C6F7F2">法线贴图 
+		</li>
+<li class="li" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__LI_56F457929E164282B0BBE79DFB78F044">粗糙度贴图 
+		  <p class="p" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-598946DF-09DE-4AD1-92C1-45C2C094582C">此贴图确定曲面的粗糙程度，并进而确定其反射率。粗糙度为 0 表示平滑的曲面，因此是全反射。增大粗糙度值时，反射变得更分散且更模糊。 
+		  </p>
+ 
+		</li>
+</ul>
+<p class="p" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-6ED76B5A-7E15-4BD6-891E-8290910E5206">此外，为基于图像的照明预连接了三个文件，且在场景中的所有 <span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-9F5F1949-11C0-48EE-9FF3-5E87A4C7A1B2">Stingray PBS</span> 节点之间共享其连接的文件节点。在<span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-74219F77-2340-48B7-9ACA-DE41E4E2A637">属性编辑器</span>的<span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-648A5492-57B9-4225-97EA-67404EB8EECE">“纹理全局”(Textures Global)</span>部分中可以找到这些连接。 
+	 </p>
+<p class="p">除了上述“标准”预设外，还有两个预设允许您执行以下操作：使用<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中的<span class="ph uicontrol">“预设材质”(Preset Material)</span>下拉列表切换到这些预设。 
+	 </p>
+<ul class="ul" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__UL_8250134EE65244CCB65D99FCA539B857"><li class="li" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__LI_0E07B3E888284E8ABC476FE518843DB5">Standard_Transparent 预设：提供<span class="ph uicontrol">“不透明度”(Opacity)</span>控件，允许设置不透明度/透明度的级别 
+		</li>
+<li class="li" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__LI_26B314FF99794B80A96DEA4A58AF6754">Standard_Masked 预设：允许您通过提供不透明遮罩贴图以确定是否渲染像素（而不是执行 Alpha 融合），进一步控制透明度 
+		</li>
+</ul>
+<p class="p" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-22DD6AA4-1F8F-4A93-9D21-61B4BF6B6126">采用下述两种方式之一连接这些贴图： 
+	 </p>
+<p class="li listintro" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-E78EB3E4-74AD-4714-9D42-B78594CFE5CA">使用<span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-B7FDF5B5-DBBA-4D55-9D10-869D1A2570C5">属性编辑器</span></p>
+<ol class="ol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__OL_38DB5605B5EE4BB29C01CEA77111B9E0"><li class="li" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__LI_B7DD2A1B4BC846C091BE6B743B519122"> 
+		  <p class="p" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-A05FA66B-C606-49BA-AC95-A618393B3FB9">选择 <span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-66341AEF-BD47-4179-8345-D1B8C77BA043">Stingray PBS</span> 节点。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__LI_DA7468A312EF4A7DA9518A38DD39794F">在<span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-050C94A9-C8AF-41BF-A541-DD9F7AFE2756">属性编辑器</span>中的<span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-9C602221-07B6-46ED-8B6B-04841C026103">“纹理”(Textures)</span>标题下，在要连接贴图的位置单击 <img class="image" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__IMAGE_03C16A36F0E84E4DB6D1C7099A505B33" src="../images/GUID-085F901A-F3E8-43AE-9060-FCA856106689.png"> 图标（例如，<span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-39F10631-E51D-4BC1-B347-6C775FA36E25">“颜色贴图”(Color Map)</span>）。 
+		  <p class="p" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-8275B0A3-4F1D-4FFF-AADC-5355608439B7">这将创建文件节点，并在<span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-506D05D6-6293-4FE4-90F0-77D0F500A10E">属性编辑器</span>中显示其属性。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__LI_609CE66C654446509B87802B672EACA9">在<span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-9E6C24A9-B6E6-4C33-B65A-0F5993AAC028">“文件”(File)</span>节点属性中，单击<span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-20F83489-C7BB-4B17-BF0D-25A31F703E3D">“图像名称”(Image name)</span>旁边的文件夹图标，然后导航以选择纹理贴图。 
+		</li>
+<li class="li" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__LI_4F57EB5BAA4E494483B770D100AD53FD"> 再次选择 Stingray PBS 节点，然后在<span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-FC3B2964-8946-408E-A950-CD4108200AFC">属性编辑器</span>中启用对应的“使用 * 贴图”(Use * Map)属性（例如<span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-AFF132D3-07D9-4AFD-9635-CAF56FDA7796">“使用颜色贴图”(Use Color Map)</span>）。 
+		</li>
+</ol>
+<p class="li listintro" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-CF3EF5D4-7292-4AE0-8AAA-38A0FE14553E">使用 <span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-DEBFC5BC-1B11-498A-B090-40DFF74B36C5">Hypershade</span></p>
+<ol class="ol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__OL_7AE9CA64DD2F46F8B3D0FC0F75C44907"><li class="li" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__LI_53E891E37C5F4611B4AA318A9B75E744"> 
+		  <p class="p" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-79958AEC-1300-4A52-B987-1018456D534F">在 <span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-BC40088B-A719-447B-9064-9C3073131431">Hypershade</span> 工作区中，创建<span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-B0E68DA4-C05A-4AB8-B344-B1815913BD3A">“文件”(File)</span>节点，然后导航到纹理贴图。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-F90898A6-55E7-47EA-8542-8A9FD9CBC561.htm" title="在为外观开发而优化的自定义视图中创建节点，然后在节点编辑界面中连接它们。">在 Hypershade 中创建和连接节点</a>。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__LI_3AE4E92BE76E4C0FBB7CB6545B276B29"> 
+		  <p class="p" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-0865901F-3C1B-428E-BD16-4DFD8688F1D5">将<span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-C6F3CF79-60F2-4FFF-A0A4-770DBDB3FD7C">“文件”(File)</span>节点的 <span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-5CC96FC6-B5CC-470F-8BBD-FFC0A7272948">OutColor</span> 输出连接到 <span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-9DBAF762-EA66-4000-9568-F8C062AFE7EB">Stingray PBS</span> 节点的贴图输入属性；例如，<span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-FF97F48E-44B3-4342-8AD9-C0AF7D661EB1">“纹理颜色贴图”(TEX Color Map)</span>。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__LI_D084806CE8D349369BE5AB49AA802202"> 
+		  <p class="p" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-59ADC671-1F66-4182-810B-847B71224DC2">在<span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-C1032CCC-1877-4BFF-AD81-94500A5D8764">属性编辑器</span>中启用对应的“使用 * 贴图”(Use * Map)属性（例如<span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-654AD06C-FB6F-4873-AC0B-F7169E6E0C18">“使用颜色贴图”(Use Color Map)</span>）。 
+		  </p>
+ 
+		</li>
+</ol>
+<div class="note note" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-6C0FCD43-3CB8-4847-8D7B-2418BFB2C785"><span class="notetitle">注：</span> 只会从<span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-8B2E3D29-3807-440E-B56B-6F06732F91BB">“文件”(File)</span>节点读取文件纹理的路径。其他连接（如 place2dTexture）将被忽略。纹理的 UV 坐标由 ShaderFX 图表中与 Stingray PBS 节点对应的 UV 集节点（如 <span class="ph uicontrol" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__GUID-0D283EBF-276D-4F6E-9ACA-88005E61C8EB">Texccord0</span>）确定。 
+	 </div>
+<div class="fig fignone" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__FIG_5E6A66AFA4D741F289A0B0CAABE42F2A"><img class="image" id="GUID-04F2FFA5-1797-4FEF-8A52-AEE00C47224E__IMAGE_C9FD21AE9B3241F2947E96F2437FA365" src="../images/GUID-716AA5BD-2EF4-4305-9D2E-419FC7352F15.png"></div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3.htm">创建基于物理的 Stingray 着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

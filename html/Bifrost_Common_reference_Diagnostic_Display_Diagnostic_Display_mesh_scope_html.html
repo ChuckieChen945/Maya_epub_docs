@@ -1,0 +1,90 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Diagnostic_Display_Diagnostic_Display_mesh_scope_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>mesh_scope</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>mesh_scope</code></h1></div><p>用于可视化和分析网格几何体和特性的诊断复合。</p>
+<p>输出表示几何体的对象数组，可以输出这些对象以可视化网格特性。</p>
+<p>有几个参数部分允许用户配置分析。下面将介绍每个参数部分。</p>
+<h2 id="">输入</h2><h3 id="mesh"><code>mesh</code></h3><p><code>mesh</code> 输入端口接受所分析的网格。</p>
+<h3 id="probe_geometry"><code>probe_geometry</code></h3><p>此几何体可用于限制可视化的网格部分。假定探测几何体是无自相交的防水网格。在生成可视化数据之前，将消隐位于 <code>probe_geometry</code> 外部的输入 <code>mesh</code> 的面。当生成的可视化数据量很大且彼此重叠时，这非常有用。</p>
+<h2 id="">点部分</h2><p>此参数部分控制网格的点特性的可视化。</p>
+<h3 id="display_points"><code>display_points</code></h3><p>将点显示为圆。</p>
+<h3 id="point_tag"><code>point_tag</code></h3><p>一个解释为点标记的自动端口。数组 <bool>、数组 <long> 和字符串是可以插入到此处的可接受类型。有关详细信息，请参见 <code>interpret_auto_port_as_component_tag</code>。</long></bool></p>
+<h3 id="display_point_ids"><code>display_point_ids</code></h3><p>显示每个点的 ID 值。</p>
+<h3 id="highlight_tagged_points"><code>highlight_tagged_points</code></h3><p>选中后，将亮显由 <code>point_tag</code> 指定的点。仅当 <code>display_points</code> 也处于启用状态时，才启用此选项。</p>
+<h3 id="display_only_tagged_points"><code>display_only_tagged_points</code></h3><p>选中后，仅显示由 <code>point_tag</code> 指定的点。仅当 <code>display_points</code> 也处于启用状态时，才启用此选项。</p>
+<h3 id="">颜色部分</h3><h3 id="point_color"><code>point_color</code></h3><p>所显示点的颜色。</p>
+<h3 id="highlighted_point_color"><code>highlighted_point_color</code></h3><p>用于显示亮显的点的颜色。</p>
+<h2 id="">相邻部分</h2><p>此参数部分控制网格相邻（邻近）信息的可视化。</p>
+<h3 id="display_face_edges"><code>display_face_edges</code></h3><p>显示每个面的面边。每个面边由两个面顶点组成：一个起始面顶点和一个结束面顶点。面边的箭头从起始面顶点指向结束面顶点。</p>
+<h3 id="display_face_edge_neighbors"><code>display_face_edge_neighbors</code></h3><p>显示每个面边的成对面边，在面边之间以箭头的形式绘制。对于大多数网格，每个面边将恰好与另一个面边相邻。沿边界边的面边不会与任何其他面边相邻，并且不会为这些边绘制箭头。与多个其他面边相邻的面边称为非流形边。在这些情况下，箭头以菊花链形式排列，每个面边指向下一个相邻的面边，最后一个面边指回第一个面边。启用 <code>display_border_edges</code> 和 <code>display_nonmanifold_edges</code> 可分别可视化边界和非流形边。</p>
+<h3 id="display_point_face_neighbors"><code>display_point_face_neighbors</code></h3><p>显示每个点指向参照该点的面顶点的箭头。从每个点发出的箭头数量称为顶点的阶数或边价。通常不建议构建具有高边价点的网格。</p>
+<h3 id="">颜色部分</h3><h3 id="point_face_neighbor_color"><code>point_face_neighbor_color</code></h3><p>点面相邻箭头的颜色。</p>
+<h3 id="face_edge_color"><code>face_edge_color</code></h3><p>面边的颜色。</p>
+<h3 id="face_edge_neighbor_color"><code>face_edge_neighbor_color</code></h3><p>面边相邻箭头的颜色。</p>
+<h2 id="">面边</h2><h3 id="display_non_manifold_edges"><code>display_non_manifold_edges</code></h3><p>显示网格的任何非流形边。非流形边是与两个以上的面相邻的边。应避免构建具有非流形边的网格。</p>
+<h3 id="display_border_edges"><code>display_border_edges</code></h3><p>显示网格的任何边界边。边界边是仅与一个面相邻的边。没有边界边的网格称为防水网格。</p>
+<h3 id="display_edges"><code>display_edges</code></h3><p>显示网格的边。</p>
+<h3 id="">颜色部分</h3><h3 id="non_manifold_edge_color"><code>non_manifold_edge_color</code></h3><p>非流形边的颜色。</p>
+<h3 id="border_edge_color"><code>border_edge_color</code></h3><p>边界边的颜色。</p>
+<h3 id="edge_color"><code>edge_color</code></h3><p>边的颜色。</p>
+<h2 id="">面顶点</h2><h3 id="display_face_vertex_ids"><code>display_face_vertex_ids</code></h3><p>显示面顶点的 ID。启用后，网格将以收缩模式显示。在这种模式下，这些面彼此分离，并按比例缩小。这是为了更好地可视化每个面的面顶点值。</p>
+<h3 id="face_shrink_amount"><code>face_shrink_amount</code></h3><p>在收缩模式下收缩面的量。</p>
+<h2 id="">面</h2><h3 id="display_faces"><code>display_faces</code></h3><p>显示网格的面。</p>
+<h3 id="display_face_ids"><code>display_face_ids</code></h3><p>显示每个面的面 ID，位于面的质心处。</p>
+<h3 id="face_tag"><code>face_tag</code></h3><p>一个解释为面标记的自动端口。数组 <bool>、数组 <long> 和字符串是可以插入到此处的可接受类型。有关详细信息，请参见 <code>interpret_auto_port_as_component_tag</code>。</long></bool></p>
+<h3 id="highlight_tagged_faces"><code>highlight_tagged_faces</code></h3><p>当给定 <code>face_tag</code> 值时，将亮显任何标记的面。</p>
+<h3 id="display_only_tagged_faces"><code>display_only_tagged_faces</code></h3><p>如果给定了 <code>face_tag</code> 值，将消隐任何未标记的面。</p>
+<h3 id="highlighted_face_color"><code>highlighted_face_color</code></h3><p>用于显示亮显的面的颜色。</p>
+<h2 id="">法线</h2><h3 id="display_face_vertex_normals"><code>display_face_vertex_normals</code></h3><p>显示面顶点法线。如果启用此选项，但输入 <code>mesh</code> 中不存在任何 <code>face_vertex_normal</code> 特性，则会为网格生成这些法线。</p>
+<h3 id="display_vertex_normals"><code>display_vertex_normals</code></h3><p>显示顶点法线。如果启用此选项，但输入网格中不存在任何 <code>point_normal</code> 特性，则会为网格生成这些法线。</p>
+<h3 id="display_face_normals"><code>display_face_normals</code></h3><p>显示面法线。如果启用此选项，但输入网格中不存在任何 <code>face_normal</code> 特性，则会为网格生成这些法线。</p>
+<h3 id="normal_length_multiplier"><code>normal_length_multiplier</code></h3><p>法线是用箭头绘制的。箭头的长度对应于网格中法线几何特性的长度。它们的长度通常为 1。此倍增可用于使箭头变长或变短，使其在非常大和非常小的网格上更容易看到。</p>
+<h3 id="">颜色部分</h3><h4 id="point_normal_color"><code>point_normal_color</code></h4><p>表示点法线的箭头股的颜色。</p>
+<h4 id="face_vertex_normal_color"><code>face_vertex_normal_color</code></h4><p>表示面顶点法线的箭头股的颜色。</p>
+<h4 id="face_normal_color"><code>face_normal_color</code></h4><p>表示面法线的箭头股的颜色。</p>
+<h3 id="">诊断几何体</h3><h3 id="strand_thickness_multiplier"><code>strand_thickness_multiplier</code></h3><p>某些诊断几何体（例如边）将输出为股。股的厚度由网格面的平均边长确定，因此面较小的网格具有较细的股。此倍增可用于调整股厚度。</p>
+<h3 id="arrow_thickness_multiplier"><code>arrow_thickness_multiplier</code></h3><p>某些诊断几何体（例如法线）将输出为箭头股。箭头的厚度由网格面的平均边长确定，因此面较小的网格具有较细的箭头。此倍增可用于调整箭头厚度。</p>
+<h3 id="id_offset"><code>id_offset</code></h3><p>沿曲面法线偏移点/面 ID 的显示，以获得更好的可见性。</p>
+<h2 id="">输出</h2><h3 id="diagnostic_geo"><code>diagnostic_geo</code></h3><p>表示用户启用的可视化数据的诊断几何体数组。此数组将包含点、股和网格几何体的混合。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Diagnostic/Bifrost_Common_reference_Diagnostic_Display_html.html">Display</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

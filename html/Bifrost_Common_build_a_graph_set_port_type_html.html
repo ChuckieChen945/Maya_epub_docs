@@ -1,0 +1,111 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_build_a_graph_set_port_type_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>设置端口类型</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+      <script src="../scripts/lang-json.js"></script>
+      <script src="../scripts/lang-mel.js"></script>
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>设置端口类型</h1></div><p>解析端口类型的方式取决于它是引用复合还是局部复合。</p>
+<ul>
+<li><strong>引用复合</strong>：通过添加值来调整类型：在端口上单击鼠标右键，展开<strong>“值类型”(Value Types)</strong>菜单，然后从建议和支持的端口类型列表中进行选择。这会向端口添加一个值，也称为即时值。这些值与图表中不可见的 <code>value</code> 节点类似，可用于解析类型。因此，您无需创建显式 <code>value</code> 节点以在节点（如 <code>set_geo_property</code>）上解析端口类型。</li>
+<li><strong>可编辑复合</strong>：在端口上单击鼠标右键，然后从<strong>“端口类型”(Port Types)</strong>菜单中选择类型。在这种情况下，您可以通过更改节点端口的类型来更改节点本身。 </li>
+</ul>
+<h2 id="">解析引用复合上的端口类型</h2><h3 id="auto">对于 <code>auto</code> 端口</h3><p>在 <code>auto</code> 端口上单击鼠标右键，然后选择<strong>“值类型”(Value Types)</strong>，系统将提供<strong>“建议类型”(Suggested Types)</strong>列表。<code>auto</code> 端口可以接受任何类型，子菜单将列出最常用的选项。如果未列出您所需的类型，请选择<strong>“设置值类型”(Set Value Type)</strong>，然后从<strong>“设置值类型”(Set Value Type)</strong>编辑器中选择所需的类型。 </p>
+<p><img src="../images/Auto_ValueTypes_Suggested_Menu.png" alt="auto 端口的“值类型”(Value Types)菜单"></p>
+<p>当前已解析的类型带有复选标记。 </p>
+<p><img src="../images/currently_resolved_type.png" alt="当前已解析的类型复选标记"></p>
+<p>要将端口还原为 <code>auto</code> 类型，请单击鼠标右键，然后选择<strong>“清除值”(Clear Value)</strong>。 </p>
+<p>有关 <code>auto</code> 端口的详细信息，请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_about_data_types_html.html">关于 <code>auto</code> 类型的端口</a>。</p>
+<h3 id="">对于过载端口</h3><p>同样，可以在过载节点的端口上单击鼠标右键，然后选择<strong>“值类型”(Value Types)</strong>，系统将提供<strong>“支持类型”(Supported Types)</strong>列表。 </p>
+<p>过载节点包含多个定义，每个定义对应不同的数据类型 - 最常用的类型将列在此菜单中。如果未列出您所需的类型，请展开<strong>“所有支持的类型”(All Supported Types)</strong>子菜单，然后从其他可用过载中进行选择。使用此菜单，还可以浏览复合的可用过载。 </p>
+<p>从列表中选择一个类型将选择过载，并且当前已解析的类型将带有复选标记。要将端口还原为原始状态（推断类型），请单击鼠标右键，然后选择<strong>“清除值”(Clear Value)</strong>。 </p>
+<p>在此图表中，添加了 <code>float3</code> 类型的 <code>value</code> 节点，以将 <code>set_geo_property.data</code> 的类型设置为 <code>float3</code>。 </p>
+<p><img src="../images/set_geo_color_with_value_node.png" alt="具有 value 节点的 set_geo_property"></p>
+<p>在此图表中，通过选择<strong>“值类型 &gt; Math::Float3”(Value Types &gt; Math::Float3)</strong>，将 <code>set_geo_property.data</code> 设置为 <code>float3</code>。不需要手动创建 <code>value</code> 节点。 </p>
+<p><img src="../images/set_geo_color_ValueTypes_menu.png" alt="具有菜单的 set_geo_propert"></p>
+<p>有关过载的信息，请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/create-and-edit-compounds/Bifrost_Common_build_a_graph_create_and_edit_compounds_publish_compounds_html.html">可过载</a>。</p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>仅当端口没有传入连接时，才显示<strong>“设置值类型”(Set Value Type)</strong>、<strong>“值类型”(Value Types)</strong>和<strong>“清除值”(Clear Value)</strong>菜单项。否则，端口类型取决于其输入。 </p>
+
+</div></div>
+
+<h2 id="">在引用复合上设置未解析的端口类型</h2><p>除了使用右键单击菜单外，还可以在<strong>“参数编辑器”(Parameter Editor)</strong>的下拉列表中设置未解析端口的类型。 </p>
+<p><img src="../images/set_type_unresolved_paramed.png" alt="参数编辑器中的未解析类型"></p>
+<h2 id="">通过添加值来调整类型的其他示例</h2><p>您还可以使用此功能以最少的步数将一种数据类型转换为另一种数据类型。 </p>
+<p>在此示例中，如果要在将 <code>value</code> 端口类型设置为 <code>array&lt;float3&gt;</code> 后立即将 (x, y, z) 值从第二象限更改为第一象限，即从 (-1, 1) 更改为 (0, 1)，则所有其他端口也将升级为 <code>float3</code>。在每个端口上单击鼠标右键，然后将其设置为 <code>float</code>。</p>
+<p>这样就无需为所有四个端口输入 (x,y,z) 值，也无需创建 <code>value</code> 节点来设置每个端口的类型。</p>
+<p><img src="../images/set_type_change_range.png" alt="更改范围示例"></p>
+<h2 id="">在局部复合上设置端口类型</h2><p>在局部复合的端口上单击鼠标右键，然后展开<strong>“值类型”(Value Types)</strong>菜单以选择类型。如果未列出您所需的类型，请选择<strong>“设置值类型”(Set Value Type)</strong>，然后从<strong>“设置值类型”(Set Value Type)</strong>编辑器中设置它。 </p>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>在端口上单击鼠标右键并选择<strong>“清除值”(Clear Value)</strong>时，除了重置端口值外，端口类型也将重置为默认值。</p>
+
+</div></div>
+
+<h2 id="suggested-types">将“建议类型”(Suggested Types)菜单添加到自定义复合上的端口</h2><p>要将包含建议类型列表的<strong>“值类型”(Value Types)</strong>菜单添加到复合的 auto 端口，请执行下列操作之一：</p>
+<h3 id="json">将元数据添加到复合的 .json 文件中的端口描述</h3><p>下面是 <code>get_geo_property.json</code> 中的一个示例：</p>
+<pre class="pre codeblock"><code class="lang-json prettyprint">{
+    "portName": "type",
+    "portDirection": "input",
+    "metadata": [
+        {
+            "metaName": "TypeWranglingSuggestedTypes",
+            "metaType": "string",
+            "metaValue": "array&lt;float&gt;, array&lt;long&gt;, array&lt;uint&gt;, array&lt;bool&gt;, array&lt;string&gt;, array&lt;Math::float2&gt;, array&lt;Math::float3&gt;, array&lt;Math::float4&gt;, array&lt;Math::float3x3&gt;, array&lt;Math::float4x4&gt;"
+        }
+                ]
+},</code></pre>
+<p>将元数据名称设置为“TypeWranglingSuggestedTypes”，并提供元数据值中的建议类型列表。 </p>
+<p>有关详细信息，请参见 <code>../resources/bif/jsonLibs/get_geo_property.json</code>。 </p>
+<h3 id="vnncompound">使用 <code>vnnCompound</code> 命令添加元数据</h3><p>将 <code>vnnCompound</code> 命令与 <code>setPortMetaDataValue</code> 标志结合使用，并提供：端口名称、元数据名称 (TypeWranglingSuggestedTypes) 和元数据值（建议类型列表）。 </p>
+<p>例如：</p>
+<pre class="pre codeblock"><code class="lang-mel prettyprint">vnnCompound "bifrostGraph1" "/myCompound" -setPortMetaDataValue "myPort" "TypeWranglingSuggestedTypes" "array&lt;float&gt;, array&lt;long&gt;, array&lt;uint&gt;, array&lt;bool&gt;, array&lt;string&gt;, array&lt;Math::float2&gt;, array&lt;Math::float3&gt;, array&lt;Math::float4&gt;, array&lt;Math::float3x3&gt;, array&lt;Math::float4x4&gt;";</code></pre>
+<p>发布复合。现在，如果创建 myCompound，当您在 myPort 上单击鼠标右键时，将显示<strong>“值类型”(Value Types)</strong>菜单。</p>
+<p>有关详细信息，请参见 <a href="http://help.autodesk.com/cloudhelp/CHS/Bifrost-Tech-Docs/Commands/vnnCompound.html" target="_blank">vnnCompound 文档 (MEL)</a> 或 <a href="http://help.autodesk.com/cloudhelp/CHS/Bifrost-Tech-Docs/CommandsPython/vnnCompound.html" target="_blank">vnnCompound 文档 (Python)</a> 中的 <code>-setPortMetaDataValue</code> 标志。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/Bifrost_Common_build_a_graph_html.html">构建和修改图表</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

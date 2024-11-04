@@ -1,0 +1,134 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_userdata_am_Ai_User_Data_Float_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="NODES-AIUSERDATAFLOAT">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" Ai 用户数据浮点 - Arnold for Maya">
+
+<title>Ai 用户数据浮点</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="arnold-note">
+
+
+
+<table>
+<thead>
+<tr>
+<th>延伸阅读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有关完整的着色器文档，请参见<strong>《Arnold 用户手册》</strong>中的<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_shading_ac_userdata_shaders_html" target="_blank">用户数据着色器</a>。</td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+
+
+<div class="head-block"><h1>Ai 用户数据浮点</h1></div><h3 id="-1">示例 1</h3><p>本简短教程介绍了如何使用 Ai 用户数据浮点节点来更改两个球体的颜色值。</p>
+<ul>
+<li>首先，创建一个 <strong>Ai 用户数据浮点</strong>节点和一个 <a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_shaders_ac_standard_surface_html" target="_blank"><em>standard_surface</em></a> 着色器。打开这两者的连接编辑器。选择 <strong>Ai 用户数据浮点</strong>节点的 <strong><em>outValue</em></strong>，然后将它连接到 <em>standard_surface</em> 着色器的 <strong><em>colorR</em></strong> 属性。</li>
+</ul>
+<p><img src="../images/mtoa_userdatafloat1.png" alt=""> </p>
+<ul>
+<li>选择 <strong>Ai 用户数据浮点</strong>节点，在属性编辑器的<strong>“浮点属性名称”(Float Attr Name)</strong>中添加一个名称。在此示例中，我们使用的名称是<strong>“Float”</strong>。</li>
+</ul>
+<p><img src="../images/mtoa_userdatafloat2.png" alt=""> </p>
+<ul>
+<li>创建一个球体，然后为其添加一个属性。为形状节点添加附加属性时，必须使用<strong>“mtoa_constant_<attribute-name>”</attribute-name></strong>这样的命名约定。在此示例中，您必须为属性使用 <strong>mtoa_constant_Float</strong> 名称。在球体的附加属性中，您应看到值为 1 的新属性“Float”。</li>
+</ul>
+<p><img src="../images/mtoa_userdatafloat3.png" alt=""> </p>
+<ul>
+<li>复制球体，并将第二个球体的<strong>“浮点”(Float)</strong>值更改为 0.3。</li>
+</ul>
+<p><img src="../images/mtoa_userdatafloat4.png" alt=""> </p>
+<ul>
+<li>渲染场景。您应该注意到，左侧球体的红色值为 1.0，由值为 1.0 的<strong>“浮点”(Float)</strong>属性确定。而右侧的球体是深红色，因为我们将其<strong>“浮点”(Float)</strong>属性更改为 0.3。</li>
+</ul>
+<p><img src="../images/mtoa_userdatafloat5.png" alt=""> </p>
+<h3 id="-2">示例 2</h3><p>在此示例中，我们将使用 <strong>Ai 用户数据浮点</strong>节点来控制一个 2D 纹理放置节点的<strong><em>“偏移”(Offset)</em></strong>。</p>
+<ul>
+<li><p>首先，创建一个 <strong>Ai 标准曲面</strong>着色器和一个 <strong><em>2D 分形</em></strong>纹理。将该 2D 分形纹理连接到 AI 标准曲面着色器的“颜色”(Color)属性。</p>
+</li>
+<li><p>创建四个平面，并为它们指定 Ai 标准曲面着色器。这时应看到所有平面都具有相同的 2D 纹理放置。</p>
+</li>
+</ul>
+<p><img src="../images/mtoa_userdatafloat6.jpg" alt=""> </p>
+<ul>
+<li>创建一个 <strong>Ai 用户数据浮点</strong>节点。在<strong>“浮点属性名称”(Float Attr Name)</strong>下，键入 <code>noiseOffset</code></li>
+</ul>
+<p><img src="../images/mtoa_userdatafloat7.png" alt=""> </p>
+<ul>
+<li>打开连接编辑器。选择 <strong>Ai 用户数据浮点</strong>节点的 <strong><em>outValue</em></strong>，然后将其连接至分形纹理的 <strong>2D 纹理放置</strong>的 <strong><em>offsetU</em></strong> 属性。</li>
+</ul>
+<p><img src="../images/mtoa_userdatafloat8.png" alt=""> </p>
+<p><sub><strong>将 Ai 用户数据浮点的 outValue 连接到 2D 纹理放置的 offsetU</strong></sub></p>
+<p>这些连接在节点编辑器窗口中应如下所示：</p>
+<p>  <img src="../images/core-user_data_node_window.png" alt=""></p>
+<ul>
+<li>选择一个平面（确保选择其形状节点），然后为其添加属性：<strong><em>“属性 &gt; 添加属性”(Attributes &gt; Add Attribute)</em></strong>。</li>
+<li>在<strong>“长名称”(Long name)</strong>下，键入 <code>mtoa_constant_noiseOffset</code></li>
+</ul>
+<p><img src="../images/mtoa_userdatafloat10.png" alt=""> </p>
+<ul>
+<li>选择平面。在属性编辑器中，这时应在<strong>“附加属性”(Extra Attributes)</strong>下看到新创建的属性：</li>
+</ul>
+<p><img src="../images/mtoa_userdatafloat11.png" alt=""> </p>
+<p><sub><strong>“MtoA 恒定噪波偏移”(MtoA Constant Noise Offset)属性</strong></sub></p>
+<ul>
+<li><p>为上述平面重复上面的步骤。但是，更改每个平面的“Mtoa 恒定噪波偏移”(MtoA Constant Noise Offset)值。例如，0.2、0.4、0.6、0.8。</p>
+</li>
+<li><p>渲染平面。这时应看到每个平面的 <em>offset_u</em> 属性已根据在“Mtoa 恒定噪波偏移”(Mtoa Constant Noise Offset)属性中输入的值进行了偏移。</p>
+</li>
+</ul>
+<p><img src="../images/mtoa_userdatafloat12.jpg" alt=""> </p>
+<p><sub><strong>2D 纹理放置由“Mtoa 恒定噪波偏移”(Mtoa Constant Noise Offset)属性控制</strong></sub></p>
+<p><strong>要下载对应的场景，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/UserDataFloat_user-guide.ma" target="_blank">此处</a>。</strong></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/shaders/arnold_for_maya_shaders_userdata_html.html">Ai 用户数据着色器</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

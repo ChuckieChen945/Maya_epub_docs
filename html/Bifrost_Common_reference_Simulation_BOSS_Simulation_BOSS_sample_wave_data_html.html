@@ -1,0 +1,68 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_BOSS_Simulation_BOSS_sample_wave_data_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>sample_wave_data</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>sample_wave_data</code></h1></div><p>此项可用于对波模拟进行采样以及计算一组传入位置的特性。请注意，仅当在波解算器上启用了 <code>output_slope</code>、<code>horizontal_displacement</code> 或 <code>output_velocity</code> 时，才会提供某些输出。尤其是，必须同时启用 <code>output_slope</code> 和 <code>horizontal_displacement</code> 才能访问除 <code>displacement</code> 和 <code>velocity</code> 以外的内容。</p>
+<h2 id="">输入</h2><h3 id="point_position"><code>point_position</code></h3><p>这是要对波图像进行采样的一组位置。波特性沿 Y 轴向下投影，因此仅使用位置的输入 XZ。</p>
+<h3 id="wave_image"><code>wave_image</code></h3><p>这是要采样的波对象。这通常是来自 simulate_dynamic_wave 或 create_spectral_waves 节点的 out_wave。 </p>
+<h3 id="sampler"><code>sampler</code></h3><p>这是在几何体位置对波图像进行采样时在波图像数组上使用的插值方法。</p>
+<ul>
+<li><p><code>Nearest</code>：最靠近点的像素：无插值</p>
+</li>
+<li><p><code>Linear</code>：在最近点之间线性插值</p>
+</li>
+<li><p><code>Quadratic</code>：更平滑地插值</p>
+</li>
+<li><p><code>Bspline</code>：最平滑的插值</p>
+</li>
+</ul>
+<h2 id="">输出</h2><p>输出全都返回数组大小将与输入 <code>point_position</code> 数组的大小匹配的数组。</p>
+<h3 id="displacement"><code>displacement</code></h3><p>这是由位移值组成的 float3 数组。波峰是从（水平）x 和 z 位移值得到的。</p>
+<h3 id="velocity"><code>velocity</code></h3><p>这是由波速度值组成的 float3 数组（以单位数/秒表示）。仅当在波解算器上启用了 <code>output_velocity</code> 时，此项才可用。</p>
+<h3 id="normal"><code>normal</code></h3><p>这是表示波曲面法线的 float3 数组，但请注意，这是水平位移之前的值，因此忽略波峰影响。通常，与使用此项设置法线相比，从输出网格计算法线可以获得更好的法线。仅当在波解算器上启用了 <code>output_slope</code> 时，此项才可用。</p>
+<h3 id="slope"><code>slope</code></h3><p>这是表示波的 xz 坡度的 float2 数组。仅当在波解算器上启用了 <code>output_slope</code> 和 <code>horizontal_displacement</code> 时，此项才可用。</p>
+<h3 id="min_eigen_value"><code>min_eigen_value</code></h3><p>这是表示从波位移向量派生的最小特征值的浮点数组。</p>
+<h3 id="max_eigen_value"><code>max_eigen_value</code></h3><p>这是表示从波位移向量派生的最大特征值的浮点数组。</p>
+<h3 id="derivatives"><code>derivatives</code></h3><p>这是由位移导数组成的 float3 数组。xyz 向量分别表示 XX、XZ 和 ZZ 导数。仅当在解算器上同时启用了 <code>output_slope</code> 和 <code>horizontal_displacement</code> 时，才会计算导数。</p>
+<h3 id="jacobian"><code>jacobian</code></h3><p>这是表示水平位移的雅可比行列式的浮点数组。它可用于确定波峰可能自相交的位置。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_BOSS_html.html">BOSS</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

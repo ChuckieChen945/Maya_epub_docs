@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Interoperability">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1">
+<meta name="language" content="CHS">
+<title>FBX 插件重命名策略</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>FBX 插件重命名策略</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__WS1A9193826455F5FF1DBC298511635BEA875413"> 当 Maya FBX 插件发现对象或元素具有相同的名称时，发生了命名冲突。Maya FBX 插件会在导入或导出时通过重命名元素来修正此问题。这种方法同样适用于任何大小写冲突。 
+	 </p>
+<div class="section" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__WS1A9193826455F5FF-7F10494411F03A24F24-2D20"><h2 class="title sectiontitle">何时会出现这种情况？</h2> 
+		 
+		<p class="p" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__WS1A9193826455F5FF-7F10494411F03A24F24-2D1F"> 例如，从 3ds Max 导出的 FBX 场景中包含两个名称为“Box01”的对象时，会发生这种情况。Maya 中的结果是，第一个对象名为“Box01”，第二个对象原先名为“Box01”，现在名为“Box01_ncl1_1”。这种情况肯定会发生，因为 Maya 不支持具有相同名称的对象。 
+		</p>
+ 
+	 </div>
+<p class="p" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__WS1A9193826455F5FF1DBC298511635BEA875414">以下是对发生情况的描述： 
+	 </p>
+<div class="section" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__WS1A9193826455F5FF1DBC298511635BEA875415"><h2 class="title sectiontitle">多余的名称</h2> 
+		 
+		<p class="p" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__WS1A9193826455F5FF1DBC298511635BEA875416"> 当 Maya FBX 插件发现场景中的多个实例具有相同的名称时，将使用符号代码。Maya FBX 插件可以读取旧文件，尽管它不再按此方法写入它们。 
+		</p>
+ 
+		<p class="p" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__WS1A9193826455F5FF1DBC298511635BEA875417">新的后缀为 _ncl1_<em class="ph i" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__GUID-D1D512FB-B0C0-4AA0-BAFB-A292467E51C5">x</em>（其中 <em class="ph i" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__GUID-2BA617BB-A1B6-4300-BA1E-B4576BF27869">x</em> 是实例编号）。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__SECTION_8A12405E5EE040E0866B6E40E154CE26"><h2 class="title sectiontitle">命名冲突</h2> 
+		 
+		<p class="p">有时，当您将多个 FBX 角色从 3ds Max 导入游戏引擎时，会发生冲突，从而导致根关节熔合在一起。这是因为有些软件包像 Maya 一样，不需要名称空间即可区分对象。因此，导出到游戏引擎时，移除任何名称空间非常重要。 
+		</p>
+ 
+		<p class="p"> 3ds Max 支持重复的名称，因此导出将自动使用 3ds Max 的“导出选定对象”(Export Selected)选项。但在 Maya 和 MotionBuilder 中，重复的名称会引发问题。因此，如果两个角色均使用相同的装备名称，则必须对每个装备使用不同的名称空间。 
+		</p>
+ 
+		<p class="li listintro">从 Maya 或 MotionBuilder 导出两个角色时</p>
+<ol class="ol" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__OL_49224F0B242A44F9BA3CCBB1DC175B3C"><li class="li" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__LI_98A777459B814248BCA1E8B7BA4238CB">从要导出的第一个动画装备的层次中移除名称空间。 
+		  </li>
+<li class="li" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__LI_EE29433E266C49178F4812BF3792BBA5">在第一个角色上重置名称空间，然后从第二个角色中移除名称空间 
+		  </li>
+<li class="li" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__LI_9EF136E0165C40D7BAA815DD157591A0">导出。
+		  </li>
+</ol>
+ 
+		<div class="p">
+		<p class="li listintro">导入两个包含同名对象（例如，角色装备）的角色时</p>
+<ol class="ol" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__OL_1AEB95D2C8E343178610BAB6D795D70A"><li class="li" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__LI_D55A865C23C541808FBAC9C5090BCB17">在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-37B31221-7BBC-40DA-AB33-47C333EF4E14">导入选项</a>中，启用<strong class="ph b"><span class="ph uicontrol">“使用名称空间”(Use Namespaces)</span></strong>和<span class="ph uicontrol">“使用选定的名称空间作为父对象并添加新的名称空间字符串”(Use selected namespace as parent and add new namespace string)</span>。
+		  </li>
+<li class="li" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__LI_DB4F3DFB156E49F9B76F10C4F1B90927">在 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-0CD41066-4C27-48AE-9776-366DB11B4FDF.htm">FBX 导入选项</a>中，使用<strong class="ph b"><span class="ph uicontrol">“添加”(Add)</span></strong>，而非“包括文件内容”(Include File Content)区域中的<span class="ph uicontrol">“添加并更新”(Add and Update)</span>。
+		  </li>
+<li class="li" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__LI_3E7BBF5C24D7497BB34F4A0811D444B1">输入。
+		  </li>
+</ol>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__WS1A9193826455F5FF1DBC298511635BEA875418"><h2 class="title sectiontitle">大小写冲突</h2> 
+		 
+		<p class="p" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__WS1A9193826455F5FF1DBC298511635BEA875419"> Maya FBX 插件发现场景中的对象或元素的名称存在大小写冲突时，将使用更复杂的后缀跟踪大写或小写字符，以便可以在导入或合并时将其转化回原来的样式。 
+		</p>
+ 
+		<p class="p" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__WS1A9193826455F5FF1DBC298511635BEA87541A">以下后缀用于指示大小写： 
+		</p>
+ 
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__WS1A9193826455F5FF1DBC298511635BEA87541B" class="table" frame="border" border="1" rules="all"><thead class="thead" align="left"><tr class="row"><th class="entry" valign="top" width="50%">情况 
+				  </th>
+<th class="entry" valign="top" width="50%">后缀 
+				  </th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" valign="top" width="50%">指示大小写 
+				  </td>
+<td class="entry" valign="top" width="50%">_ncl2 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">描述原先为大写、后变为小写的字符 
+				  </td>
+<td class="entry" valign="top" width="50%">_ulXXXX 
+				  </td>
+</tr>
+<tr class="row"><td class="entry" valign="top" width="50%">描述原先为小写、后变为大写的字符 
+				  </td>
+<td class="entry" valign="top" width="50%">_lu<em class="ph i" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__GUID-16B32FDA-DD8E-42D1-8FB9-30A09953AD8B">xxxx</em>（其中 <em class="ph i" id="GUID-3BA8A270-7DD9-46FF-979F-C93C469D43D1__GUID-4C5AB1FD-2279-478C-B5E5-B859941AB3A1">xxxx</em> 为四位数字的整数，表示字符串中的字符位置，数字表示位置的形式是比特式。例如，_ul5 指示字符串中第一个和第三个字符已从大写更改为小写。后缀可以由 _ul 和 _lu 子后缀组合而成。） 
+				  </td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Interoperability/files/GUID-A6339BF6-7C97-435D-9903-D8A4CF51081A.htm">Maya FBX 插件工作流</a></div>
+</div>
+</div>
+
+</body>
+</html>

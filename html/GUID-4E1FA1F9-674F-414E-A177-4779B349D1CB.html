@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-4E1FA1F9-674F-414E-A177-4779B349D1CB">
+<meta name="language" content="CHS">
+<title>可变形对象、点和变形器成员身份</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-4E1FA1F9-674F-414E-A177-4779B349D1CB">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1> 可变形对象、点和变形器成员身份</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF-56C0CD8012A8003217A-1DB7"><p class="p" id="GUID-4E1FA1F9-674F-414E-A177-4779B349D1CB__WS1A9193826455F5FF6026605B1181C8F4F2E-3394"> 变形器可以在任何可变形对象上创建变形效果，其中包括 NURBS 曲线、NURBS 曲面、多边形曲面（网格）和晶格。 
+	 </p>
+<p class="p">Maya 细分曲面也可变形。若要了解详细信息，可以从 <a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-D2DE8439-F0D9-41B1-B9BB-F38977E52501">Maya 文档归档</a>下载<strong class="ph b">细分曲面手册</strong>。 
+	 </p>
+<p class="p" id="GUID-4E1FA1F9-674F-414E-A177-4779B349D1CB__WS1A9193826455F5FF6026605B1181C8F4F2E-3386"> 使用 Maya 的 API 开发工具，可以定义各自的自定义可变形对象。有关详细信息，请参见 Maya 开发人员帮助。 
+	 </p>
+<p class="p" id="GUID-4E1FA1F9-674F-414E-A177-4779B349D1CB__WS1A9193826455F5FF6026605B1181C8F4F2E-3383"> 角色的模型可以由一个可变形对象（例如，一个大的多边形曲面）或多组可变形对象（例如，多组 NURBS 曲面）组成。 
+	 </p>
+<div class="section" id="GUID-4E1FA1F9-674F-414E-A177-4779B349D1CB__SECTION_11EAB453470347BA8EF1EB89A03C1F1F"><h2 class="title sectiontitle">控制点</h2> 
+		 
+		<p class="p" id="GUID-4E1FA1F9-674F-414E-A177-4779B349D1CB__GUID-D22E23FD-B683-4519-B066-CE60C80A877B">可变形对象是其结构由控制点定义的任何对象。控制点包括 NURBS 控制顶点 (CV)、多边形顶点有晶格点。在本手册中，控制点通常称为点，可变形对象的控制点通常称为可变形对象点。 
+		</p>
+ 
+		<p class="p" id="GUID-4E1FA1F9-674F-414E-A177-4779B349D1CB__GUID-8CE4D843-E4C9-4A68-AAEE-7EC6FD302ED4">当创建支持多边形组件的变形器时，<span class="ph msgph prodname" id="GUID-4E1FA1F9-674F-414E-A177-4779B349D1CB__GUID-22C1D86C-C8BF-45A2-B855-12E962BDC891">Maya</span> 会自动将边和面转化为顶点。例如，选择循环边，然后选择<span class="ph uicontrol" id="GUID-4E1FA1F9-674F-414E-A177-4779B349D1CB__GUID-C32A5C8D-D3FC-424B-9840-E5D95D59621E">“创建变形器 &gt; 簇”(Create Deformers &gt; Cluster)</span>将簇添加到选定的边。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-4E1FA1F9-674F-414E-A177-4779B349D1CB__SECTION_A4C6A30DF31245E7AF9D5FE04AE771DA"><h2 class="title sectiontitle">变形器成员身份</h2> 
+		
+		<p class="p">可以使用以下几种方法来编辑变形器集成员身份：
+		</p>
+ 
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">组件标记(Component Tags)</span>
+			 </dt>
+<dd class="dd">
+				<div class="fig fignone" id="GUID-4E1FA1F9-674F-414E-A177-4779B349D1CB__FIG_F4FA6F19636240149099A04D3B489A55"><img class="image" id="GUID-4E1FA1F9-674F-414E-A177-4779B349D1CB__IMAGE_9252A27F5726485186DAFBFE8A6D4936" src="../images/GUID-B3BB4547-942A-4659-B881-1433DC67BCFD.gif"><p class="figcap">使用“组件标记”(Component Tags)来定义成员身份</p></div>
+
+				<p class="p"><span class="ph uicontrol">“组件标记”(Component Tags)</span>表达式有助于轻松地动态定义变形器成员身份。可以在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-67A58D31-4722-4769-B3E6-1A35B5B53BED">属性编辑器(Attribute Editor)</a>中每个形状节点的<span class="ph uicontrol">“组件标记”(Component Tags)</span>区域中编辑<span class="ph uicontrol">“组件标记”(Component Tags)</span>成员身份。
+				</p>
+ 若要使用“组件标记”(Component Tags)，请在<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-0817C74B-C95C-4E5F-BCFA-26DEE1D7747F">“动画”(Animation)首选项（在“设置”(Settings)下）</a>的<span class="ph menucascade"><span class="ph uicontrol">“窗口</span> &gt; <span class="ph uicontrol">设置/首选项</span> &gt; <span class="ph uicontrol">首选项”(Windows &gt; Settings/Preferences &gt; Preferences)</span></span>中激活<strong class="ph b"><span class="ph uicontrol">“组件标记”(Component Tags)</span></strong>选项。这样，系统将自动为每个几何体节点指定组件标记属性。 
+				<p class="p"> 有关详细信息，另请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-3F9B8FA5-82C0-483C-840E-86784CA4F548.htm">组件标记节点</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-788B1C8B-7F45-4862-BC42-0A334DFECFD3.htm">为几何体指定组件标记</a>。
+				</p>
+ 
+			 </dd>
+<dt class="dt dlterm">变形器集
+			 </dt>
+<dd class="dd"> 创建变形器时，使用变形器集将变形器可能会影响到的所有可变形对象点都放置在一个分组中，称为<strong class="ph b">“变形器集”</strong>。此集是可编辑的。有关如何编辑集成员身份的详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-DB98594C-782E-41FA-95AA-A6B3612CA775.htm">变形器集</a>。
+				<div class="note note" id="GUID-4E1FA1F9-674F-414E-A177-4779B349D1CB__GUID-6480065D-CE19-41E4-B3CF-B600017BB0D5"><span class="notetitle">注：</span> “变形器集”(Deformer Sets)是旧版选项。建议改用<span class="ph uicontrol">“组件标记”(Component Tags)</span>。
+				</div>
+
+			 </dd>
+</dl>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-AE90DFDD-E2EE-445C-85B1-66985F3CB308.htm" title="本部分包含的技术可帮助您使用变形器，例如节点历史，可显示和隐藏变形器效果，以及 GPU 支持哪些变形器。">使用变形器</a></div>
+</div>
+</div>
+
+</body>
+</html>

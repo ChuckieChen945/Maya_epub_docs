@@ -1,0 +1,188 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_shading_am_Marble_Shading_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_MARBLE_SHADING">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 大理石着色 - Arnold for Maya">
+
+<title>大理石着色</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>大理石着色</h1></div><p><img src="../images/am-Marble_Shading-marble-500-1.jpg" alt=""></p>
+<p>本教程介绍如何通过结合使用以下两种着色对大理石进行逼真的着色：用于玻璃的 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_node_ac_standard_surface_html" target="_blank">standard_surface</a></em> 着色，以及用于大理石内部的 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_volume_shaders_ac_standard_volume_html" target="_blank">standard_volume</a></em> 体积着色。当将这两个着色器与同一纹理投影一起使用时，我们可以实现将两者结合并为大理石着色创建逼真深度的效果。当然，体积部分纯粹是可选的，很可能玻璃着色本身就会产生足够的效果。</p>
+<p>请注意，本教程仅作为指南，因此不应严格遵循这些值，因为它们大多是基于特定纹理和外观的“艺术”选择。因此，我们建议您根据要实现的外观和所使用的纹理贴图，尝试使用不同的值。</p>
+<p>例如，推荐的纹理图像是一个将<strong><em>油和墨水</em></strong>混合在一起的纹理图像。这将产生适合大理石着色器的色彩纷呈的有趣效果。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Marble_Shading-marble-orange-500-2.jpg" alt=""></td>
+<td><img src="../images/am-Marble_Shading-marble-pink-500-3.jpg" alt=""></td>
+<td><img src="../images/am-Marble_Shading-marble-blue-500-4.jpg" alt=""></td>
+<td><img src="../images/am-Marble_Shading-marble-6-5.jpg" alt=""></td>
+<td><img src="../images/am-Marble_Shading-marble-red-yellow-6.jpg" alt=""></td>
+<td><img src="../images/am-Marble_Shading-marble-8-500-7.jpg" alt=""></td>
+<td><img src="../images/am-Marble_Shading-marble500-8.jpg" alt=""></td>
+<td><img src="../images/am-Marble_Shading-marble3-9.jpg" alt=""></td>
+<td><img src="../images/am-Marble_Shading-marble2-10.jpg" alt=""></td>
+<td><img src="../images/am-Marble_Shading-marble-11.jpg" alt=""></td>
+</tr>
+</tbody></table>
+<p><strong>要下载场景文件，请单击<a href="https://areadownloads.autodesk.com/wdm/arnold/mtoa/marble-user-guide.mb.zip" target="_blank">此处</a>。油和墨水纹理贴图由 <a href="http://www.tinspider.com/" target="_blank">Kenny Frankland</a> 友情提供。</strong></p>
+<ul>
+<li>首先，创建一个用于放置大理石的多边形平面。为其指定 <em>standard_surface</em> 着色器，并将合适的木材纹理连接到 <em>base_color</em>。</li>
+<li>创建 <em>skydome_light</em>，并将合适的 HDR 贴图连接到其<em>“颜色”(Color)</em>属性。</li>
+</ul>
+<h2 id="">玻璃球体</h2><ul>
+<li>创建一个多边形球体，并将其放置在平面的中心。</li>
+<li>为其指定一个 <em>standard_surface</em> 着色器。更改以下参数以匹配玻璃的参数：</li>
+</ul>
+<p><em>base_weight</em>：0</p>
+<p><em>specular_roughness</em>：0</p>
+<p><em>specular_ior</em>：1.52</p>
+<p><em>transmission_weight</em>：1</p>
+<p><img src="../images/am-Marble_Shading-glass-sphere-12.jpg" alt=""></p>
+<p>在 <em>standard_surface</em> 着色器的属性编辑器的“预设”(Presets)菜单中提供了玻璃预设。</p>
+<h2 id="">透射</h2><p>现在，我们需要将大理石纹理连接到 <em>transmission_color</em> 和 <em>transmission_scatter。transmission_scatter</em> 适用于任何相当稠密的材质，或者足够稠密使得散射可见的材质，例如蜂蜜。带有 <em>depth</em> 的 <em>Transmission_scatter</em> 对于大理石着色的外观至关重要。</p>
+<ul>
+<li>创建<strong><em>图像</em></strong>着色器，然后打开要使用的大理石纹理。</li>
+<li>将<em>图像<em>连接到 **</em>uv_projection*** 着色器。我们要围绕球体以球形方式映射纹理，以便将 *projection_type</em> 更改为 <em>spherical</em>。</li>
+<li>将 <em>uv_projection</em> 连接到玻璃 <em>standard_surface</em> 着色器的 <strong><em>transmission_color</em></strong> 和 <strong><em>transmission_scatter</em></strong>。</li>
+<li>将 <strong><em>transmission_depth</em></strong> 增加至 1。您可能希望根据所使用的纹理和要实现的外观，尝试使用此值。更改此值将对总体大理石着色产生很大的影响，如下图所示。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Marble_Shading-depth-0-13.jpg" alt=""></td>
+<td><img src="../images/am-Marble_Shading-depth-1-14.jpg" alt=""></td>
+<td><img src="../images/am-Marble_Shading-depth-3-15.jpg" alt=""></td>
+</tr>
+<tr>
+<td>transmission_depth：0（默认值）</td>
+<td>transmission_depth：1</td>
+<td>transmission_depth：3</td>
+</tr>
+</tbody></table>
+<ul>
+<li>如果调整 <strong><em>uv_projection</em></strong> 的 <strong>“U 向角度”(U Angle)/“V 向角度”(V Angle)</strong>（仅适用于球形映射），则可以呈现有趣的“拉伸”大理石类型图案。您还可以使用 <em>uv_projection</em> 的<strong><em>“矩阵”(Matrix)</em></strong>属性来进一步优化效果。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Marble_Shading-u-angle-30-v-angle-230-scalex-0-3-16.jpg" alt=""></td>
+<td><img src="../images/am-Marble_Shading-u-33-v-90-rotation-90-17.jpg" alt=""></td>
+<td><img src="../images/am-Marble_Shading-u-270-v-30-18.jpg" alt=""></td>
+</tr>
+<tr>
+<td>u_angle：30。v_angle：230。scale_x：0.3</td>
+<td>u_angle：330。v_angle：90。</td>
+<td>u_angle：270。v_angle：30</td>
+</tr>
+</tbody></table>
+<p>您还可以尝试将纹理贴图连接到 <em>base_color*。尝试增加 *base_weight</em> 并减少 <em>transmission_weight</em>。</p>
+<p><img src="../images/am-Marble_Shading-image2020-8-27-8-57-53-19.png" alt=""></p>
+<p><sub><strong>玻璃大理石的最终着色网络</strong></sub></p>
+<p>现在，它看起来非常不错。但是，让我们尝试通过在玻璃球体内部使用<em>体积</em>向大理石添加内部来进一步改进它。</p>
+<h2 id="">体积</h2><ul>
+<li><p>首先，复制玻璃球体，在 X、Y 和 Z 方向上将其稍微缩放到 0.9 左右。</p>
+</li>
+<li><p>选择球体，然后转到属性编辑器中的 Arnold 体积属性。</p>
+</li>
+</ul>
+<p><img src="../images/am-Marble_Shading-image2020-8-27-12-48-35-20.png" alt=""></p>
+<ul>
+<li>将 <em>step_size</em> 更改为 0.1 左右。现在，球体将渲染为体积。</li>
+</ul>
+<p>步长越小（因而越精确），渲染时间越长；步长越大，渲染速度越快。</p>
+<ul>
+<li>为内部球体指定 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_volume_shaders_ac_standard_volume_html" target="_blank">standard_volume</a></em> 着色器，现在隐藏玻璃球体，以便我们可以专注于体积着色。在此示例中，我们使用了 <em>volume_density</em> 默认值 1。但是，根据所使用的纹理和试图实现的外观，可以尝试使用此值。</li>
+</ul>
+<h2 id="">体积散射颜色</h2><p>现在，我们希望使用用于玻璃着色器的相同图像（和投影）来为体积添加颜色。</p>
+<ul>
+<li>将原始 <em>uv_projection</em> 连接到 <em>standard_volume</em> 着色器的 <em>scatter_color</em>。</li>
+</ul>
+<p><img src="../images/am-Marble_Shading-volume-color-21.jpg" alt=""></p>
+<p><sub><strong><em>image </em>-&gt; <em>uv_projection </em>-&gt; <em>volume.scatter_color</em></strong></sub></p>
+<ul>
+<li>如果体积看起来过于明亮，请尝试增加 <em>standard_volume</em> 着色器的 <strong><em>transparent_weight</em></strong> 和 <strong><em>transparent_depth</em></strong>。调整这些属性确实有助于呈现将玻璃与下面的体积合并的效果。</li>
+</ul>
+<p><img src="../images/am-Marble_Shading-image2020-8-28-16-4-22-22.png" alt=""></p>
+<p><sub><strong>体积的最终着色网络</strong></sub></p>
+<h2 id="">最终渲染</h2><ul>
+<li>现在，取消隐藏玻璃球体，并渲染场景。</li>
+</ul>
+<p>请确保 <em>skydome_light</em> 具有足够的 <em>volume_samples</em>，否则体积会出现噪波。</p>
+<p><img src="../images/am-Marble_Shading-image2020-9-7-9-32-58-23.png" alt=""></p>
+<p><sub><strong>内部有体积的大理石玻璃着色</strong></sub></p>
+<ul>
+<li>最后，尝试将划痕纹理添加到玻璃着色器的 <em>specular_roughness</em>（通过<em>范围</em>着色器进行额外控制）。这有助于分解镜面反射，并增添最终渲染的真实感。</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Shading_html.html">着色</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

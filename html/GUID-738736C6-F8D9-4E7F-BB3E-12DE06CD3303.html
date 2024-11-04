@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-ManagingScenes">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303">
+<meta name="language" content="CHS">
+<title>使用 MEL 命令保存和加载流水线缓存</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 MEL 命令保存和加载流水线缓存</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__SECTION_D7827F4AECF0418FBA360CEDB1586B9E"><h2 class="title sectiontitle">Alembic 缓存</h2>
+
+<p class="p" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-07F06687-A889-48C5-87F8-0CBF2638BA6A">可以使用 <samp class="ph codeph" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-2158A894-0668-4552-81AB-761F511527C4">AbcImport</samp> 和 <samp class="ph codeph" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-3AE7CBA7-CA8B-40C1-A8BD-B1A6D3A23124">AbcExport</samp> MEL 命令导入和导出 Alembic 文件。例如，使用以下命令导出多边形圆环： </p>
+
+<p class="p" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-F7636DC4-834C-449F-B292-F77AD2EBEE4E">
+<samp class="ph codeph" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-535562C5-16CA-4711-944F-11EBBF2C5396">AbcExport -j "-frameRange 1 120 -root pTorus1 -file c:/temp/test.abc";</samp>
+</p>
+
+<p class="p" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-8DAAEE9E-2FD2-4039-9F08-C97FB02C7F0D">可以使用 <samp class="ph codeph" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-05D650ED-C9F6-4425-8CDD-AF5EA9B2D64C">AbcExport -h;</samp> 和 <samp class="ph codeph" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-F3AE6221-D473-48EE-B0CC-1FB8FCB3EEF6">AbcImport -h;</samp>，在<span class="ph uicontrol" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-206A75B2-CDCD-475A-827A-C78CC67C4C92">“脚本编辑器”(Script Editor)</span>中查看有关这些命令的帮助信息。 </p>
+
+</div>
+<div class="section" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__SECTION_160FC1C5D20C4899BBE99B62251175AB"><h2 class="title sectiontitle">GPU 缓存</h2>
+
+<p class="p" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-54685999-C063-4068-9A9B-124D4DCEEEDE">您可以使用以下命令导出 GPU 缓存。 </p>
+
+<ul class="ul" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__UL_7B92C47A25604045A424FBD051B4B007"><li class="li" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__LI_9E4AD1C3EDCF4640BA0472134E2E662B">若要缓存一个对象，请使用以下命令： <p class="p" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-A524B1D3-5F14-44F4-99FE-210D1B57118D">
+<samp class="ph codeph" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-033E08EA-C3B3-49CD-9798-3020DCC3D472">gpuCache -f filename dagObject</samp>
+</p>
+ </li>
+<li class="li" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__LI_96FA319369D345B6813E0DCFCD59688E">若要将所选对象缓存到单个文件，请使用以下命令： <p class="p" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-55705098-12BC-4AFA-9276-FA06E827A8A5">
+<samp class="ph codeph" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-86F01B16-153B-4608-BEE5-8E9B63A80D70">gpuCache -directory "/dest/path" -fileName "filename" -saveMultipleFiles false [object1 object2 ....]</samp>
+</p>
+ <p class="p" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-41BF8998-FE35-48D0-A31F-92B6539B395A">
+<samp class="ph codeph" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-046AA5C0-6918-4133-9CA6-72455E494921">result: /dest/path/filename.abc</samp>
+</p>
+ </li>
+<li class="li" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__LI_AF567BDEE1DD4AB4B578018AC5CC9C3C">若要将所选对象缓存到多个文件，请使用以下命令： <p class="p" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-69B5AEF1-F189-4554-8121-3498B9A50F17">
+<samp class="ph codeph" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-2F0BC7E2-29A0-4236-92D2-EEEEBB9540E8">gpuCache -directory "/dest/path" -filePrefix "ddd_" -clashOption nodeName [object1 object2 ...]</samp>
+</p>
+ <p class="p" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-9FD83298-BF99-44A0-BE48-58D8D33903BB">
+<samp class="ph codeph" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-74159D58-F5F0-440E-96C1-8A4DA754CD23">result: /dest/path/ddd_object1.abc, /dest/path/ddd_object2.abc, ...</samp>
+</p>
+ </li>
+</ul>
+
+</div>
+<p class="p" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-240C9F96-F206-49B4-A31E-AF14DA4399CF">缓存多个对象或文件时，您可以使用 <samp class="ph codeph" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-43C26A8D-21B6-4697-A472-3B9BE6D47A7B">-prompt</samp> 标志在覆盖现有文件时显示警告消息。 </p>
+<p class="p" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-ECBC86E5-7831-4F13-BFEE-B37D325F90C7">对于 GPU 缓存，没有输入命令。但是，您可以创建 gpuCache 节点，并设定缓存文件名称和路径的属性。例如： </p>
+<p class="p" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-FE8937F2-C48D-4D2D-882A-B12E9491C5DF">
+<samp class="ph codeph" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-A7DF9C40-44D1-418A-9440-1D55FAFEC97A">createNode -n "mine" gpuCache; </samp>
+</p>
+<p class="p" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-D47B8872-4832-4408-A739-C8D21099F3A3">
+<samp class="ph codeph" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-26B09AE2-EB7C-42CD-8C2A-5542C2C7156A">setAttr -e -type "string" mine.cacheFileName "dd.abc"; </samp>
+</p>
+<p class="p" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-C63B26B1-6BED-42B1-9DE8-3C16619B82A5">
+<samp class="ph codeph" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-7B985504-DF9A-42CB-A03C-261E62CD9E90">setAttr -e -type "string" mine.cacheGeomPath "|"; // eg the root. </samp>
+</p>
+<p class="p" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-3DEEFFB7-D759-4D13-87AF-8AD54037EE6E">在<span class="ph uicontrol" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-9DC4B8E6-686E-4C61-A39E-5513279FC4EB">“脚本编辑器”(Script Editor)</span>中使用 <samp class="ph codeph" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__GUID-4ADC23DB-6966-40A5-93B3-69AB7EDDDD8A">help gpuCache;</samp> 可获得关于 gpuCache 命令的帮助。 </p>
+<div class="section" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__SECTION_32902667771E42DA8038F3F14AC37360"><h2 class="title sectiontitle">相关主题</h2>
+
+<ul class="ul" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__UL_309EDC4BAF444AF39405406FA2079825"><li class="li" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__LI_B9B7300E3D57488481AC2A92BA59D291">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-9D272E39-9279-4146-8449-928DDA865C9D.htm" title="通过 Alembic 缓存导出和导入选项，将 Maya 场景和几何体另存为基于 Alembic 的缓存文件并进行加载。Alembic 文件是具有较强可移植性且与应用程序无关的文件，因此可由多种内容创建应用程序进行共享、处理和播放。">Alembic 缓存</a>
+</li>
+<li class="li" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__LI_AD0DE565605D47CB9BE73A15C3D5FB58">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-332E42EB-148B-4AFC-8F8C-B912470609C6.htm">关于 Alembic 缓存</a>
+</li>
+<li class="li" id="GUID-738736C6-F8D9-4E7F-BB3E-12DE06CD3303__LI_50885634317149F19297400CA9B45C99">
+<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-C893BE60-6E65-4F36-8005-FD4D1A0E9822.htm">关于 GPU 缓存</a>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-9D272E39-9279-4146-8449-928DDA865C9D.htm" title="通过 Alembic 缓存导出和导入选项，将 Maya 场景和几何体另存为基于 Alembic 的缓存文件并进行加载。Alembic 文件是具有较强可移植性且与应用程序无关的文件，因此可由多种内容创建应用程序进行共享、处理和播放。">Alembic 缓存</a></div>
+</div>
+</div>
+
+</body>
+</html>

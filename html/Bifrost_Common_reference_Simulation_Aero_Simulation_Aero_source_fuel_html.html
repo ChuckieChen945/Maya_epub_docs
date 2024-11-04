@@ -1,0 +1,65 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Simulation_Aero_Simulation_Aero_source_fuel_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>source_fuel</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>source_fuel</code></h1></div><p>指定将特性发射到模拟栅格的燃料源的参数。这应连接到 <code>source_air</code> 节点上的 <code>additional_properties</code> 输入。多个 <code>source_fuel</code> 节点可以连接到 additional_properties 串联输入端口，以产生更高级的燃料和氧化剂混合物。例如，通常用于实际 VFX 的 MAPP 气体包含丙炔、丙二烯、丙烷，在某些情况下还包含丙烯和丁烷。</p>
+<h2 id="">输入</h2><h2 id="general"><code>General</code></h2><h3 id="enable_fuel_source"><code>enable_fuel_source</code></h3><p>启用此燃料源。</p>
+<h3 id="start_frame"><code>start_frame</code></h3><p>开始从燃料源发射的帧。</p>
+<h3 id="use_end_frame"><code>use_end_frame</code></h3><p>停止在特定帧发射。否则，将在模拟持续时间内继续发射。</p>
+<h3 id="end_frame"><code>end_frame</code></h3><p>停止从源发射的帧。</p>
+<h2 id="fuel-properties"><code>Fuel Properties</code></h2><h3 id="fuel_type"><code>fuel_type</code></h3><p>可从下拉菜单中选择的燃料类型。对于一个特定 <code>source_fuel</code> 节点，只能指定一种类型的燃料，但可以将多个 <code>source_fuel</code> 节点呈菊花链状连接在一起。如果您已知燃料类型，这允许您匹配真实世界片段。否则，将此选项保留为默认值，并调整其他参数以获得所需的艺术效果。</p>
+<h3 id="ignition_temperature"><code>ignition_temperature</code></h3><p>燃料点燃时的温度（以摄氏度为单位）。如果低于点燃温度，则不会发生燃烧。请注意，每种类型的燃料都有真实世界点燃温度，但为了达到艺术目的，可以在此重新定义点燃温度。</p>
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="callout-icon fa fa-lightbulb-o" aria-hidden="true"></i>提示：</div>
+<div class="callout-body">
+
+<p>要获得较大爆炸冲击波，请使用较低的点燃温度。</p>
+
+</div></div>
+
+<h3 id="oxygen_percentage"><code>oxygen_percentage</code></h3><p>氧化剂中的氧气百分比。例如，如果 <code>oxygen_percentage</code> 设置为 0.4，则氧化剂将包含 40% 的氧气和 60% 的氮气。通常，如果有足够的燃料，<code>oxygen_percentage</code> 越高，爆炸越剧烈，火焰传播速度越快，温度也越高。</p>
+<p>默认情况下，周围环境包含空气（主要是氮气和氧气），因此，如果有足够的氧气扩散到燃料中，即使 oxygen_percentage 为 0，燃料也能够燃烧。</p>
+<h3 id="burn_rate"><code>burn_rate</code></h3><p>值介于 0 和 2 之间时，定义燃料和氧化剂混合物的化学计量。值为 0 时，会出现烟雾火焰，更具体地说，即仅发射燃料。值小于 1 表示燃料过多的情况，即在燃烧过程后会有多余燃料。值从 0 增加到 1 时，模拟将从烟雾弥漫的火焰逐渐转变为更清洁但燃烧也更剧烈的火焰。值为 1 表示完美的化学计量条件，即，所有可用的氧气和燃料充分发生化学反应后产生没有多余氧气和燃料的副产物。值大于 1 表示燃料不足的情况，即在燃烧后会有多余氧气。</p>
+<h2 id="">输出</h2><h3 id="fuel_source"><code>fuel_source</code></h3><p>输出是一个对象，其中包含 Aero 解算器的燃料源相关输入集合，应连接到 <code>simulate_aero</code> 节点上的 <code>sources</code> 端口或 <code>source_fuel</code> 节点上的 <code>air_source</code> 端口。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Simulation/Bifrost_Common_reference_Simulation_Aero_html.html">Aero</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

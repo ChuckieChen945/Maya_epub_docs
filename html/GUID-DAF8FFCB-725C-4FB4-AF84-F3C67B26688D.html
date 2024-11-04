@@ -1,0 +1,138 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D">
+<meta name="language" content="CHS">
+<title>法线约束</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>法线约束</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS1A9193826455F5FF-56C0CD8012A8003217A-1EB9"><p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-45A6">法线约束可约束对象的方向，以使其与 NURBS 曲面或多边形面（网格）的法线向量对齐。让对象在具有唯一、复杂形状的曲面上移动时，法线约束很有用。如果没有法线约束，在曲面上移动对象或设置其动画可能会很乏味且耗时。例如，可能需要让一滴眼泪沿角色的脸落下。可以将眼泪约束到脸的曲面，而不是直接设置眼泪的动画。
+	 </p>
+<p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-45A5">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-09CE09C9-80AD-451F-B9FF-0BFB798445EF.htm">创建法线约束(Create normal constraints)</a>和<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-8A221590-1CC8-4CA7-B556-25112AE5AAF2.htm">法线约束选项(Normal constraint options)</a>。
+	 </p>
+<p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-45A4">通常，将法线约束与几何体约束一起使用。有关几何体约束的详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-3D461BDD-2749-464A-8A73-4852B0FC52CF.htm">几何体约束(Geometry constraints)</a>。
+	 </p>
+<div class="fig fignone" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-45A3"><img class="image" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__IMAGE_985C0D1721274E9EBE44AC3262F4D525" width="384" height="361" src="../images/GUID-9B311A98-1EF9-4EC1-800C-E8AA83333A33.png"></div>
+<div class="section" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-45A2"><h2 class="title sectiontitle">法线约束的受约束对象的方向</h2> 
+		 
+		<p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-45A1">受约束对象的方向由三个向量控制：目标向量、上方向向量和世界上方向向量。这些向量不会显示在工作区中，但可以推断它们对受约束对象的方向产生的效果。
+		</p>
+ 
+		<p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-45A0">无需为了有效地使用约束而了解这些向量如何工作的详细信息。如果不熟悉约束，则可以跳过本节的其余部分。但是，如果希望对法线约束施加高度的控制，将需要使用这些向量。此外，熟悉这些向量可帮助您了解受约束对象如何才能突然侧滚。
+		</p>
+ 
+		<div class="note note" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-459F"><span class="notetitle">注：</span>  
+		  如果 aimVector 和 upVector 共线，或者如果 <span class="ph uicontrol" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__GUID-DD85E028-ADC2-4D1B-938B-D27683D5E5DA">worldUpType</span> 为<span class="ph uicontrol" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__GUID-5315D633-86F3-4D66-83A5-3BAFEF0AE9C2">“无”(None)</span>，那么<span class="ph uicontrol" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__GUID-BF2E338B-637E-4A65-8613-FC8F81F26509">“法线”(Normal)</span>约束可能会存在更新问题。
+		  <p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-459E">这些约束的工作方式是旋转对象，以使 aimVector 指向所需的方向。然后，围绕 aimVector 扭曲对象，以便 upVector 的指向尽可能接近 worldUpVector。
+		  </p>
+ 
+		  <p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-459D">如果 aimVector 和 upVector 指向同一方向，那么不可能进行此处的第二个旋转。无论对象如何围绕 aimVector 旋转，upVector 都不会更加靠近 worldUpVector。
+		  </p>
+ 
+		  <p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-459C">这可能会是一个很有用的效果，因为它允许受约束对象指向任何方向而从不翻转。它的旋转量最小，以便 aimVector 瞄准对象，然后它将停止。但是，它会从当前的位置旋转，因此，如果每次不对相同的帧序列求值，则得不到相同的答案。这可能会对渲染造成很大的破坏，最好避免这种情况 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-459B"><h3 class="title sectiontitle">目标向量</h3> 
+		   
+		  <p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-459A"> 目标向量会约束受约束对象，以便它始终与目的向量对齐。目标向量始于受约束对象的枢轴点，然后与目的向量对齐。
+		  </p>
+ 
+		  <p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-4598">对象如何旋转以与目的向量对齐取决于如何相对于对象的局部空间定义目标向量。例如，默认情况下，对目标向量进行定义，以使其指向与局部旋转正 X 轴相同的方向。因此，默认情况下，受约束对象的局部旋转正 X 轴将与目的向量对齐。
+		  </p>
+ 
+		  <p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-4597">目标向量自身无法完全约束对象，因为目标向量并不控制对象可能会围绕目标向量旋转的方式。围绕目标向量的对象的方向是由上方向向量和世界上方向向量所控制的。
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-4596"><h3 class="title sectiontitle">上方向向量和世界上方向向量</h3> 
+		   
+		  <p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-4595"> 上方向向量控制围绕目标向量的受约束对象的方向。与目标向量类似，上方向向量也是相对于受约束对象的局部空间定义的。默认情况下，上方向向量尝试指向与世界上方向向量相同的方向，世界上方向向量是相对于场景的世界空间定义的。上方向向量通过尝试将它自身尽可能与世界上方向向量对齐，确定围绕目标向量的受约束对象的方向。
+		  </p>
+ 
+		  <p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-4593">移动目的对象时，受约束对象的目标向量将移动以与目的向量对齐，并相应地确定受约束对象的方向。同时，受约束对象将按照上方向向量的定向自行确定绕目标向量的方向。
+		  </p>
+ 
+		  <p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-4592">例如，默认情况下，对上方向向量进行定义，以使其指向与局部旋转正 Y 轴相同的方向。受约束对象的局部正 X 轴将与目的向量对齐，就像默认目标向量所指示的那样。同时，该对象的局部正 Y 轴将尝试按照该对象的上方向向量的定向指向与世界上方向向量相同的方向。目标向量与上方向向量一起使用可约束受约束对象的方向。
+		  </p>
+ 
+		  <p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-4591"> 默认情况下，上方向向量将尝试保持尽可能与世界上方向向量紧密对齐。但是，可以使用各种方法控制世界上方向向量的作用。例如，可以相对于某个其他对象的局部空间定义世界上方向向量，而不是相对于工作区的世界空间定义它（默认设置）。这样的对象称为世界上方向对象。
+		  </p>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-458F"><h2 class="title sectiontitle">翻滚效果</h2> 
+		 
+		<p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-458E"> 某些情况下，受约束对象可以快速围绕其目标向量旋转。为了理解为什么出现该情况，需要了解目标向量、上方向向量和世界上方向向量的工作方式。如果对约束还很陌生，那么可以跳过这一节。有关详细信息，请参见上一节<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427.htm#GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS17956D7ADBC6E736-3392E17117AE30CC4B-7FF9">目标约束的受约束对象的方向</a>。
+		</p>
+ 
+		<p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-458C">随着目标向量越来越接近指向与上方向向量相同的方向或相反的方向，受约束对象围绕目标向量旋转得更快。如果目标向量恰好指向相同的方向，或恰好指向相反的方向，则受约束对象可能会突然围绕目标向量旋转 180 度。
+		</p>
+ 
+		<p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-458B">这些快速旋转会产生翻滚效果，您可能希望避免这些效果。通过移动世界上方向向量或设置其动画，可以避免翻滚效果。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-B80A5105-AFAF-4AF0-879A-289EAB6ECFBC.htm">控制目标约束的运动历史相关性效果</a>。
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS17956D7ADBC6E736-3392E17117AE30CC4B-7FF0"><h2 class="title sectiontitle">运动历史相关性效果</h2> 
+		 
+		<p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-458A"> 运动历史相关性是指对象如何可以在相同的情况下（除了对象先前受操纵或已设置动画之外）提供不同的运动效果。
+		</p>
+ 
+		<p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-4588">例如，当设置某个对象的动画并循环运行动画时，如果对象在每个循环中在相同的帧处以略为不同的方式结束移动，那么该对象与运动历史相关。在某个帧处，根据其先前的方向，可能会以不同的方式确定对象的方向。相反，如果在每个循环中对象以完全相同的方式移动，那么该对象就与运动历史无关。
+		</p>
+ 
+		<p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-4587">如果需要可预测的运动效果，那么运动历史相关性效果可能会是一个问题。但是，如果要寻求某些不可预测的运动效果，则可能需要利用对象的运动历史相关性。
+		</p>
+ 
+		<p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-4586">在某些情况下，受约束对象的方向可能会变成与运动历史相关。为了理解为什么出现该情况，需要熟悉目标向量和上方向向量（请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427.htm#GUID-6E2297A1-D8EA-452B-80C5-A692F24CF427__WS17956D7ADBC6E736-3392E17117AE30CC4B-7FF9">目标约束的受约束对象的方向</a>）。
+		</p>
+ 
+		<p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-4585">如果将目标向量和上方向向量定义为指向同一方向，则受约束对象可能会变成与运动历史相关。例如，如果相对于受约束对象的局部 Y 轴定义目标向量，但不更改上方向向量的默认方向（上方向向量也相对于对象的局部 Y 轴），则可能会这样做。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-B80A5105-AFAF-4AF0-879A-289EAB6ECFBC.htm">控制目标约束的运动历史相关性效果</a>。
+		</p>
+ 
+		<p class="p" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__WS73099CC142F48755-7B21313411809411AE9-4584">如果将约束的<span class="ph uicontrol" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__GUID-72AC144F-A367-48DA-99CF-EC38759AD20F">“世界上方向类型”(World Up Type)</span>属性设定为<span class="ph uicontrol" id="GUID-DAF8FFCB-725C-4FB4-AF84-F3C67B26688D__GUID-5B40CAAB-C592-4E1E-AC16-EFFB8DE8C3C9">“无”(None)</span>，那么受约束对象也可能会变成与运动历史相关。有关详细信息，请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-C6C7C7ED-273F-486D-867D-BF0B3FE3B5CF.htm">编辑点约束(Edit point constraints)</a>。
+		</p>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="relinfo relchildren"><strong>本节内容</strong>
+<ul class="ullinks">
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-09CE09C9-80AD-451F-B9FF-0BFB798445EF.htm">创建法线约束</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-8A221590-1CC8-4CA7-B556-25112AE5AAF2.htm">法线约束选项(Normal Constraint Options)</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-19045651-2E4A-4B59-AD84-88F38EA706F7.htm">设定法线约束选项</a><br>
+</li>
+<li class="link ulchildlink"><a href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-09CA99ED-75CB-4671-B63B-C7F662898275.htm">编辑法线约束</a><br>
+</li>
+</ul></div>
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-7665A291-FAA7-44C0-BDEB-A6C83482116C.htm">约束</a></div>
+</div>
+</div>
+
+</body>
+</html>

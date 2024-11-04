@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharacterAnimation">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B">
+<meta name="language" content="CHS">
+<title>使用 IK 解算器异常关节翻转的疑难解答</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 IK 解算器异常关节翻转的疑难解答</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B__GUID-01FA679F-507E-4A34-A3E3-41C117BF80B4"> 
+		FK 动画完成后，关节链可能会在启用 IK 解算器（<span class="ph uicontrol" id="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B__GUID-3E1C60B5-5CA3-43F4-B56B-E825E9F361ED">“关键帧 &gt; IK/FK 关键帧 &gt; 启用 IK 解算器”(Key &gt; IK/FK Keys &gt; Enable IK Solver)</span>）时翻转到异常位置。 
+	 </p>
+<div class="p">关节翻转是样条线 IK 解算器计算的正常结果。当关节方向从其旋转值 0 超过 90 度时，便会发生这种情况。如果关节的“旋转 X”(Rotate X)值、“旋转 Y”(Rotate Y)值和“旋转 Z”(Rotate Z)值相对于其父关节的旋转值为 0，则其旋转值为 0。当关节旋转接近 180 度时，翻转最为显著。 
+		<div class="note note" id="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B__GUID-D226A248-97CC-48B9-B775-13ABFCEB5432"><span class="notetitle">注：</span>  如果关节链翻转，请使用旋转平面解算器，而不是单链解算器。旋转平面解算器引入极向量来控制 IK 链的翻转，有时会结合单链解算器使用。建议不要将单链解算器用于双骨骼链。
+		</div>
+ 
+	 </div>
+<p class="p">若要撤消关节翻转和防止在您启用<span class="ph uicontrol" id="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B__GUID-FC02BD81-A614-4D7F-AAFD-74B2C113F688">“启用 IK 解算器”(Enable IK Solver)</span>时发生翻转，请执行下列操作： 
+	 </p>
+<ol class="ol" id="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B__WS17956D7ADBC6E736-185AC66B117AE30DA36-7F94"><li class="li" id="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B__LI_6CDB2EFA100B4F22B13058F4E4AA95EF">在<span class="ph uicontrol" id="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B__GUID-057AB791-9CDB-4CDF-AAD5-BA9472469EC0">“动画”(Animation)</span>菜单集中，禁用<span class="ph uicontrol" id="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B__GUID-CA03F73F-5591-4C4C-A1C7-39DD2B8B3E5C">“关键帧 &gt; IK/FK 关键帧 &gt; 启用 IK 解算器”(Key &gt; IK/FK Keys &gt; Enable IK Solver)</span>。 
+		  <p class="p" id="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B__GUID-A764730B-8B4F-490F-AE79-893C4FC4D5AA"> 这会将关节链返回到发生翻转之前的位置。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B__WS73099CC142F48755-7B21313411809411AE9-52C2">选择 IK 控制柄，然后从“装备”(Rigging)菜单集中选择“骨架 &gt; <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-5A485049-D0BD-4BBB-BE08-C3D502F17483.htm#GUID-5A485049-D0BD-4BBB-BE08-C3D502F17483__GUID-1CB03947-7681-4035-90F2-3DA4B58740CF">设置首选角度</a>”(Skeleton &gt; Set Preferred Angle)。 
+		</li>
+<li class="li" id="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B__WS73099CC142F48755-7B21313411809411AE9-52C0">重新启用<span class="ph uicontrol" id="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B__GUID-F3FB7BF1-2FE1-4053-BE37-377DAE2A25E1">“关键帧 &gt; IK/FK 关键帧 &gt; 启用 IK 解算器”(Key &gt; IK/FK Keys &gt; Enable IK Solver)</span>。 
+		</li>
+<li class="li" id="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B__WS73099CC142F48755-7B21313411809411AE9-52BF">选择<span class="ph uicontrol" id="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B__GUID-46EDFEFF-59D0-47E0-AFCB-0BB3411F92C6">“关键帧 &gt; IK/FK 关键帧 &gt; 设置 IK/FK 关键帧”(Key &gt; IK/FK Keys &gt; Set IK/FK Key)</span>。 
+		  <p class="p" id="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B__WS73099CC142F48755-7B21313411809411AE9-52BE">根据需要继续使用 IK。 
+		  </p>
+ 
+		</li>
+</ol>
+<div class="section" id="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B__SECTION_37B9023F75D04F42829011CFC0B3CE8F"><h2 class="title sectiontitle">请参见</h2> 
+		 
+		<div class="p"> 
+		<ul class="ul" id="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B__UL_456F7DEBF2DA4CFB935142972F4E0B7C"><li class="li" id="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B__LI_6A1A539F726145EA8DA334CDCAC9B765"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-11CFDE9C-2B2F-4EA8-9707-473FE0F289B6.htm">使用样条线 IK 控制柄的提示</a> 
+		  </li>
+<li class="li" id="GUID-AD60045C-67FE-4367-8AB7-C5F26485740B__LI_80976920DA0B4CC19B47020775E7FAAA"><a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-D107AA78-C999-451D-BCAC-CFFF1F007F17.htm">防止在样条线 IK 链中翻转</a> 
+		  </li>
+</ul>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharacterAnimation/files/GUID-05052A96-DBF4-4E91-925F-17244DDA4B9E.htm">IK/FK 融合</a></div>
+</div>
+</div>
+
+</body>
+</html>

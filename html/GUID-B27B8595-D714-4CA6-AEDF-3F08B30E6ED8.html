@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="头发基本节点">
+<meta name="modified" content="13/11/2021">
+<meta name="topicid" content="GUID-B27B8595-D714-4CA6-AEDF-3F08B30E6ED8">
+<meta name="language" content="CHS">
+<title>XGen description_base 节点属性</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-B27B8595-D714-4CA6-AEDF-3F08B30E6ED8">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>XGen description_base 节点属性</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p">description_base 节点包含用于在绑定网格曲面上控制交互式修饰样条线的生成和分辨率的属性。 
+	 </p>
+<p class="p">在<span class="ph uicontrol">“节点编辑器”(Node Editor)</span>中，此节点名为 xgmSplineBase。 
+	 </p>
+<div class="section" id="GUID-B27B8595-D714-4CA6-AEDF-3F08B30E6ED8__SECTION_40E6069FDBD0473BAE74126E232BB4D0"><h2 class="title sectiontitle"><span class="ph uicontrol">生成器</span></h2> 
+		 
+		<p class="p">先在绑定网格面上局部生成头发密度值。Maya 将这些面细分为密度栅格，并将密度值存储在每个单元中。在网格曲面上移动时，密度笔刷笔划在每个单元中设置密度值。通过调整<span class="ph uicontrol">“密度栅格设置”(Density Grid Settings)</span>，可以设置密度栅格的粒度。 
+		</p>
+ 
+		<p class="p">然后，使用<span class="ph uicontrol">“密度倍增”(Density Multiplier)</span>属性全局缩放这些局部密度值，从而生成最终的头发密度值。 
+		</p>
+ 
+		<p class="p">单击此图标 <img class="image" id="GUID-B27B8595-D714-4CA6-AEDF-3F08B30E6ED8__IMAGE_EDA3E549B8B54D5DA43BB7A7A34BC252" src="../images/GUID-031BA7C6-AADF-407A-B8A3-230A469F7681.png"> 可激活<span class="ph uicontrol">“密度”(Density)</span>工具。使用此工具，您可以在网格曲面上绘制时逐面增加或减少头发数量。您可以使用<span class="ph uicontrol">“密度倍增”(Density Multiplier)</span>属性全局缩放逐面密度。 
+		</p>
+ 
+		<p class="p">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-D6F05489-827D-419B-ACD1-9F58855F8C6E.htm">密度和放置笔刷设置</a>。 
+		</p>
+ 
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">密度倍增(Density Multiplier)</span> 
+			 </dt>
+<dd class="dd"> 全局缩放头发的逐面密度值。若要增加或减小特定修饰区域中头发的逐面密度，请使用<span class="ph uicontrol">“密度”(Density)</span>工具。 
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">密度遮罩(Density Mask)</span> 
+			 </dt>
+<dd class="dd"> 允许您使用纹理文件遮挡不希望显示头发的网格曲面区域。您可以指定现有的纹理文件，也可以使用 3D 绘制工具在网格曲面上绘制纹理。 
+				<p class="p">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-CB9F0562-8BBC-4CDF-A47E-AF226AA51CBA.htm">通过在网格上绘制遮罩控制头发</a>。 
+				</p>
+ 
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">插值(Interpolate)</span> 
+			 </dt>
+<dd class="dd"> 启用后，新头发与周围头发的长度、宽度和形状匹配。禁用后，新头发使用<span class="ph uicontrol">“初始长度”(Initial Length)</span>值和默认形状。默认情况下，“插值”(Interpolate)处于启用状态。 
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">插值自(Interpolate From)</span> 
+			 </dt>
+<dd class="dd"> 用于指定塑造新头发形状的源。 
+				<p class="p">设置为<span class="ph uicontrol">“当前描述”(Current Description)</span>时，可根据周围的头发对新头发的形状进行插值。设置为<span class="ph uicontrol">“插值源”(Interp Source)</span>时，可根据场景中的其他描述解释这些头发的形状。 
+				</p>
+ 
+				<p class="p">使用“插值源”(Interp Source)时，您需要手动将此基本节点的输入连接到源描述。 
+				</p>
+在<span class="ph uicontrol">“节点编辑器”(Node Editor)</span>中，将源 <span class="ph uicontrol">descriptionShape</span> 节点的<span class="ph uicontrol">“输出样条线数据”(Output Spline Data)</span>端口连接到目标 <span class="ph uicontrol">description_base</span> 节点的<span class="ph uicontrol">“插值源”(Interp Source)</span>端口。 
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">初始长度(Initial Length)</span> 
+			 </dt>
+<dd class="dd"> 如果不希望根据当前描述中的头发对新头发的长度进行插值，则可使用此选项设置新头发的长度。此选项仅在<span class="ph uicontrol">“插值”(Interpolation)</span>处于禁用状态时才可用。 
+			 </dd>
+</dl>
+ 
+	 </div>
+<div class="section" id="GUID-B27B8595-D714-4CA6-AEDF-3F08B30E6ED8__SECTION_0E34664C02CB47DCA7754CAC2207BE4D"><h2 class="title sectiontitle"><span class="ph uicontrol">放置</span></h2> 
+		 
+		<p class="p">单击此图标 <img class="image" id="GUID-B27B8595-D714-4CA6-AEDF-3F08B30E6ED8__IMAGE_FD22EEBD826E474D9AC1A4FC27882A78" src="../images/GUID-2DE4770E-76AD-4020-A390-335BE60AC6A6.png"> 可激活<span class="ph uicontrol">“放置”(Place)</span>工具。利用此工具，您可以使用笔刷将单根头发放置在网格的曲面上。 
+		</p>
+ 
+		<p class="p">请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-A00D16BD-9ECC-4C63-BAB5-B0278BF596BB.htm">交互式修饰工具</a>。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-B27B8595-D714-4CA6-AEDF-3F08B30E6ED8__SECTION_B8C163501AB94E47BAEE85942636CABD"><h2 class="title sectiontitle"><span class="ph uicontrol">CV 设置</span></h2> 
+		 
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">CV 计数(CV Count)</span> 
+			 </dt>
+<dd class="dd"> 控制每根头发上的控制顶点 (CV) 数。默认情况下，头发使用 5 个 CV 创建。键入一个值，然后单击“重建”(Rebuild)可使用新的 CV 计数更新头发。 
+				<p class="p">在修饰过程中，如果您在获取所需形状时遇到问题，请增加头发上的 CV 数。 
+				</p>
+ 
+			 </dd>
+</dl>
+ 
+	 </div>
+<div class="section" id="GUID-B27B8595-D714-4CA6-AEDF-3F08B30E6ED8__SECTION_2B6C88F00F4E49D996AD544F897B09FB"><h2 class="title sectiontitle"><span class="ph uicontrol">密度栅格设置</span></h2> 
+		 
+		<p class="p">用于控制 Maya 为角色网格的边界面指定的头发密度栅格的分辨率。 
+		</p>
+ 
+		<dl class="dl"><dt class="dt dlterm"><span class="ph uicontrol">绑定网格(Bound Mesh)</span> 
+			 </dt>
+<dd class="dd"> 已绑定到描述的网格对象。 
+			 </dd>
+<dt class="dt dlterm"><span class="ph uicontrol">细分级别(Subdivision Level)</span> 
+			 </dt>
+<dd class="dd"> 设置密度栅格的最小分辨率。使用介于 1 和 5 之间的值。默认值 3 适用于大多数头发和毛发修饰情况。值越大，密度栅格的分辨率越高，从而<span class="ph uicontrol">“密度”(Density)</span>工具可将头发分布在每个面上较小的栅格单元中。这样可以更精确地将头发放置在网格上，但需要占用更多内存。 
+			 </dd>
+</dl>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-419112AF-9B04-4494-800D-64226A54F559.htm">XGen 交互式修饰节点</a></div>
+</div>
+</div>
+
+</body>
+</html>

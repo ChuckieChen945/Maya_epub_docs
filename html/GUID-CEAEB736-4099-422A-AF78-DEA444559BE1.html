@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-CharEffEnvBuild">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1">
+<meta name="language" content="CHS">
+<title>自定义归档基本体</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>自定义归档基本体</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__GUID-EA6BFCE8-2BB9-41BF-8608-356764F0889A">您可以保存场景中的 Maya 几何体，并将其用作 XGen 中的自定义归档几何体。您也可以选择 Maya 场景并将相应场景的内容批量导出到归档文件。例如，可以使用 Maya Paint Effects 创建树，然后将该树的多边形版本及其支持文件另存为 <em class="ph i" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__GUID-185B9803-AB93-429D-806C-C56A0CD88FF4">XARC</em> 归档文件。 
+	 </p>
+<div class="fig fignone" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__FIG_B4C7CBC5277B4E35AF8630EB808C05C9"><img class="image" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__IMAGE_EAF97CB9FBE04C19BC4AFABD85D81205" src="../images/GUID-03262943-5774-4A30-97FF-6F07A839A7CA.png"></div>
+<p class="p" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__GUID-FF5B51D4-E221-44F9-B551-617B7EE02E09">当您使用<span class="ph uicontrol" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__GUID-2A377D38-CC7D-49B5-AAFD-C57D2DA8E1B4">“将当前选择项导出为归档”(Export Selection as Archive(s))</span>或<span class="ph uicontrol" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__GUID-74C7E939-917C-4ED7-B982-CE7864D17425">“场景批量转化为归档”(Batch Convert Scenes to Archives)</span>，Maya 会在指定位置下创建 <samp class="ph codeph" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__GUID-862D98E4-D197-482F-8323-0E2E91B7B9A2">archive</samp> 目录。它包含以下文件： 
+	 </p>
+<ul class="ul" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__UL_EFA4EE7EAA264C1F8C63104E40CD215E"><li class="li" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__LI_FB515990050B414293FE3BCACBC99CA0"> XGen <em class="ph i" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__GUID-B4A9409F-B4D0-4761-A5BE-9F6DAC5BCE7E">XARC</em> 归档文件，其表示 XGen 中的几何体。这些文件将存储以下所述的与归档有关的其他文件的目录和文件名信息。 
+		  <p class="p" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__GUID-D6F60B0A-A2D0-4CF6-9706-1AE835380D0F">使用<span class="ph uicontrol" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__GUID-1CF8137F-A6E9-4E1D-8252-9C76A8FDF726">“场景批量转化为归档”(Batch Convert Scenes to Archives)</span>时，已保存的归档文件将使用源 Maya 场景文件的名称作为文件基础名称。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__LI_1920E39354DB4E1AA28BF42C90FA1B72">用于渲染归档基本体的渲染代理 (<samp class="ph codeph" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__GUID-33F6FC7A-FB5A-42E9-BC81-A6BA3D5E21AA">ass.gz</samp>) 和边界框信息 (<samp class="ph codeph">asstoc</samp>) 文件，以及 
+		  <p class="p" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__GUID-DAE1C2E0-1839-4BE6-8EBE-C519B6A3CD21">指定给场景中的几何体的材质将覆盖在渲染代理文件中烘焙的材质。这意味着您可以使用 SeExpr 着色器在逐实例基础上着色基本体。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__LI_FB9F6E4555634E9F9B6D30E80100ECDE"> Alembic <em class="ph i" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__GUID-750FD5B9-1BA7-41A2-91E4-355C524120AF">ABC</em> 文件，其存储几何体对象。 
+		</li>
+<li class="li" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__LI_18619F36FB724148A514A538CB8F4FFA">Maya MA 文件，其包含指向指定给几何体的材质的引用。在添加归档 (<em class="ph i" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__GUID-CC69786C-52D9-409E-892C-DDA8E3383862">XARC</em>) 文件时，这些材质文件将被导入到场景中。 
+		  <p class="p" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__GUID-8EB7D94B-1F16-491E-A822-EAE35D6C95FB"></p>
+ 
+		</li>
+</ul>
+<div class="section" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__SECTION_0F224571E65248198A9514E177DECD0D"><h2 class="title sectiontitle">重要说明</h2> 
+		 
+		<p class="p" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__GUID-88D4226A-AC7E-4267-86CD-8AB6C5C4B14F">将 Maya 几何体导出为归档基本体时，请考虑以下事项： 
+		</p>
+ 
+		<ul class="ul" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__UL_FE4578FCC1424395904CE96EA9F29E5E"><li class="li" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__LI_E0D4B2F648E244A885E14C9B9F0C0173">在导出前，确保几何体的枢轴点位于场景原点的中心，并且没有<span class="ph uicontrol" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__GUID-D32F77FD-E298-4068-83FE-60ABC452D337">“平移”(Translation)</span>值。否则，生成的归档基本体可能不会按预期被放置在网格曲面上。 
+		  </li>
+<li class="li" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__LI_188170C383CC4D1683F7F02A99C6EB8C"><em class="ph i" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__GUID-25AA77A0-A5EF-4760-8EC0-3741E008235A">XARC</em> 文件存储有关其他支持归档文件的信息。如果保存归档后移动其中任何文件，几何体可能无法按预期进行实例化。 
+		  </li>
+<li class="li" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__LI_18AA403AA6824CF48C316E3E13DC27CC">在首次预览归档时使用低<span class="ph uicontrol" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__GUID-3E48433A-1BA9-4DA8-A600-86ED71D014EE">“密度”(Density)</span>值。 
+		  </li>
+<li class="li" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__LI_870F91EBD855457D9FF4CBAD543B82CB">使用<span class="ph uicontrol" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__GUID-F9713D3C-9AB0-4E2D-A92A-91DB0E52896A">“大小”(Size)</span>属性可调整归档基本体以适合场景比例。 
+		  </li>
+<li class="li" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__LI_F82F8E2305FD4732A2BD8EE8288C688E">如果使用导向放置归档基本体，导向将在场景中显示为边界框。 
+		  </li>
+<li class="li" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__LI_E184A175138F46B785EB7C2B0AC3D05A">使用<span class="ph uicontrol" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__GUID-5F01266D-B6DD-4BC3-92BB-C5E5E7C41FD6">“场景批量转化为归档”(Batch Convert Scenes to Archives)</span>选项时，如果在一个场景中存在多个多边形对象，该场景中的所有对象将变为单个归档。 
+		  </li>
+<li class="li" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__LI_60797764488E4DCFAC3536B4462136F8">归档基本体可渲染为基于 Alembic 的几何体或渲染代理。 
+		  </li>
+<li class="li" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__LI_548A4EDF83824756BD005980B51FE783">复杂的几何体（如五边形）可能无法正确实例化。例如，在实例化时将丢失某些面。 
+		  </li>
+</ul>
+ 
+	 </div>
+<div class="section" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__SECTION_7ABA01A6C1B443BBA40D96DA9178FE05"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__UL_102F7FD83A214B76BD0D8F33118A1F54"><li class="li" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__LI_AFF565A8CC144300AC29D3AEE2FA66AB"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-AA43DEAD-4CAB-4F58-8D3B-8B7444F39704.htm">将当前选择项导出为归档选项</a> 
+		  </li>
+<li class="li" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__LI_F96CDC6EFAD14DAAA96177EBA7DD2CDA"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-03EB4894-08D8-4376-93AA-06D6A0199765.htm">场景批量转化为归档选项</a> 
+		  </li>
+<li class="li" id="GUID-CEAEB736-4099-422A-AF78-DEA444559BE1__LI_BE84307CBA0C47F1AFAF752A02BC9E27"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-E4714F1D-C4F6-49FD-9B89-FDE72CF9296F.htm">管理 XGen 文件和目录</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-CharEffEnvBuild/files/GUID-47644337-40F0-4766-BD3B-4104F9F9B7E2.htm">XGen 概念</a></div>
+</div>
+</div>
+
+</body>
+</html>

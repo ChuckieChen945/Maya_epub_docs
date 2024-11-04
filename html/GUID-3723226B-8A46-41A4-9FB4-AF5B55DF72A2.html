@@ -1,0 +1,231 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Customizing">
+<meta name="created" content="15/10/2024">
+<meta name="parent-product" content="MAYAUL">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="检测">
+<meta name="indexterm" content="分析">
+<meta name="indexterm" content="性能疑难解答">
+<meta name="indexterm" content="场景性能疑难解答">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2">
+<meta name="language" content="CHS">
+<title>使用 MEL/Python 或 API 进行分析</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用 MEL/Python 或 API 进行分析</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__SECTION_AD48C426A2E74D32852F1E0ED76EEA77"><h2 class="title sectiontitle">使用 MEL/Python 命令进行分析</h2> 
+		 
+		<p class="p" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-30FBA2C1-668E-4CE4-AEE2-F7C9B9167CDE">可以使用 MEL/Python <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-B931844D-CC29-4932-AC1A-6DF93F36C006">profiler</samp> 和 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-A40DE94D-43B7-4872-ACE8-D27522531E49">profilerTool</samp> 命令在<span class="ph uicontrol" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-5C0E61EA-F2FA-46B4-94C8-B512B2008EF1">分析器</span>中开始/停止录制，查询事件信息，搜索事件，以及检测过程以进行分析。检测是对程序的修改，用于收集信息进行分析。 
+		</p>
+ 
+		<p class="p" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-178AA906-5D87-45B5-9599-5CA7B4736A53">必须在编辑模式下使用以下 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-A1681EE6-347F-4F05-8CFC-59327DCCC606">profilerTool</samp> 标志： 
+		</p>
+ 
+		<ul class="ul" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__UL_6CA1927BF4A540DE881EA04335315F16"><li class="li" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__LI_4DDC95650E174753B9A58C81FD1631AB"> 
+			 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-FC45138A-A8F5-4ABB-8B1E-E649C2564768">categoryView</samp> 
+		  </li>
+<li class="li" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__LI_71CC95B4C3F946A1B646E9B34CBDBE39"> 
+			 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-C1537C7A-676F-4E8C-A0B7-228DA1E49AAD">cpuView</samp> 
+		  </li>
+<li class="li" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__LI_5EDBEADB2BBC4E9ABB8D8D9A54198B4E"> 
+			 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-25A33641-DBFB-415A-96DA-553EA7C11D60">frameAll</samp> 
+		  </li>
+<li class="li" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__LI_BF8FAB3B5F2743C69D42C4F77B595485"> 
+			 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-4B38B334-6B4D-4A81-BDE1-407223A2587A">frameSelected</samp> 
+		  </li>
+<li class="li" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__LI_9CFDDB41C3B244D7ABF319B4A904ABFE"> 
+			 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-D8D57051-2D8A-4B2E-9313-CE7F16ACD813">matchWholeWord</samp> 
+		  </li>
+<li class="li" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__LI_45D3FC458B714668B5FB922E02FA78CA"> 
+			 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-178941FF-C098-4A92-B09E-6E49C9EA4D19">showAllEvent</samp> 
+		  </li>
+<li class="li" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__LI_2550396555904E0988D8E9396C166296"> 
+			 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-ED9918C2-4B00-4A03-95DC-88FD03F58A3F">showSelectedEvents</samp> 
+		  </li>
+<li class="li" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__LI_3D1E6A2E164846328C7ABF814F360154"> 
+			 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-0F0CF980-CA5D-4497-8222-B8EBDB00FD65">showSelectedEventsRepetition</samp> 
+		  </li>
+<li class="li" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__LI_5D2102DCF8454BB6B33FA4A5C7ADB57D"> 
+			 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-DD1A610A-3B3C-40C0-9594-97329AB26E2E">threadView</samp> 
+		  </li>
+</ul>
+ 
+		<p class="p" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-2ADF73FC-9082-4F76-83CE-A3EE50A47E28">必须在查询模式下使用以下 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-0A32AC81-911E-4C78-A953-E682B09039A4">profilerTool</samp> 标志： 
+		</p>
+ 
+		<ul class="ul" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__UL_F344E6C5FCDB451882AA8B5FC9E1D321"><li class="li" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__LI_03254034E5BB41DE822F6A52A89BEDE0"> 
+			 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-9C4638A9-DAB8-454A-8D6F-1DA58C394F17">exists</samp> 
+		  </li>
+<li class="li" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__LI_72FFCA2FAC5C4A5FB4E337602CD3FEF9"> 
+			 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-A9BEE563-8693-41AB-A58F-A06451472CB2">searchEvent</samp> 
+		  </li>
+</ul>
+ 
+		<div class="section" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__SECTION_9935BE1728FA461384B235EED5BF762A"><h3 class="title sectiontitle">使用 MEL</h3> 
+		   
+		  <div class="section" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__SECTION_13C096525C6A4E06B65394404DEB4D63"><h4 class="title sectiontitle">录制</h4> 
+			  
+			 <p class="p" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-255F4D99-F5F9-4F6A-BA0C-F553DD250F99">使用 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-8FE554DA-DA9C-4070-8A15-983737F6DDDA">profiler</samp> 命令 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-75913A4D-9E65-4C15-9948-24D341B198FF">-sampling (-s)</samp> 标志启用和禁用事件录制；如下所示： 
+			 </p>
+ 
+			 <pre class="pre codeblock">profiler -s true;
+polyCube;
+profiler -s false;</pre>
+ 
+		  </div>
+ 
+		  <div class="section" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__SECTION_5B8E23B208A446C6980B4C19CE2FAB9E"><h4 class="title sectiontitle">添加类别</h4> 
+			  
+			 <p class="p" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-95709B53-5F67-45F5-B0FF-B2C93A5F33EB">若要添加分析类别，请使用 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-34EE8805-DBA4-40FA-8F76-7D88F10D37AE">-addCategory</samp> 标志；如下所示： 
+			 </p>
+ 
+			 <pre class="pre codeblock">int $melCategoryIndex = `profiler -addCategory "MEL Scripts"`;</pre>
+ 
+			 <div class="note note" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-7D2AAB38-52D3-474C-91BE-978C5086F456"><span class="notetitle">注：</span>  
+				<p class="p" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-66739739-E714-4287-B0A1-CA172404026E">当前，不支持包含本地化字符（即大写 ASCII 字符和双字节字符）的类别名称。 
+				</p>
+ 
+			 </div>
+ 
+		  </div>
+ 
+		  <div class="section" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__SECTION_E8E98B4F024844DCA7EDE768DF9556D6"><h4 class="title sectiontitle">检测过程</h4> 
+			  
+			 <p class="p" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-C5DF48E1-B7D2-457E-8B6E-A95C4E80C1EA">定义 MEL 过程，然后使用 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-2B7262D0-4EF8-4800-8B61-1196DE90713D">-instrumentMel</samp> 标志检测此过程。以下示例演示了如何启用称为 <em class="ph i" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-3C3FBBA1-0777-474D-890C-FC6C65F1ED81">Factorial</em> 的过程的检测。 
+			 </p>
+ 
+			 <pre class="pre codeblock">profiler -instrumentMel true -procedureName "Factorial" -categoryIndex $melCategoryIndex -colorIndex 8 -procedureDescription "FactorialDesc" ;</pre>
+ 
+			 <p class="p" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-F51581A6-2FD9-414B-8E6A-EC839DB6CFB5">您可以禁用一个或多个过程的检测。若要禁用特定过程的检测，请将 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-CEE8EC54-A472-470D-A6F2-A775000791C1">-instrumentMel</samp> 设置为 False，并提供要禁用检测的过程的名称： 
+			 </p>
+ 
+			 <pre class="pre codeblock">profiler -instrumentMel false -procedureName "Factorial" -categoryIndex $melCategoryIndex;</pre>
+ 
+			 <p class="p" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-4CD63D41-9DC5-4F9A-BDC3-4CD16361AC9D">若要同时禁用所有检测，请使用 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-D42CD464-D219-44ED-A8FD-709977874867">-clearAllMelInstrumentation</samp> 标志： 
+			 </p>
+ 
+			 <pre class="pre codeblock">profiler -clearAllMelInstrumentation;</pre>
+ 
+		  </div>
+ 
+		  <p class="p" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-A85A8BD6-0B1B-48B1-92BF-DD4D4E2A8CB5">有关上文提到的标志以及其他有用标志（例如：<samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-55CD9322-77ED-495E-BE05-980CC037921E">-eventCount</samp>，用于查询缓冲区中的事件计数；或 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-C06A4B1C-26FD-452E-AA91-97E9A381B124">-reset</samp>，用于重置<span class="ph uicontrol" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-C44692BF-EFD6-4B2A-B856-C34DCEB83F96">“分析器”(Profiler)</span>的数据）的详细信息，请参见 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-8A7E72FF-33A4-4CFB-A89A-A11037A10B23">profiler</samp> MEL 命令文档。 
+		  </p>
+ 
+		  <p class="p" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-DCF82FAC-A06A-41F4-BF40-6745FAB78B22">有关如何与<span class="ph uicontrol" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-2D2DAF7F-55A4-4D3B-BADE-F0C55F4D8450">“分析器”(Profiler)</span>的主视图交互的信息，请参见 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-68510719-65BB-467F-BD30-EC9108A55E04">profilerTool</samp> MEL 命令文档。例如，可以在视图之间切换，或者隔离特定的分段。 
+		  </p>
+ 
+		</div>
+ 
+		<div class="section" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__SECTION_383FE0FC533A4CC898F1287699E2B00E"><h3 class="title sectiontitle">使用 Python</h3> 
+		   
+		  <div class="section" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__SECTION_39958842B5ED4642BC9CB7DE814C1395"><h4 class="title sectiontitle">录制</h4> 
+			  
+			 <p class="p" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-BF1A6D19-C198-4607-86C1-C663CEEDC6F2">若要启用和禁用事件录制，请将采样分别设置为 True 和 False，如下所示： 
+			 </p>
+ 
+			 <pre class="pre codeblock">cmds.profiler(sampling = True)
+cmds.polyCube()
+cmds.profiler(sampling = False)
+</pre>
+ 
+		  </div>
+ 
+		  <div class="section" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__SECTION_C3A9E6858B9A4FF9BF2CB8918519A8F7"><h4 class="title sectiontitle">添加类别</h4> 
+			  
+			 <p class="p" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-C2841C72-9987-4992-B130-09CBF2AE6A43">若要添加分析类别，请调用 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-31527569-455B-4F1D-A68E-90D80F151995">OpenMaya.MProfiler.addCategory()</samp>，如下所示： 
+			 </p>
+ 
+			 <pre class="pre codeblock">categoryIndex = OpenMaya.MProfiler.addCategory("Python Scripts")</pre>
+ 
+		  </div>
+ 
+		  <div class="section" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__SECTION_9028A946E5AC4F49A4862FCB3F9A3EB4"><h4 class="title sectiontitle">检测过程</h4> 
+			  
+			 <p class="p" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-0094FE61-0406-41C0-A6E9-BB25CE30A11C">若要检测过程，请在过程定义中调用 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-3DE410A6-2DF6-415A-810D-1B809A60C702">OpenMaya.MProfilingScope()</samp>；如下所示： 
+			 </p>
+ 
+			 <pre class="pre codeblock">def Factorial(number):
+    # Instrument this procedure
+    profiler = OpenMaya.MProfilingScope(categoryIndex, OpenMaya.MProfiler.kColorE_L1, "Factorial", "FactorialDesc")
+    
+    result = 1
+    for i in range(1, number+1):
+        result = result * i
+    return result</pre>
+ 
+			 <p class="p" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-DFE4D783-261C-4B9E-8404-73393CCE7210">有关上文提到的标志以及其他有用标志（例如：<samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-283CB183-DDF2-49B9-8D2A-66154D86CF02">eventCount</samp>，用于查询缓冲区中的事件计数；或 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-77B2EDA2-B545-471F-B023-EC279168764E">reset</samp>，用于重置<span class="ph uicontrol" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-E932052B-62FA-4A56-B5DE-9A382F16FDD5">“分析器”(Profiler)</span>的数据）的详细信息，请参见 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-5773EA12-02BC-42B9-82E6-3DFBAC4F8BA5">profiler</samp> Python 命令文档。Python 可以使用 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-2C74B5B6-0967-4877-B843-26A5D4B48813">-instrumentMel</samp> 标志来检测 MEL 过程。 
+			 </p>
+
+			 <div class="note note" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-1BF7A8D3-F245-4D2D-B8F4-C4C09ACF37FF"><span class="notetitle">注：</span> 如果执行大量的 Python 命令，可能会出现性能问题。如果发生这种情况，请在环境中定义 MAYA_RETAIN_PYTHON_GIL。（MAYA_RELEASE_PYTHON_GIL 已弃用。它默认为 true，并且可被 MAYA_RETAIN_PYTHON_GIL 覆盖。） 
+				<p class="p">此外，使用自定义 Python 节点对其他线程求值时，也有可能会出现 Python 性能问题。
+				</p>
+
+			 </div>
+ 
+			 <p class="p" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-1CF5166F-4D31-4057-84E4-C87FD6BF2F0F">有关如何与<span class="ph uicontrol" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-119DE88F-4EE3-4A03-936F-10D7C66E2A36">“分析器”(Profiler)</span>的主视图交互的信息，请参见 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-92D4A11B-2AE7-43D5-AEF1-A18A4478E184">profilerTool</samp> Python 命令文档。例如，可以在视图之间切换，或者隔离特定的分段。 
+			 </p>
+ 
+		  </div>
+ 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__SECTION_8113CB231AC844B797BA5A933415EF65"><h2 class="title sectiontitle">在您的插件中检测函数</h2> 
+		 
+		<p class="p" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-D5B4232B-634C-4D7E-8F0A-85FEE1EEA5EB">可以在插件中调用 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-3A40015A-D216-4437-BCCD-2A79FEB915EB">MProfiler::addCategory()</samp> 方法，向<span class="ph uicontrol" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-713105EB-D341-47CB-8E2C-2FE8FAE312F6">“分析器”(Profiler)</span>中添加类别。调用 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-F986324A-F18E-40E1-9742-5809CB41B5A6">MProfilingScope::MProfilingScope()</samp> 以检测要分析的函数。详细信息请参见 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-FDE26A6F-B03A-4BE2-B1E1-CB345B176FB9">MProfiler</samp> 和 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-1D781C67-B4A4-485B-9B4E-C41EF111E95C">MProfilingScope</samp> C++ API 参考文档，以及 Maya 开发人员帮助中的 <em class="ph i" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-1DACEE4C-AB2F-492D-AA9B-4829E1A742F0">Autodesk Maya 2015 Extension 新特性</em>。 
+		</p>
+ 
+		 
+	 </div>
+<div class="section" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__SECTION_AEDF1E727D8C40C28ADE5457FA55B4AA"><h2 class="title sectiontitle">检测过程并注册关联的 DG 节点</h2> 
+		 
+		<p class="p" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-CD5B803C-7356-40E1-B274-CCFAAD8228AF">使用 Python 或 C++ 检测过程时，也可以注册关联的 DG 节点。这样，在<span class="ph uicontrol" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-9A27FABB-AA41-467F-AC00-492703FE7180">分析器</span>图表中选择检测到的事件时，在<span class="ph uicontrol" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-5A2634C8-33EE-4350-88BC-76879F6A0A77">属性编辑器</span>、<span class="ph uicontrol" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-F05CBBB8-4CC5-4E67-A8E5-FD96AD94864C">大纲视图</span>或<span class="ph uicontrol" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-193E9A49-B393-4D8B-B201-2A12496EC431">节点编辑器</span>中也会选择并显示其关联的 DG 节点。 
+		</p>
+ 
+		<p class="p" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-E9C12AEB-2F18-4B83-8B8E-F5D8D4E7E168">为此，在 Python 脚本或 C++ 插件中调用 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-B1807699-12F2-4CC9-A639-80686A093514">MProfilingScope::MProfilingScope()</samp> 时，将关联的 DG 节点作为 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-B6771290-19CC-43B3-8403-65DB68DF808D">MObject</samp>（输入参数之一）提供。<samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-06765BF3-C4E4-4C8C-B3B0-877E287A2DB2">MObject</samp> 输入参数必须指向 DG 节点，而不能指向属性或组件。 
+		</p>
+ 
+		<p class="p" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-D94AB19F-964D-411F-A25E-8F709F81BCE4">详细信息请参见 <samp class="ph codeph" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__GUID-B26207E9-9007-4559-A56E-2B6BCDFA0EBF">OpenMaya::MProfilingScope()</samp> C++ API 参考文档，以及 Maya 开发人员帮助中的“Autodesk Maya 2016 新特性”。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__SECTION_BC5A629AC2ED456FA0D5B161994B2D84"><h2 class="title sectiontitle">相关主题</h2> 
+		 
+		<ul class="ul" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__UL_481F4A5AE9DF4F58AC7953CCEF5A33D4"><li class="li" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__LI_4B380CA548F34EE2B20B8C4101904042"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-3423BE20-0F03-422D-A05A-A1757C7B0A70.htm">分析器</a> 
+		  </li>
+<li class="li" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__LI_692034F4665D4D5EAF3BAD7E0D786F7E"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-8AB6D7E6-5B70-42C6-9BDD-C523103748AC.htm">分析器标记菜单</a> 
+		  </li>
+<li class="li" id="GUID-3723226B-8A46-41A4-9FB4-AF5B55DF72A2__LI_DB3C0B40E484487489E07A1474BE8916"> 
+			 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-9F7ED594-D569-42D3-B51B-38513D2F4961.htm">分析器菜单</a> 
+		  </li>
+</ul>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Customizing/files/GUID-66E4D9A3-2050-4CDF-B6A4-8C5645BFFBB8.htm">分析场景以提高性能</a></div>
+</div>
+</div>
+
+</body>
+</html>

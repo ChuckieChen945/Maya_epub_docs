@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="indexterm" content="StingrayPBS">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-4492AD29-841B-497E-BFBB-A048316EF53E">
+<meta name="language" content="CHS">
+<title>使用基于物理的着色器创建次表面散射效果</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-4492AD29-841B-497E-BFBB-A048316EF53E">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>使用基于物理的着色器创建次表面散射效果</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p"> 您可以使用 <span class="ph uicontrol">StingrayPBS</span> 节点创建次表面散射效果，方法为将曲面设置为不透明，并将<span class="ph uicontrol">“密度”(Density)</span>属性设置为小于 1。 
+	 </p>
+<ol class="ol" id="GUID-4492AD29-841B-497E-BFBB-A048316EF53E__OL_F437428ED3424FD08E85E2481E1464D6"><li class="li" id="GUID-4492AD29-841B-497E-BFBB-A048316EF53E__LI_28F3FB58EE37495098E8E1A2554AAE98">将 <span class="ph uicontrol">StingrayPBS</span> 着色器指定给对象，然后在<span class="ph uicontrol">“预设材质”(Preset Material)</span>下拉列表中选择<span class="ph uicontrol">“自定义”(Custom)</span>，以创建新的 ShaderFX 图表。 
+		</li>
+<li class="li" id="GUID-4492AD29-841B-497E-BFBB-A048316EF53E__LI_A7615AB9DC09458ABEBE770B1F4FCDDC">选择<span class="ph uicontrol">“标准基础”(Standard Base)</span>节点，并将<span class="ph uicontrol">“融合模式”(Blend Mode)</span>设置为<span class="ph uicontrol">“不透明”(Opaque)</span>。 
+		</li>
+<li class="li" id="GUID-4492AD29-841B-497E-BFBB-A048316EF53E__LI_C5F67F0F170D486DB3442214481B196A">创建<span class="ph uicontrol">“材质变量”(Material Variable)</span>节点。 
+		  <p class="p">在<span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中，将其<span class="ph uicontrol">“类型”(Type)</span>设置为<span class="ph uicontrol">“标量”(Scalar)</span>。（可选操作）为清楚起见，可以将该节点重命名为“次表面散射”。 
+		  </p>
+ 
+		</li>
+<li class="li" id="GUID-4492AD29-841B-497E-BFBB-A048316EF53E__LI_6F2240C2601E4EBFA9CDFE41D0FFDE9C">将<span class="ph uicontrol">“材质变量”(Material Variable)</span>节点的<span class="ph uicontrol">“结果”(Result)</span>输出连接到<span class="ph uicontrol">“标准基础”(Standard Base)</span>节点的<span class="ph uicontrol">“密度”(Density)</span>输入。 
+		  <div class="fig fignone" id="GUID-4492AD29-841B-497E-BFBB-A048316EF53E__FIG_097D37FD94DA48CA958B09D31FDF0A4A"><img class="image" id="GUID-4492AD29-841B-497E-BFBB-A048316EF53E__IMAGE_D9A2883DB8BB421E9F7F1244C3E72A1C" src="../images/GUID-4A2928A1-3670-4F85-9AED-B2C4E7CB40D0.png"></div>
+ 
+		</li>
+<li class="li" id="GUID-4492AD29-841B-497E-BFBB-A048316EF53E__LI_1476817EB34E44668C8BADB89B251E66">关闭 ShaderFX 编辑器后，在 <span class="ph uicontrol">“属性编辑器”(Attribute Editor)</span>中调整“次表面散射”(Subsurface Scattering)值。 
+		  <p class="p">在本示例中，灯光在球体后方。如果未连接<span class="ph uicontrol">“密度”(Density)</span>输入，该球体将因为没有灯光穿过而显示为暗色。 
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-4492AD29-841B-497E-BFBB-A048316EF53E__FIG_51488315A7D140C68890CD4E5480A718"><img class="image" id="GUID-4492AD29-841B-497E-BFBB-A048316EF53E__IMAGE_8312E9125F334688BEDEB97EB1FEBFF8" src="../images/GUID-8DDD335E-B47D-472D-822A-046EE0990F13.png"></div>
+ 
+		  <p class="p">如果将<span class="ph uicontrol">“密度”(Density)</span>输入（“次表面散射”(Subsurface Scattering)值）设置为 0.2，灯光将会穿过半透明对象的曲面，球体将被照亮。 
+		  </p>
+ 
+		  <div class="fig fignone" id="GUID-4492AD29-841B-497E-BFBB-A048316EF53E__FIG_10F7326CCAF64EA28A327BF0853D2DD4"><img class="image" id="GUID-4492AD29-841B-497E-BFBB-A048316EF53E__IMAGE_7F98FB4C7B0641B6B36999E36734BDC7" src="../images/GUID-D71379BC-2FAE-48A3-AF94-A985E9F5B949.png"></div>
+ 
+		  <div class="note note" id="GUID-4492AD29-841B-497E-BFBB-A048316EF53E__GUID-3C403CE9-AA4F-44D6-AEE7-B138A33C01DC"><span class="notetitle">注：</span>  
+			 <p class="p">图案纹理由 www.cgtextures.com 提供。 
+			 </p>
+ 
+		  </div>
+ 
+		</li>
+</ol>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-13B0F0A6-39D5-4668-A722-DD743877D2E3.htm">创建基于物理的 Stingray 着色器</a></div>
+</div>
+</div>
+
+</body>
+</html>

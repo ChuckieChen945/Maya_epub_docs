@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-ManagingScenes">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-442C2500-E57A-4FB1-B899-5A7157D2F93B">
+<meta name="language" content="CHS">
+<title>文件引用和名称空间</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-442C2500-E57A-4FB1-B899-5A7157D2F93B">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>文件引用和名称空间</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="section" id="GUID-442C2500-E57A-4FB1-B899-5A7157D2F93B__SECTION_0ADA253277B149EDABF79E77FB71E084"><h2 class="title sectiontitle">名称空间的非法字符处理</h2>
+		
+		<p class="p" id="GUID-442C2500-E57A-4FB1-B899-5A7157D2F93B__WS73099CC142F487557BFAA8DA122EC01152F2882">先前，对于 Maya 2010 及更低版本，如果在节点名称或名称空间中遇到字符“&lt;”和“&gt;”，则会将其转化为“_”。会移除所有前导无效字符，并将所有其他字符转化为下划线。 
+		</p>
+ 
+		<p class="p" id="GUID-442C2500-E57A-4FB1-B899-5A7157D2F93B__WS73099CC142F487557BFAA8DA122EC01152F2883">例如，在 Maya 2009 中： 
+		</p>
+ 
+		<pre class="pre codeblock">
+namespace -add "&lt;foo&gt;"
+// Result: foo_
+createNode transform -n "&lt;bar&gt;"
+// Result: bar_
+namespace -add "foo&lt;bar&gt;"
+//Result: foo_bar_
+</pre>
+ 
+		<p class="p" id="GUID-442C2500-E57A-4FB1-B899-5A7157D2F93B__WS73099CC142F487557BFAA8DA122EC01152F2884">对于 Maya 2011 及更高版本，仍会移除节点名称中的字符“&lt;”和“&gt;”，并会将其转化为“_”。但是对于名称空间的名称，Maya 会将这些字符之间的所有内容视为占位符名称空间。因此，如果正在使用这些字符并依靠 Maya 去更正它们，则应更新代码。例如，在 Maya 2013 中： 
+		</p>
+ 
+		<pre class="pre codeblock">
+namespace -add "&lt;foo&gt;"
+// Result: &lt;foo&gt;
+createNode transform -n "&lt;bar&gt;"
+// Result: bar_
+namespace -add "foo&lt;bar&gt;"
+//Result: foo_bar_
+</pre>
+
+	 </div>
+<div class="section" id="GUID-442C2500-E57A-4FB1-B899-5A7157D2F93B__SECTION_35A5146FBE07474B875911BE675C0773"><h2 class="title sectiontitle">删除名称空间</h2>
+		
+		<p class="p">使用名称空间创建引用之后，永远不会删除名称空间。使用此名称空间的所有引用对象均受影响，因此不会按预期工作。如果不再需要将引用对象与特定名称空间相关联，请使用“名称空间编辑器”(Namespace Editor)将其移除。请参见<a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-084E707F-7C78-4F9F-B1C1-4876EB19D997.htm">移除名称空间</a>。 
+		</p>
+
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-ManagingScenes/files/GUID-4C69BD15-DD28-4631-8EC2-2EEC59B7157A.htm">文件引用提示</a></div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_rendering_am_Arnold_Scene_Source_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_ARNOLD_SCENE_SOURCE">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" Arnold 场景源 - Arnold for Maya">
+
+<title>Arnold 场景源</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>Arnold 场景源</h1></div><p><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_scene_source_html" target="_blank">Arnold 场景源 (.ass)</a> 是原生场景定义格式，存储在用户可读的可编辑 ASCII 文件中。</p>
+<h2 id="ass">导出到 .ASS</h2><p>使用 MtoA 可以将场景保存为 .ass 文件，以便随后可以在 Maya 外部使用 <a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_kick_am_Getting_Started_With_Kick_html">kick</a>（一种多平台命令行工具）进行渲染，或用于通过<a href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;v=2025&amp;guid=arnold_for_maya_shapes_am_Stand_ins_html">替代对象</a>进行渲染。</p>
+<p>从<strong>“文件 &gt; 导出全部/导出当前选择”(File &gt; Export All/Export Selection)</strong>菜单中，选择<strong><em>“ASS 导出”(ASS Export)</em></strong>作为文件类型。该对话框将在对话框“选项”(Options)区域的<strong>“文件类型特定选项”(File Type Specific Options)</strong>部分下显示一些与 Arnold 相关的选项。</p>
+<p><img src="../images/mtoa_arnold_scene_source.png" alt=""></p>
+<h2 id="gzip-ass-gz-use-gzip-compression-ass-gz">使用 gzip 压缩(.ass.gz)(Use gzip Compression (.ass.gz))</h2><p>直接将场景导出为具有 .ass.gz 扩展名的 gzip 压缩文件。压缩率一般在 4-5 倍之间（相比于完整 ASCII 格式，当然如果使用了二进制编码选项，压缩率将较低）。</p>
+<h2 id="export-bounding-box">导出边界框(Export Bounding Box)</h2><p>指定是否在单独的 .asstoc 文件中包含导出场景的边界框。</p>
+<h2 id="use-binary-encoding">使用二进制编码(Use Binary Encoding)</h2><p>指定是否使用二进制编码来压缩组件中含有浮点的大型数组（大于 16）。这些数组会编码成更加紧凑的 ASCII 表示形式 (b85)，从而有助于减小文件并提高加载速度，同时在大多数时候也方便用户阅读。此外，二进制编码具有精确的 32 位精度，而如果不使用这种二进制输出，浮点值将被截断成最多 8 位 ASCII（例如 1234.5678）。编码数组由“b85”数组类型前缀表示，具体如以下示例所示。POINT2、POINT 和 VECTOR 数组已进行编码。16 位浮点</p>
+<pre class="pre codeblock"><code class="prettyprint">polymesh
+{
+ name mymesh
+ nsides 54 1 UINT  3 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 3 3 3 3
+ vlist 47 1 b85POINT`
+ LJ4iv4THCEE/NV4/1nPCvhpuBkEMk10/LJ4iv2uf+kDVzHI/36OGvhkc/kD9+Fs/LGenvtmU8EDqJVo/l1cGv+Ij50D1 
+...</code></pre><h2 id="">导出节点类型</h2><p>您还可以指定在 .ass 导出中包含以下哪些类型的节点：</p>
+<ul>
+<li>选项</li>
+<li>摄影机</li>
+<li>灯光</li>
+<li>形状</li>
+<li>着色器</li>
+<li>覆盖节点</li>
+<li>驱动程序</li>
+<li>过滤器</li>
+</ul>
+<h2 id="force-translation-of-shading-engines">强制转换着色引擎(Force Translation of Shading Engines)</h2><p>将场景中对象的“着色引擎”导出为 ass 文件，但不导出从这些对象派生的着色网络。</p>
+<p>该选项会将几何体 ass 文件从着色器 ass 文件分离，并允许用户从外部控制着色指定。</p>
+<h2 id="export-all-shading-groups">导出所有着色组(Export All Shading Groups)</h2><p>启用后，将导出所有着色组（或仅限导出时选定的着色组），即使这些着色组未指定给场景中的任何几何体。这样可防止将着色器指定给虚拟对象。</p>
+<h2 id="light-linking">灯光链接(Light Linking)</h2><p>关闭灯光链接（“无”(None)），或使用 Maya 灯光链接（“Maya 灯光链接”(Maya Light Links)）。</p>
+<h2 id="shadow-linking">阴影链接(Shadow Linking)</h2><p>阴影链接可设置为与灯光链接相同的设置（“沿用灯光链接”(Follows Light Linking)），也可以明确指定阴影链接应该关闭（“无”(None)）或使用 Maya 的阴影链接（“Maya 阴影链接”(Maya Shadow Links)）。</p>
+<h2 id="sequence">序列(Sequence)</h2><p>根据在“开始”(Start)/“结束”(End)中设置的帧数导出 .ass 文件序列。</p>
+<h2 id="start">开始(Start)</h2><p>指定要导出的序列的开始帧。</p>
+<h2 id="end">结束(End)</h2><p>指定要导出的序列的结束帧。</p>
+<h2 id="step">步长(Step)</h2><p>要导出的各帧之间的增量。</p>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/kJxmHHTYDWw?" frameborder="0" allowfullscreen=""></iframe>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/arnold_for_maya_rendering_html.html">渲染</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

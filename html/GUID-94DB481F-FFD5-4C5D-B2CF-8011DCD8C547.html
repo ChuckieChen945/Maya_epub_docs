@@ -1,0 +1,273 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-MotionGraphics">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="contextid" content="MASH_FLIGHT">
+<meta name="modified" content="12/11/2021">
+<meta name="topicid" content="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547">
+<meta name="language" content="CHS">
+<title>飞行</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>飞行</h1></div>
+</div>
+</div>
+
+<div class="body"><div class="fig fignone" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__FIG_EF2C2C231E914BC3B7D0404C914924AB"><img class="image" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__IMAGE_C9C5D47E56884372B2F9B38241337B9F" src="../images/GUID-51C9DCC7-7C9C-4F4A-AB49-7B6B075CC015.gif"></div>
+<p class="p" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__WS73099CC142F48755-7B21313411809411AE9-7505">这是一种多线程模拟节点，通过将对象附加到大量点来模拟簇拥和群集行为。 
+	 </p>
+<div class="p"> 
+		<div class="note note" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-90F236EF-5B72-4C4C-9BB9-65E0AEAC824D"><span class="notetitle">注：</span> 作为模拟节点，飞行要求将<span class="ph uicontrol">“播放速度”(Playback Speed)</span>设置为<span class="ph uicontrol">“播放每一帧”(Play every frame)</span>。开始帧和结束帧也应该是整数。 
+		</div>
+ 
+	 </div>
+<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__SECTION_CA0179E605B0496DBED958A00D8D1B28"><h2 class="title sectiontitle">主控制</h2> 
+		<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-64802DB0-E961-4003-8D8F-F2447836F6F5"><dl class="dl" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-64802DB0-E961-4003-8D8F-F2447836F6F5"><dt class="dt dlterm"> 
+		<span class="ph uicontrol">分离强度(Separation Strength)</span> </dt>
+<dd class="dd"> 设置确定的点如何与<span class="ph uicontrol">“分离区域”(Separation Zone)</span>内的其他点分离。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">对齐强度(Alignment Strength)</span> </dt>
+<dd class="dd"> 设置确定的点如何朝与<span class="ph uicontrol">“对齐区域”(Alignment Zone)</span>内的其他点相同的方向移动。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">粘合强度(Cohesion Strength)</span> </dt>
+<dd class="dd"> 设置确定的点如何聚集在一起。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">搜索距离(Search Distance)</span> </dt>
+<dd class="dd"> 确定点之间的可见距离。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">配套数量(Number of Companions)</span> </dt>
+<dd class="dd"> 相对于计算粘合、对齐等行为时点最近的相邻数。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">视野(Field of Vision)</span> </dt>
+<dd class="dd">点之间的可见角度（以度为单位）。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">对齐区域(Alignment Zone)</span> </dt>
+<dd class="dd"> 尝试根据<span class="ph uicontrol">“对齐强度”(Alignment Strength)</span>将自身与同一区域内的其他点对齐的每个点周围的区域。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">分离区域(Separation Zone)</span> </dt>
+<dd class="dd"> 尝试根据<span class="ph uicontrol">“分离强度”(Separation Strength)</span>将自身与同一区域内的其他点分离的每个点周围的区域。</dd>
+</dl>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__SECTION_A95BDDE900874D76B928E5B6CFD22183"><h2 class="title sectiontitle">速度和质量</h2> 
+		<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-E523E547-ED2C-4D2E-9F1E-92F5584F570B"><dl class="dl" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-E523E547-ED2C-4D2E-9F1E-92F5584F570B"><dt class="dt dlterm"> 
+		<span class="ph uicontrol">最小速度(Minimum Speed)</span>、<span class="ph uicontrol">最大速度(Maximum Speed)</span></dt>
+<dd class="dd"> 控制点的速度。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">转向力(Steering Force)</span> </dt>
+<dd class="dd">控制使点可以更改方向的力。较小的值会导致移动敏捷快速，而较大的值会导致猛扑过度。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">旋转转向(Rotational Steering)</span> </dt>
+<dd class="dd"> 
+		<p class="p">抑制点自行定向到其当前移动方向的能力。值越小转向越迅速，值越大转向越平滑稳定。 
+		</p>
+</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">旋转阈值(Rotational Threshold)</span> </dt>
+<dd class="dd"> 
+		<p class="p">确定触发重定向之前点必须移动的距离。 
+		</p>
+</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">质量(Mass)</span> </dt>
+<dd class="dd">控制每个点的质量。可用于扩大基于质量的计算。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">质量变化(Mass Variance)</span> </dt>
+<dd class="dd"> 将随机化发生器应用于<span class="ph uicontrol">“质量”(Mass)</span>。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">强度(Strength)</span> </dt>
+<dd class="dd">同时减弱对所有点的节点效果。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">随机强度(Random Strength)</span> </dt>
+<dd class="dd"> 按随机顺序平滑地减弱所有点的节点效果。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">阶跃强度(Step Strength)</span> </dt>
+<dd class="dd"> 每次禁用一个点的节点效果。</dd>
+</dl>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__SECTION_7AF26C4887164D1EB2865702BD5F3252"><h2 class="title sectiontitle">重力和惯性</h2> 
+		 
+		<p class="p">这将确定飞行模拟的总体空间边界。 
+		</p>
+<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-05119FDF-BF63-4036-8771-70AC0D48C18D"><dl class="dl" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-05119FDF-BF63-4036-8771-70AC0D48C18D"><dt class="dt dlterm"> 
+		<span class="ph uicontrol">重力作用强度(Gravitate Strength)</span></dt>
+<dd class="dd"> 确定<span class="ph uicontrol">“重力类型”(Type of Gravitation)</span>对点的影响程度。值越大，构造越紧密。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">重力作用距离(Gravitate Distance)</span> </dt>
+<dd class="dd">根据<span class="ph uicontrol">“重力类型”(Type of Gravitation)</span>，确定允许点漫步的距离。值越小，构造越紧密。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">重力类型(Type of Gravitation)</span> </dt>
+<dd class="dd">确定点在其周围受重力作用的区域。<span class="ph uicontrol">“位置”(Location)</span>指定场景中的特定位置（指定为浮动框），而<span class="ph uicontrol">“组中心”(Group Centre)</span>使用所有点的中心。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">指定位置(Given Location)</span> </dt>
+<dd class="dd"><span class="ph uicontrol">“重力类型”(Type of Gravitation)</span>设置为<span class="ph uicontrol">“位置”(Location)</span>时，是指重心。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">惯性(Inertia)</span> </dt>
+<dd class="dd">对所有点施加恒定作用力。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">重心(Centre of Gravity)</span> </dt>
+<dd class="dd"><span class="ph uicontrol">“重力类型”(Type of Gravitation)</span>设置为<span class="ph uicontrol">“位置”(Location)</span>时，指定连接的定位器以表示重心。 </dd>
+</dl>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__SECTION_4AF110C0822C4902B42CCEB308BE7E7E"><h2 class="title sectiontitle">渐变</h2> 
+		 
+		<p class="p">包含各种可用于远距离影响相应属性强度的渐变。 
+		</p>
+ 
+	 </div>
+<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__SECTION_B88373382F7E45EBAE682217511D34E6"><h2 class="title sectiontitle">视图控件</h2> 
+		 
+		<p class="p"> 可用于更改视口中显示的诊断显示内容。 
+		</p>
+<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-A9BF961D-B5B6-4CA9-8728-B4F8721518BC"><dl class="dl" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-A9BF961D-B5B6-4CA9-8728-B4F8721518BC"><dt class="dt dlterm"> 
+		<span class="ph uicontrol">显示类型(Display Type)</span></dt>
+<dd class="dd"> 确定在视口中显示的内容表示什么。选项包括： 
+		<ul class="ul" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__UL_3F90357AEC1F46C082202E2FF1AC16E2"><li class="li" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__LI_310CB1A34A7A42BD92D3812D734557C1"><span class="ph uicontrol">法线(Normal)</span>：显示<span class="ph uicontrol">“对齐区域”(Alignment Zone)</span>（绿色）和<span class="ph uicontrol">“分离区域”(Separation Zone)</span>（蓝色） 
+		  </li>
+<li class="li" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__LI_BB02C933E8794703BA761B022428B4B9"><span class="ph uicontrol">吸引器(Attractor)</span>：显示<span class="ph uicontrol">“吸引器搜索距离”(Attractor Search Distance)</span> 
+		  </li>
+<li class="li" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__LI_4C3313C473BE4E54902D4E034E016C02"><span class="ph uicontrol">障碍(Obstacle)</span>：显示<span class="ph uicontrol">“障碍物搜索距离”(Obstacle Search Distance)</span> 
+		  </li>
+<li class="li" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__LI_EC29462514C942198A08CB586B683651"><span class="ph uicontrol">Predator</span>：显示<span class="ph uicontrol">“Predator 搜索距离”(Predator Search Distance)</span> 
+		  </li>
+<li class="li" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__LI_5B13878B3B844A14921203103165F8DB"><span class="ph uicontrol">Prey</span>：显示<span class="ph uicontrol">“Prey 搜索距离”(Prey Search Distance)</span> 
+		  </li>
+<li class="li" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__LI_7C7F2AC057C841F48027CEA2CB680F49"><span class="ph uicontrol">无(None)</span> 
+		  </li>
+</ul>
+</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">点 ID(Point ID)</span> </dt>
+<dd class="dd">确定 MASH 网络中的哪个点以当前的<span class="ph uicontrol">“显示类型”(Display Type)</span>为中心。</dd>
+</dl>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__SECTION_A819545D5C93455C8CDB0EB67E126A2B"><h2 class="title sectiontitle">吸引器控件</h2> 
+		 
+		<p class="p">可用于将场景中的对象指定为 MASH 网络会转向的吸引器。 
+		</p>
+<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-52425421-D431-4005-8AAD-618869D37D09"><dl class="dl" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-52425421-D431-4005-8AAD-618869D37D09"><dt class="dt dlterm"> 
+		<span class="ph uicontrol">吸引强度(Attraction Strength)</span></dt>
+<dd class="dd"> 吸引向量的倍增，用于确定点转向吸引器的难度。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">吸引器搜索距离(Attractor Search Distance)</span> </dt>
+<dd class="dd"> 绕每个点可以看到吸引器的半径。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">到达模式(Arrival Mode)</span> </dt>
+<dd class="dd">使点在到达吸引器时停止移动。 </dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">到达阈值(Arrival Threshold)</span> </dt>
+<dd class="dd">确定陷入停滞的点间距。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">到达变化(Arrival Variance)</span> </dt>
+<dd class="dd">逐点应用于<span class="ph uicontrol">“到达阈值”(Arrival Threshold)</span>的随机化发生器。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">到达阻尼(Arrival Dampening)</span> </dt>
+<dd class="dd">设置对象在到达吸引器时将减慢速度的附加阻尼区域。</dd>
+</dl>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__SECTION_F227DCA377BB47CC872B7E82048244A0"><h2 class="title sectiontitle">障碍控件</h2> 
+		 
+		<p class="p">可用于将场景中的对象指定为障碍（点会尝试避开此障碍）。 
+		</p>
+<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-06DB3484-571A-4FB2-9BD8-2B5849EDC902"><dl class="dl" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-06DB3484-571A-4FB2-9BD8-2B5849EDC902"><dt class="dt dlterm"> 
+		<span class="ph uicontrol">回避类型(Avoidance Type)</span></dt>
+<dd class="dd"> 确定点为避开障碍而表现出的行为。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">障碍强度(Obstacle Strength)</span> </dt>
+<dd class="dd"> 回避向量的倍增，用于确定点尝试避开障碍的难度。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">障碍物搜索距离(Obstacle Search Distance)</span> </dt>
+<dd class="dd">绕每个点可以看到障碍的半径。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">连接障碍(Connect Obstacle)</span> </dt>
+<dd class="dd">连接要用作障碍的对象。可以使用<span class="ph uicontrol">“创建障碍定位器”(Create Obstacle Locator)</span>创建表示障碍的定位器，或者通过<span class="ph uicontrol">“连接障碍网格”(Connect Obstacle Mesh)</span>使用场景中的特定对象。</dd>
+</dl>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__SECTION_AF55862B3294489AA9CEB29CAD3C5E68"><h2 class="title sectiontitle">Predator/Prey 控件</h2> 
+		 
+		<p class="p">可用于将特定点指定为 Predator，并将其他点指定为 Prey。Predator 追逐 Prey，而 Prey 主动回避 Predator。 
+		</p>
+<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-44AECE52-60B8-4A81-9D74-7B5C8ACD1A97"><dl class="dl" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-44AECE52-60B8-4A81-9D74-7B5C8ACD1A97"><dt class="dt dlterm"> 
+		<span class="ph uicontrol">Predator 强度(Predator Strength)</span></dt>
+<dd class="dd"> Predator 向量的倍增，用于确定 Predator 追逐 Prey 的难度。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">Predator 搜索距离(Predator Search Distance)</span> </dt>
+<dd class="dd"> 绕每个 Predator 可以看到 Prey 的半径。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">Prey 强度(Prey Strength)</span> </dt>
+<dd class="dd">Predator 向量的倍增，用于确定 Prey 回避 Predator 的难度。</dd>
+<dt class="dt dlterm"> 
+		<span class="ph uicontrol">Prey 搜索距离(Prey Search Distance)</span> </dt>
+<dd class="dd"> 绕每个 Prey 可以看到 Predator 的半径。</dd>
+</dl>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__SECTION_05205ED1C9E3491DB229346BD4214BC8"><h2 class="title sectiontitle">网格跟随</h2> 
+		 
+		<p class="p">可用于将点约束到网格，从而确保点保留在其曲面上。 
+		</p>
+<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-115AA27B-F961-4949-8FCC-803338A7BA20"><dl class="dl" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-115AA27B-F961-4949-8FCC-803338A7BA20"><dt class="dt dlterm"> 
+		<span class="ph uicontrol">输入网格(Input Mesh)</span></dt>
+<dd class="dd"> 显示点将约束到的当前输入网格。可以使用鼠标中键将现有网格拖入此场，或者单击鼠标右键连接选定网格。</dd>
+</dl>
+</div>
+ 
+	 </div>
+<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__SECTION_EC7EBB94BC664758954D78833717E938"><h2 class="title sectiontitle">场</h2> 
+		 
+		<p class="p"> 
+		  会影响模拟的<a class="xref" href="https://beehive.autodesk.com/community/service/rest/cloudhelp/resource/cloudhelpchannel/guidcrossbook/?v=2025&amp;p=MAYAUL&amp;l=CHS&amp;accessmode=live&amp;guid=GUID-85AEE528-4477-46DF-8B9E-2E8AEC3C8784">动力学场</a>。 
+		</p>
+<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-316E48D3-39D9-4D02-9350-918565BFD86D"><dl class="dl" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-316E48D3-39D9-4D02-9350-918565BFD86D"><dt class="dt dlterm"> 
+		<span class="ph uicontrol">场(Fields)</span></dt>
+<dd class="dd"> 显示影响模拟的当前场。可以使用鼠标中键将现有网格拖入此场，或者单击鼠标右键连接选定网格。</dd>
+</dl>
+</div>
+ 
+		<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__SECTION_1F09060182F844C9BD26EFB38F147C2F"><h3 class="title sectiontitle">初始状态</h3> 
+		   
+		  <p class="p"> 
+			 </p>
+<div class="section" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-2149D395-A26A-4117-8F73-5CB09E48DE73"><dl class="dl" id="GUID-94DB481F-FFD5-4C5D-B2CF-8011DCD8C547__GUID-2149D395-A26A-4117-8F73-5CB09E48DE73"><dt class="dt dlterm"> 
+		  <span class="ph uicontrol">输入网格(Input Mesh)</span></dt>
+<dd class="dd"> 显示对应于驱动飞行模拟初始状态的 MASH 网络的 Waiter 节点。可以使用鼠标中键将现有网格拖入此场，或者单击鼠标右键连接选定网格。</dd>
+</dl>
+</div>
+ 
+		</div>
+ 
+	 </div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-MotionGraphics/files/GUID-D4FECFDC-F91A-4BDC-A1B0-A24EB087B2DD.htm">MASH 节点概述</a></div>
+</div>
+</div>
+
+</body>
+</html>

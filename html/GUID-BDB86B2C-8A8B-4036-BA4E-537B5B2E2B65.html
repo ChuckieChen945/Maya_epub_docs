@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-BDB86B2C-8A8B-4036-BA4E-537B5B2E2B65">
+<meta name="language" content="CHS">
+<title>命名变量</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-BDB86B2C-8A8B-4036-BA4E-537B5B2E2B65">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>命名变量</h1></div>
+</div>
+</div>
+
+<div class="body" id="WS17956D7ADBC6E7367E20506A117AE329ECB-7FFE"><div class="section" id="GUID-BDB86B2C-8A8B-4036-BA4E-537B5B2E2B65__WS73099CC142F48755-3D114B7511841AEFA9F-1140"><h2 class="title sectiontitle">使用描述性变量名称</h2>
+
+<p class="p" id="GUID-BDB86B2C-8A8B-4036-BA4E-537B5B2E2B65__WS73099CC142F48755-3D114B7511841AEFA9F-113F"> 若要使 MEL 脚本清楚并易于自己和未来用户理解，请使用可描述变量功能的变量名称。</p>
+
+<p class="p" id="GUID-BDB86B2C-8A8B-4036-BA4E-537B5B2E2B65__WS73099CC142F48755-3D114B7511841AEFA9F-113C">carIndex、timeLeft 和 wingTipBend 比 X、I 和 Thomas 等变量名称更具说明性。但是，不要过于冗长。例如，indexForMyNameArray 的描述过于详细。要简单、明了和具有说明性。</p>
+
+</div>
+<div class="section" id="GUID-BDB86B2C-8A8B-4036-BA4E-537B5B2E2B65__WS17956D7ADBC6E7367E20506A117AE329ECB-7FFD"><h2 class="title sectiontitle">避免使用全局变量</h2>
+
+<p class="p" id="GUID-BDB86B2C-8A8B-4036-BA4E-537B5B2E2B65__WS73099CC142F48755-3D114B7511841AEFA9F-113B"> 使用全局变量比较危险的确切原因是：在声明全局变量的特定程序和 MEL 脚本外部可以看到这些全局变量。这种可见性使得全局变量容易被其他任何尝试使用同名全局变量的 MEL 脚本修改。这样就会产生很难发现的问题。</p>
+
+<div class="section" id="GUID-BDB86B2C-8A8B-4036-BA4E-537B5B2E2B65__WS73099CC142F48755-3D114B7511841AEFA9F-1139"><h3 class="title sectiontitle">示例</h3>
+
+<pre class="pre codeblock">
+proc int checkVisibility(int $value)
+{
+ global int $myIndex = 0;
+ $myIndex = $myIndex + $value;
+ return $myIndex;
+}
+proc iSeeYou()
+{
+ global int $myIndex = 0;
+ int $value = checkVisibility(1);
+ $myIndex = $myIndex + $value;
+ print($myIndex);
+}
+iSeeYou; // Result is 2.
+</pre>
+
+<p class="p" id="GUID-BDB86B2C-8A8B-4036-BA4E-537B5B2E2B65__WS73099CC142F48755-3D114B7511841AEFA9F-1138">执行程序 iSeeYou 后，myIndex 全局变量就会变为 2。这是因为两个程序均增加了 myIndex 的值。 </p>
+
+<p class="p" id="GUID-BDB86B2C-8A8B-4036-BA4E-537B5B2E2B65__WS73099CC142F48755-3D114B7511841AEFA9F-1137">但是，若需要使用全局变量，请创建唯一的名称，以免覆盖现有全局变量的数据。还应该避免在程序中使用全局变量。</p>
+
+</div>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-B9015064-1216-4A73-BEFD-3F41EB867DEC.htm">较好的 MEL 样式</a></div>
+</div>
+</div>
+
+</body>
+</html>

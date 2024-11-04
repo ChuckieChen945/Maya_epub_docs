@@ -1,0 +1,110 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_rendering_am_Refractive_Portrait_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_REFRACTIVE_PORTRAIT">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 折射肖像 - Arnold for Maya">
+
+<title>折射肖像</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>折射肖像</h1></div><p><img src="../images/am-Refractive_Portrait-title1-1.jpg" alt=""></p>
+<p>在本教程中，我们将探讨如何创建应用于头部扫描模型的抽象、绘画效果，以生成幽灵般的肖像。在本教程中，我们将专门使用 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_node_ac_standard_surface_html" target="_blank">standard_surface</a></em> 着色器，结合使用<em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_math_shaders_ac_math_range_html" target="_blank">范围</a>*和 *<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_utility_shaders_ac_camera_projection_html" target="_blank">camera_projection</a></em> 着色器，以产生这种效果。在本教程中需要使用头部模型。有关免费使用的头部扫描模型示例，请单击<a href="https://www.3dscanstore.com/index.php?route=information/information&amp;information_id=14" target="_blank">此处</a>。在本教程中，要求您使用自己的纹理。有关使用此技术的更多示例，请单击<a href="https://www.leegriggs.com/refractive-portraits-53" target="_blank">此处</a>和<a href="https://www.leegriggs.com/limbo" target="_blank">此处</a>。</p>
+<h2 id="">场景设置</h2><ul>
+<li>将头部模型导入到场景中。</li>
+<li>创建<em><a href="https://help.autodesk.com/display/NodeRef/cylinder_light">圆柱体</a>*或</em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_area_light_ac_quad_light_html" target="_blank">四边形</a><em>区域光，并将其放置在头部模型的上方且稍前的位置。将灯光 *exposure</em> 增大到 4 左右。</li>
+<li>创建一个多边形平面，并将其放置在头部前方。我们将使用此平面，通过相同的纹理贴图折射头部的其余部分。</li>
+<li>创建一个摄影机（将其重命名为 <em>RenderCam</em>）并对其进行定位，使其指向头部的前方。</li>
+</ul>
+<p><img src="../images/refractive-scene-setup.png" alt=""></p>
+<h2 id="">头部着色器</h2><ul>
+<li>为头部模型指定一个 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_node_ac_standard_surface_html" target="_blank">standard_surface</a></em> 着色器。</li>
+<li>创建一个 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_utility_shaders_ac_camera_projection_html" target="_blank">camera_projection</a></em> 着色器，并将其连接到 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_node_ac_standard_surface_html" target="_blank">standard_surface</a></em> 着色器的 <em>base_color</em> 和<em>“次表面颜色”(Subsurface Color)</em>。</li>
+<li>创建*<a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_texture_shaders_ac_texture_image_html" target="_blank">图像</a>*着色器。在图像着色器中打开纹理文件。请注意，某些图像比其他图像效果更好。如果使用具有大量对比度的图像，这将有所帮助。它会产生更多的折射变化，从而产生头部扭曲和断裂更多的效果。</li>
+<li>将图像着色器连接到 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_utility_shaders_ac_camera_projection_html" target="_blank">camera_projection</a></em> 着色器的 <em>projection_color</em>。</li>
+<li>在 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_utility_shaders_ac_camera_projection_html" target="_blank">camera_projection</a></em> 着色器中，选择<em>“链接到摄影机”(Link to Camera)</em>（在“摄影机”(Camera)下）中的“RenderCam”。</li>
+</ul>
+<p><img src="../images/am-Refractive_Portrait-image2019-3-22-15-55-22-4.png" alt=""></p>
+<p><sub><strong>头部模型渲染（不含平面）</strong></sub></p>
+<p><img src="../images/am-Refractive_Portrait-image2019-3-25-15-30-5-5.png" alt=""></p>
+<p><sub><strong>头部着色器</strong></sub></p>
+<h2 id="">平面着色器</h2><ul>
+<li><p>创建另一个 <em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_surface_node_ac_standard_surface_html" target="_blank">standard_surface</a></em> 着色器，并将其指定给平面。</p>
+</li>
+<li><p>将 <em>transmission_weight</em> 增加到 0.9 左右。</p>
+</li>
+<li><p>通过<em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_math_shaders_ac_math_range_html" target="_blank">范围</a>*着色器，将相同的投影纹理连接到 *specular_IOR</em> 和 <em>transmission_color*。</em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_math_shaders_ac_math_range_html" target="_blank">范围</a>*着色器用于定义纹理的折射量，并可用于微调效果。</p>
+</li>
+<li><p>将<em>范围*着色器的 *output_max</em> 增加到 6 左右，并将<em>“输入最大值”(Input Max)*增加到 2 左右。尝试使用</em><a href="https://help.autodesk.com/view/ARNOL/CHS/?guid=arnold_user_guide_ac_math_shaders_ac_math_range_html" target="_blank">范围</a>*着色器的其他值以获得想要的效果。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Refractive_Portrait-output-max0-6.jpg" alt=""></td>
+<td><img src="../images/am-Refractive_Portrait-output-max1-default-7.jpg" alt=""></td>
+<td><img src="../images/am-Refractive_Portrait-output-max6-8.jpg" alt=""></td>
+</tr>
+<tr>
+<td>输出最大值：0</td>
+<td>输出最大值：1（默认值）</td>
+<td>输出最大值：6</td>
+</tr>
+</tbody></table>
+<p><img src="../images/am-Refractive_Portrait-image2019-3-25-15-51-25-9.png" alt=""></p>
+<p><sub><strong>折射位于其后方的头部的平面</strong></sub></p>
+<p><img src="../images/am-Refractive_Portrait-image2019-3-25-15-30-44-10.png" alt=""></p>
+<p><sub><strong>平面着色器</strong></sub></p>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/KgPgNOlh_RY?" frameborder="0" allowfullscreen=""></iframe>
+
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Rendering_Tutorials_html.html">渲染教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

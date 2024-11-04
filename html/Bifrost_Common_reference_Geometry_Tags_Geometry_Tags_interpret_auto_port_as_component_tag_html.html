@@ -1,0 +1,62 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_reference_Geometry_Tags_Geometry_Tags_interpret_auto_port_as_component_tag_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>interpret_auto_port_as_component_tag</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1><code>interpret_auto_port_as_component_tag</code></h1></div><p>将各种输入转化为 <code>array&lt;bool&gt;</code> 和 <code>array&lt;long&gt;</code> 类型。使用此工具节点可以构建支持多种输入类型的可重用复合，以选择几何体上要操作的点或其他组件。例如，可以使用它指定要在 <code>delete_points</code> 复合中删除的点。</p>
+<p>要使用此节点，请将 <code>interpreted_tag_port</code> 连接到复合内类型为 <code>auto</code> 的输入，然后在每个组件的计算中使用输出 <code>tag_data</code> 和 <code>tag_indices</code>。</p>
+<p>支持以下多种可能的输入类型：</p>
+<ul>
+<li><code>array&lt;bool&gt;</code> 解释为每个元素（例如，每个点）的值。数组将会传递，但可调整大小以匹配 <code>geometry</code> 输入上的元素数。</li>
+<li><code>array&lt;long&gt;</code> 或 <code>array&lt;uint&gt;</code> 解释为 <code>target</code> 分量类型的索引。</li>
+<li><code>long</code> 解释为 <code>target</code> 分量类型的单个索引。</li>
+<li><code>string</code> 解释为现有标记的名称或标记表达式。有关标记表达式语法的更多详细信息，请参见有关 <code>resolve_tag_expression</code> 的文档。</li>
+</ul>
+<h2 id="">输入</h2><h3 id="geometry"><code>geometry</code></h3><p>要在其中解释输入的几何上下文。例如，使用默认设置和基于点的几何体时，将输出逐点数据。输出与几何体中的元素（如点）数匹配。</p>
+<h3 id="interpreted_tag_port"><code>interpreted_tag_port</code></h3><p>将此端口连接到复合的 <code>auto</code> 输入，以支持不同类型的输入。从这个端口创建新端口时，还会向该端口添加解释的自动类型调整。</p>
+<h3 id="default_value"><code>default_value</code></h3><p>当字符串输入指定特性但该特性不可用时要使用的默认值。</p>
+<h3 id="geometry_component"><code>geometry_component</code></h3><p>如果数据上下文不是默认的 <code>point_component</code>，则可以在此处选择其他组件。这是可确定输出 <code>data</code> 数组大小的组件。</p>
+<h3 id="invert"><code>invert</code></h3><p>设置为 true 将反转输出的标记数据。</p>
+<h2 id="">输出</h2><h3 id="tag_data"><code>tag_data</code></h3><p>将输入 <code>interpreted_tag_port</code> 转化为 <code>array&lt;bool&gt;</code> 后所得的结果。此数组与指定 <code>target</code> 类型的 <code>geometry</code> 中的元素数匹配。</p>
+<h3 id="tag_indices"><code>tag_indices</code></h3><p>将输入 <code>interpreted_tag_port</code> 转化为 <code>array&lt;long&gt;</code> 后所得的结果。</p>
+<h3 id="has_data"><code>has_data</code></h3><p>当字符串连接到 <code>interpreted_tag_port</code> 时，如果在 <code>geometry</code> 上找到标记，则此输出为 true，否则为 false。当 <code>array&lt;bool&gt;</code> 连接到 <code>interpreted_tag_port</code> 时，如果数组为非空，则此输出为 true。当 <code>array&lt;long&gt;</code> 连接到 <code>interpreted_tag_port</code> 时，此输出始终为 true。</p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/reference/Geometry/Bifrost_Common_reference_Geometry_Tags_html.html">Tags</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

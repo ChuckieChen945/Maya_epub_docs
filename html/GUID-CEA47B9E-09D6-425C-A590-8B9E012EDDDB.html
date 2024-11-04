@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-Scripting">
+<meta name="created" content="30/7/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-CEA47B9E-09D6-425C-A590-8B9E012EDDDB">
+<meta name="language" content="CHS">
+<title>查找未经着色的对象</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-CEA47B9E-09D6-425C-A590-8B9E012EDDDB">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>查找未经着色的对象</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-CEA47B9E-09D6-425C-A590-8B9E012EDDDB__WS73099CC142F48755-3D114B7511841AEFA9F-14C9">作者：John R. Gross，Autodesk（以前的别名）多伦多开发中心。</p>
+<p class="p" id="GUID-CEA47B9E-09D6-425C-A590-8B9E012EDDDB__WS73099CC142F48755-3D114B7511841AEFA9F-14C8"> 在复杂的制作过程中，对象可能会意外与其着色器断开连接。该脚本 <a class="xref" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-CEA47B9E-09D6-425C-A590-8B9E012EDDDB.htm#GUID-CEA47B9E-09D6-425C-A590-8B9E012EDDDB__WS17956D7ADBC6E736-40D2EEAA117AE328894-7FF6">findUnshadedObjects.mel</a> 可查找任何未经着色的对象，从而有助于您识别已意外与其着色器断开连接的对象。</p>
+<div class="section" id="GUID-CEA47B9E-09D6-425C-A590-8B9E012EDDDB__WS17956D7ADBC6E736-40D2EEAA117AE328894-7FF6"><h2 class="title sectiontitle">findUnshadedObjects.mel</h2>
+
+<pre class="pre codeblock">
+//
+// Copyright (C) 1997-2005 Alias Systems Inc.
+//
+//
+// The information in this file is provided for the exclusive use of the
+// licensees of Alias. Such users have the right to use, modify,
+// and incorporate this code into other products for purposes authorized
+// by the Alias license agreement, without fee.
+//
+// Alias DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE,
+// INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO
+// EVENT SHALL Alias BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+// CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE,
+// DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
+// TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+// PERFORMANCE OF THIS SOFTWARE.
+//
+// Alias Script File
+// MODIFY THIS AT YOUR OWN RISK
+//
+// Creation Date: 5/August/98
+//
+// Author: jrg
+//
+// Procedure Name:
+// findUnshadedObjects
+//
+// Description:
+// This procedure examines all geometry in the scene, and reports any
+// that are not connected to any shading group. It returns the number of
+// such unconnected objects that were found.
+// It also reports (but does not include in the reported count) any objects
+// that are connected to multiple shaders.
+//
+global proc int findUnshadedObjects()
+{
+ string $listOfShapes[] = `ls -geometry`;
+ int $numShapes = size($listOfShapes);
+ int $whichShape;
+ string $shapeType[];
+ string $shaders[];
+ int $numShaders;
+ int $numUnshaded = 0;
+ for ($whichShape = 0; $whichShape &lt; $numShapes; $whichShape++) {
+ $shapeType = `ls -showType $listOfShapes[$whichShape]`;
+ //
+ // Skip over curves, as they are not rendered anyway.
+ //
+ if ($shapeType[1] == "nurbsCurve") {
+ continue;
+ }
+ //
+ // Get a list of all shading engines connected ’downstream’
+ // from this geometry.
+ //
+ $shaders = `listConnections -source true -type shadingEngine
+$listOfShapes[$whichShape]`;
+ $numShaders = size($shaders);
+ if ($numShaders == 0) {
+ print("Object " + $listOfShapes[$whichShape]
+ + "is not connected to any shading engine.\n"
+ + "It will not show up when rendered.\n");
+ $numUnshaded++;
+ } else if ($numShaders &gt; 1) {
+ print("Object " + $listOfShapes[$whichShape]
+ + "is connected to " + $numShaders + "shading engines.\n");
+ }
+ }
+ return $numUnshaded;
+}
+</pre>
+
+</div>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-Scripting/files/GUID-EE07691C-D04C-4C22-8FFD-2E99B3489AE5.htm">示例脚本</a></div>
+</div>
+</div>
+
+</body>
+</html>

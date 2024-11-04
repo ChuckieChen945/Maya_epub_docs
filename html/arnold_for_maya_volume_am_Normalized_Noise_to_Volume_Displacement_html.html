@@ -1,0 +1,106 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="AR-Maya">
+  <meta name="topicid" content="arnold_for_maya_volume_am_Normalized_Noise_to_Volume_Displacement_html">
+  
+  <meta name="generatedby" content="CLC">
+  <meta name="topic-type" content="reference">
+  <meta name="contextid" content="AM_NORMALIZED_NOISE_TO_VOLUME_DISPLACEMENT">
+  <meta name="keyword" content="关键字占位符">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+  <meta name="alt-title" content=" 归一化的噪波连接到体积置换 - Arnold for Maya">
+
+<title>归一化的噪波连接到体积置换</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <link rel="stylesheet" type="text/css" href="../style/arnold.css">
+
+
+
+
+
+<div class="head-block"><h1>归一化的噪波连接到体积置换</h1></div><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/am-Normalized_Noise_to_Volume_Displacement-scalar-default-1-0050-1.jpg" alt=""></td>
+<td><img src="../images/am-Normalized_Noise_to_Volume_Displacement-vector1-1-0050-2.jpg" alt=""></td>
+</tr>
+<tr>
+<td>噪波模式：标量（默认）</td>
+<td>噪波模式：向量</td>
+</tr>
+</tbody></table>
+<p>本简短教程演示了与体积<em>置换</em>结合使用时归一化 Arnold <em>噪波</em>着色器的工作流。在本示例中，我们有一个烟 VDB，我们想使用体积<em>置换</em>增加其细节。</p>
+<ul>
+<li>我们首先创建一个 Arnold <em>体积</em>。</li>
+<li>在<em>体积</em>中打开一个烟 VDB 文件。</li>
+</ul>
+<p><strong>要下载各种 VDB 体积，请单击<a href="https://www.openvdb.org/download/" target="_blank">此处</a>。</strong></p>
+<h2 id="">标准体积</h2><ul>
+<li><p>将 <em>standard_volume</em> 着色器指定给<em>体积</em>。</p>
+</li>
+<li><p>创建一个 Arnold <em>噪波</em>着色器并将其连接到 <em>standard_volume</em> 着色器的<em>“置换”(Displacement)</em>参数。</p>
+</li>
+</ul>
+<p>这似乎很简单，但是存在一个问题。体积已偏移至一侧并且显示的是仅一个方向上的置换。</p>
+<p><img src="../images/am-Normalized_Noise_to_Volume_Displacement-1comparison-4.gif" alt=""></p>
+<p><sub><strong>噪波仅在一个方向上置换</strong></sub></p>
+<p>发生这种情况是因为<em>噪波</em>着色器的工作范围是从 0 到 1。烟是体积对象，而不是平面对象，因此我们需要将纹理从 0-1 重映射到 -1 - 1。</p>
+<h2 id="">范围</h2><ul>
+<li>创建一个<em>范围</em>着色器并将其连接到体积<em>置换</em>。将<em>噪波</em>着色器连接到<em>范围</em>着色器的<em>输入</em>。</li>
+<li>在<em>范围</em>着色器中将<em>“输出最小值”(Output Min)</em>更改为 -1。现在<em>噪波</em>着色器在两个方向上偏移，这种情况相对比较准确。</li>
+</ul>
+<p><img src="../images/am-Normalized_Noise_to_Volume_Displacement-range-5.gif" alt=""></p>
+<p><sub><strong>使用范围着色器前后</strong></sub></p>
+<ul>
+<li>但是，这都是 2D 效果。我们需要在 3D 空间中创建偏移。我们可以使用向量噪波执行此操作。要执行此操作，请转到<em>噪波</em>着色器并将<em>“模式”(Mode)</em>参数从<em>“标量”(Scalar)</em>更改为<em>“向量”(Vector)</em>，并将<em>“范围”(Range)</em>更改为 (-1, -1, -1)。现在<em>噪波</em>着色器可在 3D 空间中正确地偏移置换！</li>
+</ul>
+<h2 id="vectormap">VectorMap</h2><ul>
+<li>另一种方法是，将<em>噪波</em> 着色器连接到 <em>VectorMap</em> 着色器。将 <em>VectorMap</em> 着色器连接到 <em>standard_volume</em> 着色器的<em>“置换”(Displacement)</em>参数。</li>
+<li>在 <em>VectorMap</em> 着色器中，启用<em>“带符号颜色”(Color To Signed)</em>。此参数会将向量噪波从 0 - 1 归一化为 -1 - 1。此外，请禁用“切线空间”(Tangent Space)。</li>
+</ul>
+<p>一般情况下，应该避免添加另一个着色器，尤其是在体积上下文中。</p>
+<p><img src="../images/am-Normalized_Noise_to_Volume_Displacement-vectormap-6.gif" alt=""></p>
+<p><sub><strong><em>噪波</em> -&gt; <em>VectorMap</em> -&gt; <em>体积置换(Noise -&gt; VectorMap -&gt; Volume Displacement)</em></strong></sub></p>
+<p><img src="../images/am-Normalized_Noise_to_Volume_Displacement-image2019-6-13-15-46-55-7.png" alt=""></p>
+<p><sup><sub><em>非常感谢 <a class="external-link" href="https://cgrenderdna.blogspot.com/" rel="nofollow" target="_blank">Slava Sych</a> 为本教程提供的帮助。</em></sub></sup></p>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/bDweVNgbI1c&amp;t=2s?" frameborder="0" allowfullscreen=""></iframe>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/AR-Maya/files/am-Arnold_for_Maya_User_Guide/tutorials/arnold_for_maya_tutorials_am_Volume_Tutorials_html.html">体积教程</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

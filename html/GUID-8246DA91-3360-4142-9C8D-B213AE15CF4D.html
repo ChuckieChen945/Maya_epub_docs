@@ -1,0 +1,50 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="topic-type" content="topic">
+
+<meta name="product" content="MAYAUL">
+<meta name="release" content="2025">
+<meta name="book" content="GeneralUser">
+<meta name="component" content="Maya-LightingShading">
+<meta name="created" content="15/10/2024">
+<meta name="generatedby" content="TRIDION">
+<meta name="user-comments" content="disable">
+<meta name="topicid" content="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D">
+<meta name="language" content="CHS">
+<title>在 ShaderFX 中使用图形节点添加开关</title>
+
+	<link rel="stylesheet" type="text/css" href="../style/client.css">
+	<script type="text/javascript" src="../scripts/client.js"><!--filler--></script>
+</head>
+<body id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D">
+<div class="head"><div class="head-block"><div class="button-info"><span id="infoline"> </span></div>
+<div class="ancestry"> </div>
+<div class="head-text"><h1>在 ShaderFX 中使用图形节点添加开关</h1></div>
+</div>
+</div>
+
+<div class="body"><p class="p" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__GUID-AC6C4272-2CE7-4D30-AF90-3341F3DD4992">当<span class="ph uicontrol" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__GUID-F7F63F3C-A6F2-4861-B373-31C793EF2FBD">“切换高级模式”(Toggle Advanced Mode)</span>处于启用状态时，还可以创建<span class="ph uicontrol" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__GUID-C462EB7D-7F56-4F4E-9522-F7AA702BBDE7">“图形节点”(Graph Nodes)</span>。 </p>
+<p class="p" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__GUID-A3B9CCC3-1946-4442-B810-02388662EB93">“图形节点”(Graph Nodes)可让您在图形中执行自定义决策。实际上，您可以创建一个开关，如下所示： </p>
+<pre class="pre codeblock">if true
+    do A
+else
+    do B</pre>
+<p class="p" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__GUID-F2343CE3-AB17-430B-813A-6DD985EDE1B4"><span class="ph uicontrol" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__GUID-90862F79-9CB4-40BB-BFCB-037FA4E19E3D">“布尔 AND”(Bool AND)</span>和<span class="ph uicontrol" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__GUID-FE0FD6FA-3FE1-4FE7-BDC4-B347E0306A43">“路径方向”(Path Direction)</span>都属于图形节点。 </p>
+<p class="p" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__GUID-FD669119-5404-4674-BC72-CA86935D7B07">“布尔”(Bool)<span class="ph uicontrol" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__GUID-D5C681D7-71FD-4D50-B904-3C4B436FDEF3">“图形节点(Graph Nodes)</span>（<span class="ph uicontrol" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__GUID-D8374776-9B2F-46A1-AA36-246C41B3EF03">“图形节点 &gt; 代码控件 &gt; 布尔 AND”(Graph Nodes &gt; Code Control &gt; Bool AND)</span>、<span class="ph uicontrol" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__GUID-64158AD1-E0F0-4425-BF39-BB88FDE977FA">“图形节点 &gt; 值 &gt; 布尔值”(Graph Nodes &gt; Values &gt; Bool Value)</span>等等）不应与<span class="ph uicontrol" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__GUID-CF901F62-8B9F-4CE4-980E-68BFEAFA9987">“布尔”(Bool)</span>值节点（<span class="ph uicontrol" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__GUID-E25335B9-C4A3-427B-A372-4EAA8F5AA232">“硬件着色器节点 &gt; 值 &gt; 布尔”(Hw Shader Nodes &gt; Values &gt; Bool)</span>）混淆。 </p>
+<p class="p" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__GUID-5C7DAC99-07FE-4393-966A-8DEC030D5AC2"><span class="ph uicontrol" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__GUID-5C8E1BEB-F22C-440D-9A80-D0430942CC6B">“布尔”(Bool)</span>节点为着色器提供了 True 或 False 值，而布尔图形节点是一个开关，不为着色器提供值。 </p>
+<p class="p" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__GUID-2E325D57-C2DD-4200-9CFA-6B11B4CC788F">在本示例中，BoolValue 图形节点是用来控制 PathDir 采用输入 A 还是输入 B 的开关。如果布尔连接到 PathDir，则使用输入 A。如果非布尔连接到 PathDir，则使用输入 B。BoolValue 不直接为漫反射颜色提供任何值。 </p>
+<p class="p" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__GUID-32E674D3-485A-4868-A6E8-9486347E1670">套接字中的 V 符号 <img class="image" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__IMAGE_07ACAFB55FFD4E9D975FE2516D960820" src="../images/GUID-CA8AAF32-BF75-4393-89EA-747717F6649D.png"> 表示期望采用图形节点的输入（或图形节点的输出）。 </p>
+<div class="fig fignone" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__FIG_801208CD15124A0D813AF0E3A2B537D1"><img class="image" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__IMAGE_84757301D2C04ED1907AEA3CB0F3DB4A" src="../images/GUID-D3F2E53D-F335-4350-8AC6-3352D7E65DCF.png"></div>
+<p class="p" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__GUID-48A2B862-3A20-4708-97BB-54F559321313">在本示例中，颜色值乘以 1 或 0，具体取决于“布尔”(Bool)。当“布尔”(Bool)设置为 True 时，颜色将乘以 1，“漫反射颜色”(Diffuse Color)为黄色。当“布尔”(Bool)设置为 False 时，颜色将乘以 0，“漫反射颜色”(Diffuse Color)为黑色。因此，“布尔”(Bool)直接为着色器提供值。 </p>
+<div class="fig fignone" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__FIG_784566BBB8154C409B91593A73874D87"><img class="image" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__IMAGE_A8877ACA6CE74FB2B42EF39EA601688C" src="../images/GUID-1395C3C0-4A08-4853-85A0-AE75D51813C1.png"></div>
+<p class="p" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__GUID-B41ECE12-9483-40CA-BDD8-A5E28A9A2C72">使用<span class="ph uicontrol" id="GUID-8246DA91-3360-4142-9C8D-B213AE15CF4D__GUID-946274DE-546C-4F5E-80B4-5DBA1E606700">“图形节点”(Graph Nodes)</span>的一个示例应用是启用或禁用不透明度。相对于不使用不透明度渲染着色器而言，使用不透明度渲染着色器较为昂贵，因此艺术工作者可以添加一个开关来轻松启用或禁用此设置，以加快预览渲染速度。 </p>
+</div>
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>父主题：</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Maya-LightingShading/files/GUID-05D66C65-0B08-4EED-AD13-E40A6A3C74B4.htm">有关使用 ShaderFX 的提示和技巧</a></div>
+</div>
+</div>
+
+</body>
+</html>

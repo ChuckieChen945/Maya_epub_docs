@@ -1,0 +1,71 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_build_a_graph_geo_query_query_closest_location_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>查询几何体上最近的位置</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>查询几何体上最近的位置</h1></div><p>使用 <code>get_closest_locations</code> 节点返回网格或股对象上每个输入定位的最近位置。然后，可以将这些位置与 <code>sample_property</code> 节点结合使用，以对定位、颜色、曲面法线等特性值进行采样。</p>
+<p><img src="../images/geoquery-closestlocation-color.png" alt="获取网格最近位置的颜色"></p>
+<p>在上面的示例中，粒子的定位用于获取网格上最近的位置，这些位置用于对存储在网格顶点上的颜色的插值进行采样。还会对位置的定位进行采样，以从粒子创建股。</p>
+<p>要查找几何对象上的最近位置，然后对这些位置中的值进行采样，请执行以下操作：</p>
+<ol>
+<li><p>将 <code>get_closest_locations</code> 节点添加到图表中。</p>
+</li>
+<li><p>将具有所需数据值的对象连接到 <code>geometry</code> 输入。</p>
+</li>
+<li><p>将需要其最近位置的定位连接到 <code>positions</code> 输入。对于许多典型效果，它们通常是另一个几何对象的 <code>point_position</code> 值。</p>
+</li>
+<li><p>根据需要，设置 <code>use_cutoff_distance</code> 和 <code>cutoff_distance</code>。</p>
+<ul>
+<li>使用中止距离时，查询仅在以每个定位为中心、半径为 <code>cutoff_distance</code> 的球体内搜索位置。如果几何体在该球体内没有位置，则 <code>found</code> 数组的相应元素为 false。此外，输出 <code>locations</code> 数组的相应元素是无效位置，它始终返回从中采样的任何特性的默认值。</li>
+<li>使用中止距离通常是一个好主意，即使控制效果并非绝对必要也是如此。它可以加快执行速度，因为它限制了需要搜索的空间。</li>
+</ul>
+</li>
+<li><p>使用 <code>get_closest_locations</code> 节点的输出对几何体上的特性值进行采样：</p>
+<ul>
+<li>可以将 <code>locations</code> 输出连接到一个或多个 <code>sample_property</code> 节点，以立即对特性进行采样（请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/geo-query/Bifrost_Common_build_a_graph_geo_query_sample_data_at_locations_html.html">对位置的几何特性进行采样</a>）。在这些情况下，您通常在连接到 <code>get_closest_locations</code> 节点的同一几何体上进行采样。</li>
+<li>您可以将 <code>found</code> 输出与 <code>if</code> 节点结合使用，来控制图表中按定位进行的后续操作，包括是否对特性进行采样。</li>
+<li>如果输入定位与另一个几何对象的点对应，则可以将输出存储为该对象上的几何特性，以在其他位置使用它们（请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_geo_properties_html.html">获取并设置几何对象的特性</a>）。您还可以缓存它们，并将其用于模拟中的将来帧（请参见<a href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_custom_sims_html.html">创建自定义模拟</a>）。</li>
+</ul>
+</li>
+</ol>
+<p><img src="../images/geoquery-closestlocation-color-graph.png" alt="对图表中最近位置的颜色和定位进行采样"></p>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/build-a-graph/Bifrost_Common_build_a_graph_geo_query_html.html">查询几何对象上的数据</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

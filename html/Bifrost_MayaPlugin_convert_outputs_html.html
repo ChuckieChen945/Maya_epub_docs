@@ -1,0 +1,64 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-MayaPlugin">
+  <meta name="topicid" content="Bifrost_MayaPlugin_convert_outputs_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>在 bifrostGraphShape 和 bifShape 输出之间转化</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>在 bifrostGraphShape 和 bifShape 输出之间转化</h1></div><p>图表提供两种类型的输出：默认的 bifrostGraphShape 和旧的 bifShape。这两种类型均受支持，并且您可以使用<strong>“编辑 &gt; 转化图表”(Edit &gt; Convert Graph)</strong>菜单上的命令在它们之间转化。</p>
+<h2 id="bifrostgraphshape"><code>bifrostGraphShape</code> 输出</h2><p>默认情况下，在场景中，图表由名为 <code>bifrostGraph</code> 的变换节点及其直接子对象 <code>bifrostGraphShape</code>（表示图表及其输出几何体）表示。与 Maya 中的任何变换一样，可以选择并移动它以移动其形状。您还可以在层级中为其设置父对象，将其隐藏，然后为其指定材质。</p>
+<p>在图表中，<code>graph_space</code> 节点将返回图表的当前变换，以便您可以在计算中使用其值。</p>
+<h2 id="bifshape"><code>bifShape</code> 输出</h2><p>在旧式图表中，图表及其结果由两个或更多节点表示：</p>
+<ul>
+<li><code>bifrostBoard</code> DG 节点（在旧版本中默认称为“bifrostGraph”）包含图表本身。板节点不是场景层级的一部分，且不显示在 Maya 的“大纲视图”(Outliner)中，除非<strong>“显示 &gt; 仅 DAG 对象”(Display &gt; DAG Objects Only)</strong>处于禁用状态。</li>
+<li>对于每个几何体输出，称为 <code>bif</code> 的变换及其直接子对象 <code>bifShape</code> 包含该几何体。该形状是场景层级的一部分，并且可以像其他 DAG 节点一样设置父对象。</li>
+</ul>
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="callout-icon fa fa-pencil" aria-hidden="true"></i>注意：</div>
+<div class="callout-body">
+
+<p>在 <code>bifrostBoard</code> 图表中，<code>graph_space</code> 节点始终返回标识矩阵，因为板节点在世界空间中没有变换。无法获取 <code>bifShape</code> 的变换，因为它只是一个输出。</p>
+
+</div></div>
+
+<h2 id="">在输出表示之间转化</h2><p>要在两种类型的输出表示之间转化，请在<strong>“编辑 &gt; 转化图表”(Edit &gt; Convert Graph)</strong>菜单上选择一个项目。根据当前的图表类型，仅一个项目可用。</p>
+<ul>
+<li>默认名称为 <code>bifrostGraphN</code> 的较新样式的图表将成为名为 <code>bifrostBoardN</code> 的 DG 节点。如果已重命名该图表，则保留当前名称。<code>bifrostGraphShape</code> 输出将替换为一个或多个按顺序命名为 <code>bifM</code>、<code>bifM+1</code> 等的 <code>bifShape</code> 输出。应用于原始 <code>bifrostGraph</code> 节点的任何变换都将丢失。但是，<code>bifShape</code> 输出将成为场景层级中原始图表的父对象的子对象，原始图表的任何子对象将成为名为 <code>bifrostGraphN</code> 的组变换的子对象。</li>
+<li>名为 <code>bifrostGraphN</code> 或 <code>bifrostBoardN</code> 的旧式 DG 图表将成为名为 <code>bifrostGraphN</code> 且形状称为 <code>bifrostGraphNShape</code> 的新样式图表。同样，如果已重命名图表，则保留当前名称。<code>bifShape</code> 输出仍保留在场景中，但已与图表断开连接。不会传递应用于 <code>bifShape</code> 输出的变换。</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>

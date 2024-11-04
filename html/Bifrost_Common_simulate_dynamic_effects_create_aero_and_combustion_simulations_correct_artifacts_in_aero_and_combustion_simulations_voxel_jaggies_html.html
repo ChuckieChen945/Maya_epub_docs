@@ -1,0 +1,188 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" href="../style/client.css" type="text/css">
+
+  <meta name="experiencelevel" content="general">
+  <meta name="audience" content="user">
+  <meta name="language" content="CHS">
+  <meta name="product" content="MAYAUL">
+  <meta name="release" content="2025">
+  <meta name="book" content="GeneralUser">
+  <meta name="component" content="Bifrost-Common">
+  <meta name="topicid" content="Bifrost_Common_simulate_dynamic_effects_create_aero_and_combustion_simulations_correct_artifacts_in_aero_and_combustion_simulations_voxel_jaggies_html">
+  
+  <meta name="generatedby" content="CLC">
+
+  <script src="../scripts/client.js" type="text/javascript"><!--filler--></script>
+
+<title>基于体素的“锯齿”</title>
+
+</head>
+<body>
+  <a name="top"></a>
+  <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../style/additions.css">
+  <link rel="stylesheet" type="text/css" href="../style/font-awesome.min.css">
+
+  <div class="body_content" id="body-content">
+  <div class="head-block"><h1>基于体素的“锯齿”</h1></div><p>Aero 和燃烧模拟中可能出现基于体素的瑕疵或“锯齿”。它们通常由 <code>voxel_fog_density</code> 和 <code>voxel_temperature</code> 中的高渐变引起。它们通常在低分辨率时出现，尤其是当燃烧率较低、烟灰氧化处于启用状态，或者需要较大的时间步时。 </p>
+<p>可以通过两种主要方法来处理锯齿：</p>
+<ul>
+<li>进行后处理以对模拟结果应用平滑。通常，这是首选方法，因为它不影响总能量和模拟行为。</li>
+<li>首先调整模拟设置以减少高渐变。这可能对结果的影响更大，因为高渐变通常会导致更有趣的流。</li>
+</ul>
+<h2 id="combustion_smoothness">增加 <code>combustion_smoothness</code></h2><p>在燃烧模拟中，如果 <code>voxel_fog_density</code>（用于烟灰）或 <code>voxel_combustion_rate</code>（用于蓝色火焰）中存在锯齿，请首先尝试增加 <code>combustion_settings</code> 节点上的 <code>combustion_smoothness</code>。虽然这是模拟设置，而不是后处理，增加此值对总能量的影响应该不大。</p>
+<table>
+<thead>
+<tr>
+<th>combustion_smoothness = 0</th>
+<th>combustion_smoothness = 1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/combustion-smoothness-0.png" alt="燃烧平滑度 0"></td>
+<td><img src="../images/combustion-smoothness-1.png" alt="燃烧平滑度 1"></td>
+</tr>
+</tbody></table>
+<h2 id="">作为后处理平滑</h2><p>平滑模拟结果可以消除锯齿，而不会影响总能量和模拟流。要执行此操作，请在 <code>simulate_aero</code> 节点的结果与主场景的输出之间插入一个或多个 <code>smooth_voxel_property</code> 节点。 </p>
+<p><img src="../images/smooth_voxel_property.png" alt="smooth_voxel_property 节点"></p>
+<p>可能需要平滑的特性是 <code>voxel_temperature</code> 和 <code>voxel_fog_density</code>。尝试添加尽可能小的平滑，这样才不会移除细节。首先设置 <code>voxel_standard_deviation</code> = 1、<code>voxel_filter_width</code> = 1 和 <code>num_resolution_levels</code> = 1。</p>
+<table>
+<thead>
+<tr>
+<th>无温度平滑</th>
+<th>温度平滑</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/smooth_temperature_0.png" alt="无温度平滑"></td>
+<td><img src="../images/smooth_temperature_1.png" alt="燃烧平滑度 1"></td>
+</tr>
+</tbody></table>
+<p>在某些情况下，平滑 <code>voxel_temperature</code> 后，您可能需要重新映射着色器中的温度，因为平滑可能会降低温度峰值。</p>
+<table>
+<thead>
+<tr>
+<th>无温度平滑</th>
+<th>温度平滑</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/temp_smooth_remap_0.png" alt="无温度平滑"></td>
+<td><img src="../images/temp_smooth_remap_1.png" alt="燃烧平滑度 1"></td>
+</tr>
+<tr>
+<td>锯齿是由烟灰氧化中的高温度渐变造成的。</td>
+<td>平滑后，温度峰值会降低。</td>
+</tr>
+</tbody></table>
+<p>有时，需要同时平滑 <code>voxel_temperature</code> 和 <code>voxel_fog_density</code>。特别是，这可能在使用较大的时间步时发生。在这种情况下，只需将两个 <code>smooth_voxel_property</code> 节点呈菊花链状连接在一起。</p>
+<p>如果锯齿主要沿火焰边缘出现，并且饱和的白色变换为黑色，您可以使用 <code>smooth_voxel_temperature</code>。这是一种特殊用途的节点，不会模糊内部细节。 </p>
+<table>
+<thead>
+<tr>
+<th>低分辨率火焰</th>
+<th>有 smooth_voxel_temperature</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/smooth_voxel_temperature_0.png" alt="无温度平滑"></td>
+<td><img src="../images/smooth_voxel_temperature_1.png" alt="燃烧平滑度 1"></td>
+</tr>
+</tbody></table>
+<p>最后，使用运动模糊进行渲染会在一定程度上减少锯齿。</p>
+<table>
+<thead>
+<tr>
+<th>无运动模糊</th>
+<th>有运动模糊</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/jaggies_mb_off.png" alt="无温度平滑"></td>
+<td><img src="../images/jaggies_mb_on.png" alt="燃烧平滑度 1"></td>
+</tr>
+</tbody></table>
+<h2 id="">调整模拟设置</h2><p>可以调整模拟设置，以避免产生高渐变。这会移除锯齿，但也可能会影响结果的外观和运动。</p>
+<p>如果您对 <code>source_air</code> 节点上的 <code>temperature_mode</code> 使用默认的 <code>set</code>，请尝试改为使用 <code>max</code>。</p>
+<table>
+<thead>
+<tr>
+<th>temperature_mode = set</th>
+<th>temperature_mode = max</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/temperature_mode_set.png" alt="temperature_mode = set"></td>
+<td><img src="../images/temperature_mode_max.png" alt="temperature_mode = max"></td>
+</tr>
+</tbody></table>
+<p>如果在燃料点燃的位置出现锯齿，请将 <code>source_fuel</code> 节点设置为可编辑，进入该节点，并将 <code>iterate_set_properties</code> 节点上的 <code>fuel_mode</code> 设置为 <code>max</code>。</p>
+<table>
+<thead>
+<tr>
+<th>fuel_mode = set</th>
+<th>fuel_mode = max</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/fuel_mode_set.png" alt="temperature_mode = set"></td>
+<td><img src="../images/fuel_mode_max.png" alt="temperature_mode = max"></td>
+</tr>
+</tbody></table>
+<p>当分辨率和燃烧率较低时也可能会出现锯齿。当燃烧率较低时，在燃料边界的薄层区域可能会发生燃烧，并且在分辨率较低时无法很好地表示薄层区域。减小 <code>source_air</code> 节点上的 <code>fluid_detail_size</code> 以提高分辨率，或者增大 <code>source_fuel</code> 节点上的 <code>burn_rate</code>。</p>
+<table>
+<thead>
+<tr>
+<th>fluid_detail_size = 0.007</th>
+<th>fluid_detail_size = 0.002</th>
+<th>fluid_detail_size = 0.0005</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/fluid_detail_size_p007.png" alt="fluid_detail_size = 0.007"></td>
+<td><img src="../images/fluid_detail_size_p002.png" alt="fluid_detail_size = 0.002"></td>
+<td><img src="../images/fluid_detail_size_p0005.png" alt="fluid_detail_size = 0.0005"></td>
+</tr>
+</tbody></table>
+<p>增加 <code>burn_rate</code> 还会使燃烧层变厚、变亮。</p>
+<table>
+<thead>
+<tr>
+<th>burn_rate = 0</th>
+<th>burn_rate = 0.1</th>
+<th>burn_rate = 0.5</th>
+<th>burn_rate = 0.7</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../images/burn_rate_0.png" alt="burn_rate = 0"></td>
+<td><img src="../images/burn_rate_0p1.png" alt="burn_rate = 0.1"></td>
+<td><img src="../images/burn_rate_0p5.png" alt="burn_rate = 0.5"></td>
+<td><img src="../images/burn_rate_0p7.png" alt="burn_rate = 0.7"></td>
+</tr>
+</tbody></table>
+<p>时间步较大也可能导致出现锯齿，尤其是在快速运动流中，如上升的烟尘。缩短时间步会导致每一帧的迭代增加，同时增加计算次数。它的成本高于平滑 <code>voxel_fog_density</code>，但会更好地保留细节。</p>
+<p>要缩短时间步，请执行下列一项或两项操作：</p>
+<ul>
+<li>减小 <code>aero_solver_settings</code> 节点上的 <code>time_step_size</code> - 该选项控制流体在触发其他子步之前可以移动的体素数量。同时增加 <code>max_steps</code>，以便子步总数不会在过低时封口。</li>
+<li>将 <code>aero_solver_settings</code> 节点设置为可编辑，进入该节点，并增加 <code>aero_settings</code> 节点上的 <code>max_transport_steps</code>。这种方法的计算成本比调整 <code>time_step_size</code> 和 <code>max_steps</code> 低，并且往往会减少锯齿，而不影响流的逼真度。</li>
+</ul>
+
+  <div class="related-links">
+  
+    <div class="familylinks">
+      <div class="parentLink">
+        <strong>父页面:</strong> <a class="link" href="https://help.autodesk.com/cloudhelp/2025/CHS/Bifrost-Common/files/simulate-dynamic-effects/create-aero-and-combustion-simulations/Bifrost_Common_simulate_dynamic_effects_create_aero_and_combustion_simulations_correct_artifacts_in_aero_and_combustion_simulations_html.html">更正 Aero 和燃烧模拟中的瑕疵</a>
+      </div>
+  
+    </div>
+  
+    </div></div>
+
+    
+
+</body>
+</html>
