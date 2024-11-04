@@ -1,6 +1,6 @@
 # Maya_epub_docs
 
-将Maya help 档制成epub电子书
+将[Maya 2025 文档](https://help.autodesk.com/view/MAYAUL/2025/CHS/)制成epub电子书
 
 
 ## 参考链接
