@@ -43,6 +43,8 @@ def di_gui_nav_map(insert_point,prefix,chapter):
     global ORDER
     id = chapter.get('id')
     src = chapter.get('ln')
+    if src=='' or src is None:
+        src=chapter.get('children')[0].get('ln')
     src = src[src.rfind('/')+1:]
     if src.endswith('.htm'):
         src=src+'l'
@@ -87,12 +89,7 @@ def append_nav_point(insert_point, id,nav_label,src,play_order):
             </navPoint>
         """
     else:
-        nav_point_template = f"""    <navPoint id="{id}" playOrder="{play_order}">
-            <navLabel>
-                <text>{nav_label}</text>
-            </navLabel>
-            </navPoint>
-        """
+        raise
     nav_point = pq( nav_point_template)
     insert_point.append(nav_point)
 
