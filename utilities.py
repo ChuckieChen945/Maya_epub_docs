@@ -10,6 +10,7 @@
 
 import os
 from pyquery import PyQuery as pq
+from send2trash import send2trash
 
 def delete_unlisted_files(folder_path, keep_filenames):
     """
@@ -28,7 +29,7 @@ def delete_unlisted_files(folder_path, keep_filenames):
         if filename not in keep_filenames:
             file_path = os.path.join(folder_path, filename)
             if os.path.isfile(file_path):
-                os.remove(file_path)
+                send2trash(file_path)
                 print(f"已删除文件: {file_path}")
 
 
@@ -42,22 +43,23 @@ def get_image_names_from_html(folder_path):
     image_names = []
     
     # 遍历文件夹中的所有文件
-    for filename in os.listdir(folder_path):
-        # 检查文件扩展名是否为 .html
-        if filename.endswith(".html") and not filename.endswith('_id.html'):
-            file_path = os.path.join(folder_path, filename)
-            
-            # 读取 HTML 文件内容
-            with open(file_path, 'r', encoding='utf-8') as f:
-                html_content = f.read()
-            
-            # 使用 PyQuery 解析 HTML 并提取所有 img 标签的 src 属性
-            doc = pq(html_content)
-            img_elements = doc("img")
-            for img in img_elements.items():
-                img_src = img.attr("src")
-                if img_src:  # 如果 src 属性存在，则添加到列表
-                    image_names.append(os.path.basename(img_src))
+    for root, _, files in os.walk(folder_path):
+        for filename in files:
+            # 检查文件扩展名是否为 .html
+            if filename.endswith(".html") and not filename.endswith('_id.html'):
+                file_path = os.path.join(root, filename)
+                
+                # 读取 HTML 文件内容
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    html_content = f.read()
+                
+                # 使用 PyQuery 解析 HTML 并提取所有 img 标签的 src 属性
+                doc = pq(html_content)
+                img_elements = doc("img")
+                for img in img_elements.items():
+                    img_src = img.attr("src")
+                    if img_src:  # 如果 src 属性存在，则添加到列表
+                        image_names.append(os.path.basename(img_src))
 
     return image_names
 
